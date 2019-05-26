@@ -43,3 +43,6 @@ endif
 install_data('com.github.johnfactotum.Foliate.svg',
   install_dir: join_paths(get_option('datadir'), 'icons/hicolor/scalable/apps')
 )
+install_data('com.github.johnfactotum.Foliate-symbolic.svg',
+  install_dir: join_paths(get_option('datadir'), 'icons/hicolor/symbolic/apps')
+)
