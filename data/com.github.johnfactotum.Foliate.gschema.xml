@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+	<schema id="com.github.johnfactotum.Foliate" path="/com/github/johnfactotum/Foliate/">
+        <key name="font" type="s">
+            <default>'Sans 12'</default>
+            <summary>Font</summary>
+            <description>Font</description>
+        </key>
+        <key name="spacing" type="d">
+            <default>1.5</default>
+            <summary>Spacing</summary>
+            <description>Line-height</description>
+        </key>
+        <key name="theme" type="s">
+            <default>'Light'</default>
+            <summary>Theme</summary>
+            <description>Color scheme</description>
+        </key>
+        <key name="highlight" type="s">
+            <default>'yellow'</default>
+            <summary>Default highlight color</summary>
+            <description>Default highlight color for annotations</description>
+        </key>
+        <key name="layout" type="s">
+            <default>'Paginated'</default>
+            <summary>Layout</summary>
+            <description>Page layout</description>
+        </key>
+        <key name="window-maximized" type="b">
+            <default>false</default>
+            <summary>Maximized</summary>
+            <description>Whether the window is maximized</description>
+        </key>
+        <key name="window-width" type="i">
+            <default>900</default>
+            <summary>Window width</summary>
+            <description>Window width</description>
+        </key>
+        <key name="window-height" type="i">
+            <default>700</default>
+            <summary>Window height</summary>
+            <description>Window height</description>
+        </key>
+	</schema>
+</schemalist>
