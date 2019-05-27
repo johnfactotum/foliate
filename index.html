@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foliate - A simple and modern eBook viewer</title>
+<style>
+body {
+    font-family: Cantarell, sans-serif;
+    background: #ddd;
+    color: #222;
+    line-height: 1.5;
+    margin: 0;
+}
+a:link, a:visited {
+    color: #099;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+header {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 20px 0 20px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.title {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+    padding: 0 10px;
+}
+.title img {
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.15));
+}
+.title h1 {
+    margin-top: -10px;
+    margin-bottom: 0;
+}
+.title .tagline {
+    margin: 0;
+    font-size: x-large;
+    color: #666;
+}
+.title p {
+    margin: .5em 0;
+}
+.screenshot {
+    max-width: 100%;
+    min-height: 160px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.8), 0 5px 30px 10px rgba(0, 0, 0, 0.15);
+    display: block;
+    border-radius: 8px;
+    margin: 5px auto 40px auto;
+}
+.grid {
+    max-width: 820px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 0 40px;
+    padding: 0 10px;
+}
+.grid img {
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.15));
+    border-radius: 8px;
+    max-width: 100%;
+}
+.grid > div > p {
+    padding: 0 10px;
+}
+.grid > div > div {
+    padding: 0 10px;
+}
+.mono {
+    max-width: 820px;
+    padding: 0 10px;
+    margin: auto;
+}
+.mono h2 {
+    padding: 0 10px;
+    margin: 1em 0 0 0;
+}
+
+pre {
+    background: #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+    padding: 10px;
+    overflow: scroll auto;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+footer {
+    text-align: center;
+    background: #333;
+    color: #ccc;
+    margin-top: 20px;
+    padding: 20px;
+}
+footer a:link, footer a:visited {
+    color: #fff;
+}
+</style>
+<header>
+    <div class="title">
+        <img src="logo.svg" width="96" alt="Foliate icon">
+        <h1>Foliate</h1>
+        <p class="tagline">A simple and modern eBook viewer</p>
+        <p><a href="https://github.com/johnfactotum/foliate">Source Code</a> &middot; <a href="https://github.com/johnfactotum/foliate/issues">Issues</a></p>
+    </div>
+</header>
+<main>
+    <section>
+        <div class="mono"><h2>Features</h2></div>
+        <div class="grid">
+            <div>
+                <p><strong>View eBooks in the EPUB format.</strong> Foliate is based on <a href="https://github.com/futurepress/epub.js/">Epub.js</a>, and supports both two-page view and scrolled view. Customize font and line-spacing. Choose between light, sepia, dark, and invert mode.</p>
+            </div>
+            <div>
+                <p><strong>Navigation is easy.</strong> View the table of contents, or use the find in book feature. Reading progress slider with chapter marks makes it easy to find your way through the book.</p>
+            </div>
+        </div>
+        <div class="mono"><img class="screenshot" src="screenshot.png" alt="Screenshot"></div>
+        <div class="grid">
+            <div>
+                <img src="lookup.png" alt="Screenshot">
+                <p><strong>Quickly lookup definitions.</strong> Foliate uses metadata included in the eBook to determine which language to lookup. This feature is powered by <a href="https://en.wiktionary.org/">Wiktionary</a>, the free dictionary.</p>
+            </div>
+            <div>
+                <img src="annotation.png" alt="Screenshot">
+                <p><strong>Add bookmarks, highlight, and notes.</strong> Folio stores your reading progress, bookmarks, and annotations in your XDG data directory as plain JSON files, so you can export or sync them easily.</p>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section>
+        <div class="mono"><h2>Installation</h2></div>
+        <div class="grid">
+            <div>
+                <div>
+                    <h3>Manual Installation</h3>
+                    <p>Dependencies: gjs, webkit2gtk, libsoup, meson </p>
+<pre>
+git clone https://github.com/johnfactotum/foliate.git
+cd foliate
+meson build --prefix=/usr
+cd build
+ninja
+sudo ninja install
+</pre>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h3>Flatpak</h3>
+                    <p>Coming soon.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer>
+<p>Coded with mild annoyance by <a href="https://github.com/johnfactotum">John Factotum</a></p>
+</footer>
