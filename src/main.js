@@ -1,5 +1,3 @@
-#!/usr/bin/gjs
-'use strict'
 /*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +12,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+'use strict'
+ 
 pkg.initGettext()
 pkg.initFormat()
 pkg.require({
@@ -109,7 +109,7 @@ Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefau
 const getDictionaryEntry = word => new Promise((resolve, reject) => {
     const request = Soup.Message.new('GET', `https://en.wiktionary.org/wiki/${word}`)
     httpSession.queue_message(request, (httpSession, message) => {
-        if (message.status_code !== 200) resolve()//reject(message.status_code)
+        if (message.status_code !== 200) resolve()
         else resolve(request.response_body.data)
     })
 })
@@ -977,21 +977,15 @@ class BookViewerWindow {
         this.spinner = new Gtk.Spinner()
         this.spinner.start()
         
-        this.webView = new Webkit.WebView()
-        const webViewSettings = new Webkit.Settings()
-        webViewSettings.enable_write_console_messages_to_stdout = true
-        webViewSettings.allow_file_access_from_file_urls = true
-        this.webView.set_settings(webViewSettings)
+        this.webView = new Webkit.WebView({
+            settings:  new Webkit.Settings({
+                enable_write_console_messages_to_stdout: true,
+                allow_file_access_from_file_urls: true
+            })
+        })
         this.webView.connect('context-menu', () => true)
         
-        print(GLib.filename_to_uri(pkg.datadir + '/assets/viewer.html', null))
         this.webView.load_uri(GLib.filename_to_uri(pkg.pkgdatadir + '/assets/viewer.html', null))
-        this.webView.connect('load-changed', (_, event) => {
-            print(event)
-            if (event === Webkit.LoadEvent.FINISHED) {
-                //this.scriptGet(`typeof openBook`, (x) => print(x))
-            }
-        })
         this.webView.connect('notify::title', self => {
             const action = JSON.parse(self.title)
             if (action.type === 'can-open')
@@ -1510,7 +1504,6 @@ function main(argv) {
     application.connect('open', (app, files) => {
         files.map(file => file.get_uri())
             .forEach(uri => {
-                print(uri)
                 const window = new BookViewerWindow(
                     app,
                     settings.get_int('window-width'),
