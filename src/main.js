@@ -1215,7 +1215,7 @@ class BookViewerWindow {
                 })
                 break
             case 'lookup-error':
-                this.lookupPopover.loadResults('No definitions found')
+                this.lookupPopover.loadResults('No definitions found.')
                 break
             case 'annotation-add':
                 this.scriptGet('annotation', ({ text, cfiRange }) => {
