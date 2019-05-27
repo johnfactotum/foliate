@@ -495,7 +495,10 @@ class ViewPopover {
     loadSettings(font, spacing, theme, layout) {
         if (font) this._fontBox.setFont(font)
         if (spacing) this._spacingButton.set_value(spacing)
-        if (theme) this._themeBox.activate(theme)
+        if (theme) {
+            this._themeBox.activate(theme)
+            this._themeBox.applyOption()
+        }
         if (layout) this._layoutBox.activate(layout)
     }
     get theme() {
