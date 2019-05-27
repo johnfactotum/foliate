@@ -1352,12 +1352,12 @@ class BookViewerWindow {
         this.menu = new Gio.Menu()
         
         const section1 = new Gio.Menu()
-        section1.append('Open', 'app.open')
+        section1.append('Open...', 'app.open')
         this.menu.append_section(null, section1)
 
         const section2 = new Gio.Menu()
         section2.append('Keyboard Shortcuts', 'app.shortcuts')
-        section2.append('About', 'app.about')
+        section2.append('About Foliate', 'app.about')
         this.menu.append_section(null, section2)
 
         button.set_menu_model(this.menu)
