@@ -925,6 +925,8 @@ class AnnotationPopover {
 
 class BookViewerWindow {
     constructor(application, width = -1, height = -1, fileName) {
+        this.canOpen = true
+
         this.application = application
         this.window = new Gtk.ApplicationWindow({
             application: application,
@@ -953,15 +955,7 @@ class BookViewerWindow {
         this.window.set_titlebar(this.headerBar)
         this.openButton = new Gtk.Button({ label: 'Open...' })
         this.headerBar.pack_start(this.openButton)
-        this.openButton.connect('clicked', () => {
-            const dialog = new Gtk.FileChooserNative({
-                action: Gtk.FileChooserAction.OPEN
-            })
-            dialog.set_transient_for(this.window)
-            const response = dialog.run()
-            if (response === Gtk.ResponseType.ACCEPT)
-                this.open(dialog.get_filename())
-        })
+        this.openButton.action_name = 'app.open'
         this.window.title = 'Foliate'
         this.window.show_all()
         
@@ -972,6 +966,8 @@ class BookViewerWindow {
         if (fileName) this.open(fileName)
     }
     open(fileName) {
+        this.canOpen = false
+
         this.openButton.destroy()
         
         this.spinner = new Gtk.Spinner()
@@ -1351,12 +1347,17 @@ class BookViewerWindow {
         button.popover = popover
         
         this.menu = new Gio.Menu()
-        const section = new Gio.Menu()
-        section.append('Keyboard Shortcuts', 'app.shortcuts')
-        section.append('About', 'app.about')
-        this.menu.append_section(null, section)
-        button.set_menu_model(this.menu)
         
+        const section1 = new Gio.Menu()
+        section1.append('Open', 'app.open')
+        this.menu.append_section(null, section1)
+
+        const section2 = new Gio.Menu()
+        section2.append('Keyboard Shortcuts', 'app.shortcuts')
+        section2.append('About', 'app.about')
+        this.menu.append_section(null, section2)
+
+        button.set_menu_model(this.menu)
         this.headerBar.pack_end(button)
         this.accelGroup.connect(Gdk.KEY_F10, 0, 0, () =>
             button.active = !button.active)
@@ -1501,28 +1502,48 @@ function main(argv) {
         application_id: pkg.name,
         flags: Gio.ApplicationFlags.HANDLES_OPEN
     })
-    application.connect('open', (app, files) => {
-        files.map(file => file.get_uri())
-            .forEach(uri => {
-                const window = new BookViewerWindow(
-                    app,
-                    settings.get_int('window-width'),
-                    settings.get_int('window-height'),
-                    uri
-                ).window
-                window.present()
-                app.add_window(window)
-            })
-    })
-    application.connect('activate', app => {
-        const window = new BookViewerWindow(
-            app,
+    const appWindows = new Set()
+    const addWindow = uri => {
+        const appWindow = new BookViewerWindow(
+            application,
             settings.get_int('window-width'),
-            settings.get_int('window-height')
-        ).window
-        window.present()
-        app.add_window(window)
+            settings.get_int('window-height'),
+            uri
+        )
+        appWindows.add(appWindow)
+        appWindow.window.present()
+        application.add_window(appWindow.window)
+    }
+
+    application.connect('open', (app, files) =>
+        files.map(file => file.get_uri()).forEach(addWindow))
+    application.connect('activate', () => addWindow())
+
+    const actionOpen = new Gio.SimpleAction({ name: 'open' })
+    actionOpen.connect('activate', () => {
+        const allFiles = new Gtk.FileFilter()
+        allFiles.set_name('All files')
+        allFiles.add_pattern('*')
+
+        const epubFiles = new Gtk.FileFilter()
+        epubFiles.set_name('EPUB files')
+        epubFiles.add_mime_type('application/epub+zip')
+
+        const dialog = new Gtk.FileChooserNative()
+        dialog.add_filter(epubFiles)
+        dialog.add_filter(allFiles)
+
+        const response = dialog.run()
+        if (response === Gtk.ResponseType.ACCEPT) {
+            const emptyWindows = Array.from(appWindows).filter(x => x.canOpen)
+            if (emptyWindows.length) emptyWindows[0].open(dialog.get_filename())
+
+            else addWindow(dialog.get_filename())
+        }
     })
+    application.add_action(actionOpen)
+    application.set_accels_for_action('app.open', ['<Control>o'])
+
     const actionShortcuts = new Gio.SimpleAction({ name: 'shortcuts' })
     actionShortcuts.connect('activate', () => {
         const shortcutsGroups = [
