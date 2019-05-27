@@ -179,7 +179,7 @@ class Navbar {
         this._slider.show()
     }
     setSectionMarks(sectionMarks) {
-        if (sectionMarks.length < 50) sectionMarks.forEach(x =>
+        if (sectionMarks.length < 60) sectionMarks.forEach(x =>
             this._slider.add_mark(x, Gtk.PositionType.TOP, null))
     }
     updateSlider(percentage) {
