@@ -1514,6 +1514,7 @@ function main(argv) {
             uri
         )
         appWindows.add(appWindow)
+        appWindow.window.connect('destroy', () => appWindows.delete(appWindow))
         appWindow.window.present()
         application.add_window(appWindow.window)
     }
