@@ -1367,7 +1367,7 @@ class BookViewerWindow {
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
-        section.append('About This Book', 'app.properties')
+        section.append('About This Book', 'win.properties')
         this.menu.prepend_section(null, section)
         
         const action = new Gio.SimpleAction({ name: 'properties' })
@@ -1493,11 +1493,11 @@ class BookViewerWindow {
             container.border_width = 18
             container.pack_start(coverBox, true, true, 0)
 
-            window.set_transient_for(this.application.active_window)
+            window.set_transient_for(this.window)
             window.show_all()
             title.select_region(-1, -1)
         })
-        this.application.add_action(action)
+        this.window.add_action(action)
     }
 }
 function main(argv) {
