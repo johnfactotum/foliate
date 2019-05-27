@@ -3,9 +3,9 @@
 # Foliate
 Foliate is a simple and modern eBook viewer for the Linux desktop, built with [GJS](https://gitlab.gnome.org/GNOME/gjs) and [Epub.js](https://github.com/futurepress/epub.js/).
 
+![Screenshot](data/screenshot.png)
+
 ## Features
-
-
 - View eBooks in the EPUB format
     - Two-page view and scrolled view
     - Customize font and line-spacing
