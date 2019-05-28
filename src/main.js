@@ -1612,11 +1612,13 @@ function main(argv) {
     actionAbout.connect('activate', () => {
         const aboutDialog = new Gtk.AboutDialog({
             authors: ['John Factotum'],
+            artists: ['John Factotum'],
             program_name: _('Foliate'),
             comments: _('A simple eBook viewer'),
             logo_icon_name: pkg.name,
             version: pkg.version,
             license_type: Gtk.License.GPL_3_0,
+            website: 'https://johnfactotum.github.io/foliate/',
             modal: true
         })
         aboutDialog.set_transient_for(application.active_window)
