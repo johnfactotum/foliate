@@ -15,6 +15,7 @@
 'use strict'
  
 pkg.initGettext()
+const ngettext = imports.gettext.ngettext
 pkg.initFormat()
 pkg.require({
     'Gio': '2.0',
@@ -33,30 +34,30 @@ const Soup = imports.gi.Soup
 const ByteArray = imports.byteArray
 
 const defaultThemes = {
-    Light: {
+    [_('Light')]: {
         color: '#000', background: '#fff', link: 'blue',
         darkMode: false, invert: false
     },
-    Sepia: {
+    [_('Sepia')]: {
         color: '#5b4636', background: '#efe7dd', link: 'darkcyan',
         darkMode: false, invert: false
     },
-    Dark: {
+    [_('Dark')]: {
         color: '#eee', background: '#222', link: 'cyan',
         darkMode: true, invert: false
     },
-    Invert: {
+    [_('Invert')]: {
         color: '#000', background: '#fff', link: 'blue',
         darkMode: true, invert: true
     }
 }
 const defaultLayouts = {
-    Paginated: 'paginated',
-    Scrolled: 'scrolled-doc'
+    [_('Paginated')]: 'paginated',
+    [_('Scrolled')]: 'scrolled-doc'
 }
 
-const highlightColors = [['yellow', 'Yellow'], ['orange', 'Orange'],
-    ['red', 'Red'], ['magenta', 'Magenta'], ['aqua', 'Aqua'], ['lime', 'Lime']]
+const highlightColors = [['yellow', _('Yellow')], ['orange', _('Orange')],
+    ['red', _('Red')], ['magenta', _('Magenta')], ['aqua', _('Aqua')], ['lime', _('Lime')]]
 
 const coloredText = (color, text) =>
     `<span bgcolor="${color}" bgalpha="25%">${text}</span>`
@@ -131,12 +132,12 @@ class Navbar {
 
         this._prevButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'go-previous-symbolic' }),
-            tooltip_text: 'Previous page',
+            tooltip_text: _('Previous page'),
             sensitive: false
         })
         this._nextButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'go-next-symbolic' }),
-            tooltip_text: 'Next page',
+            tooltip_text: _('Next page'),
             sensitive: false
         })
 
@@ -147,7 +148,7 @@ class Navbar {
         
         this._backButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'edit-undo-symbolic' }),
-            tooltip_text: 'Go back',
+            tooltip_text: _('Go back'),
             sensitive: false
         })
         this._backButton.connect('clicked', () => {
@@ -313,7 +314,7 @@ class TocPopover {
 class SearchPopover {
     constructor(button, onChange, onSearch) {
         this._searchEntry = new Gtk.SearchEntry({
-            placeholder_text: 'Find in Book',
+            placeholder_text: _('Find in Book'),
             width_request: 320
         })
         this._searchEntry.connect('activate', () =>
@@ -348,14 +349,14 @@ class SearchPopover {
         this._searchEntry.get_style_context().remove_class('error')
         this._jumpList.store.clear()
         this._jumpList.widget.show()
-        this._statusLabel.label = 'Searching...'
+        this._statusLabel.label = _('Searching…')
         this._statusLabel.show()
     }
     loadResults(results, query) {
         const n = results.length
         this._statusLabel.label = n === 0
-            ? 'No results'
-            : n > 1 ? `${n} results` : 'One result'
+            ? _('No results')
+            : ngettext('%d result', '%d results', n).format(n)
         this._jumpList.loadSearchResults(results, query)
         if (!n) {
             this._searchEntry.get_style_context().add_class('error')
@@ -463,10 +464,10 @@ class ViewPopover {
         })
         
         const menuLabels = {
-            font: new Gtk.Label({ label: 'Font' }),
-            spacing: new Gtk.Label({ label: 'Spacing' }),
-            theme: new Gtk.Label({ label: 'Theme' }),
-            layout: new Gtk.Label({ label: 'Layout' })
+            font: new Gtk.Label({ label: _('Font') }),
+            spacing: new Gtk.Label({ label: _('Spacing') }),
+            theme: new Gtk.Label({ label: _('Theme') }),
+            layout: new Gtk.Label({ label: _('Layout') })
         }
         for (let key in menuLabels) {
             const label = menuLabels[key]
@@ -680,8 +681,8 @@ class BookmarksPopover {
             button.active = false
         }, onChange, {
             icon: 'user-bookmarks-symbolic',
-            title: 'No bookmarks',
-            message: 'Add some bookmarks to see them here.'
+            title: _('No bookmarks'),
+            message: _('Add some bookmarks to see them here.')
         })
         this._addButton = new Gtk.Button({ always_show_image: true })
         const add = (text, value) => {
@@ -717,12 +718,12 @@ class BookmarksPopover {
     }
     setCanAdd() {
         this._addButton.image = new Gtk.Image({ icon_name: 'list-add-symbolic' })
-        this._addButton.label = 'Bookmark Current Location'
+        this._addButton.label = _('Bookmark Current Location')
         this._buttonAction = this._addFunc
     }
     setAdded(value) {
         this._addButton.image = new Gtk.Image({ icon_name: 'edit-delete-symbolic' })
-        this._addButton.label = 'Remove Current Location'
+        this._addButton.label = _('Remove Current Location')
         this._buttonAction = () => this._notesList.remove(value)
     }
     update(cfi) {
@@ -739,8 +740,8 @@ class AnnotationsPopover {
             button.active = false
         }, onChange, {
             icon: 'document-edit-symbolic',
-            title: 'No annotations',
-            message: 'Highlight some text to add annotations.'
+            title: _('No annotations'),
+            message: _('Highlight some text to add annotations.')
         })
 
         this.widget = new Gtk.Popover({ border_width: 10 })
@@ -778,12 +779,12 @@ class LookupPopover {
         
         const actionBox = new Gtk.Box()
         actionBox.get_style_context().add_class('linked')
-        const copyButton = new Gtk.Button({ label: 'Copy' })
+        const copyButton = new Gtk.Button({ label: _('Copy') })
         copyButton.connect('clicked', () => {
             onCopy()
             this.widget.popdown()
         })
-        const noteButton = new Gtk.Button({ label: 'Highlight' })
+        const noteButton = new Gtk.Button({ label: _('Highlight') })
         noteButton.connect('clicked', () => {
             this.widget.destroy()
             onAnnotate()
@@ -792,7 +793,7 @@ class LookupPopover {
         actionBox.pack_start(copyButton, true, true, 0)
         
         this.label = new Gtk.Label({
-            label: 'Loading...',
+            label: _('Loading…'),
             use_markup: true,
             selectable: true,
             valign: Gtk.Align.START,
@@ -801,7 +802,7 @@ class LookupPopover {
         this.label.set_line_wrap(true)
         
         const credit = new Gtk.Label({
-            label: 'From Wiktionary, the free dictionary',
+            label: _('From Wiktionary, the free dictionary'),
             justify: Gtk.Justification.CENTER
         })
         credit.get_style_context().add_class('dim-label')
@@ -839,7 +840,7 @@ class LookupPopover {
         if (word) {
             const url = `https://en.wiktionary.org/wiki/${encodeURI(word)}`
             this.lbox.pack_end(new Gtk.Label({
-                label: `<a href="${url}">View Full Definition</a>`,
+                label: `<a href="${url}">` + _('View Full Definition') + '</a>',
                 use_markup: true,
                 justify: Gtk.Justification.CENTER
             }), false, true, 0)
@@ -854,17 +855,17 @@ class AnnotationPopover {
         
         const actionBox = new Gtk.Box()
         actionBox.get_style_context().add_class('linked')
-        const copyButton = new Gtk.Button({ label: 'Copy' })
+        const copyButton = new Gtk.Button({ label: _('Copy') })
         copyButton.connect('clicked', () => {
             onCopy()
             this.widget.popdown()
         })
-        const removeButton = new Gtk.Button({ label: 'Remove' })
+        const removeButton = new Gtk.Button({ label: _('Remove') })
         removeButton.connect('clicked', () => {
             onRemove()
             this.widget.popdown()
         })
-        const noteButton = new Gtk.ToggleButton({ label: 'Note' })
+        const noteButton = new Gtk.ToggleButton({ label: _('Note') })
         noteButton.connect('toggled', () => {
             scroll.visible = noteButton.active
             if (noteButton.active) textView.grab_focus()
@@ -956,10 +957,10 @@ class BookViewerWindow {
         this.headerBar.show_close_button = true
         this.headerBar.has_subtitle = false
         this.window.set_titlebar(this.headerBar)
-        this.openButton = new Gtk.Button({ label: 'Open...' })
+        this.openButton = new Gtk.Button({ label: _('Open…') })
         this.headerBar.pack_start(this.openButton)
         this.openButton.action_name = 'app.open'
-        this.window.title = 'Foliate'
+        this.window.title = _('Foliate')
         this.window.show_all()
         
         this.accelGroup = new Gtk.AccelGroup()
@@ -1028,7 +1029,7 @@ class BookViewerWindow {
         })
         image.get_style_context().add_class('dim-label')
         const label = new Gtk.Label({
-            label: '<big>Oh no! The file cannot be opened</big>',
+            label: `<big>${_('Oh no! The file cannot be opened')}</big>`,
             use_markup: true
         })
         label.get_style_context().add_class('dim-label')
@@ -1127,11 +1128,10 @@ class BookViewerWindow {
         }
         const onLayoutChange = layout => {
             settings.set_string('layout', layout)
+            const dividerDisplay = defaultLayouts[layout] === 'paginated' ? 'block' : 'none'
             this.scriptRun(`
                 rendition.flow('${defaultLayouts[layout]}')
-                document.getElementById('divider').style.display = '${
-                    defaultLayouts[layout] === 'paginated' ? 'block' : 'none'
-                }'`)
+                document.getElementById('divider').style.display = '${dividerDisplay}'`)
         }
         this.buildView(onFontChange, onSpacingChange, onThemeChange, onLayoutChange)
         this.viewPopover.loadSettings(
@@ -1223,7 +1223,7 @@ class BookViewerWindow {
                 })
                 break
             case 'lookup-error':
-                this.lookupPopover.loadResults('No definitions found.')
+                this.lookupPopover.loadResults(_('No definitions found.'))
                 break
             case 'annotation-add':
                 this.scriptGet('annotation', ({ text, cfiRange }) => {
@@ -1276,7 +1276,7 @@ class BookViewerWindow {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'view-list-symbolic' }),
             valign: Gtk.Align.CENTER,
-            tooltip_text: 'Table of contents',
+            tooltip_text: _('Table of contents'),
             visible: true
         })
         this.tocPopover = new TocPopover(toc, button, onChange)
@@ -1289,7 +1289,7 @@ class BookViewerWindow {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'system-search-symbolic' }),
             valign: Gtk.Align.CENTER,
-            tooltip_text: 'Find in book',
+            tooltip_text: _('Find in book'),
             visible: true
         })
         this.searchPopover = new SearchPopover(button, onChange, onSearch)
@@ -1302,7 +1302,7 @@ class BookViewerWindow {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'font-select-symbolic' }),
             valign: Gtk.Align.CENTER,
-            tooltip_text: 'Set font, theme, and layout',
+            tooltip_text: _('Set font, theme, and layout'),
             visible: true
         })
         this.viewPopover = new ViewPopover(...args)
@@ -1317,7 +1317,7 @@ class BookViewerWindow {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'user-bookmarks-symbolic' }),
             valign: Gtk.Align.CENTER,
-            tooltip_text: 'Bookmarks',
+            tooltip_text: _('Bookmarks'),
             visible: true
         })
         this.bookmarksPopover = new BookmarksPopover(button, onActivate, onAdd, onChange)
@@ -1331,7 +1331,7 @@ class BookViewerWindow {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'document-edit-symbolic' }),
             valign: Gtk.Align.CENTER,
-            tooltip_text: 'Annotations',
+            tooltip_text: _('Annotations'),
             visible: true
         })
         this.annotationsPopover = new AnnotationsPopover(button, onActivate, onChange, onRemove)
@@ -1361,12 +1361,12 @@ class BookViewerWindow {
         this.menu = new Gio.Menu()
         
         const section1 = new Gio.Menu()
-        section1.append('Open...', 'app.open')
+        section1.append(_('Open…'), 'app.open')
         this.menu.append_section(null, section1)
 
         const section2 = new Gio.Menu()
-        section2.append('Keyboard Shortcuts', 'app.shortcuts')
-        section2.append('About Foliate', 'app.about')
+        section2.append(_('Keyboard Shortcuts'), 'app.shortcuts')
+        section2.append(_('About Foliate'), 'app.about')
         this.menu.append_section(null, section2)
 
         button.set_menu_model(this.menu)
@@ -1376,7 +1376,7 @@ class BookViewerWindow {
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
-        section.append('About This Book', 'win.properties')
+        section.append(_('About This Book'), 'win.properties')
         this.menu.prepend_section(null, section)
         
         const action = new Gio.SimpleAction({ name: 'properties' })
@@ -1396,7 +1396,7 @@ class BookViewerWindow {
             }
             const window = new Gtk.Dialog({ modal: true })
             const headerBar = new Gtk.HeaderBar({
-                title: 'About This Book',
+                title: _('About This Book'),
                 show_close_button: true,
                 has_subtitle: false
             })
@@ -1459,12 +1459,12 @@ class BookViewerWindow {
                 if (!metadata[key]) continue
                 
                 const labelText = {
-                    publisher: 'Publisher',
-                    pubdate: 'Publication Date',
-                    modified_date: 'Modified Date',
-                    language: 'Language',
-                    rights: 'Copyright',
-                    identifier: 'Identifier'
+                    publisher: _('Publisher'),
+                    pubdate: _('Publication Date'),
+                    modified_date: _('Modified Date'),
+                    language: _('Language'),
+                    rights: _('Copyright'),
+                    identifier: _('Identifier')
                 }
                 if (key in labelText) {
                     const label = new Gtk.Label({
@@ -1535,11 +1535,11 @@ function main(argv) {
     const actionOpen = new Gio.SimpleAction({ name: 'open' })
     actionOpen.connect('activate', () => {
         const allFiles = new Gtk.FileFilter()
-        allFiles.set_name('All files')
+        allFiles.set_name(_('All files'))
         allFiles.add_pattern('*')
 
         const epubFiles = new Gtk.FileFilter()
-        epubFiles.set_name('EPUB files')
+        epubFiles.set_name(_('EPUB files'))
         epubFiles.add_mime_type('application/epub+zip')
 
         const dialog = new Gtk.FileChooserNative()
@@ -1561,31 +1561,31 @@ function main(argv) {
     actionShortcuts.connect('activate', () => {
         const shortcutsGroups = [
             {
-                title: 'General',
+                title: _('General'),
                 shortcuts: [
-                    { accelerator: 'F9', title: 'Show table of contents' },
-                    { accelerator: '<control>b', title: 'Show bookmarks' },
-                    { accelerator: 'F10', title: 'Show menu' }
+                    { accelerator: 'F9', title: _('Show table of contents') },
+                    { accelerator: '<control>b', title: _('Show bookmarks') },
+                    { accelerator: 'F10', title: _('Show menu') }
                 ]
             },
             {
-                title: 'Navigation',
+                title: _('Navigation'),
                 shortcuts: [
-                    { accelerator: 'Right', title: 'Go to the next page' },
-                    { accelerator: 'Left', title: 'Go to the previous page' }
+                    { accelerator: 'Right', title: _('Go to the next page') },
+                    { accelerator: 'Left', title: _('Go to the previous page') }
                 ]
             },
             {
-                title: 'Search',
+                title: _('Search'),
                 shortcuts: [
-                    { accelerator: '<control>f', title: 'Find in book' }
+                    { accelerator: '<control>f', title: _('Find in book') }
                 ]
             },
             {
-                title: 'View',
+                title: _('View'),
                 shortcuts: [
-                    { accelerator: 'plus', title: 'Increase fotn size' },
-                    { accelerator: 'minus', title: 'Decrease font size' }
+                    { accelerator: 'plus', title: _('Increase fotn size') },
+                    { accelerator: 'minus', title: _('Decrease font size') }
                 ]
             }
         ]
@@ -1612,8 +1612,8 @@ function main(argv) {
     actionAbout.connect('activate', () => {
         const aboutDialog = new Gtk.AboutDialog({
             authors: ['John Factotum'],
-            program_name: 'Foliate',
-            comments: 'A simple eBook viewer',
+            program_name: _('Foliate'),
+            comments: _('A simple eBook viewer'),
             logo_icon_name: pkg.name,
             version: pkg.version,
             license_type: Gtk.License.GPL_3_0,
