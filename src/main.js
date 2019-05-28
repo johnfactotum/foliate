@@ -602,7 +602,7 @@ class NotesList {
         })
         label.set_line_wrap(true)
         const label2 = new Gtk.Label({
-            label: text2.trim().replace(/\n/g, ' ') || null,
+            label: (text2 || '').trim().replace(/\n/g, ' '),
             halign: Gtk.Align.START,
             use_markup: true,
             lines: 3,
