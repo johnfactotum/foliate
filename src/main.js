@@ -1170,7 +1170,10 @@ class BookViewerWindow {
             case 'update-slider':
                 this.navbar.updateSlider(payload)
                 break
-            case 'link-clicked':
+            case 'link-external':
+                Gtk.show_uri_on_window(null, payload, Gdk.CURRENT_TIME)
+                break
+            case 'link-internal':
                 this.navbar.pushHistory(payload)
                 break
             case 'section':

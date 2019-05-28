@@ -141,14 +141,12 @@ const render = book => {
         Array.from(elements).forEach(link => {
             link.addEventListener('click', e => {
                 const href = link.getAttribute('href')
-                if (href.indexOf("mailto:") === 0 || href.indexOf("://") > -1) {
-                    // gtk_show_uri_on_window ()
-                } else {
-                    dispatch({
-                        type: 'link-clicked',
-                        payload: rendition.currentLocation().start.cfi
-                    })
-                }
+                if (href.indexOf("mailto:") === 0 || href.indexOf("://") > -1)
+                    dispatch({ type: 'link-external', payload: href })
+                else dispatch({
+                    type: 'link-internal',
+                    payload: rendition.currentLocation().start.cfi
+                })
             }, true)
         })
     })
