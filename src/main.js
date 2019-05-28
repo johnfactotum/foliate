@@ -967,9 +967,15 @@ class BookViewerWindow {
         
         this.buildMenu()
         if (fileName) this.open(fileName)
+        else {
+            const lastFile = settings.get_string('last-file')
+            if (lastFile) this.open(lastFile)
+        }
     }
     open(fileName) {
         this.canOpen = false
+        this.window.connect('destroy', () =>
+            settings.set_string('last-file', fileName))
 
         this.openButton.destroy()
         
