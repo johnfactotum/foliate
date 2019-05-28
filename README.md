@@ -1,4 +1,5 @@
-![Icon](data/com.github.johnfactotum.Foliate.svg)
+<img src="data/com.github.johnfactotum.Foliate.svg" align="left">
+
 # Foliate
 A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/GNOME/gjs) and [Epub.js](https://github.com/futurepress/epub.js/).
 
