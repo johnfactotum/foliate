@@ -1,8 +1,11 @@
 ![Icon](data/com.github.johnfactotum.Foliate.svg)
 # Foliate
-A simple and modern eBook viewer for the Linux desktop, built with [GJS](https://gitlab.gnome.org/GNOME/gjs) and [Epub.js](https://github.com/futurepress/epub.js/).
+A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/GNOME/gjs) and [Epub.js](https://github.com/futurepress/epub.js/).
+
+Website: https://johnfactotum.github.io/foliate/
 
 ## Features
+- View EPUB files
 - Two-page view and scrolled view
 - Customize font and line-spacing
 - Light, sepia, dark, and invert mode
@@ -35,9 +38,28 @@ sudo ninja uninstall
 ```
 
 ## Screenshots
+Customize font, theme, and layout: 
+
 ![View](data/screenshots/view.png)
+
+Dark mode:
+
+![Dark](data/screenshots/dark.png)
+
+Annotations:
+
 ![Note](data/screenshots/note.png)
+
 ![Annotations](data/screenshots/annotations.png)
+
+Find in book:
+
 ![Find](data/screenshots/find.png)
+
+Dictionary:
+
 ![Lookup](data/screenshots/lookup.png)
+
+Book metadata display:
+
 ![About](data/screenshots/about.png)
