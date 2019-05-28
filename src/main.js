@@ -927,6 +927,50 @@ class AnnotationPopover {
     }
 }
 
+class WelcomeScreen {
+    constructor(lastFile, onRestore) {
+        const box = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            valign: Gtk.Align.CENTER,
+            halign: Gtk.Align.CENTER,
+            spacing: 10
+        })
+        const image = new Gtk.Image({
+            icon_name: 'document-open-symbolic', pixel_size: 80
+        })
+        image.get_style_context().add_class('dim-label')
+        const title = new Gtk.Label({
+            label: `<big><b>${_('Open some books to start reading')}</b></big>`,
+            use_markup: true
+        })
+        title.get_style_context().add_class('dim-label')
+        const label = new Gtk.Label({
+            label: _('Open a file, or continue reading the last opened book.')
+        })
+        label.get_style_context().add_class('dim-label')
+        const open = new Gtk.Button({
+            label: _('Open File…'),
+            action_name: 'app.open'
+        })
+        const restore = new Gtk.Button({
+            label: _('Continue Reading')
+        })
+        restore.connect('clicked', onRestore)
+
+        const buttonBox = new Gtk.Box({ spacing: 6, halign: Gtk.Align.CENTER })
+        buttonBox.pack_start(open, false, true, 0)
+        if (lastFile) buttonBox.pack_start(restore, false, true, 0)
+
+        box.pack_start(image, false, true, 0)
+        box.pack_start(title, false, true, 0)
+        if (lastFile) box.pack_start(label, false, true, 0)
+        box.pack_start(buttonBox, false, true, 18)
+        box.show_all()
+
+        this.widget = box
+    }
+}
+
 class BookViewerWindow {
     constructor(application, width = -1, height = -1, fileName) {
         this.canOpen = true
@@ -957,9 +1001,6 @@ class BookViewerWindow {
         this.headerBar.show_close_button = true
         this.headerBar.has_subtitle = false
         this.window.set_titlebar(this.headerBar)
-        this.openButton = new Gtk.Button({ label: _('Open…') })
-        this.headerBar.pack_start(this.openButton)
-        this.openButton.action_name = 'app.open'
         this.window.title = _('Foliate')
         this.window.show_all()
         
@@ -970,16 +1011,18 @@ class BookViewerWindow {
         if (fileName) this.open(fileName)
         else {
             const lastFile = settings.get_string('last-file')
-            if (lastFile) this.open(lastFile)
+            this.welcome = new WelcomeScreen(lastFile, () => {
+                this.open(lastFile)
+            })
+            this.window.add(this.welcome.widget)
         }
     }
     open(fileName) {
+        if (this.welcome) this.welcome.widget.destroy()
         this.canOpen = false
         this.window.connect('destroy', () =>
             settings.set_string('last-file', fileName))
 
-        this.openButton.destroy()
-        
         this.spinner = new Gtk.Spinner()
         this.spinner.start()
         
