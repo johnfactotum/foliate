@@ -245,7 +245,7 @@ class JumpList {
         const regex = new RegExp(query, 'ig')
         results.forEach(item => {
             const newIter = this.store.append()
-            const label = item.excerpt.trim()
+            const label = item.excerpt.trim().replace(/\n/g, ' ')
             const m = label.replace(regex, `<b>${regex.exec(label)[0]}</b>`)
             this.store.set(newIter, [0, 1], [m, item.cfi])
         })
@@ -602,7 +602,7 @@ class NotesList {
         })
         label.set_line_wrap(true)
         const label2 = new Gtk.Label({
-            label: text2 || null,
+            label: text2.trim().replace(/\n/g, ' ') || null,
             halign: Gtk.Align.START,
             use_markup: true,
             lines: 3,
@@ -658,7 +658,7 @@ class NotesList {
     }
     setLabel2(value, text) {
         const label = this._label2Map.get(value)
-        label.label = text
+        label.label = text.trim().replace(/\n/g, ' ')
         if (text) label.show()
         else label.hide()
         this._onChange(this.getValues())
@@ -1257,7 +1257,7 @@ class BookViewerWindow {
                     data.note,
                     note => {
                         data.note = note
-                        this.annotationsPopover.setLabel2(cfiRange, note.trim().replace(/\n/g, ' '))
+                        this.annotationsPopover.setLabel2(cfiRange, note)
                     })
                 break
             }
