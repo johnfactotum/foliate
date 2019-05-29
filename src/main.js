@@ -1523,10 +1523,12 @@ class BookViewerWindow {
                         label: metadata[key],
                         selectable: true,
                         ellipsize: Pango.EllipsizeMode.END,
+                        lines: 3,
                         valign: Gtk.Align.START,
                         halign: Gtk.Align.START,
                         xalign: 0
                     })
+                    value.set_line_wrap(true)
                     grid.attach(value, 1, row, 1, 1)
                     row++
                 }
