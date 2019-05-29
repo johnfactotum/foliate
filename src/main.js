@@ -1629,7 +1629,7 @@ function main(argv) {
             {
                 title: _('View'),
                 shortcuts: [
-                    { accelerator: 'plus', title: _('Increase fotn size') },
+                    { accelerator: 'plus', title: _('Increase font size') },
                     { accelerator: 'minus', title: _('Decrease font size') }
                 ]
             }
