@@ -3,6 +3,8 @@
 # Foliate
 A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/GNOME/gjs) and [Epub.js](https://github.com/futurepress/epub.js/).
 
+![View](data/screenshots/view.png)
+
 Website: https://johnfactotum.github.io/foliate/
 
 ## Features
@@ -39,13 +41,10 @@ sudo ninja uninstall
 ```
 
 ## Screenshots
-Customize font, theme, and layout: 
 
-![View](data/screenshots/view.png)
+Dictionary:
 
-Dark mode:
-
-![Dark](data/screenshots/dark.png)
+![Lookup](data/screenshots/lookup.png)
 
 Annotations:
 
@@ -57,9 +56,9 @@ Find in book:
 
 ![Find](data/screenshots/find.png)
 
-Dictionary:
+Dark mode:
 
-![Lookup](data/screenshots/lookup.png)
+![Dark](data/screenshots/dark.png)
 
 Book metadata display:
 
