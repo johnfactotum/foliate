@@ -180,7 +180,7 @@ class Navbar {
         this._slider.show()
     }
     setSectionMarks(sectionMarks) {
-        if (sectionMarks.length < 60) sectionMarks.forEach(x =>
+        sectionMarks.forEach(x =>
             this._slider.add_mark(x, Gtk.PositionType.TOP, null))
     }
     updateSlider(percentage) {
@@ -1205,10 +1205,13 @@ class BookViewerWindow {
                 break
             case 'locations-ready':
                 this.navbar.setReady(payload)
-                this.scriptGet(
-                    `book.spine.items.map(x => book.locations
-                        .percentageFromCfi('epubcfi(' + x.cfiBase + '!/0)'))`,
-                    sectionMarks => this.navbar.setSectionMarks(sectionMarks))
+                this.scriptGet(`book.spine.items.length`, n => {
+                    if (n < 60)
+                        this.scriptGet(
+                            `book.spine.items.map(x => book.locations
+                                .percentageFromCfi('epubcfi(' + x.cfiBase + '!/0)'))`,
+                            sectionMarks => this.navbar.setSectionMarks(sectionMarks))
+                })
                 break
             case 'relocated':
                 this.bookmarksPopover.update(payload.cfi)
