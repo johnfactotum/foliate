@@ -27,6 +27,13 @@ body {
 <div id="divider"></div>
 
 <script>
+const debounce = (f, wait) => {
+    let timeout
+    return (...args) => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => f(...args), wait)
+    }
+}
 const dispatch = action => {
     // unique time in case we are dispatching the same action twice
     const obj = { time: new Date().getTime(), ...action }
@@ -111,6 +118,19 @@ const openBook = fileName => {
             const lang = isoLangs[book.package.metadata.language.slice(0, 2).toLowerCase()]
             if (lang) lookupLang = lang
         })
+
+    const onwheel = debounce(event => {
+        if (event.deltaX > 0) rendition.next()
+        else if (event.deltaX < 0) rendition.prev()
+    }, 100)
+
+    book.ready
+        .then(() =>
+            document.documentElement.onwheel = event => {
+                if (Math.abs(event.deltaX) < Math.abs(event.deltaY)) return
+                onwheel(event)
+                event.preventDefault()
+            })
 }
 const render = book => {
     if (rendition) rendition.destroy()

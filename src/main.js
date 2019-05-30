@@ -1646,6 +1646,19 @@ function main(argv) {
                     { accelerator: 'plus', title: _('Increase font size') },
                     { accelerator: 'minus', title: _('Decrease font size') }
                 ]
+            },
+            {
+                title: _('Touchpad Gestures'),
+                shortcuts: [
+                    // I can't find where to access the enums in GJS,
+                    // so just use ints for now
+                    // TODO: support the other direction, i.e. disabling natural scrolling
+                    // TODO: disable swipe when zoomed in
+                    { shortcut_type: 5, title: _('Go to the next page') },
+                    { shortcut_type: 6, title: _('Go to the previous page') },
+                    { shortcut_type: 2, title: _('Zoom in') },
+                    { shortcut_type: 1, title: _('Zoom out') }
+                ]
             }
         ]
         const shortcutsWindow = new Gtk.ShortcutsWindow({ modal: true })
