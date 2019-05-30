@@ -24,11 +24,14 @@ header {
     margin-bottom: 10px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-.title {
+header > div {
     max-width: 800px;
     margin: auto;
     text-align: center;
     padding: 0 10px;
+}
+.title {
+    margin-bottom: 20px;
 }
 .title img {
     filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.15));
@@ -42,7 +45,7 @@ header {
     font-size: x-large;
     color: #666;
 }
-.title p {
+header p {
     margin: .5em 0;
 }
 .screenshot {
@@ -142,7 +145,10 @@ footer a:link, footer a:visited {
         <img src="logo.svg" width="96" alt="Foliate icon">
         <h1>Foliate</h1>
         <p class="tagline">A simple and modern eBook viewer</p>
-        <p><a href="https://github.com/johnfactotum/foliate">Source Code</a> &middot; <a href="https://github.com/johnfactotum/foliate/issues">Issues</a></p>
+    </div>
+    <div>
+        <p><a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="flathub-badge-en.svg"></a></p>
+        <p><a href="https://github.com/johnfactotum/foliate">Source</a> &middot; <a href="https://github.com/johnfactotum/foliate/releases">Releases</a> &middot; <a href="https://github.com/johnfactotum/foliate/issues">Issues</a></p>
     </div>
 </header>
 <main>
@@ -196,23 +202,49 @@ footer a:link, footer a:visited {
         <div class="grid">
             <div>
                 <div>
-                    <h3>Manual Installation</h3>
-                    <p>First, make sure you have these dependencies installed: <code>gjs</code> <code>webkit2gtk</code> <code>libsoup</code> <code>meson</code></p>
-                    <p>Then run these commands:</p>
-<pre>
-git clone https://github.com/johnfactotum/foliate.git
-cd foliate
-meson build --prefix=/usr
-cd build
-ninja
-sudo ninja install
-</pre>
+                    <h3>Flatpak</h3>
+                    <h4>Install from Flathub (Recommended)</h4>
+                    <p>Foloiate is available on <a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate">Flathub</a>.</p>
+                    <p><a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="flathub-badge-en.svg"></a></p>
+                    <h4>Using flatpak-builder</h4>
+                    <p>Alternatively, you can build and install a developement version using <code>flatpak-builder</code> with the <a href="https://github.com/johnfactotum/foliate/blob/master/com.github.johnfactotum.Foliate.json">manifest</a> provided in the source.</p>
                 </div>
             </div>
             <div>
                 <div>
-                    <h3>Flatpak</h3>
-                    <p>Coming soon.</p>
+                    <h3>Manual Installation from Source</h3>
+                    <ol>
+                        <li>Clone the source code from <a href="https://github.com/johnfactotum/foliate.git">GitHub</a> or download one of the <a href="https://github.com/johnfactotum/foliate/releases">releases</a>.</li>
+                        <li>Make sure you have these dependencies installed: <code>gjs</code> <code>webkit2gtk</code> <code>libsoup</code> <code>meson</code></li>
+                        <li>To install, run these commands:
+<pre>
+meson build --prefix=/usr
+cd build
+ninja
+sudo ninja install
+</pre></li>
+                        <li>To uninstall, run <code>sudo ninja uninstall</code>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section>
+        <div class="mono"><h2>Questions and Answers</h2></div>
+        <div class="grid">
+            <div>
+                <div>
+                    <h3>Reading progress slider not showing up?</h3>
+                    <p>In order to have the slider, Epub.js must generate locations for the entire book. For books with lots of pages, this could take a while. In the meantime, you can still read the book and use all other functionalities normally.</p>
+                    <p>Once the locations are generated, the info is stored (in localStorage provided by WebKitGTK) and should load instantly next time you open the book.</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h3>How are notes and bookmarks stored?</h3>
+                    <p>Your reading progress, bookmarks, and annotations are saved in <code>~/.local/share/com.github.johnfactotum.Foliate</code>. If you're using the flatpak version, they should be in <code>~/.var/app/com.github.johnfactotum.Foliate/data/com.github.johnfactotum.Foliate</code>.</p>
+                    <p>The data for each book is stored in a JSON file named after the book's identifier. If you'd like to sync or backup your progress and notes, simply copy these files and everything should just work™.</p>
                 </div>
             </div>
         </div>
