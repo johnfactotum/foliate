@@ -1634,6 +1634,13 @@ function main(argv) {
     application.add_action(actionOpen)
     application.set_accels_for_action('app.open', ['<Control>o'])
 
+    const touchpadSettings = new Gio.Settings({
+        schema_id: 'org.gnome.desktop.peripherals.touchpad'
+    })
+    let naturalScroll = touchpadSettings.get_boolean('natural-scroll')
+    touchpadSettings.connect('changed::natural-scroll', () =>
+        naturalScroll = touchpadSettings.get_boolean('natural-scroll'))
+
     const actionShortcuts = new Gio.SimpleAction({ name: 'shortcuts' })
     actionShortcuts.connect('activate', () => {
         const shortcutsGroups = [
@@ -1666,10 +1673,8 @@ function main(argv) {
                 shortcuts: [
                     // I can't find where to access the enums in GJS,
                     // so just use ints for now
-                    // TODO: support the other direction, i.e. disabling natural scrolling
-                    // TODO: disable swipe when zoomed in
-                    { shortcut_type: 5, title: _('Go to the next page') },
-                    { shortcut_type: 6, title: _('Go to the previous page') },
+                    { shortcut_type: naturalScroll ? 5 : 6, title: _('Go to the next page') },
+                    { shortcut_type: naturalScroll ? 6 : 5, title: _('Go to the previous page') },
                     { shortcut_type: 2, title: _('Zoom in') },
                     { shortcut_type: 1, title: _('Zoom out') }
                 ]
