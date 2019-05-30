@@ -19,6 +19,9 @@ Website: https://johnfactotum.github.io/foliate/
 - Touchpad gestures 
 
 ## Installation
+### Flatpak
+<a href='https://flathub.org/apps/details/com.github.johnfactotum.Foliate'><img height='50' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
+
 ### Install manually from source
 First, you'll need the following dependencies:
 - `gjs`
