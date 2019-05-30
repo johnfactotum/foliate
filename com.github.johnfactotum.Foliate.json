@@ -9,6 +9,7 @@
         "--share=ipc",
         "--socket=x11",
         "--socket=wayland",
+        "--device=dri",
         "--filesystem=xdg-run/dconf",
         "--filesystem=~/.config/dconf:ro",
         "--talk-name=ca.desrt.dconf",
@@ -17,12 +18,11 @@
     "modules": [
         {
             "name": "foliate",
-            "builddir": true,
             "buildsystem": "meson",
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://github.com/johnfactotum/foliate"
+                    "url": "https://github.com/johnfactotum/foliate.git"
                 }
             ]
         }
