@@ -16,6 +16,7 @@ Website: https://johnfactotum.github.io/foliate/
 - Bookmarks and annotations
 - Find in book
 - Quick dictionary lookup
+- Touchpad gestures 
 
 ## Installation
 ### Install manually from source
@@ -27,8 +28,6 @@ First, you'll need the following dependencies:
 
 Then run the follwing commands:
 ```bash
-git clone https://github.com/johnfactotum/foliate.git
-cd foliate
 meson build --prefix=/usr
 cd build
 ninja
