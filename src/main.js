@@ -1419,6 +1419,7 @@ class BookViewerWindow {
         
         const section1 = new Gio.Menu()
         section1.append(_('Open…'), 'app.open')
+        section1.append(_('Fullscreen'), 'win.fullscreen')
         this.menu.append_section(null, section1)
 
         const section2 = new Gio.Menu()
@@ -1430,6 +1431,23 @@ class BookViewerWindow {
         this.headerBar.pack_end(button)
         this.accelGroup.connect(Gdk.KEY_F10, 0, 0, () =>
             button.active = !button.active)
+
+        const action = new Gio.SimpleAction({
+            name: 'fullscreen',
+            state: new GLib.Variant('b', false)
+        })
+        action.connect('activate', () => {
+            let state = action.get_state().get_boolean()
+            if (state) {
+                this.window.unfullscreen()
+                action.set_state(new GLib.Variant('b', false))
+            } else {
+                this.window.fullscreen()
+                action.set_state(new GLib.Variant('b', true))
+            }
+        })
+        this.window.add_action(action)
+        this.application.set_accels_for_action('win.fullscreen', ['F11'])
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
@@ -1624,6 +1642,7 @@ function main(argv) {
                 shortcuts: [
                     { accelerator: 'F9', title: _('Show table of contents') },
                     { accelerator: '<control>b', title: _('Show bookmarks') },
+                    { accelerator: '<control>f', title: _('Find in book') },
                     { accelerator: 'F10', title: _('Show menu') }
                 ]
             },
@@ -1635,16 +1654,11 @@ function main(argv) {
                 ]
             },
             {
-                title: _('Search'),
-                shortcuts: [
-                    { accelerator: '<control>f', title: _('Find in book') }
-                ]
-            },
-            {
                 title: _('View'),
                 shortcuts: [
                     { accelerator: 'plus', title: _('Increase font size') },
-                    { accelerator: 'minus', title: _('Decrease font size') }
+                    { accelerator: 'minus', title: _('Decrease font size') },
+                    { accelerator: 'F11', title: _('Toggle fullscreen') }
                 ]
             },
             {
