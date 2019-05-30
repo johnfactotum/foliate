@@ -1043,11 +1043,14 @@ class BookViewerWindow {
         })
         
         this.container = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
-        this.container.pack_start(this.spinner, true, true, 0)
-        this.container.pack_start(this.webView, true, true, 0)
+        const overlay = new Gtk.Overlay()
+        overlay.add(this.webView)
+        overlay.add_overlay(this.spinner)
+        this.webView.opacity = 0
+
+        this.container.pack_start(overlay, true, true, 0)
         this.window.add(this.container)
         this.window.show_all()
-        this.webView.hide()
     }
     scriptRun(script) {
         this.webView.run_javascript(script, null, () => {})
@@ -1081,6 +1084,10 @@ class BookViewerWindow {
         box.show_all()
         this.container.pack_start(box, true, true, 0)
     }
+    bookDisplayed() {
+        this.spinner.destroy()
+        this.webView.opacity = 1
+    }
     bookReady() {
         this.scriptGet('book.package.metadata.title', title =>
             this.headerBar.title = title)
@@ -1094,9 +1101,10 @@ class BookViewerWindow {
             this.storage = new Storage(key)
         
             const lastLocation = this.storage.get('lastLocation')
-            if (lastLocation) goTo(lastLocation)
-            this.spinner.destroy()
-            this.webView.show()
+            if (lastLocation) this.scriptRun(`
+                rendition.display('${lastLocation}').then(() =>
+                    dispatch({ type: 'book-displayed' }))`)
+            else this.bookDisplayed()
             
             this.scriptGet('book.navigation.toc', toc => {
                 this.buildToc(toc, withHistory(goTo))
@@ -1195,6 +1203,9 @@ class BookViewerWindow {
                 break
             case 'book-ready':
                 this.bookReady()
+                break
+            case 'book-displayed':
+                this.bookDisplayed()
                 break
             case 'cover':
                 this.scriptGet('book.package.metadata', metadata => {
