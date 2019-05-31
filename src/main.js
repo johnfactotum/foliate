@@ -151,10 +151,13 @@ class Navbar {
             tooltip_text: _('Go back'),
             sensitive: false
         })
-        this._backButton.connect('clicked', () => {
+
+        this.goBack = () => {
+            if (!this._history.length) return
             onBack(this._history.pop())
             if (!this._history.length) this._backButton.sensitive = false
-        })
+        }
+        this._backButton.connect('clicked', this.goBack)
         
         this.widget = new Gtk.ActionBar()
         this.widget.pack_start(this._prevButton)
@@ -1421,6 +1424,12 @@ class BookViewerWindow {
         const mask = Gdk.ModifierType.LOCK_MASK
         this.accelGroup.connect(Gdk.KEY_Left, mask, 0, onPrev)
         this.accelGroup.connect(Gdk.KEY_Right, mask, 0, onNext)
+
+        this.accelGroup.connect(Gdk.KEY_B, 0, 0, onPrev)
+        this.accelGroup.connect(Gdk.KEY_space, 0, 0, onNext)
+        this.accelGroup.connect(Gdk.KEY_space, Gdk.ModifierType.SHIFT_MASK, 0, onPrev)
+
+        this.accelGroup.connect(Gdk.KEY_Left, Gdk.ModifierType.MOD1_MASK, 0, this.navbar.goBack)
     }
     buildMenu() {
         const button = new Gtk.MenuButton({
@@ -1672,8 +1681,9 @@ function main(argv) {
             {
                 title: _('Navigation'),
                 shortcuts: [
-                    { accelerator: 'Right', title: _('Go to the next page') },
-                    { accelerator: 'Left', title: _('Go to the previous page') }
+                    { accelerator: 'Right space', title: _('Go to the next page') },
+                    { accelerator: 'Left <shift>space b', title: _('Go to the previous page') },
+                    { accelerator: '<alt>Left', title: _('Go back to previous location') }
                 ]
             },
             {
