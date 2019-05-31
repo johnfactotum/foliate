@@ -16,7 +16,7 @@ Website: https://johnfactotum.github.io/foliate/
 - Bookmarks and annotations
 - Find in book
 - Quick dictionary lookup
-- Touchpad gestures 
+- Touchpad gestures: use two-finger swipe to turn the page (on master branch; not released yet)
 
 ## Installation
 ### Flatpak
