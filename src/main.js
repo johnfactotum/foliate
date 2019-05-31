@@ -1373,6 +1373,8 @@ class BookViewerWindow {
         this.headerBar.pack_end(button)
         this.accelGroup.connect(Gdk.KEY_F, Gdk.ModifierType.CONTROL_MASK, 0, () =>
             button.active = !button.active)
+        this.accelGroup.connect(Gdk.KEY_slash, 0, 0, () =>
+            button.active = !button.active)
     }
     buildView(...args) {
         const button = new Gtk.MenuButton({
@@ -1423,7 +1425,9 @@ class BookViewerWindow {
         // somehow only GDK_LOCK_MASK works, not 0 or GDK_MODIFIER_MASK
         const mask = Gdk.ModifierType.LOCK_MASK
         this.accelGroup.connect(Gdk.KEY_Left, mask, 0, onPrev)
+        this.accelGroup.connect(Gdk.KEY_H, mask, 0, onPrev)
         this.accelGroup.connect(Gdk.KEY_Right, mask, 0, onNext)
+        this.accelGroup.connect(Gdk.KEY_L, mask, 0, onNext)
 
         this.accelGroup.connect(Gdk.KEY_B, 0, 0, onPrev)
         this.accelGroup.connect(Gdk.KEY_space, 0, 0, onNext)
@@ -1674,15 +1678,15 @@ function main(argv) {
                 shortcuts: [
                     { accelerator: 'F9', title: _('Show table of contents') },
                     { accelerator: '<control>b', title: _('Show bookmarks') },
-                    { accelerator: '<control>f', title: _('Find in book') },
+                    { accelerator: '<control>f slash', title: _('Find in book') },
                     { accelerator: 'F10', title: _('Show menu') }
                 ]
             },
             {
                 title: _('Navigation'),
                 shortcuts: [
-                    { accelerator: 'Right space', title: _('Go to the next page') },
-                    { accelerator: 'Left <shift>space b', title: _('Go to the previous page') },
+                    { accelerator: 'Right space l', title: _('Go to the next page') },
+                    { accelerator: 'Left <shift>space b h', title: _('Go to the previous page') },
                     { accelerator: '<alt>Left', title: _('Go back to previous location') }
                 ]
             },
@@ -1728,7 +1732,7 @@ function main(argv) {
     const actionAbout = new Gio.SimpleAction({ name: 'about' })
     actionAbout.connect('activate', () => {
         const aboutDialog = new Gtk.AboutDialog({
-            authors: ['John Factotum'],
+            authors: ['John Factotum', 'Gabriele Musco (GabMus) for vim shortcuts'],
             artists: ['John Factotum'],
             program_name: _('Foliate'),
             comments: _('A simple eBook viewer'),
