@@ -392,9 +392,7 @@ class FontBox {
         this.widget = fontBox
     }
     applyFont()  {
-        this._onChange(
-            this._fontButton.get_font_desc(),
-            this._fontButton.get_font())
+        this._onChange()
     }
     dec() {
         const desc = this._fontButton.get_font_desc()
@@ -412,13 +410,19 @@ class FontBox {
         this._fontButton.set_font(font)
         this.applyFont()
     }
+    getFont() {
+        return {
+            desc: this._fontButton.get_font_desc(),
+            name: this._fontButton.get_font()
+        }
+    }
 }
 class RadioBox {
     constructor(options, onChange) {
         this._buttons = Object.assign({},
             ...options.map(theme =>
                 ({ [theme]: new Gtk.RadioButton({ label: theme }) })))
-        const onToggle = button => { if (button.active) onChange(button.label) }
+        const onToggle = button => { if (button.active) onChange() }
         const box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL })
         const first = this._buttons[Object.keys(this._buttons)[0]]
         for (const x in this._buttons) {
@@ -444,24 +448,29 @@ class RadioBox {
     }
 }
 class ViewPopover {
-    constructor(onFontChange, onSpacingChange, onThemeChange, onLayoutChange) {
+    constructor(onChange, onLayoutChange) {
         this.widget = new Gtk.Popover({ border_width: 10 })
         
         const grid = new Gtk.Grid()
         grid.column_spacing = 10
         grid.row_spacing = 10
         
-        this._fontBox = new FontBox(onFontChange)
-        this._themeBox = new RadioBox(Object.keys(defaultThemes), onThemeChange)
+        const onViewChange = () => {
+            const font = this._fontBox.getFont()
+            const spacing = this._spacingButton.get_value()
+            const theme = this._themeBox.getActive()
+            onChange({ font, spacing, theme })
+        }
+
+        this._fontBox = new FontBox(onViewChange)
+        this._themeBox = new RadioBox(Object.keys(defaultThemes), onViewChange)
         this._layoutBox = new RadioBox(Object.keys(defaultLayouts), onLayoutChange)
         
         this._spacingButton = new Gtk.SpinButton()
         this._spacingButton.set_range(1, 3)
         this._spacingButton.set_digits(2)
         this._spacingButton.set_increments(0.1, 0)
-        this._spacingButton.connect('value-changed', () => {
-            onSpacingChange(this._spacingButton.get_value())
-        })
+        this._spacingButton.connect('value-changed', onViewChange)
         
         const menuLabels = {
             font: new Gtk.Label({ label: _('Font') }),
@@ -494,13 +503,11 @@ class ViewPopover {
         this._fontBox.inc()
     }
     loadSettings(font, spacing, theme, layout) {
-        if (font) this._fontBox.setFont(font)
-        if (spacing) this._spacingButton.set_value(spacing)
-        if (theme) {
-            this._themeBox.activate(theme)
-            this._themeBox.applyOption()
-        }
-        if (layout) this._layoutBox.activate(layout)
+        this._fontBox.setFont(font)
+        this._spacingButton.set_value(spacing)
+        this._themeBox.activate(theme)
+        this._themeBox.applyOption()
+        this._layoutBox.activate(layout)
     }
     get theme() {
         return this._themeBox.getActive()
@@ -1026,12 +1033,11 @@ class BookViewerWindow {
         this.spinner = new Gtk.Spinner()
         this.spinner.start()
         
-        this.webView = new Webkit.WebView({
-            settings:  new Webkit.Settings({
-                enable_write_console_messages_to_stdout: true,
-                allow_file_access_from_file_urls: true
-            })
+        this.webViewSettings = new Webkit.Settings({
+            enable_write_console_messages_to_stdout: true,
+            allow_file_access_from_file_urls: true
         })
+        this.webView = new Webkit.WebView({ settings: this.webViewSettings })
         this.webView.connect('context-menu', () => true)
         
         this.webView.load_uri(GLib.filename_to_uri(pkg.pkgdatadir + '/assets/viewer.html', null))
@@ -1146,45 +1152,55 @@ class BookViewerWindow {
             }
         })
 
-        const onFontChange = (desc, name) => {
-            settings.set_string('font', name)
-            this.scriptRun(`
-                rendition.themes.font('"${desc.get_family()}"')
-                rendition.themes.fontSize('${desc.get_size() / Pango.SCALE}pt')
-                rendition.themes.override('font-weight', ${desc.get_weight()})`)
-        }
-        const onSpacingChange = value => {
-            settings.set_double('spacing', value)
-            this.scriptRun(`
-                rendition.themes.override('line-height', ${value})`)
-        }
-        const onThemeChange = theme => {
+        this.buildView(({ font, spacing, theme }) => {
+            settings.set_string('font', font.name)
+            settings.set_double('spacing', spacing)
             settings.set_string('theme', theme)
+
             const { color, background, link, darkMode, invert } =
                 defaultThemes[theme]
             
             Gtk.Settings.get_default()
                 .gtk_application_prefer_dark_theme = darkMode
             
+            const fontFamily = font.desc.get_family()
+            const fontSize = `${font.desc.get_size() / Pango.SCALE}pt`
+            const fontWeight = font.desc.get_weight()
+
+            this.webViewSettings.serif_font_family = fontFamily
+            this.webViewSettings.sans_serif_font_family = fontFamily
             this.scriptRun(`
                 document.documentElement.style.filter =
                     '${invert ? 'invert(1) hue-rotate(180deg)' : 'none'}'
                 document.body.style.color = '${color}'
                 document.body.style.background = '${background}'
-                rendition.themes.override('color', '${color}')
-                rendition.themes.override('background', '${background}')
-                rendition.themes.register('${link}',
-                    { 'a:link': { color: '${link}' } })
-                rendition.themes.select('${link}')`)
-        }
-        const onLayoutChange = layout => {
+
+                rendition.themes.registerRules('default', {
+                    'body': {
+                        'color': '${color}',
+                        'background': '${background}',
+                        'font-family': '"${fontFamily}" !important',
+                        'font-size': '${fontSize} !important',
+                        'font-weight': '${fontWeight} !important',
+                        'line-height': '${spacing} !important'
+                    },
+                    'p': {
+                        'font-family': '"${fontFamily}" !important',
+                        'font-size': '${fontSize} !important',
+                        'font-weight': '${fontWeight} !important',
+                        'line-height': '${spacing} !important'
+                    },
+                    'a:link': { color: '${link}' }
+                })
+                rendition.themes.update('default')`)
+        },
+        layout => {
             settings.set_string('layout', layout)
             const dividerDisplay = defaultLayouts[layout] === 'paginated' ? 'block' : 'none'
             this.scriptRun(`
                 rendition.flow('${defaultLayouts[layout]}')
                 document.getElementById('divider').style.display = '${dividerDisplay}'`)
-        }
-        this.buildView(onFontChange, onSpacingChange, onThemeChange, onLayoutChange)
+        })
         this.viewPopover.loadSettings(
             settings.get_string('font'),
             settings.get_double('spacing'),
