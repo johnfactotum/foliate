@@ -22,6 +22,10 @@ Website: https://johnfactotum.github.io/foliate/
 ### Flatpak
 <a href='https://flathub.org/apps/details/com.github.johnfactotum.Foliate'><img height='50' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
+### Distribution packages
+
+For Arch Linux users, two packages are available on the AUR: [`foliate`](https://aur.archlinux.org/packages/foliate/) (stable version), [`foliate-git`](https://aur.archlinux.org/packages/foliate-git/) (Git version)
+
 ### Install manually from source
 First, you'll need the following dependencies:
 - `gjs`
