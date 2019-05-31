@@ -422,7 +422,7 @@ class RadioBox {
         this._buttons = Object.assign({},
             ...options.map(theme =>
                 ({ [theme]: new Gtk.RadioButton({ label: theme }) })))
-        const onToggle = button => { if (button.active) onChange() }
+        const onToggle = button => { if (button.active) onChange(button.label) }
         const box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL })
         const first = this._buttons[Object.keys(this._buttons)[0]]
         for (const x in this._buttons) {
