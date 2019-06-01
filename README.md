@@ -1,6 +1,7 @@
 <img src="data/com.github.johnfactotum.Foliate.svg" align="left">
 
 # Foliate
+
 A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/GNOME/gjs) and [Epub.js](https://github.com/futurepress/epub.js/).
 
 ![View](data/screenshots/view.png)
@@ -8,6 +9,7 @@ A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/
 Website: https://johnfactotum.github.io/foliate/
 
 ## Features
+
 - View EPUB files
 - Two-page view and scrolled view
 - Customize font and line-spacing
@@ -19,7 +21,9 @@ Website: https://johnfactotum.github.io/foliate/
 - Touchpad gestures: use two-finger swipe to turn the page (on master branch; not released yet)
 
 ## Installation
+
 ### Flatpak
+
 <a href='https://flathub.org/apps/details/com.github.johnfactotum.Foliate'><img height='50' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
 ### Distribution packages
@@ -27,6 +31,7 @@ Website: https://johnfactotum.github.io/foliate/
 For Arch Linux users, two packages are available on the AUR: [`foliate`](https://aur.archlinux.org/packages/foliate/) (stable version), [`foliate-git`](https://aur.archlinux.org/packages/foliate-git/) (Git version)
 
 ### Install manually from source
+
 First, you'll need the following dependencies:
 - `gjs`
 - `webkit2gtk`
@@ -34,6 +39,7 @@ First, you'll need the following dependencies:
 - `meson`
 
 Then run the follwing commands:
+
 ```bash
 meson build --prefix=/usr
 cd build
@@ -41,9 +47,23 @@ ninja
 sudo ninja install
 ```
 
-To uninstall, run
+To uninstall, run:
+
 ```bash
 sudo ninja uninstall
+```
+
+### Build and run from source without installing
+
+You will need the same dependencies listed in [this section](#install-manually-from-source).
+
+The following commands will build Foliate and install it inside a directory:
+
+```bash
+meson build --prefix=$PWD/fakeprefix
+ninja -C build
+ninja -C build install
+GSETTINGS_SCHEMA_DIR=$PWD/fakeprefix/share/glib-2.0/schemas ./fakeprefix/bin/com.github.johnfactotum.Foliate
 ```
 
 ## Screenshots
