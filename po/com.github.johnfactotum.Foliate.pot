@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-30 05:06+0800\n"
+"POT-Creation-Date: 2019-06-01 11:19+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1004
-#: src/main.js:1661
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1014
+#: src/main.js:1733
 msgid "Foliate"
 msgstr ""
 
@@ -71,8 +71,8 @@ msgstr ""
 msgid "Bookmarks and annotations"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1335
-#: src/main.js:1626
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1368
+#: src/main.js:1677
 msgid "Find in book"
 msgstr ""
 
@@ -152,186 +152,208 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: src/main.js:684
+#: src/main.js:694
 msgid "No bookmarks"
 msgstr ""
 
-#: src/main.js:685
+#: src/main.js:695
 msgid "Add some bookmarks to see them here."
 msgstr ""
 
-#: src/main.js:721
+#: src/main.js:731
 msgid "Bookmark Current Location"
 msgstr ""
 
-#: src/main.js:726
+#: src/main.js:736
 msgid "Remove Current Location"
 msgstr ""
 
-#: src/main.js:743
+#: src/main.js:753
 msgid "No annotations"
 msgstr ""
 
-#: src/main.js:744
+#: src/main.js:754
 msgid "Highlight some text to add annotations."
 msgstr ""
 
-#: src/main.js:782 src/main.js:858
+#: src/main.js:792 src/main.js:868
 msgid "Copy"
 msgstr ""
 
-#: src/main.js:787
+#: src/main.js:797
 msgid "Highlight"
 msgstr ""
 
-#: src/main.js:796
+#: src/main.js:806
 msgid "Loading…"
 msgstr ""
 
-#: src/main.js:805
+#: src/main.js:815
 msgid "From Wiktionary, the free dictionary"
 msgstr ""
 
-#: src/main.js:843
+#: src/main.js:853
 msgid "View Full Definition"
 msgstr ""
 
-#: src/main.js:863
+#: src/main.js:873
 msgid "Remove"
 msgstr ""
 
-#: src/main.js:868
+#: src/main.js:878
 msgid "Note"
 msgstr ""
 
-#: src/main.js:943
+#: src/main.js:953
 msgid "Open some books to start reading"
 msgstr ""
 
-#: src/main.js:948
+#: src/main.js:958
 msgid "Open a file, or continue reading the last opened book."
 msgstr ""
 
-#: src/main.js:952
+#: src/main.js:962
 msgid "Open File…"
 msgstr ""
 
-#: src/main.js:956
+#: src/main.js:966
 msgid "Continue Reading"
 msgstr ""
 
-#: src/main.js:1075
+#: src/main.js:1087
 msgid "Oh no! The file cannot be opened"
 msgstr ""
 
-#: src/main.js:1322
+#: src/main.js:1355
 msgid "Table of contents"
 msgstr ""
 
-#: src/main.js:1348
+#: src/main.js:1381
 msgid "Set font, theme, and layout"
 msgstr ""
 
-#: src/main.js:1363
+#: src/main.js:1396
 msgid "Bookmarks"
 msgstr ""
 
-#: src/main.js:1377
+#: src/main.js:1410
 msgid "Annotations"
 msgstr ""
 
-#: src/main.js:1407
+#: src/main.js:1446
 msgid "Open…"
 msgstr ""
 
-#: src/main.js:1411
+#: src/main.js:1447
+msgid "Fullscreen"
+msgstr ""
+
+#: src/main.js:1451
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: src/main.js:1412
+#: src/main.js:1452
 msgid "About Foliate"
 msgstr ""
 
-#: src/main.js:1422 src/main.js:1442
+#: src/main.js:1479 src/main.js:1499
 msgid "About This Book"
 msgstr ""
 
-#: src/main.js:1505
+#: src/main.js:1562
 msgid "Publisher"
 msgstr ""
 
-#: src/main.js:1506
+#: src/main.js:1563
 msgid "Publication Date"
 msgstr ""
 
-#: src/main.js:1507
+#: src/main.js:1564
 msgid "Modified Date"
 msgstr ""
 
-#: src/main.js:1508
+#: src/main.js:1565
 msgid "Language"
 msgstr ""
 
-#: src/main.js:1509
+#: src/main.js:1566
 msgid "Copyright"
 msgstr ""
 
-#: src/main.js:1510
+#: src/main.js:1567
 msgid "Identifier"
 msgstr ""
 
-#: src/main.js:1583
+#: src/main.js:1640
 msgid "All files"
 msgstr ""
 
-#: src/main.js:1587
+#: src/main.js:1644
 msgid "EPUB files"
 msgstr ""
 
-#: src/main.js:1609
+#: src/main.js:1673
 msgid "General"
 msgstr ""
 
-#: src/main.js:1611
+#: src/main.js:1675
 msgid "Show table of contents"
 msgstr ""
 
-#: src/main.js:1612
+#: src/main.js:1676
 msgid "Show bookmarks"
 msgstr ""
 
-#: src/main.js:1613
+#: src/main.js:1678
 msgid "Show menu"
 msgstr ""
 
-#: src/main.js:1617
+#: src/main.js:1682
 msgid "Navigation"
 msgstr ""
 
-#: src/main.js:1619
+#. I can't find where to access the enums in GJS,
+#. so just use ints for now
+#: src/main.js:1684 src/main.js:1702
 msgid "Go to the next page"
 msgstr ""
 
-#: src/main.js:1620
+#: src/main.js:1685 src/main.js:1703
 msgid "Go to the previous page"
 msgstr ""
 
-#: src/main.js:1624
-msgid "Search"
+#: src/main.js:1686
+msgid "Go back to previous location"
 msgstr ""
 
-#: src/main.js:1630
+#: src/main.js:1690
 msgid "View"
 msgstr ""
 
-#: src/main.js:1632
+#: src/main.js:1692
 msgid "Increase font size"
 msgstr ""
 
-#: src/main.js:1633
+#: src/main.js:1693
 msgid "Decrease font size"
 msgstr ""
 
-#: src/main.js:1662
+#: src/main.js:1694
+msgid "Toggle fullscreen"
+msgstr ""
+
+#: src/main.js:1698
+msgid "Touchpad Gestures"
+msgstr ""
+
+#: src/main.js:1704
+msgid "Zoom in"
+msgstr ""
+
+#: src/main.js:1705
+msgid "Zoom out"
+msgstr ""
+
+#: src/main.js:1734
 msgid "A simple eBook viewer"
 msgstr ""
