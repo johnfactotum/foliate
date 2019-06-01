@@ -1052,12 +1052,12 @@ class BookViewerWindow {
         })
         
         this.container = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
-        const overlay = new Gtk.Overlay()
-        overlay.add(this.webView)
-        overlay.add_overlay(this.spinner)
+        this.overlay = new Gtk.Overlay()
+        this.overlay.add(this.webView)
+        this.overlay.add_overlay(this.spinner)
         this.webView.opacity = 0
 
-        this.container.pack_start(overlay, true, true, 0)
+        this.container.pack_start(this.overlay, true, true, 0)
         this.window.add(this.container)
         this.window.show_all()
     }
@@ -1074,7 +1074,7 @@ class BookViewerWindow {
             })
     }
     bookError() {
-        this.spinner.destroy()
+        this.overlay.destroy()
         const box = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             valign: Gtk.Align.CENTER
