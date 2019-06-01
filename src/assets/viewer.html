@@ -120,14 +120,20 @@ const openBook = fileName => {
         })
 
     const onwheel = debounce(event => {
-        if (event.deltaX > 0) rendition.next()
-        else if (event.deltaX < 0) rendition.prev()
+        const { deltaX, deltaY } = event
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 0) rendition.next()
+            else if (deltaX < 0) rendition.prev()
+        } else {
+            if (deltaY > 0) rendition.next()
+            else if (deltaY < 0) rendition.prev()
+        }
     }, 100)
 
     book.ready
         .then(() =>
             document.documentElement.onwheel = event => {
-                if (Math.abs(event.deltaX) < Math.abs(event.deltaY)) return
+                if (rendition.settings.flow === 'scrolled-doc') return
                 onwheel(event)
                 event.preventDefault()
             })
