@@ -536,6 +536,9 @@ class ViewPopover {
     set theme(theme) {
         if (theme) this._themeBox.activate(theme)
     }
+    get layout() {
+        return this._layoutBox.getActive()
+    }
 }
 
 class NotesList {
@@ -1408,6 +1411,8 @@ class BookViewerWindow {
         this.headerBar.pack_end(button)
         this.accelGroup.connect(Gdk.KEY_F, Gdk.ModifierType.CONTROL_MASK, 0, () =>
             button.active = !button.active)
+        this.accelGroup.connect(Gdk.KEY_slash, 0, 0, () =>
+            button.active = !button.active)
     }
     buildView(...args) {
         const button = new Gtk.MenuButton({
@@ -1460,9 +1465,27 @@ class BookViewerWindow {
         this.accelGroup.connect(Gdk.KEY_Left, mask, 0, onPrev)
         this.accelGroup.connect(Gdk.KEY_Right, mask, 0, onNext)
 
-        this.accelGroup.connect(Gdk.KEY_B, 0, 0, onPrev)
-        this.accelGroup.connect(Gdk.KEY_space, 0, 0, onNext)
-        this.accelGroup.connect(Gdk.KEY_space, Gdk.ModifierType.SHIFT_MASK, 0, onPrev)
+        this.accelGroup.connect(Gdk.KEY_P, 0, 0, onPrev)
+        this.accelGroup.connect(Gdk.KEY_N, 0, 0, onNext)
+
+        const isPaginated = () =>
+            defaultLayouts[this.viewPopover.layout] === 'paginated'
+        this.accelGroup.connect(Gdk.KEY_space, Gdk.ModifierType.SHIFT_MASK, 0,
+            () => isPaginated() ? onPrev() : null)
+        this.accelGroup.connect(Gdk.KEY_space, 0, 0,
+            () => isPaginated() ? onNext() : null)
+
+        this.accelGroup.connect(Gdk.KEY_K, 0, 0,
+            () => isPaginated()
+                ? onPrev()
+                : this.scriptRun(`window.scrollBy(0, -100)`))
+        this.accelGroup.connect(Gdk.KEY_J, 0, 0,
+            () => isPaginated()
+                ? onNext()
+                : this.scriptRun(`window.scrollBy(0, 100)`))
+
+        this.accelGroup.connect(Gdk.KEY_H, 0, 0, onPrev)
+        this.accelGroup.connect(Gdk.KEY_L, 0, 0, onNext)
 
         this.accelGroup.connect(Gdk.KEY_Left, Gdk.ModifierType.MOD1_MASK, 0, this.navbar.goBack)
     }
@@ -1716,8 +1739,8 @@ function main(argv) {
             {
                 title: _('Navigation'),
                 shortcuts: [
-                    { accelerator: 'Right space', title: _('Go to the next page') },
-                    { accelerator: 'Left <shift>space b', title: _('Go to the previous page') },
+                    { accelerator: 'Right n', title: _('Go to the next page') },
+                    { accelerator: 'Left p', title: _('Go to the previous page') },
                     { accelerator: '<alt>Left', title: _('Go back to previous location') }
                 ]
             },
