@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
 	<schema id="com.github.johnfactotum.Foliate" path="/com/github/johnfactotum/Foliate/">
+        <key name="use-default-font" type="b">
+            <default>false</default>
+            <summary>Use default font</summary>
+            <description>If true, custom font setting is disabled</description>
+        </key>
         <key name="font" type="s">
             <default>'Sans 12'</default>
             <summary>Font</summary>
