@@ -80,7 +80,7 @@ const clearSearch = () => {
 
 const openBook = fileName => {
     book = ePub()
-    book.open(decodeURI(fileName))
+    book.open(fileName)
         .catch(() => dispatch({ type: 'book-error' }))
 
     render(book)

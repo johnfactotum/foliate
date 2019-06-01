@@ -462,7 +462,8 @@ class ViewPopover {
             const font = this._fontBox.getFont()
             const spacing = this._spacingButton.get_value()
             const theme = this._themeBox.getActive()
-            onChange({ font, spacing, theme })
+            const useDefault = this._defaultSwitch.active
+            onChange({ font, spacing, theme, useDefault })
         }
 
         this._fontBox = new FontBox(onViewChange)
@@ -486,6 +487,23 @@ class ViewPopover {
             label.get_style_context().add_class('dim-label')
             label.halign = Gtk.Align.END
         }
+
+        const defaultBox = new Gtk.Box()
+        const defaultLabel = new Gtk.Label({ label: _('Use publisher font') })
+        this._defaultSwitch = new Gtk.Switch()
+        this._defaultSwitch.active = settings.get_boolean('use-default-font')
+
+        this._fontBox.widget.sensitive = ! this._defaultSwitch.state
+
+        this._defaultSwitch.connect('state-set', (widget, state) => {
+            this._fontBox.widget.sensitive = !state
+            settings.set_boolean('use-default-font', state)
+            onViewChange()
+        })
+        defaultBox.pack_start(defaultLabel, false, true, 0)
+        defaultBox.pack_end(this._defaultSwitch, false, true, 0)
+
+        grid.attach(defaultBox, 1, -1, 1, 1)
         grid.attach(menuLabels.font, 0, 0, 1, 1)
         grid.attach(this._fontBox.widget, 1, 0, 1, 1)
         grid.attach(menuLabels.spacing, 0, 1, 1, 1)
@@ -1052,12 +1070,12 @@ class BookViewerWindow {
         })
         
         this.container = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
-        const overlay = new Gtk.Overlay()
-        overlay.add(this.webView)
-        overlay.add_overlay(this.spinner)
+        this.overlay = new Gtk.Overlay()
+        this.overlay.add(this.webView)
+        this.overlay.add_overlay(this.spinner)
         this.webView.opacity = 0
 
-        this.container.pack_start(overlay, true, true, 0)
+        this.container.pack_start(this.overlay, true, true, 0)
         this.window.add(this.container)
         this.window.show_all()
     }
@@ -1074,7 +1092,7 @@ class BookViewerWindow {
             })
     }
     bookError() {
-        this.spinner.destroy()
+        this.overlay.destroy()
         const box = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             valign: Gtk.Align.CENTER
@@ -1155,7 +1173,7 @@ class BookViewerWindow {
             }
         })
 
-        this.buildView(({ font, spacing, theme }) => {
+        this.buildView(({ font, spacing, theme, useDefault }) => {
             settings.set_string('font', font.name)
             settings.set_double('spacing', spacing)
             settings.set_string('theme', theme)
@@ -1170,16 +1188,17 @@ class BookViewerWindow {
             const fontSize = `${font.desc.get_size() / Pango.SCALE}pt`
             const fontWeight = font.desc.get_weight()
 
-            this.webViewSettings.serif_font_family = fontFamily
-            this.webViewSettings.sans_serif_font_family = fontFamily
+            this.webViewSettings.serif_font_family = useDefault? 'Serif' : fontFamily
+            this.webViewSettings.sans_serif_font_family = useDefault ? 'Sans' : fontFamily
             this.scriptRun(`
                 document.documentElement.style.filter =
                     '${invert ? 'invert(1) hue-rotate(180deg)' : 'none'}'
                 document.body.style.color = '${color}'
                 document.body.style.background = '${background}'
-
-                rendition.themes.registerRules('default', {
-                    'body': {
+            `)
+            if (!useDefault) this.scriptRun(`
+                rendition.themes.register('custom', {
+                    '.custom': {
                         'color': '${color}',
                         'background': '${background}',
                         'font-family': '"${fontFamily}" !important',
@@ -1187,15 +1206,31 @@ class BookViewerWindow {
                         'font-weight': '${fontWeight} !important',
                         'line-height': '${spacing} !important'
                     },
-                    'p': {
+                    '.custom *:not(code):not(pre)': {
+                        'font-family': '"${fontFamily}" !important'
+                    },
+                    '.custom p': {
                         'font-family': '"${fontFamily}" !important',
                         'font-size': '${fontSize} !important',
                         'font-weight': '${fontWeight} !important',
                         'line-height': '${spacing} !important'
                     },
-                    'a:link': { color: '${link}' }
+                    '.custom a:link': { color: '${link}' }
                 })
-                rendition.themes.update('default')`)
+                rendition.themes.select('custom')`)
+            else this.scriptRun(`
+                rendition.themes.register('default-font', {
+                    '.default-font': {
+                        'color': '${color}',
+                        'background': '${background}',
+                        'line-height': '${spacing} !important'
+                    },
+                    '.default-font p': {
+                        'line-height': '${spacing} !important'
+                    },
+                    '.default-font a:link': { color: '${link}' }
+                })
+                rendition.themes.select('default-font')`)
         },
         layout => {
             settings.set_string('layout', layout)

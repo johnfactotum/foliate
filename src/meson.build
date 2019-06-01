@@ -25,7 +25,7 @@ configure_file(
 )
 
 run_target('run',
-  command: join_paths(meson.build_root(), 'src', 'org.example.Application'),
+  command: join_paths(meson.build_root(), 'src', 'com.github.johnfactotum.Foliate'),
   depends: [
     src_res,
   ]
