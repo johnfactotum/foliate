@@ -94,7 +94,8 @@ const prevBottom = () => rendition.currentLocation().atStart ? null
 
 const openBook = fileName => {
     book = ePub()
-    book.open(fileName)
+    book.open(decodeURI(fileName)) // works for non-flatpak
+        .catch(() => book.open(fileName)) // works for flatpak
         .catch(() => dispatch({ type: 'book-error' }))
 
     render(book)
