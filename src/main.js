@@ -1458,6 +1458,7 @@ class BookViewerWindow {
     buildNavbar(onSlide, onPrev, onNext, onBack) {
         this.navbar = new Navbar(onSlide, onPrev, onNext, onBack)
         this.navbar.widget.show_all()
+        if (!settings.get_boolean('show-navbar')) this.navbar.widget.hide()
         this.navbar.setPending()
         this.container.pack_end(this.navbar.widget, false, true, 0)
         
@@ -1516,36 +1517,57 @@ class BookViewerWindow {
         this.menu = new Gio.Menu()
         
         const section1 = new Gio.Menu()
-        section1.append(_('Open…'), 'app.open')
         section1.append(_('Fullscreen'), 'win.fullscreen')
+        section1.append(_('Reading progress bar'), 'win.navbar')
         this.menu.append_section(null, section1)
 
         const section2 = new Gio.Menu()
-        section2.append(_('Keyboard Shortcuts'), 'app.shortcuts')
-        section2.append(_('About Foliate'), 'app.about')
+        section2.append(_('Open…'), 'app.open')
         this.menu.append_section(null, section2)
+
+        const section3 = new Gio.Menu()
+        section3.append(_('Keyboard Shortcuts'), 'app.shortcuts')
+        section3.append(_('About Foliate'), 'app.about')
+        this.menu.append_section(null, section3)
 
         button.set_menu_model(this.menu)
         this.headerBar.pack_end(button)
         this.accelGroup.connect(Gdk.KEY_F10, 0, 0, () =>
             button.active = !button.active)
 
-        const action = new Gio.SimpleAction({
+        const fullscreenAction = new Gio.SimpleAction({
             name: 'fullscreen',
             state: new GLib.Variant('b', false)
         })
-        action.connect('activate', () => {
-            let state = action.get_state().get_boolean()
+        fullscreenAction.connect('activate', () => {
+            let state = fullscreenAction.get_state().get_boolean()
             if (state) {
                 this.window.unfullscreen()
-                action.set_state(new GLib.Variant('b', false))
+                fullscreenAction.set_state(new GLib.Variant('b', false))
             } else {
                 this.window.fullscreen()
-                action.set_state(new GLib.Variant('b', true))
+                fullscreenAction.set_state(new GLib.Variant('b', true))
             }
         })
-        this.window.add_action(action)
+        this.window.add_action(fullscreenAction)
         this.application.set_accels_for_action('win.fullscreen', ['F11'])
+
+        const navbarAction = new Gio.SimpleAction({
+            name: 'navbar',
+            state: new GLib.Variant('b', settings.get_boolean('show-navbar'))
+        })
+        navbarAction.connect('activate', () => {
+            let state = navbarAction.get_state().get_boolean()
+            if (state) {
+                this.navbar.widget.hide()
+                navbarAction.set_state(new GLib.Variant('b', false))
+            } else {
+                this.navbar.widget.show()
+                navbarAction.set_state(new GLib.Variant('b', true))
+            }
+            settings.set_boolean('show-navbar', !state)
+        })
+        this.window.add_action(navbarAction)
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
