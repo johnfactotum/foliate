@@ -51,6 +51,7 @@ let coverBase64
 let searchResults
 let clearSelection
 let annotation
+let lookupEnabled = true
 let lookupResults
 let lookupLang = 'English'
 
@@ -229,7 +230,7 @@ const render = book => {
         const left = (rect.left + rect.right) / 2 + viewElementRect.left
         const top = rect.top + viewElementRect.top
         const bottom = rect.bottom + viewElementRect.top
-        if (text.split(' ').length === 1) {
+        if (text.split(' ').length === 1 && lookupEnabled) {
             clearSelection = () => contents.window.getSelection().removeAllRanges()
             annotation = { text, cfiRange }
             dispatch({

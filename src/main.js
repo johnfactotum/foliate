@@ -1253,6 +1253,8 @@ class BookViewerWindow {
             const theme = settings.get_string('theme')
             if (theme !== this.viewPopover.theme) this.viewPopover.theme = theme
         })
+
+        this.scriptRun(`lookupEnabled = ${settings.get_boolean('lookup-enabled')}`)
     }
     handleAction({ type, payload }) {
         switch (type) {
@@ -1519,6 +1521,7 @@ class BookViewerWindow {
         const section1 = new Gio.Menu()
         section1.append(_('Fullscreen'), 'win.fullscreen')
         section1.append(_('Reading progress bar'), 'win.navbar')
+        section1.append(_('Enable dictionary'), 'win.lookup')
         this.menu.append_section(null, section1)
 
         const section2 = new Gio.Menu()
@@ -1568,6 +1571,23 @@ class BookViewerWindow {
             settings.set_boolean('show-navbar', !state)
         })
         this.window.add_action(navbarAction)
+
+        const lookupAction = new Gio.SimpleAction({
+            name: 'lookup',
+            state: new GLib.Variant('b', settings.get_boolean('lookup-enabled'))
+        })
+        lookupAction.connect('activate', () => {
+            let state = lookupAction.get_state().get_boolean()
+            if (state) {
+                this.scriptRun(`lookupEnabled = false`)
+                lookupAction.set_state(new GLib.Variant('b', false))
+            } else {
+                this.scriptRun(`lookupEnabled = true`)
+                lookupAction.set_state(new GLib.Variant('b', true))
+            }
+            settings.set_boolean('lookup-enabled', !state)
+        })
+        this.window.add_action(lookupAction)
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
