@@ -144,6 +144,7 @@ const openBook = fileName => {
                 event.preventDefault()
             }
         } else {
+            if (window.outerWidth !== window.innerWidth) return
             const { deltaX, deltaY } = event
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
                 if (deltaX > 0) rendition.next()
