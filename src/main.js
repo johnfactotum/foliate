@@ -1117,6 +1117,7 @@ class BookViewerWindow {
     bookDisplayed() {
         this.spinner.destroy()
         this.webView.opacity = 1
+        this.webView.grab_focus()
     }
     bookReady() {
         this.scriptGet('book.package.metadata.title', title =>
@@ -1475,14 +1476,28 @@ class BookViewerWindow {
         this.accelGroup.connect(Gdk.KEY_space, 0, 0,
             () => isPaginated() ? onNext() : null)
 
+        this.accelGroup.connect(Gdk.KEY_Up, 0, 0,
+            () => isPaginated() ? onPrev() : null)
+        this.accelGroup.connect(Gdk.KEY_Down, 0, 0,
+            () => isPaginated() ? onNext() : null)
+
+        this.accelGroup.connect(Gdk.KEY_Page_Up, 0, 0,
+            () => isPaginated() ? onPrev() : null)
+        this.accelGroup.connect(Gdk.KEY_Page_Down, 0, 0,
+            () => isPaginated() ? onNext() : null)
+
         this.accelGroup.connect(Gdk.KEY_K, 0, 0,
             () => isPaginated()
                 ? onPrev()
-                : this.scriptRun(`window.scrollBy(0, -100)`))
+                : this.scriptRun(`
+                    if (atTop()) prevBottom()
+                    else window.scrollBy(0, -100)`))
         this.accelGroup.connect(Gdk.KEY_J, 0, 0,
             () => isPaginated()
                 ? onNext()
-                : this.scriptRun(`window.scrollBy(0, 100)`))
+                : this.scriptRun(`
+                    if (atBottom()) rendition.next()
+                    else window.scrollBy(0, 100)`))
 
         this.accelGroup.connect(Gdk.KEY_H, 0, 0, onPrev)
         this.accelGroup.connect(Gdk.KEY_L, 0, 0, onNext)

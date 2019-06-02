@@ -27,11 +27,17 @@ body {
 <div id="divider"></div>
 
 <script>
-const debounce = (f, wait) => {
+const debounce = (f, wait, immediate) => {
     let timeout
     return (...args) => {
+        const later = () => {
+            timeout = null
+            if (!immediate) f(...args)
+        }
+        const callNow = immediate && !timeout
         clearTimeout(timeout)
-        timeout = setTimeout(() => f(...args), wait)
+        timeout = setTimeout(later, wait)
+        if (callNow) f(...args)
     }
 }
 const dispatch = action => {
@@ -78,6 +84,13 @@ const clearSearch = () => {
             rendition.annotations.remove(cfi, 'underline'))
 }
 
+const atTop = () => window.scrollY === 0
+const atBottom = () =>
+    (window.innerHeight + window.scrollY) >= document.body.offsetHeight
+
+const prevBottom = () => rendition.currentLocation().atStart ? null
+    : rendition.prev().then(() => window.scrollTo(0, document.body.scrollHeight))
+
 const openBook = fileName => {
     book = ePub()
     book.open(fileName)
@@ -120,23 +133,46 @@ const openBook = fileName => {
         })
 
     const onwheel = debounce(event => {
-        const { deltaX, deltaY } = event
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            if (deltaX > 0) rendition.next()
-            else if (deltaX < 0) rendition.prev()
-        } else {
-            if (deltaY > 0) rendition.next()
-            else if (deltaY < 0) rendition.prev()
-        }
-    }, 100)
-
-    book.ready
-        .then(() =>
-            document.documentElement.onwheel = event => {
-                if (rendition.settings.flow === 'scrolled-doc') return
-                onwheel(event)
+        if (rendition.settings.flow === 'scrolled-doc') {
+            if (atBottom() && event.deltaY > 0) {
+                rendition.next().then(() =>
+                    window.scrollTo(0, 0))
                 event.preventDefault()
-            })
+            } else if (atTop() && event.deltaY < 0) {
+                prevBottom()
+                event.preventDefault()
+            }
+        } else {
+            const { deltaX, deltaY } = event
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX > 0) rendition.next()
+                else if (deltaX < 0) rendition.prev()
+            } else {
+                if (deltaY > 0) rendition.next()
+                else if (deltaY < 0) rendition.prev()
+            }
+            event.preventDefault()
+        }
+    }, 100, true)
+    displayed.then(() => document.documentElement.onwheel = onwheel)
+
+    const handleKeydown = event => {
+        if (rendition.settings.flow === 'paginated') return
+        const k = event.key
+        if (event.shiftKey && k === ' ' || k === 'ArrowUp' || k === 'PageUp') {
+            if (atTop()) {
+                prevBottom()
+                event.preventDefault()
+            }
+        } else if (k === ' ' || k === 'ArrowDown' || k === 'PageDown') {
+            if (atBottom()) {
+                rendition.next()
+                event.preventDefault()
+            }
+        }
+    }
+    rendition.on('keydown', handleKeydown)
+    document.addEventListener('keydown', handleKeydown, false)
 }
 const render = book => {
     if (rendition) rendition.destroy()
