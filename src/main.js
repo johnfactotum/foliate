@@ -493,10 +493,7 @@ class ViewPopover {
         this._defaultSwitch = new Gtk.Switch()
         this._defaultSwitch.active = settings.get_boolean('use-default-font')
 
-        this._fontBox.widget.sensitive = ! this._defaultSwitch.state
-
         this._defaultSwitch.connect('state-set', (widget, state) => {
-            this._fontBox.widget.sensitive = !state
             settings.set_boolean('use-default-font', state)
             onViewChange()
         })
@@ -1194,6 +1191,7 @@ class BookViewerWindow {
 
             this.webViewSettings.serif_font_family = useDefault? 'Serif' : fontFamily
             this.webViewSettings.sans_serif_font_family = useDefault ? 'Sans' : fontFamily
+            this.webViewSettings.default_font_family = fontFamily
             this.scriptRun(`
                 document.documentElement.style.filter =
                     '${invert ? 'invert(1) hue-rotate(180deg)' : 'none'}'
@@ -1227,9 +1225,11 @@ class BookViewerWindow {
                     '.default-font': {
                         'color': '${color}',
                         'background': '${background}',
+                        'font-size': '${fontSize} !important',
                         'line-height': '${spacing} !important'
                     },
                     '.default-font p': {
+                        'font-size': '${fontSize} !important',
                         'line-height': '${spacing} !important'
                     },
                     '.default-font a:link': { color: '${link}' }
