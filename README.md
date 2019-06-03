@@ -30,6 +30,10 @@ Website: https://johnfactotum.github.io/foliate/
 
 For Arch Linux users, two packages are available on the AUR: [`foliate`](https://aur.archlinux.org/packages/foliate/) (stable version), [`foliate-git`](https://aur.archlinux.org/packages/foliate-git/) (Git version)
 
+For Void Linux users, foliate is available in Void's official repository. Install using xbps: `xbps-install -S foliate`
+
+Note:xbps will not install gjs dependency. Install it with: `xbps-install -S gjs`
+
 ### Install manually from source
 
 First, you'll need the following dependencies:
