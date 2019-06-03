@@ -1789,15 +1789,15 @@ function main(argv) {
                 shortcuts: [
                     { accelerator: 'F9', title: _('Show table of contents') },
                     { accelerator: '<control>b', title: _('Show bookmarks') },
-                    { accelerator: '<control>f', title: _('Find in book') },
+                    { accelerator: '<control>f slash', title: _('Find in book') },
                     { accelerator: 'F10', title: _('Show menu') }
                 ]
             },
             {
                 title: _('Navigation'),
                 shortcuts: [
-                    { accelerator: 'Right n', title: _('Go to the next page') },
-                    { accelerator: 'Left p', title: _('Go to the previous page') },
+                    { accelerator: 'Right n l', title: _('Go to the next page') },
+                    { accelerator: 'Left p h', title: _('Go to the previous page') },
                     { accelerator: '<alt>Left', title: _('Go back to previous location') }
                 ]
             },
