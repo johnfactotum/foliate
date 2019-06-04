@@ -34,6 +34,8 @@ For Void Linux users, foliate is available in Void's official repository. Instal
 
 Note:xbps will not install gjs dependency. Install it with: `xbps-install -S gjs`
 
+For Fedora users, foliate is available in Fedora's official repository. Install using DNF: `sudo dnf install foliate`
+
 ### Install manually from source
 
 First, you'll need the following dependencies:
