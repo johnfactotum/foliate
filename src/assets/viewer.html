@@ -110,6 +110,7 @@ const openBook = fileName => {
             else return book.locations.generate(1600)
         })
         .then(() => localStorage.setItem(book.key()+'-locations', book.locations.save()))
+        .catch(() => { /* storage failed */ })
         .then(() => displayed)
         .then(() => dispatch({
             type: 'locations-ready',
