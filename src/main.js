@@ -450,6 +450,26 @@ class RadioBox {
         return Object.values(this._buttons).filter(x => x.active)[0].label
     }
 }
+
+class SwitchBox {
+    constructor(label, key, onChange) {
+        this.widget = new Gtk.Box()
+        const switchLabel = new Gtk.Label({ label })
+        this._switch = new Gtk.Switch()
+        this._switch.active = settings.get_boolean(key)
+
+        this._switch.connect('state-set', (widget, state) => {
+            settings.set_boolean(key, state)
+            onChange()
+        })
+        this.widget.pack_start(switchLabel, false, true, 0)
+        this.widget.pack_end(this._switch, false, true, 0)
+    }
+    get active() {
+        return this._switch.active
+    }
+}
+
 class ViewPopover {
     constructor(onChange, onLayoutChange) {
         this.widget = new Gtk.Popover({ border_width: 10 })
@@ -463,13 +483,22 @@ class ViewPopover {
             const spacing = this._spacingButton.get_value()
             const theme = this._themeBox.getActive()
             const useDefault = this._defaultSwitch.active
-            onChange({ font, spacing, theme, useDefault })
+            const justify = this._justifySwitch.active
+            const hyphenate = this._hyphenateSwitch.active
+            onChange({ font, spacing, theme, useDefault, justify, hyphenate })
         }
 
         this._fontBox = new FontBox(onViewChange)
         this._themeBox = new RadioBox(Object.keys(defaultThemes), onViewChange)
         this._layoutBox = new RadioBox(Object.keys(defaultLayouts), onLayoutChange)
         
+        this._defaultSwitch = new SwitchBox(_('Use Publisher Font'),
+            'use-default-font', onViewChange)
+        this._justifySwitch = new SwitchBox(_('Full Justification'),
+            'justify', onViewChange)
+        this._hyphenateSwitch = new SwitchBox(_('Auto-Hyphenation'),
+            'hyphenate', onViewChange)
+
         this._spacingButton = new Gtk.SpinButton()
         this._spacingButton.set_range(1, 3)
         this._spacingButton.set_digits(2)
@@ -480,7 +509,8 @@ class ViewPopover {
             font: new Gtk.Label({ label: _('Font') }),
             spacing: new Gtk.Label({ label: _('Spacing') }),
             theme: new Gtk.Label({ label: _('Theme') }),
-            layout: new Gtk.Label({ label: _('Layout') })
+            layout: new Gtk.Label({ label: _('Layout') }),
+            options: new Gtk.Label({ label: _('Options') })
         }
         for (let key in menuLabels) {
             const label = menuLabels[key]
@@ -488,19 +518,6 @@ class ViewPopover {
             label.halign = Gtk.Align.END
         }
 
-        const defaultBox = new Gtk.Box()
-        const defaultLabel = new Gtk.Label({ label: _('Use publisher font') })
-        this._defaultSwitch = new Gtk.Switch()
-        this._defaultSwitch.active = settings.get_boolean('use-default-font')
-
-        this._defaultSwitch.connect('state-set', (widget, state) => {
-            settings.set_boolean('use-default-font', state)
-            onViewChange()
-        })
-        defaultBox.pack_start(defaultLabel, false, true, 0)
-        defaultBox.pack_end(this._defaultSwitch, false, true, 0)
-
-        grid.attach(defaultBox, 1, -1, 1, 1)
         grid.attach(menuLabels.font, 0, 0, 1, 1)
         grid.attach(this._fontBox.widget, 1, 0, 1, 1)
         grid.attach(menuLabels.spacing, 0, 1, 1, 1)
@@ -510,6 +527,11 @@ class ViewPopover {
         grid.attach(new Gtk.Separator(), 0, 3, 2, 1)
         grid.attach(menuLabels.layout, 0, 4, 1, 1)
         grid.attach(this._layoutBox.widget, 1, 4, 1, 1)
+        grid.attach(new Gtk.Separator(), 0, 5, 2, 1)
+        grid.attach(menuLabels.options, 0, 6, 1, 1)
+        grid.attach(this._defaultSwitch.widget, 1, 6, 1, 1)
+        grid.attach(this._justifySwitch.widget, 1, 7, 1, 1)
+        grid.attach(this._hyphenateSwitch.widget, 1, 8, 1, 1)
         this.widget.add(grid)
         this.widget.show_all()
         this.widget.hide()
@@ -1174,7 +1196,7 @@ class BookViewerWindow {
             }
         })
 
-        this.buildView(({ font, spacing, theme, useDefault }) => {
+        this.buildView(({ font, spacing, theme, useDefault, justify, hyphenate }) => {
             settings.set_string('font', font.name)
             settings.set_double('spacing', spacing)
             settings.set_string('theme', theme)
@@ -1207,8 +1229,8 @@ class BookViewerWindow {
                         'font-size': '${fontSize} !important',
                         'font-weight': '${fontWeight} !important',
                         'line-height': '${spacing} !important',
-                        'text-align': 'justify',
-                        '-webkit-hyphens': 'auto',
+                        'text-align': '${justify ? 'justify' : 'left'}',
+                        '-webkit-hyphens': '${hyphenate ? 'auto' : 'manual'}',
                         '-webkit-hyphenate-limit-before': 3,
                         '-webkit-hyphenate-limit-after': 2,
                         '-webkit-hyphenate-limit-lines': 2
@@ -1235,8 +1257,8 @@ class BookViewerWindow {
                         'background': '${background}',
                         'font-size': '${fontSize} !important',
                         'line-height': '${spacing} !important',
-                        'text-align': 'justify',
-                        '-webkit-hyphens': 'auto',
+                        'text-align': '${justify ? 'justify' : 'left'}',
+                        '-webkit-hyphens': '${hyphenate ? 'auto' : 'manual'}',
                         '-webkit-hyphenate-limit-before': 3,
                         '-webkit-hyphenate-limit-after': 2,
                         '-webkit-hyphenate-limit-lines': 2
