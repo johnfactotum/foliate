@@ -66,8 +66,8 @@ const coloredText = (color, text) =>
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
 class Storage {
-    constructor(key) {
-        const dataDir = GLib.get_user_data_dir()
+    constructor(key, isCache) {
+        const dataDir = isCache ? GLib.get_user_cache_dir() : GLib.get_user_data_dir()
         this._destination = GLib.build_filenamev([dataDir, pkg.name,
             `${encodeURIComponent(key)}.json`])
         this._file = Gio.File.new_for_path(this._destination)
@@ -1150,6 +1150,23 @@ class BookViewerWindow {
 
         this.scriptGet('book.package.metadata.identifier', key => {
             this.storage = new Storage(key)
+            this.cache = new Storage(key, true)
+
+            const cached = this.cache.get('locations')
+            if (cached) this.scriptRun(`
+                book.locations.load(${cached})
+                displayed.then(() => dispatch({
+                    type: 'locations-ready',
+                    payload: rendition.currentLocation().start.percentage
+                }))
+            `)
+            else this.scriptRun(`book.locations.generate(1600).then(() => {
+                locations = book.locations.save()
+                displayed.then(() => dispatch({
+                    type: 'locations-generated',
+                    payload: rendition.currentLocation().start.percentage
+                }))
+            })`)
         
             const lastLocation = this.storage.get('lastLocation')
             if (lastLocation) this.scriptRun(`
@@ -1316,6 +1333,9 @@ class BookViewerWindow {
                     else this.buildProperties(metadata)
                 })
                 break
+            case 'locations-generated':
+                this.scriptGet('locations', locations =>
+                    this.cache.set('locations', locations))
             case 'locations-ready':
                 this.navbar.setReady(payload)
                 this.scriptGet(`book.spine.items.length`, n => {
