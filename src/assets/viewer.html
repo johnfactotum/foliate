@@ -215,6 +215,10 @@ const render = book => {
                 })
             }, true)
         })
+
+        const html = contents.document.documentElement
+        if (!html.getAttribute('lang') && book.package.metadata.language)
+            html.setAttribute('lang', book.package.metadata.language)
     })
     // see https://github.com/futurepress/epub.js/issues/809
     let latestViewElement
