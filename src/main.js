@@ -52,7 +52,8 @@ const defaultThemes = {
     }
 }
 const defaultLayouts = {
-    [_('Paginated')]: 'paginated',
+    [_('Auto')]: 'paginated',
+    [_('Single')]: 'single',
     [_('Scrolled')]: 'scrolled-doc'
 }
 
@@ -1276,10 +1277,13 @@ class BookViewerWindow {
         },
         layout => {
             settings.set_string('layout', layout)
-            const dividerDisplay = defaultLayouts[layout] === 'paginated' ? 'block' : 'none'
+            const value = defaultLayouts[layout]
+            const dividerDisplay = value === 'paginated' ? 'block' : 'none'
             this.scriptRun(`
-                rendition.flow('${defaultLayouts[layout]}')
+                rendition.flow('${value === 'scrolled-doc' ? 'scrolled-doc' : 'paginated'}')
                 document.getElementById('divider').style.display = '${dividerDisplay}'`)
+            if (value !== 'scrolled-doc')
+                this.scriptRun(`rendition.spread('${value === 'single' ? 'none' : 'auto'}')`)
         })
         this.viewPopover.loadSettings(
             settings.get_string('font'),
