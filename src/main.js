@@ -1152,27 +1152,27 @@ class BookViewerWindow {
             this.storage = new Storage(key)
             this.cache = new Storage(key, true)
 
+            const lastLocation = this.storage.get('lastLocation')
+            const display = lastLocation ? `"${lastLocation}"` : 'undefined'
             const cached = this.cache.get('locations')
             if (cached) this.scriptRun(`
                 book.locations.load(${cached})
-                displayed.then(() => dispatch({
-                    type: 'locations-ready',
-                    payload: rendition.currentLocation().start.percentage
-                }))
+                rendition.display(${display})
+                    .then(() => dispatch({ type: 'book-displayed' }))
+                    .then(() => dispatch({
+                        type: 'locations-ready',
+                        payload: rendition.currentLocation().start.percentage
+                    }))
             `)
-            else this.scriptRun(`book.locations.generate(1600).then(() => {
-                locations = book.locations.save()
-                displayed.then(() => dispatch({
-                    type: 'locations-generated',
-                    payload: rendition.currentLocation().start.percentage
-                }))
-            })`)
-        
-            const lastLocation = this.storage.get('lastLocation')
-            if (lastLocation) this.scriptRun(`
-                rendition.display('${lastLocation}').then(() =>
-                    dispatch({ type: 'book-displayed' }))`)
-            else this.bookDisplayed()
+            else this.scriptRun(`
+                rendition.display(${display})
+                    .then(() => dispatch({ type: 'book-displayed' }))
+                    .then(() => book.locations.generate(1600))
+                    .then(() => locations = book.locations.save())
+                    .then(() => dispatch({
+                        type: 'locations-generated',
+                        payload: rendition.currentLocation().start.percentage
+                    }))`)
             
             this.scriptGet('book.navigation.toc', toc => {
                 this.buildToc(toc, withHistory(goTo))
@@ -1214,6 +1214,9 @@ class BookViewerWindow {
             }
         })
 
+        this.scriptRun(`lookupEnabled = ${settings.get_boolean('lookup-enabled')}`)
+    }
+    renditionReady() {
         this.buildView(({ font, spacing, theme, useDefault, justify, hyphenate }) => {
             settings.set_string('font', font.name)
             settings.set_double('spacing', spacing)
@@ -1312,8 +1315,6 @@ class BookViewerWindow {
             const theme = settings.get_string('theme')
             if (theme !== this.viewPopover.theme) this.viewPopover.theme = theme
         })
-
-        this.scriptRun(`lookupEnabled = ${settings.get_boolean('lookup-enabled')}`)
     }
     handleAction({ type, payload }) {
         switch (type) {
@@ -1322,6 +1323,9 @@ class BookViewerWindow {
                 break
             case 'book-ready':
                 this.bookReady()
+                break
+            case 'rendition-ready':
+                this.renditionReady()
                 break
             case 'book-displayed':
                 this.bookDisplayed()

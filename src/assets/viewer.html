@@ -47,7 +47,7 @@ const dispatch = action => {
 }
 
 let book, rendition
-let displayed, locations
+let locations
 let coverBase64
 let searchResults
 let clearSelection
@@ -100,10 +100,10 @@ const openBook = fileName => {
         .catch(() => dispatch({ type: 'book-error' }))
 
     render(book)
-    displayed = rendition.display()
     
-    book.ready
-        .then(() => dispatch({ type: 'book-ready' }))
+    const displayed = rendition.display()
+    displayed.then(() => dispatch({ type: 'rendition-ready' }))
+    book.ready.then(() => dispatch({ type: 'book-ready' }))
     book.loaded.resources
         .then(resources => resources.createUrl(book.cover))
         .then(blobUrl => fetch(blobUrl))
