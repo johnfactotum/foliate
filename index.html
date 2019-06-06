@@ -110,7 +110,6 @@ header p {
 }
 code, pre {
     background: #e9e9e9;
-    color: #444;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;
 }
@@ -202,11 +201,14 @@ footer a:link, footer a:visited {
         <div class="grid">
             <div>
                 <div>
-                    <h3>Distribution packages</h3>
-                    <p>For Arch Linux users, two packages are available on the AUR: <a href="https://aur.archlinux.org/packages/foliate/"><code>foliate</code></a> (stable version), <a href="https://aur.archlinux.org/packages/foliate-git/"><code>foliate-git</code></a> (Git version)</p>
                     <h3>Flatpak</h3>
-                    <p>Foloiate is available on <a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate">Flathub</a>.</p>
                     <p><a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="flathub-badge-en.svg"></a></p>
+                    <h3>Distribution packages</h3>
+                    <ul>
+                        <li>Arch Linux (AUR): <a href="https://aur.archlinux.org/packages/foliate/"><code>foliate</code></a>, <a href="https://aur.archlinux.org/packages/foliate-git/"><code>foliate-git</code></a></li>
+                        <li>Void Linux: <code>xbps-install -S foliate</code></li>
+                    </ul>
+                    <p>Note: to enbale auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.</p>
                 </div>
             </div>
             <div>
@@ -235,8 +237,8 @@ sudo ninja install
             <div>
                 <div>
                     <h3>Reading progress slider not showing up?</h3>
-                    <p>In order to have the slider, Epub.js must generate locations for the entire book. For books with lots of pages, this could take a while. In the meantime, you can still read the book and use all other functionalities normally.</p>
-                    <p>Once the locations are generated, the info is stored (in localStorage provided by WebKitGTK) and should load instantly next time you open the book.</p>
+                    <p>In order to display the slider, Epub.js must generate locations for the entire book. For books with lots of pages, this could take a while. In the meantime, you can still read the book and use all other functionalities normally.</p>
+                    <p>Once the locations are generated, the info is cached and should load instantly next time you open the book.</p>
                 </div>
             </div>
             <div>
