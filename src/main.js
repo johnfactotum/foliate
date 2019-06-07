@@ -1250,7 +1250,6 @@ class BookViewerWindow {
                         'font-size': '${fontSize} !important',
                         'font-weight': '${fontWeight} !important',
                         'line-height': '${spacing} !important',
-                        'text-align': '${justify ? 'justify' : 'left'}',
                         '-webkit-hyphens': '${hyphenate ? 'auto' : 'manual'}',
                         '-webkit-hyphenate-limit-before': 3,
                         '-webkit-hyphenate-limit-after': 2,
@@ -1261,6 +1260,9 @@ class BookViewerWindow {
                     },
                     '.custom *:not(code):not(pre):not(code *):not(pre *)': {
                         'font-family': '"${fontFamily}" !important'
+                    },
+                    'p': {
+                        'text-align': '${justify ? 'justify' : 'left'}'
                     },
                     '.custom p': {
                         'font-family': '"${fontFamily}" !important',
@@ -1278,7 +1280,6 @@ class BookViewerWindow {
                         'background': '${background}',
                         'font-size': '${fontSize} !important',
                         'line-height': '${spacing} !important',
-                        'text-align': '${justify ? 'justify' : 'left'}',
                         '-webkit-hyphens': '${hyphenate ? 'auto' : 'manual'}',
                         '-webkit-hyphenate-limit-before': 3,
                         '-webkit-hyphenate-limit-after': 2,
@@ -1286,6 +1287,9 @@ class BookViewerWindow {
                     },
                     '.default-font code, .default-font pre': {
                         '-webkit-hyphens': 'none'
+                    },
+                    'p': {
+                        'text-align': '${justify ? 'justify' : 'left'}'
                     },
                     '.default-font p': {
                         'font-size': '${fontSize} !important',
