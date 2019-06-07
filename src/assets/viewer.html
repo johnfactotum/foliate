@@ -98,12 +98,34 @@ const openBook = fileName => {
     book.open(decodeURI(fileName)) // works for non-flatpak
         .catch(() => book.open(fileName)) // works for flatpak
         .catch(() => dispatch({ type: 'book-error' }))
-
-    render(book)
-    
-    const displayed = rendition.display()
-    displayed.then(() => dispatch({ type: 'rendition-ready' }))
     book.ready.then(() => dispatch({ type: 'book-ready' }))
+}
+const display = (lastLocation, cached) => {
+    rendition = book.renderTo('viewer', {})
+
+    // HACK: no idea why but have to do it twice
+    // otherwise it will fail, but only on rare occassions  ¯\_(ツ)_/¯
+    const displayed = rendition.display(lastLocation)
+        .then(() => rendition.display(lastLocation))
+
+    if (cached) {
+        book.locations.load(cached)
+        displayed
+            .then(() => dispatch({ type: 'book-displayed' }))
+            .then(() => dispatch({
+                type: 'locations-ready',
+                payload: rendition.currentLocation().start.percentage
+            }))
+    } else {
+        displayed
+            .then(() => dispatch({ type: 'book-displayed' }))
+            .then(() => book.locations.generate(1600))
+            .then(() => locations = book.locations.save())
+            .then(() => dispatch({
+                type: 'locations-generated',
+                payload: rendition.currentLocation().start.percentage
+            }))
+    }
     book.loaded.resources
         .then(resources => resources.createUrl(book.cover))
         .then(blobUrl => fetch(blobUrl))
@@ -166,11 +188,7 @@ const openBook = fileName => {
     rendition.on('keydown', handleKeydown)
     document.addEventListener('keydown', handleKeydown, false)
 }
-const render = book => {
-    if (rendition) rendition.destroy()
-    rendition = book.renderTo('viewer', {})
-
-    
+const setupRendition = () => {
     rendition.on('rendered', section => {
         dispatch({ type: 'section', payload: section.href })
     })

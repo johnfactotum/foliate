@@ -1134,19 +1134,9 @@ class BookViewerWindow {
         box.show_all()
         this.container.pack_start(box, true, true, 0)
     }
-    bookDisplayed() {
-        this.spinner.destroy()
-        this.webView.opacity = 1
-        this.webView.grab_focus()
-    }
     bookReady() {
         this.scriptGet('book.package.metadata.title', title =>
             this.headerBar.title = title)
-        
-        const goTo = x => this.scriptRun(`rendition.display('${x}')`)
-        const withHistory = f => x =>
-            this.scriptGet(`rendition.currentLocation().start.cfi`,
-                cfi => { this.navbar.pushHistory(cfi); f(x) })
 
         this.scriptGet('book.package.metadata.identifier', key => {
             this.storage = new Storage(key)
@@ -1155,47 +1145,41 @@ class BookViewerWindow {
             const lastLocation = this.storage.get('lastLocation')
             const display = lastLocation ? `"${lastLocation}"` : 'undefined'
             const cached = this.cache.get('locations')
-            if (cached) this.scriptRun(`
-                book.locations.load(${cached})
-                rendition.display(${display})
-                    .then(() => dispatch({ type: 'book-displayed' }))
-                    .then(() => dispatch({
-                        type: 'locations-ready',
-                        payload: rendition.currentLocation().start.percentage
-                    }))
-            `)
-            else this.scriptRun(`
-                rendition.display(${display})
-                    .then(() => dispatch({ type: 'book-displayed' }))
-                    .then(() => book.locations.generate(1600))
-                    .then(() => locations = book.locations.save())
-                    .then(() => dispatch({
-                        type: 'locations-generated',
-                        payload: rendition.currentLocation().start.percentage
-                    }))`)
-            
-            this.scriptGet('book.navigation.toc', toc => {
-                this.buildToc(toc, withHistory(goTo))
 
-                this.buildAnnotations(withHistory(goTo),
-                    values => this.storage.set('annotations', values),
-                    value => this.scriptRun(`
-                        rendition.annotations.remove("${value}", 'highlight')`))
-                
-                const annotations = this.storage.get('annotations', [])
-                this.annotationsPopover.init(annotations)
-                annotations.forEach(({ value, color }) =>
-                    this.scriptRun(`addAnnotation('${value}', '${color}')`))
-                
-                const cleanCfi = cfi => cfi.replace(/(^epubcfi\(|\)$)/g, '')
-                this.buildBookmarks(withHistory(goTo), add => {
-                    this.scriptGet(`rendition.currentLocation().start.cfi`, cfi => {
-                        add(cleanCfi(cfi), cfi)
-                    })
-                }, values => this.storage.set('bookmarks', values))
-                this.bookmarksPopover.init(this.storage.get('bookmarks', [])
-                    .map(x => [cleanCfi(x), x]))
-            })
+            this.scriptRun(`display(${display}, ${cached || null})`)
+        })
+    }
+    bookDisplayed() {
+        this.spinner.destroy()
+        this.webView.opacity = 1
+        this.webView.grab_focus()
+
+        const goTo = x => this.scriptRun(`rendition.display('${x}')`)
+        const withHistory = f => x =>
+            this.scriptGet(`rendition.currentLocation().start.cfi`,
+                cfi => { this.navbar.pushHistory(cfi); f(x) })
+
+        this.scriptGet('book.navigation.toc', toc => {
+            this.buildToc(toc, withHistory(goTo))
+
+            this.buildAnnotations(withHistory(goTo),
+                values => this.storage.set('annotations', values),
+                value => this.scriptRun(`
+                    rendition.annotations.remove("${value}", 'highlight')`))
+
+            const annotations = this.storage.get('annotations', [])
+            this.annotationsPopover.init(annotations)
+            annotations.forEach(({ value, color }) =>
+                this.scriptRun(`addAnnotation('${value}', '${color}')`))
+
+            const cleanCfi = cfi => cfi.replace(/(^epubcfi\(|\)$)/g, '')
+            this.buildBookmarks(withHistory(goTo), add => {
+                this.scriptGet(`rendition.currentLocation().start.cfi`, cfi => {
+                    add(cleanCfi(cfi), cfi)
+                })
+            }, values => this.storage.set('bookmarks', values))
+            this.bookmarksPopover.init(this.storage.get('bookmarks', [])
+                .map(x => [cleanCfi(x), x]))
         })
 
         this.buildNavbar(
@@ -1215,8 +1199,7 @@ class BookViewerWindow {
         })
 
         this.scriptRun(`lookupEnabled = ${settings.get_boolean('lookup-enabled')}`)
-    }
-    renditionReady() {
+
         this.buildView(({ font, spacing, theme, useDefault, justify, hyphenate }) => {
             settings.set_string('font', font.name)
             settings.set_double('spacing', spacing)
@@ -1319,6 +1302,8 @@ class BookViewerWindow {
             const theme = settings.get_string('theme')
             if (theme !== this.viewPopover.theme) this.viewPopover.theme = theme
         })
+
+        this.scriptRun(`setupRendition()`)
     }
     handleAction({ type, payload }) {
         switch (type) {
@@ -1327,9 +1312,6 @@ class BookViewerWindow {
                 break
             case 'book-ready':
                 this.bookReady()
-                break
-            case 'rendition-ready':
-                this.renditionReady()
                 break
             case 'book-displayed':
                 this.bookDisplayed()
