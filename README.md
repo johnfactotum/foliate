@@ -32,11 +32,11 @@ For Arch Linux users, two packages are available on the AUR: [`foliate`](https:/
 
 For Void Linux users, foliate is available in Void's official repository. Install using xbps: `xbps-install -S foliate`
 
+For Fedora users, foliate is available in Fedora's official repository. Install using DNF: `sudo dnf install foliate`
+
 ### Optional dependencies
 
 Auto-hyphenation is done using CSS hyphenation. To enbale CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
-
-For Fedora users, foliate is available in Fedora's official repository. Install using DNF: `sudo dnf install foliate`
 
 ### Install manually from source
 
