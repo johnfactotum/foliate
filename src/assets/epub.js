@@ -8859,11 +8859,11 @@ var Rendition = function () {
 
 			var computed = contents.window.getComputedStyle(contents.content, null);
 			var height = (contents.content.offsetHeight - (parseFloat(computed.paddingTop) + parseFloat(computed.paddingBottom))) * .95;
-			var verticalPadding = 0;
+			var horizontalPadding = parseFloat(computed.paddingLeft) + parseFloat(computed.paddingRight);
 
 			contents.addStylesheetRules({
 				"img": {
-					"max-width": (this._layout.columnWidth ? this._layout.columnWidth - verticalPadding + "px" : "100%") + "!important",
+					"max-width": (this._layout.columnWidth ? this._layout.columnWidth - horizontalPadding + "px" : "100%") + "!important",
 					"max-height": height + "px" + "!important",
 					"object-fit": "contain",
 					"page-break-inside": "avoid",
@@ -8871,7 +8871,7 @@ var Rendition = function () {
 					"box-sizing": "border-box"
 				},
 				"svg": {
-					"max-width": (this._layout.columnWidth ? this._layout.columnWidth - verticalPadding + "px" : "100%") + "!important",
+					"max-width": (this._layout.columnWidth ? this._layout.columnWidth - horizontalPadding + "px" : "100%") + "!important",
 					"max-height": height + "px" + "!important",
 					"page-break-inside": "avoid",
 					"break-inside": "avoid"
