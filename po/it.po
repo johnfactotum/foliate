@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-06 10:29+0800\n"
+"POT-Creation-Date: 2019-06-08 14:49+0800\n"
 "PO-Revision-Date: 2019-06-06 16:46+0200\n"
 "Last-Translator: Shiba\n"
 "Language-Team: Italian\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1055
-#: src/main.js:1910
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1059
+#: src/main.js:1904
 msgid "Foliate"
 msgstr ""
 
@@ -72,8 +72,8 @@ msgstr "Barra di progresso di lettura con indicatori dei capitoli"
 msgid "Bookmarks and annotations"
 msgstr "Segnalibri e annotazioni"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1471
-#: src/main.js:1854
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1465
+#: src/main.js:1848
 msgid "Find in book"
 msgstr "Trova nel libro"
 
@@ -85,80 +85,89 @@ msgstr "Ricerca rapida nel dizionario"
 msgid "John Factotum"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:47
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
-msgid "New features:"
-msgstr ""
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:48
+#, fuzzy
+msgid "Fixed some books not rendering sometimes"
+msgstr "Apri un libro e incomincia la lettura"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-msgid "Auto-hyphenation"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
-msgid "Option to switch between left and full justification"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
-msgid "New layout option: single-column paginated view"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-msgid "Fixed:"
+msgid "Fixed images being too wide in some cases"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
+msgid "New features:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
+msgid "Auto-hyphenation"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
+msgid "Option to switch between left and full justification"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
+msgid "New layout option: single-column paginated view"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
+msgid "Fixed:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
 msgid "Allow font size adjustment when using publisher fonts"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 msgid ""
 "Fixed reading progress slider not appearing after localStorage quota is "
 "exceeded"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid "Touchpad gestures and ability to scroll through pages"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
 msgid "Fullscreen mode"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "Option to hide reading progress bar"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
 msgid "Option to disable dictionary"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
 msgid "Option to use publisher font"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
 msgid "Fixes:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
 msgid "Restoring reading progress is now smooth and jank-free"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
 msgid "Fixed custom styles not applying in some cases"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
 msgid "Fixed invalid AppData file"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Initial release"
 msgstr ""
 
@@ -226,217 +235,271 @@ msgstr "Pagina successiva"
 msgid "Go back"
 msgstr "Indietro"
 
-#: src/main.js:735
+#: src/main.js:325
+#, fuzzy
+msgid "Find in Book"
+msgstr "Trova nel libro"
+
+#: src/main.js:360
+#, fuzzy
+msgid "Searching…"
+msgstr "Caricamento…"
+
+#: src/main.js:366
+msgid "No results"
+msgstr ""
+
+#: src/main.js:367
+#, javascript-format
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:500
+#, fuzzy
+msgid "Use Publisher Font"
+msgstr "Editore"
+
+#: src/main.js:502
+msgid "Full Justification"
+msgstr ""
+
+#: src/main.js:504
+msgid "Auto-Hyphenation"
+msgstr ""
+
+#: src/main.js:514
+msgid "Font"
+msgstr ""
+
+#: src/main.js:515
+msgid "Spacing"
+msgstr ""
+
+#: src/main.js:516
+msgid "Theme"
+msgstr ""
+
+#: src/main.js:517
+msgid "Layout"
+msgstr ""
+
+#: src/main.js:518
+msgid "Options"
+msgstr ""
+
+#: src/main.js:739
 msgid "No bookmarks"
 msgstr "Nessun segnalibro"
 
-#: src/main.js:736
+#: src/main.js:740
 msgid "Add some bookmarks to see them here."
 msgstr "Aggiungi un segnalibro per vederlo qui."
 
-#: src/main.js:772
+#: src/main.js:776
 msgid "Bookmark Current Location"
 msgstr "Aggiungi segnalibro in questa posizione"
 
-#: src/main.js:777
+#: src/main.js:781
 msgid "Remove Current Location"
 msgstr "Rimuovi segnalibro in questa posizione"
 
-#: src/main.js:794
+#: src/main.js:798
 msgid "No annotations"
 msgstr "Nessuna annotazione"
 
-#: src/main.js:795
+#: src/main.js:799
 msgid "Highlight some text to add annotations."
 msgstr "Evidenzia del testo per aggiungere un'annotazione."
 
-#: src/main.js:833 src/main.js:909
+#: src/main.js:837 src/main.js:913
 msgid "Copy"
 msgstr "Copia"
 
-#: src/main.js:838
+#: src/main.js:842
 msgid "Highlight"
 msgstr "Evidenzia"
 
-#: src/main.js:847
+#: src/main.js:851
 msgid "Loading…"
 msgstr "Caricamento…"
 
-#: src/main.js:856
+#: src/main.js:860
 msgid "From Wiktionary, the free dictionary"
 msgstr "Da Wikizionario, il dizionario libero"
 
-#: src/main.js:894
+#: src/main.js:898
 msgid "View Full Definition"
 msgstr "Vedi definizione completa"
 
-#: src/main.js:914
+#: src/main.js:918
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: src/main.js:919
+#: src/main.js:923
 msgid "Note"
 msgstr "Note"
 
-#: src/main.js:994
+#: src/main.js:998
 msgid "Open some books to start reading"
 msgstr "Apri un libro e incomincia la lettura"
 
-#: src/main.js:999
+#: src/main.js:1003
 msgid "Open a file, or continue reading the last opened book."
 msgstr "Apri un file o continua a leggere l'ultimo libro aperto."
 
-#: src/main.js:1003
+#: src/main.js:1007
 msgid "Open File…"
 msgstr "Apri file…"
 
-#: src/main.js:1007
+#: src/main.js:1011
 msgid "Continue Reading"
 msgstr "Continua a leggere"
 
-#: src/main.js:1128
+#: src/main.js:1132
 msgid "Oh no! The file cannot be opened"
 msgstr "Oh no! Il file non può essere aperto"
 
-#: src/main.js:1458
+#: src/main.js:1452
 msgid "Table of contents"
 msgstr "Tabella dei contenuti"
 
-#: src/main.js:1486
+#: src/main.js:1480
 msgid "Set font, theme, and layout"
 msgstr "Configura carattere, tema e impaginazione"
 
-#: src/main.js:1501
+#: src/main.js:1495
 msgid "Bookmarks"
 msgstr "Segnalibri"
 
-#: src/main.js:1515
+#: src/main.js:1509
 msgid "Annotations"
 msgstr "Annotazioni"
 
-#: src/main.js:1584
+#: src/main.js:1578
 msgid "Fullscreen"
 msgstr "Schermo intero"
 
-#: src/main.js:1585
+#: src/main.js:1579
 msgid "Reading progress bar"
 msgstr "Barra di progresso"
 
-#: src/main.js:1586
+#: src/main.js:1580
 msgid "Enable dictionary"
 msgstr "Abilita dizionario"
 
-#: src/main.js:1590
+#: src/main.js:1584
 msgid "Open…"
 msgstr "Apri…"
 
-#: src/main.js:1594
+#: src/main.js:1588
 msgid "Keyboard Shortcuts"
 msgstr "Scorciatoie da tastiera"
 
-#: src/main.js:1595
+#: src/main.js:1589
 msgid "About Foliate"
 msgstr "Informazioni su Foliate"
 
-#: src/main.js:1656 src/main.js:1676
+#: src/main.js:1650 src/main.js:1670
 msgid "About This Book"
 msgstr "Informazioni su questo libro"
 
-#: src/main.js:1739
+#: src/main.js:1733
 msgid "Publisher"
 msgstr "Editore"
 
-#: src/main.js:1740
+#: src/main.js:1734
 msgid "Publication Date"
 msgstr "Data di pubblicazione"
 
-#: src/main.js:1741
+#: src/main.js:1735
 msgid "Modified Date"
 msgstr "Ultima modifica"
 
-#: src/main.js:1742
+#: src/main.js:1736
 msgid "Language"
 msgstr "Lingua"
 
-#: src/main.js:1743
+#: src/main.js:1737
 msgid "Copyright"
 msgstr "Copyright"
 
-#: src/main.js:1744
+#: src/main.js:1738
 msgid "Identifier"
 msgstr "ID"
 
-#: src/main.js:1817
+#: src/main.js:1811
 msgid "All files"
 msgstr "Tutti i file"
 
-#: src/main.js:1821
+#: src/main.js:1815
 msgid "EPUB files"
 msgstr "File EPUB"
 
-#: src/main.js:1850
+#: src/main.js:1844
 msgid "General"
 msgstr "Generale"
 
-#: src/main.js:1852
+#: src/main.js:1846
 msgid "Show table of contents"
 msgstr "Mostra la tabella dei contenuti"
 
-#: src/main.js:1853
+#: src/main.js:1847
 msgid "Show bookmarks"
 msgstr "Mostra i segnalibri"
 
-#: src/main.js:1855
+#: src/main.js:1849
 msgid "Show menu"
 msgstr "Mostra il menu"
 
-#: src/main.js:1859
+#: src/main.js:1853
 msgid "Navigation"
 msgstr "Navigazione"
 
 #. I can't find where to access the enums in GJS,
 #. so just use ints for now
-#: src/main.js:1861 src/main.js:1879
+#: src/main.js:1855 src/main.js:1873
 msgid "Go to the next page"
 msgstr "Va alla pagina successiva"
 
-#: src/main.js:1862 src/main.js:1880
+#: src/main.js:1856 src/main.js:1874
 msgid "Go to the previous page"
 msgstr "Va alla pagina precedente"
 
-#: src/main.js:1863
+#: src/main.js:1857
 msgid "Go back to previous location"
 msgstr "Torna al punto precedente"
 
-#: src/main.js:1867
+#: src/main.js:1861
 msgid "View"
 msgstr "Visualizzazione"
 
-#: src/main.js:1869
+#: src/main.js:1863
 msgid "Increase font size"
 msgstr "Aumenta la dimensione del carattere"
 
-#: src/main.js:1870
+#: src/main.js:1864
 msgid "Decrease font size"
 msgstr "Riduce la dimensione del carattere"
 
-#: src/main.js:1871
+#: src/main.js:1865
 msgid "Toggle fullscreen"
 msgstr "Attiva/Disattiva lo schermo intero"
 
-#: src/main.js:1875
+#: src/main.js:1869
 msgid "Touchpad Gestures"
 msgstr "Gesti col touchpad"
 
-#: src/main.js:1881
+#: src/main.js:1875
 msgid "Zoom in"
 msgstr "Aumenta l'ingrandimento"
 
-#: src/main.js:1882
+#: src/main.js:1876
 msgid "Zoom out"
 msgstr "Riduce l'ingrandimento"
 
-#: src/main.js:1911
+#: src/main.js:1905
 msgid "A simple eBook viewer"
 msgstr "Un visualizzatore di eBook semplice"
 

@@ -315,6 +315,10 @@ class TocPopover {
         this._jumpList.selectSection(href)
     }
 }
+
+// workaround for xgettext bug (https://savannah.gnu.org/bugs/?50920)
+//`/`
+
 class SearchPopover {
     constructor(button, onChange, onSearch) {
         this._searchEntry = new Gtk.SearchEntry({
