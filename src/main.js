@@ -66,8 +66,11 @@ const coloredText = (color, text) =>
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
 class Storage {
-    constructor(key, isCache) {
-        const dataDir = isCache ? GLib.get_user_cache_dir() : GLib.get_user_data_dir()
+    constructor(key, type) {
+        const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
+            : type === 'config' ? GLib.get_user_config_dir()
+            : GLib.get_user_data_dir()
+
         this._destination = GLib.build_filenamev([dataDir, pkg.name,
             `${encodeURIComponent(key)}.json`])
         this._file = Gio.File.new_for_path(this._destination)
@@ -476,7 +479,7 @@ class SwitchBox {
 }
 
 class ViewPopover {
-    constructor(onChange, onLayoutChange) {
+    constructor(themes, onChange, onLayoutChange) {
         this.widget = new Gtk.Popover({ border_width: 10 })
         
         const grid = new Gtk.Grid()
@@ -494,7 +497,7 @@ class ViewPopover {
         }
 
         this._fontBox = new FontBox(onViewChange)
-        this._themeBox = new RadioBox(Object.keys(defaultThemes), onViewChange)
+        this._themeBox = new RadioBox(Object.keys(themes), onViewChange)
         this._layoutBox = new RadioBox(Object.keys(defaultLayouts), onLayoutChange)
         
         this._defaultSwitch = new SwitchBox(_('Use Publisher Font'),
@@ -1027,7 +1030,8 @@ class WelcomeScreen {
 }
 
 class BookViewerWindow {
-    constructor(application, width = -1, height = -1, fileName) {
+    constructor(application, width = -1, height = -1, fileName, themes = defaultThemes) {
+        this.themes = themes
         this.canOpen = true
 
         this.application = application
@@ -1049,8 +1053,8 @@ class BookViewerWindow {
         })
         
         const theme = settings.get_string('theme')
-        if (defaultThemes[theme]) Gtk.Settings.get_default()
-            .gtk_application_prefer_dark_theme = defaultThemes[theme].darkMode
+        if (themes[theme]) Gtk.Settings.get_default()
+            .gtk_application_prefer_dark_theme = themes[theme].darkMode
         
         this.headerBar = new Gtk.HeaderBar()
         this.headerBar.show_close_button = true
@@ -1144,7 +1148,7 @@ class BookViewerWindow {
 
         this.scriptGet('book.package.metadata.identifier', key => {
             this.storage = new Storage(key)
-            this.cache = new Storage(key, true)
+            this.cache = new Storage(key, 'cache')
 
             const lastLocation = this.storage.get('lastLocation')
             const display = lastLocation ? `"${lastLocation}"` : 'undefined'
@@ -1204,13 +1208,14 @@ class BookViewerWindow {
 
         this.scriptRun(`lookupEnabled = ${settings.get_boolean('lookup-enabled')}`)
 
-        this.buildView(({ font, spacing, theme, useDefault, justify, hyphenate }) => {
+        this.buildView(this.themes,
+        ({ font, spacing, theme, useDefault, justify, hyphenate }) => {
             settings.set_string('font', font.name)
             settings.set_double('spacing', spacing)
             settings.set_string('theme', theme)
 
             const { color, background, link, darkMode, invert } =
-                defaultThemes[theme]
+                this.themes[theme]
             
             Gtk.Settings.get_default()
                 .gtk_application_prefer_dark_theme = darkMode
@@ -1783,6 +1788,8 @@ class BookViewerWindow {
     }
 }
 function main(argv) {
+    const themes = new Storage('themes', 'config')
+
     const application = new Gtk.Application({
         application_id: pkg.name,
         flags: Gio.ApplicationFlags.HANDLES_OPEN
@@ -1793,7 +1800,8 @@ function main(argv) {
             application,
             settings.get_int('window-width'),
             settings.get_int('window-height'),
-            uri
+            uri,
+            themes.get('themes')
         )
         appWindows.add(appWindow)
         appWindow.window.connect('destroy', () => appWindows.delete(appWindow))
