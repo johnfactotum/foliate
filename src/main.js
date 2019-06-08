@@ -445,7 +445,7 @@ class RadioBox {
         }
     }
     activate(x) {
-        this._buttons[x].active = true
+        (this._buttons[x] || this._buttons[Object.keys(this._buttons)[0]]).active = true
     }
     getActive() {
         return Object.values(this._buttons).filter(x => x.active)[0].label
