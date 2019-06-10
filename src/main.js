@@ -733,12 +733,14 @@ class NotesList {
     }
 }
 class BookmarksPopover {
-    constructor(button, onActivate, onAdd, onChange) {
+    constructor(button, onActivate, onAdd, onChange, onCanAddChange) {
+        this._onCanAddChange = onCanAddChange
+
         this._notesList = new NotesList(320, 320, x => {
             onActivate(x)
             button.active = false
         }, onChange, {
-            icon: 'user-bookmarks-symbolic',
+            icon: 'non-starred-symbolic',
             title: _('No bookmarks'),
             message: _('Add some bookmarks to see them here.')
         })
@@ -778,11 +780,13 @@ class BookmarksPopover {
         this._addButton.image = new Gtk.Image({ icon_name: 'list-add-symbolic' })
         this._addButton.label = _('Bookmark Current Location')
         this._buttonAction = this._addFunc
+        this._onCanAddChange(true)
     }
     setAdded(value) {
         this._addButton.image = new Gtk.Image({ icon_name: 'edit-delete-symbolic' })
         this._addButton.label = _('Remove Current Location')
         this._buttonAction = () => this._notesList.remove(value)
+        this._onCanAddChange(false)
     }
     update(cfi) {
         this._currentCfi = cfi
@@ -1500,12 +1504,18 @@ class BookViewerWindow {
             tooltip_text: _('Bookmarks'),
             visible: true
         })
-        this.bookmarksPopover = new BookmarksPopover(button, onActivate, onAdd, onChange)
+        this.bookmarksPopover = new BookmarksPopover(button, onActivate, onAdd, onChange,
+            canAdd =>
+                button.image = canAdd
+                    ? new Gtk.Image({ icon_name: 'non-starred-symbolic' })
+                    : new Gtk.Image({ icon_name: 'starred-symbolic' }))
         button.popover = this.bookmarksPopover.widget
         this.headerBar.pack_start(button)
         
         this.accelGroup.connect(Gdk.KEY_B, Gdk.ModifierType.CONTROL_MASK, 0, () =>
             button.active = !button.active)
+        this.accelGroup.connect(Gdk.KEY_D, Gdk.ModifierType.CONTROL_MASK, 0, () =>
+            this.bookmarksPopover.doButtonAction())
     }
     buildAnnotations(onActivate, onChange, onRemove) {
         const button = new Gtk.MenuButton({
