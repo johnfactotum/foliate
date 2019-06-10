@@ -489,11 +489,12 @@ class ViewPopover {
         const onViewChange = () => {
             const font = this._fontBox.getFont()
             const spacing = this._spacingButton.get_value()
+            const margin = this._marginButton.get_value()
             const theme = this._themeBox.getActive()
             const useDefault = this._defaultSwitch.active
             const justify = this._justifySwitch.active
             const hyphenate = this._hyphenateSwitch.active
-            onChange({ font, spacing, theme, useDefault, justify, hyphenate })
+            onChange({ font, spacing, margin, theme, useDefault, justify, hyphenate })
         }
 
         this._fontBox = new FontBox(onViewChange)
@@ -512,10 +513,17 @@ class ViewPopover {
         this._spacingButton.set_digits(2)
         this._spacingButton.set_increments(0.1, 0)
         this._spacingButton.connect('value-changed', onViewChange)
+
+        this._marginButton = new Gtk.SpinButton()
+        this._marginButton.set_range(0, 40)
+        this._marginButton.set_digits(1)
+        this._marginButton.set_increments(2.5, 0)
+        this._marginButton.connect('value-changed', onViewChange)
         
         const menuLabels = {
             font: new Gtk.Label({ label: _('Font') }),
             spacing: new Gtk.Label({ label: _('Spacing') }),
+            margin: new Gtk.Label({ label: _('Margin') }),
             theme: new Gtk.Label({ label: _('Theme') }),
             layout: new Gtk.Label({ label: _('Layout') }),
             options: new Gtk.Label({ label: _('Options') })
@@ -530,16 +538,18 @@ class ViewPopover {
         grid.attach(this._fontBox.widget, 1, 0, 1, 1)
         grid.attach(menuLabels.spacing, 0, 1, 1, 1)
         grid.attach(this._spacingButton, 1, 1, 1, 1)
-        grid.attach(menuLabels.theme, 0, 2, 1, 1)
-        grid.attach(this._themeBox.widget, 1, 2, 1, 1)
-        grid.attach(new Gtk.Separator(), 0, 3, 2, 1)
-        grid.attach(menuLabels.layout, 0, 4, 1, 1)
-        grid.attach(this._layoutBox.widget, 1, 4, 1, 1)
-        grid.attach(new Gtk.Separator(), 0, 5, 2, 1)
-        grid.attach(menuLabels.options, 0, 6, 1, 1)
-        grid.attach(this._defaultSwitch.widget, 1, 6, 1, 1)
-        grid.attach(this._justifySwitch.widget, 1, 7, 1, 1)
-        grid.attach(this._hyphenateSwitch.widget, 1, 8, 1, 1)
+        grid.attach(menuLabels.margin, 0, 2, 1, 1)
+        grid.attach(this._marginButton, 1, 2, 1, 1)
+        grid.attach(menuLabels.theme, 0, 3, 1, 1)
+        grid.attach(this._themeBox.widget, 1, 3, 1, 1)
+        grid.attach(new Gtk.Separator(), 0, 4, 2, 1)
+        grid.attach(menuLabels.layout, 0, 5, 1, 1)
+        grid.attach(this._layoutBox.widget, 1, 5, 1, 1)
+        grid.attach(new Gtk.Separator(), 0, 6, 2, 1)
+        grid.attach(menuLabels.options, 0, 7, 1, 1)
+        grid.attach(this._defaultSwitch.widget, 1, 7, 1, 1)
+        grid.attach(this._justifySwitch.widget, 1, 8, 1, 1)
+        grid.attach(this._hyphenateSwitch.widget, 1, 9, 1, 1)
         this.widget.add(grid)
         this.widget.show_all()
         this.widget.hide()
@@ -550,9 +560,10 @@ class ViewPopover {
     incFont() {
         this._fontBox.inc()
     }
-    loadSettings(font, spacing, theme, layout) {
+    loadSettings(font, spacing, margin, theme, layout) {
         this._fontBox.setFont(font)
         this._spacingButton.set_value(spacing)
+        this._marginButton.set_value(margin)
         this._themeBox.activate(theme)
         this._themeBox.applyOption()
         this._layoutBox.activate(layout)
@@ -1213,9 +1224,10 @@ class BookViewerWindow {
         this.scriptRun(`lookupEnabled = ${settings.get_boolean('lookup-enabled')}`)
 
         this.buildView(this.themes,
-        ({ font, spacing, theme, useDefault, justify, hyphenate }) => {
+        ({ font, spacing, margin, theme, useDefault, justify, hyphenate }) => {
             settings.set_string('font', font.name)
             settings.set_double('spacing', spacing)
+            settings.set_double('margin', margin)
             settings.set_string('theme', theme)
 
             const { color, background, link, darkMode, invert } =
@@ -1236,6 +1248,8 @@ class BookViewerWindow {
                     '${invert ? 'invert(1) hue-rotate(180deg)' : 'none'}'
                 document.body.style.color = '${color}'
                 document.body.style.background = '${background}'
+                document.body.style.margin = '0 ${margin}%'
+                rendition.resize()
             `)
             if (!useDefault) this.scriptRun(`
                 rendition.themes.register('custom', {
@@ -1298,16 +1312,15 @@ class BookViewerWindow {
         layout => {
             settings.set_string('layout', layout)
             const value = defaultLayouts[layout]
-            const dividerDisplay = value === 'paginated' ? 'block' : 'none'
             this.scriptRun(`
-                rendition.flow('${value === 'scrolled-doc' ? 'scrolled-doc' : 'paginated'}')
-                document.getElementById('divider').style.display = '${dividerDisplay}'`)
+                rendition.flow('${value === 'scrolled-doc' ? 'scrolled-doc' : 'paginated'}')`)
             if (value !== 'scrolled-doc')
                 this.scriptRun(`rendition.spread('${value === 'single' ? 'none' : 'auto'}')`)
         })
         this.viewPopover.loadSettings(
             settings.get_string('font'),
             settings.get_double('spacing'),
+            settings.get_double('margin'),
             settings.get_string('theme'),
             settings.get_string('layout'))
         

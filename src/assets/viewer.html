@@ -5,19 +5,18 @@
 body {
     margin: 0;
 }
-@media (min-width: 800px) {
-    #divider {
-        position: absolute;
-        width: 1px;
-        border-right: 1px solid;
-        height: 100%;
-        z-index: 1;
-        left: 50%;
-        margin-left: -1px;
-        top: 0;
-        opacity: 0.2;
-        content:  "";
-    }
+#divider {
+    position: absolute;
+    width: 1px;
+    border-right: 1px solid;
+    height: 100%;
+    z-index: 1;
+    left: 50%;
+    margin-left: -1px;
+    top: 0;
+    opacity: 0.2;
+    content:  "";
+    display: none;
 }
 </style>
 <script src="jszip.min.js"></script>
@@ -101,7 +100,7 @@ const openBook = fileName => {
     book.ready.then(() => dispatch({ type: 'book-ready' }))
 }
 const display = (lastLocation, cached) => {
-    rendition = book.renderTo('viewer', {})
+    rendition = book.renderTo('viewer', { width: '100%' })
 
     // HACK: no idea why but have to do it twice
     // otherwise it will fail, but only on rare occassions  ¯\_(ツ)_/¯
@@ -189,6 +188,11 @@ const display = (lastLocation, cached) => {
     document.addEventListener('keydown', handleKeydown, false)
 }
 const setupRendition = () => {
+    rendition.on("layout", layout =>
+        document.getElementById('divider').style.display =
+            layout.spread && document.getElementById('viewer').clientWidth > 800
+                ? 'block' : 'none')
+
     rendition.on('rendered', section => {
         dispatch({ type: 'section', payload: section.href })
     })
