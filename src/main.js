@@ -1876,6 +1876,7 @@ function main(argv) {
                 shortcuts: [
                     { accelerator: 'F9', title: _('Show table of contents') },
                     { accelerator: '<control>b', title: _('Show bookmarks') },
+                    { accelerator: '<control>d', title: _('Bookmark current location') },
                     { accelerator: '<control>f', title: _('Find in book') },
                     { accelerator: 'F10', title: _('Show menu') },
                     { accelerator: '<control>q', title: _('Quit') }
