@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-10 19:18+0800\n"
+"POT-Creation-Date: 2019-06-10 19:34+0800\n"
 "PO-Revision-Date: 2019-05-28 15:45+0800\n"
 "Last-Translator: John Factotum\n"
 "Language-Team: none\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1078
-#: src/main.js:1936
+#: src/main.js:1937
 msgid "Foliate"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgid "Bookmarks and annotations"
 msgstr "書籤與註解"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1487
-#: src/main.js:1879
+#: src/main.js:1880
 msgid "Find in book"
 msgstr "搜尋書籍內容"
 
@@ -449,60 +449,64 @@ msgstr "顯示目錄"
 msgid "Show bookmarks"
 msgstr "顯示書籤"
 
-#: src/main.js:1880
+#: src/main.js:1879
+msgid "Bookmark current location"
+msgstr "將目前位置加入書籤"
+
+#: src/main.js:1881
 msgid "Show menu"
 msgstr "顯示選單"
 
-#: src/main.js:1881
+#: src/main.js:1882
 msgid "Quit"
 msgstr "結束"
 
-#: src/main.js:1885
+#: src/main.js:1886
 msgid "Navigation"
 msgstr "瀏覽"
 
 #. I can't find where to access the enums in GJS,
 #. so just use ints for now
-#: src/main.js:1887 src/main.js:1905
+#: src/main.js:1888 src/main.js:1906
 msgid "Go to the next page"
 msgstr "前往下一頁"
 
-#: src/main.js:1888 src/main.js:1906
+#: src/main.js:1889 src/main.js:1907
 msgid "Go to the previous page"
 msgstr "前往上一頁"
 
-#: src/main.js:1889
+#: src/main.js:1890
 msgid "Go back to previous location"
 msgstr "返回先前位置"
 
-#: src/main.js:1893
+#: src/main.js:1894
 msgid "View"
 msgstr "檢視"
 
-#: src/main.js:1895
+#: src/main.js:1896
 msgid "Increase font size"
 msgstr "放大字體"
 
-#: src/main.js:1896
+#: src/main.js:1897
 msgid "Decrease font size"
 msgstr "縮小字體"
 
-#: src/main.js:1897
+#: src/main.js:1898
 msgid "Toggle fullscreen"
 msgstr "切換全螢幕"
 
-#: src/main.js:1901
+#: src/main.js:1902
 msgid "Touchpad Gestures"
 msgstr "觸控板手勢"
 
-#: src/main.js:1907
+#: src/main.js:1908
 msgid "Zoom in"
 msgstr "放大"
 
-#: src/main.js:1908
+#: src/main.js:1909
 msgid "Zoom out"
 msgstr "縮小"
 
-#: src/main.js:1937
+#: src/main.js:1938
 msgid "A simple eBook viewer"
 msgstr "一個簡單的電子書閱讀器"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-10 19:18+0800\n"
+"POT-Creation-Date: 2019-06-10 19:34+0800\n"
 "Last-Translator: Schwonder Reismus <schw0reismus@protonmail.com>\n"
 "Language: Russian\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1078
-#: src/main.js:1936
+#: src/main.js:1937
 msgid "Foliate"
 msgstr ""
 
@@ -71,7 +71,7 @@ msgid "Bookmarks and annotations"
 msgstr "Закладки и примечания"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1487
-#: src/main.js:1879
+#: src/main.js:1880
 msgid "Find in book"
 msgstr "Поиск по книге"
 
@@ -456,61 +456,66 @@ msgstr "Показать оглавление"
 msgid "Show bookmarks"
 msgstr "Показать закладки"
 
-#: src/main.js:1880
+#: src/main.js:1879
+#, fuzzy
+msgid "Bookmark current location"
+msgstr "Положить закладку"
+
+#: src/main.js:1881
 msgid "Show menu"
 msgstr "Показать меню"
 
-#: src/main.js:1881
+#: src/main.js:1882
 msgid "Quit"
 msgstr ""
 
-#: src/main.js:1885
+#: src/main.js:1886
 msgid "Navigation"
 msgstr "Навигация"
 
 #. I can't find where to access the enums in GJS,
 #. so just use ints for now
-#: src/main.js:1887 src/main.js:1905
+#: src/main.js:1888 src/main.js:1906
 msgid "Go to the next page"
 msgstr "На следующую страницу"
 
-#: src/main.js:1888 src/main.js:1906
+#: src/main.js:1889 src/main.js:1907
 msgid "Go to the previous page"
 msgstr "На предыдущую страницу"
 
-#: src/main.js:1889
+#: src/main.js:1890
 msgid "Go back to previous location"
 msgstr "В предыдущее расположение"
 
-#: src/main.js:1893
+#: src/main.js:1894
 msgid "View"
 msgstr "Вид"
 
-#: src/main.js:1895
+#: src/main.js:1896
 msgid "Increase font size"
 msgstr "Увеличить шрифт"
 
-#: src/main.js:1896
+#: src/main.js:1897
 msgid "Decrease font size"
 msgstr "Уменьшить шрифт"
 
-#: src/main.js:1897
+#: src/main.js:1898
 msgid "Toggle fullscreen"
 msgstr "На весь экран"
 
-#: src/main.js:1901
+#: src/main.js:1902
 msgid "Touchpad Gestures"
 msgstr "Жесты тачпада"
 
-#: src/main.js:1907
+#: src/main.js:1908
 msgid "Zoom in"
 msgstr "Увеличить"
 
-#: src/main.js:1908
+#: src/main.js:1909
 msgid "Zoom out"
 msgstr "Уменьшить"
 
-#: src/main.js:1937
+#: src/main.js:1938
 msgid "A simple eBook viewer"
 msgstr "Простая программа для чтения электронных книг"
 
