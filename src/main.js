@@ -1864,7 +1864,8 @@ function main(argv) {
                     { accelerator: 'F9', title: _('Show table of contents') },
                     { accelerator: '<control>b', title: _('Show bookmarks') },
                     { accelerator: '<control>f', title: _('Find in book') },
-                    { accelerator: 'F10', title: _('Show menu') }
+                    { accelerator: 'F10', title: _('Show menu') },
+                    { accelerator: '<control>q', title: _('Quit') }
                 ]
             },
             {
@@ -1931,6 +1932,12 @@ function main(argv) {
         aboutDialog.show()
     })
     application.add_action(actionAbout)
+
+    const actionQuit = new Gio.SimpleAction({ name: 'quit' })
+    actionQuit.connect('activate', () =>
+        [...appWindows].forEach(window => window.window.close()))
+    application.add_action(actionQuit)
+    application.set_accels_for_action('app.quit', ['<Control>q'])
 
     return application.run(argv)
 }
