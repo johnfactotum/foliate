@@ -1258,7 +1258,7 @@ class BookViewerWindow {
                         'font-family': '"${fontFamily}" !important'
                     },
                     'p': {
-                        'text-align': '${justify ? 'justify' : 'left'}'
+                        'text-align': '${justify ? 'justify' : 'inherit'}'
                     },
                     '.custom p': {
                         'font-family': '"${fontFamily}" !important',
@@ -1285,7 +1285,7 @@ class BookViewerWindow {
                         '-webkit-hyphens': 'none'
                     },
                     'p': {
-                        'text-align': '${justify ? 'justify' : 'left'}'
+                        'text-align': '${justify ? 'justify' : 'inherit'}'
                     },
                     '.default-font p': {
                         'font-size': '${fontSize} !important',
