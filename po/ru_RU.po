@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-08 14:49+0800\n"
+"POT-Creation-Date: 2019-06-10 19:18+0800\n"
 "Last-Translator: Schwonder Reismus <schw0reismus@protonmail.com>\n"
 "Language: Russian\n"
 "MIME-Version: 1.0\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1059
-#: src/main.js:1904
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1078
+#: src/main.js:1936
 msgid "Foliate"
 msgstr ""
 
@@ -70,8 +70,8 @@ msgstr "Ползунок навигации с отметками глав"
 msgid "Bookmarks and annotations"
 msgstr "Закладки и примечания"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1465
-#: src/main.js:1848
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1487
+#: src/main.js:1879
 msgid "Find in book"
 msgstr "Поиск по книге"
 
@@ -225,284 +225,292 @@ msgstr "Вода"
 msgid "Lime"
 msgstr "Лайм"
 
-#: src/main.js:136
+#: src/main.js:139
 msgid "Previous page"
 msgstr "Предыдущая страница"
 
-#: src/main.js:141
+#: src/main.js:144
 msgid "Next page"
 msgstr "Следующая страница"
 
-#: src/main.js:152
+#: src/main.js:155
 msgid "Go back"
 msgstr "Назад"
 
-#: src/main.js:325
+#: src/main.js:328
 #, fuzzy
 msgid "Find in Book"
 msgstr "Поиск по книге"
 
-#: src/main.js:360
+#: src/main.js:363
 #, fuzzy
 msgid "Searching…"
 msgstr "Поиск…"
 
-#: src/main.js:366
+#: src/main.js:369
 msgid "No results"
 msgstr "Нет результатов"
 
-#: src/main.js:367
+#: src/main.js:370
 #, javascript-format
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d совпадение"
 msgstr[1] "%d совпадений"
 
-#: src/main.js:500
+#: src/main.js:504
 #, fuzzy
 msgid "Use Publisher Font"
 msgstr "Шрифт издателя"
 
-#: src/main.js:502
+#: src/main.js:506
 msgid "Full Justification"
 msgstr "Выравнивание по ширине"
 
-#: src/main.js:504
+#: src/main.js:508
 #, fuzzy
 msgid "Auto-Hyphenation"
 msgstr "Автоперенос"
 
-#: src/main.js:514
+#: src/main.js:524
 msgid "Font"
 msgstr "Шрифт"
 
-#: src/main.js:515
+#: src/main.js:525
 msgid "Spacing"
 msgstr "Интервал"
 
-#: src/main.js:516
+#: src/main.js:526
+msgid "Margin"
+msgstr ""
+
+#: src/main.js:527
 msgid "Theme"
 msgstr "Тема"
 
-#: src/main.js:517
+#: src/main.js:528
 msgid "Layout"
 msgstr "Вид"
 
-#: src/main.js:518
+#: src/main.js:529
 msgid "Options"
 msgstr "Опции"
 
-#: src/main.js:739
+#: src/main.js:755
 msgid "No bookmarks"
 msgstr "Нет закладок"
 
-#: src/main.js:740
+#: src/main.js:756
 msgid "Add some bookmarks to see them here."
 msgstr "Добавьте закладки, чтобы увидеть их здесь."
 
-#: src/main.js:776
+#: src/main.js:792
 msgid "Bookmark Current Location"
 msgstr "Положить закладку"
 
-#: src/main.js:781
+#: src/main.js:798
 msgid "Remove Current Location"
 msgstr "Удалить закладку"
 
-#: src/main.js:798
+#: src/main.js:816
 msgid "No annotations"
 msgstr "Нет примечаний"
 
-#: src/main.js:799
+#: src/main.js:817
 msgid "Highlight some text to add annotations."
 msgstr "Выделите текст, чтобы добавить примечание."
 
-#: src/main.js:837 src/main.js:913
+#: src/main.js:855 src/main.js:931
 msgid "Copy"
 msgstr "Копировать"
 
-#: src/main.js:842
+#: src/main.js:860
 msgid "Highlight"
 msgstr "Выделить"
 
-#: src/main.js:851
+#: src/main.js:869
 msgid "Loading…"
 msgstr "Загрузка…"
 
-#: src/main.js:860
+#: src/main.js:878
 msgid "From Wiktionary, the free dictionary"
 msgstr "Из Викисловаря — открытого словаря"
 
-#: src/main.js:898
+#: src/main.js:916
 msgid "View Full Definition"
 msgstr "Смотреть полное определение"
 
-#: src/main.js:918
+#: src/main.js:936
 msgid "Remove"
 msgstr "Удалить"
 
-#: src/main.js:923
+#: src/main.js:941
 msgid "Note"
 msgstr "Заметка"
 
-#: src/main.js:998
+#: src/main.js:1016
 msgid "Open some books to start reading"
 msgstr "Откройте книгу, чтобы начать чтение"
 
-#: src/main.js:1003
+#: src/main.js:1021
 msgid "Open a file, or continue reading the last opened book."
 msgstr "Откройте файл или продолжите читать последнюю открытую книгу"
 
-#: src/main.js:1007
+#: src/main.js:1025
 msgid "Open File…"
 msgstr "Открыть файл…"
 
-#: src/main.js:1011
+#: src/main.js:1029
 msgid "Continue Reading"
 msgstr "Продолжить чтение"
 
-#: src/main.js:1132
+#: src/main.js:1151
 msgid "Oh no! The file cannot be opened"
 msgstr "О нет! Файл не может быть открыт"
 
-#: src/main.js:1452
+#: src/main.js:1474
 msgid "Table of contents"
 msgstr "Оглавление"
 
-#: src/main.js:1480
+#: src/main.js:1502
 msgid "Set font, theme, and layout"
 msgstr "Установите шрифт, тему и режим просмотра"
 
-#: src/main.js:1495
+#: src/main.js:1517
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: src/main.js:1509
+#: src/main.js:1537
 msgid "Annotations"
 msgstr "Примечания"
 
-#: src/main.js:1578
+#: src/main.js:1606
 msgid "Fullscreen"
 msgstr "На весь экран"
 
-#: src/main.js:1579
+#: src/main.js:1607
 msgid "Reading progress bar"
 msgstr "Навигация"
 
-#: src/main.js:1580
+#: src/main.js:1608
 msgid "Enable dictionary"
 msgstr "Включить словарь"
 
-#: src/main.js:1584
+#: src/main.js:1612
 msgid "Open…"
 msgstr "Открыть…"
 
-#: src/main.js:1588
+#: src/main.js:1616
 msgid "Keyboard Shortcuts"
 msgstr "Сочетания клавиш"
 
-#: src/main.js:1589
+#: src/main.js:1617
 msgid "About Foliate"
 msgstr "О Foliate"
 
-#: src/main.js:1650 src/main.js:1670
+#: src/main.js:1678 src/main.js:1698
 msgid "About This Book"
 msgstr "Об этой книге"
 
-#: src/main.js:1733
+#: src/main.js:1761
 msgid "Publisher"
 msgstr "Издатель"
 
-#: src/main.js:1734
+#: src/main.js:1762
 msgid "Publication Date"
 msgstr "Дата публикации"
 
-#: src/main.js:1735
+#: src/main.js:1763
 msgid "Modified Date"
 msgstr "Дата изменения"
 
-#: src/main.js:1736
+#: src/main.js:1764
 msgid "Language"
 msgstr "Язык"
 
-#: src/main.js:1737
+#: src/main.js:1765
 msgid "Copyright"
 msgstr "Авторские права"
 
-#: src/main.js:1738
+#: src/main.js:1766
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: src/main.js:1811
+#: src/main.js:1842
 msgid "All files"
 msgstr "Все файлы"
 
-#: src/main.js:1815
+#: src/main.js:1846
 msgid "EPUB files"
 msgstr "Файлы EPUB"
 
-#: src/main.js:1844
+#: src/main.js:1875
 msgid "General"
 msgstr "Общее"
 
-#: src/main.js:1846
+#: src/main.js:1877
 msgid "Show table of contents"
 msgstr "Показать оглавление"
 
-#: src/main.js:1847
+#: src/main.js:1878
 msgid "Show bookmarks"
 msgstr "Показать закладки"
 
-#: src/main.js:1849
+#: src/main.js:1880
 msgid "Show menu"
 msgstr "Показать меню"
 
-#: src/main.js:1853
+#: src/main.js:1881
+msgid "Quit"
+msgstr ""
+
+#: src/main.js:1885
 msgid "Navigation"
 msgstr "Навигация"
 
 #. I can't find where to access the enums in GJS,
 #. so just use ints for now
-#: src/main.js:1855 src/main.js:1873
+#: src/main.js:1887 src/main.js:1905
 msgid "Go to the next page"
 msgstr "На следующую страницу"
 
-#: src/main.js:1856 src/main.js:1874
+#: src/main.js:1888 src/main.js:1906
 msgid "Go to the previous page"
 msgstr "На предыдущую страницу"
 
-#: src/main.js:1857
+#: src/main.js:1889
 msgid "Go back to previous location"
 msgstr "В предыдущее расположение"
 
-#: src/main.js:1861
+#: src/main.js:1893
 msgid "View"
 msgstr "Вид"
 
-#: src/main.js:1863
+#: src/main.js:1895
 msgid "Increase font size"
 msgstr "Увеличить шрифт"
 
-#: src/main.js:1864
+#: src/main.js:1896
 msgid "Decrease font size"
 msgstr "Уменьшить шрифт"
 
-#: src/main.js:1865
+#: src/main.js:1897
 msgid "Toggle fullscreen"
 msgstr "На весь экран"
 
-#: src/main.js:1869
+#: src/main.js:1901
 msgid "Touchpad Gestures"
 msgstr "Жесты тачпада"
 
-#: src/main.js:1875
+#: src/main.js:1907
 msgid "Zoom in"
 msgstr "Увеличить"
 
-#: src/main.js:1876
+#: src/main.js:1908
 msgid "Zoom out"
 msgstr "Уменьшить"
 
-#: src/main.js:1905
+#: src/main.js:1937
 msgid "A simple eBook viewer"
 msgstr "Простая программа для чтения электронных книг"
 
