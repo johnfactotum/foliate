@@ -1604,8 +1604,8 @@ class BookViewerWindow {
         
         const section1 = new Gio.Menu()
         section1.append(_('Fullscreen'), 'win.fullscreen')
-        section1.append(_('Reading progress bar'), 'win.navbar')
-        section1.append(_('Enable dictionary'), 'win.lookup')
+        section1.append(_('Reading Progress Bar'), 'win.navbar')
+        section1.append(_('Enable Dictionary'), 'win.lookup')
         this.menu.append_section(null, section1)
 
         const section2 = new Gio.Menu()
