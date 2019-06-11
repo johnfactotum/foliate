@@ -170,15 +170,19 @@ const display = (lastLocation, cached) => {
     displayed.then(() => document.documentElement.onwheel = onwheel)
 
     const handleKeydown = event => {
-        if (rendition.settings.flow === 'paginated') return
+        const paginated = rendition.settings.flow === 'paginated'
         const k = event.key
-        if (event.shiftKey && k === ' ' || k === 'ArrowUp' || k === 'PageUp') {
-            if (atTop()) {
+        if (k === 'ArrowLeft') rendition.prev()
+        else if(k === 'ArrowRight') rendition.next()
+        else if (event.shiftKey && k === ' ' || k === 'ArrowUp' || k === 'PageUp') {
+            if (paginated) rendition.prev()
+            else if (atTop()) {
                 prevBottom()
                 event.preventDefault()
             }
         } else if (k === ' ' || k === 'ArrowDown' || k === 'PageDown') {
-            if (atBottom()) {
+            if (paginated) rendition.next()
+            else if (atBottom()) {
                 rendition.next()
                 event.preventDefault()
             }

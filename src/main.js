@@ -1078,9 +1078,6 @@ class BookViewerWindow {
         this.window.title = _('Foliate')
         this.window.show_all()
         
-        this.accelGroup = new Gtk.AccelGroup()
-        this.window.add_accel_group(this.accelGroup)
-        
         this.buildMenu()
         if (fileName) this.open(fileName)
         else {
@@ -1467,6 +1464,12 @@ class BookViewerWindow {
             }
         }
     }
+    addShortcut(accels, name, func) {
+        const action = new Gio.SimpleAction({ name })
+        action.connect('activate', func)
+        this.window.add_action(action)
+        this.application.set_accels_for_action(`win.${name}`, accels)
+    }
     buildToc(toc, onChange) {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'view-list-symbolic' }),
@@ -1477,7 +1480,7 @@ class BookViewerWindow {
         this.tocPopover = new TocPopover(toc, button, onChange)
         button.popover = this.tocPopover.widget
         this.headerBar.pack_start(button)
-        this.accelGroup.connect(Gdk.KEY_F9, 0, 0, () =>
+        this.addShortcut(['F9'], 'toc-popover', () =>
             button.active = !button.active)
     }
     buildSearch(onChange, onSearch) {
@@ -1490,9 +1493,7 @@ class BookViewerWindow {
         this.searchPopover = new SearchPopover(button, onChange, onSearch)
         button.popover = this.searchPopover.widget
         this.headerBar.pack_end(button)
-        this.accelGroup.connect(Gdk.KEY_F, Gdk.ModifierType.CONTROL_MASK, 0, () =>
-            button.active = !button.active)
-        this.accelGroup.connect(Gdk.KEY_slash, 0, 0, () =>
+        this.addShortcut(['<Control>f', 'slash'], 'search-popover', () =>
             button.active = !button.active)
     }
     buildView(...args) {
@@ -1506,9 +1507,10 @@ class BookViewerWindow {
         button.popover = this.viewPopover.widget
         this.headerBar.pack_end(button)
 
-        this.accelGroup.connect(Gdk.KEY_minus, 0, 0, () => this.viewPopover.decFont())
-        this.accelGroup.connect(Gdk.KEY_equal, 0, 0, () => this.viewPopover.incFont())
-        this.accelGroup.connect(Gdk.KEY_plus, 0, 0, () => this.viewPopover.incFont())
+        this.addShortcut(['minus', '<Control>minus'], 'font-dec', () =>
+            this.viewPopover.decFont())
+        this.addShortcut(['plus', 'equal', '<Control>plus', '<Control>equal'],
+            'font-inc', () => this.viewPopover.incFont())
     }
     buildBookmarks(onActivate, onAdd, onChange) {
         const button = new Gtk.MenuButton({
@@ -1525,9 +1527,9 @@ class BookViewerWindow {
         button.popover = this.bookmarksPopover.widget
         this.headerBar.pack_start(button)
         
-        this.accelGroup.connect(Gdk.KEY_B, Gdk.ModifierType.CONTROL_MASK, 0, () =>
+        this.addShortcut(['<Control>b'], 'bookmark-popover', () =>
             button.active = !button.active)
-        this.accelGroup.connect(Gdk.KEY_D, Gdk.ModifierType.CONTROL_MASK, 0, () =>
+        this.addShortcut(['<Control>d'], 'bookmark-add', () =>
             this.bookmarksPopover.doButtonAction())
     }
     buildAnnotations(onActivate, onChange, onRemove) {
@@ -1548,48 +1550,26 @@ class BookViewerWindow {
         this.navbar.setPending()
         this.container.pack_end(this.navbar.widget, false, true, 0)
         
-        // somehow only GDK_LOCK_MASK works, not 0 or GDK_MODIFIER_MASK
-        const mask = Gdk.ModifierType.LOCK_MASK
-        this.accelGroup.connect(Gdk.KEY_Left, mask, 0, onPrev)
-        this.accelGroup.connect(Gdk.KEY_Right, mask, 0, onNext)
-
-        this.accelGroup.connect(Gdk.KEY_P, 0, 0, onPrev)
-        this.accelGroup.connect(Gdk.KEY_N, 0, 0, onNext)
+        this.addShortcut(['p', 'h'], 'go-prev', onPrev)
+        this.addShortcut(['n', 'l'], 'go-next', onNext)
 
         const isPaginated = () =>
             defaultLayouts[this.viewPopover.layout] === 'paginated'
-        this.accelGroup.connect(Gdk.KEY_space, Gdk.ModifierType.SHIFT_MASK, 0,
-            () => isPaginated() ? onPrev() : null)
-        this.accelGroup.connect(Gdk.KEY_space, 0, 0,
-            () => isPaginated() ? onNext() : null)
 
-        this.accelGroup.connect(Gdk.KEY_Up, 0, 0,
-            () => isPaginated() ? onPrev() : null)
-        this.accelGroup.connect(Gdk.KEY_Down, 0, 0,
-            () => isPaginated() ? onNext() : null)
-
-        this.accelGroup.connect(Gdk.KEY_Page_Up, 0, 0,
-            () => isPaginated() ? onPrev() : null)
-        this.accelGroup.connect(Gdk.KEY_Page_Down, 0, 0,
-            () => isPaginated() ? onNext() : null)
-
-        this.accelGroup.connect(Gdk.KEY_K, 0, 0,
+        this.addShortcut(['k'], 'go-up',
             () => isPaginated()
                 ? onPrev()
                 : this.scriptRun(`
                     if (atTop()) prevBottom()
                     else window.scrollBy(0, -100)`))
-        this.accelGroup.connect(Gdk.KEY_J, 0, 0,
+        this.addShortcut(['j'], 'go-down',
             () => isPaginated()
                 ? onNext()
                 : this.scriptRun(`
                     if (atBottom()) rendition.next()
                     else window.scrollBy(0, 100)`))
 
-        this.accelGroup.connect(Gdk.KEY_H, 0, 0, onPrev)
-        this.accelGroup.connect(Gdk.KEY_L, 0, 0, onNext)
-
-        this.accelGroup.connect(Gdk.KEY_Left, Gdk.ModifierType.MOD1_MASK, 0, this.navbar.goBack)
+        this.addShortcut(['<Alt>Left'], 'go-back', this.navbar.goBack)
     }
     buildMenu() {
         const button = new Gtk.MenuButton({
@@ -1619,8 +1599,7 @@ class BookViewerWindow {
 
         button.set_menu_model(this.menu)
         this.headerBar.pack_end(button)
-        this.accelGroup.connect(Gdk.KEY_F10, 0, 0, () =>
-            button.active = !button.active)
+        this.addShortcut(['F10'], 'menu', () => button.active = !button.active)
 
         const fullscreenAction = new Gio.SimpleAction({
             name: 'fullscreen',
