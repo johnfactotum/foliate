@@ -537,7 +537,7 @@ class ViewPopover {
         const menuLabels = {
             font: new Gtk.Label({ label: _('Font') }),
             spacing: new Gtk.Label({ label: _('Spacing') }),
-            margin: new Gtk.Label({ label: _('Margin') }),
+            margin: new Gtk.Label({ label: _('Margins') }),
             brightness: new Gtk.Label({ label: _('Brightness') }),
             theme: new Gtk.Label({ label: _('Theme') }),
             layout: new Gtk.Label({ label: _('Layout') }),
