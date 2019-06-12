@@ -45,6 +45,7 @@ First, you'll need the following dependencies:
 - `webkit2gtk`
 - `libsoup`
 - `meson`
+- `gettext`
 
 Then run the follwing commands:
 
