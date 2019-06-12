@@ -525,13 +525,13 @@ class ViewPopover {
 
         this._brightnessSlider = new Gtk.Scale({
             orientation: Gtk.Orientation.HORIZONTAL,
-            adjustment: new Gtk.Adjustment({ lower: 0.5, upper: 1.2 }),
+            adjustment: new Gtk.Adjustment({ lower: 0.5, upper: 1.2, step_increment: 0.05 }),
             digits: 2,
             value_pos: Gtk.PositionType.RIGHT
         })
         this._brightnessSlider.connect('format-value', (_, x) => `${Math.round(x * 100)}%`)
         this._brightnessSlider.set_value(1)
-        this._brightnessSlider.add_mark(1, Gtk.PositionType.BOTTOM, null)
+        this._brightnessSlider.add_mark(1, Gtk.PositionType.TOP, null)
         this._brightnessSlider.connect('value-changed', onViewChange)
         
         const menuLabels = {
