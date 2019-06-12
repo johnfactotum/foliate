@@ -189,8 +189,10 @@ class Navbar {
         this._slider.show()
     }
     setSectionMarks(sectionMarks) {
-        sectionMarks.forEach(x =>
+        this._sectionMarks = sectionMarks
+        if (sectionMarks.length < 60) sectionMarks.forEach(x =>
             this._slider.add_mark(x, Gtk.PositionType.TOP, null))
+        this.updateReadingTime()
     }
     updateSlider(percentage) {
         this._percentage = percentage
@@ -198,24 +200,44 @@ class Navbar {
     }
     updateReadingTime() {
         if (!this._total) return
+        const percentage = this._slider.get_value()
+
         // rough estimate of reading time
         // should be reasonable for English and European languages
         // will be way off for some langauges
         const CHARACTERS_PER_WORD = 6
         const WORDS_PER_MINUTE = 200
-        const n = (1 - this._slider.get_value()) * this._total
+        const estimate = x => (x - percentage) * this._total
             * 1600 // chars passed to `book.locations.generate()`
             / CHARACTERS_PER_WORD / WORDS_PER_MINUTE
 
-        const s = n => {
-            if (n < 60) return ngettext('%d minute left', '%d minutes left', n).format(n)
+        const nextSection =  (this._sectionMarks || []).find(x => x > percentage)
+        const n = estimate(1)
+        const m = estimate(nextSection)
+
+        const inBook = n => {
+            if (n < 60) return ngettext(
+                '%d minute left in book',
+                '%d minutes left in book', n).format(n)
             else {
                 const h = n / 60
-                return ngettext('%d hour left', '%d hours left', h).format(h)
+                return ngettext(
+                    '%d hour left in book',
+                    '%d hours left in book', h).format(h)
             }
         }
-
-        this._slider.tooltip_text = s(n)
+        const inSection = n => {
+            if (n < 60) return ngettext(
+                '%d minute left in chapter',
+                '%d minutes left in chapter', n).format(n)
+            else {
+                const h = n / 60
+                return ngettext(
+                    '%d hour left in chapter',
+                    '%d hours left in chapter', h).format(h)
+            }
+        }
+        this._slider.tooltip_text = n ? (m ? inSection(m) + '\n' : '') + inBook(n) : null
     }
     pushHistory(x) {
         this._history.push(x)
@@ -1431,13 +1453,9 @@ class BookViewerWindow {
                     this.cache.set('locations', locations))
             case 'locations-ready':
                 this.navbar.setReady(payload)
-                this.scriptGet(`book.spine.items.length`, n => {
-                    if (n < 60)
-                        this.scriptGet(
-                            `book.spine.items.map(x => book.locations
-                                .percentageFromCfi('epubcfi(' + x.cfiBase + '!/0)'))`,
-                            sectionMarks => this.navbar.setSectionMarks(sectionMarks))
-                })
+                this.scriptGet(`book.spine.items.map(x => book.locations
+                    .percentageFromCfi('epubcfi(' + x.cfiBase + '!/0)'))`,
+                        sectionMarks => this.navbar.setSectionMarks(sectionMarks))
                 break
             case 'relocated':
                 this.bookmarksPopover.update(payload.cfi)
