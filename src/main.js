@@ -1023,7 +1023,36 @@ class AnnotationPopover {
         this.widget.popup()
     }
 }
+class ImgPopover {
+    constructor(relative_to, position, fromTop, onZoom, onCopy) {
+        this.widget = new Gtk.Popover({ border_width: 10, relative_to })
 
+        const actionBox = new Gtk.Box()
+        actionBox.get_style_context().add_class('linked')
+        const copyButton = new Gtk.Button({ label: _('Copy') })
+        copyButton.connect('clicked', () => {
+            onCopy()
+            this.widget.popdown()
+        })
+        const zoomButton = new Gtk.Button({ label: _('Zoom') })
+        zoomButton.connect('clicked', () => {
+            this.widget.popdown()
+            onZoom()
+        })
+        actionBox.pack_start(zoomButton, true, true, 0)
+        actionBox.pack_start(copyButton, true, true, 0)
+
+        this.widget.add(actionBox)
+
+        if (fromTop) this.widget.set_position(Gtk.PositionType.TOP)
+        else this.widget.set_position(Gtk.PositionType.BOTTOM)
+        const rectangle = new Gdk.Rectangle(position)
+        this.widget.set_pointing_to(rectangle)
+        actionBox.show_all()
+
+        this.widget.popup()
+    }
+}
 class WelcomeScreen {
     constructor(lastFile, onRestore) {
         const box = new Gtk.Box({
@@ -1489,6 +1518,82 @@ class BookViewerWindow {
                         this.annotationsPopover.setLabel2(cfiRange, note)
                     })
                 break
+            }
+            case 'img': {
+                const position = payload
+                const [, winHeight] = this.window.get_size()
+                const fromTop = position.top >=  winHeight / 2
+                const y = fromTop ? position.top : position.bottom
+
+                this.scriptGet(`{ imgBase64, imgAlt }`, ({ imgBase64, imgAlt }) => {
+                    const data = GLib.base64_decode(imgBase64)
+                    const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
+                    const pixbuf = GdkPixbuf.Pixbuf.new_from_stream(imageStream, null)
+                    const width = pixbuf.get_width()
+                    const height = pixbuf.get_height()
+
+                    const onCopy = () => Gtk.Clipboard
+                        .get_default(Gdk.Display.get_default())
+                        .set_image(pixbuf)
+
+                    const imgPopover = new ImgPopover(
+                        this.webView, { x: position.left, y }, fromTop,
+                        () => {
+                            const [windowWidth, windowHeight] = this.window.get_size()
+                            const window = new Gtk.Window({
+                                default_width: Math.min(width * 2.5, windowWidth),
+                                default_height: Math.min(height * 2.5 + 70, windowHeight)
+                            })
+                            const headerBar = new Gtk.HeaderBar()
+                            headerBar.show_close_button = true
+                            headerBar.has_subtitle = false
+                            window.set_titlebar(headerBar)
+                            window.title = imgAlt
+
+                            const button = new Gtk.Button({ label: _('Copy') })
+                            button.connect('clicked', onCopy)
+                            headerBar.pack_start(button)
+
+                            const slider = new Gtk.Scale({
+                                orientation: Gtk.Orientation.HORIZONTAL,
+                                adjustment: new Gtk.Adjustment({
+                                    lower: 0.25, upper: 5, step_increment: 0.1
+                                }),
+                                digits: 2,
+                                hexpand: true,
+                                draw_value: false
+                            })
+                            slider.set_value(1)
+                            slider.connect('format-value',
+                                (_, x) => `${Math.round(x * 100)}%`)
+                            slider.add_mark(1, Gtk.PositionType.BOTTOM, '100%')
+                            slider.add_mark(2, Gtk.PositionType.BOTTOM, '200%')
+                            slider.add_mark(5, Gtk.PositionType.BOTTOM, '500%')
+                            slider.connect('value-changed', () => {
+                                const zoom = slider.get_value()
+                                image.set_from_pixbuf(pixbuf.scale_simple(
+                                    width * zoom,
+                                    height * zoom,
+                                    GdkPixbuf.InterpType.BILINEAR))
+                            })
+                            const bar = new Gtk.ActionBar()
+                            bar.pack_start(slider)
+
+                            const scroll = new Gtk.ScrolledWindow()
+                            const image = Gtk.Image.new_from_pixbuf(pixbuf)
+                            scroll.add(image)
+                            const container = new Gtk.Box({
+                                orientation: Gtk.Orientation.VERTICAL
+                            })
+                            container.pack_start(scroll, true, true, 0)
+                            container.pack_end(bar, false, true, 0)
+                            window.add(container)
+
+                            window.show_all()
+                        },
+                        onCopy
+                    )
+                })
             }
         }
     }

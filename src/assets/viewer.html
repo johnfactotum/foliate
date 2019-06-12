@@ -48,6 +48,7 @@ const dispatch = action => {
 let book, rendition
 let locations
 let coverBase64
+let imgBase64, imgAlt
 let searchResults
 let clearSelection
 let annotation
@@ -216,9 +217,19 @@ const setupRendition = () => {
             }
         })
     })
+
+    // see https://github.com/futurepress/epub.js/issues/809
+    let latestViewElement
+    rendition.on("rendered", (section, view) => {
+        latestViewElement = view.element
+    })
     rendition.hooks.content.register((contents, view) => {
-        const elements = contents.document.querySelectorAll('a:link')
-        Array.from(elements).forEach(link => {
+        const html = contents.document.documentElement
+        if (!html.getAttribute('lang') && book.package.metadata.language)
+            html.setAttribute('lang', book.package.metadata.language)
+
+        const links = contents.document.querySelectorAll('a:link')
+        Array.from(links).forEach(link => {
             link.addEventListener('click', e => {
                 const href = link.getAttribute('href')
                 if (href.indexOf("mailto:") === 0 || href.indexOf("://") > -1)
@@ -230,14 +241,32 @@ const setupRendition = () => {
             }, true)
         })
 
-        const html = contents.document.documentElement
-        if (!html.getAttribute('lang') && book.package.metadata.language)
-            html.setAttribute('lang', book.package.metadata.language)
-    })
-    // see https://github.com/futurepress/epub.js/issues/809
-    let latestViewElement
-    rendition.on("rendered", (section, view) => {
-        latestViewElement = view.element
+        const imgs = contents.document.querySelectorAll('img')
+        Array.from(imgs).forEach(img => {
+            img.addEventListener('click', e => {
+                const rect = e.target.getBoundingClientRect()
+                const viewElementRect = latestViewElement.getBoundingClientRect()
+                const left = (rect.left + rect.right) / 2 + viewElementRect.left
+                const top = rect.top + viewElementRect.top
+                const bottom = rect.bottom + viewElementRect.top
+
+                const src = img.getAttribute('src')
+                imgAlt = img.getAttribute('alt')
+                fetch(src)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const reader = new FileReader()
+                        reader.readAsDataURL(blob)
+                        reader.onloadend = () => {
+                            imgBase64 = reader.result.split(',')[1]
+                            dispatch({
+                                type: 'img',
+                                payload: { left, top, bottom }
+                            })
+                        }
+                    })
+            }, false)
+        })
     })
     rendition.on('selected', (cfiRange, contents) => {
         const selection = contents.window.getSelection()
