@@ -1720,16 +1720,24 @@ class BookViewerWindow {
                 dataBox.pack_start(creator, false, true, 0)
             }
             if (metadata.description) {
-                const darkMode = Gtk.Settings.get_default()
-                    .gtk_application_prefer_dark_theme
                 const webView = new Webkit.WebView({
                     hexpand: true,
                     vexpand: true
                 })
                 webView.connect('context-menu', () => true)
+
+                const theme = this.viewPopover.theme
+                const { color, background, invert } = this.themes[theme]
+
                 webView.load_html(
-                    (darkMode ? '<style>body { background: #222; color: #eee }</style>' : '')
-                    + metadata.description, null)
+                    `<style>
+                        html {
+                            background: ${background};
+                            color: ${color};
+                            filter: ${invert ? 'invert(1) hue-rotate(180deg)' : 'none'};
+                        }
+                    </style>` + metadata.description, null)
+
                 const frame = new Gtk.Frame()
                 frame.add(webView)
                 dataBox.pack_start(frame, true, true, 0)
