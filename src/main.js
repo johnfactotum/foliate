@@ -490,11 +490,14 @@ class ViewPopover {
             const font = this._fontBox.getFont()
             const spacing = this._spacingButton.get_value()
             const margin = this._marginButton.get_value()
+            const brightness = this._brightnessSlider.get_value()
             const theme = this._themeBox.getActive()
             const useDefault = this._defaultSwitch.active
             const justify = this._justifySwitch.active
             const hyphenate = this._hyphenateSwitch.active
-            onChange({ font, spacing, margin, theme, useDefault, justify, hyphenate })
+            onChange({
+                font, spacing, margin, brightness, theme, useDefault, justify, hyphenate
+            })
         }
 
         this._fontBox = new FontBox(onViewChange)
@@ -519,11 +522,23 @@ class ViewPopover {
         this._marginButton.set_digits(1)
         this._marginButton.set_increments(2.5, 0)
         this._marginButton.connect('value-changed', onViewChange)
+
+        this._brightnessSlider = new Gtk.Scale({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            adjustment: new Gtk.Adjustment({ lower: 0.5, upper: 1.2 }),
+            digits: 2,
+            value_pos: Gtk.PositionType.RIGHT
+        })
+        this._brightnessSlider.connect('format-value', (_, x) => `${Math.round(x * 100)}%`)
+        this._brightnessSlider.set_value(1)
+        this._brightnessSlider.add_mark(1, Gtk.PositionType.BOTTOM, null)
+        this._brightnessSlider.connect('value-changed', onViewChange)
         
         const menuLabels = {
             font: new Gtk.Label({ label: _('Font') }),
             spacing: new Gtk.Label({ label: _('Spacing') }),
             margin: new Gtk.Label({ label: _('Margin') }),
+            brightness: new Gtk.Label({ label: _('Brightness') }),
             theme: new Gtk.Label({ label: _('Theme') }),
             layout: new Gtk.Label({ label: _('Layout') }),
             options: new Gtk.Label({ label: _('Options') })
@@ -540,16 +555,18 @@ class ViewPopover {
         grid.attach(this._spacingButton, 1, 1, 1, 1)
         grid.attach(menuLabels.margin, 0, 2, 1, 1)
         grid.attach(this._marginButton, 1, 2, 1, 1)
-        grid.attach(menuLabels.theme, 0, 3, 1, 1)
-        grid.attach(this._themeBox.widget, 1, 3, 1, 1)
-        grid.attach(new Gtk.Separator(), 0, 4, 2, 1)
-        grid.attach(menuLabels.layout, 0, 5, 1, 1)
-        grid.attach(this._layoutBox.widget, 1, 5, 1, 1)
-        grid.attach(new Gtk.Separator(), 0, 6, 2, 1)
-        grid.attach(menuLabels.options, 0, 7, 1, 1)
-        grid.attach(this._defaultSwitch.widget, 1, 7, 1, 1)
-        grid.attach(this._justifySwitch.widget, 1, 8, 1, 1)
-        grid.attach(this._hyphenateSwitch.widget, 1, 9, 1, 1)
+        grid.attach(menuLabels.brightness, 0, 3, 1, 1)
+        grid.attach(this._brightnessSlider, 1, 3, 1, 1)
+        grid.attach(menuLabels.theme, 0, 4, 1, 1)
+        grid.attach(this._themeBox.widget, 1, 4, 1, 1)
+        grid.attach(new Gtk.Separator(), 0, 5, 2, 1)
+        grid.attach(menuLabels.layout, 0, 6, 1, 1)
+        grid.attach(this._layoutBox.widget, 1, 6, 1, 1)
+        grid.attach(new Gtk.Separator(), 0, 7, 2, 1)
+        grid.attach(menuLabels.options, 0, 8, 1, 1)
+        grid.attach(this._defaultSwitch.widget, 1, 8, 1, 1)
+        grid.attach(this._justifySwitch.widget, 1, 9, 1, 1)
+        grid.attach(this._hyphenateSwitch.widget, 1, 10, 1, 1)
         this.widget.add(grid)
         this.widget.show_all()
         this.widget.hide()
@@ -560,10 +577,11 @@ class ViewPopover {
     incFont() {
         this._fontBox.inc()
     }
-    loadSettings(font, spacing, margin, theme, layout) {
+    loadSettings(font, spacing, margin, brightness, theme, layout) {
         this._fontBox.setFont(font)
         this._spacingButton.set_value(spacing)
         this._marginButton.set_value(margin)
+        this._brightnessSlider.set_value(brightness)
         this._themeBox.activate(theme)
         this._themeBox.applyOption()
         this._layoutBox.activate(layout)
@@ -1226,11 +1244,13 @@ class BookViewerWindow {
 
         this.scriptRun(`lookupEnabled = ${settings.get_boolean('lookup-enabled')}`)
 
-        this.buildView(this.themes,
-        ({ font, spacing, margin, theme, useDefault, justify, hyphenate }) => {
+        this.buildView(this.themes, ({
+            font, spacing, margin, brightness, theme, useDefault, justify, hyphenate
+        }) => {
             settings.set_string('font', font.name)
             settings.set_double('spacing', spacing)
             settings.set_double('margin', margin)
+            settings.set_double('brightness', brightness)
             settings.set_string('theme', theme)
 
             const { color, background, link, darkMode, invert } =
@@ -1246,9 +1266,10 @@ class BookViewerWindow {
             this.webViewSettings.serif_font_family = useDefault? 'Serif' : fontFamily
             this.webViewSettings.sans_serif_font_family = useDefault ? 'Sans' : fontFamily
             this.webViewSettings.default_font_family = fontFamily
+
+            const filter = `${invert ? 'invert(1) hue-rotate(180deg) ' : ''}brightness(${brightness})`
             this.scriptRun(`
-                document.documentElement.style.filter =
-                    '${invert ? 'invert(1) hue-rotate(180deg)' : 'none'}'
+                document.documentElement.style.filter = '${filter}'
                 document.body.style.color = '${color}'
                 document.body.style.background = '${background}'
                 document.body.style.margin = '0 ${margin}%'
@@ -1324,6 +1345,7 @@ class BookViewerWindow {
             settings.get_string('font'),
             settings.get_double('spacing'),
             settings.get_double('margin'),
+            settings.get_double('brightness'),
             settings.get_string('theme'),
             settings.get_string('layout'))
         

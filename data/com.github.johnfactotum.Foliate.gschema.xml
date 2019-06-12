@@ -31,6 +31,11 @@
             <summary>Margin</summary>
             <description>Page margin in percentage</description>
         </key>
+        <key name="brightness" type="d">
+            <default>1</default>
+            <summary>Brightness</summary>
+            <description>A value under 1 darkens the page, while a value over 1 brightens it. A value of 0 will make the page completely black, while a value of 1 leaves the brightness unchanged</description>
+        </key>
         <key name="theme" type="s">
             <default>'Light'</default>
             <summary>Theme</summary>
