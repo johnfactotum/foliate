@@ -1192,7 +1192,12 @@ class BookViewerWindow {
         this.window.connect('destroy', () =>
             settings.set_string('last-file', fileName))
 
-        this.spinner = new Gtk.Spinner()
+        this.spinner = new Gtk.Spinner({
+            valign: Gtk.Align.CENTER,
+            halign: Gtk.Align.CENTER,
+            width_request: 48,
+            height_request: 48
+        })
         this.spinner.start()
         
         this.webViewSettings = new Webkit.Settings({
