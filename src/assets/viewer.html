@@ -146,6 +146,7 @@ const display = (lastLocation, cached) => {
         })
 
     const onwheel = debounce(event => {
+        if (window.outerWidth !== window.innerWidth) return
         if (rendition.settings.flow === 'scrolled-doc') {
             if (atBottom() && event.deltaY > 0) {
                 rendition.next().then(() =>
@@ -171,7 +172,8 @@ const display = (lastLocation, cached) => {
     displayed.then(() => document.documentElement.onwheel = onwheel)
 
     const handleKeydown = event => {
-        const paginated = rendition.settings.flow === 'paginated'
+        if (window.outerWidth !== window.innerWidth) return
+        const paginated = rendition.settings.flow !== 'scrolled-doc'
         const k = event.key
         if (k === 'ArrowLeft') rendition.prev()
         else if(k === 'ArrowRight') rendition.next()
