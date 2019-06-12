@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-12 14:41+0800\n"
+"POT-Creation-Date: 2019-06-12 21:35+0800\n"
 "PO-Revision-Date: 2019-05-28 15:45+0800\n"
 "Last-Translator: John Factotum\n"
 "Language-Team: none\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1102
-#: src/main.js:1959
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1176
+#: src/main.js:2110
 msgid "Foliate"
 msgstr ""
 
@@ -71,8 +71,8 @@ msgstr "有標示章節的閱讀進度滑桿"
 msgid "Bookmarks and annotations"
 msgstr "書籤與註解"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1518
-#: src/main.js:1902
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1669
+#: src/main.js:2053
 msgid "Find in book"
 msgstr "搜尋書籍內容"
 
@@ -235,282 +235,314 @@ msgstr "下一頁"
 msgid "Go back"
 msgstr "返回"
 
-#: src/main.js:328
+#: src/main.js:220
+#, javascript-format
+msgid "%d minute left in book"
+msgid_plural "%d minutes left in book"
+msgstr[0] "全書剩餘 %d 分鐘"
+
+#: src/main.js:225
+#, javascript-format
+msgid "%d hour left in book"
+msgid_plural "%d hours left in book"
+msgstr[0] "全書剩餘 %d 小時"
+
+#: src/main.js:231
+#, javascript-format
+msgid "%d minute left in chapter"
+msgid_plural "%d minutes left in chapter"
+msgstr[0] "章節剩餘 %d 分鐘"
+
+#: src/main.js:236
+#, javascript-format
+msgid "%d hour left in chapter"
+msgid_plural "%d hours left in chapter"
+msgstr[0] "章節剩餘 %d 小時"
+
+#: src/main.js:373
 msgid "Find in Book"
 msgstr "搜尋書籍內容"
 
-#: src/main.js:363
+#: src/main.js:408
 msgid "Searching…"
 msgstr "搜尋中…"
 
-#: src/main.js:369
+#: src/main.js:414
 msgid "No results"
 msgstr "沒有結果"
 
-#: src/main.js:370
+#: src/main.js:415
 #, javascript-format
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d 項結果"
 
-#: src/main.js:507
+#: src/main.js:552
 msgid "Use Publisher Font"
 msgstr "使用出版社字體"
 
-#: src/main.js:509
+#: src/main.js:554
 msgid "Full Justification"
 msgstr "左右對齊"
 
-#: src/main.js:511
+#: src/main.js:556
 msgid "Auto-Hyphenation"
 msgstr "自動斷字"
 
-#: src/main.js:538
+#: src/main.js:583
 msgid "Font"
 msgstr "字體"
 
-#: src/main.js:539
+#: src/main.js:584
 msgid "Spacing"
 msgstr "行距"
 
-#: src/main.js:540
+#: src/main.js:585
 msgid "Margins"
 msgstr "邊界"
 
-#: src/main.js:541
+#: src/main.js:586
 msgid "Brightness"
 msgstr "亮度"
 
-#: src/main.js:542
+#: src/main.js:587
 msgid "Theme"
 msgstr "主題"
 
-#: src/main.js:543
+#: src/main.js:588
 msgid "Layout"
 msgstr "版面"
 
-#: src/main.js:544
+#: src/main.js:589
 msgid "Options"
 msgstr "選項"
 
-#: src/main.js:779
+#: src/main.js:824
 msgid "No bookmarks"
 msgstr "沒有書籤"
 
-#: src/main.js:780
+#: src/main.js:825
 msgid "Add some bookmarks to see them here."
 msgstr "新增書籤之後，就可以在這裡檢視它們"
 
-#: src/main.js:816
+#: src/main.js:861
 msgid "Bookmark Current Location"
 msgstr "將目前位置加入書籤"
 
-#: src/main.js:822
+#: src/main.js:867
 msgid "Remove Current Location"
 msgstr "移除目前位置"
 
-#: src/main.js:840
+#: src/main.js:885
 msgid "No annotations"
 msgstr "沒有註解"
 
-#: src/main.js:841
+#: src/main.js:886
 msgid "Highlight some text to add annotations."
 msgstr "選取一些文字以新增註解"
 
-#: src/main.js:879 src/main.js:955
+#: src/main.js:924 src/main.js:1000 src/main.js:1077 src/main.js:1599
 msgid "Copy"
 msgstr "複製"
 
-#: src/main.js:884
+#: src/main.js:929
 msgid "Highlight"
 msgstr "註解"
 
-#: src/main.js:893
+#: src/main.js:938
 msgid "Loading…"
 msgstr "載入中…"
 
-#: src/main.js:902
+#: src/main.js:947
 msgid "From Wiktionary, the free dictionary"
 msgstr "來自維基辭典，自由的多語言辭典"
 
-#: src/main.js:940
+#: src/main.js:985
 msgid "View Full Definition"
 msgstr "檢視完整定義"
 
-#: src/main.js:960
+#: src/main.js:1005
 msgid "Remove"
 msgstr "移除"
 
-#: src/main.js:965
+#: src/main.js:1010
 msgid "Note"
 msgstr "筆記"
 
-#: src/main.js:1040
+#: src/main.js:1082
+msgid "Zoom"
+msgstr "放大"
+
+#: src/main.js:1114
 msgid "Open some books to start reading"
 msgstr "開啟電子書以開始閱讀"
 
-#: src/main.js:1045
+#: src/main.js:1119
 msgid "Open a file, or continue reading the last opened book."
 msgstr "開啟檔案，或繼續閱讀上次開啟的電子書"
 
-#: src/main.js:1049
+#: src/main.js:1123
 msgid "Open File…"
 msgstr "開啟檔案…"
 
-#: src/main.js:1053
+#: src/main.js:1127
 msgid "Continue Reading"
 msgstr "繼續閱讀"
 
-#: src/main.js:1172
+#: src/main.js:1251
 msgid "Oh no! The file cannot be opened"
 msgstr "噢不！無法開啟檔案"
 
-#: src/main.js:1505
+#: src/main.js:1656
 msgid "Table of contents"
 msgstr "目錄"
 
-#: src/main.js:1531
+#: src/main.js:1682
 msgid "Set font, theme, and layout"
 msgstr "設定字體、主題與版面"
 
-#: src/main.js:1547
+#: src/main.js:1698
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: src/main.js:1567
+#: src/main.js:1718
 msgid "Annotations"
 msgstr "註解"
 
-#: src/main.js:1618
+#: src/main.js:1769
 msgid "Fullscreen"
 msgstr "全螢幕"
 
-#: src/main.js:1619
+#: src/main.js:1770
 msgid "Reading Progress Bar"
 msgstr "閱讀進度列"
 
-#: src/main.js:1620
+#: src/main.js:1771
 msgid "Enable Dictionary"
 msgstr "啟用字典"
 
-#: src/main.js:1624
+#: src/main.js:1775
 msgid "Open…"
 msgstr "開啟…"
 
-#: src/main.js:1628
+#: src/main.js:1779
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤捷徑鍵"
 
-#: src/main.js:1629
+#: src/main.js:1780
 msgid "About Foliate"
 msgstr "關於 Foliate"
 
-#: src/main.js:1689 src/main.js:1709
+#: src/main.js:1840 src/main.js:1860
 msgid "About This Book"
 msgstr "關於這本書"
 
-#: src/main.js:1783
+#: src/main.js:1934
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/main.js:1784
+#: src/main.js:1935
 msgid "Publication Date"
 msgstr "出版日期"
 
-#: src/main.js:1785
+#: src/main.js:1936
 msgid "Modified Date"
 msgstr "修改日期"
 
-#: src/main.js:1786
+#: src/main.js:1937
 msgid "Language"
 msgstr "語言"
 
-#: src/main.js:1787
+#: src/main.js:1938
 msgid "Copyright"
 msgstr "版權"
 
-#: src/main.js:1788
+#: src/main.js:1939
 msgid "Identifier"
 msgstr "識別碼"
 
-#: src/main.js:1864
+#: src/main.js:2015
 msgid "All files"
 msgstr "所有檔案"
 
-#: src/main.js:1868
+#: src/main.js:2019
 msgid "EPUB files"
 msgstr "EPUB 檔案"
 
-#: src/main.js:1897
+#: src/main.js:2022
+msgid "Open File"
+msgstr "開啟檔案"
+
+#: src/main.js:2048
 msgid "General"
 msgstr "一般"
 
-#: src/main.js:1899
+#: src/main.js:2050
 msgid "Show table of contents"
 msgstr "顯示目錄"
 
-#: src/main.js:1900
+#: src/main.js:2051
 msgid "Show bookmarks"
 msgstr "顯示書籤"
 
-#: src/main.js:1901
+#: src/main.js:2052
 msgid "Bookmark current location"
 msgstr "將目前位置加入書籤"
 
-#: src/main.js:1903
+#: src/main.js:2054
 msgid "Show menu"
 msgstr "顯示選單"
 
-#: src/main.js:1904
+#: src/main.js:2055
 msgid "Quit"
 msgstr "結束"
 
-#: src/main.js:1908
+#: src/main.js:2059
 msgid "Navigation"
 msgstr "瀏覽"
 
 #. I can't find where to access the enums in GJS,
 #. so just use ints for now
-#: src/main.js:1910 src/main.js:1928
+#: src/main.js:2061 src/main.js:2079
 msgid "Go to the next page"
 msgstr "前往下一頁"
 
-#: src/main.js:1911 src/main.js:1929
+#: src/main.js:2062 src/main.js:2080
 msgid "Go to the previous page"
 msgstr "前往上一頁"
 
-#: src/main.js:1912
+#: src/main.js:2063
 msgid "Go back to previous location"
 msgstr "返回先前位置"
 
-#: src/main.js:1916
+#: src/main.js:2067
 msgid "View"
 msgstr "檢視"
 
-#: src/main.js:1918
+#: src/main.js:2069
 msgid "Increase font size"
 msgstr "放大字體"
 
-#: src/main.js:1919
+#: src/main.js:2070
 msgid "Decrease font size"
 msgstr "縮小字體"
 
-#: src/main.js:1920
+#: src/main.js:2071
 msgid "Toggle fullscreen"
 msgstr "切換全螢幕"
 
-#: src/main.js:1924
+#: src/main.js:2075
 msgid "Touchpad Gestures"
 msgstr "觸控板手勢"
 
-#: src/main.js:1930
+#: src/main.js:2081
 msgid "Zoom in"
 msgstr "放大"
 
-#: src/main.js:1931
+#: src/main.js:2082
 msgid "Zoom out"
 msgstr "縮小"
 
-#: src/main.js:1960
+#: src/main.js:2111
 msgid "A simple eBook viewer"
 msgstr "一個簡單的電子書閱讀器"

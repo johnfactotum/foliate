@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-12 14:41+0800\n"
+"POT-Creation-Date: 2019-06-12 21:35+0800\n"
 "PO-Revision-Date: 2019-06-09 12:15+0900\n"
 "Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
 "Language-Team: \n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1102
-#: src/main.js:1959
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1176
+#: src/main.js:2110
 msgid "Foliate"
 msgstr "Foliate"
 
@@ -72,8 +72,8 @@ msgstr "Barre de progression de lecture avec marques des chapitres"
 msgid "Bookmarks and annotations"
 msgstr "Marque-pages et annotations"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1518
-#: src/main.js:1902
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1669
+#: src/main.js:2053
 msgid "Find in book"
 msgstr "Rechercher dans le livre"
 
@@ -244,284 +244,321 @@ msgstr "Page suivante"
 msgid "Go back"
 msgstr "Revenir en arrière"
 
-#: src/main.js:328
+#: src/main.js:220
+#, javascript-format
+msgid "%d minute left in book"
+msgid_plural "%d minutes left in book"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:225
+#, javascript-format
+msgid "%d hour left in book"
+msgid_plural "%d hours left in book"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:231
+#, javascript-format
+msgid "%d minute left in chapter"
+msgid_plural "%d minutes left in chapter"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:236
+#, javascript-format
+msgid "%d hour left in chapter"
+msgid_plural "%d hours left in chapter"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:373
 msgid "Find in Book"
 msgstr "Rechercher dans le livre"
 
-#: src/main.js:363
+#: src/main.js:408
 msgid "Searching…"
 msgstr "Recherche…"
 
-#: src/main.js:369
+#: src/main.js:414
 msgid "No results"
 msgstr "Aucun résultat"
 
-#: src/main.js:370
+#: src/main.js:415
 #, javascript-format
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d résultat"
 msgstr[1] "%d résultats"
 
-#: src/main.js:507
+#: src/main.js:552
 msgid "Use Publisher Font"
 msgstr "Utiliser la police d’écriture de l’éditeur"
 
-#: src/main.js:509
+#: src/main.js:554
 msgid "Full Justification"
 msgstr "Justifié"
 
-#: src/main.js:511
+#: src/main.js:556
 msgid "Auto-Hyphenation"
 msgstr "Césure automatique"
 
-#: src/main.js:538
+#: src/main.js:583
 msgid "Font"
 msgstr "Police"
 
-#: src/main.js:539
+#: src/main.js:584
 msgid "Spacing"
 msgstr "Espacement"
 
-#: src/main.js:540
+#: src/main.js:585
 msgid "Margins"
 msgstr ""
 
-#: src/main.js:541
+#: src/main.js:586
 msgid "Brightness"
 msgstr ""
 
-#: src/main.js:542
+#: src/main.js:587
 msgid "Theme"
 msgstr "Thème"
 
-#: src/main.js:543
+#: src/main.js:588
 msgid "Layout"
 msgstr "Mise en page"
 
-#: src/main.js:544
+#: src/main.js:589
 msgid "Options"
 msgstr "Paramètres"
 
-#: src/main.js:779
+#: src/main.js:824
 msgid "No bookmarks"
 msgstr "Aucun marque-page"
 
-#: src/main.js:780
+#: src/main.js:825
 msgid "Add some bookmarks to see them here."
 msgstr "Ajoutez des marque-pages pour les voir ici."
 
-#: src/main.js:816
+#: src/main.js:861
 msgid "Bookmark Current Location"
 msgstr "Ajouter un marque-page à la position actuelle"
 
-#: src/main.js:822
+#: src/main.js:867
 msgid "Remove Current Location"
 msgstr "Retirer le marque-page à la position actuelle"
 
-#: src/main.js:840
+#: src/main.js:885
 msgid "No annotations"
 msgstr "Aucune annotation"
 
-#: src/main.js:841
+#: src/main.js:886
 msgid "Highlight some text to add annotations."
 msgstr "Surlignez du texte pour ajouter une annotation."
 
-#: src/main.js:879 src/main.js:955
+#: src/main.js:924 src/main.js:1000 src/main.js:1077 src/main.js:1599
 msgid "Copy"
 msgstr "Copier"
 
-#: src/main.js:884
+#: src/main.js:929
 msgid "Highlight"
 msgstr "Surligner"
 
-#: src/main.js:893
+#: src/main.js:938
 msgid "Loading…"
 msgstr "Chargement…"
 
-#: src/main.js:902
+#: src/main.js:947
 msgid "From Wiktionary, the free dictionary"
 msgstr "Du Wiktionnaire, le dictionnaire libre et gratuit"
 
-#: src/main.js:940
+#: src/main.js:985
 msgid "View Full Definition"
 msgstr "Voir la définition complète"
 
-#: src/main.js:960
+#: src/main.js:1005
 msgid "Remove"
 msgstr "Retirer"
 
-#: src/main.js:965
+#: src/main.js:1010
 msgid "Note"
 msgstr "Note"
 
-#: src/main.js:1040
+#: src/main.js:1082
+#, fuzzy
+msgid "Zoom"
+msgstr "Zoomer"
+
+#: src/main.js:1114
 msgid "Open some books to start reading"
 msgstr "Ouvrez un livre pour commencer à lire"
 
-#: src/main.js:1045
+#: src/main.js:1119
 msgid "Open a file, or continue reading the last opened book."
 msgstr "Ouvrez un fichier, ou continuez à lire le dernier livre ouvert."
 
-#: src/main.js:1049
+#: src/main.js:1123
 msgid "Open File…"
 msgstr "Ouvrir un fichier…"
 
-#: src/main.js:1053
+#: src/main.js:1127
 msgid "Continue Reading"
 msgstr "Continuer à lire"
 
-#: src/main.js:1172
+#: src/main.js:1251
 msgid "Oh no! The file cannot be opened"
 msgstr "Oh non ! Le fichier ne peut pas être ouvert"
 
-#: src/main.js:1505
+#: src/main.js:1656
 msgid "Table of contents"
 msgstr "Table des matières"
 
-#: src/main.js:1531
+#: src/main.js:1682
 msgid "Set font, theme, and layout"
 msgstr "Choisissez la police, le thème et la mise en page"
 
-#: src/main.js:1547
+#: src/main.js:1698
 msgid "Bookmarks"
 msgstr "Marque-pages"
 
-#: src/main.js:1567
+#: src/main.js:1718
 msgid "Annotations"
 msgstr "Annotations"
 
-#: src/main.js:1618
+#: src/main.js:1769
 msgid "Fullscreen"
 msgstr "Plein écran"
 
-#: src/main.js:1619
+#: src/main.js:1770
 msgid "Reading Progress Bar"
 msgstr "Barre de progression de lecture"
 
-#: src/main.js:1620
+#: src/main.js:1771
 msgid "Enable Dictionary"
 msgstr "Activer le dictionnaire"
 
-#: src/main.js:1624
+#: src/main.js:1775
 msgid "Open…"
 msgstr "Ouvrir…"
 
-#: src/main.js:1628
+#: src/main.js:1779
 msgid "Keyboard Shortcuts"
 msgstr "Raccourcis clavier"
 
-#: src/main.js:1629
+#: src/main.js:1780
 msgid "About Foliate"
 msgstr "À propos de Foliate"
 
-#: src/main.js:1689 src/main.js:1709
+#: src/main.js:1840 src/main.js:1860
 msgid "About This Book"
 msgstr "À propos de ce livre"
 
-#: src/main.js:1783
+#: src/main.js:1934
 msgid "Publisher"
 msgstr "Éditeur"
 
-#: src/main.js:1784
+#: src/main.js:1935
 msgid "Publication Date"
 msgstr "Date de publication"
 
-#: src/main.js:1785
+#: src/main.js:1936
 msgid "Modified Date"
 msgstr "Date de modification"
 
-#: src/main.js:1786
+#: src/main.js:1937
 msgid "Language"
 msgstr "Langue"
 
-#: src/main.js:1787
+#: src/main.js:1938
 msgid "Copyright"
 msgstr "Droit d’auteur"
 
-#: src/main.js:1788
+#: src/main.js:1939
 msgid "Identifier"
 msgstr "Identificateur"
 
-#: src/main.js:1864
+#: src/main.js:2015
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: src/main.js:1868
+#: src/main.js:2019
 msgid "EPUB files"
 msgstr "Fichiers EPUB"
 
-#: src/main.js:1897
+#: src/main.js:2022
+msgid "Open File"
+msgstr "Ouvrir un fichier"
+
+#: src/main.js:2048
 msgid "General"
 msgstr "Général"
 
-#: src/main.js:1899
+#: src/main.js:2050
 msgid "Show table of contents"
 msgstr "Afficher la table des matières"
 
-#: src/main.js:1900
+#: src/main.js:2051
 msgid "Show bookmarks"
 msgstr "Afficher les marque-pages"
 
-#: src/main.js:1901
+#: src/main.js:2052
 #, fuzzy
 msgid "Bookmark current location"
 msgstr "Ajouter un marque-page à la position actuelle"
 
-#: src/main.js:1903
+#: src/main.js:2054
 msgid "Show menu"
 msgstr "Afficher le menu"
 
-#: src/main.js:1904
+#: src/main.js:2055
 msgid "Quit"
 msgstr ""
 
-#: src/main.js:1908
+#: src/main.js:2059
 msgid "Navigation"
 msgstr "Navigation"
 
 #. I can't find where to access the enums in GJS,
 #. so just use ints for now
-#: src/main.js:1910 src/main.js:1928
+#: src/main.js:2061 src/main.js:2079
 msgid "Go to the next page"
 msgstr "Aller à la page suivante"
 
-#: src/main.js:1911 src/main.js:1929
+#: src/main.js:2062 src/main.js:2080
 msgid "Go to the previous page"
 msgstr "Aller à la page précédente"
 
-#: src/main.js:1912
+#: src/main.js:2063
 msgid "Go back to previous location"
 msgstr "Aller à la position précédente"
 
-#: src/main.js:1916
+#: src/main.js:2067
 msgid "View"
 msgstr "Vue"
 
-#: src/main.js:1918
+#: src/main.js:2069
 msgid "Increase font size"
 msgstr "Agrandir la taille de la police"
 
-#: src/main.js:1919
+#: src/main.js:2070
 msgid "Decrease font size"
 msgstr "Réduire la taille de la police"
 
-#: src/main.js:1920
+#: src/main.js:2071
 msgid "Toggle fullscreen"
 msgstr "Activer/désactiver le mode plein écran"
 
-#: src/main.js:1924
+#: src/main.js:2075
 msgid "Touchpad Gestures"
 msgstr "Gestes au pavé tactile"
 
-#: src/main.js:1930
+#: src/main.js:2081
 msgid "Zoom in"
 msgstr "Zoomer"
 
-#: src/main.js:1931
+#: src/main.js:2082
 msgid "Zoom out"
 msgstr "Dézoomer"
 
-#: src/main.js:1960
+#: src/main.js:2111
 msgid "A simple eBook viewer"
 msgstr "Un simple lecteur de livres électroniques"
