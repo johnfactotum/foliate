@@ -114,7 +114,10 @@ const display = (lastLocation, cached) => {
             .then(() => dispatch({ type: 'book-displayed' }))
             .then(() => dispatch({
                 type: 'locations-ready',
-                payload: rendition.currentLocation().start.percentage
+                payload: {
+                    percentage: rendition.currentLocation().start.percentage,
+                    total: book.locations.total
+                }
             }))
     } else {
         displayed
@@ -123,7 +126,10 @@ const display = (lastLocation, cached) => {
             .then(() => locations = book.locations.save())
             .then(() => dispatch({
                 type: 'locations-generated',
-                payload: rendition.currentLocation().start.percentage
+                payload: {
+                    percentage: rendition.currentLocation().start.percentage,
+                    total: book.locations.total
+                }
             }))
     }
     book.loaded.resources

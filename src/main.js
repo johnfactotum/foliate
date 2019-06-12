@@ -173,6 +173,7 @@ class Navbar {
             const value = this._slider.get_value()
             if (value !== this._percentage) onSlide(this._slider.get_value())
         })
+        this._slider.connect('value-changed', () => this.updateReadingTime())
         this._prevButton.connect('clicked', () => onPrev())
         this._nextButton.connect('clicked', () => onNext())
     }
@@ -180,7 +181,8 @@ class Navbar {
         this._slider.hide()
         this._pendingLabel.show()
     }
-    setReady(percentage) {
+    setReady({ percentage, total }) {
+        this._total = total
         this._percentage = percentage
         this._slider.set_value(percentage)
         this._pendingLabel.hide()
@@ -193,6 +195,27 @@ class Navbar {
     updateSlider(percentage) {
         this._percentage = percentage
         this._slider.set_value(percentage)
+    }
+    updateReadingTime() {
+        if (!this._total) return
+        // rough estimate of reading time
+        // should be reasonable for English and European languages
+        // will be way off for some langauges
+        const CHARACTERS_PER_WORD = 6
+        const WORDS_PER_MINUTE = 200
+        const n = (1 - this._slider.get_value()) * this._total
+            * 1600 // chars passed to `book.locations.generate()`
+            / CHARACTERS_PER_WORD / WORDS_PER_MINUTE
+
+        const s = n => {
+            if (n < 60) return ngettext('%d minute left', '%d minutes left', n).format(n)
+            else {
+                const h = Math.round(n / 60)
+                return ngettext('%d hour left', '%d hours left', h).format(h)
+            }
+        }
+
+        this._slider.tooltip_text = s(n)
     }
     pushHistory(x) {
         this._history.push(x)
