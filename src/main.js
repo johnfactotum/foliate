@@ -210,7 +210,7 @@ class Navbar {
         const s = n => {
             if (n < 60) return ngettext('%d minute left', '%d minutes left', n).format(n)
             else {
-                const h = Math.round(n / 60)
+                const h = n / 60
                 return ngettext('%d hour left', '%d hours left', h).format(h)
             }
         }
