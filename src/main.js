@@ -1765,6 +1765,9 @@ class BookViewerWindow {
                 dataBox.pack_start(frame, true, true, 0)
             }
             
+            // workaround for xgettext bug
+            // `/`
+
             const grid = new Gtk.Grid({
                 column_spacing: 10, row_spacing: 10,
                 valign: Gtk.Align.CENTER
