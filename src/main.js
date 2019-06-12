@@ -2019,7 +2019,7 @@ function main(argv) {
         epubFiles.set_name(_('EPUB files'))
         epubFiles.add_mime_type('application/epub+zip')
 
-        const dialog = new Gtk.FileChooserNative()
+        const dialog = new Gtk.FileChooserNative({ title: _('Open File') })
         dialog.add_filter(epubFiles)
         dialog.add_filter(allFiles)
 
