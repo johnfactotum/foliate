@@ -577,6 +577,12 @@ class ViewPopover {
     get layout() {
         return this._layoutBox.getActive()
     }
+    get font() {
+        return this._fontBox.getFont()
+    }
+    get spacing() {
+        return this._spacingButton.get_value()
+    }
 }
 
 class NotesList {
@@ -1556,18 +1562,22 @@ class BookViewerWindow {
         const isPaginated = () =>
             defaultLayouts[this.viewPopover.layout] === 'paginated'
 
+        const lineHeight = () =>
+            (this.viewPopover.font.desc.get_size() / Pango.SCALE)
+                * this.viewPopover.spacing / 0.75 // 1px = 0.75pt
+
         this.addShortcut(['k'], 'go-up',
             () => isPaginated()
                 ? onPrev()
                 : this.scriptRun(`
                     if (atTop()) prevBottom()
-                    else window.scrollBy(0, -100)`))
+                    else window.scrollBy(0, -${lineHeight()})`))
         this.addShortcut(['j'], 'go-down',
             () => isPaginated()
                 ? onNext()
                 : this.scriptRun(`
                     if (atBottom()) rendition.next()
-                    else window.scrollBy(0, 100)`))
+                    else window.scrollBy(0, ${lineHeight()})`))
 
         this.addShortcut(['<Alt>Left'], 'go-back', this.navbar.goBack)
     }
