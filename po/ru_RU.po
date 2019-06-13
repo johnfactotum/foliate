@@ -13,6 +13,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; \
+    plural=n%10==1 && n%100!=11 ? 0 : \
+           n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1176
@@ -242,28 +245,32 @@ msgstr "Назад"
 msgid "%d minute left in book"
 msgid_plural "%d minutes left in book"
 msgstr[0] "Книгу осталось читать %d минуту"
-msgstr[1] "Книгу осталось читать %d минут(-ы)"
+msgstr[1] "Книгу осталось читать %d минуты"
+msgstr[2] "Книгу осталось читать %d минут"
 
 #: src/main.js:225
 #, javascript-format
 msgid "%d hour left in book"
 msgid_plural "%d hours left in book"
 msgstr[0] "Книгу осталось читать %d час"
-msgstr[1] "Книгу осталось читать %d час(-а, -ов)"
+msgstr[1] "Книгу осталось читать %d часа"
+msgstr[2] "Книгу осталось читать %d часов"
 
 #: src/main.js:231
 #, javascript-format
 msgid "%d minute left in chapter"
 msgid_plural "%d minutes left in chapter"
 msgstr[0] "Главу осталось читать %d минуту"
-msgstr[1] "Главу осталось читать %d минут(-ы)"
+msgstr[1] "Главу осталось читать %d минуты"
+msgstr[2] "Главу осталось читать %d минут"
 
 #: src/main.js:236
 #, javascript-format
 msgid "%d hour left in chapter"
 msgid_plural "%d hours left in chapter"
 msgstr[0] "Главу осталось читать %d час"
-msgstr[1] "Главу осталось читать %d час(-а, -ов)"
+msgstr[1] "Главу осталось читать %d часа"
+msgstr[2] "Главу осталось читать %d часов"
 
 #: src/main.js:373
 #, fuzzy
@@ -284,7 +291,8 @@ msgstr "Нет результатов"
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d совпадение"
-msgstr[1] "%d совпадени(-я, -й)"
+msgstr[1] "%d совпадения"
+msgstr[2] "%d совпадений"
 
 #: src/main.js:552
 #, fuzzy
