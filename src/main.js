@@ -452,13 +452,13 @@ class FontBox {
     }
     dec() {
         const desc = this._fontButton.get_font_desc()
-        desc.set_size(desc.get_size() - Pango.SCALE)
+        desc.set_size(desc.get_size() - 0.5 * Pango.SCALE)
         this._fontButton.set_font_desc(desc)
         this.applyFont()
     }
     inc() {
         const desc = this._fontButton.get_font_desc()
-        desc.set_size(desc.get_size() + Pango.SCALE)
+        desc.set_size(desc.get_size() + 0.5 * Pango.SCALE)
         this._fontButton.set_font_desc(desc)
         this.applyFont()
     }
@@ -559,7 +559,7 @@ class ViewPopover {
         this._spacingButton = new Gtk.SpinButton()
         this._spacingButton.set_range(1, 3)
         this._spacingButton.set_digits(2)
-        this._spacingButton.set_increments(0.1, 0)
+        this._spacingButton.set_increments(0.05, 0)
         this._spacingButton.connect('value-changed', onViewChange)
 
         this._marginButton = new Gtk.SpinButton()
