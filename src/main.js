@@ -181,12 +181,13 @@ class Navbar {
         this._slider.hide()
         this._pendingLabel.show()
     }
-    setReady({ percentage, total }) {
+    setReady({ percentage, total, language }) {
         this._total = total
         this._percentage = percentage
         this._slider.set_value(percentage)
         this._pendingLabel.hide()
         this._slider.show()
+        this._language = (language || '').slice(0, 2).toLowerCase()
     }
     setSectionMarks(sectionMarks) {
         this._sectionMarks = sectionMarks
@@ -201,11 +202,13 @@ class Navbar {
     updateReadingTime() {
         if (!this._total) return
         const percentage = this._slider.get_value()
+        const lang = this._language
 
         // rough estimate of reading time
         // should be reasonable for English and European languages
         // will be way off for some langauges
-        const CHARACTERS_PER_WORD = 6
+        const CHARACTERS_PER_WORD =
+            lang === 'zh' || lang === 'ja' || lang === 'ko' ? 2.5 : 6
         const WORDS_PER_MINUTE = 200
         const estimate = x => (x - percentage) * this._total
             * 1600 // chars passed to `book.locations.generate()`

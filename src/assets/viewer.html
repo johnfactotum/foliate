@@ -123,7 +123,8 @@ const display = (lastLocation, cached) => {
                 type: 'locations-ready',
                 payload: {
                     percentage: getPercentage(),
-                    total: book.locations.total
+                    total: book.locations.total,
+                    language: book.package.metadata.language
                 }
             }))
     } else {
@@ -135,7 +136,8 @@ const display = (lastLocation, cached) => {
                 type: 'locations-generated',
                 payload: {
                     percentage: getPercentage(),
-                    total: book.locations.total
+                    total: book.locations.total,
+                    language: book.package.metadata.language
                 }
             }))
     }
