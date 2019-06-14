@@ -1543,7 +1543,7 @@ class BookViewerWindow {
             case 'annotation-menu': {
                 const { position, cfiRange } = payload
                 const [, winHeight] = this.window.get_size()
-                const fromTop = position.bottom > winHeight / 2
+                const fromTop = position.top >= winHeight / 2
                 const y = fromTop ? position.top : position.bottom
                 
                 const data = this.annotationsPopover.getData(cfiRange)
