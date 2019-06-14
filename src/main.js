@@ -634,6 +634,9 @@ class ViewPopover {
         this._themeBox.applyOption()
         this._layoutBox.activate(layout)
     }
+    applyTheme() {
+        this._themeBox.applyOption()
+    }
     get theme() {
         return this._themeBox.getActive()
     }
@@ -1168,9 +1171,7 @@ class BookViewerWindow {
             settings.set_boolean('window-maximized', windowMaximized)
         })
         
-        const theme = settings.get_string('theme')
-        if (themes[theme]) Gtk.Settings.get_default()
-            .gtk_application_prefer_dark_theme = themes[theme].darkMode
+        this.activateTheme()
         
         this.headerBar = new Gtk.HeaderBar()
         this.headerBar.show_close_button = true
@@ -1694,6 +1695,19 @@ class BookViewerWindow {
         this.addShortcut(['plus', 'equal', '<Control>plus', '<Control>equal'],
             'font-inc', () => this.viewPopover.incFont())
     }
+    updateThemes(themes) {
+        this.themes = themes
+        if (this.viewPopover) this.viewPopover.applyTheme()
+        this.activateTheme()
+    }
+    activateTheme(theme = settings.get_string('theme')) {
+         if (this.viewPopover) this.viewPopover.theme = theme || this.viewPopover.theme
+         else {
+             settings.set_string('theme', theme)
+             Gtk.Settings.get_default().gtk_application_prefer_dark_theme =
+                (this.themes[theme] || this.themes[Object.keys(this.themes)[0]]).darkMode
+        }
+    }
     buildBookmarks(onActivate, onAdd, onChange) {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'user-bookmarks-symbolic' }),
@@ -1779,6 +1793,7 @@ class BookViewerWindow {
         this.menu.append_section(null, section2)
 
         const section3 = new Gio.Menu()
+        section3.append(_('Preferences'), 'app.preferences')
         section3.append(_('Keyboard Shortcuts'), 'app.shortcuts')
         section3.append(_('About Foliate'), 'app.about')
         this.menu.append_section(null, section3)
@@ -1986,6 +2001,150 @@ class BookViewerWindow {
         this.window.add_action(action)
     }
 }
+
+class ColorButton {
+    constructor(color, label) {
+        const box = new Gtk.Box({ spacing: 6 })
+        const rgba = new Gdk.RGBA()
+        rgba.parse(color)
+        const button = new Gtk.ColorButton({ rgba })
+        box.pack_start(button, false, true, 0)
+        box.pack_start(new Gtk.Label({ label }), false, true, 0)
+
+        this.box = box
+        this.button = button
+    }
+}
+class ThemeEditor {
+    constructor(themes, onSettingsChange, onThemeActivate) {
+        const theme = settings.get_string('theme')
+        const currentTheme = theme in themes ? theme : Object.keys(themes)[0]
+
+        const listBox = new Gtk.ListBox({ visible: true })
+        listBox.set_header_func((row) => {
+            if (row.get_index()) row.set_header(new Gtk.Separator())
+        })
+
+        const themeMap = new Map()
+        const settingsBoxMap = new Map()
+        const selectedMap = new Map()
+        const settingsMap = new Map()
+
+        listBox.connect('row-activated', (_, row) => {
+            settingsBoxMap.forEach((value, key) =>
+                value.visible = key === row ? !value.visible : false)
+            selectedMap.forEach((value, key) =>
+                value.visible = key === row)
+            onThemeActivate(themeMap.get(row))
+        })
+
+        const onChange = () =>
+            onSettingsChange(Object.assign({},
+                ...Array.from(settingsMap.values()).map(f => f())))
+
+        const names = Object.keys(themes)
+        names.forEach((name, i) => {
+            const theme = themes[name]
+            const row = new Gtk.ListBoxRow({
+                selectable: false
+            })
+            const box =  new Gtk.Box({
+                orientation: Gtk.Orientation.VERTICAL,
+                spacing: 10,
+                border_width: 10
+            })
+            const label = new Gtk.Label({
+                label: name,
+                halign: Gtk.Align.START
+            })
+            const selectedIcon = new Gtk.Image({ icon_name: 'object-select-symbolic' })
+            const labelBox = new Gtk.Box()
+            labelBox.pack_start(label, true, true, 0)
+            labelBox.pack_end(selectedIcon, false, true, 0)
+
+            const colorButton = new ColorButton(theme.color,  _('Text'))
+            const bgButton = new ColorButton(theme.background, _('Background'))
+            const linkButton =  new ColorButton(theme.link, _('Link'))
+
+            const modeToggle = new Gtk.CheckButton({ label: _('Enable Dark Mode') })
+            modeToggle.active = theme.darkMode
+            const invertToggle = new Gtk.CheckButton({ label: _('Invert Colors') })
+            invertToggle.active = theme.invert
+
+            const buttons = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
+            buttons.pack_start(bgButton.box, false, true, 0)
+            buttons.pack_start(colorButton.box, false, true, 0)
+            buttons.pack_start(linkButton.box, false, true, 0)
+
+            const toggles = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
+            toggles.pack_start(modeToggle, false, true, 0)
+            toggles.pack_start(invertToggle, false, true, 0)
+
+            const settingsBox = new Gtk.Box({
+                spacing: 18
+            })
+            settingsBox.pack_start(buttons, true, true, 0)
+            settingsBox.pack_start(toggles, true, true, 0)
+
+            colorButton.button.connect('color-set', onChange)
+            bgButton.button.connect('color-set', onChange)
+            linkButton.button.connect('color-set', onChange)
+            modeToggle.connect('toggled', onChange)
+            invertToggle.connect('toggled', onChange)
+
+            const getSettings = () => ({
+                [name]: {
+                    color: colorButton.button.rgba.to_string(),
+                    background: bgButton.button.rgba.to_string(),
+                    link: linkButton.button.rgba.to_string(),
+                    darkMode: modeToggle.active,
+                    invert: invertToggle.active
+                }
+            })
+            themeMap.set(row, name)
+            settingsBoxMap.set(row, settingsBox)
+            selectedMap.set(row, selectedIcon)
+            settingsMap.set(row, getSettings)
+
+            box.pack_start(labelBox, false, true, 0)
+            box.pack_end(settingsBox, false, true, 0)
+
+            row.add(box)
+            listBox.add(row)
+
+            row.show_all()
+            if (name !== currentTheme) {
+                settingsBox.hide()
+                selectedIcon.hide()
+            }
+        })
+
+        const title = new Gtk.Label({
+            label: '<b>' +_('Theme') + '</b>',
+            use_markup: true,
+            halign: Gtk.Align.START,
+            visible: true
+        })
+        const scroll = new Gtk.ScrolledWindow({
+            propagate_natural_width: true,
+            propagate_natural_height: true,
+            visible: true
+        })
+        scroll.get_style_context().add_class('frame')
+        scroll.add(listBox)
+
+        const box = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 10,
+            visible: true
+        })
+        box.pack_start(title, false, true, 0)
+        box.pack_start(scroll, true, true, 0)
+
+        this.widget = box
+    }
+}
+
 function main(argv) {
     const themes = new Storage('themes', 'config')
 
@@ -2128,6 +2287,35 @@ function main(argv) {
         [...appWindows].forEach(window => window.window.close()))
     application.add_action(actionQuit)
     application.set_accels_for_action('app.quit', ['<Control>q'])
+
+    const actionPref = new Gio.SimpleAction({ name: 'preferences' })
+    actionPref.connect('activate', () => {
+        const window = new Gtk.Dialog({ modal: true })
+        const headerBar = new Gtk.HeaderBar({
+            show_close_button: true,
+            has_subtitle: false
+        })
+        window.set_titlebar(headerBar)
+        window.title = _('Preferences')
+
+        const themeEditor = new ThemeEditor(
+            themes.get('themes', defaultThemes),
+            x => {
+                appWindows.forEach(w => w.updateThemes(x))
+                themes.set('themes', x)
+            },
+            x => appWindows.forEach(w => w.activateTheme(x)))
+
+        const container = window.get_content_area()
+        container.border_width = 18
+        container.pack_start(themeEditor.widget, true, true, 0)
+
+        window.set_transient_for(application.active_window)
+        headerBar.show()
+        container.show()
+        window.show()
+    })
+    application.add_action(actionPref)
 
     return application.run(argv)
 }
