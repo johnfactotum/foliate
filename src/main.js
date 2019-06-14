@@ -1821,6 +1821,16 @@ class BookViewerWindow {
         this.window.add_action(fullscreenAction)
         this.application.set_accels_for_action('win.fullscreen', ['F11'])
 
+        const exitFullscreenAction = new Gio.SimpleAction({ name: 'exit-fullscreen' })
+        exitFullscreenAction.connect('activate', () => {
+            if (fullscreenAction.get_state().get_boolean()) {
+                this.window.unfullscreen()
+                fullscreenAction.set_state(new GLib.Variant('b', false))
+            }
+        })
+        this.window.add_action(exitFullscreenAction)
+        this.application.set_accels_for_action('win.exit-fullscreen', ['Escape'])
+
         const navbarAction = new Gio.SimpleAction({
             name: 'navbar',
             state: new GLib.Variant('b', settings.get_boolean('show-navbar'))
