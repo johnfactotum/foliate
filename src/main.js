@@ -1855,6 +1855,11 @@ class BookViewerWindow {
             settings.set_boolean('lookup-enabled', !state)
         })
         this.window.add_action(lookupAction)
+
+        const closeAction = new Gio.SimpleAction({ name: 'close' })
+        closeAction.connect('activate', () => this.window.close())
+        this.window.add_action(closeAction)
+        this.application.set_accels_for_action('win.close', ['<Control>w'])
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
@@ -2217,6 +2222,7 @@ function main(argv) {
                     { accelerator: '<control>d', title: _('Bookmark current location') },
                     { accelerator: '<control>f', title: _('Find in book') },
                     { accelerator: 'F10', title: _('Show menu') },
+                    { accelerator: '<control>w', title: _('Close current window') },
                     { accelerator: '<control>q', title: _('Quit') }
                 ]
             },
