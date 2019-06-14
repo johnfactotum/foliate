@@ -1837,6 +1837,7 @@ class BookViewerWindow {
             settings.set_boolean('show-navbar', !state)
         })
         this.window.add_action(navbarAction)
+        this.application.set_accels_for_action('win.navbar', ['<Control>p'])
 
         const lookupAction = new Gio.SimpleAction({
             name: 'lookup',
@@ -2232,7 +2233,8 @@ function main(argv) {
                 shortcuts: [
                     { accelerator: 'plus', title: _('Increase font size') },
                     { accelerator: 'minus', title: _('Decrease font size') },
-                    { accelerator: 'F11', title: _('Toggle fullscreen') }
+                    { accelerator: 'F11', title: _('Toggle fullscreen') },
+                    { accelerator: '<control>p', title: _('Toggle reading progress bar') }
                 ]
             },
             {
