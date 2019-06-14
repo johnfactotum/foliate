@@ -66,7 +66,9 @@ const coloredText = (color, text) =>
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
 class Storage {
-    constructor(key, type) {
+    constructor(key, type, indent) {
+        this.indent = indent
+
         const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
             : type === 'config' ? GLib.get_user_config_dir()
             : GLib.get_user_data_dir()
@@ -92,7 +94,7 @@ class Storage {
             this._file.get_parent().get_path(), parseInt('0755', 8))
         if (mkdirp === 0) {
             const [success, tag] = this._file
-                .replace_contents(JSON.stringify(data),
+                .replace_contents(JSON.stringify(data, null, this.indent),
                     null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null)
             if (success) return true
         }
@@ -2146,7 +2148,7 @@ class ThemeEditor {
 }
 
 function main(argv) {
-    const themes = new Storage('themes', 'config')
+    const themes = new Storage('themes', 'config', 2)
 
     const application = new Gtk.Application({
         application_id: pkg.name,
