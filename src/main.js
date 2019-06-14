@@ -1809,7 +1809,7 @@ class BookViewerWindow {
             state: new GLib.Variant('b', false)
         })
         fullscreenAction.connect('activate', () => {
-            let state = fullscreenAction.get_state().get_boolean()
+            const state = fullscreenAction.get_state().get_boolean()
             if (state) {
                 this.window.unfullscreen()
                 fullscreenAction.set_state(new GLib.Variant('b', false))
@@ -1826,7 +1826,7 @@ class BookViewerWindow {
             state: new GLib.Variant('b', settings.get_boolean('show-navbar'))
         })
         navbarAction.connect('activate', () => {
-            let state = navbarAction.get_state().get_boolean()
+            const state = navbarAction.get_state().get_boolean()
             if (state) {
                 this.navbar.widget.hide()
                 navbarAction.set_state(new GLib.Variant('b', false))
@@ -1844,7 +1844,7 @@ class BookViewerWindow {
             state: new GLib.Variant('b', settings.get_boolean('lookup-enabled'))
         })
         lookupAction.connect('activate', () => {
-            let state = lookupAction.get_state().get_boolean()
+            const state = lookupAction.get_state().get_boolean()
             if (state) {
                 this.scriptRun(`lookupEnabled = false`)
                 lookupAction.set_state(new GLib.Variant('b', false))
