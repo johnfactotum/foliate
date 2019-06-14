@@ -284,40 +284,45 @@ const setupRendition = () => {
                     })
             }, false)
         })
-    })
-    rendition.on('selected', (cfiRange, contents) => {
-        const selection = contents.window.getSelection()
-        const rect = selection.getRangeAt(0).getBoundingClientRect()
-        const viewElementRect = latestViewElement.getBoundingClientRect()
-        
-        const text = selection.toString().trim().replace(/\n/g, ' ')
-        
-        if (text === '') return
-        
-        const left = (rect.left + rect.right) / 2 + viewElementRect.left
-        const top = rect.top + viewElementRect.top
-        const bottom = rect.bottom + viewElementRect.top
-        if (text.split(' ').length === 1 && lookupEnabled) {
-            clearSelection = () => contents.window.getSelection().removeAllRanges()
-            annotation = { text, cfiRange }
-            dispatch({
-                type: 'lookup',
-                payload: {
-                    text,
-                    cfiRange,
-                    position: { left, top, bottom }
-                }
-            })
-        } else {
-            annotation = { text, cfiRange }
-            dispatch({
-                type: 'annotation-add',
-                payload: {
-                    cfiRange,
-                    position: { left, top, bottom }
-                }
-            })
-            contents.window.getSelection().removeAllRanges()
+
+        contents.document.onmouseup = () => {
+            const selection = contents.window.getSelection()
+            const range = selection.getRangeAt(0)
+            if (range.collapsed) return
+
+            const text = selection.toString().trim().replace(/\n/g, ' ')
+            if (text === '') return
+
+            const cfiRange = new ePub.CFI(range, contents.cfiBase).toString()
+
+            const rect = selection.getRangeAt(0).getBoundingClientRect()
+            const viewElementRect = latestViewElement.getBoundingClientRect()
+
+            const left = (rect.left + rect.right) / 2 + viewElementRect.left
+            const top = rect.top + viewElementRect.top
+            const bottom = rect.bottom + viewElementRect.top
+            if (text.split(' ').length === 1 && lookupEnabled) {
+                clearSelection = () => contents.window.getSelection().removeAllRanges()
+                annotation = { text, cfiRange }
+                dispatch({
+                    type: 'lookup',
+                    payload: {
+                        text,
+                        cfiRange,
+                        position: { left, top, bottom }
+                    }
+                })
+            } else {
+                annotation = { text, cfiRange }
+                dispatch({
+                    type: 'annotation-add',
+                    payload: {
+                        cfiRange,
+                        position: { left, top, bottom }
+                    }
+                })
+                contents.window.getSelection().removeAllRanges()
+            }
         }
     })
 }
