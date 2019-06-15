@@ -2449,7 +2449,7 @@ function main(argv) {
             authors: ['John Factotum'],
             artists: ['John Factotum'],
             program_name: _('Foliate'),
-            comments: _('A simple eBook viewer'),
+            comments: _('A simple and modern eBook viewer'),
             logo_icon_name: pkg.name,
             version: pkg.version,
             license_type: Gtk.License.GPL_3_0,

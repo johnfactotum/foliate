@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-12 21:35+0800\n"
+"POT-Creation-Date: 2019-06-15 15:30+0800\n"
 "PO-Revision-Date: 2019-06-07 12:35+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Generator: Poedit 2.2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1176
-#: src/main.js:2110
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1202
+#: src/main.js:2451 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
 
@@ -40,7 +39,475 @@ msgstr "com.github.johnfactotum.Foliate"
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "E-boek;Boek;EPUB;Lezer;Bekijken;"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:37
+msgid "Light"
+msgstr "Licht"
+
+#: src/main.js:41
+msgid "Sepia"
+msgstr "Sepia"
+
+#: src/main.js:45
+msgid "Dark"
+msgstr "Donker"
+
+#: src/main.js:49
+msgid "Invert"
+msgstr "Negatief"
+
+#: src/main.js:55
+msgid "Auto"
+msgstr "Automatisch"
+
+#: src/main.js:56
+msgid "Single"
+msgstr "Eén kolom"
+
+#: src/main.js:57
+msgid "Scrolled"
+msgstr "Oneindig scrollen"
+
+#: src/main.js:60
+msgid "Yellow"
+msgstr "Geel"
+
+#: src/main.js:60
+msgid "Orange"
+msgstr "Oranje"
+
+#: src/main.js:61
+msgid "Red"
+msgstr "Rood"
+
+#: src/main.js:61
+msgid "Magenta"
+msgstr "Magenta"
+
+#: src/main.js:61
+msgid "Aqua"
+msgstr "Aqua"
+
+#: src/main.js:61
+msgid "Lime"
+msgstr "Limoen"
+
+#: src/main.js:141
+msgid "Previous page"
+msgstr "Vorige pagina"
+
+#: src/main.js:146
+msgid "Next page"
+msgstr "Volgende pagina"
+
+#: src/main.js:157
+msgid "Go back"
+msgstr "Ga terug"
+
+#: src/main.js:225
+#, javascript-format
+msgid "%d minute left in book"
+msgid_plural "%d minutes left in book"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:230
+#, javascript-format
+msgid "%d hour left in book"
+msgid_plural "%d hours left in book"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:236
+#, javascript-format
+msgid "%d minute left in chapter"
+msgid_plural "%d minutes left in chapter"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:241
+#, javascript-format
+msgid "%d hour left in chapter"
+msgid_plural "%d hours left in chapter"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:378
+#, fuzzy
+msgid "Find in Book"
+msgstr "Doorzoek het boek"
+
+#: src/main.js:413
+#, fuzzy
+msgid "Searching…"
+msgstr "Zoeken"
+
+#: src/main.js:419
+msgid "No results"
+msgstr ""
+
+#: src/main.js:420
+#, javascript-format
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/main.js:568
+#, fuzzy
+msgid "Use Publisher Font"
+msgstr "Uitgever"
+
+#: src/main.js:570
+msgid "Full Justification"
+msgstr ""
+
+#: src/main.js:572
+#, fuzzy
+msgid "Auto-Hyphenation"
+msgstr "Automatische woordafbreking"
+
+#: src/main.js:599
+msgid "Font"
+msgstr ""
+
+#: src/main.js:600
+msgid "Spacing"
+msgstr ""
+
+#: src/main.js:601
+msgid "Margins"
+msgstr ""
+
+#: src/main.js:602
+msgid "Brightness"
+msgstr ""
+
+#: src/main.js:603 src/main.js:655 src/main.js:2190
+msgid "Theme"
+msgstr ""
+
+#: src/main.js:604
+msgid "Layout"
+msgstr ""
+
+#: src/main.js:605
+msgid "Options"
+msgstr ""
+
+#: src/main.js:852
+msgid "No bookmarks"
+msgstr "Geen bladwijzers"
+
+#: src/main.js:853
+msgid "Add some bookmarks to see them here."
+msgstr "Bladwijzers die je toevoegt verschijnen hier."
+
+#: src/main.js:889
+msgid "Bookmark Current Location"
+msgstr "Huidige locatie toevoegen aan bladwijzers"
+
+#: src/main.js:895
+msgid "Remove Current Location"
+msgstr "Huidige locatie verwijderen"
+
+#: src/main.js:913
+msgid "No annotations"
+msgstr "Geen aantekeningen"
+
+#: src/main.js:914
+msgid "Highlight some text to add annotations."
+msgstr "Markeer tekst om aantekeningen te creëren."
+
+#: src/main.js:952 src/main.js:1028 src/main.js:1105 src/main.js:1626
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: src/main.js:957
+msgid "Highlight"
+msgstr "Markeren"
+
+#: src/main.js:966
+msgid "Loading…"
+msgstr "Bezig met laden…"
+
+#: src/main.js:975
+msgid "From Wiktionary, the free dictionary"
+msgstr "Afkomstig van Wiktionary, hét vrije woordenboek"
+
+#: src/main.js:1013
+msgid "View Full Definition"
+msgstr "Volledige definitie bekijken"
+
+#: src/main.js:1033 src/main.js:2256
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: src/main.js:1038
+msgid "Note"
+msgstr "Notitie"
+
+#: src/main.js:1110
+#, fuzzy
+msgid "Zoom"
+msgstr "Inzoomen"
+
+#: src/main.js:1142
+msgid "Open some books to start reading"
+msgstr "Open een boek en begin met lezen"
+
+#: src/main.js:1147
+msgid "Open a file, or continue reading the last opened book."
+msgstr "Open een bestand of ga door met lezen van het vorige boek."
+
+#: src/main.js:1151
+msgid "Open File…"
+msgstr "Bestand openen…"
+
+#: src/main.js:1155
+msgid "Continue Reading"
+msgstr "Verder lezen"
+
+#: src/main.js:1277
+msgid "Oh no! The file cannot be opened"
+msgstr "Oeps, het bestand kan niet worden geopend!"
+
+#: src/main.js:1683
+msgid "Table of contents"
+msgstr "Inhoudsopgave"
+
+#: src/main.js:1696 src/main.js:2392
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
+msgid "Find in book"
+msgstr "Doorzoek het boek"
+
+#: src/main.js:1709
+msgid "Set font, theme, and layout"
+msgstr "Stel het lettertype, thema en de indeling in"
+
+#: src/main.js:1743
+msgid "Bookmarks"
+msgstr "Bladwijzers"
+
+#: src/main.js:1763
+msgid "Annotations"
+msgstr "Aantekeningen"
+
+#: src/main.js:1814
+msgid "Fullscreen"
+msgstr "Beeldvullend"
+
+#: src/main.js:1815
+msgid "Reading Progress Bar"
+msgstr "Voortgangsbalk"
+
+#: src/main.js:1816
+msgid "Enable Dictionary"
+msgstr "Woordenboek inschakelen"
+
+#: src/main.js:1820
+msgid "Open…"
+msgstr "Openen…"
+
+#: src/main.js:1824 src/main.js:2478
+msgid "Preferences"
+msgstr ""
+
+#: src/main.js:1825
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
+
+#: src/main.js:1826
+msgid "About Foliate"
+msgstr "Over Foliate"
+
+#: src/main.js:1906 src/main.js:1926
+msgid "About This Book"
+msgstr "Over dit boek"
+
+#: src/main.js:2000
+msgid "Publisher"
+msgstr "Uitgever"
+
+#: src/main.js:2001
+msgid "Publication Date"
+msgstr "Verschenen op"
+
+#: src/main.js:2002
+msgid "Modified Date"
+msgstr "Bewerkt op"
+
+#: src/main.js:2003
+msgid "Language"
+msgstr "Taal"
+
+#: src/main.js:2004
+msgid "Copyright"
+msgstr "Copyright"
+
+#: src/main.js:2005
+msgid "Identifier"
+msgstr "Identificatie"
+
+#: src/main.js:2118
+msgid "Text"
+msgstr ""
+
+#: src/main.js:2119
+msgid "Background"
+msgstr ""
+
+#: src/main.js:2120
+msgid "Link"
+msgstr ""
+
+#: src/main.js:2122
+#, fuzzy
+msgid "Enable Dark Mode"
+msgstr "Woordenboek inschakelen"
+
+#: src/main.js:2124
+#, fuzzy
+msgid "Invert Colors"
+msgstr "Negatief"
+
+#: src/main.js:2202
+msgid "Theme name"
+msgstr ""
+
+#: src/main.js:2206
+msgid "A theme with that name already exists."
+msgstr ""
+
+#: src/main.js:2208
+msgid "Add"
+msgstr ""
+
+#: src/main.js:2249
+msgid "Add…"
+msgstr ""
+
+#: src/main.js:2251
+msgid "Add a new theme"
+msgstr ""
+
+#: src/main.js:2258
+msgid "Remove selected theme"
+msgstr ""
+
+#: src/main.js:2297
+msgid "Cursor"
+msgstr ""
+
+#: src/main.js:2303
+msgid "Auto-hide cursor"
+msgstr ""
+
+#: src/main.js:2305
+msgid "Never"
+msgstr ""
+
+#: src/main.js:2306
+msgid "Always"
+msgstr ""
+
+#: src/main.js:2307
+#, fuzzy
+msgid "When in fullscreen mode"
+msgstr "Beeldvullende modus"
+
+#: src/main.js:2354
+msgid "All files"
+msgstr "Alle bestanden"
+
+#: src/main.js:2358
+msgid "EPUB files"
+msgstr "EPUB-bestanden"
+
+#: src/main.js:2361
+msgid "Open File"
+msgstr "Bestand openen"
+
+#: src/main.js:2387
+msgid "General"
+msgstr "Algemeen"
+
+#: src/main.js:2389
+msgid "Show table of contents"
+msgstr "Inhoudsopgave tonen"
+
+#: src/main.js:2390
+msgid "Show bookmarks"
+msgstr "Bladwijzers tonen"
+
+#: src/main.js:2391
+#, fuzzy
+msgid "Bookmark current location"
+msgstr "Huidige locatie toevoegen aan bladwijzers"
+
+#: src/main.js:2393
+msgid "Show menu"
+msgstr "Menu tonen"
+
+#: src/main.js:2394
+msgid "Close current window"
+msgstr ""
+
+#: src/main.js:2395
+msgid "Quit"
+msgstr ""
+
+#: src/main.js:2399
+msgid "Navigation"
+msgstr "Navigatie"
+
+#. I can't find where to access the enums in GJS,
+#. so just use ints for now
+#: src/main.js:2401 src/main.js:2420
+msgid "Go to the next page"
+msgstr "Ga naar de volgende pagina"
+
+#: src/main.js:2402 src/main.js:2421
+msgid "Go to the previous page"
+msgstr "Ga naar de vorige pagina"
+
+#: src/main.js:2403
+msgid "Go back to previous location"
+msgstr "Ga terug naar de vorige locatie"
+
+#: src/main.js:2407
+msgid "View"
+msgstr "Weergave"
+
+#: src/main.js:2409
+msgid "Increase font size"
+msgstr "Grotere tekst"
+
+#: src/main.js:2410
+msgid "Decrease font size"
+msgstr "Kleinere tekst"
+
+#: src/main.js:2411
+msgid "Toggle fullscreen"
+msgstr "Volledig scherm aan/uit"
+
+#: src/main.js:2412
+#, fuzzy
+msgid "Toggle reading progress bar"
+msgstr "Optie om de leesvoortgang te verbergen"
+
+#: src/main.js:2416
+msgid "Touchpad Gestures"
+msgstr "Touchpad-gebaren"
+
+#: src/main.js:2422
+msgid "Zoom in"
+msgstr "Inzoomen"
+
+#: src/main.js:2423
+msgid "Zoom out"
+msgstr "Uitzoomen"
+
+#: src/main.js:2452 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Een eenvoudige, moderne E-boeklezer"
 
@@ -71,11 +538,6 @@ msgstr "Voortgangsbalk, voorzien van hoofdstukmarkeringen"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
 msgid "Bookmarks and annotations"
 msgstr "Bladwijzers en aantekeningen"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1669
-#: src/main.js:2053
-msgid "Find in book"
-msgstr "Doorzoek het boek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Quick dictionary lookup"
@@ -175,390 +637,3 @@ msgstr "Ongeldig AppData-bestand gerepareerd"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Initial release"
 msgstr "Initiële uitgave"
-
-#: src/main.js:37
-msgid "Light"
-msgstr "Licht"
-
-#: src/main.js:41
-msgid "Sepia"
-msgstr "Sepia"
-
-#: src/main.js:45
-msgid "Dark"
-msgstr "Donker"
-
-#: src/main.js:49
-msgid "Invert"
-msgstr "Negatief"
-
-#: src/main.js:55
-msgid "Auto"
-msgstr "Automatisch"
-
-#: src/main.js:56
-msgid "Single"
-msgstr "Eén kolom"
-
-#: src/main.js:57
-msgid "Scrolled"
-msgstr "Oneindig scrollen"
-
-#: src/main.js:60
-msgid "Yellow"
-msgstr "Geel"
-
-#: src/main.js:60
-msgid "Orange"
-msgstr "Oranje"
-
-#: src/main.js:61
-msgid "Red"
-msgstr "Rood"
-
-#: src/main.js:61
-msgid "Magenta"
-msgstr "Magenta"
-
-#: src/main.js:61
-msgid "Aqua"
-msgstr "Aqua"
-
-#: src/main.js:61
-msgid "Lime"
-msgstr "Limoen"
-
-#: src/main.js:139
-msgid "Previous page"
-msgstr "Vorige pagina"
-
-#: src/main.js:144
-msgid "Next page"
-msgstr "Volgende pagina"
-
-#: src/main.js:155
-msgid "Go back"
-msgstr "Ga terug"
-
-#: src/main.js:220
-#, javascript-format
-msgid "%d minute left in book"
-msgid_plural "%d minutes left in book"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:225
-#, javascript-format
-msgid "%d hour left in book"
-msgid_plural "%d hours left in book"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:231
-#, javascript-format
-msgid "%d minute left in chapter"
-msgid_plural "%d minutes left in chapter"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:236
-#, javascript-format
-msgid "%d hour left in chapter"
-msgid_plural "%d hours left in chapter"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:373
-#, fuzzy
-msgid "Find in Book"
-msgstr "Doorzoek het boek"
-
-#: src/main.js:408
-#, fuzzy
-msgid "Searching…"
-msgstr "Zoeken"
-
-#: src/main.js:414
-msgid "No results"
-msgstr ""
-
-#: src/main.js:415
-#, javascript-format
-msgid "%d result"
-msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:552
-#, fuzzy
-msgid "Use Publisher Font"
-msgstr "Uitgever"
-
-#: src/main.js:554
-msgid "Full Justification"
-msgstr ""
-
-#: src/main.js:556
-#, fuzzy
-msgid "Auto-Hyphenation"
-msgstr "Automatische woordafbreking"
-
-#: src/main.js:583
-msgid "Font"
-msgstr ""
-
-#: src/main.js:584
-msgid "Spacing"
-msgstr ""
-
-#: src/main.js:585
-msgid "Margins"
-msgstr ""
-
-#: src/main.js:586
-msgid "Brightness"
-msgstr ""
-
-#: src/main.js:587
-msgid "Theme"
-msgstr ""
-
-#: src/main.js:588
-msgid "Layout"
-msgstr ""
-
-#: src/main.js:589
-msgid "Options"
-msgstr ""
-
-#: src/main.js:824
-msgid "No bookmarks"
-msgstr "Geen bladwijzers"
-
-#: src/main.js:825
-msgid "Add some bookmarks to see them here."
-msgstr "Bladwijzers die je toevoegt verschijnen hier."
-
-#: src/main.js:861
-msgid "Bookmark Current Location"
-msgstr "Huidige locatie toevoegen aan bladwijzers"
-
-#: src/main.js:867
-msgid "Remove Current Location"
-msgstr "Huidige locatie verwijderen"
-
-#: src/main.js:885
-msgid "No annotations"
-msgstr "Geen aantekeningen"
-
-#: src/main.js:886
-msgid "Highlight some text to add annotations."
-msgstr "Markeer tekst om aantekeningen te creëren."
-
-#: src/main.js:924 src/main.js:1000 src/main.js:1077 src/main.js:1599
-msgid "Copy"
-msgstr "Kopiëren"
-
-#: src/main.js:929
-msgid "Highlight"
-msgstr "Markeren"
-
-#: src/main.js:938
-msgid "Loading…"
-msgstr "Bezig met laden…"
-
-#: src/main.js:947
-msgid "From Wiktionary, the free dictionary"
-msgstr "Afkomstig van Wiktionary, hét vrije woordenboek"
-
-#: src/main.js:985
-msgid "View Full Definition"
-msgstr "Volledige definitie bekijken"
-
-#: src/main.js:1005
-msgid "Remove"
-msgstr "Verwijderen"
-
-#: src/main.js:1010
-msgid "Note"
-msgstr "Notitie"
-
-#: src/main.js:1082
-#, fuzzy
-msgid "Zoom"
-msgstr "Inzoomen"
-
-#: src/main.js:1114
-msgid "Open some books to start reading"
-msgstr "Open een boek en begin met lezen"
-
-#: src/main.js:1119
-msgid "Open a file, or continue reading the last opened book."
-msgstr "Open een bestand of ga door met lezen van het vorige boek."
-
-#: src/main.js:1123
-msgid "Open File…"
-msgstr "Bestand openen…"
-
-#: src/main.js:1127
-msgid "Continue Reading"
-msgstr "Verder lezen"
-
-#: src/main.js:1251
-msgid "Oh no! The file cannot be opened"
-msgstr "Oeps, het bestand kan niet worden geopend!"
-
-#: src/main.js:1656
-msgid "Table of contents"
-msgstr "Inhoudsopgave"
-
-#: src/main.js:1682
-msgid "Set font, theme, and layout"
-msgstr "Stel het lettertype, thema en de indeling in"
-
-#: src/main.js:1698
-msgid "Bookmarks"
-msgstr "Bladwijzers"
-
-#: src/main.js:1718
-msgid "Annotations"
-msgstr "Aantekeningen"
-
-#: src/main.js:1769
-msgid "Fullscreen"
-msgstr "Beeldvullend"
-
-#: src/main.js:1770
-msgid "Reading Progress Bar"
-msgstr "Voortgangsbalk"
-
-#: src/main.js:1771
-msgid "Enable Dictionary"
-msgstr "Woordenboek inschakelen"
-
-#: src/main.js:1775
-msgid "Open…"
-msgstr "Openen…"
-
-#: src/main.js:1779
-msgid "Keyboard Shortcuts"
-msgstr "Sneltoetsen"
-
-#: src/main.js:1780
-msgid "About Foliate"
-msgstr "Over Foliate"
-
-#: src/main.js:1840 src/main.js:1860
-msgid "About This Book"
-msgstr "Over dit boek"
-
-#: src/main.js:1934
-msgid "Publisher"
-msgstr "Uitgever"
-
-#: src/main.js:1935
-msgid "Publication Date"
-msgstr "Verschenen op"
-
-#: src/main.js:1936
-msgid "Modified Date"
-msgstr "Bewerkt op"
-
-#: src/main.js:1937
-msgid "Language"
-msgstr "Taal"
-
-#: src/main.js:1938
-msgid "Copyright"
-msgstr "Copyright"
-
-#: src/main.js:1939
-msgid "Identifier"
-msgstr "Identificatie"
-
-#: src/main.js:2015
-msgid "All files"
-msgstr "Alle bestanden"
-
-#: src/main.js:2019
-msgid "EPUB files"
-msgstr "EPUB-bestanden"
-
-#: src/main.js:2022
-msgid "Open File"
-msgstr "Bestand openen"
-
-#: src/main.js:2048
-msgid "General"
-msgstr "Algemeen"
-
-#: src/main.js:2050
-msgid "Show table of contents"
-msgstr "Inhoudsopgave tonen"
-
-#: src/main.js:2051
-msgid "Show bookmarks"
-msgstr "Bladwijzers tonen"
-
-#: src/main.js:2052
-#, fuzzy
-msgid "Bookmark current location"
-msgstr "Huidige locatie toevoegen aan bladwijzers"
-
-#: src/main.js:2054
-msgid "Show menu"
-msgstr "Menu tonen"
-
-#: src/main.js:2055
-msgid "Quit"
-msgstr ""
-
-#: src/main.js:2059
-msgid "Navigation"
-msgstr "Navigatie"
-
-#. I can't find where to access the enums in GJS,
-#. so just use ints for now
-#: src/main.js:2061 src/main.js:2079
-msgid "Go to the next page"
-msgstr "Ga naar de volgende pagina"
-
-#: src/main.js:2062 src/main.js:2080
-msgid "Go to the previous page"
-msgstr "Ga naar de vorige pagina"
-
-#: src/main.js:2063
-msgid "Go back to previous location"
-msgstr "Ga terug naar de vorige locatie"
-
-#: src/main.js:2067
-msgid "View"
-msgstr "Weergave"
-
-#: src/main.js:2069
-msgid "Increase font size"
-msgstr "Grotere tekst"
-
-#: src/main.js:2070
-msgid "Decrease font size"
-msgstr "Kleinere tekst"
-
-#: src/main.js:2071
-msgid "Toggle fullscreen"
-msgstr "Volledig scherm aan/uit"
-
-#: src/main.js:2075
-msgid "Touchpad Gestures"
-msgstr "Touchpad-gebaren"
-
-#: src/main.js:2081
-msgid "Zoom in"
-msgstr "Inzoomen"
-
-#: src/main.js:2082
-msgid "Zoom out"
-msgstr "Uitzoomen"
-
-#: src/main.js:2111
-msgid "A simple eBook viewer"
-msgstr "Een eenvoudige E-boeklezer"
