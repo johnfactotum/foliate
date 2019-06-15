@@ -1279,6 +1279,7 @@ class BookViewerWindow {
         })
     }
     bookDisplayed() {
+        this.setAutohideCursor()
         this.spinner.destroy()
         this.webView.opacity = 1
         this.webView.grab_focus()
@@ -1710,6 +1711,11 @@ class BookViewerWindow {
                 (this.themes[theme] || this.themes[Object.keys(this.themes)[0]]).darkMode
         }
     }
+    setAutohideCursor(id = settings.get_string('autohide-cursor')) {
+        if (!this.webView) return
+        const enabled = id === 'fullscreen' ? this.isFullscreen : id === 'always'
+        this.scriptRun(`autohideCursor = ${enabled}`)
+    }
     buildBookmarks(onActivate, onAdd, onChange) {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'user-bookmarks-symbolic' }),
@@ -1817,6 +1823,8 @@ class BookViewerWindow {
                 this.window.fullscreen()
                 fullscreenAction.set_state(new GLib.Variant('b', true))
             }
+            this.isFullscreen = !state
+            this.setAutohideCursor()
         })
         this.window.add_action(fullscreenAction)
         this.application.set_accels_for_action('win.fullscreen', ['F11'])
@@ -1826,6 +1834,8 @@ class BookViewerWindow {
             if (fullscreenAction.get_state().get_boolean()) {
                 this.window.unfullscreen()
                 fullscreenAction.set_state(new GLib.Variant('b', false))
+                this.isFullscreen = false
+                this.setAutohideCursor()
             }
         })
         this.window.add_action(exitFullscreenAction)
@@ -2162,6 +2172,36 @@ class ThemeEditor {
         this.widget = box
     }
 }
+class CursorPreference {
+    constructor(onChange) {
+        const title = new Gtk.Label({
+            label: '<b>' +_('Cursor') + '</b>',
+            use_markup: true,
+            halign: Gtk.Align.START,
+            visible: true
+        })
+
+        const label = new Gtk.Label({ label: _('Auto-hide cursor') })
+        const combo = new Gtk.ComboBoxText()
+        combo.insert(-1, 'never', _('Never'))
+        combo.insert(-1, 'always', _('Always'))
+        combo.insert(-1, 'fullscreen', _('When in fullscreen mode'))
+        combo.connect('changed', () => onChange(combo.active_id))
+
+        settings.bind('autohide-cursor', combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        const box = new Gtk.Box({ spacing: 6 })
+        box.pack_start(label, false, false, 0)
+        box.pack_end(combo, false, false, 0)
+
+        const container = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
+        container.pack_start(title, false, true, 0)
+        container.pack_start(box, false, true, 0)
+        container.show_all()
+
+        this.widget = container
+    }
+}
 
 function main(argv) {
     const themes = new Storage('themes', 'config', 2)
@@ -2318,6 +2358,9 @@ function main(argv) {
         window.set_titlebar(headerBar)
         window.title = _('Preferences')
 
+        const cursorPerf = new CursorPreference(x =>
+            appWindows.forEach(w => w.setAutohideCursor(x)))
+
         const themeEditor = new ThemeEditor(
             themes.get('themes', defaultThemes),
             x => {
@@ -2326,9 +2369,14 @@ function main(argv) {
             },
             x => appWindows.forEach(w => w.activateTheme(x)))
 
-        const container = window.get_content_area()
-        container.border_width = 18
+        const container = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            border_width: 18,
+            spacing: 18
+        })
+        container.pack_start(cursorPerf.widget, false, true, 0)
         container.pack_start(themeEditor.widget, true, true, 0)
+        window.get_content_area().pack_start(container, true, true, 0)
 
         window.set_transient_for(application.active_window)
         headerBar.show()

@@ -55,6 +55,7 @@ let annotation
 let lookupEnabled = true
 let lookupResults
 let lookupLang = 'English'
+let autohideCursor, screenX, screenY, cursorHidden
 
 let shouldUpdateSlider = true
 const gotoPercentage = percentage => {
@@ -324,6 +325,24 @@ const setupRendition = () => {
                 contents.window.getSelection().removeAllRanges()
             }
         }
+
+        let timeout
+        const hideCursor = () => {
+            contents.document.documentElement.style.cursor = 'none'
+            cursorHidden = true
+        }
+        const showCursor = () =>  {
+            contents.document.documentElement.style.cursor = 'auto'
+            cursorHidden = false
+        }
+        if (cursorHidden) hideCursor()
+        contents.document.documentElement.addEventListener('mousemove', e => {
+            if (e.screenX === screenX && e.screenY === screenY) return
+            screenX = e.screenX, screenY = e.screenY
+            showCursor()
+            if (timeout) clearTimeout(timeout)
+            if (autohideCursor) timeout = setTimeout(hideCursor, 1000)
+        }, false)
     })
 }
 const addAnnotation = (cfiRange, color) => {
