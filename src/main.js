@@ -480,20 +480,29 @@ class FontBox {
 }
 class RadioBox {
     constructor(options, onChange) {
+        const optionsPerLine = 4
         this._buttons = Object.assign({},
             ...options.map(theme =>
                 ({ [theme]: new Gtk.RadioButton({ label: theme }) })))
         const onToggle = button => { if (button.active) onChange(button.label) }
-        const box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL })
+        const mainBox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 10
+        })
+        const boxes = Array.from({
+                length: Math.ceil(options.length / optionsPerLine)
+            }, () => new Gtk.Box({ spacing: 3 }))
         const first = this._buttons[Object.keys(this._buttons)[0]]
-        for (const x in this._buttons) {
+        options.forEach((x, i) => {
             const button = this._buttons[x]
             button.join_group(first)
             button.active = false
             button.connect('toggled', onToggle)
-            box.pack_start(button, false, true, 3)
-        }
-        this.widget = box
+            boxes[Math.ceil((i + 1) / optionsPerLine) - 1]
+                .pack_start(button, false, true, 0)
+        })
+        boxes.forEach(box => mainBox.pack_start(box, false, true, 0))
+        this.widget = mainBox
     }
     applyOption() {
         for (const x in this._buttons) {
@@ -535,6 +544,7 @@ class ViewPopover {
         const grid = new Gtk.Grid()
         grid.column_spacing = 10
         grid.row_spacing = 10
+        this._grid = grid
         
         const onViewChange = () => {
             const font = this._fontBox.getFont()
@@ -549,6 +559,7 @@ class ViewPopover {
                 font, spacing, margin, brightness, theme, useDefault, justify, hyphenate
             })
         }
+        this._onViewChange = onViewChange
 
         this._fontBox = new FontBox(onViewChange)
         this._themeBox = new RadioBox(Object.keys(themes), onViewChange)
@@ -636,7 +647,16 @@ class ViewPopover {
         this._themeBox.applyOption()
         this._layoutBox.activate(layout)
     }
-    applyTheme() {
+    updateThemes(themes) {
+        this._themeBox = new RadioBox(Object.keys(themes), this._onViewChange)
+        this._themeBox.widget.show_all()
+        this._grid.remove_row(4)
+        this._grid.insert_row(4)
+        const label = new Gtk.Label({ label: _('Theme'), visible: true })
+        label.get_style_context().add_class('dim-label')
+        label.halign = Gtk.Align.END
+        this._grid.attach(label, 0, 4, 1, 1)
+        this._grid.attach(this._themeBox.widget, 1, 4, 1, 1)
         this._themeBox.applyOption()
     }
     get theme() {
@@ -1700,7 +1720,7 @@ class BookViewerWindow {
     }
     updateThemes(themes) {
         this.themes = themes
-        if (this.viewPopover) this.viewPopover.applyTheme()
+        if (this.viewPopover) this.viewPopover.updateThemes(themes)
         this.activateTheme()
     }
     activateTheme(theme = settings.get_string('theme')) {
@@ -2057,6 +2077,9 @@ class ThemeEditor {
         const settingsBoxMap = new Map()
         const selectedMap = new Map()
         const settingsMap = new Map()
+        const removeMap = new Map()
+
+        let activeRow
 
         listBox.connect('row-activated', (_, row) => {
             settingsBoxMap.forEach((value, key) =>
@@ -2064,14 +2087,16 @@ class ThemeEditor {
             selectedMap.forEach((value, key) =>
                 value.visible = key === row)
             onThemeActivate(themeMap.get(row))
+            activeRow = row
         })
 
-        const onChange = () =>
+        const onChange = () => {
             onSettingsChange(Object.assign({},
                 ...Array.from(settingsMap.values()).map(f => f())))
+            onThemeActivate(themeMap.get(activeRow))
+        }
 
-        const names = Object.keys(themes)
-        names.forEach((name, i) => {
+        const addTheme = (name, i) => {
             const theme = themes[name]
             const row = new Gtk.ListBoxRow({
                 selectable: false
@@ -2134,6 +2159,17 @@ class ThemeEditor {
             selectedMap.set(row, selectedIcon)
             settingsMap.set(row, getSettings)
 
+            const removeFunc = () => {
+                listBox.remove(row)
+                themeMap.delete(row)
+                settingsBoxMap.delete(row)
+                selectedMap.delete(row)
+                settingsMap.delete(row)
+                removeMap.delete(row)
+                delete themes[name]
+            }
+            removeMap.set(row, removeFunc)
+
             box.pack_start(labelBox, false, true, 0)
             box.pack_end(settingsBox, false, true, 0)
 
@@ -2144,8 +2180,11 @@ class ThemeEditor {
             if (name !== currentTheme) {
                 settingsBox.hide()
                 selectedIcon.hide()
-            }
-        })
+            } else activeRow = row
+            return row
+        }
+        const names = Object.keys(themes)
+        names.forEach(addTheme)
 
         const title = new Gtk.Label({
             label: '<b>' +_('Theme') + '</b>',
@@ -2153,6 +2192,85 @@ class ThemeEditor {
             halign: Gtk.Align.START,
             visible: true
         })
+
+        const addBox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 6,
+            border_width: 10
+        })
+        const nameLabel = new Gtk.Label({
+            label: '<b>' + _('Theme name') + '</b>',
+            use_markup: true,
+            halign: Gtk.Align.START
+        })
+        const nameMsg = new Gtk.Label({ label: _('A theme with that name already exists.') })
+        const nameEntry = new Gtk.Entry()
+        const nameButton = new Gtk.Button({ label: _('Add'), sensitive: false })
+        nameButton.get_style_context().add_class('suggested-action')
+
+        const nameBox = new Gtk.Box({ spacing: 6 })
+        nameBox.pack_start(nameEntry, false, true, 0)
+        nameBox.pack_start(nameButton, false, true, 0)
+        addBox.pack_start(nameLabel, false, true, 0)
+        addBox.pack_start(nameBox, false, true, 0)
+        addBox.pack_start(nameMsg, false, true, 0)
+        addBox.show_all()
+        nameMsg.hide()
+
+        const addPopover = new Gtk.Popover()
+        addPopover.add(addBox)
+
+        nameEntry.connect('changed', () => {
+            const text = nameEntry.buffer.get_text()
+            if (text) {
+                if (text in themes) nameButton.sensitive = false, nameMsg.show()
+                else nameButton.sensitive = true, nameMsg.hide()
+            } else nameButton.sensitive = false, nameMsg.hide()
+        })
+        nameEntry.connect('activate', () => {
+            if (nameButton.sensitive) nameButton.clicked()
+        })
+        nameButton.connect('clicked', () => {
+            const name = nameEntry.buffer.get_text()
+            themes[name] = {
+                color: '#000', background: '#fff', link: 'blue',
+                darkMode: false, invert: false
+            }
+            const row = addTheme(name, themes.length)
+            row.activate()
+            nameEntry.set_text('')
+            addPopover.popdown()
+            delButton.sensitive = true
+            onChange()
+        })
+
+        const addButton = new Gtk.MenuButton({
+            image: new Gtk.Image({ icon_name: 'list-add-symbolic' }),
+            label: _('Add…'),
+            always_show_image: true,
+            tooltip_text: _('Add a new theme')
+        })
+        addButton.popover = addPopover
+        const delButton =  new Gtk.Button({
+            image: new Gtk.Image({ icon_name: 'list-remove-symbolic' }),
+            label: _('Remove'),
+            always_show_image: true,
+            tooltip_text: _('Remove selected theme'),
+            sensitive: Object.keys(themes).length > 1
+        })
+        delButton.connect('clicked', () => {
+            removeMap.get(activeRow)()
+            Array.from(themeMap.keys())[0].activate()
+            if (themeMap.size === 1) delButton.sensitive = false
+            onChange()
+        })
+
+        const actionBox = new Gtk.Box()
+        actionBox.get_style_context().add_class('linked')
+        actionBox.pack_start(addButton, false, true, 0)
+        actionBox.pack_start(delButton, false, true, 0)
+        actionBox.show_all()
+
         const scroll = new Gtk.ScrolledWindow({
             propagate_natural_width: true,
             propagate_natural_height: true,
@@ -2168,6 +2286,7 @@ class ThemeEditor {
         })
         box.pack_start(title, false, true, 0)
         box.pack_start(scroll, true, true, 0)
+        box.pack_start(actionBox, false, true, 0)
 
         this.widget = box
     }
