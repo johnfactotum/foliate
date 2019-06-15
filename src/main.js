@@ -1368,6 +1368,7 @@ class BookViewerWindow {
             const fontFamily = font.desc.get_family()
             const fontSize = `${font.desc.get_size() / Pango.SCALE}pt`
             const fontWeight = font.desc.get_weight()
+            const fontStyle = ['normal', 'italic', 'oblique'][font.desc.get_style()]
 
             this.webViewSettings.serif_font_family = useDefault? 'Serif' : fontFamily
             this.webViewSettings.sans_serif_font_family = useDefault ? 'Sans' : fontFamily
@@ -1387,6 +1388,7 @@ class BookViewerWindow {
                         'color': '${color}',
                         'background': '${background}',
                         'font-family': '"${fontFamily}" !important',
+                        'font-style': '${fontStyle}',
                         'font-size': '${fontSize} !important',
                         'font-weight': '${fontWeight} !important',
                         'line-height': '${spacing} !important',
