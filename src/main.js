@@ -436,7 +436,10 @@ class FontBox {
         
         const fontBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL })
         fontBox.get_style_context().add_class('linked')
-        this._fontButton = new Gtk.FontButton()
+        this._fontButton = new Gtk.FontButton({
+            use_font: true,
+            show_style: false
+        })
         this._decButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'value-decrease-symbolic' })
         })
