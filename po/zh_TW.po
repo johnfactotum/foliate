@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-12 14:41+0800\n"
-"PO-Revision-Date: 2019-05-28 15:45+0800\n"
+"POT-Creation-Date: 2019-06-15 15:30+0800\n"
+"PO-Revision-Date: 2019-06-15 15:30+0800\n"
 "Last-Translator: John Factotum\n"
 "Language-Team: none\n"
 "Language: zh_TW\n"
@@ -17,9 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6 src/main.js:1102
-#: src/main.js:1959
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1202
+#: src/main.js:2451 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
 
@@ -39,7 +38,460 @@ msgstr ""
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook;Book;EPUB;Viewer;Reader;電子書;書;檢視器;閱讀器;"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:37
+msgid "Light"
+msgstr "亮色"
+
+#: src/main.js:41
+msgid "Sepia"
+msgstr "褐色"
+
+#: src/main.js:45
+msgid "Dark"
+msgstr "暗色"
+
+#: src/main.js:49
+msgid "Invert"
+msgstr "反轉"
+
+#: src/main.js:55
+msgid "Auto"
+msgstr "自動"
+
+#: src/main.js:56
+msgid "Single"
+msgstr "單頁"
+
+#: src/main.js:57
+msgid "Scrolled"
+msgstr "捲動"
+
+#: src/main.js:60
+msgid "Yellow"
+msgstr "黃"
+
+#: src/main.js:60
+msgid "Orange"
+msgstr "橘"
+
+#: src/main.js:61
+msgid "Red"
+msgstr "紅"
+
+#: src/main.js:61
+msgid "Magenta"
+msgstr "紫"
+
+#: src/main.js:61
+msgid "Aqua"
+msgstr "藍"
+
+#: src/main.js:61
+msgid "Lime"
+msgstr "綠"
+
+#: src/main.js:141
+msgid "Previous page"
+msgstr "上一頁"
+
+#: src/main.js:146
+msgid "Next page"
+msgstr "下一頁"
+
+#: src/main.js:157
+msgid "Go back"
+msgstr "返回"
+
+#: src/main.js:225
+#, javascript-format
+msgid "%d minute left in book"
+msgid_plural "%d minutes left in book"
+msgstr[0] "全書剩餘 %d 分鐘"
+
+#: src/main.js:230
+#, javascript-format
+msgid "%d hour left in book"
+msgid_plural "%d hours left in book"
+msgstr[0] "全書剩餘 %d 小時"
+
+#: src/main.js:236
+#, javascript-format
+msgid "%d minute left in chapter"
+msgid_plural "%d minutes left in chapter"
+msgstr[0] "章節剩餘 %d 分鐘"
+
+#: src/main.js:241
+#, javascript-format
+msgid "%d hour left in chapter"
+msgid_plural "%d hours left in chapter"
+msgstr[0] "章節剩餘 %d 小時"
+
+#: src/main.js:378
+msgid "Find in Book"
+msgstr "搜尋書籍內容"
+
+#: src/main.js:413
+msgid "Searching…"
+msgstr "搜尋中…"
+
+#: src/main.js:419
+msgid "No results"
+msgstr "沒有結果"
+
+#: src/main.js:420
+#, javascript-format
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] "%d 項結果"
+
+#: src/main.js:568
+msgid "Use Publisher Font"
+msgstr "使用出版社字體"
+
+#: src/main.js:570
+msgid "Full Justification"
+msgstr "左右對齊"
+
+#: src/main.js:572
+msgid "Auto-Hyphenation"
+msgstr "自動斷字"
+
+#: src/main.js:599
+msgid "Font"
+msgstr "字體"
+
+#: src/main.js:600
+msgid "Spacing"
+msgstr "行距"
+
+#: src/main.js:601
+msgid "Margins"
+msgstr "邊界"
+
+#: src/main.js:602
+msgid "Brightness"
+msgstr "亮度"
+
+#: src/main.js:603 src/main.js:655 src/main.js:2190
+msgid "Theme"
+msgstr "主題"
+
+#: src/main.js:604
+msgid "Layout"
+msgstr "版面"
+
+#: src/main.js:605
+msgid "Options"
+msgstr "選項"
+
+#: src/main.js:852
+msgid "No bookmarks"
+msgstr "沒有書籤"
+
+#: src/main.js:853
+msgid "Add some bookmarks to see them here."
+msgstr "新增書籤之後，就可以在這裡檢視它們"
+
+#: src/main.js:889
+msgid "Bookmark Current Location"
+msgstr "將目前位置加入書籤"
+
+#: src/main.js:895
+msgid "Remove Current Location"
+msgstr "移除目前位置"
+
+#: src/main.js:913
+msgid "No annotations"
+msgstr "沒有註解"
+
+#: src/main.js:914
+msgid "Highlight some text to add annotations."
+msgstr "選取一些文字以新增註解"
+
+#: src/main.js:952 src/main.js:1028 src/main.js:1105 src/main.js:1626
+msgid "Copy"
+msgstr "複製"
+
+#: src/main.js:957
+msgid "Highlight"
+msgstr "註解"
+
+#: src/main.js:966
+msgid "Loading…"
+msgstr "載入中…"
+
+#: src/main.js:975
+msgid "From Wiktionary, the free dictionary"
+msgstr "來自維基辭典，自由的多語言辭典"
+
+#: src/main.js:1013
+msgid "View Full Definition"
+msgstr "檢視完整定義"
+
+#: src/main.js:1033 src/main.js:2256
+msgid "Remove"
+msgstr "移除"
+
+#: src/main.js:1038
+msgid "Note"
+msgstr "筆記"
+
+#: src/main.js:1110
+msgid "Zoom"
+msgstr "放大"
+
+#: src/main.js:1142
+msgid "Open some books to start reading"
+msgstr "開啟電子書以開始閱讀"
+
+#: src/main.js:1147
+msgid "Open a file, or continue reading the last opened book."
+msgstr "開啟檔案，或繼續閱讀上次開啟的電子書"
+
+#: src/main.js:1151
+msgid "Open File…"
+msgstr "開啟檔案…"
+
+#: src/main.js:1155
+msgid "Continue Reading"
+msgstr "繼續閱讀"
+
+#: src/main.js:1277
+msgid "Oh no! The file cannot be opened"
+msgstr "噢不！無法開啟檔案"
+
+#: src/main.js:1683
+msgid "Table of contents"
+msgstr "目錄"
+
+#: src/main.js:1696 src/main.js:2392
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
+msgid "Find in book"
+msgstr "搜尋書籍內容"
+
+#: src/main.js:1709
+msgid "Set font, theme, and layout"
+msgstr "設定字體、主題與版面"
+
+#: src/main.js:1743
+msgid "Bookmarks"
+msgstr "書籤"
+
+#: src/main.js:1763
+msgid "Annotations"
+msgstr "註解"
+
+#: src/main.js:1814
+msgid "Fullscreen"
+msgstr "全螢幕"
+
+#: src/main.js:1815
+msgid "Reading Progress Bar"
+msgstr "閱讀進度列"
+
+#: src/main.js:1816
+msgid "Enable Dictionary"
+msgstr "啟用字典"
+
+#: src/main.js:1820
+msgid "Open…"
+msgstr "開啟…"
+
+#: src/main.js:1824 src/main.js:2478
+msgid "Preferences"
+msgstr "偏好設定"
+
+#: src/main.js:1825
+msgid "Keyboard Shortcuts"
+msgstr "鍵盤捷徑鍵"
+
+#: src/main.js:1826
+msgid "About Foliate"
+msgstr "關於 Foliate"
+
+#: src/main.js:1906 src/main.js:1926
+msgid "About This Book"
+msgstr "關於這本書"
+
+#: src/main.js:2000
+msgid "Publisher"
+msgstr "出版社"
+
+#: src/main.js:2001
+msgid "Publication Date"
+msgstr "出版日期"
+
+#: src/main.js:2002
+msgid "Modified Date"
+msgstr "修改日期"
+
+#: src/main.js:2003
+msgid "Language"
+msgstr "語言"
+
+#: src/main.js:2004
+msgid "Copyright"
+msgstr "版權"
+
+#: src/main.js:2005
+msgid "Identifier"
+msgstr "識別碼"
+
+#: src/main.js:2118
+msgid "Text"
+msgstr "文字"
+
+#: src/main.js:2119
+msgid "Background"
+msgstr "背景"
+
+#: src/main.js:2120
+msgid "Link"
+msgstr "連結"
+
+#: src/main.js:2122
+msgid "Enable Dark Mode"
+msgstr "啟用深色模式"
+
+#: src/main.js:2124
+msgid "Invert Colors"
+msgstr "反轉顏色"
+
+#: src/main.js:2202
+msgid "Theme name"
+msgstr "主題名稱"
+
+#: src/main.js:2206
+msgid "A theme with that name already exists."
+msgstr "已經存在相同名稱的主題。"
+
+#: src/main.js:2208
+msgid "Add"
+msgstr "新增"
+
+#: src/main.js:2249
+msgid "Add…"
+msgstr "新增…"
+
+#: src/main.js:2251
+msgid "Add a new theme"
+msgstr "新增主題"
+
+#: src/main.js:2258
+msgid "Remove selected theme"
+msgstr "移除選取的主題"
+
+#: src/main.js:2297
+msgid "Cursor"
+msgstr "游標"
+
+#: src/main.js:2303
+msgid "Auto-hide cursor"
+msgstr "自動隱藏游標"
+
+#: src/main.js:2305
+msgid "Never"
+msgstr "永不"
+
+#: src/main.js:2306
+msgid "Always"
+msgstr "總是"
+
+#: src/main.js:2307
+msgid "When in fullscreen mode"
+msgstr "全螢幕時"
+
+#: src/main.js:2354
+msgid "All files"
+msgstr "所有檔案"
+
+#: src/main.js:2358
+msgid "EPUB files"
+msgstr "EPUB 檔案"
+
+#: src/main.js:2361
+msgid "Open File"
+msgstr "開啟檔案"
+
+#: src/main.js:2387
+msgid "General"
+msgstr "一般"
+
+#: src/main.js:2389
+msgid "Show table of contents"
+msgstr "顯示目錄"
+
+#: src/main.js:2390
+msgid "Show bookmarks"
+msgstr "顯示書籤"
+
+#: src/main.js:2391
+msgid "Bookmark current location"
+msgstr "將目前位置加入書籤"
+
+#: src/main.js:2393
+msgid "Show menu"
+msgstr "顯示選單"
+
+#: src/main.js:2394
+msgid "Close current window"
+msgstr "關閉目前視窗"
+
+#: src/main.js:2395
+msgid "Quit"
+msgstr "結束"
+
+#: src/main.js:2399
+msgid "Navigation"
+msgstr "瀏覽"
+
+#. I can't find where to access the enums in GJS,
+#. so just use ints for now
+#: src/main.js:2401 src/main.js:2420
+msgid "Go to the next page"
+msgstr "前往下一頁"
+
+#: src/main.js:2402 src/main.js:2421
+msgid "Go to the previous page"
+msgstr "前往上一頁"
+
+#: src/main.js:2403
+msgid "Go back to previous location"
+msgstr "返回先前位置"
+
+#: src/main.js:2407
+msgid "View"
+msgstr "檢視"
+
+#: src/main.js:2409
+msgid "Increase font size"
+msgstr "放大字體"
+
+#: src/main.js:2410
+msgid "Decrease font size"
+msgstr "縮小字體"
+
+#: src/main.js:2411
+msgid "Toggle fullscreen"
+msgstr "切換全螢幕"
+
+#: src/main.js:2412
+msgid "Toggle reading progress bar"
+msgstr "顯示/隱藏閱讀進度列"
+
+#: src/main.js:2416
+msgid "Touchpad Gestures"
+msgstr "觸控板手勢"
+
+#: src/main.js:2422
+msgid "Zoom in"
+msgstr "放大"
+
+#: src/main.js:2423
+msgid "Zoom out"
+msgstr "縮小"
+
+#: src/main.js:2452 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "一個簡單而現代化的電子書閱讀器"
 
@@ -70,11 +522,6 @@ msgstr "有標示章節的閱讀進度滑桿"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
 msgid "Bookmarks and annotations"
 msgstr "書籤與註解"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17 src/main.js:1518
-#: src/main.js:1902
-msgid "Find in book"
-msgstr "搜尋書籍內容"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Quick dictionary lookup"
@@ -170,347 +617,3 @@ msgstr "修正無效的 AppData 檔案"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Initial release"
 msgstr "首次發布"
-
-#: src/main.js:37
-msgid "Light"
-msgstr "亮色"
-
-#: src/main.js:41
-msgid "Sepia"
-msgstr "褐色"
-
-#: src/main.js:45
-msgid "Dark"
-msgstr "暗色"
-
-#: src/main.js:49
-msgid "Invert"
-msgstr "反轉"
-
-#: src/main.js:55
-msgid "Auto"
-msgstr "自動"
-
-#: src/main.js:56
-msgid "Single"
-msgstr "單頁"
-
-#: src/main.js:57
-msgid "Scrolled"
-msgstr "捲動"
-
-#: src/main.js:60
-msgid "Yellow"
-msgstr "黃"
-
-#: src/main.js:60
-msgid "Orange"
-msgstr "橘"
-
-#: src/main.js:61
-msgid "Red"
-msgstr "紅"
-
-#: src/main.js:61
-msgid "Magenta"
-msgstr "紫"
-
-#: src/main.js:61
-msgid "Aqua"
-msgstr "藍"
-
-#: src/main.js:61
-msgid "Lime"
-msgstr "綠"
-
-#: src/main.js:139
-msgid "Previous page"
-msgstr "上一頁"
-
-#: src/main.js:144
-msgid "Next page"
-msgstr "下一頁"
-
-#: src/main.js:155
-msgid "Go back"
-msgstr "返回"
-
-#: src/main.js:328
-msgid "Find in Book"
-msgstr "搜尋書籍內容"
-
-#: src/main.js:363
-msgid "Searching…"
-msgstr "搜尋中…"
-
-#: src/main.js:369
-msgid "No results"
-msgstr "沒有結果"
-
-#: src/main.js:370
-#, javascript-format
-msgid "%d result"
-msgid_plural "%d results"
-msgstr[0] "%d 項結果"
-
-#: src/main.js:507
-msgid "Use Publisher Font"
-msgstr "使用出版社字體"
-
-#: src/main.js:509
-msgid "Full Justification"
-msgstr "左右對齊"
-
-#: src/main.js:511
-msgid "Auto-Hyphenation"
-msgstr "自動斷字"
-
-#: src/main.js:538
-msgid "Font"
-msgstr "字體"
-
-#: src/main.js:539
-msgid "Spacing"
-msgstr "行距"
-
-#: src/main.js:540
-msgid "Margins"
-msgstr "邊界"
-
-#: src/main.js:541
-msgid "Brightness"
-msgstr "亮度"
-
-#: src/main.js:542
-msgid "Theme"
-msgstr "主題"
-
-#: src/main.js:543
-msgid "Layout"
-msgstr "版面"
-
-#: src/main.js:544
-msgid "Options"
-msgstr "選項"
-
-#: src/main.js:779
-msgid "No bookmarks"
-msgstr "沒有書籤"
-
-#: src/main.js:780
-msgid "Add some bookmarks to see them here."
-msgstr "新增書籤之後，就可以在這裡檢視它們"
-
-#: src/main.js:816
-msgid "Bookmark Current Location"
-msgstr "將目前位置加入書籤"
-
-#: src/main.js:822
-msgid "Remove Current Location"
-msgstr "移除目前位置"
-
-#: src/main.js:840
-msgid "No annotations"
-msgstr "沒有註解"
-
-#: src/main.js:841
-msgid "Highlight some text to add annotations."
-msgstr "選取一些文字以新增註解"
-
-#: src/main.js:879 src/main.js:955
-msgid "Copy"
-msgstr "複製"
-
-#: src/main.js:884
-msgid "Highlight"
-msgstr "註解"
-
-#: src/main.js:893
-msgid "Loading…"
-msgstr "載入中…"
-
-#: src/main.js:902
-msgid "From Wiktionary, the free dictionary"
-msgstr "來自維基辭典，自由的多語言辭典"
-
-#: src/main.js:940
-msgid "View Full Definition"
-msgstr "檢視完整定義"
-
-#: src/main.js:960
-msgid "Remove"
-msgstr "移除"
-
-#: src/main.js:965
-msgid "Note"
-msgstr "筆記"
-
-#: src/main.js:1040
-msgid "Open some books to start reading"
-msgstr "開啟電子書以開始閱讀"
-
-#: src/main.js:1045
-msgid "Open a file, or continue reading the last opened book."
-msgstr "開啟檔案，或繼續閱讀上次開啟的電子書"
-
-#: src/main.js:1049
-msgid "Open File…"
-msgstr "開啟檔案…"
-
-#: src/main.js:1053
-msgid "Continue Reading"
-msgstr "繼續閱讀"
-
-#: src/main.js:1172
-msgid "Oh no! The file cannot be opened"
-msgstr "噢不！無法開啟檔案"
-
-#: src/main.js:1505
-msgid "Table of contents"
-msgstr "目錄"
-
-#: src/main.js:1531
-msgid "Set font, theme, and layout"
-msgstr "設定字體、主題與版面"
-
-#: src/main.js:1547
-msgid "Bookmarks"
-msgstr "書籤"
-
-#: src/main.js:1567
-msgid "Annotations"
-msgstr "註解"
-
-#: src/main.js:1618
-msgid "Fullscreen"
-msgstr "全螢幕"
-
-#: src/main.js:1619
-msgid "Reading Progress Bar"
-msgstr "閱讀進度列"
-
-#: src/main.js:1620
-msgid "Enable Dictionary"
-msgstr "啟用字典"
-
-#: src/main.js:1624
-msgid "Open…"
-msgstr "開啟…"
-
-#: src/main.js:1628
-msgid "Keyboard Shortcuts"
-msgstr "鍵盤捷徑鍵"
-
-#: src/main.js:1629
-msgid "About Foliate"
-msgstr "關於 Foliate"
-
-#: src/main.js:1689 src/main.js:1709
-msgid "About This Book"
-msgstr "關於這本書"
-
-#: src/main.js:1783
-msgid "Publisher"
-msgstr "出版社"
-
-#: src/main.js:1784
-msgid "Publication Date"
-msgstr "出版日期"
-
-#: src/main.js:1785
-msgid "Modified Date"
-msgstr "修改日期"
-
-#: src/main.js:1786
-msgid "Language"
-msgstr "語言"
-
-#: src/main.js:1787
-msgid "Copyright"
-msgstr "版權"
-
-#: src/main.js:1788
-msgid "Identifier"
-msgstr "識別碼"
-
-#: src/main.js:1864
-msgid "All files"
-msgstr "所有檔案"
-
-#: src/main.js:1868
-msgid "EPUB files"
-msgstr "EPUB 檔案"
-
-#: src/main.js:1897
-msgid "General"
-msgstr "一般"
-
-#: src/main.js:1899
-msgid "Show table of contents"
-msgstr "顯示目錄"
-
-#: src/main.js:1900
-msgid "Show bookmarks"
-msgstr "顯示書籤"
-
-#: src/main.js:1901
-msgid "Bookmark current location"
-msgstr "將目前位置加入書籤"
-
-#: src/main.js:1903
-msgid "Show menu"
-msgstr "顯示選單"
-
-#: src/main.js:1904
-msgid "Quit"
-msgstr "結束"
-
-#: src/main.js:1908
-msgid "Navigation"
-msgstr "瀏覽"
-
-#. I can't find where to access the enums in GJS,
-#. so just use ints for now
-#: src/main.js:1910 src/main.js:1928
-msgid "Go to the next page"
-msgstr "前往下一頁"
-
-#: src/main.js:1911 src/main.js:1929
-msgid "Go to the previous page"
-msgstr "前往上一頁"
-
-#: src/main.js:1912
-msgid "Go back to previous location"
-msgstr "返回先前位置"
-
-#: src/main.js:1916
-msgid "View"
-msgstr "檢視"
-
-#: src/main.js:1918
-msgid "Increase font size"
-msgstr "放大字體"
-
-#: src/main.js:1919
-msgid "Decrease font size"
-msgstr "縮小字體"
-
-#: src/main.js:1920
-msgid "Toggle fullscreen"
-msgstr "切換全螢幕"
-
-#: src/main.js:1924
-msgid "Touchpad Gestures"
-msgstr "觸控板手勢"
-
-#: src/main.js:1930
-msgid "Zoom in"
-msgstr "放大"
-
-#: src/main.js:1931
-msgid "Zoom out"
-msgstr "縮小"
-
-#: src/main.js:1960
-msgid "A simple eBook viewer"
-msgstr "一個簡單的電子書閱讀器"
