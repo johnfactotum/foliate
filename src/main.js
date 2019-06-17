@@ -66,7 +66,9 @@ const coloredText = (color, text) =>
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
 class Storage {
-    constructor(key, type) {
+    constructor(key, type, indent) {
+        this.indent = indent
+
         const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
             : type === 'config' ? GLib.get_user_config_dir()
             : GLib.get_user_data_dir()
@@ -92,7 +94,7 @@ class Storage {
             this._file.get_parent().get_path(), parseInt('0755', 8))
         if (mkdirp === 0) {
             const [success, tag] = this._file
-                .replace_contents(JSON.stringify(data),
+                .replace_contents(JSON.stringify(data, null, this.indent),
                     null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null)
             if (success) return true
         }
@@ -434,7 +436,10 @@ class FontBox {
         
         const fontBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL })
         fontBox.get_style_context().add_class('linked')
-        this._fontButton = new Gtk.FontButton()
+        this._fontButton = new Gtk.FontButton({
+            use_font: true,
+            show_style: false
+        })
         this._decButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'value-decrease-symbolic' })
         })
@@ -478,20 +483,29 @@ class FontBox {
 }
 class RadioBox {
     constructor(options, onChange) {
+        const optionsPerLine = 4
         this._buttons = Object.assign({},
             ...options.map(theme =>
                 ({ [theme]: new Gtk.RadioButton({ label: theme }) })))
         const onToggle = button => { if (button.active) onChange(button.label) }
-        const box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL })
+        const mainBox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 10
+        })
+        const boxes = Array.from({
+                length: Math.ceil(options.length / optionsPerLine)
+            }, () => new Gtk.Box({ spacing: 3 }))
         const first = this._buttons[Object.keys(this._buttons)[0]]
-        for (const x in this._buttons) {
+        options.forEach((x, i) => {
             const button = this._buttons[x]
             button.join_group(first)
             button.active = false
             button.connect('toggled', onToggle)
-            box.pack_start(button, false, true, 3)
-        }
-        this.widget = box
+            boxes[Math.ceil((i + 1) / optionsPerLine) - 1]
+                .pack_start(button, false, true, 0)
+        })
+        boxes.forEach(box => mainBox.pack_start(box, false, true, 0))
+        this.widget = mainBox
     }
     applyOption() {
         for (const x in this._buttons) {
@@ -533,6 +547,7 @@ class ViewPopover {
         const grid = new Gtk.Grid()
         grid.column_spacing = 10
         grid.row_spacing = 10
+        this._grid = grid
         
         const onViewChange = () => {
             const font = this._fontBox.getFont()
@@ -547,6 +562,7 @@ class ViewPopover {
                 font, spacing, margin, brightness, theme, useDefault, justify, hyphenate
             })
         }
+        this._onViewChange = onViewChange
 
         this._fontBox = new FontBox(onViewChange)
         this._themeBox = new RadioBox(Object.keys(themes), onViewChange)
@@ -633,6 +649,18 @@ class ViewPopover {
         this._themeBox.activate(theme)
         this._themeBox.applyOption()
         this._layoutBox.activate(layout)
+    }
+    updateThemes(themes) {
+        this._themeBox = new RadioBox(Object.keys(themes), this._onViewChange)
+        this._themeBox.widget.show_all()
+        this._grid.remove_row(4)
+        this._grid.insert_row(4)
+        const label = new Gtk.Label({ label: _('Theme'), visible: true })
+        label.get_style_context().add_class('dim-label')
+        label.halign = Gtk.Align.END
+        this._grid.attach(label, 0, 4, 1, 1)
+        this._grid.attach(this._themeBox.widget, 1, 4, 1, 1)
+        this._themeBox.applyOption()
     }
     get theme() {
         return this._themeBox.getActive()
@@ -1168,9 +1196,7 @@ class BookViewerWindow {
             settings.set_boolean('window-maximized', windowMaximized)
         })
         
-        const theme = settings.get_string('theme')
-        if (themes[theme]) Gtk.Settings.get_default()
-            .gtk_application_prefer_dark_theme = themes[theme].darkMode
+        this.activateTheme()
         
         this.headerBar = new Gtk.HeaderBar()
         this.headerBar.show_close_button = true
@@ -1276,6 +1302,7 @@ class BookViewerWindow {
         })
     }
     bookDisplayed() {
+        this.setAutohideCursor()
         this.spinner.destroy()
         this.webView.opacity = 1
         this.webView.grab_focus()
@@ -1344,6 +1371,7 @@ class BookViewerWindow {
             const fontFamily = font.desc.get_family()
             const fontSize = `${font.desc.get_size() / Pango.SCALE}pt`
             const fontWeight = font.desc.get_weight()
+            const fontStyle = ['normal', 'italic', 'oblique'][font.desc.get_style()]
 
             this.webViewSettings.serif_font_family = useDefault? 'Serif' : fontFamily
             this.webViewSettings.sans_serif_font_family = useDefault ? 'Sans' : fontFamily
@@ -1363,6 +1391,7 @@ class BookViewerWindow {
                         'color': '${color}',
                         'background': '${background}',
                         'font-family': '"${fontFamily}" !important',
+                        'font-style': '${fontStyle}',
                         'font-size': '${fontSize} !important',
                         'font-weight': '${fontWeight} !important',
                         'line-height': '${spacing} !important',
@@ -1540,7 +1569,7 @@ class BookViewerWindow {
             case 'annotation-menu': {
                 const { position, cfiRange } = payload
                 const [, winHeight] = this.window.get_size()
-                const fromTop = position.bottom > winHeight / 2
+                const fromTop = position.top >= winHeight / 2
                 const y = fromTop ? position.top : position.bottom
                 
                 const data = this.annotationsPopover.getData(cfiRange)
@@ -1694,6 +1723,24 @@ class BookViewerWindow {
         this.addShortcut(['plus', 'equal', '<Control>plus', '<Control>equal'],
             'font-inc', () => this.viewPopover.incFont())
     }
+    updateThemes(themes) {
+        this.themes = themes
+        if (this.viewPopover) this.viewPopover.updateThemes(themes)
+        this.activateTheme()
+    }
+    activateTheme(theme = settings.get_string('theme')) {
+         if (this.viewPopover) this.viewPopover.theme = theme || this.viewPopover.theme
+         else {
+             settings.set_string('theme', theme)
+             Gtk.Settings.get_default().gtk_application_prefer_dark_theme =
+                (this.themes[theme] || this.themes[Object.keys(this.themes)[0]]).darkMode
+        }
+    }
+    setAutohideCursor(id = settings.get_string('autohide-cursor')) {
+        if (!this.webView) return
+        const enabled = id === 'fullscreen' ? this.isFullscreen : id === 'always'
+        this.scriptRun(`autohideCursor = ${enabled}`)
+    }
     buildBookmarks(onActivate, onAdd, onChange) {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'user-bookmarks-symbolic' }),
@@ -1779,6 +1826,7 @@ class BookViewerWindow {
         this.menu.append_section(null, section2)
 
         const section3 = new Gio.Menu()
+        section3.append(_('Preferences'), 'app.preferences')
         section3.append(_('Keyboard Shortcuts'), 'app.shortcuts')
         section3.append(_('About Foliate'), 'app.about')
         this.menu.append_section(null, section3)
@@ -1792,7 +1840,7 @@ class BookViewerWindow {
             state: new GLib.Variant('b', false)
         })
         fullscreenAction.connect('activate', () => {
-            let state = fullscreenAction.get_state().get_boolean()
+            const state = fullscreenAction.get_state().get_boolean()
             if (state) {
                 this.window.unfullscreen()
                 fullscreenAction.set_state(new GLib.Variant('b', false))
@@ -1800,16 +1848,30 @@ class BookViewerWindow {
                 this.window.fullscreen()
                 fullscreenAction.set_state(new GLib.Variant('b', true))
             }
+            this.isFullscreen = !state
+            this.setAutohideCursor()
         })
         this.window.add_action(fullscreenAction)
         this.application.set_accels_for_action('win.fullscreen', ['F11'])
+
+        const exitFullscreenAction = new Gio.SimpleAction({ name: 'exit-fullscreen' })
+        exitFullscreenAction.connect('activate', () => {
+            if (fullscreenAction.get_state().get_boolean()) {
+                this.window.unfullscreen()
+                fullscreenAction.set_state(new GLib.Variant('b', false))
+                this.isFullscreen = false
+                this.setAutohideCursor()
+            }
+        })
+        this.window.add_action(exitFullscreenAction)
+        this.application.set_accels_for_action('win.exit-fullscreen', ['Escape'])
 
         const navbarAction = new Gio.SimpleAction({
             name: 'navbar',
             state: new GLib.Variant('b', settings.get_boolean('show-navbar'))
         })
         navbarAction.connect('activate', () => {
-            let state = navbarAction.get_state().get_boolean()
+            const state = navbarAction.get_state().get_boolean()
             if (state) {
                 this.navbar.widget.hide()
                 navbarAction.set_state(new GLib.Variant('b', false))
@@ -1820,13 +1882,14 @@ class BookViewerWindow {
             settings.set_boolean('show-navbar', !state)
         })
         this.window.add_action(navbarAction)
+        this.application.set_accels_for_action('win.navbar', ['<Control>p'])
 
         const lookupAction = new Gio.SimpleAction({
             name: 'lookup',
             state: new GLib.Variant('b', settings.get_boolean('lookup-enabled'))
         })
         lookupAction.connect('activate', () => {
-            let state = lookupAction.get_state().get_boolean()
+            const state = lookupAction.get_state().get_boolean()
             if (state) {
                 this.scriptRun(`lookupEnabled = false`)
                 lookupAction.set_state(new GLib.Variant('b', false))
@@ -1837,6 +1900,11 @@ class BookViewerWindow {
             settings.set_boolean('lookup-enabled', !state)
         })
         this.window.add_action(lookupAction)
+
+        const closeAction = new Gio.SimpleAction({ name: 'close' })
+        closeAction.connect('activate', () => this.window.close())
+        this.window.add_action(closeAction)
+        this.application.set_accels_for_action('win.close', ['<Control>w'])
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
@@ -1986,8 +2054,281 @@ class BookViewerWindow {
         this.window.add_action(action)
     }
 }
+
+class ColorButton {
+    constructor(color, label) {
+        const box = new Gtk.Box({ spacing: 6 })
+        const rgba = new Gdk.RGBA()
+        rgba.parse(color)
+        const button = new Gtk.ColorButton({ rgba })
+        box.pack_start(button, false, true, 0)
+        box.pack_start(new Gtk.Label({ label }), false, true, 0)
+
+        this.box = box
+        this.button = button
+    }
+}
+class ThemeEditor {
+    constructor(themes, onSettingsChange, onThemeActivate) {
+        const theme = settings.get_string('theme')
+        const currentTheme = theme in themes ? theme : Object.keys(themes)[0]
+
+        const listBox = new Gtk.ListBox({ visible: true })
+        listBox.set_header_func((row) => {
+            if (row.get_index()) row.set_header(new Gtk.Separator())
+        })
+
+        const themeMap = new Map()
+        const settingsBoxMap = new Map()
+        const selectedMap = new Map()
+        const settingsMap = new Map()
+        const removeMap = new Map()
+
+        let activeRow
+
+        listBox.connect('row-activated', (_, row) => {
+            settingsBoxMap.forEach((value, key) =>
+                value.visible = key === row ? !value.visible : false)
+            selectedMap.forEach((value, key) =>
+                value.visible = key === row)
+            onThemeActivate(themeMap.get(row))
+            activeRow = row
+        })
+
+        const onChange = () => {
+            onSettingsChange(Object.assign({},
+                ...Array.from(settingsMap.values()).map(f => f())))
+            onThemeActivate(themeMap.get(activeRow))
+        }
+
+        const addTheme = (name, i) => {
+            const theme = themes[name]
+            const row = new Gtk.ListBoxRow({
+                selectable: false
+            })
+            const box =  new Gtk.Box({
+                orientation: Gtk.Orientation.VERTICAL,
+                spacing: 10,
+                border_width: 10
+            })
+            const label = new Gtk.Label({
+                label: name,
+                halign: Gtk.Align.START
+            })
+            const selectedIcon = new Gtk.Image({ icon_name: 'object-select-symbolic' })
+            const labelBox = new Gtk.Box()
+            labelBox.pack_start(label, true, true, 0)
+            labelBox.pack_end(selectedIcon, false, true, 0)
+
+            const colorButton = new ColorButton(theme.color,  _('Text'))
+            const bgButton = new ColorButton(theme.background, _('Background'))
+            const linkButton =  new ColorButton(theme.link, _('Link'))
+
+            const modeToggle = new Gtk.CheckButton({ label: _('Enable Dark Mode') })
+            modeToggle.active = theme.darkMode
+            const invertToggle = new Gtk.CheckButton({ label: _('Invert Colors') })
+            invertToggle.active = theme.invert
+
+            const buttons = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
+            buttons.pack_start(bgButton.box, false, true, 0)
+            buttons.pack_start(colorButton.box, false, true, 0)
+            buttons.pack_start(linkButton.box, false, true, 0)
+
+            const toggles = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
+            toggles.pack_start(modeToggle, false, true, 0)
+            toggles.pack_start(invertToggle, false, true, 0)
+
+            const settingsBox = new Gtk.Box({
+                spacing: 18
+            })
+            settingsBox.pack_start(buttons, true, true, 0)
+            settingsBox.pack_start(toggles, true, true, 0)
+
+            colorButton.button.connect('color-set', onChange)
+            bgButton.button.connect('color-set', onChange)
+            linkButton.button.connect('color-set', onChange)
+            modeToggle.connect('toggled', onChange)
+            invertToggle.connect('toggled', onChange)
+
+            const getSettings = () => ({
+                [name]: {
+                    color: colorButton.button.rgba.to_string(),
+                    background: bgButton.button.rgba.to_string(),
+                    link: linkButton.button.rgba.to_string(),
+                    darkMode: modeToggle.active,
+                    invert: invertToggle.active
+                }
+            })
+            themeMap.set(row, name)
+            settingsBoxMap.set(row, settingsBox)
+            selectedMap.set(row, selectedIcon)
+            settingsMap.set(row, getSettings)
+
+            const removeFunc = () => {
+                listBox.remove(row)
+                themeMap.delete(row)
+                settingsBoxMap.delete(row)
+                selectedMap.delete(row)
+                settingsMap.delete(row)
+                removeMap.delete(row)
+                delete themes[name]
+            }
+            removeMap.set(row, removeFunc)
+
+            box.pack_start(labelBox, false, true, 0)
+            box.pack_end(settingsBox, false, true, 0)
+
+            row.add(box)
+            listBox.add(row)
+
+            row.show_all()
+            if (name !== currentTheme) {
+                settingsBox.hide()
+                selectedIcon.hide()
+            } else activeRow = row
+            return row
+        }
+        const names = Object.keys(themes)
+        names.forEach(addTheme)
+
+        const title = new Gtk.Label({
+            label: '<b>' +_('Theme') + '</b>',
+            use_markup: true,
+            halign: Gtk.Align.START,
+            visible: true
+        })
+
+        const addBox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 6,
+            border_width: 10
+        })
+        const nameLabel = new Gtk.Label({
+            label: '<b>' + _('Theme name') + '</b>',
+            use_markup: true,
+            halign: Gtk.Align.START
+        })
+        const nameMsg = new Gtk.Label({ label: _('A theme with that name already exists.') })
+        const nameEntry = new Gtk.Entry()
+        const nameButton = new Gtk.Button({ label: _('Add'), sensitive: false })
+        nameButton.get_style_context().add_class('suggested-action')
+
+        const nameBox = new Gtk.Box({ spacing: 6 })
+        nameBox.pack_start(nameEntry, false, true, 0)
+        nameBox.pack_start(nameButton, false, true, 0)
+        addBox.pack_start(nameLabel, false, true, 0)
+        addBox.pack_start(nameBox, false, true, 0)
+        addBox.pack_start(nameMsg, false, true, 0)
+        addBox.show_all()
+        nameMsg.hide()
+
+        const addPopover = new Gtk.Popover()
+        addPopover.add(addBox)
+
+        nameEntry.connect('changed', () => {
+            const text = nameEntry.buffer.get_text()
+            if (text) {
+                if (text in themes) nameButton.sensitive = false, nameMsg.show()
+                else nameButton.sensitive = true, nameMsg.hide()
+            } else nameButton.sensitive = false, nameMsg.hide()
+        })
+        nameEntry.connect('activate', () => {
+            if (nameButton.sensitive) nameButton.clicked()
+        })
+        nameButton.connect('clicked', () => {
+            const name = nameEntry.buffer.get_text()
+            themes[name] = {
+                color: '#000', background: '#fff', link: 'blue',
+                darkMode: false, invert: false
+            }
+            const row = addTheme(name, themes.length)
+            row.activate()
+            nameEntry.set_text('')
+            addPopover.popdown()
+            delButton.sensitive = true
+            onChange()
+        })
+
+        const addButton = new Gtk.MenuButton({
+            image: new Gtk.Image({ icon_name: 'list-add-symbolic' }),
+            label: _('Add…'),
+            always_show_image: true,
+            tooltip_text: _('Add a new theme')
+        })
+        addButton.popover = addPopover
+        const delButton =  new Gtk.Button({
+            image: new Gtk.Image({ icon_name: 'list-remove-symbolic' }),
+            label: _('Remove'),
+            always_show_image: true,
+            tooltip_text: _('Remove selected theme'),
+            sensitive: Object.keys(themes).length > 1
+        })
+        delButton.connect('clicked', () => {
+            removeMap.get(activeRow)()
+            Array.from(themeMap.keys())[0].activate()
+            if (themeMap.size === 1) delButton.sensitive = false
+            onChange()
+        })
+
+        const actionBox = new Gtk.Box()
+        actionBox.get_style_context().add_class('linked')
+        actionBox.pack_start(addButton, false, true, 0)
+        actionBox.pack_start(delButton, false, true, 0)
+        actionBox.show_all()
+
+        const scroll = new Gtk.ScrolledWindow({
+            propagate_natural_width: true,
+            propagate_natural_height: true,
+            visible: true
+        })
+        scroll.get_style_context().add_class('frame')
+        scroll.add(listBox)
+
+        const box = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 10,
+            visible: true
+        })
+        box.pack_start(title, false, true, 0)
+        box.pack_start(scroll, true, true, 0)
+        box.pack_start(actionBox, false, true, 0)
+
+        this.widget = box
+    }
+}
+class CursorPreference {
+    constructor(onChange) {
+        const title = new Gtk.Label({
+            label: '<b>' +_('Cursor') + '</b>',
+            use_markup: true,
+            halign: Gtk.Align.START,
+            visible: true
+        })
+
+        const label = new Gtk.Label({ label: _('Auto-hide cursor') })
+        const combo = new Gtk.ComboBoxText()
+        combo.insert(-1, 'never', _('Never'))
+        combo.insert(-1, 'always', _('Always'))
+        combo.insert(-1, 'fullscreen', _('When in fullscreen mode'))
+        combo.connect('changed', () => onChange(combo.active_id))
+
+        settings.bind('autohide-cursor', combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        const box = new Gtk.Box({ spacing: 6 })
+        box.pack_start(label, false, false, 0)
+        box.pack_end(combo, false, false, 0)
+
+        const container = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
+        container.pack_start(title, false, true, 0)
+        container.pack_start(box, false, true, 0)
+        container.show_all()
+
+        this.widget = container
+    }
+}
+
 function main(argv) {
-    const themes = new Storage('themes', 'config')
+    const themes = new Storage('themes', 'config', 2)
 
     const application = new Gtk.Application({
         application_id: pkg.name,
@@ -2055,6 +2396,7 @@ function main(argv) {
                     { accelerator: '<control>d', title: _('Bookmark current location') },
                     { accelerator: '<control>f', title: _('Find in book') },
                     { accelerator: 'F10', title: _('Show menu') },
+                    { accelerator: '<control>w', title: _('Close current window') },
                     { accelerator: '<control>q', title: _('Quit') }
                 ]
             },
@@ -2071,7 +2413,8 @@ function main(argv) {
                 shortcuts: [
                     { accelerator: 'plus', title: _('Increase font size') },
                     { accelerator: 'minus', title: _('Decrease font size') },
-                    { accelerator: 'F11', title: _('Toggle fullscreen') }
+                    { accelerator: 'F11', title: _('Toggle fullscreen') },
+                    { accelerator: '<control>p', title: _('Toggle reading progress bar') }
                 ]
             },
             {
@@ -2111,7 +2454,7 @@ function main(argv) {
             authors: ['John Factotum'],
             artists: ['John Factotum'],
             program_name: _('Foliate'),
-            comments: _('A simple eBook viewer'),
+            comments: _('A simple and modern eBook viewer'),
             logo_icon_name: pkg.name,
             version: pkg.version,
             license_type: Gtk.License.GPL_3_0,
@@ -2128,6 +2471,43 @@ function main(argv) {
         [...appWindows].forEach(window => window.window.close()))
     application.add_action(actionQuit)
     application.set_accels_for_action('app.quit', ['<Control>q'])
+
+    const actionPref = new Gio.SimpleAction({ name: 'preferences' })
+    actionPref.connect('activate', () => {
+        const window = new Gtk.Dialog({ modal: true })
+        const headerBar = new Gtk.HeaderBar({
+            show_close_button: true,
+            has_subtitle: false
+        })
+        window.set_titlebar(headerBar)
+        window.title = _('Preferences')
+
+        const cursorPerf = new CursorPreference(x =>
+            appWindows.forEach(w => w.setAutohideCursor(x)))
+
+        const themeEditor = new ThemeEditor(
+            themes.get('themes', defaultThemes),
+            x => {
+                appWindows.forEach(w => w.updateThemes(x))
+                themes.set('themes', x)
+            },
+            x => appWindows.forEach(w => w.activateTheme(x)))
+
+        const container = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            border_width: 18,
+            spacing: 18
+        })
+        container.pack_start(cursorPerf.widget, false, true, 0)
+        container.pack_start(themeEditor.widget, true, true, 0)
+        window.get_content_area().pack_start(container, true, true, 0)
+
+        window.set_transient_for(application.active_window)
+        headerBar.show()
+        container.show()
+        window.show()
+    })
+    application.add_action(actionPref)
 
     return application.run(argv)
 }

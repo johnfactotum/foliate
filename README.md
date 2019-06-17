@@ -41,7 +41,7 @@ Auto-hyphenation is done using CSS hyphenation. To enbale CSS hyphenation in Web
 ### Install manually from source
 
 First, you'll need the following dependencies:
-- `gjs`
+- `gjs (>= 1.54.0)`
 - `webkit2gtk`
 - `libsoup`
 - `meson`
