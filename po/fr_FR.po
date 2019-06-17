@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-15 15:30+0800\n"
-"PO-Revision-Date: 2019-06-09 12:15+0900\n"
+"PO-Revision-Date: 2019-06-16 11:29+0900\n"
 "Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -107,29 +107,29 @@ msgstr "Revenir en arrière"
 #, javascript-format
 msgid "%d minute left in book"
 msgid_plural "%d minutes left in book"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minute restante dans le livre"
+msgstr[1] "%d minutes restantes dans le livre"
 
 #: src/main.js:230
 #, javascript-format
 msgid "%d hour left in book"
 msgid_plural "%d hours left in book"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d heure restante dans le livre"
+msgstr[1] "%d heures restantes dans le livre"
 
 #: src/main.js:236
 #, javascript-format
 msgid "%d minute left in chapter"
 msgid_plural "%d minutes left in chapter"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minute restante dans le chapitre"
+msgstr[1] "%d minutes restantes dans le chapitre"
 
 #: src/main.js:241
 #, javascript-format
 msgid "%d hour left in chapter"
 msgid_plural "%d hours left in chapter"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d heure restante dans le chapitre"
+msgstr[1] "%d heures restantes dans le chapitre"
 
 #: src/main.js:378
 msgid "Find in Book"
@@ -172,11 +172,11 @@ msgstr "Espacement"
 
 #: src/main.js:601
 msgid "Margins"
-msgstr ""
+msgstr "Marges"
 
 #: src/main.js:602
 msgid "Brightness"
-msgstr ""
+msgstr "Luminosité"
 
 #: src/main.js:603 src/main.js:655 src/main.js:2190
 msgid "Theme"
@@ -243,7 +243,6 @@ msgid "Note"
 msgstr "Note"
 
 #: src/main.js:1110
-#, fuzzy
 msgid "Zoom"
 msgstr "Zoomer"
 
@@ -306,7 +305,7 @@ msgstr "Ouvrir…"
 
 #: src/main.js:1824 src/main.js:2478
 msgid "Preferences"
-msgstr ""
+msgstr "Préférences"
 
 #: src/main.js:1825
 msgid "Keyboard Shortcuts"
@@ -346,71 +345,67 @@ msgstr "Identificateur"
 
 #: src/main.js:2118
 msgid "Text"
-msgstr ""
+msgstr "Texte"
 
 #: src/main.js:2119
 msgid "Background"
-msgstr ""
+msgstr "Arrière-plan"
 
 #: src/main.js:2120
 msgid "Link"
-msgstr ""
+msgstr "Lien"
 
 #: src/main.js:2122
-#, fuzzy
 msgid "Enable Dark Mode"
-msgstr "Activer le dictionnaire"
+msgstr "Activer le mode sombre"
 
 #: src/main.js:2124
-#, fuzzy
 msgid "Invert Colors"
-msgstr "Inversé"
+msgstr "Couleurs inversées"
 
 #: src/main.js:2202
-#, fuzzy
 msgid "Theme name"
-msgstr "Thème"
+msgstr "Nom du thème"
 
 #: src/main.js:2206
 msgid "A theme with that name already exists."
-msgstr ""
+msgstr "Un thème ayant ce nom existe déjà."
 
 #: src/main.js:2208
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: src/main.js:2249
 msgid "Add…"
-msgstr ""
+msgstr "Ajouter…"
 
 #: src/main.js:2251
 msgid "Add a new theme"
-msgstr ""
+msgstr "Ajouter un nouveau thème"
 
 #: src/main.js:2258
 msgid "Remove selected theme"
-msgstr ""
+msgstr "Supprimer le thème sélectionné"
 
 #: src/main.js:2297
 msgid "Cursor"
-msgstr ""
+msgstr "Curseur"
 
 #: src/main.js:2303
 msgid "Auto-hide cursor"
-msgstr ""
+msgstr "Masquer automatiquement le curseur"
 
 #: src/main.js:2305
 msgid "Never"
-msgstr ""
+msgstr "Jamais"
 
 #: src/main.js:2306
 msgid "Always"
-msgstr ""
+msgstr "Toujours"
 
 #: src/main.js:2307
-#, fuzzy
 msgid "When in fullscreen mode"
-msgstr "Mode plein écran"
+msgstr "En mode plein écran"
 
 #: src/main.js:2354
 msgid "All files"
@@ -437,7 +432,6 @@ msgid "Show bookmarks"
 msgstr "Afficher les marque-pages"
 
 #: src/main.js:2391
-#, fuzzy
 msgid "Bookmark current location"
 msgstr "Ajouter un marque-page à la position actuelle"
 
@@ -447,11 +441,11 @@ msgstr "Afficher le menu"
 
 #: src/main.js:2394
 msgid "Close current window"
-msgstr ""
+msgstr "Fermer la fenêtre actuelle"
 
 #: src/main.js:2395
 msgid "Quit"
-msgstr ""
+msgstr "Quitter"
 
 #: src/main.js:2399
 msgid "Navigation"
@@ -488,9 +482,8 @@ msgid "Toggle fullscreen"
 msgstr "Activer/désactiver le mode plein écran"
 
 #: src/main.js:2412
-#, fuzzy
 msgid "Toggle reading progress bar"
-msgstr "Option pour masquer la barre de progression de lecture"
+msgstr "Afficher/masquer la barre de progression de lecture"
 
 #: src/main.js:2416
 msgid "Touchpad Gestures"
