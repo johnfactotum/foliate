@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-15 15:30+0800\n"
-"PO-Revision-Date: 2019-06-13 08:47+0200\n"
+"PO-Revision-Date: 2019-06-17 20:32+0200\n"
 "Last-Translator: Juan Campos <juan.camposzambrana@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -107,92 +107,88 @@ msgstr "Volver"
 #, javascript-format
 msgid "%d minute left in book"
 msgid_plural "%d minutes left in book"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Queda %d  minuto en el libro"
+msgstr[1] "Quedan %d  minutos en el libro"
 
 #: src/main.js:230
 #, javascript-format
 msgid "%d hour left in book"
 msgid_plural "%d hours left in book"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Queda %d  hora en el libro"
+msgstr[1] "Quedan %d  horas en el libro"
 
 #: src/main.js:236
 #, javascript-format
 msgid "%d minute left in chapter"
 msgid_plural "%d minutes left in chapter"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Queda %d  minuto en el capítulo"
+msgstr[1] "Quedan %d  minutos en el capítulo"
 
 #: src/main.js:241
 #, javascript-format
 msgid "%d hour left in chapter"
 msgid_plural "%d hours left in chapter"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Queda %d  hora en el capítulo"
+msgstr[1] "Quedan %d  horas en el capítulo"
 
 #: src/main.js:378
-#, fuzzy
 msgid "Find in Book"
-msgstr "Encontrar en el libro"
+msgstr "Buscar en el libro"
 
 #: src/main.js:413
-#, fuzzy
 msgid "Searching…"
-msgstr "Cargando…"
+msgstr "Buscando…"
 
 #: src/main.js:419
 msgid "No results"
-msgstr ""
+msgstr "Sin resultados"
 
 #: src/main.js:420
 #, javascript-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d resultado"
+msgstr[1] "%d resultados"
 
 #: src/main.js:568
-#, fuzzy
 msgid "Use Publisher Font"
-msgstr "Editor"
+msgstr "Usar fuente del editor"
 
 #: src/main.js:570
 msgid "Full Justification"
-msgstr ""
+msgstr "Justificación completa"
 
 #: src/main.js:572
-#, fuzzy
 msgid "Auto-Hyphenation"
-msgstr "Autoindexación"
+msgstr "Separación silábica automática"
 
 #: src/main.js:599
 msgid "Font"
-msgstr ""
+msgstr "Fuente"
 
 #: src/main.js:600
 msgid "Spacing"
-msgstr ""
+msgstr "Espaciado"
 
 #: src/main.js:601
 msgid "Margins"
-msgstr ""
+msgstr "Márgenes"
 
 #: src/main.js:602
 msgid "Brightness"
-msgstr ""
+msgstr "Brillo"
 
 #: src/main.js:603 src/main.js:655 src/main.js:2190
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: src/main.js:604
 msgid "Layout"
-msgstr ""
+msgstr "Diseño"
 
 #: src/main.js:605
 msgid "Options"
-msgstr ""
+msgstr "Opciones"
 
 #: src/main.js:852
 msgid "No bookmarks"
@@ -240,16 +236,15 @@ msgstr "Ver definición completa"
 
 #: src/main.js:1033 src/main.js:2256
 msgid "Remove"
-msgstr "Remover"
+msgstr "Quitar"
 
 #: src/main.js:1038
 msgid "Note"
 msgstr "Nota"
 
 #: src/main.js:1110
-#, fuzzy
 msgid "Zoom"
-msgstr "Aumentar el zoom"
+msgstr "Zoom"
 
 #: src/main.js:1142
 msgid "Open some books to start reading"
@@ -261,7 +256,7 @@ msgstr "Abra un fichero o continue leyendo el último libro abierto."
 
 #: src/main.js:1151
 msgid "Open File…"
-msgstr "Abrir fichero..."
+msgstr "Abrir fichero…"
 
 #: src/main.js:1155
 msgid "Continue Reading"
@@ -278,7 +273,7 @@ msgstr "Tabla de contenidos"
 #: src/main.js:1696 src/main.js:2392
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Find in book"
-msgstr "Encontrar en el libro"
+msgstr "Buscar en el libro"
 
 #: src/main.js:1709
 msgid "Set font, theme, and layout"
@@ -297,22 +292,20 @@ msgid "Fullscreen"
 msgstr "Pantalla completa"
 
 #: src/main.js:1815
-#, fuzzy
 msgid "Reading Progress Bar"
-msgstr "Barra de progreso de lectura"
+msgstr "Barra de progreso"
 
 #: src/main.js:1816
-#, fuzzy
 msgid "Enable Dictionary"
-msgstr "Activar el diccionario"
+msgstr "Activar diccionario"
 
 #: src/main.js:1820
 msgid "Open…"
-msgstr "Abrir..."
+msgstr "Abrir…"
 
 #: src/main.js:1824 src/main.js:2478
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #: src/main.js:1825
 msgid "Keyboard Shortcuts"
@@ -352,48 +345,47 @@ msgstr "Identificador"
 
 #: src/main.js:2118
 msgid "Text"
-msgstr ""
+msgstr "Texto"
 
 #: src/main.js:2119
 msgid "Background"
-msgstr ""
+msgstr "Fondo"
 
 #: src/main.js:2120
 msgid "Link"
-msgstr ""
+msgstr "Enlace"
 
 #: src/main.js:2122
 msgid "Enable Dark Mode"
-msgstr ""
+msgstr "Habilitar modo oscuro"
 
 #: src/main.js:2124
-#, fuzzy
 msgid "Invert Colors"
-msgstr "Negativo"
+msgstr "Invertir colores"
 
 #: src/main.js:2202
 msgid "Theme name"
-msgstr ""
+msgstr "Nombre del tema"
 
 #: src/main.js:2206
 msgid "A theme with that name already exists."
-msgstr ""
+msgstr "Un tema con ese nombre ya existe."
 
 #: src/main.js:2208
 msgid "Add"
-msgstr ""
+msgstr "Añadir"
 
 #: src/main.js:2249
 msgid "Add…"
-msgstr ""
+msgstr "Añadir…"
 
 #: src/main.js:2251
 msgid "Add a new theme"
-msgstr ""
+msgstr "Añadir un nuevo tema"
 
 #: src/main.js:2258
 msgid "Remove selected theme"
-msgstr ""
+msgstr "Quitar tema seleccionado"
 
 #: src/main.js:2297
 msgid "Cursor"
@@ -401,20 +393,19 @@ msgstr ""
 
 #: src/main.js:2303
 msgid "Auto-hide cursor"
-msgstr ""
+msgstr "Auto-ocultar el cursor"
 
 #: src/main.js:2305
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: src/main.js:2306
 msgid "Always"
-msgstr ""
+msgstr "Siempre"
 
 #: src/main.js:2307
-#, fuzzy
 msgid "When in fullscreen mode"
-msgstr "Modo pantalla completa"
+msgstr "Cuando está en modo pantalla completa"
 
 #: src/main.js:2354
 msgid "All files"
@@ -425,9 +416,8 @@ msgid "EPUB files"
 msgstr "Ficheros EPUB"
 
 #: src/main.js:2361
-#, fuzzy
 msgid "Open File"
-msgstr "Abrir fichero..."
+msgstr "Abrir fichero"
 
 #: src/main.js:2387
 msgid "General"
@@ -442,9 +432,8 @@ msgid "Show bookmarks"
 msgstr "Mostrar marcadores"
 
 #: src/main.js:2391
-#, fuzzy
 msgid "Bookmark current location"
-msgstr "Marcar la ubicación actual"
+msgstr "Marcar ubicación actual"
 
 #: src/main.js:2393
 msgid "Show menu"
@@ -452,11 +441,11 @@ msgstr "Mostrar el menú"
 
 #: src/main.js:2394
 msgid "Close current window"
-msgstr ""
+msgstr "Cerrar la ventana actual"
 
 #: src/main.js:2395
 msgid "Quit"
-msgstr ""
+msgstr "Salir"
 
 #: src/main.js:2399
 msgid "Navigation"
@@ -493,9 +482,8 @@ msgid "Toggle fullscreen"
 msgstr "Activa/desactiva la pantalla completa"
 
 #: src/main.js:2412
-#, fuzzy
 msgid "Toggle reading progress bar"
-msgstr "Barra de progreso de lectura"
+msgstr "Activa/desactiva la barra de progreso de lectura"
 
 #: src/main.js:2416
 msgid "Touchpad Gestures"
@@ -550,13 +538,12 @@ msgid "John Factotum"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:48
-#, fuzzy
 msgid "Fixed some books not rendering sometimes"
-msgstr "Abra algunos libros para empezar a leer"
+msgstr "Corregido que algunos libros no se muestran a veces"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Fixed images being too wide in some cases"
-msgstr ""
+msgstr "Corregido que las imágenes sean demasiado anchas en algunos casos"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
@@ -573,7 +560,7 @@ msgstr "Opción para cambiar entre justicado o alineado a  la izquierda"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 msgid "New layout option: single-column paginated view"
-msgstr ""
+msgstr "Nueva opción de diseño: visión  paginada de una sola columna"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed:"
@@ -584,20 +571,26 @@ msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
 msgstr ""
+"Las ubicaciones generadas ahora son almacenadas en directorio de la "
+"caché en lugar del localStorage"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
 msgid "Allow font size adjustment when using publisher fonts"
 msgstr ""
+"Permitir el ajustado del tamaño de fuente cuando se usan las fuentes "
+"del editor"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 msgid ""
 "Fixed reading progress slider not appearing after localStorage quota is "
 "exceeded"
 msgstr ""
+"Corregido la no aparición del deslizador de progreso después de exceder "
+"la cuota localStorage"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid "Touchpad gestures and ability to scroll through pages"
-msgstr ""
+msgstr "Gestos del touchpad y capacidad de scroll entre páginas"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
 msgid "Fullscreen mode"
@@ -605,15 +598,15 @@ msgstr "Modo pantalla completa"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "Option to hide reading progress bar"
-msgstr ""
+msgstr "Opción para ocultar la barra de progreso"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
 msgid "Option to disable dictionary"
-msgstr ""
+msgstr "Opción para desabilitar el diccionario"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
 msgid "Option to use publisher font"
-msgstr ""
+msgstr "Opción para usar la fuente del editor"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
 msgid "Fixes:"
@@ -621,15 +614,16 @@ msgstr "Correcciones:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
 msgid "Restoring reading progress is now smooth and jank-free"
-msgstr ""
+msgstr "Restaurar el progreso de lectura ahora es fácil y sin tirones"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
 msgid "Fixed custom styles not applying in some cases"
 msgstr ""
+"Corregido la no aplicación de estilos personalizados en algunos casos"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
 msgid "Fixed invalid AppData file"
-msgstr "Corregido fichero AppData inválido "
+msgstr "Corregido fichero AppData inválido"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Initial release"
