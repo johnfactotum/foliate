@@ -213,7 +213,7 @@ const display = (lastLocation, cached) => {
 const setupRendition = () => {
     rendition.on("layout", layout =>
         document.getElementById('divider').style.display =
-            layout.spread && document.getElementById('viewer').clientWidth > 800
+            layout.spread && document.getElementById('viewer').clientWidth >= 800
                 ? 'block' : 'none')
 
     rendition.on('rendered', section => {
