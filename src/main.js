@@ -594,7 +594,6 @@ class ViewPopover {
             value_pos: Gtk.PositionType.RIGHT
         })
         this._brightnessSlider.connect('format-value', (_, x) => `${Math.round(x * 100)}%`)
-        this._brightnessSlider.set_value(1)
         this._brightnessSlider.add_mark(1, Gtk.PositionType.TOP, null)
         this._brightnessSlider.connect('value-changed', onViewChange)
         
