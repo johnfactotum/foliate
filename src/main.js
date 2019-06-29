@@ -271,8 +271,10 @@ class JumpList {
         view.append_column(col)
 
         const text = new Gtk.CellRendererText()
-        if (isToc) text.ellipsize = Pango.EllipsizeMode.END
-        else {
+        if (isToc) {
+            text.ellipsize = Pango.EllipsizeMode.END
+            view.set_tooltip_column(0)
+        } else {
             text.wrap_mode = Gtk.WRAP_WORD
             text.wrap_width = width
         }
