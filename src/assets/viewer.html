@@ -59,6 +59,9 @@ let autohideCursor, screenX, screenY, cursorHidden
 let windowSize
 const zoomed = () => !((windowSize || window.outerWidth) === window.innerWidth)
 
+const redrawAnnotations = () =>
+    rendition.views().forEach(view => view.pane ? view.pane.render() : null)
+
 let shouldUpdateSlider = true
 const gotoPercentage = percentage => {
     shouldUpdateSlider = false
@@ -228,6 +231,7 @@ const setupRendition = () => {
 
     rendition.on('rendered', section => {
         dispatch({ type: 'section', payload: section.href })
+        redrawAnnotations()
     })
     rendition.on('relocated', location => {
         if (shouldUpdateSlider)

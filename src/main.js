@@ -1486,6 +1486,8 @@ class BookViewerWindow {
                     '.default-font a:link': { color: '${link}' }
                 })
                 rendition.themes.select('default-font')`)
+
+            this.scriptRun('redrawAnnotations()')
         },
         layout => {
             settings.set_string('layout', layout)
