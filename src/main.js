@@ -397,7 +397,7 @@ class SearchPopover {
         this._jumpList = new JumpList(320, 350, false, href => {
             onChange(href)
             button.active = false
-        })
+        }, true)
         this._statusLabel = new Gtk.Label({ halign: Gtk.Align.START })
         this._statusLabel.get_style_context().add_class('dim-label')
         
