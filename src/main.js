@@ -378,12 +378,25 @@ class SearchPopover {
             placeholder_text: _('Find in Book'),
             width_request: 320
         })
-        this._searchEntry.connect('activate', () =>
-            onSearch(this._searchEntry.get_text().trim()))
+        const search = () =>
+            onSearch(this._searchEntry.get_text().trim(), inChapterButton.active)
+        this._searchEntry.connect('activate', search)
         this._searchEntry.connect('search-changed', () => {
             const text = this._searchEntry.get_text()
             if (text === '') onSearch(text)
         })
+
+        const rangeBox = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            spacing: 3
+        })
+        const inBookButton = new Gtk.RadioButton({ label: _('All chapters') })
+        inBookButton.connect('toggled', search)
+        const inChapterButton = new Gtk.RadioButton({ label: _('Current chapter') })
+        inChapterButton.join_group(inBookButton)
+        inChapterButton.connect('toggled', search)
+        rangeBox.pack_start(inBookButton, false, true, 0)
+        rangeBox.pack_start(inChapterButton, false, true, 0)
         
         this._jumpList = new JumpList(320, 350, false, href => {
             onChange(href)
@@ -396,6 +409,7 @@ class SearchPopover {
             orientation: Gtk.Orientation.VERTICAL, spacing: 10
         })
         box.pack_start(this._searchEntry, false, true, 0)
+        box.pack_start(rangeBox, false, true, 0)
         box.pack_end(this._statusLabel, false, true, 0)
         box.pack_end(this._jumpList.widget, true, true, 0)
 
@@ -1340,9 +1354,9 @@ class BookViewerWindow {
             () => this.scriptRun('rendition.next()'),
             x => this.scriptRun(`rendition.display('${x}')`))
 
-        this.buildSearch(withHistory(goTo), text => {
+        this.buildSearch(withHistory(goTo), (text, inChapter) => {
             if (typeof text !== 'undefined' && text !== '') {
-                this.scriptRun(`search("${encodeURI(text)}")`)
+                this.scriptRun(`search("${encodeURI(text)}", ${inChapter})`)
                 this.searchPopover.setPending()
             } else {
                 this.scriptRun('clearSearch()')

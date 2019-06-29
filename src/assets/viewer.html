@@ -63,14 +63,22 @@ const gotoPercentage = percentage => {
     rendition.display(book.locations.cfiFromPercentage(percentage))
 }
 
-const search = q => {
-    q = decodeURI(q)
-    return Promise.all(book.spine.spineItems.map(item =>
+const doSearch = q =>
+    Promise.all(book.spine.spineItems.map(item =>
         item.load(book.load.bind(book))
             .then(item.find.bind(item, q))
             .finally(item.unload.bind(item))))
     .then(results =>
         Promise.resolve([].concat.apply([], results)))
+const doChapterSearch = q => {
+    const item = book.spine.get(rendition.location.start.cfi)
+    return item.load(book.load.bind(book))
+        .then(item.find.bind(item, q))
+        .finally(item.unload.bind(item))
+}
+const search = (q, inChapter) => {
+    q = decodeURI(q)
+    return (inChapter ? doChapterSearch(q) : doSearch(q))
     .then(results => {
         clearSearch()
         searchResults = results
