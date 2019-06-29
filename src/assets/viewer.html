@@ -241,7 +241,8 @@ const setupRendition = () => {
             payload: {
                 atStart: location.atStart,
                 atEnd: location.atEnd,
-                cfi: location.start.cfi
+                cfi: location.start.cfi,
+                index: book.spine.get(location.start.cfi).index
             }
         })
     })

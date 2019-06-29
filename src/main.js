@@ -256,6 +256,34 @@ class Navbar {
         this._nextButton.sensitive = !atEnd
     }
 }
+class NavEntry {
+    constructor(total, onChange) {
+        const box = new Gtk.Box()
+        box.get_style_context().add_class('linked')
+        this._currentEntry = new Gtk.Entry({ xalign: 1 })
+        this._currentEntry.connect('activate', () => {
+            const x = parseInt(this._currentEntry.text) - 1
+            if (isNaN(x) || x > total) this._currentEntry.text = this._current || '0'
+            else onChange(x)
+        })
+        this._totalEntry = new Gtk.Entry({ sensitive: false })
+
+        const totalLabel = _('of %d').format(total)
+        this._currentEntry.set_width_chars(total.toString().length + 1)
+        this._totalEntry.set_width_chars(totalLabel.length + 1)
+        this._totalEntry.text = totalLabel
+
+        box.pack_start(this._currentEntry, false, true, 0)
+        box.pack_start(this._totalEntry, false, true, 0)
+        box.show_all()
+        this.widget = box
+    }
+    setCurrent(x) {
+        x = x + 1
+        this._current = x.toString()
+        this._currentEntry.text = x.toString()
+    }
+}
 
 class JumpList {
     constructor(width, height, isToc, onChange, frame) {
@@ -1319,7 +1347,7 @@ class BookViewerWindow {
             this.scriptGet(`rendition.currentLocation().start.cfi`,
                 cfi => { this.navbar.pushHistory(cfi); f(x) })
 
-        this.scriptGet('book.navigation.toc', toc => {
+        this.scriptGet('[book.navigation.toc, book.spine.length]', ([toc, spineLength]) => {
             const options = {
                 toc,
                 onActivate: withHistory(goTo),
@@ -1331,7 +1359,8 @@ class BookViewerWindow {
                 onBookmarksChange: values => this.storage.set('bookmarks', values),
                 onAnnotationsChange: values => this.storage.set('annotations', values),
                 onAnnotationsRemove: value => this.scriptRun(`
-                    rendition.annotations.remove("${value}", 'highlight')`)
+                    rendition.annotations.remove("${value}", 'highlight')`),
+                spineLength
             }
             if (USE_SIDEBAR) this.buildSidebar(options)
             else this.buildPopovers(options)
@@ -1506,6 +1535,7 @@ class BookViewerWindow {
                         sectionMarks => this.navbar.setSectionMarks(sectionMarks))
                 break
             case 'relocated':
+                if (this.navEntry) this.navEntry.setCurrent(payload.index)
                 this.bookmarks.update(payload.cfi)
                 this.navbar.setAtStart(payload.atStart)
                 this.navbar.setAtEnd(payload.atEnd)
@@ -1741,7 +1771,7 @@ class BookViewerWindow {
     }
     buildSidebar({
         toc, onActivate, onBookmarksAdd, onBookmarksChange,
-        onAnnotationsChange, onAnnotationsRemove
+        onAnnotationsChange, onAnnotationsRemove, spineLength
     }) {
         this.toc = new Toc(-1, -1, toc, onActivate, false)
         this.bookmarks = new Bookmarks(-1, -1, onActivate,
@@ -1790,6 +1820,9 @@ class BookViewerWindow {
         })
         button.active = settings.get_boolean('show-sidebar')
         this.headerBar.pack_start(button)
+
+        this.navEntry = new NavEntry(spineLength, onActivate)
+        this.headerBar.pack_start(this.navEntry.widget)
 
         this.addShortcut(['F9'], 'sidebar', () =>
             button.active = !button.active)
