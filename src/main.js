@@ -351,18 +351,13 @@ class JumpList {
     }
 }
 
-class TocPopover {
-    constructor(toc, button, onChange) {
-        this._jumpList = new JumpList(320, 360, true, href => {
-            onChange(href)
-            button.active = false
-        })
+class Toc {
+    constructor(toc, onChange) {
+        this._jumpList = new JumpList(320, 360, true, onChange)
         this._jumpList.loadToc(toc)
 
-        this.widget = new Gtk.Popover({ border_width: 10 })
-        this.widget.add(this._jumpList.widget)
+        this.widget = this._jumpList.widget
         this.widget.show_all()
-        this.widget.hide()
     }
     selectSection(href) {
         this._jumpList.selectSection(href)
@@ -856,14 +851,11 @@ class NotesList {
         else return values
     }
 }
-class BookmarksPopover {
-    constructor(button, onActivate, onAdd, onChange, onCanAddChange) {
+class Bookmarks {
+    constructor(onActivate, onAdd, onChange, onCanAddChange) {
         this._onCanAddChange = onCanAddChange
 
-        this._notesList = new NotesList(320, 320, x => {
-            onActivate(x)
-            button.active = false
-        }, onChange, {
+        this._notesList = new NotesList(320, 320, onActivate, onChange, {
             icon: 'non-starred-symbolic',
             title: _('No bookmarks'),
             message: _('Add some bookmarks to see them here.')
@@ -886,10 +878,8 @@ class BookmarksPopover {
         bookmarksBox.pack_start(this._notesList.widget, true, true, 0)
         bookmarksBox.pack_end(this._addButton, false, true, 0)
 
-        this.widget = new Gtk.Popover({ border_width: 10 })
-        this.widget.add(bookmarksBox)
+        this.widget = bookmarksBox
         this.widget.show_all()
-        this.widget.hide()
     }
     init(arr) {
         arr.forEach(row => {
@@ -918,22 +908,17 @@ class BookmarksPopover {
         else this.setCanAdd()
     }
 }
-class AnnotationsPopover {
-    constructor(button, onActivate, onChange, onRemove) {
+class Annotations {
+    constructor(onActivate, onChange, onRemove) {
         this._onRemove = onRemove
-        this._notesList = new NotesList(320, 360, x => {
-            onActivate(x)
-            button.active = false
-        }, onChange, {
+        this._notesList = new NotesList(320, 360, onActivate, onChange, {
             icon: 'document-edit-symbolic',
             title: _('No annotations'),
             message: _('Highlight some text to add annotations.')
         })
 
-        this.widget = new Gtk.Popover({ border_width: 10 })
-        this.widget.add(this._notesList.widget)
+        this.widget = this._notesList.widget
         this.widget.show_all()
-        this.widget.hide()
     }
     init(arr) {
         arr.forEach(data => {
@@ -1326,25 +1311,27 @@ class BookViewerWindow {
                 cfi => { this.navbar.pushHistory(cfi); f(x) })
 
         this.scriptGet('book.navigation.toc', toc => {
-            this.buildToc(toc, withHistory(goTo))
-
-            this.buildAnnotations(withHistory(goTo),
-                values => this.storage.set('annotations', values),
-                value => this.scriptRun(`
-                    rendition.annotations.remove("${value}", 'highlight')`))
+            this.buildPopovers({
+                toc,
+                onActivate: withHistory(goTo),
+                onBookmarksAdd: add => {
+                    this.scriptGet(`rendition.currentLocation().start.cfi`, cfi => {
+                        add(cleanCfi(cfi), cfi)
+                    })
+                },
+                onBookmarksChange: values => this.storage.set('bookmarks', values),
+                onAnnotationsChange: values => this.storage.set('annotations', values),
+                onAnnotationsRemove: value => this.scriptRun(`
+                    rendition.annotations.remove("${value}", 'highlight')`)
+            })
 
             const annotations = this.storage.get('annotations', [])
-            this.annotationsPopover.init(annotations)
+            this.annotations.init(annotations)
             annotations.forEach(({ value, color }) =>
                 this.scriptRun(`addAnnotation('${value}', '${color}')`))
 
             const cleanCfi = cfi => cfi.replace(/(^epubcfi\(|\)$)/g, '')
-            this.buildBookmarks(withHistory(goTo), add => {
-                this.scriptGet(`rendition.currentLocation().start.cfi`, cfi => {
-                    add(cleanCfi(cfi), cfi)
-                })
-            }, values => this.storage.set('bookmarks', values))
-            this.bookmarksPopover.init(this.storage.get('bookmarks', [])
+            this.bookmarks.init(this.storage.get('bookmarks', [])
                 .map(x => [cleanCfi(x), x]))
         })
 
@@ -1508,7 +1495,7 @@ class BookViewerWindow {
                         sectionMarks => this.navbar.setSectionMarks(sectionMarks))
                 break
             case 'relocated':
-                this.bookmarksPopover.update(payload.cfi)
+                this.bookmarks.update(payload.cfi)
                 this.navbar.setAtStart(payload.atStart)
                 this.navbar.setAtEnd(payload.atEnd)
                 this.storage.set('lastLocation', payload.cfi)
@@ -1523,7 +1510,7 @@ class BookViewerWindow {
                 this.navbar.pushHistory(payload)
                 break
             case 'section':
-                this.tocPopover.selectSection(payload)
+                this.toc.selectSection(payload)
                 break
             case 'search-results':
                 this.scriptGet('searchResults', results =>
@@ -1572,7 +1559,7 @@ class BookViewerWindow {
                     this.scriptRun(`addAnnotation('${cfiRange}', '${color}')`)
                     
                     const label = coloredText(color, text)
-                    this.annotationsPopover.add(label, null, cfiRange, data)
+                    this.annotations.add(label, null, cfiRange, data)
                     this.scriptRun(`dispatch({
                         type: 'annotation-menu',
                         payload: ${JSON.stringify(payload)}
@@ -1585,11 +1572,11 @@ class BookViewerWindow {
                 const fromTop = position.top >= winHeight / 2
                 const y = fromTop ? position.top : position.bottom
                 
-                const data = this.annotationsPopover.getData(cfiRange)
+                const data = this.annotations.getData(cfiRange)
                 new AnnotationPopover(
                     this.webView, { x: position.left, y }, fromTop,
                     () => {
-                        this.annotationsPopover.remove(cfiRange)
+                        this.annotations.remove(cfiRange)
                     },
                     () => Gtk.Clipboard
                         .get_default(Gdk.Display.get_default())
@@ -1601,12 +1588,12 @@ class BookViewerWindow {
                         this.scriptRun(`
                             addAnnotation('${cfiRange}', '${color}')`)
                         const text = coloredText(color, data.text)
-                        this.annotationsPopover.setLabel(cfiRange, text)
+                        this.annotations.setLabel(cfiRange, text)
                     },
                     data.note,
                     note => {
                         data.note = note
-                        this.annotationsPopover.setLabel2(cfiRange, note)
+                        this.annotations.setLabel2(cfiRange, note)
                     })
                 break
             }
@@ -1694,19 +1681,6 @@ class BookViewerWindow {
         this.window.add_action(action)
         this.application.set_accels_for_action(`win.${name}`, accels)
     }
-    buildToc(toc, onChange) {
-        const button = new Gtk.MenuButton({
-            image: new Gtk.Image({ icon_name: 'view-list-symbolic' }),
-            valign: Gtk.Align.CENTER,
-            tooltip_text: _('Table of contents'),
-            visible: true
-        })
-        this.tocPopover = new TocPopover(toc, button, onChange)
-        button.popover = this.tocPopover.widget
-        this.headerBar.pack_start(button)
-        this.addShortcut(['F9'], 'toc-popover', () =>
-            button.active = !button.active)
-    }
     buildSearch(onChange, onSearch) {
         const button = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'system-search-symbolic' }),
@@ -1754,36 +1728,65 @@ class BookViewerWindow {
         const enabled = id === 'fullscreen' ? this.isFullscreen : id === 'always'
         this.scriptRun(`autohideCursor = ${enabled}`)
     }
-    buildBookmarks(onActivate, onAdd, onChange) {
-        const button = new Gtk.MenuButton({
+    buildPopovers({
+        toc, onActivate, onBookmarksAdd, onBookmarksChange,
+        onAnnotationsChange, onAnnotationsRemove
+    }) {
+        const tocButton = new Gtk.MenuButton({
+            image: new Gtk.Image({ icon_name: 'view-list-symbolic' }),
+            valign: Gtk.Align.CENTER,
+            tooltip_text: _('Table of contents'),
+            visible: true
+        })
+        const bookmarksButton = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'user-bookmarks-symbolic' }),
             valign: Gtk.Align.CENTER,
             tooltip_text: _('Bookmarks'),
             visible: true
         })
-        this.bookmarksPopover = new BookmarksPopover(button, onActivate, onAdd, onChange,
-            canAdd =>
-                button.image = canAdd
-                    ? new Gtk.Image({ icon_name: 'non-starred-symbolic' })
-                    : new Gtk.Image({ icon_name: 'starred-symbolic' }))
-        button.popover = this.bookmarksPopover.widget
-        this.headerBar.pack_start(button)
-        
-        this.addShortcut(['<Control>b'], 'bookmark-popover', () =>
-            button.active = !button.active)
-        this.addShortcut(['<Control>d'], 'bookmark-add', () =>
-            this.bookmarksPopover.doButtonAction())
-    }
-    buildAnnotations(onActivate, onChange, onRemove) {
-        const button = new Gtk.MenuButton({
+        const annotationsButton = new Gtk.MenuButton({
             image: new Gtk.Image({ icon_name: 'document-edit-symbolic' }),
             valign: Gtk.Align.CENTER,
             tooltip_text: _('Annotations'),
             visible: true
         })
-        this.annotationsPopover = new AnnotationsPopover(button, onActivate, onChange, onRemove)
-        button.popover = this.annotationsPopover.widget
-        this.headerBar.pack_start(button)
+
+        const activateFunc = x => {
+            onActivate(x)
+            tocButton.active = false
+            bookmarksButton.active = false
+            annotationsButton.active = false
+        }
+        this.toc = new Toc(toc, activateFunc)
+        this.bookmarks = new Bookmarks(activateFunc, onBookmarksAdd, onBookmarksChange,
+            canAdd =>
+                bookmarksButton.image = canAdd
+                    ? new Gtk.Image({ icon_name: 'non-starred-symbolic' })
+                    : new Gtk.Image({ icon_name: 'starred-symbolic' }))
+        this.annotations = new Annotations(activateFunc, onAnnotationsChange, onAnnotationsRemove)
+
+        const tocPopover = new Gtk.Popover({ border_width: 10 })
+        tocPopover.add(this.toc.widget)
+        tocButton.popover = tocPopover
+
+        const bookmarksPopover = new Gtk.Popover({ border_width: 10 })
+        bookmarksPopover.add(this.bookmarks.widget)
+        bookmarksButton.popover = bookmarksPopover
+
+        const annotationsPopover = new Gtk.Popover({ border_width: 10 })
+        annotationsPopover.add(this.annotations.widget)
+        annotationsButton.popover = annotationsPopover
+
+        this.headerBar.pack_start(tocButton)
+        this.headerBar.pack_start(annotationsButton)
+        this.headerBar.pack_start(bookmarksButton)
+        
+        this.addShortcut(['F9'], 'toc-popover', () =>
+            tocButton.active = !tocButton.active)
+        this.addShortcut(['<Control>b'], 'bookmark-popover', () =>
+            bookmarksButton.active = !bookmarksButton.active)
+        this.addShortcut(['<Control>d'], 'bookmark-add', () =>
+            this.bookmarks.doButtonAction())
     }
     buildNavbar(onSlide, onPrev, onNext, onBack) {
         this.navbar = new Navbar(onSlide, onPrev, onNext, onBack)
