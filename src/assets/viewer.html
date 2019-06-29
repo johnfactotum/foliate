@@ -56,6 +56,8 @@ let lookupEnabled = true
 let lookupResults
 let lookupLang = 'English'
 let autohideCursor, screenX, screenY, cursorHidden
+let windowSize
+const zoomed = () => !((windowSize || window.outerWidth) === window.innerWidth)
 
 let shouldUpdateSlider = true
 const gotoPercentage = percentage => {
@@ -170,7 +172,7 @@ const display = (lastLocation, cached) => {
         })
 
     const onwheel = debounce(event => {
-        if (window.outerWidth !== window.innerWidth) return
+        if (zoomed()) return
         if (rendition.settings.flow === 'scrolled-doc') {
             if (atBottom() && event.deltaY > 0) {
                 rendition.next().then(() =>
@@ -181,7 +183,7 @@ const display = (lastLocation, cached) => {
                 event.preventDefault()
             }
         } else {
-            if (window.outerWidth !== window.innerWidth) return
+            if (zoomed()) return
             const { deltaX, deltaY } = event
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
                 if (deltaX > 0) rendition.next()
@@ -196,7 +198,7 @@ const display = (lastLocation, cached) => {
     displayed.then(() => document.documentElement.onwheel = onwheel)
 
     const handleKeydown = event => {
-        if (window.outerWidth !== window.innerWidth) return
+        if (zoomed()) return
         const paginated = rendition.settings.flow !== 'scrolled-doc'
         const k = event.key
         if (k === 'ArrowLeft') rendition.prev()

@@ -64,6 +64,7 @@ const coloredText = (color, text) =>
     `<span bgcolor="${color}" bgalpha="25%">${text}</span>`
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
+const USE_SIDEBAR = settings.get_boolean('use-sidebar')
 
 class Storage {
     constructor(key, type, indent) {
@@ -257,7 +258,7 @@ class Navbar {
 }
 
 class JumpList {
-    constructor(width, height, isToc, onChange) {
+    constructor(width, height, isToc, onChange, frame) {
         const store = isToc ? new Gtk.TreeStore() : new Gtk.ListStore()
         store.set_column_types([GObject.TYPE_STRING, GObject.TYPE_STRING])
 
@@ -290,7 +291,7 @@ class JumpList {
             min_content_width: width,
             min_content_height: height
         })
-        scroll.get_style_context().add_class('frame')
+        if (frame) scroll.get_style_context().add_class('frame')
         if (!isToc) scroll.hscrollbar_policy = Gtk.PolicyType.NEVER
         scroll.add(view)
         
@@ -352,8 +353,8 @@ class JumpList {
 }
 
 class Toc {
-    constructor(toc, onChange) {
-        this._jumpList = new JumpList(320, 360, true, onChange)
+    constructor(width, height, toc, onChange, frame = true) {
+        this._jumpList = new JumpList(width, height, true, onChange, frame)
         this._jumpList.loadToc(toc)
 
         this.widget = this._jumpList.widget
@@ -688,8 +689,9 @@ class ViewPopover {
 }
 
 class NotesList {
-    constructor(width, height, onActivate, onChange, emptyState) {
+    constructor(width, height, onActivate, onChange, emptyState, frame) {
         this._width = width
+        this._frame = frame
         this._listBox = new Gtk.ListBox()
         
         this._rowMap = new Map() // GtkRow -> value, for row activation
@@ -705,7 +707,7 @@ class NotesList {
             min_content_width: width,
             min_content_height: height
         })
-        scroll.get_style_context().add_class('frame')
+        if (frame) scroll.get_style_context().add_class('frame')
         scroll.add(this._listBox)
         
         this.widget = new Gtk.Stack()
@@ -759,7 +761,7 @@ class NotesList {
         box.pack_start(messageLabel, false, true, 0)
         
         this._emptyState = new Gtk.ScrolledWindow({ width_request: width, height_request: height })
-        this._emptyState.get_style_context().add_class('frame')
+        if (this._frame) this._emptyState.get_style_context().add_class('frame')
         this._emptyState.add(box)
         return this._emptyState
     }
@@ -852,15 +854,15 @@ class NotesList {
     }
 }
 class Bookmarks {
-    constructor(onActivate, onAdd, onChange, onCanAddChange) {
+    constructor(width, height, onActivate, onAdd, onChange, onCanAddChange, frame = true) {
         this._onCanAddChange = onCanAddChange
 
-        this._notesList = new NotesList(320, 320, onActivate, onChange, {
+        this._notesList = new NotesList(width, height, onActivate, onChange, {
             icon: 'non-starred-symbolic',
             title: _('No bookmarks'),
             message: _('Add some bookmarks to see them here.')
-        })
-        this._addButton = new Gtk.Button({ always_show_image: true })
+        }, frame)
+        this._addButton = new Gtk.Button({ hexpand: true })
         const add = (text, value) => {
             this._notesList.add(text, null, value, null, () => {
                 if (value === this._currentCfi) this.setCanAdd()
@@ -873,10 +875,13 @@ class Bookmarks {
         this.setCanAdd()
         
         const bookmarksBox = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL, spacing: 10
+            orientation: Gtk.Orientation.VERTICAL, spacing: frame ? 10 : 0
         })
+        const buttonBox = new Gtk.Box({ border_width: frame ? 0 : 6 })
+        buttonBox.add(this._addButton)
         bookmarksBox.pack_start(this._notesList.widget, true, true, 0)
-        bookmarksBox.pack_end(this._addButton, false, true, 0)
+        if (!frame) bookmarksBox.pack_start(new Gtk.Separator, false, true, 0)
+        bookmarksBox.pack_end(buttonBox, false, true, 0)
 
         this.widget = bookmarksBox
         this.widget.show_all()
@@ -892,13 +897,13 @@ class Bookmarks {
     }
     setCanAdd() {
         this._addButton.image = new Gtk.Image({ icon_name: 'list-add-symbolic' })
-        this._addButton.label = _('Bookmark Current Location')
+        this._addButton.tooltip_text = _('Bookmark Current Location')
         this._buttonAction = this._addFunc
         this._onCanAddChange(true)
     }
     setAdded(value) {
         this._addButton.image = new Gtk.Image({ icon_name: 'edit-delete-symbolic' })
-        this._addButton.label = _('Remove Current Location')
+        this._addButton.tooltip_text = _('Remove Current Location')
         this._buttonAction = () => this._notesList.remove(value)
         this._onCanAddChange(false)
     }
@@ -909,13 +914,13 @@ class Bookmarks {
     }
 }
 class Annotations {
-    constructor(onActivate, onChange, onRemove) {
+    constructor(width, height, onActivate, onChange, onRemove, frame = true) {
         this._onRemove = onRemove
-        this._notesList = new NotesList(320, 360, onActivate, onChange, {
+        this._notesList = new NotesList(width, height, onActivate, onChange, {
             icon: 'document-edit-symbolic',
             title: _('No annotations'),
             message: _('Highlight some text to add annotations.')
-        })
+        }, frame)
 
         this.widget = this._notesList.widget
         this.widget.show_all()
@@ -1304,6 +1309,8 @@ class BookViewerWindow {
         this.spinner.destroy()
         this.webView.opacity = 1
         this.webView.grab_focus()
+        this.webView.connect('size-allocate', () =>
+            this.scriptRun(`windowSize = ${this.webView.get_allocation().width}`))
 
         const goTo = x => this.scriptRun(`rendition.display('${x}')`)
         const withHistory = f => x =>
@@ -1311,7 +1318,7 @@ class BookViewerWindow {
                 cfi => { this.navbar.pushHistory(cfi); f(x) })
 
         this.scriptGet('book.navigation.toc', toc => {
-            this.buildPopovers({
+            const options = {
                 toc,
                 onActivate: withHistory(goTo),
                 onBookmarksAdd: add => {
@@ -1323,7 +1330,9 @@ class BookViewerWindow {
                 onAnnotationsChange: values => this.storage.set('annotations', values),
                 onAnnotationsRemove: value => this.scriptRun(`
                     rendition.annotations.remove("${value}", 'highlight')`)
-            })
+            }
+            if (USE_SIDEBAR) this.buildSidebar(options)
+            else this.buildPopovers(options)
 
             const annotations = this.storage.get('annotations', [])
             this.annotations.init(annotations)
@@ -1728,6 +1737,73 @@ class BookViewerWindow {
         const enabled = id === 'fullscreen' ? this.isFullscreen : id === 'always'
         this.scriptRun(`autohideCursor = ${enabled}`)
     }
+    buildSidebar({
+        toc, onActivate, onBookmarksAdd, onBookmarksChange,
+        onAnnotationsChange, onAnnotationsRemove
+    }) {
+        this.toc = new Toc(-1, -1, toc, onActivate, false)
+        this.bookmarks = new Bookmarks(-1, -1, onActivate,
+            onBookmarksAdd, onBookmarksChange, () => {}, false)
+        this.annotations = new Annotations(-1, -1, onActivate,
+            onAnnotationsChange, onAnnotationsRemove, false)
+
+        const sidebar = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
+        const stack = new Gtk.Stack()
+        const stackSwitcher = new Gtk.StackSwitcher({
+            stack,
+            homogeneous: true,
+            border_width: 6
+        })
+        stack.add_titled(this.toc.widget, 'toc', _('Table of contents'))
+        stack.child_set_property(this.toc.widget, 'icon-name', 'view-list-symbolic')
+        stack.add_titled(this.annotations.widget, 'annotations', _('Annotations'))
+        stack.child_set_property(this.annotations.widget, 'icon-name', 'document-edit-symbolic')
+        stack.add_titled(this.bookmarks.widget, 'bookmarks', _('Bookmarks'))
+        stack.child_set_property(this.bookmarks.widget, 'icon-name', 'user-bookmarks-symbolic')
+
+        sidebar.pack_start(stack, true, true, 0)
+        sidebar.pack_start(new Gtk.Separator(), false, true, 0)
+        sidebar.pack_start(stackSwitcher, false, true, 0)
+        sidebar.show_all()
+        sidebar.hide()
+
+        this.paned = new Gtk.Paned({ visible: true })
+        this.window.remove(this.container)
+        this.paned.pack1(sidebar, false, false)
+        this.paned.pack2(this.container, true, false)
+        this.paned.position = settings.get_int('sidebar-size')
+        this.paned.connect('notify::position', () =>
+            settings.set_int('sidebar-size', this.paned.position))
+        this.window.add(this.paned)
+
+        const button = new Gtk.ToggleButton({
+            image: new Gtk.Image({ icon_name: 'view-list-symbolic' }),
+            valign: Gtk.Align.CENTER,
+            tooltip_text: _('Toggle sidebar'),
+            visible: true
+        })
+        button.connect('toggled', () => {
+            sidebar.visible = button.active
+            settings.set_boolean('show-sidebar', button.active)
+        })
+        button.active = settings.get_boolean('show-sidebar')
+        this.headerBar.pack_start(button)
+
+        this.addShortcut(['F9'], 'sidebar', () =>
+            button.active = !button.active)
+        this.addShortcut(['<Control>b'], 'bookmark-popover', () => {
+            if (button.active) {
+                if (stack.visible_child_name !== 'bookmarks')
+                    stack.visible_child_name = 'bookmarks'
+                else button.active = false
+            } else {
+                stack.visible_child_name = 'bookmarks'
+                button.active = true
+            }
+        })
+        this.addShortcut(['<Control>d'], 'bookmark-add', () =>
+            this.bookmarks.doButtonAction())
+    }
     buildPopovers({
         toc, onActivate, onBookmarksAdd, onBookmarksChange,
         onAnnotationsChange, onAnnotationsRemove
@@ -1757,13 +1833,14 @@ class BookViewerWindow {
             bookmarksButton.active = false
             annotationsButton.active = false
         }
-        this.toc = new Toc(toc, activateFunc)
-        this.bookmarks = new Bookmarks(activateFunc, onBookmarksAdd, onBookmarksChange,
-            canAdd =>
+        this.toc = new Toc(320, 360, toc, activateFunc)
+        this.bookmarks = new Bookmarks(320, 320, activateFunc,
+            onBookmarksAdd, onBookmarksChange, canAdd =>
                 bookmarksButton.image = canAdd
                     ? new Gtk.Image({ icon_name: 'non-starred-symbolic' })
                     : new Gtk.Image({ icon_name: 'starred-symbolic' }))
-        this.annotations = new Annotations(activateFunc, onAnnotationsChange, onAnnotationsRemove)
+        this.annotations = new Annotations(320, 360, activateFunc,
+            onAnnotationsChange, onAnnotationsRemove)
 
         const tocPopover = new Gtk.Popover({ border_width: 10 })
         tocPopover.add(this.toc.widget)
@@ -2407,7 +2484,8 @@ function main(argv) {
             {
                 title: _('General'),
                 shortcuts: [
-                    { accelerator: 'F9', title: _('Show table of contents') },
+                    { accelerator: 'F9', title: USE_SIDEBAR
+                        ? _('Toggle sidebar') : _('Show table of contents') },
                     { accelerator: '<control>b', title: _('Show bookmarks') },
                     { accelerator: '<control>d', title: _('Bookmark current location') },
                     { accelerator: '<control>f', title: _('Find in book') },
