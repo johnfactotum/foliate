@@ -723,6 +723,9 @@ class NotesList {
         this._width = width
         this._frame = frame
         this._listBox = new Gtk.ListBox()
+        this._listBox.set_header_func(row => {
+            if (row.get_index()) row.set_header(new Gtk.Separator())
+        })
         
         this._rowMap = new Map() // GtkRow -> value, for row activation
         this._removeMap = new Map() // value -> removeFunc, for removing by value
