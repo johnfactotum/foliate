@@ -55,6 +55,7 @@ let annotation
 let lookupEnabled = true
 let lookupResults
 let lookupLang = 'English'
+let footnote, followLink = () => {}
 let autohideCursor, screenX, screenY, cursorHidden
 let windowSize
 const zoomed = () => !((windowSize || window.outerWidth) === window.innerWidth)
@@ -261,16 +262,57 @@ const setupRendition = () => {
         if (!html.getAttribute('lang') && book.package.metadata.language)
             html.setAttribute('lang', book.package.metadata.language)
 
+        const asides = contents.document.querySelectorAll('aside')
+        Array.from(asides).forEach(aside => {
+            const type = aside.getAttribute('epub:type')
+            if (type === 'footnote') aside.style.display = 'none'
+        })
         const links = contents.document.querySelectorAll('a:link')
         Array.from(links).forEach(link => {
             link.addEventListener('click', e => {
+                const type = link.getAttribute('epub:type')
                 const href = link.getAttribute('href')
                 if (href.indexOf("mailto:") === 0 || href.indexOf("://") > -1)
                     dispatch({ type: 'link-external', payload: href })
-                else dispatch({
-                    type: 'link-internal',
-                    payload: rendition.currentLocation().start.cfi
-                })
+                else {
+                    const [page, id] = href.split('#')
+                    let el = contents.document.getElementById(id)
+                    if (!el) return dispatch({
+                        type: 'link-internal',
+                        payload: rendition.currentLocation().start.cfi
+                    })
+
+                    if (el.nodeName === 'A' && el.getAttribute('href')) {
+                        while (true) {
+                            const parent = el.parentElement
+                            if (!parent) break
+                            const text = el.innerText
+                            el = parent
+                            if (parent.innerText !== text) break
+                        }
+                    }
+
+                    const rect = e.target.getBoundingClientRect()
+                    const viewElementRect = latestViewElement.getBoundingClientRect()
+                    const left = (rect.left + rect.right) / 2 + viewElementRect.left
+                    const top = rect.top + viewElementRect.top
+                    const bottom = rect.bottom + viewElementRect.top
+
+                    footnote = el.innerText.trim()
+                    dispatch({
+                        type: 'footnote',
+                        payload: { left, top, bottom, canGoTo: !(type === 'noteref') }
+                    })
+                    followLink = () => {
+                        dispatch({
+                            type: 'link-internal',
+                            payload: rendition.currentLocation().start.cfi
+                        })
+                        link.onclick()
+                    }
+                    e.stopPropagation()
+                    e.preventDefault()
+                }
             }, true)
         })
 

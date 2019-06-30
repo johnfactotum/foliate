@@ -1643,6 +1643,60 @@ class BookViewerWindow {
                     })
                 break
             }
+            case 'footnote': {
+                const [, winHeight] = this.window.get_size()
+                const fromTop = payload.top >=  winHeight / 2
+                const y = fromTop ? payload.top : payload.bottom
+                const popover = new Gtk.Popover({ border_width: 10, relative_to: this.webView })
+
+                if (fromTop) popover.set_position(Gtk.PositionType.TOP)
+                else popover.set_position(Gtk.PositionType.BOTTOM)
+                const rectangle = new Gdk.Rectangle({ x: payload.left, y })
+                popover.set_pointing_to(rectangle)
+
+                const label = new Gtk.Label({
+                    use_markup: true,
+                    selectable: true,
+                    valign: Gtk.Align.START,
+                    xalign: 0
+                })
+                label.set_line_wrap(true)
+                const lbox = new Gtk.Box({ border_width: 5 })
+                lbox.add(label)
+
+                const scroll = new Gtk.ScrolledWindow({
+                    min_content_width: 300,
+                    min_content_height: 200
+                })
+                scroll.get_style_context().add_class('frame')
+                scroll.add(lbox)
+
+                const box = new Gtk.Box({
+                    orientation: Gtk.Orientation.VERTICAL,
+                    spacing: 10
+                })
+                box.pack_start(scroll, true, true, 0)
+
+                if (payload.canGoTo) {
+                    const button = new Gtk.Button({
+                        label: _('Go to Linked Location')
+                    })
+                    button.connect('clicked', () => {
+                        this.scriptRun(`followLink()`)
+                        popover.popdown()
+                    })
+                    box.pack_end(button, true, true, 0)
+                }
+
+                box.show_all()
+                popover.add(box)
+                this.scriptGet('footnote', footnote => {
+                    label.label = footnote
+                    popover.popup()
+                    label.select_region(-1, -1)
+                })
+                break
+            }
             case 'img': {
                 const position = payload
                 const [, winHeight] = this.window.get_size()
