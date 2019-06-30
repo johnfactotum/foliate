@@ -1798,6 +1798,10 @@ class BookViewerWindow {
         stack.add_titled(this.bookmarks.widget, 'bookmarks', _('Bookmarks'))
         stack.child_set_property(this.bookmarks.widget, 'icon-name', 'user-bookmarks-symbolic')
 
+        stack.visible_child_name = settings.get_string('sidebar-page')
+        stack.connect('notify::visible-child-name', () =>
+            settings.set_string('sidebar-page', stack.visible_child_name))
+
         sidebar.pack_start(stack, true, true, 0)
         sidebar.pack_start(new Gtk.Separator(), false, true, 0)
         sidebar.pack_start(stackSwitcher, false, true, 0)
