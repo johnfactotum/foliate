@@ -8,71 +8,89 @@ A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/
 
 Website: https://johnfactotum.github.io/foliate/
 
+<a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a>
+
 ## Features
 
-- View EPUB files
-- Two-page view and scrolled view
-- Customize font and line-spacing
-- Light, sepia, dark, and invert mode
+- View EPUB files in two-page view or scrolled view
+- Customize font, line-spacing, margins, and brightness
+- Light, sepia, dark, and invert mode, or add your own custom themes
 - Reading progress slider with chapter marks
 - Bookmarks and annotations
 - Find in book
-- Quick dictionary lookup
-- Touchpad gestures: use two-finger swipe to turn the page
+- Quick dictionary lookup powered by [Wiktionary](https://en.wiktionary.org/)
+- Touchpad gestures—use two-finger swipe to turn the page
 
 ## Installation
 
-### Flatpak
-
-<a href='https://flathub.org/apps/details/com.github.johnfactotum.Foliate'><img height='50' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
-
 ### Distribution packages
 
-For Arch Linux users, two packages are available on the AUR: [`foliate`](https://aur.archlinux.org/packages/foliate/) (stable version), [`foliate-git`](https://aur.archlinux.org/packages/foliate-git/) (Git version)
+- Arch Linux (AUR): [`foliate`](https://aur.archlinux.org/packages/foliate/), [`foliate-git`](https://aur.archlinux.org/packages/foliate-git/)
+- Fedora: `sudo dnf install foliate`
+- Void Linux: `xbps-install -S foliate`
 
-For Void Linux users, foliate is available in Void's official repository. Install using xbps: `xbps-install -S foliate`
 
-For Fedora users, foliate is available in Fedora's official repository. Install using DNF: `sudo dnf install foliate`
-
-### Optional dependencies
+#### Optional dependencies
 
 Auto-hyphenation is done using CSS hyphenation. To enbale CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
 
-### Install manually from source
+### Building manually from source
 
-First, you'll need the following dependencies:
-- `gjs (>= 1.54.0)`
-- `webkit2gtk`
-- `libsoup`
+The following dependencies are required for building and installation:
+
 - `meson`
 - `gettext`
 
-Then run the follwing commands:
+The following are runtime requirements:
+
+- `gjs (>= 1.54.0)`
+- `webkit2gtk`
+- `libsoup`
+
+To install, run the following commands:
 
 ```bash
 meson build --prefix=/usr
-cd build
-ninja
-sudo ninja install
+ninja -C build
+sudo ninja -C build install
 ```
 
-To uninstall, run:
+To uninstall, run
 
 ```bash
-sudo ninja uninstall
+sudo ninja -C build uninstall
 ```
 
-### Build and run from source without installing
-
-You will need the same dependencies listed in [this section](#install-manually-from-source).
+#### Build and run from source without installing
 
 The following commands will build Foliate and install it inside a directory:
 
 ```bash
-meson build --prefix=$PWD/fakeprefix
+meson build --prefix=$PWD/run
 ninja -C build
 ninja -C build install
-GSETTINGS_SCHEMA_DIR=$PWD/fakeprefix/share/glib-2.0/schemas ./fakeprefix/bin/com.github.johnfactotum.Foliate
+```
+
+To run the application, you'll need to set the schema directory for GSettings:
+```bash
+GSETTINGS_SCHEMA_DIR=$PWD/run/share/glib-2.0/schemas ./run/bin/com.github.johnfactotum.Foliate
+```
+
+### Flatpak
+
+#### Flathub
+
+Foliate is available on [Flathub](https://flathub.org/apps/details/com.github.johnfactotum.Foliate).
+
+#### Building Flatpaks manually
+
+##### Using Gnome Builder
+Open Gnome Builder, choose "Clone Repository…", and follow the instructions. After cloning the project, hit Ctrl+F5 to build and run Foliate.
+
+##### Using `flatpak-builder`
+
+```bash
+flatpak-builder --force-clean --install --user build com.github.johnfactotum.Foliate.json
 ```
 
 ## Screenshots
@@ -105,4 +123,9 @@ Book metadata display:
 
 - [Epub.js](https://github.com/futurepress/epub.js/), which is licensed under [FreeBSD](https://github.com/futurepress/epub.js/blob/master/license). The included file is patched to fix [futurepress/epub.js#942](https://github.com/futurepress/epub.js/issues/942)
 - The minified version of [JSZip](https://stuk.github.io/jszip/), which is dual-licensed. You may use it under the MIT license or the GPLv3 license. See [LICENSE.markdown](https://github.com/Stuk/jszip/blob/master/LICENSE.markdown)
-- A browserified version of [Cheerio](https://cheerio.js.org/), which is licensed under [MIT](https://github.com/cheeriojs/cheerio/blob/master/LICENSE). Cheerio is used to parse and extract data from Wiktionary
+- A browserified version of [Cheerio](https://cheerio.js.org/), which is licensed under [MIT](https://github.com/cheeriojs/cheerio/blob/master/LICENSE). The browserified version is produced by
+```bash
+npm install -g browserify
+echo "window.cheerio = require('cheerio')" > index.js
+browserify index.js > cheerio.js
+```
