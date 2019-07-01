@@ -1,0 +1,11 @@
+Source: com.github.johnfactotum.foliate
+Section: gnome
+Priority: optional
+Maintainer: John Factotum <50942278+johnfactotum@users.noreply.github.com>
+Build-Depends: debhelper, gettext, meson
+
+Package: com.github.johnfactotum.foliate
+Architecture: any
+Depends: gjs (>= 1.52), libwebkit2gtk-4.0-37, libsoup2.4-1
+Description: A simple and modern eBook viewer.
+  A simple and modern GTK eBook viewer, built with GJS and Epub.js.
