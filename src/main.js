@@ -83,7 +83,8 @@ class Storage {
     _read() {
         try {
             const [success, data, tag] = this._file.load_contents(null)
-            if (success) return JSON.parse(ByteArray.toString(data))
+            if (success) return JSON.parse(data instanceof Uint8Array
+                ? ByteArray.toString(data) : data.toString())
             else throw new Error()
         } catch (e) {
             return {}
