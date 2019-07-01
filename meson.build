@@ -1,6 +1,6 @@
 project('com.github.johnfactotum.Foliate',
         version: '1.3.1',
-  meson_version: '>= 0.50.0',
+  meson_version: '>= 0.40.0',
 )
 
 i18n = import('i18n')

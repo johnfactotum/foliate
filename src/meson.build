@@ -20,7 +20,6 @@ configure_file(
   input: 'com.github.johnfactotum.Foliate.in',
   output: 'com.github.johnfactotum.Foliate',
   configuration: bin_conf,
-  install: true,
   install_dir: get_option('bindir')
 )
 

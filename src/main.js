@@ -2629,7 +2629,7 @@ function main(argv) {
             const shortcutsGroup = new Gtk.ShortcutsGroup({ title, visible: true })
             for (const shortcut of shortcuts) {
                 shortcutsGroup.add(new Gtk.ShortcutsShortcut(
-                    { ... shortcut, visible: true }))
+                    Object.assign({ visible: true }, shortcut)))
             }
             shortcutsSection.add(shortcutsGroup)
         }
