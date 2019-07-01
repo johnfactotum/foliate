@@ -11,3 +11,5 @@ subdir('src')
 subdir('po')
 
 meson.add_install_script('build-aux/meson/postinstall.py')
+
+run_target('debian-bin', command : ['build-aux/meson/package.deb.bin.sh', meson.project_version()])
