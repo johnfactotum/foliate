@@ -10,10 +10,10 @@
 #
 # Debian/Ubuntu Binary Packaging Stage in this file
 
-# Format foliate version for Debian/Ubuntu, format 1.1.1 to 1.1-1
-fver=`echo $@ | sed 's/\./-/2'`
+# Format foliate version for Debian/Ubuntu
+fver=$@
 
-# Create package name, foliate_1.3-1
+# Create package name, foliate_1.3.1
 fname='foliate_'$fver
 
 mkdir -p ${MESON_BUILD_ROOT}/$fname
