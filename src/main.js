@@ -931,13 +931,13 @@ class Bookmarks {
     }
     setCanAdd() {
         this._addButton.image = new Gtk.Image({ icon_name: 'list-add-symbolic' })
-        this._addButton.tooltip_text = _('Bookmark Current Location')
+        this._addButton.tooltip_text = _('Bookmark current location')
         this._buttonAction = this._addFunc
         this._onCanAddChange(true)
     }
     setAdded(value) {
         this._addButton.image = new Gtk.Image({ icon_name: 'edit-delete-symbolic' })
-        this._addButton.tooltip_text = _('Remove Current Location')
+        this._addButton.tooltip_text = _('Remove current location')
         this._buttonAction = () => this._notesList.remove(value)
         this._onCanAddChange(false)
     }
