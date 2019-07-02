@@ -36,14 +36,14 @@ Auto-hyphenation is done using CSS hyphenation. To enbale CSS hyphenation in Web
 
 ### Building manually from source
 
-The following dependencies are required for building and installation:
+The following dependencies are required for building:
 
-- `meson`
+- `meson (>= 0.40)`
 - `gettext`
 
 The following are runtime requirements:
 
-- `gjs (>= 1.54.0)`
+- `gjs (>= 1.52)`
 - `webkit2gtk`
 - `libsoup`
 
@@ -76,6 +76,13 @@ To run the application, you'll need to set the schema directory for GSettings:
 GSETTINGS_SCHEMA_DIR=$PWD/run/share/glib-2.0/schemas ./run/bin/com.github.johnfactotum.Foliate
 ```
 
+#### Building a Debian/Ubuntu Package
+
+```bash
+sudo apt install build-essential debhelper meson gettext
+dpkg-buildpackage
+```
+
 ### Flatpak
 
 #### Flathub
@@ -85,7 +92,7 @@ Foliate is available on [Flathub](https://flathub.org/apps/details/com.github.jo
 #### Building Flatpaks manually
 
 ##### Using Gnome Builder
-Open Gnome Builder, choose "Clone Repository…", and follow the instructions. After cloning the project, hit Ctrl+F5 to build and run Foliate.
+Open [Gnome Builder](https://wiki.gnome.org/Apps/Builder), choose "Clone Repository…", and follow the instructions. After cloning the project, hit Ctrl+F5 to build and run Foliate.
 
 ##### Using `flatpak-builder`
 
