@@ -2,10 +2,11 @@ Source: com.github.johnfactotum.foliate
 Section: gnome
 Priority: optional
 Maintainer: John Factotum <50942278+johnfactotum@users.noreply.github.com>
-Build-Depends: debhelper, gettext, meson
+Build-Depends: debhelper, gettext, meson (>= 0.40)
 
 Package: com.github.johnfactotum.foliate
-Architecture: any
+Architecture: all
 Depends: gjs (>= 1.52), libwebkit2gtk-4.0-37, libsoup2.4-1
-Description: A simple and modern eBook viewer.
-  A simple and modern GTK eBook viewer, built with GJS and Epub.js.
+Suggests: hyphen-af, hyphen-as, hyphen-bg, hyphen-bn, hyphen-ca, hyphen-cs, hyphen-da, hyphen-de, hyphen-el, hyphen-en-ca, hyphen-en-gb, hyphen-en-us, hyphen-es, hyphen-fi, hyphen-fr, hyphen-ga, hyphen-gl, hyphen-gu, hyphen-hi, hyphen-hr, hyphen-hu, hyphen-id, hyphen-is, hyphen-it, hyphen-kn, hyphen-lt, hyphen-lv, hyphen-ml, hyphen-mr, hyphen-nl, hyphen-no, hyphen-or, hyphen-pa, hyphen-pl, hyphen-pt-br, hyphen-pt-pt, hyphen-ro, hyphen-ru, hyphen-show, hyphen-sk, hyphen-sl, hyphen-sr, hyphen-sv, hyphen-ta, hyphen-te, hyphen-uk, hyphen-zu
+Description: Simple and modern eBook viewer.
+ A simple and modern GTK eBook viewer, built with GJS and Epub.js.
