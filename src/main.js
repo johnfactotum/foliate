@@ -482,10 +482,16 @@ class FontBox {
             show_style: false
         })
         this._decButton = new Gtk.Button({
-            image: new Gtk.Image({ icon_name: 'value-decrease-symbolic' })
+            image: new Gtk.Image({
+                gicon: Gio.ThemedIcon
+                    .new_from_names(['value-decrease-symbolic', 'list-remove-symbolic'])
+            })
         })
         this._incButton = new Gtk.Button({
-            image: new Gtk.Image({ icon_name: 'value-increase-symbolic' })
+            image: new Gtk.Image({
+                gicon: Gio.ThemedIcon
+                    .new_from_names(['value-increase-symbolic', 'list-add-symbolic'])
+            })
         })
         this._decButton.connect('clicked', () => this.dec())
         this._incButton.connect('clicked', () => this.inc())
