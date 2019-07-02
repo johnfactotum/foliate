@@ -223,7 +223,11 @@ const display = (lastLocation, cached) => {
         const k = event.key
         if (k === 'ArrowLeft') rendition.prev()
         else if(k === 'ArrowRight') rendition.next()
-        else if (event.shiftKey && k === ' ' || k === 'ArrowUp' || k === 'PageUp') {
+        else if (k === 'Backspace') {
+            if (paginated) rendition.prev()
+            else if (atTop()) prevBottom()
+            else window.scrollBy(0, -window.innerHeight)
+        } else if (event.shiftKey && k === ' ' || k === 'ArrowUp' || k === 'PageUp') {
             if (paginated) rendition.prev()
             else if (atTop()) {
                 prevBottom()
