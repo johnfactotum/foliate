@@ -4633,7 +4633,7 @@ var Contents = function () {
 			clearTimeout(this.expanding);
 
 			requestAnimationFrame(this.resizeCheck.bind(this));
-			this.expanding = setTimeout(this.resizeListeners.bind(this), 350);
+			//this.expanding = setTimeout(this.resizeListeners.bind(this), 350);
 		}
 
 		/**
