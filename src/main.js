@@ -30,7 +30,6 @@ const Gdk = imports.gi.Gdk
 const GdkPixbuf = imports.gi.GdkPixbuf
 const Webkit = imports.gi.WebKit2
 const Pango = imports.gi.Pango
-const Soup = imports.gi.Soup
 const ByteArray = imports.byteArray
 
 const defaultThemes = {
@@ -62,6 +61,60 @@ const highlightColors = [['yellow', _('Yellow')], ['orange', _('Orange')],
 
 const coloredText = (color, text) =>
     `<span bgcolor="${color}" bgalpha="25%">${text}</span>`
+
+const DICTS = {
+    wiktionary: {
+        name: 'Wiktionary',
+        func: (word, language, callback) => {
+            const webView = new Webkit.WebView({
+                settings: new Webkit.Settings({
+                    enable_write_console_messages_to_stdout: true,
+                    allow_universal_access_from_file_urls: true
+                })
+            })
+            const scriptRun = script =>
+                webView.run_javascript(script, null, () => {})
+            const scriptGet = (script, f) => {
+                webView.run_javascript(`JSON.stringify(${script})`, null,
+                    (self, result) => {
+                        const jsResult = self.run_javascript_finish(result)
+                        const value = jsResult.get_js_value()
+                        const obj = JSON.parse(value.to_string())
+                        f(obj)
+                    })
+            }
+
+            webView.load_uri(GLib.filename_to_uri(
+                pkg.pkgdatadir + '/assets/wiktionary.html', null))
+
+            webView.connect('notify::title', self => {
+                const { type, payload } = JSON.parse(self.title)
+                switch (type) {
+                    case 'can-lookup':
+                        scriptRun(`queryDictionary("${encodeURI(word)}", '${language}')`)
+                        break
+                    case 'lookup-again':
+                        scriptRun(`queryDictionary("${encodeURI(payload)}", '${language}')`)
+                        break
+                    case 'lookup-results':
+                        scriptGet(`lookupResults`, results => {
+                            callback(null,
+                                '<span alpha="70%" size="smaller">'
+                                + _('From Wiktionary, the free dictionary') + '</span>\n'
+                                + `<b>${results.word}</b> ${results.pronunciation || ''}\n`
+                                + `${results.defs.join('\n')}\n\n`
+                                + `<a href="https://en.wiktionary.org/wiki/${word}">`
+                                + _('Full Definition') + `</a>`)
+                        })
+                        break
+                    case 'lookup-error':
+                        callback(new Error())
+                        break
+                }
+            })
+        }
+    }
+}
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const USE_SIDEBAR = settings.get_boolean('use-sidebar')
@@ -110,19 +163,6 @@ class Storage {
         this._write(this._data)
     }
 }
-
-
-const httpSession = new Soup.SessionAsync()
-Soup.Session.prototype.add_feature.call(httpSession, new Soup.ProxyResolverDefault())
-
-const getDictionaryEntry = word => new Promise((resolve, reject) => {
-    const request = Soup.Message.new('GET', `https://en.wiktionary.org/wiki/${word}`)
-    httpSession.queue_message(request, (httpSession, message) => {
-        if (message.status_code !== 200) resolve()
-        else resolve(request.response_body.data)
-    })
-})
-
 
 class Navbar {
     constructor(onSlide, onPrev, onNext, onBack) {
@@ -990,7 +1030,7 @@ class Annotations {
 }
 
 class LookupPopover {
-    constructor(relative_to, position, fromTop, onAnnotate, onCopy) {
+    constructor(relative_to, position, fromTop, onAnnotate, onCopy, word, language, dict) {
         this.widget = new Gtk.Popover({ border_width: 10, relative_to })
         
         const actionBox = new Gtk.Box()
@@ -1008,34 +1048,26 @@ class LookupPopover {
         actionBox.pack_start(noteButton, true, true, 0)
         actionBox.pack_start(copyButton, true, true, 0)
         
-        this.label = new Gtk.Label({
+        const label = new Gtk.Label({
             label: _('Loading…'),
             use_markup: true,
             selectable: true,
             valign: Gtk.Align.START,
             xalign: 0
         })
-        this.label.set_line_wrap(true)
-        
-        const credit = new Gtk.Label({
-            label: _('From Wiktionary, the free dictionary'),
-            justify: Gtk.Justification.CENTER
-        })
-        credit.get_style_context().add_class('dim-label')
+        label.set_line_wrap(true)
         
         const scroll = new Gtk.ScrolledWindow({
             min_content_width: 300,
             min_content_height: 200
         })
-        this.lbox = new Gtk.Box({
+        const lbox = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             border_width: 5
         })
-        this.lbox.pack_start(credit, false, true, 0)
-        this.lbox.pack_start(new Gtk.Separator(), false, true, 3)
-        this.lbox.pack_start(this.label, true, true, 0)
+        lbox.pack_start(label, true, true, 0)
         scroll.get_style_context().add_class('frame')
-        scroll.add(this.lbox)
+        scroll.add(lbox)
         
         const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
         box.pack_start(actionBox, false, true, 0)
@@ -1050,19 +1082,11 @@ class LookupPopover {
         box.show_all()
         
         this.widget.popup()
-    }
-    loadResults(label, word) {
-        this.label.label = label
-        if (word) {
-            const url = `https://en.wiktionary.org/wiki/${encodeURI(word)}`
-            this.lbox.pack_end(new Gtk.Label({
-                label: `<a href="${url}">` + _('View Full Definition') + '</a>',
-                use_markup: true,
-                justify: Gtk.Justification.CENTER
-            }), false, true, 0)
-            this.lbox.pack_end(new Gtk.Separator(), false, true, 3)
-            this.lbox.show_all()
-        }
+
+        DICTS[dict].func(word, language, (err, results) => {
+            if (err) label.label = _('No definitions found.')
+            else label.label = results
+        })
     }
 }
 class AnnotationPopover {
@@ -1569,10 +1593,13 @@ class BookViewerWindow {
                     this.searchPopover.loadResults(results, payload))
                 break
             case 'lookup': {
-                const { position, text, cfiRange } = payload
+                const { position, text, language, cfiRange } = payload
                 const [, winHeight] = this.window.get_size()
                 const fromTop = position.bottom > winHeight / 2
                 const y = fromTop ? position.top : position.bottom
+
+                const dict = 'wiktionary'
+
                 this.lookupPopover = new LookupPopover(
                     this.webView, { x: position.left, y }, fromTop,
                     () => {
@@ -1584,26 +1611,10 @@ class BookViewerWindow {
                     },
                     () => Gtk.Clipboard
                         .get_default(Gdk.Display.get_default())
-                        .set_text(text, -1)
-                    )
-                getDictionaryEntry(text).then(html =>
-                    this.scriptRun(`queryDictionary("${encodeURI(html)}", "${encodeURI(text)}")`))
+                        .set_text(text, -1),
+                    text, language, dict)
                 break
             }
-            case 'lookup-again':
-                getDictionaryEntry(payload).then(html =>
-                    this.scriptRun(`queryDictionary("${encodeURI(html)}")`))
-                break
-            case 'lookup-results':
-                this.scriptGet(`lookupResults`, results => {
-                    this.lookupPopover.loadResults(
-                        `<b>${results.word}</b> ${results.pronunciation || ''}\n`
-                        + `${results.defs.join('\n')}`, results.word)
-                })
-                break
-            case 'lookup-error':
-                this.lookupPopover.loadResults(_('No definitions found.'))
-                break
             case 'annotation-add':
                 this.scriptGet('annotation', ({ text, cfiRange }) => {
                     const color = settings.get_string('highlight')

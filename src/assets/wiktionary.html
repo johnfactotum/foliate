@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<!--
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+-->
+<meta charset="utf-8">
+<script src="cheerio.js"></script>
+<script>
+const dispatch = action => {
+    // unique time in case we are dispatching the same action twice
+    const obj = { time: new Date().getTime(), ...action }
+    document.title = JSON.stringify(obj)
+}
+let lookupResults
+let lang = 'en'
+
+const minBy = (arr, f) =>
+    arr[arr.map(f).reduce((prevI, x, i, arr) => x < arr[prevI] ? i : prevI, 0)]
+
+const getPronunciation = ($$uls, $) => {
+    const result = []
+    if (!$$uls.length) return result
+    $$uls.find('sup').empty()
+    $$uls.find('li').filter(':contains("IPA"):not(:contains("Rhymes"))')
+        .find('.IPA').each((i, el) => {
+            result.push($(el).text())
+        })
+    return result
+}
+const getDefinition = ($$ols, $) => {
+    const result = []
+    $$ols.each((i, el) => {
+        $(el).find('ul').empty()
+        $(el).find('dl').empty()
+        $(el).children().each((i, el) => {
+            result.push($(el).text().trim())
+        })
+    })
+    return result
+}
+const getContent = (label, $el, $) => {
+    if (label === 'Pronunciation') return getPronunciation($el.filter('ul'), $)
+    else return getDefinition($el.filter('ol'), $)
+}
+const simplifyResult = (result, language) => {
+    const lookupLang = isoLangs[language.slice(0, 2).toLowerCase()]
+    const data = result[lookupLang || 'English']
+    const obj = 'Etymology 1' in data
+        ? { Pronunciation: data.Pronunciation, ...data['Etymology 1'] }
+        : data
+    const defs = Object.entries(obj).map(([key, x]) =>
+        [key, (Array.isArray(x) ? x : [x]).filter(x => x)])
+    const pronunciations = defs.filter(([x]) => x === 'Pronunciation')
+    return {
+        pronunciation: pronunciations[0] ? pronunciations[0][1].join(', ') : null,
+        defs: defs.filter(([x]) => x !== 'Pronunciation')
+            .map(([part, def]) => `<i>${part}</i>\n` +
+                (def.length > 1 ? def.map((x, i) => `${i + 1}. ${x}`.replace(/\n+/g, ' ')).join('\n')
+                : def[0]))
+    }
+}
+const queryDictionary = (word, language = 'en') =>
+    fetch(`https://en.wiktionary.org/wiki/${decodeURI(word)}`)
+    .then(res => {
+        if (res.ok) return res
+        else throw new Error()
+    })
+    .then(res => res.text())
+    .then(html => new Promise((resolve, reject) => {
+        const contents = html
+        const $ = cheerio.load(contents)
+        const result = {}
+        $('h2').each((i, el) => {
+            const language = $(el).children('.mw-headline').text()
+            if (!language) return
+            const $language = $(el).nextUntil('h2')
+            const $$sections = $language.filter('h3')
+
+            const sectionsResult = {}
+            $$sections.each((i, el) => {
+                const section = $(el).children('.mw-headline').text()
+                const $section = minBy([
+                    $(el).nextUntil('h2'),
+                    $(el).nextUntil('h3')], x => x.length)
+                const $$subsections = $section.filter('h4')
+
+                if (!/Etymology \d+/.test(section)) {
+                    const content = getContent(section, $section, $)
+                    if (content.length) sectionsResult[section] = content
+                } else {
+                    const subsectionsResult = {}
+                    $$subsections.each((i, el) => {
+                        const subsection = $(el).children('.mw-headline').text()
+                        const $subsection = minBy([
+                            $(el).nextUntil('h2'),
+                            $(el).nextUntil('h3'),
+                            $(el).nextUntil('h4')], x => x.length)
+
+                        const content = getContent(subsection, $subsection, $)
+                        if (content.length) subsectionsResult[subsection] = content
+                    })
+                    if (Object.keys(subsectionsResult).length)
+                        sectionsResult[section] = subsectionsResult
+                }
+            })
+            result[language] = sectionsResult
+        })
+        lookupResults = Object.assign({ word: $('h1').text() },
+            simplifyResult(result, language))
+        resolve()
+    }))
+    .then(() => dispatch({ type: 'lookup-results' }))
+    .catch(e => {
+        if (!word) return dispatch({ type: 'lookup-error' })
+        word = decodeURI(word)
+        const lower = word.toLowerCase()
+        if (lower !== word) dispatch({ type: 'lookup-again', payload: lower })
+        else dispatch({ type: 'lookup-error' })
+    })
+
+const isoLangs = {
+    ab: 'Abkhaz',
+    aa: 'Afar',
+    af: 'Afrikaans',
+    ak: 'Akan',
+    sq: 'Albanian',
+    am: 'Amharic',
+    ar: 'Arabic',
+    an: 'Aragonese',
+    hy: 'Armenian',
+    as: 'Assamese',
+    av: 'Avaric',
+    ae: 'Avestan',
+    ay: 'Aymara',
+    az: 'Azerbaijani',
+    bm: 'Bambara',
+    ba: 'Bashkir',
+    eu: 'Basque',
+    be: 'Belarusian',
+    bn: 'Bengali',
+    bh: 'Bihari',
+    bi: 'Bislama',
+    bs: 'Bosnian',
+    br: 'Breton',
+    bg: 'Bulgarian',
+    my: 'Burmese',
+    ca: 'Catalan',
+    ch: 'Chamorro',
+    ce: 'Chechen',
+    ny: 'Chichewa',
+    zh: 'Chinese',
+    cv: 'Chuvash',
+    kw: 'Cornish',
+    co: 'Corsican',
+    cr: 'Cree',
+    hr: 'Croatian',
+    cs: 'Czech',
+    da: 'Danish',
+    dv: 'Divehi',
+    nl: 'Dutch',
+    en: 'English',
+    eo: 'Esperanto',
+    et: 'Estonian',
+    ee: 'Ewe',
+    fo: 'Faroese',
+    fj: 'Fijian',
+    fi: 'Finnish',
+    fr: 'French',
+    ff: 'Fula',
+    gl: 'Galician',
+    ka: 'Georgian',
+    de: 'German',
+    el: 'Greek',
+    gn: 'Guaraní',
+    gu: 'Gujarati',
+    ht: 'Haitian',
+    ha: 'Hausa',
+    he: 'Hebrew',
+    hz: 'Herero',
+    hi: 'Hindi',
+    ho: 'Hiri Motu',
+    hu: 'Hungarian',
+    ia: 'Interlingua',
+    id: 'Indonesian',
+    ie: 'Interlingue',
+    ga: 'Irish',
+    ig: 'Igbo',
+    ik: 'Inupiaq',
+    io: 'Ido',
+    is: 'Icelandic',
+    it: 'Italian',
+    iu: 'Inuktitut',
+    ja: 'Japanese',
+    jv: 'Javanese',
+    kl: 'Greenlandic',
+    kn: 'Kannada',
+    kr: 'Kanuri',
+    ks: 'Kashmiri',
+    kk: 'Kazakh',
+    km: 'Khmer',
+    ki: 'Kikuyu',
+    rw: 'Kinyarwanda',
+    ky: 'Kirghiz',
+    kv: 'Komi',
+    kg: 'Kongo',
+    ko: 'Korean',
+    ku: 'Kurdish',
+    kj: 'Kwanyama',
+    la: 'Latin',
+    lb: 'Luxembourgish',
+    lg: 'Luganda',
+    li: 'Limburgish',
+    ln: 'Lingala',
+    lo: 'Lao',
+    lt: 'Lithuanian',
+    lu: 'Luba-Katanga',
+    lv: 'Latvian',
+    gv: 'Manx',
+    mk: 'Macedonian',
+    mg: 'Malagasy',
+    ms: 'Malay',
+    ml: 'Malayalam',
+    mt: 'Maltese',
+    mi: 'Māori',
+    mr: 'Marathi',
+    mh: 'Marshallese',
+    mn: 'Mongolian',
+    na: 'Nauru',
+    nv: 'Navajo, Navaho',
+    nb: 'Norwegian Bokmål',
+    nd: 'North Ndebele',
+    ne: 'Nepali',
+    ng: 'Ndonga',
+    nn: 'Norwegian Nynorsk',
+    no: 'Norwegian',
+    ii: 'Nuosu',
+    nr: 'South Ndebele',
+    oc: 'Occitan',
+    oj: 'Ojibwe',
+    cu: 'Old Church Slavonic',
+    om: 'Oromo',
+    or: 'Oriya',
+    os: 'Ossetian',
+    pa: 'Panjabi',
+    pi: 'Pāli',
+    fa: 'Persian',
+    pl: 'Polish',
+    ps: 'Pashto',
+    pt: 'Portuguese',
+    qu: 'Quechua',
+    rm: 'Romansh',
+    rn: 'Kirundi',
+    ro: 'Romanian',
+    ru: 'Russian',
+    sa: 'Sanskrit',
+    sc: 'Sardinian',
+    sd: 'Sindhi',
+    se: 'Northern Sami',
+    sm: 'Samoan',
+    sg: 'Sango',
+    sr: 'Serbian',
+    gd: 'Scottish Gaelic',
+    sn: 'Shona',
+    si: 'Sinhala',
+    sk: 'Slovak',
+    sl: 'Slovene',
+    so: 'Somali',
+    st: 'Southern Sotho',
+    es: 'Spanish',
+    su: 'Sundanese',
+    sw: 'Swahili',
+    ss: 'Swati',
+    sv: 'Swedish',
+    ta: 'Tamil',
+    te: 'Telugu',
+    tg: 'Tajik',
+    th: 'Thai',
+    ti: 'Tigrinya',
+    bo: 'Tibetan',
+    tk: 'Turkmen',
+    tl: 'Tagalog',
+    tn: 'Tswana',
+    to: 'Tonga',
+    tr: 'Turkish',
+    ts: 'Tsonga',
+    tt: 'Tatar',
+    tw: 'Twi',
+    ty: 'Tahitian',
+    ug: 'Uighur',
+    uk: 'Ukrainian',
+    ur: 'Urdu',
+    uz: 'Uzbek',
+    ve: 'Venda',
+    vi: 'Vietnamese',
+    vo: 'Volapük',
+    wa: 'Walloon',
+    cy: 'Welsh',
+    wo: 'Wolof',
+    fy: 'Western Frisian',
+    xh: 'Xhosa',
+    yi: 'Yiddish',
+    yo: 'Yoruba',
+    za: 'Zhuang'
+}
+dispatch({ type: 'can-lookup' })
+</script>
