@@ -1462,7 +1462,6 @@ class BookViewerWindow {
                     '.custom p': {
                         'font-family': '"${fontFamily}" !important',
                         'font-size': '${fontSize} !important',
-                        'font-weight': '${fontWeight} !important',
                         'line-height': '${spacing} !important'
                     },
                     '.custom a:link': { color: '${link}' }
