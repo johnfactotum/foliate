@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 'use strict'
- 
+
 pkg.initGettext()
 const ngettext = imports.gettext.ngettext
 pkg.initFormat()
@@ -130,7 +130,7 @@ class Storage {
         this._destination = GLib.build_filenamev([dataDir, pkg.name,
             `${encodeURIComponent(key)}.json`])
         this._file = Gio.File.new_for_path(this._destination)
-        
+
         this._data = this._read()
     }
     _read() {
@@ -168,7 +168,7 @@ class Navbar {
     constructor(onSlide, onPrev, onNext, onBack) {
         this._percentage = NaN
         this._history = []
-        
+
         this._slider = new Gtk.Scale({
             orientation: Gtk.Orientation.HORIZONTAL,
             adjustment: new Gtk.Adjustment({ value: 0, lower: 0, upper: 1 }),
@@ -193,7 +193,7 @@ class Navbar {
         this._pendingLabel = new Gtk.Image({ icon_name: 'content-loading-symbolic' })
         box.pack_start(this._pendingLabel, true, true, 0)
         box.pack_start(this._slider, true, true, 0)
-        
+
         this._backButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'edit-undo-symbolic' }),
             tooltip_text: _('Go back'),
@@ -206,13 +206,13 @@ class Navbar {
             if (!this._history.length) this._backButton.sensitive = false
         }
         this._backButton.connect('clicked', this.goBack)
-        
+
         this.widget = new Gtk.ActionBar()
         this.widget.pack_start(this._prevButton)
         this.widget.pack_start(this._backButton)
         this.widget.pack_end(this._nextButton)
         this.widget.pack_end(box)
-        
+
         this._slider.connect('button-release-event', () => {
             const value = this._slider.get_value()
             if (value !== this._percentage) onSlide(this._slider.get_value())
@@ -349,7 +349,7 @@ class JumpList {
         }
         col.pack_start(text, true)
         col.add_attribute(text, 'markup', 0)
-        
+
         const selection = view.get_selection()
         view.set_activate_on_single_click(true)
         view.connect('row-activated', () => {
@@ -357,7 +357,7 @@ class JumpList {
             const href = store.get_value(iter, 1)
             onChange(href)
         })
-        
+
         const scroll = new Gtk.ScrolledWindow({
             min_content_width: width,
             min_content_height: height
@@ -365,7 +365,7 @@ class JumpList {
         if (frame) scroll.get_style_context().add_class('frame')
         if (!isToc) scroll.hscrollbar_policy = Gtk.PolicyType.NEVER
         scroll.add(view)
-        
+
         this.store = store
         this.view = view
         this.widget = scroll
@@ -464,14 +464,14 @@ class SearchPopover {
         inChapterButton.connect('toggled', search)
         rangeBox.pack_start(inBookButton, false, true, 0)
         rangeBox.pack_start(inChapterButton, false, true, 0)
-        
+
         this._jumpList = new JumpList(320, 350, false, href => {
             onChange(href)
             button.active = false
         }, true)
         this._statusLabel = new Gtk.Label({ halign: Gtk.Align.START })
         this._statusLabel.get_style_context().add_class('dim-label')
-        
+
         const box = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL, spacing: 10
         })
@@ -514,7 +514,7 @@ class SearchPopover {
 class FontBox {
     constructor(onChange) {
         this._onChange = onChange
-        
+
         const fontBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL })
         fontBox.get_style_context().add_class('linked')
         this._fontButton = new Gtk.FontButton({
@@ -539,7 +539,7 @@ class FontBox {
         fontBox.pack_start(this._fontButton, true, true, 0)
         fontBox.pack_start(this._decButton, false, true, 0)
         fontBox.pack_start(this._incButton, false, true, 0)
-        
+
         this.widget = fontBox
     }
     applyFont()  {
@@ -630,12 +630,12 @@ class SwitchBox {
 class ViewPopover {
     constructor(themes, onChange, onLayoutChange) {
         this.widget = new Gtk.Popover({ border_width: 10 })
-        
+
         const grid = new Gtk.Grid()
         grid.column_spacing = 10
         grid.row_spacing = 10
         this._grid = grid
-        
+
         const onViewChange = () => {
             const font = this._fontBox.getFont()
             const spacing = this._spacingButton.get_value()
@@ -654,7 +654,7 @@ class ViewPopover {
         this._fontBox = new FontBox(onViewChange)
         this._themeBox = new RadioBox(Object.keys(themes), onViewChange)
         this._layoutBox = new RadioBox(Object.keys(defaultLayouts), onLayoutChange)
-        
+
         this._defaultSwitch = new SwitchBox(_('Use Publisher Font'),
             'use-default-font', onViewChange)
         this._justifySwitch = new SwitchBox(_('Full Justification'),
@@ -683,7 +683,7 @@ class ViewPopover {
         this._brightnessSlider.connect('format-value', (_, x) => `${Math.round(x * 100)}%`)
         this._brightnessSlider.add_mark(1, Gtk.PositionType.TOP, null)
         this._brightnessSlider.connect('value-changed', onViewChange)
-        
+
         const menuLabels = {
             font: new Gtk.Label({ label: _('Font') }),
             spacing: new Gtk.Label({ label: _('Spacing') }),
@@ -773,7 +773,7 @@ class NotesList {
         this._listBox.set_header_func(row => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
-        
+
         this._rowMap = new Map() // GtkRow -> value, for row activation
         this._removeMap = new Map() // value -> removeFunc, for removing by value
         this._labelMap = new Map() // value -> GtkLabel
@@ -782,18 +782,18 @@ class NotesList {
 
         this._listBox.connect('row-activated', (_, row) =>
             onActivate(this._rowMap.get(row)))
-        
+
         const scroll = new Gtk.ScrolledWindow({
             min_content_width: width,
             min_content_height: height
         })
         if (frame) scroll.get_style_context().add_class('frame')
         scroll.add(this._listBox)
-        
+
         this.widget = new Gtk.Stack()
         this.widget.add_named(scroll, 'list')
         this.widget.add_named(this._buildEmptyState(width, height, emptyState),'empty')
-        
+
         this._emptyState.show()
         scroll.hide()
         this._onChange = (...args) => {
@@ -830,7 +830,7 @@ class NotesList {
         })
         messageLabel.set_line_wrap(true)
         messageLabel.get_style_context().add_class('dim-label')
-        
+
         const box = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             valign: Gtk.Align.CENTER,
@@ -839,7 +839,7 @@ class NotesList {
         box.pack_start(image, false, true, 0)
         box.pack_start(titleLabel, false, true, 0)
         box.pack_start(messageLabel, false, true, 0)
-        
+
         this._emptyState = new Gtk.ScrolledWindow({ width_request: width, height_request: height })
         if (this._frame) this._emptyState.get_style_context().add_class('frame')
         this._emptyState.add(box)
@@ -876,12 +876,12 @@ class NotesList {
             relief: Gtk.ReliefStyle.NONE,
             valign: Gtk.Align.CENTER
         })
-        
+
         this._rowMap.set(row, value)
         if (data) this._dataMap.set(value, data)
         this._labelMap.set(value, label)
         this._label2Map.set(value, label2)
-        
+
         const removeFunc = () => {
             this._listBox.remove(row)
             this._rowMap.delete(row)
@@ -894,7 +894,7 @@ class NotesList {
         }
         this._removeMap.set(value, removeFunc)
         button.connect('clicked', removeFunc)
-        
+
         const box = new Gtk.Box({ spacing: 3 })
         box.pack_start(label, true, true, 0)
         box.pack_end(button, false, true, 0)
@@ -903,7 +903,7 @@ class NotesList {
         box2.pack_start(box, true, true, 0)
         box2.pack_end(label2, true, true, 0)
         row.add(box2)
-        
+
         row.show_all()
         if (!text2) label2.hide()
         this._listBox.add(row)
@@ -953,7 +953,7 @@ class Bookmarks {
         this._addFunc = () => onAdd(add)
         this._addButton.connect('clicked', () => this.doButtonAction())
         this.setCanAdd()
-        
+
         const bookmarksBox = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL, spacing: frame ? 10 : 0
         })
@@ -1032,7 +1032,7 @@ class Annotations {
 class LookupPopover {
     constructor(relative_to, position, fromTop, onAnnotate, onCopy, word, language, dict) {
         this.widget = new Gtk.Popover({ border_width: 10, relative_to })
-        
+
         const actionBox = new Gtk.Box()
         actionBox.get_style_context().add_class('linked')
         const copyButton = new Gtk.Button({ label: _('Copy') })
@@ -1047,7 +1047,7 @@ class LookupPopover {
         })
         actionBox.pack_start(noteButton, true, true, 0)
         actionBox.pack_start(copyButton, true, true, 0)
-        
+
         const label = new Gtk.Label({
             label: _('Loading…'),
             use_markup: true,
@@ -1056,7 +1056,7 @@ class LookupPopover {
             xalign: 0
         })
         label.set_line_wrap(true)
-        
+
         const scroll = new Gtk.ScrolledWindow({
             min_content_width: 300,
             min_content_height: 200
@@ -1068,19 +1068,19 @@ class LookupPopover {
         lbox.pack_start(label, true, true, 0)
         scroll.get_style_context().add_class('frame')
         scroll.add(lbox)
-        
+
         const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
         box.pack_start(actionBox, false, true, 0)
         box.pack_end(scroll, true, true, 0)
-        
+
         this.widget.add(box)
-        
+
         if (fromTop) this.widget.set_position(Gtk.PositionType.TOP)
         else this.widget.set_position(Gtk.PositionType.BOTTOM)
         const rectangle = new Gdk.Rectangle(position)
         this.widget.set_pointing_to(rectangle)
         box.show_all()
-        
+
         this.widget.popup()
 
         DICTS[dict].func(word, language, (err, results) => {
@@ -1092,7 +1092,7 @@ class LookupPopover {
 class AnnotationPopover {
     constructor(relative_to, position, fromTop, onRemove, onCopy, color, onColorChange, note, onNoteChange) {
         this.widget = new Gtk.Popover({ border_width: 10, relative_to })
-        
+
         const actionBox = new Gtk.Box()
         actionBox.get_style_context().add_class('linked')
         const copyButton = new Gtk.Button({ label: _('Copy') })
@@ -1110,7 +1110,7 @@ class AnnotationPopover {
             scroll.visible = noteButton.active
             if (noteButton.active) textView.grab_focus()
         })
-        
+
         const model = new Gtk.ListStore()
         model.set_column_types([GObject.TYPE_STRING, GObject.TYPE_STRING])
 
@@ -1129,12 +1129,12 @@ class AnnotationPopover {
             const value = model.get_value(iter, 0)
             onColorChange(value)
         })
-        
+
         actionBox.pack_start(comboBox, true, true, 0)
         actionBox.pack_start(noteButton, true, true, 0)
         actionBox.pack_start(removeButton, true, true, 0)
         actionBox.pack_start(copyButton, true, true, 0)
-        
+
         const textView = new Gtk.TextView({ wrap_mode: Gtk.WrapMode.WORD })
         const buffer = textView.get_buffer()
         const scroll = new Gtk.ScrolledWindow({
@@ -1142,19 +1142,19 @@ class AnnotationPopover {
         })
         scroll.get_style_context().add_class('frame')
         scroll.add(textView)
-        
+
         const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
         box.pack_start(actionBox, false, true, 0)
         box.pack_end(scroll, true, true, 0)
-        
+
         this.widget.add(box)
-        
+
         if (fromTop) this.widget.set_position(Gtk.PositionType.TOP)
         else this.widget.set_position(Gtk.PositionType.BOTTOM)
         const rectangle = new Gdk.Rectangle(position)
         this.widget.set_pointing_to(rectangle)
         box.show_all()
-        
+
         if (note) {
             buffer.text = note
             noteButton.active = true
@@ -1162,7 +1162,7 @@ class AnnotationPopover {
         buffer.connect('changed', () => {
             onNoteChange(buffer.text)
         })
-        
+
         this.widget.popup()
     }
 }
@@ -1251,7 +1251,7 @@ class BookViewerWindow {
             default_width: width,
             default_height: height
         })
-        
+
         let windowWidth, windowHeight, windowMaximized
         this.window.connect('size-allocate', () => {
             [windowWidth, windowHeight] = this.window.get_size()
@@ -1262,16 +1262,16 @@ class BookViewerWindow {
             settings.set_int('window-height', windowHeight)
             settings.set_boolean('window-maximized', windowMaximized)
         })
-        
+
         this.activateTheme()
-        
+
         this.headerBar = new Gtk.HeaderBar()
         this.headerBar.show_close_button = true
         this.headerBar.has_subtitle = false
         this.window.set_titlebar(this.headerBar)
         this.window.title = _('Foliate')
         this.window.show_all()
-        
+
         this.buildMenu()
         if (fileName) this.open(fileName)
         else {
@@ -1295,14 +1295,14 @@ class BookViewerWindow {
             height_request: 48
         })
         this.spinner.start()
-        
+
         this.webViewSettings = new Webkit.Settings({
             enable_write_console_messages_to_stdout: true,
             allow_file_access_from_file_urls: true
         })
         this.webView = new Webkit.WebView({ settings: this.webViewSettings })
         this.webView.connect('context-menu', () => true)
-        
+
         this.webView.load_uri(GLib.filename_to_uri(pkg.pkgdatadir + '/assets/viewer.html', null))
         this.webView.connect('notify::title', self => {
             const action = JSON.parse(self.title)
@@ -1310,7 +1310,7 @@ class BookViewerWindow {
                 this.scriptRun(`openBook("${encodeURI(fileName)}")`)
             else this.handleAction(action)
         })
-        
+
         this.container = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
         this.overlay = new Gtk.Overlay()
         this.overlay.add(this.webView)
@@ -1438,10 +1438,10 @@ class BookViewerWindow {
 
             const { color, background, link, darkMode, invert } =
                 this.themes[theme]
-            
+
             Gtk.Settings.get_default()
                 .gtk_application_prefer_dark_theme = darkMode
-            
+
             const fontFamily = font.desc.get_family()
             const fontSize = `${font.desc.get_size() / Pango.SCALE}pt`
             const fontWeight = font.desc.get_weight()
@@ -1534,7 +1534,7 @@ class BookViewerWindow {
             settings.get_double('brightness'),
             settings.get_string('theme'),
             settings.get_string('layout'))
-        
+
         settings.connect('changed::theme', () => {
             const theme = settings.get_string('theme')
             if (theme !== this.viewPopover.theme) this.viewPopover.theme = theme
@@ -1620,7 +1620,7 @@ class BookViewerWindow {
                     const color = settings.get_string('highlight')
                     const data = { color, text }
                     this.scriptRun(`addAnnotation('${cfiRange}', '${color}')`)
-                    
+
                     const label = coloredText(color, text)
                     this.annotations.add(label, null, cfiRange, data)
                     this.scriptRun(`dispatch({
@@ -1634,7 +1634,7 @@ class BookViewerWindow {
                 const [, winHeight] = this.window.get_size()
                 const fromTop = position.top >= winHeight / 2
                 const y = fromTop ? position.top : position.bottom
-                
+
                 const data = this.annotations.getData(cfiRange)
                 new AnnotationPopover(
                     this.webView, { x: position.left, y }, fromTop,
@@ -1972,7 +1972,7 @@ class BookViewerWindow {
         this.headerBar.pack_start(tocButton)
         this.headerBar.pack_start(annotationsButton)
         this.headerBar.pack_start(bookmarksButton)
-        
+
         this.addShortcut(['F9'], 'toc-popover', () =>
             tocButton.active = !tocButton.active)
         this.addShortcut(['<Control>b'], 'bookmark-popover', () =>
@@ -1986,7 +1986,7 @@ class BookViewerWindow {
         if (!settings.get_boolean('show-navbar')) this.navbar.widget.hide()
         this.navbar.setPending()
         this.container.pack_end(this.navbar.widget, false, true, 0)
-        
+
         this.addShortcut(['p', 'h'], 'go-prev', onPrev)
         this.addShortcut(['n', 'l'], 'go-next', onNext)
 
@@ -2020,9 +2020,9 @@ class BookViewerWindow {
         })
         const popover = new Gtk.Popover()
         button.popover = popover
-        
+
         this.menu = new Gio.Menu()
-        
+
         const section1 = new Gio.Menu()
         section1.append(_('Fullscreen'), 'win.fullscreen')
         section1.append(_('Reading Progress Bar'), 'win.navbar')
@@ -2118,7 +2118,7 @@ class BookViewerWindow {
         const section = new Gio.Menu()
         section.append(_('About This Book'), 'win.properties')
         this.menu.prepend_section(null, section)
-        
+
         const action = new Gio.SimpleAction({ name: 'properties' })
         action.connect('activate', () => {
             let image
@@ -2126,11 +2126,11 @@ class BookViewerWindow {
                 const data = GLib.base64_decode(coverBase64)
                 const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
                 const pixbuf = GdkPixbuf.Pixbuf.new_from_stream(imageStream, null)
-                
+
                 const width = 200
                 const ratio = width / pixbuf.get_width()
                 const height = parseInt(pixbuf.get_height() * ratio, 10)
-                
+
                 image = Gtk.Image.new_from_pixbuf(
                     pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
             }
@@ -2141,7 +2141,7 @@ class BookViewerWindow {
                 has_subtitle: false
             })
             window.set_titlebar(headerBar)
-            
+
             const dataBox = new Gtk.Box({
                 orientation: Gtk.Orientation.VERTICAL, spacing: 10
             })
@@ -2157,7 +2157,7 @@ class BookViewerWindow {
             })
             title.set_line_wrap(true)
             dataBox.pack_start(title, false, true, 0)
-            
+
             if (metadata.creator) {
                 const creator = new Gtk.Label({
                     label: metadata.creator,
@@ -2194,7 +2194,7 @@ class BookViewerWindow {
                 frame.add(webView)
                 dataBox.pack_start(frame, true, true, 0)
             }
-            
+
             // workaround for xgettext bug
             // `/`
 
@@ -2202,13 +2202,13 @@ class BookViewerWindow {
                 column_spacing: 10, row_spacing: 10,
                 valign: Gtk.Align.CENTER
             })
-            
+
             dataBox.pack_end(grid, false, true, 0)
-            
+
             let row = 0
             for (const key in metadata) {
                 if (!metadata[key]) continue
-                
+
                 const labelText = {
                     publisher: _('Publisher'),
                     pubdate: _('Publication Date'),
@@ -2226,7 +2226,7 @@ class BookViewerWindow {
                     })
                     label.get_style_context().add_class('dim-label')
                     grid.attach(label, 0, row, 1, 1)
-                    
+
                     const value = new Gtk.Label({
                         label: metadata[key],
                         selectable: true,
@@ -2250,7 +2250,7 @@ class BookViewerWindow {
             } else if (image) image.valign = Gtk.Align.START
             if (image) coverBox.pack_start(image, false, true, 0)
             coverBox.pack_end(dataBox, false, true, 0)
-            
+
             const container = window.get_content_area()
             container.border_width = 18
             container.pack_start(coverBox, true, true, 0)
