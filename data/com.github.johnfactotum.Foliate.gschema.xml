@@ -66,6 +66,11 @@
             <summary>Lookup enabled</summary>
             <description>If true, dictionary lookup is enabled</description>
         </key>
+        <key name="fastannotation-enabled" type="b">
+            <default>true</default>
+            <summary>Fast Annotation enabled</summary>
+            <description>If true, selection as annotation is enabled</description>
+        </key>
         <key name="autohide-cursor" enum="com.github.johnfactotum.Foliate.AutohideCursor">
             <default>'fullscreen'</default>
             <summary>Auto-hide cursor</summary>
@@ -111,5 +116,5 @@
             <summary>Sidebar page</summary>
             <description>Sidebar page</description>
         </key>
-	</schema>
+    </schema>
 </schemalist>
