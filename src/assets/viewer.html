@@ -71,6 +71,7 @@ let annotation
 let lookupEnabled = true
 let lookupResults
 let lookupLang = 'English'
+let fastAnnotationEnabled = true
 let footnote, followLink = () => {}
 let autohideCursor, screenX, screenY, cursorHidden
 let windowSize
@@ -363,6 +364,7 @@ const setupRendition = () => {
             }, false)
         })
 
+        let latestSelectionRange = null
         contents.document.onmouseup = () => {
             const selection = contents.window.getSelection()
             const range = selection.getRangeAt(0)
@@ -391,6 +393,12 @@ const setupRendition = () => {
                     }
                 })
             } else {
+                if (!fastAnnotationEnabled &&
+                    (latestSelectionRange === null || latestSelectionRange != cfiRange)) {
+                    latestSelectionRange = cfiRange
+                    return
+                }
+
                 annotation = { text, cfiRange }
                 dispatch({
                     type: 'annotation-add',
@@ -496,7 +504,7 @@ const queryDictionary = (html, word) => new Promise((resolve, reject) => {
         if (!language) return
         const $language = $(el).nextUntil('h2')
         const $$sections = $language.filter('h3')
-        
+
         const sectionsResult = {}
         $$sections.each((i, el) => {
             const section = $(el).children('.mw-headline').text()
@@ -504,7 +512,7 @@ const queryDictionary = (html, word) => new Promise((resolve, reject) => {
                 $(el).nextUntil('h2'),
                 $(el).nextUntil('h3')], x => x.length)
             const $$subsections = $section.filter('h4')
-            
+
             if (!/Etymology \d+/.test(section)) {
                 const content = getContent(section, $section, $)
                 if (content.length) sectionsResult[section] = content
@@ -516,7 +524,7 @@ const queryDictionary = (html, word) => new Promise((resolve, reject) => {
                         $(el).nextUntil('h2'),
                         $(el).nextUntil('h3'),
                         $(el).nextUntil('h4')], x => x.length)
-                    
+
                     const content = getContent(subsection, $subsection, $)
                     if (content.length) subsectionsResult[subsection] = content
                 })
