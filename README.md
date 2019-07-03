@@ -18,7 +18,7 @@ Website: https://johnfactotum.github.io/foliate/
 - Reading progress slider with chapter marks
 - Bookmarks and annotations
 - Find in book
-- Quick dictionary lookup powered by [Wiktionary](https://en.wiktionary.org/)
+- Quick dictionary lookup with [Wiktionary](https://en.wiktionary.org/) or `dictd`
 - Touchpad gestures—use two-finger swipe to turn the page
 
 ## Installation
@@ -33,6 +33,8 @@ Website: https://johnfactotum.github.io/foliate/
 #### Optional dependencies
 
 Auto-hyphenation is done using CSS hyphenation. To enbale CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
+
+For offline dictionary support, install `dictd`.
 
 ### Building manually from source
 
