@@ -32,6 +32,27 @@ const Webkit = imports.gi.WebKit2
 const Pango = imports.gi.Pango
 const ByteArray = imports.byteArray
 
+const execCommand = argv => new Promise((resolve, reject) => {
+    try {
+        const launcher = new Gio.SubprocessLauncher({
+            flags: Gio.SubprocessFlags.STDOUT_PIPE
+        })
+        launcher.setenv('G_MESSAGES_DEBUG', '', true)
+        const proc = launcher.spawnv(argv)
+        proc.communicate_utf8_async(null, null, (proc, res) => {
+            try {
+                const [ok, stdout, stderr] = proc.communicate_utf8_finish(res)
+                if (!stdout) reject()
+                else resolve(stdout)
+            } catch (e) {
+                reject(e)
+            }
+        })
+    } catch (e) {
+        reject(e)
+    }
+})
+
 const defaultThemes = {
     [_('Light')]: {
         color: '#000', background: '#fff', link: 'blue',
@@ -64,8 +85,9 @@ const coloredText = (color, text) =>
 
 const DICTS = {
     wiktionary: {
-        name: 'Wiktionary',
-        func: (word, language, callback) => {
+        name: _('Wiktionary (English)'),
+        useMarkup: true,
+        lookup: (word, language, callback) => {
             const webView = new Webkit.WebView({
                 settings: new Webkit.Settings({
                     enable_write_console_messages_to_stdout: true,
@@ -113,8 +135,38 @@ const DICTS = {
                 }
             })
         }
-    }
+    },
 }
+
+const makeDictdDict = (id, name, flatpak) => ({
+    name,
+    noWrap: true,
+    lookup: (word, language, callback) => {
+        try {
+            const command = flatpak
+                ? ['flatpak-spawn', '--host', 'dict', '-d', id, word]
+                : ['dict', '-d', id, word]
+            execCommand(command).then(stdout => {
+                callback(null, stdout)
+            }).catch(() => callback(new Error()))
+        } catch(e) {
+            callback(new Error())
+        }
+    }
+})
+const populateDictdDicts = (stdout, flatpak) =>
+    parseDictDbs(stdout).forEach(db =>
+        DICTS['dcitd_' + db.id] = makeDictdDict(db.id, db.name, flatpak))
+
+const parseDictDbs = x => x.split('\n').filter(x => x).map(row => {
+    const cols = row.split('\t')
+    return { id: cols[2], name: cols[3] }
+})
+execCommand(['dict', '--dbs', '--formatted'])
+    .then(stdout => populateDictdDicts(stdout, false))
+    .catch(() => execCommand(
+        ['flatpak-spawn', '--host', 'dict', '--dbs', '--formatted']))
+    .then(stdout => populateDictdDicts(stdout, true))
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const USE_SIDEBAR = settings.get_boolean('use-sidebar')
@@ -1048,16 +1100,15 @@ class LookupPopover {
         actionBox.pack_start(noteButton, true, true, 0)
         actionBox.pack_start(copyButton, true, true, 0)
 
-        const label = new Gtk.Label({
+        this._label = new Gtk.Label({
             label: _('Loading…'),
-            use_markup: true,
             selectable: true,
             valign: Gtk.Align.START,
             xalign: 0
         })
-        label.set_line_wrap(true)
+        this._label.set_line_wrap(true)
 
-        const scroll = new Gtk.ScrolledWindow({
+        this._scroll = new Gtk.ScrolledWindow({
             min_content_width: 300,
             min_content_height: 200
         })
@@ -1065,13 +1116,36 @@ class LookupPopover {
             orientation: Gtk.Orientation.VERTICAL,
             border_width: 5
         })
-        lbox.pack_start(label, true, true, 0)
-        scroll.get_style_context().add_class('frame')
-        scroll.add(lbox)
+        lbox.pack_start(this._label, true, true, 0)
+        this._scroll.get_style_context().add_class('frame')
+        this._scroll.add(lbox)
+
+        const model = new Gtk.ListStore()
+        model.set_column_types([GObject.TYPE_STRING, GObject.TYPE_STRING])
+        const combo = new Gtk.ComboBox({ model })
+        const renderer = new Gtk.CellRendererText({
+            ellipsize: Pango.EllipsizeMode.END,
+            width: 300
+        })
+        combo.pack_start(renderer, true)
+        combo.add_attribute(renderer, 'text', 1)
+        combo.id_column = 0
+
+        Object.keys(DICTS).forEach(dict => {
+            const dictionary = DICTS[dict]
+           model.set(model.append(), [0, 1], [dict, dictionary.name])
+        })
+        combo.active_id = dict
+        combo.connect('changed', () => {
+            const id = combo.active_id
+            this.lookup(DICTS[id], word, language)
+            settings.set_string('dictionary', id)
+        })
 
         const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
         box.pack_start(actionBox, false, true, 0)
-        box.pack_end(scroll, true, true, 0)
+        box.pack_start(this._scroll, true, true, 0)
+        box.pack_end(combo, false, true, 0)
 
         this.widget.add(box)
 
@@ -1083,9 +1157,15 @@ class LookupPopover {
 
         this.widget.popup()
 
-        DICTS[dict].func(word, language, (err, results) => {
-            if (err) label.label = _('No definitions found.')
-            else label.label = results
+        this.lookup(DICTS[dict], word, language)
+    }
+    lookup(dictionary, word, language) {
+        this._label.label = _('Loading…')
+        dictionary.lookup(word, language, (err, results) => {
+            this._scroll.propagate_natural_width = dictionary.noWrap
+            this._label.use_markup = dictionary.useMarkup
+            if (err) this._label.label = _('No definitions found.')
+            else this._label.label = results
         })
     }
 }
@@ -1598,7 +1678,7 @@ class BookViewerWindow {
                 const fromTop = position.bottom > winHeight / 2
                 const y = fromTop ? position.top : position.bottom
 
-                const dict = 'wiktionary'
+                const dict = settings.get_string('dictionary')
 
                 this.lookupPopover = new LookupPopover(
                     this.webView, { x: position.left, y }, fromTop,

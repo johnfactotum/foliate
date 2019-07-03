@@ -66,6 +66,11 @@
             <summary>Lookup enabled</summary>
             <description>If true, dictionary lookup is enabled</description>
         </key>
+        <key name="dictionary" type="s">
+            <default>'wiktionary'</default>
+            <summary>Dictionary</summary>
+            <description>ID of the default dictionary</description>
+        </key>
         <key name="autohide-cursor" enum="com.github.johnfactotum.Foliate.AutohideCursor">
             <default>'fullscreen'</default>
             <summary>Auto-hide cursor</summary>
