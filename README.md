@@ -45,7 +45,6 @@ The following are runtime requirements:
 
 - `gjs (>= 1.52)`
 - `webkit2gtk`
-- `libsoup`
 
 To install, run the following commands:
 
