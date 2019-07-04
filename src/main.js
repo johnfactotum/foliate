@@ -2214,7 +2214,7 @@ class BookViewerWindow {
                 image = Gtk.Image.new_from_pixbuf(
                     pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
             }
-            const window = new Gtk.Dialog({ modal: true })
+            const window = new Gtk.Dialog({ modal: true, default_width: 700 })
             const headerBar = new Gtk.HeaderBar({
                 title: _('About This Book'),
                 show_close_button: true,
