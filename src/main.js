@@ -1081,24 +1081,52 @@ class Annotations {
     }
 }
 
-class LookupPopover {
-    constructor(relative_to, position, fromTop, onAnnotate, onCopy, word, language, dict) {
-        this.widget = new Gtk.Popover({ border_width: 10, relative_to })
-
+const makePopoverOptions = (relativeTo, position, window) => {
+    const [, winHeight] = window.get_size()
+    const fromTop = position.top >=  winHeight / 2
+    const y = fromTop ? position.top : position.bottom
+    return {
+        relativeTo,
+        position: { x: position.left, y },
+        fromTop
+    }
+}
+class ActionPopover {
+    constructor({ relativeTo, position, fromTop }, actions, contents) {
+        this.widget = new Gtk.Popover({ border_width: 10, relative_to: relativeTo })
         const actionBox = new Gtk.Box()
         actionBox.get_style_context().add_class('linked')
+        actions.forEach(action => actionBox.pack_start(action, true, true, 0))
+
+        const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
+        box.pack_start(actionBox, false, true, 0)
+        contents.forEach(content => box.pack_start(content, false, true, 0))
+
+        this.widget.add(box)
+
+        if (fromTop) this.widget.set_position(Gtk.PositionType.TOP)
+        else this.widget.set_position(Gtk.PositionType.BOTTOM)
+        const rectangle = new Gdk.Rectangle(position)
+        this.widget.set_pointing_to(rectangle)
+        box.show_all()
+        if (!actions.length) actionBox.hide()
+
+        this.widget.popup()
+    }
+}
+
+class LookupPopover {
+    constructor(options, onAnnotate, onCopy, word, language, dict) {
         const copyButton = new Gtk.Button({ label: _('Copy') })
         copyButton.connect('clicked', () => {
             onCopy()
-            this.widget.popdown()
+            this.popover.widget.popdown()
         })
         const noteButton = new Gtk.Button({ label: _('Highlight') })
         noteButton.connect('clicked', () => {
-            this.widget.destroy()
+            this.popover.widget.destroy()
             onAnnotate()
         })
-        actionBox.pack_start(noteButton, true, true, 0)
-        actionBox.pack_start(copyButton, true, true, 0)
 
         this._label = new Gtk.Label({
             label: _('Loading…'),
@@ -1143,22 +1171,10 @@ class LookupPopover {
             settings.set_string('dictionary', id)
         })
 
-        const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
-        box.pack_start(actionBox, false, true, 0)
-        box.pack_start(this._scroll, true, true, 0)
-        box.pack_end(combo, false, true, 0)
-
-        this.widget.add(box)
-
-        if (fromTop) this.widget.set_position(Gtk.PositionType.TOP)
-        else this.widget.set_position(Gtk.PositionType.BOTTOM)
-        const rectangle = new Gdk.Rectangle(position)
-        this.widget.set_pointing_to(rectangle)
-        box.show_all()
-
-        this.widget.popup()
-
         this.lookup(DICTS[dict], word, language)
+
+        this.popover = new ActionPopover(options,
+            [noteButton, copyButton], [this._scroll, combo])
     }
     lookup(dictionary, word, language) {
         this._label.label = _('Loading…')
@@ -1171,20 +1187,16 @@ class LookupPopover {
     }
 }
 class AnnotationPopover {
-    constructor(relative_to, position, fromTop, onRemove, onCopy, color, onColorChange, note, onNoteChange) {
-        this.widget = new Gtk.Popover({ border_width: 10, relative_to })
-
-        const actionBox = new Gtk.Box()
-        actionBox.get_style_context().add_class('linked')
+    constructor(options, onRemove, onCopy, color, onColorChange, note, onNoteChange) {
         const copyButton = new Gtk.Button({ label: _('Copy') })
         copyButton.connect('clicked', () => {
             onCopy()
-            this.widget.popdown()
+            this.popover.widget.popdown()
         })
         const removeButton = new Gtk.Button({ label: _('Remove') })
         removeButton.connect('clicked', () => {
             onRemove()
-            this.widget.popdown()
+            this.popover.widget.popdown()
         })
         const noteButton = new Gtk.ToggleButton({ label: _('Note') })
         noteButton.connect('toggled', () => {
@@ -1211,11 +1223,6 @@ class AnnotationPopover {
             onColorChange(value)
         })
 
-        actionBox.pack_start(comboBox, true, true, 0)
-        actionBox.pack_start(noteButton, true, true, 0)
-        actionBox.pack_start(removeButton, true, true, 0)
-        actionBox.pack_start(copyButton, true, true, 0)
-
         const textView = new Gtk.TextView({ wrap_mode: Gtk.WrapMode.WORD })
         const buffer = textView.get_buffer()
         const scroll = new Gtk.ScrolledWindow({
@@ -1224,17 +1231,8 @@ class AnnotationPopover {
         scroll.get_style_context().add_class('frame')
         scroll.add(textView)
 
-        const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
-        box.pack_start(actionBox, false, true, 0)
-        box.pack_end(scroll, true, true, 0)
-
-        this.widget.add(box)
-
-        if (fromTop) this.widget.set_position(Gtk.PositionType.TOP)
-        else this.widget.set_position(Gtk.PositionType.BOTTOM)
-        const rectangle = new Gdk.Rectangle(position)
-        this.widget.set_pointing_to(rectangle)
-        box.show_all()
+        this.popover = new ActionPopover(options,
+            [comboBox, noteButton, removeButton, copyButton], [scroll])
 
         if (note) {
             buffer.text = note
@@ -1243,38 +1241,113 @@ class AnnotationPopover {
         buffer.connect('changed', () => {
             onNoteChange(buffer.text)
         })
+    }
+}
+class FootnotePopover {
+    constructor(options, canGoTo, onGoTo) {
+        this._label = new Gtk.Label({
+            use_markup: true,
+            selectable: true,
+            valign: Gtk.Align.START,
+            xalign: 0
+        })
+        this._label.set_line_wrap(true)
+        const lbox = new Gtk.Box({ border_width: 5 })
+        lbox.add(this._label)
 
-        this.widget.popup()
+        const scroll = new Gtk.ScrolledWindow({
+            min_content_width: 300,
+            min_content_height: 200
+        })
+        scroll.get_style_context().add_class('frame')
+        scroll.add(lbox)
+
+        let button
+        if (canGoTo) {
+            button = new Gtk.Button({
+                label: _('Go to Linked Location')
+            })
+            button.connect('clicked', () => {
+                onGoTo()
+                this.popover.widget.popdown()
+            })
+        }
+        this.popover = new ActionPopover(options, [],
+            canGoTo ? [scroll, button] : [scroll])
+    }
+    load(footnote) {
+        this._label.label = footnote
+        this.popover.widget.popup()
+        this._label.select_region(-1, -1)
     }
 }
 class ImgPopover {
-    constructor(relative_to, position, fromTop, onZoom, onCopy) {
-        this.widget = new Gtk.Popover({ border_width: 10, relative_to })
-
-        const actionBox = new Gtk.Box()
-        actionBox.get_style_context().add_class('linked')
+    constructor(options, onZoom, onCopy) {
         const copyButton = new Gtk.Button({ label: _('Copy') })
         copyButton.connect('clicked', () => {
             onCopy()
-            this.widget.popdown()
+            this.popover.widget.popdown()
         })
         const zoomButton = new Gtk.Button({ label: _('Zoom') })
         zoomButton.connect('clicked', () => {
-            this.widget.popdown()
+            this.popover.widget.popdown()
             onZoom()
         })
-        actionBox.pack_start(zoomButton, true, true, 0)
-        actionBox.pack_start(copyButton, true, true, 0)
+        this.popover = new ActionPopover(options, [zoomButton, copyButton], [])
+    }
+}
+class ImgViewer {
+    constructor([windowWidth, windowHeight], height, width, imgAlt, pixbuf, onCopy) {
+        const window = new Gtk.Window({
+            default_width: Math.min(width * 2, windowWidth),
+            default_height: Math.min(height * 2 + 70, windowHeight)
+        })
+        const headerBar = new Gtk.HeaderBar()
+        headerBar.show_close_button = true
+        headerBar.has_subtitle = false
+        window.set_titlebar(headerBar)
+        window.title = imgAlt
 
-        this.widget.add(actionBox)
+        const button = new Gtk.Button({ label: _('Copy') })
+        button.connect('clicked', onCopy)
+        headerBar.pack_start(button)
 
-        if (fromTop) this.widget.set_position(Gtk.PositionType.TOP)
-        else this.widget.set_position(Gtk.PositionType.BOTTOM)
-        const rectangle = new Gdk.Rectangle(position)
-        this.widget.set_pointing_to(rectangle)
-        actionBox.show_all()
+        const slider = new Gtk.Scale({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            adjustment: new Gtk.Adjustment({
+                lower: 0.1, upper: 4, step_increment: 0.1
+            }),
+            digits: 2,
+            hexpand: true,
+            draw_value: false
+        })
+        slider.set_value(1)
+        slider.connect('format-value',
+            (_, x) => `${Math.round(x * 100)}%`)
+        slider.add_mark(1, Gtk.PositionType.BOTTOM, '100%')
+        slider.add_mark(2, Gtk.PositionType.BOTTOM, '200%')
+        slider.add_mark(4, Gtk.PositionType.BOTTOM, '400%')
+        slider.connect('value-changed', () => {
+            const zoom = slider.get_value()
+            image.set_from_pixbuf(pixbuf.scale_simple(
+                width * zoom,
+                height * zoom,
+                GdkPixbuf.InterpType.BILINEAR))
+        })
+        const bar = new Gtk.ActionBar()
+        bar.pack_start(slider)
 
-        this.widget.popup()
+        const scroll = new Gtk.ScrolledWindow()
+        const image = Gtk.Image.new_from_pixbuf(pixbuf)
+        scroll.add(image)
+        const container = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL
+        })
+        container.pack_start(scroll, true, true, 0)
+        container.pack_end(bar, false, true, 0)
+        window.add(container)
+
+        window.show_all()
     }
 }
 class WelcomeScreen {
@@ -1673,29 +1746,6 @@ class BookViewerWindow {
                 this.scriptGet('searchResults', results =>
                     this.searchPopover.loadResults(results, payload))
                 break
-            case 'lookup': {
-                const { position, text, language, cfiRange } = payload
-                const [, winHeight] = this.window.get_size()
-                const fromTop = position.bottom > winHeight / 2
-                const y = fromTop ? position.top : position.bottom
-
-                const dict = settings.get_string('dictionary')
-
-                this.lookupPopover = new LookupPopover(
-                    this.webView, { x: position.left, y }, fromTop,
-                    () => {
-                        this.scriptRun(`clearSelection()`)
-                        this.scriptRun(`dispatch({
-                            type: 'annotation-add',
-                            payload: ${JSON.stringify(payload)}
-                        })`)
-                    },
-                    () => Gtk.Clipboard
-                        .get_default(Gdk.Display.get_default())
-                        .set_text(text, -1),
-                    text, language, dict)
-                break
-            }
             case 'annotation-add':
                 this.scriptGet('annotation', ({ text, cfiRange }) => {
                     const color = settings.get_string('highlight')
@@ -1712,13 +1762,10 @@ class BookViewerWindow {
                 break
             case 'annotation-menu': {
                 const { position, cfiRange } = payload
-                const [, winHeight] = this.window.get_size()
-                const fromTop = position.top >= winHeight / 2
-                const y = fromTop ? position.top : position.bottom
-
                 const data = this.annotations.getData(cfiRange)
+
                 new AnnotationPopover(
-                    this.webView, { x: position.left, y }, fromTop,
+                    makePopoverOptions(this.webView, position, this.window),
                     () => {
                         this.annotations.remove(cfiRange)
                     },
@@ -1741,66 +1788,34 @@ class BookViewerWindow {
                     })
                 break
             }
+            case 'lookup': {
+                const { position, text, language, cfiRange } = payload
+                const dict = settings.get_string('dictionary')
+
+                new LookupPopover(
+                    makePopoverOptions(this.webView, position, this.window),
+                    () => {
+                        this.scriptRun(`clearSelection()`)
+                        this.scriptRun(`dispatch({
+                            type: 'annotation-add',
+                            payload: ${JSON.stringify(payload)}
+                        })`)
+                    },
+                    () => Gtk.Clipboard
+                        .get_default(Gdk.Display.get_default())
+                        .set_text(text, -1),
+                    text, language, dict)
+                break
+            }
             case 'footnote': {
-                const [, winHeight] = this.window.get_size()
-                const fromTop = payload.top >=  winHeight / 2
-                const y = fromTop ? payload.top : payload.bottom
-                const popover = new Gtk.Popover({ border_width: 10, relative_to: this.webView })
+                const popover = new FootnotePopover(
+                    makePopoverOptions(this.webView, payload, this.window),
+                    payload.canGoTo, () => this.scriptRun(`followLink()`))
 
-                if (fromTop) popover.set_position(Gtk.PositionType.TOP)
-                else popover.set_position(Gtk.PositionType.BOTTOM)
-                const rectangle = new Gdk.Rectangle({ x: payload.left, y })
-                popover.set_pointing_to(rectangle)
-
-                const label = new Gtk.Label({
-                    use_markup: true,
-                    selectable: true,
-                    valign: Gtk.Align.START,
-                    xalign: 0
-                })
-                label.set_line_wrap(true)
-                const lbox = new Gtk.Box({ border_width: 5 })
-                lbox.add(label)
-
-                const scroll = new Gtk.ScrolledWindow({
-                    min_content_width: 300,
-                    min_content_height: 200
-                })
-                scroll.get_style_context().add_class('frame')
-                scroll.add(lbox)
-
-                const box = new Gtk.Box({
-                    orientation: Gtk.Orientation.VERTICAL,
-                    spacing: 10
-                })
-                box.pack_start(scroll, true, true, 0)
-
-                if (payload.canGoTo) {
-                    const button = new Gtk.Button({
-                        label: _('Go to Linked Location')
-                    })
-                    button.connect('clicked', () => {
-                        this.scriptRun(`followLink()`)
-                        popover.popdown()
-                    })
-                    box.pack_end(button, true, true, 0)
-                }
-
-                box.show_all()
-                popover.add(box)
-                this.scriptGet('footnote', footnote => {
-                    label.label = footnote
-                    popover.popup()
-                    label.select_region(-1, -1)
-                })
+                this.scriptGet('footnote', footnote => popover.load(footnote))
                 break
             }
             case 'img': {
-                const position = payload
-                const [, winHeight] = this.window.get_size()
-                const fromTop = position.top >=  winHeight / 2
-                const y = fromTop ? position.top : position.bottom
-
                 this.scriptGet(`{ imgBase64, imgAlt }`, ({ imgBase64, imgAlt }) => {
                     const data = GLib.base64_decode(imgBase64)
                     const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
@@ -1812,63 +1827,11 @@ class BookViewerWindow {
                         .get_default(Gdk.Display.get_default())
                         .set_image(pixbuf)
 
-                    const imgPopover = new ImgPopover(
-                        this.webView, { x: position.left, y }, fromTop,
-                        () => {
-                            const [windowWidth, windowHeight] = this.window.get_size()
-                            const window = new Gtk.Window({
-                                default_width: Math.min(width * 2.5, windowWidth),
-                                default_height: Math.min(height * 2.5 + 70, windowHeight)
-                            })
-                            const headerBar = new Gtk.HeaderBar()
-                            headerBar.show_close_button = true
-                            headerBar.has_subtitle = false
-                            window.set_titlebar(headerBar)
-                            window.title = imgAlt
-
-                            const button = new Gtk.Button({ label: _('Copy') })
-                            button.connect('clicked', onCopy)
-                            headerBar.pack_start(button)
-
-                            const slider = new Gtk.Scale({
-                                orientation: Gtk.Orientation.HORIZONTAL,
-                                adjustment: new Gtk.Adjustment({
-                                    lower: 0.25, upper: 5, step_increment: 0.1
-                                }),
-                                digits: 2,
-                                hexpand: true,
-                                draw_value: false
-                            })
-                            slider.set_value(1)
-                            slider.connect('format-value',
-                                (_, x) => `${Math.round(x * 100)}%`)
-                            slider.add_mark(1, Gtk.PositionType.BOTTOM, '100%')
-                            slider.add_mark(2, Gtk.PositionType.BOTTOM, '200%')
-                            slider.add_mark(5, Gtk.PositionType.BOTTOM, '500%')
-                            slider.connect('value-changed', () => {
-                                const zoom = slider.get_value()
-                                image.set_from_pixbuf(pixbuf.scale_simple(
-                                    width * zoom,
-                                    height * zoom,
-                                    GdkPixbuf.InterpType.BILINEAR))
-                            })
-                            const bar = new Gtk.ActionBar()
-                            bar.pack_start(slider)
-
-                            const scroll = new Gtk.ScrolledWindow()
-                            const image = Gtk.Image.new_from_pixbuf(pixbuf)
-                            scroll.add(image)
-                            const container = new Gtk.Box({
-                                orientation: Gtk.Orientation.VERTICAL
-                            })
-                            container.pack_start(scroll, true, true, 0)
-                            container.pack_end(bar, false, true, 0)
-                            window.add(container)
-
-                            window.show_all()
-                        },
-                        onCopy
-                    )
+                    new ImgPopover(
+                        makePopoverOptions(this.webView, payload, this.window),
+                        () => new ImgViewer(this.window.get_size(),
+                            height, width, imgAlt, pixbuf, onCopy),
+                        onCopy)
                 })
             }
         }
