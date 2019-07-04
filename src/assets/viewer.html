@@ -307,14 +307,15 @@ const setupRendition = () => {
 
                     const rect = e.target.getBoundingClientRect()
                     const viewElementRect = latestViewElement.getBoundingClientRect()
-                    const left = (rect.left + rect.right) / 2 + viewElementRect.left
+                    const left = rect.left + viewElementRect.left
+                    const right = rect.right + viewElementRect.left
                     const top = rect.top + viewElementRect.top
                     const bottom = rect.bottom + viewElementRect.top
 
                     footnote = el.innerText.trim()
                     dispatch({
                         type: 'footnote',
-                        payload: { left, top, bottom, canGoTo: !(type === 'noteref') }
+                        payload: { left, right, top, bottom, canGoTo: !(type === 'noteref') }
                     })
                     followLink = () => {
                         dispatch({
@@ -334,7 +335,8 @@ const setupRendition = () => {
             img.addEventListener('click', e => {
                 const rect = e.target.getBoundingClientRect()
                 const viewElementRect = latestViewElement.getBoundingClientRect()
-                const left = (rect.left + rect.right) / 2 + viewElementRect.left
+                const left = rect.left + viewElementRect.left
+                const right = rect.right + viewElementRect.left
                 const top = rect.top + viewElementRect.top
                 const bottom = rect.bottom + viewElementRect.top
 
@@ -349,7 +351,7 @@ const setupRendition = () => {
                             imgBase64 = reader.result.split(',')[1]
                             dispatch({
                                 type: 'img',
-                                payload: { left, top, bottom }
+                                payload: { left, right, top, bottom }
                             })
                         }
                     })
@@ -376,15 +378,16 @@ const setupRendition = () => {
             const rect = selection.getRangeAt(0).getBoundingClientRect()
             const viewElementRect = latestViewElement.getBoundingClientRect()
 
-            const left = (rect.left + rect.right) / 2 + viewElementRect.left
+            const left = rect.left + viewElementRect.left
+            const right = rect.right + viewElementRect.left
             const top = rect.top + viewElementRect.top
             const bottom = rect.bottom + viewElementRect.top
 
-            return dispatch({ type: 'selection', payload: { left, top, bottom } })
+            return dispatch({ type: 'selection', payload: { left, right, top, bottom } })
             if (text.split(' ').length === 1 && lookupEnabled) {
-                dispatch({ type: 'lookup', payload: { left, top, bottom } })
+                dispatch({ type: 'lookup', payload: { left, right, top, bottom } })
             } else {
-                dispatch({ type: 'annotation-add', payload: { left, top, bottom } })
+                dispatch({ type: 'annotation-add', payload: { left, right, top, bottom } })
                 contents.window.getSelection().removeAllRanges()
             }
         }
@@ -417,7 +420,8 @@ const addAnnotation = (cfiRange, color) => {
             payload: {
                 cfiRange,
                 position: {
-                    left: (elRect.left + elRect.right) / 2,
+                    left: elRect.left,
+                    right: elRect.right,
                     top: elRect.top,
                     bottom: elRect.bottom
                 }

@@ -1168,37 +1168,51 @@ class Annotations {
     }
 }
 
-const makePopoverOptions = (relativeTo, position, window) => {
-    const [, winHeight] = window.get_size()
-    const fromTop = position.top >=  winHeight / 2
-    const y = fromTop ? position.top : position.bottom
+const maxBy = (arr, f) =>
+    arr[arr.map(f).reduce((prevI, x, i, arr) => x > arr[prevI] ? i : prevI, 0)]
+
+const makePopoverOptions = ({ left, right, top, bottom }, window, height = 400) => {
+    const [winWidth, winHeight] = window.get_size()
+
+    const borders = [
+        [left, Gtk.PositionType.LEFT, left, (top + bottom) / 2],
+        [winWidth - right, Gtk.PositionType.RIGHT, right, (top + bottom) / 2],
+        [top, Gtk.PositionType.TOP, (left + right) / 2, top],
+        [winHeight - bottom, Gtk.PositionType.BOTTOM, (left + right) / 2, bottom]
+    ]
+    const maxBorder = borders[3][0] > height ? borders[3]
+        : borders[2][0] > height ? borders[2]
+        : maxBy(borders, x => x[0])
+
     return {
-        relativeTo,
-        position: { x: position.left, y },
-        fromTop
+        position: { x: maxBorder[2], y: maxBorder[3] },
+        positionType: maxBorder[1]
     }
 }
 class ActionPopover {
-    constructor({ relativeTo, position, fromTop }, actions, contents) {
+    constructor([relativeTo, position, window], actions, contents) {
         this.widget = new Gtk.Popover({ border_width: 10, relative_to: relativeTo })
         const actionBox = new Gtk.Box()
         actionBox.get_style_context().add_class('linked')
         actions.forEach(action => actionBox.pack_start(action, true, true, 0))
 
         const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
-        box.pack_start(actionBox, false, true, 0)
+        box.pack_start(actionBox, true, true, 0)
         contents.forEach(content => box.pack_start(content, false, true, 0))
 
         this.widget.add(box)
-
-        if (fromTop) this.widget.set_position(Gtk.PositionType.TOP)
-        else this.widget.set_position(Gtk.PositionType.BOTTOM)
-        const rectangle = new Gdk.Rectangle(position)
-        this.widget.set_pointing_to(rectangle)
         box.show_all()
         if (!actions.length) actionBox.hide()
-
         this.widget.popup()
+
+        this.widget.connect('size-allocate', () => {
+            const { position: rectPosition, positionType } =
+                makePopoverOptions(position, window, this.widget.get_allocation().height)
+            this.widget.set_position(positionType)
+            const rectangle = new Gdk.Rectangle(rectPosition)
+            this.widget.set_pointing_to(rectangle)
+        })
+
     }
 }
 class SelectionPopover {
@@ -1996,7 +2010,7 @@ class BookViewerWindow {
                 const data = this.annotations.getData(cfiRange)
 
                 new AnnotationPopover(
-                    makePopoverOptions(this.webView, position, this.window),
+                    [this.webView, position, this.window],
                     () => {
                         this.annotations.remove(cfiRange)
                     },
@@ -2026,7 +2040,7 @@ class BookViewerWindow {
                     const dict = settings.get_string('dictionary')
 
                     const popover = new LookupPopover(
-                        makePopoverOptions(this.webView, payload, this.window),
+                        [this.webView, payload, this.window],
                         () => {
                             this.scriptRun(`clearSelection()`)
                             this.scriptRun(`dispatch({
@@ -2047,7 +2061,7 @@ class BookViewerWindow {
             case 'selection': {
                 let shouldClearSelection = true
                 const popover = new SelectionPopover(
-                    makePopoverOptions(this.webView, payload, this.window),
+                    [this.webView, payload, this.window],
                     () => this.scriptRun(`dispatch({
                         type: 'annotation-add',
                         payload: ${JSON.stringify(payload)}
@@ -2079,7 +2093,7 @@ class BookViewerWindow {
             }
             case 'footnote': {
                 const popover = new FootnotePopover(
-                    makePopoverOptions(this.webView, payload, this.window),
+                    [this.webView, payload, this.window],
                     payload.canGoTo, () => this.scriptRun(`followLink()`))
 
                 this.scriptGet('footnote', footnote => popover.load(footnote))
@@ -2098,7 +2112,7 @@ class BookViewerWindow {
                         .set_image(pixbuf)
 
                     new ImgPopover(
-                        makePopoverOptions(this.webView, payload, this.window),
+                        [this.webView, payload, this.window],
                         () => new ImgViewer(this.window.get_size(),
                             height, width, imgAlt, pixbuf, onCopy),
                         onCopy)
