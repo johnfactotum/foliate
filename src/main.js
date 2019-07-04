@@ -1104,7 +1104,8 @@ class LookupPopover {
             label: _('Loading…'),
             selectable: true,
             valign: Gtk.Align.START,
-            xalign: 0
+            xalign: 0,
+            max_width_chars: 60
         })
         this._label.set_line_wrap(true)
 
