@@ -128,6 +128,48 @@ const lookupWikipedia = (word, language, callback) => {
     })
 }
 
+const lookupGTranslate = (word, language, callback) => {
+    const webView = new Webkit.WebView({
+        settings: new Webkit.Settings({
+            enable_write_console_messages_to_stdout: true,
+            allow_universal_access_from_file_urls: true
+        })
+    })
+    const scriptRun = script =>
+        webView.run_javascript(script, null, () => {})
+    const scriptGet = (script, f) => {
+        webView.run_javascript(`JSON.stringify(${script})`, null,
+            (self, result) => {
+                const jsResult = self.run_javascript_finish(result)
+                const value = jsResult.get_js_value()
+                const obj = JSON.parse(value.to_string())
+                f(obj)
+            })
+    }
+    webView.load_uri(GLib.filename_to_uri(
+        pkg.pkgdatadir + '/assets/google-translate.html', null))
+
+    webView.connect('notify::title', self => {
+        const { type, payload } = JSON.parse(self.title)
+        switch (type) {
+            case 'can-lookup':
+                scriptRun(`query("${encodeURI(word)}", '${language}')`)
+                break
+            case 'lookup-results':
+                scriptGet(`lookupResults`, results => {
+                    callback(null,
+                        '<span alpha="70%" size="smaller">'
+                        + _('Translation by Google Translate') + '</span>\n'
+                        + results)
+                })
+                break
+            case 'lookup-error':
+                callback(new Error())
+                break
+        }
+    })
+}
+
 const DICTS = {
     wiktionary: {
         name: _('Wiktionary (English)'),
@@ -1160,7 +1202,7 @@ class ActionPopover {
     }
 }
 class SelectionPopover {
-    constructor(options, onAnnotate, onLookup, onCopy) {
+    constructor(options, onAnnotate, onLookup, onTranslate, onCopy) {
         const copyButton = new Gtk.Button({ label: _('Copy') })
         copyButton.connect('clicked', () => {
             onCopy()
@@ -1176,13 +1218,18 @@ class SelectionPopover {
             onLookup()
             this.popover.widget.destroy()
         })
+        const transButton = new Gtk.Button({ label: _('Translate') })
+        transButton.connect('clicked', () => {
+            onTranslate()
+            this.popover.widget.destroy()
+        })
 
         this.popover = new ActionPopover(options,
-            [noteButton, dictButton, copyButton], [])
+            [noteButton, dictButton, transButton, copyButton], [])
     }
 }
 class LookupPopover {
-    constructor(options, onAnnotate, onCopy, word, language, dict) {
+    constructor(options, onAnnotate, onCopy, word, language, dict, action = 'dictionary') {
         const copyButton = new Gtk.Button({ label: _('Copy') })
         copyButton.connect('clicked', () => {
             onCopy()
@@ -1247,7 +1294,6 @@ class LookupPopover {
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 10
         })
-
         this._wikiLabel = new Gtk.Label({
             label: _('Loading…'),
             selectable: true,
@@ -1256,7 +1302,6 @@ class LookupPopover {
             use_markup: true
         })
         this._wikiLabel.set_line_wrap(true)
-
         const wikiScroll = new Gtk.ScrolledWindow({
             min_content_width: 300,
             min_content_height: 200
@@ -1269,6 +1314,30 @@ class LookupPopover {
         wikiScroll.get_style_context().add_class('frame')
         wikiScroll.add(wikiLbox)
 
+        const transBox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 10
+        })
+        this._transLabel = new Gtk.Label({
+            label: _('Loading…'),
+            selectable: true,
+            valign: Gtk.Align.START,
+            xalign: 0,
+            use_markup: true
+        })
+        this._transLabel.set_line_wrap(true)
+        const transScroll = new Gtk.ScrolledWindow({
+            min_content_width: 300,
+            min_content_height: 200
+        })
+        const transLbox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            border_width: 5
+        })
+        transLbox.pack_start(this._transLabel, true, true, 0)
+        transScroll.get_style_context().add_class('frame')
+        transScroll.add(transLbox)
+
         const stack = new Gtk.Stack()
         const stackSwitcher = new Gtk.StackSwitcher({
             stack,
@@ -1276,6 +1345,7 @@ class LookupPopover {
         })
         stack.add_titled(dictBox, 'dictionary', _('Dictionary'))
         stack.add_titled(wikiScroll, 'wikipedia', _('Wikipedia'))
+        stack.add_titled(transScroll, 'translate', _('Translate'))
 
         stack.connect('notify::visible-child-name', () => {
             switch (stack.visible_child_name) {
@@ -1283,13 +1353,18 @@ class LookupPopover {
                     if (!this._wikipediaed) this.wikipedia(word)
                     this._wikiLabel.select_region(-1, -1)
                     break
+                case 'translate':
+                    if (!this._gtranslated) this.gtranslate(word)
+                    this._transLabel.select_region(-1, -1)
+                    break
             }
         })
 
-        this.lookup(DICTS[dict], word, language)
-
         this.popover = new ActionPopover(options,
             [noteButton, copyButton], [stack, stackSwitcher])
+
+        if (action === 'dictionary') this.lookup(DICTS[dict], word, language)
+        else stack.visible_child_name = action
     }
     lookup(dictionary, word, language) {
         this._label.label = _('Loading…')
@@ -1309,6 +1384,13 @@ class LookupPopover {
                 + _('Search on Wikipedia')
                 + '</a>'
             else this._wikiLabel.label = results
+        })
+    }
+    gtranslate(word, language = 'en') {
+        this._gtranslated = true
+        lookupGTranslate(word, language, (err, results) => {
+            if (err) this._transLabel.label = _('Cannot retrieve translation.')
+            else this._transLabel.label = results
         })
     }
 }
@@ -1823,6 +1905,7 @@ class BookViewerWindow {
         this.scriptRun(`setupRendition()`)
     }
     handleAction({ type, payload }) {
+        let lookupAction
         switch (type) {
             case 'book-error':
                 this.bookError()
@@ -1917,6 +2000,8 @@ class BookViewerWindow {
                     })
                 break
             }
+            case 'translate':
+                lookupAction = 'translate'
             case 'lookup':
                 this.scriptGet('selectionData', ({ text, language, cfiRange }) => {
                     const dict = settings.get_string('dictionary')
@@ -1933,7 +2018,7 @@ class BookViewerWindow {
                         () => Gtk.Clipboard
                             .get_default(Gdk.Display.get_default())
                             .set_text(text, -1),
-                        text, language, dict)
+                        text, language, dict, lookupAction)
 
                     popover.popover.widget.connect('closed', () => {
                         this.scriptRun('clearSelection()')
@@ -1952,6 +2037,13 @@ class BookViewerWindow {
                         shouldClearSelection = false
                         this.scriptRun(`dispatch({
                             type: 'lookup',
+                            payload: ${JSON.stringify(payload)}
+                        })`)
+                    },
+                    () => {
+                        shouldClearSelection = false
+                        this.scriptRun(`dispatch({
+                            type: 'translate',
                             payload: ${JSON.stringify(payload)}
                         })`)
                     },

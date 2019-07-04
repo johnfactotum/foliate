@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+-->
+<meta charset="utf-8">
+<script>
+const dispatch = action => {
+    // unique time in case we are dispatching the same action twice
+    const obj = { time: new Date().getTime(), ...action }
+    document.title = JSON.stringify(obj)
+}
+let lookupResults
+
+const query = (word, language = 'en') => {
+    fetch(`https://translate.googleapis.com/translate_a/single?client=gtx`
+        + `&ie=UTF-8&oe=UTF-&sl=auto&tl=${language}`
+        + `&dt=t&q=${word}`)
+    .then(res => {
+        if (res.ok) return res
+        else throw new Error()
+    })
+    .then(res => res.json())
+    .then(json => {
+        lookupResults = json[0].map(x => x[0]).join('')
+    })
+    .then(() => dispatch({ type: 'lookup-results' }))
+    .catch(() => dispatch({ type: 'lookup-error' }))
+}
+dispatch({ type: 'can-lookup' })
+</script>
