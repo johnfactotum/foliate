@@ -83,6 +83,51 @@ const highlightColors = [['yellow', _('Yellow')], ['orange', _('Orange')],
 const coloredText = (color, text) =>
     `<span bgcolor="${color}" bgalpha="25%">${text}</span>`
 
+const lookupWikipedia = (word, language, callback) => {
+    const webView = new Webkit.WebView({
+        settings: new Webkit.Settings({
+            enable_write_console_messages_to_stdout: true,
+            allow_universal_access_from_file_urls: true
+        })
+    })
+    const scriptRun = script =>
+        webView.run_javascript(script, null, () => {})
+    const scriptGet = (script, f) => {
+        webView.run_javascript(`JSON.stringify(${script})`, null,
+            (self, result) => {
+                const jsResult = self.run_javascript_finish(result)
+                const value = jsResult.get_js_value()
+                const obj = JSON.parse(value.to_string())
+                f(obj)
+            })
+    }
+    webView.load_uri(GLib.filename_to_uri(
+        pkg.pkgdatadir + '/assets/wikipedia.html', null))
+
+    webView.connect('notify::title', self => {
+        const { type, payload } = JSON.parse(self.title)
+        switch (type) {
+            case 'can-lookup':
+                scriptRun(`query("${encodeURI(word)}", '${language}')`)
+                break
+            case 'lookup-results':
+                scriptGet(`lookupResults`, results => {
+                    callback(null,
+                        '<span alpha="70%" size="smaller">'
+                        + _('From Wikipedia, the free encyclopedia') + '</span>\n'
+                        + `<b>${results.title}</b>\n`
+                        + `${results.extract.replace(/&/g, '&amp;')}\n`
+                        + `<a href="https://${language}.wikipedia.org/wiki/${word}">`
+                        + _('View on Wikipedia') + `</a>`)
+                })
+                break
+            case 'lookup-error':
+                callback(new Error())
+                break
+        }
+    })
+}
+
 const DICTS = {
     wiktionary: {
         name: _('Wiktionary (English)'),
@@ -124,9 +169,9 @@ const DICTS = {
                                 '<span alpha="70%" size="smaller">'
                                 + _('From Wiktionary, the free dictionary') + '</span>\n'
                                 + `<b>${results.word}</b> ${results.pronunciation || ''}\n`
-                                + `${results.defs.join('\n')}\n\n`
+                                + `${results.defs.join('\n')}\n`
                                 + `<a href="https://en.wiktionary.org/wiki/${word}">`
-                                + _('Full Definition') + `</a>`)
+                                + _('View on Wiktionary') + `</a>`)
                         })
                         break
                     case 'lookup-error':
@@ -1126,7 +1171,7 @@ class SelectionPopover {
             onAnnotate()
             this.popover.widget.destroy()
         })
-        const dictButton = new Gtk.Button({ label: _('Dictionary') })
+        const dictButton = new Gtk.Button({ label: _('Lookup') })
         dictButton.connect('clicked', () => {
             onLookup()
             this.popover.widget.destroy()
@@ -1191,11 +1236,60 @@ class LookupPopover {
             this.lookup(DICTS[id], word, language)
             settings.set_string('dictionary', id)
         })
+        const dictBox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 10
+        })
+        dictBox.pack_start(this._scroll, false, true, 0)
+        dictBox.pack_start(combo, false, true, 0)
+
+        const wikiBox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 10
+        })
+
+        this._wikiLabel = new Gtk.Label({
+            label: _('Loading…'),
+            selectable: true,
+            valign: Gtk.Align.START,
+            xalign: 0,
+            use_markup: true
+        })
+        this._wikiLabel.set_line_wrap(true)
+
+        const wikiScroll = new Gtk.ScrolledWindow({
+            min_content_width: 300,
+            min_content_height: 200
+        })
+        const wikiLbox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            border_width: 5
+        })
+        wikiLbox.pack_start(this._wikiLabel, true, true, 0)
+        wikiScroll.get_style_context().add_class('frame')
+        wikiScroll.add(wikiLbox)
+
+        const stack = new Gtk.Stack()
+        const stackSwitcher = new Gtk.StackSwitcher({
+            stack,
+            homogeneous: true
+        })
+        stack.add_titled(dictBox, 'dictionary', _('Dictionary'))
+        stack.add_titled(wikiScroll, 'wikipedia', _('Wikipedia'))
+
+        stack.connect('notify::visible-child-name', () => {
+            switch (stack.visible_child_name) {
+                case 'wikipedia':
+                    if (!this._wikipediaed) this.wikipedia(word)
+                    this._wikiLabel.select_region(-1, -1)
+                    break
+            }
+        })
 
         this.lookup(DICTS[dict], word, language)
 
         this.popover = new ActionPopover(options,
-            [noteButton, copyButton], [this._scroll, combo])
+            [noteButton, copyButton], [stack, stackSwitcher])
     }
     lookup(dictionary, word, language) {
         this._label.label = _('Loading…')
@@ -1204,6 +1298,17 @@ class LookupPopover {
             this._label.use_markup = dictionary.useMarkup
             if (err) this._label.label = _('No definitions found.')
             else this._label.label = results
+        })
+    }
+    wikipedia(word, language = 'en') {
+        this._wikipediaed = true
+        lookupWikipedia(word, language, (err, results) => {
+            if (err) this._wikiLabel.label = _('No entry found.')
+                + '\n'
+                + `<a href="https://en.wikipedia.org/w/index.php?search=${word}">`
+                + _('Search on Wikipedia')
+                + '</a>'
+            else this._wikiLabel.label = results
         })
     }
 }
