@@ -1114,7 +1114,28 @@ class ActionPopover {
         this.widget.popup()
     }
 }
+class SelectionPopover {
+    constructor(options, onAnnotate, onLookup, onCopy) {
+        const copyButton = new Gtk.Button({ label: _('Copy') })
+        copyButton.connect('clicked', () => {
+            onCopy()
+            this.popover.widget.popdown()
+        })
+        const noteButton = new Gtk.Button({ label: _('Highlight') })
+        noteButton.connect('clicked', () => {
+            onAnnotate()
+            this.popover.widget.destroy()
+        })
+        const dictButton = new Gtk.Button({ label: _('Dictionary') })
+        dictButton.connect('clicked', () => {
+            onLookup()
+            this.popover.widget.destroy()
+        })
 
+        this.popover = new ActionPopover(options,
+            [noteButton, dictButton, copyButton], [])
+    }
+}
 class LookupPopover {
     constructor(options, onAnnotate, onCopy, word, language, dict) {
         const copyButton = new Gtk.Button({ label: _('Copy') })
@@ -1747,7 +1768,7 @@ class BookViewerWindow {
                     this.searchPopover.loadResults(results, payload))
                 break
             case 'annotation-add':
-                this.scriptGet('annotation', ({ text, cfiRange }) => {
+                this.scriptGet('selectionData', ({ text, cfiRange }) => {
                     const color = settings.get_string('highlight')
                     const data = { color, text }
                     this.scriptRun(`addAnnotation('${cfiRange}', '${color}')`)
@@ -1756,7 +1777,10 @@ class BookViewerWindow {
                     this.annotations.add(label, null, cfiRange, data)
                     this.scriptRun(`dispatch({
                         type: 'annotation-menu',
-                        payload: ${JSON.stringify(payload)}
+                        payload: {
+                            cfiRange: "${cfiRange}",
+                            position: ${JSON.stringify(payload)}
+                        }
                     })`)
                 })
                 break
@@ -1788,23 +1812,53 @@ class BookViewerWindow {
                     })
                 break
             }
-            case 'lookup': {
-                const { position, text, language, cfiRange } = payload
-                const dict = settings.get_string('dictionary')
+            case 'lookup':
+                this.scriptGet('selectionData', ({ text, language, cfiRange }) => {
+                    const dict = settings.get_string('dictionary')
 
-                new LookupPopover(
-                    makePopoverOptions(this.webView, position, this.window),
+                    const popover = new LookupPopover(
+                        makePopoverOptions(this.webView, payload, this.window),
+                        () => {
+                            this.scriptRun(`clearSelection()`)
+                            this.scriptRun(`dispatch({
+                                type: 'annotation-add',
+                                payload: ${JSON.stringify(payload)}
+                            })`)
+                        },
+                        () => Gtk.Clipboard
+                            .get_default(Gdk.Display.get_default())
+                            .set_text(text, -1),
+                        text, language, dict)
+
+                    popover.popover.widget.connect('closed', () => {
+                        this.scriptRun('clearSelection()')
+                    })
+                })
+                break
+            case 'selection': {
+                let shouldClearSelection = true
+                const popover = new SelectionPopover(
+                    makePopoverOptions(this.webView, payload, this.window),
+                    () => this.scriptRun(`dispatch({
+                        type: 'annotation-add',
+                        payload: ${JSON.stringify(payload)}
+                    })`),
                     () => {
-                        this.scriptRun(`clearSelection()`)
+                        shouldClearSelection = false
                         this.scriptRun(`dispatch({
-                            type: 'annotation-add',
+                            type: 'lookup',
                             payload: ${JSON.stringify(payload)}
                         })`)
                     },
-                    () => Gtk.Clipboard
-                        .get_default(Gdk.Display.get_default())
-                        .set_text(text, -1),
-                    text, language, dict)
+                    () => this.scriptGet('selectionData', ({ text }) => {
+                        Gtk.Clipboard
+                            .get_default(Gdk.Display.get_default())
+                            .set_text(text, -1)
+                    }))
+                popover.popover.widget.connect('closed', () => {
+                    if (shouldClearSelection)
+                        this.scriptRun('clearSelection()')
+                })
                 break
             }
             case 'footnote': {

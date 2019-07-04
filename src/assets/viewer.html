@@ -67,7 +67,7 @@ let coverBase64
 let imgBase64, imgAlt
 let searchResults
 let clearSelection
-let annotation
+let selectionData
 let lookupEnabled = true
 let footnote, followLink = () => {}
 let autohideCursor, screenX, screenY, cursorHidden
@@ -366,33 +366,25 @@ const setupRendition = () => {
 
             const cfiRange = new ePub.CFI(range, contents.cfiBase).toString()
 
+            selectionData = {
+                language: book.package.metadata.language,
+                text,
+                cfiRange
+            }
+            clearSelection = () => contents.window.getSelection().removeAllRanges()
+
             const rect = selection.getRangeAt(0).getBoundingClientRect()
             const viewElementRect = latestViewElement.getBoundingClientRect()
 
             const left = (rect.left + rect.right) / 2 + viewElementRect.left
             const top = rect.top + viewElementRect.top
             const bottom = rect.bottom + viewElementRect.top
+
+            return dispatch({ type: 'selection', payload: { left, top, bottom } })
             if (text.split(' ').length === 1 && lookupEnabled) {
-                clearSelection = () => contents.window.getSelection().removeAllRanges()
-                annotation = { text, cfiRange }
-                dispatch({
-                    type: 'lookup',
-                    payload: {
-                        language: book.package.metadata.language,
-                        text,
-                        cfiRange,
-                        position: { left, top, bottom }
-                    }
-                })
+                dispatch({ type: 'lookup', payload: { left, top, bottom } })
             } else {
-                annotation = { text, cfiRange }
-                dispatch({
-                    type: 'annotation-add',
-                    payload: {
-                        cfiRange,
-                        position: { left, top, bottom }
-                    }
-                })
+                dispatch({ type: 'annotation-add', payload: { left, top, bottom } })
                 contents.window.getSelection().removeAllRanges()
             }
         }
