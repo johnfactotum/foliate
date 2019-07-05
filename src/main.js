@@ -2741,13 +2741,6 @@ class ThemeEditor {
         const names = Object.keys(themes)
         names.forEach(addTheme)
 
-        const title = new Gtk.Label({
-            label: '<b>' +_('Theme') + '</b>',
-            use_markup: true,
-            halign: Gtk.Align.START,
-            visible: true
-        })
-
         const addBox = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 6,
@@ -2839,7 +2832,6 @@ class ThemeEditor {
             spacing: 10,
             visible: true
         })
-        box.pack_start(title, false, true, 0)
         box.pack_start(scroll, true, true, 0)
         box.pack_start(actionBox, false, true, 0)
 
@@ -2848,13 +2840,6 @@ class ThemeEditor {
 }
 class CursorPreference {
     constructor(onChange) {
-        const title = new Gtk.Label({
-            label: '<b>' +_('Cursor') + '</b>',
-            use_markup: true,
-            halign: Gtk.Align.START,
-            visible: true
-        })
-
         const label = new Gtk.Label({ label: _('Auto-hide cursor') })
         const combo = new Gtk.ComboBoxText()
         combo.insert(-1, 'never', _('Never'))
@@ -2867,13 +2852,9 @@ class CursorPreference {
         const box = new Gtk.Box({ spacing: 6 })
         box.pack_start(label, false, false, 0)
         box.pack_end(combo, false, false, 0)
+        box.show_all()
 
-        const container = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
-        container.pack_start(title, false, true, 0)
-        container.pack_start(box, false, true, 0)
-        container.show_all()
-
-        this.widget = container
+        this.widget = box
     }
 }
 
@@ -3044,18 +3025,37 @@ function main(argv) {
             },
             x => appWindows.forEach(w => w.activateTheme(x)))
 
-        const container = new Gtk.Box({
+        const stack = new Gtk.Stack()
+        const stackSwitcher = new Gtk.StackSwitcher({
+            stack,
+            homogeneous: true,
+            border_width: 6
+        })
+        headerBar.custom_title = stackSwitcher
+
+        const general = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             border_width: 18,
-            spacing: 18
+            spacing: 18,
         })
-        container.pack_start(cursorPerf.widget, false, true, 0)
-        container.pack_start(themeEditor.widget, true, true, 0)
-        window.get_content_area().pack_start(container, true, true, 0)
+        general.pack_start(cursorPerf.widget, false, true, 0)
+        general.show_all()
+        stack.add_titled(general, 'general', _('General'))
+
+        const theme = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            border_width: 18,
+            spacing: 18,
+            visible: true
+        })
+        theme.pack_start(themeEditor.widget, true, true, 0)
+        stack.add_titled(theme, 'theme', _('Theme'))
+
+        window.get_content_area().add(stack)
 
         window.set_transient_for(application.active_window)
-        headerBar.show()
-        container.show()
+        headerBar.show_all()
+        stack.show()
         window.show()
     })
     application.add_action(actionPref)
