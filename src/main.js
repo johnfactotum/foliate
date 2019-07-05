@@ -2423,10 +2423,10 @@ class BookViewerWindow {
         navbarAction.connect('activate', () => {
             const state = navbarAction.get_state().get_boolean()
             if (state) {
-                this.navbar.widget.hide()
+                if (this.navbar) this.navbar.widget.hide()
                 navbarAction.set_state(new GLib.Variant('b', false))
             } else {
-                this.navbar.widget.show()
+                if (this.navbar) this.navbar.widget.show()
                 navbarAction.set_state(new GLib.Variant('b', true))
             }
             settings.set_boolean('show-navbar', !state)
