@@ -1382,6 +1382,9 @@ class LookupPopover {
 
         stack.connect('notify::visible-child-name', () => {
             switch (stack.visible_child_name) {
+                case 'dictionary':
+                    this._label.select_region(-1, -1)
+                    break
                 case 'wikipedia':
                     if (!this._wikipediaed) this.wikipedia(word)
                     this._wikiLabel.select_region(-1, -1)
