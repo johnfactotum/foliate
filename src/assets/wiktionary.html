@@ -72,7 +72,7 @@ const simplifyResult = (result, language) => {
     }
 }
 const queryDictionary = (word, language = 'en') =>
-    fetch(`https://en.wiktionary.org/wiki/${decodeURI(word)}`)
+    fetch(`https://en.wiktionary.org/wiki/${word}`)
     .then(res => {
         if (res.ok) return res
         else throw new Error()

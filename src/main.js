@@ -108,7 +108,7 @@ const lookupWikipedia = (word, language, callback) => {
         const { type, payload } = JSON.parse(self.title)
         switch (type) {
             case 'can-lookup':
-                scriptRun(`query("${encodeURI(word)}", '${language}')`)
+                scriptRun(`query("${encodeURIComponent(word)}", '${language}')`)
                 break
             case 'lookup-results':
                 scriptGet(`lookupResults`, results => {
@@ -116,7 +116,7 @@ const lookupWikipedia = (word, language, callback) => {
                         '<span alpha="70%" size="smaller">'
                         + _('From Wikipedia, the free encyclopedia') + '</span>\n'
                         + `<b>${results.title}</b>\n`
-                        + `${results.extract.replace(/&/g, '&amp;')}\n`
+                        + `${results.extract}\n`
                         + `<a href="https://${language}.wikipedia.org/wiki/${word}">`
                         + _('View on Wikipedia') + `</a>`)
                 })
@@ -153,7 +153,7 @@ const lookupGTranslate = (word, language, callback) => {
         const { type, payload } = JSON.parse(self.title)
         switch (type) {
             case 'can-lookup':
-                scriptRun(`query("${encodeURI(word)}", '${language}')`)
+                scriptRun(`query("${encodeURIComponent(word)}", '${language}')`)
                 break
             case 'lookup-results':
                 scriptGet(`lookupResults`, results => {
@@ -200,10 +200,10 @@ const DICTS = {
                 const { type, payload } = JSON.parse(self.title)
                 switch (type) {
                     case 'can-lookup':
-                        scriptRun(`queryDictionary("${encodeURI(word)}", '${language}')`)
+                        scriptRun(`queryDictionary("${encodeURIComponent(word)}", '${language}')`)
                         break
                     case 'lookup-again':
-                        scriptRun(`queryDictionary("${encodeURI(payload)}", '${language}')`)
+                        scriptRun(`queryDictionary("${encodeURIComponent(payload)}", '${language}')`)
                         break
                     case 'lookup-results':
                         scriptGet(`lookupResults`, results => {
@@ -515,7 +515,8 @@ class JumpList {
         results.forEach(item => {
             const newIter = this.store.append()
             const label = item.excerpt.trim().replace(/\n/g, ' ')
-            const m = label.replace(regex, `<b>${regex.exec(label)[0]}</b>`)
+            const m = label.replace(regex, `<b>${regex.exec(label)[0]
+                .replace(/&/g, '&amp;')}</b>`)
             this.store.set(newIter, [0, 1], [m, item.cfi])
         })
     }
@@ -1404,7 +1405,8 @@ class LookupPopover {
             this._scroll.propagate_natural_width = dictionary.noWrap
             this._label.use_markup = dictionary.useMarkup
             if (err) this._label.label = _('No definitions found.')
-            else this._label.label = results
+            else this._label.label = dictionary.useMarkup
+                ? results.replace(/&/g, '&amp;') : results
         })
     }
     wikipedia(word, language = 'en') {
@@ -1412,10 +1414,11 @@ class LookupPopover {
         lookupWikipedia(word, language, (err, results) => {
             if (err) this._wikiLabel.label = _('No entry found.')
                 + '\n'
-                + `<a href="https://en.wikipedia.org/w/index.php?search=${word}">`
+                + `<a href="https://en.wikipedia.org/w/index.php?search=${
+                    encodeURIComponent(word)}">`
                 + _('Search on Wikipedia')
                 + '</a>'
-            else this._wikiLabel.label = results
+            else this._wikiLabel.label = results.replace(/&/g, '&amp;')
         })
     }
     gtranslate(word, language = 'en') {
@@ -1423,7 +1426,7 @@ class LookupPopover {
         this._transLabel.label = _('Loading…')
         lookupGTranslate(word, language, (err, results) => {
             if (err) this._transLabel.label = _('Cannot retrieve translation.')
-            else this._transLabel.label = results
+            else this._transLabel.label = results.replace(/&/g, '&amp;')
         })
     }
 }
