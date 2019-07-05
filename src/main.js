@@ -1768,9 +1768,6 @@ class BookViewerWindow {
     }
     bookDisplayed() {
         this.setAutohideCursor()
-        this.spinner.destroy()
-        this.webView.opacity = 1
-        this.webView.grab_focus()
         this.webView.connect('size-allocate', () =>
             this.scriptRun(`windowSize = ${this.webView.get_allocation().width}`))
 
@@ -1974,6 +1971,12 @@ class BookViewerWindow {
                 this.navbar.setAtStart(payload.atStart)
                 this.navbar.setAtEnd(payload.atEnd)
                 this.storage.set('lastLocation', payload.cfi)
+                if (this.webView.opacity === 0) {
+                    if (this._hack) this._hack.destroy()
+                    this.spinner.destroy()
+                    this.webView.opacity = 1
+                    this.webView.grab_focus()
+                }
                 break
             case 'update-slider':
                 this.navbar.updateSlider(payload)
@@ -2314,7 +2317,12 @@ class BookViewerWindow {
     buildNavbar(onSlide, onPrev, onNext, onBack) {
         this.navbar = new Navbar(onSlide, onPrev, onNext, onBack)
         this.navbar.widget.show_all()
-        if (!settings.get_boolean('show-navbar')) this.navbar.widget.hide()
+        if (!settings.get_boolean('show-navbar')) {
+            this.navbar.widget.hide()
+            // HACK: stuff breaks without another non-zero-sized widget in `this.container`
+            this._hack = new Gtk.Box({ height_request: 1, visible: true })
+            this.container.pack_start(this._hack, false, true, 0)
+        }
         this.navbar.setPending()
         this.container.pack_end(this.navbar.widget, false, true, 0)
 
