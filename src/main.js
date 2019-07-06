@@ -1698,10 +1698,13 @@ class BookViewerWindow {
         if (fileName) this.open(fileName)
         else {
             const lastFile = settings.get_string('last-file')
-            this.welcome = new WelcomeScreen(lastFile, () => {
-                this.open(lastFile)
-            })
-            this.window.add(this.welcome.widget)
+            if (settings.get_boolean('restore-last-file')) this.open(lastFile)
+            else {
+                this.welcome = new WelcomeScreen(lastFile, () => {
+                    this.open(lastFile)
+                })
+                this.window.add(this.welcome.widget)
+            }
         }
     }
     open(fileName) {
@@ -3040,6 +3043,9 @@ function main(argv) {
             _('Use a sidebar to display table of contents, annotations, and bookmarks.')
         ], 'use-sidebar', () => {})
 
+        const restorePerf = new SwitchBox(
+            _('Open last opened file on startup'), 'restore-last-file', () => {})
+
         const cursorPerf = new CursorPreference(x =>
             appWindows.forEach(w => w.setAutohideCursor(x)))
 
@@ -3065,6 +3071,7 @@ function main(argv) {
             spacing: 18,
         })
         general.pack_start(sidebarPerf.widget, false, true, 0)
+        general.pack_start(restorePerf.widget, false, true, 0)
         general.pack_start(cursorPerf.widget, false, true, 0)
         general.show_all()
         stack.add_titled(general, 'general', _('General'))
