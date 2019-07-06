@@ -748,11 +748,32 @@ class RadioBox {
     }
 }
 
+class TitleAndDesc {
+    constructor(title, desc) {
+        const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
+        const titleLabel = new Gtk.Label({
+            label: title,
+            xalign: 0
+        })
+        const descLabel = new Gtk.Label({
+            label: '<small>' + desc + '</small>',
+            use_markup: true,
+            xalign: 0
+        })
+        descLabel.set_line_wrap(true)
+        descLabel.get_style_context().add_class('dim-label')
+        box.pack_start(titleLabel, false, true, 0)
+        box.pack_start(descLabel, false, true, 0)
+        this.widget = box
+    }
+}
+
 class SwitchBox {
     constructor(label, key, onChange) {
-        this.widget = new Gtk.Box()
-        const switchLabel = new Gtk.Label({ label })
-        this._switch = new Gtk.Switch()
+        this.widget = new Gtk.Box({ spacing: 6 })
+        const switchLabel = typeof label === 'string'
+            ? new Gtk.Label({ label }) : new TitleAndDesc(label[0], label[1]).widget
+        this._switch = new Gtk.Switch({ valign: Gtk.Align.CENTER })
         this._switch.active = settings.get_boolean(key)
 
         this._switch.connect('state-set', (widget, state) => {
@@ -3014,6 +3035,11 @@ function main(argv) {
         window.set_titlebar(headerBar)
         window.title = _('Preferences')
 
+        const sidebarPerf = new SwitchBox([
+            _('Use sidebar (requires restart)'),
+            _('Use a sidebar to display table of contents, annotations, and bookmarks.')
+        ], 'use-sidebar', () => {})
+
         const cursorPerf = new CursorPreference(x =>
             appWindows.forEach(w => w.setAutohideCursor(x)))
 
@@ -3038,6 +3064,7 @@ function main(argv) {
             border_width: 18,
             spacing: 18,
         })
+        general.pack_start(sidebarPerf.widget, false, true, 0)
         general.pack_start(cursorPerf.widget, false, true, 0)
         general.show_all()
         stack.add_titled(general, 'general', _('General'))
