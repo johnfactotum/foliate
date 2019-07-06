@@ -313,10 +313,6 @@ const setupRendition = () => {
                     const bottom = rect.bottom + viewElementRect.top
 
                     footnote = el.innerText.trim()
-                    dispatch({
-                        type: 'footnote',
-                        payload: { left, right, top, bottom, canGoTo: !(type === 'noteref') }
-                    })
                     followLink = () => {
                         dispatch({
                             type: 'link-internal',
@@ -324,6 +320,11 @@ const setupRendition = () => {
                         })
                         link.onclick()
                     }
+                    if (footnote) dispatch({
+                        type: 'footnote',
+                        payload: { left, right, top, bottom, canGoTo: !(type === 'noteref') }
+                    })
+                    else followLink()
                     e.stopPropagation()
                     e.preventDefault()
                 }
