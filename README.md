@@ -18,7 +18,7 @@ Website: https://johnfactotum.github.io/foliate/
 - Reading progress slider with chapter marks
 - Bookmarks and annotations
 - Find in book
-- Quick dictionary lookup with [Wiktionary](https://en.wiktionary.org/) or `dictd`
+- Quick dictionary lookup with [Wiktionary](https://en.wiktionary.org/), [Wikipedia](https://en.wikipedia.org/), and `dictd`, or translate text with Google Translate
 - Touchpad gestures—use two-finger swipe to turn the page
 
 ## Installation
