@@ -213,7 +213,7 @@ const DICTS = {
                                 + `<b>${results.word}</b> ${results.pronunciation || ''}\n`
                                 + `${results.defs.join('\n')}\n`
                                 + `<a href="https://en.wiktionary.org/wiki/${word}">`
-                                + _('View on Wiktionary') + `</a>`)
+                                + _('View on Wiktionary') + '</a>')
                         })
                         break
                     case 'lookup-error':
