@@ -1733,8 +1733,7 @@ class BookViewerWindow {
         if (this.welcome) this.welcome.widget.destroy()
         if (this.error) this.error.destroy()
         this.canOpen = false
-        this.window.connect('destroy', () =>
-            settings.set_string('last-file', fileName))
+        this.fileName = fileName
 
         this.spinner = new Gtk.Spinner({
             valign: Gtk.Align.CENTER,
@@ -1812,6 +1811,9 @@ class BookViewerWindow {
         this.canOpen = true
     }
     bookReady() {
+        this.window.connect('destroy', () =>
+            settings.set_string('last-file', this.fileName))
+
         this.scriptGet('book.package.metadata.title', title =>
             this.headerBar.title = title)
 
