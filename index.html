@@ -8,7 +8,7 @@ body {
     font-family: Cantarell, sans-serif;
     background: #ddd;
     color: #222;
-    line-height: 1.5;
+    line-height: 1.4;
     margin: 0;
 }
 a:link, a:visited {
@@ -155,17 +155,17 @@ footer a:link, footer a:visited {
         <div class="mono"><h2>Features</h2></div>
         <div class="grid">
             <div>
-                <p><strong>View EPUB files.</strong> Foliate is based on <a href="https://github.com/futurepress/epub.js/">Epub.js</a>, and supports both two-page view and scrolled view. Customize font and line-spacing. Choose between light, sepia, dark, and invert mode.</p>
+                <p><strong>View EPUB files.</strong> Foliate is based on <a href="https://github.com/futurepress/epub.js/">Epub.js</a>, and supports both two-page view and scrolled view. Customize font and line-spacing. Choose between light, sepia, dark, and invert mode, or add your own custom themes</p>
             </div>
             <div>
-                <p><strong>Easy navigation.</strong> View the table of contents, or use the find in book feature. Reading progress slider with chapter marks makes it easy to find your way through the book.</p>
+                <p><strong>Easy navigation.</strong> View the table of contents, or use the find in book feature. Reading progress slider with chapter marks makes it easy to find your way through the book. Hover over the slider to see reading time left estimates.</p>
             </div>
         </div>
         <div class="mono"><img class="screenshot" src="screenshot.png" alt="Screenshot"></div>
         <div class="grid">
             <div>
                 <img src="lookup.png" alt="Screenshot">
-                <p><strong>Quick dictionary lookup.</strong> Foliate uses metadata included in the eBook to determine which language to lookup. This feature is powered by <a href="https://en.wiktionary.org/">Wiktionary</a>, the free dictionary.</p>
+                <p><strong>Quick dictionary lookup.</strong> Foliate uses metadata included in the eBook to determine which language to lookup. This feature is powered by <a href="https://en.wiktionary.org/">Wiktionary</a>, the free dictionary. Folate also supports Wikipedia lookup and Google Translate, as well as offline dictionaries via <code>dictd</code>.</p>
             </div>
             <div>
                 <img src="annotation.png" alt="Screenshot">
@@ -209,7 +209,7 @@ footer a:link, footer a:visited {
                         <li>Fedora: <code>sudo dnf install foliate</code></li>
                         <li>Void Linux: <code>xbps-install -S foliate</code></li>
                     </ul>
-                    <p>Note: to enbale auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.</p>
+                    <p><strong>Note</strong>: to enbale auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.; to use offline dictionaries, install <code>dictd</code>.</p>
                 </div>
             </div>
             <div>
