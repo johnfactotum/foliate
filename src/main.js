@@ -3105,11 +3105,7 @@ function main(argv) {
             x => appWindows.forEach(w => w.activateTheme(x)))
 
         const stack = new Gtk.Stack()
-        const stackSwitcher = new Gtk.StackSwitcher({
-            stack,
-            homogeneous: true,
-            border_width: 6
-        })
+        const stackSwitcher = new Gtk.StackSwitcher({ stack, homogeneous: true })
         headerBar.custom_title = stackSwitcher
 
         const general = new Gtk.Box({
