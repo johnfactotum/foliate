@@ -125,6 +125,10 @@ Book metadata display:
 
 ![About](data/screenshots/about.png)
 
+Optional sidebar layout, with popup footnote:
+
+![Sidebar](data/screenshots/sidebar.png)
+
 ---
 
 **Note:** three JavaScript libraries are bundled in this software:
