@@ -1731,6 +1731,7 @@ class BookViewerWindow {
     }
     open(fileName) {
         if (this.welcome) this.welcome.widget.destroy()
+        if (this.error) this.error.destroy()
         this.canOpen = false
         this.window.connect('destroy', () =>
             settings.set_string('last-file', fileName))
@@ -1784,7 +1785,8 @@ class BookViewerWindow {
         this.overlay.destroy()
         const box = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
-            valign: Gtk.Align.CENTER
+            valign: Gtk.Align.CENTER,
+            halign: Gtk.Align.CENTER
         })
         const image = new Gtk.Image({
             icon_name: 'computer-fail-symbolic', pixel_size: 80
@@ -1795,10 +1797,19 @@ class BookViewerWindow {
             use_markup: true
         })
         label.get_style_context().add_class('dim-label')
-        box.pack_start(image, true, true, 20)
-        box.pack_end(label, false, true, 0)
+        const button = new Gtk.Button({
+            label: _('Open Another File…'),
+            action_name: 'app.open',
+             halign: Gtk.Align.CENTER
+        })
+        box.pack_start(image, true, true, 18)
+        box.pack_start(label, false, true, 0)
+        box.pack_end(button, false, true, 18)
         box.show_all()
-        this.container.pack_start(box, true, true, 0)
+        this.error = box
+        this.window.remove(this.container)
+        this.window.add(box)
+        this.canOpen = true
     }
     bookReady() {
         this.scriptGet('book.package.metadata.title', title =>
