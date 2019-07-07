@@ -68,7 +68,6 @@ let imgBase64, imgAlt
 let searchResults
 let clearSelection
 let selectionData
-let lookupEnabled = true
 let footnote, followLink = () => {}, footnoteEnabled = false
 let autohideCursor, screenX, screenY, cursorHidden
 let windowSize
@@ -388,13 +387,13 @@ const setupRendition = () => {
             const top = rect.top + viewElementRect.top
             const bottom = rect.bottom + viewElementRect.top
 
-            return dispatch({ type: 'selection', payload: { left, right, top, bottom } })
-            if (text.split(' ').length === 1 && lookupEnabled) {
-                dispatch({ type: 'lookup', payload: { left, right, top, bottom } })
-            } else {
-                dispatch({ type: 'annotation-add', payload: { left, right, top, bottom } })
-                contents.window.getSelection().removeAllRanges()
-            }
+            dispatch({
+                type: 'selection',
+                payload: {
+                    left, right, top, bottom,
+                    isSingle: text.split(' ').length === 1
+                }
+            })
         }
 
         let timeout

@@ -1865,7 +1865,6 @@ class BookViewerWindow {
             }
         })
 
-        this.scriptRun(`lookupEnabled = ${settings.get_boolean('lookup-enabled')}`)
         this.scriptRun(`footnoteEnabled = ${settings.get_boolean('footnote-enabled')}`)
 
         this.buildView(this.themes, ({
@@ -1983,7 +1982,7 @@ class BookViewerWindow {
 
         this.scriptRun(`setupRendition()`)
     }
-    handleAction({ type, payload }) {
+    handleAction({ type, payload }, options) {
         let lookupAction
         switch (type) {
             case 'book-error':
@@ -2085,8 +2084,12 @@ class BookViewerWindow {
                     })
                 break
             }
+            case 'wikipedia':
+                this.handleAction({ type: 'lookup', payload }, 'wikipedia')
+                break
             case 'translate':
-                lookupAction = 'translate'
+                this.handleAction({ type: 'lookup', payload }, 'translate')
+                break
             case 'lookup':
                 this.scriptGet('selectionData', ({ text, language, cfiRange }) => {
                     const dict = settings.get_string('dictionary')
@@ -2103,7 +2106,7 @@ class BookViewerWindow {
                         () => Gtk.Clipboard
                             .get_default(Gdk.Display.get_default())
                             .set_text(text, -1),
-                        text, language, dict, lookupAction)
+                        text, language, dict, options)
 
                     popover.popover.widget.connect('closed', () => {
                         this.scriptRun('clearSelection()')
@@ -2112,35 +2115,66 @@ class BookViewerWindow {
                 break
             case 'selection': {
                 let shouldClearSelection = true
-                const popover = new SelectionPopover(
-                    [this.webView, payload, this.window],
-                    () => this.scriptRun(`dispatch({
-                        type: 'annotation-add',
+                const highlightFunc = () => this.scriptRun(`dispatch({
+                    type: 'annotation-add',
+                    payload: ${JSON.stringify(payload)}
+                })`)
+                const lookupFunc = () => {
+                    shouldClearSelection = false
+                    this.scriptRun(`dispatch({
+                        type: 'lookup',
                         payload: ${JSON.stringify(payload)}
-                    })`),
-                    () => {
-                        shouldClearSelection = false
-                        this.scriptRun(`dispatch({
-                            type: 'lookup',
-                            payload: ${JSON.stringify(payload)}
-                        })`)
-                    },
-                    () => {
-                        shouldClearSelection = false
-                        this.scriptRun(`dispatch({
-                            type: 'translate',
-                            payload: ${JSON.stringify(payload)}
-                        })`)
-                    },
-                    () => this.scriptGet('selectionData', ({ text }) => {
-                        Gtk.Clipboard
-                            .get_default(Gdk.Display.get_default())
-                            .set_text(text, -1)
-                    }))
-                popover.popover.widget.connect('closed', () => {
-                    if (shouldClearSelection)
+                    })`)
+                }
+                const wikipediaFunc = () => {
+                    shouldClearSelection = false
+                    this.scriptRun(`dispatch({
+                        type: 'wikipedia',
+                        payload: ${JSON.stringify(payload)}
+                    })`)
+                }
+                const translateFunc = () => {
+                    shouldClearSelection = false
+                    this.scriptRun(`dispatch({
+                        type: 'translate',
+                        payload: ${JSON.stringify(payload)}
+                    })`)
+                }
+                const isSingle = payload.isSingle
+                const selectionAction = settings.get_string(isSingle
+                    ? 'selection-action-single' : 'selection-action-multiple')
+                switch (selectionAction) {
+                    case 'highlight':
                         this.scriptRun('clearSelection()')
-                })
+                        highlightFunc()
+                        break
+                    case 'dictionary':
+                        lookupFunc()
+                        break
+                    case 'wikipedia':
+                        wikipediaFunc()
+                        break
+                    case 'translate':
+                        translateFunc()
+                        break
+                    case 'ask': {
+                        const popover = new SelectionPopover(
+                            [this.webView, payload, this.window],
+                            highlightFunc,
+                            lookupFunc,
+                            translateFunc,
+                            () => this.scriptGet('selectionData', ({ text }) => {
+                                Gtk.Clipboard
+                                    .get_default(Gdk.Display.get_default())
+                                    .set_text(text, -1)
+                            }))
+                        popover.popover.widget.connect('closed', () => {
+                            if (shouldClearSelection)
+                                this.scriptRun('clearSelection()')
+                        })
+                        break
+                    }
+                }
                 break
             }
             case 'footnote': {
@@ -2411,7 +2445,6 @@ class BookViewerWindow {
         const section1 = new Gio.Menu()
         section1.append(_('Fullscreen'), 'win.fullscreen')
         section1.append(_('Reading Progress Bar'), 'win.navbar')
-        section1.append(_('Enable Dictionary'), 'win.lookup')
         this.menu.append_section(null, section1)
 
         const section2 = new Gio.Menu()
@@ -2476,23 +2509,6 @@ class BookViewerWindow {
         })
         this.window.add_action(navbarAction)
         this.application.set_accels_for_action('win.navbar', ['<Control>p'])
-
-        const lookupAction = new Gio.SimpleAction({
-            name: 'lookup',
-            state: new GLib.Variant('b', settings.get_boolean('lookup-enabled'))
-        })
-        lookupAction.connect('activate', () => {
-            const state = lookupAction.get_state().get_boolean()
-            if (state) {
-                this.scriptRun(`lookupEnabled = false`)
-                lookupAction.set_state(new GLib.Variant('b', false))
-            } else {
-                this.scriptRun(`lookupEnabled = true`)
-                lookupAction.set_state(new GLib.Variant('b', true))
-            }
-            settings.set_boolean('lookup-enabled', !state)
-        })
-        this.window.add_action(lookupAction)
 
         const closeAction = new Gio.SimpleAction({ name: 'close' })
         closeAction.connect('activate', () => this.window.close())
@@ -3046,6 +3062,21 @@ function main(argv) {
         const restorePerf = new SwitchBox(
             _('Open last opened file on startup'), 'restore-last-file', () => {})
 
+        const selectionActions = [
+            ['nothing', _('Do nothing')],
+            ['ask', _('Ask what to do')],
+            ['highlight', _('Highlight')],
+            ['dictionary', _('Lookup in dictionary')],
+            ['wikipedia', _('Lookup in Wikipedia')],
+            ['translate', _('Translate')]
+        ]
+        const selectionSinglePerf = new ComboBoxBox(
+            _('When a word is selected'),
+            'selection-action-single', selectionActions, () => {})
+        const selectionMultiplePerf = new ComboBoxBox(
+            _('When multiple words are selected'),
+            'selection-action-multiple', selectionActions, () => {})
+
         const cursorPerf = new ComboBoxBox(
             _('Auto-hide cursor'),
             'autohide-cursor',
@@ -3084,6 +3115,8 @@ function main(argv) {
         })
         general.pack_start(sidebarPerf.widget, false, true, 0)
         general.pack_start(restorePerf.widget, false, true, 0)
+        general.pack_start(selectionSinglePerf.widget, false, true, 0)
+        general.pack_start(selectionMultiplePerf.widget, false, true, 0)
         general.pack_start(cursorPerf.widget, false, true, 0)
         general.pack_start(footnotePerf.widget, false, true, 0)
         general.show_all()
