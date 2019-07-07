@@ -787,6 +787,24 @@ class SwitchBox {
         return this._switch.active
     }
 }
+class ComboBoxBox {
+    constructor(label, key, items, onChange) {
+        const comboLabel = typeof label === 'string'
+            ? new Gtk.Label({ label }) : new TitleAndDesc(label[0], label[1]).widget
+        const combo = new Gtk.ComboBoxText()
+        items.forEach(([id, text]) => combo.insert(-1, id, text))
+        combo.connect('changed', () => onChange(combo.active_id))
+
+        settings.bind(key, combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        const box = new Gtk.Box({ spacing: 6 })
+        box.pack_start(comboLabel, false, false, 0)
+        box.pack_end(combo, false, false, 0)
+        box.show_all()
+
+        this.widget = box
+    }
+}
 
 class ViewPopover {
     constructor(themes, onChange, onLayoutChange) {
@@ -2862,25 +2880,6 @@ class ThemeEditor {
         this.widget = box
     }
 }
-class CursorPreference {
-    constructor(onChange) {
-        const label = new Gtk.Label({ label: _('Auto-hide cursor') })
-        const combo = new Gtk.ComboBoxText()
-        combo.insert(-1, 'never', _('Never'))
-        combo.insert(-1, 'always', _('Always'))
-        combo.insert(-1, 'fullscreen', _('When in fullscreen mode'))
-        combo.connect('changed', () => onChange(combo.active_id))
-
-        settings.bind('autohide-cursor', combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
-
-        const box = new Gtk.Box({ spacing: 6 })
-        box.pack_start(label, false, false, 0)
-        box.pack_end(combo, false, false, 0)
-        box.show_all()
-
-        this.widget = box
-    }
-}
 
 function main(argv) {
     const themes = new Storage('themes', 'config', 2)
@@ -3046,8 +3045,14 @@ function main(argv) {
         const restorePerf = new SwitchBox(
             _('Open last opened file on startup'), 'restore-last-file', () => {})
 
-        const cursorPerf = new CursorPreference(x =>
-            appWindows.forEach(w => w.setAutohideCursor(x)))
+        const cursorPerf = new ComboBoxBox(
+            _('Auto-hide cursor'),
+            'autohide-cursor',
+            [
+                ['never', _('Never')],
+                ['always', _('Always')],
+                ['fullscreen', _('When in fullscreen mode')]
+            ], x => appWindows.forEach(w => w.setAutohideCursor(x)))
 
         const themeEditor = new ThemeEditor(
             themes.get('themes', defaultThemes),
