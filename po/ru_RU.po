@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-07 17:48+0800\n"
+"POT-Creation-Date: 2019-07-07 21:53+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Artem Polishchuk <ego.cordatus@gmail.com>\n"
 "Language-Team: \n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Poedit 2.2.3\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1716
-#: src/main.js:3032 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
+#: src/main.js:3049 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
 
@@ -228,7 +228,7 @@ msgstr "Поля"
 msgid "Brightness"
 msgstr "Яркость"
 
-#: src/main.js:871 src/main.js:923 src/main.js:3136
+#: src/main.js:871 src/main.js:923 src/main.js:3149
 msgid "Theme"
 msgstr "Тема"
 
@@ -248,7 +248,7 @@ msgstr "Нет закладок"
 msgid "Add some bookmarks to see them here."
 msgstr "Добавьте закладки, чтобы увидеть их здесь."
 
-#: src/main.js:1159 src/main.js:2972
+#: src/main.js:1159 src/main.js:2989
 #, fuzzy
 msgid "Bookmark current location"
 msgstr "Положить закладку"
@@ -271,7 +271,7 @@ msgstr "Выделите текст, чтобы добавить примеча�
 msgid "Copy"
 msgstr "Копировать"
 
-#: src/main.js:1269 src/main.js:1296 src/main.js:3072
+#: src/main.js:1269 src/main.js:1296 src/main.js:3089
 msgid "Highlight"
 msgstr "Выделить"
 
@@ -279,7 +279,7 @@ msgstr "Выделить"
 msgid "Lookup"
 msgstr ""
 
-#: src/main.js:1279 src/main.js:1424 src/main.js:3075
+#: src/main.js:1279 src/main.js:1424 src/main.js:3092
 msgid "Translate"
 msgstr ""
 
@@ -313,7 +313,7 @@ msgstr ""
 msgid "Cannot retrieve translation."
 msgstr ""
 
-#: src/main.js:1486 src/main.js:2867
+#: src/main.js:1486 src/main.js:2884
 msgid "Remove"
 msgstr "Удалить"
 
@@ -346,700 +346,705 @@ msgstr "Открыть файл…"
 msgid "Continue Reading"
 msgstr "Продолжить чтение"
 
-#: src/main.js:1794
+#: src/main.js:1795
 msgid "Oh no! The file cannot be opened"
 msgstr "О нет! Файл не может быть открыт"
 
-#: src/main.js:2223 src/main.js:2973
+#: src/main.js:1804
+#, fuzzy
+msgid "Open Another File…"
+msgstr "Открыть файл…"
+
+#: src/main.js:2240 src/main.js:2990
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Find in book"
 msgstr "Поиск по книге"
 
-#: src/main.js:2236
+#: src/main.js:2253
 msgid "Set font, theme, and layout"
 msgstr "Установите шрифт, тему и режим просмотра"
 
-#: src/main.js:2283 src/main.js:2347
+#: src/main.js:2300 src/main.js:2364
 msgid "Table of contents"
 msgstr "Оглавление"
 
-#: src/main.js:2285 src/main.js:2359
+#: src/main.js:2302 src/main.js:2376
 msgid "Annotations"
 msgstr "Примечания"
 
-#: src/main.js:2287 src/main.js:2353
+#: src/main.js:2304 src/main.js:2370
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: src/main.js:2312 src/main.js:2970
+#: src/main.js:2329 src/main.js:2987
 msgid "Toggle sidebar"
 msgstr ""
 
-#: src/main.js:2450
+#: src/main.js:2467
 msgid "Fullscreen"
 msgstr "Полноэкранный режим"
 
-#: src/main.js:2451
+#: src/main.js:2468
 msgid "Reading Progress Bar"
 msgstr "Навигация"
 
-#: src/main.js:2455
+#: src/main.js:2472
 msgid "Open…"
 msgstr "Открыть…"
 
-#: src/main.js:2459 src/main.js:3059
+#: src/main.js:2476 src/main.js:3076
 msgid "Preferences"
 msgstr "Параметры"
 
-#: src/main.js:2460
+#: src/main.js:2477
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: src/main.js:2461
+#: src/main.js:2478
 msgid "About Foliate"
 msgstr "О Foliate"
 
-#: src/main.js:2524 src/main.js:2544
+#: src/main.js:2541 src/main.js:2561
 msgid "About This Book"
 msgstr "Об этой книге"
 
-#: src/main.js:2618
+#: src/main.js:2635
 msgid "Publisher"
 msgstr "Издатель"
 
-#: src/main.js:2619
+#: src/main.js:2636
 msgid "Publication Date"
 msgstr "Дата публикации"
 
-#: src/main.js:2620
+#: src/main.js:2637
 msgid "Modified Date"
 msgstr "Дата изменения"
 
-#: src/main.js:2621
+#: src/main.js:2638
 msgid "Language"
 msgstr "Язык"
 
-#: src/main.js:2622
+#: src/main.js:2639
 msgid "Copyright"
 msgstr "Авторские права"
 
-#: src/main.js:2623
+#: src/main.js:2640
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: src/main.js:2736
+#: src/main.js:2753
 msgid "Text"
 msgstr "Текст"
 
-#: src/main.js:2737
+#: src/main.js:2754
 msgid "Background"
 msgstr "Фон"
 
-#: src/main.js:2738
+#: src/main.js:2755
 msgid "Link"
 msgstr "Ссылка"
 
-#: src/main.js:2740
+#: src/main.js:2757
 msgid "Enable Dark Mode"
 msgstr "Ночной режим"
 
-#: src/main.js:2742
+#: src/main.js:2759
 #, fuzzy
 msgid "Invert Colors"
 msgstr "Негатив"
 
-#: src/main.js:2813
+#: src/main.js:2830
 #, fuzzy
 msgid "Theme name"
 msgstr "Тема"
 
-#: src/main.js:2817
+#: src/main.js:2834
 msgid "A theme with that name already exists."
 msgstr "Тема с таким названием уже есть."
 
-#: src/main.js:2819
+#: src/main.js:2836
 msgid "Add"
 msgstr "Добавить"
 
-#: src/main.js:2860
+#: src/main.js:2877
 msgid "Add…"
 msgstr "Добавить…"
 
-#: src/main.js:2862
+#: src/main.js:2879
 msgid "Add a new theme"
 msgstr "Добавить новую тему"
 
-#: src/main.js:2869
+#: src/main.js:2886
 msgid "Remove selected theme"
 msgstr "Удалить выбранную тему"
 
-#: src/main.js:2934
+#: src/main.js:2951
 msgid "All files"
 msgstr "Все файлы"
 
-#: src/main.js:2938
+#: src/main.js:2955
 msgid "EPUB files"
 msgstr "Файлы EPUB"
 
-#: src/main.js:2941
+#: src/main.js:2958
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: src/main.js:2967 src/main.js:3127
+#: src/main.js:2984 src/main.js:3140
 msgid "General"
 msgstr "Общие"
 
-#: src/main.js:2970
+#: src/main.js:2987
 msgid "Show table of contents"
 msgstr "Показать оглавление"
 
-#: src/main.js:2971
+#: src/main.js:2988
 msgid "Show bookmarks"
 msgstr "Показать закладки"
 
-#: src/main.js:2974
+#: src/main.js:2991
 msgid "Show menu"
 msgstr "Показать меню"
 
-#: src/main.js:2975
+#: src/main.js:2992
 msgid "Close current window"
 msgstr "Закрыть данное окно"
 
-#: src/main.js:2976
+#: src/main.js:2993
 msgid "Quit"
 msgstr "Завершить"
 
-#: src/main.js:2980
+#: src/main.js:2997
 msgid "Navigation"
 msgstr "Навигация"
 
 #. I can't find where to access the enums in GJS,
 #. so just use ints for now
-#: src/main.js:2982 src/main.js:3001
+#: src/main.js:2999 src/main.js:3018
 msgid "Go to the next page"
 msgstr "На следующую страницу"
 
-#: src/main.js:2983 src/main.js:3002
+#: src/main.js:3000 src/main.js:3019
 msgid "Go to the previous page"
 msgstr "На предыдущую страницу"
 
-#: src/main.js:2984
+#: src/main.js:3001
 msgid "Go back to previous location"
 msgstr "В предыдущее расположение"
 
-#: src/main.js:2988
+#: src/main.js:3005
 msgid "View"
 msgstr "Вид"
 
-#: src/main.js:2990
+#: src/main.js:3007
 msgid "Increase font size"
 msgstr "Увеличить шрифт"
 
-#: src/main.js:2991
+#: src/main.js:3008
 msgid "Decrease font size"
 msgstr "Уменьшить шрифт"
 
-#: src/main.js:2992
+#: src/main.js:3009
 msgid "Toggle fullscreen"
 msgstr "На весь экран"
 
-#: src/main.js:2993
+#: src/main.js:3010
 msgid "Toggle reading progress bar"
 msgstr "Скрывать ползунок навигации"
 
-#: src/main.js:2997
+#: src/main.js:3014
 msgid "Touchpad Gestures"
 msgstr "Жесты тачпада"
 
-#: src/main.js:3003
+#: src/main.js:3020
 msgid "Zoom in"
 msgstr "Увеличить масштаб"
 
-#: src/main.js:3004
+#: src/main.js:3021
 msgid "Zoom out"
 msgstr "Уменьшить масштаб"
 
-#: src/main.js:3033 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:3050 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Простая и современная программа для чтения электронных книг"
 
-#: src/main.js:3062
+#: src/main.js:3079
 msgid "Use sidebar (requires restart)"
 msgstr ""
 
-#: src/main.js:3063
+#: src/main.js:3080
 msgid "Use a sidebar to display table of contents, annotations, and bookmarks."
 msgstr ""
 
-#: src/main.js:3067
+#: src/main.js:3084
 msgid "Open last opened file on startup"
 msgstr ""
 
-#: src/main.js:3070
+#: src/main.js:3087
 msgid "Do nothing"
 msgstr ""
 
-#: src/main.js:3071
+#: src/main.js:3088
 msgid "Ask what to do"
 msgstr ""
 
-#: src/main.js:3073
+#: src/main.js:3090
 #, fuzzy
 msgid "Lookup in dictionary"
 msgstr "Возможность отключить словарь"
 
-#: src/main.js:3074
+#: src/main.js:3091
 msgid "Lookup in Wikipedia"
 msgstr ""
 
-#: src/main.js:3078
+#: src/main.js:3095
 msgid "When a word is selected"
 msgstr ""
 
-#: src/main.js:3081
+#: src/main.js:3098
 msgid "When multiple words are selected"
 msgstr ""
 
-#: src/main.js:3085
+#: src/main.js:3102
 msgid "Auto-hide cursor"
 msgstr "Скрывать курсор"
 
-#: src/main.js:3088
+#: src/main.js:3105
 msgid "Never"
 msgstr "Никогда"
 
-#: src/main.js:3089
+#: src/main.js:3106
 msgid "Always"
 msgstr "Всегда"
 
-#: src/main.js:3090
+#: src/main.js:3107
 msgid "When in fullscreen mode"
 msgstr "В полноэкранном режиме"
 
-#: src/main.js:3094
+#: src/main.js:3111
 msgid "Display non-EPUB-3 footnotes in a popover"
 msgstr ""
 
-#: src/main.js:3095
+#: src/main.js:3112
 msgid "This feature is experimental and might not work with all books."
 msgstr ""
 
-#: src/main.js:3161
+#: src/main.js:3174
 msgid "Afrikaans"
 msgstr ""
 
-#: src/main.js:3162
+#: src/main.js:3175
 msgid "Albanian"
 msgstr ""
 
-#: src/main.js:3163
+#: src/main.js:3176
 msgid "Amharic"
 msgstr ""
 
-#: src/main.js:3164
+#: src/main.js:3177
 msgid "Arabic"
 msgstr ""
 
-#: src/main.js:3165
+#: src/main.js:3178
 msgid "Armenian"
 msgstr ""
 
-#: src/main.js:3166
+#: src/main.js:3179
 msgid "Azerbaijani"
 msgstr ""
 
-#: src/main.js:3167
+#: src/main.js:3180
 msgid "Basque"
 msgstr ""
 
-#: src/main.js:3168
+#: src/main.js:3181
 msgid "Belarusian"
 msgstr ""
 
-#: src/main.js:3169
+#: src/main.js:3182
 msgid "Bengali"
 msgstr ""
 
-#: src/main.js:3170
+#: src/main.js:3183
 msgid "Bosnian"
 msgstr ""
 
-#: src/main.js:3171
+#: src/main.js:3184
 msgid "Bulgarian"
 msgstr ""
 
-#: src/main.js:3172
+#: src/main.js:3185
 msgid "Catalan"
 msgstr ""
 
-#: src/main.js:3173
+#: src/main.js:3186
 msgid "Cebuano"
 msgstr ""
 
-#: src/main.js:3174
+#: src/main.js:3187
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: src/main.js:3175
+#: src/main.js:3188
 msgid "Chinese (Traditional)"
 msgstr ""
 
-#: src/main.js:3176
+#: src/main.js:3189
 msgid "Corsican"
 msgstr ""
 
-#: src/main.js:3177
+#: src/main.js:3190
 msgid "Croatian"
 msgstr ""
 
-#: src/main.js:3178
+#: src/main.js:3191
 msgid "Czech"
 msgstr ""
 
-#: src/main.js:3179
+#: src/main.js:3192
 msgid "Danish"
 msgstr ""
 
-#: src/main.js:3180
+#: src/main.js:3193
 msgid "Dutch"
 msgstr ""
 
-#: src/main.js:3181
+#: src/main.js:3194
 msgid "English"
 msgstr ""
 
-#: src/main.js:3182
+#: src/main.js:3195
 msgid "Esperanto"
 msgstr ""
 
-#: src/main.js:3183
+#: src/main.js:3196
 msgid "Estonian"
 msgstr ""
 
-#: src/main.js:3184
+#: src/main.js:3197
 msgid "Finnish"
 msgstr ""
 
-#: src/main.js:3185
+#: src/main.js:3198
 msgid "French"
 msgstr ""
 
-#: src/main.js:3186
+#: src/main.js:3199
 msgid "Frisian"
 msgstr ""
 
-#: src/main.js:3187
+#: src/main.js:3200
 msgid "Galician"
 msgstr ""
 
-#: src/main.js:3188
+#: src/main.js:3201
 msgid "Georgian"
 msgstr ""
 
-#: src/main.js:3189
+#: src/main.js:3202
 msgid "German"
 msgstr ""
 
-#: src/main.js:3190
+#: src/main.js:3203
 msgid "Greek"
 msgstr ""
 
-#: src/main.js:3191
+#: src/main.js:3204
 msgid "Gujarati"
 msgstr ""
 
-#: src/main.js:3192
+#: src/main.js:3205
 #, fuzzy
 msgid "Haitian Creole"
 msgstr "Начальный релиз"
 
-#: src/main.js:3193
+#: src/main.js:3206
 msgid "Hausa"
 msgstr ""
 
-#: src/main.js:3194
+#: src/main.js:3207
 msgid "Hawaiian"
 msgstr ""
 
-#: src/main.js:3195
+#: src/main.js:3208
 msgid "Hebrew"
 msgstr ""
 
-#: src/main.js:3196
+#: src/main.js:3209
 msgid "Hindi"
 msgstr ""
 
-#: src/main.js:3197
+#: src/main.js:3210
 msgid "Hmong"
 msgstr ""
 
-#: src/main.js:3198
+#: src/main.js:3211
 msgid "Hungarian"
 msgstr ""
 
-#: src/main.js:3199
+#: src/main.js:3212
 msgid "Icelandic"
 msgstr ""
 
-#: src/main.js:3200
+#: src/main.js:3213
 msgid "Igbo"
 msgstr ""
 
-#: src/main.js:3201
+#: src/main.js:3214
 msgid "Indonesian"
 msgstr ""
 
-#: src/main.js:3202
+#: src/main.js:3215
 msgid "Irish"
 msgstr ""
 
-#: src/main.js:3203
+#: src/main.js:3216
 msgid "Italian"
 msgstr ""
 
-#: src/main.js:3204
+#: src/main.js:3217
 msgid "Japanese"
 msgstr ""
 
-#: src/main.js:3205
+#: src/main.js:3218
 msgid "Javanese"
 msgstr ""
 
-#: src/main.js:3206
+#: src/main.js:3219
 msgid "Kannada"
 msgstr ""
 
-#: src/main.js:3207
+#: src/main.js:3220
 msgid "Kazakh"
 msgstr ""
 
-#: src/main.js:3208
+#: src/main.js:3221
 msgid "Khmer"
 msgstr ""
 
-#: src/main.js:3209
+#: src/main.js:3222
 msgid "Korean"
 msgstr ""
 
-#: src/main.js:3210
+#: src/main.js:3223
 msgid "Kurdish"
 msgstr ""
 
-#: src/main.js:3211
+#: src/main.js:3224
 msgid "Kyrgyz"
 msgstr ""
 
-#: src/main.js:3212
+#: src/main.js:3225
 #, fuzzy
 msgid "Lao"
 msgstr "Вид"
 
-#: src/main.js:3213
+#: src/main.js:3226
 msgid "Latin"
 msgstr ""
 
-#: src/main.js:3214
+#: src/main.js:3227
 msgid "Latvian"
 msgstr ""
 
-#: src/main.js:3215
+#: src/main.js:3228
 msgid "Lithuanian"
 msgstr ""
 
-#: src/main.js:3216
+#: src/main.js:3229
 msgid "Luxembourgish"
 msgstr ""
 
-#: src/main.js:3217
+#: src/main.js:3230
 msgid "Macedonian"
 msgstr ""
 
-#: src/main.js:3218
+#: src/main.js:3231
 msgid "Malagasy"
 msgstr ""
 
-#: src/main.js:3219
+#: src/main.js:3232
 msgid "Malay"
 msgstr ""
 
-#: src/main.js:3220
+#: src/main.js:3233
 msgid "Malayalam"
 msgstr ""
 
-#: src/main.js:3221
+#: src/main.js:3234
 msgid "Maltese"
 msgstr ""
 
-#: src/main.js:3222
+#: src/main.js:3235
 msgid "Maori"
 msgstr ""
 
-#: src/main.js:3223
+#: src/main.js:3236
 msgid "Marathi"
 msgstr ""
 
-#: src/main.js:3224
+#: src/main.js:3237
 msgid "Mongolian"
 msgstr ""
 
-#: src/main.js:3225
+#: src/main.js:3238
 msgid "Myanmar (Burmese)"
 msgstr ""
 
-#: src/main.js:3226
+#: src/main.js:3239
 msgid "Nepali"
 msgstr ""
 
-#: src/main.js:3227
+#: src/main.js:3240
 msgid "Norwegian"
 msgstr ""
 
-#: src/main.js:3228
+#: src/main.js:3241
 msgid "Nyanja (Chichewa)"
 msgstr ""
 
-#: src/main.js:3229
+#: src/main.js:3242
 msgid "Pashto"
 msgstr ""
 
-#: src/main.js:3230
+#: src/main.js:3243
 msgid "Persian"
 msgstr ""
 
-#: src/main.js:3231
+#: src/main.js:3244
 #, fuzzy
 msgid "Polish"
 msgstr "Издатель"
 
-#: src/main.js:3232
+#: src/main.js:3245
 msgid "Portuguese (Portugal, Brazil)"
 msgstr ""
 
-#: src/main.js:3233
+#: src/main.js:3246
 msgid "Punjabi"
 msgstr ""
 
-#: src/main.js:3234
+#: src/main.js:3247
 msgid "Romanian"
 msgstr ""
 
-#: src/main.js:3235
+#: src/main.js:3248
 msgid "Russian"
 msgstr ""
 
-#: src/main.js:3236
+#: src/main.js:3249
 msgid "Samoan"
 msgstr ""
 
-#: src/main.js:3237
+#: src/main.js:3250
 msgid "Scots Gaelic"
 msgstr ""
 
-#: src/main.js:3238
+#: src/main.js:3251
 msgid "Serbian"
 msgstr ""
 
-#: src/main.js:3239
+#: src/main.js:3252
 msgid "Sesotho"
 msgstr ""
 
-#: src/main.js:3240
+#: src/main.js:3253
 msgid "Shona"
 msgstr ""
 
-#: src/main.js:3241
+#: src/main.js:3254
 msgid "Sindhi"
 msgstr ""
 
-#: src/main.js:3242
+#: src/main.js:3255
 msgid "Sinhala (Sinhalese)"
 msgstr ""
 
-#: src/main.js:3243
+#: src/main.js:3256
 msgid "Slovak"
 msgstr ""
 
-#: src/main.js:3244
+#: src/main.js:3257
 msgid "Slovenian"
 msgstr ""
 
-#: src/main.js:3245
+#: src/main.js:3258
 msgid "Somali"
 msgstr ""
 
-#: src/main.js:3246
+#: src/main.js:3259
 msgid "Spanish"
 msgstr ""
 
-#: src/main.js:3247
+#: src/main.js:3260
 msgid "Sundanese"
 msgstr ""
 
-#: src/main.js:3248
+#: src/main.js:3261
 msgid "Swahili"
 msgstr ""
 
-#: src/main.js:3249
+#: src/main.js:3262
 msgid "Swedish"
 msgstr ""
 
-#: src/main.js:3250
+#: src/main.js:3263
 msgid "Tagalog (Filipino)"
 msgstr ""
 
-#: src/main.js:3251
+#: src/main.js:3264
 msgid "Tajik"
 msgstr ""
 
-#: src/main.js:3252
+#: src/main.js:3265
 msgid "Tamil"
 msgstr ""
 
-#: src/main.js:3253
+#: src/main.js:3266
 msgid "Telugu"
 msgstr ""
 
-#: src/main.js:3254
+#: src/main.js:3267
 msgid "Thai"
 msgstr ""
 
-#: src/main.js:3255
+#: src/main.js:3268
 msgid "Turkish"
 msgstr ""
 
-#: src/main.js:3256
+#: src/main.js:3269
 msgid "Ukrainian"
 msgstr ""
 
-#: src/main.js:3257
+#: src/main.js:3270
 msgid "Urdu"
 msgstr ""
 
-#: src/main.js:3258
+#: src/main.js:3271
 msgid "Uzbek"
 msgstr ""
 
-#: src/main.js:3259
+#: src/main.js:3272
 msgid "Vietnamese"
 msgstr ""
 
-#: src/main.js:3260
+#: src/main.js:3273
 msgid "Welsh"
 msgstr ""
 
-#: src/main.js:3261
+#: src/main.js:3274
 msgid "Xhosa"
 msgstr ""
 
-#: src/main.js:3262
+#: src/main.js:3275
 msgid "Yiddish"
 msgstr ""
 
-#: src/main.js:3263
+#: src/main.js:3276
 msgid "Yoruba"
 msgstr ""
 
-#: src/main.js:3264
+#: src/main.js:3277
 msgid "Zulu"
 msgstr ""
 

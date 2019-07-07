@@ -1795,6 +1795,10 @@ class BookViewerWindow {
             label: `<big>${_('Oh no! The file cannot be opened')}</big>`,
             use_markup: true
         })
+
+        // workaround for xgettext bug
+        // `/`
+
         label.get_style_context().add_class('dim-label')
         const button = new Gtk.Button({
             label: _('Open Another File…'),
