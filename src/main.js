@@ -778,7 +778,7 @@ class SwitchBox {
 
         this._switch.connect('state-set', (widget, state) => {
             settings.set_boolean(key, state)
-            onChange()
+            onChange(state)
         })
         this.widget.pack_start(switchLabel, false, true, 0)
         this.widget.pack_end(this._switch, false, true, 0)
@@ -1765,10 +1765,10 @@ class BookViewerWindow {
         this.window.show_all()
     }
     scriptRun(script) {
-        this.webView.run_javascript(script, null, () => {})
+        if (this.webView) this.webView.run_javascript(script, null, () => {})
     }
     scriptGet(script, f) {
-        this.webView.run_javascript(`JSON.stringify(${script})`, null,
+        if (this.webView) this.webView.run_javascript(`JSON.stringify(${script})`, null,
             (self, result) => {
                 const jsResult = self.run_javascript_finish(result)
                 const value = jsResult.get_js_value()
@@ -1866,6 +1866,7 @@ class BookViewerWindow {
         })
 
         this.scriptRun(`lookupEnabled = ${settings.get_boolean('lookup-enabled')}`)
+        this.scriptRun(`footnoteEnabled = ${settings.get_boolean('footnote-enabled')}`)
 
         this.buildView(this.themes, ({
             font, spacing, margin, brightness, theme, useDefault, justify, hyphenate
@@ -3054,6 +3055,12 @@ function main(argv) {
                 ['fullscreen', _('When in fullscreen mode')]
             ], x => appWindows.forEach(w => w.setAutohideCursor(x)))
 
+        const footnotePerf = new SwitchBox([
+            _('Display non-EPUB-3 footnotes in a popover'),
+            _('This feature is experimental and might not work with all books.')
+        ], 'footnote-enabled', x =>
+            appWindows.forEach(w => w.scriptRun(`footnoteEnabled = ${x}`)))
+
         const themeEditor = new ThemeEditor(
             themes.get('themes', defaultThemes),
             x => {
@@ -3078,6 +3085,7 @@ function main(argv) {
         general.pack_start(sidebarPerf.widget, false, true, 0)
         general.pack_start(restorePerf.widget, false, true, 0)
         general.pack_start(cursorPerf.widget, false, true, 0)
+        general.pack_start(footnotePerf.widget, false, true, 0)
         general.show_all()
         stack.add_titled(general, 'general', _('General'))
 

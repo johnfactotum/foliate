@@ -69,7 +69,7 @@ let searchResults
 let clearSelection
 let selectionData
 let lookupEnabled = true
-let footnote, followLink = () => {}
+let footnote, followLink = () => {}, footnoteEnabled = false
 let autohideCursor, screenX, screenY, cursorHidden
 let windowSize
 const zoomed = () => !((windowSize || window.outerWidth) === window.innerWidth)
@@ -287,6 +287,10 @@ const setupRendition = () => {
                 const href = link.getAttribute('href')
                 if (href.indexOf("mailto:") === 0 || href.indexOf("://") > -1)
                     dispatch({ type: 'link-external', payload: href })
+                else if (type !== 'noteref' && !footnoteEnabled) dispatch({
+                    type: 'link-internal',
+                    payload: rendition.currentLocation().start.cfi
+                })
                 else {
                     const [page, id] = href.split('#')
                     let el = contents.document.getElementById(id)
