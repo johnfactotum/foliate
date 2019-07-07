@@ -1243,16 +1243,20 @@ class ActionPopover {
         this.widget.add(box)
         box.show_all()
         if (!actions.length) actionBox.hide()
-        this.widget.popup()
 
-        this.widget.connect('size-allocate', () => {
+        const setPosition = height => {
             const { position: rectPosition, positionType } =
-                makePopoverOptions(position, window, this.widget.get_allocation().height)
+                makePopoverOptions(position, window, height)
             this.widget.set_position(positionType)
             const rectangle = new Gdk.Rectangle(rectPosition)
             this.widget.set_pointing_to(rectangle)
-        })
+        }
 
+        this.widget.connect('size-allocate', () =>
+            setPosition(this.widget.get_allocation().height))
+
+        setPosition(200)
+        this.widget.popup()
     }
 }
 class SelectionPopover {
