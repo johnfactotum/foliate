@@ -1423,9 +1423,13 @@ class LookupPopover {
         stack.add_titled(wikiScroll, 'wikipedia', _('Wikipedia'))
         stack.add_titled(transBox, 'translate', _('Translate'))
 
-        stack.connect('notify::visible-child-name', () => {
+        this.popover = new ActionPopover(options,
+            [noteButton, copyButton], [stack, stackSwitcher])
+
+        const load = () => {
             switch (stack.visible_child_name) {
                 case 'dictionary':
+                    if (!this._lookuped) this.lookup(DICTS[dict], word, language)
                     this._label.select_region(-1, -1)
                     break
                 case 'wikipedia':
@@ -1437,15 +1441,13 @@ class LookupPopover {
                     this._transLabel.select_region(-1, -1)
                     break
             }
-        })
-
-        this.popover = new ActionPopover(options,
-            [noteButton, copyButton], [stack, stackSwitcher])
-
-        if (action === 'dictionary') this.lookup(DICTS[dict], word, language)
-        else stack.visible_child_name = action
+        }
+        stack.visible_child_name = action
+        stack.connect('notify::visible-child-name', load)
+        load()
     }
     lookup(dictionary, word, language) {
+        this._lookuped = true
         this._label.label = _('Loading…')
         dictionary.lookup(word, language, (err, results) => {
             this._scroll.propagate_natural_width = dictionary.noWrap
