@@ -32,7 +32,7 @@ Website: https://johnfactotum.github.io/foliate/
 
 #### Optional dependencies
 
-Auto-hyphenation is done using CSS hyphenation. To enbale CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
+Auto-hyphenation is done using CSS hyphenation. To enable CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
 
 For offline dictionary support, install `dictd`.
 
