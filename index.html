@@ -49,11 +49,13 @@ header p {
     margin: .5em 0;
 }
 .screenshot {
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.15));
+    border-radius: 8px;
+}
+.screenshot-main {
     max-width: 100%;
     min-height: 160px;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.8), 0 5px 30px 10px rgba(0, 0, 0, 0.15);
     display: block;
-    border-radius: 8px;
     margin: 5px auto 40px auto;
 }
 .grid {
@@ -64,9 +66,7 @@ header p {
     grid-gap: 0 40px;
     padding: 0 10px;
 }
-.grid img {
-    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.15));
-    border-radius: 8px;
+.grid .screenshot {
     max-width: 100%;
 }
 .grid > div > p {
@@ -161,14 +161,14 @@ footer a:link, footer a:visited {
                 <p><strong>Easy navigation.</strong> View the table of contents, or use the find in book feature. Reading progress slider with chapter marks makes it easy to find your way through the book. Hover over the slider to see reading time left estimates.</p>
             </div>
         </div>
-        <div class="mono"><img class="screenshot" src="screenshot.png" alt="Screenshot"></div>
+        <div class="mono"><img class="screenshot screenshot-main" src="screenshot.png" alt="Screenshot"></div>
         <div class="grid">
             <div>
-                <img src="lookup.png" alt="Screenshot">
+                <img class="screenshot" src="lookup.png" alt="Screenshot">
                 <p><strong>Quick dictionary lookup.</strong> Foliate uses metadata included in the eBook to determine which language to lookup. This feature is powered by <a href="https://en.wiktionary.org/">Wiktionary</a>, the free dictionary. Folate also supports Wikipedia lookup and Google Translate, as well as offline dictionaries via <code>dictd</code>.</p>
             </div>
             <div>
-                <img src="annotation.png" alt="Screenshot">
+                <img class="screenshot" src="annotation.png" alt="Screenshot">
                 <p><strong>Add bookmarks, highlights, and notes.</strong> Foliate stores your reading progress, bookmarks, and annotations in your XDG data directory as plain JSON files, so you can export or sync them easily.</p>
             </div>
         </div>
