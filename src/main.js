@@ -1697,6 +1697,8 @@ class BookViewerWindow {
             default_width: width,
             default_height: height
         })
+        if (pkg.version.endsWith('-devel'))
+            this.window.get_style_context().add_class('devel')
 
         let windowWidth, windowHeight, windowMaximized
         this.window.connect('size-allocate', () => {
