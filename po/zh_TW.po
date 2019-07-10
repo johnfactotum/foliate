@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-07 21:53+0800\n"
+"POT-Creation-Date: 2019-07-10 13:22+0800\n"
 "PO-Revision-Date: 2019-06-15 15:30+0800\n"
 "Last-Translator: John Factotum\n"
 "Language-Team: none\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1716
-#: src/main.js:3049 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1718
+#: src/main.js:3055 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
 
@@ -91,29 +91,28 @@ msgid "Lime"
 msgstr "綠"
 
 #: src/main.js:117
-#, fuzzy
 msgid "From Wikipedia, the free encyclopedia"
-msgstr "來自維基辭典，自由的多語言辭典"
+msgstr "來自維基百科，自由的百科全書"
 
 #: src/main.js:121
 msgid "View on Wikipedia"
-msgstr ""
+msgstr "在維基百科上檢視"
 
 #: src/main.js:162
 msgid "Translation by Google Translate"
-msgstr ""
+msgstr "翻譯來自 Google 翻譯"
 
 #: src/main.js:175
 msgid "Wiktionary (English)"
-msgstr ""
+msgstr "維基詞典（英語）"
 
 #: src/main.js:212
 msgid "From Wiktionary, the free dictionary"
-msgstr "來自維基辭典，自由的多語言辭典"
+msgstr "來自維基詞典，自由的多語言辭典"
 
 #: src/main.js:216
 msgid "View on Wiktionary"
-msgstr ""
+msgstr "在維基詞典上檢視"
 
 #: src/main.js:322
 msgid "Previous page"
@@ -154,7 +153,7 @@ msgstr[0] "章節剩餘 %d 小時"
 #: src/main.js:451
 #, javascript-format
 msgid "of %d"
-msgstr ""
+msgstr "共 %d"
 
 #: src/main.js:585
 msgid "Find in Book"
@@ -162,12 +161,11 @@ msgstr "搜尋書籍內容"
 
 #: src/main.js:600
 msgid "All chapters"
-msgstr ""
+msgstr "所有章節"
 
 #: src/main.js:602
-#, fuzzy
 msgid "Current chapter"
-msgstr "章節剩餘 %d 小時"
+msgstr "目前章節"
 
 #: src/main.js:634
 msgid "Searching…"
@@ -211,7 +209,7 @@ msgstr "邊界"
 msgid "Brightness"
 msgstr "亮度"
 
-#: src/main.js:871 src/main.js:923 src/main.js:3149
+#: src/main.js:871 src/main.js:923 src/main.js:3161
 msgid "Theme"
 msgstr "主題"
 
@@ -231,12 +229,11 @@ msgstr "沒有書籤"
 msgid "Add some bookmarks to see them here."
 msgstr "新增書籤之後，就可以在這裡檢視它們"
 
-#: src/main.js:1159 src/main.js:2989
+#: src/main.js:1159 src/main.js:2995
 msgid "Bookmark current location"
 msgstr "將目前位置加入書籤"
 
 #: src/main.js:1165
-#, fuzzy
 msgid "Remove current location"
 msgstr "移除目前位置"
 
@@ -248,785 +245,788 @@ msgstr "沒有註解"
 msgid "Highlight some text to add annotations."
 msgstr "選取一些文字以新增註解"
 
-#: src/main.js:1264 src/main.js:1291 src/main.js:1481 src/main.js:1576
-#: src/main.js:1601
+#: src/main.js:1264 src/main.js:1291 src/main.js:1483 src/main.js:1578
+#: src/main.js:1603
 msgid "Copy"
 msgstr "複製"
 
-#: src/main.js:1269 src/main.js:1296 src/main.js:3089
+#: src/main.js:1269 src/main.js:1296 src/main.js:3095
 msgid "Highlight"
 msgstr "註解"
 
 #: src/main.js:1274
 msgid "Lookup"
-msgstr ""
+msgstr "查詢"
 
-#: src/main.js:1279 src/main.js:1424 src/main.js:3092
+#: src/main.js:1279 src/main.js:1424 src/main.js:3098
 msgid "Translate"
-msgstr ""
+msgstr "翻譯"
 
-#: src/main.js:1303 src/main.js:1356 src/main.js:1376 src/main.js:1449
-#: src/main.js:1472
+#: src/main.js:1303 src/main.js:1356 src/main.js:1376 src/main.js:1451
+#: src/main.js:1474
 msgid "Loading…"
 msgstr "載入中…"
 
 #: src/main.js:1422
-#, fuzzy
 msgid "Dictionary"
-msgstr "啟用字典"
+msgstr "字典"
 
 #: src/main.js:1423
 msgid "Wikipedia"
-msgstr ""
+msgstr "維基百科"
 
-#: src/main.js:1453
+#: src/main.js:1455
 msgid "No definitions found."
-msgstr ""
+msgstr "無法找到定義。"
 
-#: src/main.js:1461
+#: src/main.js:1463
 msgid "No entry found."
-msgstr ""
+msgstr "找不到條目。"
 
-#: src/main.js:1465
+#: src/main.js:1467
 msgid "Search on Wikipedia"
-msgstr ""
+msgstr "搜尋維基百科"
 
-#: src/main.js:1474
+#: src/main.js:1476
 msgid "Cannot retrieve translation."
-msgstr ""
+msgstr "無法取得翻譯。"
 
-#: src/main.js:1486 src/main.js:2884
+#: src/main.js:1488 src/main.js:2890
 msgid "Remove"
 msgstr "移除"
 
-#: src/main.js:1491
+#: src/main.js:1493
 msgid "Note"
 msgstr "筆記"
 
-#: src/main.js:1558
-#, fuzzy
+#: src/main.js:1560
 msgid "Go to Linked Location"
-msgstr "返回先前位置"
+msgstr "前往連結位置"
 
-#: src/main.js:1581
+#: src/main.js:1583
 msgid "Zoom"
 msgstr "放大"
 
-#: src/main.js:1656
+#: src/main.js:1658
 msgid "Open some books to start reading"
 msgstr "開啟電子書以開始閱讀"
 
-#: src/main.js:1661
+#: src/main.js:1663
 msgid "Open a file, or continue reading the last opened book."
 msgstr "開啟檔案，或繼續閱讀上次開啟的電子書"
 
-#: src/main.js:1665
+#: src/main.js:1667
 msgid "Open File…"
 msgstr "開啟檔案…"
 
-#: src/main.js:1669
+#: src/main.js:1671
 msgid "Continue Reading"
 msgstr "繼續閱讀"
 
-#: src/main.js:1795
+#: src/main.js:1800
 msgid "Oh no! The file cannot be opened"
 msgstr "噢不！無法開啟檔案"
 
-#: src/main.js:1804
-#, fuzzy
+#: src/main.js:1809
 msgid "Open Another File…"
-msgstr "開啟檔案…"
+msgstr "開啟其他檔案…"
 
-#: src/main.js:2240 src/main.js:2990
+#: src/main.js:2245 src/main.js:2996
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Find in book"
 msgstr "搜尋書籍內容"
 
-#: src/main.js:2253
+#: src/main.js:2258
 msgid "Set font, theme, and layout"
 msgstr "設定字體、主題與版面"
 
-#: src/main.js:2300 src/main.js:2364
+#: src/main.js:2305 src/main.js:2369
 msgid "Table of contents"
 msgstr "目錄"
 
-#: src/main.js:2302 src/main.js:2376
+#: src/main.js:2307 src/main.js:2381
 msgid "Annotations"
 msgstr "註解"
 
-#: src/main.js:2304 src/main.js:2370
+#: src/main.js:2309 src/main.js:2375
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: src/main.js:2329 src/main.js:2987
+#: src/main.js:2334 src/main.js:2993
 msgid "Toggle sidebar"
-msgstr ""
+msgstr "顯示/隱藏側邊欄"
 
-#: src/main.js:2467
+#: src/main.js:2472
 msgid "Fullscreen"
 msgstr "全螢幕"
 
-#: src/main.js:2468
+#: src/main.js:2473
 msgid "Reading Progress Bar"
 msgstr "閱讀進度列"
 
-#: src/main.js:2472
+#: src/main.js:2477
 msgid "Open…"
 msgstr "開啟…"
 
-#: src/main.js:2476 src/main.js:3076
+#: src/main.js:2481 src/main.js:3082
 msgid "Preferences"
 msgstr "偏好設定"
 
-#: src/main.js:2477
+#: src/main.js:2482
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤捷徑鍵"
 
-#: src/main.js:2478
+#: src/main.js:2483
 msgid "About Foliate"
 msgstr "關於 Foliate"
 
-#: src/main.js:2541 src/main.js:2561
+#: src/main.js:2546 src/main.js:2566
 msgid "About This Book"
 msgstr "關於這本書"
 
-#: src/main.js:2635
+#: src/main.js:2641
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/main.js:2636
+#: src/main.js:2642
 msgid "Publication Date"
 msgstr "出版日期"
 
-#: src/main.js:2637
+#: src/main.js:2643
 msgid "Modified Date"
 msgstr "修改日期"
 
-#: src/main.js:2638
+#: src/main.js:2644
 msgid "Language"
 msgstr "語言"
 
-#: src/main.js:2639
+#: src/main.js:2645
 msgid "Copyright"
 msgstr "版權"
 
-#: src/main.js:2640
+#: src/main.js:2646
 msgid "Identifier"
 msgstr "識別碼"
 
-#: src/main.js:2753
+#: src/main.js:2759
 msgid "Text"
 msgstr "文字"
 
-#: src/main.js:2754
+#: src/main.js:2760
 msgid "Background"
 msgstr "背景"
 
-#: src/main.js:2755
+#: src/main.js:2761
 msgid "Link"
 msgstr "連結"
 
-#: src/main.js:2757
+#: src/main.js:2763
 msgid "Enable Dark Mode"
 msgstr "啟用深色模式"
 
-#: src/main.js:2759
+#: src/main.js:2765
 msgid "Invert Colors"
 msgstr "反轉顏色"
 
-#: src/main.js:2830
+#: src/main.js:2836
 msgid "Theme name"
 msgstr "主題名稱"
 
-#: src/main.js:2834
+#: src/main.js:2840
 msgid "A theme with that name already exists."
 msgstr "已經存在相同名稱的主題。"
 
-#: src/main.js:2836
+#: src/main.js:2842
 msgid "Add"
 msgstr "新增"
 
-#: src/main.js:2877
+#: src/main.js:2883
 msgid "Add…"
 msgstr "新增…"
 
-#: src/main.js:2879
+#: src/main.js:2885
 msgid "Add a new theme"
 msgstr "新增主題"
 
-#: src/main.js:2886
+#: src/main.js:2892
 msgid "Remove selected theme"
 msgstr "移除選取的主題"
 
-#: src/main.js:2951
+#: src/main.js:2957
 msgid "All files"
 msgstr "所有檔案"
 
-#: src/main.js:2955
+#: src/main.js:2961
 msgid "EPUB files"
 msgstr "EPUB 檔案"
 
-#: src/main.js:2958
+#: src/main.js:2964
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: src/main.js:2984 src/main.js:3140
+#: src/main.js:2990 src/main.js:3152
 msgid "General"
 msgstr "一般"
 
-#: src/main.js:2987
+#: src/main.js:2993
 msgid "Show table of contents"
 msgstr "顯示目錄"
 
-#: src/main.js:2988
+#: src/main.js:2994
 msgid "Show bookmarks"
 msgstr "顯示書籤"
 
-#: src/main.js:2991
+#: src/main.js:2997
 msgid "Show menu"
 msgstr "顯示選單"
 
-#: src/main.js:2992
+#: src/main.js:2998
 msgid "Close current window"
 msgstr "關閉目前視窗"
 
-#: src/main.js:2993
+#: src/main.js:2999
 msgid "Quit"
 msgstr "結束"
 
-#: src/main.js:2997
+#: src/main.js:3003
 msgid "Navigation"
 msgstr "瀏覽"
 
 #. I can't find where to access the enums in GJS,
 #. so just use ints for now
-#: src/main.js:2999 src/main.js:3018
+#: src/main.js:3005 src/main.js:3024
 msgid "Go to the next page"
 msgstr "前往下一頁"
 
-#: src/main.js:3000 src/main.js:3019
+#: src/main.js:3006 src/main.js:3025
 msgid "Go to the previous page"
 msgstr "前往上一頁"
 
-#: src/main.js:3001
+#: src/main.js:3007
 msgid "Go back to previous location"
 msgstr "返回先前位置"
 
-#: src/main.js:3005
+#: src/main.js:3011
 msgid "View"
 msgstr "檢視"
 
-#: src/main.js:3007
+#: src/main.js:3013
 msgid "Increase font size"
 msgstr "放大字體"
 
-#: src/main.js:3008
+#: src/main.js:3014
 msgid "Decrease font size"
 msgstr "縮小字體"
 
-#: src/main.js:3009
+#: src/main.js:3015
 msgid "Toggle fullscreen"
 msgstr "切換全螢幕"
 
-#: src/main.js:3010
+#: src/main.js:3016
 msgid "Toggle reading progress bar"
 msgstr "顯示/隱藏閱讀進度列"
 
-#: src/main.js:3014
+#: src/main.js:3020
 msgid "Touchpad Gestures"
 msgstr "觸控板手勢"
 
-#: src/main.js:3020
+#: src/main.js:3026
 msgid "Zoom in"
 msgstr "放大"
 
-#: src/main.js:3021
+#: src/main.js:3027
 msgid "Zoom out"
 msgstr "縮小"
 
-#: src/main.js:3050 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:3056 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "一個簡單而現代化的電子書閱讀器"
 
-#: src/main.js:3079
+#: src/main.js:3085
 msgid "Use sidebar (requires restart)"
-msgstr ""
+msgstr "使用側邊欄（須重新啟動）"
 
-#: src/main.js:3080
+#: src/main.js:3086
 msgid "Use a sidebar to display table of contents, annotations, and bookmarks."
-msgstr ""
-
-#: src/main.js:3084
-msgid "Open last opened file on startup"
-msgstr ""
-
-#: src/main.js:3087
-msgid "Do nothing"
-msgstr ""
-
-#: src/main.js:3088
-msgid "Ask what to do"
-msgstr ""
+msgstr "使用側邊欄來顯示目錄、註解與書籤。"
 
 #: src/main.js:3090
-#, fuzzy
+msgid "Open last opened file on startup"
+msgstr "啟動時開啟上次上次開啟的檔案"
+
+#: src/main.js:3093
+msgid "Do nothing"
+msgstr "不做任何事"
+
+#: src/main.js:3094
+msgid "Ask what to do"
+msgstr "詢問要做什麼"
+
+#: src/main.js:3096
 msgid "Lookup in dictionary"
-msgstr "快速字典查詢"
+msgstr "查詢字典"
 
-#: src/main.js:3091
+#: src/main.js:3097
 msgid "Lookup in Wikipedia"
-msgstr ""
+msgstr "查詢維基百科"
 
-#: src/main.js:3095
+#: src/main.js:3101
 msgid "When a word is selected"
-msgstr ""
+msgstr "選取一個單字時"
 
-#: src/main.js:3098
+#: src/main.js:3104
 msgid "When multiple words are selected"
-msgstr ""
+msgstr "選取多個單字時"
 
-#: src/main.js:3102
+#: src/main.js:3108
 msgid "Auto-hide cursor"
 msgstr "自動隱藏游標"
 
-#: src/main.js:3105
+#: src/main.js:3111
 msgid "Never"
 msgstr "永不"
 
-#: src/main.js:3106
+#: src/main.js:3112
 msgid "Always"
 msgstr "總是"
 
-#: src/main.js:3107
+#: src/main.js:3113
 msgid "When in fullscreen mode"
 msgstr "全螢幕時"
 
-#: src/main.js:3111
+#: src/main.js:3117
 msgid "Display non-EPUB-3 footnotes in a popover"
-msgstr ""
+msgstr "彈出顯示非 EPUB 3 的註腳"
 
-#: src/main.js:3112
+#: src/main.js:3118
 msgid "This feature is experimental and might not work with all books."
-msgstr ""
+msgstr "此功能為實驗性質，可能不會對所有書籍都正常運作。"
 
-#: src/main.js:3174
-msgid "Afrikaans"
-msgstr ""
+#: src/main.js:3123
+msgid "Allow unsafe content (not recommended)"
+msgstr "允許不安全的內容（不建議）"
 
-#: src/main.js:3175
-msgid "Albanian"
-msgstr ""
-
-#: src/main.js:3176
-msgid "Amharic"
-msgstr ""
-
-#: src/main.js:3177
-msgid "Arabic"
-msgstr ""
-
-#: src/main.js:3178
-msgid "Armenian"
-msgstr ""
-
-#: src/main.js:3179
-msgid "Azerbaijani"
-msgstr ""
-
-#: src/main.js:3180
-msgid "Basque"
-msgstr ""
-
-#: src/main.js:3181
-msgid "Belarusian"
-msgstr ""
-
-#: src/main.js:3182
-msgid "Bengali"
-msgstr ""
-
-#: src/main.js:3183
-msgid "Bosnian"
-msgstr ""
-
-#: src/main.js:3184
-msgid "Bulgarian"
-msgstr ""
-
-#: src/main.js:3185
-msgid "Catalan"
-msgstr ""
+#: src/main.js:3124
+msgid ""
+"Enabling this will allow JavaScript and external resources to load.\n"
+"This will pose potential security and privacy risks."
+msgstr "啟用後將允許 JavaScript 與外部資源載入。\n這將構成潛在安全與隱私風險。"
 
 #: src/main.js:3186
-msgid "Cebuano"
-msgstr ""
+msgid "Afrikaans"
+msgstr "南非荷蘭文"
 
 #: src/main.js:3187
-msgid "Chinese (Simplified)"
-msgstr ""
+msgid "Albanian"
+msgstr "阿爾巴尼亞文"
 
 #: src/main.js:3188
-msgid "Chinese (Traditional)"
-msgstr ""
+msgid "Amharic"
+msgstr "阿姆哈拉文"
 
 #: src/main.js:3189
-msgid "Corsican"
-msgstr ""
+msgid "Arabic"
+msgstr "阿拉伯文"
 
 #: src/main.js:3190
-msgid "Croatian"
-msgstr ""
+msgid "Armenian"
+msgstr "亞美尼亞文"
 
 #: src/main.js:3191
-msgid "Czech"
-msgstr ""
+msgid "Azerbaijani"
+msgstr "亞塞拜然文"
 
 #: src/main.js:3192
-msgid "Danish"
-msgstr ""
+msgid "Basque"
+msgstr "巴斯克文"
 
 #: src/main.js:3193
-msgid "Dutch"
-msgstr ""
+msgid "Belarusian"
+msgstr "白俄羅斯語"
 
 #: src/main.js:3194
-msgid "English"
-msgstr ""
+msgid "Bengali"
+msgstr "孟加拉文"
 
 #: src/main.js:3195
-msgid "Esperanto"
-msgstr ""
+msgid "Bosnian"
+msgstr "波士尼亞文"
 
 #: src/main.js:3196
-msgid "Estonian"
-msgstr ""
+msgid "Bulgarian"
+msgstr "保加利亞文"
 
 #: src/main.js:3197
-msgid "Finnish"
-msgstr ""
+msgid "Catalan"
+msgstr "加泰隆尼亞文"
 
 #: src/main.js:3198
-msgid "French"
-msgstr ""
+msgid "Cebuano"
+msgstr "宿霧文"
 
 #: src/main.js:3199
-msgid "Frisian"
-msgstr ""
+msgid "Chinese (Simplified)"
+msgstr "中文 (簡體)"
 
 #: src/main.js:3200
-msgid "Galician"
-msgstr ""
+msgid "Chinese (Traditional)"
+msgstr "中文 (繁體)"
 
 #: src/main.js:3201
-msgid "Georgian"
-msgstr ""
+msgid "Corsican"
+msgstr "科西嘉文"
 
 #: src/main.js:3202
-msgid "German"
-msgstr ""
+msgid "Croatian"
+msgstr "克羅埃西亞文"
 
 #: src/main.js:3203
-msgid "Greek"
-msgstr ""
+msgid "Czech"
+msgstr "捷克文"
 
 #: src/main.js:3204
-msgid "Gujarati"
-msgstr ""
+msgid "Danish"
+msgstr "丹麥文"
 
 #: src/main.js:3205
-#, fuzzy
-msgid "Haitian Creole"
-msgstr "首次發布"
+msgid "Dutch"
+msgstr "荷蘭語"
 
 #: src/main.js:3206
-msgid "Hausa"
-msgstr ""
+msgid "English"
+msgstr "英文"
 
 #: src/main.js:3207
-msgid "Hawaiian"
-msgstr ""
+msgid "Esperanto"
+msgstr "世界語"
 
 #: src/main.js:3208
-msgid "Hebrew"
-msgstr ""
+msgid "Estonian"
+msgstr "愛沙尼亞文"
 
 #: src/main.js:3209
-msgid "Hindi"
-msgstr ""
+msgid "Finnish"
+msgstr "芬蘭文"
 
 #: src/main.js:3210
-msgid "Hmong"
-msgstr ""
+msgid "French"
+msgstr "法文"
 
 #: src/main.js:3211
-msgid "Hungarian"
-msgstr ""
+msgid "Frisian"
+msgstr "弗利然文"
 
 #: src/main.js:3212
-msgid "Icelandic"
-msgstr ""
+msgid "Galician"
+msgstr "加里西亞語"
 
 #: src/main.js:3213
-msgid "Igbo"
-msgstr ""
+msgid "Georgian"
+msgstr "喬治亞文"
 
 #: src/main.js:3214
-msgid "Indonesian"
-msgstr ""
+msgid "German"
+msgstr "德文"
 
 #: src/main.js:3215
-msgid "Irish"
-msgstr ""
+msgid "Greek"
+msgstr "希臘文"
 
 #: src/main.js:3216
-msgid "Italian"
-msgstr ""
+msgid "Gujarati"
+msgstr "古吉拉特文"
 
 #: src/main.js:3217
-msgid "Japanese"
-msgstr ""
+msgid "Haitian Creole"
+msgstr "海地克里奧文"
 
 #: src/main.js:3218
-msgid "Javanese"
-msgstr ""
+msgid "Hausa"
+msgstr "豪薩文"
 
 #: src/main.js:3219
-msgid "Kannada"
-msgstr ""
+msgid "Hawaiian"
+msgstr "夏威夷文"
 
 #: src/main.js:3220
-msgid "Kazakh"
-msgstr ""
+msgid "Hebrew"
+msgstr "希伯來文"
 
 #: src/main.js:3221
-msgid "Khmer"
-msgstr ""
+msgid "Hindi"
+msgstr "北印度文"
 
 #: src/main.js:3222
-msgid "Korean"
-msgstr ""
+msgid "Hmong"
+msgstr "苗文"
 
 #: src/main.js:3223
-msgid "Kurdish"
-msgstr ""
+msgid "Hungarian"
+msgstr "匈牙利文"
 
 #: src/main.js:3224
-msgid "Kyrgyz"
-msgstr ""
+msgid "Icelandic"
+msgstr "冰島文"
 
 #: src/main.js:3225
-#, fuzzy
-msgid "Lao"
-msgstr "版面"
+msgid "Igbo"
+msgstr "伊布文"
 
 #: src/main.js:3226
-msgid "Latin"
-msgstr ""
+msgid "Indonesian"
+msgstr "印尼文"
 
 #: src/main.js:3227
-msgid "Latvian"
-msgstr ""
+msgid "Irish"
+msgstr "愛爾蘭文"
 
 #: src/main.js:3228
-msgid "Lithuanian"
-msgstr ""
+msgid "Italian"
+msgstr "義大利文"
 
 #: src/main.js:3229
-msgid "Luxembourgish"
-msgstr ""
+msgid "Japanese"
+msgstr "日文"
 
 #: src/main.js:3230
-msgid "Macedonian"
-msgstr ""
+msgid "Javanese"
+msgstr "爪哇文"
 
 #: src/main.js:3231
-msgid "Malagasy"
-msgstr ""
+msgid "Kannada"
+msgstr "卡納達文"
 
 #: src/main.js:3232
-msgid "Malay"
-msgstr ""
+msgid "Kazakh"
+msgstr "哈薩克文"
 
 #: src/main.js:3233
-msgid "Malayalam"
-msgstr ""
+msgid "Khmer"
+msgstr "高棉文"
 
 #: src/main.js:3234
-msgid "Maltese"
-msgstr ""
+msgid "Korean"
+msgstr "韓文"
 
 #: src/main.js:3235
-msgid "Maori"
-msgstr ""
+msgid "Kurdish"
+msgstr "庫德語"
 
 #: src/main.js:3236
-msgid "Marathi"
-msgstr ""
+msgid "Kyrgyz"
+msgstr "吉爾吉斯文"
 
 #: src/main.js:3237
-msgid "Mongolian"
-msgstr ""
+msgid "Lao"
+msgstr "寮文"
 
 #: src/main.js:3238
-msgid "Myanmar (Burmese)"
-msgstr ""
+msgid "Latin"
+msgstr "拉丁文"
 
 #: src/main.js:3239
-msgid "Nepali"
-msgstr ""
+msgid "Latvian"
+msgstr "拉脫維亞文"
 
 #: src/main.js:3240
-msgid "Norwegian"
-msgstr ""
+msgid "Lithuanian"
+msgstr "立陶宛文"
 
 #: src/main.js:3241
-msgid "Nyanja (Chichewa)"
-msgstr ""
+msgid "Luxembourgish"
+msgstr "盧森堡文"
 
 #: src/main.js:3242
-msgid "Pashto"
-msgstr ""
+msgid "Macedonian"
+msgstr "馬其頓文"
 
 #: src/main.js:3243
-msgid "Persian"
-msgstr ""
+msgid "Malagasy"
+msgstr "馬達加斯加文"
 
 #: src/main.js:3244
-#, fuzzy
-msgid "Polish"
-msgstr "出版社"
+msgid "Malay"
+msgstr "馬來文"
 
 #: src/main.js:3245
-msgid "Portuguese (Portugal, Brazil)"
-msgstr ""
+msgid "Malayalam"
+msgstr "馬拉雅拉姆文"
 
 #: src/main.js:3246
-msgid "Punjabi"
-msgstr ""
+msgid "Maltese"
+msgstr "馬耳他文"
 
 #: src/main.js:3247
-msgid "Romanian"
-msgstr ""
+msgid "Maori"
+msgstr "毛利文"
 
 #: src/main.js:3248
-msgid "Russian"
-msgstr ""
+msgid "Marathi"
+msgstr "馬拉地文"
 
 #: src/main.js:3249
-msgid "Samoan"
-msgstr ""
+msgid "Mongolian"
+msgstr "蒙古文"
 
 #: src/main.js:3250
-msgid "Scots Gaelic"
-msgstr ""
+msgid "Myanmar (Burmese)"
+msgstr "緬甸文"
 
 #: src/main.js:3251
-msgid "Serbian"
-msgstr ""
+msgid "Nepali"
+msgstr "尼泊爾文"
 
 #: src/main.js:3252
-msgid "Sesotho"
-msgstr ""
+msgid "Norwegian"
+msgstr "挪威文"
 
 #: src/main.js:3253
-msgid "Shona"
-msgstr ""
+msgid "Nyanja (Chichewa)"
+msgstr "尼揚賈文 (齊切瓦文)"
 
 #: src/main.js:3254
-msgid "Sindhi"
-msgstr ""
+msgid "Pashto"
+msgstr "帕施圖文"
 
 #: src/main.js:3255
-msgid "Sinhala (Sinhalese)"
-msgstr ""
+msgid "Persian"
+msgstr "波斯文"
 
 #: src/main.js:3256
-msgid "Slovak"
-msgstr ""
+msgid "Polish"
+msgstr "波蘭文"
 
 #: src/main.js:3257
-msgid "Slovenian"
-msgstr ""
+msgid "Portuguese (Portugal, Brazil)"
+msgstr "葡萄牙文 (葡萄牙、巴西)"
 
 #: src/main.js:3258
-msgid "Somali"
-msgstr ""
+msgid "Punjabi"
+msgstr "旁遮普文"
 
 #: src/main.js:3259
-msgid "Spanish"
-msgstr ""
+msgid "Romanian"
+msgstr "旁遮普文"
 
 #: src/main.js:3260
-msgid "Sundanese"
-msgstr ""
+msgid "Russian"
+msgstr "俄文"
 
 #: src/main.js:3261
-msgid "Swahili"
-msgstr ""
+msgid "Samoan"
+msgstr "薩摩亞文"
 
 #: src/main.js:3262
-msgid "Swedish"
-msgstr ""
+msgid "Scots Gaelic"
+msgstr "蘇格蘭蓋爾文"
 
 #: src/main.js:3263
-msgid "Tagalog (Filipino)"
-msgstr ""
+msgid "Serbian"
+msgstr "塞爾維亞文"
 
 #: src/main.js:3264
-msgid "Tajik"
-msgstr ""
+msgid "Sesotho"
+msgstr "瑟索托文"
 
 #: src/main.js:3265
-msgid "Tamil"
-msgstr ""
+msgid "Shona"
+msgstr "修納文"
 
 #: src/main.js:3266
-msgid "Telugu"
-msgstr ""
+msgid "Sindhi"
+msgstr "信德文"
 
 #: src/main.js:3267
-msgid "Thai"
-msgstr ""
+msgid "Sinhala (Sinhalese)"
+msgstr "僧伽羅文 (錫蘭文)"
 
 #: src/main.js:3268
-msgid "Turkish"
-msgstr ""
+msgid "Slovak"
+msgstr "斯洛伐克文"
 
 #: src/main.js:3269
-msgid "Ukrainian"
-msgstr ""
+msgid "Slovenian"
+msgstr "斯洛維尼亞文"
 
 #: src/main.js:3270
-msgid "Urdu"
-msgstr ""
+msgid "Somali"
+msgstr "索馬利亞文"
 
 #: src/main.js:3271
-msgid "Uzbek"
-msgstr ""
+msgid "Spanish"
+msgstr "西班牙文"
 
 #: src/main.js:3272
-msgid "Vietnamese"
-msgstr ""
+msgid "Sundanese"
+msgstr "巽他文"
 
 #: src/main.js:3273
-msgid "Welsh"
-msgstr ""
+msgid "Swahili"
+msgstr "斯瓦希里文"
 
 #: src/main.js:3274
-msgid "Xhosa"
-msgstr ""
+msgid "Swedish"
+msgstr "瑞典文"
 
 #: src/main.js:3275
-msgid "Yiddish"
-msgstr ""
+msgid "Tagalog (Filipino)"
+msgstr "塔加路文 (菲律賓文)"
 
 #: src/main.js:3276
-msgid "Yoruba"
-msgstr ""
+msgid "Tajik"
+msgstr "塔吉克文"
 
 #: src/main.js:3277
+msgid "Tamil"
+msgstr "泰米爾文"
+
+#: src/main.js:3278
+msgid "Telugu"
+msgstr "泰盧固文"
+
+#: src/main.js:3279
+msgid "Thai"
+msgstr "泰文"
+
+#: src/main.js:3280
+msgid "Turkish"
+msgstr "土耳其文"
+
+#: src/main.js:3281
+msgid "Ukrainian"
+msgstr "烏克蘭文"
+
+#: src/main.js:3282
+msgid "Urdu"
+msgstr "烏都文"
+
+#: src/main.js:3283
+msgid "Uzbek"
+msgstr "烏茲別克文"
+
+#: src/main.js:3284
+msgid "Vietnamese"
+msgstr "越南文"
+
+#: src/main.js:3285
+msgid "Welsh"
+msgstr "威爾斯文"
+
+#: src/main.js:3286
+msgid "Xhosa"
+msgstr "柯薩文"
+
+#: src/main.js:3287
+msgid "Yiddish"
+msgstr "意第緒文"
+
+#: src/main.js:3288
+msgid "Yoruba"
+msgstr "約魯巴文"
+
+#: src/main.js:3289
 msgid "Zulu"
-msgstr ""
+msgstr "祖魯文"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:9
 msgid "Foliate is a simple and modern GTK eBook viewer."
@@ -1211,12 +1211,3 @@ msgstr "修正無效的 AppData 檔案"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:132
 msgid "Initial release"
 msgstr "首次發布"
-
-#~ msgid "Bookmark Current Location"
-#~ msgstr "將目前位置加入書籤"
-
-#~ msgid "View Full Definition"
-#~ msgstr "檢視完整定義"
-
-#~ msgid "Cursor"
-#~ msgstr "游標"
