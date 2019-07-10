@@ -81,7 +81,7 @@ GSETTINGS_SCHEMA_DIR=$PWD/run/share/glib-2.0/schemas ./run/bin/com.github.johnfa
 
 ```bash
 sudo apt install build-essential debhelper meson gettext
-dpkg-buildpackage
+dpkg-buildpackage -us -uc -nc
 ```
 
 ### Flatpak
@@ -138,6 +138,7 @@ Optional sidebar layout, with popup footnote:
 - A browserified version of [Cheerio](https://cheerio.js.org/), which is licensed under [MIT](https://github.com/cheeriojs/cheerio/blob/master/LICENSE). The browserified version is produced by
 ```bash
 npm install -g browserify
+npm install cheerio
 echo "window.cheerio = require('cheerio')" > index.js
 browserify index.js > cheerio.js
 ```
