@@ -1752,7 +1752,10 @@ class BookViewerWindow {
         this.webView = new Webkit.WebView({ settings: this.webViewSettings })
         this.webView.connect('context-menu', () => true)
 
-        this.webView.load_uri(GLib.filename_to_uri(pkg.pkgdatadir + '/assets/viewer.html', null))
+        const viewer = settings.get_boolean('disable-csp')
+            ? '/assets/viewer-nocsp.html' : '/assets/viewer.html'
+
+        this.webView.load_uri(GLib.filename_to_uri(pkg.pkgdatadir + viewer, null))
         this.webView.connect('notify::title', self => {
             const action = JSON.parse(self.title)
             if (action.type === 'can-open')
@@ -3116,6 +3119,11 @@ function main(argv) {
         ], 'footnote-enabled', x =>
             appWindows.forEach(w => w.scriptRun(`footnoteEnabled = ${x}`)))
 
+        const cspPerf = new SwitchBox([
+            _('Allow unsafe content (not recommended)'),
+            _('Enabling this will allow JavaScript and external resources to load.\nThis will pose potential security and privacy risks.'),
+        ], 'disable-csp', () => {})
+
         const themeEditor = new ThemeEditor(
             themes.get('themes', defaultThemes),
             x => {
@@ -3139,6 +3147,7 @@ function main(argv) {
         general.pack_start(selectionMultiplePerf.widget, false, true, 0)
         general.pack_start(cursorPerf.widget, false, true, 0)
         general.pack_start(footnotePerf.widget, false, true, 0)
+        general.pack_start(cspPerf.widget, false, true, 0)
         general.show_all()
         stack.add_titled(general, 'general', _('General'))
 

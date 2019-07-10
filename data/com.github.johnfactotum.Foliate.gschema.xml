@@ -136,5 +136,10 @@
             <summary>Sidebar page</summary>
             <description>Sidebar page</description>
         </key>
+        <key name="disable-csp" type="b">
+            <default>false</default>
+            <summary>Disable Content Security Policy</summary>
+            <description>If true, Content Security Policy is disabled, which would allow JavaScript and external resources to load</description>
+        </key>
 	</schema>
 </schemalist>
