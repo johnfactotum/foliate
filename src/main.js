@@ -2606,7 +2606,8 @@ class BookViewerWindow {
                 const { color, background, invert } = this.themes[theme]
 
                 webView.load_html(
-                    `<style>
+                    `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline';">
+                    <style>
                         html {
                             background: ${background};
                             color: ${color};
