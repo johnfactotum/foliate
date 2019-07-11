@@ -206,6 +206,55 @@ const display = (lastLocation, cached) => {
     rendition.on('keydown', handleKeydown)
     document.addEventListener('keydown', handleKeydown, false)
 }
+
+// adapted from https://github.com/futurepress/epub.js/blob/be24ab8b39913ae06a80809523be41509a57894a/src/epubcfi.js#L502
+const makeRangeCfi = (a, b) => {
+    const CFI = new ePub.CFI()
+    const start = CFI.parse(a), end = CFI.parse(b)
+    const cfi = {
+        range: true,
+        base: start.base,
+        path: {
+            steps: [],
+            terminal: null
+        },
+        start: start.path,
+        end: end.path
+    }
+    const len = cfi.start.steps.length
+    for (let i = 0; i < len; i++) {
+        if (CFI.equalStep(cfi.start.steps[i], cfi.end.steps[i])) {
+            if (i == len - 1) {
+                // Last step is equal, check terminals
+                if (cfi.start.terminal === cfi.end.terminal) {
+                    // CFI's are equal
+                    cfi.path.steps.push(cfi.start.steps[i])
+                    // Not a range
+                    cfi.range = false
+                }
+            } else cfi.path.steps.push(cfi.start.steps[i])
+        } else break
+    }
+    cfi.start.steps = cfi.start.steps.slice(cfi.path.steps.length)
+    cfi.end.steps = cfi.end.steps.slice(cfi.path.steps.length)
+
+    return 'epubcfi(' + CFI.segmentString(cfi.base)
+        + '!' + CFI.segmentString(cfi.path)
+        + ',' + CFI.segmentString(cfi.start)
+        + ',' + CFI.segmentString(cfi.end)
+        + ')'
+}
+
+let currentPageText
+const speakCurrentPage = () => {
+    const currentLoc = rendition.currentLocation()
+    book.getRange(makeRangeCfi(currentLoc.start.cfi, currentLoc.end.cfi))
+        .then(range => {
+            currentPageText = range.toString()
+            dispatch({ type: 'speech-start' })
+        })
+}
+
 const setupRendition = () => {
     rendition.on("layout", layout =>
         document.getElementById('divider').style.display =

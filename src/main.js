@@ -32,14 +32,16 @@ const Webkit = imports.gi.WebKit2
 const Pango = imports.gi.Pango
 const ByteArray = imports.byteArray
 
-const execCommand = argv => new Promise((resolve, reject) => {
+const execCommand = (argv, input = null, waitCheck, token) => new Promise((resolve, reject) => {
     try {
         const launcher = new Gio.SubprocessLauncher({
-            flags: Gio.SubprocessFlags.STDOUT_PIPE
+            flags: input
+                ? Gio.SubprocessFlags.STDIN_PIPE | Gio.SubprocessFlags.STDOUT_PIPE
+                : Gio.SubprocessFlags.STDOUT_PIPE
         })
         launcher.setenv('G_MESSAGES_DEBUG', '', true)
         const proc = launcher.spawnv(argv)
-        proc.communicate_utf8_async(null, null, (proc, res) => {
+        proc.communicate_utf8_async(input, null, (proc, res) => {
             try {
                 const [ok, stdout, stderr] = proc.communicate_utf8_finish(res)
                 if (!stdout) reject()
@@ -48,6 +50,11 @@ const execCommand = argv => new Promise((resolve, reject) => {
                 reject(e)
             }
         })
+        if (waitCheck) proc.wait_check_async(null, ok => ok ? resolve() : reject)
+        if (token) token.kill = () => {
+            proc.send_signal(15)
+            reject()
+        }
     } catch (e) {
         reject(e)
     }
@@ -2231,7 +2238,20 @@ class BookViewerWindow {
                             height, width, imgAlt, pixbuf, onCopy),
                         onCopy)
                 })
+                break
             }
+            case 'speech-start':
+                this.scriptGet('currentPageText', text => {
+                    this._speakToken = {}
+                    const args = [text, true, this._speakToken]
+                    execCommand(['festival', '--tts'], ...args)
+                        .catch(() => execCommand(['flatpak-spawn', '--host',
+                            'festival', '--tts'], ...args))
+                        .then(() => this.scriptRun(`
+                            rendition.next()
+                                .then(() => speakCurrentPage())`))
+                })
+                break
         }
     }
     addShortcut(accels, name, func) {
@@ -2469,6 +2489,21 @@ class BookViewerWindow {
         button.popover = popover
 
         this.menu = new Gio.Menu()
+
+        const sectionSpeak = new Gio.Menu()
+        sectionSpeak.append(_('Start Speaking'), 'win.speech-start')
+        sectionSpeak.append(_('Stop Speaking'), 'win.speech-stop')
+        this.menu.append_section(null, sectionSpeak)
+
+        const speechStartAction = new Gio.SimpleAction({ name: 'speech-start' })
+        speechStartAction.connect('activate', () =>
+            this.scriptRun('speakCurrentPage()'))
+        this.window.add_action(speechStartAction)
+
+        const speechStopAction = new Gio.SimpleAction({ name: 'speech-stop' })
+        speechStopAction.connect('activate', () =>
+            this._speakToken ? this._speakToken.kill() : null)
+        this.window.add_action(speechStopAction)
 
         const section1 = new Gio.Menu()
         section1.append(_('Fullscreen'), 'win.fullscreen')
