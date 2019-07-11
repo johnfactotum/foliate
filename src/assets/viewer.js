@@ -334,6 +334,10 @@ const setupRendition = () => {
 
         contents.document.onmouseup = () => {
             const selection = contents.window.getSelection()
+
+            if (!selection.rangeCount)
+                return // see https://stackoverflow.com/q/22935320
+
             const range = selection.getRangeAt(0)
             if (range.collapsed) return
 
