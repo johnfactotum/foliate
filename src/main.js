@@ -50,7 +50,7 @@ const execCommand = (argv, input = null, waitCheck, token) => new Promise((resol
                 reject(e)
             }
         })
-        if (waitCheck) proc.wait_check_async(null, ok => ok ? resolve() : reject)
+        if (waitCheck) proc.wait_check_async(null, ok => ok ? resolve() : reject(new Error()))
         if (token) token.interrupt = () => {
             proc.send_signal(2)
             reject()
