@@ -2047,6 +2047,7 @@ class BookViewerWindow {
                 this.bookmarks.update(payload.cfi)
                 this.navbar.setAtStart(payload.atStart)
                 this.navbar.setAtEnd(payload.atEnd)
+                this.atEnd = payload.atEnd
                 this.storage.set('lastLocation', payload.cfi)
                 if (this.webView.opacity === 0) {
                     if (this._hack) this._hack.destroy()
@@ -2250,7 +2251,7 @@ class BookViewerWindow {
                     this._ttsToken = {}
                     const args = [text, true, this._ttsToken]
                     execCommand(this._ttsCommand, ...args)
-                        .then(() => this.scriptRun(`
+                        .then(() => this.atEnd ? null : this.scriptRun(`
                             rendition.next()
                                 .then(() => speakCurrentPage())`))
                 })
