@@ -2034,6 +2034,7 @@ class BookViewerWindow {
                     if (payload) this.scriptGet('coverBase64', coverBase64 =>
                         this.buildProperties(metadata, coverBase64))
                     else this.buildProperties(metadata)
+                    this.buildTTS()
                 })
                 break
             case 'locations-generated':
@@ -2242,11 +2243,9 @@ class BookViewerWindow {
             }
             case 'speech-start':
                 this.scriptGet('currentPageText', text => {
-                    this._speakToken = {}
-                    const args = [text, true, this._speakToken]
-                    execCommand(['festival', '--tts'], ...args)
-                        .catch(() => execCommand(['flatpak-spawn', '--host',
-                            'festival', '--tts'], ...args))
+                    this._ttsToken = {}
+                    const args = [text, true, this._ttsToken]
+                    execCommand(this._ttsCommand, ...args)
                         .then(() => this.scriptRun(`
                             rendition.next()
                                 .then(() => speakCurrentPage())`))
@@ -2490,21 +2489,6 @@ class BookViewerWindow {
 
         this.menu = new Gio.Menu()
 
-        const sectionSpeak = new Gio.Menu()
-        sectionSpeak.append(_('Start Speaking'), 'win.speech-start')
-        sectionSpeak.append(_('Stop Speaking'), 'win.speech-stop')
-        this.menu.append_section(null, sectionSpeak)
-
-        const speechStartAction = new Gio.SimpleAction({ name: 'speech-start' })
-        speechStartAction.connect('activate', () =>
-            this.scriptRun('speakCurrentPage()'))
-        this.window.add_action(speechStartAction)
-
-        const speechStopAction = new Gio.SimpleAction({ name: 'speech-stop' })
-        speechStopAction.connect('activate', () =>
-            this._speakToken ? this._speakToken.interrupt() : null)
-        this.window.add_action(speechStopAction)
-
         const section1 = new Gio.Menu()
         section1.append(_('Fullscreen'), 'win.fullscreen')
         section1.append(_('Reading Progress Bar'), 'win.navbar')
@@ -2577,6 +2561,29 @@ class BookViewerWindow {
         closeAction.connect('activate', () => this.window.close())
         this.window.add_action(closeAction)
         this.application.set_accels_for_action('win.close', ['<Control>w'])
+    }
+    buildTTS() {
+        const populateMenu = command => {
+            this._ttsCommand = command
+            const sectionSpeak = new Gio.Menu()
+            sectionSpeak.append(_('Start Speaking'), 'win.speech-start')
+            sectionSpeak.append(_('Stop Speaking'), 'win.speech-stop')
+            this.menu.insert_section(1, null, sectionSpeak)
+
+            const speechStartAction = new Gio.SimpleAction({ name: 'speech-start' })
+            speechStartAction.connect('activate', () =>
+                this.scriptRun('speakCurrentPage()'))
+            this.window.add_action(speechStartAction)
+
+            const speechStopAction = new Gio.SimpleAction({ name: 'speech-stop' })
+            speechStopAction.connect('activate', () =>
+                this._ttsToken ? this._ttsToken.interrupt() : null)
+            this.window.add_action(speechStopAction)
+        }
+        execCommand(['festival', '--version'])
+            .then(() => populateMenu(['festival', '--tts']))
+            .catch(() => execCommand(['flatpak-spawn', '--host', 'festival', '--version'])
+                .then(() => populateMenu(['flatpak-spawn', '--host', 'festival', '--tts'])))
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
