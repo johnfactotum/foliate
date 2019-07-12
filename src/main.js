@@ -2568,25 +2568,24 @@ class BookViewerWindow {
         this.application.set_accels_for_action('win.close', ['<Control>w'])
     }
     buildTTS(command) {
+        if (!command) return
+
         const [ok, argv] = GLib.shell_parse_argv(command)
-        const populateMenu = argv => {
-            this._ttsCommand = argv
-            const sectionSpeak = new Gio.Menu()
-            sectionSpeak.append(_('Start Speaking'), 'win.speech-start')
-            sectionSpeak.append(_('Stop Speaking'), 'win.speech-stop')
-            this.menu.insert_section(1, null, sectionSpeak)
+        this._ttsCommand = argv
+        const sectionSpeak = new Gio.Menu()
+        sectionSpeak.append(_('Start Speaking'), 'win.speech-start')
+        sectionSpeak.append(_('Stop Speaking'), 'win.speech-stop')
+        this.menu.insert_section(0, null, sectionSpeak)
 
-            const speechStartAction = new Gio.SimpleAction({ name: 'speech-start' })
-            speechStartAction.connect('activate', () =>
-                this.scriptRun('speakCurrentPage()'))
-            this.window.add_action(speechStartAction)
+        const speechStartAction = new Gio.SimpleAction({ name: 'speech-start' })
+        speechStartAction.connect('activate', () =>
+            this.scriptRun('speakCurrentPage()'))
+        this.window.add_action(speechStartAction)
 
-            const speechStopAction = new Gio.SimpleAction({ name: 'speech-stop' })
-            speechStopAction.connect('activate', () =>
-                this._ttsToken ? this._ttsToken.interrupt() : null)
-            this.window.add_action(speechStopAction)
-        }
-        execCommand(argv, ' ', true).then(() => populateMenu(argv))
+        const speechStopAction = new Gio.SimpleAction({ name: 'speech-stop' })
+        speechStopAction.connect('activate', () =>
+            this._ttsToken ? this._ttsToken.interrupt() : null)
+        this.window.add_action(speechStopAction)
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
