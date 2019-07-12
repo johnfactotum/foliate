@@ -32,7 +32,9 @@ const Webkit = imports.gi.WebKit2
 const Pango = imports.gi.Pango
 const ByteArray = imports.byteArray
 
+const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
 const execCommand = (argv, input = null, waitCheck, token) => new Promise((resolve, reject) => {
+    if (flatpakSpawn) argv = [flatpakSpawn, '--host', ...argv]
     try {
         const launcher = new Gio.SubprocessLauncher({
             flags: input
@@ -232,14 +234,12 @@ const DICTS = {
     },
 }
 
-const makeDictdDict = (id, name, flatpak) => ({
+const makeDictdDict = (id, name) => ({
     name,
     noWrap: true,
     lookup: (word, language, callback) => {
         try {
-            const command = flatpak
-                ? ['flatpak-spawn', '--host', 'dict', '-d', id, word]
-                : ['dict', '-d', id, word]
+            const command = ['dict', '-d', id, word]
             execCommand(command).then(stdout => {
                 callback(null, stdout)
             }).catch(() => callback(new Error()))
@@ -248,19 +248,13 @@ const makeDictdDict = (id, name, flatpak) => ({
         }
     }
 })
-const populateDictdDicts = (stdout, flatpak) =>
-    parseDictDbs(stdout).forEach(db =>
-        DICTS['dcitd_' + db.id] = makeDictdDict(db.id, db.name, flatpak))
-
 const parseDictDbs = x => x.split('\n').filter(x => x).map(row => {
     const cols = row.split('\t')
     return { id: cols[2], name: cols[3] }
 })
 execCommand(['dict', '--dbs', '--formatted'])
-    .then(stdout => populateDictdDicts(stdout, false))
-    .catch(() => execCommand(
-        ['flatpak-spawn', '--host', 'dict', '--dbs', '--formatted']))
-    .then(stdout => populateDictdDicts(stdout, true))
+    .then(stdout => parseDictDbs(stdout).forEach(db =>
+        DICTS['dcitd_' + db.id] = makeDictdDict(db.id, db.name)))
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const USE_SIDEBAR = settings.get_boolean('use-sidebar')
@@ -2592,8 +2586,6 @@ class BookViewerWindow {
         }
         execCommand(['festival', '--version'])
             .then(() => populateMenu(['festival', '--tts']))
-            .catch(() => execCommand(['flatpak-spawn', '--host', 'festival', '--version'])
-                .then(() => populateMenu(['flatpak-spawn', '--host', 'festival', '--tts'])))
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
