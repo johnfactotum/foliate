@@ -51,8 +51,8 @@ const execCommand = (argv, input = null, waitCheck, token) => new Promise((resol
             }
         })
         if (waitCheck) proc.wait_check_async(null, ok => ok ? resolve() : reject)
-        if (token) token.kill = () => {
-            proc.send_signal(15)
+        if (token) token.interrupt = () => {
+            proc.send_signal(2)
             reject()
         }
     } catch (e) {
@@ -2502,7 +2502,7 @@ class BookViewerWindow {
 
         const speechStopAction = new Gio.SimpleAction({ name: 'speech-stop' })
         speechStopAction.connect('activate', () =>
-            this._speakToken ? this._speakToken.kill() : null)
+            this._speakToken ? this._speakToken.interrupt() : null)
         this.window.add_action(speechStopAction)
 
         const section1 = new Gio.Menu()
