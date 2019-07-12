@@ -1716,6 +1716,8 @@ class BookViewerWindow {
             settings.set_int('window-width', windowWidth)
             settings.set_int('window-height', windowHeight)
             settings.set_boolean('window-maximized', windowMaximized)
+
+            if (this._ttsToken) this._ttsToken.interrupt()
         })
 
         this.activateTheme()
