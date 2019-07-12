@@ -2030,7 +2030,7 @@ class BookViewerWindow {
                     if (payload) this.scriptGet('coverBase64', coverBase64 =>
                         this.buildProperties(metadata, coverBase64))
                     else this.buildProperties(metadata)
-                    this.buildTTS()
+                    this.buildTTS(settings.get_string('tts-command'))
                 })
                 break
             case 'locations-generated':
@@ -2566,9 +2566,10 @@ class BookViewerWindow {
         this.window.add_action(closeAction)
         this.application.set_accels_for_action('win.close', ['<Control>w'])
     }
-    buildTTS() {
-        const populateMenu = command => {
-            this._ttsCommand = command
+    buildTTS(command) {
+        const [ok, argv] = GLib.shell_parse_argv(command)
+        const populateMenu = argv => {
+            this._ttsCommand = argv
             const sectionSpeak = new Gio.Menu()
             sectionSpeak.append(_('Start Speaking'), 'win.speech-start')
             sectionSpeak.append(_('Stop Speaking'), 'win.speech-stop')
@@ -2584,8 +2585,7 @@ class BookViewerWindow {
                 this._ttsToken ? this._ttsToken.interrupt() : null)
             this.window.add_action(speechStopAction)
         }
-        execCommand(['festival', '--version'])
-            .then(() => populateMenu(['festival', '--tts']))
+        execCommand(argv, ' ', true).then(() => populateMenu(argv))
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()

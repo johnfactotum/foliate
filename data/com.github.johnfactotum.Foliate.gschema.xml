@@ -81,6 +81,11 @@
             <summary>Target Language</summary>
             <description>Target language for translations</description>
         </key>
+        <key name="tts-command" type="s">
+            <default>'espeak'</default>
+            <summary>TTS command</summary>
+            <description>Command to execute for Text-to-Speech</description>
+        </key>
         <key name="autohide-cursor" enum="com.github.johnfactotum.Foliate.AutohideCursor">
             <default>'fullscreen'</default>
             <summary>Auto-hide cursor</summary>
