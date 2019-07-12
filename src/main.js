@@ -2245,6 +2245,14 @@ class BookViewerWindow {
             }
             case 'speech-start':
                 this.scriptGet('currentPageText', text => {
+                    text = text
+                        .replace(/“|”/g, '"')
+                        .replace(/‛|’/g, "'")
+                        .replace(/–/g, '--')
+                        .replace(/—/g, '---')
+                        .replace(/…/g, '...')
+                        .replace(/\xa0/g, ' ')
+                        .replace(/\n/g, '; ')
                     this._ttsToken = {}
                     const args = [text, true, this._ttsToken]
                     execCommand(this._ttsCommand, ...args)
