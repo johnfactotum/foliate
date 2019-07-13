@@ -2610,6 +2610,10 @@ class BookViewerWindow {
         update()
         const connection = settings.connect('changed::tts-command', update)
         button.connect('destroy', () => settings.disconnect(connection))
+
+        this.addShortcut(['F5'], 'text-to-speech', () =>
+            button.visible ? button.active = !button.active : null)
+
         return button
     }
     buildProperties(metadata, coverBase64) {
@@ -3063,6 +3067,8 @@ function main(argv) {
             ] : [
                 { accelerator: 'F9', title: _('Show table of contents') }
             ]
+        const ttsShortcuts = !!settings.get_string('tts-command')
+            ? [{ accelerator: 'F5', title: _('Start/stop text-to-speech') }] : []
         const shortcutsGroups = [
             {
                 title: _('General'),
@@ -3073,6 +3079,7 @@ function main(argv) {
                     { accelerator: '<control>d', title: _('Bookmark current location') },
                     { accelerator: '<control>f', title: _('Find in book') },
                     { accelerator: 'F10', title: _('Show menu') },
+                    ...ttsShortcuts,
                     { accelerator: '<control>w', title: _('Close current window') },
                     { accelerator: '<control>q', title: _('Quit') }
                 ]
