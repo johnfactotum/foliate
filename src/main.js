@@ -2606,6 +2606,7 @@ class BookViewerWindow {
             const command = settings.get_string('tts-command')
             this._ttsCommand = command ? GLib.shell_parse_argv(command)[1] : null
             button.visible = !!command
+            if (button.active) button.active = false
         }
         update()
         const connection = settings.connect('changed::tts-command', update)
