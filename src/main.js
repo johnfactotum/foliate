@@ -2308,6 +2308,9 @@ class BookViewerWindow {
             this.viewPopover.decFont())
         this.addShortcut(['plus', 'equal', '<Control>plus', '<Control>equal'],
             'font-inc', () => this.viewPopover.incFont())
+
+        this.addShortcut(['<Control>v'], 'view-popover', () =>
+            button.active = !button.active)
     }
     updateThemes(themes) {
         this.themes = themes
@@ -2388,16 +2391,21 @@ class BookViewerWindow {
 
         this.addShortcut(['F9'], 'sidebar', () =>
             button.active = !button.active)
-        this.addShortcut(['<Control>b'], 'bookmark-popover', () => {
-            if (button.active) {
-                if (stack.visible_child_name !== 'bookmarks')
-                    stack.visible_child_name = 'bookmarks'
-                else button.active = false
-            } else {
-                stack.visible_child_name = 'bookmarks'
-                button.active = true
-            }
-        })
+
+        const addPageShortcut = (shortcut, page) =>
+            this.addShortcut(shortcut, page +'-sidebar', () => {
+                if (button.active) {
+                    if (stack.visible_child_name !== page)
+                        stack.visible_child_name = page
+                    else button.active = false
+                } else {
+                    stack.visible_child_name = page
+                    button.active = true
+                }
+            })
+        addPageShortcut(['<Control>t'], 'toc')
+        addPageShortcut(['<Control>a'], 'annotations')
+        addPageShortcut(['<Control>b'], 'bookmarks')
         this.addShortcut(['<Control>d'], 'bookmark-add', () =>
             this.bookmarks.doButtonAction())
     }
@@ -2457,7 +2465,11 @@ class BookViewerWindow {
 
         this.addShortcut(['F9'], 'toc-popover', () =>
             tocButton.active = !tocButton.active)
-        this.addShortcut(['<Control>b'], 'bookmark-popover', () =>
+        this.addShortcut(['<Control>t'], 'toc-popover', () =>
+            tocButton.active = !tocButton.active)
+        this.addShortcut(['<Control>a'], 'annotations-popover', () =>
+            annotationsButton.active = !annotationsButton.active)
+        this.addShortcut(['<Control>b'], 'bookmarks-popover', () =>
             bookmarksButton.active = !bookmarksButton.active)
         this.addShortcut(['<Control>d'], 'bookmark-add', () =>
             this.bookmarks.doButtonAction())
@@ -3044,12 +3056,19 @@ function main(argv) {
 
     const actionShortcuts = new Gio.SimpleAction({ name: 'shortcuts' })
     actionShortcuts.connect('activate', () => {
+        const tocShortcuts = USE_SIDEBAR
+            ? [
+                { accelerator: 'F9', title: _('Toggle sidebar') },
+                { accelerator: '<control>t', title: _('Show table of contents') }
+            ] : [
+                { accelerator: 'F9', title: _('Show table of contents') }
+            ]
         const shortcutsGroups = [
             {
                 title: _('General'),
                 shortcuts: [
-                    { accelerator: 'F9', title: USE_SIDEBAR
-                        ? _('Toggle sidebar') : _('Show table of contents') },
+                    ...tocShortcuts,
+                    { accelerator: '<control>a', title: _('Show annotations') },
                     { accelerator: '<control>b', title: _('Show bookmarks') },
                     { accelerator: '<control>d', title: _('Bookmark current location') },
                     { accelerator: '<control>f', title: _('Find in book') },
@@ -3069,6 +3088,7 @@ function main(argv) {
             {
                 title: _('View'),
                 shortcuts: [
+                    { accelerator: '<control>v', title: _('Show viewing options') },
                     { accelerator: 'plus', title: _('Increase font size') },
                     { accelerator: 'minus', title: _('Decrease font size') },
                     { accelerator: 'F11', title: _('Toggle fullscreen') },
