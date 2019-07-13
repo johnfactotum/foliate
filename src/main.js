@@ -2693,6 +2693,21 @@ class BookViewerWindow {
     buildExport(metadata) {
         const action = new Gio.SimpleAction({ name: 'export' })
         action.connect('activate', () => {
+            const data = this.storage.data
+            if (!data.annotations || !data.annotations.length) {
+                const msg = new Gtk.MessageDialog({
+                    text: _('No annotations'),
+                    secondary_text: _("You don't have any annotations for this book.")
+                        + '\n' + _('Hightlight some text to add annotations.'),
+                    message_type: Gtk.MessageType.INFO,
+                    buttons: [Gtk.ButtonsType.OK],
+                    modal: true,
+                    transient_for: this.window
+                })
+                msg.run()
+                msg.destroy()
+                return
+            }
             const window = new Gtk.Dialog({
                 title: _('Export Annotations'),
                 modal: true,
@@ -2727,8 +2742,6 @@ class BookViewerWindow {
                 dialog.set_current_name(_('Annotations for %s').format(title) + '.' + format)
                 const response = dialog.run()
                 if (response === Gtk.ResponseType.ACCEPT) {
-                    const data = this.storage.data
-
                     let contents = ''
                     switch (format) {
                         case 'json':
@@ -2741,7 +2754,6 @@ class BookViewerWindow {
                             contents = exportToTxt(data)
                             break
                     }
-
                     const file = Gio.File.new_for_path(dialog.get_filename())
                     file.replace_contents(contents, null, false,
                         Gio.FileCreateFlags.REPLACE_DESTINATION, null)
