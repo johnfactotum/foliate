@@ -306,6 +306,9 @@ class Storage {
         this._data[property] = value
         this._write(this._data)
     }
+    get data() {
+        return JSON.parse(JSON.stringify(this._data))
+    }
 }
 
 class Navbar {
@@ -796,7 +799,7 @@ class SwitchBox {
     }
 }
 class ComboBoxBox {
-    constructor(label, key, items, onChange, withEntry) {
+    constructor(label, key, items, onChange, withEntry, activeId) {
         const comboLabel = typeof label === 'string'
             ? new Gtk.Label({ label }) : new TitleAndDesc(label[0], label[1]).widget
         const combo =  withEntry
@@ -807,12 +810,14 @@ class ComboBoxBox {
             ? text => combo.append_text(text)
             : ([id, text]) => combo.append(id, text))
 
+        if (activeId) combo.active_id = activeId
+
         if (withEntry) {
-            combo.connect('changed', () => onChange(combo.get_child().text))
-            settings.bind(key, combo.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT)
+           if (onChange) combo.connect('changed', () => onChange(combo.get_child().text))
+           if (key)  settings.bind(key, combo.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT)
         } else {
-            combo.connect('changed', () => onChange(combo.active_id))
-            settings.bind(key, combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
+            if (onChange) combo.connect('changed', () => onChange(combo.active_id))
+            if (key)  settings.bind(key, combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
         }
 
         const box = new Gtk.Box({ spacing: 6 })
@@ -1845,19 +1850,26 @@ class BookViewerWindow {
         this.window.connect('destroy', () =>
             settings.set_string('last-file', this.fileName))
 
-        this.scriptGet('book.package.metadata.title', title =>
-            this.headerBar.title = title)
+        this.scriptGet('book.package.metadata', metadata => {
+            this.headerBar.title = metadata.title
 
-        this.scriptGet('book.package.metadata.identifier', key => {
-            this.storage = new Storage(key)
-            this.cache = new Storage(key, 'cache')
+            this.storage = new Storage(metadata.identifier)
+            this.cache = new Storage(metadata.identifier, 'cache')
 
             const lastLocation = this.storage.get('lastLocation')
             const display = lastLocation ? `"${lastLocation}"` : 'undefined'
             const cached = this.cache.get('locations')
 
             this.scriptRun(`display(${display}, ${cached || null})`)
+
+            this.storage.set('metadata', metadata)
+            this.buildExport(metadata)
         })
+
+        const section = new Gio.Menu()
+        section.append(_('About This Book'), 'win.properties')
+        section.append(_('Export Annotations…'), 'win.export')
+        this.menu.prepend_section(null, section)
     }
     bookDisplayed() {
         this.setAutohideCursor()
@@ -2617,11 +2629,62 @@ class BookViewerWindow {
 
         return button
     }
-    buildProperties(metadata, coverBase64) {
-        const section = new Gio.Menu()
-        section.append(_('About This Book'), 'win.properties')
-        this.menu.prepend_section(null, section)
+    buildExport(metadata) {
+        const action = new Gio.SimpleAction({ name: 'export' })
+        action.connect('activate', () => {
+            const window = new Gtk.Dialog({
+                title: _('Export Annotations'),
+                modal: true,
+                use_header_bar: true
+            })
 
+            window.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+            window.add_button(_('Export'), Gtk.ResponseType.ACCEPT)
+            window.set_default_response(Gtk.ResponseType.ACCEPT)
+
+            let format = 'json'
+            const combo = new ComboBoxBox(_('Choose export format:'), null, [
+                //['html', _('HTML')],
+                //['txt', _('Plain Text')],
+                ['json', _('JSON')]
+            ], x => format = x, false, format)
+
+            const container = window.get_content_area()
+            container.border_width = 18
+            container.pack_start(combo.widget, false, true, 0)
+
+            window.set_transient_for(this.window)
+            window.show_all()
+
+            const response = window.run()
+            if (response === Gtk.ResponseType.ACCEPT) {
+                const dialog = new Gtk.FileChooserNative({
+                    title: _('Save File'),
+                    action: Gtk.FileChooserAction.SAVE
+                })
+                const title = metadata.title
+                dialog.set_current_name(_('Annotations for %s').format(title) + '.' + format)
+                const response = dialog.run()
+                if (response === Gtk.ResponseType.ACCEPT) {
+                    const data = this.storage.data
+
+                    let contents = ''
+                    switch (format) {
+                        case 'json':
+                            contents = JSON.stringify(data, null, 2)
+                            break;
+                    }
+
+                    const file = Gio.File.new_for_path(dialog.get_filename())
+                    file.replace_contents(contents, null, false,
+                        Gio.FileCreateFlags.REPLACE_DESTINATION, null)
+                }
+                window.close()
+            } else window.close()
+        })
+        this.window.add_action(action)
+    }
+    buildProperties(metadata, coverBase64) {
         const action = new Gio.SimpleAction({ name: 'properties' })
         action.connect('activate', () => {
             let image
