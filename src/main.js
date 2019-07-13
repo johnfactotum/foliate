@@ -311,6 +311,66 @@ class Storage {
     }
 }
 
+const exportToHTML = data => `<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+    max-width: 720px;
+    padding: 10px;
+    margin: auto;
+}
+header {
+    text-align: center;
+}
+hr {
+    border: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+}
+.cfi {
+    font-size: small;
+    opacity: 0.5;
+    font-family: monospace;
+}
+blockquote {
+    margin: 0;
+    padding-left: 15px;
+    border-left: 7px solid;
+}
+</style>
+<header>
+${_('<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>')
+.format(data.metadata.title, data.metadata.creator)}
+</header>
+<p>${ngettext('%d Annotation', '%d Annotations', data.annotations.length).
+format(data.annotations.length)}</p>
+${data.annotations.map(({ value, text, color, note }) => `<hr>
+<section>
+    <p class="cfi">${value}</p>
+    <blockquote style="border-color: ${color};">${text}</blockquote>
+    ${note ? `<p>${note}</p>` : ''}
+</section>
+`).join('')}
+`
+
+const exportToTxt = data => `${_('Annotations for\n%s\nBy %s')
+.format(data.metadata.title, data.metadata.creator)}
+
+${ngettext('%d Annotation', '%d Annotations', data.annotations.length).
+format(data.annotations.length)}
+${data.annotations.map(({ value, text, color, note }) => `
+--------------------------------------------------------------------------------
+
+${_('Text:')}
+${text}
+${note ? `
+${_('Note:')}
+${note}
+` : ''}`).join('')}
+`
+
+
 class Navbar {
     constructor(ttsButton, onSlide, onPrev, onNext, onBack) {
         this._percentage = NaN
@@ -2642,10 +2702,10 @@ class BookViewerWindow {
             window.add_button(_('Export'), Gtk.ResponseType.ACCEPT)
             window.set_default_response(Gtk.ResponseType.ACCEPT)
 
-            let format = 'json'
+            let format = 'html'
             const combo = new ComboBoxBox(_('Choose export format:'), null, [
-                //['html', _('HTML')],
-                //['txt', _('Plain Text')],
+                ['html', _('HTML')],
+                ['txt', _('Plain Text')],
                 ['json', _('JSON')]
             ], x => format = x, false, format)
 
@@ -2672,7 +2732,13 @@ class BookViewerWindow {
                     switch (format) {
                         case 'json':
                             contents = JSON.stringify(data, null, 2)
-                            break;
+                            break
+                        case 'html':
+                            contents = exportToHTML(data)
+                            break
+                        case 'txt':
+                            contents = exportToTxt(data)
+                            break
                     }
 
                     const file = Gio.File.new_for_path(dialog.get_filename())
