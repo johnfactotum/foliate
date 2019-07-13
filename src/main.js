@@ -256,6 +256,10 @@ execCommand(['dict', '--dbs', '--formatted'])
     .then(stdout => parseDictDbs(stdout).forEach(db =>
         DICTS['dcitd_' + db.id] = makeDictdDict(db.id, db.name)))
 
+const TTS_COMMANDS = ['']
+execCommand(['espeak', '--version']).then(() => TTS_COMMANDS.push('espeak'))
+execCommand(['festival', '--version']).then(() => TTS_COMMANDS.push('festival --tts'))
+
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const USE_SIDEBAR = settings.get_boolean('use-sidebar')
 
@@ -305,7 +309,7 @@ class Storage {
 }
 
 class Navbar {
-    constructor(onSlide, onPrev, onNext, onBack) {
+    constructor(ttsButton, onSlide, onPrev, onNext, onBack) {
         this._percentage = NaN
         this._history = []
 
@@ -321,23 +325,29 @@ class Navbar {
         this._prevButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'go-previous-symbolic' }),
             tooltip_text: _('Previous page'),
-            sensitive: false
+            sensitive: false,
+            visible: true
         })
         this._nextButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'go-next-symbolic' }),
             tooltip_text: _('Next page'),
-            sensitive: false
+            sensitive: false,
+            visible: true
         })
 
-        const box = new Gtk.Box({ hexpand: true })
-        this._pendingLabel = new Gtk.Image({ icon_name: 'content-loading-symbolic' })
+        const box = new Gtk.Box({ hexpand: true, visible: true })
+        this._pendingLabel = new Gtk.Image({
+            icon_name: 'content-loading-symbolic',
+            visible: true
+        })
         box.pack_start(this._pendingLabel, true, true, 0)
         box.pack_start(this._slider, true, true, 0)
 
         this._backButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'edit-undo-symbolic' }),
             tooltip_text: _('Go back'),
-            sensitive: false
+            sensitive: false,
+            visible: true
         })
 
         this.goBack = () => {
@@ -347,10 +357,11 @@ class Navbar {
         }
         this._backButton.connect('clicked', this.goBack)
 
-        this.widget = new Gtk.ActionBar()
+        this.widget = new Gtk.ActionBar({ visible: true })
         this.widget.pack_start(this._prevButton)
         this.widget.pack_start(this._backButton)
         this.widget.pack_end(this._nextButton)
+        this.widget.pack_end(ttsButton)
         this.widget.pack_end(box)
 
         this._slider.connect('button-release-event', () => {
@@ -360,10 +371,6 @@ class Navbar {
         this._slider.connect('value-changed', () => this.updateReadingTime())
         this._prevButton.connect('clicked', () => onPrev())
         this._nextButton.connect('clicked', () => onNext())
-    }
-    setPending() {
-        this._slider.hide()
-        this._pendingLabel.show()
     }
     setReady({ percentage, total, language }) {
         this._total = total
@@ -789,14 +796,24 @@ class SwitchBox {
     }
 }
 class ComboBoxBox {
-    constructor(label, key, items, onChange) {
+    constructor(label, key, items, onChange, withEntry) {
         const comboLabel = typeof label === 'string'
             ? new Gtk.Label({ label }) : new TitleAndDesc(label[0], label[1]).widget
-        const combo = new Gtk.ComboBoxText()
-        items.forEach(([id, text]) => combo.insert(-1, id, text))
-        combo.connect('changed', () => onChange(combo.active_id))
+        const combo =  withEntry
+            ? Gtk.ComboBoxText.new_with_entry()
+            : new Gtk.ComboBoxText()
+        combo.valign = Gtk.Align.CENTER
+        items.forEach(withEntry
+            ? text => combo.append_text(text)
+            : ([id, text]) => combo.append(id, text))
 
-        settings.bind(key, combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
+        if (withEntry) {
+            combo.connect('changed', () => onChange(combo.get_child().text))
+            settings.bind(key, combo.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT)
+        } else {
+            combo.connect('changed', () => onChange(combo.active_id))
+            settings.bind(key, combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
+        }
 
         const box = new Gtk.Box({ spacing: 6 })
         box.pack_start(comboLabel, false, false, 0)
@@ -2030,7 +2047,6 @@ class BookViewerWindow {
                     if (payload) this.scriptGet('coverBase64', coverBase64 =>
                         this.buildProperties(metadata, coverBase64))
                     else this.buildProperties(metadata)
-                    this.buildTTS(settings.get_string('tts-command'))
                 })
                 break
             case 'locations-generated':
@@ -2447,15 +2463,13 @@ class BookViewerWindow {
             this.bookmarks.doButtonAction())
     }
     buildNavbar(onSlide, onPrev, onNext, onBack) {
-        this.navbar = new Navbar(onSlide, onPrev, onNext, onBack)
-        this.navbar.widget.show_all()
+        this.navbar = new Navbar(this.buildTTS(), onSlide, onPrev, onNext, onBack)
         if (!settings.get_boolean('show-navbar')) {
             this.navbar.widget.hide()
             // HACK: stuff breaks without another non-zero-sized widget in `this.container`
             this._hack = new Gtk.Box({ height_request: 1, visible: true })
             this.container.pack_start(this._hack, false, true, 0)
         }
-        this.navbar.setPending()
         this.container.pack_end(this.navbar.widget, false, true, 0)
 
         this.addShortcut(['p', 'h'], 'go-prev', onPrev)
@@ -2567,25 +2581,24 @@ class BookViewerWindow {
         this.window.add_action(closeAction)
         this.application.set_accels_for_action('win.close', ['<Control>w'])
     }
-    buildTTS(command) {
-        if (!command) return
-
-        const [ok, argv] = GLib.shell_parse_argv(command)
-        this._ttsCommand = argv
-        const sectionSpeak = new Gio.Menu()
-        sectionSpeak.append(_('Start Speaking'), 'win.speech-start')
-        sectionSpeak.append(_('Stop Speaking'), 'win.speech-stop')
-        this.menu.insert_section(0, null, sectionSpeak)
-
-        const speechStartAction = new Gio.SimpleAction({ name: 'speech-start' })
-        speechStartAction.connect('activate', () =>
-            this.scriptRun('speakCurrentPage()'))
-        this.window.add_action(speechStartAction)
-
-        const speechStopAction = new Gio.SimpleAction({ name: 'speech-stop' })
-        speechStopAction.connect('activate', () =>
-            this._ttsToken ? this._ttsToken.interrupt() : null)
-        this.window.add_action(speechStopAction)
+    buildTTS() {
+        const button = new Gtk.ToggleButton({
+            image: new Gtk.Image({ icon_name: 'audio-headphones-symbolic' }),
+            tooltip_text: _('Text-to-speech')
+        })
+        button.connect('toggled', () => {
+            if (button.active) this.scriptRun('speakCurrentPage()')
+            else this._ttsToken ? this._ttsToken.interrupt() : null
+        })
+        const update = () => {
+            const command = settings.get_string('tts-command')
+            this._ttsCommand = command ? GLib.shell_parse_argv(command)[1] : null
+            button.visible = !!command
+        }
+        update()
+        const connection = settings.connect('changed::tts-command', update)
+        button.connect('destroy', () => settings.disconnect(connection))
+        return button
     }
     buildProperties(metadata, coverBase64) {
         const section = new Gio.Menu()
@@ -3170,6 +3183,11 @@ function main(argv) {
             _('Enabling this will allow JavaScript and external resources to load.\nThis will pose potential security and privacy risks.'),
         ], 'disable-csp', () => {})
 
+        const ttsPerf = new ComboBoxBox([
+                _('Text-to-speech command'),
+                _('Leave blank to disable text-to-speech.')
+            ], 'tts-command', TTS_COMMANDS, () => {}, true)
+
         const themeEditor = new ThemeEditor(
             themes.get('themes', defaultThemes),
             x => {
@@ -3194,6 +3212,7 @@ function main(argv) {
         general.pack_start(cursorPerf.widget, false, true, 0)
         general.pack_start(footnotePerf.widget, false, true, 0)
         general.pack_start(cspPerf.widget, false, true, 0)
+        general.pack_start(ttsPerf.widget, false, true, 0)
         general.show_all()
         stack.add_titled(general, 'general', _('General'))
 
