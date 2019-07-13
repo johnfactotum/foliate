@@ -3140,12 +3140,12 @@ function main(argv) {
         window.set_titlebar(headerBar)
         window.title = _('Preferences')
 
-        const sidebarPerf = new SwitchBox([
+        const sidebarPref = new SwitchBox([
             _('Use sidebar (requires restart)'),
             _('Use a sidebar to display table of contents, annotations, and bookmarks.')
         ], 'use-sidebar', () => {})
 
-        const restorePerf = new SwitchBox(
+        const restorePref = new SwitchBox(
             _('Open last opened file on startup'), 'restore-last-file', () => {})
 
         const selectionActions = [
@@ -3156,14 +3156,14 @@ function main(argv) {
             ['wikipedia', _('Lookup in Wikipedia')],
             ['translate', _('Translate')]
         ]
-        const selectionSinglePerf = new ComboBoxBox(
+        const selectionSinglePref = new ComboBoxBox(
             _('When a word is selected'),
             'selection-action-single', selectionActions, () => {})
-        const selectionMultiplePerf = new ComboBoxBox(
+        const selectionMultiplePref = new ComboBoxBox(
             _('When multiple words are selected'),
             'selection-action-multiple', selectionActions, () => {})
 
-        const cursorPerf = new ComboBoxBox(
+        const cursorPref = new ComboBoxBox(
             _('Auto-hide cursor'),
             'autohide-cursor',
             [
@@ -3172,18 +3172,18 @@ function main(argv) {
                 ['fullscreen', _('When in fullscreen mode')]
             ], x => appWindows.forEach(w => w.setAutohideCursor(x)))
 
-        const footnotePerf = new SwitchBox([
+        const footnotePref = new SwitchBox([
             _('Display non-EPUB-3 footnotes in a popover'),
             _('This feature is experimental and might not work with all books.')
         ], 'footnote-enabled', x =>
             appWindows.forEach(w => w.scriptRun(`footnoteEnabled = ${x}`)))
 
-        const cspPerf = new SwitchBox([
+        const cspPref = new SwitchBox([
             _('Allow unsafe content (not recommended)'),
             _('Enabling this will allow JavaScript and external resources to load.\nThis will pose potential security and privacy risks.'),
         ], 'disable-csp', () => {})
 
-        const ttsPerf = new ComboBoxBox([
+        const ttsPref = new ComboBoxBox([
                 _('Text-to-speech command'),
                 _('Leave blank to disable text-to-speech.')
             ], 'tts-command', TTS_COMMANDS, () => {}, true)
@@ -3205,14 +3205,14 @@ function main(argv) {
             border_width: 18,
             spacing: 18,
         })
-        general.pack_start(sidebarPerf.widget, false, true, 0)
-        general.pack_start(restorePerf.widget, false, true, 0)
-        general.pack_start(selectionSinglePerf.widget, false, true, 0)
-        general.pack_start(selectionMultiplePerf.widget, false, true, 0)
-        general.pack_start(cursorPerf.widget, false, true, 0)
-        general.pack_start(footnotePerf.widget, false, true, 0)
-        general.pack_start(cspPerf.widget, false, true, 0)
-        general.pack_start(ttsPerf.widget, false, true, 0)
+        general.pack_start(sidebarPref.widget, false, true, 0)
+        general.pack_start(restorePref.widget, false, true, 0)
+        general.pack_start(selectionSinglePref.widget, false, true, 0)
+        general.pack_start(selectionMultiplePref.widget, false, true, 0)
+        general.pack_start(cursorPref.widget, false, true, 0)
+        general.pack_start(footnotePref.widget, false, true, 0)
+        general.pack_start(cspPref.widget, false, true, 0)
+        general.pack_start(ttsPref.widget, false, true, 0)
         general.show_all()
         stack.add_titled(general, 'general', _('General'))
 
