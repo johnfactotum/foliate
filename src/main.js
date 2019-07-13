@@ -1516,7 +1516,8 @@ class LookupPopover {
                     this._label.select_region(-1, -1)
                     break
                 case 'wikipedia':
-                    if (!this._wikipediaed) this.wikipedia(word)
+                    if (!this._wikipediaed)
+                        this.wikipedia(word, (language || '').slice(0, 2).toLowerCase())
                     this._wikiLabel.select_region(-1, -1)
                     break
                 case 'translate':
@@ -1545,7 +1546,7 @@ class LookupPopover {
         lookupWikipedia(word, language, (err, results) => {
             if (err) this._wikiLabel.label = _('No entry found.')
                 + '\n'
-                + `<a href="https://en.wikipedia.org/w/index.php?search=${
+                + `<a href="https://${language}.wikipedia.org/w/index.php?search=${
                     encodeURIComponent(word)}">`
                 + _('Search on Wikipedia')
                 + '</a>'
