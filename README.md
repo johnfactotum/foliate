@@ -20,6 +20,7 @@ Website: https://johnfactotum.github.io/foliate/
 - Find in book
 - Quick dictionary lookup with [Wiktionary](https://en.wiktionary.org/), [Wikipedia](https://en.wikipedia.org/), and `dictd`, or translate text with Google Translate
 - Touchpad gestures—use two-finger swipe to turn the page
+- Basic text-to-speech support with [eSpeak NG](https://github.com/espeak-ng/espeak-ng) and [Festival](http://www.cstr.ed.ac.uk/projects/festival/)
 
 ## Installation
 
@@ -35,6 +36,8 @@ Website: https://johnfactotum.github.io/foliate/
 Auto-hyphenation is done using CSS hyphenation. To enable CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
 
 For offline dictionary support, install `dictd`.
+
+For text-to-speech support, install `espeak-ng`, or `festival`, and packages for the individual voices.
 
 ### Building manually from source
 
