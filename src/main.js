@@ -2742,6 +2742,7 @@ class BookViewerWindow {
             const combo = new ComboBoxBox(_('Choose export format:'), null, [
                 ['html', _('HTML')],
                 ['txt', _('Plain Text')],
+                ['bib', _('BibTex')],
                 ['json', _('JSON')]
             ], x => format = x, false, format)
 
@@ -2771,6 +2772,77 @@ class BookViewerWindow {
                             break
                         case 'txt':
                             contents = exportToTxt(data)
+                            break
+                        case 'bib':				
+							// Escape all Tex characters that BibTex requires
+							const badCharReplace = cont => cont.split('')
+								.map(c => {
+									switch (c) {
+										case '#':
+											return '\\#';
+										case '$':
+											return '\\$';
+										case '%':
+											return '\\%';
+										case '&':
+											return '\\&';
+										case '\\':
+											return '\\textbackslash{}';
+										case '^':
+											return '\\textasciicircum{}';
+										case '_':
+											return '\\_';
+										case '{':
+											return '\\{';
+										case '}':
+											return '\\}';
+										case '~':
+											return '\\textasciitilde{}';
+										default:
+											return c;
+									}
+							}).join('');
+
+							// When missing parameters for author, title, publisher, year
+							var bib_header = '@book{ref'
+								+ Math.round(Math.random()*7000).toString() + ':%d' + ',\n';
+
+							if (data.metadata.creator != null && typeof data.metadata.creator !== "undefined") {
+								bib_header += 'author = {%s},\n'.format(badCharReplace(data.metadata.creator));
+							} else {
+								bib_header += 'author = {unknown},\n';
+							}
+
+							if (data.metadata.title != null && typeof data.metadata.title !== "undefined") {
+								bib_header += 'title = {%s},\n'.format(badCharReplace(data.metadata.title));
+							} else {
+								bib_header += 'title = {unknown},\n';
+							}
+
+							if (data.metadata.publisher != null && typeof data.metadata.publisher !== "undefined") {
+								bib_header += 'publisher = {%s},\n'.format(badCharReplace(data.metadata.publisher));
+							} else {
+								bib_header += 'publisher = {unknown},\n';
+							}
+
+							if (data.metadata.pubdate != null
+								&& typeof data.metadata.pubdate !== "undefined") {
+								bib_header += 'year = %s,\n'
+									.format(data.metadata.pubdate.slice(0, 4));
+							} else {
+								bib_header += 'year = -1,\n';
+							}
+
+							bib_header += 'note = {%s}\n},\n\n';
+
+							var annot = '';
+							for (var i = 0;i < data.annotations.length;++i) {
+								annot = _("Quote: ") + '"%s"'.format(data.annotations[i].text);
+								if (typeof data.annotations[i].note !== 'undefined') {
+									annot += _(" Note: ") + '%s'.format(data.annotations[i].note);
+								}
+								contents += bib_header.format(i+1, badCharReplace(annot));
+							}
                             break
                     }
                     const file = Gio.File.new_for_path(dialog.get_filename())
