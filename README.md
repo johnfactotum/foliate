@@ -12,7 +12,7 @@ Website: https://johnfactotum.github.io/foliate/
 
 ## Features
 
-- View EPUB files in two-page view or scrolled view
+- View EPUB and Kindle files in two-page view or scrolled view
 - Customize font, line-spacing, margins, and brightness
 - Light, sepia, dark, and invert mode, or add your own custom themes
 - Reading progress slider with chapter marks
@@ -38,6 +38,8 @@ Auto-hyphenation is done using CSS hyphenation. To enable CSS hyphenation in Web
 For offline dictionary support, install `dictd`.
 
 For text-to-speech support, install `espeak-ng`, or `festival`, and packages for the individual voices.
+
+For Mobipocket (.mobi) and Kindle File Format (.azw, .azw3) support, you would need Python (2.7 or >= 3.4).
 
 ### Building manually from source
 
