@@ -62,6 +62,58 @@ const execCommand = (argv, input = null, waitCheck, token) => new Promise((resol
     }
 })
 
+class Storage {
+    constructor(key, type, indent) {
+        this.indent = indent
+
+        const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
+            : type === 'config' ? GLib.get_user_config_dir()
+            : GLib.get_user_data_dir()
+
+        this._destination = GLib.build_filenamev([dataDir, pkg.name,
+            `${encodeURIComponent(key)}.json`])
+        this._file = Gio.File.new_for_path(this._destination)
+
+        this._data = this._read()
+    }
+    _read() {
+        try {
+            const [success, data, tag] = this._file.load_contents(null)
+            if (success) return JSON.parse(data instanceof Uint8Array
+                ? ByteArray.toString(data) : data.toString())
+            else throw new Error()
+        } catch (e) {
+            return {}
+        }
+    }
+    _write(data) {
+        // TODO: throttle?
+        const mkdirp = GLib.mkdir_with_parents(
+            this._file.get_parent().get_path(), parseInt('0755', 8))
+        if (mkdirp === 0) {
+            const [success, tag] = this._file
+                .replace_contents(JSON.stringify(data, null, this.indent),
+                    null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null)
+            if (success) return true
+        }
+        throw new Error('Could not save file')
+    }
+    get(property, defaultValue) {
+        return property in this._data ? this._data[property] : defaultValue
+    }
+    set(property, value) {
+        this._data[property] = value
+        this._write(this._data)
+    }
+    get data() {
+        return JSON.parse(JSON.stringify(this._data))
+    }
+}
+
+const settings = new Gio.Settings({ schema_id: pkg.name })
+
+const useSidebar = settings.get_boolean('use-sidebar')
+
 const defaultThemes = {
     [_('Light')]: {
         color: '#000', background: '#fff', link: 'blue',
@@ -179,7 +231,7 @@ const lookupGTranslate = (word, language, callback) => {
     })
 }
 
-const DICTS = {
+const dictionaries = {
     wiktionary: {
         name: _('Wiktionary (English)'),
         useMarkup: true,
@@ -209,10 +261,12 @@ const DICTS = {
                 const { type, payload } = JSON.parse(self.title)
                 switch (type) {
                     case 'can-lookup':
-                        scriptRun(`queryDictionary("${encodeURIComponent(word)}", '${language}')`)
+                        scriptRun(`queryDictionary("${encodeURIComponent(word)}",
+                            '${language}')`)
                         break
                     case 'lookup-again':
-                        scriptRun(`queryDictionary("${encodeURIComponent(payload)}", '${language}')`)
+                        scriptRun(`queryDictionary("${encodeURIComponent(payload)}",
+                            '${language}')`)
                         break
                     case 'lookup-results':
                         scriptGet(`lookupResults`, results => {
@@ -254,62 +308,11 @@ const parseDictDbs = x => x.split('\n').filter(x => x).map(row => {
 })
 execCommand(['dict', '--dbs', '--formatted'])
     .then(stdout => parseDictDbs(stdout).forEach(db =>
-        DICTS['dcitd_' + db.id] = makeDictdDict(db.id, db.name)))
+        dictionaries['dcitd_' + db.id] = makeDictdDict(db.id, db.name)))
 
 const TTS_COMMANDS = ['']
 execCommand(['espeak', '--version']).then(() => TTS_COMMANDS.push('espeak'))
 execCommand(['festival', '--version']).then(() => TTS_COMMANDS.push('festival --tts'))
-
-const settings = new Gio.Settings({ schema_id: pkg.name })
-const USE_SIDEBAR = settings.get_boolean('use-sidebar')
-
-class Storage {
-    constructor(key, type, indent) {
-        this.indent = indent
-
-        const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
-            : type === 'config' ? GLib.get_user_config_dir()
-            : GLib.get_user_data_dir()
-
-        this._destination = GLib.build_filenamev([dataDir, pkg.name,
-            `${encodeURIComponent(key)}.json`])
-        this._file = Gio.File.new_for_path(this._destination)
-
-        this._data = this._read()
-    }
-    _read() {
-        try {
-            const [success, data, tag] = this._file.load_contents(null)
-            if (success) return JSON.parse(data instanceof Uint8Array
-                ? ByteArray.toString(data) : data.toString())
-            else throw new Error()
-        } catch (e) {
-            return {}
-        }
-    }
-    _write(data) {
-        // TODO: throttle?
-        const mkdirp = GLib.mkdir_with_parents(
-            this._file.get_parent().get_path(), parseInt('0755', 8))
-        if (mkdirp === 0) {
-            const [success, tag] = this._file
-                .replace_contents(JSON.stringify(data, null, this.indent),
-                    null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null)
-            if (success) return true
-        }
-        throw new Error('Could not save file')
-    }
-    get(property, defaultValue) {
-        return property in this._data ? this._data[property] : defaultValue
-    }
-    set(property, value) {
-        this._data[property] = value
-        this._write(this._data)
-    }
-    get data() {
-        return JSON.parse(JSON.stringify(this._data))
-    }
-}
 
 const exportToHTML = data => `<!DOCTYPE html>
 <meta charset="utf-8">
@@ -874,10 +877,10 @@ class ComboBoxBox {
 
         if (withEntry) {
            if (onChange) combo.connect('changed', () => onChange(combo.get_child().text))
-           if (key)  settings.bind(key, combo.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT)
+           if (key) settings.bind(key, combo.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT)
         } else {
             if (onChange) combo.connect('changed', () => onChange(combo.active_id))
-            if (key)  settings.bind(key, combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
+            if (key) settings.bind(key, combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
         }
 
         const box = new Gtk.Box({ spacing: 6 })
@@ -1414,14 +1417,14 @@ class LookupPopover {
         combo.add_attribute(renderer, 'text', 1)
         combo.id_column = 0
 
-        Object.keys(DICTS).forEach(dict => {
-            const dictionary = DICTS[dict]
+        Object.keys(dictionaries).forEach(dict => {
+            const dictionary = dictionaries[dict]
            model.set(model.append(), [0, 1], [dict, dictionary.name])
         })
         combo.active_id = dict
         combo.connect('changed', () => {
             const id = combo.active_id
-            this.lookup(DICTS[id], word, language)
+            this.lookup(dictionaries[id], word, language)
             settings.set_string('dictionary', id)
         })
         const dictBox = new Gtk.Box({
@@ -1512,7 +1515,7 @@ class LookupPopover {
         const load = () => {
             switch (stack.visible_child_name) {
                 case 'dictionary':
-                    if (!this._lookuped) this.lookup(DICTS[dict], word, language)
+                    if (!this._lookuped) this.lookup(dictionaries[dict], word, language)
                     this._label.select_region(-1, -1)
                     break
                 case 'wikipedia':
@@ -1957,7 +1960,7 @@ class BookViewerWindow {
                     rendition.annotations.remove("${value}", 'highlight')`),
                 spineLength
             }
-            if (USE_SIDEBAR) this.buildSidebar(options)
+            if (useSidebar) this.buildSidebar(options)
             else this.buildPopovers(options)
 
             const annotations = this.storage.get('annotations', [])
@@ -2661,10 +2664,7 @@ class BookViewerWindow {
         this.window.add_action(navbarAction)
         this.application.set_accels_for_action('win.navbar', ['<Control>p'])
 
-        const closeAction = new Gio.SimpleAction({ name: 'close' })
-        closeAction.connect('activate', () => this.window.close())
-        this.window.add_action(closeAction)
-        this.application.set_accels_for_action('win.close', ['<Control>w'])
+        this.addShortcut(['<Control>w'], 'close', () => this.window.close())
     }
     buildTTS() {
         const button = new Gtk.ToggleButton({
@@ -2711,7 +2711,8 @@ class BookViewerWindow {
             const window = new Gtk.Dialog({
                 title: _('Export Annotations'),
                 modal: true,
-                use_header_bar: true
+                use_header_bar: true,
+                transient_for: this.window
             })
 
             window.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
@@ -2729,7 +2730,6 @@ class BookViewerWindow {
             container.border_width = 18
             container.pack_start(combo.widget, false, true, 0)
 
-            window.set_transient_for(this.window)
             window.show_all()
 
             const response = window.run()
@@ -2779,7 +2779,11 @@ class BookViewerWindow {
                 image = Gtk.Image.new_from_pixbuf(
                     pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
             }
-            const window = new Gtk.Dialog({ modal: true, default_width: 700 })
+            const window = new Gtk.Dialog({
+                default_width: 700,
+                modal: true,
+                transient_for: this.window
+            })
             const headerBar = new Gtk.HeaderBar({
                 title: _('About This Book'),
                 show_close_button: true,
@@ -2827,7 +2831,8 @@ class BookViewerWindow {
                 const { color, background, invert } = this.themes[theme]
 
                 webView.load_html(
-                    `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline';">
+                    `<meta http-equiv="Content-Security-Policy"
+                        content="default-src 'none'; style-src 'unsafe-inline';">
                     <style>
                         html {
                             background: ${background};
@@ -2901,7 +2906,6 @@ class BookViewerWindow {
             container.border_width = 18
             container.pack_start(coverBox, true, true, 0)
 
-            window.set_transient_for(this.window)
             window.show_all()
             title.select_region(-1, -1)
         })
@@ -3187,7 +3191,6 @@ function main(argv) {
         if (response === Gtk.ResponseType.ACCEPT) {
             const emptyWindows = Array.from(appWindows).filter(x => x.canOpen)
             if (emptyWindows.length) emptyWindows[0].open(dialog.get_filename())
-
             else addWindow(dialog.get_filename())
         }
     })
@@ -3203,7 +3206,7 @@ function main(argv) {
 
     const actionShortcuts = new Gio.SimpleAction({ name: 'shortcuts' })
     actionShortcuts.connect('activate', () => {
-        const tocShortcuts = USE_SIDEBAR
+        const tocShortcuts = useSidebar
             ? [
                 { accelerator: 'F9', title: _('Toggle sidebar') },
                 { accelerator: '<control>t', title: _('Show table of contents') }
@@ -3257,7 +3260,10 @@ function main(argv) {
                 ]
             }
         ]
-        const shortcutsWindow = new Gtk.ShortcutsWindow({ modal: true })
+        const shortcutsWindow = new Gtk.ShortcutsWindow({
+            modal: true,
+            transient_for: application.active_window
+        })
         const shortcutsSection = new Gtk.ShortcutsSection(
             { 'section-name': 'shortcuts', visible: true })
 
@@ -3270,7 +3276,6 @@ function main(argv) {
             shortcutsSection.add(shortcutsGroup)
         }
         shortcutsWindow.add(shortcutsSection)
-        shortcutsWindow.set_transient_for(application.active_window)
         shortcutsWindow.show()
     })
     application.add_action(actionShortcuts)
@@ -3287,9 +3292,9 @@ function main(argv) {
             version: pkg.version,
             license_type: Gtk.License.GPL_3_0,
             website: 'https://johnfactotum.github.io/foliate/',
-            modal: true
+            modal: true,
+            transient_for: application.active_window
         })
-        aboutDialog.set_transient_for(application.active_window)
         aboutDialog.show()
     })
     application.add_action(actionAbout)
@@ -3302,7 +3307,10 @@ function main(argv) {
 
     const actionPref = new Gio.SimpleAction({ name: 'preferences' })
     actionPref.connect('activate', () => {
-        const window = new Gtk.Dialog({ modal: true })
+        const window = new Gtk.Dialog({
+            modal: true,
+            transient_for: application.active_window
+        })
         const headerBar = new Gtk.HeaderBar({
             show_close_button: true,
             has_subtitle: false
@@ -3350,7 +3358,8 @@ function main(argv) {
 
         const cspPref = new SwitchBox([
             _('Allow unsafe content (not recommended)'),
-            _('Enabling this will allow JavaScript and external resources to load.\nThis will pose potential security and privacy risks.'),
+            _('Enabling this will allow JavaScript and external resources to load.')
+                + '\n' + _('This will pose potential security and privacy risks.'),
         ], 'disable-csp', () => {})
 
         const ttsPref = new ComboBoxBox([
@@ -3397,7 +3406,6 @@ function main(argv) {
 
         window.get_content_area().add(stack)
 
-        window.set_transient_for(application.active_window)
         headerBar.show_all()
         stack.show()
         window.show()
