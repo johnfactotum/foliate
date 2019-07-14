@@ -33,8 +33,9 @@ const Pango = imports.gi.Pango
 const ByteArray = imports.byteArray
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
-const execCommand = (argv, input = null, waitCheck, token) => new Promise((resolve, reject) => {
-    if (flatpakSpawn) argv = [flatpakSpawn, '--host', ...argv]
+const execCommand = (argv, input = null, waitCheck, token, noFlatpakSpawn) =>
+new Promise((resolve, reject) => {
+    if (flatpakSpawn && !noFlatpakSpawn) argv = [flatpakSpawn, '--host', ...argv]
     try {
         const launcher = new Gio.SubprocessLauncher({
             flags: input
@@ -113,6 +114,8 @@ class Storage {
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
 const useSidebar = settings.get_boolean('use-sidebar')
+
+const kindleExts = ['.mobi', '.prc', '.azw', '.azw3']
 
 const defaultThemes = {
     [_('Light')]: {
@@ -1798,6 +1801,7 @@ class BookViewerWindow {
             settings.set_boolean('window-maximized', windowMaximized)
 
             if (this._ttsToken) this._ttsToken.interrupt()
+            if (this._tmpdir) GLib.rmdir(this._tmpdir)
         })
 
         this.activateTheme()
@@ -1822,11 +1826,26 @@ class BookViewerWindow {
             }
         }
     }
-    open(fileName) {
+    open(fileName, realFileName) {
+        if (kindleExts.some(x => fileName.endsWith(x))) {
+            const python = GLib.find_program_in_path('python')
+            const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
+
+            const dir = GLib.dir_make_tmp(null)
+            this._tmpdir = dir
+
+            const command = [python, kindleUnpack, '--epub_version=3', fileName, dir]
+            execCommand(command, null, false, null, true).then(() => {
+                const mobi8 = dir + '/mobi8/'
+                if (GLib.file_test(mobi8, GLib.FileTest.EXISTS)) this.open(mobi8, fileName)
+                else this.open(dir + '/mobi7/content.opf', fileName)
+            })
+            return
+        }
         if (this.welcome) this.welcome.widget.destroy()
         if (this.error) this.error.destroy()
         this.canOpen = false
-        this.fileName = fileName
+        this.fileName = realFileName || fileName
 
         this.spinner = new Gtk.Spinner({
             valign: Gtk.Align.CENTER,
@@ -3170,18 +3189,20 @@ function main(argv) {
     }
 
     application.connect('open', (app, files) =>
-        files.map(file => file.get_uri()).forEach(addWindow))
+        files.map(file => file.get_path()).forEach(addWindow))
     application.connect('activate', () => addWindow())
 
     const actionOpen = new Gio.SimpleAction({ name: 'open' })
     actionOpen.connect('activate', () => {
         const allFiles = new Gtk.FileFilter()
-        allFiles.set_name(_('All files'))
+        allFiles.set_name(_('All Files'))
         allFiles.add_pattern('*')
 
         const epubFiles = new Gtk.FileFilter()
-        epubFiles.set_name(_('EPUB files'))
+        epubFiles.set_name(_('E-book Files'))
         epubFiles.add_mime_type('application/epub+zip')
+        kindleExts.forEach(x =>
+            epubFiles.add_pattern('*' + x))
 
         const dialog = new Gtk.FileChooserNative({ title: _('Open File') })
         dialog.add_filter(epubFiles)
