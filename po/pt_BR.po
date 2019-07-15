@@ -117,29 +117,30 @@ msgid "View on Wiktionary"
 msgstr "Visualizar no Wiktionary"
 
 #: src/main.js:363
-#, fuzzy, javascript-format
+#, javascript-format
 msgid ""
 "Annotations for\n"
 "%s\n"
 "By %s"
-msgstr "Anotações"
+msgstr ""
+"Anotações para\n"
+"%s\n"
+"Por %s"
 
 #: src/main.js:366
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "Anotações"
-msgstr[1] "Anotações"
+msgstr[0] "%d anotação"
+msgstr[1] "%d anotações"
 
 #: src/main.js:371
-#, fuzzy
 msgid "Text:"
-msgstr "Texto"
+msgstr "Texto:"
 
 #: src/main.js:374
-#, fuzzy
 msgid "Note:"
-msgstr "Nota"
+msgstr "Nota:"
 
 #: src/main.js:396
 msgid "Previous page"
@@ -368,9 +369,8 @@ msgid "About This Book"
 msgstr "Sobre este livro"
 
 #: src/main.js:1954
-#, fuzzy
 msgid "Export Annotations…"
-msgstr "Anotações"
+msgstr "Exportar anotações…"
 
 #: src/main.js:2382 src/main.js:3247
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
@@ -423,55 +423,52 @@ msgstr "Sobre o Foliate"
 
 #: src/main.js:2691
 msgid "Text-to-speech"
-msgstr ""
+msgstr "Texto-para-voz"
 
 #: src/main.js:2719
 msgid "You don't have any annotations for this book."
-msgstr ""
+msgstr "Você não tem anotações para este livro."
 
 #: src/main.js:2720
-#, fuzzy
 msgid "Hightlight some text to add annotations."
 msgstr "Destacar algum texto para adicionar anotações."
 
 #: src/main.js:2731
-#, fuzzy
 msgid "Export Annotations"
-msgstr "Anotações"
+msgstr "Exportar anotações"
 
 #: src/main.js:2737
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/main.js:2738
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: src/main.js:2742
 msgid "Choose export format:"
-msgstr ""
+msgstr "Escolha o formato da exportação:"
 
 #: src/main.js:2743
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: src/main.js:2744
 msgid "Plain Text"
-msgstr ""
+msgstr "Texto simples"
 
 #: src/main.js:2745
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: src/main.js:2757
-#, fuzzy
 msgid "Save File"
-msgstr "Abrir arquivo"
+msgstr "Salvar arquivo"
 
 #: src/main.js:2761
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for %s"
-msgstr "Anotações"
+msgstr "Anotações para %s"
 
 #: src/main.js:2883
 msgid "Publisher"
@@ -542,13 +539,12 @@ msgid "Remove selected theme"
 msgstr "Revomer o tema selecionado"
 
 #: src/main.js:3198
-#, fuzzy
 msgid "All Files"
 msgstr "Todos os arquivos"
 
 #: src/main.js:3202
 msgid "E-book Files"
-msgstr ""
+msgstr "Arquivos de e-book"
 
 #: src/main.js:3207
 msgid "Open File"
@@ -560,16 +556,15 @@ msgstr "Exibir índice"
 
 #: src/main.js:3238
 msgid "Start/stop text-to-speech"
-msgstr ""
+msgstr "Iniciar/parar texto-para-voz"
 
 #: src/main.js:3241 src/main.js:3417
 msgid "General"
 msgstr "Geral"
 
 #: src/main.js:3244
-#, fuzzy
 msgid "Show annotations"
-msgstr "Sem anotações"
+msgstr "Exibir anotações"
 
 #: src/main.js:3245
 msgid "Show bookmarks"
@@ -611,7 +606,7 @@ msgstr "Ver"
 
 #: src/main.js:3265
 msgid "Show viewing options"
-msgstr ""
+msgstr "Exibir opções de visualização"
 
 #: src/main.js:3266
 msgid "Increase font size"
@@ -708,23 +703,25 @@ msgstr "Esse recurso é experimental e pode não funcionar com todos os livros."
 
 #: src/main.js:3381
 msgid "Allow unsafe content (not recommended)"
-msgstr ""
+msgstr "Permitir conteúdo inseguro (não recomendável)"
 
 #: src/main.js:3382
 msgid "Enabling this will allow JavaScript and external resources to load."
 msgstr ""
+"Habilitando isto, permitirá que o JavaScript e os recursos externos sejam "
+"carregados."
 
 #: src/main.js:3383
 msgid "This will pose potential security and privacy risks."
-msgstr ""
+msgstr "Isso representará riscos potenciais de segurança e privacidade."
 
 #: src/main.js:3387
 msgid "Text-to-speech command"
-msgstr ""
+msgstr "Comando de texto-para-voz"
 
 #: src/main.js:3388
 msgid "Leave blank to disable text-to-speech."
-msgstr ""
+msgstr "Deixar em branco para desabilitar o texto-para-voz."
 
 #: src/main.js:3450
 msgid "Afrikaans"
@@ -1180,15 +1177,15 @@ msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:48
 msgid "External resources and JavaScript is now blocked by default"
-msgstr ""
+msgstr "Recursos externos e o JavaScript estão agora bloqueados por padrão"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Basic text-to-speech support"
-msgstr ""
+msgstr "Suporte básico para texto-para-voz"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr ""
+msgstr "Exportar anotações para HTML, texto simples ou JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
 msgid "New alternative sidebar UI"
