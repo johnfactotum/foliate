@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-14 22:21+0800\n"
-"PO-Revision-Date: 2019-07-11 13:28+0200\n"
+"PO-Revision-Date: 2019-07-15 12:04+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
@@ -116,29 +116,30 @@ msgid "View on Wiktionary"
 msgstr "Bekijken op Wiktionary"
 
 #: src/main.js:363
-#, fuzzy, javascript-format
+#, javascript-format
 msgid ""
 "Annotations for\n"
 "%s\n"
 "By %s"
-msgstr "Aantekeningen"
+msgstr ""
+"Aantekeningen bij\n"
+"%s\n"
+"van %s"
 
 #: src/main.js:366
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "Aantekeningen"
-msgstr[1] "Aantekeningen"
+msgstr[0] "%d aantekening"
+msgstr[1] "%d aantekeningen"
 
 #: src/main.js:371
-#, fuzzy
 msgid "Text:"
-msgstr "Tekst"
+msgstr "Tekst:"
 
 #: src/main.js:374
-#, fuzzy
 msgid "Note:"
-msgstr "Notitie"
+msgstr "Notitie:"
 
 #: src/main.js:396
 msgid "Previous page"
@@ -367,9 +368,8 @@ msgid "About This Book"
 msgstr "Over dit boek"
 
 #: src/main.js:1954
-#, fuzzy
 msgid "Export Annotations…"
-msgstr "Aantekeningen"
+msgstr "Aantekeningen exporteren…"
 
 #: src/main.js:2382 src/main.js:3247
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
@@ -422,55 +422,52 @@ msgstr "Over Foliate"
 
 #: src/main.js:2691
 msgid "Text-to-speech"
-msgstr ""
+msgstr "Tekst-naar-spraak"
 
 #: src/main.js:2719
 msgid "You don't have any annotations for this book."
-msgstr ""
+msgstr "Je hebt geen aantekeningen gemaakt bij dit boek."
 
 #: src/main.js:2720
-#, fuzzy
 msgid "Hightlight some text to add annotations."
-msgstr "Markeer tekst om aantekeningen te creëren."
+msgstr "Markeer tekst om aantekeningen te maken."
 
 #: src/main.js:2731
-#, fuzzy
 msgid "Export Annotations"
-msgstr "Aantekeningen"
+msgstr "Aantekeningen exporteren"
 
 #: src/main.js:2737
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: src/main.js:2738
 msgid "Export"
-msgstr ""
+msgstr "Exporteren"
 
 #: src/main.js:2742
 msgid "Choose export format:"
-msgstr ""
+msgstr "Kies een bestandsindeling:"
 
 #: src/main.js:2743
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: src/main.js:2744
 msgid "Plain Text"
-msgstr ""
+msgstr "Platte tekst"
 
 #: src/main.js:2745
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: src/main.js:2757
-#, fuzzy
 msgid "Save File"
-msgstr "Bestand openen"
+msgstr "Bestand opslaan"
 
 #: src/main.js:2761
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for %s"
-msgstr "Aantekeningen"
+msgstr "Aantekeningen bij %s"
 
 #: src/main.js:2883
 msgid "Publisher"
@@ -541,13 +538,12 @@ msgid "Remove selected theme"
 msgstr "Geselecteerd thema verwijderen"
 
 #: src/main.js:3198
-#, fuzzy
 msgid "All Files"
 msgstr "Alle bestanden"
 
 #: src/main.js:3202
 msgid "E-book Files"
-msgstr ""
+msgstr "E-boekbestanden"
 
 #: src/main.js:3207
 msgid "Open File"
@@ -559,16 +555,15 @@ msgstr "Inhoudsopgave tonen"
 
 #: src/main.js:3238
 msgid "Start/stop text-to-speech"
-msgstr ""
+msgstr "Tekst-naar-spraak aan/uit"
 
 #: src/main.js:3241 src/main.js:3417
 msgid "General"
 msgstr "Algemeen"
 
 #: src/main.js:3244
-#, fuzzy
 msgid "Show annotations"
-msgstr "Geen aantekeningen"
+msgstr "Aantekeningen tonen"
 
 #: src/main.js:3245
 msgid "Show bookmarks"
@@ -610,7 +605,7 @@ msgstr "Weergave"
 
 #: src/main.js:3265
 msgid "Show viewing options"
-msgstr ""
+msgstr "Weergave-opties tonen"
 
 #: src/main.js:3266
 msgid "Increase font size"
@@ -724,11 +719,11 @@ msgstr ""
 
 #: src/main.js:3387
 msgid "Text-to-speech command"
-msgstr ""
+msgstr "Tekst-naar-spraak-opdracht"
 
 #: src/main.js:3388
 msgid "Leave blank to disable text-to-speech."
-msgstr ""
+msgstr "Laat leeg om tekst-naar-spraak uit te schakelen."
 
 #: src/main.js:3450
 msgid "Afrikaans"
@@ -1184,15 +1179,15 @@ msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:48
 msgid "External resources and JavaScript is now blocked by default"
-msgstr ""
+msgstr "Externe bronnen en JavaScript worden nu standaard geblokkeerd"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Basic text-to-speech support"
-msgstr ""
+msgstr "Basisondersteuning voor tekst-naar-spraak"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr ""
+msgstr "Exporteer aantekeningen naar HTML, platte tekst of JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
 msgid "New alternative sidebar UI"
