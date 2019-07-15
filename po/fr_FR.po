@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-14 22:21+0800\n"
-"PO-Revision-Date: 2019-07-08 11:07+0900\n"
+"PO-Revision-Date: 2019-07-15 13:14+0900\n"
 "Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1813
@@ -116,29 +116,30 @@ msgid "View on Wiktionary"
 msgstr "Voir sur le Wiktionnaire"
 
 #: src/main.js:363
-#, fuzzy, javascript-format
+#, javascript-format
 msgid ""
 "Annotations for\n"
 "%s\n"
 "By %s"
-msgstr "Annotations"
+msgstr ""
+"Annotations pour\n"
+"%s\n"
+"Par %s"
 
 #: src/main.js:366
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "Annotations"
-msgstr[1] "Annotations"
+msgstr[0] "%d annotation"
+msgstr[1] "%d annotations"
 
 #: src/main.js:371
-#, fuzzy
 msgid "Text:"
-msgstr "Texte"
+msgstr "Texte :"
 
 #: src/main.js:374
-#, fuzzy
 msgid "Note:"
-msgstr "Note"
+msgstr "Note :"
 
 #: src/main.js:396
 msgid "Previous page"
@@ -324,7 +325,7 @@ msgstr "Impossible de récupérer la traduction."
 
 #: src/main.js:1578 src/main.js:3131
 msgid "Remove"
-msgstr "Retirer"
+msgstr "Supprimer"
 
 #: src/main.js:1583
 msgid "Note"
@@ -367,9 +368,8 @@ msgid "About This Book"
 msgstr "À propos de ce livre"
 
 #: src/main.js:1954
-#, fuzzy
 msgid "Export Annotations…"
-msgstr "Annotations"
+msgstr "Exporter les annotations…"
 
 #: src/main.js:2382 src/main.js:3247
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
@@ -422,55 +422,52 @@ msgstr "À propos de Foliate"
 
 #: src/main.js:2691
 msgid "Text-to-speech"
-msgstr ""
+msgstr "Synthèse vocale"
 
 #: src/main.js:2719
 msgid "You don't have any annotations for this book."
-msgstr ""
+msgstr "Vous n’avez aucune annotation pour ce livre."
 
 #: src/main.js:2720
-#, fuzzy
 msgid "Hightlight some text to add annotations."
-msgstr "Surlignez du texte pour ajouter une annotation."
+msgstr "Surlignez du texte pour ajouter des annotations."
 
 #: src/main.js:2731
-#, fuzzy
 msgid "Export Annotations"
-msgstr "Annotations"
+msgstr "Exporter les annotations"
 
 #: src/main.js:2737
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: src/main.js:2738
 msgid "Export"
-msgstr ""
+msgstr "Exporter"
 
 #: src/main.js:2742
 msgid "Choose export format:"
-msgstr ""
+msgstr "Choisir le format d’export :"
 
 #: src/main.js:2743
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: src/main.js:2744
 msgid "Plain Text"
-msgstr ""
+msgstr "Texte brut"
 
 #: src/main.js:2745
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: src/main.js:2757
-#, fuzzy
 msgid "Save File"
-msgstr "Ouvrir un fichier"
+msgstr "Enregistrer le fichier"
 
 #: src/main.js:2761
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for %s"
-msgstr "Annotations"
+msgstr "Annotations pour %s"
 
 #: src/main.js:2883
 msgid "Publisher"
@@ -541,13 +538,12 @@ msgid "Remove selected theme"
 msgstr "Supprimer le thème sélectionné"
 
 #: src/main.js:3198
-#, fuzzy
 msgid "All Files"
 msgstr "Tous les fichiers"
 
 #: src/main.js:3202
 msgid "E-book Files"
-msgstr ""
+msgstr "Livres électroniques"
 
 #: src/main.js:3207
 msgid "Open File"
@@ -559,16 +555,15 @@ msgstr "Afficher la table des matières"
 
 #: src/main.js:3238
 msgid "Start/stop text-to-speech"
-msgstr ""
+msgstr "Démarrer/Arrêter la synthèse vocale"
 
 #: src/main.js:3241 src/main.js:3417
 msgid "General"
 msgstr "Général"
 
 #: src/main.js:3244
-#, fuzzy
 msgid "Show annotations"
-msgstr "Aucune annotation"
+msgstr "Afficher les annotations"
 
 #: src/main.js:3245
 msgid "Show bookmarks"
@@ -610,7 +605,7 @@ msgstr "Vue"
 
 #: src/main.js:3265
 msgid "Show viewing options"
-msgstr ""
+msgstr "Voir les paramètres d’affichage"
 
 #: src/main.js:3266
 msgid "Increase font size"
@@ -668,11 +663,11 @@ msgstr "Demander que faire"
 
 #: src/main.js:3354
 msgid "Lookup in dictionary"
-msgstr "Chercher dans le dictionnaire"
+msgstr "Rechercher dans le dictionnaire"
 
 #: src/main.js:3355
 msgid "Lookup in Wikipedia"
-msgstr "Rechercher dans Wikipédia"
+msgstr "Rechercher sur Wikipédia"
 
 #: src/main.js:3359
 msgid "When a word is selected"
@@ -710,23 +705,26 @@ msgstr ""
 
 #: src/main.js:3381
 msgid "Allow unsafe content (not recommended)"
-msgstr ""
+msgstr "Autoriser le contenu non sûr (non recommendé)"
 
 #: src/main.js:3382
 msgid "Enabling this will allow JavaScript and external resources to load."
 msgstr ""
+"Cette option autorisera l’exécution des scripts JavaScript et le chargement "
+"de ressources externes."
 
 #: src/main.js:3383
 msgid "This will pose potential security and privacy risks."
 msgstr ""
+"Ceci peut potentiellement poser des risques de sécurité ou de vie privée."
 
 #: src/main.js:3387
 msgid "Text-to-speech command"
-msgstr ""
+msgstr "Commande de synthèse vocale"
 
 #: src/main.js:3388
 msgid "Leave blank to disable text-to-speech."
-msgstr ""
+msgstr "Laissez vide pour désactiver la synthèse vocale."
 
 #: src/main.js:3450
 msgid "Afrikaans"
@@ -1183,14 +1181,16 @@ msgstr "John Factotum"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:48
 msgid "External resources and JavaScript is now blocked by default"
 msgstr ""
+"Les ressources externes et les scripts JavaScript sont maintenant désactivés "
+"par défaut"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Basic text-to-speech support"
-msgstr ""
+msgstr "Support basique des synthèses vocales"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr ""
+msgstr "Exporter les annotations au format HTML, texte brut ou JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
 msgid "New alternative sidebar UI"
@@ -1198,8 +1198,7 @@ msgstr "Nouvelle interface avec barre latérale"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
 msgid "Lookup words in Wikipedia and offline dictionaries"
-msgstr ""
-"Rechercher des mots dans Wikipédia et dans des dictionnaires hors-ligne"
+msgstr "Rechercher des mots sur Wikipédia et dans des dictionnaires hors-ligne"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 msgid "Translate passages with Google Translate"
