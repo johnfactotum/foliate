@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1813
 #: src/main.js:3310 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
-msgstr ""
+msgstr "Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "eBook Viewer"
@@ -35,11 +35,11 @@ msgstr "Читайте электронные книги"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:9
 msgid "com.github.johnfactotum.Foliate"
-msgstr ""
+msgstr "com.github.johnfactotum.Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:12
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "Ebook;Book;EPUB;Viewer;Reader;Книги;Читать"
+msgstr "Ebook;Book;EPUB;Viewer;Reader;Книги;Читать;"
 
 #: src/main.js:121
 msgid "Light"
@@ -95,7 +95,7 @@ msgstr "Лайм"
 
 #: src/main.js:181
 msgid "From Wikipedia, the free encyclopedia"
-msgstr "Из Википедии — свободногй энциклопедии"
+msgstr "Из Википедии — свободной энциклопедии"
 
 #: src/main.js:185
 msgid "View on Wikipedia"
@@ -118,30 +118,31 @@ msgid "View on Wiktionary"
 msgstr "Смотреть на Викисловаре"
 
 #: src/main.js:363
-#, fuzzy, javascript-format
+#, javascript-format
 msgid ""
 "Annotations for\n"
 "%s\n"
 "By %s"
-msgstr "Примечания"
+msgstr ""
+"Примечания к\n"
+"%s\n"
+"Автор: %s"
 
 #: src/main.js:366
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "Примечания"
-msgstr[1] "Примечания"
-msgstr[2] "Примечания"
+msgstr[0] "%d примечание"
+msgstr[1] "%d примечания"
+msgstr[2] "%d примечаний"
 
 #: src/main.js:371
-#, fuzzy
 msgid "Text:"
-msgstr "Текст"
+msgstr "Текст:"
 
 #: src/main.js:374
-#, fuzzy
 msgid "Note:"
-msgstr "Заметка"
+msgstr "Заметка:"
 
 #: src/main.js:396
 msgid "Previous page"
@@ -328,7 +329,7 @@ msgstr "Поиск в Википедии"
 
 #: src/main.js:1566
 msgid "Cannot retrieve translation."
-msgstr "Невозможно найти перевод"
+msgstr "Невозможно найти перевод."
 
 #: src/main.js:1578 src/main.js:3131
 msgid "Remove"
@@ -376,9 +377,8 @@ msgid "About This Book"
 msgstr "Об этой книге"
 
 #: src/main.js:1954
-#, fuzzy
 msgid "Export Annotations…"
-msgstr "Примечания"
+msgstr "Экспортировать примечания…"
 
 #: src/main.js:2382 src/main.js:3247
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
@@ -431,11 +431,11 @@ msgstr "О Foliate"
 
 #: src/main.js:2691
 msgid "Text-to-speech"
-msgstr ""
+msgstr "Озвучка текста"
 
 #: src/main.js:2719
 msgid "You don't have any annotations for this book."
-msgstr ""
+msgstr "В этой книге нет примечаний."
 
 #: src/main.js:2720
 #, fuzzy
@@ -449,37 +449,36 @@ msgstr "Примечания"
 
 #: src/main.js:2737
 msgid "Cancel"
-msgstr ""
+msgstr "Отменить"
 
 #: src/main.js:2738
 msgid "Export"
-msgstr ""
+msgstr "Экспорт"
 
 #: src/main.js:2742
 msgid "Choose export format:"
-msgstr ""
+msgstr "Выберите формат экспорта:"
 
 #: src/main.js:2743
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: src/main.js:2744
 msgid "Plain Text"
-msgstr ""
+msgstr "Текст"
 
 #: src/main.js:2745
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: src/main.js:2757
-#, fuzzy
 msgid "Save File"
-msgstr "Открыть файл"
+msgstr "Сохранить файл"
 
 #: src/main.js:2761
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for %s"
-msgstr "Примечания"
+msgstr "Примечания к %s"
 
 #: src/main.js:2883
 msgid "Publisher"
@@ -519,7 +518,7 @@ msgstr "Ссылка"
 
 #: src/main.js:3004
 msgid "Enable Dark Mode"
-msgstr "Ночной режим"
+msgstr "Включить ночной режим"
 
 #: src/main.js:3006
 msgid "Invert Colors"
@@ -550,13 +549,12 @@ msgid "Remove selected theme"
 msgstr "Удалить выбранную тему"
 
 #: src/main.js:3198
-#, fuzzy
 msgid "All Files"
 msgstr "Все файлы"
 
 #: src/main.js:3202
 msgid "E-book Files"
-msgstr ""
+msgstr "Файлы электронных книг"
 
 #: src/main.js:3207
 msgid "Open File"
@@ -568,16 +566,15 @@ msgstr "Показать оглавление"
 
 #: src/main.js:3238
 msgid "Start/stop text-to-speech"
-msgstr ""
+msgstr "Начать/остановить озвучку текста"
 
 #: src/main.js:3241 src/main.js:3417
 msgid "General"
 msgstr "Общие"
 
 #: src/main.js:3244
-#, fuzzy
 msgid "Show annotations"
-msgstr "Нет примечаний"
+msgstr "Показать примечания"
 
 #: src/main.js:3245
 msgid "Show bookmarks"
@@ -593,7 +590,7 @@ msgstr "Закрыть данное окно"
 
 #: src/main.js:3251
 msgid "Quit"
-msgstr "Завершить"
+msgstr "Выйти"
 
 #: src/main.js:3255
 msgid "Navigation"
@@ -619,7 +616,7 @@ msgstr "Вид"
 
 #: src/main.js:3265
 msgid "Show viewing options"
-msgstr ""
+msgstr "Показать опции просмотра"
 
 #: src/main.js:3266
 msgid "Increase font size"
@@ -716,7 +713,7 @@ msgstr "Эта функция экспериментальная и может �
 
 #: src/main.js:3381
 msgid "Allow unsafe content (not recommended)"
-msgstr ""
+msgstr "Разрешить небезопасный контент (не рекомендуется)"
 
 #: src/main.js:3382
 msgid "Enabling this will allow JavaScript and external resources to load."
@@ -727,12 +724,13 @@ msgid "This will pose potential security and privacy risks."
 msgstr ""
 
 #: src/main.js:3387
+#, fuzzy
 msgid "Text-to-speech command"
-msgstr ""
+msgstr "Команда озвучки текста"
 
 #: src/main.js:3388
 msgid "Leave blank to disable text-to-speech."
-msgstr ""
+msgstr "Оставьте пустым, чтобы отключить озвучку текста."
 
 #: src/main.js:3450
 msgid "Afrikaans"
@@ -1190,15 +1188,16 @@ msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:48
 msgid "External resources and JavaScript is now blocked by default"
-msgstr ""
+msgstr "Внешние ресурсы и Javascript теперь заблокированы по умолчанию"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
+#, fuzzy
 msgid "Basic text-to-speech support"
-msgstr ""
+msgstr "Базовая поддержка озвучки текста"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr ""
+msgstr "Экспорт примечаний в HTML, текстовый формат или JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
 msgid "New alternative sidebar UI"
@@ -1238,7 +1237,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
 msgid "Updated translations"
-msgstr ""
+msgstr "Обновлены переводы"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid "Customize page margins and brightness"
@@ -1250,12 +1249,11 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "Ability to zoom and copy images"
-msgstr ""
+msgstr "Возможность увеличивать и копировать изображения"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
-#, fuzzy
 msgid "Option to auto-hide cursor"
-msgstr "Скрывать курсор"
+msgstr "Возможность скрывать курсор"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
 msgid "See reading time left by hovering over the reading progress slider"
@@ -1334,8 +1332,7 @@ msgstr "Исправления:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
 msgid "Restoring reading progress is now smooth and jank-free"
-msgstr ""
-"Переход к месту, где вы остановились в прошлый раз, стал более плавным."
+msgstr "Переход к месту, где вы остановились в прошлый раз, стал более плавным"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:130
 msgid "Fixed custom styles not applying in some cases"
