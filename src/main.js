@@ -2558,9 +2558,7 @@ class BookViewerWindow {
         this.headerBar.pack_start(annotationsButton)
         this.headerBar.pack_start(bookmarksButton)
 
-        this.addShortcut(['F9'], 'toc-popover', () =>
-            tocButton.active = !tocButton.active)
-        this.addShortcut(['<Control>t'], 'toc-popover', () =>
+        this.addShortcut(['F9', '<Control>t'], 'toc-popover', () =>
             tocButton.active = !tocButton.active)
         this.addShortcut(['<Control>a'], 'annotations-popover', () =>
             annotationsButton.active = !annotationsButton.active)
