@@ -91,10 +91,10 @@ const atBottom = () =>
 const prevBottom = () => rendition.currentLocation().atStart ? null
     : rendition.prev().then(() => window.scrollTo(0, document.body.scrollHeight))
 
-const openBook = fileName => {
+const openBook = (fileName, inputType) => {
     book = ePub()
-    book.open(decodeURI(fileName)) // works for non-flatpak
-        .catch(() => book.open(fileName)) // works for flatpak
+    book.open(decodeURI(fileName), inputType) // works for non-flatpak
+        .catch(() => book.open(fileName, inputType)) // works for flatpak
         .catch(() => dispatch({ type: 'book-error' }))
     book.ready.then(() => dispatch({ type: 'book-ready' }))
 }

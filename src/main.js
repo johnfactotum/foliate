@@ -1826,7 +1826,7 @@ class BookViewerWindow {
             }
         }
     }
-    open(fileName, realFileName) {
+    open(fileName, realFileName, inputType = 'epub') {
         if (kindleExts.some(x => fileName.endsWith(x))) {
             const python = GLib.find_program_in_path('python')
             const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
@@ -1837,8 +1837,9 @@ class BookViewerWindow {
             const command = [python, kindleUnpack, '--epub_version=3', fileName, dir]
             execCommand(command, null, false, null, true).then(() => {
                 const mobi8 = dir + '/mobi8/'
-                if (GLib.file_test(mobi8, GLib.FileTest.EXISTS)) this.open(mobi8, fileName)
-                else this.open(dir + '/mobi7/content.opf', fileName)
+                if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
+                    this.open(mobi8, fileName, 'directory')
+                else this.open(dir + '/mobi7/content.opf', fileName, 'opf')
             })
             return
         }
@@ -1869,7 +1870,7 @@ class BookViewerWindow {
         this.webView.connect('notify::title', self => {
             const action = JSON.parse(self.title)
             if (action.type === 'can-open')
-                this.scriptRun(`openBook("${encodeURI(fileName)}")`)
+                this.scriptRun(`openBook("${encodeURI(fileName)}", '${inputType}')`)
             else this.handleAction(action)
         })
 
