@@ -366,6 +366,15 @@ const exportToTxt = data => `${_('Annotations for\n%s\nBy %s')
 ${ngettext('%d Annotation', '%d Annotations', data.annotations.length).
 format(data.annotations.length)}
 ${data.annotations.map(({ value, text, color, note }) => `
+--------------------------------------------------------------------------------
+
+${_('Text:')}
+${text}
+${note ? `
+${_('Note:')}
+${note}
+` : ''}`).join('')}
+`
 
 
 const exportToBibTex = data => {
@@ -442,16 +451,6 @@ const exportToBibTex = data => {
 
     return _contents
 }
---------------------------------------------------------------------------------
-
-${_('Text:')}
-${text}
-${note ? `
-${_('Note:')}
-${note}
-` : ''}`).join('')}
-`
-
 
 class Navbar {
     constructor(ttsButton, onSlide, onPrev, onNext, onBack) {
