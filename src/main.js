@@ -376,80 +376,58 @@ ${note}
 ` : ''}`).join('')}
 `
 
-
-const exportToBibTex = data => {
-    var _contents
+const exportToBibTex = (data) => {
+    let contents
 
     // Escape all Tex characters that BibTex requires
-    const badCharReplace = cont => cont.split('')
+    const badCharReplace = cont => Array.from(cont)
         .map(c => {
             switch (c) {
                 case '#':
-                    return '\\#'
+                    return '\\#';
                 case '$':
-                    return '\\$'
+                    return '\\$';
                 case '%':
-                    return '\\%'
+                    return '\\%';
                 case '&':
-                    return '\\&'
+                    return '\\&';
                 case '\\':
-                    return '\\textbackslash{}'
+                    return '\\textbackslash{}';
                 case '^':
-                    return '\\textasciicircum{}'
+                    return '\\textasciicircum{}';
                 case '_':
-                    return '\\_'
+                    return '\\_';
                 case '{':
-                    return '\\{'
+                    return '\\{';
                 case '}':
-                    return '\\}'
+                    return '\\}';
                 case '~':
-                    return '\\textasciitilde{}'
+                    return '\\textasciitilde{}';
                 default:
-                    return c
+                    return c;
             }
-    }).join('');
+    }).join('')
 
-    // When missing parameters for author, title, publisher, year
-    var bib_header = '@book{ref' + Math.round(Math.random()*7000).toString() + ':%d' + ',\n'
+    var bib_header = `@book{ref${Math.round(Math.random()*10000).toString()}:%d,\n`
 
-    if (data.metadata.creator != null && typeof data.metadata.creator !== "undefined") {
-        bib_header += 'author = {%s},\n'.format(badCharReplace(data.metadata.creator))
-    } else {
-        bib_header += 'author = {unknown},\n'
-    }
+    bib_header += data.metadata.creator ? `author = {${badCharReplace(data.metadata.creator)}},\n` : 'author = {unknown},\n'
 
-    if (data.metadata.title != null && typeof data.metadata.title !== "undefined") {
-        bib_header += 'title = {%s},\n'.format(badCharReplace(data.metadata.title))
-    } else {
-        bib_header += 'title = {unknown},\n'
-    }
+    bib_header += data.metadata.title ? `title = {${badCharReplace(data.metadata.title)}},\n` : 'title = {unknown},\n'
 
-    if (data.metadata.publisher != null && typeof data.metadata.publisher !== "undefined") {
-        bib_header += 'publisher = {%s},\n'.format(badCharReplace(data.metadata.publisher))
-    } else {
-        bib_header += 'publisher = {unknown},\n'
-    }
+    bib_header += data.metadata.publisher ? `publisher = {${badCharReplace(data.metadata.publisher)}},\n` : 'publisher = {unknown},\n'
 
-    if (data.metadata.pubdate != null
-        && typeof data.metadata.pubdate !== "undefined") {
-        bib_header += 'year = %s,\n'
-            .format(data.metadata.pubdate.slice(0, 4))
-    } else {
-        bib_header += 'year = -1,\n'
-    }
+    bib_header += data.metadata.pubdate ? `year = {${data.metadata.pubdate.slice(0, 4)}},\n` : 'year = -1,\n'
 
     bib_header += 'note = {%s}\n},\n\n'
 
-    var annot = ''
-    for (var i = 0;i < data.annotations.length;++i) {
-        annot = _("Quote: ") + '"%s"'.format(data.annotations[i].text)
-        if (typeof data.annotations[i].note !== 'undefined') {
-            annot += _(" Note: ") + '%s'.format(data.annotations[i].note)
+    contents += data.annotations ? data.annotations.map((annot, i) => {
+            var a = _("Quote: ") + '"%s"'.format(annot.text)
+            if (annot.note) a += _(" Note: ") + '%s'.format(annot.note)
+            return bib_header.format(i+1, badCharReplace(a))
         }
-        _contents += bib_header.format(i+1, badCharReplace(annot))
-    }
+    ).join('') : ''
 
-    return _contents
+    return contents
 }
 
 class Navbar {
