@@ -63,6 +63,21 @@ new Promise((resolve, reject) => {
     }
 })
 
+// adapted from gnome-shell code 
+const recursivelyDeleteDir = dir => {
+    const children = dir.enumerate_children('standard::name,standard::type',
+        Gio.FileQueryInfoFlags.NONE, null)
+
+    let info
+    while (info = children.next_file(null)) {
+        const type = info.get_file_type()
+        const child = dir.get_child(info.get_name())
+        if (type == Gio.FileType.REGULAR) child.delete(null)
+        else if (type == Gio.FileType.DIRECTORY) recursivelyDeleteDir(child)
+    }
+    dir.delete(null)
+}
+
 class Storage {
     constructor(key, type, indent) {
         this.indent = indent
@@ -1801,7 +1816,7 @@ class BookViewerWindow {
             settings.set_boolean('window-maximized', windowMaximized)
 
             if (this._ttsToken) this._ttsToken.interrupt()
-            if (this._tmpdir) GLib.rmdir(this._tmpdir)
+            if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
         })
 
         this.activateTheme()
