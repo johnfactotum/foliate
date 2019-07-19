@@ -97,6 +97,22 @@ const openBook = (fileName, inputType) => {
         .catch(() => book.open(fileName, inputType)) // works for flatpak
         .catch(() => dispatch({ type: 'book-error' }))
     book.ready.then(() => dispatch({ type: 'book-ready' }))
+
+    // set the correct URL based on the path to the nav or ncx file
+    // fixes https://github.com/futurepress/epub.js/issues/469
+    book.loaded.navigation.then(navigation => {
+        const path = book.packaging.navPath || book.packaging.ncxPath
+
+        // HACK-ish: abuse the URL API a little to resolve the path
+        // the base needs to be a valid URL, or it will throw a TypeError,
+        // so we just set a random base URI and remove it later
+        const base = 'https://example.invalid/'
+        const f = x => {
+            x.href = new URL(x.href, base + path).href.replace(base, '')
+            x.subitems.forEach(f)
+        }
+        navigation.toc.forEach(f)
+    })
 }
 const display = (lastLocation, cached) => {
     rendition = book.renderTo('viewer', { width: '100%' })
