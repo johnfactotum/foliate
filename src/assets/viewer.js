@@ -379,7 +379,7 @@ const setupRendition = () => {
                 const top = rect.top + viewElementRect.top
                 const bottom = rect.bottom + viewElementRect.top
 
-                const src = img.getAttribute('src')
+                const src = img.src
                 imgAlt = img.getAttribute('alt')
                 fetch(src)
                     .then(res => res.blob())
