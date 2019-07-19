@@ -327,20 +327,33 @@ const setupRendition = () => {
                 })
                 else {
                     const [page, id] = href.split('#')
-                    let el = contents.document.getElementById(id)
-                    if (!el) return dispatch({
-                        type: 'link-internal',
-                        payload: rendition.currentLocation().start.cfi
-                    })
+                    var el = contents.document.getElementById(id)
 
-                    if (el.nodeName === 'A' && el.getAttribute('href')) {
-                        while (true) {
-                            const parent = el.parentElement
-                            if (!parent) break
-                            const text = el.innerText
-                            el = parent
-                            if (parent.innerText !== text) break
+                    if (!el) {
+                        try {
+                            var sectionLink = book.spine.get(page)
+                            var a = sectionLink.document.body.getElementsByTagName("A")
+                            var b = Array.prototype.slice.call(a)
+                            b.forEach(function(n) {
+                                if (n.id === id) footnote = n.parentNode.innerText
+                            })
+                        } catch (err) {
+                            return dispatch({
+                                type: 'link-internal',
+                                payload: rendition.currentLocation().start.cfi
+                            })
+                        } 
+                    } else {
+                        if (el.nodeName === 'A' && el.getAttribute('href')) {
+                            while (true) {
+                                const parent = el.parentElement
+                                if (!parent) break
+                                const text = el.innerText
+                                el = parent
+                                if (parent.innerText !== text) break
+                            }
                         }
+                        footnote = el.innerText.trim()
                     }
 
                     const rect = e.target.getBoundingClientRect()
@@ -350,7 +363,6 @@ const setupRendition = () => {
                     const top = rect.top + viewElementRect.top
                     const bottom = rect.bottom + viewElementRect.top
 
-                    footnote = el.innerText.trim()
                     followLink = () => {
                         dispatch({
                             type: 'link-internal',
@@ -358,6 +370,7 @@ const setupRendition = () => {
                         })
                         link.onclick()
                     }
+
                     if (footnote) dispatch({
                         type: 'footnote',
                         payload: { left, right, top, bottom, canGoTo: !(type === 'noteref') }
