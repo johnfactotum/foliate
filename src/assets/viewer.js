@@ -357,13 +357,20 @@ const setupRendition = () => {
                     //     <p><sup><a id="note1" href="link1">1</a></sup> My footnote</p>
                     // where simply getting the ID or its parent would not suffice
                     // although it would still fail to extract useful texts for some books
-                    if (el.nodeName === 'A' && el.getAttribute('href')) {
+                    const isFootnote = el => {
+                        const nodeName = el.nodeName.toLowerCase()
+                        return [
+                            'a', 'span', 'sup', 'sub',
+                            'em', 'strong', 'i', 'b',
+                            'small', 'big'
+                        ].every(x => x !== nodeName)
+                    }
+                    if (!isFootnote(el)) {
                         while (true) {
                             const parent = el.parentElement
                             if (!parent) break
-                            const text = el.innerText
                             el = parent
-                            if (parent.innerText !== text) break
+                            if (isFootnote(parent)) break
                         }
                     }
 
