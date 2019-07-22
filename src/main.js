@@ -2731,7 +2731,7 @@ class BookViewerWindow {
                 const msg = new Gtk.MessageDialog({
                     text: _('No annotations'),
                     secondary_text: _("You don't have any annotations for this book.")
-                        + '\n' + _('Hightlight some text to add annotations.'),
+                        + '\n' + _('Highlight some text to add annotations.'),
                     message_type: Gtk.MessageType.INFO,
                     buttons: [Gtk.ButtonsType.OK],
                     modal: true,
