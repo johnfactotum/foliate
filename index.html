@@ -1,15 +1,18 @@
 <!DOCTYPE html>
+<html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Foliate - A simple and modern eBook viewer</title>
 <link rel="icon" type="image/png" href="symbolic.png">
 <style>
 body {
-    font-family: Cantarell, sans-serif;
+    font-family: Cantarell, "Trebuchet MS", sans-serif;
     background: #ddd;
     color: #222;
     line-height: 1.4;
     margin: 0;
+    text-align: justify;
+    hyphens: auto;
 }
 a:link, a:visited {
     color: #099;
@@ -155,7 +158,7 @@ footer a:link, footer a:visited {
         <div class="mono"><h2>Features</h2></div>
         <div class="grid">
             <div>
-                <p><strong>View EPUB files.</strong> Foliate is based on <a href="https://github.com/futurepress/epub.js/">Epub.js</a>, and supports both two-page view and scrolled view. Customize font and line-spacing. Choose between light, sepia, dark, and invert mode, or add your own custom themes</p>
+                <p><strong>View .epub, .mobi, .azw, and .azw3 files.</strong> Foliate is based on <a href="https://github.com/futurepress/epub.js/">Epub.js</a>, and supports both two-page view and scrolled view. Customize font and line-spacing. Choose between light, sepia, dark, and invert mode, or add your own custom themes</p>
             </div>
             <div>
                 <p><strong>Easy navigation.</strong> View the table of contents, or use the find in book feature. Reading progress slider with chapter marks makes it easy to find your way through the book. Hover over the slider to see reading time left estimates.</p>
@@ -209,7 +212,8 @@ footer a:link, footer a:visited {
                         <li>Fedora: <code>sudo dnf install foliate</code></li>
                         <li>Void Linux: <code>xbps-install -S foliate</code></li>
                     </ul>
-                    <p><strong>Note</strong>: to enable auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.; to use offline dictionaries, install <code>dictd</code>.</p>
+                    <p>Debian/Ubuntu packages can be downloaded from the <a href="https://github.com/johnfactotum/foliate/releases">releases</a> page.</p>
+                    <p><strong>Note</strong>: to enable auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.; to use offline dictionaries, install <code>dictd</code>. For text-to-speech support, install <code>espeak-ng</code>, or <code>festival</code>.</p>
                 </div>
             </div>
             <div>
@@ -217,7 +221,14 @@ footer a:link, footer a:visited {
                     <h3>Manual Installation from Source</h3>
                     <ol>
                         <li>Clone the source code from <a href="https://github.com/johnfactotum/foliate.git">GitHub</a> or download one of the <a href="https://github.com/johnfactotum/foliate/releases">releases</a>.</li>
-                        <li>Make sure you have these dependencies installed: <code>gjs</code> <code>webkit2gtk</code> <code>libsoup</code> <code>meson</code></li>
+                        <li>Make sure you have these dependencies installed:
+                            <ul>
+                                <li><code>gjs >= 1.52</code></li>
+                                <li><code>webkit2gtk</code></li>
+                                <li><code>meson >= 0.40</code> (required for building)</li>
+                                <li><code>gettext</code> (required for building)</li>
+                            </ul>
+                        </li>
                         <li>To install, run these commands:
 <pre>
 meson build --prefix=/usr
@@ -245,7 +256,8 @@ sudo ninja install
             <div>
                 <div>
                     <h3>How are notes and bookmarks stored?</h3>
-                    <p>Your reading progress, bookmarks, and annotations are saved in <code>~/.local/share/com.github.johnfactotum.Foliate</code>. If you're using the flatpak version, they should be in <code>~/.var/app/com.github.johnfactotum.Foliate/data/com.github.johnfactotum.Foliate</code>.</p>
+                    <p>Your reading progress, bookmarks, and annotations are saved in <pre>~/.local/share/com.github.johnfactotum.Foliate</pre>
+                    If you're using the flatpak version, they should be in <pre>~/.var/app/com.github.johnfactotum.Foliate/data/com.github.johnfactotum.Foliate</pre></p>
                     <p>The data for each book is stored in a JSON file named after the book's identifier. If you'd like to sync or backup your progress and notes, simply copy these files and everything should just work™.</p>
                 </div>
             </div>
