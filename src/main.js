@@ -376,58 +376,31 @@ ${note}
 ` : ''}`).join('')}
 `
 
-const exportToBibTex = (data) => {
-    let contents
-
+const exportToBibTex = ({ annotations, metadata }) => {
     // Escape all Tex characters that BibTex requires
-    const badCharReplace = cont => Array.from(cont)
-        .map(c => {
-            switch (c) {
-                case '#':
-                    return '\\#';
-                case '$':
-                    return '\\$';
-                case '%':
-                    return '\\%';
-                case '&':
-                    return '\\&';
-                case '\\':
-                    return '\\textbackslash{}';
-                case '^':
-                    return '\\textasciicircum{}';
-                case '_':
-                    return '\\_';
-                case '{':
-                    return '\\{';
-                case '}':
-                    return '\\}';
-                case '~':
-                    return '\\textasciitilde{}';
-                default:
-                    return c;
-            }
-    }).join('')
+    const esc = cont => !cont ? '' : Array.from(cont).map(c =>
+        c === '#' ? '\\#'
+        : c === '$' ? '\\$'
+        : c === '%' ? '\\%'
+        : c === '&' ? '\\&'
+        : c === '\\' ? '\\textbackslash{}'
+        : c === '^' ? '\\textasciicircum{}'
+        : c === '_' ? '\\_'
+        : c === '{' ? '\\{'
+        : c === '}' ? '\\}'
+        : c === '~' ? '\\textasciitilde{}'
+        : c).join('')
 
-    var bib_header = `@book{ref${Math.round(Math.random()*10000).toString()}:%d,\n`
+    // Math functions needed to avoid Tex problems
 
-    bib_header += data.metadata.creator ? `author = {${badCharReplace(data.metadata.creator)}},\n` : 'author = {unknown},\n'
-
-    bib_header += data.metadata.title ? `title = {${badCharReplace(data.metadata.title)}},\n` : 'title = {unknown},\n'
-
-    bib_header += data.metadata.publisher ? `publisher = {${badCharReplace(data.metadata.publisher)}},\n` : 'publisher = {unknown},\n'
-
-    bib_header += data.metadata.pubdate ? `year = {${data.metadata.pubdate.slice(0, 4)}},\n` : 'year = -1,\n'
-
-    bib_header += 'note = {%s}\n},\n\n'
-
-    contents += data.annotations ? data.annotations.map((annot, i) => {
-            var a = _("Quote: ") + '"%s"'.format(annot.text)
-            if (annot.note) a += _(" Note: ") + '%s'.format(annot.note)
-            return bib_header.format(i+1, badCharReplace(a))
-        }
-    ).join('') : ''
-
-    return contents
+    return annotations.map(({ text, note }, i) =>
+`@book{ref${Math.round(Math.random() * 10000)}:${i + 1},
+    author = {${esc(metadata.creator) || 'unknown'}},
+    publisher = {${esc(metadata.publisher) || 'unknown'}},
+    year = {${metadata.pubdate ? metadata.pubdate.slice(0, 4) : 'unknown'}},
+    note = {${_('Quote: ') + esc(text) + (note ? _(" Note: ") + esc(note) : '')}}
+},
+`).join('')
 }
 
 class Navbar {
