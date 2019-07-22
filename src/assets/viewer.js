@@ -30,6 +30,13 @@ const dispatch = action => {
     const obj = { time: new Date().getTime(), ...action }
     document.title = JSON.stringify(obj)
 }
+const resolveURL = (url, relativeTo) => {
+    // HACK-ish: abuse the URL API a little to resolve the path
+    // the base needs to be a valid URL, or it will throw a TypeError,
+    // so we just set a random base URI and remove it later
+    const base = 'https://example.invalid/'
+    return new URL(url, base + relativeTo).href.replace(base, '')
+}
 
 let book, rendition
 let locations
@@ -102,13 +109,8 @@ const openBook = (fileName, inputType) => {
     // fixes https://github.com/futurepress/epub.js/issues/469
     book.loaded.navigation.then(navigation => {
         const path = book.packaging.navPath || book.packaging.ncxPath
-
-        // HACK-ish: abuse the URL API a little to resolve the path
-        // the base needs to be a valid URL, or it will throw a TypeError,
-        // so we just set a random base URI and remove it later
-        const base = 'https://example.invalid/'
         const f = x => {
-            x.href = new URL(x.href, base + path).href.replace(base, '')
+            x.href = resolveURL(x.href, path)
             x.subitems.forEach(f)
         }
         navigation.toc.forEach(f)
@@ -316,7 +318,17 @@ const setupRendition = () => {
         })
         const links = contents.document.querySelectorAll('a:link')
         Array.from(links).forEach(link => {
-            link.addEventListener('click', e => {
+            link.addEventListener('click', async e => {
+                e.stopPropagation()
+                e.preventDefault()
+                followLink = () => {
+                    dispatch({
+                        type: 'link-internal',
+                        payload: rendition.currentLocation().start.cfi
+                    })
+                    link.onclick()
+                }
+
                 const type = link.getAttribute('epub:type')
                 const href = link.getAttribute('href')
                 if (href.indexOf("mailto:") === 0 || href.indexOf("://") > -1)
@@ -327,12 +339,24 @@ const setupRendition = () => {
                 })
                 else {
                     const [page, id] = href.split('#')
-                    let el = contents.document.getElementById(id)
-                    if (!el) return dispatch({
-                        type: 'link-internal',
-                        payload: rendition.currentLocation().start.cfi
-                    })
+                    const pageHref = resolveURL(page,
+                        book.spine.spineItems[contents.sectionIndex].href)
+                    const item = book.spine.get(pageHref)
+                    if (item) await item.load(book.load.bind(book))
 
+                    let el = (item && item.document ? item.document : contents.document)
+                        .getElementById(id)
+                    if (!el) return followLink()
+
+                    // footnotes matching this would be hidden (see above)
+                    // and so one cannot navigate to them
+                    const canGoTo = !(el.nodeName === 'aside'
+                        && el.getAttribute('epub:type') === 'footnote')
+
+                    // this bit deals with situations like
+                    //     <p><sup><a id="note1" href="link1">1</a></sup> My footnote</p>
+                    // where simply getting the ID or its parent would not suffice
+                    // although it would still fail to extract useful texts for some books
                     if (el.nodeName === 'A' && el.getAttribute('href')) {
                         while (true) {
                             const parent = el.parentElement
@@ -343,6 +367,10 @@ const setupRendition = () => {
                         }
                     }
 
+                    footnote = el.innerText.trim()
+
+                    if (item) item.unload()
+
                     const rect = e.target.getBoundingClientRect()
                     const viewElementRect = latestViewElement.getBoundingClientRect()
                     const left = rect.left + viewElementRect.left
@@ -350,21 +378,11 @@ const setupRendition = () => {
                     const top = rect.top + viewElementRect.top
                     const bottom = rect.bottom + viewElementRect.top
 
-                    footnote = el.innerText.trim()
-                    followLink = () => {
-                        dispatch({
-                            type: 'link-internal',
-                            payload: rendition.currentLocation().start.cfi
-                        })
-                        link.onclick()
-                    }
                     if (footnote) dispatch({
                         type: 'footnote',
-                        payload: { left, right, top, bottom, canGoTo: !(type === 'noteref') }
+                        payload: { left, right, top, bottom, canGoTo }
                     })
                     else followLink()
-                    e.stopPropagation()
-                    e.preventDefault()
                 }
             }, true)
         })
