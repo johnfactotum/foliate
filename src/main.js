@@ -2768,7 +2768,7 @@ class BookViewerWindow {
             const combo = new ComboBoxBox(_('Choose export format:'), null, [
                 ['html', _('HTML')],
                 ['txt', _('Plain Text')],
-                ['bib', _('BibTex')],
+                ['bib', _('BibTeX')],
                 ['json', _('JSON')]
             ], x => format = x, false, format)
 
