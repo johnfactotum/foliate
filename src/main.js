@@ -3331,6 +3331,7 @@ function main(argv) {
             transient_for: application.active_window
         })
         aboutDialog.show()
+        aboutDialog.connect('response', () => aboutDialog.destroy())
     })
     application.add_action(actionAbout)
 
