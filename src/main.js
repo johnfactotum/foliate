@@ -376,7 +376,7 @@ ${note}
 ` : ''}`).join('')}
 `
 
-const exportToBibTex = ({ annotations, metadata }) => {
+const exportToBibTeX = ({ annotations, metadata }) => {
     // Escape all Tex characters that BibTex requires
     const esc = cont => !cont ? '' : Array.from(cont).map(c =>
         c === '#' ? '\\#'
@@ -392,9 +392,10 @@ const exportToBibTex = ({ annotations, metadata }) => {
         : c).join('')
 
     // Math functions needed to avoid Tex problems
+    const header = `ref${Math.round(Math.random() * 10000)}`
 
     return annotations.map(({ text, note }, i) =>
-`@book{ref${Math.round(Math.random() * 10000)}:${i + 1},
+`@book{${header}:${i + 1},
     author = {${esc(metadata.creator) || 'unknown'}},
     publisher = {${esc(metadata.publisher) || 'unknown'}},
     year = {${metadata.pubdate ? metadata.pubdate.slice(0, 4) : 'unknown'}},
@@ -2800,7 +2801,7 @@ class BookViewerWindow {
                             contents = exportToTxt(data)
                             break
                         case 'bib':
-                            contents = exportToBibTex(data)
+                            contents = exportToBibTeX(data)
                             break
                     }
                     const file = Gio.File.new_for_path(dialog.get_filename())
