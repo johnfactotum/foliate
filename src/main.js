@@ -1346,7 +1346,7 @@ class LookupPopover {
         combo.active_id = dict
         combo.connect('changed', () => {
             const id = combo.active_id
-            this.lookup(dictionaries[id], word, language)
+            this.lookup(id, word, language)
             settings.set_string('dictionary', id)
         })
         const dictBox = new Gtk.Box({
@@ -1437,7 +1437,7 @@ class LookupPopover {
         const load = () => {
             switch (stack.visible_child_name) {
                 case 'dictionary':
-                    if (!this._lookuped) this.lookup(dictionaries[dict], word, language)
+                    if (!this._lookuped) this.lookup(dict, word, language)
                     this._label.select_region(-1, -1)
                     break
                 case 'wikipedia':
@@ -1455,17 +1455,26 @@ class LookupPopover {
         stack.connect('notify::visible-child-name', load)
         load()
     }
-    lookup(dictionary, word, language) {
+    lookup(dict, word, language) {
         this._lookuped = true
         this._label.label = _('Loading…')
-        dictionary.lookup(word, language)
+        dictionaries[dict].lookup(word, language)
             .then(results => {
-                this._scroll.propagate_natural_width = dictionary.noWrap
-                this._label.use_markup = dictionary.useMarkup
-                this._label.label = dictionary.useMarkup
+                const { noWrap, useMarkup } = dictionaries[dict]
+                this._scroll.propagate_natural_width = noWrap
+                this._label.use_markup = useMarkup
+                this._label.label = useMarkup
                     ? results.replace(/&nbsp;/g, ' ').replace(/&/g, '&amp;') : results
             })
-            .catch(() => this._label.label = _('No definitions found.'))
+            .catch(() => {
+                this._label.use_markup = true
+                this._label.label = _('No entry found.')
+                    + (dict === 'wiktionary' ? '\n'
+                    + `<a href="https://en.wiktionary.org/w/index.php?search=${
+                        encodeURIComponent(word)}">`
+                    + _('Search on Wiktionary')
+                    + '</a>' : '')
+            })
     }
     wikipedia(word, language = 'en') {
         this._wikipediaed = true
