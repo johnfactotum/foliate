@@ -2178,7 +2178,7 @@ class BookViewerWindow {
                         () => Gtk.Clipboard
                             .get_default(Gdk.Display.get_default())
                             .set_text(text, -1),
-                        text, language, dict, options)
+                        text.replace(/\xad|\u2060/g, ''), language, dict, options)
 
                     popover.popover.widget.connect('closed', () => {
                         this.scriptRun('clearSelection()')
