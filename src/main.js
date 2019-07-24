@@ -1756,7 +1756,7 @@ class BookViewerWindow {
     }
     open(fileName, realFileName, inputType = 'epub') {
         if (kindleExts.some(x => fileName.endsWith(x))) {
-            const python = GLib.find_program_in_path('python')
+            const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
             const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
 
             const dir = GLib.dir_make_tmp(null)
