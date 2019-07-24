@@ -162,7 +162,7 @@ const highlightColors = [['yellow', _('Yellow')], ['orange', _('Orange')],
 const coloredText = (color, text) =>
     `<span bgcolor="${color}" bgalpha="25%">${text}</span>`
 
-const lookupWikipedia = (word, language, callback) => {
+const lookup = (lookupScript, lookupAgainScript) => new Promise((resolve, reject) => {
     const webView = new Webkit.WebView({
         settings: new Webkit.Settings({
             enable_write_console_messages_to_stdout: true,
@@ -181,144 +181,48 @@ const lookupWikipedia = (word, language, callback) => {
             })
     }
     webView.load_uri(GLib.filename_to_uri(
-        pkg.pkgdatadir + '/assets/wikipedia.html', null))
+        pkg.pkgdatadir + '/assets/lookup.html', null))
 
     webView.connect('notify::title', self => {
         const { type, payload } = JSON.parse(self.title)
         switch (type) {
             case 'can-lookup':
-                scriptRun(`query("${encodeURIComponent(word)}", '${language}')`)
+                scriptRun(lookupScript)
+                break
+            case 'lookup-again':
+                scriptRun(lookupAgainScript(payload))
                 break
             case 'lookup-results':
-                scriptGet(`lookupResults`, results => {
-                    callback(null,
-                        '<span alpha="70%" size="smaller">'
-                        + _('From Wikipedia, the free encyclopedia') + '</span>\n'
-                        + `<b>${results.title}</b>\n`
-                        + `${results.extract}\n`
-                        + `<a href="https://${language}.wikipedia.org/wiki/${word}">`
-                        + _('View on Wikipedia') + `</a>`)
-                })
+                scriptGet(`lookupResults`, resolve)
                 break
             case 'lookup-error':
-                callback(new Error())
+                reject()
                 break
         }
     })
-}
-
-const lookupGTranslate = (word, language, callback) => {
-    const webView = new Webkit.WebView({
-        settings: new Webkit.Settings({
-            enable_write_console_messages_to_stdout: true,
-            allow_universal_access_from_file_urls: true
-        })
-    })
-    const scriptRun = script =>
-        webView.run_javascript(script, null, () => {})
-    const scriptGet = (script, f) => {
-        webView.run_javascript(`JSON.stringify(${script})`, null,
-            (self, result) => {
-                const jsResult = self.run_javascript_finish(result)
-                const value = jsResult.get_js_value()
-                const obj = JSON.parse(value.to_string())
-                f(obj)
-            })
-    }
-    webView.load_uri(GLib.filename_to_uri(
-        pkg.pkgdatadir + '/assets/google-translate.html', null))
-
-    webView.connect('notify::title', self => {
-        const { type, payload } = JSON.parse(self.title)
-        switch (type) {
-            case 'can-lookup':
-                scriptRun(`query("${encodeURIComponent(word)}", '${language}')`)
-                break
-            case 'lookup-results':
-                scriptGet(`lookupResults`, results => {
-                    callback(null,
-                        '<span alpha="70%" size="smaller">'
-                        + _('Translation by Google Translate') + '</span>\n'
-                        + results)
-                })
-                break
-            case 'lookup-error':
-                callback(new Error())
-                break
-        }
-    })
-}
+})
 
 const dictionaries = {
     wiktionary: {
         name: _('Wiktionary (English)'),
         useMarkup: true,
-        lookup: (word, language, callback) => {
-            const webView = new Webkit.WebView({
-                settings: new Webkit.Settings({
-                    enable_write_console_messages_to_stdout: true,
-                    allow_universal_access_from_file_urls: true
-                })
-            })
-            const scriptRun = script =>
-                webView.run_javascript(script, null, () => {})
-            const scriptGet = (script, f) => {
-                webView.run_javascript(`JSON.stringify(${script})`, null,
-                    (self, result) => {
-                        const jsResult = self.run_javascript_finish(result)
-                        const value = jsResult.get_js_value()
-                        const obj = JSON.parse(value.to_string())
-                        f(obj)
-                    })
-            }
-
-            webView.load_uri(GLib.filename_to_uri(
-                pkg.pkgdatadir + '/assets/wiktionary.html', null))
-
-            webView.connect('notify::title', self => {
-                const { type, payload } = JSON.parse(self.title)
-                switch (type) {
-                    case 'can-lookup':
-                        scriptRun(`queryDictionary("${encodeURIComponent(word)}",
-                            '${language}')`)
-                        break
-                    case 'lookup-again':
-                        scriptRun(`queryDictionary("${encodeURIComponent(payload)}",
-                            '${language}')`)
-                        break
-                    case 'lookup-results':
-                        scriptGet(`lookupResults`, results => {
-                            callback(null,
-                                '<span alpha="70%" size="smaller">'
-                                + _('From Wiktionary, the free dictionary') + '</span>\n'
-                                + `<b>${results.word}</b> ${results.pronunciation || ''}\n`
-                                + `${results.defs.join('\n')}\n`
-                                + `<a href="https://en.wiktionary.org/wiki/${word}">`
-                                + _('View on Wiktionary') + '</a>')
-                        })
-                        break
-                    case 'lookup-error':
-                        callback(new Error())
-                        break
-                }
-            })
+        lookup: (word, language) => {
+            language = language.slice(0, 2).toLowerCase()
+            return lookup(`wiktionary("${encodeURIComponent(word)}", '${language}')`,
+                payload => `wiktionary("${encodeURIComponent(payload)}", '${language}')`)
+                    .then(results => '<span alpha="70%" size="smaller">'
+                        + _('From Wiktionary™, the free dictionary') + '</span>\n'
+                        + `<b>${results.word}</b> ${results.pronunciation || ''}\n`
+                        + `${results.defs.join('\n\n')}\n\n`
+                        + `<a href="https://en.wiktionary.org/wiki/${word}">`
+                        + _('View on Wiktionary') + '</a>')
         }
-    },
+    }
 }
-
 const makeDictdDict = (id, name) => ({
     name,
     noWrap: true,
-    lookup: (word, language, callback) => {
-        try {
-            const command = ['dict', '-d', id, word]
-            execCommand(command).then(stdout => {
-                callback(null, stdout)
-            }).catch(() => callback(new Error()))
-        } catch(e) {
-            callback(new Error())
-        }
-    }
+    lookup: (word, language) => execCommand(['dict', '-d', id, word])
 })
 const parseDictDbs = x => x.split('\n').filter(x => x).map(row => {
     const cols = row.split('\t')
@@ -1554,33 +1458,41 @@ class LookupPopover {
     lookup(dictionary, word, language) {
         this._lookuped = true
         this._label.label = _('Loading…')
-        dictionary.lookup(word, language, (err, results) => {
-            this._scroll.propagate_natural_width = dictionary.noWrap
-            this._label.use_markup = dictionary.useMarkup
-            if (err) this._label.label = _('No definitions found.')
-            else this._label.label = dictionary.useMarkup
-                ? results.replace(/&/g, '&amp;') : results
-        })
+        dictionary.lookup(word, language)
+            .then(results => {
+                this._scroll.propagate_natural_width = dictionary.noWrap
+                this._label.use_markup = dictionary.useMarkup
+                this._label.label = dictionary.useMarkup
+                    ? results.replace(/&/g, '&amp;') : results
+            })
+            .catch(() => this._label.label = _('No definitions found.'))
     }
     wikipedia(word, language = 'en') {
         this._wikipediaed = true
-        lookupWikipedia(word, language, (err, results) => {
-            if (err) this._wikiLabel.label = _('No entry found.')
+        lookup(`wikipedia("${encodeURIComponent(word)}", '${language}')`)
+            .then(results => '<span alpha="70%" size="smaller">'
+                + _('From Wikipedia™, the free encyclopedia') + '</span>\n'
+                + `<b>${results.title}</b>\n`
+                + `${results.extract}\n`
+                + `<a href="https://${language}.wikipedia.org/wiki/${word}">`
+                + _('View on Wikipedia') + `</a>`)
+            .then(results => this._wikiLabel.label = results.replace(/&/g, '&amp;'))
+            .catch(() => this._wikiLabel.label = _('No entry found.')
                 + '\n'
                 + `<a href="https://${language}.wikipedia.org/w/index.php?search=${
                     encodeURIComponent(word)}">`
                 + _('Search on Wikipedia')
-                + '</a>'
-            else this._wikiLabel.label = results.replace(/&/g, '&amp;')
-        })
+                + '</a>')
     }
     gtranslate(word, language = 'en') {
         this._gtranslated = true
         this._transLabel.label = _('Loading…')
-        lookupGTranslate(word, language, (err, results) => {
-            if (err) this._transLabel.label = _('Cannot retrieve translation.')
-            else this._transLabel.label = results.replace(/&/g, '&amp;')
-        })
+        lookup(`googleTranslate("${encodeURIComponent(word)}", '${language}')`)
+            .then(results => '<span alpha="70%" size="smaller">'
+                + _('Translation by Google™ Translate') + '</span>\n'
+                + results)
+            .then(results => this._transLabel.label = results.replace(/&/g, '&amp;'))
+            .catch(() => this._transLabel.label = _('Cannot retrieve translation.'))
     }
 }
 class AnnotationPopover {
