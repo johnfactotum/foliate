@@ -12,32 +12,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-const debounce = (f, wait, immediate) => {
-    let timeout
-    return (...args) => {
-        const later = () => {
-            timeout = null
-            if (!immediate) f(...args)
-        }
-        const callNow = immediate && !timeout
-        clearTimeout(timeout)
-        timeout = setTimeout(later, wait)
-        if (callNow) f(...args)
-    }
-}
-const dispatch = action => {
-    // unique time in case we are dispatching the same action twice
-    const obj = { time: new Date().getTime(), ...action }
-    document.title = JSON.stringify(obj)
-}
-const resolveURL = (url, relativeTo) => {
-    // HACK-ish: abuse the URL API a little to resolve the path
-    // the base needs to be a valid URL, or it will throw a TypeError,
-    // so we just set a random base URI and remove it later
-    const base = 'https://example.invalid/'
-    return new URL(url, base + relativeTo).href.replace(base, '')
-}
-
 let book, rendition
 let locations
 let coverBase64
@@ -331,7 +305,7 @@ const setupRendition = () => {
 
                 const type = link.getAttribute('epub:type')
                 const href = link.getAttribute('href')
-                if (href.indexOf("mailto:") === 0 || href.indexOf("://") > -1)
+                if (isExternalURL(href))
                     dispatch({ type: 'link-external', payload: href })
                 else if (type !== 'noteref' && !footnoteEnabled) dispatch({
                     type: 'link-internal',
@@ -374,7 +348,7 @@ const setupRendition = () => {
                         }
                     }
 
-                    footnote = el.innerText.trim()
+                    footnote = toPangoMarkup(el.innerHTML)
 
                     if (item) item.unload()
 
@@ -385,7 +359,7 @@ const setupRendition = () => {
                     const top = rect.top + viewElementRect.top
                     const bottom = rect.bottom + viewElementRect.top
 
-                    if (footnote) dispatch({
+                    if (el.innerText.trim()) dispatch({
                         type: 'footnote',
                         payload: { left, right, top, bottom, canGoTo }
                     })

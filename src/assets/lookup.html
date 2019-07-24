@@ -16,41 +16,13 @@
 
 -->
 <meta charset="utf-8">
+<script src="utils.js"></script>
 <script>
-const dispatch = action => {
-    // unique time in case we are dispatching the same action twice
-    const obj = { time: new Date().getTime(), ...action }
-    document.title = JSON.stringify(obj)
-}
-
-// from https://stackoverflow.com/a/11892228
-const usurp = p => {
-    let last = p
-    for (let i = p.childNodes.length - 1; i >= 0; i--) {
-        let e = p.removeChild(p.childNodes[i])
-        p.parentNode.insertBefore(e, last)
-        last = e
-    }
-    p.parentNode.removeChild(p)
-}
-const pangoMarkupTags = ['a', 'b', 'big', 'i', 's', 'sub', 'sup', 'small', 'u']
-const toPangoMarkup = html => {
-    const doc = new DOMParser().parseFromString(html, 'text/html')
-    Array.from(doc.body.querySelectorAll('*')).forEach(el => {
-        const nodeName = el.nodeName.toLowerCase()
-        if (pangoMarkupTags.indexOf(nodeName) === -1) usurp(el)
-        else Array.from(el.attributes).forEach(x =>
-            x.name === 'href'
-                ? el.setAttribute('href',
-                    new URL(el.getAttribute('href'), 'https://en.wiktionary.org/'))
-                : el.removeAttribute(x.name))
-    })
-    return doc.body.innerHTML
-}
-
 let lookupResults
 
 const wiktionary = (word, language = 'en') => {
+    const baseURL = 'https://en.wiktionary.org/'
+
     fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${word}`)
     .then(res => {
         if (res.ok) return res
@@ -63,10 +35,10 @@ const wiktionary = (word, language = 'en') => {
             word: decodeURIComponent(word),
             defs: entry.map(({ partOfSpeech, definitions }) => `<i>${partOfSpeech}</i>\n`
                 + definitions.map(({ definition, examples }, i) =>
-                            `${i + 1}. ` + toPangoMarkup(definition)
+                            `${i + 1}. ` + toPangoMarkup(definition, baseURL)
                             + (examples ? '\n' + examples.map(example =>
                                 '<span alpha="70%" size="smaller">- '
-                                + toPangoMarkup(example)
+                                + toPangoMarkup(example, baseURL)
                                 + '</span>').join('\n') : '')
                         ).join('\n\n')
                     )

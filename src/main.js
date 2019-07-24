@@ -1463,7 +1463,7 @@ class LookupPopover {
                 this._scroll.propagate_natural_width = dictionary.noWrap
                 this._label.use_markup = dictionary.useMarkup
                 this._label.label = dictionary.useMarkup
-                    ? results.replace(/&/g, '&amp;') : results
+                    ? results.replace(/&nbsp;/g, ' ').replace(/&/g, '&amp;') : results
             })
             .catch(() => this._label.label = _('No definitions found.'))
     }
@@ -1557,6 +1557,7 @@ class FootnotePopover {
         this._label = new Gtk.Label({
             use_markup: true,
             selectable: true,
+            use_markup: true,
             valign: Gtk.Align.START,
             xalign: 0
         })
@@ -1585,7 +1586,7 @@ class FootnotePopover {
             canGoTo ? [scroll, button] : [scroll])
     }
     load(footnote) {
-        this._label.label = footnote
+        this._label.label = footnote.replace(/&nbsp;/g, ' ')
         this.popover.widget.popup()
         this._label.select_region(-1, -1)
     }
