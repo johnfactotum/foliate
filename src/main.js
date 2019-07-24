@@ -211,7 +211,7 @@ const dictionaries = {
             return lookup(`wiktionary("${encodeURIComponent(word)}", '${language}')`,
                 payload => `wiktionary("${encodeURIComponent(payload)}", '${language}')`)
                     .then(results => '<span alpha="70%" size="smaller">'
-                        + _('From Wiktionary™, the free dictionary') + '</span>\n'
+                        + _('From Wiktionary, the free dictionary') + '</span>\n'
                         + `<b>${results.word}</b> ${results.pronunciation || ''}\n`
                         + `${results.defs.join('\n\n')}\n\n`
                         + `<a href="https://en.wiktionary.org/wiki/${word}">`
@@ -1471,7 +1471,7 @@ class LookupPopover {
         this._wikipediaed = true
         lookup(`wikipedia("${encodeURIComponent(word)}", '${language}')`)
             .then(results => '<span alpha="70%" size="smaller">'
-                + _('From Wikipedia™, the free encyclopedia') + '</span>\n'
+                + _('From Wikipedia, the free encyclopedia') + '</span>\n'
                 + `<b>${results.title}</b>\n`
                 + `${results.extract}\n`
                 + `<a href="https://${language}.wikipedia.org/wiki/${word}">`
@@ -1489,7 +1489,7 @@ class LookupPopover {
         this._transLabel.label = _('Loading…')
         lookup(`googleTranslate("${encodeURIComponent(word)}", '${language}')`)
             .then(results => '<span alpha="70%" size="smaller">'
-                + _('Translation by Google™ Translate') + '</span>\n'
+                + _('Translation by Google Translate') + '</span>\n'
                 + results)
             .then(results => this._transLabel.label = results.replace(/&/g, '&amp;'))
             .catch(() => this._transLabel.label = _('Cannot retrieve translation.'))
