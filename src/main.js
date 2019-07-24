@@ -295,6 +295,33 @@ ${note}
 ` : ''}`).join('')}
 `
 
+const exportToBibTeX = ({ annotations, metadata }) => {
+    // Escape all Tex characters that BibTex requires
+    const esc = cont => !cont ? '' : Array.from(cont).map(c =>
+        c === '#' ? '\\#'
+        : c === '$' ? '\\$'
+        : c === '%' ? '\\%'
+        : c === '&' ? '\\&'
+        : c === '\\' ? '\\textbackslash{}'
+        : c === '^' ? '\\textasciicircum{}'
+        : c === '_' ? '\\_'
+        : c === '{' ? '\\{'
+        : c === '}' ? '\\}'
+        : c === '~' ? '\\textasciitilde{}'
+        : c).join('')
+
+    // Math functions needed to avoid Tex problems
+    const header = `ref${Math.round(Math.random() * 10000)}`
+
+    return annotations.map(({ text, note }, i) =>
+`@book{${header}:${i + 1},
+    author = {${esc(metadata.creator) || 'unknown'}},
+    publisher = {${esc(metadata.publisher) || 'unknown'}},
+    year = {${metadata.pubdate ? metadata.pubdate.slice(0, 4) : 'unknown'}},
+    note = {${_('Quote: ') + esc(text) + (note ? _(" Note: ") + esc(note) : '')}}
+},
+`).join('')
+}
 
 class Navbar {
     constructor(ttsButton, onSlide, onPrev, onNext, onBack) {
@@ -2695,6 +2722,7 @@ class BookViewerWindow {
             const combo = new ComboBoxBox(_('Choose export format:'), null, [
                 ['html', _('HTML')],
                 ['txt', _('Plain Text')],
+                ['bib', _('BibTeX')],
                 ['json', _('JSON')]
             ], x => format = x, false, format)
 
@@ -2724,6 +2752,9 @@ class BookViewerWindow {
                             break
                         case 'txt':
                             contents = exportToTxt(data)
+                            break
+                        case 'bib':
+                            contents = exportToBibTeX(data)
                             break
                     }
                     const file = Gio.File.new_for_path(dialog.get_filename())
