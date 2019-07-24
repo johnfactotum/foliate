@@ -1295,7 +1295,12 @@ class SelectionPopover {
     }
 }
 class LookupPopover {
-    constructor(options, onAnnotate, onCopy, word, language, dict, action = 'dictionary') {
+    constructor(options, onAnnotate, onCopy, word, language, dict, action) {
+        const defaultAction = settings.get_string('lookup-action')
+        if (!action) action = defaultAction === 'auto'
+            ? (word.split(' ').length > 1 ? 'wikipedia' : 'dictionary')
+            : defaultAction
+
         const copyButton = new Gtk.Button({ label: _('Copy') })
         copyButton.connect('clicked', () => {
             onCopy()
@@ -2064,7 +2069,6 @@ class BookViewerWindow {
         this.scriptRun(`setupRendition()`)
     }
     handleAction({ type, payload }, options) {
-        let lookupAction
         switch (type) {
             case 'book-error':
                 this.bookError()
@@ -2166,6 +2170,9 @@ class BookViewerWindow {
                     })
                 break
             }
+            case 'dictionary':
+                this.handleAction({ type: 'lookup', payload }, 'dictionary')
+                break
             case 'wikipedia':
                 this.handleAction({ type: 'lookup', payload }, 'wikipedia')
                 break
@@ -2208,6 +2215,13 @@ class BookViewerWindow {
                         payload: ${JSON.stringify(payload)}
                     })`)
                 }
+                const dictionaryFunc = () => {
+                    shouldClearSelection = false
+                    this.scriptRun(`dispatch({
+                        type: 'dictionary',
+                        payload: ${JSON.stringify(payload)}
+                    })`)
+                }
                 const wikipediaFunc = () => {
                     shouldClearSelection = false
                     this.scriptRun(`dispatch({
@@ -2230,8 +2244,11 @@ class BookViewerWindow {
                         this.scriptRun('clearSelection()')
                         highlightFunc()
                         break
-                    case 'dictionary':
+                    case 'lookup':
                         lookupFunc()
+                        break
+                    case 'dictionary':
+                        dictionaryFunc()
                         break
                     case 'wikipedia':
                         wikipediaFunc()
@@ -3284,21 +3301,6 @@ function main(argv) {
         const restorePref = new SwitchBox(
             _('Open last opened file on startup'), 'restore-last-file', () => {})
 
-        const selectionActions = [
-            ['nothing', _('Do nothing')],
-            ['ask', _('Ask what to do')],
-            ['highlight', _('Highlight')],
-            ['dictionary', _('Lookup in dictionary')],
-            ['wikipedia', _('Lookup in Wikipedia')],
-            ['translate', _('Translate')]
-        ]
-        const selectionSinglePref = new ComboBoxBox(
-            _('When a word is selected'),
-            'selection-action-single', selectionActions, () => {})
-        const selectionMultiplePref = new ComboBoxBox(
-            _('When multiple words are selected'),
-            'selection-action-multiple', selectionActions, () => {})
-
         const cursorPref = new ComboBoxBox(
             _('Auto-hide cursor'),
             'autohide-cursor',
@@ -3344,14 +3346,44 @@ function main(argv) {
         })
         general.pack_start(sidebarPref.widget, false, true, 0)
         general.pack_start(restorePref.widget, false, true, 0)
-        general.pack_start(selectionSinglePref.widget, false, true, 0)
-        general.pack_start(selectionMultiplePref.widget, false, true, 0)
         general.pack_start(cursorPref.widget, false, true, 0)
         general.pack_start(footnotePref.widget, false, true, 0)
         general.pack_start(cspPref.widget, false, true, 0)
         general.pack_start(ttsPref.widget, false, true, 0)
         general.show_all()
         stack.add_titled(general, 'general', _('General'))
+
+        const selectionActions = [
+            ['nothing', _('Do nothing')],
+            ['ask', _('Ask what to do')],
+            ['highlight', _('Highlight')],
+            ['dictionary', _('Lookup in dictionary')],
+            ['wikipedia', _('Lookup in Wikipedia')],
+            ['translate', _('Translate')]
+        ]
+        const selectionSinglePref = new ComboBoxBox(
+            _('When a word is selected'),
+            'selection-action-single', selectionActions, () => {})
+        const selectionMultiplePref = new ComboBoxBox(
+            _('When multiple words are selected'),
+            'selection-action-multiple', selectionActions, () => {})
+        const lookupPref = new ComboBoxBox(
+            _('Lookup method'),
+            'lookup-action', [
+                ['auto', _('Automatic')],
+                ['dictionary', _('Dictionary')],
+                ['wikipedia', _('Wikipedia')]
+            ], () => {})
+        const selection =  new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            border_width: 18,
+            spacing: 18,
+        })
+        selection.pack_start(selectionSinglePref.widget, false, true, 0)
+        selection.pack_start(selectionMultiplePref.widget, false, true, 0)
+        selection.pack_start(lookupPref.widget, false, true, 0)
+        selection.show_all()
+        stack.add_titled(selection, 'selection', _('Selection'))
 
         const theme = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
