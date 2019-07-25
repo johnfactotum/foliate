@@ -89,6 +89,11 @@ const openBook = (fileName, inputType) => {
         }
         navigation.toc.forEach(f)
     })
+
+    book.loaded.metadata.then(metadata => {
+        if (metadata.description)
+            metadata.description = toPangoMarkup(metadata.description)
+    })
 }
 const display = (lastLocation, cached) => {
     rendition = book.renderTo('viewer', { width: '100%' })

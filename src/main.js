@@ -2825,29 +2825,23 @@ class BookViewerWindow {
                 dataBox.pack_start(creator, false, true, 0)
             }
             if (metadata.description) {
-                const webView = new Webkit.WebView({
-                    hexpand: true,
-                    vexpand: true
+                const label = new Gtk.Label({
+                    use_markup: true,
+                    selectable: true,
+                    use_markup: true,
+                    valign: Gtk.Align.START,
+                    xalign: 0,
+                    label: metadata.description
                 })
-                webView.connect('context-menu', () => true)
+                label.set_line_wrap(true)
+                const lbox = new Gtk.Box({ border_width: 10 })
+                lbox.add(label)
 
-                const theme = this.viewPopover.theme
-                const { color, background, invert } = this.themes[theme]
+                const scroll = new Gtk.ScrolledWindow()
+                scroll.get_style_context().add_class('frame')
+                scroll.add(lbox)
 
-                webView.load_html(
-                    `<meta http-equiv="Content-Security-Policy"
-                        content="default-src 'none'; style-src 'unsafe-inline';">
-                    <style>
-                        html {
-                            background: ${background};
-                            color: ${color};
-                            filter: ${invert ? 'invert(1) hue-rotate(180deg)' : 'none'};
-                        }
-                    </style>` + metadata.description, null)
-
-                const frame = new Gtk.Frame()
-                frame.add(webView)
-                dataBox.pack_start(frame, true, true, 0)
+                dataBox.pack_start(scroll, true, true, 0)
             }
 
             // workaround for xgettext bug
@@ -2904,7 +2898,7 @@ class BookViewerWindow {
                 if (!image) dataBox.pack_end(new Gtk.Separator, false, true, 10)
             } else if (image) image.valign = Gtk.Align.START
             if (image) coverBox.pack_start(image, false, true, 0)
-            coverBox.pack_end(dataBox, false, true, 0)
+            coverBox.pack_end(dataBox, true, true, 0)
 
             const container = window.get_content_area()
             container.border_width = 18
