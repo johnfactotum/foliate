@@ -12,7 +12,7 @@ Website: https://johnfactotum.github.io/foliate/
 
 ## Features
 
-- View EPUB and Kindle files in two-page view or scrolled view
+- View .epub, .mobi, .azw, and .azw3 files in two-page view or scrolled view
 - Customize font, line-spacing, margins, and brightness
 - Light, sepia, dark, and invert mode, or add your own custom themes
 - Reading progress slider with chapter marks
@@ -30,6 +30,7 @@ Website: https://johnfactotum.github.io/foliate/
 - Fedora: `sudo dnf install foliate`
 - Void Linux: `xbps-install -S foliate`
 
+Debian/Ubuntu packages can be downloaded from the [releases](https://github.com/johnfactotum/foliate/releases) page.
 
 #### Optional dependencies
 
@@ -136,7 +137,9 @@ Optional sidebar layout, with popup footnote:
 
 ---
 
-**Note:** three JavaScript libraries are bundled in this software:
+**Note:** two JavaScript libraries are bundled in this software:
 
 - [Epub.js](https://github.com/futurepress/epub.js/), which is licensed under [FreeBSD](https://github.com/futurepress/epub.js/blob/master/license). The included file is patched to fix [#76](https://github.com/johnfactotum/foliate/issues/76) and  [futurepress/epub.js#942](https://github.com/futurepress/epub.js/issues/942)
 - The minified version of [JSZip](https://stuk.github.io/jszip/), which is dual-licensed. You may use it under the MIT license or the GPLv3 license. See [LICENSE.markdown](https://github.com/Stuk/jszip/blob/master/LICENSE.markdown)
+
+This software also includes parts from [KindleUnpack](https://github.com/kevinhendricks/KindleUnpack), which is liscensed under GPL-3.0.
