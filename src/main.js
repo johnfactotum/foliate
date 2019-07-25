@@ -2770,7 +2770,7 @@ class BookViewerWindow {
         const action = new Gio.SimpleAction({ name: 'properties' })
         action.connect('activate', () => {
             let image
-            if (coverBase64) {
+            try {
                 const data = GLib.base64_decode(coverBase64)
                 const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
                 const pixbuf = GdkPixbuf.Pixbuf.new_from_stream(imageStream, null)
@@ -2781,6 +2781,8 @@ class BookViewerWindow {
 
                 image = Gtk.Image.new_from_pixbuf(
                     pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
+            } catch (e) {
+                // cannot get image
             }
             const window = new Gtk.Dialog({
                 default_width: 700,
