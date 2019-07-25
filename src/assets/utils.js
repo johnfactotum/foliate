@@ -57,7 +57,9 @@ const usurp = p => {
 const pangoMarkupTags = ['a', 'b', 'big', 'i', 's', 'sub', 'sup', 'small', 'tt', 'u']
 const toPangoMarkup = (html, baseURL) => {
     const doc = new DOMParser().parseFromString(html.replace(/\n/g, ' '), 'text/html')
-    Array.from(doc.querySelectorAll('p, div, li'))
+    Array.from(doc.querySelectorAll('p'))
+        .forEach(el => el.innerHTML = '\n' + el.innerHTML)
+    Array.from(doc.querySelectorAll('div'))
         .forEach(el => el.innerHTML = '\n' + el.innerHTML)
     Array.from(doc.querySelectorAll('br'))
         .forEach(el => el.innerHTML = '\n')
@@ -83,5 +85,5 @@ const toPangoMarkup = (html, baseURL) => {
         })
         if (nodeName === 'a' && !el.hasAttribute('href')) usurp(el)
     })
-    return doc.body.innerHTML.replace(/^\n/, '').replace(/&nbsp;/g, ' ').replace(/&/g, '&amp;')
+    return doc.body.innerHTML.trim().replace(/&nbsp;/g, ' ').replace(/&/g, '&amp;')
 }
