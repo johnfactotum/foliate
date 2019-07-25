@@ -1495,8 +1495,7 @@ class LookupPopover {
                 const { noWrap, useMarkup } = dictionaries[dict]
                 this._scroll.propagate_natural_width = noWrap
                 this._label.use_markup = useMarkup
-                this._label.label = useMarkup
-                    ? results.replace(/&nbsp;/g, ' ').replace(/&/g, '&amp;') : results
+                this._label.label = results
             })
             .catch(() => {
                 this._label.use_markup = true
@@ -1627,7 +1626,7 @@ class FootnotePopover {
             canGoTo ? [scroll, button] : [scroll])
     }
     load(footnote) {
-        this._label.label = footnote.replace(/&nbsp;/g, ' ')
+        this._label.label = footnote
         this.popover.widget.popup()
         this._label.select_region(-1, -1)
     }

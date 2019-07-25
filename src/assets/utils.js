@@ -54,9 +54,21 @@ const usurp = p => {
     }
     p.parentNode.removeChild(p)
 }
-const pangoMarkupTags = ['a', 'b', 'big', 'i', 's', 'sub', 'sup', 'small', 'u']
+const pangoMarkupTags = ['a', 'b', 'big', 'i', 's', 'sub', 'sup', 'small', 'tt', 'u']
 const toPangoMarkup = (html, baseURL) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html')
+    const doc = new DOMParser().parseFromString(html.replace(/\n/g, ' '), 'text/html')
+    Array.from(doc.querySelectorAll('p, div, li'))
+        .forEach(el => el.innerHTML = '\n' + el.innerHTML)
+    Array.from(doc.querySelectorAll('br'))
+        .forEach(el => el.innerHTML = '\n')
+    Array.from(doc.querySelectorAll('em'))
+        .forEach(el => el.innerHTML = '<i>' + el.innerHTML + '</i>')
+    Array.from(doc.querySelectorAll('strong'))
+        .forEach(el => el.innerHTML = '<b>' + el.innerHTML + '</b>')
+    Array.from(doc.querySelectorAll('code'))
+        .forEach(el => el.innerHTML = '<tt>' + el.innerHTML + '</tt>')
+    Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, h6'))
+        .forEach(el => el.innerHTML = '\n\n<big><b>' + el.innerHTML + '</b></big>\n')
     Array.from(doc.body.querySelectorAll('*')).forEach(el => {
         const nodeName = el.nodeName.toLowerCase()
         if (pangoMarkupTags.indexOf(nodeName) === -1) usurp(el)
@@ -71,5 +83,5 @@ const toPangoMarkup = (html, baseURL) => {
         })
         if (nodeName === 'a' && !el.hasAttribute('href')) usurp(el)
     })
-    return doc.body.innerHTML
+    return doc.body.innerHTML.replace(/^\n/, '').replace(/&nbsp;/g, ' ').replace(/&/g, '&amp;')
 }
