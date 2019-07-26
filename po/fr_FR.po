@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-25 10:38+0800\n"
-"PO-Revision-Date: 2019-07-15 13:14+0900\n"
+"PO-Revision-Date: 2019-07-26 12:55+0900\n"
 "Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1781
@@ -130,14 +130,12 @@ msgid "Note:"
 msgstr "Note :"
 
 #: src/main.js:321
-#, fuzzy
 msgid "Quote: "
-msgstr "Note :"
+msgstr "Citation : "
 
 #: src/main.js:321
-#, fuzzy
 msgid " Note: "
-msgstr "Note :"
+msgstr " Note : "
 
 #: src/main.js:342
 msgid "Previous page"
@@ -310,9 +308,8 @@ msgid "No entry found."
 msgstr "Aucune entrée trouvée."
 
 #: src/main.js:1506
-#, fuzzy
 msgid "Search on Wiktionary"
-msgstr "Voir sur le Wiktionnaire"
+msgstr "Rechercher sur le Wiktionnaire"
 
 #: src/main.js:1514
 msgid "From Wikipedia, the free encyclopedia"
@@ -465,7 +462,7 @@ msgstr "Texte brut"
 
 #: src/main.js:2724
 msgid "BibTeX"
-msgstr ""
+msgstr "BibTeX"
 
 #: src/main.js:2725
 msgid "JSON"
@@ -738,22 +735,20 @@ msgid "When multiple words are selected"
 msgstr "Quand plusieurs mots sont sélectionnés"
 
 #: src/main.js:3397
-#, fuzzy
 msgid "Lookup method"
-msgstr "Rechercher"
+msgstr "Méthode de recherche"
 
 #: src/main.js:3399
-#, fuzzy
 msgid "Automatic"
-msgstr "Auto"
+msgstr "Automatique"
 
 #: src/main.js:3412
 msgid "Selection"
-msgstr ""
+msgstr "Sélection"
 
 #: src/main.js:3445
 msgid "Afrikaans"
-msgstr "Afrikans"
+msgstr "Afrikaans"
 
 #: src/main.js:3446
 msgid "Albanian"
@@ -789,7 +784,7 @@ msgstr "Bengali"
 
 #: src/main.js:3454
 msgid "Bosnian"
-msgstr "Bosnien"
+msgstr "Bosniaque"
 
 #: src/main.js:3455
 msgid "Bulgarian"
@@ -897,7 +892,7 @@ msgstr "Hindi"
 
 #: src/main.js:3481
 msgid "Hmong"
-msgstr "Miao"
+msgstr "Hmong"
 
 #: src/main.js:3482
 msgid "Hungarian"
@@ -953,7 +948,7 @@ msgstr "Kurde"
 
 #: src/main.js:3495
 msgid "Kyrgyz"
-msgstr "Kirghiz"
+msgstr "Kirghize"
 
 #: src/main.js:3496
 msgid "Lao"
@@ -1041,7 +1036,7 @@ msgstr "Portugais"
 
 #: src/main.js:3517
 msgid "Punjabi"
-msgstr "Punjabi"
+msgstr "Pendjabi"
 
 #: src/main.js:3518
 msgid "Romanian"
@@ -1065,7 +1060,7 @@ msgstr "Serbe"
 
 #: src/main.js:3523
 msgid "Sesotho"
-msgstr "Sotho"
+msgstr "Sotho du Sud"
 
 #: src/main.js:3524
 msgid "Shona"
@@ -1117,11 +1112,11 @@ msgstr "Tadjik"
 
 #: src/main.js:3536
 msgid "Tamil"
-msgstr "Tamil"
+msgstr "Tamoul"
 
 #: src/main.js:3537
 msgid "Telugu"
-msgstr "Telugu"
+msgstr "Télougou"
 
 #: src/main.js:3538
 msgid "Thai"
@@ -1207,38 +1202,48 @@ msgstr "John Factotum"
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr ""
+"Correction pour la version Flatpak qui n’était pas capable d’afficher les "
+"fichiers .mobi, .azw et .azw3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Improved Wiktionary lookup, now with links and example sentences"
 msgstr ""
+"Amélioration de la recherche sur le Wiktionnaire, affichage des liens et de "
+"phrases d’exemple"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid "Improved popover footnote extraction and formatting"
 msgstr ""
+"Amélioration de la fenêtre flottante d’extraction et de formatage des notes "
+"de bas de page"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Added option to export annotations to BibTeX"
-msgstr ""
+msgstr "Ajout d’une option pour exporter les annotations aux format BibTeX"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
 msgid "Fixed table of contents navigation not working with some books"
 msgstr ""
+"Correction pour la table des matières ne fonctionnant pas avec certains "
+"livres"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 msgid "Fixed not being able to zoom images with Kindle books"
-msgstr ""
+msgstr "Correction pour les images non zoomables avec les livres Kindle"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid "Fixed not being able to open books with .epub3 filename extension"
 msgstr ""
+"Correction pour l’impossibilité d’ouvrir les livres avec l’extension .epub3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed temporary directory not being cleaned after closing"
 msgstr ""
+"Correction pour les fichiers temporaires non supprimés après la fermeture"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid "Fixed F9 shortcut not working"
-msgstr ""
+msgstr "Correction pour le raccourci F9 qui ne fonctionnait pas"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
@@ -1246,11 +1251,10 @@ msgid "Updated translations"
 msgstr "Mise à jour des traductions"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
-#, fuzzy
 msgid "External resources and JavaScript are now blocked by default"
 msgstr ""
-"Les ressources externes et les scripts JavaScript sont maintenant désactivés "
-"par défaut"
+"Les ressources externes et les scripts JavaScript sont désormais bloqués par "
+"défaut"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
 msgid "Basic text-to-speech support"
@@ -1262,7 +1266,7 @@ msgstr "Exporter les annotations au format HTML, texte brut ou JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
-msgstr ""
+msgstr "Ajout de la possibilité de visionner les fichiers .mobi, .azw et .azw3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
 msgid "New alternative sidebar UI"
