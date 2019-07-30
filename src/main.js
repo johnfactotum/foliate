@@ -2339,6 +2339,7 @@ class BookViewerWindow {
                         .replace(/—/g, '---')
                         .replace(/…/g, '...')
                         .replace(/\xa0/g, ' ')
+                        .replace(/\xad|\u2060/g, '')
                         .replace(/\n/g, '; ')
                     this._ttsToken = {}
                     const args = [text, true, this._ttsToken]
