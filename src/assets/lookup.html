@@ -18,66 +18,68 @@
 <meta charset="utf-8">
 <script src="utils.js"></script>
 <script>
+/* global debounce, dispatch, isExternalURL, resolveURL, toPangoMarkup */
+
 let lookupResults
 
 const wiktionary = (word, language = 'en') => {
     const baseURL = 'https://en.wiktionary.org/'
 
     fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${word}`)
-    .then(res => {
-        if (res.ok) return res
-        else throw new Error()
-    })
-    .then(res => res.json())
-    .then(json => {
-        const entry = json[language]
-        lookupResults = ({
-            word: decodeURIComponent(word),
-            defs: entry.map(({ partOfSpeech, definitions }) => `<i>${partOfSpeech}</i>\n`
-                + definitions.map(({ definition, examples }, i) =>
-                            `${i + 1}. ` + toPangoMarkup(definition, baseURL)
+        .then(res => {
+            if (res.ok) return res
+            else throw new Error()
+        })
+        .then(res => res.json())
+        .then(json => {
+            const entry = json[language]
+            lookupResults = ({
+                word: decodeURIComponent(word),
+                defs: entry.map(({ partOfSpeech, definitions }) => `<i>${partOfSpeech}</i>\n`
+                    + definitions.map(({ definition, examples }, i) =>
+                        `${i + 1}. ` + toPangoMarkup(definition, baseURL)
                             + (examples ? '\n' + examples.map(example =>
                                 '<span alpha="70%" size="smaller">- '
                                 + toPangoMarkup(example, baseURL)
                                 + '</span>').join('\n') : '')
-                        ).join('\n\n')
-                    )
+                    ).join('\n\n')
+                )
+            })
         })
-    })
-    .then(() => dispatch({ type: 'lookup-results' }))
-    .catch(() => {
-        word = decodeURI(word)
-        const lower = word.toLowerCase()
-        if (lower !== word) dispatch({ type: 'lookup-again', payload: lower })
-        else dispatch({ type: 'lookup-error' })
-    })
+        .then(() => dispatch({ type: 'lookup-results' }))
+        .catch(() => {
+            word = decodeURI(word)
+            const lower = word.toLowerCase()
+            if (lower !== word) dispatch({ type: 'lookup-again', payload: lower })
+            else dispatch({ type: 'lookup-error' })
+        })
 }
 const wikipedia = (word, language = 'en') => {
     fetch(`https://${language}.wikipedia.org/api/rest_v1/page/summary/${word}`)
-    .then(res => {
-        if (res.ok) return res
-        else throw new Error()
-    })
-    .then(res => res.json())
-    .then(json => {
-        lookupResults = json
-        lookupResults.extract = toPangoMarkup(json.extract_html)
-    })
-    .then(() => dispatch({ type: 'lookup-results' }))
-    .catch(() => dispatch({ type: 'lookup-error' }))
+        .then(res => {
+            if (res.ok) return res
+            else throw new Error()
+        })
+        .then(res => res.json())
+        .then(json => {
+            lookupResults = json
+            lookupResults.extract = toPangoMarkup(json.extract_html)
+        })
+        .then(() => dispatch({ type: 'lookup-results' }))
+        .catch(() => dispatch({ type: 'lookup-error' }))
 }
 const googleTranslate = (word, language = 'en') => {
     fetch(`https://translate.googleapis.com/translate_a/single?client=gtx`
         + `&ie=UTF-8&oe=UTF-&sl=auto&tl=${language}`
         + `&dt=t&q=${word}`)
-    .then(res => {
-        if (res.ok) return res
-        else throw new Error()
-    })
-    .then(res => res.json())
-    .then(json => lookupResults = json[0].map(x => x[0]).join(''))
-    .then(() => dispatch({ type: 'lookup-results' }))
-    .catch(() => dispatch({ type: 'lookup-error' }))
+        .then(res => {
+            if (res.ok) return res
+            else throw new Error()
+        })
+        .then(res => res.json())
+        .then(json => lookupResults = json[0].map(x => x[0]).join(''))
+        .then(() => dispatch({ type: 'lookup-results' }))
+        .catch(() => dispatch({ type: 'lookup-error' }))
 }
 dispatch({ type: 'can-lookup' })
 </script>

@@ -12,6 +12,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/* global debounce, dispatch, isExternalURL, resolveURL, toPangoMarkup, ePub */
+
 let book, rendition
 let locations
 let coverBase64
@@ -20,7 +23,7 @@ let searchResults
 let clearSelection
 let selectionData
 let footnote, followLink = () => {}, footnoteEnabled = false
-let autohideCursor, screenX, screenY, cursorHidden
+let autohideCursor, myScreenX, myScreenY, cursorHidden
 let windowSize
 const zoomed = () => !((windowSize || window.outerWidth) === window.innerWidth)
 
@@ -38,8 +41,8 @@ const doSearch = q =>
         item.load(book.load.bind(book))
             .then(item.find.bind(item, q))
             .finally(item.unload.bind(item))))
-    .then(results =>
-        Promise.resolve([].concat.apply([], results)))
+        .then(results =>
+            Promise.resolve([].concat.apply([], results)))
 const doChapterSearch = q => {
     const item = book.spine.get(rendition.location.start.cfi)
     return item.load(book.load.bind(book))
@@ -49,20 +52,20 @@ const doChapterSearch = q => {
 const search = (q, inChapter) => {
     q = decodeURI(q)
     return (inChapter ? doChapterSearch(q) : doSearch(q))
-    .then(results => {
-        clearSearch()
-        searchResults = results
-        dispatch({ type: 'search-results', payload: q })
-        results.forEach(({ cfi }) =>
-            rendition.annotations.underline(cfi, {}, () => {}, 'ul', {
-                'stroke-width': '3px',
-                stroke: 'red', 'stroke-opacity': 0.8, 'mix-blend-mode': 'multiply'
-            }))
-    })
+        .then(results => {
+            clearSearch()
+            searchResults = results
+            dispatch({ type: 'search-results', payload: q })
+            results.forEach(({ cfi }) =>
+                rendition.annotations.underline(cfi, {}, () => {}, 'ul', {
+                    'stroke-width': '3px',
+                    stroke: 'red', 'stroke-opacity': 0.8, 'mix-blend-mode': 'multiply'
+                }))
+        })
 }
 const clearSearch = () => {
     if (searchResults) searchResults.forEach(({ cfi }) =>
-            rendition.annotations.remove(cfi, 'underline'))
+        rendition.annotations.remove(cfi, 'underline'))
 }
 
 const atTop = () => window.scrollY === 0
@@ -285,7 +288,7 @@ const setupRendition = () => {
     rendition.on("rendered", (section, view) => {
         latestViewElement = view.element
     })
-    rendition.hooks.content.register((contents, view) => {
+    rendition.hooks.content.register((contents, /*view*/) => {
         const html = contents.document.documentElement
         if (!html.getAttribute('lang') && book.package.metadata.language)
             html.setAttribute('lang', book.package.metadata.language)
@@ -450,8 +453,8 @@ const setupRendition = () => {
         }
         if (cursorHidden) hideCursor()
         contents.document.documentElement.addEventListener('mousemove', e => {
-            if (e.screenX === screenX && e.screenY === screenY) return
-            screenX = e.screenX, screenY = e.screenY
+            if (e.screenX === myScreenX && e.screenY === myScreenY) return
+            myScreenX = e.screenX, myScreenY = e.screenY
             showCursor()
             if (timeout) clearTimeout(timeout)
             if (autohideCursor) timeout = setTimeout(hideCursor, 1000)
