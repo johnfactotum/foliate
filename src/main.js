@@ -12,7 +12,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-'use strict'
+
+/* exported main */
 
 pkg.initGettext()
 const ngettext = imports.gettext.ngettext
@@ -33,9 +34,8 @@ const Pango = imports.gi.Pango
 const ByteArray = imports.byteArray
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
-const execCommand = (argv, input = null, waitCheck, token, noFlatpakSpawn) =>
-new Promise((resolve, reject) => {
-    if (flatpakSpawn && !noFlatpakSpawn) argv = [flatpakSpawn, '--host', ...argv]
+const execCommand = (argv, input = null, waitCheck, token, inFlatpak) => new Promise((resolve, reject) => {
+    if (flatpakSpawn && !inFlatpak) argv = [flatpakSpawn, '--host', ...argv]
     try {
         const launcher = new Gio.SubprocessLauncher({
             flags: input
@@ -46,7 +46,7 @@ new Promise((resolve, reject) => {
         const proc = launcher.spawnv(argv)
         proc.communicate_utf8_async(input, null, (proc, res) => {
             try {
-                const [ok, stdout, stderr] = proc.communicate_utf8_finish(res)
+                const [/*ok*/, stdout, /*stderr*/] = proc.communicate_utf8_finish(res)
                 if (!stdout) reject()
                 else resolve(stdout)
             } catch (e) {
@@ -69,7 +69,7 @@ const recursivelyDeleteDir = dir => {
         Gio.FileQueryInfoFlags.NONE, null)
 
     let info
-    while (info = children.next_file(null)) {
+    while ((info = children.next_file(null)) != null) {
         const type = info.get_file_type()
         const child = dir.get_child(info.get_name())
         if (type == Gio.FileType.REGULAR) child.delete(null)
@@ -94,7 +94,7 @@ class Storage {
     }
     _read() {
         try {
-            const [success, data, tag] = this._file.load_contents(null)
+            const [success, data, /*tag*/] = this._file.load_contents(null)
             if (success) return JSON.parse(data instanceof Uint8Array
                 ? ByteArray.toString(data) : data.toString())
             else throw new Error()
@@ -107,7 +107,7 @@ class Storage {
         const mkdirp = GLib.mkdir_with_parents(
             this._file.get_parent().get_path(), parseInt('0755', 8))
         if (mkdirp === 0) {
-            const [success, tag] = this._file
+            const [success, /*tag*/] = this._file
                 .replace_contents(JSON.stringify(data, null, this.indent),
                     null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null)
             if (success) return true
@@ -210,19 +210,19 @@ const dictionaries = {
             language = language.slice(0, 2).toLowerCase()
             return lookup(`wiktionary("${encodeURIComponent(word)}", '${language}')`,
                 payload => `wiktionary("${encodeURIComponent(payload)}", '${language}')`)
-                    .then(results => '<span alpha="70%" size="smaller">'
-                        + _('From Wiktionary, the free dictionary') + '</span>\n'
-                        + `<b>${results.word.replace(/&/g, '&amp;')}</b>\n`
-                        + `${results.defs.join('\n\n')}\n\n`
-                        + `<a href="https://en.wiktionary.org/wiki/${encodeURIComponent(word)}">`
-                        + _('View on Wiktionary') + '</a>')
+                .then(results => '<span alpha="70%" size="smaller">'
+                    + _('From Wiktionary, the free dictionary') + '</span>\n'
+                    + `<b>${results.word.replace(/&/g, '&amp;')}</b>\n`
+                    + `${results.defs.join('\n\n')}\n\n`
+                    + `<a href="https://en.wiktionary.org/wiki/${encodeURIComponent(word)}">`
+                    + _('View on Wiktionary') + '</a>')
         }
     }
 }
 const makeDictdDict = (id, name) => ({
     name,
     noWrap: true,
-    lookup: (word, language) => execCommand(['dict', '-d', id, word])
+    lookup: (word, /*language*/) => execCommand(['dict', '-d', id, word])
 })
 const parseDictDbs = x => x.split('\n').filter(x => x).map(row => {
     const cols = row.split('\t')
@@ -283,8 +283,7 @@ const exportToBibTeX = ({ annotations, metadata }) => {
     // Math functions needed to avoid Tex problems
     const header = `ref${Math.round(Math.random() * 10000)}`
 
-    return annotations.map(({ text, note }, i) =>
-`@book{${header}:${i + 1},
+    return annotations.map(({ text, note }, i) => `@book{${header}:${i + 1},
     author = {${esc(metadata.creator) || 'unknown'}},
     publisher = {${esc(metadata.publisher) || 'unknown'}},
     year = {${metadata.pubdate ? metadata.pubdate.slice(0, 4) : 'unknown'}},
@@ -713,8 +712,8 @@ class RadioBox {
             spacing: 10
         })
         const boxes = Array.from({
-                length: Math.ceil(options.length / optionsPerLine)
-            }, () => new Gtk.Box({ spacing: 3 }))
+            length: Math.ceil(options.length / optionsPerLine)
+        }, () => new Gtk.Box({ spacing: 3 }))
         const first = this._buttons[Object.keys(this._buttons)[0]]
         options.forEach((x, i) => {
             const button = this._buttons[x]
@@ -795,8 +794,8 @@ class ComboBoxBox {
         if (activeId) combo.active_id = activeId
 
         if (withEntry) {
-           if (onChange) combo.connect('changed', () => onChange(combo.get_child().text))
-           if (key) settings.bind(key, combo.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT)
+            if (onChange) combo.connect('changed', () => onChange(combo.get_child().text))
+            if (key) settings.bind(key, combo.get_child(), 'text', Gio.SettingsBindFlags.DEFAULT)
         } else {
             if (onChange) combo.connect('changed', () => onChange(combo.active_id))
             if (key) settings.bind(key, combo, 'active-id', Gio.SettingsBindFlags.DEFAULT)
@@ -1343,7 +1342,7 @@ class LookupPopover {
 
         Object.keys(dictionaries).forEach(dict => {
             const dictionary = dictionaries[dict]
-           model.set(model.append(), [0, 1], [dict, dictionary.name])
+            model.set(model.append(), [0, 1], [dict, dictionary.name])
         })
         combo.active_id = dict
         combo.connect('changed', () => {
@@ -1358,10 +1357,6 @@ class LookupPopover {
         dictBox.pack_start(this._scroll, false, true, 0)
         dictBox.pack_start(combo, false, true, 0)
 
-        const wikiBox = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL,
-            spacing: 10
-        })
         this._wikiLabel = new Gtk.Label({
             label: _('Loading…'),
             selectable: true,
@@ -1410,7 +1405,7 @@ class LookupPopover {
         transCombo.id_column = 0
 
         Object.keys(GT_LANGS).forEach(x =>
-           transModel.set(transModel.append(), [0, 1], GT_LANGS[x]))
+            transModel.set(transModel.append(), [0, 1], GT_LANGS[x]))
         transCombo.active_id = settings.get_string('translate-target-language')
         transCombo.connect('changed', () => {
             const id = transCombo.active_id
@@ -1536,7 +1531,7 @@ class AnnotationPopover {
         })
         comboBox.set_active(highlightColors.findIndex(([x]) => x === color))
         comboBox.connect('changed', () => {
-            const [success, iter] = comboBox.get_active_iter()
+            const [/*success*/, iter] = comboBox.get_active_iter()
             const value = model.get_value(iter, 0)
             onColorChange(value)
         })
@@ -1566,7 +1561,6 @@ class FootnotePopover {
         this._label = new Gtk.Label({
             use_markup: true,
             selectable: true,
-            use_markup: true,
             valign: Gtk.Align.START,
             xalign: 0
         })
@@ -1856,7 +1850,7 @@ class BookViewerWindow {
         const button = new Gtk.Button({
             label: _('Open Another File…'),
             action_name: 'app.open',
-             halign: Gtk.Align.CENTER
+            halign: Gtk.Align.CENTER
         })
         box.pack_start(image, true, true, 18)
         box.pack_start(label, false, true, 0)
@@ -2084,11 +2078,12 @@ class BookViewerWindow {
             case 'locations-generated':
                 this.scriptGet('locations', locations =>
                     this.cache.set('locations', locations))
+                // falls through
             case 'locations-ready':
                 this.navbar.setReady(payload)
                 this.scriptGet(`book.spine.items.map(x => book.locations
                     .percentageFromCfi('epubcfi(' + x.cfiBase + '!/0)'))`,
-                        sectionMarks => this.navbar.setSectionMarks(sectionMarks))
+                sectionMarks => this.navbar.setSectionMarks(sectionMarks))
                 break
             case 'relocated':
                 if (this.navEntry) this.navEntry.setCurrent(payload.index)
@@ -2175,7 +2170,7 @@ class BookViewerWindow {
                 this.handleAction({ type: 'lookup', payload }, 'translate')
                 break
             case 'lookup':
-                this.scriptGet('selectionData', ({ text, language, cfiRange }) => {
+                this.scriptGet('selectionData', ({ text, language }) => {
                     const dict = settings.get_string('dictionary')
 
                     const popover = new LookupPopover(
@@ -2364,10 +2359,10 @@ class BookViewerWindow {
         this.activateTheme()
     }
     activateTheme(theme = settings.get_string('theme')) {
-         if (this.viewPopover) this.viewPopover.theme = theme || this.viewPopover.theme
-         else {
-             settings.set_string('theme', theme)
-             Gtk.Settings.get_default().gtk_application_prefer_dark_theme =
+        if (this.viewPopover) this.viewPopover.theme = theme || this.viewPopover.theme
+        else {
+            settings.set_string('theme', theme)
+            Gtk.Settings.get_default().gtk_application_prefer_dark_theme =
                 (this.themes[theme] || this.themes[Object.keys(this.themes)[0]]).darkMode
         }
     }
@@ -2798,7 +2793,6 @@ class BookViewerWindow {
                 const label = new Gtk.Label({
                     use_markup: true,
                     selectable: true,
-                    use_markup: true,
                     valign: Gtk.Align.START,
                     xalign: 0,
                     label: metadata.description
@@ -2927,7 +2921,7 @@ class ThemeEditor {
             onThemeActivate(themeMap.get(activeRow))
         }
 
-        const addTheme = (name, i) => {
+        const addTheme = name => {
             const theme = themes[name]
             const row = new Gtk.ListBoxRow({
                 selectable: false
@@ -3183,8 +3177,8 @@ function main(argv) {
             ] : [
                 { accelerator: 'F9', title: _('Show table of contents') }
             ]
-        const ttsShortcuts = !!settings.get_string('tts-command')
-            ? [{ accelerator: 'F5', title: _('Start/stop text-to-speech') }] : []
+        const ttsShortcuts = !settings.get_string('tts-command')
+            ? [] : [{ accelerator: 'F5', title: _('Start/stop text-to-speech') }]
         const shortcutsGroups = [
             {
                 title: _('General'),
@@ -3319,9 +3313,9 @@ function main(argv) {
         ], 'disable-csp', () => {})
 
         const ttsPref = new ComboBoxBox([
-                _('Text-to-speech command'),
-                _('Leave blank to disable text-to-speech.')
-            ], 'tts-command', TTS_COMMANDS, () => {}, true)
+            _('Text-to-speech command'),
+            _('Leave blank to disable text-to-speech.')
+        ], 'tts-command', TTS_COMMANDS, () => {}, true)
 
         const themeEditor = new ThemeEditor(
             themes.get('themes', defaultThemes),

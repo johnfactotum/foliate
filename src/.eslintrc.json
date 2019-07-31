@@ -1,0 +1,21 @@
+{
+    "env": {
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "semi": ["error", "never"],
+        "indent": ["warn", 4, { "flatTernaryExpressions": true, "SwitchCase": 1 }],
+        "no-unused-vars": "warn",
+        "no-cond-assign": ["error", "except-parens"],
+        "no-constant-condition": ["error", { "checkLoops": false }]
+    },
+    "globals": {
+        "pkg": "readonly",
+        "imports": "readonly",
+        "_": "readonly"
+    }
+}
