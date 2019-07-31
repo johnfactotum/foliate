@@ -85,5 +85,6 @@ const toPangoMarkup = (html, baseURL) => {
         })
         if (nodeName === 'a' && !el.hasAttribute('href')) usurp(el)
     })
-    return doc.body.innerHTML.trim().replace(/&nbsp;/g, ' ').replace(/&/g, '&amp;')
+    return doc.body.innerHTML.trim().replace(/&nbsp;/g, ' ')
+        .replace(/&amp;/g, '&').replace(/&/g, '&amp;')
 }

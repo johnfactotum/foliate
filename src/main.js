@@ -212,9 +212,9 @@ const dictionaries = {
                 payload => `wiktionary("${encodeURIComponent(payload)}", '${language}')`)
                     .then(results => '<span alpha="70%" size="smaller">'
                         + _('From Wiktionary, the free dictionary') + '</span>\n'
-                        + `<b>${results.word}</b> ${results.pronunciation || ''}\n`
+                        + `<b>${results.word.replace(/&/g, '&amp;')}</b>\n`
                         + `${results.defs.join('\n\n')}\n\n`
-                        + `<a href="https://en.wiktionary.org/wiki/${word}">`
+                        + `<a href="https://en.wiktionary.org/wiki/${encodeURIComponent(word)}">`
                         + _('View on Wiktionary') + '</a>')
         }
     }
@@ -1513,9 +1513,9 @@ class LookupPopover {
             .then(results => '<span alpha="70%" size="smaller">'
                 + _('From Wikipedia, the free encyclopedia') + '</span>\n'
                 + `${results.extract}\n`
-                + `<a href="https://${language}.wikipedia.org/wiki/${word}">`
+                + `<a href="https://${language}.wikipedia.org/wiki/${encodeURIComponent(word)}">`
                 + _('View on Wikipedia') + `</a>`)
-            .then(results => this._wikiLabel.label = results.replace(/&/g, '&amp;'))
+            .then(results => this._wikiLabel.label = results)
             .catch(() => this._wikiLabel.label = _('No entry found.')
                 + '\n'
                 + `<a href="https://${language}.wikipedia.org/w/index.php?search=${
