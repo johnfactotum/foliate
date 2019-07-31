@@ -59,7 +59,10 @@ const wikipedia = (word, language = 'en') => {
         else throw new Error()
     })
     .then(res => res.json())
-    .then(json => lookupResults = json)
+    .then(json => {
+        lookupResults = json
+        lookupResults.extract = toPangoMarkup(json.extract_html)
+    })
     .then(() => dispatch({ type: 'lookup-results' }))
     .catch(() => dispatch({ type: 'lookup-error' }))
 }

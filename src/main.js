@@ -1512,7 +1512,6 @@ class LookupPopover {
         lookup(`wikipedia("${encodeURIComponent(word)}", '${language}')`)
             .then(results => '<span alpha="70%" size="smaller">'
                 + _('From Wikipedia, the free encyclopedia') + '</span>\n'
-                + `<b>${results.title}</b>\n`
                 + `${results.extract}\n`
                 + `<a href="https://${language}.wikipedia.org/wiki/${word}">`
                 + _('View on Wikipedia') + `</a>`)
