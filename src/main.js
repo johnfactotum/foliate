@@ -236,64 +236,34 @@ const TTS_COMMANDS = ['']
 execCommand(['espeak', '--version']).then(() => TTS_COMMANDS.push('espeak'))
 execCommand(['festival', '--version']).then(() => TTS_COMMANDS.push('festival --tts'))
 
-const exportToHTML = data => `<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-body {
-    max-width: 720px;
-    padding: 10px;
-    margin: auto;
-}
-header {
-    text-align: center;
-}
-hr {
-    border: 0;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.2);
-    margin: 20px 0;
-}
-.cfi {
-    font-size: small;
-    opacity: 0.5;
-    font-family: monospace;
-}
-blockquote {
-    margin: 0;
-    padding-left: 15px;
-    border-left: 7px solid;
-}
-</style>
-<header>
-${_('<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>')
-.format(data.metadata.title, data.metadata.creator)}
-</header>
-<p>${ngettext('%d Annotation', '%d Annotations', data.annotations.length).
-format(data.annotations.length)}</p>
-${data.annotations.map(({ value, text, color, note }) => `<hr>
-<section>
-    <p class="cfi">${value}</p>
-    <blockquote style="border-color: ${color};">${text}</blockquote>
-    ${note ? `<p>${note}</p>` : ''}
-</section>
-`).join('')}
-`
+const exportToHTML = ({ annotations, metadata }) => `<!DOCTYPE html>
+    <meta charset="utf-8">
+    <style>
+        body { max-width: 720px; padding: 10px; margin: auto; }
+        header { text-align: center; }
+        hr { border: 0; height: 1px; background: rgba(0, 0, 0, 0.2); margin: 20px 0; }
+        .cfi { font-size: small; opacity: 0.5; font-family: monospace; }
+        blockquote { margin: 0; padding-left: 15px; border-left: 7px solid; }
+    </style>
+    <header>`
+    + _('<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>').format(metadata.title, metadata.creator)
+    + '</header><p>'
+    + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length) + '</p>'
+    + annotations.map(({ value, text, color, note }) => `
+    <hr>
+    <section>
+        <p class="cfi">${value}</p>
+        <blockquote style="border-color: ${color};">${text}</blockquote>
+        ${note ? '<p>' + note + '</p>' : ''}
+    </section>`).join('')
 
-const exportToTxt = data => `${_('Annotations for\n%s\nBy %s')
-.format(data.metadata.title, data.metadata.creator)}
-
-${ngettext('%d Annotation', '%d Annotations', data.annotations.length).
-format(data.annotations.length)}
-${data.annotations.map(({ value, text, color, note }) => `
---------------------------------------------------------------------------------
-
-${_('Text:')}
-${text}
-${note ? `
-${_('Note:')}
-${note}
-` : ''}`).join('')}
-`
+const exportToTxt = ({ annotations, metadata }) =>
+    _('Annotations for\n%s\nBy %s').format(metadata.title, metadata.creator) + '\n\n'
+    + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length)
+    + annotations.map(({ text, note }) => '\n\n'
+        + '--------------------------------------------------------------------------------\n\n'
+        + _('Text:') + '\n' + text
+        + (note ? '\n\n' + _('Note:') + '\n' + note : '')).join('')
 
 const exportToBibTeX = ({ annotations, metadata }) => {
     // Escape all Tex characters that BibTex requires
