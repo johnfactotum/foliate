@@ -26,11 +26,11 @@ msgstr "Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "eBook Viewer"
-msgstr "Visualizador de eBook"
+msgstr "Visualizador de e-Book"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "View eBooks"
-msgstr "Ver eBooks"
+msgstr "Ver e-Books"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:9
 msgid "com.github.johnfactotum.Foliate"
@@ -131,14 +131,12 @@ msgid "Note:"
 msgstr "Nota:"
 
 #: src/main.js:321
-#, fuzzy
 msgid "Quote: "
-msgstr "Nota:"
+msgstr "Citação: "
 
 #: src/main.js:321
-#, fuzzy
 msgid " Note: "
-msgstr "Nota:"
+msgstr " Nota: "
 
 #: src/main.js:342
 msgid "Previous page"
@@ -304,16 +302,15 @@ msgstr "Dicionário"
 
 #: src/main.js:1463 src/main.js:3401
 msgid "Wikipedia"
-msgstr "Wikipedia"
+msgstr "Wikipédia"
 
 #: src/main.js:1502
 msgid "No entry found."
 msgstr "Nenhuma entrada encontrada."
 
 #: src/main.js:1506
-#, fuzzy
 msgid "Search on Wiktionary"
-msgstr "Visualizar no Wiktionary"
+msgstr "Pesquisar no Wiktionary"
 
 #: src/main.js:1514
 msgid "From Wikipedia, the free encyclopedia"
@@ -321,15 +318,15 @@ msgstr "Da Wikipedia, a enciclopédia livre"
 
 #: src/main.js:1518
 msgid "View on Wikipedia"
-msgstr "Visualizar no Wikipedia"
+msgstr "Visualizar no Wikipédia"
 
 #: src/main.js:1524
 msgid "Search on Wikipedia"
-msgstr "Pesquisar no Wikipedia"
+msgstr "Pesquisar no Wikipédia"
 
 #: src/main.js:1532
 msgid "Translation by Google Translate"
-msgstr "Traduzido pelo Google Translate"
+msgstr "Traduzido pelo Google Tradutor"
 
 #: src/main.js:1535
 msgid "Cannot retrieve translation."
@@ -440,7 +437,15 @@ msgstr "Texto-para-voz"
 msgid "You don't have any annotations for this book."
 msgstr "Você não tem anotações para este livro."
 
+<<<<<<< HEAD
 #: src/main.js:2710
+=======
+#: src/main.js:2720
+msgid "Hightlight some text to add annotations."
+msgstr "Destaque algum texto para adicionar anotações."
+
+#: src/main.js:2731
+>>>>>>> ddeb5bfd83a3d37349ad95289c694e945de7ca3c
 msgid "Export Annotations"
 msgstr "Exportar anotações"
 
@@ -466,7 +471,7 @@ msgstr "Texto simples"
 
 #: src/main.js:2724
 msgid "BibTeX"
-msgstr ""
+msgstr "BibTeX"
 
 #: src/main.js:2725
 msgid "JSON"
@@ -649,7 +654,7 @@ msgstr "Reduzir"
 
 #: src/main.js:3290 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
-msgstr "Um simples e moderno visualizador de eBook"
+msgstr "Um simples e moderno visualizador de e-Book"
 
 #: src/main.js:3323
 msgid "Use sidebar (requires restart)"
@@ -724,7 +729,7 @@ msgstr "Pesquisar no dicionário"
 
 #: src/main.js:3387
 msgid "Lookup in Wikipedia"
-msgstr "Pesquisar na Wikipedia"
+msgstr "Pesquisar na Wikipédia"
 
 #: src/main.js:3391
 msgid "When a word is selected"
@@ -735,18 +740,16 @@ msgid "When multiple words are selected"
 msgstr "Quando múltiplas palavras forem selecionadas"
 
 #: src/main.js:3397
-#, fuzzy
 msgid "Lookup method"
-msgstr "Pesquisar"
+msgstr "Método de pesquisa"
 
 #: src/main.js:3399
-#, fuzzy
 msgid "Automatic"
 msgstr "Automático"
 
 #: src/main.js:3412
 msgid "Selection"
-msgstr ""
+msgstr "Seleção"
 
 #: src/main.js:3445
 msgid "Afrikaans"
@@ -1204,38 +1207,40 @@ msgstr "John Factotum"
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr ""
+"Corrigida a versão do Flatpak que não abria arquivos .mobi, .azw e .azw3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Improved Wiktionary lookup, now with links and example sentences"
 msgstr ""
+"Melhorada pesquisa no Wiktionary, agora com links e setenças de exemplo"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid "Improved popover footnote extraction and formatting"
-msgstr ""
+msgstr "Melhorada ormatação e extração de nota de rodapé do popover"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Added option to export annotations to BibTeX"
-msgstr ""
+msgstr "Adicionada opção de exportação de anotações para o BibTex"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
 msgid "Fixed table of contents navigation not working with some books"
-msgstr ""
+msgstr "Corrigida a navegação do sumário que não funcionava em alguns livros"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 msgid "Fixed not being able to zoom images with Kindle books"
-msgstr ""
+msgstr "Corrigido não poder ampliar imagens com livros Kindle"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid "Fixed not being able to open books with .epub3 filename extension"
-msgstr ""
+msgstr "Corrigido não poder abrir livros com a extensão .epub3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed temporary directory not being cleaned after closing"
-msgstr ""
+msgstr "Corrigido diretório temporário que não era limpo após o fechamento"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid "Fixed F9 shortcut not working"
-msgstr ""
+msgstr "Corrigido o atalho F9 que não funcionava"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
@@ -1243,7 +1248,6 @@ msgid "Updated translations"
 msgstr "Traduções atualizadas"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
-#, fuzzy
 msgid "External resources and JavaScript are now blocked by default"
 msgstr "Recursos externos e o JavaScript estão agora bloqueados por padrão"
 
@@ -1257,7 +1261,7 @@ msgstr "Exportar anotações para HTML, texto simples ou JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
-msgstr ""
+msgstr "Suporte para visualização de arquivos .mobi, .azw e .azw3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
 msgid "New alternative sidebar UI"
@@ -1265,11 +1269,11 @@ msgstr "Nova interface da barra lateral alternativa"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
 msgid "Lookup words in Wikipedia and offline dictionaries"
-msgstr "Pesquisa palavras no Wikipedia e dicionários offline"
+msgstr "Pesquisa palavras no Wikipédia e dicionários offline"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
 msgid "Translate passages with Google Translate"
-msgstr "Traduzir trechos com o Google Translate"
+msgstr "Traduzir trechos com o Google Tradutor"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
 msgid "Configure default action when words are selected"
