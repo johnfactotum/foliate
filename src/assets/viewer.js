@@ -24,6 +24,7 @@ let clearSelection
 let selectionData
 let footnote, followLink = () => {}, footnoteEnabled = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
+let currentPageText
 
 // check whether the page is zoomed
 let windowSize
@@ -82,6 +83,74 @@ const atBottom = () =>
 // go to the bottom of the previous page, if possible
 const prevBottom = () => rendition.currentLocation().atStart ? null
     : rendition.prev().then(() => window.scrollTo(0, document.body.scrollHeight))
+
+// create a range cfi from two cfi locations
+// adapted from https://github.com/futurepress/epub.js/blob/be24ab8b39913ae06a80809523be41509a57894a/src/epubcfi.js#L502
+const makeRangeCfi = (a, b) => {
+    const CFI = new ePub.CFI()
+    const start = CFI.parse(a), end = CFI.parse(b)
+    const cfi = {
+        range: true,
+        base: start.base,
+        path: {
+            steps: [],
+            terminal: null
+        },
+        start: start.path,
+        end: end.path
+    }
+    const len = cfi.start.steps.length
+    for (let i = 0; i < len; i++) {
+        if (CFI.equalStep(cfi.start.steps[i], cfi.end.steps[i])) {
+            if (i == len - 1) {
+                // Last step is equal, check terminals
+                if (cfi.start.terminal === cfi.end.terminal) {
+                    // CFI's are equal
+                    cfi.path.steps.push(cfi.start.steps[i])
+                    // Not a range
+                    cfi.range = false
+                }
+            } else cfi.path.steps.push(cfi.start.steps[i])
+        } else break
+    }
+    cfi.start.steps = cfi.start.steps.slice(cfi.path.steps.length)
+    cfi.end.steps = cfi.end.steps.slice(cfi.path.steps.length)
+
+    return 'epubcfi(' + CFI.segmentString(cfi.base)
+        + '!' + CFI.segmentString(cfi.path)
+        + ',' + CFI.segmentString(cfi.start)
+        + ',' + CFI.segmentString(cfi.end)
+        + ')'
+}
+
+// text of the visible page for text-to-speech
+const speakCurrentPage = () => {
+    const currentLoc = rendition.currentLocation()
+    book.getRange(makeRangeCfi(currentLoc.start.cfi, currentLoc.end.cfi))
+        .then(range => {
+            currentPageText = range.toString()
+            dispatch({ type: 'speech-start' })
+        })
+}
+
+const addAnnotation = (cfiRange, color) => {
+    rendition.annotations.remove(cfiRange, 'highlight')
+    rendition.annotations.highlight(cfiRange, {}, e => {
+        const elRect = e.target.getBoundingClientRect()
+        dispatch({
+            type: 'annotation-menu',
+            payload: {
+                cfiRange,
+                position: {
+                    left: elRect.left,
+                    right: elRect.right,
+                    top: elRect.top,
+                    bottom: elRect.bottom
+                }
+            }
+        })
+    }, 'hl', { fill: color, 'fill-opacity': 0.25, 'mix-blend-mode': 'multiply' })
+}
 
 const openBook = (fileName, inputType) => {
     book = ePub()
@@ -163,56 +232,6 @@ const display = (lastLocation, cached) => {
             }
         })
         .catch(() => dispatch({ type: 'cover', payload: false }))
-}
-
-// create a range cfi from two cfi locations
-// adapted from https://github.com/futurepress/epub.js/blob/be24ab8b39913ae06a80809523be41509a57894a/src/epubcfi.js#L502
-const makeRangeCfi = (a, b) => {
-    const CFI = new ePub.CFI()
-    const start = CFI.parse(a), end = CFI.parse(b)
-    const cfi = {
-        range: true,
-        base: start.base,
-        path: {
-            steps: [],
-            terminal: null
-        },
-        start: start.path,
-        end: end.path
-    }
-    const len = cfi.start.steps.length
-    for (let i = 0; i < len; i++) {
-        if (CFI.equalStep(cfi.start.steps[i], cfi.end.steps[i])) {
-            if (i == len - 1) {
-                // Last step is equal, check terminals
-                if (cfi.start.terminal === cfi.end.terminal) {
-                    // CFI's are equal
-                    cfi.path.steps.push(cfi.start.steps[i])
-                    // Not a range
-                    cfi.range = false
-                }
-            } else cfi.path.steps.push(cfi.start.steps[i])
-        } else break
-    }
-    cfi.start.steps = cfi.start.steps.slice(cfi.path.steps.length)
-    cfi.end.steps = cfi.end.steps.slice(cfi.path.steps.length)
-
-    return 'epubcfi(' + CFI.segmentString(cfi.base)
-        + '!' + CFI.segmentString(cfi.path)
-        + ',' + CFI.segmentString(cfi.start)
-        + ',' + CFI.segmentString(cfi.end)
-        + ')'
-}
-
-// text of the visible page for text-to-speech
-let currentPageText
-const speakCurrentPage = () => {
-    const currentLoc = rendition.currentLocation()
-    book.getRange(makeRangeCfi(currentLoc.start.cfi, currentLoc.end.cfi))
-        .then(range => {
-            currentPageText = range.toString()
-            dispatch({ type: 'speech-start' })
-        })
 }
 
 const setupRendition = () => {
@@ -497,24 +516,6 @@ const setupRendition = () => {
     }
     rendition.on('keydown', handleKeydown)
     document.addEventListener('keydown', handleKeydown, false)
-}
-const addAnnotation = (cfiRange, color) => {
-    rendition.annotations.remove(cfiRange, 'highlight')
-    rendition.annotations.highlight(cfiRange, {}, e => {
-        const elRect = e.target.getBoundingClientRect()
-        dispatch({
-            type: 'annotation-menu',
-            payload: {
-                cfiRange,
-                position: {
-                    left: elRect.left,
-                    right: elRect.right,
-                    top: elRect.top,
-                    bottom: elRect.bottom
-                }
-            }
-        })
-    }, 'hl', { fill: color, 'fill-opacity': 0.25, 'mix-blend-mode': 'multiply' })
 }
 
 dispatch({ type: 'can-open' })
