@@ -24,18 +24,24 @@ let clearSelection
 let selectionData
 let footnote, followLink = () => {}, footnoteEnabled = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
+
+// check whether the page is zoomed
 let windowSize
 const zoomed = () => !((windowSize || window.outerWidth) === window.innerWidth)
 
+// redraw annotations on view changes
+// so that they would be rendered at the new, correct positions
 const redrawAnnotations = () =>
     rendition.views().forEach(view => view.pane ? view.pane.render() : null)
 
+// should not update slider position if a relocation event is triggered by the slider
 let shouldUpdateSlider = true
 const gotoPercentage = percentage => {
     shouldUpdateSlider = false
     rendition.display(book.locations.cfiFromPercentage(percentage))
 }
 
+// find in book
 const doSearch = q =>
     Promise.all(book.spine.spineItems.map(item =>
         item.load(book.load.bind(book))
@@ -68,10 +74,12 @@ const clearSearch = () => {
         rendition.annotations.remove(cfi, 'underline'))
 }
 
+// check whether the page is scroll to the top or bottom
 const atTop = () => window.scrollY === 0
 const atBottom = () =>
     (window.innerHeight + window.scrollY) >= document.body.offsetHeight
 
+// go to the bottom of the previous page, if possible
 const prevBottom = () => rendition.currentLocation().atStart ? null
     : rendition.prev().then(() => window.scrollTo(0, document.body.scrollHeight))
 
@@ -98,6 +106,7 @@ const openBook = (fileName, inputType) => {
             metadata.description = toPangoMarkup(metadata.description)
     })
 }
+
 const display = (lastLocation, cached) => {
     rendition = book.renderTo('viewer', { width: '100%' })
 
@@ -139,6 +148,8 @@ const display = (lastLocation, cached) => {
                 }
             }))
     }
+
+    // get book cover for "about this book" dialogue
     book.loaded.resources
         .then(resources => resources.createUrl(book.cover))
         .then(blobUrl => fetch(blobUrl))
@@ -154,6 +165,7 @@ const display = (lastLocation, cached) => {
         .catch(() => dispatch({ type: 'cover', payload: false }))
 }
 
+// create a range cfi from two cfi locations
 // adapted from https://github.com/futurepress/epub.js/blob/be24ab8b39913ae06a80809523be41509a57894a/src/epubcfi.js#L502
 const makeRangeCfi = (a, b) => {
     const CFI = new ePub.CFI()
@@ -192,6 +204,7 @@ const makeRangeCfi = (a, b) => {
         + ')'
 }
 
+// text of the visible page for text-to-speech
 let currentPageText
 const speakCurrentPage = () => {
     const currentLoc = rendition.currentLocation()
@@ -242,11 +255,13 @@ const setupRendition = () => {
         if (!html.getAttribute('lang') && book.package.metadata.language)
             html.setAttribute('lang', book.package.metadata.language)
 
+        // hide EPUB 3 aside footnotes
         const asides = contents.document.querySelectorAll('aside')
         Array.from(asides).forEach(aside => {
             const type = aside.getAttribute('epub:type')
             if (type === 'footnote') aside.style.display = 'none'
         })
+
         const links = contents.document.querySelectorAll('a:link')
         Array.from(links).forEach(link => {
             link.addEventListener('click', async e => {
@@ -353,6 +368,7 @@ const setupRendition = () => {
             }, false)
         })
 
+        // handle selection
         contents.document.onmousedown = () => isSelecting = true
         contents.document.onmouseup = () => {
             isSelecting = false
@@ -394,6 +410,7 @@ const setupRendition = () => {
             })
         }
 
+        // auto-hide cursor
         let timeout
         const hideCursor = () => {
             contents.document.documentElement.style.cursor = 'none'
@@ -405,6 +422,8 @@ const setupRendition = () => {
         }
         if (cursorHidden) hideCursor()
         contents.document.documentElement.addEventListener('mousemove', e => {
+            // check whether the mouse actually moved
+            // or the event is just triggered by something else
             if (e.screenX === myScreenX && e.screenY === myScreenY) return
             myScreenX = e.screenX, myScreenY = e.screenY
             showCursor()
@@ -413,6 +432,8 @@ const setupRendition = () => {
         }, false)
     })
 
+    // go to the next page when selecting to the end of a page
+    // this makes it possible to select across pages
     rendition.on('selected', debounce(cfiRange => {
         if (!isSelecting || rendition.settings.flow === 'scrolled-doc') return
         const selCfi = new ePub.CFI(cfiRange)
@@ -422,6 +443,7 @@ const setupRendition = () => {
             rendition.next()
     }, 1000))
 
+    // scroll through pages
     const onwheel = debounce(event => {
         if (zoomed()) return
         if (rendition.settings.flow === 'scrolled-doc') {
@@ -448,6 +470,7 @@ const setupRendition = () => {
     }, 100, true)
     document.documentElement.onwheel = onwheel
 
+    // keyboard shortcuts
     const handleKeydown = event => {
         if (zoomed()) return
         const paginated = rendition.settings.flow !== 'scrolled-doc'
