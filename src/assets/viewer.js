@@ -256,6 +256,8 @@ const speakCurrentPage = () => {
 }
 
 const setupRendition = () => {
+    let isSelecting = false
+
     rendition.on("layout", layout =>
         document.getElementById('divider').style.display =
             layout.spread && document.getElementById('viewer').clientWidth >= 800
@@ -404,7 +406,10 @@ const setupRendition = () => {
             }, false)
         })
 
+        contents.document.onmousedown = () => isSelecting = true
         contents.document.onmouseup = () => {
+            isSelecting = false
+
             const selection = contents.window.getSelection()
 
             if (!selection.rangeCount)
@@ -460,6 +465,15 @@ const setupRendition = () => {
             if (autohideCursor) timeout = setTimeout(hideCursor, 1000)
         }, false)
     })
+
+    rendition.on('selected', debounce(cfiRange => {
+        if (!isSelecting || rendition.settings.flow === 'scrolled-doc') return
+        const selCfi = new ePub.CFI(cfiRange)
+        selCfi.collapse()
+        const CFI = new ePub.CFI()
+        if (CFI.compare(selCfi, rendition.currentLocation().end.cfi) >= 0)
+            rendition.next()
+    }, 1000))
 }
 const addAnnotation = (cfiRange, color) => {
     rendition.annotations.remove(cfiRange, 'highlight')
