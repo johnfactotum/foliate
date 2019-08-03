@@ -269,6 +269,15 @@ const setupRendition = () => {
     rendition.on("rendered", (section, view) => {
         latestViewElement = view.element
     })
+    const getRect = rect => {
+        const viewElementRect = latestViewElement.getBoundingClientRect()
+        const left = rect.left + viewElementRect.left
+        const right = rect.right + viewElementRect.left
+        const top = rect.top + viewElementRect.top
+        const bottom = rect.bottom + viewElementRect.top
+        return { left, right, top, bottom }
+    }
+
     rendition.hooks.content.register((contents, /*view*/) => {
         const html = contents.document.documentElement
         if (!html.getAttribute('lang') && book.package.metadata.language)
@@ -343,12 +352,8 @@ const setupRendition = () => {
 
                     if (item) item.unload()
 
-                    const rect = e.target.getBoundingClientRect()
-                    const viewElementRect = latestViewElement.getBoundingClientRect()
-                    const left = rect.left + viewElementRect.left
-                    const right = rect.right + viewElementRect.left
-                    const top = rect.top + viewElementRect.top
-                    const bottom = rect.bottom + viewElementRect.top
+                    const { left, right, top, bottom } =
+                        getRect(e.target.getBoundingClientRect())
 
                     if (el.innerText.trim()) dispatch({
                         type: 'footnote',
@@ -362,12 +367,8 @@ const setupRendition = () => {
         const imgs = contents.document.querySelectorAll('img')
         Array.from(imgs).forEach(img => {
             img.addEventListener('click', e => {
-                const rect = e.target.getBoundingClientRect()
-                const viewElementRect = latestViewElement.getBoundingClientRect()
-                const left = rect.left + viewElementRect.left
-                const right = rect.right + viewElementRect.left
-                const top = rect.top + viewElementRect.top
-                const bottom = rect.bottom + viewElementRect.top
+                const { left, right, top, bottom } =
+                    getRect(e.target.getBoundingClientRect())
 
                 const src = img.src
                 imgAlt = img.getAttribute('alt')
@@ -412,13 +413,8 @@ const setupRendition = () => {
             }
             clearSelection = () => contents.window.getSelection().removeAllRanges()
 
-            const rect = selection.getRangeAt(0).getBoundingClientRect()
-            const viewElementRect = latestViewElement.getBoundingClientRect()
-
-            const left = rect.left + viewElementRect.left
-            const right = rect.right + viewElementRect.left
-            const top = rect.top + viewElementRect.top
-            const bottom = rect.bottom + viewElementRect.top
+            const { left, right, top, bottom } =
+                getRect(selection.getRangeAt(0).getBoundingClientRect())
 
             dispatch({
                 type: 'selection',
