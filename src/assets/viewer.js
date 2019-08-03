@@ -152,59 +152,6 @@ const display = (lastLocation, cached) => {
             }
         })
         .catch(() => dispatch({ type: 'cover', payload: false }))
-
-    const onwheel = debounce(event => {
-        if (zoomed()) return
-        if (rendition.settings.flow === 'scrolled-doc') {
-            if (atBottom() && event.deltaY > 0) {
-                rendition.next().then(() =>
-                    window.scrollTo(0, 0))
-                event.preventDefault()
-            } else if (atTop() && event.deltaY < 0) {
-                prevBottom()
-                event.preventDefault()
-            }
-        } else {
-            if (zoomed()) return
-            const { deltaX, deltaY } = event
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                if (deltaX > 0) rendition.next()
-                else if (deltaX < 0) rendition.prev()
-            } else {
-                if (deltaY > 0) rendition.next()
-                else if (deltaY < 0) rendition.prev()
-            }
-            event.preventDefault()
-        }
-    }, 100, true)
-    displayed.then(() => document.documentElement.onwheel = onwheel)
-
-    const handleKeydown = event => {
-        if (zoomed()) return
-        const paginated = rendition.settings.flow !== 'scrolled-doc'
-        const k = event.key
-        if (k === 'ArrowLeft') rendition.prev()
-        else if(k === 'ArrowRight') rendition.next()
-        else if (k === 'Backspace') {
-            if (paginated) rendition.prev()
-            else if (atTop()) prevBottom()
-            else window.scrollBy(0, -window.innerHeight)
-        } else if (event.shiftKey && k === ' ' || k === 'ArrowUp' || k === 'PageUp') {
-            if (paginated) rendition.prev()
-            else if (atTop()) {
-                prevBottom()
-                event.preventDefault()
-            }
-        } else if (k === ' ' || k === 'ArrowDown' || k === 'PageDown') {
-            if (paginated) rendition.next()
-            else if (atBottom()) {
-                rendition.next()
-                event.preventDefault()
-            }
-        }
-    }
-    rendition.on('keydown', handleKeydown)
-    document.addEventListener('keydown', handleKeydown, false)
 }
 
 // adapted from https://github.com/futurepress/epub.js/blob/be24ab8b39913ae06a80809523be41509a57894a/src/epubcfi.js#L502
@@ -474,6 +421,59 @@ const setupRendition = () => {
         if (CFI.compare(selCfi, rendition.currentLocation().end.cfi) >= 0)
             rendition.next()
     }, 1000))
+
+    const onwheel = debounce(event => {
+        if (zoomed()) return
+        if (rendition.settings.flow === 'scrolled-doc') {
+            if (atBottom() && event.deltaY > 0) {
+                rendition.next().then(() =>
+                    window.scrollTo(0, 0))
+                event.preventDefault()
+            } else if (atTop() && event.deltaY < 0) {
+                prevBottom()
+                event.preventDefault()
+            }
+        } else {
+            if (zoomed()) return
+            const { deltaX, deltaY } = event
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX > 0) rendition.next()
+                else if (deltaX < 0) rendition.prev()
+            } else {
+                if (deltaY > 0) rendition.next()
+                else if (deltaY < 0) rendition.prev()
+            }
+            event.preventDefault()
+        }
+    }, 100, true)
+    document.documentElement.onwheel = onwheel
+
+    const handleKeydown = event => {
+        if (zoomed()) return
+        const paginated = rendition.settings.flow !== 'scrolled-doc'
+        const k = event.key
+        if (k === 'ArrowLeft') rendition.prev()
+        else if(k === 'ArrowRight') rendition.next()
+        else if (k === 'Backspace') {
+            if (paginated) rendition.prev()
+            else if (atTop()) prevBottom()
+            else window.scrollBy(0, -window.innerHeight)
+        } else if (event.shiftKey && k === ' ' || k === 'ArrowUp' || k === 'PageUp') {
+            if (paginated) rendition.prev()
+            else if (atTop()) {
+                prevBottom()
+                event.preventDefault()
+            }
+        } else if (k === ' ' || k === 'ArrowDown' || k === 'PageDown') {
+            if (paginated) rendition.next()
+            else if (atBottom()) {
+                rendition.next()
+                event.preventDefault()
+            }
+        }
+    }
+    rendition.on('keydown', handleKeydown)
+    document.addEventListener('keydown', handleKeydown, false)
 }
 const addAnnotation = (cfiRange, color) => {
     rendition.annotations.remove(cfiRange, 'highlight')
