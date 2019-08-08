@@ -231,10 +231,15 @@ const parseDictDbs = x => x.split('\n').filter(x => x).map(row => {
 execCommand(['dict', '--dbs', '--formatted'])
     .then(stdout => parseDictDbs(stdout).forEach(db =>
         dictionaries['dcitd_' + db.id] = makeDictdDict(db.id, db.name)))
+    .catch(() => {})
 
 const TTS_COMMANDS = ['']
-execCommand(['espeak', '--version']).then(() => TTS_COMMANDS.push('espeak'))
-execCommand(['festival', '--version']).then(() => TTS_COMMANDS.push('festival --tts'))
+execCommand(['espeak', '--version'])
+    .then(() => TTS_COMMANDS.push('espeak'))
+    .catch(() => {})
+execCommand(['festival', '--version'])
+    .then(() => TTS_COMMANDS.push('festival --tts'))
+    .catch(() => {})
 
 const exportToHTML = ({ annotations, metadata }) => `<!DOCTYPE html>
     <meta charset="utf-8">
