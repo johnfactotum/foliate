@@ -1901,7 +1901,10 @@ class BookViewerWindow {
         const goTo = x => this.scriptRun(`rendition.display('${x}')`)
         const withHistory = f => x =>
             this.scriptGet(`rendition.currentLocation().start.cfi`,
-                cfi => { this.navbar.pushHistory(cfi); f(x) })
+                cfi => {
+                    if (x !== cfi) this.navbar.pushHistory(cfi)
+                    f(x)
+                })
 
         this.scriptGet('[book.navigation.toc, book.spine.length]', ([toc, spineLength]) => {
             const options = {
@@ -2689,7 +2692,7 @@ class BookViewerWindow {
                 window.show_all()
                 const response = window.run()
                 if (response === Gtk.ResponseType.ACCEPT) {
-                    this.navbar.pushHistory(cfi)
+                    if (entry.text !== cfi) this.navbar.pushHistory(cfi)
                     this.scriptRun(`rendition.display("${entry.text}")`)
                 }
                 window.close()
