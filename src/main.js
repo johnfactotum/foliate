@@ -996,12 +996,6 @@ class NotesList {
         }
     }
     _buildEmptyState(width, height, { icon, title, message }) {
-        this._emptyState = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL,
-            spacing: 10,
-            border_width: 10,
-            valign: Gtk.Align.CENTER
-        })
         const image = new Gtk.Image({ icon_name: icon, pixel_size: 48 })
         image.get_style_context().add_class('dim-label')
         const titleLabel = new Gtk.Label({
@@ -1022,13 +1016,17 @@ class NotesList {
         const box = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             valign: Gtk.Align.CENTER,
+            border_width: 10,
             spacing: 10
         })
         box.pack_start(image, false, true, 0)
         box.pack_start(titleLabel, false, true, 0)
         box.pack_start(messageLabel, false, true, 0)
 
-        this._emptyState = new Gtk.ScrolledWindow({ width_request: width, height_request: height })
+        this._emptyState = new Gtk.ScrolledWindow({
+            width_request: width,
+            height_request: height
+        })
         if (this._frame) this._emptyState.get_style_context().add_class('frame')
         this._emptyState.add(box)
         return this._emptyState
