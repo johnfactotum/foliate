@@ -406,13 +406,13 @@ class Navbar {
         }
         const inSection = n => {
             if (n < 60) return ngettext(
-                '%d minute left in chapter',
-                '%d minutes left in chapter', n).format(n)
+                '%d minute left in section',
+                '%d minutes left in section', n).format(n)
             else {
                 const h = n / 60
                 return ngettext(
-                    '%d hour left in chapter',
-                    '%d hours left in chapter', h).format(h)
+                    '%d hour left in section',
+                    '%d hours left in section', h).format(h)
             }
         }
         this._slider.tooltip_text = n ? (m ? inSection(m) + '\n' : '') + inBook(n) : null
@@ -589,9 +589,9 @@ class SearchPopover {
             orientation: Gtk.Orientation.HORIZONTAL,
             spacing: 3
         })
-        const inBookButton = new Gtk.RadioButton({ label: _('All chapters') })
+        const inBookButton = new Gtk.RadioButton({ label: _('All sections') })
         inBookButton.connect('toggled', search)
-        const inChapterButton = new Gtk.RadioButton({ label: _('Current chapter') })
+        const inChapterButton = new Gtk.RadioButton({ label: _('Current section') })
         inChapterButton.join_group(inBookButton)
         inChapterButton.connect('toggled', search)
         rangeBox.pack_start(inBookButton, false, true, 0)
