@@ -1881,6 +1881,10 @@ class BookViewerWindow {
             this.buildExport(metadata)
         })
 
+        const sectionGo = new Gio.Menu()
+        sectionGo.append(_('Go to Location…'), 'win.goto-cfi')
+        this.menu.prepend_section(null, sectionGo)
+
         const section = new Gio.Menu()
         section.append(_('About This Book'), 'win.properties')
         section.append(_('Export Annotations…'), 'win.export')
@@ -1939,6 +1943,8 @@ class BookViewerWindow {
                 this.searchPopover.setEnd()
             }
         })
+
+        this.buildGoToCfi()
 
         this.scriptRun(`footnoteEnabled = ${settings.get_boolean('footnote-enabled')}`)
 
@@ -2653,6 +2659,40 @@ class BookViewerWindow {
 
         return button
     }
+    buildGoToCfi() {
+        this.addShortcut(['<Control>l'], 'goto-cfi', () => {
+            this.scriptGet(`rendition.currentLocation().start.cfi`, cfi => {
+                const window = new Gtk.Dialog({
+                    title: _('Go to Location'),
+                    modal: true,
+                    use_header_bar: true,
+                    transient_for: this.window
+                })
+                window.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+                window.add_button(_('Go'), Gtk.ResponseType.ACCEPT)
+                window.set_default_response(Gtk.ResponseType.ACCEPT)
+
+                const label = new Gtk.Label({
+                    label: _('EPUB Canonical Fragment Identifier (CFI):')
+                })
+                const entry =  new Gtk.Entry({ text: cfi })
+                entry.connect('activate', () =>
+                    window.response(Gtk.ResponseType.ACCEPT))
+
+                const container = window.get_content_area()
+                container.border_width = 18
+                container.pack_start(label, false, true, 0)
+                container.pack_start(entry, false, true, 6)
+                window.show_all()
+                const response = window.run()
+                if (response === Gtk.ResponseType.ACCEPT) {
+                    this.navbar.pushHistory(cfi)
+                    this.scriptRun(`rendition.display("${entry.text}")`)
+                }
+                window.close()
+            })
+        })
+    }
     buildExport(metadata) {
         const action = new Gio.SimpleAction({ name: 'export' })
         action.connect('activate', () => {
@@ -3199,7 +3239,8 @@ function main(argv) {
                 shortcuts: [
                     { accelerator: 'Right n', title: _('Go to the next page') },
                     { accelerator: 'Left p', title: _('Go to the previous page') },
-                    { accelerator: '<alt>Left', title: _('Go back to previous location') }
+                    { accelerator: '<alt>Left', title: _('Go back to previous location') },
+                    { accelerator: '<control>l', title: _('Go to location') }
                 ]
             },
             {
