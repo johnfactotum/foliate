@@ -58,9 +58,11 @@ const pangoMarkupTags = ['a', 'b', 'big', 'i', 's', 'sub', 'sup', 'small', 'tt',
 const toPangoMarkup = (html, baseURL) => {
     const doc = new DOMParser().parseFromString(html.replace(/\n/g, ' '), 'text/html')
     Array.from(doc.querySelectorAll('p'))
-        .forEach(el => el.innerHTML = '\n' + el.innerHTML)
+        .forEach(el => el.innerHTML = '\n\n' + el.innerHTML)
     Array.from(doc.querySelectorAll('div'))
         .forEach(el => el.innerHTML = '\n' + el.innerHTML)
+    Array.from(doc.querySelectorAll('li'))
+        .forEach(el => el.innerHTML = '\n- ' + el.innerHTML)
     Array.from(doc.querySelectorAll('br'))
         .forEach(el => el.innerHTML = '\n')
     Array.from(doc.querySelectorAll('em'))
@@ -70,7 +72,7 @@ const toPangoMarkup = (html, baseURL) => {
     Array.from(doc.querySelectorAll('code'))
         .forEach(el => el.innerHTML = '<tt>' + el.innerHTML + '</tt>')
     Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, h6'))
-        .forEach(el => el.innerHTML = '\n\n<big><b>' + el.innerHTML + '</b></big>\n')
+        .forEach(el => el.innerHTML = '\n\n<big><b>' + el.innerHTML + '</b></big>')
     Array.from(doc.body.querySelectorAll('*')).forEach(el => {
         const nodeName = el.nodeName.toLowerCase()
         if (pangoMarkupTags.indexOf(nodeName) === -1) usurp(el)
