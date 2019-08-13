@@ -262,6 +262,9 @@ const exportToHTML = ({ annotations, metadata }) => `<!DOCTYPE html>
         ${note ? '<p>' + note + '</p>' : ''}
     </section>`).join('')
 
+// workaround for gettext bug
+// `/`
+
 const exportToTxt = ({ annotations, metadata }) =>
     _('Annotations for\n%s\nBy %s').format(metadata.title, metadata.creator) + '\n\n'
     + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length)
