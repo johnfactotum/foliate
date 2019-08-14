@@ -24,6 +24,7 @@ let clearSelection
 let selectionData
 let footnote, followLink = () => {}, footnoteEnabled = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
+let cfiToc = []
 let currentPageText
 
 // check whether the page is zoomed
@@ -83,6 +84,15 @@ const atBottom = () =>
 // go to the bottom of the previous page, if possible
 const prevBottom = () => rendition.currentLocation().atStart ? null
     : rendition.prev().then(() => window.scrollTo(0, document.body.scrollHeight))
+
+const getCfiFromHref = async (href, currentHref) => {
+    const [page, id] = href.split('#')
+    const pageHref = currentHref ? resolveURL(page, currentHref) : href
+    const item = book.spine.get(pageHref)
+    await item.load(book.load.bind(book))
+    const el = id ? item.document.getElementById(id) : item.document.body
+    return item.cfiFromElement(el)
+}
 
 // create a range cfi from two cfi locations
 // adapted from https://github.com/futurepress/epub.js/blob/be24ab8b39913ae06a80809523be41509a57894a/src/epubcfi.js#L502
@@ -161,13 +171,31 @@ const openBook = (fileName, inputType) => {
 
     // set the correct URL based on the path to the nav or ncx file
     // fixes https://github.com/futurepress/epub.js/issues/469
-    book.loaded.navigation.then(navigation => {
+    book.loaded.navigation.then(async navigation => {
+        const hrefList = []
         const path = book.packaging.navPath || book.packaging.ncxPath
         const f = x => {
             x.href = resolveURL(x.href, path)
+            hrefList.push(x.href)
             x.subitems.forEach(f)
         }
         navigation.toc.forEach(f)
+
+        // convert hrefs to CFIs for better TOC with anchor support
+        cfiToc = await Promise.all(hrefList.map(async href => {
+            try {
+                const result = await getCfiFromHref(href)
+                const cfi = new ePub.CFI(result)
+                cfi.collapse(true)
+                return {
+                    href: href,
+                    cfi: cfi.toString()
+                }
+            } catch (e) {
+                return null
+            }
+        }))
+        cfiToc.sort(new ePub.CFI().compare)
     })
 
     book.loaded.metadata.then(metadata => {
@@ -242,10 +270,8 @@ const setupRendition = () => {
             layout.spread && document.getElementById('viewer').clientWidth >= 800
                 ? 'block' : 'none')
 
-    rendition.on('rendered', section => {
-        dispatch({ type: 'section', payload: section.href })
-        redrawAnnotations()
-    })
+    rendition.on('rendered', () => redrawAnnotations())
+
     rendition.on('relocated', location => {
         if (shouldUpdateSlider)
             dispatch({
@@ -262,6 +288,13 @@ const setupRendition = () => {
                 index: book.spine.get(location.start.cfi).index
             }
         })
+
+        // find current TOC item based on CFI
+        const cfi = location.end.cfi
+        const CFI = new ePub.CFI()
+        const index = cfiToc.findIndex(el => CFI.compare(cfi, el.cfi) <= 0)
+        const section = cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
+        if (section) dispatch({ type: 'section', payload: section.href })
     })
 
     // see https://github.com/futurepress/epub.js/issues/809

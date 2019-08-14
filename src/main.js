@@ -537,10 +537,7 @@ class JumpList {
         let [, iter] = store.get_iter_first()
         loop:
         while (true) {
-            // remove anchors as currently there's no way of handling them;
-            // perhaps we may get the DOM element of the anchors,
-            // then create CFIs from them, then we can handle them properly
-            const value = store.get_value(iter, 1).split('#')[0]
+            const value = store.get_value(iter, 1)
             if (value === href) {
                 const path = store.get_path(iter)
                 this.view.expand_to_path(path)
