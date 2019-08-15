@@ -291,7 +291,8 @@ const setupRendition = continuous => {
         if (section) dispatch({ type: 'section', payload: section.href })
     })
 
-    // see https://github.com/futurepress/epub.js/issues/809
+    // see https://github.com/futurepress/epub.js/issues/809#issuecomment-415645768
+    // FIXME: this doesn't work correctly in continuous scrolling mode
     let latestViewElement
     rendition.on("rendered", (section, view) => {
         latestViewElement = view.element

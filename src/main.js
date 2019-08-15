@@ -1236,8 +1236,15 @@ const makePopoverOptions = ({ left, right, top, bottom }, window, height = 400) 
         : borders[2][0] > height ? borders[2]
         : maxBy(borders, x => x[0])
 
+    const x = maxBorder[2]
+    const y = maxBorder[3]
     return {
-        position: { x: maxBorder[2], y: maxBorder[3] },
+        // sometimes the position values reported by viewer.js are wrong
+        // setting x, y to zero insures that the popover is at least visible
+        position: {
+            x: x <= winWidth && x > 0 ? x : 0,
+            y: y <= winHeight && y > 0 ? y : 0
+        },
         positionType: maxBorder[1]
     }
 }
