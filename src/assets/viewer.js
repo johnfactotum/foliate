@@ -76,15 +76,6 @@ const clearSearch = () => {
         rendition.annotations.remove(cfi, 'underline'))
 }
 
-// check whether the page is scroll to the top or bottom
-const atTop = () => window.scrollY === 0
-const atBottom = () =>
-    (window.innerHeight + window.scrollY) >= document.body.offsetHeight
-
-// go to the bottom of the previous page, if possible
-const prevBottom = () => rendition.currentLocation().atStart ? null
-    : rendition.prev().then(() => window.scrollTo(0, document.body.scrollHeight))
-
 const getCfiFromHref = async (href, currentHref) => {
     const [page, id] = href.split('#')
     const pageHref = currentHref ? resolveURL(page, currentHref) : href
@@ -204,8 +195,11 @@ const openBook = (fileName, inputType) => {
     })
 }
 
-const display = (lastLocation, cached) => {
-    rendition = book.renderTo('viewer', { width: '100%' })
+const display = (continuous, lastLocation, cached) => {
+    rendition = continuous
+        ? book.renderTo(document.body,
+            { manager: 'continuous', flow: 'scrolled', width: '100%' })
+        : book.renderTo('viewer', { width: '100%' })
 
     // HACK: no idea why but have to do it twice
     // otherwise it will fail, but only on rare occassions  ¯\_(ツ)_/¯
@@ -262,10 +256,10 @@ const display = (lastLocation, cached) => {
         .catch(() => dispatch({ type: 'cover', payload: false }))
 }
 
-const setupRendition = () => {
+const setupRendition = continuous => {
     let isSelecting = false
 
-    rendition.on("layout", layout =>
+    if (!continuous) rendition.on("layout", layout =>
         document.getElementById('divider').style.display =
             layout.spread && document.getElementById('viewer').clientWidth >= 800
                 ? 'block' : 'none')
@@ -492,19 +486,9 @@ const setupRendition = () => {
     }, 1000))
 
     // scroll through pages
-    const onwheel = debounce(event => {
-        if (zoomed()) return
-        if (rendition.settings.flow === 'scrolled-doc') {
-            if (atBottom() && event.deltaY > 0) {
-                rendition.next().then(() =>
-                    window.scrollTo(0, 0))
-                event.preventDefault()
-            } else if (atTop() && event.deltaY < 0) {
-                prevBottom()
-                event.preventDefault()
-            }
-        } else {
-            if (zoomed()) return
+    if (!continuous) {
+        const onwheel = debounce(event => {
+            if (zoomed() || rendition.settings.flow === 'scrolled-doc') return
             const { deltaX, deltaY } = event
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
                 if (deltaX > 0) rendition.next()
@@ -514,33 +498,24 @@ const setupRendition = () => {
                 else if (deltaY < 0) rendition.prev()
             }
             event.preventDefault()
-        }
-    }, 100, true)
-    document.documentElement.onwheel = onwheel
+        }, 100, true)
+        document.documentElement.onwheel = onwheel
+    }
 
     // keyboard shortcuts
     const handleKeydown = event => {
         if (zoomed()) return
-        const paginated = rendition.settings.flow !== 'scrolled-doc'
+        const paginated = !continuous && rendition.settings.flow !== 'scrolled-doc'
         const k = event.key
         if (k === 'ArrowLeft') rendition.prev()
         else if(k === 'ArrowRight') rendition.next()
         else if (k === 'Backspace') {
             if (paginated) rendition.prev()
-            else if (atTop()) prevBottom()
             else window.scrollBy(0, -window.innerHeight)
         } else if (event.shiftKey && k === ' ' || k === 'ArrowUp' || k === 'PageUp') {
             if (paginated) rendition.prev()
-            else if (atTop()) {
-                prevBottom()
-                event.preventDefault()
-            }
         } else if (k === ' ' || k === 'ArrowDown' || k === 'PageDown') {
             if (paginated) rendition.next()
-            else if (atBottom()) {
-                rendition.next()
-                event.preventDefault()
-            }
         }
     }
     rendition.on('keydown', handleKeydown)

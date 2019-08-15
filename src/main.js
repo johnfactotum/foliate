@@ -129,6 +129,7 @@ class Storage {
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
 const useSidebar = settings.get_boolean('use-sidebar')
+const continuous = settings.get_boolean('continuous')
 
 const kindleExts = ['.mobi', '.prc', '.azw', '.azw3']
 
@@ -891,15 +892,19 @@ class ViewPopover {
         grid.attach(this._fontBox.widget, 1, 0, 1, 1)
         grid.attach(menuLabels.spacing, 0, 1, 1, 1)
         grid.attach(this._spacingButton, 1, 1, 1, 1)
-        grid.attach(menuLabels.margin, 0, 2, 1, 1)
-        grid.attach(this._marginButton, 1, 2, 1, 1)
+        if (!continuous) {
+            grid.attach(menuLabels.margin, 0, 2, 1, 1)
+            grid.attach(this._marginButton, 1, 2, 1, 1)
+        }
         grid.attach(menuLabels.brightness, 0, 3, 1, 1)
         grid.attach(this._brightnessSlider, 1, 3, 1, 1)
         grid.attach(menuLabels.theme, 0, 4, 1, 1)
         grid.attach(this._themeBox.widget, 1, 4, 1, 1)
-        grid.attach(new Gtk.Separator(), 0, 5, 2, 1)
-        grid.attach(menuLabels.layout, 0, 6, 1, 1)
-        grid.attach(this._layoutBox.widget, 1, 6, 1, 1)
+        if (!continuous) {
+            grid.attach(new Gtk.Separator(), 0, 5, 2, 1)
+            grid.attach(menuLabels.layout, 0, 6, 1, 1)
+            grid.attach(this._layoutBox.widget, 1, 6, 1, 1)
+        }
         grid.attach(new Gtk.Separator(), 0, 7, 2, 1)
         grid.attach(menuLabels.options, 0, 8, 1, 1)
         grid.attach(this._defaultSwitch.widget, 1, 8, 1, 1)
@@ -1878,7 +1883,7 @@ class BookViewerWindow {
             const display = lastLocation ? `"${lastLocation}"` : 'undefined'
             const cached = this.cache.get('locations')
 
-            this.scriptRun(`display(${display}, ${cached || null})`)
+            this.scriptRun(`display(${continuous}, ${display}, ${cached || null})`)
 
             this.storage.set('metadata', metadata)
             this.buildExport(metadata)
@@ -2047,6 +2052,7 @@ class BookViewerWindow {
             this.scriptRun('redrawAnnotations()')
         },
         layout => {
+            if (continuous) return
             settings.set_string('layout', layout)
             const value = defaultLayouts[layout]
             this.scriptRun(`
@@ -2067,7 +2073,7 @@ class BookViewerWindow {
             if (theme !== this.viewPopover.theme) this.viewPopover.theme = theme
         })
 
-        this.scriptRun(`setupRendition()`)
+        this.scriptRun(`setupRendition(${continuous})`)
     }
     handleAction({ type, payload }, options) {
         switch (type) {
@@ -2538,7 +2544,7 @@ class BookViewerWindow {
         this.addShortcut(['p', 'h'], 'go-prev', onPrev)
         this.addShortcut(['n', 'l'], 'go-next', onNext)
 
-        const isPaginated = () =>
+        const isPaginated = () => !continuous &&
             defaultLayouts[this.viewPopover.layout] === 'paginated'
 
         const lineHeight = () =>
@@ -2548,15 +2554,11 @@ class BookViewerWindow {
         this.addShortcut(['k'], 'go-up',
             () => isPaginated()
                 ? onPrev()
-                : this.scriptRun(`
-                    if (atTop()) prevBottom()
-                    else window.scrollBy(0, -${lineHeight()})`))
+                : this.scriptRun(`window.scrollBy(0, -${lineHeight()})`))
         this.addShortcut(['j'], 'go-down',
             () => isPaginated()
                 ? onNext()
-                : this.scriptRun(`
-                    if (atBottom()) rendition.next()
-                    else window.scrollBy(0, ${lineHeight()})`))
+                : this.scriptRun(`window.scrollBy(0, ${lineHeight()})`))
 
         this.addShortcut(['<Alt>Left'], 'go-back', this.navbar.goBack)
     }
@@ -3330,6 +3332,10 @@ function main(argv) {
         window.set_titlebar(headerBar)
         window.title = _('Preferences')
 
+        const continuousPref = new SwitchBox(
+            _('Continous scrolling (requires restart)'),
+            'continuous', () => {})
+
         const sidebarPref = new SwitchBox([
             _('Use sidebar (requires restart)'),
             _('Use a sidebar to display table of contents, annotations, and bookmarks.')
@@ -3381,6 +3387,7 @@ function main(argv) {
             border_width: 18,
             spacing: 18,
         })
+        general.pack_start(continuousPref.widget, false, true, 0)
         general.pack_start(sidebarPref.widget, false, true, 0)
         general.pack_start(restorePref.widget, false, true, 0)
         general.pack_start(cursorPref.widget, false, true, 0)
