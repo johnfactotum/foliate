@@ -334,10 +334,8 @@ const setupRendition = continuous => {
                 const href = link.getAttribute('href')
                 if (isExternalURL(href))
                     dispatch({ type: 'link-external', payload: href })
-                else if (type !== 'noteref' && !footnoteEnabled) dispatch({
-                    type: 'link-internal',
-                    payload: rendition.currentLocation().start.cfi
-                })
+                else if (type !== 'noteref' && !footnoteEnabled)
+                    followLink()
                 else {
                     const [page, id] = href.split('#')
                     const pageHref = resolveURL(page,
