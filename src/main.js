@@ -319,13 +319,15 @@ class Navbar {
             image: new Gtk.Image({ icon_name: 'go-previous-symbolic' }),
             tooltip_text: _('Previous page'),
             sensitive: false,
-            visible: true
+            visible: true,
+            relief: Gtk.ReliefStyle.NONE
         })
         this._nextButton = new Gtk.Button({
             image: new Gtk.Image({ icon_name: 'go-next-symbolic' }),
             tooltip_text: _('Next page'),
             sensitive: false,
-            visible: true
+            visible: true,
+            relief: Gtk.ReliefStyle.NONE
         })
 
         const box = new Gtk.Box({ hexpand: true, visible: true })
@@ -340,7 +342,8 @@ class Navbar {
             image: new Gtk.Image({ icon_name: 'edit-undo-symbolic' }),
             tooltip_text: _('Go back'),
             sensitive: false,
-            visible: true
+            visible: true,
+            relief: Gtk.ReliefStyle.NONE
         })
 
         this.goBack = () => {
@@ -349,6 +352,8 @@ class Navbar {
             if (!this._history.length) this._backButton.sensitive = false
         }
         this._backButton.connect('clicked', this.goBack)
+
+        ttsButton.relief = Gtk.ReliefStyle.NONE
 
         this.widget = new Gtk.ActionBar({ visible: true })
         this.widget.pack_start(this._prevButton)
