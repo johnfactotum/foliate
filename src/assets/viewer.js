@@ -291,14 +291,8 @@ const setupRendition = continuous => {
         if (section) dispatch({ type: 'section', payload: section.href })
     })
 
-    // see https://github.com/futurepress/epub.js/issues/809#issuecomment-415645768
-    // FIXME: this doesn't work correctly in continuous scrolling mode
-    let latestViewElement
-    rendition.on("rendered", (section, view) => {
-        latestViewElement = view.element
-    })
-    const getRect = rect => {
-        const viewElementRect = latestViewElement.getBoundingClientRect()
+    const getRect = (rect, frame) => {
+        const viewElementRect = frame.getBoundingClientRect()
         const left = rect.left + viewElementRect.left
         const right = rect.right + viewElementRect.left
         const top = rect.top + viewElementRect.top
@@ -307,6 +301,7 @@ const setupRendition = continuous => {
     }
 
     rendition.hooks.content.register((contents, /*view*/) => {
+        const frame = contents.document.defaultView.frameElement
         const html = contents.document.documentElement
         if (!html.getAttribute('lang') && book.package.metadata.language)
             html.setAttribute('lang', book.package.metadata.language)
@@ -379,7 +374,7 @@ const setupRendition = continuous => {
                     if (item) item.unload()
 
                     const { left, right, top, bottom } =
-                        getRect(e.target.getBoundingClientRect())
+                        getRect(e.target.getBoundingClientRect(), frame)
 
                     if (el.innerText.trim()) dispatch({
                         type: 'footnote',
@@ -394,7 +389,7 @@ const setupRendition = continuous => {
         Array.from(imgs).forEach(img => {
             img.addEventListener('click', e => {
                 const { left, right, top, bottom } =
-                    getRect(e.target.getBoundingClientRect())
+                    getRect(e.target.getBoundingClientRect(), frame)
 
                 const src = img.src
                 imgAlt = img.getAttribute('alt')
@@ -440,7 +435,7 @@ const setupRendition = continuous => {
             clearSelection = () => contents.window.getSelection().removeAllRanges()
 
             const { left, right, top, bottom } =
-                getRect(selection.getRangeAt(0).getBoundingClientRect())
+                getRect(selection.getRangeAt(0).getBoundingClientRect(), frame)
 
             dispatch({
                 type: 'selection',
