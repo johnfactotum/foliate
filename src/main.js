@@ -1284,7 +1284,8 @@ class ActionPopover {
     }
 }
 class SelectionPopover {
-    constructor(options, onAnnotate, onLookup, onTranslate, onCopy) {
+    constructor(options, onAnnotate, onLookup, onTranslate, onCopy, ttsButton) {
+        const isTTSButtonVisible = ttsButton.visible
         const copyButton = new Gtk.Button({ label: _('Copy') })
         copyButton.connect('clicked', () => {
             onCopy()
@@ -1307,11 +1308,13 @@ class SelectionPopover {
         })
 
         this.popover = new ActionPopover(options,
-            [noteButton, dictButton, transButton, copyButton], [])
+            [noteButton, dictButton, transButton, copyButton, ttsButton], [])
+        if (!isTTSButtonVisible) ttsButton.visible = false
     }
 }
 class LookupPopover {
-    constructor(options, onAnnotate, onCopy, word, language, dict, action) {
+    constructor(options, onAnnotate, onCopy, ttsButton, word, language, dict, action) {
+        const isTTSButtonVisible = ttsButton.visible
         const defaultAction = settings.get_string('lookup-action')
         if (!action) action = defaultAction === 'auto'
             ? (word.split(' ').length > 1 ? 'wikipedia' : 'dictionary')
@@ -1449,7 +1452,8 @@ class LookupPopover {
         stack.add_titled(transBox, 'translate', _('Translate'))
 
         this.popover = new ActionPopover(options,
-            [noteButton, copyButton], [stack, stackSwitcher])
+            [noteButton, copyButton, ttsButton], [stack, stackSwitcher])
+        if (!isTTSButtonVisible) ttsButton.visible = false
 
         const load = () => {
             switch (stack.visible_child_name) {
@@ -2120,7 +2124,6 @@ class BookViewerWindow {
                 this.bookmarks.update(payload.cfi)
                 this.navbar.setAtStart(payload.atStart)
                 this.navbar.setAtEnd(payload.atEnd)
-                this.atEnd = payload.atEnd
                 this.storage.set('lastLocation', payload.cfi)
                 if (this.webView.opacity === 0) {
                     if (this._hack) this._hack.destroy()
@@ -2203,6 +2206,7 @@ class BookViewerWindow {
                 this.scriptGet('selectionData', ({ text, language }) => {
                     const dict = settings.get_string('dictionary')
 
+                    const ttsButton = this.buildTTS()
                     const popover = new LookupPopover(
                         [this.webView, payload, this.window],
                         () => {
@@ -2215,9 +2219,11 @@ class BookViewerWindow {
                         () => Gtk.Clipboard
                             .get_default(Gdk.Display.get_default())
                             .set_text(text, -1),
+                        ttsButton,
                         text.replace(/\xad|\u2060/g, ''), language, dict, options)
 
                     popover.popover.widget.connect('closed', () => {
+                        ttsButton.active = false
                         this.scriptRun('clearSelection()')
                     })
                 })
@@ -2277,6 +2283,7 @@ class BookViewerWindow {
                         translateFunc()
                         break
                     case 'ask': {
+                        const ttsButton = this.buildTTS()
                         const popover = new SelectionPopover(
                             [this.webView, payload, this.window],
                             highlightFunc,
@@ -2286,8 +2293,10 @@ class BookViewerWindow {
                                 Gtk.Clipboard
                                     .get_default(Gdk.Display.get_default())
                                     .set_text(text, -1)
-                            }))
+                            }),
+                            ttsButton)
                         popover.popover.widget.connect('closed', () => {
+                            ttsButton.active = false
                             if (shouldClearSelection)
                                 this.scriptRun('clearSelection()')
                         })
@@ -2338,9 +2347,12 @@ class BookViewerWindow {
                     this._ttsToken = {}
                     const args = [text, true, this._ttsToken]
                     execCommand(this._ttsCommand, ...args)
-                        .then(() => this.atEnd ? null : this.scriptRun(`
-                            rendition.next()
-                                .then(() => speakCurrentPage())`))
+                        .then(() => {
+                            if (payload) this.ttsButtons
+                                .forEach(x => x.active = false)
+                            else this.scriptRun(`rendition.next()
+                                .then(() => speakCurrentPage())`)
+                        })
                 })
                 break
         }
@@ -2544,7 +2556,7 @@ class BookViewerWindow {
             this.bookmarks.doButtonAction())
     }
     buildNavbar(onSlide, onPrev, onNext, onBack) {
-        this.navbar = new Navbar(this.buildTTS(), onSlide, onPrev, onNext, onBack)
+        this.navbar = new Navbar(this.buildTTS(true), onSlide, onPrev, onNext, onBack)
         if (!settings.get_boolean('show-navbar')) {
             this.navbar.widget.hide()
             // HACK: stuff breaks without another non-zero-sized widget in `this.container`
@@ -2655,14 +2667,19 @@ class BookViewerWindow {
 
         this.addShortcut(['<Control>w'], 'close', () => this.window.close())
     }
-    buildTTS() {
+    buildTTS(speakPage) {
         const button = new Gtk.ToggleButton({
             image: new Gtk.Image({ icon_name: 'audio-headphones-symbolic' }),
             tooltip_text: _('Text-to-speech')
         })
+
+        if (!this.ttsButtons) this.ttsButtons = new Set()
+        this.ttsButtons.add(button)
+
         button.connect('toggled', () => {
-            if (button.active) this.scriptRun('speakCurrentPage()')
-            else this._ttsToken ? this._ttsToken.interrupt() : null
+            if (this._ttsToken) this._ttsToken.interrupt()
+            if (button.active) this.scriptRun(
+                speakPage? 'speakCurrentPage()' : 'speakSelection()')
         })
         const update = () => {
             const command = settings.get_string('tts-command')
@@ -2672,9 +2689,12 @@ class BookViewerWindow {
         }
         update()
         const connection = settings.connect('changed::tts-command', update)
-        button.connect('destroy', () => settings.disconnect(connection))
+        button.connect('destroy', () => {
+            this.ttsButtons.delete(button)
+            settings.disconnect(connection)
+        })
 
-        this.addShortcut(['F5'], 'text-to-speech', () =>
+        if (speakPage) this.addShortcut(['F5'], 'text-to-speech', () =>
             button.visible ? button.active = !button.active : null)
 
         return button

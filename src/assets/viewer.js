@@ -130,8 +130,12 @@ const speakCurrentPage = () => {
     book.getRange(makeRangeCfi(currentLoc.start.cfi, currentLoc.end.cfi))
         .then(range => {
             currentPageText = range.toString()
-            dispatch({ type: 'speech-start' })
+            dispatch({ type: 'speech-start', payload: currentLoc.atEnd })
         })
+}
+const speakSelection = () => {
+    currentPageText = selectionData.text
+    dispatch({ type: 'speech-start', payload: true })
 }
 
 const addAnnotation = (cfiRange, color) => {
