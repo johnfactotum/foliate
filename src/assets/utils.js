@@ -56,6 +56,7 @@ const usurp = p => {
 }
 const pangoMarkupTags = ['a', 'b', 'big', 'i', 's', 'sub', 'sup', 'small', 'tt', 'u']
 const toPangoMarkup = (html, baseURL) => {
+    const isBaseURLExternal = isExternalURL(baseURL)
     const doc = new DOMParser().parseFromString(html.replace(/\n/g, ' '), 'text/html')
     Array.from(doc.querySelectorAll('p'))
         .forEach(el => el.innerHTML = '\n\n' + el.innerHTML)
@@ -78,11 +79,13 @@ const toPangoMarkup = (html, baseURL) => {
         if (pangoMarkupTags.indexOf(nodeName) === -1) usurp(el)
         else Array.from(el.attributes).forEach(x => {
             if (x.name === 'href') {
-                const href = el.getAttribute('href')
-                if (baseURL) el.setAttribute('href', new URL(href, baseURL))
-                else if (!isExternalURL(href))
-                    // TODO: handle internal links
-                    el.removeAttribute(x.name)
+                if (baseURL) {
+                    const href = el.getAttribute('href')
+                    if (isBaseURLExternal)
+                        el.setAttribute('href', new URL(href, baseURL))
+                    else
+                        el.setAttribute('href', resolveURL(href, baseURL))
+                }
             } else el.removeAttribute(x.name)
         })
         if (nodeName === 'a' && !el.hasAttribute('href')) usurp(el)

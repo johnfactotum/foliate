@@ -43,6 +43,21 @@ const gotoPercentage = percentage => {
     rendition.display(book.locations.cfiFromPercentage(percentage))
 }
 
+// handle internal links from GtkLabel
+const gotoURI = uri => {
+    if (isExternalURL(uri)) {
+        // external links are already opened by default; do nothing
+        return false
+    } else {
+        dispatch({
+            type: 'link-internal',
+            payload: rendition.currentLocation().start.cfi
+        })
+        rendition.display(uri)
+        return true
+    }
+}
+
 // find in book
 const doSearch = q =>
     Promise.all(book.spine.spineItems.map(item =>
@@ -349,7 +364,7 @@ const setupRendition = continuous => {
 
                     // footnotes matching this would be hidden (see above)
                     // and so one cannot navigate to them
-                    const canGoTo = !(el.nodeName === 'aside'
+                    const canFollow = !(el.nodeName === 'aside'
                         && el.getAttribute('epub:type') === 'footnote')
 
                     // this bit deals with situations like
@@ -373,7 +388,7 @@ const setupRendition = continuous => {
                         }
                     }
 
-                    footnote = toPangoMarkup(el.innerHTML)
+                    footnote = toPangoMarkup(el.innerHTML, pageHref)
 
                     if (item) item.unload()
 
@@ -382,7 +397,7 @@ const setupRendition = continuous => {
 
                     if (el.innerText.trim()) dispatch({
                         type: 'footnote',
-                        payload: { left, right, top, bottom, canGoTo }
+                        payload: { left, right, top, bottom, canFollow }
                     })
                     else followLink()
                 }

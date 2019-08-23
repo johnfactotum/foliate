@@ -1581,7 +1581,7 @@ class AnnotationPopover {
     }
 }
 class FootnotePopover {
-    constructor(options, canGoTo, onGoTo) {
+    constructor(options, canFollow, onFollow, onLink) {
         this._label = new Gtk.Label({
             use_markup: true,
             selectable: true,
@@ -1589,6 +1589,8 @@ class FootnotePopover {
             xalign: 0
         })
         this._label.set_line_wrap(true)
+        this._label.connect('activate-link', (_, uri) => onLink(uri))
+
         const lbox = new Gtk.Box({ border_width: 5 })
         lbox.add(this._label)
 
@@ -1600,17 +1602,17 @@ class FootnotePopover {
         scroll.add(lbox)
 
         let button
-        if (canGoTo) {
+        if (canFollow) {
             button = new Gtk.Button({
                 label: _('Go to Linked Location')
             })
             button.connect('clicked', () => {
-                onGoTo()
+                onFollow()
                 this.popover.widget.popdown()
             })
         }
         this.popover = new ActionPopover(options, [],
-            canGoTo ? [scroll, button] : [scroll])
+            canFollow ? [scroll, button] : [scroll])
     }
     load(footnote) {
         this._label.label = footnote
@@ -2308,7 +2310,9 @@ class BookViewerWindow {
             case 'footnote': {
                 const popover = new FootnotePopover(
                     [this.webView, payload, this.window],
-                    payload.canGoTo, () => this.scriptRun(`followLink()`))
+                    payload.canFollow, () => this.scriptRun(`followLink()`),
+                    uri => this.scriptGet(`gotoURI("${uri}")`, isInternal =>
+                        isInternal ? popover.popover.widget.popdown() : null))
 
                 this.scriptGet('footnote', footnote => popover.load(footnote))
                 break
