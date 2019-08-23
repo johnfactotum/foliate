@@ -55,6 +55,8 @@ const wiktionary = (word, language = 'en') => {
         })
 }
 const wikipedia = (word, language = 'en') => {
+    const baseURL = `https://${language}.wikipedia.org/`
+
     fetch(`https://${language}.wikipedia.org/api/rest_v1/page/summary/${word}`)
         .then(res => {
             if (res.ok) return res
@@ -63,7 +65,7 @@ const wikipedia = (word, language = 'en') => {
         .then(res => res.json())
         .then(json => {
             lookupResults = json
-            lookupResults.extract = toPangoMarkup(json.extract_html)
+            lookupResults.extract = toPangoMarkup(json.extract_html, baseURL)
         })
         .then(() => dispatch({ type: 'lookup-results' }))
         .catch(() => dispatch({ type: 'lookup-error' }))

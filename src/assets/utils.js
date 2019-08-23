@@ -55,7 +55,7 @@ const usurp = p => {
     p.parentNode.removeChild(p)
 }
 const pangoMarkupTags = ['a', 'b', 'big', 'i', 's', 'sub', 'sup', 'small', 'tt', 'u']
-const toPangoMarkup = (html, baseURL) => {
+const toPangoMarkup = (html, baseURL = '') => {
     const isBaseURLExternal = isExternalURL(baseURL)
     const doc = new DOMParser().parseFromString(html.replace(/\n/g, ' '), 'text/html')
     Array.from(doc.querySelectorAll('p'))
