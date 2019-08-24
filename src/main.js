@@ -215,7 +215,7 @@ const dictionaries = {
                     + _('From Wiktionary, the free dictionary') + '</span>\n'
                     + `<b>${results.word.replace(/&/g, '&amp;')}</b>\n`
                     + `${results.defs.join('\n\n')}\n\n`
-                    + `<a href="https://en.wiktionary.org/wiki/${encodeURIComponent(word)}">`
+                    + `<a href="https://en.wiktionary.org/wiki/${encodeURIComponent(results.word)}">`
                     + _('View on Wiktionary') + '</a>')
         }
     }
