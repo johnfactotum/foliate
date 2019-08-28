@@ -104,6 +104,7 @@ const getSectionfromCfi = cfi => {
     const CFI = new ePub.CFI()
     const index = cfiToc.findIndex(el => CFI.compare(cfi, el.cfi) <= 0)
     return cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
+        || { label: book.package.metadata.title, href: '', cfi: '' }
 }
 
 // create a range cfi from two cfi locations
@@ -313,7 +314,7 @@ const setupRendition = continuous => {
         // find current TOC item based on CFI
         const cfi = location.end.cfi
         const section = getSectionfromCfi(cfi)
-        if (section) dispatch({ type: 'section', payload: section.href })
+        dispatch({ type: 'section', payload: section.href })
     })
 
     const getRect = (rect, frame) => {
