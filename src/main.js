@@ -1766,7 +1766,6 @@ class BookViewerWindow {
 
         this.headerBar = new Gtk.HeaderBar()
         this.headerBar.show_close_button = true
-        this.headerBar.has_subtitle = false
         this.window.set_titlebar(this.headerBar)
         this.window.title = _('Foliate')
         this.window.show_all()
@@ -1894,6 +1893,7 @@ class BookViewerWindow {
 
         this.scriptGet('book.package.metadata', metadata => {
             this.headerBar.title = metadata.title
+            this.headerBar.subtitle = metadata.creator
 
             this.storage = new Storage(metadata.identifier)
             this.cache = new Storage(metadata.identifier, 'cache')
