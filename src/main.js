@@ -2905,41 +2905,39 @@ class BookViewerWindow {
 
             dataBox.pack_end(grid, false, true, 0)
 
+            const labelText = {
+                publisher: _('Publisher'),
+                pubdate: _('Publication Date'),
+                modified_date: _('Modified Date'),
+                language: _('Language'),
+                rights: _('Copyright'),
+                identifier: _('Identifier')
+            }
+
             let row = 0
             for (const key in metadata) {
-                if (!metadata[key]) continue
+                if (!(key in labelText) || !metadata[key]) continue
+                const label = new Gtk.Label({
+                    label: labelText[key],
+                    ellipsize: Pango.EllipsizeMode.END,
+                    valign: Gtk.Align.START,
+                    halign: Gtk.Align.END
+                })
+                label.get_style_context().add_class('dim-label')
+                grid.attach(label, 0, row, 1, 1)
 
-                const labelText = {
-                    publisher: _('Publisher'),
-                    pubdate: _('Publication Date'),
-                    modified_date: _('Modified Date'),
-                    language: _('Language'),
-                    rights: _('Copyright'),
-                    identifier: _('Identifier')
-                }
-                if (key in labelText) {
-                    const label = new Gtk.Label({
-                        label: labelText[key],
-                        ellipsize: Pango.EllipsizeMode.END,
-                        valign: Gtk.Align.START,
-                        halign: Gtk.Align.END
-                    })
-                    label.get_style_context().add_class('dim-label')
-                    grid.attach(label, 0, row, 1, 1)
-
-                    const value = new Gtk.Label({
-                        label: metadata[key],
-                        selectable: true,
-                        ellipsize: Pango.EllipsizeMode.END,
-                        lines: 3,
-                        valign: Gtk.Align.START,
-                        halign: Gtk.Align.START,
-                        xalign: 0
-                    })
-                    value.set_line_wrap(true)
-                    grid.attach(value, 1, row, 1, 1)
-                    row++
-                }
+                const value = new Gtk.Label({
+                    label: metadata[key],
+                    selectable: true,
+                    ellipsize: Pango.EllipsizeMode.END,
+                    lines: 3,
+                    valign: Gtk.Align.START,
+                    halign: Gtk.Align.START,
+                    xalign: 0
+                })
+                value.set_line_wrap(true)
+                grid.attach(value, 1, row, 1, 1)
+                row++
             }
 
             const coverBox = new Gtk.Box({ spacing: 18 })
