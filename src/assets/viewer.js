@@ -100,6 +100,12 @@ const getCfiFromHref = async (href, currentHref) => {
     return item.cfiFromElement(el)
 }
 
+const getSectionfromCfi = cfi => {
+    const CFI = new ePub.CFI()
+    const index = cfiToc.findIndex(el => CFI.compare(cfi, el.cfi) <= 0)
+    return cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
+}
+
 // create a range cfi from two cfi locations
 // adapted from https://github.com/futurepress/epub.js/blob/be24ab8b39913ae06a80809523be41509a57894a/src/epubcfi.js#L502
 const makeRangeCfi = (a, b) => {
@@ -185,20 +191,22 @@ const openBook = (fileName, inputType) => {
         const hrefList = []
         const path = book.packaging.navPath || book.packaging.ncxPath
         const f = x => {
+            x.label = x.label.trim()
             x.href = resolveURL(x.href, path)
-            hrefList.push(x.href)
+            hrefList.push(x)
             x.subitems.forEach(f)
         }
         navigation.toc.forEach(f)
 
         // convert hrefs to CFIs for better TOC with anchor support
-        cfiToc = await Promise.all(hrefList.map(async href => {
+        cfiToc = await Promise.all(hrefList.map(async ({ label, href }) => {
             try {
                 const result = await getCfiFromHref(href)
                 const cfi = new ePub.CFI(result)
                 cfi.collapse(true)
                 return {
-                    href: href,
+                    label,
+                    href,
                     cfi: cfi.toString()
                 }
             } catch (e) {
@@ -304,9 +312,7 @@ const setupRendition = continuous => {
 
         // find current TOC item based on CFI
         const cfi = location.end.cfi
-        const CFI = new ePub.CFI()
-        const index = cfiToc.findIndex(el => CFI.compare(cfi, el.cfi) <= 0)
-        const section = cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
+        const section = getSectionfromCfi(cfi)
         if (section) dispatch({ type: 'section', payload: section.href })
     })
 

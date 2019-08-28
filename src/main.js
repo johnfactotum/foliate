@@ -530,7 +530,7 @@ class JumpList {
         const f = (toc, iter = null) => {
             toc.forEach(chapter => {
                 const newIter = this.store.append(iter)
-                const label = chapter.label.trim()
+                const label = chapter.label
                 this.store.set(newIter, [0, 1], [label, chapter.href])
                 if (chapter.subitems) f(chapter.subitems, newIter)
             })
@@ -1140,7 +1140,8 @@ class Bookmarks {
         }, frame)
         this._addButton = new Gtk.Button({ hexpand: true })
         const add = (text, value) => {
-            this._notesList.add(text, null, value, null, () => {
+            const cfiLabel = `<span alpha="50%" size="smaller">${value}</span>`
+            this._notesList.add(text, cfiLabel, value, null, () => {
                 if (value === this._currentCfi) this.setCanAdd()
             })
             this.setAdded(value)
@@ -1935,7 +1936,8 @@ class BookViewerWindow {
                 onActivate: withHistory(goTo),
                 onBookmarksAdd: add => {
                     this.scriptGet(`rendition.currentLocation().start.cfi`, cfi => {
-                        add(cleanCfi(cfi), cfi)
+                        this.scriptGet(`getSectionfromCfi("${cfi}")`,
+                            section => add(section.label, cfi))
                     })
                 },
                 onBookmarksChange: values => this.storage.set('bookmarks', values),
@@ -1952,9 +1954,10 @@ class BookViewerWindow {
             annotations.forEach(({ value, color }) =>
                 this.scriptRun(`addAnnotation('${value}', '${color}')`))
 
-            const cleanCfi = cfi => cfi.replace(/(^epubcfi\(|\)$)/g, '')
-            this.bookmarks.init(this.storage.get('bookmarks', [])
-                .map(x => [cleanCfi(x), x]))
+            const bookmarks = this.storage.get('bookmarks', [])
+            this.scriptGet(`${JSON.stringify(bookmarks)}.map(cfi =>
+                [getSectionfromCfi(cfi).label, cfi])`,
+            arr => this.bookmarks.init(arr))
         })
 
         this.buildNavbar(
