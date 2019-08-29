@@ -160,8 +160,10 @@ const defaultLayouts = {
 const highlightColors = [['yellow', _('Yellow')], ['orange', _('Orange')],
     ['red', _('Red')], ['magenta', _('Magenta')], ['aqua', _('Aqua')], ['lime', _('Lime')]]
 
+const pangoEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
+
 const coloredText = (color, text) =>
-    `<span bgcolor="${color}" bgalpha="25%">${text}</span>`
+    `<span bgcolor="${color}" bgalpha="25%">${pangoEscape(text)}</span>`
 
 const lookup = (lookupScript, lookupAgainScript) => new Promise((resolve, reject) => {
     const webView = new Webkit.WebView({
@@ -213,7 +215,7 @@ const dictionaries = {
                 payload => `wiktionary("${encodeURIComponent(payload)}", '${language}')`)
                 .then(results => '<span alpha="70%" size="smaller">'
                     + _('From Wiktionary, the free dictionary') + '</span>\n'
-                    + `<b>${results.word.replace(/&/g, '&amp;')}</b>\n`
+                    + `<b>${pangoEscape(results.word)}</b>\n`
                     + `${results.defs.join('\n\n')}\n\n`
                     + `<a href="https://en.wiktionary.org/wiki/${encodeURIComponent(results.word)}">`
                     + _('View on Wiktionary') + '</a>')
@@ -517,12 +519,11 @@ class JumpList {
     }
     loadSearchResults(results, query) {
         this.store.clear()
-        const regex = new RegExp(query, 'ig')
+        const regex = new RegExp(pangoEscape(query), 'ig')
         results.forEach(item => {
             const newIter = this.store.append()
-            const label = item.excerpt.trim().replace(/\n/g, ' ')
-            const m = label.replace(regex, `<b>${regex.exec(label)[0]
-                .replace(/&/g, '&amp;')}</b>`)
+            const label = pangoEscape(item.excerpt.trim().replace(/\n/g, ' '))
+            const m = label.replace(regex, `<b>${regex.exec(label)[0]}</b>`)
             this.store.set(newIter, [0, 1], [m, item.cfi])
         })
     }
@@ -1140,8 +1141,8 @@ class Bookmarks {
         }, frame)
         this._addButton = new Gtk.Button({ hexpand: true })
         const add = (text, value) => {
-            const cfiLabel = `<span alpha="50%" size="smaller">${value}</span>`
-            this._notesList.add(text, cfiLabel, value, null, () => {
+            const cfiLabel = `<span alpha="50%" size="smaller">${pangoEscape(value)}</span>`
+            this._notesList.add(pangoEscape(text), cfiLabel, value, null, () => {
                 if (value === this._currentCfi) this.setCanAdd()
             })
             this.setAdded(value)
@@ -1210,7 +1211,7 @@ class Annotations {
         })
     }
     add(text, text2, value, data) {
-        this._notesList.add(text, text2, value, data, this._onRemove)
+        this._notesList.add(text, pangoEscape(text2), value, data, this._onRemove)
     }
     remove(value) {
         this._notesList.remove(value)
@@ -1519,8 +1520,8 @@ class LookupPopover {
         lookup(`googleTranslate("${encodeURIComponent(word)}", '${language}')`)
             .then(results => '<span alpha="70%" size="smaller">'
                 + _('Translation by Google Translate') + '</span>\n'
-                + results)
-            .then(results => this._transLabel.label = results.replace(/&/g, '&amp;'))
+                + pangoEscape(results))
+            .then(results => this._transLabel.label = results)
             .catch(() => this._transLabel.label = _('Cannot retrieve translation.'))
     }
 }
@@ -2194,7 +2195,7 @@ class BookViewerWindow {
                     data.note,
                     note => {
                         data.note = note
-                        this.annotations.setLabel2(cfiRange, note)
+                        this.annotations.setLabel2(cfiRange, pangoEscape(note))
                     })
                 break
             }
@@ -2851,7 +2852,7 @@ class BookViewerWindow {
                 orientation: Gtk.Orientation.VERTICAL, spacing: 10
             })
             const title = new Gtk.Label({
-                label: `<big><b>${metadata.title}</b></big>`,
+                label: `<big><b>${pangoEscape(metadata.title)}</b></big>`,
                 use_markup: true,
                 selectable: true,
                 ellipsize: Pango.EllipsizeMode.END,
