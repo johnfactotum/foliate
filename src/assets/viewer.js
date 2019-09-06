@@ -102,7 +102,7 @@ const getCfiFromHref = async (href, currentHref) => {
 
 const getSectionfromCfi = cfi => {
     const CFI = new ePub.CFI()
-    const index = cfiToc.findIndex(el => CFI.compare(cfi, el.cfi) <= 0)
+    const index = cfiToc.findIndex(el => el ? CFI.compare(cfi, el.cfi) <= 0 : false)
     return cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
         || { label: book.package.metadata.title, href: '', cfi: '' }
 }
