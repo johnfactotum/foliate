@@ -8,6 +8,8 @@ A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/
 
 Website: https://johnfactotum.github.io/foliate/
 
+Documentation: https://github.com/johnfactotum/foliate/wiki
+
 <a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a>
 
 ## Features
