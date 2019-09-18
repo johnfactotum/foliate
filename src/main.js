@@ -2276,6 +2276,13 @@ class BookViewerWindow {
                         this.scriptRun('clearSelection()')
                         highlightFunc()
                         break
+                    case 'copy':
+                        this.scriptGet('selectionData', ({ text }) => {
+                            Gtk.Clipboard
+                            .get_default(Gdk.Display.get_default())
+                            .set_text(text, -1)
+                        })
+                        break
                     case 'lookup':
                         lookupFunc()
                         break
@@ -3439,6 +3446,7 @@ function main(argv) {
             ['nothing', _('Do nothing')],
             ['ask', _('Ask what to do')],
             ['highlight', _('Highlight')],
+            ['copy', _('Copy to clipboard')],
             ['dictionary', _('Lookup in dictionary')],
             ['wikipedia', _('Lookup in Wikipedia')],
             ['translate', _('Translate')]
