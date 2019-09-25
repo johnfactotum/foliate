@@ -186,8 +186,10 @@ const lookup = (lookupScript, lookupAgainScript) => new Promise((resolve, reject
     webView.load_uri(GLib.filename_to_uri(
         pkg.pkgdatadir + '/assets/lookup.html', null))
 
-    webView.connect('notify::title', self => {
-        const { type, payload } = JSON.parse(self.title)
+    const contentManager = webView.get_user_content_manager()
+    contentManager.connect('script-message-received::action', (_, jsResult) => {
+        const data = jsResult.get_js_value().to_string()
+        const { type, payload } = JSON.parse(data)
         switch (type) {
             case 'can-lookup':
                 scriptRun(lookupScript)
@@ -203,6 +205,7 @@ const lookup = (lookupScript, lookupAgainScript) => new Promise((resolve, reject
                 break
         }
     })
+    contentManager.register_script_message_handler('action')
 })
 
 const dictionaries = {
@@ -1825,12 +1828,15 @@ class BookViewerWindow {
             ? '/assets/viewer-nocsp.html' : '/assets/viewer.html'
 
         this.webView.load_uri(GLib.filename_to_uri(pkg.pkgdatadir + viewer, null))
-        this.webView.connect('notify::title', self => {
-            const action = JSON.parse(self.title)
+        const contentManager = this.webView.get_user_content_manager()
+        contentManager.connect('script-message-received::action', (_, jsResult) => {
+            const data = jsResult.get_js_value().to_string()
+            const action = JSON.parse(data)
             if (action.type === 'can-open')
                 this.scriptRun(`openBook("${encodeURI(fileName)}", '${inputType}')`)
             else this.handleAction(action)
         })
+        contentManager.register_script_message_handler('action')
 
         this.container = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
         this.overlay = new Gtk.Overlay()

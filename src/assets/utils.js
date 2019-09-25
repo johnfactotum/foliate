@@ -30,7 +30,7 @@ const debounce = (f, wait, immediate) => {
 const dispatch = action => {
     // unique time in case we are dispatching the same action twice
     const obj = { time: new Date().getTime(), ...action }
-    document.title = JSON.stringify(obj)
+    window.webkit.messageHandlers.action.postMessage(JSON.stringify(obj))
 }
 
 const isExternalURL = href =>
