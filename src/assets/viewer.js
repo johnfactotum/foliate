@@ -17,15 +17,12 @@
 
 let book, rendition
 let locations
-let coverBase64
-let imgBase64, imgAlt
 let searchResults
 let clearSelection
 let selectionData
-let footnote, followLink = () => {}, footnoteEnabled = false
+let followLink = () => {}, footnoteEnabled = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
 let cfiToc = []
-let currentPageText
 
 // check whether the page is zoomed
 let windowSize
@@ -150,15 +147,21 @@ const makeRangeCfi = (a, b) => {
 const speakCurrentPage = () => {
     const currentLoc = rendition.currentLocation()
     book.getRange(makeRangeCfi(currentLoc.start.cfi, currentLoc.end.cfi))
-        .then(range => {
-            currentPageText = range.toString()
-            dispatch({ type: 'speech-start', payload: currentLoc.atEnd })
-        })
+        .then(range => dispatch({
+            type: 'speech-start',
+            payload: {
+                text: range.toString(),
+                nextPage: !currentLoc.atEnd
+            }
+        }))
 }
-const speakSelection = () => {
-    currentPageText = selectionData.text
-    dispatch({ type: 'speech-start', payload: true })
-}
+const speakSelection = () => dispatch({
+    type: 'speech-start',
+    payload: {
+        text: selectionData.text,
+        nextPage: false
+    }
+})
 
 const addAnnotation = (cfiRange, color) => {
     rendition.annotations.remove(cfiRange, 'highlight')
@@ -276,12 +279,12 @@ const display = (continuous, lastLocation, cached) => {
         .then(blob => {
             const reader = new FileReader()
             reader.readAsDataURL(blob)
-            reader.onloadend = () => {
-                coverBase64 = reader.result.split(',')[1]
-                dispatch({ type: 'cover', payload: true })
-            }
+            reader.onloadend = () => dispatch({
+                type: 'cover',
+                payload: reader.result.split(',')[1]
+            })
         })
-        .catch(() => dispatch({ type: 'cover', payload: false }))
+        .catch(() => dispatch({ type: 'cover', payload: null }))
 }
 
 const setupRendition = continuous => {
@@ -369,11 +372,6 @@ const setupRendition = continuous => {
                         .getElementById(id)
                     if (!el) return followLink()
 
-                    // footnotes matching this would be hidden (see above)
-                    // and so one cannot navigate to them
-                    const canFollow = !(el.nodeName === 'aside'
-                        && el.getAttribute('epub:type') === 'footnote')
-
                     // this bit deals with situations like
                     //     <p><sup><a id="note1" href="link1">1</a></sup> My footnote</p>
                     // where simply getting the ID or its parent would not suffice
@@ -395,16 +393,17 @@ const setupRendition = continuous => {
                         }
                     }
 
-                    footnote = toPangoMarkup(el.innerHTML, pageHref)
-
                     if (item) item.unload()
-
-                    const { left, right, top, bottom } =
-                        getRect(e.target.getBoundingClientRect(), frame)
-
                     if (el.innerText.trim()) dispatch({
                         type: 'footnote',
-                        payload: { left, right, top, bottom, canFollow }
+                        payload: {
+                            footnote: toPangoMarkup(el.innerHTML, pageHref),
+                            // footnotes matching this would be hidden (see above)
+                            // and so one cannot navigate to them
+                            canFollow: !(el.nodeName === 'aside'
+                                && el.getAttribute('epub:type') === 'footnote'),
+                            position: getRect(e.target.getBoundingClientRect(), frame)
+                        }
                     })
                     else followLink()
                 }
@@ -412,28 +411,21 @@ const setupRendition = continuous => {
         })
 
         const imgs = contents.document.querySelectorAll('img')
-        Array.from(imgs).forEach(img => {
-            img.addEventListener('click', e => {
-                const { left, right, top, bottom } =
-                    getRect(e.target.getBoundingClientRect(), frame)
-
-                const src = img.src
-                imgAlt = img.getAttribute('alt')
-                fetch(src)
-                    .then(res => res.blob())
-                    .then(blob => {
-                        const reader = new FileReader()
-                        reader.readAsDataURL(blob)
-                        reader.onloadend = () => {
-                            imgBase64 = reader.result.split(',')[1]
-                            dispatch({
-                                type: 'img',
-                                payload: { left, right, top, bottom }
-                            })
+        Array.from(imgs).forEach(img => img.addEventListener('click', e =>
+            fetch(img.src)
+                .then(res => res.blob())
+                .then(blob => {
+                    const reader = new FileReader()
+                    reader.readAsDataURL(blob)
+                    reader.onloadend = () => dispatch({
+                        type: 'img',
+                        payload: {
+                            alt: img.getAttribute('alt'),
+                            base64: reader.result.split(',')[1],
+                            position: getRect(e.target.getBoundingClientRect(), frame)
                         }
                     })
-            }, false)
-        })
+                }), false))
 
         // handle selection
         contents.document.onmousedown = () => isSelecting = true

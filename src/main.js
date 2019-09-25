@@ -2115,11 +2115,8 @@ class BookViewerWindow {
                 this.bookDisplayed()
                 break
             case 'cover':
-                this.scriptGet('book.package.metadata', metadata => {
-                    if (payload) this.scriptGet('coverBase64', coverBase64 =>
-                        this.buildProperties(metadata, coverBase64))
-                    else this.buildProperties(metadata)
-                })
+                this.scriptGet('book.package.metadata', metadata =>
+                    this.buildProperties(metadata, payload))
                 break
             case 'locations-generated':
                 this.scriptGet('locations', locations =>
@@ -2325,57 +2322,53 @@ class BookViewerWindow {
                 break
             }
             case 'footnote': {
+                const { footnote, canFollow, position } = payload
                 const popover = new FootnotePopover(
-                    [this.webView, payload, this.window],
-                    payload.canFollow, () => this.scriptRun(`followLink()`),
+                    [this.webView, position, this.window],
+                    canFollow, () => this.scriptRun(`followLink()`),
                     uri => this.scriptGet(`gotoURI("${uri}")`, isInternal =>
                         isInternal ? popover.popover.widget.popdown() : null))
-
-                this.scriptGet('footnote', footnote => popover.load(footnote))
+                popover.load(footnote)
                 break
             }
             case 'img': {
-                this.scriptGet(`{ imgBase64, imgAlt }`, ({ imgBase64, imgAlt }) => {
-                    const data = GLib.base64_decode(imgBase64)
-                    const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
-                    const pixbuf = GdkPixbuf.Pixbuf.new_from_stream(imageStream, null)
-                    const width = pixbuf.get_width()
-                    const height = pixbuf.get_height()
+                const { alt, base64, position } = payload
+                const data = GLib.base64_decode(base64)
+                const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
+                const pixbuf = GdkPixbuf.Pixbuf.new_from_stream(imageStream, null)
+                const width = pixbuf.get_width()
+                const height = pixbuf.get_height()
 
-                    const onCopy = () => Gtk.Clipboard
-                        .get_default(Gdk.Display.get_default())
-                        .set_image(pixbuf)
+                const onCopy = () => Gtk.Clipboard
+                    .get_default(Gdk.Display.get_default())
+                    .set_image(pixbuf)
 
-                    new ImgPopover(
-                        [this.webView, payload, this.window],
-                        () => new ImgViewer(this.window.get_size(),
-                            height, width, imgAlt, pixbuf, onCopy),
-                        onCopy)
-                })
+                new ImgPopover(
+                    [this.webView, position, this.window],
+                    () => new ImgViewer(this.window.get_size(),
+                        height, width, alt, pixbuf, onCopy),
+                    onCopy)
                 break
             }
-            case 'speech-start':
-                this.scriptGet('currentPageText', text => {
-                    text = text
-                        .replace(/“|”/g, '"')
-                        .replace(/‛|’/g, "'")
-                        .replace(/–/g, '--')
-                        .replace(/—/g, '---')
-                        .replace(/…/g, '...')
-                        .replace(/\xa0/g, ' ')
-                        .replace(/\xad|\u2060/g, '')
-                        .replace(/\n/g, '; ')
-                    this._ttsToken = {}
-                    const args = [text, true, this._ttsToken]
-                    execCommand(this._ttsCommand, ...args)
-                        .then(() => {
-                            if (payload) this.ttsButtons
-                                .forEach(x => x.active = false)
-                            else this.scriptRun(`rendition.next()
-                                .then(() => speakCurrentPage())`)
-                        })
-                })
+            case 'speech-start': {
+                const { text, nextPage } = payload
+                const processedText = text
+                    .replace(/“|”/g, '"')
+                    .replace(/‛|’/g, "'")
+                    .replace(/–/g, '--')
+                    .replace(/—/g, '---')
+                    .replace(/…/g, '...')
+                    .replace(/\xa0/g, ' ')
+                    .replace(/\xad|\u2060/g, '')
+                    .replace(/\n/g, '; ')
+                this._ttsToken = {}
+                const args = [processedText, true, this._ttsToken]
+                execCommand(this._ttsCommand, ...args).then(() => nextPage
+                    ? this.scriptRun(`rendition.next()
+                        .then(() => speakCurrentPage())`)
+                    : this.ttsButtons.forEach(x => x.active = false))
                 break
+            }
         }
     }
     addShortcut(accels, name, func) {
