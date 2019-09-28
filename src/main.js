@@ -2010,6 +2010,7 @@ class BookViewerWindow {
             this.webViewSettings.serif_font_family = useDefault? 'Serif' : fontFamily
             this.webViewSettings.sans_serif_font_family = useDefault ? 'Sans' : fontFamily
             this.webViewSettings.default_font_family = fontFamily
+            this.webViewSettings.default_font_size = font.desc.get_size() / Pango.SCALE / 0.75
 
             const filter = `${invert ? 'invert(1) hue-rotate(180deg) ' : ''}brightness(${brightness})`
             this.scriptRun(`
