@@ -28,9 +28,16 @@ Documentation: https://github.com/johnfactotum/foliate/wiki
 
 ### Distribution packages
 
-- Arch Linux (AUR): [`foliate`](https://aur.archlinux.org/packages/foliate/), [`foliate-git`](https://aur.archlinux.org/packages/foliate-git/)
-- Fedora: `sudo dnf install foliate`
-- Void Linux: `xbps-install -S foliate`
+<a href="https://repology.org/project/foliate/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/foliate.svg" alt="Packaging status" align="right">
+</a>
+
+|Distro|Package Name/Link|
+|:----:|:----:|
+| Arch Linux | [`foliate`](https://www.archlinux.org/packages/community/x86_64/foliate/) |
+| Fedora | [`foliate`](https://src.fedoraproject.org/rpms/foliate) |
+| Manjaro | `foliate` |
+| Void Linux | [`foliate`](https://github.com/void-linux/void-packages/tree/master/srcpkgs/foliate) |
 
 Debian/Ubuntu packages can be downloaded from the [releases](https://github.com/johnfactotum/foliate/releases) page.
 
