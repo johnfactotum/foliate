@@ -4,8 +4,6 @@
 
 A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/GNOME/gjs) and [Epub.js](https://github.com/futurepress/epub.js/).
 
-![View](data/screenshots/view.png)
-
 Website: https://johnfactotum.github.io/foliate/
 
 Documentation: https://github.com/johnfactotum/foliate/wiki
@@ -113,34 +111,6 @@ Open [Gnome Builder](https://wiki.gnome.org/Apps/Builder), choose "Clone Reposit
 ```bash
 flatpak-builder --force-clean --install --user build com.github.johnfactotum.Foliate.json
 ```
-
-## Screenshots
-
-Dictionary:
-
-![Lookup](data/screenshots/lookup.png)
-
-Annotations:
-
-![Note](data/screenshots/note.png)
-
-![Annotations](data/screenshots/annotations.png)
-
-Find in book:
-
-![Find](data/screenshots/find.png)
-
-Dark mode:
-
-![Dark](data/screenshots/dark.png)
-
-Book metadata display:
-
-![About](data/screenshots/about.png)
-
-Optional sidebar layout, with popup footnote:
-
-![Sidebar](data/screenshots/sidebar.png)
 
 ---
 
