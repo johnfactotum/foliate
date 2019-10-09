@@ -1,3 +1,7 @@
+### 🚧️ The master branch contains a work-in-progress rewrite. The old code can be found in the [1.x branch](https://github.com/johnfactotum/foliate/tree/1.x).
+
+---
+
 <img src="data/com.github.johnfactotum.Foliate.svg" align="left">
 
 # Foliate
