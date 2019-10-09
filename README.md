@@ -28,10 +28,6 @@ Documentation: https://github.com/johnfactotum/foliate/wiki
 
 ### Distribution packages
 
-<a href="https://repology.org/project/foliate/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/foliate.svg" alt="Packaging status" align="right">
-</a>
-
 |Distro|Package Name/Link|
 |:----:|:----:|
 | Arch Linux | [`foliate`](https://www.archlinux.org/packages/community/x86_64/foliate/) |
@@ -40,6 +36,8 @@ Documentation: https://github.com/johnfactotum/foliate/wiki
 | Void Linux | [`foliate`](https://github.com/void-linux/void-packages/tree/master/srcpkgs/foliate) |
 
 Debian/Ubuntu packages can be downloaded from the [releases](https://github.com/johnfactotum/foliate/releases) page.
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/foliate.svg)](https://repology.org/project/foliate/versions)
 
 #### Optional dependencies
 
