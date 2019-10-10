@@ -17,37 +17,41 @@ const { Gio, GLib } = imports.gi
 const ByteArray = imports.byteArray
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
-const execCommand = (argv, input = null, waitCheck, token, inFlatpak) => new Promise((resolve, reject) => {
-    if (flatpakSpawn && !inFlatpak) argv = [flatpakSpawn, '--host', ...argv]
-    try {
-        const launcher = new Gio.SubprocessLauncher({
-            flags: input
-                ? Gio.SubprocessFlags.STDIN_PIPE | Gio.SubprocessFlags.STDOUT_PIPE
-                : Gio.SubprocessFlags.STDOUT_PIPE
-        })
-        launcher.setenv('G_MESSAGES_DEBUG', '', true)
-        const proc = launcher.spawnv(argv)
-        proc.communicate_utf8_async(input, null, (proc, res) => {
-            try {
-                const [/*ok*/, stdout, /*stderr*/] = proc.communicate_utf8_finish(res)
-                if (!stdout) reject()
-                else resolve(stdout)
-            } catch (e) {
-                reject(e)
+var execCommand = (argv, input = null, waitCheck, token, inFlatpak) =>
+    new Promise((resolve, reject) => {
+        if (flatpakSpawn && !inFlatpak) argv = [flatpakSpawn, '--host', ...argv]
+        const flags = input
+            ? Gio.SubprocessFlags.STDIN_PIPE | Gio.SubprocessFlags.STDOUT_PIPE
+            : Gio.SubprocessFlags.STDOUT_PIPE
+
+        try {
+            const launcher = new Gio.SubprocessLauncher({ flags })
+            launcher.setenv('G_MESSAGES_DEBUG', '', true)
+
+            const proc = launcher.spawnv(argv)
+            proc.communicate_utf8_async(input, null, (proc, res) => {
+                try {
+                    const [/*ok*/, stdout, /*stderr*/] =
+                        proc.communicate_utf8_finish(res)
+                    if (!stdout) reject()
+                    else resolve(stdout)
+                } catch (e) {
+                    reject(e)
+                }
+            })
+            if (waitCheck) proc.wait_check_async(null, ok =>
+                ok ? resolve() : reject(new Error()))
+            if (token) token.interrupt = () => {
+                proc.send_signal(2)
+                reject()
             }
-        })
-        if (waitCheck) proc.wait_check_async(null, ok => ok ? resolve() : reject(new Error()))
-        if (token) token.interrupt = () => {
-            proc.send_signal(2)
-            reject()
+        } catch (e) {
+            reject(e)
         }
-    } catch (e) {
-        reject(e)
-    }
-})
+    })
 
 // adapted from gnome-shell code
-const recursivelyDeleteDir = dir => {
+var recursivelyDeleteDir = dir => {
     const children = dir.enumerate_children('standard::name,standard::type',
         Gio.FileQueryInfoFlags.NONE, null)
 

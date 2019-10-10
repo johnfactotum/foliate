@@ -845,6 +845,7 @@
     <property name="default_width">360</property>
     <property name="default_height">640</property>
     <signal name="window-state-event" handler="_onWindowStateEvent"/>
+    <signal name="destroy" handler="_onDestroy"/>
     <child type="titlebar">
       <object class="GtkHeaderBar" id="headerBar">
         <property name="visible">True</property>

@@ -14,9 +14,15 @@
  */
 
 const { GObject, Gtk, Gio, GLib, Gdk, Pango, WebKit2 } = imports.gi
+
+const { execCommand, recursivelyDeleteDir } = imports.utils
+
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
-const kindleExts = ['.mobi', '.prc', '.azw', '.azw3']
+const mimetypes = {
+    epub: 'application/epub+zip',
+    mobi: 'application/x-mobipocket-ebook'
+}
 
 const defaultThemes = {
     [_('Light')]: {
@@ -86,7 +92,7 @@ const setPopoverPosition = (popover, position, window, height) => {
 }
 
 class EpubView {
-    constructor(fileName, onAction) {
+    constructor(fileName, inputType, onAction) {
         this.webView = new WebKit2.WebView({
             visible: true,
             settings: new WebKit2.Settings({
@@ -105,7 +111,7 @@ class EpubView {
             const data = jsResult.get_js_value().to_string()
             const { type, payload } = JSON.parse(data)
             if (type === 'ready')
-                this.run(`open("${encodeURI(fileName)}", 'epub')`)
+                this.run(`open("${encodeURI(fileName)}", '${inputType}')`)
             else onAction(type, payload)
         })
         contentManager.register_script_message_handler('action')
@@ -186,8 +192,8 @@ const makeActions = self => ({
 
         const epubFiles = new Gtk.FileFilter()
         epubFiles.set_name(_('E-book Files'))
-        epubFiles.add_mime_type('application/epub+zip')
-        kindleExts.forEach(x => epubFiles.add_pattern('*' + x))
+        epubFiles.add_mime_type(mimetypes.epub)
+        epubFiles.add_mime_type(mimetypes.mobi)
 
         const dialog = new Gtk.FileChooserNative({ title: _('Open File') })
         dialog.add_filter(epubFiles)
@@ -353,8 +359,36 @@ var FoliateWindow = GObject.registerClass({
             this._fullscreenButton.tooltip_text = _('Fullscreen')
         }
     }
-    _open(fileName) {
-        this._epub = new EpubView(fileName, this._onAction.bind(this))
+    _onDestroy() {
+        if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
+    }
+    _open(fileName, realFileName, inputType = 'epub') {
+        const file = Gio.File.new_for_path(fileName)
+        const fileInfo = file.query_info('standard::content-type',
+            Gio.FileQueryInfoFlags.NONE, null)
+        const contentType = fileInfo.get_content_type()
+
+        print(fileName, contentType, inputType)
+
+        if (contentType === mimetypes.mobi) {
+            const python = GLib.find_program_in_path('python')
+                || GLib.find_program_in_path('python3')
+            const kindleUnpack = pkg.pkgdatadir
+                + '/assets/KindleUnpack/kindleunpack.py'
+
+            const dir = GLib.dir_make_tmp(null)
+            this._tmpdir = dir
+
+            const command = [python, kindleUnpack, '--epub_version=3', fileName, dir]
+            execCommand(command, null, false, null, true).then(() => {
+                const mobi8 = dir + '/mobi8/'
+                if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
+                    this._open(mobi8, fileName, 'directory')
+                else this._open(dir + '/mobi7/content.opf', fileName, 'opf')
+            })
+            return
+        }
+        this._epub = new EpubView(fileName, inputType, this._onAction.bind(this))
         this._main.pack_start(this._epub.webView, true, true, 0)
     }
     _onAction(type, payload) {
