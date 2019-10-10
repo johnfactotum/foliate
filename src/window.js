@@ -111,11 +111,12 @@ const layouts = {
 }
 
 class EpubView {
-    constructor(fileName, inputType, callback, cfi) {
+    constructor(fileName, inputType, callback, cfi, locations) {
         this._fileName = fileName
         this._inputType = inputType
         this._callback = callback
         this._cfi = cfi
+        this._locations = locations
         this._layout = 'auto'
 
         this._webView = new WebKit2.WebView({
@@ -166,7 +167,11 @@ class EpubView {
                     '${this._inputType}',
                     ${this._cfi ? `"${this._cfi}"` : 'null'},
                     ${layouts[this._layout].renderTo},
-                    ${JSON.stringify(layouts[this._layout].options)})`)
+                    ${JSON.stringify(layouts[this._layout].options)},
+                    ${this._locations || 'null'})`)
+                break
+            case 'locations-generated':
+                this._locations = payload
                 break
             case 'relocated':
                 this._cfi = payload.cfi

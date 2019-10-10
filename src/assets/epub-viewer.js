@@ -34,26 +34,14 @@ const open = (fileName, inputType, cfi, renderTo, options, locations) => {
         .then(() => dispatch({ type: 'rendition-ready' }))
     if (locations) {
         book.locations.load(locations)
-        displayed.then(() => dispatch({
-            type: 'locations-ready',
-            payload: {
-                percentage: rendition.location.start.percentage,
-                total: book.locations.total,
-                language: book.package.metadata.language
-            }
-        }))
+        displayed.then(() => dispatch({ type: 'locations-ready' }))
     } else {
         displayed
             // 1024 characters per page is used by Adobe Digital Editions
             .then(() => book.locations.generate(1024))
             .then(() => dispatch({
                 type: 'locations-generated',
-                payload: {
-                    percentage: rendition.location.start.percentage,
-                    total: book.locations.total,
-                    language: book.package.metadata.language,
-                    locations: book.locations.save()
-                }
+                payload: book.locations.save()
             }))
     }
 }
