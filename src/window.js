@@ -316,15 +316,12 @@ const makeActions = self => ({
         ['Escape']],
 
     'app.themes': [() => {
-        print('themes')
     }, ['<ctrl>question']],
 
     'app.preferences': [() => {
-        print('preferences')
     }, ['<ctrl>question']],
 
     'app.shortcuts': [() => {
-        print('shortcuts')
     }, ['<ctrl>question']],
 
     'app.open': [() => {
@@ -379,27 +376,12 @@ const makeBooleanActions = self => ({
     'win.navbar': [state => {
         self._navbar.visible = state
     }, true, ['<ctrl>p']],
-    'win.publisher-font': [state => {
-        print(state)
-        self._onStyleChange()
-    }, /*gsettings.get_boolean*/],
-    'win.justify': [state => {
-        print(state)
-        self._onStyleChange()
-    }, true/*gsettings.get_boolean*/],
-    'win.hyphenate': [state => {
-        print(state)
-        self._onStyleChange()
-    }, true/*gsettings.get_boolean*/],
-    'win.footnote': [state => {
-        print(state)
-    }, false/*gsettings.get_boolean*/],
-    'win.unsafe': [state => {
-        print(state)
-    }, false/*gsettings.get_boolean*/],
-    'win.devtools': [state => {
-        self._epub.devtools = state
-    }, false/*gsettings.get_boolean*/]
+    'win.publisher-font': [state => self._onStyleChange(), ],
+    'win.justify':  [state => self._onStyleChange(), true],
+    'win.hyphenate':  [state => self._onStyleChange(), true],
+    'win.footnote':  [state => self._onStyleChange(), false],
+    'win.unsafe': [state => {}, false],
+    'win.devtools': [state => self._epub.devtools = state, false]
 })
 
 const makeStringActions = self => ({
@@ -513,8 +495,6 @@ var FoliateWindow = GObject.registerClass({
             Gio.FileQueryInfoFlags.NONE, null)
         const contentType = fileInfo.get_content_type()
 
-        print(fileName, contentType, inputType)
-
         if (contentType === mimetypes.mobi) {
             const python = GLib.find_program_in_path('python')
                 || GLib.find_program_in_path('python3')
@@ -594,9 +574,6 @@ var FoliateWindow = GObject.registerClass({
 
                 const progress = Math.round(percentage * 100)
                 this._locationLabel.label = progress + '%'
-
-                print(chapter, chapterTotal)
-                print(location, locationTotal)
 
                 // select toc item
                 const view = this._tocTreeView
