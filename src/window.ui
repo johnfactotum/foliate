@@ -901,164 +901,215 @@
       </object>
     </child>
     <child>
-      <object class="GtkBox">
+      <!--
+      we use an overlay and set the main area's opacity to 0,
+      because apparently Epub.js won't load properly if the webView is hidden
+      -->
+      <object class="GtkOverlay">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkStack">
+        <child type="overlay">
+          <object class="GtkStack" id="mainOverlay">
             <property name="visible">True</property>
-            <!-- <child> -->
-            <!--   <object class="GtkBox"> -->
-            <!--     <property name="visible">True</property> -->
-            <!--     <property name="orientation">vertical</property> -->
-            <!--     <child> -->
-            <!--       <object class="GtkSpinner"> -->
-            <!--         <property name="visible">True</property> -->
-            <!--         <property name="active">True</property> -->
-            <!--         <property name="halign">center</property> -->
-            <!--         <property name="valign">center</property> -->
-            <!--         <property name="width-request">48</property> -->
-            <!--         <property name="height-request">48</property> -->
-            <!--       </object> -->
-            <!--       <packing> -->
-            <!--         <property name="expand">True</property> -->
-            <!--       </packing> -->
-            <!--     </child> -->
-            <!--   </object> -->
-            <!-- </child> -->
             <child>
-              <object class="GtkBox" id="main">
+              <object class="GtkSpinner">
+                <property name="visible">True</property>
+                <property name="active">True</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="width-request">48</property>
+                <property name="height-request">48</property>
+              </object>
+              <packing>
+                <property name="name">loading</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkActionBar" id="navbar">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="relief">none</property>
-                <property name="action-name">win.go-prev</property>
-                <property name="tooltip_text" translatable="yes">Previous page</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="margin">18</property>
+                <property name="spacing">18</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="icon_name">go-previous-symbolic</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="relief">none</property>
-                <property name="action-name">win.go-back</property>
-                <property name="tooltip_text" translatable="yes">Go back</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon_name">edit-undo-symbolic</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child><!-- type="center">-->
-              <object class="GtkStack" id="locationStack">
-                <property name="visible">True</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon_name">content-loading-symbolic</property>
+                    <property name="pixel_size">64</property>
+                    <property name="icon_name">computer-fail-symbolic</property>
                     <style><class name="dim-label"/></style>
                   </object>
-                  <packing>
-                    <property name="name">loading</property>
-                  </packing>
                 </child>
                 <child>
-                  <object class="GtkBox">
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="wrap">True</property>
+                    <property name="label" translatable="yes">Something's wrong.</property>
+                    <style><class name="dim-label"/></style>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="wrap">True</property>
+                    <property name="label" translatable="yes">The file cannot be opened.</property>
+                    <style><class name="dim-label"/></style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="visible">True</property>
+                    <property name="action-name">app.open</property>
+                    <property name="halign">center</property>
+                    <property name="label" translatable="yes">Open Another File…</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="name">error</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="mainBox">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="opacity">0</property>
+            <child>
+              <object class="GtkBox" id="contentBox">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkActionBar" id="navbar">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkButton">
+                    <property name="visible">True</property>
+                    <property name="relief">none</property>
+                    <property name="action-name">win.go-prev</property>
+                    <property name="tooltip_text" translatable="yes">Previous page</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="icon_name">go-previous-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="visible">True</property>
+                    <property name="relief">none</property>
+                    <property name="action-name">win.go-back</property>
+                    <property name="tooltip_text" translatable="yes">Go back</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="icon_name">edit-undo-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child><!-- type="center">-->
+                  <object class="GtkStack" id="locationStack">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkMenuButton">
+                      <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="relief">none</property>
-                        <property name="popover">locationMenu</property>
-                        <property name="tooltip_text" translatable="yes">Location</property>
+                        <property name="icon_name">content-loading-symbolic</property>
+                        <style><class name="dim-label"/></style>
+                      </object>
+                      <packing>
+                        <property name="name">loading</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
                         <child>
-                          <object class="GtkBox">
+                          <object class="GtkMenuButton">
                             <property name="visible">True</property>
-                            <property name="spacing">6</property>
+                            <property name="relief">none</property>
+                            <property name="popover">locationMenu</property>
+                            <property name="tooltip_text" translatable="yes">Location</property>
                             <child>
-                              <object class="GtkLabel" id="locationLabel">
+                              <object class="GtkBox">
                                 <property name="visible">True</property>
-                                <property name="label">0%</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="icon_name">pan-down-symbolic</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkLabel" id="locationLabel">
+                                    <property name="visible">True</property>
+                                    <property name="label">0%</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="visible">True</property>
+                                    <property name="icon_name">pan-down-symbolic</property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                           </object>
                         </child>
+                        <child>
+                          <object class="GtkScale" id="locationScale">
+                            <property name="visible">True</property>
+                            <property name="draw-value">False</property>
+                            <property name="hexpand">True</property>
+                            <property name="adjustment">progressAdjustment</property>
+                            <!-- <signal name="value-changed" handler="_onlocationScaleChanged"/> -->
+                            <signal name="button-release-event" handler="_onlocationScaleChanged"/>
+                          </object>
+                        </child>
                       </object>
+                      <packing>
+                        <property name="name">loaded</property>
+                      </packing>
                     </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="visible">True</property>
+                    <property name="relief">none</property>
+                    <property name="action-name">win.go-next</property>
+                    <property name="tooltip_text" translatable="yes">Next page</property>
                     <child>
-                      <object class="GtkScale" id="locationScale">
+                      <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="draw-value">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="adjustment">progressAdjustment</property>
-                        <!-- <signal name="value-changed" handler="_onlocationScaleChanged"/> -->
-                        <signal name="button-release-event" handler="_onlocationScaleChanged"/>
+                        <property name="icon_name">go-next-symbolic</property>
                       </object>
                     </child>
                   </object>
                   <packing>
-                    <property name="name">loaded</property>
+                    <property name="pack_type">end</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToggleButton">
+                    <property name="visible">True</property>
+                    <property name="relief">none</property>
+                    <property name="tooltip_text" translatable="yes">Text-to-speech</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="icon_name">audio-headphones-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
                   </packing>
                 </child>
               </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="relief">none</property>
-                <property name="action-name">win.go-next</property>
-                <property name="tooltip_text" translatable="yes">Next page</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon_name">go-next-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton">
-                <property name="visible">True</property>
-                <property name="relief">none</property>
-                <property name="tooltip_text" translatable="yes">Text-to-speech</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon_name">audio-headphones-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="pack_type">end</property>
-              </packing>
             </child>
           </object>
         </child>

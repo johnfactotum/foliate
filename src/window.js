@@ -270,7 +270,7 @@ var FoliateWindow = GObject.registerClass({
     GTypeName: 'FoliateWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/window.ui',
     InternalChildren: [
-        'headerBar', 'main',
+        'headerBar', 'mainOverlay', 'mainBox', 'contentBox',
         'sideMenuButton', 'sideMenu', 'tocTreeView',
         'findMenuButton', 'mainMenuButton',
         'zoomRestoreButton', 'fullscreenButton', 'brightnessScale',
@@ -388,8 +388,9 @@ var FoliateWindow = GObject.registerClass({
             })
             return
         }
+
         this._epub = new EpubView(fileName, inputType, this._onAction.bind(this))
-        this._main.pack_start(this._epub.webView, true, true, 0)
+        this._contentBox.pack_start(this._epub.webView, true, true, 0)
     }
     _onAction(type, payload) {
         switch (type) {
@@ -411,8 +412,6 @@ var FoliateWindow = GObject.registerClass({
                     f(toc)
                 })
                 break
-            case 'book-error':
-                break
 
             case 'locations-generated':
                 // falls through
@@ -432,7 +431,13 @@ var FoliateWindow = GObject.registerClass({
                 ].forEach(action => this.lookup_action(action).enabled = true)
                 this._applyZoomLevel(1)
                 this._onStyleChange()
+                this._mainBox.opacity = 1
+                this._mainOverlay.destroy()
                 break
+            case 'book-error':
+                this._mainOverlay.visible_child_name = 'error'
+                break
+
             case 'relocated': {
                 const {
                     atStart, atEnd, cfi, sectionHref,
