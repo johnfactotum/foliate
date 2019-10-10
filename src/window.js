@@ -304,7 +304,11 @@ const makeActions = self => ({
         epubFiles.add_mime_type(mimetypes.epub)
         epubFiles.add_mime_type(mimetypes.mobi)
 
-        const dialog = new Gtk.FileChooserNative({ title: _('Open File') })
+        const dialog = Gtk.FileChooserNative.new(
+            _('Open File'),
+            self.application.active_window,
+            Gtk.FileChooserAction.OPEN,
+            null, null)
         dialog.add_filter(epubFiles)
         dialog.add_filter(allFiles)
 
