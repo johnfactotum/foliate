@@ -91,10 +91,32 @@ const setPopoverPosition = (popover, position, window, height) => {
     popover.pointing_to = new Gdk.Rectangle(rectPosition)
 }
 
+const layouts = {
+    'auto': {
+        renderTo: `'viewer'`,
+        options: { width: '100%', flow: 'paginated' },
+    },
+    'single': {
+        renderTo: `'viewer'`,
+        options: { width: '100%', flow: 'paginated', spread: 'none' }
+    },
+    'scrolled': {
+        renderTo: 'document.body',
+        options: { width: '100%', flow: 'scrolled-doc' },
+    },
+    'continuous': {
+        renderTo: 'document.body',
+        options: { width: '100%', flow: 'scrolled', manager: 'continuous' },
+    }
+}
+
 class EpubView {
-    constructor(fileName, inputType, callback) {
+    constructor(fileName, inputType, callback, cfi) {
         this._fileName = fileName
         this._inputType = inputType
+        this._callback = callback
+        this._cfi = cfi
+        this._layout = 'auto'
         this._percentage = 0
 
         this._webView = new WebKit2.WebView({
@@ -117,7 +139,7 @@ class EpubView {
             const { type, payload } = JSON.parse(data)
 
             this._handleAction(type, payload)
-            callback(type, payload)
+            this._callback(type, payload)
         })
         contentManager.register_script_message_handler('action')
     }
@@ -141,7 +163,14 @@ class EpubView {
     _handleAction(type, payload) {
         switch (type) {
             case 'ready':
-                this._run(`open("${encodeURI(this._fileName)}", '${this._inputType}')`)
+                this._run(`open("${encodeURI(this._fileName)}",
+                    '${this._inputType}',
+                    ${this._cfi ? `"${this._cfi}"` : 'null'},
+                    ${layouts[this._layout].renderTo},
+                    ${JSON.stringify(layouts[this._layout].options)})`)
+                break
+            case 'relocated':
+                this._cfi = payload.cfi
                 break
             case 'update-location-scale':
                 this._percentage = payload
@@ -234,6 +263,10 @@ class EpubView {
             rendition.themes.select('${themeName}')
         `
         this._run(styleScript)
+    }
+    set layout(layout) {
+        this._layout = layout
+        this._webView.reload()
     }
     get zoomLevel() {
         return this._webView.zoom_level
@@ -370,11 +403,11 @@ const makeBooleanActions = self => ({
 })
 
 const makeStringActions = self => ({
-    'win.theme': [parameter => {
-        self._onStyleChange()
-    }, 'Sepia'],
-    'win.layout': [parameter => {
-        print(parameter)
+    'win.theme': [() => self._onStyleChange(), 'Sepia'],
+    'win.layout': [layout => {
+        self._mainBox.opacity = 0
+        self._mainOverlay.show()
+        self._epub.layout = layout
     }, 'auto']
 })
 
@@ -542,8 +575,10 @@ var FoliateWindow = GObject.registerClass({
                 ].forEach(action => this.lookup_action(action).enabled = true)
                 this._applyZoomLevel(1)
                 this._onStyleChange()
-                this._mainBox.opacity = 1
-                this._mainOverlay.destroy()
+                if (this._mainBox.opacity === 0) {
+                    this._mainBox.opacity = 1
+                    this._mainOverlay.hide()
+                }
                 break
             case 'book-error':
                 this._mainOverlay.visible_child_name = 'error'

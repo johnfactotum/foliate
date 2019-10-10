@@ -27,16 +27,17 @@ const goToPercentage = percentage => {
     rendition.display(book.locations.cfiFromPercentage(percentage))
 }
 
-const open = (fileName, inputType, locations) => {
+const open = (fileName, inputType, cfi, renderTo, options, locations) => {
     book.open(decodeURI(fileName), inputType) // works for non-flatpak
         .catch(() => book.open(fileName, inputType)) // works for flatpak
         .catch(() => dispatch({ type: 'book-error' }))
     book.ready.then(() => dispatch({ type: 'book-ready' }))
 
-    rendition = book.renderTo('viewer', { width: '100%', flow: 'paginated' })
+    rendition = book.renderTo(renderTo, options)
     setupRendition()
 
     const displayed = rendition.display()
+        .then(() => cfi ? rendition.display(cfi) : null)
         .then(() => dispatch({ type: 'rendition-ready' }))
     if (locations) {
         book.locations.load(locations)
