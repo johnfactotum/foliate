@@ -117,7 +117,6 @@ class EpubView {
         this._callback = callback
         this._cfi = cfi
         this._layout = 'auto'
-        this._percentage = 0
 
         this._webView = new WebKit2.WebView({
             visible: true,
@@ -172,9 +171,6 @@ class EpubView {
             case 'relocated':
                 this._cfi = payload.cfi
                 break
-            case 'update-location-scale':
-                this._percentage = payload
-                break
         }
     }
     get metadata() {
@@ -193,7 +189,7 @@ class EpubView {
         this._run(`rendition.display("${x}")`)
     }
     goToPercentage(x) {
-        if (x !== this._percentage) this._run(`goToPercentage(${x})`)
+        this._run(`rendition.display(book.locations.cfiFromPercentage(${x}))`)
     }
     goBack() {
     }
@@ -543,9 +539,6 @@ var FoliateWindow = GObject.registerClass({
             case 'locations-ready':
                 this._locationStack.visible_child_name = 'loaded'
                 break
-            case 'update-location-scale':
-                this._locationScale.set_value(payload)
-                break
 
             case 'rendition-ready':
                 ;[
@@ -571,6 +564,8 @@ var FoliateWindow = GObject.registerClass({
                 } = payload
                 this.lookup_action('go-prev').enabled = !atStart
                 this.lookup_action('go-next').enabled = !atEnd
+
+                this._locationScale.set_value(percentage)
 
                 const progress = Math.round(percentage * 100)
                 this._locationLabel.label = progress + '%'

@@ -20,13 +20,6 @@ let cfiToc
 
 let clearSelection = () => {}
 
-// should not update if a relocation event is triggered by the scale itself
-let shouldUpdateScale = true
-const goToPercentage = percentage => {
-    shouldUpdateScale = false
-    rendition.display(book.locations.cfiFromPercentage(percentage))
-}
-
 const open = (fileName, inputType, cfi, renderTo, options, locations) => {
     book.open(decodeURI(fileName), inputType) // works for non-flatpak
         .catch(() => book.open(fileName, inputType)) // works for flatpak
@@ -137,33 +130,20 @@ const getRect = (target, frame) => {
 const setupRendition = () => {
     let isSelecting = false
 
-    rendition.on('relocated', location => {
-        if (shouldUpdateScale)
-            dispatch({
-                type: 'update-location-scale',
-                payload: location.start.percentage
-            })
-        else shouldUpdateScale = true
-
-        // find current TOC item based on CFI
-        const cfi = location.end.cfi
-        const section = getSectionfromCfi(cfi)
-
-        dispatch({
-            type: 'relocated',
-            payload: {
-                atStart: location.atStart,
-                atEnd: location.atEnd,
-                cfi: location.start.cfi,
-                sectionHref: section.href,
-                chapter: book.spine.get(location.start.cfi).index + 1,
-                chapterTotal: book.spine.length,
-                location: book.locations.locationFromCfi(location.start.cfi),
-                locationTotal: book.locations.total,
-                percentage: location.start.percentage
-            }
-        })
-    })
+    rendition.on('relocated', location => dispatch({
+        type: 'relocated',
+        payload: {
+            atStart: location.atStart,
+            atEnd: location.atEnd,
+            cfi: location.start.cfi,
+            sectionHref: getSectionfromCfi(location.start.cfi).href,
+            chapter: book.spine.get(location.start.cfi).index + 1,
+            chapterTotal: book.spine.length,
+            location: book.locations.locationFromCfi(location.start.cfi),
+            locationTotal: book.locations.total,
+            percentage: location.start.percentage
+        }
+    }))
 
     rendition.hooks.content.register((contents, /*view*/) => {
         const frame = contents.document.defaultView.frameElement
