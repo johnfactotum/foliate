@@ -92,33 +92,38 @@ const setPopoverPosition = (popover, position, window, height) => {
 }
 
 class EpubView {
-    constructor(fileName, inputType, onAction) {
-        this.webView = new WebKit2.WebView({
+    constructor(fileName, inputType, callback) {
+        this._fileName = fileName
+        this._inputType = inputType
+        this._percentage = 0
+
+        this._webView = new WebKit2.WebView({
             visible: true,
             settings: new WebKit2.Settings({
                 enable_write_console_messages_to_stdout: true,
                 allow_universal_access_from_file_urls: true
             })
         })
-        this.webView.load_uri(GLib.filename_to_uri(
+        this._webView.load_uri(GLib.filename_to_uri(
             pkg.pkgdatadir + '/assets/epub-viewer.html', null))
 
-        this.webView.connect('context-menu', () =>
-            this.contextMenu ? this.contextMenu() : true)
+        this._contextMenu = null
+        this._webView.connect('context-menu', () =>
+            this._contextMenu ? this._contextMenu() : true)
 
-        const contentManager = this.webView.get_user_content_manager()
+        const contentManager = this._webView.get_user_content_manager()
         contentManager.connect('script-message-received::action', (_, jsResult) => {
             const data = jsResult.get_js_value().to_string()
             const { type, payload } = JSON.parse(data)
-            if (type === 'ready')
-                this.run(`open("${encodeURI(fileName)}", '${inputType}')`)
-            else onAction(type, payload)
+
+            this._handleAction(type, payload)
+            callback(type, payload)
         })
         contentManager.register_script_message_handler('action')
     }
-    eval(script, discardReturn) {
+    _eval(script, discardReturn) {
         return new Promise((resolve, reject) => {
-            this.webView.run_javascript(script, null, (self, result) => {
+            this._webView.run_javascript(script, null, (self, result) => {
                 if (discardReturn) return resolve()
                 const jsResult = self.run_javascript_finish(result)
                 const value = jsResult.get_js_value().to_string()
@@ -127,33 +132,137 @@ class EpubView {
             })
         })
     }
-    run(script) {
-        return this.eval(script, true)
+    _run(script) {
+        return this._eval(script, true)
     }
-    get(script) {
-        return this.eval(`JSON.stringify(${script})`)
+    _get(script) {
+        return this._eval(`JSON.stringify(${script})`)
+    }
+    _handleAction(type, payload) {
+        switch (type) {
+            case 'ready':
+                this._run(`open("${encodeURI(this._fileName)}", '${this._inputType}')`)
+                break
+            case 'update-location-scale':
+                this._percentage = payload
+                break
+        }
+    }
+    get metadata() {
+        return this._get('book.package.metadata')
+    }
+    get toc() {
+        return this._get('book.navigation.toc')
+    }
+    prev() {
+        this._run(`rendition.prev()`)
+    }
+    next() {
+        this._run(`rendition.next()`)
+    }
+    goTo(x) {
+        this._run(`rendition.display("${x}")`)
+    }
+    goToPercentage(x) {
+        if (x !== this._percentage) this._run(`goToPercentage(${x})`)
+    }
+    goBack() {
+    }
+    // TODO: don't apply when rendition isn't ready
+    applyStyle(style) {
+        const { brightness, theme, fontDesc, spacing, margins,
+            publisherFont, hyphenate, justify } = style
+        const { color, background, link, darkMode, invert } = theme
+        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = darkMode
+
+        const fontFamily = fontDesc.get_family()
+        const fontSizePt = fontDesc.get_size() / Pango.SCALE
+        const fontSizePx = fontSizePt / 0.75
+        const fontWeight = fontDesc.get_weight()
+        const fontStyle = ['normal', 'italic', 'oblique'][fontDesc.get_style()]
+
+        // Unfortunately, it appears that WebKitGTK doesn't support font-stretch
+        /*const fontStretch = [
+            'ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal',
+            'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded'
+        ][fontDesc.get_stretch()]*/
+
+        const webViewSettings = this._webView.get_settings()
+        webViewSettings.serif_font_family = fontFamily
+        webViewSettings.sans_serif_font_family = fontFamily
+        webViewSettings.default_font_family = fontFamily
+        webViewSettings.default_font_size = fontSizePx
+
+        const filter = (invert ? 'invert(1) hue-rotate(180deg) ' : '')
+            + `brightness(${brightness})`
+
+        const themeName = publisherFont ? 'publisher-font' : 'custom-font'
+        const styleScript = `
+            document.body.style.margin = '0 ${margins}%'
+            rendition.resize()
+
+            document.documentElement.style.filter = '${filter}'
+            document.body.style.color = '${color}'
+            document.body.style.background = '${background}'
+
+            rendition.themes.register('${themeName}', {
+                '.${themeName}': {
+                    'color': '${color}',
+                    'background': '${background}',
+                    ${publisherFont ? '' : `'font-family': '"${fontFamily}" !important',
+                    'font-style': '${fontStyle}',
+                    'font-weight': '${fontWeight}',`}
+                    'font-size': '${fontSizePx}px !important',
+                    'line-height': '${spacing} !important',
+                    '-webkit-hyphens': '${hyphenate ? 'auto' : 'manual'}',
+                    '-webkit-hyphenate-limit-before': 3,
+                    '-webkit-hyphenate-limit-after': 2,
+                    '-webkit-hyphenate-limit-lines': 2
+                },
+                '.${themeName} code, .${themeName} pre': {
+                    '-webkit-hyphens': 'none'
+                },
+                ${publisherFont ? '' :
+                `'.${themeName} *:not(code):not(pre):not(code *):not(pre *)': {
+                    'font-family': '"${fontFamily}" !important'
+                },`}
+                'p': {
+                    'text-align': '${justify ? 'justify' : 'inherit'}'
+                },
+                '.${themeName} a:link': { color: '${link}' }
+            })
+            rendition.themes.select('${themeName}')
+        `
+        this._run(styleScript)
+    }
+    get zoomLevel() {
+        return this._webView.zoom_level
+    }
+    set zoomLevel(x) {
+        this._webView.zoom_level = x
+    }
+    set devtools(state) {
+        this._webView.get_settings().enable_developer_extras = state
+        this._contextMenu = () => !state
+    }
+    clearSelection() {
+        this._run('clearSelection()')
+    }
+    get widget() {
+        return this._webView
     }
 }
 
 const makeActions = self => ({
-    'win.go-prev': [() =>
-        self._epub.run('rendition.prev()'),
-        ['p']],
-    'win.go-next': [() =>
-        self._epub.run('rendition.next()'),
-        ['n']],
-    'win.go-back': [() => {
-        print('go-back')
-    }, ['<alt>p', '<alt>Left']],
+    'win.go-prev': [() => self._epub.prev(), ['p']],
+    'win.go-next': [() => self._epub.next(), ['n']],
+    'win.go-back': [() => self._epub.goBack(), ['<alt>p', '<alt>Left']],
 
-    'win.zoom-in': [() =>
-        self._applyZoomLevel(self._epub.webView.zoom_level + 0.1),
+    'win.zoom-in': [() => self._applyZoomLevel(self._epub.zoomLevel + 0.1),
         ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
-    'win.zoom-out': [() =>
-        self._applyZoomLevel(self._epub.webView.zoom_level - 0.1),
+    'win.zoom-out': [() => self._applyZoomLevel(self._epub.zoomLevel - 0.1),
         ['minus', '<ctrl>minus']],
-    'win.zoom-restore': [() =>
-        self._applyZoomLevel(1),
+    'win.zoom-restore': [() => self._applyZoomLevel(1),
         ['1', '<ctrl>1']],
 
     'win.side-menu': [() =>
@@ -251,9 +360,8 @@ const makeBooleanActions = self => ({
     'win.unsafe': [state => {
         print(state)
     }, false/*gsettings.get_boolean*/],
-    'win.devel': [state => {
-        self._epub.webView.get_settings().enable_developer_extras = state
-        self._epub.contextMenu = () => !state
+    'win.devtools': [state => {
+        self._epub.devtools = state
     }, false/*gsettings.get_boolean*/]
 })
 
@@ -390,16 +498,16 @@ var FoliateWindow = GObject.registerClass({
         }
 
         this._epub = new EpubView(fileName, inputType, this._onAction.bind(this))
-        this._contentBox.pack_start(this._epub.webView, true, true, 0)
+        this._contentBox.pack_start(this._epub.widget, true, true, 0)
     }
     _onAction(type, payload) {
         switch (type) {
             case 'book-ready':
-                this._epub.get('book.package.metadata').then(metadata => {
+                this._epub.metadata.then(metadata => {
                     this._headerBar.title = metadata.title
                     this._headerBar.subtitle = metadata.creator
                 })
-                this._epub.get('book.navigation.toc').then(toc => {
+                this._epub.toc.then(toc => {
                     const store = this._tocTreeView.model
                     const f = (toc, iter = null) => {
                         toc.forEach(chapter => {
@@ -419,7 +527,6 @@ var FoliateWindow = GObject.registerClass({
                 this._locationStack.visible_child_name = 'loaded'
                 break
             case 'update-location-scale':
-                this._percentage = payload
                 this._locationScale.set_value(payload)
                 break
 
@@ -486,12 +593,12 @@ var FoliateWindow = GObject.registerClass({
                 const { text, cfiRange, isSingle, language } = selection
 
                 // position needs to be adjusted for zoom level
-                const zoomLevel = this._epub.webView.zoom_level
+                const zoomLevel = this._epub.zoomLevel
                 Object.keys(position).forEach(key =>
                     position[key] = position[key] * zoomLevel)
 
                 const popover = this._selectionMenu
-                popover.relative_to = this._epub.webView
+                popover.relative_to = this._epub.widget
 
                 const setPosition = height =>
                     setPopoverPosition(popover, position, this, height)
@@ -501,7 +608,7 @@ var FoliateWindow = GObject.registerClass({
 
                 setPosition(200)
                 popover.popup()
-                popover.connect('closed', () => this._epub.run('clearSelection()'))
+                popover.connect('closed', () => this._epub.clearSelection())
                 break
             }
         }
@@ -511,21 +618,21 @@ var FoliateWindow = GObject.registerClass({
         const selection = this._tocTreeView.get_selection()
         const [, , iter] = selection.get_selected()
         const href = store.get_value(iter, 1)
-        this._epub.run(`rendition.display("${href}")`)
+        this._epub.goTo(href)
         this._sideMenu.popdown()
     }
     _onlocationScaleChanged() {
         const value = this._locationScale.get_value()
-        if (value !== this._percentage) this._epub.run(`goToPercentage(${value})`)
+        this._epub.goToPercentage(value)
     }
     _applyZoomLevel(zoomLevel) {
-        this._epub.webView.zoom_level = zoomLevel
+        this._epub.zoomLevel = zoomLevel
         this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
         this.lookup_action('zoom-restore').enabled = zoomLevel !== 1
         this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
     }
     _onStyleChange() {
-        this._applyStyle({
+        this._epub.applyStyle({
             brightness: this._brightnessScale.get_value(),
             theme: defaultThemes[this.lookup_action('theme').state.get_string()[0]],
             fontDesc: this._fontButton.font_desc,
@@ -535,72 +642,5 @@ var FoliateWindow = GObject.registerClass({
             hyphenate: this.lookup_action('hyphenate').state.get_boolean(),
             justify: this.lookup_action('justify').state.get_boolean()
         })
-    }
-    // TODO: don't apply when rendition isn't ready
-    _applyStyle(style) {
-        const { brightness, theme, fontDesc, spacing, margins,
-            publisherFont, hyphenate, justify } = style
-        const { color, background, link, darkMode, invert } = theme
-        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = darkMode
-
-        const fontFamily = fontDesc.get_family()
-        const fontSizePt = fontDesc.get_size() / Pango.SCALE
-        const fontSizePx = fontSizePt / 0.75
-        const fontWeight = fontDesc.get_weight()
-        const fontStyle = ['normal', 'italic', 'oblique'][fontDesc.get_style()]
-
-        // Unfortunately, it appears that WebKitGTK doesn't support font-stretch
-        /*const fontStretch = [
-            'ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal',
-            'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded'
-        ][fontDesc.get_stretch()]*/
-
-        const webViewSettings = this._epub.webView.get_settings()
-        webViewSettings.serif_font_family = fontFamily
-        webViewSettings.sans_serif_font_family = fontFamily
-        webViewSettings.default_font_family = fontFamily
-        webViewSettings.default_font_size = fontSizePx
-
-        const filter = (invert ? 'invert(1) hue-rotate(180deg) ' : '')
-            + `brightness(${brightness})`
-
-        const themeName = publisherFont ? 'publisher-font' : 'custom-font'
-        const styleScript = `
-            document.body.style.margin = '0 ${margins}%'
-            rendition.resize()
-
-            document.documentElement.style.filter = '${filter}'
-            document.body.style.color = '${color}'
-            document.body.style.background = '${background}'
-
-            rendition.themes.register('${themeName}', {
-                '.${themeName}': {
-                    'color': '${color}',
-                    'background': '${background}',
-                    ${publisherFont ? '' : `'font-family': '"${fontFamily}" !important',
-                    'font-style': '${fontStyle}',
-                    'font-weight': '${fontWeight}',`}
-                    'font-size': '${fontSizePx}px !important',
-                    'line-height': '${spacing} !important',
-                    '-webkit-hyphens': '${hyphenate ? 'auto' : 'manual'}',
-                    '-webkit-hyphenate-limit-before': 3,
-                    '-webkit-hyphenate-limit-after': 2,
-                    '-webkit-hyphenate-limit-lines': 2
-                },
-                '.${themeName} code, .${themeName} pre': {
-                    '-webkit-hyphens': 'none'
-                },
-                ${publisherFont ? '' :
-                `'.${themeName} *:not(code):not(pre):not(code *):not(pre *)': {
-                    'font-family': '"${fontFamily}" !important'
-                },`}
-                'p': {
-                    'text-align': '${justify ? 'justify' : 'inherit'}'
-                },
-                '.${themeName} a:link': { color: '${link}' }
-            })
-            rendition.themes.select('${themeName}')
-        `
-        this._epub.run(styleScript)
     }
 })
