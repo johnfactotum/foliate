@@ -501,6 +501,7 @@ var FoliateWindow = GObject.registerClass({
                 })
                 this._epub.toc.then(toc => {
                     const store = this._tocTreeView.model
+                    store.clear()
                     const f = (toc, iter = null) => {
                         toc.forEach(chapter => {
                             const newIter = store.append(iter)
