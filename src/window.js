@@ -84,11 +84,16 @@ const makePopoverPosition = ({ left, right, top, bottom }, window, height) => {
     }
 }
 const setPopoverPosition = (popover, position, window, height) => {
-    const { position: rectPosition, positionType } =
-        makePopoverPosition(position, window, height)
+    const setPosition = height => {
+        const { position: rectPosition, positionType } =
+            makePopoverPosition(position, window, height)
+        popover.position = positionType
+        popover.pointing_to = new Gdk.Rectangle(rectPosition)
+    }
+    popover.connect('size-allocate', () =>
+        setPosition(popover.get_allocation().height))
 
-    popover.position = positionType
-    popover.pointing_to = new Gdk.Rectangle(rectPosition)
+    setPosition(200)
 }
 
 const layouts = {
@@ -237,8 +242,14 @@ class EpubView {
     clearSelection() {
         this._run('clearSelection()')
     }
+    reselect() {
+        this._run('reselect()')
+    }
     addAnnotation(cfi, color) {
         this._run(`addAnnotation('${cfi}', '${color}')`)
+    }
+    removeAnnotation(cfi) {
+        this._run(`rendition.annotations.remove("${cfi}", 'highlight')`)
     }
     get widget() {
         return this._webView
@@ -261,8 +272,14 @@ const makeActions = self => ({
             .get_default(Gdk.Display.get_default())
             .set_text(self._selection.text, -1),
         ['<ctrl>c']],
-    'win.selection-highlight': [() =>
-        self._epub.addAnnotation(self._selection.cfi, 'yellow')],
+    'win.selection-highlight': [() => {
+        self._epub.addAnnotation(self._selection.cfi, 'yellow')
+        self._showMenu(self._highlightMenu, false)
+    }],
+    'win.selection-dictionary': [() => {
+        const { language, text, position } = self._selection
+        self._showMenu(self._dictionaryMenu)
+    }],
 
     'win.side-menu': [() =>
         self._sideMenuButton.active = !self._sideMenuButton.active,
@@ -371,7 +388,7 @@ var FoliateWindow = GObject.registerClass({
         'zoomRestoreButton', 'fullscreenButton', 'brightnessScale',
         'fontButton', 'spacingButton', 'marginsButton', 'themeBox',
         'navbar', 'locationStack', 'locationLabel', 'locationScale',
-        'selectionMenu'
+        'selectionMenu', 'dictionaryMenu', 'highlightMenu'
     ]
 }, class FoliateWindow extends Gtk.ApplicationWindow {
     _init(application) {
@@ -577,29 +594,38 @@ var FoliateWindow = GObject.registerClass({
                 break
             }
             case 'selection': {
-                const { position, selection } = payload
-                this._selection = selection
+                this._selection = payload
+                this._selection.text = this._selection.text.trim().replace(/\n/g, ' ')
+                const position = this._selection.position
 
                 // position needs to be adjusted for zoom level
                 const zoomLevel = this._epub.zoomLevel
                 Object.keys(position).forEach(key =>
                     position[key] = position[key] * zoomLevel)
 
-                const popover = this._selectionMenu
-                popover.relative_to = this._epub.widget
-
-                const setPosition = height =>
-                    setPopoverPosition(popover, position, this, height)
-
-                popover.connect('size-allocate', () =>
-                    setPosition(popover.get_allocation().height))
-
-                setPosition(200)
-                popover.popup()
-                popover.connect('closed', () => this._epub.clearSelection())
+                if (this._selection.text.split(' ').length === 1)
+                    this._showMenu(this._selectionMenu)
+                else
+                    this._showMenu(this._selectionMenu)
                 break
             }
+            case 'highlight-menu':
+                this._showMenu(this._highlightMenu, false)
+                break
         }
+    }
+    _showSelectionMenu() {
+        this._showMenu(this._selectionMenu)
+    }
+    _showMenu(popover, select = true) {
+        popover.relative_to = this._epub.widget
+        setPopoverPosition(popover, this._selection.position, this, 200)
+        popover.popup()
+        if (select) this._epub.reselect()
+        else this._clearSelection()
+    }
+    _clearSelection() {
+        this._epub.clearSelection()
     }
     _onTocRowActivated() {
         const store = this._tocTreeView.model

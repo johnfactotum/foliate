@@ -19,12 +19,18 @@ let rendition
 let cfiToc
 
 let clearSelection = () => {}
+let reselect = () => {}
 
 const addAnnotation = (cfi, color) => {
     rendition.annotations.remove(cfi, 'highlight')
-    rendition.annotations.highlight(cfi, {}, e => dispatch({
-        type: 'annotation-menu',
-        payload: { cfi, position: getRect(e.target) }
+    rendition.annotations.highlight(cfi, {}, async e => dispatch({
+        type: 'highlight-menu',
+        payload: {
+            position: getRect(e.target),
+            cfi,
+            text: await book.getRange(cfi).then(range => range.toString()),
+            language: book.package.metadata.language
+        }
     }), 'hl', {
         fill: color,
         'fill-opacity': 0.25,
@@ -233,15 +239,14 @@ const setupRendition = () => {
             if (range.collapsed) return
 
             clearSelection = () => contents.window.getSelection().removeAllRanges()
+            reselect = () => contents.window.getSelection().addRange(range)
             dispatch({
                 type: 'selection',
                 payload: {
                     position: getRect(range, frame),
-                    selection: {
-                        text: selection.toString(),
-                        cfi: new ePub.CFI(range, contents.cfiBase).toString(),
-                        language: book.package.metadata.language
-                    }
+                    text: selection.toString(),
+                    cfi: new ePub.CFI(range, contents.cfiBase).toString(),
+                    language: book.package.metadata.language
                 }
             })
         }

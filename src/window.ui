@@ -34,7 +34,93 @@
     <property name="page_increment">0.05</property>
     <property name="value">0</property>
   </object>
+  <object class="GtkPopoverMenu" id="highlightMenu">
+    <signal name="closed" handler="_clearSelection"/>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="margin">10</property>
+        <property name="spacing">6</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="inverted">True</property>
+            <property name="centered">True</property>
+            <property name="menu_name">main</property>
+            <property name="text" translatable="yes">Highlight</property>
+            <signal name="clicked" handler="_showSelectionMenu"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkComboBoxText">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="width-request">250</property>
+            <property name="height-request">200</property>
+            <style><class name="frame"/></style>
+            <child>
+              <object class="GtkTextView">
+                <property name="visible">True</property>
+                <property name="wrap-mode">word</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="text" translatable="yes">Remove</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopoverMenu" id="dictionaryMenu">
+    <signal name="closed" handler="_clearSelection"/>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="margin">10</property>
+        <property name="spacing">6</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="inverted">True</property>
+            <property name="centered">True</property>
+            <property name="menu_name">main</property>
+            <property name="text" translatable="yes">Dictionary</property>
+            <signal name="clicked" handler="_showSelectionMenu"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkComboBoxText">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="width-request">250</property>
+            <property name="height-request">200</property>
+            <style><class name="frame"/></style>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkPopoverMenu" id="selectionMenu">
+    <signal name="closed" handler="_clearSelection"/>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
