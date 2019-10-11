@@ -299,6 +299,11 @@ const makeActions = self => ({
     'win.zoom-restore': [() => self._applyZoomLevel(1),
         ['1', '<ctrl>1']],
 
+    'win.selection-copy': [() => Gtk.Clipboard
+            .get_default(Gdk.Display.get_default())
+            .set_text(self._selection.text, -1),
+        ['<ctrl>c']],
+
     'win.side-menu': [() =>
         self._sideMenuButton.active = !self._sideMenuButton.active,
         ['F9']],
@@ -606,7 +611,7 @@ var FoliateWindow = GObject.registerClass({
             }
             case 'selection': {
                 const { position, selection } = payload
-                const { text, cfiRange, isSingle, language } = selection
+                this._selection = selection
 
                 // position needs to be adjusted for zoom level
                 const zoomLevel = this._epub.zoomLevel
