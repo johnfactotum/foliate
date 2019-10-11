@@ -199,71 +199,15 @@ class EpubView {
     goBack() {
     }
     // TODO: don't apply when rendition isn't ready
-    applyStyle(style) {
-        const { brightness, theme, fontDesc, spacing, margins,
-            publisherFont, hyphenate, justify } = style
-        const { color, background, link, darkMode, invert } = theme
-        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = darkMode
-
-        const fontFamily = fontDesc.get_family()
-        const fontSizePt = fontDesc.get_size() / Pango.SCALE
-        const fontSizePx = fontSizePt / 0.75
-        const fontWeight = fontDesc.get_weight()
-        const fontStyle = ['normal', 'italic', 'oblique'][fontDesc.get_style()]
-
-        // Unfortunately, it appears that WebKitGTK doesn't support font-stretch
-        /*const fontStretch = [
-            'ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal',
-            'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded'
-        ][fontDesc.get_stretch()]*/
-
+    setStyle(style) {
+        const { fontFamily, fontSize } = style
         const webViewSettings = this._webView.get_settings()
         webViewSettings.serif_font_family = fontFamily
         webViewSettings.sans_serif_font_family = fontFamily
         webViewSettings.default_font_family = fontFamily
-        webViewSettings.default_font_size = fontSizePx
+        webViewSettings.default_font_size = fontSize
 
-        const filter = (invert ? 'invert(1) hue-rotate(180deg) ' : '')
-            + `brightness(${brightness})`
-
-        const themeName = publisherFont ? 'publisher-font' : 'custom-font'
-        const styleScript = `
-            document.body.style.margin = '0 ${margins}%'
-            rendition.resize()
-
-            document.documentElement.style.filter = '${filter}'
-            document.body.style.color = '${color}'
-            document.body.style.background = '${background}'
-
-            rendition.themes.register('${themeName}', {
-                '.${themeName}': {
-                    'color': '${color}',
-                    'background': '${background}',
-                    ${publisherFont ? '' : `'font-family': '"${fontFamily}" !important',
-                    'font-style': '${fontStyle}',
-                    'font-weight': '${fontWeight}',`}
-                    'font-size': '${fontSizePx}px !important',
-                    'line-height': '${spacing} !important',
-                    '-webkit-hyphens': '${hyphenate ? 'auto' : 'manual'}',
-                    '-webkit-hyphenate-limit-before': 3,
-                    '-webkit-hyphenate-limit-after': 2,
-                    '-webkit-hyphenate-limit-lines': 2
-                },
-                '.${themeName} code, .${themeName} pre': {
-                    '-webkit-hyphens': 'none'
-                },
-                ${publisherFont ? '' :
-                `'.${themeName} *:not(code):not(pre):not(code *):not(pre *)': {
-                    'font-family': '"${fontFamily}" !important'
-                },`}
-                'p': {
-                    'text-align': '${justify ? 'justify' : 'inherit'}'
-                },
-                '.${themeName} a:link': { color: '${link}' }
-            })
-            rendition.themes.select('${themeName}')
-        `
-        this._run(styleScript)
+        this._run(`setStyle(${JSON.stringify(style)})`)
     }
     set layout(layout) {
         this._layout = layout
@@ -658,10 +602,28 @@ var FoliateWindow = GObject.registerClass({
         this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
     }
     _onStyleChange() {
-        this._epub.applyStyle({
+        const themeName = this.lookup_action('theme').state.get_string()[0]
+        const theme = defaultThemes[themeName]
+        const { color, background, link, invert, darkMode } = theme
+        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = darkMode
+
+        const fontDesc = this._fontButton.font_desc
+        const fontFamily = fontDesc.get_family()
+        const fontSizePt = fontDesc.get_size() / Pango.SCALE
+        const fontSize = fontSizePt / 0.75
+        const fontWeight = fontDesc.get_weight()
+        const fontStyle = ['normal', 'italic', 'oblique'][fontDesc.get_style()]
+
+        // unfortunately, it appears that WebKitGTK doesn't support font-stretch
+        const fontStretch = [
+            'ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal',
+            'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded'
+        ][fontDesc.get_stretch()]
+
+        this._epub.setStyle({
+            color, background, link, invert,
+            fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
             brightness: this._brightnessScale.get_value(),
-            theme: defaultThemes[this.lookup_action('theme').state.get_string()[0]],
-            fontDesc: this._fontButton.font_desc,
             spacing: this._spacingButton.value,
             margins: this._marginsButton.value,
             publisherFont: this.lookup_action('publisher-font').state.get_boolean(),

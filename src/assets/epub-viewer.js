@@ -20,6 +20,81 @@ let cfiToc
 
 let clearSelection = () => {}
 
+const addAnnotation = (cfi, color) => {
+    rendition.annotations.remove(cfi, 'highlight')
+    rendition.annotations.highlight(cfi, {}, e => dispatch({
+        type: 'annotation-menu',
+        payload: { cfi, position: getRect(e.target) }
+    }), 'hl', {
+        fill: color,
+        'fill-opacity': 0.25,
+        'mix-blend-mode': 'multiply'
+    })
+}
+
+// redraw annotations on view changes
+// so that they would be rendered at the new, correct positions
+const redrawAnnotations = () =>
+    rendition.views().forEach(view => view.pane ? view.pane.render() : null)
+
+const setStyle = style => {
+    const {
+        brightness, color, background, link, invert,
+        fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
+        spacing, margins,
+        publisherFont, hyphenate, justify
+    } = style
+
+    document.body.style.margin = `0 ${margins}%`
+    rendition.resize()
+
+    document.documentElement.style.filter =
+        (invert ? 'invert(1) hue-rotate(180deg) ' : '')
+        + `brightness(${brightness})`
+    document.body.style.color = color
+    document.body.style.background = background
+
+    const themeName = publisherFont ? 'publisher-font' : 'custom-font'
+    const stylesheet = {
+        [`.${themeName}`]: {
+            'color': color,
+            'background': background,
+            'font-size': `${fontSize}px !important`,
+            'line-height': `${spacing} !important`,
+            '-webkit-hyphens': hyphenate ? 'auto' : 'manual',
+            '-webkit-hyphenate-limit-before': 3,
+            '-webkit-hyphenate-limit-after': 2,
+            '-webkit-hyphenate-limit-lines': 2
+        },
+        [`.${themeName} code, .${themeName} pre`]: {
+            '-webkit-hyphens': 'none'
+        },
+        [`.${themeName} a:link`]: { color: '${link}' },
+        p: {
+            'text-align': justify ? 'justify' : 'inherit'
+        }
+    }
+
+    if (!publisherFont) {
+        // set custom font
+        const bodyStyle = stylesheet[`.${themeName}`]
+        bodyStyle['font-family'] = `"${fontFamily}" !important`
+        bodyStyle['font-style'] = fontStyle
+        bodyStyle['font-weight'] = fontWeight
+        bodyStyle['font-stretch'] = fontStretch
+
+        // force font on everything that isn't code
+        const notCode = '*:not(code):not(pre):not(code *):not(pre *)'
+        stylesheet[`.${themeName} ${notCode}`] = {
+            'font-family': '"${fontFamily}" !important'
+        }
+    }
+
+    rendition.themes.register(themeName, stylesheet)
+    rendition.themes.select(themeName)
+    redrawAnnotations()
+}
+
 const open = (fileName, inputType, cfi, renderTo, options, locations) => {
     book.open(decodeURI(fileName), inputType) // works for non-flatpak
         .catch(() => book.open(fileName, inputType)) // works for flatpak
@@ -116,20 +191,10 @@ const getRect = (target, frame) => {
     return { left, right, top, bottom }
 }
 
-const addAnnotation = (cfi, color) => {
-    rendition.annotations.remove(cfi, 'highlight')
-    rendition.annotations.highlight(cfi, {}, e => dispatch({
-        type: 'annotation-menu',
-        payload: { cfi, position: getRect(e.target) }
-    }), 'hl', {
-        fill: color,
-        'fill-opacity': 0.25,
-        'mix-blend-mode': 'multiply'
-    })
-}
-
 const setupRendition = () => {
     let isSelecting = false
+
+    rendition.on('rendered', () => redrawAnnotations())
 
     rendition.on('relocated', location => dispatch({
         type: 'relocated',
