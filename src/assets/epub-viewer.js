@@ -107,12 +107,25 @@ book.loaded.resources
 
 const getRect = (target, frame) => {
     const rect = target.getBoundingClientRect()
-    const viewElementRect = frame.getBoundingClientRect()
+    const viewElementRect =
+        frame ? frame.getBoundingClientRect() : { left: 0, top: 0 }
     const left = rect.left + viewElementRect.left
     const right = rect.right + viewElementRect.left
     const top = rect.top + viewElementRect.top
     const bottom = rect.bottom + viewElementRect.top
     return { left, right, top, bottom }
+}
+
+const addAnnotation = (cfi, color) => {
+    rendition.annotations.remove(cfi, 'highlight')
+    rendition.annotations.highlight(cfi, {}, e => dispatch({
+        type: 'annotation-menu',
+        payload: { cfi, position: getRect(e.target) }
+    }), 'hl', {
+        fill: color,
+        'fill-opacity': 0.25,
+        'mix-blend-mode': 'multiply'
+    })
 }
 
 const setupRendition = () => {
@@ -154,20 +167,14 @@ const setupRendition = () => {
             const range = selection.getRangeAt(0)
             if (range.collapsed) return
 
-            const text = selection.toString().trim().replace(/\n/g, ' ')
-            if (text === '') return
-
-            const cfiRange = new ePub.CFI(range, contents.cfiBase).toString()
-
             clearSelection = () => contents.window.getSelection().removeAllRanges()
             dispatch({
                 type: 'selection',
                 payload: {
                     position: getRect(range, frame),
                     selection: {
-                        text,
-                        cfiRange,
-                        isSingle: text.split(' ').length === 1,
+                        text: selection.toString(),
+                        cfi: new ePub.CFI(range, contents.cfiBase).toString(),
                         language: book.package.metadata.language
                     }
                 }

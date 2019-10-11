@@ -282,6 +282,9 @@ class EpubView {
     clearSelection() {
         this._run('clearSelection()')
     }
+    addAnnotation(cfi, color) {
+        this._run(`addAnnotation('${cfi}', '${color}')`)
+    }
     get widget() {
         return this._webView
     }
@@ -303,6 +306,8 @@ const makeActions = self => ({
             .get_default(Gdk.Display.get_default())
             .set_text(self._selection.text, -1),
         ['<ctrl>c']],
+    'win.selection-highlight': [() =>
+        self._epub.addAnnotation(self._selection.cfi, 'yellow')],
 
     'win.side-menu': [() =>
         self._sideMenuButton.active = !self._sideMenuButton.active,
