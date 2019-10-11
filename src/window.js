@@ -242,8 +242,8 @@ class EpubView {
     clearSelection() {
         this._run('clearSelection()')
     }
-    reselect() {
-        this._run('reselect()')
+    selectByCfi(cfi) {
+        this._run(`selectByCfi('${cfi}')`)
     }
     addAnnotation(cfi, color) {
         this._run(`addAnnotation('${cfi}', '${color}')`)
@@ -610,6 +610,7 @@ var FoliateWindow = GObject.registerClass({
                 break
             }
             case 'highlight-menu':
+                this._selection = payload
                 this._showMenu(this._highlightMenu, false)
                 break
         }
@@ -621,7 +622,7 @@ var FoliateWindow = GObject.registerClass({
         popover.relative_to = this._epub.widget
         setPopoverPosition(popover, this._selection.position, this, 200)
         popover.popup()
-        if (select) this._epub.reselect()
+        if (select) this._epub.selectByCfi(this._selection.cfi)
         else this._clearSelection()
     }
     _clearSelection() {

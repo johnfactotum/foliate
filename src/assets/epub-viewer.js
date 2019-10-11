@@ -18,8 +18,12 @@ let book = ePub()
 let rendition
 let cfiToc
 
-let clearSelection = () => {}
-let reselect = () => {}
+let contentsWindow
+
+const clearSelection = () => contentsWindow.getSelection().removeAllRanges()
+
+const selectByCfi = cfi =>
+    contentsWindow.getSelection().addRange(rendition.getRange(cfi))
 
 const addAnnotation = (cfi, color) => {
     rendition.annotations.remove(cfi, 'highlight')
@@ -238,8 +242,7 @@ const setupRendition = () => {
             const range = selection.getRangeAt(0)
             if (range.collapsed) return
 
-            clearSelection = () => contents.window.getSelection().removeAllRanges()
-            reselect = () => contents.window.getSelection().addRange(range)
+            contentsWindow = contents.window
             dispatch({
                 type: 'selection',
                 payload: {
