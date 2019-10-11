@@ -110,12 +110,16 @@ const layouts = {
     }
 }
 
+const viewerPath = pkg.pkgdatadir + '/assets/epub-viewer.html'
+const unsafeViewerPath = pkg.pkgdatadir + '/assets/epub-viewer-nocsp.html'
+
 class EpubView {
-    constructor(fileName, inputType, callback, cfi, locations) {
+    constructor(fileName, inputType, callback, cfi, unsafe, locations) {
         this._fileName = fileName
         this._inputType = inputType
         this._callback = callback
         this._cfi = cfi
+        this._unsafe = unsafe
         this._locations = locations
         this._layout = 'auto'
 
@@ -126,8 +130,7 @@ class EpubView {
                 allow_universal_access_from_file_urls: true
             })
         })
-        this._webView.load_uri(GLib.filename_to_uri(
-            pkg.pkgdatadir + '/assets/epub-viewer.html', null))
+        this._load()
 
         this._contextMenu = null
         this._webView.connect('context-menu', () =>
@@ -142,6 +145,10 @@ class EpubView {
             this._callback(type, payload)
         })
         contentManager.register_script_message_handler('action')
+    }
+    _load() {
+        const viewer = this._unsafe ? unsafeViewerPath : viewerPath
+        this._webView.load_uri(GLib.filename_to_uri(viewer, null))
     }
     _eval(script, discardReturn) {
         return new Promise((resolve, reject) => {
@@ -218,6 +225,10 @@ class EpubView {
     }
     set zoomLevel(x) {
         this._webView.zoom_level = x
+    }
+    set unsafe(state) {
+        this._unsafe = state
+        this._load()
     }
     set devtools(state) {
         this._webView.get_settings().enable_developer_extras = state
@@ -335,15 +346,17 @@ const makeBooleanActions = self => ({
     'win.justify':  [state => self._onStyleChange(), true],
     'win.hyphenate':  [state => self._onStyleChange(), true],
     'win.footnote':  [state => self._onStyleChange(), false],
-    'win.unsafe': [state => {}, false],
+    'win.unsafe': [state => {
+        self._isLoading = true
+        self._epub.unsafe = state
+    }, false],
     'win.devtools': [state => self._epub.devtools = state, false]
 })
 
 const makeStringActions = self => ({
     'win.theme': [() => self._onStyleChange(), 'Sepia'],
     'win.layout': [layout => {
-        self._mainBox.opacity = 0
-        self._mainOverlay.show()
+        self._isLoading = true
         self._epub.layout = layout
     }, 'auto']
 })
@@ -444,6 +457,13 @@ var FoliateWindow = GObject.registerClass({
     _onDestroy() {
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
     }
+    get _isLoading() {
+        return !this._mainBox.opacity
+    }
+    set _isLoading(state) {
+        this._mainBox.opacity = state ? 0 : 1
+        this._mainOverlay.visible = state
+    }
     _open(fileName, realFileName, inputType = 'epub') {
         const file = Gio.File.new_for_path(fileName)
         const fileInfo = file.query_info('standard::content-type',
@@ -507,10 +527,7 @@ var FoliateWindow = GObject.registerClass({
                 ].forEach(action => this.lookup_action(action).enabled = true)
                 this._applyZoomLevel(1)
                 this._onStyleChange()
-                if (this._mainBox.opacity === 0) {
-                    this._mainBox.opacity = 1
-                    this._mainOverlay.hide()
-                }
+                if (this._isLoading) this._isLoading = false
                 break
             case 'book-error':
                 this._mainOverlay.visible_child_name = 'error'
