@@ -17,6 +17,7 @@ const CFI = new ePub.CFI()
 let book = ePub()
 let rendition
 let cfiToc
+let lineHeight = 24
 
 const dispatchLocation = () => {
     const location = rendition.currentLocation() || rendition.location
@@ -70,6 +71,8 @@ const setStyle = style => {
         spacing, margins,
         publisherFont, hyphenate, justify
     } = style
+
+    lineHeight = fontSize * spacing
 
     document.body.style.margin = `0 ${margins}%`
     rendition.resize()
@@ -260,15 +263,56 @@ const setupRendition = () => {
         }
     })
 
-    // go to the next page when selecting to the end of a page
-    // this makes it possible to select across pages
-    rendition.on('selected', debounce(cfiRange => {
-        if (!isSelecting || rendition.settings.flow !== 'paginated') return
-        const selCfi = new ePub.CFI(cfiRange)
-        selCfi.collapse()
-        const compare = CFI.compare(selCfi, rendition.location.end.cfi) >= 0
-        if (compare) rendition.next()
-    }, 1000))
+    const paginated = rendition.settings.flow === 'paginated'
+
+    // keyboard shortcuts
+    const handleKeydown = event => {
+        const k = event.key
+        if (k === 'ArrowLeft' || k === 'h') rendition.prev()
+        else if(k === 'ArrowRight' || k === 'l') rendition.next()
+        else if (k === 'Backspace') {
+            if (paginated) rendition.prev()
+            else window.scrollBy(0, -window.innerHeight)
+        } else if (event.shiftKey && k === ' ' || k === 'ArrowUp' || k === 'PageUp') {
+            if (paginated) rendition.prev()
+        } else if (k === ' ' || k === 'ArrowDown' || k === 'PageDown') {
+            if (paginated) rendition.next()
+        } else if (k === 'j') {
+            if (paginated) rendition.next()
+            else window.scrollBy(0, lineHeight)
+        } else if (k === 'k') {
+            if (paginated) rendition.prev()
+            else window.scrollBy(0, -lineHeight)
+        }
+    }
+    rendition.on('keydown', handleKeydown)
+    document.addEventListener('keydown', handleKeydown, false)
+
+    if (paginated) {
+        // scroll through pages
+        const onwheel = debounce(event => {
+            const { deltaX, deltaY } = event
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX > 0) rendition.next()
+                else if (deltaX < 0) rendition.prev()
+            } else {
+                if (deltaY > 0) rendition.next()
+                else if (deltaY < 0) rendition.prev()
+            }
+            event.preventDefault()
+        }, 100, true)
+        document.documentElement.onwheel = onwheel
+
+        // go to the next page when selecting to the end of a page
+        // this makes it possible to select across pages
+        rendition.on('selected', debounce(cfiRange => {
+            if (!isSelecting) return
+            const selCfi = new ePub.CFI(cfiRange)
+            selCfi.collapse()
+            const compare = CFI.compare(selCfi, rendition.location.end.cfi) >= 0
+            if (compare) rendition.next()
+        }, 1000))
+    }
 }
 
 dispatch({ type: 'ready' })
