@@ -275,7 +275,10 @@ const makeActions = self => ({
             .set_text(self._selection.text, -1),
         ['<ctrl>c']],
     'win.selection-highlight': [() => {
-        self._epub.addAnnotation(self._selection.cfi, 'yellow')
+        const color = 'yellow'
+        self._epub.addAnnotation(self._selection.cfi, color)
+        self._selection.color = color
+        self._colorRadios[color].active = true
         self._showMenu(self._highlightMenu, false)
     }],
     'win.selection-unhighlight': [() => {
