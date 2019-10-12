@@ -246,7 +246,7 @@
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">4</property>
+                <property name="top-attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
@@ -260,33 +260,33 @@
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">5</property>
+                <property name="top-attach">0</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="timeInBook">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label">0 minutes</property>
+                <property name="label"></property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">4</property>
+                <property name="top-attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="timeInChapter">
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
-                <property name="label">0 minutes</property>
+                <property name="label"></property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">5</property>
+                <property name="top-attach">0</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
@@ -323,13 +323,14 @@
                 <property name="visible">True</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkEntry">
+                  <object class="GtkEntry" id="sectionEntry">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="width-chars">5</property>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="sectionTotal">
                     <property name="visible">True</property>
                     <property name="label">of 0</property>
                   </object>
@@ -361,8 +362,9 @@
                 <property name="visible">True</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkEntry">
+                  <object class="GtkEntry" id="percentageEntry">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="width-chars">5</property>
                   </object>
                 </child>
@@ -399,13 +401,14 @@
                 <property name="visible">True</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkEntry">
+                  <object class="GtkEntry" id="locationEntry">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="width-chars">5</property>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="locationTotal">
                     <property name="visible">True</property>
                     <property name="label">of 12345</property>
                   </object>
@@ -444,7 +447,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry">
+              <object class="GtkEntry" id="cfiEntry">
                 <property name="visible">True</property>
                 <property name="width-chars">12</property>
               </object>

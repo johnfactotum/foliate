@@ -13,14 +13,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// 1024 characters per page is used by Adobe Digital Editions
+const CHARACTERS_PER_PAGE = 1024
+const CHARACTERS_PER_WORD = lang =>
+    lang === 'zh' || lang === 'ja' || lang === 'ko' ? 2.5 : 6
+const WORDS_PER_MINUTE = 200
+
 const CFI = new ePub.CFI()
 let book = ePub()
 let rendition
 let cfiToc
+let sectionMarks
 let lineHeight = 24
 
 const dispatchLocation = () => {
     const location = rendition.currentLocation() || rendition.location
+
+    const percentage = location.start.percentage
+    const index = book.spine.get(location.start.cfi).index
+
+    // rough estimate of reading time
+    // should be reasonable for English and European languages
+    // will be way off for some langauges
+    const estimate = endPercentage =>
+        (endPercentage - percentage) * book.locations.total
+        * CHARACTERS_PER_PAGE
+        / CHARACTERS_PER_WORD(book.package.metadata.language)
+        / WORDS_PER_MINUTE
+
+    const nextSectionPercentage = (sectionMarks || []).find(x => x > percentage)
+
     dispatch({
         type: 'relocated',
         payload: {
@@ -28,11 +50,13 @@ const dispatchLocation = () => {
             atEnd: location.atEnd,
             cfi: location.start.cfi,
             sectionHref: getSectionfromCfi(location.start.cfi).href,
-            chapter: book.spine.get(location.start.cfi).index + 1,
-            chapterTotal: book.spine.length,
+            section: index,
+            sectionTotal: book.spine.length,
             location: book.locations.locationFromCfi(location.start.cfi),
             locationTotal: book.locations.total,
-            percentage: location.start.percentage
+            percentage,
+            timeInBook: estimate(1),
+            timeInChapter: estimate(nextSectionPercentage)
         }
     })
 }
@@ -139,18 +163,23 @@ const open = (fileName, inputType, cfi, renderTo, options, locations) => {
     if (locations) {
         book.locations.load(locations)
         displayed
-            .then(() => dispatchLocation())
+            .then(() => locationsReady())
             .then(() => dispatch({ type: 'locations-ready' }))
     } else {
         displayed
-            // 1024 characters per page is used by Adobe Digital Editions
-            .then(() => book.locations.generate(1024))
-            .then(() => dispatchLocation())
+            .then(() => book.locations.generate(CHARACTERS_PER_PAGE))
+            .then(() => locationsReady())
             .then(() => dispatch({
                 type: 'locations-generated',
                 payload: book.locations.save()
             }))
     }
+}
+
+const locationsReady = () => {
+    sectionMarks = book.spine.items.map(section => book.locations
+        .percentageFromCfi('epubcfi(' + section.cfiBase + '!/0)'))
+    dispatchLocation()
 }
 
 const getCfiFromHref = async href => {

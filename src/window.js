@@ -14,6 +14,7 @@
  */
 
 const { GObject, Gtk, Gio, GLib, Gdk, Pango, WebKit2 } = imports.gi
+const ngettext = imports.gettext.ngettext
 
 const { execCommand, recursivelyDeleteDir } = imports.utils
 
@@ -413,6 +414,9 @@ var FoliateWindow = GObject.registerClass({
         'fontButton', 'spacingButton', 'marginsButton', 'themeBox',
 
         'navbar', 'locationStack', 'locationLabel', 'locationScale',
+        'timeInBook', 'timeInChapter',
+        'sectionEntry', 'percentageEntry', 'locationEntry', 'cfiEntry',
+        'sectionTotal', 'locationTotal',
 
         'selectionMenu', 'dictionaryMenu',
         'highlightMenu', 'highlightColorsBox'
@@ -609,7 +613,8 @@ var FoliateWindow = GObject.registerClass({
             case 'relocated': {
                 const {
                     atStart, atEnd, cfi, sectionHref,
-                    chapter, chapterTotal, location, locationTotal, percentage
+                    section, sectionTotal, location, locationTotal, percentage,
+                    timeInBook, timeInChapter
                 } = payload
                 this.lookup_action('go-prev').enabled = !atStart
                 this.lookup_action('go-next').enabled = !atEnd
@@ -618,6 +623,19 @@ var FoliateWindow = GObject.registerClass({
 
                 const progress = Math.round(percentage * 100)
                 this._locationLabel.label = progress + '%'
+
+                const makeTimeLabel = n => n < 60
+                    ? ngettext('%d minute', '%d minutes').format(Math.round(n))
+                    : ngettext('%d hour', '%d hours').format(Math.round(n / 60))
+
+                this._timeInBook.label = makeTimeLabel(timeInBook)
+                this._timeInChapter.label = makeTimeLabel(timeInChapter)
+                this._sectionEntry.text = (section + 1).toString()
+                this._percentageEntry.text = progress.toString()
+                this._locationEntry.text = location.toString()
+                this._cfiEntry.text = cfi
+                this._sectionTotal.label = _('of %d').format(sectionTotal)
+                this._locationTotal.label = _('of %d').format(locationTotal)
 
                 // select toc item
                 const view = this._tocTreeView
