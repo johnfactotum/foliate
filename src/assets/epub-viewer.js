@@ -18,6 +18,24 @@ let book = ePub()
 let rendition
 let cfiToc
 
+const dispatchLocation = () => {
+    const location = rendition.currentLocation() || rendition.location
+    dispatch({
+        type: 'relocated',
+        payload: {
+            atStart: location.atStart,
+            atEnd: location.atEnd,
+            cfi: location.start.cfi,
+            sectionHref: getSectionfromCfi(location.start.cfi).href,
+            chapter: book.spine.get(location.start.cfi).index + 1,
+            chapterTotal: book.spine.length,
+            location: book.locations.locationFromCfi(location.start.cfi),
+            locationTotal: book.locations.total,
+            percentage: location.start.percentage
+        }
+    })
+}
+
 const getContentsSelection = () => rendition.getContents()[0].window.getSelection()
 const clearSelection = () => getContentsSelection().removeAllRanges()
 const selectByCfi = cfi => getContentsSelection().addRange(rendition.getRange(cfi))
@@ -117,11 +135,14 @@ const open = (fileName, inputType, cfi, renderTo, options, locations) => {
         .then(() => dispatch({ type: 'rendition-ready' }))
     if (locations) {
         book.locations.load(locations)
-        displayed.then(() => dispatch({ type: 'locations-ready' }))
+        displayed
+            .then(() => dispatchLocation())
+            .then(() => dispatch({ type: 'locations-ready' }))
     } else {
         displayed
             // 1024 characters per page is used by Adobe Digital Editions
             .then(() => book.locations.generate(1024))
+            .then(() => dispatchLocation())
             .then(() => dispatch({
                 type: 'locations-generated',
                 payload: book.locations.save()
@@ -204,20 +225,7 @@ const setupRendition = () => {
 
     rendition.on('rendered', () => redrawAnnotations())
 
-    rendition.on('relocated', location => dispatch({
-        type: 'relocated',
-        payload: {
-            atStart: location.atStart,
-            atEnd: location.atEnd,
-            cfi: location.start.cfi,
-            sectionHref: getSectionfromCfi(location.start.cfi).href,
-            chapter: book.spine.get(location.start.cfi).index + 1,
-            chapterTotal: book.spine.length,
-            location: book.locations.locationFromCfi(location.start.cfi),
-            locationTotal: book.locations.total,
-            percentage: location.start.percentage
-        }
-    }))
+    rendition.on('relocated', dispatchLocation)
 
     rendition.hooks.content.register((contents, /*view*/) => {
         const frame = contents.document.defaultView.frameElement
