@@ -29,6 +29,7 @@ const addAnnotation = (cfi, color) => {
         payload: {
             position: getRect(e.target),
             cfi,
+            color,
             text: await book.getRange(cfi).then(range => range.toString()),
             language: book.package.metadata.language
         }

@@ -377,9 +377,12 @@ const makeBooleanActions = self => ({
 })
 
 const makeStringActions = self => ({
-    'win.highlight-color': [color =>
-        self._epub.addAnnotation(self._selection.cfi, color),
-        highlightColors[0]],
+    'win.highlight-color': [color => {
+        if (self._colorRadios[color].active && self._selection.color !== color) {
+            self._selection.color = color
+            self._epub.addAnnotation(self._selection.cfi, color)
+        }
+    }, highlightColors[0]],
     'win.theme': [() => self._onStyleChange(), 'Sepia'],
     'win.layout': [layout => {
         self._isLoading = true
@@ -404,6 +407,7 @@ var FoliateWindow = GObject.registerClass({
     _init(application) {
         super._init({ application })
 
+        this._colorRadios = {}
         const colorRadios = highlightColors.map((color, i) => {
             const radio = new Gtk.RadioButton({
                 visible: true,
@@ -427,6 +431,7 @@ var FoliateWindow = GObject.registerClass({
                 .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
             this._highlightColorsBox.pack_start(radio, false, true, 0)
+            this._colorRadios[color] = radio
             return radio
         }).reduce((a, b) => (b.join_group(a), a))
 
@@ -647,6 +652,7 @@ var FoliateWindow = GObject.registerClass({
             }
             case 'highlight-menu':
                 this._selection = payload
+                this._colorRadios[this._selection.color].active = true
                 this._showMenu(this._highlightMenu, false)
                 break
         }
