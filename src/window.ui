@@ -53,8 +53,25 @@
           </object>
         </child>
         <child>
-          <object class="GtkComboBoxText">
+          <object class="GtkBox" id="highlightColorsBox">
             <property name="visible">True</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action_name">win.selection-unhighlight</property>
+                <property name="tooltip_text" translatable="yes">Remove</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon_name">user-trash-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
           </object>
         </child>
         <child>
@@ -69,12 +86,6 @@
                 <property name="wrap-mode">word</property>
               </object>
             </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkModelButton">
-            <property name="visible">True</property>
-            <property name="text" translatable="yes">Remove</property>
           </object>
         </child>
       </object>

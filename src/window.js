@@ -24,6 +24,8 @@ const mimetypes = {
     mobi: 'application/x-mobipocket-ebook'
 }
 
+const highlightColors =  ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
+
 const defaultThemes = {
     [_('Light')]: {
         color: '#000', background: '#fff', link: 'blue',
@@ -276,6 +278,10 @@ const makeActions = self => ({
         self._epub.addAnnotation(self._selection.cfi, 'yellow')
         self._showMenu(self._highlightMenu, false)
     }],
+    'win.selection-unhighlight': [() => {
+        self._epub.removeAnnotation(self._selection.cfi)
+        if (self._highlightMenu.visible) self._highlightMenu.popdown()
+    }],
     'win.selection-dictionary': [() => {
         const { language, text, position } = self._selection
         self._showMenu(self._dictionaryMenu)
@@ -371,6 +377,9 @@ const makeBooleanActions = self => ({
 })
 
 const makeStringActions = self => ({
+    'win.highlight-color': [color =>
+        self._epub.addAnnotation(self._selection.cfi, color),
+        highlightColors[0]],
     'win.theme': [() => self._onStyleChange(), 'Sepia'],
     'win.layout': [layout => {
         self._isLoading = true
@@ -388,11 +397,38 @@ var FoliateWindow = GObject.registerClass({
         'zoomRestoreButton', 'fullscreenButton', 'brightnessScale',
         'fontButton', 'spacingButton', 'marginsButton', 'themeBox',
         'navbar', 'locationStack', 'locationLabel', 'locationScale',
-        'selectionMenu', 'dictionaryMenu', 'highlightMenu'
+        'selectionMenu', 'dictionaryMenu',
+        'highlightMenu', 'highlightColorsBox'
     ]
 }, class FoliateWindow extends Gtk.ApplicationWindow {
     _init(application) {
         super._init({ application })
+
+        const colorRadios = highlightColors.map((color, i) => {
+            const radio = new Gtk.RadioButton({
+                visible: true,
+                tooltip_text: color,
+                action_name: 'win.highlight-color',
+                action_target: new GLib.Variant('s', color)
+            })
+            const cssProvider = new Gtk.CssProvider()
+            cssProvider.load_from_data(`
+                .color-button {
+                    padding: 0;
+                }
+                .color-button radio {
+                    margin: 0;
+                    padding: 6px;
+                    background: ${color};
+                }`)
+            const styleContext = radio.get_style_context()
+            styleContext.add_class('color-button')
+            styleContext
+                .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+            this._highlightColorsBox.pack_start(radio, false, true, 0)
+            return radio
+        }).reduce((a, b) => (b.join_group(a), a))
 
         Object.keys(defaultThemes).forEach(theme =>
             this._themeBox.pack_start(new Gtk.ModelButton({
