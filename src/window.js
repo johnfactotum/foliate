@@ -289,6 +289,12 @@ const makeActions = self => ({
         const { language, text, position } = self._selection
         self._showMenu(self._dictionaryMenu)
     }],
+    'win.selection-find': [() => {
+        const { text } = self._selection
+        self._findEntry.text = text
+        self._findEntry.emit('activate')
+        self._findMenuButton.active = true
+    }],
 
     'win.side-menu': [() =>
         self._sideMenuButton.active = !self._sideMenuButton.active,
@@ -398,11 +404,16 @@ var FoliateWindow = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/window.ui',
     InternalChildren: [
         'headerBar', 'mainOverlay', 'mainBox', 'contentBox',
+
         'sideMenuButton', 'sideMenu', 'tocTreeView',
-        'findMenuButton', 'mainMenuButton',
+        'findMenuButton', 'findEntry',
+
+        'mainMenuButton',
         'zoomRestoreButton', 'fullscreenButton', 'brightnessScale',
         'fontButton', 'spacingButton', 'marginsButton', 'themeBox',
+
         'navbar', 'locationStack', 'locationLabel', 'locationScale',
+
         'selectionMenu', 'dictionaryMenu',
         'highlightMenu', 'highlightColorsBox'
     ]
@@ -720,5 +731,9 @@ var FoliateWindow = GObject.registerClass({
             hyphenate: this.lookup_action('hyphenate').state.get_boolean(),
             justify: this.lookup_action('justify').state.get_boolean()
         })
+    }
+    _onFindEntryActivate() {
+        const text = this._findEntry.text
+        print(text)
     }
 })

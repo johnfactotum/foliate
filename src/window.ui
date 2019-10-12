@@ -216,6 +216,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
+            <property name="action_name">win.selection-find</property>
             <property name="text" translatable="yes">Find</property>
           </object>
         </child>
@@ -551,8 +552,9 @@
         <property name="orientation">vertical</property>
         <property name="margin">10</property>
         <child>
-          <object class="GtkSearchEntry">
+          <object class="GtkSearchEntry" id="findEntry">
             <property name="visible">True</property>
+            <signal name="activate" handler="_onFindEntryActivate"/>
           </object>
         </child>
       </object>
