@@ -24,7 +24,7 @@ const mimetypes = {
     mobi: 'application/x-mobipocket-ebook'
 }
 
-const highlightColors =  ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
+const highlightColors = ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
 
 const defaultThemes = {
     [_('Light')]: {
