@@ -488,7 +488,7 @@ var FoliateWindow = GObject.registerClass({
                 let [, iter] = store.get_iter_first()
                 loop:
                 while (true) {
-                    const value = store.get_value(iter, 1)
+                    const value = store.get_value(iter, 0)
                     if (value === sectionHref) {
                         const path = store.get_path(iter)
                         view.expand_to_path(path)
