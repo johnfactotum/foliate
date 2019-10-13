@@ -16,7 +16,7 @@
 const { GObject, Gtk, Gio, GLib, Gdk, Pango } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const { execCommand, recursivelyDeleteDir } = imports.utils
+const { markupEscape, execCommand, recursivelyDeleteDir } = imports.utils
 const { EpubView } = imports.epubView
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -248,7 +248,8 @@ var FoliateWindow = GObject.registerClass({
         'headerBar', 'mainOverlay', 'mainBox', 'contentBox',
 
         'sideMenuButton', 'sideMenu', 'tocTreeView',
-        'findMenuButton', 'findEntry',
+        'findMenuButton',
+        'findMenu', 'findEntry', 'findScrolledWindow', 'findTreeView',
 
         'mainMenuButton',
         'zoomRestoreButton', 'fullscreenButton', 'brightnessScale',
@@ -507,6 +508,26 @@ var FoliateWindow = GObject.registerClass({
                 }
                 break
             }
+
+            case 'find-results': {
+                const { q, results } = payload
+                const store = this._findTreeView.model
+                store.clear()
+                if (!results.length)
+                    this._findEntry.get_style_context().add_class('error')
+                else {
+                    const regex = new RegExp(markupEscape(q), 'ig')
+                    results.forEach(item => {
+                        const newIter = store.append()
+                        const label = markupEscape(item.excerpt.trim().replace(/\n/g, ' '))
+                        const m = label.replace(regex, `<b>${regex.exec(label)[0]}</b>`)
+                        store.set(newIter, [0, 1], [m, item.cfi])
+                    })
+                    this._findScrolledWindow.show()
+                }
+                break
+            }
+
             case 'selection': {
                 this._selection = payload
                 this._selection.text = this._selection.text.trim().replace(/\n/g, ' ')
@@ -542,6 +563,25 @@ var FoliateWindow = GObject.registerClass({
     }
     _clearSelection() {
         this._epub.clearSelection()
+    }
+    _onFindEntryActivate() {
+        const text = this._findEntry.text
+        this._epub.find(text)
+    }
+    _onFindEntryChanged() {
+        this._findEntry.get_style_context().remove_class('error')
+        if (!this._findEntry.text) {
+            this._epub.clearFind()
+            this._findScrolledWindow.hide()
+        }
+    }
+    _onFindRowActivated() {
+        const store = this._findTreeView.model
+        const selection = this._findTreeView.get_selection()
+        const [, , iter] = selection.get_selected()
+        const href = store.get_value(iter, 1)
+        this._epub.goTo(href)
+        this._findMenu.popdown()
     }
     _onTocRowActivated() {
         const store = this._tocTreeView.model
@@ -590,9 +630,5 @@ var FoliateWindow = GObject.registerClass({
             hyphenate: this.lookup_action('hyphenate').state.get_boolean(),
             justify: this.lookup_action('justify').state.get_boolean()
         })
-    }
-    _onFindEntryActivate() {
-        const text = this._findEntry.text
-        print(text)
     }
 })

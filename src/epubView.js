@@ -170,6 +170,12 @@ var EpubView = class EpubView {
     removeAnnotation(cfi) {
         this._run(`rendition.annotations.remove("${cfi}", 'highlight')`)
     }
+    find(q, inBook = true, highlight = true) {
+        this._run(`find.find(decodeURI("${encodeURI(q)}"), ${inBook}, ${highlight})`)
+    }
+    clearFind() {
+        this._run('find.clearHighlight()')
+    }
     get widget() {
         return this._webView
     }

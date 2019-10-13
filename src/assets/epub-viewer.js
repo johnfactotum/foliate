@@ -26,6 +26,49 @@ let cfiToc
 let sectionMarks
 let lineHeight = 24
 
+class Find {
+    constructor() {
+        this.results = []
+    }
+    _findInSection(q, section) {
+        if (!section) section = book.spine.get(rendition.location.start.cfi)
+        return section.load(book.load.bind(book))
+            .then(section.find.bind(section, q))
+            .finally(section.unload.bind(section))
+    }
+    _findInBook(q) {
+        return  Promise.all(book.spine.spineItems.map(item =>
+            item.load(book.load.bind(book))
+                .then(item.find.bind(item, q))
+                .finally(item.unload.bind(item))))
+            .then(results =>
+                Promise.resolve([].concat.apply([], results)))
+    }
+    find(q, inBook, highlight) {
+        this.clearHighlight()
+        return (inBook ? this._findInBook : this._findInSection)(q)
+            .then(results => {
+                this.results = results
+                dispatch({ type: 'find-results', payload: { q, results } })
+                if (highlight) this.highlight()
+            })
+    }
+    highlight() {
+        this.results.forEach(({ cfi }) =>
+            rendition.annotations.underline(cfi, {}, () => {}, 'ul', {
+                'stroke-width': '3px',
+                'stroke': 'red',
+                'stroke-opacity': 0.8,
+                'mix-blend-mode': 'multiply'
+            }))
+    }
+    clearHighlight() {
+        this.results.forEach(({ cfi }) =>
+            rendition.annotations.remove(cfi, 'underline'))
+    }
+}
+const find = new Find()
+
 const dispatchLocation = () => {
     const location = rendition.currentLocation() || rendition.location
 

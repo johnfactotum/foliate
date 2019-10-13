@@ -6,6 +6,12 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="findListStore">
+    <columns>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkAdjustment" id="spacingAdjustment">
     <property name="lower">1</property>
     <property name="upper">3</property>
@@ -552,12 +558,47 @@
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
+        <property name="width_request">300</property>
         <property name="orientation">vertical</property>
         <property name="margin">10</property>
+        <property name="spacing">10</property>
         <child>
           <object class="GtkSearchEntry" id="findEntry">
             <property name="visible">True</property>
             <signal name="activate" handler="_onFindEntryActivate"/>
+            <signal name="search-changed" handler="_onFindEntryChanged"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="findScrolledWindow">
+            <property name="visible">False</property>
+            <property name="height_request">400</property>
+            <property name="vexpand">True</property>
+            <property name="hscrollbar-policy">never</property>
+            <child>
+              <object class="GtkTreeView" id="findTreeView">
+                <property name="visible">True</property>
+                <property name="headers-visible">False</property>
+                <property name="activate-on-single-click">True</property>
+                <property name="model">findListStore</property>
+                <property name="enable_grid_lines">horizontal</property>
+                <signal name="row-activated" handler="_onFindRowActivated"/>
+                <child>
+                  <object class="GtkTreeViewColumn">
+                    <child>
+                      <object class="GtkCellRendererText">
+                        <property name="wrap-mode">word</property>
+                        <property name="wrap-width">300</property>
+                      </object>
+                      <attributes>
+                        <attribute name="markup">0</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <style><class name="frame"/></style>
           </object>
         </child>
       </object>

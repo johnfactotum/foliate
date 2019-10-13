@@ -16,6 +16,8 @@
 const { Gio, GLib } = imports.gi
 const ByteArray = imports.byteArray
 
+var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
+
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
 var execCommand = (argv, input = null, waitCheck, token, inFlatpak) =>
     new Promise((resolve, reject) => {
