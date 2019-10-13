@@ -88,7 +88,7 @@
             <property name="height-request">200</property>
             <style><class name="frame"/></style>
             <child>
-              <object class="GtkTextView">
+              <object class="GtkTextView" id="noteTextView">
                 <property name="visible">True</property>
                 <property name="wrap-mode">word</property>
               </object>

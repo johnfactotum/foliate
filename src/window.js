@@ -123,11 +123,12 @@ const makeActions = self => ({
         self._selection.color = color
 
         const section = (await self._epub.getSectionFromCfi(cfi)).label
-        const annotation = new Annotation({ cfi, color, section, text })
+        const annotation = new Annotation({ cfi, color, section, text, note: '' })
         self._annotationsStore.append(annotation)
         self._annotationsMap.set(cfi, annotation)
 
         self._colorRadios[color].active = true
+        self._noteTextView.buffer.text = ''
         self._showMenu(self._highlightMenu, false)
     }],
     'win.selection-unhighlight': [() => {
@@ -251,8 +252,7 @@ const makeStringActions = self => ({
             self._selection.color = color
             self._epub.addAnnotation(cfi, color)
             const annotation = self._annotationsMap.get(cfi)
-            annotation.color = color
-            annotation.notify('color')
+            annotation.set_property('color', color)
         }
     }, highlightColors[0]],
     'win.theme': [() => self._onStyleChange(), 'Sepia'],
@@ -273,7 +273,7 @@ const Annotation = GObject.registerClass({
         color: GObject.ParamSpec.string('color', 'color', 'color',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, null),
         note: GObject.ParamSpec.string('note', 'note', 'note',
-            GObject.ParamFlags.READWRITE, null),
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, null),
     }
 }, class Annotation extends GObject.Object {})
 
@@ -281,20 +281,26 @@ const AnnotationRow = GObject.registerClass({
     GTypeName: 'AnnotationRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/annotationRow.ui',
     InternalChildren: [
-        'annotationSection', 'annotationText'
+        'annotationSection', 'annotationText', 'annotationNote'
     ]
 }, class AnnotationRow extends Gtk.ListBoxRow {
     _init(annotation) {
         super._init()
         this.annotation = annotation
 
-        annotation.bind_property('text', this._annotationText, 'label',
-            GObject.BindingFlags.SYNC_CREATE)
-        annotation.bind_property('section', this._annotationSection, 'label',
-            GObject.BindingFlags.SYNC_CREATE)
+        this._annotationText.label = annotation.text
+        this._annotationSection.label = annotation.section
 
         this._applyColor()
         annotation.connect('notify::color', this._applyColor.bind(this))
+
+        this._applyNote()
+        annotation.connect('notify::note', this._applyNote.bind(this))
+    }
+    _applyNote() {
+        const note = this.annotation.note
+        this._annotationNote.label = note.trim().replace(/\n/g, ' ')
+        this._annotationNote.visible = Boolean(note)
     }
     _applyColor() {
         const cssProvider = new Gtk.CssProvider()
@@ -306,9 +312,6 @@ const AnnotationRow = GObject.registerClass({
         const styleContext = this._annotationText.get_style_context()
         styleContext
             .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-    }
-    _onRemove() {
-        print('remove annotation')
     }
 })
 
@@ -335,7 +338,7 @@ var FoliateWindow = GObject.registerClass({
         'sectionTotal', 'locationTotal',
 
         'selectionMenu', 'dictionaryMenu',
-        'highlightMenu', 'highlightColorsBox'
+        'highlightMenu', 'highlightColorsBox', 'noteTextView'
     ]
 }, class FoliateWindow extends Gtk.ApplicationWindow {
     _init(application) {
@@ -353,6 +356,11 @@ var FoliateWindow = GObject.registerClass({
         this._annotationsListBox.connect('row-activated', (_, row) => {
             this._epub.goTo(row.annotation.cfi)
             this._sideMenu.popdown()
+        })
+
+        this._noteTextView.buffer.connect('changed', () => {
+            const annotation = this._annotationsMap.get(this._selection.cfi)
+            annotation.set_property('note', this._noteTextView.buffer.text)
         })
 
         const column = this._findTreeView.get_column(0)
@@ -637,7 +645,9 @@ var FoliateWindow = GObject.registerClass({
             }
             case 'highlight-menu':
                 this._selection = payload
-                this._colorRadios[this._selection.color].active = true
+                const annotation = this._annotationsMap.get(this._selection.cfi)
+                this._colorRadios[annotation.color].active = true
+                this._noteTextView.buffer.text = annotation.note
                 this._showMenu(this._highlightMenu, false)
                 break
         }
