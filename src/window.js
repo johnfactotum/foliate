@@ -418,7 +418,6 @@ var FoliateWindow = GObject.registerClass({
             case 'book-ready':
                 this._epub.metadata.then(metadata => {
                     this._headerBar.title = metadata.title
-                    this._headerBar.subtitle = metadata.creator
                 })
                 this._epub.toc.then(toc => {
                     const store = this._tocTreeView.model
