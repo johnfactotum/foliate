@@ -489,6 +489,20 @@
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">10</property>
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <property name="visible">True</property>
+                    <property name="vexpand">True</property>
+                    <child>
+                      <object class="GtkListBox" id="annotationsListBox">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <style><class name="frame"/></style>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="name">annotations</property>

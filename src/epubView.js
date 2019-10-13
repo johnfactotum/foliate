@@ -179,6 +179,9 @@ var EpubView = class EpubView {
     clearFind() {
         this._run('find.clearHighlight()')
     }
+    getSectionFromCfi(cfi) {
+        return this._get(`getSectionFromCfi('${cfi}')`)
+    }
     get widget() {
         return this._webView
     }

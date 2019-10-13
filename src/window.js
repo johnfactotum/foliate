@@ -116,15 +116,32 @@ const makeActions = self => ({
             .get_default(Gdk.Display.get_default())
             .set_text(self._selection.text, -1),
         ['<ctrl>c']],
-    'win.selection-highlight': [() => {
+    'win.selection-highlight': [async () => {
+        const { cfi, text } = self._selection
         const color = 'yellow'
-        self._epub.addAnnotation(self._selection.cfi, color)
+        self._epub.addAnnotation(cfi, color)
         self._selection.color = color
+
+        const section = (await self._epub.getSectionFromCfi(cfi)).label
+        const annotation = new Annotation({ cfi, color, section, text })
+        self._annotationsStore.append(annotation)
+        self._annotationsMap.set(cfi, annotation)
+
         self._colorRadios[color].active = true
         self._showMenu(self._highlightMenu, false)
     }],
     'win.selection-unhighlight': [() => {
-        self._epub.removeAnnotation(self._selection.cfi)
+        const cfi = self._selection.cfi
+        self._epub.removeAnnotation(cfi)
+        const store = self._annotationsStore
+        const n = store.get_n_items()
+        for (let i = 0; i < n; i++) {
+            if (store.get_item(i).cfi === cfi) {
+                store.remove(i)
+                break
+            }
+        }
+        self._annotationsMap.delete(cfi)
         if (self._highlightMenu.visible) self._highlightMenu.popdown()
     }],
     'win.selection-dictionary': [() => {
@@ -230,8 +247,12 @@ const makeBooleanActions = self => ({
 const makeStringActions = self => ({
     'win.highlight-color': [color => {
         if (self._colorRadios[color].active && self._selection.color !== color) {
+            const cfi = self._selection.cfi
             self._selection.color = color
-            self._epub.addAnnotation(self._selection.cfi, color)
+            self._epub.addAnnotation(cfi, color)
+            const annotation = self._annotationsMap.get(cfi)
+            annotation.color = color
+            annotation.notify('color')
         }
     }, highlightColors[0]],
     'win.theme': [() => self._onStyleChange(), 'Sepia'],
@@ -241,6 +262,56 @@ const makeStringActions = self => ({
     }, 'auto']
 })
 
+const Annotation = GObject.registerClass({
+    Properties: {
+        cfi: GObject.ParamSpec.string('cfi', 'cfi', 'cfi',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
+        section: GObject.ParamSpec.string('section', 'section', 'section',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
+        text: GObject.ParamSpec.string('text', 'text', 'text',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
+        color: GObject.ParamSpec.string('color', 'color', 'color',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, null),
+        note: GObject.ParamSpec.string('note', 'note', 'note',
+            GObject.ParamFlags.READWRITE, null),
+    }
+}, class Annotation extends GObject.Object {})
+
+const AnnotationRow = GObject.registerClass({
+    GTypeName: 'AnnotationRow',
+    Template: 'resource:///com/github/johnfactotum/Foliate/annotationRow.ui',
+    InternalChildren: [
+        'annotationSection', 'annotationText'
+    ]
+}, class AnnotationRow extends Gtk.ListBoxRow {
+    _init(annotation) {
+        super._init()
+        this.annotation = annotation
+
+        annotation.bind_property('text', this._annotationText, 'label',
+            GObject.BindingFlags.SYNC_CREATE)
+        annotation.bind_property('section', this._annotationSection, 'label',
+            GObject.BindingFlags.SYNC_CREATE)
+
+        this._applyColor()
+        annotation.connect('notify::color', this._applyColor.bind(this))
+    }
+    _applyColor() {
+        const cssProvider = new Gtk.CssProvider()
+        cssProvider.load_from_data(`
+            label {
+                border-left: 7px solid ${this.annotation.color};
+                padding-left: 15px;
+            }`)
+        const styleContext = this._annotationText.get_style_context()
+        styleContext
+            .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    }
+    _onRemove() {
+        print('remove annotation')
+    }
+})
+
 var FoliateWindow = GObject.registerClass({
     GTypeName: 'FoliateWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/window.ui',
@@ -248,6 +319,9 @@ var FoliateWindow = GObject.registerClass({
         'headerBar', 'mainOverlay', 'mainBox', 'contentBox',
 
         'sideMenuButton', 'sideMenu', 'tocTreeView',
+
+        'annotationsListBox',
+
         'findMenuButton',
         'findMenu', 'findEntry', 'findScrolledWindow', 'findTreeView',
 
@@ -266,6 +340,20 @@ var FoliateWindow = GObject.registerClass({
 }, class FoliateWindow extends Gtk.ApplicationWindow {
     _init(application) {
         super._init({ application })
+
+        this._annotationsMap = new Map()
+        this._annotationsStore = new Gio.ListStore()
+        this._annotationsListBox.bind_model(this._annotationsStore, annotation => {
+            const row = new AnnotationRow(annotation)
+            return row
+        })
+        this._annotationsListBox.set_header_func((row) => {
+            if (row.get_index()) row.set_header(new Gtk.Separator())
+        })
+        this._annotationsListBox.connect('row-activated', (_, row) => {
+            this._epub.goTo(row.annotation.cfi)
+            this._sideMenu.popdown()
+        })
 
         const column = this._findTreeView.get_column(0)
         column.get_area().orientation = Gtk.Orientation.VERTICAL

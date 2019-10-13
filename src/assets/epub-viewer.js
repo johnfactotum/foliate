@@ -49,7 +49,7 @@ class Find {
         return (inBook ? this._findInBook : this._findInSection)(q)
             .then(results => {
                 results.forEach(result =>
-                    result.section = getSectionfromCfi(result.cfi).label)
+                    result.section = getSectionFromCfi(result.cfi).label)
                 this.results = results
                 dispatch({ type: 'find-results', payload: { q, results } })
                 if (highlight) this.highlight()
@@ -94,7 +94,7 @@ const dispatchLocation = () => {
             atStart: location.atStart,
             atEnd: location.atEnd,
             cfi: location.start.cfi,
-            sectionHref: getSectionfromCfi(location.start.cfi).href,
+            sectionHref: getSectionFromCfi(location.start.cfi).href,
             section: index,
             sectionTotal: book.spine.length,
             location: book.locations.locationFromCfi(location.start.cfi),
@@ -234,7 +234,7 @@ const getCfiFromHref = async href => {
     const el = id ? item.document.getElementById(id) : item.document.body
     return item.cfiFromElement(el)
 }
-const getSectionfromCfi = cfi => {
+const getSectionFromCfi = cfi => {
     const index = cfiToc.findIndex(el => el ? CFI.compare(cfi, el.cfi) <= 0 : false)
     return cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
         || { label: book.package.metadata.title, href: '', cfi: '' }
