@@ -183,7 +183,7 @@ const locationsReady = () => {
 }
 
 const getCfiFromHref = async href => {
-    const id= href.split('#')[1]
+    const id = href.split('#')[1]
     const item = book.spine.get(href)
     await item.load(book.load.bind(book))
     const el = id ? item.document.getElementById(id) : item.document.body
