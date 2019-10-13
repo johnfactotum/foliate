@@ -238,6 +238,7 @@
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
+        <property name="margin">10</property>
         <child>
           <object class="GtkGrid">
             <property name="visible">True</property>
@@ -311,6 +312,7 @@
             <property name="margin">10</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">10</property>
+            <property name="vexpand">True</property>
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>
@@ -334,12 +336,13 @@
                     <property name="visible">True</property>
                     <property name="xalign">1</property>
                     <property name="width-chars">5</property>
+                    <property name="input-purpose">digits</property>
+                    <signal name="activate" handler="_onSectionEntryActivate"/>
                   </object>
                 </child>
                 <child>
                   <object class="GtkLabel" id="sectionTotal">
                     <property name="visible">True</property>
-                    <property name="label">of 0</property>
                   </object>
                 </child>
               </object>
@@ -354,51 +357,12 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="xalign">1</property>
-                <property name="label" translatable="yes">Progress</property>
-                <style><class name="dim-label"/></style>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkEntry" id="percentageEntry">
-                    <property name="visible">True</property>
-                    <property name="xalign">1</property>
-                    <property name="width-chars">5</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label">%</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="xalign">1</property>
                 <property name="label" translatable="yes">Location</property>
                 <style><class name="dim-label"/></style>
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">2</property>
+                <property name="top-attach">1</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
@@ -412,30 +376,20 @@
                     <property name="visible">True</property>
                     <property name="xalign">1</property>
                     <property name="width-chars">5</property>
+                    <property name="input-purpose">digits</property>
+                    <signal name="activate" handler="_onLocationEntryActivate"/>
                   </object>
                 </child>
                 <child>
                   <object class="GtkLabel" id="locationTotal">
                     <property name="visible">True</property>
-                    <property name="label">of 12345</property>
                   </object>
                 </child>
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">2</property>
+                <property name="top-attach">1</property>
                 <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSeparator">
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">3</property>
-                <property name="width">2</property>
                 <property name="height">1</property>
               </packing>
             </child>
@@ -444,11 +398,12 @@
                 <property name="visible">True</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">CFI</property>
+                <property name="tooltip-text" translatable="yes">EPUB Canonical Fragment Identifier</property>
                 <style><class name="dim-label"/></style>
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">4</property>
+                <property name="top-attach">2</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
@@ -456,11 +411,12 @@
             <child>
               <object class="GtkEntry" id="cfiEntry">
                 <property name="visible">True</property>
-                <property name="width-chars">12</property>
+                <property name="width-chars">18</property>
+                <signal name="activate" handler="_onCfiEntryActivate"/>
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">4</property>
+                <property name="top-attach">2</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>

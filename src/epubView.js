@@ -124,6 +124,9 @@ var EpubView = class EpubView {
     goTo(x) {
         this._run(`rendition.display("${x}")`)
     }
+    goToLocation(x) {
+        this._run(`rendition.display(book.locations.cfiFromLocation(${x}))`)
+    }
     goToPercentage(x) {
         this._run(`rendition.display(book.locations.cfiFromPercentage(${x}))`)
     }

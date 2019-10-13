@@ -257,7 +257,7 @@ var FoliateWindow = GObject.registerClass({
 
         'navbar', 'locationStack', 'locationLabel', 'locationScale',
         'timeInBook', 'timeInChapter',
-        'sectionEntry', 'percentageEntry', 'locationEntry', 'cfiEntry',
+        'sectionEntry', 'locationEntry', 'cfiEntry',
         'sectionTotal', 'locationTotal',
 
         'selectionMenu', 'dictionaryMenu',
@@ -475,11 +475,10 @@ var FoliateWindow = GObject.registerClass({
                 this._timeInBook.label = makeTimeLabel(timeInBook)
                 this._timeInChapter.label = makeTimeLabel(timeInChapter)
                 this._sectionEntry.text = (section + 1).toString()
-                this._percentageEntry.text = progress.toString()
-                this._locationEntry.text = location.toString()
+                this._locationEntry.text = (location + 1).toString()
                 this._cfiEntry.text = cfi
                 this._sectionTotal.label = _('of %d').format(sectionTotal)
-                this._locationTotal.label = _('of %d').format(locationTotal)
+                this._locationTotal.label = _('of %d').format(locationTotal + 1)
 
                 // select toc item
                 const view = this._tocTreeView
@@ -594,6 +593,17 @@ var FoliateWindow = GObject.registerClass({
         const href = store.get_value(iter, 0)
         this._epub.goTo(href)
         this._sideMenu.popdown()
+    }
+    _onSectionEntryActivate() {
+        const x = parseInt(this._sectionEntry.text) - 1
+        this._epub.goTo(x)
+    }
+    _onLocationEntryActivate() {
+        const x = parseInt(this._locationEntry.text) - 1
+        this._epub.goToLocation(x)
+    }
+    _onCfiEntryActivate() {
+        this._epub.goTo(this._cfiEntry.text)
     }
     _onlocationScaleChanged() {
         const value = this._locationScale.get_value()
