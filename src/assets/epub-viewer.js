@@ -48,6 +48,8 @@ class Find {
         this.clearHighlight()
         return (inBook ? this._findInBook : this._findInSection)(q)
             .then(results => {
+                results.forEach(result =>
+                    result.section = getSectionfromCfi(result.cfi).label)
                 this.results = results
                 dispatch({ type: 'find-results', payload: { q, results } })
                 if (highlight) this.highlight()

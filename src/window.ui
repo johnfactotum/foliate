@@ -10,6 +10,7 @@
     <columns>
       <column type="gchararray"/>
       <column type="gchararray"/>
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkAdjustment" id="spacingAdjustment">
@@ -503,7 +504,7 @@
                         <property name="headers-visible">False</property>
                         <property name="activate-on-single-click">True</property>
                         <property name="model">tocTreeStore</property>
-                        <property name="tooltip-column">0</property>
+                        <property name="tooltip-column">1</property>
                         <signal name="row-activated" handler="_onTocRowActivated"/>
                         <child>
                           <object class="GtkTreeViewColumn">
@@ -512,7 +513,7 @@
                                 <property name="ellipsize">end</property>
                               </object>
                               <attributes>
-                                <attribute name="text">0</attribute>
+                                <attribute name="text">1</attribute>
                               </attributes>
                             </child>
                           </object>
@@ -580,18 +581,26 @@
                 <property name="visible">True</property>
                 <property name="headers-visible">False</property>
                 <property name="activate-on-single-click">True</property>
+                <property name="enable-grid-lines">horizontal</property>
                 <property name="model">findListStore</property>
-                <property name="enable_grid_lines">horizontal</property>
                 <signal name="row-activated" handler="_onFindRowActivated"/>
                 <child>
                   <object class="GtkTreeViewColumn">
+                    <child>
+                      <object class="GtkCellRendererText">
+                        <property name="ellipsize">end</property>
+                      </object>
+                      <attributes>
+                        <attribute name="markup">2</attribute>
+                      </attributes>
+                    </child>
                     <child>
                       <object class="GtkCellRendererText">
                         <property name="wrap-mode">word</property>
                         <property name="wrap-width">300</property>
                       </object>
                       <attributes>
-                        <attribute name="markup">0</attribute>
+                        <attribute name="markup">1</attribute>
                       </attributes>
                     </child>
                   </object>

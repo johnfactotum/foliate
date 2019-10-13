@@ -267,6 +267,9 @@ var FoliateWindow = GObject.registerClass({
     _init(application) {
         super._init({ application })
 
+        const column = this._findTreeView.get_column(0)
+        column.get_area().orientation = Gtk.Orientation.VERTICAL
+
         this._colorRadios = {}
         const colorRadios = highlightColors.map((color, i) => {
             const radio = new Gtk.RadioButton({
@@ -424,7 +427,7 @@ var FoliateWindow = GObject.registerClass({
                         toc.forEach(chapter => {
                             const newIter = store.append(iter)
                             const label = chapter.label
-                            store.set(newIter, [0, 1], [label, chapter.href])
+                            store.set(newIter, [0, 1], [chapter.href, label])
                             if (chapter.subitems) f(chapter.subitems, newIter)
                         })
                     }
@@ -517,11 +520,13 @@ var FoliateWindow = GObject.registerClass({
                     this._findEntry.get_style_context().add_class('error')
                 else {
                     const regex = new RegExp(markupEscape(q), 'ig')
-                    results.forEach(item => {
+                    results.forEach(({ cfi, excerpt, section }) => {
                         const newIter = store.append()
-                        const label = markupEscape(item.excerpt.trim().replace(/\n/g, ' '))
-                        const m = label.replace(regex, `<b>${regex.exec(label)[0]}</b>`)
-                        store.set(newIter, [0, 1], [m, item.cfi])
+                        const text = markupEscape(excerpt.trim().replace(/\n/g, ' '))
+                        const markup = text.replace(regex, `<b>${regex.exec(text)[0]}</b>`)
+                        const sectionMarkup = `<span alpha="50%" size="smaller">${
+                            markupEscape(section)}</span>`
+                        store.set(newIter, [0, 1, 2], [cfi, markup, sectionMarkup])
                     })
                     this._findScrolledWindow.show()
                 }
@@ -579,7 +584,7 @@ var FoliateWindow = GObject.registerClass({
         const store = this._findTreeView.model
         const selection = this._findTreeView.get_selection()
         const [, , iter] = selection.get_selected()
-        const href = store.get_value(iter, 1)
+        const href = store.get_value(iter, 0)
         this._epub.goTo(href)
         this._findMenu.popdown()
     }
@@ -587,7 +592,7 @@ var FoliateWindow = GObject.registerClass({
         const store = this._tocTreeView.model
         const selection = this._tocTreeView.get_selection()
         const [, , iter] = selection.get_selected()
-        const href = store.get_value(iter, 1)
+        const href = store.get_value(iter, 0)
         this._epub.goTo(href)
         this._sideMenu.popdown()
     }
