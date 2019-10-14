@@ -277,13 +277,13 @@ const Annotation = GObject.registerClass({
     }
 }, class Annotation extends GObject.Object {})
 
-const AnnotationRow = GObject.registerClass({
-    GTypeName: 'AnnotationRow',
+const FoliateAnnotationRow = GObject.registerClass({
+    GTypeName: 'FoliateAnnotationRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/annotationRow.ui',
     InternalChildren: [
         'annotationSection', 'annotationText', 'annotationNote'
     ]
-}, class AnnotationRow extends Gtk.ListBoxRow {
+}, class FoliateAnnotationRow extends Gtk.ListBoxRow {
     _init(annotation) {
         super._init()
         this.annotation = annotation
@@ -346,10 +346,9 @@ var FoliateWindow = GObject.registerClass({
 
         this._annotationsMap = new Map()
         this._annotationsStore = new Gio.ListStore()
-        this._annotationsListBox.bind_model(this._annotationsStore, annotation => {
-            const row = new AnnotationRow(annotation)
-            return row
-        })
+        this._annotationsListBox.bind_model(this._annotationsStore, annotation =>
+            new FoliateAnnotationRow(annotation))
+
         this._annotationsListBox.set_header_func((row) => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
