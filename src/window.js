@@ -237,7 +237,7 @@ const makeBooleanActions = self => ({
     'win.publisher-font': [state => self._onStyleChange(), ],
     'win.justify':  [state => self._onStyleChange(), true],
     'win.hyphenate':  [state => self._onStyleChange(), true],
-    'win.footnote':  [state => self._onStyleChange(), false],
+    'win.footnote':  [state => self._epub.footnote = state, false],
     'win.unsafe': [state => {
         self._isLoading = true
         self._epub.unsafe = state
@@ -607,6 +607,17 @@ var FoliateWindow = GObject.registerClass({
             case 'can-go-back':
                 this.lookup_action('go-back').enabled = payload
                 break
+            case 'link-internal':
+                this._epub.goTo(payload)
+                break
+            case 'link-external':
+                Gtk.show_uri_on_window(null, payload, Gdk.CURRENT_TIME)
+                break
+            case 'footnote': {
+                const { footnote, link, position } = payload
+                print(footnote)
+                break
+            }
 
             case 'find-results': {
                 const { q, results } = payload

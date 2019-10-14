@@ -161,6 +161,9 @@ var EpubView = class EpubView {
     set zoomLevel(x) {
         this._webView.zoom_level = x
     }
+    set footnote(state) {
+        this._run(`footnoteEnabled = ${state}`)
+    }
     set unsafe(state) {
         this._unsafe = state
         this._load()

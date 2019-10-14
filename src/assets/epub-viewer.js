@@ -25,6 +25,7 @@ let rendition
 let cfiToc
 let sectionMarks
 let lineHeight = 24
+let footnoteEnabled = false
 
 class Find {
     constructor() {
@@ -312,6 +313,78 @@ const setupRendition = () => {
         const html = contents.document.documentElement
         if (!html.getAttribute('lang') && book.package.metadata.language)
             html.setAttribute('lang', book.package.metadata.language)
+
+        // hide EPUB 3 aside footnotes
+        const asides = contents.document.querySelectorAll('aside')
+        Array.from(asides).forEach(aside => {
+            const type = aside.getAttribute('epub:type')
+            if (type === 'footnote') aside.style.display = 'none'
+        })
+
+        const links = contents.document.querySelectorAll('a:link')
+        Array.from(links).forEach(link => link.addEventListener('click', async e => {
+            e.stopPropagation()
+            e.preventDefault()
+
+            const type = link.getAttribute('epub:type')
+            const href = link.getAttribute('href')
+            const id = href.split('#')[1]
+            const pageHref = resolveURL(href,
+                book.spine.spineItems[contents.sectionIndex].href)
+
+            const followLink = () => dispatch({
+                type: 'link-internal',
+                payload: pageHref
+            })
+
+            if (isExternalURL(href))
+                dispatch({ type: 'link-external', payload: href })
+            else if (type !== 'noteref' && !footnoteEnabled) followLink()
+            else {
+                const item = book.spine.get(pageHref)
+                if (item) await item.load(book.load.bind(book))
+
+                let el = (item && item.document ? item.document : contents.document)
+                    .getElementById(id)
+                if (!el) return followLink()
+
+                // this bit deals with situations like
+                //     <p><sup><a id="note1" href="link1">1</a></sup> My footnote</p>
+                // where simply getting the ID or its parent would not suffice
+                // although it would still fail to extract useful texts for some books
+                const isFootnote = el => {
+                    const nodeName = el.nodeName.toLowerCase()
+                    return [
+                        'a', 'span', 'sup', 'sub',
+                        'em', 'strong', 'i', 'b',
+                        'small', 'big'
+                    ].every(x => x !== nodeName)
+                }
+                if (!isFootnote(el)) {
+                    while (true) {
+                        const parent = el.parentElement
+                        if (!parent) break
+                        el = parent
+                        if (isFootnote(parent)) break
+                    }
+                }
+
+                if (item) item.unload()
+                if (el.innerText.trim()) dispatch({
+                    type: 'footnote',
+                    payload: {
+                        footnote: toPangoMarkup(el.innerHTML, pageHref),
+                        // footnotes matching this would be hidden (see above)
+                        // and so one cannot navigate to them
+                        link: (el.nodeName === 'aside'
+                            && el.getAttribute('epub:type') === 'footnote')
+                            ? null : pageHref,
+                        position: getRect(e.target, frame)
+                    }
+                })
+                else followLink()
+            }
+        }, true))
 
         // handle selection
         contents.document.onmousedown = () => isSelecting = true
