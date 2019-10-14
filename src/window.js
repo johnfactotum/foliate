@@ -208,7 +208,7 @@ const makeActions = self => ({
 
         const response = dialog.run()
         if (response === Gtk.ResponseType.ACCEPT) {
-            self._open(dialog.get_filename())
+            self.open(dialog.get_filename())
         }
     }, ['<ctrl>o']],
 
@@ -485,7 +485,7 @@ var FoliateWindow = GObject.registerClass({
         this._mainBox.opacity = state ? 0 : 1
         this._mainOverlay.visible = state
     }
-    _open(fileName, realFileName, inputType = 'epub') {
+    open(fileName, realFileName, inputType = 'epub') {
         const file = Gio.File.new_for_path(fileName)
         const fileInfo = file.query_info('standard::content-type',
             Gio.FileQueryInfoFlags.NONE, null)
@@ -504,12 +504,13 @@ var FoliateWindow = GObject.registerClass({
             execCommand(command, null, false, null, true).then(() => {
                 const mobi8 = dir + '/mobi8/'
                 if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
-                    this._open(mobi8, fileName, 'directory')
-                else this._open(dir + '/mobi7/content.opf', fileName, 'opf')
+                    this.open(mobi8, fileName, 'directory')
+                else this.open(dir + '/mobi7/content.opf', fileName, 'opf')
             })
             return
         }
 
+        if (this._epub) this._epub.widget.destroy()
         this._epub = new EpubView(fileName, inputType, this._onAction.bind(this))
         this._contentBox.pack_start(this._epub.widget, true, true, 0)
     }

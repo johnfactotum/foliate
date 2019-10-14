@@ -35,5 +35,13 @@ function main(argv) {
         activeWindow.present()
     })
 
+    application.connect('open', (app, files) => {
+        files.map(file => file.get_path()).forEach(file => {
+            const window = new FoliateWindow(app)
+            window.open(file)
+            window.present()
+        })
+    })
+
     return application.run(argv)
 }
