@@ -97,7 +97,7 @@ const setPopoverPosition = (popover, position, window, height) => {
     popover.connect('size-allocate', () =>
         setPosition(popover.get_allocation().height))
 
-    setPosition(200)
+    setPosition(height)
 }
 
 const makeActions = self => ({
@@ -113,9 +113,9 @@ const makeActions = self => ({
         ['1', '<ctrl>1']],
 
     'win.selection-copy': [() => Gtk.Clipboard
-            .get_default(Gdk.Display.get_default())
-            .set_text(self._selection.text, -1),
-        ['<ctrl>c']],
+        .get_default(Gdk.Display.get_default())
+        .set_text(self._selection.text, -1),
+    ['<ctrl>c']],
     'win.selection-highlight': [async () => {
         const { cfi, text } = self._selection
         const color = 'yellow'
@@ -157,21 +157,15 @@ const makeActions = self => ({
     }],
 
     'win.side-menu': [() =>
-        self._sideMenuButton.active = !self._sideMenuButton.active,
-        ['F9']],
+        self._sideMenuButton.active = !self._sideMenuButton.active, ['F9']],
     'win.find-menu': [() =>
-        self._findMenuButton.active = !self._findMenuButton.active,
-        ['<ctrl>f', 'slash']],
+        self._findMenuButton.active = !self._findMenuButton.active, ['<ctrl>f', 'slash']],
     'win.main-menu': [() =>
-        self._mainMenuButton.active = !self._mainMenuButton.active,
-        ['F10']],
+        self._mainMenuButton.active = !self._mainMenuButton.active, ['F10']],
 
     'win.fullscreen': [() =>
-        self._isFullscreen ? self.unfullscreen() : self.fullscreen(),
-        ['F11']],
-    'win.unfullscreen': [() =>
-        self.unfullscreen(),
-        ['Escape']],
+        self._isFullscreen ? self.unfullscreen() : self.fullscreen(), ['F11']],
+    'win.unfullscreen': [() => self.unfullscreen(), ['Escape']],
 
     'app.themes': [() => {
     }, ['<ctrl>question']],
@@ -225,18 +219,17 @@ const makeActions = self => ({
     }],
 
     'win.close': [() => self.close(), ['<ctrl>w']],
-    'app.quit': [() =>
-        self.application.get_windows().forEach(window => window.close()),
-        ['<ctrl>q']],
+    'app.quit': [() => self.application.get_windows()
+        .forEach(window => window.close()), ['<ctrl>q']],
 })
 
 const makeBooleanActions = self => ({
     'win.navbar': [state => {
         self._navbar.visible = state
     }, true, ['<ctrl>p']],
-    'win.publisher-font': [state => self._onStyleChange(), ],
-    'win.justify':  [state => self._onStyleChange(), true],
-    'win.hyphenate':  [state => self._onStyleChange(), true],
+    'win.publisher-font': [() => self._onStyleChange(), false],
+    'win.justify':  [() => self._onStyleChange(), true],
+    'win.hyphenate':  [() => self._onStyleChange(), true],
     'win.footnote':  [state => self._epub.footnote = state, false],
     'win.unsafe': [state => {
         self._isLoading = true
@@ -366,7 +359,7 @@ var FoliateWindow = GObject.registerClass({
         column.get_area().orientation = Gtk.Orientation.VERTICAL
 
         this._colorRadios = {}
-        const colorRadios = highlightColors.map((color, i) => {
+        highlightColors.map(color => {
             const radio = new Gtk.RadioButton({
                 visible: true,
                 tooltip_text: color,
@@ -536,7 +529,7 @@ var FoliateWindow = GObject.registerClass({
                 break
 
             case 'rendition-ready':
-                ;[
+                [
                     'zoom-in',
                     'zoom-out',
                     'zoom-restore'
@@ -656,13 +649,14 @@ var FoliateWindow = GObject.registerClass({
                     this._showMenu(this._selectionMenu)
                 break
             }
-            case 'highlight-menu':
+            case 'highlight-menu': {
                 this._selection = payload
                 const annotation = this._annotationsMap.get(this._selection.cfi)
                 this._colorRadios[annotation.color].active = true
                 this._noteTextView.buffer.text = annotation.note
                 this._showMenu(this._highlightMenu, false)
                 break
+            }
         }
     }
     _showSelectionMenu() {
