@@ -53,6 +53,18 @@ const defaultThemes = {
         color: '#93a1a1', background: '#002b36', link: '#268bd2',
         darkMode: true, invert: false
     },
+    [_('Gruvbox Light')]: {
+        color: '#3c3836', background: '#fbf1c7', link: '#076678',
+        darkMode: false, invert: false
+    },
+    [_('Gruvbox Dark')]: {
+        color: '#ebdbb2', background: '#282828', link: '#83a598',
+        darkMode: true, invert: false
+    },
+    [_('Nord')]: {
+        color: '#d8dee9', background: '#2e3440', link: '#88c0d0',
+        darkMode: true, invert: false
+    },
     [_('Invert')]: {
         color: '#000', background: '#fff', link: 'blue',
         darkMode: true, invert: true
