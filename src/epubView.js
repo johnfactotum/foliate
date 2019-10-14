@@ -47,6 +47,8 @@ var EpubView = class EpubView {
         this._locations = locations
         this._layout = 'auto'
 
+        this._history = []
+
         this._webView = new WebKit2.WebView({
             visible: true,
             settings: new WebKit2.Settings({
@@ -121,16 +123,21 @@ var EpubView = class EpubView {
     next() {
         this._run(`rendition.next()`)
     }
-    goTo(x) {
+    async goTo(x, withHistory = true) {
+        if (withHistory) this._history
+            .push(await this._get(`rendition.currentLocation().start.cfi`))
         this._run(`rendition.display("${x}")`)
+        this._callback('can-go-back', Boolean(this._history.length))
     }
-    goToLocation(x) {
-        this._run(`rendition.display(book.locations.cfiFromLocation(${x}))`)
+    async goToLocation(x) {
+        this.goTo(await this._get(`book.locations.cfiFromLocation(${x})`))
     }
-    goToPercentage(x) {
-        this._run(`rendition.display(book.locations.cfiFromPercentage(${x}))`)
+    async goToPercentage(x) {
+        this.goTo(await this._get(`book.locations.cfiFromPercentage(${x})`))
     }
     goBack() {
+        if (!this._history.length) return
+        this.goTo(this._history.pop(), false)
     }
     // TODO: don't apply when rendition isn't ready
     setStyle(style) {

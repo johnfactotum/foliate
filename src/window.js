@@ -604,6 +604,9 @@ var FoliateWindow = GObject.registerClass({
                 }
                 break
             }
+            case 'can-go-back':
+                this.lookup_action('go-back').enabled = payload
+                break
 
             case 'find-results': {
                 const { q, results } = payload
