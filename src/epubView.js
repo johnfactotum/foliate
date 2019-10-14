@@ -124,8 +124,9 @@ var EpubView = class EpubView {
         this._run(`rendition.next()`)
     }
     async goTo(x, withHistory = true) {
-        if (withHistory) this._history
-            .push(await this._get(`rendition.currentLocation().start.cfi`))
+        const current = await this._get(`rendition.currentLocation().start.cfi`)
+        if (x === current) return
+        if (withHistory) this._history.push(current)
         this._run(`rendition.display("${x}")`)
         this._callback('can-go-back', Boolean(this._history.length))
     }
