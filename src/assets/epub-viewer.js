@@ -168,7 +168,7 @@ const setStyle = style => {
         [`.${themeName} code, .${themeName} pre`]: {
             '-webkit-hyphens': 'none'
         },
-        [`.${themeName} a:link`]: { color: '${link}' },
+        [`.${themeName} a:link`]: { color: link },
         p: {
             'text-align': justify ? 'justify' : 'inherit'
         }
