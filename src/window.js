@@ -128,7 +128,7 @@ const makeActions = self => ({
 
     'win.selection-copy': [() => Gtk.Clipboard
         .get_default(Gdk.Display.get_default())
-        .set_text(self._selection.text, -1),
+        .set_text(self._epub.selection.text, -1),
     ['<ctrl>c']],
     'win.selection-highlight': [async () => {
         const { cfi, text } = self._epub.selection
