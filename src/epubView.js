@@ -13,7 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, GLib, Pango, WebKit2 } = imports.gi
+const { GObject, GLib, Gtk, Gdk, Pango, WebKit2 } = imports.gi
+
+const { markupEscape } = imports.utils
 
 const layouts = {
     'auto': {
@@ -37,9 +39,28 @@ const layouts = {
 const viewerPath = pkg.pkgdatadir + '/assets/epub-viewer.html'
 const unsafeViewerPath = pkg.pkgdatadir + '/assets/epub-viewer-nocsp.html'
 
+const EpubViewAnnotation = GObject.registerClass({
+    GTypeName: 'FoliateEpubViewAnnotation',
+    Properties: {
+        cfi: GObject.ParamSpec.string('cfi', 'cfi', 'cfi',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
+        section: GObject.ParamSpec.string('section', 'section', 'section',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
+        text: GObject.ParamSpec.string('text', 'text', 'text',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
+        color: GObject.ParamSpec.string('color', 'color', 'color',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, null),
+        note: GObject.ParamSpec.string('note', 'note', 'note',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, null),
+    }
+}, class EpubViewAnnotation extends GObject.Object {})
+
 var EpubViewSettings = GObject.registerClass({
     GTypeName: 'FoliateEpubViewSettings',
     Properties: {
+        'zoom-level':
+            GObject.ParamSpec.double('zoom-level', 'zoom-level', 'zoom-level',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0.1, 10, 1),
         font:
             GObject.ParamSpec.string('font', 'font', 'font',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'Serif 12'),
@@ -85,17 +106,42 @@ var EpubViewSettings = GObject.registerClass({
     }
 }, class EpubViewSettings extends GObject.Object {})
 
-var EpubView = class EpubView {
-    constructor(fileName, inputType, callback, settings, cfi, locations) {
-        this._fileName = fileName
-        this._inputType = inputType
-        this._callback = callback
-        this._settings = settings
-        this._cfi = cfi
-        this._locations = locations
+var EpubView = GObject.registerClass({
+    GTypeName: 'FoliateEpubView',
+    Signals: {
+        'book-ready': { flags: GObject.SignalFlags.RUN_FIRST },
+        'book-loading': { flags: GObject.SignalFlags.RUN_FIRST },
+        'book-error': { flags: GObject.SignalFlags.RUN_FIRST },
+        'metadata': { flags: GObject.SignalFlags.RUN_FIRST },
+        'locations-ready': { flags: GObject.SignalFlags.RUN_FIRST },
+        'relocated': { flags: GObject.SignalFlags.RUN_FIRST },
+        'find-results': { flags: GObject.SignalFlags.RUN_FIRST },
+        'selection': { flags: GObject.SignalFlags.RUN_FIRST },
+        'highlight-menu': { flags: GObject.SignalFlags.RUN_FIRST }
+    }
+}, class EpubView extends GObject.Object {
+    _init({ file, inputType, settings, annotations }) {
+        super._init()
+
+        this.file = file
+        this.inputType = inputType
+        this.settings = settings
+        this.annotations = annotations
+
+        this.metadata = null
+        this.location = null
+        this.selection = null
+
+        this.toc = new Gtk.TreeStore()
+        this.toc.set_column_types([GObject.TYPE_STRING, GObject.TYPE_STRING])
+
+        this.findResults = new Gtk.ListStore()
+        this.findResults.set_column_types(
+            [GObject.TYPE_STRING, GObject.TYPE_STRING, GObject.TYPE_STRING])
 
         this._history = []
 
+        this._contextMenu = null
         this._webView = new WebKit2.WebView({
             visible: true,
             settings: new WebKit2.Settings({
@@ -104,8 +150,6 @@ var EpubView = class EpubView {
             })
         })
         this._load()
-
-        this._contextMenu = null
         this._webView.connect('context-menu', () =>
             this._contextMenu ? this._contextMenu() : true)
 
@@ -113,32 +157,67 @@ var EpubView = class EpubView {
         contentManager.connect('script-message-received::action', (_, jsResult) => {
             const data = jsResult.get_js_value().to_string()
             const { type, payload } = JSON.parse(data)
-
             this._handleAction(type, payload)
-            this._callback(type, payload)
         })
         contentManager.register_script_message_handler('action')
 
-        this._settings.connect('notify::font', () => this._applyStyle())
-        this._settings.connect('notify::spacing', () => this._applyStyle())
-        this._settings.connect('notify::margin', () => this._applyStyle())
-        this._settings.connect('notify::use-publisher-font', () => this._applyStyle())
-        this._settings.connect('notify::justify', () => this._applyStyle())
-        this._settings.connect('notify::hyphenate', () => this._applyStyle())
-        this._settings.connect('notify::fg-color', () => this._applyStyle())
-        this._settings.connect('notify::bg-color', () => this._applyStyle())
-        this._settings.connect('notify::link-color', () => this._applyStyle())
-        this._settings.connect('notify::brightness', () => this._applyStyle())
+        this._webView.zoom_level = this.settings.zoom_level
+        this.settings.connect('notify::zoom-level', () => {
+            this._webView.zoom_level = this.settings.zoom_level
+        })
+        this.settings.connect('notify::font', () => this._applyStyle())
+        this.settings.connect('notify::spacing', () => this._applyStyle())
+        this.settings.connect('notify::margin', () => this._applyStyle())
+        this.settings.connect('notify::use-publisher-font', () => this._applyStyle())
+        this.settings.connect('notify::justify', () => this._applyStyle())
+        this.settings.connect('notify::hyphenate', () => this._applyStyle())
+        this.settings.connect('notify::fg-color', () => this._applyStyle())
+        this.settings.connect('notify::bg-color', () => this._applyStyle())
+        this.settings.connect('notify::link-color', () => this._applyStyle())
+        this.settings.connect('notify::brightness', () => this._applyStyle())
 
-        this._settings.connect('notify::enable-footnote', () =>
-            this.enableFootnote = this._settings.enable_footnote)
-        this._settings.connect('notify::enable-devtools', () =>
-            this.enableDevtools = this._settings.enable_devtools)
-        this._settings.connect('notify::allow-unsafe', () => this._load())
-        this._settings.connect('notify::layout', () => this._webView.reload())
+        this.settings.connect('notify::enable-footnote', () =>
+            this._enableFootnote = this.settings.enable_footnote)
+        this.settings.connect('notify::enable-devtools', () =>
+            this._enableDevtools = this.settings.enable_devtools)
+        this.settings.connect('notify::allow-unsafe', () => {
+            this.emit('book-loading')
+            this._load()
+        })
+        this.settings.connect('notify::layout', () => {
+            this.emit('book-loading')
+            this._webView.reload()
+        })
+
+        // add a map so we can more conveniently get annotation by cfi
+        this._annotationsMap = new Map()
+        this.annotations.connect('items-changed', (store, pos, removed, added) => {
+            if (added) {
+                const annotation = store.get_item(pos)
+                this.annotation = annotation
+                this._annotationsMap.set(annotation.cfi, annotation)
+                this._addAnnotation(annotation.cfi, annotation.color)
+                annotation.connect('notify::color', () => {
+                    this._addAnnotation(annotation.cfi, annotation.color)
+                })
+            } else if (removed) {
+                // we don't know what's been removed so have to check manually
+                const cfis = new Set()
+                const n = store.get_n_items()
+                for (let i = 0; i < n; i++) {
+                    cfis.add(store.get_item(i).cfi)
+                }
+                Array.from(this._annotationsMap.keys())
+                    .filter(cfi => !cfis.has(cfi))
+                    .forEach(cfi => {
+                        this._annotationsMap.delete(cfi)
+                        this._removeAnnotation(cfi)
+                    })
+            }
+        })
     }
     _load() {
-        const viewer = this._settings.allow_unsafe ? unsafeViewerPath : viewerPath
+        const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
         this._webView.load_uri(GLib.filename_to_uri(viewer, null))
     }
     _eval(script, discardReturn) {
@@ -161,32 +240,139 @@ var EpubView = class EpubView {
     _handleAction(type, payload) {
         switch (type) {
             case 'ready':
-                this._run(`open("${encodeURI(this._fileName)}",
-                    '${this._inputType}',
-                    ${this._cfi ? `"${this._cfi}"` : 'null'},
-                    ${layouts[this._settings.layout].renderTo},
-                    ${JSON.stringify(layouts[this._settings.layout].options)},
-                    ${this._locations || 'null'})`)
+                this._run(`open("${encodeURI(this.file)}",
+                    '${this.inputType}',
+                    ${this.cfi ? `"${this.cfi}"` : 'null'},
+                    ${layouts[this.settings.layout].renderTo},
+                    ${JSON.stringify(layouts[this.settings.layout].options)},
+                    ${this.locations || 'null'})`)
 
-                this.enableFootnote = this._settings.enable_footnote
-                this.enableDevtools = this._settings.enable_devtools
+                this._enableFootnote = this.settings.enable_footnote
+                this._enableDevtools = this.settings.enable_devtools
+                break
+            case 'book-error':
+                this.emit('book-error')
+                break
+            case 'book-ready':
+                this._get('book.package.metadata').then(metadata => {
+                    this.metadata = metadata
+                    this.emit('metadata')
+                })
+                this._get('book.navigation.toc').then(toc => {
+                    const store = this.toc
+                    store.clear()
+                    const f = (toc, iter = null) => {
+                        toc.forEach(chapter => {
+                            const newIter = store.append(iter)
+                            const label = chapter.label
+                            store.set(newIter, [0, 1], [chapter.href, label])
+                            if (chapter.subitems) f(chapter.subitems, newIter)
+                        })
+                    }
+                    f(toc)
+                })
                 break
             case 'rendition-ready':
                 this._applyStyle()
+                this.emit('book-ready')
                 break
             case 'locations-generated':
-                this._locations = payload
+                this.locations = payload
+                // falls through
+            case 'locations-ready':
+                this.emit('locations-ready')
                 break
             case 'relocated':
-                this._cfi = payload.cfi
+                this.cfi = payload.cfi
+                this.location = payload
+                this.emit('relocated')
                 break
+            case 'link-internal':
+                this.goTo(payload)
+                break
+            case 'link-external':
+                Gtk.show_uri_on_window(null, payload, Gdk.CURRENT_TIME)
+                break
+            case 'footnote':
+                break
+
+            case 'find-results': {
+                const { q, results } = payload
+                const store = this.findResults
+                store.clear()
+                const regex = new RegExp(markupEscape(q), 'ig')
+                results.forEach(({ cfi, excerpt, section }) => {
+                    const newIter = store.append()
+                    const text = markupEscape(excerpt.trim().replace(/\n/g, ' '))
+                    const markup = text.replace(regex, `<b>${regex.exec(text)[0]}</b>`)
+                    const sectionMarkup = `<span alpha="50%" size="smaller">${
+                        markupEscape(section)}</span>`
+                    store.set(newIter, [0, 1, 2], [cfi, markup, sectionMarkup])
+                })
+                this.emit('find-results')
+                break
+            }
+            case 'selection': {
+                this.selection = payload
+                this.selection.text = this.selection.text.trim().replace(/\n/g, ' ')
+                const position = this.selection.position
+
+                // position needs to be adjusted for zoom level
+                const zoomLevel = this._webView.zoom_level
+                Object.keys(position).forEach(key =>
+                    position[key] = position[key] * zoomLevel)
+
+                this.emit('selection')
+                break
+            }
+            case 'highlight-menu': {
+                this.selection = payload
+                this.annotation = this._annotationsMap.get(this.selection.cfi)
+                this.emit('highlight-menu')
+                break
+            }
         }
     }
-    get metadata() {
-        return this._get('book.package.metadata')
+    _applyStyle() {
+        const fontDesc = Pango.FontDescription.from_string(this.settings.font)
+        const fontFamily = fontDesc.get_family()
+        const fontSizePt = fontDesc.get_size() / Pango.SCALE
+        const fontSize = fontSizePt / 0.75
+        const fontWeight = fontDesc.get_weight()
+        const fontStyle = ['normal', 'italic', 'oblique'][fontDesc.get_style()]
+
+        // unfortunately, it appears that WebKitGTK doesn't support font-stretch
+        const fontStretch = [
+            'ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal',
+            'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded'
+        ][fontDesc.get_stretch()]
+
+        const webViewSettings = this._webView.get_settings()
+        webViewSettings.serif_font_family = fontFamily
+        webViewSettings.sans_serif_font_family = fontFamily
+        webViewSettings.default_font_family = fontFamily
+        webViewSettings.default_font_size = fontSize
+
+        const style = {
+            fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
+            spacing: this.settings.spacing,
+            margin: this.settings.margin,
+            usePublisherFont: this.settings.use_publisher_font,
+            justify: this.settings.justify,
+            hyphenate: this.settings.hyphenate,
+            brightness: this.settings.brightness,
+            fgColor: this.settings.fg_color,
+            bgColor: this.settings.bg_color,
+            linkColor: this.settings.link_color
+        }
+        this._run(`setStyle(${JSON.stringify(style)})`)
     }
-    get toc() {
-        return this._get('book.navigation.toc')
+    set _enableFootnote(state) {
+        this._run(`enableFootnote = ${state}`)
+    }
+    set _enableDevtools(state) {
+        this._webView.get_settings().enable_developer_extras = state
+        this._contextMenu = () => !state
     }
     prev() {
         this._run(`rendition.prev()`)
@@ -211,64 +397,16 @@ var EpubView = class EpubView {
         if (!this._history.length) return
         this.goTo(this._history.pop(), false)
     }
-    _applyStyle() {
-        const fontDesc = Pango.FontDescription.from_string(this._settings.font)
-        const fontFamily = fontDesc.get_family()
-        const fontSizePt = fontDesc.get_size() / Pango.SCALE
-        const fontSize = fontSizePt / 0.75
-        const fontWeight = fontDesc.get_weight()
-        const fontStyle = ['normal', 'italic', 'oblique'][fontDesc.get_style()]
-
-        // unfortunately, it appears that WebKitGTK doesn't support font-stretch
-        const fontStretch = [
-            'ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal',
-            'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded'
-        ][fontDesc.get_stretch()]
-
-
-        const webViewSettings = this._webView.get_settings()
-        webViewSettings.serif_font_family = fontFamily
-        webViewSettings.sans_serif_font_family = fontFamily
-        webViewSettings.default_font_family = fontFamily
-        webViewSettings.default_font_size = fontSize
-
-        const style = {
-            fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
-            spacing: this._settings.spacing,
-            margin: this._settings.margin,
-            usePublisherFont: this._settings.use_publisher_font,
-            justify: this._settings.justify,
-            hyphenate: this._settings.hyphenate,
-            brightness: this._settings.brightness,
-            fgColor: this._settings.fg_color,
-            bgColor: this._settings.bg_color,
-            linkColor: this._settings.link_color
-        }
-        this._run(`setStyle(${JSON.stringify(style)})`)
-    }
-    get zoomLevel() {
-        return this._webView.zoom_level
-    }
-    set zoomLevel(x) {
-        this._webView.zoom_level = x
-    }
-    set enableFootnote(state) {
-        this._run(`enableFootnote = ${state}`)
-    }
-    set enableDevtools(state) {
-        this._webView.get_settings().enable_developer_extras = state
-        this._contextMenu = () => !state
-    }
     clearSelection() {
         this._run('clearSelection()')
     }
     selectByCfi(cfi) {
         this._run(`selectByCfi('${cfi}')`)
     }
-    addAnnotation(cfi, color) {
+    _addAnnotation(cfi, color) {
         this._run(`addAnnotation('${cfi}', '${color}')`)
     }
-    removeAnnotation(cfi) {
+    _removeAnnotation(cfi) {
         this._run(`rendition.annotations.remove("${cfi}", 'highlight')`)
     }
     find(q, inBook = true, highlight = true) {
@@ -283,4 +421,4 @@ var EpubView = class EpubView {
     get widget() {
         return this._webView
     }
-}
+})

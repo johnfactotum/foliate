@@ -16,8 +16,10 @@
 const { GObject, Gtk, Gio, GLib, Gdk } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const { markupEscape, execCommand, recursivelyDeleteDir } = imports.utils
-const { EpubView, EpubViewSettings } = imports.epubView
+const { execCommand, recursivelyDeleteDir } = imports.utils
+const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
+
+const settings = new Gio.Settings({ schema_id: pkg.name })
 
 const mimetypes = {
     epub: 'application/epub+zip',
@@ -115,11 +117,13 @@ const makeActions = self => ({
     'win.go-next': [() => self._epub.next(), ['n']],
     'win.go-back': [() => self._epub.goBack(), ['<alt>p', '<alt>Left']],
 
-    'win.zoom-in': [() => self._applyZoomLevel(self._epub.zoomLevel + 0.1),
-        ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
-    'win.zoom-out': [() => self._applyZoomLevel(self._epub.zoomLevel - 0.1),
-        ['minus', '<ctrl>minus']],
-    'win.zoom-restore': [() => self._applyZoomLevel(1),
+    'win.zoom-in': [() =>
+        settings.set_double('zoom-level', settings.get_double('zoom-level') + 0.1),
+    ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
+    'win.zoom-out': [() =>
+        settings.set_double('zoom-level', settings.get_double('zoom-level') - 0.1),
+    ['minus', '<ctrl>minus']],
+    'win.zoom-restore': [() => settings.set_double('zoom-level', 1),
         ['1', '<ctrl>1']],
 
     'win.selection-copy': [() => Gtk.Clipboard
@@ -127,24 +131,17 @@ const makeActions = self => ({
         .set_text(self._selection.text, -1),
     ['<ctrl>c']],
     'win.selection-highlight': [async () => {
-        const { cfi, text } = self._selection
+        const { cfi, text } = self._epub.selection
         const color = 'yellow'
-        self._epub.addAnnotation(cfi, color)
-        self._selection.color = color
 
         const section = (await self._epub.getSectionFromCfi(cfi)).label
-        const annotation = new Annotation({ cfi, color, section, text, note: '' })
-        self._annotationsStore.append(annotation)
-        self._annotationsMap.set(cfi, annotation)
-
-        self._colorRadios[color].active = true
-        self._noteTextView.buffer.text = ''
-        self._showMenu(self._highlightMenu, false)
+        const annotation = new EpubViewAnnotation({ cfi, color, section, text, note: '' })
+        self._epub.annotations.append(annotation)
+        self._epub.emit('highlight-menu')
     }],
     'win.selection-unhighlight': [() => {
-        const cfi = self._selection.cfi
-        self._epub.removeAnnotation(cfi)
-        const store = self._annotationsStore
+        const cfi = self._epub.selection.cfi
+        const store = self._epub.annotations
         const n = store.get_n_items()
         for (let i = 0; i < n; i++) {
             if (store.get_item(i).cfi === cfi) {
@@ -152,15 +149,14 @@ const makeActions = self => ({
                 break
             }
         }
-        self._annotationsMap.delete(cfi)
         if (self._highlightMenu.visible) self._highlightMenu.popdown()
     }],
     'win.selection-dictionary': [() => {
-        const { language, text, position } = self._selection
+        const { language, text, position } = self._epub.selection
         self._showMenu(self._dictionaryMenu)
     }],
     'win.selection-find': [() => {
-        const { text } = self._selection
+        const { text } = self._epub.selection
         self._findEntry.text = text
         self._findEntry.emit('activate')
         self._findMenuButton.active = true
@@ -233,52 +229,28 @@ const makeActions = self => ({
         .forEach(window => window.close()), ['<ctrl>q']],
 })
 
-const makeBooleanActions = self => ({
-    'win.navbar': [state => {
-        self._navbar.visible = state
-    }, true, ['<ctrl>p']],
-})
-
 const makeStringActions = self => ({
     'win.highlight-color': [color => {
-        if (self._colorRadios[color].active && self._selection.color !== color) {
-            const cfi = self._selection.cfi
-            self._selection.color = color
-            self._epub.addAnnotation(cfi, color)
-            const annotation = self._annotationsMap.get(cfi)
+        const annotation = self._epub.annotation
+        if (self._colorRadios[color].active && color !== annotation.color)
             annotation.set_property('color', color)
-        }
     }, highlightColors[0]],
     'win.theme': [name => {
         const theme = defaultThemes[name]
         self._epubSettings.set_property('fg-color', theme.color)
         self._epubSettings.set_property('bg-color', theme.background)
         self._epubSettings.set_property('link-color', theme.link)
+        settings.set_boolean('prefer-dark-theme', theme.darkMode)
     }, '']
 })
 
-const Annotation = GObject.registerClass({
-    Properties: {
-        cfi: GObject.ParamSpec.string('cfi', 'cfi', 'cfi',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
-        section: GObject.ParamSpec.string('section', 'section', 'section',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
-        text: GObject.ParamSpec.string('text', 'text', 'text',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
-        color: GObject.ParamSpec.string('color', 'color', 'color',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, null),
-        note: GObject.ParamSpec.string('note', 'note', 'note',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, null),
-    }
-}, class Annotation extends GObject.Object {})
-
-const FoliateAnnotationRow = GObject.registerClass({
+const AnnotationRow = GObject.registerClass({
     GTypeName: 'FoliateAnnotationRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/annotationRow.ui',
     InternalChildren: [
         'annotationSection', 'annotationText', 'annotationNote'
     ]
-}, class FoliateAnnotationRow extends Gtk.ListBoxRow {
+}, class AnnotationRow extends Gtk.ListBoxRow {
     _init(annotation) {
         super._init()
         this.annotation = annotation
@@ -339,58 +311,12 @@ var FoliateWindow = GObject.registerClass({
     _init(application) {
         super._init({ application })
 
-        this._epubSettings = new EpubViewSettings()
-        const settings = new Gio.Settings({ schema_id: pkg.name })
-
-        // bind settings to EpubView
-        settings.bind('font', this._epubSettings, 'font', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('spacing', this._epubSettings, 'spacing', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('margin', this._epubSettings, 'margin', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('use-publisher-font', this._epubSettings, 'use-publisher-font', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('justify', this._epubSettings, 'justify', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('hyphenate', this._epubSettings, 'hyphenate', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('fg-color', this._epubSettings, 'fg-color', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('bg-color', this._epubSettings, 'bg-color', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('link-color', this._epubSettings, 'link-color', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('brightness', this._epubSettings, 'brightness', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('enable-footnote', this._epubSettings, 'enable-footnote', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('enable-devtools', this._epubSettings, 'enable-devtools', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('allow-unsafe', this._epubSettings, 'allow-unsafe', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('layout', this._epubSettings, 'layout', Gio.SettingsBindFlags.DEFAULT)
-
-        // bind settings to UI
-        settings.bind('font', this._fontButton, 'font', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('spacing', this._spacingButton, 'value', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('margin', this._marginButton, 'value', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('brightness', this._brightnessScale.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT)
-        this.add_action(settings.create_action('use-publisher-font'))
-        this.add_action(settings.create_action('justify'))
-        this.add_action(settings.create_action('hyphenate'))
-        this.add_action(settings.create_action('enable-footnote'))
-        this.add_action(settings.create_action('enable-devtools'))
-        this.add_action(settings.create_action('allow-unsafe'))
-        this.add_action(settings.create_action('layout'))
-
-        this._annotationsMap = new Map()
-        this._annotationsStore = new Gio.ListStore()
-        this._annotationsListBox.bind_model(this._annotationsStore, annotation =>
-            new FoliateAnnotationRow(annotation))
+        const column = this._findTreeView.get_column(0)
+        column.get_area().orientation = Gtk.Orientation.VERTICAL
 
         this._annotationsListBox.set_header_func((row) => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
-        this._annotationsListBox.connect('row-activated', (_, row) => {
-            this._epub.goTo(row.annotation.cfi)
-            this._sideMenu.popdown()
-        })
-
-        this._noteTextView.buffer.connect('changed', () => {
-            const annotation = this._annotationsMap.get(this._selection.cfi)
-            annotation.set_property('note', this._noteTextView.buffer.text)
-        })
-
-        const column = this._findTreeView.get_column(0)
-        column.get_area().orientation = Gtk.Orientation.VERTICAL
 
         this._colorRadios = {}
         highlightColors.map(color => {
@@ -428,17 +354,55 @@ var FoliateWindow = GObject.registerClass({
                 text: theme
             }), false, true, 0))
 
+        this._noteTextView.buffer.connect('changed', () => {
+            const annotation = this._epub.annotation
+            annotation.set_property('note', this._noteTextView.buffer.text)
+        })
+
+        this._epubSettings = new EpubViewSettings()
+
+        // bind settings to EpubView
+        settings.bind('zoom-level', this._epubSettings, 'zoom-level', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('font', this._epubSettings, 'font', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('spacing', this._epubSettings, 'spacing', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('margin', this._epubSettings, 'margin', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('use-publisher-font', this._epubSettings, 'use-publisher-font', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('justify', this._epubSettings, 'justify', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('hyphenate', this._epubSettings, 'hyphenate', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('fg-color', this._epubSettings, 'fg-color', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('bg-color', this._epubSettings, 'bg-color', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('link-color', this._epubSettings, 'link-color', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('brightness', this._epubSettings, 'brightness', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('enable-footnote', this._epubSettings, 'enable-footnote', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('enable-devtools', this._epubSettings, 'enable-devtools', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('allow-unsafe', this._epubSettings, 'allow-unsafe', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('layout', this._epubSettings, 'layout', Gio.SettingsBindFlags.DEFAULT)
+
+        // bind settings to UI
+        settings.bind('font', this._fontButton, 'font', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('spacing', this._spacingButton, 'value', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('margin', this._marginButton, 'value', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('brightness', this._brightnessScale.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT)
+        this.add_action(settings.create_action('use-publisher-font'))
+        this.add_action(settings.create_action('justify'))
+        this.add_action(settings.create_action('hyphenate'))
+        this.add_action(settings.create_action('enable-footnote'))
+        this.add_action(settings.create_action('enable-devtools'))
+        this.add_action(settings.create_action('allow-unsafe'))
+        this.add_action(settings.create_action('layout'))
+
+        settings.bind('show-navbar', this._navbar, 'visible', Gio.SettingsBindFlags.DEFAULT)
+        this.add_action(settings.create_action('show-navbar'))
+        this.application.set_accels_for_action('win.show-navbar', ['<ctrl>p'])
+
+        settings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
+            'gtk-application-prefer-dark-theme', Gio.SettingsBindFlags.DEFAULT)
+
         const actions = makeActions(this)
         Object.keys(actions).forEach(action => {
             const [context, name] = action.split('.')
             const [func, accels] = actions[action]
             this._addAction(context, name, func, accels)
-        })
-        const booleanActions = makeBooleanActions(this)
-        Object.keys(booleanActions).forEach(action => {
-            const [context, name] = action.split('.')
-            const [func, defaultValue, accels] = booleanActions[action]
-            this._addBooleanAction(context, name, func, defaultValue, accels)
         })
         const stringActions = makeStringActions(this)
         Object.keys(stringActions).forEach(action => {
@@ -447,14 +411,15 @@ var FoliateWindow = GObject.registerClass({
             this._addStringAction(context, name, func, defaultValue)
         })
 
-        ;[
-            'zoom-in',
-            'zoom-out',
-            'zoom-restore',
-            'go-prev',
-            'go-next',
-            'go-back'
-        ].forEach(action => this.lookup_action(action).enabled = false)
+        const updateZoom = () => {
+            const zoomLevel = settings.get_double('zoom-level')
+            this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
+            this.lookup_action('zoom-restore').enabled = zoomLevel !== 1
+            this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
+            this.lookup_action('zoom-in').enabled = zoomLevel < 4
+        }
+        updateZoom()
+        settings.connect('changed::zoom-level', () => updateZoom())
     }
     _addAction(context, name, func, accels, state, useParameter) {
         const action = new Gio.SimpleAction({
@@ -466,14 +431,6 @@ var FoliateWindow = GObject.registerClass({
         ;(context === 'app' ? this.application : this).add_action(action)
         if (accels)
             this.application.set_accels_for_action(`${context}.${name}`, accels)
-    }
-    _addBooleanAction(context, name, func, defaultValue = false, accels) {
-        const state = new GLib.Variant('b', defaultValue)
-        this._addAction(context, name, action => {
-            const state = action.get_state().get_boolean()
-            action.set_state(new GLib.Variant('b', !state))
-            func(!state)
-        }, accels, state)
     }
     _addStringAction(context, name, func, defaultValue) {
         const state = new GLib.Variant('s', defaultValue)
@@ -499,9 +456,6 @@ var FoliateWindow = GObject.registerClass({
     }
     _onDestroy() {
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
-    }
-    get _isLoading() {
-        return !this._mainBox.opacity
     }
     set _isLoading(state) {
         this._mainBox.opacity = state ? 0 : 1
@@ -533,174 +487,109 @@ var FoliateWindow = GObject.registerClass({
         }
 
         if (this._epub) this._epub.widget.destroy()
-        this._epub = new EpubView(fileName, inputType, this._onAction.bind(this), this._epubSettings)
+        this._epub = new EpubView({
+            file: fileName,
+            inputType: inputType,
+            settings: this._epubSettings,
+            annotations: new Gio.ListStore
+        })
         this._contentBox.pack_start(this._epub.widget, true, true, 0)
-    }
-    _onAction(type, payload) {
-        switch (type) {
-            case 'book-ready':
-                this._epub.metadata.then(metadata => {
-                    this._headerBar.title = metadata.title
-                })
-                this._epub.toc.then(toc => {
-                    const store = this._tocTreeView.model
-                    store.clear()
-                    const f = (toc, iter = null) => {
-                        toc.forEach(chapter => {
-                            const newIter = store.append(iter)
-                            const label = chapter.label
-                            store.set(newIter, [0, 1], [chapter.href, label])
-                            if (chapter.subitems) f(chapter.subitems, newIter)
-                        })
-                    }
-                    f(toc)
-                })
-                break
 
-            case 'locations-generated':
-                // falls through
-            case 'locations-ready':
-                this._locationStack.visible_child_name = 'loaded'
-                break
+        this._epub.connect('book-ready', () => this._isLoading = false)
+        this._epub.connect('book-loading', () => this._isLoading = true)
+        this._epub.connect('book-error', () =>
+            this._mainOverlay.visible_child_name = 'error')
+        this._epub.connect('metadata', () =>
+            this.title = this._epub.metadata.title)
+        this._epub.connect('locations-ready', () =>
+            this._locationStack.visible_child_name = 'loaded')
+        this._epub.connect('relocated', () => {
+            const {
+                atStart, atEnd, cfi, sectionHref,
+                section, sectionTotal, location, locationTotal, percentage,
+                timeInBook, timeInChapter
+            } = this._epub.location
+            this.lookup_action('go-prev').enabled = !atStart
+            this.lookup_action('go-next').enabled = !atEnd
 
-            case 'rendition-ready':
-                [
-                    'zoom-in',
-                    'zoom-out',
-                    'zoom-restore'
-                ].forEach(action => this.lookup_action(action).enabled = true)
-                this._applyZoomLevel(1)
-                if (this._isLoading) this._isLoading = false
-                break
-            case 'book-error':
-                this._mainOverlay.visible_child_name = 'error'
-                break
+            this._locationScale.set_value(percentage)
 
-            case 'relocated': {
-                const {
-                    atStart, atEnd, cfi, sectionHref,
-                    section, sectionTotal, location, locationTotal, percentage,
-                    timeInBook, timeInChapter
-                } = payload
-                this.lookup_action('go-prev').enabled = !atStart
-                this.lookup_action('go-next').enabled = !atEnd
+            const progress = Math.round(percentage * 100)
+            this._locationLabel.label = progress + '%'
 
-                this._locationScale.set_value(percentage)
+            const makeTimeLabel = n => n < 60
+                ? ngettext('%d minute', '%d minutes').format(Math.round(n))
+                : ngettext('%d hour', '%d hours').format(Math.round(n / 60))
 
-                const progress = Math.round(percentage * 100)
-                this._locationLabel.label = progress + '%'
+            this._timeInBook.label = makeTimeLabel(timeInBook)
+            this._timeInChapter.label = makeTimeLabel(timeInChapter)
+            this._sectionEntry.text = (section + 1).toString()
+            this._locationEntry.text = (location + 1).toString()
+            this._cfiEntry.text = cfi
+            this._sectionTotal.label = _('of %d').format(sectionTotal)
+            this._locationTotal.label = _('of %d').format(locationTotal + 1)
 
-                const makeTimeLabel = n => n < 60
-                    ? ngettext('%d minute', '%d minutes').format(Math.round(n))
-                    : ngettext('%d hour', '%d hours').format(Math.round(n / 60))
-
-                this._timeInBook.label = makeTimeLabel(timeInBook)
-                this._timeInChapter.label = makeTimeLabel(timeInChapter)
-                this._sectionEntry.text = (section + 1).toString()
-                this._locationEntry.text = (location + 1).toString()
-                this._cfiEntry.text = cfi
-                this._sectionTotal.label = _('of %d').format(sectionTotal)
-                this._locationTotal.label = _('of %d').format(locationTotal + 1)
-
-                // select toc item
-                const view = this._tocTreeView
-                const store = view.model
-                const selection = view.get_selection()
-                let [, iter] = store.get_iter_first()
-                loop:
-                while (true) {
-                    const value = store.get_value(iter, 0)
-                    if (value === sectionHref) {
-                        const path = store.get_path(iter)
-                        view.expand_to_path(path)
-                        view.scroll_to_cell(path, null, true, 0.5, 0)
-                        selection.select_iter(iter)
-                        break
-                    }
-                    const [hasChild, childIter] = store.iter_children(iter)
-                    if (hasChild) iter = childIter
-                    else {
-                        while (true) {
-                            const [hasParent, parentIter] = store.iter_parent(iter)
-                            if (!store.iter_next(iter)) {
-                                if (hasParent) iter = parentIter
-                                else break loop
-                            } else break
-                        }
-                    }
+            // select toc item
+            const view = this._tocTreeView
+            const store = view.model
+            const selection = view.get_selection()
+            let iter = store.get_iter_first()[1]
+            loop:
+            while (true) {
+                const value = store.get_value(iter, 0)
+                if (value === sectionHref) {
+                    const path = store.get_path(iter)
+                    view.expand_to_path(path)
+                    view.scroll_to_cell(path, null, true, 0.5, 0)
+                    selection.select_iter(iter)
+                    break
                 }
-                break
-            }
-            case 'can-go-back':
-                this.lookup_action('go-back').enabled = payload
-                break
-            case 'link-internal':
-                this._epub.goTo(payload)
-                break
-            case 'link-external':
-                Gtk.show_uri_on_window(null, payload, Gdk.CURRENT_TIME)
-                break
-            case 'footnote': {
-                const { footnote, link, position } = payload
-                print(footnote)
-                break
-            }
-
-            case 'find-results': {
-                const { q, results } = payload
-                const store = this._findTreeView.model
-                store.clear()
-                if (!results.length)
-                    this._findEntry.get_style_context().add_class('error')
+                const [hasChild, childIter] = store.iter_children(iter)
+                if (hasChild) iter = childIter
                 else {
-                    const regex = new RegExp(markupEscape(q), 'ig')
-                    results.forEach(({ cfi, excerpt, section }) => {
-                        const newIter = store.append()
-                        const text = markupEscape(excerpt.trim().replace(/\n/g, ' '))
-                        const markup = text.replace(regex, `<b>${regex.exec(text)[0]}</b>`)
-                        const sectionMarkup = `<span alpha="50%" size="smaller">${
-                            markupEscape(section)}</span>`
-                        store.set(newIter, [0, 1, 2], [cfi, markup, sectionMarkup])
-                    })
-                    this._findScrolledWindow.show()
+                    while (true) {
+                        const [hasParent, parentIter] = store.iter_parent(iter)
+                        if (!store.iter_next(iter)) {
+                            if (hasParent) iter = parentIter
+                            else break loop
+                        } else break
+                    }
                 }
-                break
             }
+        })
+        this._epub.connect('find-results', () => {
+            if (!this._epub.findResults.get_iter_first()[0])
+                this._findEntry.get_style_context().add_class('error')
+            this._findScrolledWindow.show()
+        })
+        this._epub.connect('selection', () => {
+            this._showSelectionMenu()
+        })
+        this._epub.connect('highlight-menu', () => {
+            const annotation = this._epub.annotation
+            this._colorRadios[annotation.color].active = true
+            this._noteTextView.buffer.text = annotation.note
+            this._showMenu(this._highlightMenu, false)
+        })
 
-            case 'selection': {
-                this._selection = payload
-                this._selection.text = this._selection.text.trim().replace(/\n/g, ' ')
-                const position = this._selection.position
+        this._tocTreeView.model = this._epub.toc
+        this._findTreeView.model = this._epub.findResults
 
-                // position needs to be adjusted for zoom level
-                const zoomLevel = this._epub.zoomLevel
-                Object.keys(position).forEach(key =>
-                    position[key] = position[key] * zoomLevel)
-
-                if (this._selection.text.split(' ').length === 1)
-                    this._showMenu(this._selectionMenu)
-                else
-                    this._showMenu(this._selectionMenu)
-                break
-            }
-            case 'highlight-menu': {
-                this._selection = payload
-                const annotation = this._annotationsMap.get(this._selection.cfi)
-                this._colorRadios[annotation.color].active = true
-                this._noteTextView.buffer.text = annotation.note
-                this._showMenu(this._highlightMenu, false)
-                break
-            }
-        }
+        this._annotationsListBox.bind_model(this._epub.annotations, annotation =>
+            new AnnotationRow(annotation))
+        this._annotationsListBox.connect('row-activated', (_, row) => {
+            this._epub.goTo(row.annotation.cfi)
+            this._sideMenu.popdown()
+        })
     }
     _showSelectionMenu() {
         this._showMenu(this._selectionMenu)
     }
     _showMenu(popover, select = true) {
         popover.relative_to = this._epub.widget
-        setPopoverPosition(popover, this._selection.position, this, 200)
+        setPopoverPosition(popover, this._epub.selection.position, this, 200)
         popover.popup()
-        if (select) this._epub.selectByCfi(this._selection.cfi)
+        if (select) this._epub.selectByCfi(this._epub.selection.cfi)
         else this._clearSelection()
     }
     _clearSelection() {
@@ -747,11 +636,5 @@ var FoliateWindow = GObject.registerClass({
     _onlocationScaleChanged() {
         const value = this._locationScale.get_value()
         this._epub.goToPercentage(value)
-    }
-    _applyZoomLevel(zoomLevel) {
-        this._epub.zoomLevel = zoomLevel
-        this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
-        this.lookup_action('zoom-restore').enabled = zoomLevel !== 1
-        this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
     }
 })

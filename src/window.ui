@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkTreeStore" id="tocTreeStore">
-    <columns>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="findListStore">
-    <columns>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkAdjustment" id="spacingAdjustment">
     <property name="lower">1</property>
     <property name="upper">3</property>
@@ -459,7 +446,6 @@
                         <property name="visible">True</property>
                         <property name="headers-visible">False</property>
                         <property name="activate-on-single-click">True</property>
-                        <property name="model">tocTreeStore</property>
                         <property name="tooltip-column">1</property>
                         <signal name="row-activated" handler="_onTocRowActivated"/>
                         <child>
@@ -552,7 +538,6 @@
                 <property name="headers-visible">False</property>
                 <property name="activate-on-single-click">True</property>
                 <property name="enable-grid-lines">horizontal</property>
-                <property name="model">findListStore</property>
                 <signal name="row-activated" handler="_onFindRowActivated"/>
                 <child>
                   <object class="GtkTreeViewColumn">
@@ -793,7 +778,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.navbar</property>
+            <property name="action_name">win.show-navbar</property>
             <property name="text" translatable="yes">Show navigation bar</property>
           </object>
         </child>
@@ -1006,6 +991,7 @@
     <child type="titlebar">
       <object class="GtkHeaderBar" id="headerBar">
         <property name="visible">True</property>
+        <property name="title" translatable="yes">Foliate</property>
         <property name="show_close_button">True</property>
         <child>
           <object class="GtkMenuButton" id="sideMenuButton">

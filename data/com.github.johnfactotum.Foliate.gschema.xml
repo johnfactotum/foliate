@@ -19,10 +19,15 @@
       <summary>Show navigation bar</summary>
       <description>If true, show the navigation bar</description>
     </key>
-    <key name="use-publisher-font" type="b">
+    <key name="prefer-dark-theme" type="b">
       <default>false</default>
-      <summary>Use publisher font</summary>
-      <description>If true, custom font is disabled</description>
+      <summary>Prefer dark GTK theme</summary>
+      <description>If true, the dark variant of a GTK theme, if available, will be used</description>
+    </key>
+    <key name="zoom-level" type="d">
+      <default>1</default>
+      <summary>Zoom level</summary>
+      <description>Zoom level</description>
     </key>
     <key name="font" type="s">
       <default>'Serif 12'</default>
@@ -38,6 +43,11 @@
       <default>2.5</default>
       <summary>Margin</summary>
       <description>Page margin in percentage</description>
+    </key>
+    <key name="use-publisher-font" type="b">
+      <default>false</default>
+      <summary>Use publisher font</summary>
+      <description>If true, custom font is disabled</description>
     </key>
     <key name="justify" type="b">
       <default>true</default>
