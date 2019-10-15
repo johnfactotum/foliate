@@ -1,5 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="foliate">
-	<schema id="com.github.johnfactotum.Foliate" path="/com/github/johnfactotum/Foliate/">
-	</schema>
+  <enum id="com.github.johnfactotum.Foliate.Layout">
+      <value nick="auto" value="0"/>
+      <value nick="single" value="1"/>
+      <value nick="scrolled" value="2"/>
+      <value nick="continuous" value="3"/>
+  </enum>
+  <schema id="com.github.johnfactotum.Foliate" path="/com/github/johnfactotum/Foliate/">
+    <child schema="com.github.johnfactotum.Foliate.window-state" name="window-state"/>
+    <child schema="com.github.johnfactotum.Foliate.preferences" name="preferences"/>
+    <key name="restore-last-file" type="b">
+      <default>true</default>
+      <summary>Restore last file opened</summary>
+      <description>Whether to automatically restore the last file</description>
+    </key>
+    <key name="show-navbar" type="b">
+      <default>true</default>
+      <summary>Show navigation bar</summary>
+      <description>If true, show the navigation bar</description>
+    </key>
+    <key name="use-publisher-font" type="b">
+      <default>false</default>
+      <summary>Use publisher font</summary>
+      <description>If true, custom font is disabled</description>
+    </key>
+    <key name="font" type="s">
+      <default>'Serif 12'</default>
+      <summary>Font</summary>
+      <description>Font</description>
+    </key>
+    <key name="spacing" type="d">
+      <default>1.5</default>
+      <summary>Spacing</summary>
+      <description>Line-height</description>
+    </key>
+    <key name="margin" type="d">
+      <default>2.5</default>
+      <summary>Margin</summary>
+      <description>Page margin in percentage</description>
+    </key>
+    <key name="justify" type="b">
+      <default>true</default>
+      <summary>Justify text</summary>
+      <description>If true, text will be justified</description>
+    </key>
+    <key name="hyphenate" type="b">
+      <default>true</default>
+      <summary>Hyphenation</summary>
+      <description>If true, auto-hyphenation is enabled</description>
+    </key>
+    <key name="brightness" type="d">
+      <default>1</default>
+      <summary>Brightness</summary>
+      <description>A value under 1 darkens the page, while a value over 1 brightens it. A value of 0 will make the page completely black, while a value of 1 leaves the brightness unchanged</description>
+    </key>
+    <key name="fg-color" type="s">
+      <default>'black'</default>
+      <summary>Foreground color</summary>
+      <description>Text color</description>
+    </key>
+    <key name="bg-color" type="s">
+      <default>'white'</default>
+      <summary>Background color</summary>
+      <description>Background color</description>
+    </key>
+    <key name="link-color" type="s">
+      <default>'link'</default>
+      <summary>Link color</summary>
+      <description>Link color</description>
+    </key>
+    <key name="enable-footnote" type="b">
+      <default>true</default>
+      <summary>Footnote preview</summary>
+      <description>If true, will attempt to display footnotes in a popover</description>
+    </key>
+    <key name="allow-unsafe" type="b">
+      <default>false</default>
+      <summary>Allow unsafe content</summary>
+      <description>If true, Content Security Policy is disabled, which will allow JavaScript and external resources to load</description>
+    </key>
+    <key name="enable-devtools" type="b">
+      <default>false</default>
+      <summary>Enable developer tools</summary>
+      <description>If true, developer tools are enabled</description>
+    </key>
+    <key name="layout" enum="com.github.johnfactotum.Foliate.Layout">
+      <default>'auto'</default>
+      <summary>Layout</summary>
+      <description>Page layout</description>
+    </key>
+  </schema>
+  <schema id="com.github.johnfactotum.Foliate.window-state"
+    path="/com/github/johnfactotum/Foliate/window-state/">
+    <key name="width" type="i">
+      <default>900</default>
+      <summary>Window width</summary>
+      <description>Width of the window</description>
+    </key>
+    <key name="height" type="i">
+      <default>700</default>
+      <summary>Window height</summary>
+      <description>Height of the window</description>
+    </key>
+    <key name="maximized" type="b">
+      <default>false</default>
+      <summary>Maximized</summary>
+      <description>Whether the window is maximized</description>
+    </key>
+    <key name="fullscreen" type="b">
+      <default>false</default>
+      <summary>Fullscreen</summary>
+      <description>Whether the window is fullscreen</description>
+    </key>
+    <key name="last-file" type="s">
+      <default>''</default>
+      <summary>Last file opened</summary>
+      <description>Last file opened</description>
+    </key>
+  </schema>
 </schemalist>

@@ -13,13 +13,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gtk, Gio, GLib, Gdk, Pango } = imports.gi
+const { GObject, Gtk, Gio, GLib, Gdk } = imports.gi
 const ngettext = imports.gettext.ngettext
 
 const { markupEscape, execCommand, recursivelyDeleteDir } = imports.utils
-const { EpubView } = imports.epubView
-
-const settings = new Gio.Settings({ schema_id: pkg.name })
+const { EpubView, EpubViewSettings } = imports.epubView
 
 const mimetypes = {
     epub: 'application/epub+zip',
@@ -239,15 +237,6 @@ const makeBooleanActions = self => ({
     'win.navbar': [state => {
         self._navbar.visible = state
     }, true, ['<ctrl>p']],
-    'win.publisher-font': [() => self._onStyleChange(), false],
-    'win.justify':  [() => self._onStyleChange(), true],
-    'win.hyphenate':  [() => self._onStyleChange(), true],
-    'win.footnote':  [state => self._epub.footnote = state, false],
-    'win.unsafe': [state => {
-        self._isLoading = true
-        self._epub.unsafe = state
-    }, false],
-    'win.devtools': [state => self._epub.devtools = state, false]
 })
 
 const makeStringActions = self => ({
@@ -260,11 +249,12 @@ const makeStringActions = self => ({
             annotation.set_property('color', color)
         }
     }, highlightColors[0]],
-    'win.theme': [() => self._onStyleChange(), 'Sepia'],
-    'win.layout': [layout => {
-        self._isLoading = true
-        self._epub.layout = layout
-    }, 'auto']
+    'win.theme': [name => {
+        const theme = defaultThemes[name]
+        self._epubSettings.set_property('fg-color', theme.color)
+        self._epubSettings.set_property('bg-color', theme.background)
+        self._epubSettings.set_property('link-color', theme.link)
+    }, '']
 })
 
 const Annotation = GObject.registerClass({
@@ -335,7 +325,7 @@ var FoliateWindow = GObject.registerClass({
 
         'mainMenuButton',
         'zoomRestoreButton', 'fullscreenButton', 'brightnessScale',
-        'fontButton', 'spacingButton', 'marginsButton', 'themeBox',
+        'fontButton', 'spacingButton', 'marginButton', 'themeBox',
 
         'navbar', 'locationStack', 'locationLabel', 'locationScale',
         'timeInBook', 'timeInChapter',
@@ -348,6 +338,38 @@ var FoliateWindow = GObject.registerClass({
 }, class FoliateWindow extends Gtk.ApplicationWindow {
     _init(application) {
         super._init({ application })
+
+        this._epubSettings = new EpubViewSettings()
+        const settings = new Gio.Settings({ schema_id: pkg.name })
+
+        // bind settings to EpubView
+        settings.bind('font', this._epubSettings, 'font', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('spacing', this._epubSettings, 'spacing', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('margin', this._epubSettings, 'margin', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('use-publisher-font', this._epubSettings, 'use-publisher-font', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('justify', this._epubSettings, 'justify', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('hyphenate', this._epubSettings, 'hyphenate', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('fg-color', this._epubSettings, 'fg-color', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('bg-color', this._epubSettings, 'bg-color', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('link-color', this._epubSettings, 'link-color', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('brightness', this._epubSettings, 'brightness', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('enable-footnote', this._epubSettings, 'enable-footnote', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('enable-devtools', this._epubSettings, 'enable-devtools', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('allow-unsafe', this._epubSettings, 'allow-unsafe', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('layout', this._epubSettings, 'layout', Gio.SettingsBindFlags.DEFAULT)
+
+        // bind settings to UI
+        settings.bind('font', this._fontButton, 'font', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('spacing', this._spacingButton, 'value', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('margin', this._marginButton, 'value', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('brightness', this._brightnessScale.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT)
+        this.add_action(settings.create_action('use-publisher-font'))
+        this.add_action(settings.create_action('justify'))
+        this.add_action(settings.create_action('hyphenate'))
+        this.add_action(settings.create_action('enable-footnote'))
+        this.add_action(settings.create_action('enable-devtools'))
+        this.add_action(settings.create_action('allow-unsafe'))
+        this.add_action(settings.create_action('layout'))
 
         this._annotationsMap = new Map()
         this._annotationsStore = new Gio.ListStore()
@@ -511,7 +533,7 @@ var FoliateWindow = GObject.registerClass({
         }
 
         if (this._epub) this._epub.widget.destroy()
-        this._epub = new EpubView(fileName, inputType, this._onAction.bind(this))
+        this._epub = new EpubView(fileName, inputType, this._onAction.bind(this), this._epubSettings)
         this._contentBox.pack_start(this._epub.widget, true, true, 0)
     }
     _onAction(type, payload) {
@@ -548,7 +570,6 @@ var FoliateWindow = GObject.registerClass({
                     'zoom-restore'
                 ].forEach(action => this.lookup_action(action).enabled = true)
                 this._applyZoomLevel(1)
-                this._onStyleChange()
                 if (this._isLoading) this._isLoading = false
                 break
             case 'book-error':
@@ -732,35 +753,5 @@ var FoliateWindow = GObject.registerClass({
         this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
         this.lookup_action('zoom-restore').enabled = zoomLevel !== 1
         this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
-    }
-    _onStyleChange() {
-        const themeName = this.lookup_action('theme').state.get_string()[0]
-        const theme = defaultThemes[themeName]
-        const { color, background, link, invert, darkMode } = theme
-        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = darkMode
-
-        const fontDesc = this._fontButton.font_desc
-        const fontFamily = fontDesc.get_family()
-        const fontSizePt = fontDesc.get_size() / Pango.SCALE
-        const fontSize = fontSizePt / 0.75
-        const fontWeight = fontDesc.get_weight()
-        const fontStyle = ['normal', 'italic', 'oblique'][fontDesc.get_style()]
-
-        // unfortunately, it appears that WebKitGTK doesn't support font-stretch
-        const fontStretch = [
-            'ultra-condensed', 'extra-condensed', 'condensed', 'semi-condensed', 'normal',
-            'semi-expanded', 'expanded', 'extra-expanded', 'ultra-expanded'
-        ][fontDesc.get_stretch()]
-
-        this._epub.setStyle({
-            color, background, link, invert,
-            fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
-            brightness: this._brightnessScale.get_value(),
-            spacing: this._spacingButton.value,
-            margins: this._marginsButton.value,
-            publisherFont: this.lookup_action('publisher-font').state.get_boolean(),
-            hyphenate: this.lookup_action('hyphenate').state.get_boolean(),
-            justify: this.lookup_action('justify').state.get_boolean()
-        })
     }
 })

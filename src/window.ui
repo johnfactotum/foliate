@@ -20,7 +20,7 @@
     <property name="page_increment">0.1</property>
     <property name="value">1.5</property>
   </object>
-  <object class="GtkAdjustment" id="marginsAdjustment">
+  <object class="GtkAdjustment" id="marginAdjustment">
     <property name="lower">0</property>
     <property name="upper">40</property>
     <property name="step_increment">2.5</property>
@@ -672,7 +672,6 @@
                 <property name="draw-value">False</property>
                 <property name="hexpand">True</property>
                 <property name="adjustment">brightnessAdjustment</property>
-                <signal name="value-changed" handler="_onStyleChange"/>
                 <marks>
                   <mark value="1"/>
                 </marks>
@@ -710,7 +709,6 @@
                 <property name="font">Sans 12</property>
                 <property name="use_font">True</property>
                 <property name="show_style">False</property>
-                <signal name="font-set" handler="_onStyleChange"/>
               </object>
             </child>
           </object>
@@ -734,7 +732,6 @@
                 <property name="visible">True</property>
                 <property name="digits">2</property>
                 <property name="adjustment">spacingAdjustment</property>
-                <signal name="value-changed" handler="_onStyleChange"/>
               </object>
             </child>
           </object>
@@ -754,11 +751,10 @@
               </object>
             </child>
             <child>
-              <object class="GtkSpinButton" id="marginsButton">
+              <object class="GtkSpinButton" id="marginButton">
                 <property name="visible">True</property>
                 <property name="digits">1</property>
-                <property name="adjustment">marginsAdjustment</property>
-                <signal name="value-changed" handler="_onStyleChange"/>
+                <property name="adjustment">marginAdjustment</property>
               </object>
             </child>
           </object>
@@ -946,7 +942,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.publisher-font</property>
+            <property name="action_name">win.use-publisher-font</property>
             <property name="text" translatable="yes">Use Publisher Font</property>
           </object>
         </child>
@@ -967,7 +963,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.footnote</property>
+            <property name="action_name">win.enable-footnote</property>
             <property name="text" translatable="yes">Footnote Preview</property>
           </object>
         </child>
@@ -979,7 +975,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.unsafe</property>
+            <property name="action_name">win.allow-unsafe</property>
             <property name="tooltip_text" translatable="yes">Allow JavaScript and external resources</property>
             <property name="text" translatable="yes">Allow Unsafe Content</property>
           </object>
@@ -992,7 +988,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.devtools</property>
+            <property name="action_name">win.enable-devtools</property>
             <property name="text" translatable="yes">Enable Developer Tools</property>
           </object>
         </child>

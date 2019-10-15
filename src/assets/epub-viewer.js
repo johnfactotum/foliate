@@ -25,7 +25,7 @@ let rendition
 let cfiToc
 let sectionMarks
 let lineHeight = 24
-let footnoteEnabled = false
+let enableFootnote = false
 
 class Find {
     constructor() {
@@ -136,28 +136,28 @@ const redrawAnnotations = () =>
 
 const setStyle = style => {
     const {
-        brightness, color, background, link, invert,
+        brightness, fgColor, bgColor, linkColor, invert,
         fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
-        spacing, margins,
-        publisherFont, hyphenate, justify
+        spacing, margin,
+        usePublisherFont, hyphenate, justify
     } = style
 
     lineHeight = fontSize * spacing
 
-    document.body.style.margin = `0 ${margins}%`
+    document.body.style.margin = `0 ${margin}%`
     rendition.resize()
 
     document.documentElement.style.filter =
         (invert ? 'invert(1) hue-rotate(180deg) ' : '')
         + `brightness(${brightness})`
-    document.body.style.color = color
-    document.body.style.background = background
+    document.body.style.color = fgColor
+    document.body.style.background = bgColor
 
-    const themeName = publisherFont ? 'publisher-font' : 'custom-font'
+    const themeName = usePublisherFont ? 'publisher-font' : 'custom-font'
     const stylesheet = {
         [`.${themeName}`]: {
-            'color': color,
-            'background': background,
+            'color': fgColor,
+            'background': bgColor,
             'font-size': `${fontSize}px !important`,
             'line-height': `${spacing} !important`,
             '-webkit-hyphens': hyphenate ? 'auto' : 'manual',
@@ -168,13 +168,13 @@ const setStyle = style => {
         [`.${themeName} code, .${themeName} pre`]: {
             '-webkit-hyphens': 'none'
         },
-        [`.${themeName} a:link`]: { color: link },
+        [`.${themeName} a:link`]: { color: linkColor },
         p: {
             'text-align': justify ? 'justify' : 'inherit'
         }
     }
 
-    if (!publisherFont) {
+    if (!usePublisherFont) {
         // set custom font
         const bodyStyle = stylesheet[`.${themeName}`]
         bodyStyle['font-family'] = `"${fontFamily}" !important`
@@ -339,7 +339,7 @@ const setupRendition = () => {
 
             if (isExternalURL(href))
                 dispatch({ type: 'link-external', payload: href })
-            else if (type !== 'noteref' && !footnoteEnabled) followLink()
+            else if (type !== 'noteref' && !enableFootnote) followLink()
             else {
                 const item = book.spine.get(pageHref)
                 if (item) await item.load(book.load.bind(book))
