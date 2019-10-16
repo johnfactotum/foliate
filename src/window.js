@@ -303,13 +303,84 @@ var FoliateWindow = GObject.registerClass({
     _init(application) {
         super._init({ application })
 
+        this._buildUI()
+
+        this._epubSettings = new EpubViewSettings()
+
+        // bind settings to EpubView settings
+        const defaultFlag = Gio.SettingsBindFlags.DEFAULT
+        settings.bind('zoom-level', this._epubSettings, 'zoom-level', defaultFlag)
+        settings.bind('font', this._epubSettings, 'font', defaultFlag)
+        settings.bind('spacing', this._epubSettings, 'spacing', defaultFlag)
+        settings.bind('margin', this._epubSettings, 'margin', defaultFlag)
+        settings.bind('use-publisher-font', this._epubSettings, 'use-publisher-font', defaultFlag)
+        settings.bind('justify', this._epubSettings, 'justify', defaultFlag)
+        settings.bind('hyphenate', this._epubSettings, 'hyphenate', defaultFlag)
+        settings.bind('fg-color', this._epubSettings, 'fg-color', defaultFlag)
+        settings.bind('bg-color', this._epubSettings, 'bg-color', defaultFlag)
+        settings.bind('link-color', this._epubSettings, 'link-color', defaultFlag)
+        settings.bind('brightness', this._epubSettings, 'brightness', defaultFlag)
+        settings.bind('enable-footnote', this._epubSettings, 'enable-footnote', defaultFlag)
+        settings.bind('enable-devtools', this._epubSettings, 'enable-devtools', defaultFlag)
+        settings.bind('allow-unsafe', this._epubSettings, 'allow-unsafe', defaultFlag)
+        settings.bind('layout', this._epubSettings, 'layout', defaultFlag)
+
+        // bind settings to UI
+        settings.bind('font', this._fontButton, 'font', defaultFlag)
+        settings.bind('spacing', this._spacingButton, 'value', defaultFlag)
+        settings.bind('margin', this._marginButton, 'value', defaultFlag)
+        settings.bind('brightness', this._brightnessScale.adjustment, 'value', defaultFlag)
+        this.add_action(settings.create_action('use-publisher-font'))
+        this.add_action(settings.create_action('justify'))
+        this.add_action(settings.create_action('hyphenate'))
+        this.add_action(settings.create_action('enable-footnote'))
+        this.add_action(settings.create_action('enable-devtools'))
+        this.add_action(settings.create_action('allow-unsafe'))
+        this.add_action(settings.create_action('layout'))
+
+        settings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
+            'gtk-application-prefer-dark-theme', defaultFlag)
+
+        settings.bind('show-navbar', this._navbar, 'visible', defaultFlag)
+        this.add_action(settings.create_action('show-navbar'))
+        this.application.set_accels_for_action('win.show-navbar', ['<ctrl>p'])
+
+        // add other actions
+        const actions = makeActions(this)
+        Object.keys(actions).forEach(action => {
+            const [context, name] = action.split('.')
+            const [func, accels] = actions[action]
+            this._addAction(context, name, func, accels)
+        })
+        const stringActions = makeStringActions(this)
+        Object.keys(stringActions).forEach(action => {
+            const [context, name] = action.split('.')
+            const [func, defaultValue] = stringActions[action]
+            this._addStringAction(context, name, func, defaultValue)
+        })
+
+        // update zoom buttons when zoom level changes
+        const updateZoomButtons = () => {
+            const zoomLevel = settings.get_double('zoom-level')
+            this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
+            this.lookup_action('zoom-restore').enabled = zoomLevel !== 1
+            this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
+            this.lookup_action('zoom-in').enabled = zoomLevel < 4
+        }
+        updateZoomButtons()
+        settings.connect('changed::zoom-level', () => updateZoomButtons())
+    }
+    _buildUI() {
+        // make find results columns vertical
         const column = this._findTreeView.get_column(0)
         column.get_area().orientation = Gtk.Orientation.VERTICAL
 
+        // add separator to annotations list
         this._annotationsListBox.set_header_func((row) => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
 
+        // make color buttons for highlight menu
         this._colorRadios = {}
         highlightColors.map(color => {
             const radio = new Gtk.RadioButton({
@@ -338,6 +409,7 @@ var FoliateWindow = GObject.registerClass({
             return radio
         }).reduce((a, b) => (b.join_group(a), a))
 
+        // make theme buttons
         Object.keys(defaultThemes).forEach(theme =>
             this._themeBox.pack_start(new Gtk.ModelButton({
                 visible: true,
@@ -345,73 +417,6 @@ var FoliateWindow = GObject.registerClass({
                 action_target: new GLib.Variant('s', theme),
                 text: theme
             }), false, true, 0))
-
-        this._noteTextView.buffer.connect('changed', () => {
-            const annotation = this._epub.annotation
-            annotation.set_property('note', this._noteTextView.buffer.text)
-        })
-
-        this._epubSettings = new EpubViewSettings()
-
-        // bind settings to EpubView
-        settings.bind('zoom-level', this._epubSettings, 'zoom-level', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('font', this._epubSettings, 'font', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('spacing', this._epubSettings, 'spacing', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('margin', this._epubSettings, 'margin', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('use-publisher-font', this._epubSettings, 'use-publisher-font', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('justify', this._epubSettings, 'justify', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('hyphenate', this._epubSettings, 'hyphenate', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('fg-color', this._epubSettings, 'fg-color', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('bg-color', this._epubSettings, 'bg-color', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('link-color', this._epubSettings, 'link-color', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('brightness', this._epubSettings, 'brightness', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('enable-footnote', this._epubSettings, 'enable-footnote', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('enable-devtools', this._epubSettings, 'enable-devtools', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('allow-unsafe', this._epubSettings, 'allow-unsafe', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('layout', this._epubSettings, 'layout', Gio.SettingsBindFlags.DEFAULT)
-
-        // bind settings to UI
-        settings.bind('font', this._fontButton, 'font', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('spacing', this._spacingButton, 'value', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('margin', this._marginButton, 'value', Gio.SettingsBindFlags.DEFAULT)
-        settings.bind('brightness', this._brightnessScale.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT)
-        this.add_action(settings.create_action('use-publisher-font'))
-        this.add_action(settings.create_action('justify'))
-        this.add_action(settings.create_action('hyphenate'))
-        this.add_action(settings.create_action('enable-footnote'))
-        this.add_action(settings.create_action('enable-devtools'))
-        this.add_action(settings.create_action('allow-unsafe'))
-        this.add_action(settings.create_action('layout'))
-
-        settings.bind('show-navbar', this._navbar, 'visible', Gio.SettingsBindFlags.DEFAULT)
-        this.add_action(settings.create_action('show-navbar'))
-        this.application.set_accels_for_action('win.show-navbar', ['<ctrl>p'])
-
-        settings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
-            'gtk-application-prefer-dark-theme', Gio.SettingsBindFlags.DEFAULT)
-
-        const actions = makeActions(this)
-        Object.keys(actions).forEach(action => {
-            const [context, name] = action.split('.')
-            const [func, accels] = actions[action]
-            this._addAction(context, name, func, accels)
-        })
-        const stringActions = makeStringActions(this)
-        Object.keys(stringActions).forEach(action => {
-            const [context, name] = action.split('.')
-            const [func, defaultValue] = stringActions[action]
-            this._addStringAction(context, name, func, defaultValue)
-        })
-
-        const updateZoom = () => {
-            const zoomLevel = settings.get_double('zoom-level')
-            this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
-            this.lookup_action('zoom-restore').enabled = zoomLevel !== 1
-            this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
-            this.lookup_action('zoom-in').enabled = zoomLevel < 4
-        }
-        updateZoom()
-        settings.connect('changed::zoom-level', () => updateZoom())
     }
     _addAction(context, name, func, accels, state, useParameter) {
         const action = new Gio.SimpleAction({
@@ -571,6 +576,11 @@ var FoliateWindow = GObject.registerClass({
         this._annotationsListBox.connect('row-activated', (_, row) => {
             this._epub.goTo(row.annotation.cfi)
             this._sideMenu.popdown()
+        })
+
+        this._noteTextView.buffer.connect('changed', () => {
+            const annotation = this._epub.annotation
+            annotation.set_property('note', this._noteTextView.buffer.text)
         })
     }
     _showSelectionMenu() {
