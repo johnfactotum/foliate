@@ -162,6 +162,11 @@ var EpubView = GObject.registerClass({
         })
         contentManager.register_script_message_handler('action')
 
+        this._connectSettings()
+        this._connectAnnotations()
+        this._connectStorage()
+    }
+    _connectSettings() {
         this._webView.zoom_level = this.settings.zoom_level
         this.settings.connect('notify::zoom-level', () => {
             this._webView.zoom_level = this.settings.zoom_level
@@ -189,7 +194,8 @@ var EpubView = GObject.registerClass({
             this.emit('book-loading')
             this._webView.reload()
         })
-
+    }
+    _connectAnnotations() {
         // add a map so we can more conveniently get annotation by cfi
         this._annotationsMap = new Map()
         const n = this.annotations.get_n_items()
@@ -224,8 +230,6 @@ var EpubView = GObject.registerClass({
                     })
             }
         })
-
-        this._connectStorage()
     }
     _connectStorage() {
         this.connect('metadata', () => {
