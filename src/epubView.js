@@ -430,9 +430,10 @@ var EpubView = GObject.registerClass({
     }
     addAnnotation(annotation) {
         const cfi = annotation.cfi
-        if (this._annotationsMap.has(cfi))
+        if (this._annotationsMap.has(cfi)) {
             this.annotation = this._annotationsMap.get(cfi)
-        else {
+            this._addAnnotation(cfi, this.annotation.color)
+       } else {
             this._addAnnotation(cfi, annotation.color)
             this._annotationsMap.set(cfi, annotation)
             this.annotations.append(annotation)
