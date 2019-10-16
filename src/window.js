@@ -451,6 +451,11 @@ var FoliateWindow = GObject.registerClass({
             this._fullscreenButton.tooltip_text = _('Fullscreen')
         }
     }
+    _onSizeAllocate() {
+        const [width, height] = this.get_size()
+        const narrow = width < 500
+        this._locationScale.visible = !narrow
+    }
     _onDestroy() {
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
     }
