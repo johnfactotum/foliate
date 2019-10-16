@@ -67,7 +67,7 @@ var EpubViewSettings = GObject.registerClass({
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0.1, 10, 1.5),
         margin:
             GObject.ParamSpec.double('margin', 'margin', 'margin',
-                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 100, 2.5),
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 100, 3.5),
         'use-publisher-font':
             GObject.ParamSpec.boolean('use-publisher-font', 'use-publisher-font', 'use-publisher-font',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
