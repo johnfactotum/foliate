@@ -191,6 +191,14 @@ var EpubView = GObject.registerClass({
 
         // add a map so we can more conveniently get annotation by cfi
         this._annotationsMap = new Map()
+        const n = this.annotations.get_n_items()
+        for (let i = 0; i < n; i++) {
+            const annotation = this.annotations.get_item(i)
+            this._annotationsMap.set(annotation.cfi, annotation)
+            annotation.connect('notify::color', () => {
+                this._addAnnotation(annotation.cfi, annotation.color)
+            })
+        }
         this.annotations.connect('items-changed', (store, pos, removed, added) => {
             if (added) {
                 const annotation = store.get_item(pos)
@@ -274,6 +282,9 @@ var EpubView = GObject.registerClass({
                 break
             case 'rendition-ready':
                 this._applyStyle()
+                for (const annotation of this._annotationsMap.values()) {
+                    this._addAnnotation(annotation.cfi, annotation.color)
+                }
                 this.emit('book-ready')
                 break
             case 'locations-generated':
