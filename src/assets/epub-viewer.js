@@ -193,17 +193,17 @@ const setStyle = style => {
     redrawAnnotations()
 }
 
-const open = (fileName, inputType, cfi, renderTo, options, locations) => {
+const open = (fileName, inputType) => {
     book.open(decodeURI(fileName), inputType) // works for non-flatpak
         .catch(() => book.open(fileName, inputType)) // works for flatpak
         .catch(() => dispatch({ type: 'book-error' }))
     book.ready.then(() => dispatch({ type: 'book-ready' }))
+}
 
+const display = (renderTo, options, cfi, locations) => {
     rendition = book.renderTo(renderTo, options)
-    setupRendition()
 
-    const displayed = rendition.display()
-        .then(() => cfi ? rendition.display(cfi) : null)
+    const displayed = rendition.display(cfi)
         .then(() => dispatch({ type: 'rendition-ready' }))
     if (locations) {
         book.locations.load(locations)
@@ -302,7 +302,17 @@ const setupRendition = () => {
 
     rendition.on('rendered', () => redrawAnnotations())
 
-    rendition.on('relocated', dispatchLocation)
+    rendition.on('relocated', location => {
+        dispatchLocation()
+
+        // The first `relocated` event, after applying styles,
+        // is caused by the application of the styles,
+        // so only showing the book after this prevents flickering.
+        dispatch({ type: 'book-displayed' })
+    })
+    // However, applying styles is not guaranteed to cause a relocation,
+    // so we call `rendition.display()` again, which should trigger a relocation
+    rendition.display(rendition.location.start.cfi)
 
     rendition.hooks.content.register((contents, /*view*/) => {
         const frame = contents.document.defaultView.frameElement

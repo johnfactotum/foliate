@@ -457,7 +457,7 @@ var FoliateWindow = GObject.registerClass({
     _onDestroy() {
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
     }
-    set _isLoading(state) {
+    set _loading(state) {
         this._mainBox.opacity = state ? 0 : 1
         this._mainOverlay.visible = state
     }
@@ -491,12 +491,12 @@ var FoliateWindow = GObject.registerClass({
             file: fileName,
             inputType: inputType,
             settings: this._epubSettings,
-            annotations: new Gio.ListStore
+            annotations: new Gio.ListStore()
         })
         this._contentBox.pack_start(this._epub.widget, true, true, 0)
 
-        this._epub.connect('book-ready', () => this._isLoading = false)
-        this._epub.connect('book-loading', () => this._isLoading = true)
+        this._epub.connect('book-displayed', () => this._loading = false)
+        this._epub.connect('book-loading', () => this._loading = true)
         this._epub.connect('book-error', () =>
             this._mainOverlay.visible_child_name = 'error')
         this._epub.connect('metadata', () =>

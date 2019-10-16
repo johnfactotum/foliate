@@ -67,19 +67,30 @@ var recursivelyDeleteDir = dir => {
     dir.delete(null)
 }
 
-class Storage {
-    constructor(key, type, indent) {
-        this.indent = indent
+const storages = new Map()
 
+var Storage = class Storage {
+    constructor(type, key) {
+        this.indent = type === 'config'
+        this._destination = Storage.getDestination(type, key)
+        this._file = Gio.File.new_for_path(this._destination)
+        this._data = this._read()
+    }
+    static getDestination(type, key) {
         const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
             : type === 'config' ? GLib.get_user_config_dir()
             : GLib.get_user_data_dir()
-
-        this._destination = GLib.build_filenamev([dataDir, pkg.name,
+        return GLib.build_filenamev([dataDir, pkg.name,
             `${encodeURIComponent(key)}.json`])
-        this._file = Gio.File.new_for_path(this._destination)
-
-        this._data = this._read()
+    }
+    static getStorage(type, key) {
+        const destination = Storage.getDestination(type, key)
+        if (storages.has(destination)) return storages.get(destination)
+        else {
+            const storage = new Storage(type, key)
+            storages.set(destination, storage)
+            return storage
+        }
     }
     _read() {
         try {

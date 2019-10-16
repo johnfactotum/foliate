@@ -15,7 +15,7 @@
 
 const { GObject, GLib, Gtk, Gdk, Pango, WebKit2 } = imports.gi
 
-const { markupEscape } = imports.utils
+const { markupEscape, Storage } = imports.utils
 
 const layouts = {
     'auto': {
@@ -109,10 +109,11 @@ var EpubViewSettings = GObject.registerClass({
 var EpubView = GObject.registerClass({
     GTypeName: 'FoliateEpubView',
     Signals: {
-        'book-ready': { flags: GObject.SignalFlags.RUN_FIRST },
+        'book-displayed': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-loading': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-error': { flags: GObject.SignalFlags.RUN_FIRST },
         'metadata': { flags: GObject.SignalFlags.RUN_FIRST },
+        'locations-generated': { flags: GObject.SignalFlags.RUN_FIRST },
         'locations-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'relocated': { flags: GObject.SignalFlags.RUN_FIRST },
         'find-results': { flags: GObject.SignalFlags.RUN_FIRST },
@@ -223,6 +224,29 @@ var EpubView = GObject.registerClass({
                     })
             }
         })
+
+        this._connectStorage()
+    }
+    _connectStorage() {
+        this.connect('metadata', () => {
+            const { identifier } = this.metadata
+            this._storage = Storage.getStorage('data', identifier)
+            this._cache = Storage.getStorage('cache', identifier)
+            const lastLocation = this._storage.get('lastLocation')
+            const locations = this._cache.get('locations')
+            const locationsChars = this._cache.get('locationsChars', null)
+            this.display(lastLocation,
+                // `locationsChars`: how many chars to split locations
+                // same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
+                locationsChars === 1024 ? locations : null)
+        })
+        this.connect('locations-generated', () => {
+            this._cache.set('locationsChars', 1024)
+            this._cache.set('locations', this.locations)
+        })
+        this.connect('relocated', () => {
+            this._storage.set('lastLocation', this.location.cfi)
+        })
     }
     _load() {
         const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
@@ -248,13 +272,7 @@ var EpubView = GObject.registerClass({
     _handleAction(type, payload) {
         switch (type) {
             case 'ready':
-                this._run(`open("${encodeURI(this.file)}",
-                    '${this.inputType}',
-                    ${this.cfi ? `"${this.cfi}"` : 'null'},
-                    ${layouts[this.settings.layout].renderTo},
-                    ${JSON.stringify(layouts[this.settings.layout].options)},
-                    ${this.locations || 'null'})`)
-
+                this._run(`open("${encodeURI(this.file)}", '${this.inputType}')`)
                 this._enableFootnote = this.settings.enable_footnote
                 this._enableDevtools = this.settings.enable_devtools
                 break
@@ -285,10 +303,14 @@ var EpubView = GObject.registerClass({
                 for (const annotation of this._annotationsMap.values()) {
                     this._addAnnotation(annotation.cfi, annotation.color)
                 }
-                this.emit('book-ready')
+                this._run('setupRendition()')
+                break
+            case 'book-displayed':
+                this.emit('book-displayed')
                 break
             case 'locations-generated':
                 this.locations = payload
+                this.emit('locations-generated')
                 // falls through
             case 'locations-ready':
                 this.emit('locations-ready')
@@ -343,6 +365,15 @@ var EpubView = GObject.registerClass({
                 break
             }
         }
+    }
+    display(cfi, locations) {
+        this.cfi = cfi
+        this.locations = locations
+        this._run(`display(
+            ${layouts[this.settings.layout].renderTo},
+            ${JSON.stringify(layouts[this.settings.layout].options)},
+            ${this.cfi ? `"${this.cfi}"` : 'undefined'},
+            ${this.locations || 'null'})`)
     }
     _applyStyle() {
         const fontDesc = Pango.FontDescription.from_string(this.settings.font)
