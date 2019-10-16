@@ -130,25 +130,16 @@ const makeActions = self => ({
         .get_default(Gdk.Display.get_default())
         .set_text(self._epub.selection.text, -1),
     ['<ctrl>c']],
-    'win.selection-highlight': [async () => {
+    'win.selection-highlight': [() => {
         const { cfi, text } = self._epub.selection
         const color = 'yellow'
-
-        const section = (await self._epub.getSectionFromCfi(cfi)).label
-        const annotation = new EpubViewAnnotation({ cfi, color, section, text, note: '' })
-        self._epub.annotations.append(annotation)
+        const annotation = new EpubViewAnnotation({ cfi, color, text, note: '' })
+        self._epub.addAnnotation(annotation)
         self._epub.emit('highlight-menu')
     }],
     'win.selection-unhighlight': [() => {
-        const cfi = self._epub.selection.cfi
-        const store = self._epub.annotations
-        const n = store.get_n_items()
-        for (let i = 0; i < n; i++) {
-            if (store.get_item(i).cfi === cfi) {
-                store.remove(i)
-                break
-            }
-        }
+        const annotation = self._epub.annotation
+        self._epub.removeAnnotation(annotation)
         if (self._highlightMenu.visible) self._highlightMenu.popdown()
     }],
     'win.selection-dictionary': [() => {
@@ -251,12 +242,13 @@ const AnnotationRow = GObject.registerClass({
         'annotationSection', 'annotationText', 'annotationNote'
     ]
 }, class AnnotationRow extends Gtk.ListBoxRow {
-    _init(annotation) {
+    _init(annotation, epubView) {
         super._init()
         this.annotation = annotation
 
         this._annotationText.label = annotation.text
-        this._annotationSection.label = annotation.section
+        epubView.getSectionFromCfi(annotation.cfi).then(section =>
+            this._annotationSection.label = section.label)
 
         this._applyColor()
         annotation.connect('notify::color', this._applyColor.bind(this))
@@ -490,8 +482,7 @@ var FoliateWindow = GObject.registerClass({
         this._epub = new EpubView({
             file: fileName,
             inputType: inputType,
-            settings: this._epubSettings,
-            annotations: new Gio.ListStore()
+            settings: this._epubSettings
         })
         this._contentBox.pack_start(this._epub.widget, true, true, 0)
 
@@ -567,16 +558,16 @@ var FoliateWindow = GObject.registerClass({
         })
         this._epub.connect('highlight-menu', () => {
             const annotation = this._epub.annotation
-            this._colorRadios[annotation.color].active = true
             this._noteTextView.buffer.text = annotation.note
             this._showMenu(this._highlightMenu, false)
+            this._colorRadios[annotation.color].active = true
         })
 
         this._tocTreeView.model = this._epub.toc
         this._findTreeView.model = this._epub.findResults
 
         this._annotationsListBox.bind_model(this._epub.annotations, annotation =>
-            new AnnotationRow(annotation))
+            new AnnotationRow(annotation, this._epub))
         this._annotationsListBox.connect('row-activated', (_, row) => {
             this._epub.goTo(row.annotation.cfi)
             this._sideMenu.popdown()

@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, GLib, Gtk, Gdk, Pango, WebKit2 } = imports.gi
+const { GObject, GLib, Gio, Gtk, Gdk, Pango, WebKit2 } = imports.gi
 
 const { markupEscape, Storage } = imports.utils
 
@@ -43,8 +43,6 @@ const EpubViewAnnotation = GObject.registerClass({
     GTypeName: 'FoliateEpubViewAnnotation',
     Properties: {
         cfi: GObject.ParamSpec.string('cfi', 'cfi', 'cfi',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
-        section: GObject.ParamSpec.string('section', 'section', 'section',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
         text: GObject.ParamSpec.string('text', 'text', 'text',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
@@ -109,6 +107,7 @@ var EpubViewSettings = GObject.registerClass({
 var EpubView = GObject.registerClass({
     GTypeName: 'FoliateEpubView',
     Signals: {
+        'rendition-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-displayed': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-loading': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-error': { flags: GObject.SignalFlags.RUN_FIRST },
@@ -118,16 +117,18 @@ var EpubView = GObject.registerClass({
         'relocated': { flags: GObject.SignalFlags.RUN_FIRST },
         'find-results': { flags: GObject.SignalFlags.RUN_FIRST },
         'selection': { flags: GObject.SignalFlags.RUN_FIRST },
-        'highlight-menu': { flags: GObject.SignalFlags.RUN_FIRST }
+        'highlight-menu': { flags: GObject.SignalFlags.RUN_FIRST },
+        'annotations-changed': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class EpubView extends GObject.Object {
-    _init({ file, inputType, settings, annotations }) {
+    _init({ file, inputType, settings }) {
         super._init()
 
         this.file = file
         this.inputType = inputType
         this.settings = settings
-        this.annotations = annotations
+        this._annotationsMap = new Map()
+        this.annotations = new Gio.ListStore()
 
         this.metadata = null
         this.location = null
@@ -163,7 +164,6 @@ var EpubView = GObject.registerClass({
         contentManager.register_script_message_handler('action')
 
         this._connectSettings()
-        this._connectAnnotations()
         this._connectStorage()
     }
     _connectSettings() {
@@ -195,42 +195,6 @@ var EpubView = GObject.registerClass({
             this._webView.reload()
         })
     }
-    _connectAnnotations() {
-        // add a map so we can more conveniently get annotation by cfi
-        this._annotationsMap = new Map()
-        const n = this.annotations.get_n_items()
-        for (let i = 0; i < n; i++) {
-            const annotation = this.annotations.get_item(i)
-            this._annotationsMap.set(annotation.cfi, annotation)
-            annotation.connect('notify::color', () => {
-                this._addAnnotation(annotation.cfi, annotation.color)
-            })
-        }
-        this.annotations.connect('items-changed', (store, pos, removed, added) => {
-            if (added) {
-                const annotation = store.get_item(pos)
-                this.annotation = annotation
-                this._annotationsMap.set(annotation.cfi, annotation)
-                this._addAnnotation(annotation.cfi, annotation.color)
-                annotation.connect('notify::color', () => {
-                    this._addAnnotation(annotation.cfi, annotation.color)
-                })
-            } else if (removed) {
-                // we don't know what's been removed so have to check manually
-                const cfis = new Set()
-                const n = store.get_n_items()
-                for (let i = 0; i < n; i++) {
-                    cfis.add(store.get_item(i).cfi)
-                }
-                Array.from(this._annotationsMap.keys())
-                    .filter(cfi => !cfis.has(cfi))
-                    .forEach(cfi => {
-                        this._annotationsMap.delete(cfi)
-                        this._removeAnnotation(cfi)
-                    })
-            }
-        })
-    }
     _connectStorage() {
         this.connect('metadata', () => {
             const { identifier } = this.metadata
@@ -251,6 +215,17 @@ var EpubView = GObject.registerClass({
         this.connect('relocated', () => {
             this._storage.set('lastLocation', this.location.cfi)
         })
+        this.connect('annotations-changed', () => {
+            const annotations = Array.from(this._annotationsMap.values())
+                .map(({ cfi, color, text, note }) => ({
+                    value: cfi, color, text, note
+                }))
+            this._storage.set('annotations', annotations)
+        })
+        this.connect('rendition-ready', () => this._storage.get('annotations', [])
+            .forEach(({ value, color, text, note }) =>
+                this.addAnnotation(
+                    new EpubViewAnnotation({ cfi: value, color, text, note }))))
     }
     _load() {
         const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
@@ -304,10 +279,8 @@ var EpubView = GObject.registerClass({
                 break
             case 'rendition-ready':
                 this._applyStyle()
-                for (const annotation of this._annotationsMap.values()) {
-                    this._addAnnotation(annotation.cfi, annotation.color)
-                }
                 this._run('setupRendition()')
+                this.emit('rendition-ready')
                 break
             case 'book-displayed':
                 this.emit('book-displayed')
@@ -454,6 +427,39 @@ var EpubView = GObject.registerClass({
     }
     _removeAnnotation(cfi) {
         this._run(`rendition.annotations.remove("${cfi}", 'highlight')`)
+    }
+    addAnnotation(annotation) {
+        const cfi = annotation.cfi
+        if (this._annotationsMap.has(cfi))
+            this.annotation = this._annotationsMap.get(cfi)
+        else {
+            this._addAnnotation(cfi, annotation.color)
+            this._annotationsMap.set(cfi, annotation)
+            this.annotations.append(annotation)
+            annotation.connect('notify::color', () => {
+                this._addAnnotation(cfi, annotation.color)
+                this.emit('annotations-changed')
+            })
+            annotation.connect('notify::note', () => {
+                this.emit('annotations-changed')
+            })
+            this.annotation = annotation
+            this.emit('annotations-changed')
+        }
+    }
+    removeAnnotation(annotation) {
+        const cfi = annotation.cfi
+        this._removeAnnotation(cfi)
+        this._annotationsMap.delete(cfi)
+        const store = this.annotations
+        const n = store.get_n_items()
+        for (let i = 0; i < n; i++) {
+            if (store.get_item(i).cfi === cfi) {
+                store.remove(i)
+                break
+            }
+        }
+        this.emit('annotations-changed')
     }
     find(q, inBook = true, highlight = true) {
         this._run(`find.find(decodeURI("${encodeURI(q)}"), ${inBook}, ${highlight})`)
