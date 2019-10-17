@@ -107,9 +107,10 @@ const dispatchLocation = () => {
     })
 }
 
-const getContentsSelection = () => rendition.getContents()[0].window.getSelection()
-const clearSelection = () => getContentsSelection().removeAllRanges()
-const selectByCfi = cfi => getContentsSelection().addRange(rendition.getRange(cfi))
+const withSelection = f => rendition.getContents()
+    .forEach(contents => f(contents.window.getSelection()))
+const clearSelection = () => withSelection(s => s.removeAllRanges())
+const selectByCfi = cfi => withSelection(s => s.addRange(rendition.getRange(cfi)))
 
 const addAnnotation = (cfi, color) => {
     rendition.annotations.remove(cfi, 'highlight')
