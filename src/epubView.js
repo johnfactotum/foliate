@@ -66,7 +66,7 @@ const getData = identifier => {
     }
 }
 
-var EpubViewData = GObject.registerClass({
+const EpubViewData = GObject.registerClass({
     GTypeName: 'FoliateEpubViewData',
     Signals: {
         'annotation-added': {
@@ -569,7 +569,7 @@ var EpubView = GObject.registerClass({
         this._run(`rendition.annotations.remove("${cfi}", 'highlight')`)
     }
     addAnnotation(annotation) {
-        this._data.addAnnotation(annotation)
+        this._data.addAnnotation(new EpubViewAnnotation(annotation))
     }
     removeAnnotation(cfi) {
         this._data.removeAnnotation(cfi)

@@ -17,7 +17,7 @@ const { GObject, Gtk, Gio, GLib, Gdk } = imports.gi
 const ngettext = imports.gettext.ngettext
 
 const { execCommand, recursivelyDeleteDir } = imports.utils
-const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
+const { EpubView, EpubViewSettings } = imports.epubView
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
@@ -133,8 +133,7 @@ const makeActions = self => ({
     'win.selection-highlight': [() => {
         const { cfi, text } = self._epub.selection
         const color = 'yellow'
-        const annotation = new EpubViewAnnotation({ cfi, color, text, note: '' })
-        self._epub.addAnnotation(annotation)
+        self._epub.addAnnotation({ cfi, color, text, note: '' })
         self._epub.emit('highlight-menu')
     }],
     'win.selection-unhighlight': [() => {
