@@ -371,6 +371,7 @@ var FoliateWindow = GObject.registerClass({
 
         this._loading = true
         this._mainOverlay.visible_child_name = 'empty'
+        this.title = _('Foliate')
     }
     _buildUI() {
         // make find results columns vertical
