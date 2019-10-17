@@ -435,6 +435,7 @@ var EpubView = GObject.registerClass({
             case 'relocated':
                 this.cfi = payload.cfi
                 this.location = payload
+                this.location.canGoBack = Boolean(this._history.length)
                 this.emit('relocated')
                 break
             case 'link-internal':

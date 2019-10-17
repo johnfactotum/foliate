@@ -513,10 +513,12 @@ var FoliateWindow = GObject.registerClass({
             const {
                 atStart, atEnd, cfi, sectionHref,
                 section, sectionTotal, location, locationTotal, percentage,
-                timeInBook, timeInChapter
+                timeInBook, timeInChapter,
+                canGoBack
             } = this._epub.location
             this.lookup_action('go-prev').enabled = !atStart
             this.lookup_action('go-next').enabled = !atEnd
+            this.lookup_action('go-back').enabled = canGoBack
 
             this._locationScale.set_value(percentage)
 
