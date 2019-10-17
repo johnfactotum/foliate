@@ -413,13 +413,28 @@ var FoliateWindow = GObject.registerClass({
         }).reduce((a, b) => (b.join_group(a), a))
 
         // make theme buttons
-        Object.keys(defaultThemes).forEach(theme =>
-            this._themeBox.pack_start(new Gtk.ModelButton({
+        Object.keys(defaultThemes).forEach(name => {
+            const theme = defaultThemes[name]
+            const button = new Gtk.Button({
                 visible: true,
                 action_name: 'win.theme',
-                action_target: new GLib.Variant('s', theme),
-                text: theme
-            }), false, true, 0))
+                action_target: new GLib.Variant('s', name),
+                label: name,
+                xalign: 0
+            })
+            const cssProvider = new Gtk.CssProvider()
+            cssProvider.load_from_data(`
+                button {
+                    margin: 0;
+                    padding: 6px;
+                    color: ${theme.color};
+                    background: ${theme.background};
+                }`)
+            const styleContext = button.get_style_context()
+            styleContext
+                .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+            this._themeBox.pack_start(button, false, true, 0)
+        })
     }
     _addAction(context, name, func, accels, state, useParameter) {
         const action = new Gio.SimpleAction({

@@ -892,9 +892,18 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="themeBox">
+          <object class="GtkScrolledWindow">
             <property name="visible">True</property>
-            <property name="orientation">vertical</property>
+            <property name="height-request">300</property>
+            <child>
+              <object class="GtkBox" id="themeBox">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="margin-top">6</property>
+                <property name="margin-bottom">6</property>
+                <property name="spacing">6</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
