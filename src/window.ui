@@ -478,15 +478,70 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">10</property>
                 <child>
-                  <object class="GtkScrolledWindow">
+                  <object class="GtkStack" id="annotationsStack">
                     <property name="visible">True</property>
-                    <property name="vexpand">True</property>
                     <child>
-                      <object class="GtkListBox" id="annotationsListBox">
+                      <object class="GtkScrolledWindow">
                         <property name="visible">True</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin">18</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="pixel_size">64</property>
+                                <property name="icon_name">document-edit-symbolic</property>
+                                <style><class name="dim-label"/></style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="wrap">True</property>
+                                <property name="label" translatable="yes">No annotations</property>
+                                <style><class name="dim-label"/></style>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                  <attribute name="scale" value="1.36"/>
+                                </attributes>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="wrap">True</property>
+                                <property name="label" translatable="yes">Select some text to add annotations.</property>
+                                <style><class name="dim-label"/></style>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <style><class name="frame"/></style>
                       </object>
+                      <packing>
+                        <property name="name">empty</property>
+                      </packing>
                     </child>
-                    <style><class name="frame"/></style>
+                    <child>
+                      <object class="GtkScrolledWindow">
+                        <property name="visible">True</property>
+                        <property name="vexpand">True</property>
+                        <child>
+                          <object class="GtkListBox" id="annotationsListBox">
+                            <property name="visible">True</property>
+                          </object>
+                        </child>
+                        <style><class name="frame"/></style>
+                      </object>
+                      <packing>
+                        <property name="name">main</property>
+                      </packing>
+                    </child>
                   </object>
                 </child>
               </object>
