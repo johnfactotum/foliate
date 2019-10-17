@@ -1110,16 +1110,53 @@
           <object class="GtkStack" id="mainOverlay">
             <property name="visible">True</property>
             <child>
-              <object class="GtkSpinner">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="active">True</property>
+                <property name="orientation">vertical</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
-                <property name="width-request">48</property>
-                <property name="height-request">48</property>
+                <property name="margin">18</property>
+                <property name="spacing">9</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="pixel_size">96</property>
+                    <property name="margin-bottom">18</property>
+                    <property name="icon_name">com.github.johnfactotum.Foliate-symbolic</property>
+                    <style><class name="dim-label"/></style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="wrap">True</property>
+                    <property name="label" translatable="yes">No books open</property>
+                    <style><class name="dim-label"/></style>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="scale" value="1.36"/>
+                    </attributes>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="wrap">True</property>
+                    <property name="label" translatable="yes">Open a book to start reading.</property>
+                    <style><class name="dim-label"/></style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="visible">True</property>
+                    <property name="action-name">app.open</property>
+                    <property name="halign">center</property>
+                    <property name="label" translatable="yes">Open File…</property>
+                  </object>
+                </child>
               </object>
               <packing>
-                <property name="name">loading</property>
+                <property name="name">empty</property>
               </packing>
             </child>
             <child>
@@ -1133,7 +1170,8 @@
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="pixel_size">64</property>
+                    <property name="pixel_size">96</property>
+                    <property name="margin-bottom">18</property>
                     <property name="icon_name">computer-fail-symbolic</property>
                     <style><class name="dim-label"/></style>
                   </object>
@@ -1142,10 +1180,11 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="wrap">True</property>
-                    <property name="label" translatable="yes">Something's wrong.</property>
+                    <property name="label" translatable="yes">Something's wrong</property>
                     <style><class name="dim-label"/></style>
                     <attributes>
                       <attribute name="weight" value="bold"/>
+                      <attribute name="scale" value="1.36"/>
                     </attributes>
                   </object>
                 </child>
@@ -1168,6 +1207,19 @@
               </object>
               <packing>
                 <property name="name">error</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinner">
+                <property name="visible">True</property>
+                <property name="active">True</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="width-request">48</property>
+                <property name="height-request">48</property>
+              </object>
+              <packing>
+                <property name="name">loading</property>
               </packing>
             </child>
           </object>

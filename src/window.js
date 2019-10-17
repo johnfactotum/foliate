@@ -368,6 +368,9 @@ var FoliateWindow = GObject.registerClass({
         }
         updateZoomButtons()
         settings.connect('changed::zoom-level', () => updateZoomButtons())
+
+        this._loading = true
+        this._mainOverlay.visible_child_name = 'empty'
     }
     _buildUI() {
         // make find results columns vertical
@@ -461,9 +464,14 @@ var FoliateWindow = GObject.registerClass({
     set _loading(state) {
         this._mainBox.opacity = state ? 0 : 1
         this._mainOverlay.visible = state
+        this._sideMenuButton.sensitive = !state
+        this._findMenuButton.sensitive = !state
         if (state) {
             this._mainOverlay.visible_child_name = 'loading'
             this._locationStack.visible_child_name = 'loading'
+            this.lookup_action('go-prev').enabled = false
+            this.lookup_action('go-next').enabled = false
+            this.lookup_action('go-back').enabled = false
             this.title = _('Loading…')
         }
     }
@@ -503,8 +511,10 @@ var FoliateWindow = GObject.registerClass({
         this._loading = true
         this._epub.connect('book-displayed', () => this._loading = false)
         this._epub.connect('book-loading', () => this._loading = true)
-        this._epub.connect('book-error', () =>
-            this._mainOverlay.visible_child_name = 'error')
+        this._epub.connect('book-error', () => {
+            this._mainOverlay.visible_child_name = 'error'
+            this.title = _('Error')
+        })
         this._epub.connect('metadata', () =>
             this.title = this._epub.metadata.title)
         this._epub.connect('locations-ready', () =>
