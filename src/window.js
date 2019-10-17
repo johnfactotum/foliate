@@ -572,12 +572,14 @@ var FoliateWindow = GObject.registerClass({
             this._showMenu(this._highlightMenu, false)
             this._colorRadios[annotation.color].active = true
         })
+        this._epub.connect('data-ready', (_, annotations) => {
+            this._annotationsListBox.bind_model(annotations, annotation =>
+                new AnnotationRow(annotation, this._epub))
+        })
 
         this._tocTreeView.model = this._epub.toc
         this._findTreeView.model = this._epub.findResults
 
-        this._annotationsListBox.bind_model(this._epub.annotations, annotation =>
-            new AnnotationRow(annotation, this._epub))
         this._annotationsListBox.connect('row-activated', (_, row) => {
             this._epub.goTo(row.annotation.cfi)
             this._sideMenu.popdown()

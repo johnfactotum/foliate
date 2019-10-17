@@ -17,6 +17,9 @@ const { GObject, GLib, Gio, Gtk, Gdk, Pango, WebKit2 } = imports.gi
 
 const { markupEscape, Storage } = imports.utils
 
+// must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
+const CHARACTERS_PER_PAGE = 1024
+
 const layouts = {
     'auto': {
         renderTo: `'viewer'`,
@@ -52,6 +55,109 @@ const EpubViewAnnotation = GObject.registerClass({
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, null),
     }
 }, class EpubViewAnnotation extends GObject.Object {})
+
+const dataMap = new Map()
+const getData = identifier => {
+    if (dataMap.has(identifier)) return dataMap.get(identifier)
+    else {
+        const data = new EpubViewData(identifier)
+        dataMap.set(identifier, data)
+        return data
+    }
+}
+
+var EpubViewData = GObject.registerClass({
+    GTypeName: 'FoliateEpubViewData',
+    Signals: {
+        'annotation-added': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [EpubViewAnnotation.$gtype]
+        },
+        'annotation-removed': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_STRING]
+        }
+    }
+}, class EpubViewData extends GObject.Object {
+    _init(identifier) {
+        super._init()
+
+        this._storage = new Storage('data', identifier)
+        this._cache = new Storage('cache', identifier)
+
+        this._annotationsMap = new Map()
+        this._annotationsList = new Gio.ListStore()
+
+        this._storage.get('annotations', [])
+            .forEach(({ value, color, text, note }) =>
+                this.addAnnotation(
+                    new EpubViewAnnotation({ cfi: value, color, text, note })))
+    }
+    get annotations() {
+        return this._annotationsMap.values()
+    }
+    getAnnotation(cfi) {
+        return this._annotationsMap.get(cfi)
+    }
+    get annotationsList() {
+        return this._annotationsList
+    }
+    get lastLocation() {
+        return this._storage.get('lastLocation')
+    }
+    set lastLocation(location) {
+        this._storage.set('lastLocation', location)
+    }
+    get locations() {
+        const locationsChars = this._cache.get('locationsChars')
+        if (locationsChars === CHARACTERS_PER_PAGE)
+            return this._cache.get('locations')
+        else return null
+    }
+    set locations(locations) {
+        this._cache.set('locationsChars', CHARACTERS_PER_PAGE)
+        this._cache.set('locations', locations)
+    }
+    _onAnnotationsChanged() {
+        const annotations = Array.from(this._annotationsMap.values())
+            .map(({ cfi, color, text, note }) => ({
+                value: cfi, color, text, note
+            }))
+        this._storage.set('annotations', annotations)
+    }
+    addAnnotation(annotation) {
+        const cfi = annotation.cfi
+        if (this._annotationsMap.has(cfi)) {
+            this.emit('annotation-added', this._annotationsMap.get(cfi))
+        } else {
+            this._annotationsMap.set(cfi, annotation)
+            this._annotationsList.append(annotation)
+            annotation.connect('notify::color', () => {
+                this.emit('annotation-added', annotation)
+                this._onAnnotationsChanged()
+            })
+            annotation.connect('notify::note', () => {
+                this._onAnnotationsChanged()
+            })
+            this.emit('annotation-added', annotation)
+            this._onAnnotationsChanged()
+        }
+    }
+    removeAnnotation(annotation) {
+        const cfi = annotation.cfi
+        this.emit('annotation-removed', cfi)
+        this._annotationsMap.delete(cfi)
+        const store = this._annotationsList
+        const n = store.get_n_items()
+        for (let i = 0; i < n; i++) {
+            if (store.get_item(i).cfi === cfi) {
+                store.remove(i)
+                break
+            }
+        }
+        this._onAnnotationsChanged()
+    }
+})
 
 var EpubViewSettings = GObject.registerClass({
     GTypeName: 'FoliateEpubViewSettings',
@@ -107,6 +213,10 @@ var EpubViewSettings = GObject.registerClass({
 var EpubView = GObject.registerClass({
     GTypeName: 'FoliateEpubView',
     Signals: {
+        'data-ready': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [Gio.ListStore.$gtype]
+        },
         'rendition-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-displayed': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-loading': { flags: GObject.SignalFlags.RUN_FIRST },
@@ -118,7 +228,6 @@ var EpubView = GObject.registerClass({
         'find-results': { flags: GObject.SignalFlags.RUN_FIRST },
         'selection': { flags: GObject.SignalFlags.RUN_FIRST },
         'highlight-menu': { flags: GObject.SignalFlags.RUN_FIRST },
-        'annotations-changed': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class EpubView extends GObject.Object {
     _init({ file, inputType, settings }) {
@@ -127,8 +236,6 @@ var EpubView = GObject.registerClass({
         this.file = file
         this.inputType = inputType
         this.settings = settings
-        this._annotationsMap = new Map()
-        this.annotations = new Gio.ListStore()
 
         this.metadata = null
         this.location = null
@@ -164,7 +271,7 @@ var EpubView = GObject.registerClass({
         contentManager.register_script_message_handler('action')
 
         this._connectSettings()
-        this._connectStorage()
+        this._connectData()
     }
     _connectSettings() {
         this._webView.zoom_level = this.settings.zoom_level
@@ -195,37 +302,30 @@ var EpubView = GObject.registerClass({
             this._webView.reload()
         })
     }
-    _connectStorage() {
+    _connectData() {
         this.connect('metadata', () => {
             const { identifier } = this.metadata
-            this._storage = Storage.getStorage('data', identifier)
-            this._cache = Storage.getStorage('cache', identifier)
-            const lastLocation = this._storage.get('lastLocation')
-            const locations = this._cache.get('locations')
-            const locationsChars = this._cache.get('locationsChars', null)
-            this.display(lastLocation,
-                // `locationsChars`: how many chars to split locations
-                // same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
-                locationsChars === 1024 ? locations : null)
+            this._data = getData(identifier)
+            this.display(this._data.lastLocation, this._data.locations)
+            this.emit('data-ready', this._data.annotationsList)
         })
         this.connect('locations-generated', () => {
-            this._cache.set('locationsChars', 1024)
-            this._cache.set('locations', this.locations)
+            this._data.locations = this.locations
         })
         this.connect('relocated', () => {
-            this._storage.set('lastLocation', this.location.cfi)
+            this._data.lastLocation = this.location.cfi
         })
-        this.connect('annotations-changed', () => {
-            const annotations = Array.from(this._annotationsMap.values())
-                .map(({ cfi, color, text, note }) => ({
-                    value: cfi, color, text, note
-                }))
-            this._storage.set('annotations', annotations)
+        this.connect('rendition-ready', () => {
+            for (const annotation of this._data.annotations) {
+                this._addAnnotation(annotation.cfi, annotation.color)
+            }
+            this._data.connect('annotation-added', (_, annotation) => {
+                this.annotation = annotation
+                this._addAnnotation(annotation.cfi, annotation.color)
+            })
+            this._data.connect('annotation-removed', (_, cfi) =>
+                this._removeAnnotation(cfi))
         })
-        this.connect('rendition-ready', () => this._storage.get('annotations', [])
-            .forEach(({ value, color, text, note }) =>
-                this.addAnnotation(
-                    new EpubViewAnnotation({ cfi: value, color, text, note }))))
     }
     _load() {
         const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
@@ -337,7 +437,7 @@ var EpubView = GObject.registerClass({
             }
             case 'highlight-menu': {
                 this.selection = payload
-                this.annotation = this._annotationsMap.get(this.selection.cfi)
+                this.annotation = this._data.getAnnotation(this.selection.cfi)
                 this.emit('highlight-menu')
                 break
             }
@@ -429,38 +529,10 @@ var EpubView = GObject.registerClass({
         this._run(`rendition.annotations.remove("${cfi}", 'highlight')`)
     }
     addAnnotation(annotation) {
-        const cfi = annotation.cfi
-        if (this._annotationsMap.has(cfi)) {
-            this.annotation = this._annotationsMap.get(cfi)
-            this._addAnnotation(cfi, this.annotation.color)
-       } else {
-            this._addAnnotation(cfi, annotation.color)
-            this._annotationsMap.set(cfi, annotation)
-            this.annotations.append(annotation)
-            annotation.connect('notify::color', () => {
-                this._addAnnotation(cfi, annotation.color)
-                this.emit('annotations-changed')
-            })
-            annotation.connect('notify::note', () => {
-                this.emit('annotations-changed')
-            })
-            this.annotation = annotation
-            this.emit('annotations-changed')
-        }
+        this._data.addAnnotation(annotation)
     }
-    removeAnnotation(annotation) {
-        const cfi = annotation.cfi
-        this._removeAnnotation(cfi)
-        this._annotationsMap.delete(cfi)
-        const store = this.annotations
-        const n = store.get_n_items()
-        for (let i = 0; i < n; i++) {
-            if (store.get_item(i).cfi === cfi) {
-                store.remove(i)
-                break
-            }
-        }
-        this.emit('annotations-changed')
+    removeAnnotation(cfi) {
+        this._data.removeAnnotation(cfi)
     }
     find(q, inBook = true, highlight = true) {
         this._run(`find.find(decodeURI("${encodeURI(q)}"), ${inBook}, ${highlight})`)

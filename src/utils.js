@@ -67,8 +67,6 @@ var recursivelyDeleteDir = dir => {
     dir.delete(null)
 }
 
-const storages = new Map()
-
 var Storage = class Storage {
     constructor(type, key) {
         this.indent = type === 'config'
@@ -82,15 +80,6 @@ var Storage = class Storage {
             : GLib.get_user_data_dir()
         return GLib.build_filenamev([dataDir, pkg.name,
             `${encodeURIComponent(key)}.json`])
-    }
-    static getStorage(type, key) {
-        const destination = Storage.getDestination(type, key)
-        if (storages.has(destination)) return storages.get(destination)
-        else {
-            const storage = new Storage(type, key)
-            storages.set(destination, storage)
-            return storage
-        }
     }
     _read() {
         try {

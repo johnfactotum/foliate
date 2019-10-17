@@ -197,7 +197,6 @@ const open = (fileName, inputType) => {
     book.open(decodeURI(fileName), inputType) // works for non-flatpak
         .catch(() => book.open(fileName, inputType)) // works for flatpak
         .catch(() => dispatch({ type: 'book-error' }))
-    book.ready.then(() => dispatch({ type: 'book-ready' }))
 }
 
 const display = (renderTo, options, cfi, locations) => {
@@ -240,10 +239,11 @@ const getSectionFromCfi = cfi => {
         || { label: book.package.metadata.title, href: '', cfi: '' }
 }
 
-// set the correct URL based on the path to the nav or ncx file
-// fixes https://github.com/futurepress/epub.js/issues/469
-book.loaded.navigation.then(async navigation => {
+book.ready.then(async () => {
     const hrefList = []
+
+    // set the correct URL based on the path to the nav or ncx file
+    // fixes https://github.com/futurepress/epub.js/issues/469
     const path = book.packaging.navPath || book.packaging.ncxPath
     const f = x => {
         x.label = x.label.trim()
@@ -251,7 +251,7 @@ book.loaded.navigation.then(async navigation => {
         hrefList.push(x)
         x.subitems.forEach(f)
     }
-    navigation.toc.forEach(f)
+    book.navigation.toc.forEach(f)
 
     // convert hrefs to CFIs for better TOC with anchor support
     cfiToc = await Promise.all(hrefList.map(async ({ label, href }) => {
@@ -268,7 +268,12 @@ book.loaded.navigation.then(async navigation => {
             return null
         }
     }))
-    cfiToc.sort(new ePub.CFI().compare)
+    try {
+        cfiToc.sort(CFI.compare)
+    } catch (e) {
+        console.error(e)
+    }
+    dispatch({ type: 'book-ready' })
 })
 
 // get book cover for "about this book" dialogue
