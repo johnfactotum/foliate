@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Gio, GLib } = imports.gi
+const { Gio, GLib, GObject } = imports.gi
 const ByteArray = imports.byteArray
 
 var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
@@ -112,5 +112,15 @@ var Storage = class Storage {
     }
     get data() {
         return JSON.parse(JSON.stringify(this._data))
+    }
+}
+
+var disconnectAllHandlers = (object, signal) => {
+    const [id, detail] = GObject.signal_parse_name(signal, object, true)
+    while (true) {
+        const handler = GObject.signal_handler_find(object,
+            GObject.SignalMatchType.ID, id, detail, null, null, null)
+        if (handler) object.disconnect(handler)
+        else break
     }
 }

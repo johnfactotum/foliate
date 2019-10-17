@@ -15,7 +15,7 @@
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, WebKit2 } = imports.gi
 
-const { markupEscape, Storage } = imports.utils
+const { markupEscape, Storage, disconnectAllHandlers } = imports.utils
 
 // must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
 const CHARACTERS_PER_PAGE = 1024
@@ -81,6 +81,9 @@ var EpubViewData = GObject.registerClass({
 }, class EpubViewData extends GObject.Object {
     _init(identifier) {
         super._init()
+
+        this._identifier = identifier
+        this._viewSet = new Set()
 
         this._storage = new Storage('data', identifier)
         this._cache = new Storage('cache', identifier)
@@ -156,6 +159,29 @@ var EpubViewData = GObject.registerClass({
             }
         }
         this._onAnnotationsChanged()
+    }
+    disconnectAll() {
+        for (const annotation of this.annotations) {
+            // disconnect everyone
+            disconnectAllHandlers(annotation, 'notify::color')
+            disconnectAllHandlers(annotation, 'notify::note')
+
+            // reconnect ourselves
+            annotation.connect('notify::color', () => {
+                this.emit('annotation-added', annotation)
+                this._onAnnotationsChanged()
+            })
+            annotation.connect('notify::note', () => {
+                this._onAnnotationsChanged()
+            })
+        }
+    }
+    addView(view) {
+        this._viewSet.add(view)
+    }
+    deleteView(view) {
+        this._viewSet.delete(view)
+        if (this._viewSet.size === 0) dataMap.delete(this._identifier)
     }
 })
 
@@ -295,10 +321,12 @@ var EpubView = GObject.registerClass({
             this._enableDevtools = this.settings.enable_devtools)
         this.settings.connect('notify::allow-unsafe', () => {
             this.emit('book-loading')
+            this._disconnectData()
             this._load()
         })
         this.settings.connect('notify::layout', () => {
             this.emit('book-loading')
+            this._disconnectData()
             this._webView.reload()
         })
     }
@@ -306,6 +334,7 @@ var EpubView = GObject.registerClass({
         this.connect('metadata', () => {
             const { identifier } = this.metadata
             this._data = getData(identifier)
+            this._data.addView(this)
             this.display(this._data.lastLocation, this._data.locations)
             this.emit('data-ready', this._data.annotationsList)
         })
@@ -319,13 +348,24 @@ var EpubView = GObject.registerClass({
             for (const annotation of this._data.annotations) {
                 this._addAnnotation(annotation.cfi, annotation.color)
             }
-            this._data.connect('annotation-added', (_, annotation) => {
+            const h1 = this._data.connect('annotation-added', (_, annotation) => {
                 this.annotation = annotation
                 this._addAnnotation(annotation.cfi, annotation.color)
             })
-            this._data.connect('annotation-removed', (_, cfi) =>
+            const h2 = this._data.connect('annotation-removed', (_, cfi) =>
                 this._removeAnnotation(cfi))
+            this._dataHandlers = [h1, h2]
         })
+        this._webView.connect('destroy', () => {
+            if (!this._data) return
+            this._disconnectData()
+            this._data.deleteView(this)
+        })
+    }
+    _disconnectData() {
+        if (!this._data) return
+        this._dataHandlers.forEach(h => this._data.disconnect(h))
+        this._data.disconnectAll()
     }
     _load() {
         const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
