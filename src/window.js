@@ -461,6 +461,11 @@ var FoliateWindow = GObject.registerClass({
     set _loading(state) {
         this._mainBox.opacity = state ? 0 : 1
         this._mainOverlay.visible = state
+        if (state) {
+            this._mainOverlay.visible_child_name = 'loading'
+            this._locationStack.visible_child_name = 'loading'
+            this.title = _('Loading…')
+        }
     }
     open(fileName, realFileName, inputType = 'epub') {
         const file = Gio.File.new_for_path(fileName)
@@ -495,6 +500,7 @@ var FoliateWindow = GObject.registerClass({
         })
         this._contentBox.pack_start(this._epub.widget, true, true, 0)
 
+        this._loading = true
         this._epub.connect('book-displayed', () => this._loading = false)
         this._epub.connect('book-loading', () => this._loading = true)
         this._epub.connect('book-error', () =>
