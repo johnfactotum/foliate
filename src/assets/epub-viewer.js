@@ -318,7 +318,8 @@ const setupRendition = () => {
     })
     // However, applying styles is not guaranteed to cause a relocation,
     // so we call `rendition.display()` again, which should trigger a relocation
-    rendition.display(rendition.location.start.cfi)
+    const currentCfi = rendition.location.start.cfi
+    rendition.display().then(() => rendition.display(currentCfi))
 
     rendition.hooks.content.register((contents, /*view*/) => {
         const frame = contents.document.defaultView.frameElement
