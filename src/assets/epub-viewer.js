@@ -194,6 +194,19 @@ const setStyle = style => {
     redrawAnnotations()
 }
 
+const getCfiFromHref = async href => {
+    const id = href.split('#')[1]
+    const item = book.spine.get(href)
+    await item.load(book.load.bind(book))
+    const el = id ? item.document.getElementById(id) : item.document.body
+    return item.cfiFromElement(el)
+}
+const getSectionFromCfi = cfi => {
+    const index = cfiToc.findIndex(el => el ? CFI.compare(cfi, el.cfi) <= 0 : false)
+    return cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
+        || { label: book.package.metadata.title, href: '', cfi: '' }
+}
+
 const open = (fileName, inputType) => {
     book.open(decodeURI(fileName), inputType) // works for non-flatpak
         .catch(() => book.open(fileName, inputType)) // works for flatpak
@@ -205,6 +218,13 @@ const display = (renderTo, options, locations) => {
 
     const displayed = rendition.display()
         .then(() => dispatch({ type: 'rendition-ready' }))
+
+    const locationsReady = () => {
+        sectionMarks = book.spine.items.map(section => book.locations
+            .percentageFromCfi('epubcfi(' + section.cfiBase + '!/0)'))
+        dispatchLocation()
+    }
+
     if (locations) {
         book.locations.load(locations)
         displayed
@@ -219,25 +239,6 @@ const display = (renderTo, options, locations) => {
                 payload: book.locations.save()
             }))
     }
-}
-
-const locationsReady = () => {
-    sectionMarks = book.spine.items.map(section => book.locations
-        .percentageFromCfi('epubcfi(' + section.cfiBase + '!/0)'))
-    dispatchLocation()
-}
-
-const getCfiFromHref = async href => {
-    const id = href.split('#')[1]
-    const item = book.spine.get(href)
-    await item.load(book.load.bind(book))
-    const el = id ? item.document.getElementById(id) : item.document.body
-    return item.cfiFromElement(el)
-}
-const getSectionFromCfi = cfi => {
-    const index = cfiToc.findIndex(el => el ? CFI.compare(cfi, el.cfi) <= 0 : false)
-    return cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
-        || { label: book.package.metadata.title, href: '', cfi: '' }
 }
 
 book.ready.then(async () => {

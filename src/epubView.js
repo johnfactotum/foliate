@@ -335,7 +335,7 @@ var EpubView = GObject.registerClass({
             const { identifier } = this.metadata
             this._data = getData(identifier)
             this._data.addView(this)
-            this.display(this._data.lastLocation, this._data.locations)
+            this._display(this._data.lastLocation, this._data.locations)
             this.emit('data-ready', this._data.annotationsList)
         })
         this.connect('locations-generated', () => {
@@ -419,8 +419,7 @@ var EpubView = GObject.registerClass({
                 break
             case 'rendition-ready':
                 this._applyStyle()
-                this._run(`setupRendition(
-                    ${this.cfi ? `'${this.cfi}'` : ''})`)
+                this._run(`setupRendition(${this.cfi ? `'${this.cfi}'` : ''})`)
                 this.emit('rendition-ready')
                 break
             case 'book-displayed':
@@ -485,7 +484,7 @@ var EpubView = GObject.registerClass({
             }
         }
     }
-    display(cfi, locations) {
+    _display(cfi, locations) {
         this.cfi = cfi
         this.locations = locations
         this._run(`display(
