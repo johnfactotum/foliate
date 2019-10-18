@@ -26,6 +26,7 @@ let cfiToc
 let sectionMarks
 let lineHeight = 24
 let enableFootnote = false
+let lastLocation
 
 class Find {
     constructor() {
@@ -203,7 +204,10 @@ const open = (fileName, inputType) => {
 const display = (renderTo, options, cfi, locations) => {
     rendition = book.renderTo(renderTo, options)
 
-    const displayed = rendition.display(cfi)
+    // last location will be displayed later, after custom styles are applied
+    lastLocation = cfi
+
+    const displayed = rendition.display()
         .then(() => dispatch({ type: 'rendition-ready' }))
     if (locations) {
         book.locations.load(locations)
@@ -318,7 +322,7 @@ const setupRendition = () => {
     })
     // However, applying styles is not guaranteed to cause a relocation,
     // so we call `rendition.display()` again, which should trigger a relocation
-    rendition.display(rendition.location.start.cfi)
+    rendition.display(lastLocation)
 
     rendition.hooks.content.register((contents, /*view*/) => {
         const frame = contents.document.defaultView.frameElement
