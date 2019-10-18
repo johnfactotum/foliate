@@ -26,7 +26,6 @@ let cfiToc
 let sectionMarks
 let lineHeight = 24
 let enableFootnote = false
-let lastLocation
 
 class Find {
     constructor() {
@@ -201,11 +200,8 @@ const open = (fileName, inputType) => {
         .catch(() => dispatch({ type: 'book-error' }))
 }
 
-const display = (renderTo, options, cfi, locations) => {
+const display = (renderTo, options, locations) => {
     rendition = book.renderTo(renderTo, options)
-
-    // last location will be displayed later, after custom styles are applied
-    lastLocation = cfi
 
     const displayed = rendition.display()
         .then(() => dispatch({ type: 'rendition-ready' }))
@@ -307,22 +303,12 @@ const getRect = (target, frame) => {
     return { left, right, top, bottom }
 }
 
-const setupRendition = () => {
+const setupRendition = cfi => {
+    rendition.display(cfi).then(() => dispatch({ type: 'book-displayed' }))
+    rendition.on('rendered', redrawAnnotations)
+    rendition.on('relocated', dispatchLocation)
+
     let isSelecting = false
-
-    rendition.on('rendered', () => redrawAnnotations())
-
-    rendition.on('relocated', location => {
-        dispatchLocation()
-
-        // The first `relocated` event, after applying styles,
-        // is caused by the application of the styles,
-        // so only showing the book after this prevents flickering.
-        dispatch({ type: 'book-displayed' })
-    })
-    // However, applying styles is not guaranteed to cause a relocation,
-    // so we call `rendition.display()` again, which should trigger a relocation
-    rendition.display(lastLocation)
 
     rendition.hooks.content.register((contents, /*view*/) => {
         const frame = contents.document.defaultView.frameElement

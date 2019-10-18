@@ -419,7 +419,8 @@ var EpubView = GObject.registerClass({
                 break
             case 'rendition-ready':
                 this._applyStyle()
-                this._run('setupRendition()')
+                this._run(`setupRendition(
+                    ${this.cfi ? `'${this.cfi}'` : ''})`)
                 this.emit('rendition-ready')
                 break
             case 'book-displayed':
@@ -490,7 +491,6 @@ var EpubView = GObject.registerClass({
         this._run(`display(
             ${layouts[this.settings.layout].renderTo},
             ${JSON.stringify(layouts[this.settings.layout].options)},
-            ${this.cfi ? `"${this.cfi}"` : 'undefined'},
             ${this.locations || 'null'})`)
     }
     _applyStyle() {
