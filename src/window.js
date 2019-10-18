@@ -126,10 +126,11 @@ const makeActions = self => ({
     'win.zoom-restore': [() => settings.set_double('zoom-level', 1),
         ['1', '<ctrl>1']],
 
-    'win.selection-copy': [() => Gtk.Clipboard
-        .get_default(Gdk.Display.get_default())
-        .set_text(self._epub.selection.text, -1),
-    ['<ctrl>c']],
+    'win.selection-copy': [() => {
+        Gtk.Clipboard.get_default(Gdk.Display.get_default())
+            .set_text(self._epub.selection.text, -1)
+        self._selectionMenu.popdown()
+    }, ['<ctrl>c']],
     'win.selection-highlight': [() => {
         const { cfi, text } = self._epub.selection
         const color = 'yellow'
@@ -150,6 +151,14 @@ const makeActions = self => ({
         self._findEntry.text = text
         self._findEntry.emit('activate')
         self._findMenuButton.active = true
+    }],
+    'win.selection-more': [() => {
+        self._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT
+        self._selectionStack.visible_child_name = 'more'
+    }],
+    'win.selection-main': [() => {
+        self._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
+        self._selectionStack.visible_child_name = 'main'
     }],
 
     'win.side-menu': [() =>
@@ -295,7 +304,7 @@ var FoliateWindow = GObject.registerClass({
         'sectionEntry', 'locationEntry', 'cfiEntry',
         'sectionTotal', 'locationTotal',
 
-        'selectionMenu', 'dictionaryMenu',
+        'selectionMenu', 'selectionStack', 'dictionaryMenu',
         'highlightMenu', 'highlightColorsBox', 'noteTextView'
     ]
 }, class FoliateWindow extends Gtk.ApplicationWindow {
@@ -630,6 +639,7 @@ var FoliateWindow = GObject.registerClass({
         })
     }
     _showSelectionMenu() {
+        this._selectionStack.visible_child_name = 'main'
         this._showMenu(this._selectionMenu)
     }
     _showMenu(popover, select = true) {
