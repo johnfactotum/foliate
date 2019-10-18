@@ -606,7 +606,7 @@ var FoliateWindow = GObject.registerClass({
             this._findScrolledWindow.show()
         })
         this._epub.connect('selection', () => {
-            this._showSelectionMenu()
+            if (this._epub.selection.text) this._showSelectionMenu()
         })
         this._epub.connect('highlight-menu', () => {
             const annotation = this._epub.annotation
