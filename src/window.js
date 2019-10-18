@@ -239,6 +239,7 @@ const makeStringActions = self => ({
         self._epubSettings.set_property('fg-color', theme.color)
         self._epubSettings.set_property('bg-color', theme.background)
         self._epubSettings.set_property('link-color', theme.link)
+        self._epubSettings.set_property('invert', theme.invert)
         settings.set_boolean('prefer-dark-theme', theme.darkMode)
     }, '']
 })
@@ -327,6 +328,7 @@ var FoliateWindow = GObject.registerClass({
         settings.bind('fg-color', this._epubSettings, 'fg-color', defaultFlag)
         settings.bind('bg-color', this._epubSettings, 'bg-color', defaultFlag)
         settings.bind('link-color', this._epubSettings, 'link-color', defaultFlag)
+        settings.bind('invert', this._epubSettings, 'invert', defaultFlag)
         settings.bind('brightness', this._epubSettings, 'brightness', defaultFlag)
         settings.bind('enable-footnote', this._epubSettings, 'enable-footnote', defaultFlag)
         settings.bind('enable-devtools', this._epubSettings, 'enable-devtools', defaultFlag)

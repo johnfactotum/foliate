@@ -59,11 +59,6 @@
       <summary>Hyphenation</summary>
       <description>If true, auto-hyphenation is enabled</description>
     </key>
-    <key name="brightness" type="d">
-      <default>1</default>
-      <summary>Brightness</summary>
-      <description>A value under 1 darkens the page, while a value over 1 brightens it. A value of 0 will make the page completely black, while a value of 1 leaves the brightness unchanged</description>
-    </key>
     <key name="fg-color" type="s">
       <default>'black'</default>
       <summary>Foreground color</summary>
@@ -78,6 +73,16 @@
       <default>'link'</default>
       <summary>Link color</summary>
       <description>Link color</description>
+    </key>
+    <key name="invert" type="b">
+      <default>false</default>
+      <summary>Invert</summary>
+      <description>Invert page</description>
+    </key>
+    <key name="brightness" type="d">
+      <default>1</default>
+      <summary>Brightness</summary>
+      <description>A value under 1 darkens the page, while a value over 1 brightens it. A value of 0 will make the page completely black, while a value of 1 leaves the brightness unchanged</description>
     </key>
     <key name="enable-footnote" type="b">
       <default>true</default>

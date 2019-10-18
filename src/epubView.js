@@ -218,6 +218,9 @@ var EpubViewSettings = GObject.registerClass({
         'link-color':
             GObject.ParamSpec.string('link-color', 'link-color', 'link-color',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'blue'),
+        invert:
+            GObject.ParamSpec.boolean('invert', 'invert', 'invert',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
         brightness:
             GObject.ParamSpec.double('brightness', 'brightness', 'brightness',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 2, 1),
@@ -313,6 +316,7 @@ var EpubView = GObject.registerClass({
         this.settings.connect('notify::fg-color', () => this._applyStyle())
         this.settings.connect('notify::bg-color', () => this._applyStyle())
         this.settings.connect('notify::link-color', () => this._applyStyle())
+        this.settings.connect('notify::invert', () => this._applyStyle())
         this.settings.connect('notify::brightness', () => this._applyStyle())
 
         this.settings.connect('notify::enable-footnote', () =>
@@ -519,10 +523,11 @@ var EpubView = GObject.registerClass({
             usePublisherFont: this.settings.use_publisher_font,
             justify: this.settings.justify,
             hyphenate: this.settings.hyphenate,
-            brightness: this.settings.brightness,
             fgColor: this.settings.fg_color,
             bgColor: this.settings.bg_color,
-            linkColor: this.settings.link_color
+            linkColor: this.settings.link_color,
+            invert: this.settings.invert,
+            brightness: this.settings.brightness
         }
         this._run(`setStyle(${JSON.stringify(style)})`)
     }
