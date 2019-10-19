@@ -93,8 +93,12 @@ const EpubViewData = GObject.registerClass({
 
         this._storage.get('annotations', [])
             .forEach(({ value, color, text, note }) =>
-                this.addAnnotation(
-                    new EpubViewAnnotation({ cfi: value, color, text, note })))
+                this.addAnnotation(new EpubViewAnnotation({
+                    cfi: value,
+                    color: color || 'yellow',
+                    text: text || '',
+                    note: note || ''
+                })))
     }
     get annotations() {
         return this._annotationsMap.values()
