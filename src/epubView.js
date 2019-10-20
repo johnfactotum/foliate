@@ -408,7 +408,7 @@ var EpubView = GObject.registerClass({
                 this._removeAnnotation(cfi))
             this._dataHandlers = [h1, h2]
 
-            const lastLocation = this._data.lastLocation || this.location.cfi
+            const lastLocation = this._data.lastLocation
             this._run(`rendition.display(${lastLocation ? `'${lastLocation}'` : ''})
                 .then(() => dispatch({ type: 'book-displayed' }))`)
         })
