@@ -745,7 +745,7 @@ var FoliateWindow = GObject.registerClass({
     _updateBookmarkButton() {
         if (this._epub.hasBookmark()) {
             this._bookmarkButton.tooltip_text = _('Remove current location')
-            this._bookmarkButton.get_child().icon_name = 'user-trash-symbolic'
+            this._bookmarkButton.get_child().icon_name = 'edit-delete-symbolic'
         } else {
             this._bookmarkButton.tooltip_text = _('Bookmark current location')
             this._bookmarkButton.get_child().icon_name = 'bookmark-new-symbolic'
