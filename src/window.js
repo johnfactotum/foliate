@@ -246,6 +246,7 @@ const makeStringActions = self => ({
         self._epubSettings.set_property('link-color', theme.link)
         self._epubSettings.set_property('invert', theme.invert)
         settings.set_boolean('prefer-dark-theme', theme.darkMode)
+        self._skeuomorph()
     }, '']
 })
 
@@ -361,6 +362,7 @@ var FoliateWindow = GObject.registerClass({
         settings.bind('enable-devtools', this._epubSettings, 'enable-devtools', defaultFlag)
         settings.bind('allow-unsafe', this._epubSettings, 'allow-unsafe', defaultFlag)
         settings.bind('layout', this._epubSettings, 'layout', defaultFlag)
+        settings.bind('skeuomorphism', this._epubSettings, 'skeuomorphism', defaultFlag)
 
         // bind settings to UI
         settings.bind('font', this._fontButton, 'font', defaultFlag)
@@ -374,6 +376,7 @@ var FoliateWindow = GObject.registerClass({
         this.add_action(settings.create_action('enable-devtools'))
         this.add_action(settings.create_action('allow-unsafe'))
         this.add_action(settings.create_action('layout'))
+        this.add_action(settings.create_action('skeuomorphism'))
 
         settings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
             'gtk-application-prefer-dark-theme', defaultFlag)
@@ -407,11 +410,15 @@ var FoliateWindow = GObject.registerClass({
         updateZoomButtons()
         settings.connect('changed::zoom-level', () => updateZoomButtons())
 
+        settings.connect('changed::skeuomorphism', () => this._skeuomorph())
+
         this._loading = true
         this._mainOverlay.visible_child_name = 'empty'
         this.title = _('Foliate')
     }
     _buildUI() {
+        this._skeuomorph()
+
         // make find results columns vertical
         const column = this._findTreeView.get_column(0)
         column.get_area().orientation = Gtk.Orientation.VERTICAL
@@ -750,5 +757,45 @@ var FoliateWindow = GObject.registerClass({
             this._bookmarkButton.tooltip_text = _('Bookmark current location')
             this._bookmarkButton.get_child().icon_name = 'bookmark-new-symbolic'
         }
+    }
+    _skeuomorph() {
+        if (!settings.get_boolean('skeuomorphism'))
+            return this._contentBox.get_style_context()
+                .remove_class('skeuomorph-page')
+
+        const cssProvider = new Gtk.CssProvider()
+        const bgColor = settings.get_string('bg-color')
+        cssProvider.load_from_data(`
+            .skeuomorph-page {
+                margin: 8px 24px;
+                box-shadow:
+                    -26px 0 15px 5px rgba(0, 0, 0, 0.1),
+                    26px 0 15px 5px rgba(0, 0, 0, 0.1),
+
+                    -26px 0 0 -14px rgba(0, 0, 0, 0.2),
+                    -26px 0 0 -15px ${bgColor},
+
+                    26px 0 0 -14px rgba(0, 0, 0, 0.2),
+                    26px 0 0 -15px ${bgColor},
+
+                    -18px 0 0 -9px rgba(0, 0, 0, 0.2),
+                    -18px 0 0 -10px ${bgColor},
+
+                    18px 0 0 -9px rgba(0, 0, 0, 0.2),
+                    18px 0 0 -10px ${bgColor},
+
+                    -10px 0 0 -4px rgba(0, 0, 0, 0.2),
+                    -10px 0 0 -5px ${bgColor},
+
+                    10px 0 0 -4px rgba(0, 0, 0, 0.2),
+                    10px 0 0 -5px ${bgColor},
+
+                    0 0 15px 5px rgba(0, 0, 0, 0.2),
+                    0 0 0 1px rgba(0, 0, 0, 0.2);
+            }`)
+        const styleContext = this._contentBox.get_style_context()
+        styleContext.add_class('skeuomorph-page')
+        styleContext
+            .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
     }
 })

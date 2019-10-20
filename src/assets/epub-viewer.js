@@ -26,6 +26,7 @@ let cfiToc
 let sectionMarks
 let lineHeight = 24
 let enableFootnote = false
+let skeuomorphism = false
 
 class Find {
     constructor() {
@@ -301,8 +302,20 @@ const getRect = (target, frame) => {
 }
 
 const setupRendition = () => {
+    const paginated = rendition.settings.flow === 'paginated'
+
     rendition.on('rendered', redrawAnnotations)
     rendition.on('relocated', dispatchLocation)
+
+    const updateDivider = () => {
+        document.getElementById('divider').style.display =
+            skeuomorphism
+            && rendition.settings.spread !== 'none'
+            && document.getElementById('viewer').clientWidth >= 800
+                ? 'block' : 'none'
+    }
+    rendition.on('layout', updateDivider)
+    updateDivider()
 
     let isSelecting = false
 
@@ -410,8 +423,6 @@ const setupRendition = () => {
             })
         }
     })
-
-    const paginated = rendition.settings.flow === 'paginated'
 
     // keyboard shortcuts
     const handleKeydown = event => {

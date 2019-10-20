@@ -280,7 +280,10 @@ var EpubViewSettings = GObject.registerClass({
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
         layout:
             GObject.ParamSpec.string('layout', 'layout', 'layout',
-                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'auto')
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'auto'),
+        skeuomorphism:
+            GObject.ParamSpec.boolean('skeuomorphism', 'skeuomorphism', 'skeuomorphism',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false)
     }
 }, class EpubViewSettings extends GObject.Object {})
 
@@ -378,6 +381,8 @@ var EpubView = GObject.registerClass({
             this._disconnectData()
             this._webView.reload()
         })
+        this.settings.connect('notify::skeuomorphism', () =>
+            this._skeuomorphism = this.settings.skeuomorphism)
     }
     _connectData() {
         this.connect('metadata', () => {
@@ -449,6 +454,7 @@ var EpubView = GObject.registerClass({
             case 'ready':
                 this._enableFootnote = this.settings.enable_footnote
                 this._enableDevtools = this.settings.enable_devtools
+                this._skeuomorphism = this.settings.skeuomorphism
 
                 this._run(`open("${encodeURI(this.file)}", '${this.inputType}',
                     ${layouts[this.settings.layout].renderTo},
@@ -576,6 +582,9 @@ var EpubView = GObject.registerClass({
             brightness: this.settings.brightness
         }
         this._run(`setStyle(${JSON.stringify(style)})`)
+    }
+    set _skeuomorphism(state) {
+        this._run(`skeuomorphism = ${state}`)
     }
     set _enableFootnote(state) {
         this._run(`enableFootnote = ${state}`)
