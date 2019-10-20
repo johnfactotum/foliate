@@ -595,7 +595,6 @@ var EpubView = GObject.registerClass({
         if (x === current) return
         if (withHistory) this._history.push(current)
         this._run(`rendition.display("${x}")`)
-        this._callback('can-go-back', Boolean(this._history.length))
     }
     async goToLocation(x) {
         this.goTo(await this._get(`book.locations.cfiFromLocation(${x})`))
