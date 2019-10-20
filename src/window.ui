@@ -565,6 +565,88 @@
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">10</property>
+                <child>
+                  <object class="GtkStack" id="bookmarksStack">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkScrolledWindow">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin">18</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="pixel_size">64</property>
+                                <property name="icon_name">user-bookmarks-symbolic</property>
+                                <style><class name="dim-label"/></style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="wrap">True</property>
+                                <property name="label" translatable="yes">No bookmarks</property>
+                                <style><class name="dim-label"/></style>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                  <attribute name="scale" value="1.36"/>
+                                </attributes>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="wrap">True</property>
+                                <property name="label" translatable="yes">Add some bookmarks to see them here.</property>
+                                <style><class name="dim-label"/></style>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <style><class name="frame"/></style>
+                      </object>
+                      <packing>
+                        <property name="name">empty</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow">
+                        <property name="visible">True</property>
+                        <property name="vexpand">True</property>
+                        <child>
+                          <object class="GtkListBox" id="bookmarksListBox">
+                            <property name="visible">True</property>
+                          </object>
+                        </child>
+                        <style><class name="frame"/></style>
+                      </object>
+                      <packing>
+                        <property name="name">main</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="bookmarkButton">
+                    <property name="visible">True</property>
+                    <property name="action-name">win.bookmark</property>
+                    <property name="tooltip-text" translatable="yes">Bookmark current location</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="icon-name">bookmark-new-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="name">bookmarks</property>

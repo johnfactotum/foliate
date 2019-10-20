@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateBookmarkRow" parent="GtkListBoxRow">
+    <property name="visible">True</property>
+    <property name="selectable">False</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="margin">6</property>
+        <property name="spacing">3</property>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">3</property>
+            <property name="hexpand">True</property>
+            <child>
+              <object class="GtkLabel" id="bookmarkSection">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="ellipsize">end</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="bookmarkText">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="wrap">True</property>
+                <property name="lines">3</property>
+                <property name="ellipsize">middle</property>
+                <style><class name="dim-label"/></style>
+                <attributes>
+                  <attribute name="scale" value="0.85"/>
+                </attributes>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="removeButton">
+            <property name="visible">True</property>
+            <property name="relief">none</property>
+            <property name="tooltip-text" translatable="yes">Remove</property>
+                <signal name="clicked" handler="_remove"/>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon_name">user-trash-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

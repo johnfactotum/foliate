@@ -126,6 +126,11 @@ const makeActions = self => ({
     'win.zoom-restore': [() => settings.set_double('zoom-level', 1),
         ['1', '<ctrl>1']],
 
+    'win.bookmark': [() => {
+        if (self._epub.hasBookmark()) self._epub.removeBookmark()
+        else self._epub.addBookmark()
+    }, ['<ctrl>d']],
+
     'win.selection-copy': [() => {
         Gtk.Clipboard.get_default(Gdk.Display.get_default())
             .set_text(self._epub.selection.text, -1)
@@ -283,6 +288,27 @@ const AnnotationRow = GObject.registerClass({
     }
 })
 
+const BookmarkRow = GObject.registerClass({
+    GTypeName: 'FoliateBookmarkRow',
+    Template: 'resource:///com/github/johnfactotum/Foliate/bookmarkRow.ui',
+    InternalChildren: [
+        'bookmarkSection', 'bookmarkText'
+    ]
+}, class BookmarkRow extends Gtk.ListBoxRow {
+    _init(bookmark, epubView) {
+        super._init()
+        this.bookmark = bookmark
+        this._epub = epubView
+
+        this._bookmarkText.label = bookmark.cfi
+        this._epub.getSectionFromCfi(bookmark.cfi).then(section =>
+            this._bookmarkSection.label = section.label)
+    }
+    _remove() {
+        this._epub.removeBookmark(this.bookmark.cfi)
+    }
+})
+
 var FoliateWindow = GObject.registerClass({
     GTypeName: 'FoliateWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/window.ui',
@@ -292,6 +318,7 @@ var FoliateWindow = GObject.registerClass({
         'sideMenuButton', 'sideMenu', 'tocTreeView',
 
         'annotationsStack', 'annotationsListBox',
+        'bookmarksStack', 'bookmarksListBox', 'bookmarkButton',
 
         'findMenuButton',
         'findMenu', 'findEntry', 'findScrolledWindow', 'findTreeView',
@@ -389,8 +416,11 @@ var FoliateWindow = GObject.registerClass({
         const column = this._findTreeView.get_column(0)
         column.get_area().orientation = Gtk.Orientation.VERTICAL
 
-        // add separator to annotations list
+        // add separator to list boxes
         this._annotationsListBox.set_header_func((row) => {
+            if (row.get_index()) row.set_header(new Gtk.Separator())
+        })
+        this._bookmarksListBox.set_header_func((row) => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
 
@@ -574,6 +604,8 @@ var FoliateWindow = GObject.registerClass({
             this._sectionTotal.label = _('of %d').format(sectionTotal)
             this._locationTotal.label = _('of %d').format(locationTotal + 1)
 
+            this._updateBookmarkButton()
+
             // select toc item
             const view = this._tocTreeView
             const store = view.model
@@ -616,7 +648,7 @@ var FoliateWindow = GObject.registerClass({
             this._showMenu(this._highlightMenu, false)
             this._colorRadios[annotation.color].active = true
         })
-        this._epub.connect('data-ready', (_, annotations) => {
+        this._epub.connect('data-ready', (_, annotations, bookmarks) => {
             this._annotationsStack.visible_child_name =
                 annotations.get_n_items() ? 'main' : 'empty'
             annotations.connect('items-changed', () => {
@@ -625,6 +657,16 @@ var FoliateWindow = GObject.registerClass({
             })
             this._annotationsListBox.bind_model(annotations, annotation =>
                 new AnnotationRow(annotation, this._epub))
+
+            this._bookmarksStack.visible_child_name =
+                bookmarks.get_n_items() ? 'main' : 'empty'
+            bookmarks.connect('items-changed', () => {
+                this._bookmarksStack.visible_child_name =
+                    bookmarks.get_n_items() ? 'main' : 'empty'
+                this._updateBookmarkButton()
+            })
+            this._bookmarksListBox.bind_model(bookmarks, bookmark =>
+                new BookmarkRow(bookmark, this._epub))
         })
 
         this._tocTreeView.model = this._epub.toc
@@ -632,6 +674,10 @@ var FoliateWindow = GObject.registerClass({
 
         this._annotationsListBox.connect('row-activated', (_, row) => {
             this._epub.goTo(row.annotation.cfi)
+            this._sideMenu.popdown()
+        })
+        this._bookmarksListBox.connect('row-activated', (_, row) => {
+            this._epub.goTo(row.bookmark.cfi)
             this._sideMenu.popdown()
         })
 
@@ -695,5 +741,14 @@ var FoliateWindow = GObject.registerClass({
     _onlocationScaleChanged() {
         const value = this._locationScale.get_value()
         this._epub.goToPercentage(value)
+    }
+    _updateBookmarkButton() {
+        if (this._epub.hasBookmark()) {
+            this._bookmarkButton.tooltip_text = _('Remove current location')
+            this._bookmarkButton.get_child().icon_name = 'user-trash-symbolic'
+        } else {
+            this._bookmarkButton.tooltip_text = _('Bookmark current location')
+            this._bookmarkButton.get_child().icon_name = 'bookmark-new-symbolic'
+        }
     }
 })

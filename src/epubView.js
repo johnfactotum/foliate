@@ -56,6 +56,14 @@ const EpubViewAnnotation = GObject.registerClass({
     }
 }, class EpubViewAnnotation extends GObject.Object {})
 
+const EpubViewBookmark = GObject.registerClass({
+    GTypeName: 'FoliateEpubViewBookmark',
+    Properties: {
+        cfi: GObject.ParamSpec.string('cfi', 'cfi', 'cfi',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, null),
+    }
+}, class EpubViewBookmark extends GObject.Object {})
+
 const dataMap = new Map()
 const getData = identifier => {
     if (dataMap.has(identifier)) return dataMap.get(identifier)
@@ -91,6 +99,9 @@ const EpubViewData = GObject.registerClass({
         this._annotationsMap = new Map()
         this._annotationsList = new Gio.ListStore()
 
+        this._bookmarksSet = new Set()
+        this._bookmarksList = new Gio.ListStore()
+
         this._storage.get('annotations', [])
             .forEach(({ value, color, text, note }) =>
                 this.addAnnotation(new EpubViewAnnotation({
@@ -98,7 +109,10 @@ const EpubViewData = GObject.registerClass({
                     color: color || 'yellow',
                     text: text || '',
                     note: note || ''
-                })))
+                }), true))
+
+        this._storage.get('bookmarks', [])
+            .forEach(cfi => this.addBookmark(cfi, true))
     }
     get annotations() {
         return this._annotationsMap.values()
@@ -108,6 +122,12 @@ const EpubViewData = GObject.registerClass({
     }
     get annotationsList() {
         return this._annotationsList
+    }
+    get bookmarksList() {
+        return this._bookmarksList
+    }
+    hasBookmark(cfi) {
+        return this._bookmarksSet.has(cfi)
     }
     get lastLocation() {
         return this._storage.get('lastLocation')
@@ -132,7 +152,7 @@ const EpubViewData = GObject.registerClass({
             }))
         this._storage.set('annotations', annotations)
     }
-    addAnnotation(annotation) {
+    addAnnotation(annotation, init) {
         const cfi = annotation.cfi
         if (this._annotationsMap.has(cfi)) {
             this.emit('annotation-added', this._annotationsMap.get(cfi))
@@ -147,7 +167,7 @@ const EpubViewData = GObject.registerClass({
                 this._onAnnotationsChanged()
             })
             this.emit('annotation-added', annotation)
-            this._onAnnotationsChanged()
+            if (!init) this._onAnnotationsChanged()
         }
     }
     removeAnnotation(annotation) {
@@ -163,6 +183,27 @@ const EpubViewData = GObject.registerClass({
             }
         }
         this._onAnnotationsChanged()
+    }
+    _onBookmarksChanged() {
+        const bookmarks = Array.from(this._bookmarksSet)
+        this._storage.set('bookmarks', bookmarks)
+    }
+    addBookmark(cfi, init) {
+        this._bookmarksSet.add(cfi)
+        this._bookmarksList.append(new EpubViewBookmark({ cfi }))
+        if (!init) this._onBookmarksChanged()
+    }
+    removeBookmark(cfi) {
+        this._bookmarksSet.delete(cfi)
+        const store = this._bookmarksList
+        const n = store.get_n_items()
+        for (let i = 0; i < n; i++) {
+            if (store.get_item(i).cfi === cfi) {
+                store.remove(i)
+                break
+            }
+        }
+        this._onBookmarksChanged()
     }
     disconnectAll() {
         for (const annotation of this.annotations) {
@@ -248,7 +289,7 @@ var EpubView = GObject.registerClass({
     Signals: {
         'data-ready': {
             flags: GObject.SignalFlags.RUN_FIRST,
-            param_types: [Gio.ListStore.$gtype]
+            param_types: [Gio.ListStore.$gtype, Gio.ListStore.$gtype]
         },
         'rendition-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-displayed': { flags: GObject.SignalFlags.RUN_FIRST },
@@ -347,7 +388,7 @@ var EpubView = GObject.registerClass({
             const locations = this._data.locations
             this._run(`loadLocations(${locations || 'null'})`)
 
-            this.emit('data-ready', this._data.annotationsList)
+            this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
         })
         this.connect('locations-generated', () => {
             this._data.locations = this.locations
@@ -583,6 +624,15 @@ var EpubView = GObject.registerClass({
     }
     removeAnnotation(cfi) {
         this._data.removeAnnotation(cfi)
+    }
+    addBookmark(cfi = this.location.cfi) {
+        this._data.addBookmark(cfi)
+    }
+    removeBookmark(cfi = this.location.cfi) {
+        this._data.removeBookmark(cfi)
+    }
+    hasBookmark(cfi = this.location.cfi) {
+        return this._data.hasBookmark(cfi)
     }
     find(q, inBook = true, highlight = true) {
         this._run(`find.find(decodeURI("${encodeURI(q)}"), ${inBook}, ${highlight})`)
