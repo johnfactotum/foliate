@@ -72,8 +72,8 @@ class Find {
 }
 const find = new Find()
 
-const dispatchLocation = () => {
-    const location = rendition.currentLocation() || rendition.location
+const dispatchLocation = async () => {
+    const location = await rendition.currentLocation()
 
     const percentage = location.start.percentage
     const index = book.spine.get(location.start.cfi).index
@@ -207,18 +207,16 @@ const getSectionFromCfi = cfi => {
         || { label: book.package.metadata.title, href: '', cfi: '' }
 }
 
-const open = (fileName, inputType) => {
+const open = (fileName, inputType, renderTo, options) => {
     book.open(decodeURI(fileName), inputType) // works for non-flatpak
         .catch(() => book.open(fileName, inputType)) // works for flatpak
         .catch(() => dispatch({ type: 'book-error' }))
+
+    rendition = book.renderTo(renderTo, options)
+    rendition.display().then(() => dispatch({ type: 'rendition-ready' }))
 }
 
-const display = (renderTo, options, locations) => {
-    rendition = book.renderTo(renderTo, options)
-
-    const displayed = rendition.display()
-        .then(() => dispatch({ type: 'rendition-ready' }))
-
+const loadLocations = locations => {
     const locationsReady = () => {
         sectionMarks = book.spine.items.map(section => book.locations
             .percentageFromCfi('epubcfi(' + section.cfiBase + '!/0)'))
@@ -227,12 +225,10 @@ const display = (renderTo, options, locations) => {
 
     if (locations) {
         book.locations.load(locations)
-        displayed
-            .then(() => locationsReady())
-            .then(() => dispatch({ type: 'locations-ready' }))
+        locationsReady()
+        dispatch({ type: 'locations-ready' })
     } else {
-        displayed
-            .then(() => book.locations.generate(CHARACTERS_PER_PAGE))
+        book.locations.generate(CHARACTERS_PER_PAGE)
             .then(() => locationsReady())
             .then(() => dispatch({
                 type: 'locations-generated',
@@ -304,8 +300,7 @@ const getRect = (target, frame) => {
     return { left, right, top, bottom }
 }
 
-const setupRendition = cfi => {
-    rendition.display(cfi).then(() => dispatch({ type: 'book-displayed' }))
+const setupRendition = () => {
     rendition.on('rendered', redrawAnnotations)
     rendition.on('relocated', dispatchLocation)
 

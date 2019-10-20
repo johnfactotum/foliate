@@ -343,7 +343,10 @@ var EpubView = GObject.registerClass({
             const { identifier } = this.metadata
             this._data = getData(identifier)
             this._data.addView(this)
-            this._display(this._data.lastLocation, this._data.locations)
+
+            const locations = this._data.locations
+            this._run(`loadLocations(${locations || 'null'})`)
+
             this.emit('data-ready', this._data.annotationsList)
         })
         this.connect('locations-generated', () => {
@@ -363,6 +366,10 @@ var EpubView = GObject.registerClass({
             const h2 = this._data.connect('annotation-removed', (_, cfi) =>
                 this._removeAnnotation(cfi))
             this._dataHandlers = [h1, h2]
+
+            const lastLocation = this._data.lastLocation || this.location.cfi
+            this._run(`rendition.display(${lastLocation ? `'${lastLocation}'` : ''})
+                .then(() => dispatch({ type: 'book-displayed' }))`)
         })
         this._webView.connect('destroy', () => {
             if (!this._data) return
@@ -399,9 +406,12 @@ var EpubView = GObject.registerClass({
     _handleAction(type, payload) {
         switch (type) {
             case 'ready':
-                this._run(`open("${encodeURI(this.file)}", '${this.inputType}')`)
                 this._enableFootnote = this.settings.enable_footnote
                 this._enableDevtools = this.settings.enable_devtools
+
+                this._run(`open("${encodeURI(this.file)}", '${this.inputType}',
+                    ${layouts[this.settings.layout].renderTo},
+                    ${JSON.stringify(layouts[this.settings.layout].options)})`)
                 break
             case 'book-error':
                 this.emit('book-error')
@@ -427,7 +437,7 @@ var EpubView = GObject.registerClass({
                 break
             case 'rendition-ready':
                 this._applyStyle()
-                this._run(`setupRendition(${this.cfi ? `'${this.cfi}'` : ''})`)
+                this._run(`setupRendition()`)
                 this.emit('rendition-ready')
                 break
             case 'book-displayed':
@@ -441,7 +451,6 @@ var EpubView = GObject.registerClass({
                 this.emit('locations-ready')
                 break
             case 'relocated':
-                this.cfi = payload.cfi
                 this.location = payload
                 this.location.canGoBack = Boolean(this._history.length)
                 this.emit('relocated')
@@ -491,14 +500,6 @@ var EpubView = GObject.registerClass({
                 break
             }
         }
-    }
-    _display(cfi, locations) {
-        this.cfi = cfi
-        this.locations = locations
-        this._run(`display(
-            ${layouts[this.settings.layout].renderTo},
-            ${JSON.stringify(layouts[this.settings.layout].options)},
-            ${this.locations || 'null'})`)
     }
     _applyStyle() {
         const fontDesc = Pango.FontDescription.from_string(this.settings.font)
