@@ -16,7 +16,7 @@
 const { GObject, Gtk, Gio, GLib, Gdk } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const { execCommand, recursivelyDeleteDir } = imports.utils
+const { execCommand, recursivelyDeleteDir, isExternalURL } = imports.utils
 const { EpubView, EpubViewSettings } = imports.epubView
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -310,6 +310,41 @@ const BookmarkRow = GObject.registerClass({
         this._epub.removeBookmark(this.bookmark.cfi)
     }
 })
+
+const FootnotePopover = GObject.registerClass({
+    GTypeName: 'FoliateFootnotePopover',
+    Template: 'resource:///com/github/johnfactotum/Foliate/footnotePopover.ui',
+    InternalChildren: [
+        'footnoteLabel', 'controls', 'separator'
+    ]
+}, class FootnotePopover extends Gtk.Popover {
+    _init(footnote, link, epubView) {
+        super._init()
+        this._link = link
+        this._epub = epubView
+        this._footnoteLabel.label = footnote
+        if (!link) {
+            this._controls.hide()
+            this._separator.hide()
+        }
+    }
+    popup() {
+        super.popup()
+        this._footnoteLabel.select_region(-1, -1)
+    }
+    _goToLinkedLocation() {
+        this._epub.goTo(this._link)
+        this.popdown()
+    }
+    _activateLink(_, uri) {
+        if (!isExternalURL(uri)) {
+            this._epub.goTo(uri)
+            this.popdown()
+            return true
+        }
+    }
+})
+
 
 var FoliateWindow = GObject.registerClass({
     GTypeName: 'FoliateWindow',
@@ -687,6 +722,13 @@ var FoliateWindow = GObject.registerClass({
             })
             this._bookmarksListBox.bind_model(bookmarks, bookmark =>
                 new BookmarkRow(bookmark, this._epub))
+        })
+        this._epub.connect('footnote', () => {
+            const { footnote, link, position } = this._epub.footnote
+            const popover = new FootnotePopover(footnote, link, this._epub)
+            popover.relative_to = this._epub.widget
+            setPopoverPosition(popover, position, this, 200)
+            popover.popup()
         })
 
         this._tocTreeView.model = this._epub.toc

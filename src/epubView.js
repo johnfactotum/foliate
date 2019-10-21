@@ -305,6 +305,7 @@ var EpubView = GObject.registerClass({
         'find-results': { flags: GObject.SignalFlags.RUN_FIRST },
         'selection': { flags: GObject.SignalFlags.RUN_FIRST },
         'highlight-menu': { flags: GObject.SignalFlags.RUN_FIRST },
+        'footnote': { flags: GObject.SignalFlags.RUN_FIRST },
     }
 }, class EpubView extends GObject.Object {
     _init({ file, inputType, settings }) {
@@ -317,6 +318,7 @@ var EpubView = GObject.registerClass({
         this.metadata = null
         this.location = null
         this.selection = null
+        this.footnote = null
 
         this.toc = new Gtk.TreeStore()
         this.toc.set_column_types([GObject.TYPE_STRING, GObject.TYPE_STRING])
@@ -509,6 +511,8 @@ var EpubView = GObject.registerClass({
                 Gtk.show_uri_on_window(null, payload, Gdk.CURRENT_TIME)
                 break
             case 'footnote':
+                this.footnote = payload
+                this.emit('footnote')
                 break
 
             case 'find-results': {

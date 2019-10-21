@@ -124,3 +124,6 @@ var disconnectAllHandlers = (object, signal) => {
         else break
     }
 }
+
+var isExternalURL = href =>
+    href.indexOf("mailto:") === 0 || href.indexOf("://") > -1
