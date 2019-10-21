@@ -20,6 +20,7 @@ const { execCommand, recursivelyDeleteDir } = imports.utils
 const { EpubView, EpubViewSettings } = imports.epubView
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
+const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 
 const mimetypes = {
     epub: 'application/epub+zip',
@@ -415,6 +416,12 @@ var FoliateWindow = GObject.registerClass({
         this._loading = true
         this._mainOverlay.visible_child_name = 'empty'
         this.title = _('Foliate')
+
+        // restore window state
+        this.default_width = windowState.get_int('width')
+        this.default_height = windowState.get_int('height')
+        if (windowState.get_boolean('maximized')) this.maximize()
+        if (windowState.get_boolean('fullscreen')) this.fullscreen()
     }
     _buildUI() {
         this._skeuomorph()
@@ -506,7 +513,6 @@ var FoliateWindow = GObject.registerClass({
     _onWindowStateEvent(widget, event) {
         const state = event.get_window().get_state()
         this._isFullscreen = Boolean(state & Gdk.WindowState.FULLSCREEN)
-        this._isMaximized = Boolean(state & Gdk.WindowState.MAXIMIZED)
 
         const fullscreenImage = this._fullscreenButton.get_child()
         if (this._isFullscreen) {
@@ -521,8 +527,15 @@ var FoliateWindow = GObject.registerClass({
         const [width, height] = this.get_size()
         const narrow = width < 500
         this._locationScale.visible = !narrow
+        this._width = width
+        this._height = height
     }
     _onDestroy() {
+        windowState.set_int('width', this._width)
+        windowState.set_int('height', this._height)
+        windowState.set_boolean('maximized', this.is_maximized)
+        windowState.set_boolean('fullscreen', this._isFullscreen)
+
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
     }
     set _loading(state) {
