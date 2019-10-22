@@ -791,10 +791,15 @@
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="margin_left">5</property>
+            <property name="margin-left">6</property>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
+                <!--
+                some themes pad GtkScale very generously;
+                make a 1px margin to make it less weird for those that don't
+                -->
+                <property name="margin">1</property>
                 <property name="icon_name">display-brightness-symbolic</property>
                 <property name="tooltip_text" translatable="yes">Brightness</property>
               </object>
