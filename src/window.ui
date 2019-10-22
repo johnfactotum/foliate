@@ -823,47 +823,69 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="GtkGrid">
             <property name="visible">True</property>
-            <property name="margin_top">6</property>
-            <property name="margin_bottom">6</property>
-            <property name="spacing">18</property>
+            <property name="margin-top">6</property>
+            <property name="margin-bottom">6</property>
+            <property name="margin-left">6</property>
+            <property name="row-spacing">6</property>
+            <property name="column-spacing">10</property>
             <child>
-              <!--
-              GtkModelButton is used here (instead of GtkLabel) to ensure that
-              the label will have the same padding/margin as the other menu itmes.
-              -->
-              <object class="GtkModelButton">
+              <object class="GtkLabel">
                 <property name="visible">True</property>
-                <property name="hexpand">True</property>
-                <property name="xalign">0</property>
-                <property name="sensitive">False</property>
-                <property name="text" translatable="yes">Font</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">Font</property>
+                <style><class name="dim-label"/></style>
               </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">Spacing</property>
+                <style><class name="dim-label"/></style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">Margins</property>
+                <style><class name="dim-label"/></style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
             </child>
             <child>
               <object class="GtkFontButton" id="fontButton">
                 <property name="visible">True</property>
-                <property name="font">Sans 12</property>
-                <property name="use_font">True</property>
-                <property name="show_style">False</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="margin_bottom">6</property>
-            <property name="spacing">18</property>
-            <child>
-              <object class="GtkModelButton">
-                <property name="visible">True</property>
                 <property name="hexpand">True</property>
-                <property name="xalign">0</property>
-                <property name="sensitive">False</property>
-                <property name="text" translatable="yes">Spacing</property>
+                <property name="font">Serif 12</property>
+                <property name="use-font">True</property>
+                <property name="show-style">False</property>
               </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
             </child>
             <child>
               <object class="GtkSpinButton" id="spacingButton">
@@ -871,22 +893,12 @@
                 <property name="digits">2</property>
                 <property name="adjustment">spacingAdjustment</property>
               </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="margin_bottom">6</property>
-            <property name="spacing">18</property>
-            <child>
-              <object class="GtkModelButton">
-                <property name="visible">True</property>
-                <property name="hexpand">True</property>
-                <property name="xalign">0</property>
-                <property name="sensitive">False</property>
-                <property name="label" translatable="yes">Margins</property>
-              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
             </child>
             <child>
               <object class="GtkSpinButton" id="marginButton">
@@ -894,6 +906,12 @@
                 <property name="digits">1</property>
                 <property name="adjustment">marginAdjustment</property>
               </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
             </child>
           </object>
         </child>
