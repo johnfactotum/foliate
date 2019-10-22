@@ -525,6 +525,14 @@ var FoliateWindow = GObject.registerClass({
                 .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
             this._themeBox.pack_start(button, false, true, 0)
         })
+
+        const gtkTheme = Gtk.Settings.get_default().gtk_theme_name
+        if (gtkTheme === 'elementary') {
+            this._headerBar.get_style_context().add_class('compact')
+            this._sideMenuButton.get_style_context().add_class('flat')
+            this._findMenuButton.get_style_context().add_class('flat')
+            this._mainMenuButton.get_style_context().add_class('flat')
+        }
     }
     _addAction(context, name, func, accels, state, useParameter) {
         const action = new Gio.SimpleAction({
