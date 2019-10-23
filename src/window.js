@@ -253,7 +253,7 @@ const makeStringActions = self => ({
 
 const AnnotationRow = GObject.registerClass({
     GTypeName: 'FoliateAnnotationRow',
-    Template: 'resource:///com/github/johnfactotum/Foliate/annotationRow.ui',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/annotationRow.ui',
     InternalChildren: [
         'annotationSection', 'annotationText', 'annotationNote'
     ]
@@ -292,7 +292,7 @@ const AnnotationRow = GObject.registerClass({
 
 const BookmarkRow = GObject.registerClass({
     GTypeName: 'FoliateBookmarkRow',
-    Template: 'resource:///com/github/johnfactotum/Foliate/bookmarkRow.ui',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookmarkRow.ui',
     InternalChildren: [
         'bookmarkSection', 'bookmarkText'
     ]
@@ -313,7 +313,7 @@ const BookmarkRow = GObject.registerClass({
 
 const FootnotePopover = GObject.registerClass({
     GTypeName: 'FoliateFootnotePopover',
-    Template: 'resource:///com/github/johnfactotum/Foliate/footnotePopover.ui',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/footnotePopover.ui',
     InternalChildren: [
         'footnoteLabel', 'controls', 'separator'
     ]
@@ -348,7 +348,7 @@ const FootnotePopover = GObject.registerClass({
 
 var FoliateWindow = GObject.registerClass({
     GTypeName: 'FoliateWindow',
-    Template: 'resource:///com/github/johnfactotum/Foliate/window.ui',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/window.ui',
     InternalChildren: [
         'headerBar', 'mainOverlay', 'mainBox', 'contentBox',
 
