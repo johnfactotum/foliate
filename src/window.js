@@ -345,6 +345,29 @@ const FootnotePopover = GObject.registerClass({
     }
 })
 
+const MainMenu = GObject.registerClass({
+    GTypeName: 'FoliateMainMenu',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainMenu.ui',
+    Children: [
+        'brightnessScale', 'fontButton', 'spacingButton', 'marginButton',
+        'themeBox',
+    ],
+    InternalChildren: ['zoomRestoreButton', 'fullscreenButton']
+}, class MainMenu extends Gtk.PopoverMenu {
+    set zoomLevel(zoomLevel) {
+        this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
+    }
+    set fullscreen(isFullscreen) {
+        const fullscreenImage = this._fullscreenButton.get_child()
+        if (isFullscreen) {
+            fullscreenImage.icon_name = 'view-restore-symbolic'
+            this._fullscreenButton.tooltip_text = _('Leave fullscreen')
+        } else {
+            fullscreenImage.icon_name = 'view-fullscreen-symbolic'
+            this._fullscreenButton.tooltip_text = _('Fullscreen')
+        }
+    }
+})
 
 var FoliateWindow = GObject.registerClass({
     GTypeName: 'FoliateWindow',
@@ -361,8 +384,6 @@ var FoliateWindow = GObject.registerClass({
         'findMenu', 'findEntry', 'findScrolledWindow', 'findTreeView',
 
         'mainMenuButton',
-        'zoomRestoreButton', 'fullscreenButton', 'brightnessScale',
-        'fontButton', 'spacingButton', 'marginButton', 'themeBox',
 
         'navbar', 'locationStack', 'locationLabel', 'locationScale',
         'timeInBook', 'timeInChapter',
@@ -401,10 +422,10 @@ var FoliateWindow = GObject.registerClass({
         settings.bind('skeuomorphism', this._epubSettings, 'skeuomorphism', defaultFlag)
 
         // bind settings to UI
-        settings.bind('font', this._fontButton, 'font', defaultFlag)
-        settings.bind('spacing', this._spacingButton, 'value', defaultFlag)
-        settings.bind('margin', this._marginButton, 'value', defaultFlag)
-        settings.bind('brightness', this._brightnessScale.adjustment, 'value', defaultFlag)
+        settings.bind('font', this._mainMenu.fontButton, 'font', defaultFlag)
+        settings.bind('spacing', this._mainMenu.spacingButton, 'value', defaultFlag)
+        settings.bind('margin', this._mainMenu.marginButton, 'value', defaultFlag)
+        settings.bind('brightness', this._mainMenu.brightnessScale.adjustment, 'value', defaultFlag)
         this.add_action(settings.create_action('use-publisher-font'))
         this.add_action(settings.create_action('justify'))
         this.add_action(settings.create_action('hyphenate'))
@@ -438,7 +459,7 @@ var FoliateWindow = GObject.registerClass({
         // update zoom buttons when zoom level changes
         const updateZoomButtons = () => {
             const zoomLevel = settings.get_double('zoom-level')
-            this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
+            this._mainMenu.zoomLevel = zoomLevel
             this.lookup_action('zoom-restore').enabled = zoomLevel !== 1
             this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
             this.lookup_action('zoom-in').enabled = zoomLevel < 4
@@ -460,6 +481,9 @@ var FoliateWindow = GObject.registerClass({
     }
     _buildUI() {
         this._skeuomorph()
+
+        this._mainMenu = new MainMenu()
+        this._mainMenuButton.popover = this._mainMenu
 
         // make find results columns vertical
         const column = this._findTreeView.get_column(0)
@@ -523,7 +547,7 @@ var FoliateWindow = GObject.registerClass({
             const styleContext = button.get_style_context()
             styleContext
                 .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-            this._themeBox.pack_start(button, false, true, 0)
+            this._mainMenu.themeBox.pack_start(button, false, true, 0)
         })
 
         const gtkTheme = Gtk.Settings.get_default().gtk_theme_name
@@ -556,15 +580,7 @@ var FoliateWindow = GObject.registerClass({
     _onWindowStateEvent(widget, event) {
         const state = event.get_window().get_state()
         this._isFullscreen = Boolean(state & Gdk.WindowState.FULLSCREEN)
-
-        const fullscreenImage = this._fullscreenButton.get_child()
-        if (this._isFullscreen) {
-            fullscreenImage.icon_name = 'view-restore-symbolic'
-            this._fullscreenButton.tooltip_text = _('Leave fullscreen')
-        } else {
-            fullscreenImage.icon_name = 'view-fullscreen-symbolic'
-            this._fullscreenButton.tooltip_text = _('Fullscreen')
-        }
+        this._mainMenu.fullscreen = this._isFullscreen
     }
     _onSizeAllocate() {
         const [width, height] = this.get_size()
