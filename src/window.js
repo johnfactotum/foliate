@@ -16,7 +16,7 @@
 const { GObject, Gtk, Gio, GLib, Gdk } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const { execCommand, recursivelyDeleteDir, isExternalURL } = imports.utils
+const { execCommand, recursivelyDeleteDir, isExternalURL, invertColor } = imports.utils
 const { EpubView, EpubViewSettings } = imports.epubView
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -29,48 +29,102 @@ const mimetypes = {
 
 const highlightColors = ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
 
-const defaultThemes = {
-    [_('Light')]: {
-        color: '#000', background: '#fff', link: 'blue',
-        darkMode: false, invert: false
-    },
-    [_('Sepia')]: {
-        color: '#5b4636', background: '#efe7dd', link: 'darkcyan',
-        darkMode: false, invert: false
-    },
-    [_('Gray')]: {
-        color: '#ccc', background: '#555', link: 'cyan',
-        darkMode: true, invert: false
-    },
-    [_('Dark')]: {
-        color: '#ddd', background: '#292929', link: 'cyan',
-        darkMode: true, invert: false
-    },
-    [_('Solarized Light')]: {
-        color: '#586e75', background: '#fdf6e3', link: '#268bd2',
-        darkMode: false, invert: false
-    },
-    [_('Solarized Dark')]: {
-        color: '#93a1a1', background: '#002b36', link: '#268bd2',
-        darkMode: true, invert: false
-    },
-    [_('Gruvbox Light')]: {
-        color: '#3c3836', background: '#fbf1c7', link: '#076678',
-        darkMode: false, invert: false
-    },
-    [_('Gruvbox Dark')]: {
-        color: '#ebdbb2', background: '#282828', link: '#83a598',
-        darkMode: true, invert: false
-    },
-    [_('Nord')]: {
-        color: '#d8dee9', background: '#2e3440', link: '#88c0d0',
-        darkMode: true, invert: false
-    },
-    [_('Invert')]: {
-        color: '#000', background: '#fff', link: 'blue',
-        darkMode: true, invert: true
+const Theme = GObject.registerClass({
+    GTypeName: 'FoliateTheme',
+    Properties: {
+        name:
+            GObject.ParamSpec.string('name', 'name', 'name',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'black'),
+        'fg-color':
+            GObject.ParamSpec.string('fg-color', 'fg-color', 'fg-color',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'black'),
+        'bg-color':
+            GObject.ParamSpec.string('bg-color', 'bg-color', 'bg-color',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'white'),
+        'link-color':
+            GObject.ParamSpec.string('link-color', 'link-color', 'link-color',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'blue'),
+        invert:
+            GObject.ParamSpec.boolean('invert', 'invert', 'invert',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
+        'dark-mode':
+            GObject.ParamSpec.boolean('dark-mode', 'dark-mode', 'dark-mode',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
     }
-}
+}, class Theme extends GObject.Object {})
+
+const ThemeRow = GObject.registerClass({
+    GTypeName: 'FoliateThemeRow',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/themeRow.ui',
+    InternalChildren: ['label']
+}, class ThemeRow extends Gtk.ListBoxRow {
+    _init(theme) {
+        super._init()
+        this.theme = theme
+        theme.bind_property('name', this._label, 'label',
+            GObject.BindingFlags.DEFAULT | GObject.BindingFlags.SYNC_CREATE)
+
+        this._applyColor()
+        theme.connect('notify::fg_color', this._applyColor.bind(this))
+        theme.connect('notify::bg_color', this._applyColor.bind(this))
+        theme.connect('notify::invert', this._applyColor.bind(this))
+    }
+    _applyColor() {
+        const { fg_color, bg_color, invert } = this.theme
+        const cssProvider = new Gtk.CssProvider()
+        cssProvider.load_from_data(`
+            row {
+                color: ${invert ? invertColor(fg_color) : fg_color};
+                background: ${invert ? invertColor(bg_color) : bg_color};
+            }`)
+        const styleContext = this.get_style_context()
+        styleContext
+            .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    }
+})
+
+const defaultThemes = [
+    {
+        name: _('Light'), dark_mode: false, invert: false,
+        fg_color: '#000', bg_color: '#fff', link_color: 'blue',
+    },
+    {
+        name: _('Sepia'), dark_mode: false, invert: false,
+        fg_color: '#5b4636', bg_color: '#efe7dd', link_color: 'darkcyan',
+    },
+    {
+        name: _('Gray'), dark_mode: true, invert: false,
+        fg_color: '#ccc', bg_color: '#555', link_color: 'cyan',
+    },
+    {
+        name: _('Dark'), dark_mode: true, invert: false,
+        fg_color: '#ddd', bg_color: '#292929', link_color: 'cyan',
+    },
+    {
+        name: _('Invert'), dark_mode: true, invert: true,
+        fg_color: '#000', bg_color: '#fff', link_color: 'blue',
+    },
+    {
+        name: _('Solarized Light'), dark_mode: false, invert: false,
+        fg_color: '#586e75', bg_color: '#fdf6e3', link_color: '#268bd2',
+    },
+    {
+        name: _('Solarized Dark'), dark_mode: true, invert: false,
+        fg_color: '#93a1a1', bg_color: '#002b36', link_color: '#268bd2',
+    },
+    {
+        name: _('Gruvbox Light'), dark_mode: false, invert: false,
+        fg_color: '#3c3836', bg_color: '#fbf1c7', link_color: '#076678',
+    },
+    {
+        name: _('Gruvbox Dark'), dark_mode: true, invert: false,
+        fg_color: '#ebdbb2', bg_color: '#282828', link_color: '#83a598',
+    },
+    {
+        name: _('Nord'), dark_mode: true, invert: false,
+        fg_color: '#d8dee9', bg_color: '#2e3440', link_color: '#88c0d0',
+    }
+]
 
 const maxBy = (arr, f) =>
     arr[arr.map(f).reduce((prevI, x, i, arr) => x > arr[prevI] ? i : prevI, 0)]
@@ -239,16 +293,7 @@ const makeStringActions = self => ({
         const annotation = self._epub.annotation
         if (self._colorRadios[color].active && color !== annotation.color)
             annotation.set_property('color', color)
-    }, highlightColors[0]],
-    'win.theme': [name => {
-        const theme = defaultThemes[name]
-        self._epubSettings.set_property('fg-color', theme.color)
-        self._epubSettings.set_property('bg-color', theme.background)
-        self._epubSettings.set_property('link-color', theme.link)
-        self._epubSettings.set_property('invert', theme.invert)
-        settings.set_boolean('prefer-dark-theme', theme.darkMode)
-        self._skeuomorph()
-    }, '']
+    }, highlightColors[0]]
 })
 
 const AnnotationRow = GObject.registerClass({
@@ -350,7 +395,7 @@ const MainMenu = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainMenu.ui',
     Children: [
         'brightnessScale', 'fontButton', 'spacingButton', 'marginButton',
-        'themeBox',
+        'themesListBox',
     ],
     InternalChildren: ['zoomRestoreButton', 'fullscreenButton']
 }, class MainMenu extends Gtk.PopoverMenu {
@@ -497,6 +542,23 @@ var FoliateWindow = GObject.registerClass({
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
 
+        const themes = new Gio.ListStore()
+        defaultThemes.forEach(theme => themes.append(new Theme(theme)))
+        this._mainMenu.themesListBox.bind_model(themes, theme =>
+            new ThemeRow(theme))
+        this._mainMenu.themesListBox.set_header_func((row) => {
+            if (row.get_index()) row.set_header(new Gtk.Separator())
+        })
+        this._mainMenu.themesListBox.connect('row-activated', (_, row) => {
+            const { fg_color, bg_color, link_color, invert, dark_mode } = row.theme
+            this._epubSettings.set_property('fg-color', fg_color)
+            this._epubSettings.set_property('bg-color', bg_color)
+            this._epubSettings.set_property('link-color', link_color)
+            this._epubSettings.set_property('invert', invert)
+            settings.set_boolean('prefer-dark-theme', dark_mode)
+            this._skeuomorph()
+        })
+
         // make color buttons for highlight menu
         this._colorRadios = {}
         highlightColors.map(color => {
@@ -525,30 +587,6 @@ var FoliateWindow = GObject.registerClass({
             this._colorRadios[color] = radio
             return radio
         }).reduce((a, b) => (b.join_group(a), a))
-
-        // make theme buttons
-        Object.keys(defaultThemes).forEach(name => {
-            const theme = defaultThemes[name]
-            const button = new Gtk.Button({
-                visible: true,
-                action_name: 'win.theme',
-                action_target: new GLib.Variant('s', name),
-                label: name,
-                xalign: 0
-            })
-            const cssProvider = new Gtk.CssProvider()
-            cssProvider.load_from_data(`
-                button {
-                    margin: 0;
-                    padding: 6px;
-                    color: ${theme.color};
-                    background: ${theme.background};
-                }`)
-            const styleContext = button.get_style_context()
-            styleContext
-                .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-            this._mainMenu.themeBox.pack_start(button, false, true, 0)
-        })
 
         const gtkTheme = Gtk.Settings.get_default().gtk_theme_name
         if (gtkTheme === 'elementary') {

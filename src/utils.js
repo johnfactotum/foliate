@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Gio, GLib, GObject } = imports.gi
+const { Gio, GLib, GObject, Gdk } = imports.gi
 const ByteArray = imports.byteArray
 
 var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
@@ -127,3 +127,12 @@ var disconnectAllHandlers = (object, signal) => {
 
 var isExternalURL = href =>
     href.indexOf("mailto:") === 0 || href.indexOf("://") > -1
+
+var invertColor = color => {
+    const rgba = new Gdk.RGBA()
+    rgba.parse(color)
+    rgba.red = 1 - rgba.red
+    rgba.green = 1 - rgba.green
+    rgba.blue = 1 - rgba.blue
+    return rgba.to_string()
+}
