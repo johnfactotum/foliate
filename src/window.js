@@ -883,34 +883,37 @@ var FoliateWindow = GObject.registerClass({
                 .remove_class('skeuomorph-page')
 
         const cssProvider = new Gtk.CssProvider()
-        const bgColor = settings.get_string('bg-color')
+        const invert = settings.get_boolean('invert') ? invertColor : (x => x)
+        const bgColor = invert(settings.get_string('bg-color'))
+        const shadowColor = invert('rgba(0, 0, 0, 0.2)')
+        const lighterShadowColor = invert('rgba(0, 0, 0, 0.1)')
         cssProvider.load_from_data(`
             .skeuomorph-page {
                 margin: 8px 24px;
                 box-shadow:
-                    -26px 0 15px 5px rgba(0, 0, 0, 0.1),
-                    26px 0 15px 5px rgba(0, 0, 0, 0.1),
+                    -26px 0 15px 5px ${lighterShadowColor},
+                    26px 0 15px 5px ${lighterShadowColor},
 
-                    -26px 0 0 -14px rgba(0, 0, 0, 0.2),
+                    -26px 0 0 -14px ${shadowColor},
                     -26px 0 0 -15px ${bgColor},
 
-                    26px 0 0 -14px rgba(0, 0, 0, 0.2),
+                    26px 0 0 -14px ${shadowColor},
                     26px 0 0 -15px ${bgColor},
 
-                    -18px 0 0 -9px rgba(0, 0, 0, 0.2),
+                    -18px 0 0 -9px ${shadowColor},
                     -18px 0 0 -10px ${bgColor},
 
-                    18px 0 0 -9px rgba(0, 0, 0, 0.2),
+                    18px 0 0 -9px ${shadowColor},
                     18px 0 0 -10px ${bgColor},
 
-                    -10px 0 0 -4px rgba(0, 0, 0, 0.2),
+                    -10px 0 0 -4px ${shadowColor},
                     -10px 0 0 -5px ${bgColor},
 
-                    10px 0 0 -4px rgba(0, 0, 0, 0.2),
+                    10px 0 0 -4px ${shadowColor},
                     10px 0 0 -5px ${bgColor},
 
-                    0 0 15px 5px rgba(0, 0, 0, 0.2),
-                    0 0 0 1px rgba(0, 0, 0, 0.2);
+                    0 0 15px 5px ${shadowColor},
+                    0 0 0 1px ${shadowColor};
             }`)
         const styleContext = this._contentBox.get_style_context()
         styleContext.add_class('skeuomorph-page')
