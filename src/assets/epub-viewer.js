@@ -27,6 +27,7 @@ let sectionMarks
 let lineHeight = 24
 let enableFootnote = false
 let skeuomorphism = false
+let autohideCursor, myScreenX, myScreenY, cursorHidden
 
 class Find {
     constructor() {
@@ -422,6 +423,27 @@ const setupRendition = () => {
                 }
             })
         }
+
+        // auto-hide cursor
+        let timeout
+        const hideCursor = () => {
+            contents.document.documentElement.style.cursor = 'none'
+            cursorHidden = true
+        }
+        const showCursor = () =>  {
+            contents.document.documentElement.style.cursor = 'auto'
+            cursorHidden = false
+        }
+        if (cursorHidden) hideCursor()
+        contents.document.documentElement.addEventListener('mousemove', e => {
+            // check whether the mouse actually moved
+            // or the event is just triggered by something else
+            if (e.screenX === myScreenX && e.screenY === myScreenY) return
+            myScreenX = e.screenX, myScreenY = e.screenY
+            showCursor()
+            if (timeout) clearTimeout(timeout)
+            if (autohideCursor) timeout = setTimeout(hideCursor, 1000)
+        }, false)
     })
 
     // keyboard shortcuts

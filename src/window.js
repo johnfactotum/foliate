@@ -465,6 +465,7 @@ var FoliateWindow = GObject.registerClass({
         settings.bind('allow-unsafe', this._epubSettings, 'allow-unsafe', defaultFlag)
         settings.bind('layout', this._epubSettings, 'layout', defaultFlag)
         settings.bind('skeuomorphism', this._epubSettings, 'skeuomorphism', defaultFlag)
+        settings.bind('autohide-cursor', this._epubSettings, 'autohide-cursor', defaultFlag)
 
         // bind settings to UI
         settings.bind('font', this._mainMenu.fontButton, 'font', defaultFlag)
@@ -479,6 +480,7 @@ var FoliateWindow = GObject.registerClass({
         this.add_action(settings.create_action('allow-unsafe'))
         this.add_action(settings.create_action('layout'))
         this.add_action(settings.create_action('skeuomorphism'))
+        this.add_action(settings.create_action('autohide-cursor'))
 
         settings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
             'gtk-application-prefer-dark-theme', defaultFlag)

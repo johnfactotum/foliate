@@ -283,6 +283,9 @@ var EpubViewSettings = GObject.registerClass({
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'auto'),
         skeuomorphism:
             GObject.ParamSpec.boolean('skeuomorphism', 'skeuomorphism', 'skeuomorphism',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
+        'autohide-cursor':
+            GObject.ParamSpec.boolean('autohide-cursor', 'autohide-cursor', 'autohide-cursor',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false)
     }
 }, class EpubViewSettings extends GObject.Object {})
@@ -371,6 +374,8 @@ var EpubView = GObject.registerClass({
 
         this.settings.connect('notify::enable-footnote', () =>
             this._enableFootnote = this.settings.enable_footnote)
+        this.settings.connect('notify::autohide-cursor', () =>
+            this._autohideCursor = this.settings.autohide_cursor)
         this.settings.connect('notify::enable-devtools', () =>
             this._enableDevtools = this.settings.enable_devtools)
         this.settings.connect('notify::allow-unsafe', () => {
@@ -592,6 +597,9 @@ var EpubView = GObject.registerClass({
     }
     set _enableFootnote(state) {
         this._run(`enableFootnote = ${state}`)
+    }
+    set _autohideCursor(state) {
+        this._run(`autohideCursor = ${state}`)
     }
     set _enableDevtools(state) {
         this._webView.get_settings().enable_developer_extras = state

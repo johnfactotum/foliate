@@ -434,6 +434,13 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
+            <property name="action_name">win.autohide-cursor</property>
+            <property name="text" translatable="yes">Auto-hide Cursor</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
             <property name="action_name">win.skeuomorphism</property>
             <property name="text" translatable="yes">Skeuomorphism</property>
           </object>
