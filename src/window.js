@@ -676,15 +676,15 @@ var FoliateWindow = GObject.registerClass({
             return
         }
 
-        if (this._epub) this._epub.widget.destroy()
-        this._epub = new EpubView({
-            file: fileName,
-            inputType: inputType,
-            settings: this._epubSettings
-        })
-        this._contentBox.pack_start(this._epub.widget, true, true, 0)
-
+        if (!this._epub) {
+            this._epub = new EpubView(this._epubSettings)
+            this._contentBox.pack_start(this._epub.widget, true, true, 0)
+            this._connectEpub()
+        }
         this._loading = true
+        this._epub.open(fileName, inputType)
+    }
+    _connectEpub() {
         this._epub.connect('book-displayed', () => this._loading = false)
         this._epub.connect('book-loading', () => this._loading = true)
         this._epub.connect('book-error', () => {

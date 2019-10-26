@@ -311,11 +311,9 @@ var EpubView = GObject.registerClass({
         'footnote': { flags: GObject.SignalFlags.RUN_FIRST },
     }
 }, class EpubView extends GObject.Object {
-    _init({ file, inputType, settings }) {
+    _init(settings) {
         super._init()
 
-        this.file = file
-        this.inputType = inputType
         this.settings = settings
 
         this.metadata = null
@@ -340,7 +338,6 @@ var EpubView = GObject.registerClass({
                 allow_universal_access_from_file_urls: true
             })
         })
-        this._load()
         this._webView.connect('context-menu', () =>
             this._contextMenu ? this._contextMenu() : true)
 
@@ -604,6 +601,11 @@ var EpubView = GObject.registerClass({
     set _enableDevtools(state) {
         this._webView.get_settings().enable_developer_extras = state
         this._contextMenu = () => !state
+    }
+    open(file, inputType) {
+        this.file = file
+        this.inputType = inputType
+        this._load()
     }
     prev() {
         this._run(`rendition.prev()`)
