@@ -515,6 +515,7 @@ var EpubView = GObject.registerClass({
             case 'relocated':
                 this.location = payload
                 this.location.canGoBack = Boolean(this._history.length)
+                if (this._findResultCfi) this.selectByCfi(this._findResultCfi)
                 this.emit('relocated')
                 break
             case 'link-internal':
@@ -644,6 +645,7 @@ var EpubView = GObject.registerClass({
         this._run('clearSelection()')
     }
     selectByCfi(cfi) {
+        this.clearSelection()
         this._run(`selectByCfi('${cfi}')`)
     }
     _addAnnotation(cfi, color) {
@@ -670,7 +672,12 @@ var EpubView = GObject.registerClass({
     find(q, inBook = true, highlight = true) {
         this._run(`find.find(decodeURI("${encodeURI(q)}"), ${inBook}, ${highlight})`)
     }
+    goToFindResult(cfi) {
+        this._findResultCfi = cfi
+        this.goTo(cfi)
+    }
     clearFind() {
+        this._findResultCfi = null
         this._run('find.clearHighlight()')
     }
     getSectionFromCfi(cfi) {

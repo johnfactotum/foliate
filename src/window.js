@@ -841,8 +841,8 @@ var FoliateWindow = GObject.registerClass({
         const store = this._findTreeView.model
         const selection = this._findTreeView.get_selection()
         const [, , iter] = selection.get_selected()
-        const href = store.get_value(iter, 0)
-        this._epub.goTo(href)
+        const cfi = store.get_value(iter, 0)
+        this._epub.goToFindResult(cfi)
         this._findMenu.popdown()
     }
     _onTocRowActivated() {
