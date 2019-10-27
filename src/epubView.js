@@ -425,6 +425,7 @@ var EpubView = GObject.registerClass({
             if (!this._data) return
             this._disconnectData()
             this._data.deleteView(this)
+            disconnectAllHandlers(this.settings, 'notify')
         })
     }
     _disconnectData() {
