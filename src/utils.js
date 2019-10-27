@@ -67,12 +67,26 @@ var recursivelyDeleteDir = dir => {
     dir.delete(null)
 }
 
-var Storage = class Storage {
-    constructor(type, key) {
+var Storage = GObject.registerClass({
+    GTypeName: 'FoliateStorage',
+    Signals: {
+        'externally-modified': { flags: GObject.SignalFlags.RUN_FIRST }
+    }
+}, class Storage extends GObject.Object {
+    _init(type, key) {
+        super._init()
+
         this.indent = type === 'config'
         this._destination = Storage.getDestination(type, key)
         this._file = Gio.File.new_for_path(this._destination)
         this._data = this._read()
+        this._monitor = this._file.monitor(Gio.FileMonitorFlags.NONE, null)
+        this._monitor.connect('changed', () => {
+            if (this._getModified() > this._modified) {
+                this._data = this._read()
+                this.emit('externally-modified')
+            }
+        })
     }
     static getDestination(type, key) {
         const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
@@ -81,7 +95,13 @@ var Storage = class Storage {
         return GLib.build_filenamev([dataDir, pkg.name,
             `${encodeURIComponent(key)}.json`])
     }
+    _getModified() {
+        const info = this._file.query_info('time::modified',
+            Gio.FileQueryInfoFlags.NONE, null)
+        return info.get_attribute_uint64('time::modified')
+    }
     _read() {
+        this._modified = this._getModified()
         try {
             const [success, data, /*tag*/] = this._file.load_contents(null)
             if (success) return JSON.parse(data instanceof Uint8Array
@@ -99,6 +119,7 @@ var Storage = class Storage {
             const [success, /*tag*/] = this._file
                 .replace_contents(JSON.stringify(data, null, this.indent),
                     null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null)
+            this._modified = this._getModified()
             if (success) return true
         }
         throw new Error('Could not save file')
@@ -113,7 +134,7 @@ var Storage = class Storage {
     get data() {
         return JSON.parse(JSON.stringify(this._data))
     }
-}
+})
 
 var disconnectAllHandlers = (object, signal) => {
     const [id, detail] = GObject.signal_parse_name(signal, object, true)

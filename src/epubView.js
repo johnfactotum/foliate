@@ -84,7 +84,8 @@ const EpubViewData = GObject.registerClass({
         'annotation-removed': {
             flags: GObject.SignalFlags.RUN_FIRST,
             param_types: [GObject.TYPE_STRING]
-        }
+        },
+        'externally-modified': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class EpubViewData extends GObject.Object {
     _init(identifier) {
@@ -102,6 +103,17 @@ const EpubViewData = GObject.registerClass({
         this._bookmarksSet = new Set()
         this._bookmarksList = new Gio.ListStore()
 
+        this._loadData()
+        this._storage.connect('externally-modified', () => {
+            this._loadData()
+            this.emit('externally-modified')
+        })
+    }
+    _loadData() {
+        this._annotationsMap.clear()
+        this._annotationsList.remove_all()
+        this._bookmarksSet.clear()
+        this._bookmarksList.remove_all()
         this._storage.get('annotations', [])
             .forEach(({ value, color, text, note }) =>
                 this.addAnnotation(new EpubViewAnnotation({
@@ -375,16 +387,8 @@ var EpubView = GObject.registerClass({
             this._autohideCursor = this.settings.autohide_cursor)
         this.settings.connect('notify::enable-devtools', () =>
             this._enableDevtools = this.settings.enable_devtools)
-        this.settings.connect('notify::allow-unsafe', () => {
-            this.emit('book-loading')
-            this._disconnectData()
-            this._load()
-        })
-        this.settings.connect('notify::layout', () => {
-            this.emit('book-loading')
-            this._disconnectData()
-            this._webView.reload()
-        })
+        this.settings.connect('notify::allow-unsafe', () => this.reload())
+        this.settings.connect('notify::layout', () => this.reload())
         this.settings.connect('notify::skeuomorphism', () =>
             this._skeuomorphism = this.settings.skeuomorphism)
     }
@@ -415,7 +419,8 @@ var EpubView = GObject.registerClass({
             })
             const h2 = this._data.connect('annotation-removed', (_, cfi) =>
                 this._removeAnnotation(cfi))
-            this._dataHandlers = [h1, h2]
+            const h3 = this._data.connect('externally-modified', () => this.reload())
+            this._dataHandlers = [h1, h2, h3]
 
             const lastLocation = this._data.lastLocation
             this._run(`rendition.display(${lastLocation ? `'${lastLocation}'` : ''})
@@ -436,6 +441,11 @@ var EpubView = GObject.registerClass({
     _load() {
         const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
         this._webView.load_uri(GLib.filename_to_uri(viewer, null))
+    }
+    reload() {
+        this.emit('book-loading')
+        this._disconnectData()
+        this._load()
     }
     _eval(script, discardReturn) {
         return new Promise((resolve, reject) => {
