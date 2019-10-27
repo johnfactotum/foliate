@@ -512,9 +512,16 @@ var FoliateWindow = GObject.registerClass({
             this.lookup_action('zoom-in').enabled = zoomLevel < 4
         }
         updateZoomButtons()
-        settings.connect('changed::zoom-level', () => updateZoomButtons())
+        const zoomHandler =
+            settings.connect('changed::zoom-level', () => updateZoomButtons())
 
-        settings.connect('changed::skeuomorphism', () => this._skeuomorph())
+        const skeuomorphismHandler =
+            settings.connect('changed::skeuomorphism', () => this._skeuomorph())
+
+        this.connect('destroy', () => {
+            settings.disconnect(zoomHandler)
+            settings.disconnect(skeuomorphismHandler)
+        })
 
         this._loading = true
         this._mainOverlay.visible_child_name = 'empty'
