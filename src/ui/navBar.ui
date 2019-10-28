@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkAdjustment" id="progressAdjustment">
+    <property name="lower">0</property>
+    <property name="upper">1</property>
+    <property name="step_increment">0.01</property>
+    <property name="page_increment">0.05</property>
+    <property name="value">0</property>
+  </object>
+
+  <object class="GtkPopover" id="locationMenu">
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="margin">10</property>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="margin">10</property>
+            <property name="row_spacing">6</property>
+            <property name="column_spacing">10</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">Time left in book</property>
+                <style><class name="dim-label"/></style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">Time left in chapter</property>
+                <style><class name="dim-label"/></style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="timeInBook">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="label"></property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="timeInChapter">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="label"></property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="margin">10</property>
+            <property name="row_spacing">6</property>
+            <property name="column_spacing">10</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">Chapter</property>
+                <style><class name="dim-label"/></style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkEntry" id="sectionEntry">
+                    <property name="visible">True</property>
+                    <property name="xalign">1</property>
+                    <property name="width-chars">5</property>
+                    <property name="input-purpose">digits</property>
+                    <signal name="activate" handler="_onSectionEntryActivate"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="sectionTotal">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">Location</property>
+                <style><class name="dim-label"/></style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkEntry" id="locationEntry">
+                    <property name="visible">True</property>
+                    <property name="xalign">1</property>
+                    <property name="width-chars">5</property>
+                    <property name="input-purpose">digits</property>
+                    <signal name="activate" handler="_onLocationEntryActivate"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="locationTotal">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">CFI</property>
+                <property name="tooltip-text" translatable="yes">EPUB Canonical Fragment Identifier</property>
+                <style><class name="dim-label"/></style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="cfiEntry">
+                <property name="visible">True</property>
+                <property name="width-chars">18</property>
+                <signal name="activate" handler="_onCfiEntryActivate"/>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <template class="FoliateNavBar" parent="GtkBox">
+    <property name="spacing">6</property>
+    <signal name="size-allocate" handler="_onSizeAllocate"/>
+    <child>
+      <object class="GtkButton">
+        <property name="visible">True</property>
+        <property name="action-name">win.go-prev</property>
+        <property name="tooltip_text" translatable="yes">Previous page</property>
+        <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="icon_name">go-previous-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="visible">True</property>
+        <property name="action-name">win.go-back</property>
+        <property name="tooltip_text" translatable="yes">Go back</property>
+        <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="icon_name">edit-undo-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkStack" id="locationStack">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="icon_name">content-loading-symbolic</property>
+            <style><class name="dim-label"/></style>
+          </object>
+          <packing>
+            <property name="name">loading</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkMenuButton">
+                <property name="visible">True</property>
+                <property name="relief">none</property>
+                <property name="popover">locationMenu</property>
+                <property name="tooltip-text" translatable="yes">Location</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel" id="locationLabel">
+                        <property name="visible">True</property>
+                        <property name="label">0%</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="icon-name">pan-down-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScale" id="locationScale">
+                <property name="visible">True</property>
+                <property name="draw-value">False</property>
+                <property name="hexpand">True</property>
+                <property name="adjustment">progressAdjustment</property>
+                <!-- <signal name="value-changed" handler="_onlocationScaleChanged"/> -->
+                <signal name="button-release-event" handler="_onlocationScaleChanged"/>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">loaded</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="visible">True</property>
+        <property name="action-name">win.go-next</property>
+        <property name="tooltip-text" translatable="yes">Next page</property>
+        <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="icon-name">go-next-symbolic</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToggleButton">
+        <property name="visible">True</property>
+        <property name="tooltip-text" translatable="yes">Text-to-speech</property>
+        <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="icon-name">audio-headphones-symbolic</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+      </packing>
+    </child>
+  </template>
+</interface>

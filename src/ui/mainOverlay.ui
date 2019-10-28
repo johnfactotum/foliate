@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!--
+  we use an overlay and set the main area's opacity to 0,
+  because apparently Epub.js won't load properly if the webView is hidden
+  -->
+  <template class="FoliateMainOverlay" parent="GtkOverlay">
+    <property name="visible">True</property>
+    <child type="overlay">
+      <object class="GtkStack" id="overlayStack">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin">18</property>
+            <property name="spacing">9</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="pixel_size">96</property>
+                <property name="margin-bottom">18</property>
+                <property name="icon_name">com.github.johnfactotum.Foliate-symbolic</property>
+                <style><class name="dim-label"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="label" translatable="yes">No books open</property>
+                <style><class name="dim-label"/></style>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                  <attribute name="scale" value="1.36"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="label" translatable="yes">Open a book to start reading.</property>
+                <style><class name="dim-label"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action-name">app.open</property>
+                <property name="halign">center</property>
+                <property name="label" translatable="yes">Open File…</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">empty</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin">18</property>
+            <property name="spacing">18</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="pixel_size">96</property>
+                <property name="margin-bottom">18</property>
+                <property name="icon_name">computer-fail-symbolic</property>
+                <style><class name="dim-label"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="label" translatable="yes">Something's wrong</property>
+                <style><class name="dim-label"/></style>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                  <attribute name="scale" value="1.36"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="label" translatable="yes">The file cannot be opened.</property>
+                <style><class name="dim-label"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action-name">app.open</property>
+                <property name="halign">center</property>
+                <property name="label" translatable="yes">Open Another File…</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">error</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinner">
+            <property name="visible">True</property>
+            <property name="active">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="width-request">48</property>
+            <property name="height-request">48</property>
+          </object>
+          <packing>
+            <property name="name">loading</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkOverlay" id="mainBox">
+        <property name="visible">True</property>
+        <property name="opacity">0</property>
+        <child>
+          <object class="GtkBox" id="contentBox">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child type="overlay">
+          <object class="GtkRevealer" id="navBarRevealer">
+            <property name="valign">end</property>
+            <property name="transition-type">crossfade</property>
+            <child>
+              <object class="FoliateNavBar" id="navBar">
+                <property name="visible">True</property>
+                <property name="margin">18</property>
+                <property name="valign">end</property>
+                <style><class name="osd"/></style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

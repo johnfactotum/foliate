@@ -228,6 +228,9 @@ const makeActions = self => ({
     'win.main-menu': [() =>
         self._mainMenuButton.active = !self._mainMenuButton.active, ['F10']],
 
+    'win.navbar': [() =>
+        self._mainOverlay.toggleNavBar(), ['<ctrl>p']],
+
     'win.fullscreen': [() =>
         self._isFullscreen ? self.unfullscreen() : self.fullscreen(), ['F11']],
     'win.unfullscreen': [() => self.unfullscreen(), ['Escape']],
@@ -414,11 +417,139 @@ const MainMenu = GObject.registerClass({
     }
 })
 
+const NavBar = GObject.registerClass({
+    GTypeName: 'FoliateNavBar',
+    CssName: 'toolbar',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/navBar.ui',
+    InternalChildren: [
+        'locationStack', 'locationLabel', 'locationScale',
+        'timeInBook', 'timeInChapter',
+        'sectionEntry', 'locationEntry', 'cfiEntry',
+        'sectionTotal', 'locationTotal',
+    ]
+}, class NavBar extends Gtk.Box {
+    set epub(epub) {
+        this._epub = epub
+    }
+    set loading(loading) {
+        this._locationStack.visible_child_name = 'loaded'
+    }
+    update() {
+        const {
+            cfi, section, sectionTotal, location, locationTotal, percentage,
+            timeInBook, timeInChapter,
+        } = this._epub.location
+
+        this._locationScale.set_value(percentage)
+
+        const progress = Math.round(percentage * 100)
+        this._locationLabel.label = progress + '%'
+
+        const makeTimeLabel = n => n < 60
+            ? ngettext('%d minute', '%d minutes').format(Math.round(n))
+            : ngettext('%d hour', '%d hours').format(Math.round(n / 60))
+
+        this._timeInBook.label = makeTimeLabel(timeInBook)
+        this._timeInChapter.label = makeTimeLabel(timeInChapter)
+        this._sectionEntry.text = (section + 1).toString()
+        this._locationEntry.text = (location + 1).toString()
+        this._cfiEntry.text = cfi
+        this._sectionTotal.label = _('of %d').format(sectionTotal)
+        this._locationTotal.label = _('of %d').format(locationTotal + 1)
+    }
+    _onSectionEntryActivate() {
+        const x = parseInt(this._sectionEntry.text) - 1
+        this._epub.goTo(x)
+    }
+    _onLocationEntryActivate() {
+        const x = parseInt(this._locationEntry.text) - 1
+        this._epub.goToLocation(x)
+    }
+    _onCfiEntryActivate() {
+        this._epub.goTo(this._cfiEntry.text)
+    }
+    _onlocationScaleChanged() {
+        const value = this._locationScale.get_value()
+        this._epub.goToPercentage(value)
+    }
+    _onSizeAllocate() {
+        const narrow = this.get_allocation().width < 500
+        this._locationScale.visible = !narrow
+    }
+})
+
+const MainOverlay = GObject.registerClass({
+    GTypeName: 'FoliateMainOverlay',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainOverlay.ui',
+    Children: ['navBar'],
+    InternalChildren: ['overlayStack', 'mainBox', 'contentBox', 'navBarRevealer']
+}, class MainOverlay extends Gtk.Overlay {
+    _init() {
+        super._init()
+        this._navBarRevealer.connect('notify::child-revealed', () => {
+            if (!this._navBarRevealer.child_revealed)
+                this._navBarRevealer.visible = false
+        })
+    }
+    packContent(widget) {
+        this._contentBox.pack_start(widget, true, true, 0)
+    }
+    set status(status) {
+        const loaded = status === 'loaded'
+        this._mainBox.opacity = loaded ? 1 : 0
+        this._overlayStack.visible = !loaded
+        if (!loaded) this._overlayStack.visible_child_name = status
+    }
+    toggleNavBar() {
+        const visible = this._navBarRevealer.visible
+        if (!visible) this._navBarRevealer.visible = true
+        this._navBarRevealer.reveal_child = !this._navBarRevealer.reveal_child
+    }
+    skeuomorph(enabled) {
+        if (!enabled) return this._contentBox.get_style_context()
+            .remove_class('skeuomorph-page')
+
+        const cssProvider = new Gtk.CssProvider()
+        const invert = settings.get_boolean('invert') ? invertColor : (x => x)
+        const bgColor = invert(settings.get_string('bg-color'))
+        const shadowColor = invert('rgba(0, 0, 0, 0.2)')
+        cssProvider.load_from_data(`
+            .skeuomorph-page {
+                margin: 12px 24px;
+                box-shadow:
+                    -26px 0 0 -14px ${shadowColor},
+                    -26px 0 0 -15px ${bgColor},
+
+                    26px 0 0 -14px ${shadowColor},
+                    26px 0 0 -15px ${bgColor},
+
+                    -18px 0 0 -9px ${shadowColor},
+                    -18px 0 0 -10px ${bgColor},
+
+                    18px 0 0 -9px ${shadowColor},
+                    18px 0 0 -10px ${bgColor},
+
+                    -10px 0 0 -4px ${shadowColor},
+                    -10px 0 0 -5px ${bgColor},
+
+                    10px 0 0 -4px ${shadowColor},
+                    10px 0 0 -5px ${bgColor},
+
+                    0 0 15px 5px ${shadowColor},
+                    0 0 0 1px ${shadowColor};
+            }`)
+        const styleContext = this._contentBox.get_style_context()
+        styleContext.add_class('skeuomorph-page')
+        styleContext
+            .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    }
+})
+
 var FoliateWindow = GObject.registerClass({
     GTypeName: 'FoliateWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/window.ui',
     InternalChildren: [
-        'headerBar', 'mainOverlay', 'mainBox', 'contentBox',
+        'headerBar',
 
         'sideMenuButton', 'sideMenu', 'tocTreeView',
 
@@ -429,11 +560,6 @@ var FoliateWindow = GObject.registerClass({
         'findMenu', 'findEntry', 'findScrolledWindow', 'findTreeView',
 
         'mainMenuButton',
-
-        'navbar', 'locationStack', 'locationLabel', 'locationScale',
-        'timeInBook', 'timeInChapter',
-        'sectionEntry', 'locationEntry', 'cfiEntry',
-        'sectionTotal', 'locationTotal',
 
         'selectionMenu', 'selectionStack', 'dictionaryMenu',
         'highlightMenu', 'highlightColorsBox', 'noteTextView'
@@ -485,10 +611,6 @@ var FoliateWindow = GObject.registerClass({
         settings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
             'gtk-application-prefer-dark-theme', defaultFlag)
 
-        settings.bind('show-navbar', this._navbar, 'visible', defaultFlag)
-        this.add_action(settings.create_action('show-navbar'))
-        this.application.set_accels_for_action('win.show-navbar', ['<ctrl>p'])
-
         // add other actions
         const actions = makeActions(this)
         Object.keys(actions).forEach(action => {
@@ -513,10 +635,12 @@ var FoliateWindow = GObject.registerClass({
         }
         updateZoomButtons()
         const zoomHandler =
-            settings.connect('changed::zoom-level', () => updateZoomButtons())
+            settings.connect('changed::zoom-level', updateZoomButtons)
 
+        const updateSkeuomorphism = () => this._skeuomorph()
+        updateSkeuomorphism()
         const skeuomorphismHandler =
-            settings.connect('changed::skeuomorphism', () => this._skeuomorph())
+            settings.connect('changed::skeuomorphism', updateSkeuomorphism)
 
         this.connect('destroy', () => {
             settings.disconnect(zoomHandler)
@@ -524,7 +648,7 @@ var FoliateWindow = GObject.registerClass({
         })
 
         this._loading = true
-        this._mainOverlay.visible_child_name = 'empty'
+        this._mainOverlay.status = 'empty'
         this.title = _('Foliate')
 
         // restore window state
@@ -534,7 +658,9 @@ var FoliateWindow = GObject.registerClass({
         if (windowState.get_boolean('fullscreen')) this.fullscreen()
     }
     _buildUI() {
-        this._skeuomorph()
+        this._mainOverlay = new MainOverlay()
+        this.add(this._mainOverlay)
+        this._navBar = this._mainOverlay.navBar
 
         this._mainMenu = new MainMenu()
         this._mainMenuButton.popover = this._mainMenu
@@ -631,8 +757,6 @@ var FoliateWindow = GObject.registerClass({
     }
     _onSizeAllocate() {
         const [width, height] = this.get_size()
-        const narrow = width < 500
-        this._locationScale.visible = !narrow
         this._width = width
         this._height = height
     }
@@ -645,13 +769,11 @@ var FoliateWindow = GObject.registerClass({
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
     }
     set _loading(state) {
-        this._mainBox.opacity = state ? 0 : 1
-        this._mainOverlay.visible = state
+        this._mainOverlay.status = state ? 'loading' : 'loaded'
         this._sideMenuButton.sensitive = !state
         this._findMenuButton.sensitive = !state
         if (state) {
-            this._mainOverlay.visible_child_name = 'loading'
-            this._locationStack.visible_child_name = 'loading'
+            this._navBar.loading = true
             this.lookup_action('go-prev').enabled = false
             this.lookup_action('go-next').enabled = false
             this.lookup_action('go-back').enabled = false
@@ -685,51 +807,32 @@ var FoliateWindow = GObject.registerClass({
 
         if (!this._epub) {
             this._epub = new EpubView(this._epubSettings)
-            this._contentBox.pack_start(this._epub.widget, true, true, 0)
+            this._mainOverlay.packContent(this._epub.widget)
+            this._navBar.epub = this._epub
             this._connectEpub()
         }
         this._loading = true
         this._epub.open(fileName, inputType)
     }
     _connectEpub() {
+        this._epub.connect('clicked', () => this._mainOverlay.toggleNavBar())
         this._epub.connect('book-displayed', () => this._loading = false)
         this._epub.connect('book-loading', () => this._loading = true)
         this._epub.connect('book-error', () => {
-            this._mainOverlay.visible_child_name = 'error'
+            this._mainOverlay.status = 'error'
             this.title = _('Error')
         })
         this._epub.connect('metadata', () =>
             this.title = this._epub.metadata.title)
         this._epub.connect('locations-ready', () =>
-            this._locationStack.visible_child_name = 'loaded')
+            this._navBar.loading = false)
         this._epub.connect('relocated', () => {
-            const {
-                atStart, atEnd, cfi, sectionHref,
-                section, sectionTotal, location, locationTotal, percentage,
-                timeInBook, timeInChapter,
-                canGoBack
-            } = this._epub.location
+            const { atStart, atEnd, sectionHref, canGoBack } = this._epub.location
             this.lookup_action('go-prev').enabled = !atStart
             this.lookup_action('go-next').enabled = !atEnd
             this.lookup_action('go-back').enabled = canGoBack
 
-            this._locationScale.set_value(percentage)
-
-            const progress = Math.round(percentage * 100)
-            this._locationLabel.label = progress + '%'
-
-            const makeTimeLabel = n => n < 60
-                ? ngettext('%d minute', '%d minutes').format(Math.round(n))
-                : ngettext('%d hour', '%d hours').format(Math.round(n / 60))
-
-            this._timeInBook.label = makeTimeLabel(timeInBook)
-            this._timeInChapter.label = makeTimeLabel(timeInChapter)
-            this._sectionEntry.text = (section + 1).toString()
-            this._locationEntry.text = (location + 1).toString()
-            this._cfiEntry.text = cfi
-            this._sectionTotal.label = _('of %d').format(sectionTotal)
-            this._locationTotal.label = _('of %d').format(locationTotal + 1)
-
+            this._navBar.update()
             this._updateBookmarkButton()
 
             // select toc item
@@ -860,21 +963,6 @@ var FoliateWindow = GObject.registerClass({
         this._epub.goTo(href)
         this._sideMenu.popdown()
     }
-    _onSectionEntryActivate() {
-        const x = parseInt(this._sectionEntry.text) - 1
-        this._epub.goTo(x)
-    }
-    _onLocationEntryActivate() {
-        const x = parseInt(this._locationEntry.text) - 1
-        this._epub.goToLocation(x)
-    }
-    _onCfiEntryActivate() {
-        this._epub.goTo(this._cfiEntry.text)
-    }
-    _onlocationScaleChanged() {
-        const value = this._locationScale.get_value()
-        this._epub.goToPercentage(value)
-    }
     _updateBookmarkButton() {
         if (this._epub.hasBookmark()) {
             this._bookmarkButton.tooltip_text = _('Remove current location')
@@ -885,46 +973,6 @@ var FoliateWindow = GObject.registerClass({
         }
     }
     _skeuomorph() {
-        if (!settings.get_boolean('skeuomorphism'))
-            return this._contentBox.get_style_context()
-                .remove_class('skeuomorph-page')
-
-        const cssProvider = new Gtk.CssProvider()
-        const invert = settings.get_boolean('invert') ? invertColor : (x => x)
-        const bgColor = invert(settings.get_string('bg-color'))
-        const shadowColor = invert('rgba(0, 0, 0, 0.2)')
-        const lighterShadowColor = invert('rgba(0, 0, 0, 0.1)')
-        cssProvider.load_from_data(`
-            .skeuomorph-page {
-                margin: 8px 24px;
-                box-shadow:
-                    -26px 0 15px 5px ${lighterShadowColor},
-                    26px 0 15px 5px ${lighterShadowColor},
-
-                    -26px 0 0 -14px ${shadowColor},
-                    -26px 0 0 -15px ${bgColor},
-
-                    26px 0 0 -14px ${shadowColor},
-                    26px 0 0 -15px ${bgColor},
-
-                    -18px 0 0 -9px ${shadowColor},
-                    -18px 0 0 -10px ${bgColor},
-
-                    18px 0 0 -9px ${shadowColor},
-                    18px 0 0 -10px ${bgColor},
-
-                    -10px 0 0 -4px ${shadowColor},
-                    -10px 0 0 -5px ${bgColor},
-
-                    10px 0 0 -4px ${shadowColor},
-                    10px 0 0 -5px ${bgColor},
-
-                    0 0 15px 5px ${shadowColor},
-                    0 0 0 1px ${shadowColor};
-            }`)
-        const styleContext = this._contentBox.get_style_context()
-        styleContext.add_class('skeuomorph-page')
-        styleContext
-            .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        this._mainOverlay.skeuomorph(settings.get_boolean('skeuomorphism'))
     }
 })
