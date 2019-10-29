@@ -482,13 +482,24 @@ const MainOverlay = GObject.registerClass({
     GTypeName: 'FoliateMainOverlay',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainOverlay.ui',
     Children: ['navBar'],
-    InternalChildren: ['overlayStack', 'mainBox', 'contentBox', 'navBarRevealer']
+    InternalChildren: [
+        'overlayStack', 'mainBox', 'contentBox',
+        'navBarRevealer', 'prevButtonRevealer', 'nextButtonRevealer'
+    ]
 }, class MainOverlay extends Gtk.Overlay {
     _init() {
         super._init()
         this._navBarRevealer.connect('notify::child-revealed', () => {
             if (!this._navBarRevealer.child_revealed)
                 this._navBarRevealer.visible = false
+        })
+        this._prevButtonRevealer.connect('notify::child-revealed', () => {
+            if (!this._prevButtonRevealer.child_revealed)
+                this._prevButtonRevealer.visible = false
+        })
+        this._nextButtonRevealer.connect('notify::child-revealed', () => {
+            if (!this._nextButtonRevealer.child_revealed)
+                this._nextButtonRevealer.visible = false
         })
     }
     packContent(widget) {
@@ -502,8 +513,14 @@ const MainOverlay = GObject.registerClass({
     }
     toggleNavBar() {
         const visible = this._navBarRevealer.visible
-        if (!visible) this._navBarRevealer.visible = true
-        this._navBarRevealer.reveal_child = !this._navBarRevealer.reveal_child
+        if (!visible) {
+            this._navBarRevealer.visible = true
+            this._prevButtonRevealer.visible = true
+            this._nextButtonRevealer.visible = true
+        }
+        this._navBarRevealer.reveal_child = !visible
+        this._prevButtonRevealer.reveal_child = !visible
+        this._nextButtonRevealer.reveal_child = !visible
     }
     skeuomorph(enabled) {
         if (!enabled) return this._contentBox.get_style_context()

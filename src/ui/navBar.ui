@@ -208,19 +208,6 @@
     <child>
       <object class="GtkButton">
         <property name="visible">True</property>
-        <property name="action-name">win.go-prev</property>
-        <property name="tooltip_text" translatable="yes">Previous page</property>
-        <child>
-          <object class="GtkImage">
-            <property name="visible">True</property>
-            <property name="icon_name">go-previous-symbolic</property>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkButton">
-        <property name="visible">True</property>
         <property name="action-name">win.go-back</property>
         <property name="tooltip_text" translatable="yes">Go back</property>
         <child>
@@ -289,22 +276,6 @@
           </packing>
         </child>
       </object>
-    </child>
-    <child>
-      <object class="GtkButton">
-        <property name="visible">True</property>
-        <property name="action-name">win.go-next</property>
-        <property name="tooltip-text" translatable="yes">Next page</property>
-        <child>
-          <object class="GtkImage">
-            <property name="visible">True</property>
-            <property name="icon-name">go-next-symbolic</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="pack-type">end</property>
-      </packing>
     </child>
     <child>
       <object class="GtkToggleButton">
