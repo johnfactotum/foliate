@@ -321,7 +321,7 @@ var EpubView = GObject.registerClass({
         'selection': { flags: GObject.SignalFlags.RUN_FIRST },
         'highlight-menu': { flags: GObject.SignalFlags.RUN_FIRST },
         'footnote': { flags: GObject.SignalFlags.RUN_FIRST },
-        'clicked': { flags: GObject.SignalFlags.RUN_FIRST },
+        'click': { flags: GObject.SignalFlags.RUN_FIRST },
     }
 }, class EpubView extends GObject.Object {
     _init(settings) {
@@ -565,8 +565,8 @@ var EpubView = GObject.registerClass({
                 this.emit('highlight-menu')
                 break
             }
-            case 'mouseup':
-                this.emit('clicked')
+            case 'click':
+                this.emit('click')
                 break
         }
     }

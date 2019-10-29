@@ -402,17 +402,17 @@ const setupRendition = () => {
         }, true))
 
         // handle selection and clicks
-        document.onmouseup = () => dispatch({ type: 'mouseup' })
+        document.onclick = () => dispatch({ type: 'click' })
         contents.document.onmousedown = () => isSelecting = true
-        contents.document.onmouseup = () => {
+        contents.document.onclick = e => {
             isSelecting = false
 
             const selection = contents.window.getSelection()
             // see https://stackoverflow.com/q/22935320
-            if (!selection.rangeCount) return dispatch({ type: 'mouseup' })
+            if (!selection.rangeCount) return dispatch({ type: 'click' })
 
             const range = selection.getRangeAt(0)
-            if (range.collapsed) return dispatch({ type: 'mouseup' })
+            if (range.collapsed) return dispatch({ type: 'click' })
 
             dispatch({
                 type: 'selection',
