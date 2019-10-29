@@ -687,6 +687,9 @@ var EpubView = GObject.registerClass({
     getSectionFromCfi(cfi) {
         return this._get(`getSectionFromCfi('${cfi}')`)
     }
+    get sectionMarks() {
+        return this._get('sectionMarks')
+    }
     get widget() {
         return this._webView
     }

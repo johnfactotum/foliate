@@ -23,7 +23,7 @@ const CFI = new ePub.CFI()
 let book = ePub()
 let rendition
 let cfiToc
-let sectionMarks
+let sectionMarks = []
 let lineHeight = 24
 let enableFootnote = false
 let skeuomorphism = false

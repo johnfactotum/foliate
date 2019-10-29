@@ -434,6 +434,11 @@ const NavBar = GObject.registerClass({
     set loading(loading) {
         this._locationStack.visible_child_name = 'loaded'
     }
+    set sectionMarks(sectionMarks) {
+        this._locationScale.clear_marks()
+        if (sectionMarks.length < 60) sectionMarks.forEach(x =>
+            this._locationScale.add_mark(x, Gtk.PositionType.TOP, null))
+    }
     update() {
         const {
             cfi, section, sectionTotal, location, locationTotal, percentage,
@@ -844,8 +849,12 @@ var FoliateWindow = GObject.registerClass({
         })
         this._epub.connect('metadata', () =>
             this.title = this._epub.metadata.title)
-        this._epub.connect('locations-ready', () =>
-            this._navBar.loading = false)
+        this._epub.connect('locations-ready', () => {
+            this._epub.sectionMarks.then(sectionMarks => {
+                this._navBar.sectionMarks = sectionMarks
+                this._navBar.loading = false
+            })
+        })
         this._epub.connect('relocated', () => {
             const { atStart, atEnd, sectionHref, canGoBack } = this._epub.location
             this.lookup_action('go-prev').enabled = !atStart
