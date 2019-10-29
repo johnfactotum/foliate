@@ -619,6 +619,8 @@ var EpubView = GObject.registerClass({
         this._contextMenu = () => !state
     }
     open(file, inputType) {
+        this.findResults.clear()
+        this._history = []
         this.file = file
         this.inputType = inputType
         this._load()
