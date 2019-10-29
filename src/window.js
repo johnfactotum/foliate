@@ -432,7 +432,7 @@ const NavBar = GObject.registerClass({
         this._epub = epub
     }
     set loading(loading) {
-        this._locationStack.visible_child_name = 'loaded'
+        this._locationStack.visible_child_name = loading ? 'loading' : 'loaded'
     }
     set sectionMarks(sectionMarks) {
         this._locationScale.clear_marks()
