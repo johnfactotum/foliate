@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateFindBox" parent="GtkBox">
+    <child>
+      <object class="GtkSearchEntry" id="findEntry">
+        <property name="visible">True</property>
+        <signal name="activate" handler="_onFindEntryActivate"/>
+        <signal name="search-changed" handler="_onFindEntryChanged"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="findScrolledWindow">
+        <property name="visible">False</property>
+        <property name="height_request">400</property>
+        <property name="vexpand">True</property>
+        <property name="hscrollbar-policy">never</property>
+        <child>
+          <object class="GtkTreeView" id="findTreeView">
+            <property name="visible">True</property>
+            <property name="headers-visible">False</property>
+            <property name="activate-on-single-click">True</property>
+            <property name="enable-grid-lines">horizontal</property>
+            <signal name="row-activated" handler="_onFindRowActivated"/>
+            <child>
+              <object class="GtkTreeViewColumn">
+                <child>
+                  <object class="GtkCellRendererText">
+                    <property name="ellipsize">end</property>
+                  </object>
+                  <attributes>
+                    <attribute name="markup">2</attribute>
+                  </attributes>
+                </child>
+                <child>
+                  <object class="GtkCellRendererText">
+                    <property name="wrap-mode">word</property>
+                    <property name="wrap-width">300</property>
+                  </object>
+                  <attributes>
+                    <attribute name="markup">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <style><class name="frame"/></style>
+      </object>
+    </child>
+  </template>
+</interface>
