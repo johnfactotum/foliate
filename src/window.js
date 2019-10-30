@@ -676,6 +676,8 @@ const MainOverlay = GObject.registerClass({
             if (!this._nextButtonRevealer.child_revealed)
                 this._nextButtonRevealer.visible = false
         })
+        const gtkTheme = Gtk.Settings.get_default().gtk_theme_name
+        if (gtkTheme === 'elementary') this._navBarRevealer.margin = 0
     }
     set epub(epub) {
         this._epub = epub
@@ -828,7 +830,7 @@ var FoliateWindow = GObject.registerClass({
         const zoomHandler =
             settings.connect('changed::zoom-level', updateZoomButtons)
 
-        const updateSkeuomorphism = () => this._skeuomorph()
+        const updateSkeuomorphism = () => this._themeUI()
         updateSkeuomorphism()
         const skeuomorphismHandler =
             settings.connect('changed::skeuomorphism', updateSkeuomorphism)
@@ -872,7 +874,7 @@ var FoliateWindow = GObject.registerClass({
             this._epubSettings.set_property('link-color', link_color)
             this._epubSettings.set_property('invert', invert)
             settings.set_boolean('prefer-dark-theme', dark_mode)
-            this._skeuomorph()
+            this._themeUI()
         })
 
         // make color buttons for highlight menu
@@ -906,7 +908,7 @@ var FoliateWindow = GObject.registerClass({
 
         const gtkTheme = Gtk.Settings.get_default().gtk_theme_name
         if (gtkTheme === 'elementary') {
-            this._headerBar.get_style_context().add_class('compact')
+            this._headerBar.get_style_context().add_class('default-decoration')
             this._sideMenuButton.get_style_context().add_class('flat')
             this._findMenuButton.get_style_context().add_class('flat')
             this._mainMenuButton.get_style_context().add_class('flat')
@@ -1048,7 +1050,18 @@ var FoliateWindow = GObject.registerClass({
     _clearSelection() {
         this._epub.clearSelection()
     }
-    _skeuomorph() {
+    _themeUI() {
         this._mainOverlay.skeuomorph(settings.get_boolean('skeuomorphism'))
+
+        // set primary color for elementary stylesheet
+        const invert = settings.get_boolean('invert')
+        const bg_color = settings.get_string('bg-color')
+        const cssProvider = new Gtk.CssProvider()
+        cssProvider.load_from_data(`
+        @define-color colorPrimary ${invert ? invertColor(bg_color) : bg_color};`)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            cssProvider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
     }
 })

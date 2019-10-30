@@ -208,6 +208,8 @@
     <child>
       <object class="GtkButton">
         <property name="visible">True</property>
+        <property name="valign">center</property>
+        <property name="relief">none</property>
         <property name="action-name">win.go-back</property>
         <property name="tooltip_text" translatable="yes">Go back</property>
         <child>
@@ -237,6 +239,7 @@
             <child>
               <object class="GtkMenuButton">
                 <property name="visible">True</property>
+                <property name="valign">center</property>
                 <property name="relief">none</property>
                 <property name="popover">locationMenu</property>
                 <property name="tooltip-text" translatable="yes">Location</property>
@@ -280,6 +283,7 @@
     <child>
       <object class="GtkToggleButton">
         <property name="visible">True</property>
+        <property name="valign">center</property>
         <property name="tooltip-text" translatable="yes">Text-to-speech</property>
         <child>
           <object class="GtkImage">
