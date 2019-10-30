@@ -440,11 +440,11 @@ var EpubView = GObject.registerClass({
         this._data.disconnectAll()
     }
     _load() {
+        this.emit('book-loading')
         const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
         this._webView.load_uri(GLib.filename_to_uri(viewer, null))
     }
     reload() {
-        this.emit('book-loading')
         this._disconnectData()
         this._load()
     }
