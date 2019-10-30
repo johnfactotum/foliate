@@ -20,6 +20,19 @@ const { markupEscape, Storage, disconnectAllHandlers } = imports.utils
 // must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
 const CHARACTERS_PER_PAGE = 1024
 
+// the `__ibooks_internal_theme` attribute is set on `:root` in Apple Books
+// can be used by books to detect dark theme without JavaScript
+const getIbooksInternalTheme = bgColor => {
+    const rgba = new Gdk.RGBA()
+    rgba.parse(bgColor)
+    const { red, green, blue } = rgba
+    const l = 0.299 * red + 0.587 * green + 0.114 * blue
+    if (l < 0.3) return 'Night'
+    else if (l < 0.7) return 'Gray'
+    else if (red > green > blue) return 'Sepia'
+    else return 'White'
+}
+
 const layouts = {
     'auto': {
         renderTo: `'viewer'`,
@@ -602,7 +615,8 @@ var EpubView = GObject.registerClass({
             bgColor: this.settings.bg_color,
             linkColor: this.settings.link_color,
             invert: this.settings.invert,
-            brightness: this.settings.brightness
+            brightness: this.settings.brightness,
+            ibooksInternalTheme: getIbooksInternalTheme(this.settings.bg_color)
         }
         this._run(`setStyle(${JSON.stringify(style)})`)
     }

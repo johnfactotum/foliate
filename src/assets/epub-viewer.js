@@ -28,6 +28,7 @@ let lineHeight = 24
 let enableFootnote = false
 let skeuomorphism = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
+let ibooksInternalTheme = 'Light'
 
 class Find {
     constructor() {
@@ -145,6 +146,10 @@ const setStyle = style => {
     } = style
 
     lineHeight = fontSize * spacing
+
+    ibooksInternalTheme = style.ibooksInternalTheme
+    rendition.getContents().forEach(contents => contents.document.documentElement
+        .setAttribute('__ibooks_internal_theme', ibooksInternalTheme))
 
     document.body.style.margin = `0 ${margin}%`
     rendition.resize()
@@ -328,6 +333,8 @@ const setupRendition = () => {
         const html = contents.document.documentElement
         if (!html.getAttribute('lang') && book.package.metadata.language)
             html.setAttribute('lang', book.package.metadata.language)
+
+        html.setAttribute('__ibooks_internal_theme', ibooksInternalTheme)
 
         // hide EPUB 3 aside footnotes
         const asides = contents.document.querySelectorAll('aside')
