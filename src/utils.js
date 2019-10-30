@@ -96,9 +96,13 @@ var Storage = GObject.registerClass({
             `${encodeURIComponent(key)}.json`])
     }
     _getModified() {
-        const info = this._file.query_info('time::modified',
-            Gio.FileQueryInfoFlags.NONE, null)
-        return info.get_attribute_uint64('time::modified')
+        try {
+            const info = this._file.query_info('time::modified',
+                Gio.FileQueryInfoFlags.NONE, null)
+            return info.get_attribute_uint64('time::modified')
+        } catch (e) {
+            return null
+        }
     }
     _read() {
         this._modified = this._getModified()
