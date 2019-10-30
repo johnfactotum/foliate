@@ -136,11 +136,11 @@
         <child type="overlay">
           <object class="GtkRevealer" id="navBarRevealer">
             <property name="valign">end</property>
+            <property name="margin">18</property>
             <property name="transition-type">crossfade</property>
             <child>
               <object class="FoliateNavBar" id="navBar">
                 <property name="visible">True</property>
-                <property name="margin">18</property>
                 <property name="valign">end</property>
                 <style><class name="osd"/></style>
               </object>
@@ -151,13 +151,13 @@
           <object class="GtkRevealer" id="prevButtonRevealer">
             <property name="valign">center</property>
             <property name="halign">start</property>
+            <property name="margin">18</property>
             <property name="transition-type">crossfade</property>
             <child>
               <object class="GtkButton">
                 <property name="visible">True</property>
                 <property name="valign">center</property>
                 <property name="halign">start</property>
-                <property name="margin">18</property>
                 <property name="action-name">win.go-prev</property>
                 <property name="tooltip-text" translatable="yes">Previous page</property>
                 <style><class name="osd"/></style>
@@ -175,13 +175,13 @@
           <object class="GtkRevealer" id="nextButtonRevealer">
             <property name="valign">center</property>
             <property name="halign">end</property>
+            <property name="margin">18</property>
             <property name="transition-type">crossfade</property>
             <child>
               <object class="GtkButton">
                 <property name="valign">center</property>
                 <property name="halign">end</property>
                 <property name="visible">True</property>
-                <property name="margin">18</property>
                 <property name="action-name">win.go-next</property>
                 <property name="tooltip-text" translatable="yes">Next page</property>
                 <style><class name="osd"/></style>
