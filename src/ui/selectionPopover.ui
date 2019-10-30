@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateSelectionPopover" parent="GtkPopover">
+    <style><class name="osd"/></style>
+    <child>
+      <object class="GtkStack" id="selectionStack">
+        <property name="visible">True</property>
+        <property name="margin">6</property>
+        <property name="hhomogeneous">False</property>
+        <property name="transition-duration">100</property>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <style><class name="linked"/></style>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action-name">win.selection-copy</property>
+                <property name="label" translatable="yes">Copy</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action-name">win.selection-highlight</property>
+                <property name="label" translatable="yes">Note</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action-name">win.selection-dictionary</property>
+                <property name="label" translatable="yes">Define</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <signal name="clicked" handler="_showMore"/>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">pan-end-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">main</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <style><class name="linked"/></style>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <signal name="clicked" handler="_showMain"/>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon_name">pan-start-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Wikipedia</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Translate</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action_name">win.selection-find</property>
+                <property name="label" translatable="yes">Find</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">more</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

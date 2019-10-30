@@ -204,21 +204,13 @@ const makeActions = self => ({
     }],
     'win.selection-dictionary': [() => {
         const { language, text, position } = self._epub.selection
-        self._showMenu(self._dictionaryMenu)
+        self._showPopover(self._dictionaryMenu)
     }],
     'win.selection-find': [() => {
         const { text } = self._epub.selection
         self._findEntry.text = text
         self._findEntry.emit('activate')
         self._findMenuButton.active = true
-    }],
-    'win.selection-more': [() => {
-        self._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT
-        self._selectionStack.visible_child_name = 'more'
-    }],
-    'win.selection-main': [() => {
-        self._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
-        self._selectionStack.visible_child_name = 'main'
     }],
 
     'win.side-menu': [() =>
@@ -542,6 +534,25 @@ const FootnotePopover = GObject.registerClass({
     }
 })
 
+const SelectionPopover = GObject.registerClass({
+    GTypeName: 'FoliateSelectionPopover',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/selectionPopover.ui',
+    InternalChildren: ['selectionStack']
+}, class SelectionPopover extends Gtk.Popover {
+    popup() {
+        super.popup()
+        this._showMain()
+    }
+    _showMore() {
+        this._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT
+        this._selectionStack.visible_child_name = 'more'
+    }
+    _showMain() {
+        this._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
+        this._selectionStack.visible_child_name = 'main'
+    }
+})
+
 const MainMenu = GObject.registerClass({
     GTypeName: 'FoliateMainMenu',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainMenu.ui',
@@ -738,7 +749,7 @@ var FoliateWindow = GObject.registerClass({
         'findMenuButton', 'findMenu', 'findBox',
         'mainMenuButton',
 
-        'selectionMenu', 'selectionStack', 'dictionaryMenu',
+        'dictionaryMenu',
         'highlightMenu', 'highlightColorsBox', 'noteTextView'
     ]
 }, class FoliateWindow extends Gtk.ApplicationWindow {
@@ -998,12 +1009,12 @@ var FoliateWindow = GObject.registerClass({
             this.lookup_action('go-back').enabled = canGoBack
         })
         this._epub.connect('selection', () => {
-            if (this._epub.selection.text) this._showSelectionMenu()
+            if (this._epub.selection.text) this._showSelectionPopover()
         })
         this._epub.connect('highlight-menu', () => {
             const annotation = this._epub.annotation
             this._noteTextView.buffer.text = annotation.note
-            this._showMenu(this._highlightMenu, false)
+            this._showPopover(this._highlightMenu, false)
             this._colorRadios[annotation.color].active = true
         })
         this._epub.connect('footnote', () => {
@@ -1019,16 +1030,17 @@ var FoliateWindow = GObject.registerClass({
             annotation.set_property('note', this._noteTextView.buffer.text)
         })
     }
-    _showSelectionMenu() {
-        this._selectionStack.visible_child_name = 'main'
-        this._showMenu(this._selectionMenu)
+    _showSelectionPopover() {
+        this._showPopover(new SelectionPopover())
     }
-    _showMenu(popover, select = true) {
+    _showPopover(popover, select = true) {
         popover.relative_to = this._epub.widget
         setPopoverPosition(popover, this._epub.selection.position, this, 200)
         popover.popup()
-        if (select) this._epub.selectByCfi(this._epub.selection.cfi)
-        else this._clearSelection()
+        if (select) {
+            this._epub.selectByCfi(this._epub.selection.cfi)
+            popover.connect('closed', () => this._clearSelection())
+        } else this._clearSelection()
     }
     _clearSelection() {
         this._epub.clearSelection()
