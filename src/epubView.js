@@ -471,6 +471,7 @@ var EpubView = GObject.registerClass({
                 this._enableFootnote = this.settings.enable_footnote
                 this._enableDevtools = this.settings.enable_devtools
                 this._skeuomorphism = this.settings.skeuomorphism
+                this._autohideCursor = this.settings.autohide_cursor
 
                 this._run(`open("${encodeURI(this.file)}", '${this.inputType}',
                     ${layouts[this.settings.layout].renderTo},
