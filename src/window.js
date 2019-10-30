@@ -208,8 +208,7 @@ const makeActions = self => ({
     }],
     'win.selection-find': [() => {
         const { text } = self._epub.selection
-        self._findEntry.text = text
-        self._findEntry.emit('activate')
+        self._findBox.find(text)
         self._findMenuButton.active = true
     }],
 
@@ -478,6 +477,10 @@ const FindBox = GObject.registerClass({
                 this._findEntry.get_style_context().add_class('error')
             this._findScrolledWindow.show()
         })
+    }
+    find(text) {
+        this._findEntry.text = text
+        this._findEntry.emit('activate')
     }
     _onFindEntryActivate() {
         const text = this._findEntry.text
