@@ -961,6 +961,7 @@ var FoliateWindow = GObject.registerClass({
         this._mainMenu.fullscreen = this._isFullscreen
 
         this._fullscreenEventbox.visible = this._isFullscreen
+        this._fullscreenRevealer.reveal_child = this._mainOverlay.navbarVisible
         if (this._isFullscreen) {
             this._sideMenu.relative_to = this._fullscreenSideMenuButton
             this._findMenu.relative_to = this._fullscreenFindMenuButton
