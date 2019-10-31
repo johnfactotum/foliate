@@ -862,18 +862,21 @@ var FoliateWindow = GObject.registerClass({
     }
     _buildUI() {
         const fullscreenUnreveal = () => {
+            if (!this._mainOverlay.navbarVisible)
+                this._fullscreenRevealer.reveal_child = false
+        }
+        this._fullscreenEventbox.connect('enter-notify-event', () =>
+            this._fullscreenRevealer.reveal_child = true)
+        this._fullscreenEventbox.connect('leave-notify-event', () => {
             if (!this._sideMenu.visible
             && !this._findMenu.visible
             && !this._mainMenu.visible
             && !this._mainOverlay.navbarVisible)
                 this._fullscreenRevealer.reveal_child = false
-        }
-        this._fullscreenEventbox.connect('enter-notify-event', () =>
-            this._fullscreenRevealer.reveal_child = true)
-        this._fullscreenEventbox.connect('leave-notify-event', fullscreenUnreveal)
-        this._sideMenu.connect('closed', () => fullscreenUnreveal)
-        this._findMenu.connect('closed', () => fullscreenUnreveal)
-        this._mainMenu.connect('closed', () => fullscreenUnreveal)
+        })
+        this._sideMenu.connect('closed', fullscreenUnreveal)
+        this._findMenu.connect('closed', fullscreenUnreveal)
+        this._mainMenu.connect('closed', fullscreenUnreveal)
         this.connect('notify::title', () => this._fullscreenHeaderbar.title = this.title)
 
         this._contentsStack.connect('row-activated', () => this._sideMenu.popdown())
