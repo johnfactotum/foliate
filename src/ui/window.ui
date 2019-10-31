@@ -142,6 +142,9 @@
       </object>
     </child>
   </object>
+
+  <object class="FoliateMainMenu" id="mainMenu"></object>
+
   <template class="FoliateWindow" parent="GtkApplicationWindow">
     <property name="default_width">360</property>
     <property name="default_height">640</property>
@@ -170,6 +173,7 @@
           <object class="GtkMenuButton" id="mainMenuButton">
             <property name="visible">True</property>
             <property name="valign">center</property>
+            <property name="popover">mainMenu</property>
             <property name="tooltip_text" translatable="yes">Menu</property>
             <child>
               <object class="GtkImage">
@@ -198,6 +202,107 @@
           <packing>
             <property name="pack_type">end</property>
           </packing>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkOverlay" id="fullscreenOverlay">
+        <property name="visible">True</property>
+        <child>
+          <object class="FoliateMainOverlay" id="mainOverlay">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child type="overlay">
+          <object class="GtkEventBox" id="fullscreenEventbox">
+            <property name="valign">start</property>
+            <child>
+              <object class="GtkRevealer" id="fullscreenRevealer">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="reveal_child">False</property>
+                <property name="valign">start</property>
+                <child>
+                  <object class="GtkHeaderBar" id="fullscreenHeaderbar">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkMenuButton" id="fullscreenSideMenuButton">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                        <property name="popover">sideMenu</property>
+                        <property name="tooltip_text" translatable="yes">Contents</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="icon_name">view-list-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                        <property name="tooltip-text" translatable="yes">Leave fullscreen</property>
+                        <property name="action-name">win.unfullscreen</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="icon_name">view-restore-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  <child>
+                    <object class="GtkSeparator" id="separator">
+                      <property name="visible">True</property>
+                    </object>
+                    <packing>
+                      <property name="pack_type">end</property>
+                    </packing>
+                  </child>
+                    <child>
+                      <object class="GtkMenuButton" id="fullscreenMainMenuButton">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                        <property name="popover">mainMenu</property>
+                        <property name="tooltip_text" translatable="yes">Menu</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="icon_name">open-menu-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkMenuButton" id="fullscreenFindMenuButton">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                        <property name="popover">findMenu</property>
+                        <property name="tooltip_text" translatable="yes">Find</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="icon_name">edit-find-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
         </child>
       </object>
     </child>

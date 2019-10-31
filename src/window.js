@@ -565,6 +565,10 @@ const MainMenu = GObject.registerClass({
     ],
     InternalChildren: ['zoomRestoreButton', 'fullscreenButton']
 }, class MainMenu extends Gtk.PopoverMenu {
+    _init() {
+        super._init()
+        this._fullscreenButton.connect('clicked', () => this.popdown())
+    }
     set zoomLevel(zoomLevel) {
         this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
     }
@@ -704,6 +708,10 @@ const MainOverlay = GObject.registerClass({
         this._navBarRevealer.reveal_child = !visible
         this._prevButtonRevealer.reveal_child = !visible
         this._nextButtonRevealer.reveal_child = !visible
+        return !visible
+    }
+    get navbarVisible() {
+        return this._navBarRevealer.visible
     }
     skeuomorph(enabled) {
         if (!enabled) return this._contentBox.get_style_context()
@@ -749,10 +757,12 @@ var FoliateWindow = GObject.registerClass({
     GTypeName: 'FoliateWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/window.ui',
     InternalChildren: [
-        'headerBar',
-        'sideMenuButton', 'sideMenu', 'contentsStack',
-        'findMenuButton', 'findMenu', 'findBox',
-        'mainMenuButton',
+        'mainOverlay',
+        'sideMenu', 'contentsStack', 'findMenu', 'findBox', 'mainMenu',
+        'headerBar', 'sideMenuButton', 'findMenuButton', 'mainMenuButton',
+        'fullscreenEventbox', 'fullscreenRevealer',
+        'fullscreenHeaderbar', 'fullscreenSideMenuButton',
+        'fullscreenFindMenuButton', 'fullscreenMainMenuButton',
 
         'dictionaryMenu',
         'highlightMenu', 'highlightColorsBox', 'noteTextView'
@@ -851,11 +861,20 @@ var FoliateWindow = GObject.registerClass({
         if (windowState.get_boolean('fullscreen')) this.fullscreen()
     }
     _buildUI() {
-        this._mainOverlay = new MainOverlay()
-        this.add(this._mainOverlay)
-
-        this._mainMenu = new MainMenu()
-        this._mainMenuButton.popover = this._mainMenu
+        const fullscreenUnreveal = () => {
+            if (!this._sideMenu.visible
+            && !this._findMenu.visible
+            && !this._mainMenu.visible
+            && !this._mainOverlay.navbarVisible)
+                this._fullscreenRevealer.reveal_child = false
+        }
+        this._fullscreenEventbox.connect('enter-notify-event', () =>
+            this._fullscreenRevealer.reveal_child = true)
+        this._fullscreenEventbox.connect('leave-notify-event', fullscreenUnreveal)
+        this._sideMenu.connect('closed', () => fullscreenUnreveal)
+        this._findMenu.connect('closed', () => fullscreenUnreveal)
+        this._mainMenu.connect('closed', () => fullscreenUnreveal)
+        this.connect('notify::title', () => this._fullscreenHeaderbar.title = this.title)
 
         this._contentsStack.connect('row-activated', () => this._sideMenu.popdown())
         this._findBox.connect('row-activated', () => this._findMenu.popdown())
@@ -937,6 +956,17 @@ var FoliateWindow = GObject.registerClass({
         const state = event.get_window().get_state()
         this._isFullscreen = Boolean(state & Gdk.WindowState.FULLSCREEN)
         this._mainMenu.fullscreen = this._isFullscreen
+
+        this._fullscreenEventbox.visible = this._isFullscreen
+        if (this._isFullscreen) {
+            this._sideMenu.relative_to = this._fullscreenSideMenuButton
+            this._findMenu.relative_to = this._fullscreenFindMenuButton
+            this._mainMenu.relative_to = this._fullscreenMainMenuButton
+        } else {
+            this._sideMenu.relative_to = this._sideMenuButton
+            this._findMenu.relative_to = this._findMenuButton
+            this._mainMenu.relative_to = this._mainMenuButton
+        }
     }
     _onSizeAllocate() {
         const [width, height] = this.get_size()
@@ -954,6 +984,8 @@ var FoliateWindow = GObject.registerClass({
     set _loading(state) {
         this._sideMenuButton.sensitive = !state
         this._findMenuButton.sensitive = !state
+        this._fullscreenSideMenuButton.sensitive = !state
+        this._fullscreenFindMenuButton.sensitive = !state
         if (state) {
             this.lookup_action('go-prev').enabled = false
             this.lookup_action('go-next').enabled = false
@@ -999,8 +1031,10 @@ var FoliateWindow = GObject.registerClass({
         this._findBox.epub = this._epub
 
         this._epub.connect('click', () => {
-            if (!this._highlightMenu.visible)
-                this._mainOverlay.toggleNavBar()
+            if (this._highlightMenu.visible) return
+            const visible = this._mainOverlay.toggleNavBar()
+            if (this._isFullscreen)
+                this._fullscreenRevealer.reveal_child = visible
         })
         this._epub.connect('book-displayed', () => this._loading = false)
         this._epub.connect('book-loading', () => this._loading = true)
