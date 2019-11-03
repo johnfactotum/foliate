@@ -481,6 +481,9 @@ var EpubView = GObject.registerClass({
     _handleAction(type, payload) {
         switch (type) {
             case 'ready':
+                this._run(`doubleClickTime =
+                    ${Gtk.Settings.get_default().gtk_double_click_time}`)
+
                 this._enableFootnote = this.settings.enable_footnote
                 this._enableDevtools = this.settings.enable_devtools
                 this._skeuomorphism = this.settings.skeuomorphism

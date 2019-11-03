@@ -29,6 +29,7 @@ let enableFootnote = false
 let skeuomorphism = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
 let ibooksInternalTheme = 'Light'
+let doubleClickTime = 400
 
 class Find {
     constructor() {
@@ -409,6 +410,10 @@ const setupRendition = () => {
         }, true))
 
         // handle selection and clicks
+        let timer = 0
+        const dispatchClick = () =>
+            timer = setTimeout(() => dispatch({ type: 'click' }), doubleClickTime)
+
         document.onclick = () => dispatch({ type: 'click' })
         contents.document.onmousedown = () => isSelecting = true
         contents.document.onclick = e => {
@@ -416,11 +421,12 @@ const setupRendition = () => {
 
             const selection = contents.window.getSelection()
             // see https://stackoverflow.com/q/22935320
-            if (!selection.rangeCount) return dispatch({ type: 'click' })
+            if (!selection.rangeCount) return dispatchClick()
 
             const range = selection.getRangeAt(0)
-            if (range.collapsed) return dispatch({ type: 'click' })
+            if (range.collapsed) return dispatchClick()
 
+            clearTimeout(timer)
             dispatch({
                 type: 'selection',
                 payload: {
