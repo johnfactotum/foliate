@@ -18,6 +18,7 @@ const ngettext = imports.gettext.ngettext
 
 const { execCommand, recursivelyDeleteDir, isExternalURL, invertColor } = imports.utils
 const { EpubView, EpubViewSettings } = imports.epubView
+const { DictionaryBox } = imports.lookup
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
@@ -186,6 +187,7 @@ const makeActions = self => ({
         else self._epub.addBookmark()
     }, ['<ctrl>d']],
 
+    'win.selection-menu': [() => self._showSelectionPopover()],
     'win.selection-copy': [() => {
         Gtk.Clipboard.get_default(Gdk.Display.get_default())
             .set_text(self._epub.selection.text, -1)
@@ -203,8 +205,15 @@ const makeActions = self => ({
         if (self._highlightMenu.visible) self._highlightMenu.popdown()
     }],
     'win.selection-dictionary': [() => {
-        const { language, text, position } = self._epub.selection
-        self._showPopover(self._dictionaryMenu)
+        const { language, text } = self._epub.selection
+        const popover = new Gtk.Popover()
+        const dictionaryBox = new DictionaryBox({ border_width: 10 },
+            settings.get_string('dictionary'))
+        dictionaryBox.dictCombo.connect('changed', () =>
+            settings.set_string('dictionary', dictionaryBox.dictCombo.active_id))
+        popover.add(dictionaryBox)
+        dictionaryBox.lookup(text, language)
+        self._showPopover(popover)
     }],
     'win.selection-find': [() => {
         const { text } = self._epub.selection
@@ -764,7 +773,6 @@ var FoliateWindow = GObject.registerClass({
         'fullscreenHeaderbar', 'fullscreenSideMenuButton',
         'fullscreenFindMenuButton', 'fullscreenMainMenuButton',
 
-        'dictionaryMenu',
         'highlightMenu', 'highlightColorsBox', 'noteTextView'
     ]
 }, class FoliateWindow extends Gtk.ApplicationWindow {

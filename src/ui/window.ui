@@ -59,54 +59,6 @@
       </object>
     </child>
   </object>
-  <object class="GtkPopover" id="dictionaryMenu">
-    <signal name="closed" handler="_clearSelection"/>
-    <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="margin">10</property>
-        <property name="spacing">6</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <signal name="clicked" handler="_showSelectionPopover"/>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon_name">pan-start-symbolic</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkComboBoxText">
-                <property name="visible">True</property>
-                <property name="hexpand">True</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow">
-            <property name="visible">True</property>
-            <property name="width-request">250</property>
-            <property name="height-request">250</property>
-            <style><class name="frame"/></style>
-            <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkPopover" id="sideMenu">
     <child>
       <object class="GtkBox">

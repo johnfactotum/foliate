@@ -108,6 +108,11 @@
       <summary>Auto-hide cursor</summary>
       <description>Whether to hide the cursor automatically</description>
     </key>
+    <key name="dictionary" type="s">
+        <default>'wiktionary'</default>
+        <summary>Dictionary</summary>
+        <description>Identifier of the default dictionary. Dictionaries from dictd, if any, are available with the "dcitd_" prefix added to the database ID</description>
+    </key>
   </schema>
   <schema id="com.github.johnfactotum.Foliate.window-state"
     path="/com/github/johnfactotum/Foliate/window-state/">
