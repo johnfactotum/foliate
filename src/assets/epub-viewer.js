@@ -30,6 +30,7 @@ let skeuomorphism = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
 let ibooksInternalTheme = 'Light'
 let doubleClickTime = 400
+let zoomLevel = 1
 
 class Find {
     constructor() {
@@ -460,8 +461,12 @@ const setupRendition = () => {
         }, false)
     })
 
+    const getWindowIsZoomed = () =>
+        Math.abs(window.outerWidth - window.innerWidth * zoomLevel) > 2
+
     // keyboard shortcuts
     const handleKeydown = event => {
+        if (getWindowIsZoomed()) return
         const k = event.key
         if (k === 'ArrowLeft' || k === 'h') rendition.prev()
         else if(k === 'ArrowRight' || k === 'l') rendition.next()
@@ -486,6 +491,7 @@ const setupRendition = () => {
     if (paginated) {
         // scroll through pages
         const onwheel = debounce(event => {
+            if (getWindowIsZoomed()) return
             const { deltaX, deltaY } = event
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
                 if (deltaX > 0) rendition.next()

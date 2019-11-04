@@ -382,6 +382,7 @@ var EpubView = GObject.registerClass({
         this._webView.zoom_level = this.settings.zoom_level
         this.settings.connect('notify::zoom-level', () => {
             this._webView.zoom_level = this.settings.zoom_level
+            this._run(`zoomLevel = ${this.settings.zoom_level}`)
         })
         this.settings.connect('notify::font', () => this._applyStyle())
         this.settings.connect('notify::spacing', () => this._applyStyle())
@@ -483,6 +484,7 @@ var EpubView = GObject.registerClass({
             case 'ready':
                 this._run(`doubleClickTime =
                     ${Gtk.Settings.get_default().gtk_double_click_time}`)
+                this._run(`zoomLevel = ${this.settings.zoom_level}`)
 
                 this._enableFootnote = this.settings.enable_footnote
                 this._enableDevtools = this.settings.enable_devtools
