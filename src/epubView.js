@@ -55,7 +55,7 @@ const layouts = {
 const viewerPath = pkg.pkgdatadir + '/assets/epub-viewer.html'
 const unsafeViewerPath = pkg.pkgdatadir + '/assets/epub-viewer-nocsp.html'
 
-const EpubViewAnnotation = GObject.registerClass({
+var EpubViewAnnotation = GObject.registerClass({
     GTypeName: 'FoliateEpubViewAnnotation',
     Properties: {
         cfi: GObject.ParamSpec.string('cfi', 'cfi', 'cfi',

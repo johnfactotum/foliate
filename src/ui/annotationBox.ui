@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateAnnotationBox" parent="GtkBox">
+    <property name="margin">10</property>
+    <property name="spacing">6</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox" id="highlightColorsBox">
+        <property name="visible">True</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.selection-menu</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">view-more-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="visible">True</property>
+            <property name="action_name">win.selection-unhighlight</property>
+            <property name="tooltip_text" translatable="yes">Remove</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon_name">user-trash-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="visible">True</property>
+        <property name="width-request">250</property>
+        <property name="height-request">200</property>
+        <style><class name="frame"/></style>
+        <child>
+          <object class="GtkTextView" id="noteTextView">
+            <property name="visible">True</property>
+            <property name="wrap-mode">word</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

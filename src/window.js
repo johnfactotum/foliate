@@ -17,7 +17,7 @@ const { GObject, Gtk, Gio, GLib, Gdk } = imports.gi
 const ngettext = imports.gettext.ngettext
 
 const { execCommand, recursivelyDeleteDir, isExternalURL, invertColor } = imports.utils
-const { EpubView, EpubViewSettings } = imports.epubView
+const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
 const { DictionaryBox } = imports.lookup
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -291,14 +291,6 @@ const makeActions = self => ({
         .forEach(window => window.close()), ['<ctrl>q']],
 })
 
-const makeStringActions = self => ({
-    'win.highlight-color': [color => {
-        const annotation = self._epub.annotation
-        if (self._colorRadios[color].active && color !== annotation.color)
-            annotation.set_property('color', color)
-    }, highlightColors[0]]
-})
-
 const AnnotationRow = GObject.registerClass({
     GTypeName: 'FoliateAnnotationRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/annotationRow.ui',
@@ -565,6 +557,55 @@ const SelectionPopover = GObject.registerClass({
     }
 })
 
+const AnnotationBox = GObject.registerClass({
+    GTypeName: 'FoliateAnnotationBox',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/annotationBox.ui',
+    InternalChildren: ['highlightColorsBox', 'noteTextView'],
+    Properties: {
+        annotation: GObject.ParamSpec.object('annotation', 'annotation', 'annotation',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, EpubViewAnnotation.$gtype)
+    }
+}, class AnnotationBox extends Gtk.Box {
+    _init(params) {
+        super._init(params)
+        const annotation = params.annotation
+        highlightColors.map(color => {
+            const radio = new Gtk.RadioButton({
+                visible: true,
+                tooltip_text: color,
+                active: color === annotation.color
+            })
+            radio.connect('toggled', () => {
+                if (radio.active && color !== annotation.color)
+                    annotation.set_property('color', color)
+            })
+
+            const cssProvider = new Gtk.CssProvider()
+            cssProvider.load_from_data(`
+                .color-button {
+                    padding: 0;
+                }
+                .color-button radio {
+                    margin: 0;
+                    padding: 6px;
+                    background: ${color};
+                }`)
+            const styleContext = radio.get_style_context()
+            styleContext.add_class('color-button')
+            styleContext
+                .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+            this._highlightColorsBox.pack_start(radio, false, true, 0)
+            return radio
+        }).reduce((a, b) => (b.join_group(a), a))
+
+        this._noteTextView.buffer.text = annotation.note
+        this._noteTextView.buffer.connect('changed', () => {
+            annotation.set_property('note', this._noteTextView.buffer.text)
+        })
+    }
+})
+
 const MainMenu = GObject.registerClass({
     GTypeName: 'FoliateMainMenu',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainMenu.ui',
@@ -771,9 +812,7 @@ var FoliateWindow = GObject.registerClass({
         'headerBar', 'sideMenuButton', 'findMenuButton', 'mainMenuButton',
         'fullscreenEventbox', 'fullscreenRevealer',
         'fullscreenHeaderbar', 'fullscreenSideMenuButton',
-        'fullscreenFindMenuButton', 'fullscreenMainMenuButton',
-
-        'highlightMenu', 'highlightColorsBox', 'noteTextView'
+        'fullscreenFindMenuButton', 'fullscreenMainMenuButton'
     ]
 }, class FoliateWindow extends Gtk.ApplicationWindow {
     _init(application) {
@@ -828,12 +867,6 @@ var FoliateWindow = GObject.registerClass({
             const [context, name] = action.split('.')
             const [func, accels] = actions[action]
             this._addAction(context, name, func, accels)
-        })
-        const stringActions = makeStringActions(this)
-        Object.keys(stringActions).forEach(action => {
-            const [context, name] = action.split('.')
-            const [func, defaultValue] = stringActions[action]
-            this._addStringAction(context, name, func, defaultValue)
         })
 
         // update zoom buttons when zoom level changes
@@ -907,35 +940,6 @@ var FoliateWindow = GObject.registerClass({
             this._themeUI()
         })
 
-        // make color buttons for highlight menu
-        this._colorRadios = {}
-        highlightColors.map(color => {
-            const radio = new Gtk.RadioButton({
-                visible: true,
-                tooltip_text: color,
-                action_name: 'win.highlight-color',
-                action_target: new GLib.Variant('s', color)
-            })
-            const cssProvider = new Gtk.CssProvider()
-            cssProvider.load_from_data(`
-                .color-button {
-                    padding: 0;
-                }
-                .color-button radio {
-                    margin: 0;
-                    padding: 6px;
-                    background: ${color};
-                }`)
-            const styleContext = radio.get_style_context()
-            styleContext.add_class('color-button')
-            styleContext
-                .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
-            this._highlightColorsBox.pack_start(radio, false, true, 0)
-            this._colorRadios[color] = radio
-            return radio
-        }).reduce((a, b) => (b.join_group(a), a))
-
         const gtkTheme = Gtk.Settings.get_default().gtk_theme_name
         if (gtkTheme === 'elementary') {
             this._headerBar.get_style_context().add_class('default-decoration')
@@ -954,14 +958,6 @@ var FoliateWindow = GObject.registerClass({
         ;(context === 'app' ? this.application : this).add_action(action)
         if (accels)
             this.application.set_accels_for_action(`${context}.${name}`, accels)
-    }
-    _addStringAction(context, name, func, defaultValue) {
-        const state = new GLib.Variant('s', defaultValue)
-        this._addAction(context, name, (action, parameter) => {
-            const string = parameter.get_string()[0]
-            action.set_state(new GLib.Variant('s', string))
-            func(string)
-        }, null, state, true)
     }
     _onWindowStateEvent(widget, event) {
         const state = event.get_window().get_state()
@@ -1064,9 +1060,9 @@ var FoliateWindow = GObject.registerClass({
         })
         this._epub.connect('highlight-menu', () => {
             const annotation = this._epub.annotation
-            this._noteTextView.buffer.text = annotation.note
+            this._highlightMenu = new Gtk.Popover()
+            this._highlightMenu.add(new AnnotationBox({ annotation, visible: true }))
             this._showPopover(this._highlightMenu, false)
-            this._colorRadios[annotation.color].active = true
         })
         this._epub.connect('footnote', () => {
             const { footnote, link, position } = this._epub.footnote
@@ -1074,11 +1070,6 @@ var FoliateWindow = GObject.registerClass({
             popover.relative_to = this._epub.widget
             setPopoverPosition(popover, position, this, 200)
             popover.popup()
-        })
-
-        this._noteTextView.buffer.connect('changed', () => {
-            const annotation = this._epub.annotation
-            annotation.set_property('note', this._noteTextView.buffer.text)
         })
     }
     _showSelectionPopover() {
