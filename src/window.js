@@ -1039,7 +1039,6 @@ var FoliateWindow = GObject.registerClass({
         this._findBox.epub = this._epub
 
         this._epub.connect('click', () => {
-            if (this._highlightMenu.visible) return
             const visible = this._mainOverlay.toggleNavBar()
             if (this._isFullscreen)
                 this._fullscreenRevealer.reveal_child = visible
