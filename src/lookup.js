@@ -81,6 +81,11 @@ const wiktionary = (word, language, lookupFunc) => lookup(
         let row = 0
 
         results.forEach(({ partOfSpeech, definitions }, i) => {
+            if (i > 0) {
+                grid.attach(new Gtk.Label(), 1, row, 1, 1)
+                row++
+            }
+
             const partOfSpeechBox = new Gtk.Box({ spacing: 6 })
             const partOfSpeechLabel = new Gtk.Label({
                 label: `<i>${partOfSpeech}</i>`,
