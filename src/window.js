@@ -809,6 +809,8 @@ var FoliateWindow = GObject.registerClass({
     InternalChildren: [
         'mainOverlay',
         'sideMenu', 'contentsStack', 'findMenu', 'findBox', 'mainMenu',
+        'headerBarEventBox', 'headerBarRevealer',
+        'distractionFreeTitle',
         'headerBar', 'sideMenuButton', 'findMenuButton', 'mainMenuButton',
         'fullscreenEventbox', 'fullscreenRevealer',
         'fullscreenHeaderbar', 'fullscreenSideMenuButton',
@@ -902,9 +904,21 @@ var FoliateWindow = GObject.registerClass({
         if (windowState.get_boolean('fullscreen')) this.fullscreen()
     }
     _buildUI() {
-        const fullscreenUnreveal = () => {
-            if (!this._mainOverlay.navbarVisible)
+        this._headerBarEventBox.connect('enter-notify-event', () =>
+            this._headerBarRevealer.reveal_child = true)
+        this._headerBarEventBox.connect('leave-notify-event', () => {
+            if (!this._sideMenu.visible
+            && !this._findMenu.visible
+            && !this._mainMenu.visible
+            && !this._mainOverlay.navbarVisible)
+                this._headerBarRevealer.reveal_child = false
+        })
+
+        const hideHeaderBar = () => {
+            if (!this._mainOverlay.navbarVisible) {
                 this._fullscreenRevealer.reveal_child = false
+                this._headerBarRevealer.reveal_child = false
+            }
         }
         this._fullscreenEventbox.connect('enter-notify-event', () =>
             this._fullscreenRevealer.reveal_child = true)
@@ -915,10 +929,14 @@ var FoliateWindow = GObject.registerClass({
             && !this._mainOverlay.navbarVisible)
                 this._fullscreenRevealer.reveal_child = false
         })
-        this._sideMenu.connect('closed', fullscreenUnreveal)
-        this._findMenu.connect('closed', fullscreenUnreveal)
-        this._mainMenu.connect('closed', fullscreenUnreveal)
-        this.connect('notify::title', () => this._fullscreenHeaderbar.title = this.title)
+        this._sideMenu.connect('closed', hideHeaderBar)
+        this._findMenu.connect('closed', hideHeaderBar)
+        this._mainMenu.connect('closed', hideHeaderBar)
+        this.connect('notify::title', () => {
+            this._distractionFreeTitle.label = this.title
+            this._headerBar.title = this.title
+            this._fullscreenHeaderbar.title = this.title
+        })
 
         this._contentsStack.connect('row-activated', () => this._sideMenu.popdown())
         this._findBox.connect('row-activated', () => this._findMenu.popdown())
@@ -1039,9 +1057,11 @@ var FoliateWindow = GObject.registerClass({
         this._findBox.epub = this._epub
 
         this._epub.connect('click', () => {
+            if (this._highlightMenu && this._highlightMenu.visible) return
             const visible = this._mainOverlay.toggleNavBar()
             if (this._isFullscreen)
                 this._fullscreenRevealer.reveal_child = visible
+            else this._headerBarRevealer.reveal_child = visible
         })
         this._epub.connect('book-displayed', () => this._loading = false)
         this._epub.connect('book-loading', () => this._loading = true)
@@ -1089,12 +1109,19 @@ var FoliateWindow = GObject.registerClass({
     _themeUI() {
         this._mainOverlay.skeuomorph(settings.get_boolean('skeuomorphism'))
 
-        // set primary color for elementary stylesheet
         const invert = settings.get_boolean('invert')
         const bg_color = settings.get_string('bg-color')
+        const fg_color = settings.get_string('fg-color')
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
-        @define-color colorPrimary ${invert ? invertColor(bg_color) : bg_color};`)
+            #headerbar-container {
+                background: ${invert ? invertColor(bg_color) : bg_color};
+                border: 0;
+                box-shadow: none;
+            }
+            #distraction-free-title {
+                color: ${invert ? invertColor(fg_color) : fg_color};
+            }`)
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),
             cssProvider,

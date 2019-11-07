@@ -45,56 +45,100 @@
     <signal name="size-allocate" handler="_onSizeAllocate"/>
     <signal name="destroy" handler="_onDestroy"/>
     <child type="titlebar">
-      <object class="GtkHeaderBar" id="headerBar">
+      <object class="GtkFrame" id="headerBarContainer">
         <property name="visible">True</property>
-        <property name="show_close_button">True</property>
+        <property name="shadow-type">none</property>
+        <property name="name">headerbar-container</property>
         <child>
-          <object class="GtkMenuButton" id="sideMenuButton">
+          <object class="GtkEventBox" id="headerBarEventBox">
             <property name="visible">True</property>
-            <property name="valign">center</property>
-            <property name="popover">sideMenu</property>
-            <property name="tooltip_text" translatable="yes">Contents</property>
             <child>
-              <object class="GtkImage">
+              <object class="GtkOverlay">
                 <property name="visible">True</property>
-                <property name="icon_name">view-list-symbolic</property>
+                <child>
+                  <!--
+                  the dummy headerbar ensure that enough height is allocated
+                  for the reveal of the real headerbar
+                  -->
+                  <object class="GtkHeaderBar" id="dummyHeaderBar">
+                    <property name="visible">True</property>
+                    <property name="opacity">0</property>
+                    <property name="has-subtitle">False</property>
+                  </object>
+                </child>
+                <child type="overlay">
+                  <object class="GtkLabel" id="distractionFreeTitle">
+                    <property name="visible">True</property>
+                    <property name="ellipsize">end</property>
+                    <property name="name">distraction-free-title</property>
+                    <property name="opacity">0.5</property>
+                  </object>
+                </child>
+                <child type="overlay">
+                  <object class="GtkRevealer" id="headerBarRevealer">
+                    <property name="visible">True</property>
+                    <property name="reveal-child">False</property>
+                    <property name="transition-type">crossfade</property>
+                    <child>
+                      <object class="GtkHeaderBar" id="headerBar">
+                        <property name="visible">True</property>
+                        <property name="has-subtitle">False</property>
+                        <property name="show-close-button">True</property>
+                        <child>
+                          <object class="GtkMenuButton" id="sideMenuButton">
+                            <property name="visible">True</property>
+                            <property name="valign">center</property>
+                            <property name="popover">sideMenu</property>
+                            <property name="tooltip_text" translatable="yes">Contents</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="icon_name">view-list-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkMenuButton" id="mainMenuButton">
+                            <property name="visible">True</property>
+                            <property name="valign">center</property>
+                            <property name="popover">mainMenu</property>
+                            <property name="tooltip_text" translatable="yes">Menu</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="icon_name">open-menu-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="pack_type">end</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkMenuButton" id="findMenuButton">
+                            <property name="visible">True</property>
+                            <property name="valign">center</property>
+                            <property name="popover">findMenu</property>
+                            <property name="tooltip_text" translatable="yes">Find</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="icon_name">edit-find-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="pack_type">end</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
-        </child>
-        <child>
-          <object class="GtkMenuButton" id="mainMenuButton">
-            <property name="visible">True</property>
-            <property name="valign">center</property>
-            <property name="popover">mainMenu</property>
-            <property name="tooltip_text" translatable="yes">Menu</property>
-            <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="icon_name">open-menu-symbolic</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkMenuButton" id="findMenuButton">
-            <property name="visible">True</property>
-            <property name="valign">center</property>
-            <property name="popover">findMenu</property>
-            <property name="tooltip_text" translatable="yes">Find</property>
-            <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="icon_name">edit-find-symbolic</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
         </child>
       </object>
     </child>
