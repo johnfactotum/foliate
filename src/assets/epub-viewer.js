@@ -174,6 +174,10 @@ const setStyle = style => {
             '-webkit-hyphenate-limit-after': 2,
             '-webkit-hyphenate-limit-lines': 2
         },
+        [`.${themeName} p`]: {
+            'font-size': `${fontSize}px !important`,
+            'line-height': `${spacing} !important`
+        },
         [`.${themeName} code, .${themeName} pre`]: {
             '-webkit-hyphens': 'none'
         },
