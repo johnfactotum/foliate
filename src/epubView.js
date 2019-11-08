@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, GLib, Gio, Gtk, Gdk, Pango, WebKit2 } = imports.gi
+const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
 
 const { markupEscape, Storage, disconnectAllHandlers } = imports.utils
 
@@ -334,6 +334,10 @@ var EpubView = GObject.registerClass({
         'selection': { flags: GObject.SignalFlags.RUN_FIRST },
         'highlight-menu': { flags: GObject.SignalFlags.RUN_FIRST },
         'footnote': { flags: GObject.SignalFlags.RUN_FIRST },
+        'img': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GdkPixbuf.Pixbuf.$gtype, GObject.TYPE_STRING]
+        },
         'click': { flags: GObject.SignalFlags.RUN_FIRST },
     }
 }, class EpubView extends GObject.Object {
@@ -548,6 +552,14 @@ var EpubView = GObject.registerClass({
                 this.footnote = payload
                 this.emit('footnote')
                 break
+            case 'img':{
+                const { alt, base64 } = payload
+                const data = GLib.base64_decode(base64)
+                const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
+                const pixbuf = GdkPixbuf.Pixbuf.new_from_stream(imageStream, null)
+                this.emit('img', pixbuf, alt)
+                break
+            }
 
             case 'find-results': {
                 const { q, results } = payload
