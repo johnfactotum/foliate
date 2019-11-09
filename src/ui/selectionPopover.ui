@@ -17,6 +17,7 @@
                 <property name="visible">True</property>
                 <property name="action-name">win.selection-copy</property>
                 <property name="label" translatable="yes">Copy</property>
+                <signal name="clicked" handler="popdown"/>
               </object>
             </child>
             <child>

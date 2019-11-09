@@ -191,7 +191,6 @@ const makeActions = self => ({
     'win.selection-copy': [() => {
         Gtk.Clipboard.get_default(Gdk.Display.get_default())
             .set_text(self._epub.selection.text, -1)
-        self._selectionMenu.popdown()
     }, ['<ctrl>c']],
     'win.selection-highlight': [() => {
         const { cfi, text } = self._epub.selection
@@ -555,6 +554,11 @@ const SelectionPopover = GObject.registerClass({
     popup() {
         super.popup()
         this._showMain()
+    }
+    popdown() {
+        // wrap `super.popdown()` so we can use it as a signal handler
+        // without getting warnings about `popdown()` taking no arguments
+        super.popdown()
     }
     _showMore() {
         this._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT
