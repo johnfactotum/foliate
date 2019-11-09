@@ -18,7 +18,7 @@ const ngettext = imports.gettext.ngettext
 
 const { execCommand, recursivelyDeleteDir, isExternalURL, invertColor } = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
-const { DictionaryBox } = imports.lookup
+const { DictionaryBox, WikipediaBox } = imports.lookup
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
@@ -213,6 +213,14 @@ const makeActions = self => ({
             settings.set_string('dictionary', dictionaryBox.dictCombo.active_id))
         popover.add(dictionaryBox)
         dictionaryBox.lookup(text, language)
+        self._showPopover(popover)
+    }],
+    'win.selection-wikipedia': [() => {
+        const { language, text } = self._epub.selection
+        const popover = new Gtk.Popover()
+        const wikipediaBox = new WikipediaBox({ border_width: 10 })
+        popover.add(wikipediaBox)
+        wikipediaBox.lookup(text, language)
         self._showPopover(popover)
     }],
     'win.selection-find': [() => {

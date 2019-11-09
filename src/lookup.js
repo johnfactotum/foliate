@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, GLib, Gtk, WebKit2 } = imports.gi
+const { GObject, GLib, Gtk, Gdk, WebKit2 } = imports.gi
 const { execCommand } = imports.utils
 
 const lookup = (script, againScript) => new Promise((resolve, reject) => {
@@ -41,6 +41,60 @@ const lookup = (script, againScript) => new Promise((resolve, reject) => {
         }
     })
     contentManager.register_script_message_handler('action')
+})
+
+const wikipedia = (word, language = 'en') => lookup(
+    `wikipedia("${encodeURIComponent(word)}", '${language}')`
+).then(results => {
+    const box = new Gtk.Box({
+        visible: true,
+        orientation: Gtk.Orientation.VERTICAL,
+        margin: 3
+    })
+    const label = new Gtk.Label({
+        visible: true,
+        wrap: true,
+        xalign: 0,
+        use_markup: true,
+        selectable: true,
+        label: results.extract
+    })
+    box.pack_start(label, false, true, 0)
+    return box
+})
+
+
+var WikipediaBox = GObject.registerClass({
+    GTypeName: 'FoliateWikipediaBox',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/wikipediaBox.ui',
+    InternalChildren: ['wikiStack', 'wikiContent', 'wikiErrorLabel', 'wikiButton']
+}, class DictionaryBox extends Gtk.Box {
+    _init(params) {
+        super._init(params)
+    }
+    lookup(text, language) {
+        language = language.slice(0, 2).toLowerCase()
+        this._wikiStack.visible_child_name = 'loading'
+        this._wikiContent.foreach(child => this._wikiContent.remove(child))
+        wikipedia(text, language)
+            .then(widget => {
+                this._wikiStack.visible_child_name = 'loaded'
+                this._wikiContent.add(widget)
+                this._wikiButton.show()
+                this._wikiButton.connect('clicked', () => {
+                    const uri = `https://${language}.wikipedia.org/wiki/${encodeURIComponent(text)}`
+                    Gtk.show_uri_on_window(null, uri, Gdk.CURRENT_TIME)
+                })
+            })
+            .catch(() => {
+                this._wikiStack.visible_child_name = 'error'
+                this._wikiErrorLabel.label =
+                    `<a href="https://${language}.wikipedia.org/w/index.php?search=${
+                        encodeURIComponent(text)}">`
+                    + _('Search on Wikipedia')
+                    + '</a>'
+            })
+    }
 })
 
 const baseWikiRegExp = new RegExp('^https://en.wiktionary.org/wiki/')
