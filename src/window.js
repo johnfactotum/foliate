@@ -301,6 +301,7 @@ const AnnotationRow = GObject.registerClass({
     _init(annotation, epubView) {
         super._init()
         this.annotation = annotation
+        this._epub = epubView
 
         this._annotationText.label = annotation.text
         epubView.getSectionFromCfi(annotation.cfi).then(section =>
@@ -327,6 +328,9 @@ const AnnotationRow = GObject.registerClass({
         const styleContext = this._annotationText.get_style_context()
         styleContext
             .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    }
+    _remove() {
+        this._epub.removeAnnotation(this.annotation)
     }
 })
 

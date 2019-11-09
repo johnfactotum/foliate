@@ -40,6 +40,7 @@
           <object class="GtkButton" id="removeButton">
             <property name="visible">True</property>
             <property name="relief">none</property>
+            <property name="valign">center</property>
             <property name="tooltip-text" translatable="yes">Remove</property>
             <signal name="clicked" handler="_remove"/>
             <child>
