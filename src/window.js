@@ -236,13 +236,10 @@ const makeActions = self => ({
     'win.unfullscreen': [() => self.unfullscreen(), ['Escape']],
 
     'app.themes': [() => {
-    }, ['<ctrl>question']],
+    }],
 
     'app.preferences': [() => {
-    }, ['<ctrl>question']],
-
-    'app.shortcuts': [() => {
-    }, ['<ctrl>question']],
+    }],
 
     'app.open': [() => {
         const allFiles = new Gtk.FileFilter()
@@ -971,6 +968,12 @@ var FoliateWindow = GObject.registerClass({
         if (windowState.get_boolean('fullscreen')) this.fullscreen()
     }
     _buildUI() {
+        this.set_help_overlay(Gtk.Builder.new_from_resource(
+            '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
+            .get_object('shortcutsWindow'))
+        this.application.set_accels_for_action('win.show-help-overlay',
+            ['<ctrl>question'])
+
         this._headerBarEventBox.connect('enter-notify-event', () =>
             this._headerBarRevealer.reveal_child = true)
         this._headerBarEventBox.connect('leave-notify-event', () => {
