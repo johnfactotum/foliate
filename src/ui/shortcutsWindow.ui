@@ -12,6 +12,13 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
+                <property name="title" translatable="yes">Bookmark current location</property>
+                <property name="action-name">win.bookmark</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
                 <property name="title" translatable="yes">Find in book</property>
                 <property name="action-name">win.find-menu</property>
               </object>
@@ -82,7 +89,7 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
-                <property name="title" translatable="yes">Fullscreen</property>
+                <property name="title" translatable="yes">Toggle fullscreen</property>
                 <property name="action-name">win.fullscreen</property>
               </object>
             </child>
@@ -96,21 +103,21 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
-                <property name="title" translatable="yes">Go to the next page</property>
+                <property name="title" translatable="yes">Go to next page</property>
                 <property name="action-name">win.go-next</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
-                <property name="title" translatable="yes">Go to the previous page</property>
+                <property name="title" translatable="yes">Go to previous page</property>
                 <property name="action-name">win.go-prev</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
-                <property name="title" translatable="yes">Go back to previous locatione</property>
+                <property name="title" translatable="yes">Go back to previous location</property>
                 <property name="action-name">win.go-back</property>
               </object>
             </child>
@@ -124,14 +131,14 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
-                <property name="title" translatable="yes">Go to the next page</property>
+                <property name="title" translatable="yes">Go to next page</property>
                 <property name="shortcut-type">5</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
-                <property name="title" translatable="yes">Go to the previous page</property>
+                <property name="title" translatable="yes">Go to previous page</property>
                 <property name="shortcut-type">6</property>
               </object>
             </child>

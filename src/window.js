@@ -180,7 +180,7 @@ const makeActions = self => ({
         settings.set_double('zoom-level', settings.get_double('zoom-level') - 0.1),
     ['minus', '<ctrl>minus']],
     'win.zoom-restore': [() => settings.set_double('zoom-level', 1),
-        ['1', '<ctrl>1']],
+        ['0', '<ctrl>0']],
 
     'win.bookmark': [() => {
         if (self._epub.hasBookmark()) self._epub.removeBookmark()
