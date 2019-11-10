@@ -16,7 +16,7 @@
 const { GObject, Gtk, Gio, GLib, Gdk, GdkPixbuf } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const { execCommand, recursivelyDeleteDir, isExternalURL, invertColor } = imports.utils
+const { execCommand, recursivelyDeleteDir, isExternalURL, invertColor, brightenColor } = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
 const { DictionaryBox, WikipediaBox } = imports.lookup
 
@@ -783,7 +783,8 @@ const MainOverlay = GObject.registerClass({
 
         const cssProvider = new Gtk.CssProvider()
         const invert = settings.get_boolean('invert') ? invertColor : (x => x)
-        const bgColor = invert(settings.get_string('bg-color'))
+        const brightness = settings.get_double('brightness')
+        const bgColor = brightenColor(invert(settings.get_string('bg-color')), brightness)
         const shadowColor = invert('rgba(0, 0, 0, 0.2)')
         cssProvider.load_from_data(`
             .skeuomorph-page {
@@ -960,13 +961,15 @@ var FoliateWindow = GObject.registerClass({
         const zoomHandler =
             settings.connect('changed::zoom-level', updateZoomButtons)
 
-        const updateSkeuomorphism = () => this._themeUI()
-        updateSkeuomorphism()
+        this._themeUI()
+        const brightnessHandler =
+            settings.connect('changed::brightness', () => this._themeUI())
         const skeuomorphismHandler =
-            settings.connect('changed::skeuomorphism', updateSkeuomorphism)
+            settings.connect('changed::skeuomorphism', () => this._themeUI())
 
         this.connect('destroy', () => {
             settings.disconnect(zoomHandler)
+            settings.disconnect(brightnessHandler)
             settings.disconnect(skeuomorphismHandler)
         })
 
@@ -1195,18 +1198,19 @@ var FoliateWindow = GObject.registerClass({
     _themeUI() {
         this._mainOverlay.skeuomorph(settings.get_boolean('skeuomorphism'))
 
-        const invert = settings.get_boolean('invert')
-        const bg_color = settings.get_string('bg-color')
-        const fg_color = settings.get_string('fg-color')
+        const invert = settings.get_boolean('invert') ? invertColor : (x => x)
+        const brightness = settings.get_double('brightness')
+        const bgColor = brightenColor(invert(settings.get_string('bg-color')), brightness)
+        const fgColor = brightenColor(invert(settings.get_string('fg-color')), brightness)
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
             #headerbar-container {
-                background: ${invert ? invertColor(bg_color) : bg_color};
+                background: ${bgColor};
                 border: 0;
                 box-shadow: none;
             }
             #distraction-free-title {
-                color: ${invert ? invertColor(fg_color) : fg_color};
+                color: ${fgColor};
             }`)
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),

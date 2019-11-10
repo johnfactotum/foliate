@@ -161,3 +161,12 @@ var invertColor = color => {
     rgba.blue = 1 - rgba.blue
     return rgba.to_string()
 }
+
+var brightenColor = (color, brightness) => {
+    const rgba = new Gdk.RGBA()
+    rgba.parse(color)
+    rgba.red = rgba.red * brightness
+    rgba.green = rgba.green * brightness
+    rgba.blue = rgba.blue * brightness
+    return rgba.to_string()
+}
