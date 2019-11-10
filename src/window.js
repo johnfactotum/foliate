@@ -25,7 +25,8 @@ const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 
 const mimetypes = {
     epub: 'application/epub+zip',
-    mobi: 'application/x-mobipocket-ebook'
+    mobi: 'application/x-mobipocket-ebook',
+    kindle: 'application/vnd.amazon.mobi8-ebook'
 }
 
 const highlightColors = ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
@@ -257,6 +258,7 @@ const makeActions = self => ({
         epubFiles.set_name(_('E-book Files'))
         epubFiles.add_mime_type(mimetypes.epub)
         epubFiles.add_mime_type(mimetypes.mobi)
+        epubFiles.add_mime_type(mimetypes.kindle)
 
         const dialog = Gtk.FileChooserNative.new(
             _('Open File'),
@@ -1107,7 +1109,7 @@ var FoliateWindow = GObject.registerClass({
             Gio.FileQueryInfoFlags.NONE, null)
         const contentType = fileInfo.get_content_type()
 
-        if (contentType === mimetypes.mobi) {
+        if (contentType === mimetypes.mobi || contentType === mimetypes.kindle) {
             const python = GLib.find_program_in_path('python')
                 || GLib.find_program_in_path('python3')
             const kindleUnpack = pkg.pkgdatadir
