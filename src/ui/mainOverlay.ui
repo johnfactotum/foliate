@@ -129,66 +129,90 @@
         <property name="visible">True</property>
         <property name="opacity">0</property>
         <child>
-          <object class="GtkBox" id="contentBox">
+          <object class="GtkBox">
             <property name="visible">True</property>
-          </object>
-        </child>
-        <child type="overlay">
-          <object class="GtkRevealer" id="navBarRevealer">
-            <property name="valign">end</property>
-            <property name="margin">18</property>
-            <property name="transition-type">crossfade</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="FoliateNavBar" id="navBar">
+              <object class="GtkBox" id="contentBox">
                 <property name="visible">True</property>
-                <property name="valign">end</property>
-                <style><class name="osd"/></style>
               </object>
+              <packing>
+                <property name="expand">True</property>
+              </packing>
             </child>
-          </object>
-        </child>
-        <child type="overlay">
-          <object class="GtkRevealer" id="prevButtonRevealer">
-            <property name="valign">center</property>
-            <property name="halign">start</property>
-            <property name="margin">18</property>
-            <property name="transition-type">crossfade</property>
             <child>
-              <object class="GtkButton">
+              <object class="GtkFrame">
                 <property name="visible">True</property>
-                <property name="valign">center</property>
-                <property name="halign">start</property>
-                <property name="action-name">win.go-prev</property>
-                <property name="tooltip-text" translatable="yes">Previous page</property>
-                <style><class name="osd"/></style>
+                <property name="shadow-type">none</property>
+                <property name="name">headerbar-container</property>
                 <child>
-                  <object class="GtkImage">
+                  <object class="GtkEventBox" id="navBarEventBox">
                     <property name="visible">True</property>
-                    <property name="icon-name">go-previous-symbolic</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child type="overlay">
-          <object class="GtkRevealer" id="nextButtonRevealer">
-            <property name="valign">center</property>
-            <property name="halign">end</property>
-            <property name="margin">18</property>
-            <property name="transition-type">crossfade</property>
-            <child>
-              <object class="GtkButton">
-                <property name="valign">center</property>
-                <property name="halign">end</property>
-                <property name="visible">True</property>
-                <property name="action-name">win.go-next</property>
-                <property name="tooltip-text" translatable="yes">Next page</property>
-                <style><class name="osd"/></style>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon-name">go-next-symbolic</property>
+                    <child>
+                      <object class="GtkOverlay">
+                        <property name="visible">True</property>
+                        <child>
+                          <!--
+                          the dummy actionbar ensure that enough height is allocated
+                          for the reveal of the real actionbar
+                          -->
+                          <object class="GtkActionBar" id="dummyNavBar">
+                            <property name="visible">True</property>
+                            <property name="opacity">0</property>
+                            <child>
+                              <object class="GtkMenuButton">
+                                <property name="visible">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkScale">
+                                <property name="visible">True</property>
+                                <property name="draw-value">False</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child type="overlay">
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="homogeneous">True</property>
+                            <property name="margin-right">18</property>
+                            <property name="margin-left">18</property>
+                            <child>
+                              <object class="GtkLabel" id="distractionFreeBottomLabel">
+                                <property name="visible">True</property>
+                                <property name="hexpand">True</property>
+                                <property name="ellipsize">end</property>
+                                <property name="name">distraction-free-title</property>
+                                <property name="opacity">0.5</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="distractionFreeBottomLabel2">
+                                <property name="visible">True</property>
+                                <property name="hexpand">True</property>
+                                <property name="ellipsize">end</property>
+                                <property name="name">distraction-free-title</property>
+                                <property name="opacity">0.5</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child type="overlay">
+                          <object class="GtkRevealer" id="navBarRevealer">
+                            <property name="visible">True</property>
+                            <property name="reveal-child">False</property>
+                            <property name="transition-type">crossfade</property>
+                            <child>
+                              <object class="FoliateNavBar" id="navBar">
+                                <property name="visible">True</property>
+                                <style><class name="background"/></style>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>

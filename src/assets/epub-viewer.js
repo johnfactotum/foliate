@@ -100,6 +100,7 @@ const dispatchLocation = async () => {
             atStart: location.atStart,
             atEnd: location.atEnd,
             cfi: location.start.cfi,
+            endCfi: location.end.cfi,
             sectionHref: getSectionFromCfi(location.start.cfi).href,
             section: index,
             sectionTotal: book.spine.length,

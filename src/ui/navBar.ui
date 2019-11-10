@@ -202,14 +202,27 @@
     </child>
   </object>
 
-  <template class="FoliateNavBar" parent="GtkBox">
-    <property name="spacing">6</property>
+  <template class="FoliateNavBar" parent="GtkActionBar">
     <signal name="size-allocate" handler="_onSizeAllocate"/>
     <child>
       <object class="GtkButton">
         <property name="visible">True</property>
         <property name="valign">center</property>
-        <property name="relief">none</property>
+        <property name="halign">start</property>
+        <property name="action-name">win.go-prev</property>
+        <property name="tooltip-text" translatable="yes">Previous page</property>
+        <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="icon-name">go-previous-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
         <property name="action-name">win.go-back</property>
         <property name="tooltip_text" translatable="yes">Go back</property>
         <child>
@@ -279,6 +292,24 @@
           </packing>
         </child>
       </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="valign">center</property>
+        <property name="halign">end</property>
+        <property name="visible">True</property>
+        <property name="action-name">win.go-next</property>
+        <property name="tooltip-text" translatable="yes">Next page</property>
+        <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="icon-name">go-next-symbolic</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+      </packing>
     </child>
     <child>
       <object class="GtkToggleButton">

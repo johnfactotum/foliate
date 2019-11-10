@@ -236,9 +236,6 @@ const makeActions = self => ({
     'win.main-menu': [() =>
         self._mainMenuButton.active = !self._mainMenuButton.active, ['F10']],
 
-    'win.navbar': [() =>
-        self._mainOverlay.toggleNavBar(), ['<ctrl>p']],
-
     'win.fullscreen': [() =>
         self._isFullscreen ? self.unfullscreen() : self.fullscreen(), ['F11']],
     'win.unfullscreen': [() => self.unfullscreen(), ['Escape']],
@@ -651,15 +648,15 @@ const MainMenu = GObject.registerClass({
 
 const NavBar = GObject.registerClass({
     GTypeName: 'FoliateNavBar',
-    CssName: 'toolbar',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/navBar.ui',
+    Children: ['locationMenu'],
     InternalChildren: [
         'locationStack', 'locationLabel', 'locationScale',
         'timeInBook', 'timeInChapter',
         'sectionEntry', 'locationEntry', 'cfiEntry',
         'sectionTotal', 'locationTotal',
     ]
-}, class NavBar extends Gtk.Box {
+}, class NavBar extends Gtk.ActionBar {
     set epub(epub) {
         this._epub = epub
         this._epub.connect('locations-ready', () => {
@@ -728,25 +725,22 @@ const MainOverlay = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainOverlay.ui',
     InternalChildren: [
         'overlayStack', 'mainBox', 'contentBox',
-        'navBar', 'navBarRevealer', 'prevButtonRevealer', 'nextButtonRevealer'
+        'navBarEventBox', 'navBar', 'navBarRevealer',
+        'distractionFreeBottomLabel', 'distractionFreeBottomLabel2'
     ]
 }, class MainOverlay extends Gtk.Overlay {
     _init() {
         super._init()
-        this._navBarRevealer.connect('notify::child-revealed', () => {
-            if (!this._navBarRevealer.child_revealed)
-                this._navBarRevealer.visible = false
+
+        this._navBarEventBox.connect('enter-notify-event', () =>
+            this._navBarRevealer.reveal_child = true)
+        this._navBarEventBox.connect('leave-notify-event', () => {
+            if (!this._navBarVisible && !this._navBar.locationMenu.visible)
+                this._navBarRevealer.reveal_child = false
         })
-        this._prevButtonRevealer.connect('notify::child-revealed', () => {
-            if (!this._prevButtonRevealer.child_revealed)
-                this._prevButtonRevealer.visible = false
+        this._navBar.locationMenu.connect('closed', () => {
+            if (!this._navBarVisible) this._navBarRevealer.reveal_child = false
         })
-        this._nextButtonRevealer.connect('notify::child-revealed', () => {
-            if (!this._nextButtonRevealer.child_revealed)
-                this._nextButtonRevealer.visible = false
-        })
-        const gtkTheme = Gtk.Settings.get_default().gtk_theme_name
-        if (gtkTheme === 'elementary') this._navBarRevealer.margin = 0
     }
     set epub(epub) {
         this._epub = epub
@@ -754,8 +748,20 @@ const MainOverlay = GObject.registerClass({
         this._contentBox.pack_start(this._epub.widget, true, true, 0)
 
         this._epub.connect('book-displayed', () => this._setStatus('loaded'))
-        this._epub.connect('book-loading', () => this._setStatus('loading'))
+        this._epub.connect('book-loading', () => {
+            this._setStatus('loading')
+            this._distractionFreeBottomLabel.label = '…'
+            this._distractionFreeBottomLabel2.label = '…'
+        })
         this._epub.connect('book-error', () => this._setStatus('error'))
+        this._epub.connect('relocated', () => this._update())
+    }
+    _update() {
+        const { endCfi, location, locationTotal } = this._epub.location
+        if (locationTotal) this._distractionFreeBottomLabel.label =
+            (location + 1) + ' / ' + (locationTotal + 1)
+        this._epub.getSectionFromCfi(endCfi).then(section =>
+            this._distractionFreeBottomLabel2.label = section.label)
     }
     _setStatus(status) {
         const loaded = status === 'loaded'
@@ -764,19 +770,12 @@ const MainOverlay = GObject.registerClass({
         if (!loaded) this._overlayStack.visible_child_name = status
     }
     toggleNavBar() {
-        const visible = this._navBarRevealer.visible
-        if (!visible) {
-            this._navBarRevealer.visible = true
-            this._prevButtonRevealer.visible = true
-            this._nextButtonRevealer.visible = true
-        }
-        this._navBarRevealer.reveal_child = !visible
-        this._prevButtonRevealer.reveal_child = !visible
-        this._nextButtonRevealer.reveal_child = !visible
-        return !visible
+        this._navBarVisible = !this._navBarVisible
+        this._navBarRevealer.reveal_child = this._navBarVisible
+        return this._navBarVisible
     }
     get navbarVisible() {
-        return this._navBarRevealer.visible
+        return this._navBarVisible || false
     }
     skeuomorph(enabled) {
         if (!enabled) return this._contentBox.get_style_context()
