@@ -240,6 +240,20 @@ const makeActions = self => ({
         self._isFullscreen ? self.unfullscreen() : self.fullscreen(), ['F11']],
     'win.unfullscreen': [() => self.unfullscreen(), ['Escape']],
 
+    'win.properties': [() => {
+        const window = new PropertiesWindow({
+            modal: true,
+            transient_for: self
+        }, self._epub.metadata)
+        window.show()
+    }],
+
+    'win.open-copy': [() => {
+        const window = new self.constructor(self.application)
+        window.open(self._fileName)
+        window.present()
+    }, ['<ctrl>n']],
+
     'app.themes': [() => {
     }],
 
@@ -292,6 +306,71 @@ const makeActions = self => ({
     'win.close': [() => self.close(), ['<ctrl>w']],
     'app.quit': [() => self.application.get_windows()
         .forEach(window => window.close()), ['<ctrl>q']],
+})
+
+const PropertyBox = GObject.registerClass({
+    GTypeName: 'FoliatePropertyBox',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertyBox.ui',
+    InternalChildren: ['name', 'value'],
+    Properties: {
+        'property-name':
+            GObject.ParamSpec.string('property-name', 'property-name', 'property-name',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, ''),
+        'property-value':
+            GObject.ParamSpec.string('property-value', 'property-value', 'property-value',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, '')
+    }
+}, class PropertyBox extends Gtk.Box {
+    _init(params) {
+        super._init(params)
+        const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
+        this.bind_property('property-name', this._name, 'label', flag)
+        this.bind_property('property-value', this._value, 'label', flag)
+    }
+})
+
+const PropertiesWindow = GObject.registerClass({
+    GTypeName: 'FoliatePropertiesWindow',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertiesWindow.ui',
+    InternalChildren: [
+        'title', 'creator', 'description', 'propertiesBox'
+    ]
+}, class PropertiesWindow extends Gtk.Dialog {
+    _init(params, metadata) {
+        super._init(params)
+        const {
+            title, creator, description,
+            publisher, pubdate, modified_date, language, identifier, rights
+        } = metadata
+        this._title.label = title
+        this._creator.label = creator
+        if (description) this._description.label = description
+        else this._description.hide()
+        if (publisher) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('Publisher'),
+            property_value: publisher
+        }), false, true, 0)
+        if (pubdate) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('Publication Date'),
+            property_value: pubdate
+        }), false, true, 0)
+        if (modified_date) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('Modified Date'),
+            property_value: modified_date
+        }), false, true, 0)
+        if (language) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('Language'),
+            property_value: language
+        }), false, true, 0)
+        if (identifier) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('Identifier'),
+            property_value: identifier
+        }), false, true, 0)
+        if (rights) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('Copyright'),
+            property_value: rights
+        }), false, true, 0)
+    }
 })
 
 const AnnotationRow = GObject.registerClass({
@@ -1098,6 +1177,7 @@ var FoliateWindow = GObject.registerClass({
         this._findMenuButton.sensitive = !state
         this._fullscreenSideMenuButton.sensitive = !state
         this._fullscreenFindMenuButton.sensitive = !state
+        this.lookup_action('open-copy').enabled = !state
         if (state) {
             this.lookup_action('go-prev').enabled = false
             this.lookup_action('go-next').enabled = false
@@ -1106,6 +1186,7 @@ var FoliateWindow = GObject.registerClass({
         }
     }
     open(fileName, realFileName, inputType = 'epub') {
+        this._fileName = realFileName || fileName
         const file = Gio.File.new_for_path(fileName)
         const fileInfo = file.query_info('standard::content-type',
             Gio.FileQueryInfoFlags.NONE, null)

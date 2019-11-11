@@ -254,6 +254,25 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
+            <property name="action-name">win.properties</property>
+            <property name="text" translatable="yes">About This Book</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.open-copy</property>
+            <property name="text" translatable="yes">Open a Copy</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
             <property name="action_name">app.open</property>
             <property name="text" translatable="yes">Open…</property>
           </object>

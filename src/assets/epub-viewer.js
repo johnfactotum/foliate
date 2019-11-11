@@ -285,7 +285,11 @@ book.ready.then(async () => {
     } catch (e) {
         console.error(e)
     }
-    dispatch({ type: 'book-ready' })
+    book.loaded.metadata.then(metadata => {
+        if (metadata.description)
+            metadata.description = toPangoMarkup(metadata.description)
+        dispatch({ type: 'book-ready' })
+    })
 })
 
 // get book cover for "about this book" dialogue
