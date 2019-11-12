@@ -16,37 +16,56 @@
 const { Gtk, Gio } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const exportToHTML = ({ annotations }, metadata) => `<!DOCTYPE html>
+const exportToHTML = async ({ annotations }, metadata, getSection) => {
+    const head = `<!DOCTYPE html>
     <meta charset="utf-8">
     <style>
         body { max-width: 720px; padding: 10px; margin: auto; }
         header { text-align: center; }
         hr { border: 0; height: 1px; background: rgba(0, 0, 0, 0.2); margin: 20px 0; }
         .cfi { font-size: small; opacity: 0.5; font-family: monospace; }
+        .section { font-weight: bold; }
         blockquote { margin: 0; padding-left: 15px; border-left: 7px solid; }
     </style>
     <header>`
     + _('<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>').format(metadata.title, metadata.creator)
     + '</header><p>'
     + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length) + '</p>'
-    + annotations.map(({ value, text, color, note }) => `
+    const body = await Promise.all(annotations.map(async ({ value, text, color, note }) => `
     <hr>
     <section>
         <p class="cfi">${value}</p>
+        <p class="section">${await getSection(value)}</p>
         <blockquote style="border-color: ${color};">${text}</blockquote>
         ${note ? '<p>' + note + '</p>' : ''}
-    </section>`).join('')
+    </section>`))
+    return head + body.join('')
+}
 
-// workaround for gettext bug
-// `/`
-
-const exportToTxt = ({ annotations }, metadata) =>
-    _('Annotations for\n%s\nBy %s').format(metadata.title, metadata.creator) + '\n\n'
-    + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length)
-    + annotations.map(({ text, note }) => '\n\n'
+const exportToTxt = async ({ annotations }, metadata, getSection) => {
+    const head = _('Annotations for\n%s\nBy %s').format(metadata.title, metadata.creator) + '\n\n'
+        + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length)
+    const body = await Promise.all(annotations.map(async ({ value, text, color, note }) => '\n\n'
         + '--------------------------------------------------------------------------------\n\n'
+        + _('Section: ') + (await getSection(value)) + '\n'
+        + _('Highlight: ') + color + '\n\n'
         + _('Text:') + '\n' + text
-        + (note ? '\n\n' + _('Note:') + '\n' + note : '')).join('')
+        + (note ? '\n\n' + _('Note:') + '\n' + note : '')))
+    return head + body.join('')
+}
+
+const exportToMarkdown = async ({ annotations }, metadata, getSection) => {
+    const head = '# ' + _('Annotations for *%s* by %s').format(metadata.title, metadata.creator) + '\n\n'
+        + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length)
+    const body = await Promise.all(annotations.map(async ({ value, text, color, note }) =>`
+
+---
+
+${await getSection(value)} - **${color}**
+
+> ${text}${note ? '\n\n' + note : ''}`))
+    return head + body.join('')
+}
 
 const exportToBibTeX = ({ annotations }, metadata) => {
     // Escape all Tex characters that BibTex requires
@@ -75,7 +94,7 @@ const exportToBibTeX = ({ annotations }, metadata) => {
 `).join('')
 }
 
-var exportAnnotations = (window, data, metadata) => {
+var exportAnnotations = async (window, data, metadata, getSection) => {
     const builder = Gtk.Builder.new_from_resource(
         '/com/github/johnfactotum/Foliate/ui/exportWindow.ui')
     const dialog = builder.get_object('exportDialog')
@@ -101,10 +120,13 @@ var exportAnnotations = (window, data, metadata) => {
                     contents = JSON.stringify(data, null, 2)
                     break
                 case 'html':
-                    contents = exportToHTML(data, metadata)
+                    contents = await exportToHTML(data, metadata, getSection)
+                    break
+                case 'md':
+                    contents = await exportToMarkdown(data, metadata, getSection)
                     break
                 case 'txt':
-                    contents = exportToTxt(data, metadata)
+                    contents = await exportToTxt(data, metadata, getSection)
                     break
                 case 'bib':
                     contents = exportToBibTeX(data, metadata)

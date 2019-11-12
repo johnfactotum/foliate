@@ -27,8 +27,7 @@ const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 const mimetypes = {
     epub: 'application/epub+zip',
     mobi: 'application/x-mobipocket-ebook',
-    kindle: 'application/vnd.amazon.mobi8-ebook',
-    json: 'application/json'
+    kindle: 'application/vnd.amazon.mobi8-ebook'
 }
 
 const highlightColors = ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
@@ -273,7 +272,9 @@ const makeActions = self => ({
             msg.destroy()
             return
         }
-        exportAnnotations(self, data, self._epub.metadata)
+        exportAnnotations(self, data, self._epub.metadata, cfi =>
+            self._epub.getSectionFromCfi(cfi).then(x => x.label))
+            .catch(e => logError(e))
     }],
 
     'app.themes': [() => {
