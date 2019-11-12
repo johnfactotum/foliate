@@ -244,7 +244,7 @@ const makeActions = self => ({
         const window = new PropertiesWindow({
             modal: true,
             transient_for: self
-        }, self._epub.metadata)
+        }, self._epub.metadata, self._epub.cover)
         window.show()
     }],
 
@@ -333,11 +333,19 @@ const PropertiesWindow = GObject.registerClass({
     GTypeName: 'FoliatePropertiesWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertiesWindow.ui',
     InternalChildren: [
-        'title', 'creator', 'description', 'propertiesBox'
+        'cover', 'title', 'creator', 'description', 'propertiesBox'
     ]
 }, class PropertiesWindow extends Gtk.Dialog {
-    _init(params, metadata) {
+    _init(params, metadata, cover) {
         super._init(params)
+        if (cover) {
+            const width = 120
+            const ratio = width / cover.get_width()
+            const height = parseInt(cover.get_height() * ratio, 10)
+            this._cover.set_from_pixbuf(cover
+                .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
+        } else this._cover.hide()
+
         const {
             title, creator, description,
             publisher, pubdate, modified_date, language, identifier, rights
@@ -1179,6 +1187,7 @@ var FoliateWindow = GObject.registerClass({
         this._fullscreenFindMenuButton.sensitive = !state
         this.lookup_action('open-copy').enabled = !state
         if (state) {
+            this.lookup_action('properties').enabled = false
             this.lookup_action('go-prev').enabled = false
             this.lookup_action('go-next').enabled = false
             this.lookup_action('go-back').enabled = false
@@ -1235,6 +1244,8 @@ var FoliateWindow = GObject.registerClass({
         this._epub.connect('book-error', () => this.title = _('Error'))
         this._epub.connect('metadata', () =>
             this.title = this._epub.metadata.title)
+        this._epub.connect('cover', () =>
+            this.lookup_action('properties').enabled = true)
         this._epub.connect('relocated', () => {
             const { atStart, atEnd, canGoBack } = this._epub.location
             this.lookup_action('go-prev').enabled = !atStart

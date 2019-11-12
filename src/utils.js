@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Gio, GLib, GObject, Gdk } = imports.gi
+const { Gio, GLib, GObject, Gdk, GdkPixbuf } = imports.gi
 const ByteArray = imports.byteArray
 
 var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
@@ -169,4 +169,14 @@ var brightenColor = (color, brightness) => {
     rgba.green = rgba.green * brightness
     rgba.blue = rgba.blue * brightness
     return rgba.to_string()
+}
+
+var base64ToPixbuf = base64 => {
+    try {
+        const data = GLib.base64_decode(base64)
+        const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
+        return GdkPixbuf.Pixbuf.new_from_stream(imageStream, null)
+    } catch (e) {
+        return null
+    }
 }

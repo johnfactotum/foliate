@@ -15,7 +15,7 @@
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
 
-const { markupEscape, Storage, disconnectAllHandlers } = imports.utils
+const { markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf } = imports.utils
 
 // must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
 const CHARACTERS_PER_PAGE = 1024
@@ -327,6 +327,7 @@ var EpubView = GObject.registerClass({
         'book-loading': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-error': { flags: GObject.SignalFlags.RUN_FIRST },
         'metadata': { flags: GObject.SignalFlags.RUN_FIRST },
+        'cover': { flags: GObject.SignalFlags.RUN_FIRST },
         'locations-generated': { flags: GObject.SignalFlags.RUN_FIRST },
         'locations-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'relocated': { flags: GObject.SignalFlags.RUN_FIRST },
@@ -347,6 +348,7 @@ var EpubView = GObject.registerClass({
         this.settings = settings
 
         this.metadata = null
+        this.cover = null
         this.location = null
         this.selection = null
         this.footnote = null
@@ -521,6 +523,10 @@ var EpubView = GObject.registerClass({
                     f(toc)
                 })
                 break
+            case 'cover':
+                this.cover = base64ToPixbuf(payload)
+                this.emit('cover')
+                break
             case 'rendition-ready':
                 this._applyStyle()
                 this._run(`setupRendition()`)
@@ -552,14 +558,9 @@ var EpubView = GObject.registerClass({
                 this.footnote = payload
                 this.emit('footnote')
                 break
-            case 'img':{
-                const { alt, base64 } = payload
-                const data = GLib.base64_decode(base64)
-                const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
-                const pixbuf = GdkPixbuf.Pixbuf.new_from_stream(imageStream, null)
-                this.emit('img', pixbuf, alt)
+            case 'img':
+                this.emit('img', base64ToPixbuf(payload.base64), payload.alt)
                 break
-            }
 
             case 'find-results': {
                 const { q, results } = payload

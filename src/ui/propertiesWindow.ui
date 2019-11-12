@@ -18,23 +18,42 @@
                 <property name="margin">24</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkLabel" id="title">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
-                    <property name="wrap">True</property>
-                    <property name="selectable">True</property>
-                    <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                      <attribute name="scale" value="1.36"/>
-                    </attributes>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="creator">
-                    <property name="visible">True</property>
-                    <property name="wrap">True</property>
-                    <property name="selectable">True</property>
-                    <property name="xalign">0</property>
+                    <property name="spacing">18</property>
+                    <child>
+                      <object class="GtkImage" id="cover">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel" id="title">
+                            <property name="visible">True</property>
+                            <property name="wrap">True</property>
+                            <property name="selectable">True</property>
+                            <property name="xalign">0</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="1.36"/>
+                            </attributes>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="creator">
+                            <property name="visible">True</property>
+                            <property name="wrap">True</property>
+                            <property name="selectable">True</property>
+                            <property name="xalign">0</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
                 <child>
