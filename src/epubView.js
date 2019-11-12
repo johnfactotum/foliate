@@ -331,6 +331,10 @@ var EpubView = GObject.registerClass({
         'locations-generated': { flags: GObject.SignalFlags.RUN_FIRST },
         'locations-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'relocated': { flags: GObject.SignalFlags.RUN_FIRST },
+        'spread': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_BOOLEAN]
+        },
         'find-results': { flags: GObject.SignalFlags.RUN_FIRST },
         'selection': { flags: GObject.SignalFlags.RUN_FIRST },
         'highlight-menu': { flags: GObject.SignalFlags.RUN_FIRST },
@@ -547,6 +551,9 @@ var EpubView = GObject.registerClass({
                 this.location.canGoBack = Boolean(this._history.length)
                 if (this._findResultCfi) this.selectByCfi(this._findResultCfi)
                 this.emit('relocated')
+                break
+            case 'spread':
+                this.emit('spread', payload)
                 break
             case 'link-internal':
                 this.goTo(payload)

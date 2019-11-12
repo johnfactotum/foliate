@@ -48,7 +48,7 @@
       <object class="GtkFrame" id="headerBarContainer">
         <property name="visible">True</property>
         <property name="shadow-type">none</property>
-        <property name="name">headerbar-container</property>
+        <style><class name="distraction-free-container"/></style>
         <child>
           <object class="GtkEventBox" id="headerBarEventBox">
             <property name="visible">True</property>
@@ -75,8 +75,10 @@
                   <object class="GtkLabel" id="distractionFreeTitle">
                     <property name="visible">True</property>
                     <property name="ellipsize">end</property>
-                    <property name="name">distraction-free-title</property>
+                    <property name="margin-right">18</property>
+                    <property name="margin-left">18</property>
                     <property name="opacity">0.5</property>
+                    <style><class name="distraction-free-label"/></style>
                   </object>
                 </child>
                 <child type="overlay">

@@ -813,7 +813,7 @@ const MainOverlay = GObject.registerClass({
     InternalChildren: [
         'overlayStack', 'mainBox', 'contentBox',
         'navBarEventBox', 'navBar', 'navBarRevealer',
-        'distractionFreeBottomLabel', 'distractionFreeBottomLabel2'
+        'distractionFreeBox', 'distractionFreeBottomLabel', 'distractionFreeBottomLabel2'
     ]
 }, class MainOverlay extends Gtk.Overlay {
     _init() {
@@ -842,6 +842,11 @@ const MainOverlay = GObject.registerClass({
         })
         this._epub.connect('book-error', () => this._setStatus('error'))
         this._epub.connect('relocated', () => this._update())
+        this._epub.connect('spread', (_, spread) => {
+            this._distractionFreeBox.homogeneous = spread
+            this._distractionFreeBottomLabel.xalign = spread ? 0.5 : 1
+            this._distractionFreeBottomLabel2.xalign = spread ? 0.5 : 0
+        })
     }
     _update() {
         const { endCfi, location, locationTotal } = this._epub.location
@@ -1296,12 +1301,12 @@ var FoliateWindow = GObject.registerClass({
         const fgColor = brightenColor(invert(settings.get_string('fg-color')), brightness)
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
-            #headerbar-container {
+            .distraction-free-container {
                 background: ${bgColor};
                 border: 0;
                 box-shadow: none;
             }
-            #distraction-free-title {
+            .distraction-free-label {
                 color: ${fgColor};
             }`)
         Gtk.StyleContext.add_provider_for_screen(

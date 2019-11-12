@@ -144,7 +144,7 @@
               <object class="GtkFrame">
                 <property name="visible">True</property>
                 <property name="shadow-type">none</property>
-                <property name="name">headerbar-container</property>
+                <style><class name="distraction-free-container"/></style>
                 <child>
                   <object class="GtkEventBox" id="navBarEventBox">
                     <property name="visible">True</property>
@@ -173,18 +173,18 @@
                           </object>
                         </child>
                         <child type="overlay">
-                          <object class="GtkBox">
+                          <object class="GtkBox" id="distractionFreeBox">
                             <property name="visible">True</property>
                             <property name="homogeneous">True</property>
-                            <property name="margin-right">18</property>
-                            <property name="margin-left">18</property>
                             <child>
                               <object class="GtkLabel" id="distractionFreeBottomLabel">
                                 <property name="visible">True</property>
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
-                                <property name="name">distraction-free-title</property>
+                                <property name="margin-right">9</property>
+                                <property name="margin-left">18</property>
                                 <property name="opacity">0.5</property>
+                                <style><class name="distraction-free-label"/></style>
                               </object>
                             </child>
                             <child>
@@ -192,8 +192,10 @@
                                 <property name="visible">True</property>
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
-                                <property name="name">distraction-free-title</property>
+                                <property name="margin-right">18</property>
+                                <property name="margin-left">9</property>
                                 <property name="opacity">0.5</property>
+                                <style><class name="distraction-free-label"/></style>
                               </object>
                             </child>
                           </object>

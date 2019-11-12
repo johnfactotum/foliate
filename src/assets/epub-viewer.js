@@ -325,11 +325,11 @@ const setupRendition = () => {
     rendition.on('relocated', dispatchLocation)
 
     const updateDivider = () => {
-        document.getElementById('divider').style.display =
-            skeuomorphism
-            && rendition.settings.spread !== 'none'
+        const spread = paginated && rendition.settings.spread !== 'none'
             && document.getElementById('viewer').clientWidth >= 800
-                ? 'block' : 'none'
+        document.getElementById('divider').style.display =
+            skeuomorphism && spread ? 'block' : 'none'
+        dispatch({ type: 'spread', payload: spread })
     }
     rendition.on('layout', updateDivider)
     updateDivider()
