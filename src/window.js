@@ -285,7 +285,7 @@ const makeActions = self => ({
         }
     }, ['<ctrl>o']],
 
-    'app.about': [() => {
+    'win.about': [() => {
         const aboutDialog = new Gtk.AboutDialog({
             authors: ['John Factotum'],
             artists: ['John Factotum'],
