@@ -5,6 +5,7 @@
     <child>
       <object class="GtkShortcutsSection">
         <property name="visible">True</property>
+        <property name="max-height">10</property>
         <child>
           <object class="GtkShortcutsGroup">
             <property name="visible">True</property>
@@ -37,11 +38,32 @@
                 <property name="action-name">win.main-menu</property>
               </object>
             </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">True</property>
+            <property name="title" translatable="yes">File</property>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Open file</property>
-                <property name="action-name">app.open</property>
+                <property name="action-name">win.open</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Open a copy</property>
+                <property name="action-name">win.open-copy</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Reload</property>
+                <property name="action-name">win.reload</property>
               </object>
             </child>
             <child>
