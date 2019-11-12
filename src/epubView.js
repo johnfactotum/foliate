@@ -253,6 +253,9 @@ const EpubViewData = GObject.registerClass({
         this._viewSet.delete(view)
         if (this._viewSet.size === 0) dataMap.delete(this._identifier)
     }
+    get data() {
+        return this._storage.data
+    }
 })
 
 var EpubViewSettings = GObject.registerClass({
@@ -714,6 +717,9 @@ var EpubView = GObject.registerClass({
     }
     hasBookmark(cfi = this.location.cfi) {
         return this._data.hasBookmark(cfi)
+    }
+    get data() {
+        return this._data.data
     }
     find(q, inBook = true, highlight = true) {
         this._run(`find.find(decodeURI("${encodeURI(q)}"), ${inBook}, ${highlight})`)

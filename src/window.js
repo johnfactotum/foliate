@@ -19,6 +19,7 @@ const ngettext = imports.gettext.ngettext
 const { execCommand, recursivelyDeleteDir, isExternalURL, invertColor, brightenColor } = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
 const { DictionaryBox, WikipediaBox } = imports.lookup
+const { exportAnnotations } = imports.export
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
@@ -26,7 +27,8 @@ const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 const mimetypes = {
     epub: 'application/epub+zip',
     mobi: 'application/x-mobipocket-ebook',
-    kindle: 'application/vnd.amazon.mobi8-ebook'
+    kindle: 'application/vnd.amazon.mobi8-ebook',
+    json: 'application/json'
 }
 
 const highlightColors = ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
@@ -247,12 +249,32 @@ const makeActions = self => ({
         }, self._epub.metadata, self._epub.cover)
         window.show()
     }],
-
     'win.open-copy': [() => {
         const window = new self.constructor(self.application)
         window.open(self._fileName)
         window.present()
     }, ['<ctrl>n']],
+    'win.reload': [() => {
+        self.open(self._fileName)
+    }, ['<ctrl>r']],
+    'win.export-annotations': [() => {
+        const data = self._epub.data
+        if (!data.annotations || !data.annotations.length) {
+            const msg = new Gtk.MessageDialog({
+                text: _('No annotations'),
+                secondary_text: _("You don't have any annotations for this book.")
+                    + '\n' + _('Highlight some text to add annotations.'),
+                message_type: Gtk.MessageType.INFO,
+                buttons: [Gtk.ButtonsType.OK],
+                modal: true,
+                transient_for: self
+            })
+            msg.run()
+            msg.destroy()
+            return
+        }
+        exportAnnotations(self, data, self._epub.metadata)
+    }],
 
     'app.themes': [() => {
     }],
@@ -1193,6 +1215,7 @@ var FoliateWindow = GObject.registerClass({
         this.lookup_action('open-copy').enabled = !state
         if (state) {
             this.lookup_action('properties').enabled = false
+            this.lookup_action('export-annotations').enabled = false
             this.lookup_action('go-prev').enabled = false
             this.lookup_action('go-next').enabled = false
             this.lookup_action('go-back').enabled = false
@@ -1251,6 +1274,8 @@ var FoliateWindow = GObject.registerClass({
             this.title = this._epub.metadata.title)
         this._epub.connect('cover', () =>
             this.lookup_action('properties').enabled = true)
+        this._epub.connect('data-ready', () =>
+            this.lookup_action('export-annotations').enabled = true)
         this._epub.connect('relocated', () => {
             const { atStart, atEnd, canGoBack } = this._epub.location
             this.lookup_action('go-prev').enabled = !atStart

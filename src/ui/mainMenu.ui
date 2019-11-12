@@ -254,15 +254,8 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action-name">win.properties</property>
-            <property name="text" translatable="yes">About This Book</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkModelButton">
-            <property name="visible">True</property>
-            <property name="action-name">win.open-copy</property>
-            <property name="text" translatable="yes">Open a Copy</property>
+            <property name="menu-name">book</property>
+            <property name="text" translatable="yes">Book</property>
           </object>
         </child>
         <child>
@@ -480,6 +473,63 @@
       </object>
       <packing>
         <property name="submenu">advanced</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="margin">10</property>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="text" translatable="yes">Book</property>
+            <property name="menu_name">main</property>
+            <property name="inverted">True</property>
+            <property name="centered">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.properties</property>
+            <property name="text" translatable="yes">About This Book</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.open-copy</property>
+            <property name="text" translatable="yes">Open a Copy</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.reload</property>
+            <property name="text" translatable="yes">Reload</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.export-annotations</property>
+            <property name="text" translatable="yes">Export annotations…</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="submenu">book</property>
       </packing>
     </child>
   </template>
