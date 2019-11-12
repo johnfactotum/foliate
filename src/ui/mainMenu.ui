@@ -235,13 +235,6 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="menu_name">layout</property>
-            <property name="text" translatable="yes">Layout</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkModelButton">
-            <property name="visible">True</property>
             <property name="menu_name">advanced</property>
             <property name="text" translatable="yes">Advanced</property>
           </object>
@@ -343,13 +336,50 @@
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <property name="margin">10</property>
+      </object>
+      <packing>
+        <property name="submenu">layout</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="margin">10</property>
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="text" translatable="yes">Layout</property>
+            <property name="text" translatable="yes">Advanced</property>
             <property name="menu_name">main</property>
             <property name="inverted">True</property>
             <property name="centered">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Layout</property>
+                <style><class name="dim-label"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
@@ -384,23 +414,31 @@
             <property name="text" translatable="yes">Continuous</property>
           </object>
         </child>
-      </object>
-      <packing>
-        <property name="submenu">layout</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="orientation">vertical</property>
-        <property name="margin">10</property>
         <child>
-          <object class="GtkModelButton">
+          <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="text" translatable="yes">Advanced</property>
-            <property name="menu_name">main</property>
-            <property name="inverted">True</property>
-            <property name="centered">True</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Text</property>
+                <style><class name="dim-label"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
@@ -425,6 +463,33 @@
           </object>
         </child>
         <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Other</property>
+                <style><class name="dim-label"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
             <property name="action_name">win.enable-footnote</property>
@@ -442,12 +507,7 @@
           <object class="GtkModelButton">
             <property name="visible">True</property>
             <property name="action_name">win.skeuomorphism</property>
-            <property name="text" translatable="yes">Skeuomorphism</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
+            <property name="text" translatable="yes">Realistic Shadows</property>
           </object>
         </child>
         <child>
@@ -456,11 +516,6 @@
             <property name="action_name">win.allow-unsafe</property>
             <property name="tooltip_text" translatable="yes">Allow JavaScript and external resources</property>
             <property name="text" translatable="yes">Allow Unsafe Content</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
           </object>
         </child>
         <child>
