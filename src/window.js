@@ -260,7 +260,7 @@ const makeActions = self => ({
     'app.preferences': [() => {
     }],
 
-    'app.open': [() => {
+    'win.open': [() => {
         const allFiles = new Gtk.FileFilter()
         allFiles.set_name(_('All Files'))
         allFiles.add_pattern('*')
@@ -273,7 +273,7 @@ const makeActions = self => ({
 
         const dialog = Gtk.FileChooserNative.new(
             _('Open File'),
-            self.application.active_window,
+            self,
             Gtk.FileChooserAction.OPEN,
             null, null)
         dialog.add_filter(epubFiles)
