@@ -1214,6 +1214,7 @@ var FoliateWindow = GObject.registerClass({
         this._fullscreenSideMenuButton.sensitive = !state
         this._fullscreenFindMenuButton.sensitive = !state
         this.lookup_action('open-copy').enabled = !state
+        this.lookup_action('reload').enabled = !state
         if (state) {
             this.lookup_action('properties').enabled = false
             this.lookup_action('export-annotations').enabled = false
