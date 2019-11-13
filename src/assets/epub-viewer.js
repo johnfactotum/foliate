@@ -491,6 +491,8 @@ const setupRendition = () => {
 
     const getWindowIsZoomed = () =>
         Math.abs(window.outerWidth - window.innerWidth * zoomLevel) > 2
+            // `.skeuomorph-page` has 24px horizontal margins
+            + (skeuomorphism ? 24 * 2 : 0)
 
     // keyboard shortcuts
     const handleKeydown = event => {
