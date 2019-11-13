@@ -15,7 +15,7 @@
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
 
-const { markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf } = imports.utils
+const { debug, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf } = imports.utils
 
 // must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
 const CHARACTERS_PER_PAGE = 1024
@@ -471,6 +471,7 @@ var EpubView = GObject.registerClass({
         this._load()
     }
     _eval(script, discardReturn) {
+        debug(`run_javascript: ${script.substring(0, 200)}${script.length > 200 ? '...' : ''}`)
         return new Promise((resolve, reject) => {
             this._webView.run_javascript(script, null, (self, result) => {
                 if (discardReturn) return resolve()
@@ -488,6 +489,7 @@ var EpubView = GObject.registerClass({
         return this._eval(`JSON.stringify(${script})`)
     }
     _handleAction(type, payload) {
+        debug(type)
         switch (type) {
             case 'ready':
                 this._run(`doubleClickTime =
@@ -546,6 +548,7 @@ var EpubView = GObject.registerClass({
                 break
 
             case 'relocated':
+                debug(payload.cfi)
                 this.location = payload
                 this.location.canGoBack = Boolean(this._history.length)
                 if (this._findResultCfi) this.selectByCfi(this._findResultCfi)

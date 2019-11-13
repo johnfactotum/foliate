@@ -16,6 +16,14 @@
 const { Gio, GLib, GObject, Gdk, GdkPixbuf } = imports.gi
 const ByteArray = imports.byteArray
 
+var LOG_DOMAIN = 'Foliate'
+
+var debug = message =>
+    GLib.log_structured(LOG_DOMAIN, GLib.LogLevelFlags.LEVEL_DEBUG, {
+        MESSAGE: message,
+        SYSLOG_IDENTIFIER: pkg.name,
+    })
+
 var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
