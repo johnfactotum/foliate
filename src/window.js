@@ -1108,7 +1108,8 @@ var FoliateWindow = GObject.registerClass({
         this._headerBarEventBox.connect('enter-notify-event', () =>
             this._headerBarRevealer.reveal_child = true)
         this._headerBarEventBox.connect('leave-notify-event', () => {
-            if (!this._sideMenu.visible
+            if (!this._loading
+            && !this._sideMenu.visible
             && !this._findMenu.visible
             && !this._mainMenu.visible
             && !this._mainOverlay.navbarVisible)
@@ -1116,7 +1117,7 @@ var FoliateWindow = GObject.registerClass({
         })
 
         const hideHeaderBar = () => {
-            if (!this._mainOverlay.navbarVisible) {
+            if (!this._loading && !this._mainOverlay.navbarVisible) {
                 this._fullscreenRevealer.reveal_child = false
                 this._headerBarRevealer.reveal_child = false
             }
@@ -1208,13 +1209,18 @@ var FoliateWindow = GObject.registerClass({
 
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
     }
+    get _loading() {
+        return this.__loading
+    }
     set _loading(state) {
+        this.__loading = state
         this._sideMenuButton.sensitive = !state
         this._findMenuButton.sensitive = !state
         this._fullscreenSideMenuButton.sensitive = !state
         this._fullscreenFindMenuButton.sensitive = !state
         this.lookup_action('open-copy').enabled = !state
         this.lookup_action('reload').enabled = !state
+        this._headerBarRevealer.reveal_child = state || this._mainOverlay.navbarVisible
         if (state) {
             this.lookup_action('properties').enabled = false
             this.lookup_action('export-annotations').enabled = false
