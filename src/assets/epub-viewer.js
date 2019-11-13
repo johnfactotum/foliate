@@ -221,34 +221,21 @@ const getSectionFromCfi = cfi => {
         || { label: book.package.metadata.title, href: '', cfi: '' }
 }
 
+/*
+Steps when opening a book:
+
+open() -> 'book-ready' -> loadLocations()
+                       -> render() -> 'rendition-ready' -> setStyle()
+                                                        -> setupRendition()
+                                                        -> display() -> 'book-displayed'
+*/
+
 const open = (fileName, inputType, renderTo, options) => {
     book.open(decodeURI(fileName), inputType) // works for non-flatpak
         .catch(() => book.open(fileName, inputType)) // works for flatpak
         .catch(() => dispatch({ type: 'book-error' }))
 
     rendition = book.renderTo(renderTo, options)
-    rendition.display().then(() => dispatch({ type: 'rendition-ready' }))
-}
-
-const loadLocations = locations => {
-    const locationsReady = () => {
-        sectionMarks = book.spine.items.map(section => book.locations
-            .percentageFromCfi('epubcfi(' + section.cfiBase + '!/0)'))
-        dispatchLocation()
-    }
-
-    if (locations) {
-        book.locations.load(locations)
-        locationsReady()
-        dispatch({ type: 'locations-ready' })
-    } else {
-        book.locations.generate(CHARACTERS_PER_PAGE)
-            .then(() => locationsReady())
-            .then(() => dispatch({
-                type: 'locations-generated',
-                payload: book.locations.save()
-            }))
-    }
 }
 
 book.ready.then(async () => {
@@ -285,12 +272,40 @@ book.ready.then(async () => {
     } catch (e) {
         console.error(e)
     }
-    book.loaded.metadata.then(metadata => {
-        if (metadata.description)
-            metadata.description = toPangoMarkup(metadata.description)
-        dispatch({ type: 'book-ready' })
-    })
+
+    const metadata = book.package.metadata
+    if (metadata.description)
+        metadata.description = toPangoMarkup(metadata.description)
+    dispatch({ type: 'book-ready' })
 })
+
+const render = () =>
+    rendition.display().then(() => dispatch({ type: 'rendition-ready' }))
+
+const loadLocations = locations => {
+    const locationsReady = () => {
+        sectionMarks = book.spine.items.map(section => book.locations
+            .percentageFromCfi('epubcfi(' + section.cfiBase + '!/0)'))
+        dispatchLocation()
+    }
+
+    if (locations) {
+        book.locations.load(locations)
+        locationsReady()
+        dispatch({ type: 'locations-ready' })
+    } else {
+        book.locations.generate(CHARACTERS_PER_PAGE)
+            .then(() => locationsReady())
+            .then(() => dispatch({
+                type: 'locations-generated',
+                payload: book.locations.save()
+            }))
+    }
+}
+
+const display = lastLocation =>
+    rendition.display(lastLocation)
+        .then(() => dispatch({ type: 'book-displayed' }))
 
 // get book cover for "about this book" dialogue
 book.loaded.resources

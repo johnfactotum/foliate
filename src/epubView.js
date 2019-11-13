@@ -425,17 +425,11 @@ var EpubView = GObject.registerClass({
             const { identifier } = this.metadata
             this._data = getData(identifier)
             this._data.addView(this)
+            this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
 
             const locations = this._data.locations
             this._run(`loadLocations(${locations || 'null'})`)
-
-            this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
-        })
-        this.connect('locations-generated', () => {
-            this._data.locations = this.locations
-        })
-        this.connect('relocated', () => {
-            this._data.lastLocation = this.location.cfi
+            this._run('render()')
         })
         this.connect('rendition-ready', () => {
             for (const annotation of this._data.annotations) {
@@ -451,9 +445,10 @@ var EpubView = GObject.registerClass({
             this._dataHandlers = [h1, h2, h3]
 
             const lastLocation = this._data.lastLocation
-            this._run(`rendition.display(${lastLocation ? `'${lastLocation}'` : ''})
-                .then(() => dispatch({ type: 'book-displayed' }))`)
+            this._run(`display(${lastLocation ? `'${lastLocation}'` : ''})`)
         })
+        this.connect('locations-generated', () => this._data.locations = this.locations)
+        this.connect('relocated', () => this._data.lastLocation = this.location.cfi)
         this._webView.connect('destroy', () => {
             if (!this._data) return
             this._disconnectData()
@@ -530,10 +525,6 @@ var EpubView = GObject.registerClass({
                     f(toc)
                 })
                 break
-            case 'cover':
-                this.cover = base64ToPixbuf(payload)
-                this.emit('cover')
-                break
             case 'rendition-ready':
                 this._applyStyle()
                 this._run(`setupRendition()`)
@@ -549,6 +540,11 @@ var EpubView = GObject.registerClass({
             case 'locations-ready':
                 this.emit('locations-ready')
                 break
+            case 'cover':
+                this.cover = base64ToPixbuf(payload)
+                this.emit('cover')
+                break
+
             case 'relocated':
                 this.location = payload
                 this.location.canGoBack = Boolean(this._history.length)
@@ -646,7 +642,7 @@ var EpubView = GObject.registerClass({
             brightness: this.settings.brightness,
             ibooksInternalTheme: getIbooksInternalTheme(this.settings.bg_color)
         }
-        this._run(`setStyle(${JSON.stringify(style)})`)
+        return this._run(`setStyle(${JSON.stringify(style)})`)
     }
     set _skeuomorphism(state) {
         this._run(`skeuomorphism = ${state}`)
