@@ -374,7 +374,7 @@ var EpubView = GObject.registerClass({
             visible: true,
             settings: new WebKit2.Settings({
                 enable_write_console_messages_to_stdout: true,
-                allow_universal_access_from_file_urls: true
+                allow_file_access_from_file_urls: true
             })
         })
         this._webView.connect('context-menu', () =>
