@@ -113,6 +113,11 @@
         <summary>Dictionary</summary>
         <description>Identifier of the default dictionary. Dictionaries from dictd, if any, are available with the "dcitd_" prefix added to the database ID</description>
     </key>
+    <key name="tts-command" type="s">
+        <default>''</default>
+        <summary>Text-to-speech command</summary>
+        <description>Command to execute for text-to-speech</description>
+    </key>
   </schema>
   <schema id="com.github.johnfactotum.Foliate.window-state"
     path="/com/github/johnfactotum/Foliate/window-state/">

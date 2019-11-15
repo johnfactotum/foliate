@@ -2,6 +2,7 @@
 <interface>
   <template class="FoliateSelectionPopover" parent="GtkPopover">
     <style><class name="osd"/></style>
+    <signal name="closed" handler="_onClosed"/>
     <child>
       <object class="GtkStack" id="selectionStack">
         <property name="visible">True</property>
@@ -32,6 +33,11 @@
                 <property name="visible">True</property>
                 <property name="action-name">win.selection-dictionary</property>
                 <property name="label" translatable="yes">Define</property>
+              </object>
+            </child>
+            <child>
+              <object class="FoliateTTSButton" id="ttsButton">
+                <property name="label" translatable="yes">Speak</property>
               </object>
             </child>
             <child>

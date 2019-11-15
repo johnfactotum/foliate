@@ -24,6 +24,12 @@ var debug = message =>
         SYSLOG_IDENTIFIER: pkg.name,
     })
 
+var error = message =>
+    GLib.log_structured(LOG_DOMAIN, GLib.LogLevelFlags.LEVEL_WARNING, {
+        MESSAGE: message,
+        SYSLOG_IDENTIFIER: pkg.name,
+    })
+
 var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')

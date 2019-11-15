@@ -347,6 +347,10 @@ var EpubView = GObject.registerClass({
             param_types: [GdkPixbuf.Pixbuf.$gtype, GObject.TYPE_STRING]
         },
         'click': { flags: GObject.SignalFlags.RUN_FIRST },
+        'speech': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_STRING, GObject.TYPE_BOOLEAN]
+        },
     }
 }, class EpubView extends GObject.Object {
     _init(settings) {
@@ -609,6 +613,12 @@ var EpubView = GObject.registerClass({
             case 'click':
                 this.emit('click')
                 break
+
+            case 'speech': {
+                const { text, nextPage } = payload
+                this.emit('speech', text, nextPage)
+                break
+            }
         }
     }
     _applyStyle() {
@@ -736,6 +746,12 @@ var EpubView = GObject.registerClass({
     }
     get sectionMarks() {
         return this._get('sectionMarks')
+    }
+    speak() {
+        this._run(`speak()`)
+    }
+    speakNext() {
+        this._run(`rendition.next().then(() => speak())`)
     }
     get widget() {
         return this._webView

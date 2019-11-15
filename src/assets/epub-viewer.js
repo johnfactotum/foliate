@@ -19,7 +19,6 @@ const CHARACTERS_PER_WORD = lang =>
     lang === 'zh' || lang === 'ja' || lang === 'ko' ? 2.5 : 6
 const WORDS_PER_MINUTE = 200
 
-const CFI = new ePub.CFI()
 let book = ePub()
 let rendition
 let cfiToc
@@ -31,6 +30,64 @@ let autohideCursor, myScreenX, myScreenY, cursorHidden
 let ibooksInternalTheme = 'Light'
 let doubleClickTime = 400
 let zoomLevel = 1
+
+const CFI = new ePub.CFI()
+
+// create a range cfi from two cfi locations
+// adapted from https://github.com/futurepress/epub.js/blob/be24ab8b39913ae06a80809523be41509a57894a/src/epubcfi.js#L502
+const makeRangeCfi = (a, b) => {
+    const start = CFI.parse(a), end = CFI.parse(b)
+    const cfi = {
+        range: true,
+        base: start.base,
+        path: {
+            steps: [],
+            terminal: null
+        },
+        start: start.path,
+        end: end.path
+    }
+    const len = cfi.start.steps.length
+    for (let i = 0; i < len; i++) {
+        if (CFI.equalStep(cfi.start.steps[i], cfi.end.steps[i])) {
+            if (i == len - 1) {
+                // Last step is equal, check terminals
+                if (cfi.start.terminal === cfi.end.terminal) {
+                    // CFI's are equal
+                    cfi.path.steps.push(cfi.start.steps[i])
+                    // Not a range
+                    cfi.range = false
+                }
+            } else cfi.path.steps.push(cfi.start.steps[i])
+        } else break
+    }
+    cfi.start.steps = cfi.start.steps.slice(cfi.path.steps.length)
+    cfi.end.steps = cfi.end.steps.slice(cfi.path.steps.length)
+
+    return 'epubcfi(' + CFI.segmentString(cfi.base)
+        + '!' + CFI.segmentString(cfi.path)
+        + ',' + CFI.segmentString(cfi.start)
+        + ',' + CFI.segmentString(cfi.end)
+        + ')'
+}
+
+const getCfiFromHref = async href => {
+    const id = href.split('#')[1]
+    const item = book.spine.get(href)
+    await item.load(book.load.bind(book))
+    const el = id ? item.document.getElementById(id) : item.document.body
+    return item.cfiFromElement(el)
+}
+const getSectionFromCfi = cfi => {
+    const index = cfiToc.findIndex(el => el ? CFI.compare(cfi, el.cfi) <= 0 : false)
+    return cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
+        || { label: book.package.metadata.title, href: '', cfi: '' }
+}
+
+const getSelections = () => rendition.getContents()
+    .map(contents => contents.window.getSelection())
+const clearSelection = () => getSelections().forEach(s => s.removeAllRanges())
+const selectByCfi = cfi => getSelections().forEach(s => s.addRange(rendition.getRange(cfi)))
 
 class Find {
     constructor() {
@@ -113,11 +170,6 @@ const dispatchLocation = async () => {
     })
 }
 
-const withSelection = f => rendition.getContents()
-    .forEach(contents => f(contents.window.getSelection()))
-const clearSelection = () => withSelection(s => s.removeAllRanges())
-const selectByCfi = cfi => withSelection(s => s.addRange(rendition.getRange(cfi)))
-
 const addAnnotation = (cfi, color) => {
     rendition.annotations.remove(cfi, 'highlight')
     rendition.annotations.highlight(cfi, {}, async e => dispatch({
@@ -133,6 +185,29 @@ const addAnnotation = (cfi, color) => {
         'fill-opacity': 0.25,
         'mix-blend-mode': 'multiply'
     })
+}
+
+const speak = () => {
+    // speak selection
+    const selections = getSelections()
+        .filter(s => s.rangeCount && !s.getRangeAt(0).collapsed)
+    if (selections.length) return dispatch({
+        type: 'speech',
+        payload: {
+            text: selections[0].toString(),
+            nextPage: false
+        }
+    })
+    // otherwise speak current page
+    const currentLoc = rendition.currentLocation()
+    book.getRange(makeRangeCfi(currentLoc.start.cfi, currentLoc.end.cfi))
+        .then(range => dispatch({
+            type: 'speech',
+            payload: {
+                text: range.toString(),
+                nextPage: !currentLoc.atEnd
+            }
+        }))
 }
 
 // redraw annotations on view changes
@@ -206,19 +281,6 @@ const setStyle = style => {
     rendition.themes.register(themeName, stylesheet)
     rendition.themes.select(themeName)
     redrawAnnotations()
-}
-
-const getCfiFromHref = async href => {
-    const id = href.split('#')[1]
-    const item = book.spine.get(href)
-    await item.load(book.load.bind(book))
-    const el = id ? item.document.getElementById(id) : item.document.body
-    return item.cfiFromElement(el)
-}
-const getSectionFromCfi = cfi => {
-    const index = cfiToc.findIndex(el => el ? CFI.compare(cfi, el.cfi) <= 0 : false)
-    return cfiToc[(index !== -1 ? index : cfiToc.length) - 1]
-        || { label: book.package.metadata.title, href: '', cfi: '' }
 }
 
 /*

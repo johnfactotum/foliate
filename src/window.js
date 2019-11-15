@@ -19,6 +19,7 @@ const ngettext = imports.gettext.ngettext
 const { execCommand, recursivelyDeleteDir, isExternalURL, invertColor, brightenColor } = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
 const { DictionaryBox, WikipediaBox } = imports.lookup
+const { TTSButton, tts } = imports.tts
 const { exportAnnotations } = imports.export
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -658,7 +659,7 @@ const FootnotePopover = GObject.registerClass({
 const SelectionPopover = GObject.registerClass({
     GTypeName: 'FoliateSelectionPopover',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/selectionPopover.ui',
-    InternalChildren: ['selectionStack']
+    InternalChildren: ['selectionStack', 'ttsButton']
 }, class SelectionPopover extends Gtk.Popover {
     popup() {
         super.popup()
@@ -676,6 +677,10 @@ const SelectionPopover = GObject.registerClass({
     _showMain() {
         this._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
         this._selectionStack.visible_child_name = 'main'
+    }
+    _onClosed() {
+        this._ttsButton.active = false
+        this._ttsButton.destroy()
     }
 })
 
@@ -1099,10 +1104,16 @@ var FoliateWindow = GObject.registerClass({
         const skeuomorphismHandler =
             settings.connect('changed::skeuomorphism', () => this._themeUI())
 
+        const updateTTS = () => tts.command = settings.get_string('tts-command')
+        updateTTS()
+        const ttsHandler =
+            settings.connect('changed::tts-command', updateTTS)
+
         this.connect('destroy', () => {
             settings.disconnect(zoomHandler)
             settings.disconnect(brightnessHandler)
             settings.disconnect(skeuomorphismHandler)
+            settings.disconnect(ttsHandler)
         })
 
         this._loading = true
@@ -1367,5 +1378,8 @@ var FoliateWindow = GObject.registerClass({
             Gdk.Screen.get_default(),
             cssProvider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    }
+    get epub() {
+        return this._epub
     }
 })
