@@ -834,13 +834,15 @@ const MainOverlay = GObject.registerClass({
     GTypeName: 'FoliateMainOverlay',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainOverlay.ui',
     InternalChildren: [
-        'overlayStack', 'mainBox', 'contentBox',
+        'overlayStack', 'mainBox', 'bookBox', 'contentBox',
         'navBarEventBox', 'navBar', 'navBarRevealer',
-        'distractionFreeBox', 'distractionFreeBottomLabel', 'distractionFreeBottomLabel2'
+        'distractionFreeBox', 'distractionFreeBottomLabel', 'distractionFreeBottomLabel2',
+        'divider', 'distractionFreeDivider'
     ]
 }, class MainOverlay extends Gtk.Overlay {
     _init() {
         super._init()
+        this._skeuomorphism = false
 
         this._navBarEventBox.connect('enter-notify-event', () =>
             this._navBarRevealer.reveal_child = true)
@@ -855,7 +857,7 @@ const MainOverlay = GObject.registerClass({
     set epub(epub) {
         this._epub = epub
         this._navBar.epub = this._epub
-        this._contentBox.pack_start(this._epub.widget, true, true, 0)
+        this._contentBox.add(this._epub.widget)
 
         this._epub.connect('book-displayed', () => this._setStatus('loaded'))
         this._epub.connect('book-loading', () => {
@@ -866,6 +868,8 @@ const MainOverlay = GObject.registerClass({
         this._epub.connect('book-error', () => this._setStatus('error'))
         this._epub.connect('relocated', () => this._update())
         this._epub.connect('spread', (_, spread) => {
+            this._spread = spread
+            this._showDivider()
             this._distractionFreeBox.homogeneous = spread
             this._distractionFreeBottomLabel.xalign = spread ? 0.5 : 1
             this._distractionFreeBottomLabel2.xalign = spread ? 0.5 : 0
@@ -892,8 +896,15 @@ const MainOverlay = GObject.registerClass({
     get navbarVisible() {
         return this._navBarVisible || false
     }
+    _showDivider() {
+        const showDivider = this._skeuomorphism && this._spread
+        this._divider.visible = showDivider
+        this._distractionFreeDivider.visible = showDivider
+    }
     skeuomorph(enabled) {
-        if (!enabled) return this._contentBox.get_style_context()
+        this._skeuomorphism = enabled
+        this._showDivider()
+        if (!enabled) return this._bookBox.get_style_context()
             .remove_class('skeuomorph-page')
 
         const cssProvider = new Gtk.CssProvider()
@@ -925,11 +936,17 @@ const MainOverlay = GObject.registerClass({
 
                     0 0 15px 5px ${shadowColor},
                     0 0 0 1px ${shadowColor};
+            }
+            .spread-divider {
+                background: ${invert('rgba(0, 0, 0, 0.3)')};
+                box-shadow: 0 0 10px 5px ${invert('rgba(0, 0, 0, 0.15)')};
             }`)
-        const styleContext = this._contentBox.get_style_context()
+        const styleContext = this._bookBox.get_style_context()
         styleContext.add_class('skeuomorph-page')
-        styleContext
-            .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            cssProvider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
     }
 })
 
@@ -1098,6 +1115,10 @@ var FoliateWindow = GObject.registerClass({
         if (windowState.get_boolean('maximized')) this.maximize()
         if (windowState.get_boolean('fullscreen')) this.fullscreen()
     }
+    set _revealHeaderBar(reveal) {
+        this._headerBarRevealer.reveal_child =
+            settings.get_boolean('skeuomorphism') || reveal
+    }
     _buildUI() {
         this.set_help_overlay(Gtk.Builder.new_from_resource(
             '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
@@ -1106,20 +1127,20 @@ var FoliateWindow = GObject.registerClass({
             ['<ctrl>question'])
 
         this._headerBarEventBox.connect('enter-notify-event', () =>
-            this._headerBarRevealer.reveal_child = true)
+            this._revealHeaderBar = true)
         this._headerBarEventBox.connect('leave-notify-event', () => {
             if (!this._loading
             && !this._sideMenu.visible
             && !this._findMenu.visible
             && !this._mainMenu.visible
             && !this._mainOverlay.navbarVisible)
-                this._headerBarRevealer.reveal_child = false
+                this._revealHeaderBar = false
         })
 
         const hideHeaderBar = () => {
             if (!this._loading && !this._mainOverlay.navbarVisible) {
                 this._fullscreenRevealer.reveal_child = false
-                this._headerBarRevealer.reveal_child = false
+                this._revealHeaderBar = false
             }
         }
         this._fullscreenEventbox.connect('enter-notify-event', () =>
@@ -1220,7 +1241,7 @@ var FoliateWindow = GObject.registerClass({
         this._fullscreenFindMenuButton.sensitive = !state
         this.lookup_action('open-copy').enabled = !state
         this.lookup_action('reload').enabled = !state
-        this._headerBarRevealer.reveal_child = state || this._mainOverlay.navbarVisible
+        this._revealHeaderBar = state || this._mainOverlay.navbarVisible
         if (state) {
             this.lookup_action('properties').enabled = false
             this.lookup_action('export-annotations').enabled = false
@@ -1273,7 +1294,7 @@ var FoliateWindow = GObject.registerClass({
             const visible = this._mainOverlay.toggleNavBar()
             if (this._isFullscreen)
                 this._fullscreenRevealer.reveal_child = visible
-            else this._headerBarRevealer.reveal_child = visible
+            else this._revealHeaderBar = visible
         })
         this._epub.connect('book-displayed', () => this._loading = false)
         this._epub.connect('book-loading', () => this._loading = true)

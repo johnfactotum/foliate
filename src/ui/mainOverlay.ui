@@ -129,12 +129,19 @@
         <property name="visible">True</property>
         <property name="opacity">0</property>
         <child>
-          <object class="GtkBox">
+          <object class="GtkBox" id="bookBox">
             <property name="visible">True</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkBox" id="contentBox">
+              <object class="GtkOverlay" id="contentBox">
                 <property name="visible">True</property>
+                <child type="overlay">
+                  <object class="GtkBox" id="divider">
+                    <property name="halign">center</property>
+                    <property name="width-request">1</property>
+                    <style><class name="spread-divider"/></style>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -198,6 +205,13 @@
                                 <style><class name="distraction-free-label"/></style>
                               </object>
                             </child>
+                          </object>
+                        </child>
+                        <child type="overlay">
+                          <object class="GtkBox" id="distractionFreeDivider">
+                            <property name="halign">center</property>
+                            <property name="width-request">1</property>
+                            <style><class name="spread-divider"/></style>
                           </object>
                         </child>
                         <child type="overlay">
