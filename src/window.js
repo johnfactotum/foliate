@@ -878,6 +878,8 @@ const MainOverlay = GObject.registerClass({
             this._distractionFreeBox.homogeneous = spread
             this._distractionFreeBottomLabel.xalign = spread ? 0.5 : 1
             this._distractionFreeBottomLabel2.xalign = spread ? 0.5 : 0
+            this._distractionFreeBottomLabel.margin_right = spread ? 18 : 6
+            this._distractionFreeBottomLabel2.margin_left = spread ? 18 : 6
         })
     }
     _update() {
