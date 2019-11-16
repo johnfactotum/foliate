@@ -663,6 +663,7 @@ const SelectionPopover = GObject.registerClass({
 }, class SelectionPopover extends Gtk.Popover {
     popup() {
         super.popup()
+        this._isAlreadySpeaking = this._ttsButton.active
         this._showMain()
     }
     popdown() {
@@ -679,7 +680,7 @@ const SelectionPopover = GObject.registerClass({
         this._selectionStack.visible_child_name = 'main'
     }
     _onClosed() {
-        this._ttsButton.active = false
+        if (!this._isAlreadySpeaking) this._ttsButton.active = false
         this._ttsButton.destroy()
     }
 })
@@ -1243,6 +1244,7 @@ var FoliateWindow = GObject.registerClass({
         windowState.set_boolean('fullscreen', this._isFullscreen)
 
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
+        if (tts.epub === this._epub) tts.set_property('speaking', false)
     }
     get _loading() {
         return this.__loading

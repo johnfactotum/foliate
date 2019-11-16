@@ -33,6 +33,9 @@ const TTS = GObject.registerClass({
             else this.stop()
         })
     }
+    get epub() {
+        return this._epub
+    }
     set epub(epub) {
         if (this._epub)
             this._epub.disconnect(this._epubHandler)
@@ -78,6 +81,7 @@ var TTSButton = GObject.registerClass({
 }, class TTSButton extends Gtk.ToggleButton {
     _init(params) {
         super._init(params)
+        this.active = tts.speaking
         this.connect('toggled', () => {
             if (this.active === tts.speaking) return
             tts.epub = this.get_toplevel().epub
@@ -91,7 +95,6 @@ var TTSButton = GObject.registerClass({
         this.connect('destroy', () => {
             tts.disconnect(handler)
             tts.disconnect(handler2)
-            tts.set_property('speaking', false)
         })
     }
 })
