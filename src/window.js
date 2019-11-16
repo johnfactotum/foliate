@@ -918,7 +918,7 @@ const MainOverlay = GObject.registerClass({
         const invert = settings.get_boolean('invert') ? invertRotate : (x => x)
         const brightness = settings.get_double('brightness')
         const bgColor = brightenColor(invert(settings.get_string('bg-color')), brightness)
-        const shadowColor = invert('rgba(0, 0, 0, 0.2)')
+        const shadowColor = 'rgba(0, 0, 0, 0.2)'
         cssProvider.load_from_data(`
             .skeuomorph-page {
                 margin: 12px 24px;
@@ -945,8 +945,8 @@ const MainOverlay = GObject.registerClass({
                     0 0 0 1px ${shadowColor};
             }
             .spread-divider {
-                background: ${invert('rgba(0, 0, 0, 0.3)')};
-                box-shadow: 0 0 10px 5px ${invert('rgba(0, 0, 0, 0.15)')};
+                background: rgba(0, 0, 0, 0.3);
+                box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.15);
             }`)
         const styleContext = this._bookBox.get_style_context()
         styleContext.add_class('skeuomorph-page')
