@@ -16,7 +16,7 @@
 const { GObject, Gtk, Gio, GLib, Gdk, GdkPixbuf } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const { execCommand, recursivelyDeleteDir, isExternalURL, invertColor, brightenColor } = imports.utils
+const { execCommand, recursivelyDeleteDir, isExternalURL, invertRotate, brightenColor } = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
 const { DictionaryBox, WikipediaBox } = imports.lookup
 const { TTSButton, tts } = imports.tts
@@ -78,8 +78,8 @@ const ThemeRow = GObject.registerClass({
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
             row {
-                color: ${invert ? invertColor(fg_color) : fg_color};
-                background: ${invert ? invertColor(bg_color) : bg_color};
+                color: ${invert ? invertRotate(fg_color) : fg_color};
+                background: ${invert ? invertRotate(bg_color) : bg_color};
             }`)
         const styleContext = this.get_style_context()
         styleContext
@@ -915,7 +915,7 @@ const MainOverlay = GObject.registerClass({
             .remove_class('skeuomorph-page')
 
         const cssProvider = new Gtk.CssProvider()
-        const invert = settings.get_boolean('invert') ? invertColor : (x => x)
+        const invert = settings.get_boolean('invert') ? invertRotate : (x => x)
         const brightness = settings.get_double('brightness')
         const bgColor = brightenColor(invert(settings.get_string('bg-color')), brightness)
         const shadowColor = invert('rgba(0, 0, 0, 0.2)')
@@ -1101,10 +1101,13 @@ var FoliateWindow = GObject.registerClass({
             settings.connect('changed::zoom-level', updateZoomButtons)
 
         this._themeUI()
-        const brightnessHandler =
-            settings.connect('changed::brightness', () => this._themeUI())
-        const skeuomorphismHandler =
+        const themeHandlers = [
+            settings.connect('changed::bg-color', () => this._themeUI()),
+            settings.connect('changed::fg-color', () => this._themeUI()),
+            settings.connect('changed::invert', () => this._themeUI()),
+            settings.connect('changed::brightness', () => this._themeUI()),
             settings.connect('changed::skeuomorphism', () => this._themeUI())
+        ]
 
         const updateTTS = () => tts.command = settings.get_string('tts-command')
         updateTTS()
@@ -1112,9 +1115,8 @@ var FoliateWindow = GObject.registerClass({
             settings.connect('changed::tts-command', updateTTS)
 
         this.connect('destroy', () => {
+            themeHandlers.forEach(x => settings.disconnect(x))
             settings.disconnect(zoomHandler)
-            settings.disconnect(brightnessHandler)
-            settings.disconnect(skeuomorphismHandler)
             settings.disconnect(ttsHandler)
         })
 
@@ -1191,7 +1193,6 @@ var FoliateWindow = GObject.registerClass({
             this._epubSettings.set_property('link-color', link_color)
             this._epubSettings.set_property('invert', invert)
             settings.set_boolean('prefer-dark-theme', dark_mode)
-            this._themeUI()
         })
 
         const gtkTheme = Gtk.Settings.get_default().gtk_theme_name
@@ -1362,7 +1363,7 @@ var FoliateWindow = GObject.registerClass({
     _themeUI() {
         this._mainOverlay.skeuomorph(settings.get_boolean('skeuomorphism'))
 
-        const invert = settings.get_boolean('invert') ? invertColor : (x => x)
+        const invert = settings.get_boolean('invert') ? invertRotate : (x => x)
         const brightness = settings.get_double('brightness')
         const bgColor = brightenColor(invert(settings.get_string('bg-color')), brightness)
         const fgColor = brightenColor(invert(settings.get_string('fg-color')), brightness)

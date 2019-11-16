@@ -185,6 +185,55 @@ var brightenColor = (color, brightness) => {
     return rgba.to_string()
 }
 
+// replicate CSS's hue-rotate filter
+// adapted from https://jsfiddle.net/Camilo/dd6feyh6/
+var hueRotateColor = (color, degree) => {
+    const rgba = new Gdk.RGBA()
+    rgba.parse(color)
+    const r = rgba.red * 255
+    const g = rgba.green * 255
+    const b = rgba.blue * 255
+
+    // identity matrix
+    const matrix = [
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 1
+    ]
+
+    const lumR = 0.2126
+    const lumG = 0.7152
+    const lumB = 0.0722
+
+    const hueRotateR = 0.143
+    const hueRotateG = 0.140
+    const hueRotateB = 0.283
+
+    const cos = Math.cos(degree * Math.PI / 180)
+    const sin = Math.sin(degree * Math.PI / 180)
+
+    matrix[0] = lumR + (1 - lumR) * cos - lumR * sin
+    matrix[1] = lumG - lumG * cos - lumG * sin
+    matrix[2] = lumB - lumB * cos + (1 - lumB) * sin
+
+    matrix[3] = lumR - lumR * cos + hueRotateR * sin
+    matrix[4] = lumG + (1 - lumG) * cos + hueRotateG * sin
+    matrix[5] = lumB - lumB * cos - hueRotateB * sin
+
+    matrix[6] = lumR - lumR * cos - (1 - lumR) * sin
+    matrix[7] = lumG - lumG * cos + lumG * sin
+    matrix[8] = lumB + (1 - lumB) * cos + lumB * sin
+
+    const clamp = num => Math.round(Math.max(0, Math.min(255, num)))
+
+    rgba.red = clamp(matrix[0] * r + matrix[1] * g + matrix[2] * b) / 255
+    rgba.green = clamp(matrix[3] * r + matrix[4] * g + matrix[5] * b) / 255
+    rgba.blue = clamp(matrix[6] * r + matrix[7] * g + matrix[8] * b) / 255
+    return rgba.to_string()
+}
+
+var invertRotate = color => hueRotateColor(invertColor(color), 180)
+
 var base64ToPixbuf = base64 => {
     try {
         const data = GLib.base64_decode(base64)
