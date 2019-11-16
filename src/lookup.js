@@ -314,6 +314,9 @@ var DictionaryBox = GObject.registerClass({
         if (text) this._lookup(text, language, dict)
     }
     _lookup(text, language, dict) {
+        text = text
+            .replace(/\xa0/g, ' ')
+            .replace(/\xad|\u2060/g, '')
         this.language = language
         this._dictStack.visible_child_name = 'loading'
         this._dictContent.foreach(child => this._dictContent.remove(child))
