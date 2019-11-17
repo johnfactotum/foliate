@@ -187,7 +187,7 @@ const addAnnotation = (cfi, color) => {
     })
 }
 
-const speak = () => {
+const speak = from => {
     // speak selection
     const selections = getSelections()
         .filter(s => s.rangeCount && !s.getRangeAt(0).collapsed)
@@ -200,7 +200,12 @@ const speak = () => {
     })
     // otherwise speak current page
     const currentLoc = rendition.currentLocation()
-    book.getRange(makeRangeCfi(currentLoc.start.cfi, currentLoc.end.cfi))
+    if (from) {
+        const cfi = new ePub.CFI(from)
+        cfi.collapse(true)
+        from = cfi.toString()
+    }
+    book.getRange(makeRangeCfi(from || currentLoc.start.cfi, currentLoc.end.cfi))
         .then(range => dispatch({
             type: 'speech',
             payload: {

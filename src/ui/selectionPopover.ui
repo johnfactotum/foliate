@@ -1,102 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="FoliateSelectionPopover" parent="GtkPopover">
-    <style><class name="osd"/></style>
+  <template class="FoliateSelectionPopover" parent="GtkPopoverMenu">
     <signal name="closed" handler="_onClosed"/>
     <child>
-      <object class="GtkStack" id="selectionStack">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="margin">6</property>
-        <property name="hhomogeneous">False</property>
-        <property name="transition-duration">100</property>
+        <property name="orientation">vertical</property>
+        <property name="margin">10</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
-            <style><class name="linked"/></style>
+            <property name="spacing">6</property>
+            <property name="margin-bottom">6</property>
             <child>
               <object class="GtkButton">
                 <property name="visible">True</property>
+                <property name="hexpand">True</property>
                 <property name="action-name">win.selection-copy</property>
-                <property name="label" translatable="yes">Copy</property>
+                <property name="tooltip-text" translatable="yes">Copy</property>
                 <signal name="clicked" handler="popdown"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="action-name">win.selection-highlight</property>
-                <property name="label" translatable="yes">Note</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="action-name">win.selection-dictionary</property>
-                <property name="label" translatable="yes">Define</property>
-              </object>
-            </child>
-            <child>
-              <object class="FoliateTTSButton" id="ttsButton">
-                <property name="label" translatable="yes">Speak</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <signal name="clicked" handler="_showMore"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
-                    <property name="icon-name">pan-end-symbolic</property>
+                    <property name="icon-name">edit-copy-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="action-name">win.selection-highlight</property>
+                <property name="tooltip-text" translatable="yes">Highlight</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">document-edit-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="action-name">win.selection-find</property>
+                <property name="tooltip-text" translatable="yes">Find</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">edit-find-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="FoliateTtsButton" id="ttsButton">
+                <property name="hexpand">True</property>
+                <property name="tooltip-text" translatable="yes">Speak</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">audio-headphones-symbolic</property>
                   </object>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="name">main</property>
-          </packing>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="GtkSeparator">
             <property name="visible">True</property>
-            <style><class name="linked"/></style>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <signal name="clicked" handler="_showMain"/>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon_name">pan-start-symbolic</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="action-name">win.selection-wikipedia</property>
-                <property name="label" translatable="yes">Wikipedia</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">Translate</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="action_name">win.selection-find</property>
-                <property name="label" translatable="yes">Find</property>
-              </object>
-            </child>
           </object>
-          <packing>
-            <property name="name">more</property>
-          </packing>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.selection-dictionary</property>
+            <property name="text" translatable="yes">Look Up in Dictionary</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.selection-wikipedia</property>
+            <property name="text" translatable="yes">Look Up in Wikipedia</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="text" translatable="yes">Translate</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator" id="ttsSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton" id="ttsModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.selection-speech-start</property>
+            <property name="text" translatable="yes">Speak from Here</property>
+            <signal name="clicked" handler="popdown"/>
+          </object>
         </child>
       </object>
     </child>

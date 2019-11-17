@@ -28,10 +28,6 @@ const TTS = GObject.registerClass({
     _init(params) {
         super._init(params)
         this._token = {}
-        this.connect('notify::speaking', () => {
-            if (this.speaking) this.start()
-            else this.stop()
-        })
     }
     get epub() {
         return this._epub
@@ -53,39 +49,49 @@ const TTS = GObject.registerClass({
             execCommand(this._command, processedText, true, this._token)
                 .then(() => nextPage
                     ? this._epub.speakNext()
-                    : this.set_property('speaking', false))
+                    : this.stop())
                 .catch(e => {
                     error(e.toString())
-                    this.set_property('speaking', false)
+                    this.stop()
                 })
         })
     }
     set command(command){
         this._command = command ? GLib.shell_parse_argv(command)[1] : null
         this.set_property('enabled', Boolean(this._command))
+        if (!command) this._stop()
     }
-    start() {
-        this.stop()
-        if (!this._command) return this.set_property('speaking', false)
-        this._epub.speak()
+    _start(from) {
+        this._stop()
+        if (!this._command) return this.stop()
+        this._epub.speak(from)
+    }
+    _stop() {
+        if (this._token && this._token.interrupt) this._token.interrupt()
+    }
+    start(from) {
+        this.set_property('speaking', true)
+        this._start(from)
     }
     stop() {
-        if (this._token && this._token.interrupt) this._token.interrupt()
+        this.set_property('speaking', false)
+        this._stop()
     }
 })
 
 var tts = new TTS()
 
-var TTSButton = GObject.registerClass({
-    GTypeName: 'FoliateTTSButton'
-}, class TTSButton extends Gtk.ToggleButton {
+var TtsButton = GObject.registerClass({
+    GTypeName: 'FoliateTtsButton'
+}, class TtsButton extends Gtk.ToggleButton {
     _init(params) {
         super._init(params)
         this.active = tts.speaking
         this.connect('toggled', () => {
             if (this.active === tts.speaking) return
             tts.epub = this.get_toplevel().epub
-            tts.set_property('speaking', this.active)
+            if (this.active) tts.start()
+            else tts.stop()
         })
         const handler = tts.connect('notify::speaking', () =>
             this.active = tts.speaking)

@@ -747,8 +747,8 @@ var EpubView = GObject.registerClass({
     get sectionMarks() {
         return this._get('sectionMarks')
     }
-    speak() {
-        this._run(`speak()`)
+    speak(from) {
+        this._run(`speak(${from ? `'${from}'` : ''})`)
     }
     speakNext() {
         this._run(`rendition.next().then(() => speak())`)

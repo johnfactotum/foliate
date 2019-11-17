@@ -19,7 +19,7 @@ const ngettext = imports.gettext.ngettext
 const { execCommand, recursivelyDeleteDir, isExternalURL, invertRotate, brightenColor } = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
 const { DictionaryBox, WikipediaBox } = imports.lookup
-const { TTSButton, tts } = imports.tts
+const { tts, TtsButton } = imports.tts
 const { exportAnnotations } = imports.export
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -229,6 +229,10 @@ const makeActions = self => ({
         const { text } = self._epub.selection
         self._findBox.find(text)
         self._findMenuButton.active = true
+    }],
+    'win.selection-speech-start': [() => {
+        tts.epub = self._epub
+        tts.start(self._epub.selection.cfi)
     }],
 
     'win.side-menu': [() =>
@@ -659,29 +663,31 @@ const FootnotePopover = GObject.registerClass({
 const SelectionPopover = GObject.registerClass({
     GTypeName: 'FoliateSelectionPopover',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/selectionPopover.ui',
-    InternalChildren: ['selectionStack', 'ttsButton']
-}, class SelectionPopover extends Gtk.Popover {
+    InternalChildren: ['ttsButton', 'ttsSeparator', 'ttsModelButton']
+}, class SelectionPopover extends Gtk.PopoverMenu {
+    _init(params) {
+        super._init(params)
+        this._showTts(tts.enabled)
+        this._ttsHandler = tts.connect('notify::enabled', () =>
+            this._showTts(tts.enabled))
+    }
+    _showTts(enabled) {
+        this._ttsSeparator.visible = enabled
+        this._ttsModelButton.visible = enabled
+    }
     popup() {
         super.popup()
         this._isAlreadySpeaking = this._ttsButton.active
-        this._showMain()
     }
     popdown() {
         // wrap `super.popdown()` so we can use it as a signal handler
         // without getting warnings about `popdown()` taking no arguments
         super.popdown()
     }
-    _showMore() {
-        this._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT
-        this._selectionStack.visible_child_name = 'more'
-    }
-    _showMain() {
-        this._selectionStack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
-        this._selectionStack.visible_child_name = 'main'
-    }
     _onClosed() {
         if (!this._isAlreadySpeaking) this._ttsButton.active = false
         this._ttsButton.destroy()
+        tts.disconnect(this._ttsHandler)
     }
 })
 
@@ -1112,8 +1118,7 @@ var FoliateWindow = GObject.registerClass({
 
         const updateTTS = () => tts.command = settings.get_string('tts-command')
         updateTTS()
-        const ttsHandler =
-            settings.connect('changed::tts-command', updateTTS)
+        const ttsHandler = settings.connect('changed::tts-command', updateTTS)
 
         this.connect('destroy', () => {
             themeHandlers.forEach(x => settings.disconnect(x))
@@ -1244,7 +1249,7 @@ var FoliateWindow = GObject.registerClass({
         windowState.set_boolean('fullscreen', this._isFullscreen)
 
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
-        if (tts.epub === this._epub) tts.set_property('speaking', false)
+        if (tts.epub === this._epub) tts.stop()
     }
     get _loading() {
         return this.__loading
@@ -1313,7 +1318,10 @@ var FoliateWindow = GObject.registerClass({
             else this._revealHeaderBar = visible
         })
         this._epub.connect('book-displayed', () => this._loading = false)
-        this._epub.connect('book-loading', () => this._loading = true)
+        this._epub.connect('book-loading', () => {
+            this._loading = true
+            if (tts.epub === this._epub) tts.stop()
+        })
         this._epub.connect('book-error', () => this.title = _('Error'))
         this._epub.connect('metadata', () =>
             this.title = this._epub.metadata.title)
