@@ -235,12 +235,9 @@ const makeActions = self => ({
         tts.start(self._epub.selection.cfi)
     }],
 
-    'win.side-menu': [() =>
-        self._sideMenuButton.active = !self._sideMenuButton.active, ['F9']],
-    'win.find-menu': [() =>
-        self._findMenuButton.active = !self._findMenuButton.active, ['<ctrl>f', 'slash']],
-    'win.main-menu': [() =>
-        self._mainMenuButton.active = !self._mainMenuButton.active, ['F10']],
+    'win.side-menu': [() => self.toggleSideMenu(), ['F9']],
+    'win.find-menu': [() => self.toggleFindMenu(), ['<ctrl>f', 'slash']],
+    'win.main-menu': [() => self.toggleMainMenu(), ['F10']],
 
     'win.fullscreen': [() =>
         self._isFullscreen ? self.unfullscreen() : self.fullscreen(), ['F11']],
@@ -1136,9 +1133,18 @@ var FoliateWindow = GObject.registerClass({
         if (windowState.get_boolean('maximized')) this.maximize()
         if (windowState.get_boolean('fullscreen')) this.fullscreen()
     }
+    get _alwaysRevealHeaderBar() {
+        return settings.get_boolean('skeuomorphism')
+    }
     set _revealHeaderBar(reveal) {
-        this._headerBarRevealer.reveal_child =
-            settings.get_boolean('skeuomorphism') || reveal
+        if (this._alwaysRevealHeaderBar || reveal)
+            this._headerBarRevealer.reveal_child = true
+        else if (!this._loading
+        && !this._sideMenu.visible
+        && !this._findMenu.visible
+        && !this._mainMenu.visible
+        && !this._mainOverlay.navbarVisible)
+            this._headerBarRevealer.reveal_child = false
     }
     _buildUI() {
         this.set_help_overlay(Gtk.Builder.new_from_resource(
@@ -1149,19 +1155,20 @@ var FoliateWindow = GObject.registerClass({
 
         this._headerBarEventBox.connect('enter-notify-event', () =>
             this._revealHeaderBar = true)
-        this._headerBarEventBox.connect('leave-notify-event', () => {
-            if (!this._loading
-            && !this._sideMenu.visible
-            && !this._findMenu.visible
-            && !this._mainMenu.visible
-            && !this._mainOverlay.navbarVisible)
-                this._revealHeaderBar = false
-        })
+        this._headerBarEventBox.connect('leave-notify-event', () =>
+            this._revealHeaderBar = false)
 
+        const showHeaderBar = widget => {
+            if (widget.visible) {
+                this._fullscreenRevealer.reveal_child = true
+                this._headerBarRevealer.reveal_child = true
+            }
+        }
         const hideHeaderBar = () => {
             if (!this._loading && !this._mainOverlay.navbarVisible) {
                 this._fullscreenRevealer.reveal_child = false
-                this._revealHeaderBar = false
+                this._headerBarRevealer.reveal_child =
+                    this._alwaysRevealHeaderBar || false
             }
         }
         this._fullscreenEventbox.connect('enter-notify-event', () =>
@@ -1173,6 +1180,9 @@ var FoliateWindow = GObject.registerClass({
             && !this._mainOverlay.navbarVisible)
                 this._fullscreenRevealer.reveal_child = false
         })
+        this._sideMenu.connect('notify::visible', showHeaderBar)
+        this._findMenu.connect('notify::visible', showHeaderBar)
+        this._mainMenu.connect('notify::visible', showHeaderBar)
         this._sideMenu.connect('closed', hideHeaderBar)
         this._findMenu.connect('closed', hideHeaderBar)
         this._mainMenu.connect('closed', hideHeaderBar)
@@ -1372,6 +1382,7 @@ var FoliateWindow = GObject.registerClass({
     }
     _themeUI() {
         this._mainOverlay.skeuomorph(settings.get_boolean('skeuomorphism'))
+        this._revealHeaderBar = false
 
         const invert = settings.get_boolean('invert') ? invertRotate : (x => x)
         const brightness = settings.get_double('brightness')
@@ -1391,6 +1402,15 @@ var FoliateWindow = GObject.registerClass({
             Gdk.Screen.get_default(),
             cssProvider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    }
+    toggleSideMenu() {
+        this._sideMenu.relative_to.active = !this._sideMenu.relative_to.active
+    }
+    toggleFindMenu() {
+        this._findMenu.relative_to.active = !this._findMenu.relative_to.active
+    }
+    toggleMainMenu() {
+        this._mainMenu.relative_to.active = !this._mainMenu.relative_to.active
     }
     get epub() {
         return this._epub
