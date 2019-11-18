@@ -91,7 +91,8 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Zoom in</property>
-                <property name="action-name">win.zoom-in</property>
+                <!-- <property name="action-name">win.zoom-in</property> -->
+                <property name="accelerator">plus &lt;ctrl&gt;plus</property>
               </object>
             </child>
             <child>
@@ -140,7 +141,8 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Go back to previous location</property>
-                <property name="action-name">win.go-back</property>
+                <!-- <property name="action-name">win.go-back</property> -->
+                <property name="accelerator">&lt;alt&gt;p</property>
               </object>
             </child>
             <child>
