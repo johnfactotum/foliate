@@ -338,3 +338,59 @@ var DictionaryBox = GObject.registerClass({
             })
     }
 })
+
+const translate = (word, language = 'en') => lookup(
+    `googleTranslate("${encodeURIComponent(word)}", '${language}')`
+).then(results => {
+    const box = new Gtk.Box({
+        visible: true,
+        orientation: Gtk.Orientation.VERTICAL,
+        margin: 3
+    })
+    const label = new Gtk.Label({
+        visible: true,
+        wrap: true,
+        xalign: 0,
+        selectable: true,
+        label: results
+    })
+    const sourceLabel = new Gtk.Label({
+        visible: true,
+        label: `<small>${_('Translation by Google Translate')}</small>`,
+        xalign: 0,
+        use_markup: true,
+        margin_bottom: 6
+    })
+    sourceLabel.get_style_context().add_class('dim-label')
+    box.pack_start(sourceLabel, false, true, 0)
+    box.pack_start(label, false, true, 0)
+    return box
+})
+
+var TranslationBox = GObject.registerClass({
+    GTypeName: 'FoliateTranslationBox',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/translationBox.ui',
+    Children: ['langCombo'],
+    InternalChildren: ['translationStack', 'translationContent']
+}, class TranslationBox extends Gtk.Box {
+    _init(params, lang = 'en') {
+        super._init(params)
+        this.langCombo.active_id = lang
+    }
+    lookup(text) {
+        this._text = text
+        this._translationStack.visible_child_name = 'loading'
+        this._translationContent.foreach(child => this._translationContent.remove(child))
+        translate(text, this.langCombo.active_id)
+            .then(widget => {
+                this._translationStack.visible_child_name = 'loaded'
+                this._translationContent.add(widget)
+            })
+            .catch(() => {
+                this._translationStack.visible_child_name = 'error'
+            })
+    }
+    _langChanged() {
+        if (this._text) this.lookup(this._text)
+    }
+})

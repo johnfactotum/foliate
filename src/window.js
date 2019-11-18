@@ -18,7 +18,7 @@ const ngettext = imports.gettext.ngettext
 
 const { execCommand, recursivelyDeleteDir, isExternalURL, invertRotate, brightenColor } = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
-const { DictionaryBox, WikipediaBox } = imports.lookup
+const { DictionaryBox, WikipediaBox, TranslationBox } = imports.lookup
 const { tts, TtsButton } = imports.tts
 const { exportAnnotations } = imports.export
 
@@ -223,6 +223,18 @@ const makeActions = self => ({
         const wikipediaBox = new WikipediaBox({ border_width: 10 })
         popover.add(wikipediaBox)
         wikipediaBox.lookup(text, language)
+        self._showPopover(popover)
+    }],
+    'win.selection-translate': [() => {
+        const { text } = self._epub.selection
+        const popover = new Gtk.Popover()
+        const translationBox = new TranslationBox({ border_width: 10 },
+            settings.get_string('translate-target-language'))
+        translationBox.langCombo.connect('changed', () =>
+            settings.set_string('translate-target-language',
+                translationBox.langCombo.active_id))
+        popover.add(translationBox)
+        translationBox.lookup(text)
         self._showPopover(popover)
     }],
     'win.selection-find': [() => {

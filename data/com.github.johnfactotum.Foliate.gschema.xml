@@ -113,6 +113,11 @@
         <summary>Dictionary</summary>
         <description>Identifier of the default dictionary. Dictionaries from dictd, if any, are available with the "dcitd_" prefix added to the database ID</description>
     </key>
+    <key name="translate-target-language" type="s">
+        <default>'en'</default>
+        <summary>Target language of translation</summary>
+        <description>Target language for translations</description>
+    </key>
     <key name="tts-command" type="s">
         <default>''</default>
         <summary>Text-to-speech command</summary>
