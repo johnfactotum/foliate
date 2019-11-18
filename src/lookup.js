@@ -63,15 +63,11 @@ const wikipedia = (word, language = 'en') => lookup(
     return box
 })
 
-
 var WikipediaBox = GObject.registerClass({
     GTypeName: 'FoliateWikipediaBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/wikipediaBox.ui',
     InternalChildren: ['wikiStack', 'wikiContent', 'wikiErrorLabel', 'wikiButton']
 }, class DictionaryBox extends Gtk.Box {
-    _init(params) {
-        super._init(params)
-    }
     lookup(text, language) {
         language = language.slice(0, 2).toLowerCase()
         this._wikiStack.visible_child_name = 'loading'
@@ -213,9 +209,9 @@ const wiktionary = (word, language, lookupFunc) => lookup(
         })
 
         const sourceLabel = new Gtk.Label({
-            label: `<small>Source: <a href="https://en.wiktionary.org/wiki/${
+            label: `<small>${_('Source: ')}<a href="https://en.wiktionary.org/wiki/${
                 GLib.markup_escape_text(word, -1)
-            }#${linkLanguage}">Wiktionary</a></small>`,
+            }#${linkLanguage}">${_('Wiktionary')}</a></small>`,
             xalign: 1,
             use_markup: true
         })

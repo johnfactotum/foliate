@@ -640,7 +640,7 @@ const FootnotePopover = GObject.registerClass({
     GTypeName: 'FoliateFootnotePopover',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/footnotePopover.ui',
     InternalChildren: [
-        'footnoteLabel', 'controls', 'separator'
+        'footnoteLabel', 'controls'
     ]
 }, class FootnotePopover extends Gtk.Popover {
     _init(footnote, link, epubView) {

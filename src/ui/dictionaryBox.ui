@@ -11,47 +11,6 @@
     <property name="spacing">10</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="GtkComboBox" id="dictCombo">
-            <property name="visible">True</property>
-            <property name="model">dictStore</property>
-            <property name="id-column">0</property>
-            <signal name="changed" handler="_lookupFromEntry"/>
-            <child>
-              <object class="GtkCellRendererText">
-                <property name="ellipsize">end</property>
-                <property name="width">200</property>
-              </object>
-              <attributes>
-                <attribute name="text">1</attribute>
-              </attributes>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="visible">True</property>
-            <property name="action-name">win.selection-menu</property>
-            <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="icon-name">view-more-symbolic</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <child>
       <object class="GtkSearchEntry" id="dictEntry">
         <property name="visible">True</property>
         <signal name="activate" handler="_lookupFromEntry"/>
@@ -118,6 +77,47 @@
           </object>
           <packing>
             <property name="name">error</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkComboBox" id="dictCombo">
+            <property name="visible">True</property>
+            <property name="model">dictStore</property>
+            <property name="id-column">0</property>
+            <signal name="changed" handler="_lookupFromEntry"/>
+            <child>
+              <object class="GtkCellRendererText">
+                <property name="ellipsize">end</property>
+                <property name="width">200</property>
+              </object>
+              <attributes>
+                <attribute name="text">1</attribute>
+              </attributes>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.selection-menu</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">view-more-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
           </packing>
         </child>
       </object>
