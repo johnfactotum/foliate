@@ -238,6 +238,7 @@ const makeActions = self => ({
     'win.side-menu': [() => self.toggleSideMenu(), ['F9']],
     'win.find-menu': [() => self.toggleFindMenu(), ['<ctrl>f', 'slash']],
     'win.main-menu': [() => self.toggleMainMenu(), ['F10']],
+    'win.location-menu': [() => self.toggleLocationMenu(), ['<ctrl>l']],
 
     'win.fullscreen': [() =>
         self._isFullscreen ? self.unfullscreen() : self.fullscreen(), ['F11']],
@@ -771,7 +772,7 @@ const NavBar = GObject.registerClass({
     Children: ['locationMenu'],
     InternalChildren: [
         'locationStack', 'locationLabel', 'locationScale',
-        'timeInBook', 'timeInChapter',
+        'locationButton', 'timeInBook', 'timeInChapter',
         'sectionEntry', 'locationEntry', 'cfiEntry',
         'sectionTotal', 'locationTotal',
     ]
@@ -836,6 +837,9 @@ const NavBar = GObject.registerClass({
     _onSizeAllocate() {
         const narrow = this.get_allocation().width < 500
         this._locationScale.visible = !narrow
+    }
+    toggleLocationMenu() {
+        return this._locationButton.active = !this._locationButton.active
     }
 })
 
@@ -903,6 +907,10 @@ const MainOverlay = GObject.registerClass({
         this._navBarVisible = !this._navBarVisible
         this._navBarRevealer.reveal_child = this._navBarVisible
         return this._navBarVisible
+    }
+    toggleLocationMenu() {
+        this._navBarRevealer.reveal_child = true
+        this._navBar.toggleLocationMenu()
     }
     get navbarVisible() {
         return this._navBarVisible || false
@@ -1411,6 +1419,9 @@ var FoliateWindow = GObject.registerClass({
     }
     toggleMainMenu() {
         this._mainMenu.relative_to.active = !this._mainMenu.relative_to.active
+    }
+    toggleLocationMenu() {
+        this._mainOverlay.toggleLocationMenu()
     }
     get epub() {
         return this._epub
