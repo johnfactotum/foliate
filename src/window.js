@@ -719,16 +719,14 @@ const AnnotationBox = GObject.registerClass({
             annotation.set_property('note', this._noteTextView.buffer.text)
         })
 
-        this._applyColor(this._colorButton, annotation.color)
-        const connectColor = annotation.connect('notify::color', () =>
-            this._applyColor(this._colorButton, annotation.color))
-        this.connect('destroy', () => annotation.disconnect(connectColor))
-
-        highlightColors.map(color => {
+        const buttons = highlightColors.map(color => {
             const button = new Gtk.Button({
                 visible: true,
                 tooltip_text: color,
-                image: new Gtk.Image({ icon_name: 'document-edit-symbolic', opacity: 0 })
+                image: new Gtk.Image({
+                    icon_name: 'object-select-symbolic',
+                    opacity: color === annotation.color ? 1 : 0
+                })
             })
             this._applyColor(button, color)
             button.connect('clicked', () => {
@@ -741,6 +739,16 @@ const AnnotationBox = GObject.registerClass({
             this._colorsBox.pack_start(button, false, true, 0)
             return button
         })
+
+        this._applyColor(this._colorButton, annotation.color)
+        const connectColor = annotation.connect('notify::color', () => {
+            this._applyColor(this._colorButton, annotation.color)
+            buttons.forEach(button => {
+                button.image.opacity =
+                    button.tooltip_text === annotation.color ? 1 : 0
+            })
+        })
+        this.connect('destroy', () => annotation.disconnect(connectColor))
     }
     _applyColor(button, color) {
         const cssProvider = new Gtk.CssProvider()
