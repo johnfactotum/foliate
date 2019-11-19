@@ -16,7 +16,10 @@
 const { GObject, Gtk, Gio, GLib, Gdk, GdkPixbuf } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const { execCommand, recursivelyDeleteDir, isExternalURL, invertRotate, brightenColor } = imports.utils
+const {
+    execCommand, recursivelyDeleteDir, isExternalURL,
+    alphaColor, invertRotate, brightenColor
+} = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
 const { DictionaryBox, WikipediaBox, TranslationBox } = imports.lookup
 const { tts, TtsButton } = imports.tts
@@ -197,7 +200,7 @@ const makeActions = self => ({
     }, ['<ctrl>c']],
     'win.selection-highlight': [() => {
         const { cfi, text } = self._epub.selection
-        const color = 'yellow'
+        const color = settings.get_string('highlight')
         self._epub.addAnnotation({ cfi, color, text, note: '' })
         self._epub.emit('highlight-menu')
     }],
@@ -450,7 +453,7 @@ const AnnotationRow = GObject.registerClass({
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
             label {
-                border-left: 7px solid ${this.annotation.color};
+                border-left: 7px solid ${alphaColor(this.annotation.color, 0.5)};
                 padding-left: 15px;
             }`)
         const styleContext = this._annotationText.get_style_context()
@@ -701,7 +704,7 @@ const SelectionPopover = GObject.registerClass({
 const AnnotationBox = GObject.registerClass({
     GTypeName: 'FoliateAnnotationBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/annotationBox.ui',
-    InternalChildren: ['highlightColorsBox', 'noteTextView'],
+    InternalChildren: ['noteTextView', 'controls', 'colorButton', 'colorsBox'],
     Properties: {
         annotation: GObject.ParamSpec.object('annotation', 'annotation', 'annotation',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, EpubViewAnnotation.$gtype)
@@ -710,40 +713,65 @@ const AnnotationBox = GObject.registerClass({
     _init(params) {
         super._init(params)
         const annotation = params.annotation
-        highlightColors.map(color => {
-            const radio = new Gtk.RadioButton({
-                visible: true,
-                tooltip_text: color,
-                active: color === annotation.color
-            })
-            radio.connect('toggled', () => {
-                if (radio.active && color !== annotation.color)
-                    annotation.set_property('color', color)
-            })
-
-            const cssProvider = new Gtk.CssProvider()
-            cssProvider.load_from_data(`
-                .color-button {
-                    padding: 0;
-                }
-                .color-button radio {
-                    margin: 0;
-                    padding: 6px;
-                    background: ${color};
-                }`)
-            const styleContext = radio.get_style_context()
-            styleContext.add_class('color-button')
-            styleContext
-                .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
-            this._highlightColorsBox.pack_start(radio, false, true, 0)
-            return radio
-        }).reduce((a, b) => (b.join_group(a), a))
 
         this._noteTextView.buffer.text = annotation.note
         this._noteTextView.buffer.connect('changed', () => {
             annotation.set_property('note', this._noteTextView.buffer.text)
         })
+
+        this._applyColor(this._colorButton, annotation.color)
+        const connectColor = annotation.connect('notify::color', () =>
+            this._applyColor(this._colorButton, annotation.color))
+        this.connect('destroy', () => annotation.disconnect(connectColor))
+
+        highlightColors.map(color => {
+            const button = new Gtk.Button({
+                visible: true,
+                tooltip_text: color
+            })
+            this._applyColor(button, color)
+            button.connect('clicked', () => {
+                if (color !== annotation.color) {
+                    annotation.set_property('color', color)
+                    settings.set_string('highlight', color)
+                }
+            })
+
+            this._colorsBox.pack_start(button, false, true, 0)
+            return button
+        })
+    }
+    _applyColor(button, color) {
+        const cssProvider = new Gtk.CssProvider()
+        cssProvider.load_from_data(`
+            .color-button {
+                background: ${alphaColor(color, 0.5)};
+            }`)
+        const styleContext = button.get_style_context()
+        styleContext.add_class('color-button')
+        styleContext.add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    }
+    _showColors() {
+        this._controls.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
+        this._controls.visible_child_name = 'colors'
+    }
+    _showMain() {
+        this._controls.transition_type = Gtk.StackTransitionType.SLIDE_LEFT
+        this._controls.visible_child_name = 'main'
+    }
+    _chooseColor() {
+        const rgba =  new Gdk.RGBA()
+        rgba.parse(this.annotation.color)
+        const dialog = new Gtk.ColorChooserDialog({
+            rgba,
+            modal: true,
+            transient_for: this.get_toplevel()
+        })
+        if (dialog.run() === Gtk.ResponseType.OK) {
+            const color = dialog.get_rgba().to_string()
+            this.annotation.set_property('color', color)
+        }
+        dialog.destroy()
     }
 })
 

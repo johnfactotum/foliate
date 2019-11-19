@@ -167,6 +167,13 @@ var disconnectAllHandlers = (object, signal) => {
 var isExternalURL = href =>
     href.indexOf("mailto:") === 0 || href.indexOf("://") > -1
 
+var alphaColor = (color, alpha) => {
+    const rgba = new Gdk.RGBA()
+    rgba.parse(color)
+    rgba.alpha = alpha
+    return rgba.to_string()
+}
+
 var invertColor = color => {
     const rgba = new Gdk.RGBA()
     rgba.parse(color)
