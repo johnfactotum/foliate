@@ -727,7 +727,8 @@ const AnnotationBox = GObject.registerClass({
         highlightColors.map(color => {
             const button = new Gtk.Button({
                 visible: true,
-                tooltip_text: color
+                tooltip_text: color,
+                image: new Gtk.Image({ icon_name: 'document-edit-symbolic', opacity: 0 })
             })
             this._applyColor(button, color)
             button.connect('clicked', () => {
