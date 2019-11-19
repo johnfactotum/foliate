@@ -648,10 +648,7 @@ const FootnotePopover = GObject.registerClass({
         this._link = link
         this._epub = epubView
         this._footnoteLabel.label = footnote
-        if (!link) {
-            this._controls.hide()
-            this._separator.hide()
-        }
+        if (!link) this._controls.hide()
     }
     popup() {
         super.popup()
