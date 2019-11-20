@@ -305,6 +305,28 @@ const makeActions = self => ({
     }],
 
     'app.preferences': [() => {
+        const builder = Gtk.Builder.new_from_resource(
+            '/com/github/johnfactotum/Foliate/ui/preferenceWindow.ui')
+
+        const restoreLastFile = builder.get_object('restoreLastFile')
+        settings.bind('restore-last-file', restoreLastFile,
+            'state', Gio.SettingsBindFlags.DEFAULT)
+
+        const singleActionCombo = builder.get_object('singleActionCombo')
+        settings.bind('selection-action-single', singleActionCombo,
+            'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        const multipleActionCombo = builder.get_object('multipleActionCombo')
+        settings.bind('selection-action-multiple', multipleActionCombo,
+            'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        const ttsEntry = builder.get_object('ttsEntry')
+        settings.bind('tts-command', ttsEntry, 'text', Gio.SettingsBindFlags.DEFAULT)
+
+        const dialog = builder.get_object('preferenceDialog')
+        dialog.transient_for = self.application.active_window
+        dialog.run()
+        dialog.destroy()
     }],
 
     'win.open': [() => {
@@ -1409,7 +1431,38 @@ var FoliateWindow = GObject.registerClass({
             this.lookup_action('go-back').enabled = canGoBack
         })
         this._epub.connect('selection', () => {
-            if (this._epub.selection.text) this._showSelectionPopover()
+            const { text } = this._epub.selection
+            if (!text) return
+            const isSingle = text.split(/\s/).length === 1
+            const action = settings.get_string(isSingle
+                ? 'selection-action-single' : 'selection-action-multiple')
+            switch (action) {
+                case 'highlight':
+                    this.lookup_action('selection-highlight').activate(null)
+                    break
+                case 'copy':
+                    this.lookup_action('selection-copy').activate(null)
+                    break
+                case 'dictionary':
+                    this.lookup_action('selection-dictionary').activate(null)
+                    break
+                case 'wikipedia':
+                    this.lookup_action('selection-wikipedia').activate(null)
+                    break
+                case 'translate':
+                    this.lookup_action('selection-translate').activate(null)
+                    break
+                case 'find':
+                    this.lookup_action('selection-find').activate(null)
+                    break
+                case 'speak':
+                    this.lookup_action('speak').activate(null)
+                    break
+                case 'none':
+                    break
+                default:
+                    this.lookup_action('selection-menu').activate(null)
+            }
         })
         this._epub.connect('highlight-menu', () => {
             const annotation = this._epub.annotation
