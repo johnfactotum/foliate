@@ -1041,8 +1041,8 @@ var FoliateWindow = GObject.registerClass({
         'fullscreenFindMenuButton', 'fullscreenMainMenuButton'
     ]
 }, class FoliateWindow extends Gtk.ApplicationWindow {
-    _init(application) {
-        super._init({ application })
+    _init(params, file) {
+        super._init(params)
 
         this._buildUI()
 
@@ -1094,7 +1094,7 @@ var FoliateWindow = GObject.registerClass({
             const action = new Gio.SimpleAction({ name })
             action.connect('activate', func)
             this.add_action(action)
-            if (accels) application.set_accels_for_action(`win.${name}`, accels)
+            if (accels) this.application.set_accels_for_action(`win.${name}`, accels)
         })
 
         // update zoom buttons when zoom level changes
@@ -1137,6 +1137,11 @@ var FoliateWindow = GObject.registerClass({
         this.default_height = windowState.get_int('height')
         if (windowState.get_boolean('maximized')) this.maximize()
         if (windowState.get_boolean('fullscreen')) this.fullscreen()
+
+        const lastFile = windowState.get_string('last-file')
+        if (file) this.open(file)
+        else if (settings.get_boolean('restore-last-file') && lastFile)
+            this.open(lastFile)
     }
     get _alwaysRevealHeaderBar() {
         return settings.get_boolean('skeuomorphism')
@@ -1251,6 +1256,7 @@ var FoliateWindow = GObject.registerClass({
         windowState.set_int('height', this._height)
         windowState.set_boolean('maximized', this.is_maximized)
         windowState.set_boolean('fullscreen', this._isFullscreen)
+        windowState.set_string('last-file', this._fileName)
 
         if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
         if (tts.epub === this._epub) tts.stop()

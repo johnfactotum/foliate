@@ -105,15 +105,15 @@ function main(argv) {
         flags: Gio.ApplicationFlags.HANDLES_OPEN
     })
 
-    application.connect('activate', app => {
-        const activeWindow = app.activeWindow || new FoliateWindow(app)
+    application.connect('activate', () => {
+        const activeWindow = application.activeWindow
+            || new FoliateWindow({ application })
         activeWindow.present()
     })
 
-    application.connect('open', (app, files) => {
+    application.connect('open', (_, files) => {
         files.map(file => file.get_path()).forEach(file => {
-            const window = new FoliateWindow(app)
-            window.open(file)
+            const window = new FoliateWindow({ application }, file)
             window.present()
         })
     })
