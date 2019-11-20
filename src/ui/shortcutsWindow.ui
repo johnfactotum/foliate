@@ -38,6 +38,13 @@
                 <property name="action-name">win.main-menu</property>
               </object>
             </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Start/stop text-to-speech</property>
+                <property name="action-name">win.speak</property>
+              </object>
+            </child>
           </object>
         </child>
 

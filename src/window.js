@@ -249,6 +249,12 @@ const makeActions = self => ({
         tts.epub = self._epub
         tts.start(self._epub.selection.cfi)
     }],
+    'win.speak': [() => {
+        if (!tts.enabled) return
+        tts.epub = self._epub
+        if (tts.speaking) tts.stop()
+        else tts.start()
+    }, ['F5']],
 
     'win.side-menu': [() => self.toggleSideMenu(), ['F9']],
     'win.find-menu': [() => self.toggleFindMenu(), ['<ctrl>f', 'slash']],
