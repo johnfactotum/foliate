@@ -22,7 +22,82 @@ pkg.require({
 
 const { Gio, Gtk } = imports.gi
 
+const { mimetypes } = imports.window
 const { FoliateWindow } = imports.window
+
+const settings = new Gio.Settings({ schema_id: pkg.name })
+
+const makeActions = app => ({
+    'themes': [() => {
+    }],
+    'preferences': [() => {
+        const builder = Gtk.Builder.new_from_resource(
+            '/com/github/johnfactotum/Foliate/ui/preferenceWindow.ui')
+
+        const restoreLastFile = builder.get_object('restoreLastFile')
+        settings.bind('restore-last-file', restoreLastFile,
+            'state', Gio.SettingsBindFlags.DEFAULT)
+
+        const singleActionCombo = builder.get_object('singleActionCombo')
+        settings.bind('selection-action-single', singleActionCombo,
+            'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        const multipleActionCombo = builder.get_object('multipleActionCombo')
+        settings.bind('selection-action-multiple', multipleActionCombo,
+            'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        const ttsEntry = builder.get_object('ttsEntry')
+        settings.bind('tts-command', ttsEntry, 'text', Gio.SettingsBindFlags.DEFAULT)
+
+        const dialog = builder.get_object('preferenceDialog')
+        dialog.transient_for = app.active_window
+        dialog.run()
+        dialog.destroy()
+    }],
+    'open': [() => {
+        const allFiles = new Gtk.FileFilter()
+        allFiles.set_name(_('All Files'))
+        allFiles.add_pattern('*')
+
+        const epubFiles = new Gtk.FileFilter()
+        epubFiles.set_name(_('E-book Files'))
+        epubFiles.add_mime_type(mimetypes.epub)
+        epubFiles.add_mime_type(mimetypes.mobi)
+        epubFiles.add_mime_type(mimetypes.kindle)
+
+        const dialog = Gtk.FileChooserNative.new(
+            _('Open File'),
+            app.active_window,
+            Gtk.FileChooserAction.OPEN,
+            null, null)
+        dialog.add_filter(epubFiles)
+        dialog.add_filter(allFiles)
+
+        const response = dialog.run()
+        if (response === Gtk.ResponseType.ACCEPT) {
+            app.active_window.open(dialog.get_filename())
+        }
+    }, ['<ctrl>o']],
+    'about': [() => {
+        const aboutDialog = new Gtk.AboutDialog({
+            authors: ['John Factotum'],
+            artists: ['John Factotum'],
+            translator_credits: _('translator-credits'),
+            program_name: _('Foliate'),
+            comments: _('A simple and modern eBook viewer'),
+            logo_icon_name: pkg.name,
+            version: pkg.version,
+            license_type: Gtk.License.GPL_3_0,
+            website: 'https://johnfactotum.github.io/foliate/',
+            modal: true,
+            transient_for: app.active_window
+        })
+        aboutDialog.run()
+        aboutDialog.destroy()
+    }],
+    'quit': [() => app.get_windows()
+        .forEach(window => window.close()), ['<ctrl>q']],
+})
 
 function main(argv) {
     const application = new Gtk.Application({
@@ -41,6 +116,15 @@ function main(argv) {
             window.open(file)
             window.present()
         })
+    })
+
+    const actions = makeActions(application)
+    Object.keys(actions).forEach(name => {
+        const [func, accels] = actions[name]
+        const action = new Gio.SimpleAction({ name })
+        action.connect('activate', func)
+        application.add_action(action)
+        if (accels) application.set_accels_for_action(`app.${name}`, accels)
     })
 
     return application.run(argv)

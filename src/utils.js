@@ -32,6 +32,12 @@ var error = message =>
 
 var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 
+var mimetypes = {
+    epub: 'application/epub+zip',
+    mobi: 'application/x-mobipocket-ebook',
+    kindle: 'application/vnd.amazon.mobi8-ebook'
+}
+
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
 var execCommand = (argv, input = null, waitCheck, token, inFlatpak) =>
     new Promise((resolve, reject) => {
