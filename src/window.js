@@ -995,7 +995,7 @@ const makeActions = self => ({
             transient_for: self
         }, self._epub.metadata, self._epub.cover)
         window.show()
-    }],
+    }, ['<ctrl>i']],
     'open-copy': [() => {
         const window = new self.constructor(self.application)
         window.open(self._fileName)

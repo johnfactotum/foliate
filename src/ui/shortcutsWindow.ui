@@ -5,49 +5,6 @@
     <child>
       <object class="GtkShortcutsSection">
         <property name="visible">True</property>
-        <property name="max-height">10</property>
-        <child>
-          <object class="GtkShortcutsGroup">
-            <property name="visible">True</property>
-            <property name="title" translatable="yes">General</property>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="visible">True</property>
-                <property name="title" translatable="yes">Bookmark current location</property>
-                <property name="action-name">win.bookmark</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="visible">True</property>
-                <property name="title" translatable="yes">Find in book</property>
-                <property name="action-name">win.find-menu</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="visible">True</property>
-                <property name="title" translatable="yes">Show contents</property>
-                <property name="action-name">win.side-menu</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="visible">True</property>
-                <property name="title" translatable="yes">Show primary menu</property>
-                <property name="action-name">win.main-menu</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="visible">True</property>
-                <property name="title" translatable="yes">Start/stop text-to-speech</property>
-                <property name="action-name">win.speak</property>
-              </object>
-            </child>
-          </object>
-        </child>
-
         <child>
           <object class="GtkShortcutsGroup">
             <property name="visible">True</property>
@@ -56,7 +13,7 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Open file</property>
-                <property name="action-name">win.open</property>
+                <property name="action-name">app.open</property>
               </object>
             </child>
             <child>
@@ -93,6 +50,41 @@
         <child>
           <object class="GtkShortcutsGroup">
             <property name="visible">True</property>
+            <property name="title" translatable="yes">Book</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Bookmark current location</property>
+                <property name="action-name">win.bookmark</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Find in book</property>
+                <property name="action-name">win.find-menu</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">View book info</property>
+                <property name="action-name">win.properties</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Start/stop text-to-speech</property>
+                <property name="action-name">win.speak</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">True</property>
             <property name="title" translatable="yes">View</property>
             <child>
               <object class="GtkShortcutsShortcut">
@@ -121,6 +113,20 @@
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Toggle fullscreen</property>
                 <property name="action-name">win.fullscreen</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Show contents</property>
+                <property name="action-name">win.side-menu</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Show primary menu</property>
+                <property name="action-name">win.main-menu</property>
               </object>
             </child>
           </object>
