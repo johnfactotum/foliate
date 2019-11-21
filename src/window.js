@@ -997,7 +997,7 @@ const makeActions = self => ({
         window.show()
     }, ['<ctrl>i']],
     'open-copy': [() => {
-        const window = new self.constructor(self.application)
+        const window = new self.constructor({ application: self.application })
         window.open(self._fileName)
         window.present()
     }, ['<ctrl>n']],
