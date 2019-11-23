@@ -173,16 +173,20 @@ var disconnectAllHandlers = (object, signal) => {
 var isExternalURL = href =>
     href.indexOf("mailto:") === 0 || href.indexOf("://") > -1
 
-var alphaColor = (color, alpha) => {
+var RGBAFromString = color => {
     const rgba = new Gdk.RGBA()
     rgba.parse(color)
+    return rgba
+}
+
+var alphaColor = (color, alpha) => {
+    const rgba = RGBAFromString(color)
     rgba.alpha = alpha
     return rgba.to_string()
 }
 
 var invertColor = color => {
-    const rgba = new Gdk.RGBA()
-    rgba.parse(color)
+    const rgba = RGBAFromString(color)
     rgba.red = 1 - rgba.red
     rgba.green = 1 - rgba.green
     rgba.blue = 1 - rgba.blue
@@ -190,8 +194,7 @@ var invertColor = color => {
 }
 
 var brightenColor = (color, brightness) => {
-    const rgba = new Gdk.RGBA()
-    rgba.parse(color)
+    const rgba = RGBAFromString(color)
     rgba.red = rgba.red * brightness
     rgba.green = rgba.green * brightness
     rgba.blue = rgba.blue * brightness
@@ -201,8 +204,7 @@ var brightenColor = (color, brightness) => {
 // replicate CSS's hue-rotate filter
 // adapted from https://jsfiddle.net/Camilo/dd6feyh6/
 var hueRotateColor = (color, degree) => {
-    const rgba = new Gdk.RGBA()
-    rgba.parse(color)
+    const rgba = RGBAFromString(color)
     const r = rgba.red * 255
     const g = rgba.green * 255
     const b = rgba.blue * 255

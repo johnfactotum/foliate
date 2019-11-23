@@ -22,13 +22,23 @@ pkg.require({
 
 const { Gio, Gtk } = imports.gi
 
-const { mimetypes } = imports.window
+const { mimetypes } = imports.utils
 const { FoliateWindow } = imports.window
+const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
 const makeActions = app => ({
-    'themes': [() => {
+    'new-theme': [() => {
+        const theme = makeThemeFromSettings()
+        const editor = new ThemeEditor(theme)
+        const dialog = editor.widget
+        dialog.transient_for = app.active_window
+        if (dialog.run() === Gtk.ResponseType.OK) {
+            customThemes.append(theme)
+            applyTheme(theme)
+        }
+        dialog.destroy()
     }],
     'preferences': [() => {
         const builder = Gtk.Builder.new_from_resource(

@@ -313,8 +313,24 @@
             <property name="margin-bottom">6</property>
             <style><class name="frame"/></style>
             <child>
-              <object class="GtkListBox" id="themesListBox">
+              <object class="GtkBox">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkListBox" id="customThemesListBox">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparator" id="customThemesSep">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkListBox" id="themesListBox">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -322,8 +338,8 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">app.themes</property>
-            <property name="text" translatable="yes">Customize…</property>
+            <property name="action-name">app.new-theme</property>
+            <property name="text" translatable="yes">Add Custom Theme…</property>
           </object>
         </child>
       </object>
