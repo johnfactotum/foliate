@@ -922,7 +922,8 @@ const makeActions = self => ({
     'properties': [() => {
         const window = new PropertiesWindow({
             modal: true,
-            transient_for: self
+            transient_for: self,
+            use_header_bar: true
         }, self._epub.metadata, self._epub.cover)
         window.show()
     }, ['<ctrl>i']],
