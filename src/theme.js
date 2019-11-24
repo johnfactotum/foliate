@@ -14,7 +14,7 @@
  */
 
 const { GObject, Gtk, Gio } = imports.gi
-const { RGBAFromString, invertRotate } = imports.utils
+const { RGBAFromString, invertRotate, Storage } = imports.utils
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
@@ -136,13 +136,7 @@ var ThemeRow = GObject.registerClass({
             .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
     }
     _remove() {
-        const n = customThemes.get_n_items()
-        for (let i = 0; i < n; i++) {
-            if (customThemes.get_item(i) === this.theme) {
-                customThemes.remove(i)
-                break
-            }
-        }
+        customThemes.removeTheme(this.theme)
     }
     _edit() {
         const theme = this.theme
@@ -242,4 +236,48 @@ var applyTheme = theme => {
 var themes = new Gio.ListStore()
 defaultThemes.forEach(theme => themes.append(new Theme(theme)))
 
-var customThemes = new Gio.ListStore()
+var CustomThemes = class CustomThemes {
+    constructor() {
+        this._themes = new Gio.ListStore()
+        this._storage = new Storage('config', 'themes')
+        const themes = this._storage.get('themes', [])
+        if (Array.isArray(themes))
+            themes.forEach(theme => this.addTheme(new Theme(theme), true))
+    }
+    _onThemesChanged() {
+        const themes = []
+        const store = this._themes
+        const n = store.get_n_items()
+        for (let i = 0; i < n; i++) {
+            themes.push(store.get_item(i))
+        }
+        this._storage.set('themes', themes)
+    }
+    addTheme(theme, init) {
+        this._themes.append(theme)
+        const f = this._onThemesChanged.bind(this)
+        theme.connect('notify::theme-name', f)
+        theme.connect('notify::fg-color', f)
+        theme.connect('notify::bg_color', f)
+        theme.connect('notify::link-color', f)
+        theme.connect('notify::invert', f)
+        theme.connect('notify::dark-mode', f)
+        if (!init) this._onThemesChanged()
+    }
+    removeTheme(theme) {
+        const store = this._themes
+        const n = store.get_n_items()
+        for (let i = 0; i < n; i++) {
+            if (store.get_item(i) === theme) {
+                store.remove(i)
+                break
+            }
+        }
+        this._onThemesChanged()
+    }
+    get themes() {
+        return this._themes
+    }
+}
+
+const customThemes = new CustomThemes()

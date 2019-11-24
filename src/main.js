@@ -35,7 +35,7 @@ const makeActions = app => ({
         const dialog = editor.widget
         dialog.transient_for = app.active_window
         if (dialog.run() === Gtk.ResponseType.OK) {
-            customThemes.append(theme)
+            customThemes.addTheme(theme)
             applyTheme(theme)
         }
         dialog.destroy()

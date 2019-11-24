@@ -96,7 +96,7 @@ var Storage = GObject.registerClass({
     _init(type, key) {
         super._init()
 
-        this.indent = type === 'config'
+        this.indent = type === 'config' ? 2 : null
         this._destination = Storage.getDestination(type, key)
         this._file = Gio.File.new_for_path(this._destination)
         this._data = this._read()

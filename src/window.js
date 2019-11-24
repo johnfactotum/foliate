@@ -534,16 +534,16 @@ const MainMenu = GObject.registerClass({
         bindThemesListBoxes(this._customThemesListBox)
         this._themesListBox.bind_model(themes, theme =>
             new ThemeRow(theme))
-        this._customThemesListBox.bind_model(customThemes, theme =>
+        this._customThemesListBox.bind_model(customThemes.themes, theme =>
             new ThemeRow(theme, true))
 
         this._showCustomThemes()
-        const customThemesHandler = customThemes.connect('items-changed',
+        const customThemesHandler = customThemes.themes.connect('items-changed',
             this._showCustomThemes.bind(this))
-        this.connect('destroy', () => customThemes.disconnect(customThemesHandler))
+        this.connect('destroy', () => customThemes.themes.disconnect(customThemesHandler))
     }
     _showCustomThemes() {
-        const hasCustomThemes = Boolean(customThemes.get_n_items())
+        const hasCustomThemes = Boolean(customThemes.themes.get_n_items())
         this._customThemesListBox.visible = hasCustomThemes
         this._customThemesSep.visible = hasCustomThemes
     }
