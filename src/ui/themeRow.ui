@@ -16,6 +16,11 @@
           </object>
         </child>
         <child>
+          <object class="GtkImage" id="image">
+            <property name="icon-name">object-select-symbolic</property>
+          </object>
+        </child>
+        <child>
           <object class="GtkButton" id="button">
             <property name="relief">none</property>
             <property name="tooltip-text" translatable="yes">Edit</property>
@@ -31,14 +36,6 @@
             <property name="pack-type">end</property>
           </packing>
         </child>
-        <!-- <child> -->
-        <!--   <object class="GtkImage" id="image"> -->
-        <!--     <property name="icon-name">object-select-symbolic</property> -->
-        <!--   </object> -->
-        <!--   <packing> -->
-        <!--     <property name="pack-type">end</property> -->
-        <!--   </packing> -->
-        <!-- </child> -->
       </object>
     </child>
   </template>

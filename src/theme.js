@@ -88,7 +88,7 @@ var Theme = GObject.registerClass({
 var ThemeRow = GObject.registerClass({
     GTypeName: 'FoliateThemeRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/themeRow.ui',
-    InternalChildren: ['label', /*'image', */'button']
+    InternalChildren: ['label', 'image', 'button']
 }, class ThemeRow extends Gtk.ListBoxRow {
     _init(theme, editable) {
         super._init()
@@ -102,27 +102,27 @@ var ThemeRow = GObject.registerClass({
         theme.connect('notify::bg_color', this._applyColor.bind(this))
         theme.connect('notify::invert', this._applyColor.bind(this))
 
-        // this._updateSelected()
-        // const themeHandlers = [
-        //     settings.connect('changed::bg-color', () => this._updateSelected()),
-        //     settings.connect('changed::fg-color', () => this._updateSelected()),
-        //     settings.connect('changed::link-color', () => this._updateSelected()),
-        //     settings.connect('changed::invert', () => this._updateSelected()),
-        //     settings.connect('changed::prefer-dark-theme', () => this._updateSelected()),
-        // ]
-        // this.connect('destroy', () => themeHandlers.forEach(x => settings.disconnect(x)))
+        this._updateSelected()
+        const themeHandlers = [
+            settings.connect('changed::bg-color', () => this._updateSelected()),
+            settings.connect('changed::fg-color', () => this._updateSelected()),
+            settings.connect('changed::link-color', () => this._updateSelected()),
+            settings.connect('changed::invert', () => this._updateSelected()),
+            settings.connect('changed::prefer-dark-theme', () => this._updateSelected()),
+        ]
+        this.connect('destroy', () => themeHandlers.forEach(x => settings.disconnect(x)))
     }
-    // _updateSelected() {
-    //     const theme = this.theme
-    //     const selected = theme.fg_color === settings.get_string('fg-color')
-    //         && theme.bg_color === settings.get_string('bg-color')
-    //         && theme.link_color === settings.get_string('link-color')
-    //         && theme.invert === settings.get_boolean('invert')
-    //         && theme.dark_mode === settings.get_boolean('prefer-dark-theme')
-    //     this._image.visible = selected
-    // }
+    _updateSelected() {
+        const theme = this.theme
+        const selected = theme.fg_color === settings.get_string('fg-color')
+            && theme.bg_color === settings.get_string('bg-color')
+            && theme.link_color === settings.get_string('link-color')
+            && theme.invert === settings.get_boolean('invert')
+            && theme.dark_mode === settings.get_boolean('prefer-dark-theme')
+        this._image.visible = selected
+    }
     _applyColor() {
-        // this._updateSelected()
+        this._updateSelected()
         const { fg_color, bg_color, invert } = this.theme
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
