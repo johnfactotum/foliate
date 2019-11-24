@@ -15,7 +15,7 @@
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
 
-const { debug, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf } = imports.utils
+const { debug, error, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf } = imports.utils
 
 // must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
 const CHARACTERS_PER_PAGE = 1024
@@ -626,7 +626,12 @@ var EpubView = GObject.registerClass({
         const fontFamily = fontDesc.get_family()
         const fontSizePt = fontDesc.get_size() / Pango.SCALE
         const fontSize = fontSizePt / 0.75
-        const fontWeight = fontDesc.get_weight()
+        let fontWeight = 400
+        try {
+            fontWeight = fontDesc.get_weight()
+        } catch (e) {
+            error(e.toString())
+        }
         const fontStyle = ['normal', 'italic', 'oblique'][fontDesc.get_style()]
 
         // unfortunately, it appears that WebKitGTK doesn't support font-stretch
