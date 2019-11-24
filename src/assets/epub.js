@@ -2552,7 +2552,7 @@ var Url = function () {
 				this.hash = this.Url.hash;
 				this.search = this.Url.search;
 
-				pathname = this.Url.pathname;
+				pathname = this.Url.pathname + (this.Url.search ? this.Url.search : '');
 			} catch (e) {
 				// Skip URL parsing
 				this.Url = undefined;
@@ -4780,6 +4780,22 @@ var Contents = function () {
 				var range = new _epubcfi2.default(target).toRange(this.document, ignoreClass);
 
 				if (range) {
+					try {
+						if (!range.endContainer || range.startContainer == range.endContainer && range.startOffset == range.endOffset) {
+							// If the end for the range is not set, it results in collapsed becoming
+							// true. This in turn leads to inconsistent behaviour when calling
+							// getBoundingRect. Wrong bounds lead to the wrong page being displayed.
+							// https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/15684911/
+							var pos = range.startContainer.textContent.indexOf(" ", range.startOffset);
+							if (pos == -1) {
+								pos = range.startContainer.textContent.length;
+							}
+							range.setEnd(range.startContainer, pos);
+						}
+					} catch (e) {
+						console.error("setting end offset to start container length failed", e);
+					}
+
 					if (range.startContainer.nodeType === Node.ELEMENT_NODE) {
 						position = range.startContainer.getBoundingClientRect();
 						targetPos.left = position.left;
@@ -5709,7 +5725,7 @@ var DefaultViewManager = function () {
 		}
 	}, {
 		key: "resize",
-		value: function resize(width, height) {
+		value: function resize(width, height, epubcfi) {
 			var stageSize = this.stage.size(width, height);
 
 			// For Safari, wait for orientation to catch up
@@ -5742,7 +5758,7 @@ var DefaultViewManager = function () {
 			this.emit(_constants.EVENTS.MANAGERS.RESIZED, {
 				width: this._stageSize.width,
 				height: this._stageSize.height
-			});
+			}, epubcfi);
 		}
 	}, {
 		key: "createView",
@@ -8308,22 +8324,23 @@ var Rendition = function () {
 
 	}, {
 		key: "onResized",
-		value: function onResized(size) {
+		value: function onResized(size, epubcfi) {
 
 			/**
     * Emit that the rendition has been resized
     * @event resized
     * @param {number} width
     * @param {height} height
+    * @param {string} epubcfi (optional)
     * @memberof Rendition
     */
 			this.emit(_constants.EVENTS.RENDITION.RESIZED, {
 				width: size.width,
 				height: size.height
-			});
+			}, epubcfi);
 
 			if (this.location && this.location.start) {
-				this.display(this.location.start.cfi);
+				this.display(epubcfi || this.location.start.cfi);
 			}
 		}
 
@@ -8360,18 +8377,19 @@ var Rendition = function () {
    * Trigger a resize of the views
    * @param {number} [width]
    * @param {number} [height]
+   * @param {string} [epubcfi] (optional)
    */
 
 	}, {
 		key: "resize",
-		value: function resize(width, height) {
+		value: function resize(width, height, epubcfi) {
 			if (width) {
 				this.settings.width = width;
 			}
 			if (height) {
 				this.settings.height = height;
 			}
-			this.manager.resize(width, height);
+			this.manager.resize(width, height, epubcfi);
 		}
 
 		/**
@@ -13204,7 +13222,7 @@ module.exports = exports["default"];
 
 function DOMParser(options){
 	this.options = options ||{locator:{}};
-	
+
 }
 DOMParser.prototype.parseFromString = function(source,mimeType){
 	var options = this.options;
@@ -13217,7 +13235,7 @@ DOMParser.prototype.parseFromString = function(source,mimeType){
 	if(locator){
 		domBuilder.setDocumentLocator(locator)
 	}
-	
+
 	sax.errorHandler = buildErrorHandler(errorHandler,domBuilder,locator);
 	sax.domBuilder = options.domBuilder || domBuilder;
 	if(/\/x?html?$/.test(mimeType)){
@@ -13262,8 +13280,8 @@ function buildErrorHandler(errorImpl,domBuilder,locator){
 /**
  * +ContentHandler+ErrorHandler
  * +LexicalHandler+EntityResolver2
- * -DeclHandler-DTDHandler 
- * 
+ * -DeclHandler-DTDHandler
+ *
  * DefaultHandler:EntityResolver, DTDHandler, ContentHandler, ErrorHandler
  * DefaultHandler2:DefaultHandler,LexicalHandler, DeclHandler, EntityResolver2
  * @link http://www.saxproject.org/apidoc/org/xml/sax/helpers/DefaultHandler.html
@@ -13278,7 +13296,7 @@ function position(locator,node){
 /**
  * @see org.xml.sax.ContentHandler#startDocument
  * @link http://www.saxproject.org/apidoc/org/xml/sax/ContentHandler.html
- */ 
+ */
 DOMHandler.prototype = {
 	startDocument : function() {
     	this.doc = new DOMImplementation().createDocument(null, null, null);
@@ -13292,7 +13310,7 @@ DOMHandler.prototype = {
 	    var len = attrs.length;
 	    appendElement(this, el);
 	    this.currentElement = el;
-	    
+
 		this.locator && position(this.locator,el)
 	    for (var i = 0 ; i < len; i++) {
 	        var namespaceURI = attrs.getURI(i);
@@ -13355,7 +13373,7 @@ DOMHandler.prototype = {
 	    this.locator && position(this.locator,comm)
 	    appendElement(this, comm);
 	},
-	
+
 	startCDATA:function() {
 	    //used in characters() methods
 	    this.cdata = true;
@@ -13363,7 +13381,7 @@ DOMHandler.prototype = {
 	endCDATA:function() {
 	    this.cdata = false;
 	},
-	
+
 	startDTD:function(name, publicId, systemId) {
 		var impl = this.doc.implementation;
 	    if (impl && impl.createDocumentType) {
@@ -13471,7 +13489,7 @@ var tagNamePattern = new RegExp('^'+nameStartChar.source+nameChar.source+'*(?:\:
 //S_TAG,	S_ATTR,	S_EQ,	S_ATTR_NOQUOT_VALUE
 //S_ATTR_SPACE,	S_ATTR_END,	S_TAG_SPACE, S_TAG_CLOSE
 var S_TAG = 0;//tag name offerring
-var S_ATTR = 1;//attr name offerring 
+var S_ATTR = 1;//attr name offerring
 var S_ATTR_SPACE=2;//attr name end and space offer
 var S_EQ = 3;//=space?
 var S_ATTR_NOQUOT_VALUE = 4;//attr value(no quot value only)
@@ -13480,7 +13498,7 @@ var S_TAG_SPACE = 6;//(attr value end || tag end ) && (space offer)
 var S_TAG_CLOSE = 7;//closed el<el />
 
 function XMLReader(){
-	
+
 }
 
 XMLReader.prototype = {
@@ -13510,7 +13528,7 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 	function entityReplacer(a){
 		var k = a.slice(1,-1);
 		if(k in entityMap){
-			return entityMap[k]; 
+			return entityMap[k];
 		}else if(k.charAt(0) === '#'){
 			return fixedFromCharCode(parseInt(k.substr(1).replace('x','0x')))
 		}else{
@@ -13539,7 +13557,7 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 	var lineEnd = 0;
 	var linePattern = /.*(?:\r\n?|\n)|.*$/g
 	var locator = domBuilder.locator;
-	
+
 	var parseStack = [{currentNSMap:defaultNSMapCopy}]
 	var closeMap = {};
 	var start = 0;
@@ -13564,7 +13582,7 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 				var tagName = source.substring(tagStart+2,end);
 				var config = parseStack.pop();
 				if(end<0){
-					
+
 	        		tagName = source.substring(tagStart+2).replace(/[\s<].*/,'');
 	        		//console.error('#@@@@@@'+tagName)
 	        		errorHandler.error("end tag name: "+tagName+' is not complete:'+config.tagName);
@@ -13592,7 +13610,7 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 		        }else{
 		        	parseStack.push(config)
 		        }
-				
+
 				end++;
 				break;
 				// end elment
@@ -13611,8 +13629,8 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 				//elStartEnd
 				var end = parseElementStartPart(source,tagStart,el,currentNSMap,entityReplacer,errorHandler);
 				var len = el.length;
-				
-				
+
+
 				if(!el.closed && fixSelfClosed(source,end,el.tagName,closeMap)){
 					el.closed = true;
 					if(!entityMap.nbsp){
@@ -13638,9 +13656,9 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 						parseStack.push(el)
 					}
 				}
-				
-				
-				
+
+
+
 				if(el.uri === 'http://www.w3.org/1999/xhtml' && !el.closed){
 					end = parseHtmlSpecialContent(source,end,el.tagName,entityReplacer,domBuilder)
 				}else{
@@ -13867,7 +13885,7 @@ function appendElement(el,domBuilder,currentNSMap){
 		}
 		//can not set prefix,because prefix !== ''
 		a.localName = localName ;
-		//prefix == null for no ns prefix attribute 
+		//prefix == null for no ns prefix attribute
 		if(nsPrefix !== false){//hack!!
 			if(localNSMap == null){
 				localNSMap = {}
@@ -13877,7 +13895,7 @@ function appendElement(el,domBuilder,currentNSMap){
 			}
 			currentNSMap[nsPrefix] = localNSMap[nsPrefix] = value;
 			a.uri = 'http://www.w3.org/2000/xmlns/'
-			domBuilder.startPrefixMapping(nsPrefix, value) 
+			domBuilder.startPrefixMapping(nsPrefix, value)
 		}
 	}
 	var i = el.length;
@@ -13889,7 +13907,7 @@ function appendElement(el,domBuilder,currentNSMap){
 				a.uri = 'http://www.w3.org/XML/1998/namespace';
 			}if(prefix !== 'xmlns'){
 				a.uri = currentNSMap[prefix || '']
-				
+
 				//{console.log('###'+a.qName,domBuilder.locator.systemId+'',currentNSMap,a.uri)}
 			}
 		}
@@ -13911,7 +13929,7 @@ function appendElement(el,domBuilder,currentNSMap){
 		domBuilder.endElement(ns,localName,tagName);
 		if(localNSMap){
 			for(prefix in localNSMap){
-				domBuilder.endPrefixMapping(prefix) 
+				domBuilder.endPrefixMapping(prefix)
 			}
 		}
 	}else{
@@ -13938,7 +13956,7 @@ function parseHtmlSpecialContent(source,elStartEnd,tagName,entityReplacer,domBui
 				domBuilder.characters(text,0,text.length);
 				return elEndStart;
 			//}
-			
+
 		}
 	}
 	return elStartEnd+1;
@@ -13955,7 +13973,7 @@ function fixSelfClosed(source,elStartEnd,tagName,closeMap){
 		closeMap[tagName] =pos
 	}
 	return pos<elStartEnd;
-	//} 
+	//}
 }
 function _copy(source,target){
 	for(var n in source){target[n] = source[n]}
@@ -13983,11 +14001,11 @@ function parseDCC(source,start,domBuilder,errorHandler){//sure start with '<!'
 			var end = source.indexOf(']]>',start+9);
 			domBuilder.startCDATA();
 			domBuilder.characters(source,start+9,end-start-9);
-			domBuilder.endCDATA() 
+			domBuilder.endCDATA()
 			return end+3;
 		}
 		//<!DOCTYPE
-		//startDTD(java.lang.String name, java.lang.String publicId, java.lang.String systemId) 
+		//startDTD(java.lang.String name, java.lang.String publicId, java.lang.String systemId)
 		var matchs = split(source,start);
 		var len = matchs.length;
 		if(len>1 && /!doctype/i.test(matchs[0][0])){
@@ -13998,7 +14016,7 @@ function parseDCC(source,start,domBuilder,errorHandler){//sure start with '<!'
 			domBuilder.startDTD(name,pubid && pubid.replace(/^(['"])(.*?)\1$/,'$2'),
 					sysid && sysid.replace(/^(['"])(.*?)\1$/,'$2'));
 			domBuilder.endDTD();
-			
+
 			return lastMatch.index+lastMatch[0].length
 		}
 	}
@@ -14026,7 +14044,7 @@ function parseInstruction(source,start,domBuilder){
  * @param source
  */
 function ElementAttributes(source){
-	
+
 }
 ElementAttributes.prototype = {
 	setTagName:function(tagName){
@@ -14049,7 +14067,7 @@ ElementAttributes.prototype = {
 	getValue:function(i){return this[i].value}
 //	,getIndex:function(uri, localName)){
 //		if(localName){
-//			
+//
 //		}else{
 //			var qName = uri
 //		}
@@ -14841,7 +14859,7 @@ var Packaging = function () {
 			}
 
 			if (identifier.localName === "identifier" && identifier.namespaceURI === "http://purl.org/dc/elements/1.1/") {
-				return identifier.childNodes[0].nodeValue.trim();
+				return identifier.childNodes.length > 0 ? identifier.childNodes[0].nodeValue.trim() : "";
 			}
 
 			return "";
@@ -17387,7 +17405,6 @@ var Highlight = exports.Highlight = function (_Mark) {
 
             for (var attr in this.data) {
                 if (this.data.hasOwnProperty(attr)) {
-                    console.log("element", this.element, this.element.dataset);
                     this.element.dataset[attr] = this.data[attr];
                 }
             }
