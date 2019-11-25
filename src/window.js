@@ -511,17 +511,25 @@ const AnnotationBox = GObject.registerClass({
 const MainMenu = GObject.registerClass({
     GTypeName: 'FoliateMainMenu',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainMenu.ui',
-    Children: [
-        'brightnessScale', 'fontButton', 'spacingButton', 'marginButton'
-    ],
     InternalChildren: [
         'zoomRestoreButton', 'fullscreenButton',
+        'brightnessScale', 'fontButton', 'spacingButton', 'marginButton',
         'customThemesListBox', 'customThemesSep', 'themesListBox'
     ]
 }, class MainMenu extends Gtk.PopoverMenu {
     _init() {
         super._init()
         this._fullscreenButton.connect('clicked', () => this.popdown())
+
+        const flag = Gio.SettingsBindFlags.DEFAULT
+        settings.bind('font', this._fontButton, 'font', flag)
+        settings.bind('spacing', this._spacingButton, 'value', flag)
+        settings.bind('margin', this._marginButton, 'value', flag)
+        settings.bind('brightness', this._brightnessScale.adjustment, 'value', flag)
+
+        const zoomHandler = settings.connect('changed::zoom-level',
+            this._updateZoom.bind(this))
+        this.connect('destroy', () => settings.disconnect(zoomHandler))
 
         const bindThemesListBoxes = themesListBox => {
             themesListBox.set_header_func((row) => {
@@ -547,7 +555,8 @@ const MainMenu = GObject.registerClass({
         this._customThemesListBox.visible = hasCustomThemes
         this._customThemesSep.visible = hasCustomThemes
     }
-    set zoomLevel(zoomLevel) {
+    _updateZoom() {
+        const zoomLevel = settings.get_double('zoom-level')
         this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
     }
     set fullscreen(isFullscreen) {
@@ -1001,10 +1010,6 @@ var FoliateWindow = GObject.registerClass({
         settings.bind('autohide-cursor', this._epubSettings, 'autohide-cursor', defaultFlag)
 
         // bind settings to UI
-        settings.bind('font', this._mainMenu.fontButton, 'font', defaultFlag)
-        settings.bind('spacing', this._mainMenu.spacingButton, 'value', defaultFlag)
-        settings.bind('margin', this._mainMenu.marginButton, 'value', defaultFlag)
-        settings.bind('brightness', this._mainMenu.brightnessScale.adjustment, 'value', defaultFlag)
         this.add_action(settings.create_action('use-publisher-font'))
         this.add_action(settings.create_action('justify'))
         this.add_action(settings.create_action('hyphenate'))
@@ -1031,7 +1036,6 @@ var FoliateWindow = GObject.registerClass({
         // update zoom buttons when zoom level changes
         const updateZoomButtons = () => {
             const zoomLevel = settings.get_double('zoom-level')
-            this._mainMenu.zoomLevel = zoomLevel
             this.lookup_action('zoom-restore').enabled = zoomLevel !== 1
             this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
             this.lookup_action('zoom-in').enabled = zoomLevel < 4
