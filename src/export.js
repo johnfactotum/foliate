@@ -37,7 +37,7 @@ const exportToHTML = async ({ annotations }, metadata, getSection) => {
         <p class="cfi">${value}</p>
         <p class="section">${await getSection(value)}</p>
         <blockquote style="border-color: ${color};">${text}</blockquote>
-        ${note ? '<p>' + note + '</p>' : ''}
+        ${note ? '<p>' + note.replace(/\n/g, '<br>') + '</p>' : ''}
     </section>`))
     return head + body.join('')
 }
