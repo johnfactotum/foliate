@@ -180,8 +180,8 @@ const ContentsStack = GObject.registerClass({
         'row-activated': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class ContentsStack extends Gtk.Stack {
-    _init() {
-        super._init()
+    _init(params) {
+        super._init(params)
 
         this._annotationsListBox.set_header_func((row) => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
@@ -289,8 +289,8 @@ const FindBox = GObject.registerClass({
         'row-activated': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class FindBox extends Gtk.Box {
-    _init() {
-        super._init()
+    _init(params) {
+        super._init(params)
         const column = this._findTreeView.get_column(0)
         column.get_area().orientation = Gtk.Orientation.VERTICAL
     }
@@ -867,13 +867,13 @@ const makeActions = self => ({
         else tts.start()
     },
 
-    'side-menu': () => self.toggleSideMenu(),
-    'find-menu': () => self.toggleFindMenu(),
-    'main-menu': () => self.toggleMainMenu(),
-    'location-menu': () => self.toggleLocationMenu(),
+    'side-menu': () => self.activeHeaderBar.toggleSide(),
+    'find-menu': () => self.activeHeaderBar.toggleFind(),
+    'main-menu': () => self.activeHeaderBar.toggleMain(),
+    'location-menu': () => self._mainOverlay.toggleLocationMenu(),
 
     'fullscreen': () =>
-        self._isFullscreen ? self.unfullscreen() : self.fullscreen(),
+        self._fullscreen ? self.unfullscreen() : self.fullscreen(),
     'unfullscreen': () => self.unfullscreen(),
 
     'properties': () => {
@@ -917,35 +917,193 @@ const makeActions = self => ({
     'close': () => self.close(),
 })
 
-var FoliateWindow = GObject.registerClass({
+const FullscreenOverlay = GObject.registerClass({
+    GTypeName: 'FoliateFullscreenOverlay'
+}, class FullscreenOverlay extends Gtk.Overlay {
+    _init(params) {
+        super._init(params)
+        this.stayVisible = false
+        this.alwaysVisible = false
+
+        this._eventBox = new Gtk.EventBox({ valign: Gtk.Align.START })
+        this._revealer = new Gtk.Revealer({ visible: true })
+        this._eventBox.add(this._revealer)
+        this.add_overlay(this._eventBox)
+
+        this._eventBox.connect('enter-notify-event', () =>  this.reveal(true))
+        this._eventBox.connect('leave-notify-event', () => this.reveal(false))
+    }
+    setOverlay(widget) {
+        this._revealer.add(widget)
+    }
+    set enabled(enabled) {
+        this._eventBox.visible = enabled
+    }
+    reveal(reveal) {
+        this._revealer.reveal_child =  this.alwaysVisible || this.stayVisible || reveal
+    }
+    stayReveal(reveal) {
+        this.stayVisible = reveal
+        this.reveal(reveal)
+    }
+    alwaysReveal(reveal) {
+        this.alwaysVisible = reveal
+        this.reveal(reveal)
+    }
+})
+
+const AutoHideBox =  GObject.registerClass({
+    GTypeName: 'FoliateAutoHideBox',
+}, class AutoHideBox extends Gtk.Frame {
+    _init(params) {
+        super._init(params)
+        this.shadow_type = Gtk.ShadowType.NONE
+        this.get_style_context().add_class('distraction-free-container')
+
+        this.stayVisible = false
+        this.alwaysVisible = false
+
+        const eventBox = new Gtk.EventBox({ visible: true })
+        this._overlay = new Gtk.Overlay({ visible: true })
+        this._revealer = new Gtk.Revealer({
+            visible: true,
+            transition_type: Gtk.RevealerTransitionType.CROSSFADE
+        })
+        this._overlay.add_overlay(this._revealer)
+        eventBox.add(this._overlay)
+        this.add(eventBox)
+
+        eventBox.connect('enter-notify-event', () =>  this.reveal(true))
+        eventBox.connect('leave-notify-event', () => this.reveal(false))
+    }
+    setWidget(widget) {
+        this._overlay.add(widget)
+    }
+    addOverlay(widget) {
+        this._overlay.add_overlay(widget)
+        this._overlay.reorder_overlay(this._revealer, -1)
+    }
+    setOverlay(widget) {
+        this._revealer.add(widget)
+    }
+    reveal(reveal) {
+        this._revealer.reveal_child =  this.alwaysVisible || this.stayVisible || reveal
+    }
+    stayReveal(reveal) {
+        this.stayVisible = reveal
+        this.reveal(reveal)
+    }
+    alwaysReveal(reveal) {
+        this.alwaysVisible = reveal
+        this.reveal(reveal)
+    }
+})
+
+const HeaderBar = GObject.registerClass({
+    GTypeName: 'FoliateHeaderBar',
+    Properties: {
+        'fullscreen': GObject.ParamSpec.boolean('fullscreen', 'fullscreen', 'fullscreen',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, false),
+        'side-popover': GObject.ParamSpec.object('side-popover', 'side-popover', 'side-popover',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gtk.Popover.$gtype),
+        'find-popover': GObject.ParamSpec.object('find-popover', 'find-popover', 'find-popover',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gtk.Popover.$gtype),
+        'main-popover': GObject.ParamSpec.object('main-popover', 'main-popover', 'main-popover',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gtk.Popover.$gtype),
+    }
+}, class HeaderBar extends Gtk.HeaderBar {
+    _init(params) {
+        super._init(params)
+        this.sideButton = this._makeMenuButton(_('Contents'), 'view-list-symbolic', this.side_popover)
+        this.findButton = this._makeMenuButton(_('Find'), 'edit-find-symbolic', this.find_popover)
+        this.mainButton = this._makeMenuButton(_('Menu'), 'open-menu-symbolic', this.main_popover)
+        this.pack_start(this.sideButton)
+        if (this.fullscreen) {
+            this.fullscreenButton = this._makeButton(_('Leave fullscreen'), 'view-restore-symbolic')
+            this.fullscreenButton.action_name = 'win.unfullscreen'
+            this.pack_end(this.fullscreenButton)
+        } else this.show_close_button = true
+        this.pack_end(this.mainButton)
+        this.pack_end(this.findButton)
+    }
+    _makeMenuButton(text, icon, popover) {
+        return new Gtk.MenuButton({
+            visible: true,
+            valign: 'center',
+            tooltip_text: text,
+            image: new Gtk.Image({ visible: true, icon_name: icon }),
+            popover,
+        })
+    }
+    _makeButton(text, icon) {
+        return new Gtk.Button({
+            visible: true,
+            valign: 'center',
+            tooltip_text: text,
+            image: new Gtk.Image({ visible: true, icon_name: icon }),
+        })
+    }
+    get loading() {
+        return this._loading
+    }
+    set loading(state) {
+        this._loading = state
+        this.sideButton.sensitive = !state
+        this.findButton.sensitive = !state
+    }
+    grabPopovers() {
+        this.sideButton.popover.relative_to = this.sideButton
+        this.findButton.popover.relative_to = this.findButton
+        this.mainButton.popover.relative_to = this.mainButton
+    }
+    toggleSide() {
+        this.sideButton.active = !this.sideButton.active
+    }
+    toggleFind() {
+        this.findButton.active = !this.findButton.active
+    }
+    toggleMain() {
+        this.mainButton.active = !this.mainButton.active
+    }
+})
+
+var Window = GObject.registerClass({
     GTypeName: 'FoliateWindow',
-    Template: 'resource:///com/github/johnfactotum/Foliate/ui/window.ui',
     Properties: {
         file: GObject.ParamSpec.object('file', 'file', 'file',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gio.File.$gtype)
-    },
-    InternalChildren: [
-        'mainOverlay',
-        'sideMenu', 'contentsStack', 'findMenu', 'findBox', 'mainMenu',
-        'headerBarEventBox', 'headerBarRevealer',
-        'distractionFreeTitle',
-        'headerBar', 'sideMenuButton', 'findMenuButton', 'mainMenuButton',
-        'fullscreenEventbox', 'fullscreenRevealer',
-        'fullscreenHeaderbar', 'fullscreenSideMenuButton',
-        'fullscreenFindMenuButton', 'fullscreenMainMenuButton'
-    ]
-}, class FoliateWindow extends Gtk.ApplicationWindow {
+    }
+}, class Window extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
 
-        this._buildUI()
+        this._epub = new EpubView()
+        this.insert_action_group('view', this._epub.actionGroup)
+        this._connectEpub()
+        this.connect('destroy', () => this._epub.close())
 
-        const actions = makeActions(this)
-        Object.keys(actions).forEach(name => {
-            const action = new Gio.SimpleAction({ name })
-            action.connect('activate', actions[name])
-            this.add_action(action)
+        this._buildPopovers()
+
+        this._mainOverlay = new MainOverlay({ visible: true })
+        this._mainOverlay.epub = this._epub
+        this._fullscreenOverlay = new FullscreenOverlay({ visible: true })
+        this._fullscreenOverlay.add(this._mainOverlay)
+        this._fullscreenHeaderBar = new HeaderBar({
+            visible: true,
+            side_popover: this._sidePopover,
+            find_popover: this._findPopover,
+            main_popover: this._mainPopover,
+            fullscreen: true
         })
+        const showHeaderBar = widget => widget.visible
+            ? this._fullscreenOverlay.stayReveal(true) : null
+        const hideHeaderBar = () => this._fullscreenOverlay.stayReveal(false)
+        ;[this._sidePopover, this._findPopover, this._mainPopover].forEach(p => {
+            p.connect('notify::visible', showHeaderBar)
+            p.connect('closed', hideHeaderBar)
+        })
+        this._fullscreenOverlay.setOverlay(this._fullscreenHeaderBar)
+        this.add(this._fullscreenOverlay)
 
         this._themeUI()
         const themeHandlers = [
@@ -960,16 +1118,17 @@ var FoliateWindow = GObject.registerClass({
         updateTTS()
         const ttsHandler = settings.connect('changed::tts-command', updateTTS)
 
-        this.connect('destroy', () => {
-            themeHandlers.forEach(x => settings.disconnect(x))
-            settings.disconnect(ttsHandler)
+        const actions = makeActions(this)
+        Object.keys(actions).forEach(name => {
+            const action = new Gio.SimpleAction({ name })
+            action.connect('activate', actions[name])
+            this.add_action(action)
         })
 
-        this._loading = true
-        this._mainOverlay.status = 'empty'
-        this.title = _('Foliate')
+        this.set_help_overlay(Gtk.Builder.new_from_resource(
+            '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
+            .get_object('shortcutsWindow'))
 
-        // restore window state
         this.default_width = windowState.get_int('width')
         this.default_height = windowState.get_int('height')
         if (windowState.get_boolean('maximized')) this.maximize()
@@ -978,161 +1137,57 @@ var FoliateWindow = GObject.registerClass({
         const lastFile = windowState.get_string('last-file')
         if (!this.file && settings.get_boolean('restore-last-file') && lastFile)
             this.file  = Gio.File.new_for_path(lastFile)
-
-        this._epub = new EpubView()
-        this._connectEpub()
-        this.connect('destroy', () => this._epub.close())
         if (this.file) this.open(this.file)
+
+        this.connect('window-state-event', (_, event) => {
+            const state = event.get_window().get_state()
+            this._fullscreen = Boolean(state & Gdk.WindowState.FULLSCREEN)
+            this._mainPopover.fullscreen = this._fullscreen
+
+            this._fullscreenOverlay.enabled = this._fullscreen
+            this._fullscreenOverlay.alwaysReveal(this._mainOverlay.navbarVisible)
+            if (this._fullscreen) this._fullscreenHeaderBar.grabPopovers()
+            else this._headerBar.grabPopovers()
+        })
+        this.connect('size-allocate', () => {
+            const [width, height] = this.get_size()
+            this._width = width
+            this._height = height
+        })
+        this.connect('destroy', () => {
+            windowState.set_int('width', this._width)
+            windowState.set_int('height', this._height)
+            windowState.set_boolean('maximized', this.is_maximized)
+            windowState.set_boolean('fullscreen', this._fullscreen)
+            if (this.file)
+                windowState.set_string('last-file', this.file.get_path())
+
+            themeHandlers.forEach(x => viewSettings.disconnect(x))
+            settings.disconnect(ttsHandler)
+        })
+        this.loading = true
+        this._setTitle(_('Foliate'))
     }
     open(file) {
         this.file = file
         this._epub.open(file)
     }
-    get _alwaysRevealHeaderBar() {
-        return viewSettings.get_boolean('skeuomorphism')
-    }
-    set _revealHeaderBar(reveal) {
-        if (this._alwaysRevealHeaderBar || reveal)
-            this._headerBarRevealer.reveal_child = true
-        else if (!this._loading
-        && !this._sideMenu.visible
-        && !this._findMenu.visible
-        && !this._mainMenu.visible
-        && !this._mainOverlay.navbarVisible)
-            this._headerBarRevealer.reveal_child = false
-    }
-    _buildUI() {
-        this.set_help_overlay(Gtk.Builder.new_from_resource(
-            '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
-            .get_object('shortcutsWindow'))
-        this.application.set_accels_for_action('win.show-help-overlay',
-            ['<ctrl>question'])
-
-        this._headerBarEventBox.connect('enter-notify-event', () =>
-            this._revealHeaderBar = true)
-        this._headerBarEventBox.connect('leave-notify-event', () =>
-            this._revealHeaderBar = false)
-
-        const showHeaderBar = widget => {
-            if (widget.visible) {
-                this._fullscreenRevealer.reveal_child = true
-                this._headerBarRevealer.reveal_child = true
-            }
-        }
-        const hideHeaderBar = () => {
-            if (!this._loading && !this._mainOverlay.navbarVisible) {
-                this._fullscreenRevealer.reveal_child = false
-                this._headerBarRevealer.reveal_child =
-                    this._alwaysRevealHeaderBar || false
-            }
-        }
-        this._fullscreenEventbox.connect('enter-notify-event', () =>
-            this._fullscreenRevealer.reveal_child = true)
-        this._fullscreenEventbox.connect('leave-notify-event', () => {
-            if (!this._sideMenu.visible
-            && !this._findMenu.visible
-            && !this._mainMenu.visible
-            && !this._mainOverlay.navbarVisible)
-                this._fullscreenRevealer.reveal_child = false
-        })
-        this._sideMenu.connect('notify::visible', showHeaderBar)
-        this._findMenu.connect('notify::visible', showHeaderBar)
-        this._mainMenu.connect('notify::visible', showHeaderBar)
-        this._sideMenu.connect('closed', hideHeaderBar)
-        this._findMenu.connect('closed', hideHeaderBar)
-        this._mainMenu.connect('closed', hideHeaderBar)
-        this.connect('notify::title', () => {
-            this._distractionFreeTitle.label = this.title
-            this._headerBar.title = this.title
-            this._fullscreenHeaderbar.title = this.title
-        })
-
-        this._contentsStack.connect('row-activated', () => this._sideMenu.popdown())
-        this._findBox.connect('row-activated', () => this._findMenu.popdown())
-
-        const gtkTheme = Gtk.Settings.get_default().gtk_theme_name
-        if (gtkTheme === 'elementary') {
-            this._headerBar.get_style_context().add_class('default-decoration')
-            this._sideMenuButton.get_style_context().add_class('flat')
-            this._findMenuButton.get_style_context().add_class('flat')
-            this._mainMenuButton.get_style_context().add_class('flat')
-        }
-    }
-    _onWindowStateEvent(widget, event) {
-        const state = event.get_window().get_state()
-        this._isFullscreen = Boolean(state & Gdk.WindowState.FULLSCREEN)
-        this._mainMenu.fullscreen = this._isFullscreen
-
-        this._fullscreenEventbox.visible = this._isFullscreen
-        this._fullscreenRevealer.reveal_child = this._mainOverlay.navbarVisible
-        if (this._isFullscreen) {
-            this._sideMenu.relative_to = this._fullscreenSideMenuButton
-            this._findMenu.relative_to = this._fullscreenFindMenuButton
-            this._mainMenu.relative_to = this._fullscreenMainMenuButton
-        } else {
-            this._sideMenu.relative_to = this._sideMenuButton
-            this._findMenu.relative_to = this._findMenuButton
-            this._mainMenu.relative_to = this._mainMenuButton
-        }
-    }
-    _onSizeAllocate() {
-        const [width, height] = this.get_size()
-        this._width = width
-        this._height = height
-    }
-    _onDestroy() {
-        windowState.set_int('width', this._width)
-        windowState.set_int('height', this._height)
-        windowState.set_boolean('maximized', this.is_maximized)
-        windowState.set_boolean('fullscreen', this._isFullscreen)
-        if (this.file)
-            windowState.set_string('last-file', this.file.get_path())
-
-        if (tts.epub === this._epub) tts.stop()
-    }
-    get _loading() {
-        return this.__loading
-    }
-    set _loading(state) {
-        this.__loading = state
-        this._sideMenuButton.sensitive = !state
-        this._findMenuButton.sensitive = !state
-        this._fullscreenSideMenuButton.sensitive = !state
-        this._fullscreenFindMenuButton.sensitive = !state
-        this.lookup_action('side-menu').enabled = !state
-        this.lookup_action('find-menu').enabled = !state
-        this.lookup_action('location-menu').enabled = !state
-        this.lookup_action('open-copy').enabled = !state
-        this.lookup_action('reload').enabled = !state
-        this._revealHeaderBar = state || this._mainOverlay.navbarVisible
-        if (state) {
-            this.lookup_action('properties').enabled = false
-            this.lookup_action('export-annotations').enabled = false
-            this.title = _('Loading…')
-        }
-    }
     _connectEpub() {
-        this.insert_action_group('view', this._epub.actionGroup)
-
-        this._mainOverlay.epub = this._epub
-        this._contentsStack.epub = this._epub
-        this._findBox.epub = this._epub
-
         this._epub.connect('click', () => {
             if (this._highlightMenu && this._highlightMenu.visible) return
             const visible = this._mainOverlay.toggleNavBar()
-            if (this._isFullscreen)
-                this._fullscreenRevealer.reveal_child = visible
-            else this._revealHeaderBar = visible
+            if (this._fullscreen)
+                this._fullscreenOverlay.alwaysReveal(visible)
+            else if (this._autoHideHeaderBar)
+                this._autoHideHeaderBar.alwaysReveal(visible)
         })
-        this._epub.connect('book-displayed', () => this._loading = false)
+        this._epub.connect('book-displayed', () => this.loading = false)
         this._epub.connect('book-loading', () => {
-            this._loading = true
+            this.loading = true
             if (tts.epub === this._epub) tts.stop()
         })
-        this._epub.connect('book-error', () => this.title = _('Error'))
-        this._epub.connect('metadata', () =>
-            this.title = this._epub.metadata.title)
+        this._epub.connect('book-error', () => this._setTitle(_('Error')))
+        this._epub.connect('metadata', () => this._setTitle(this._epub.metadata.title))
         this._epub.connect('cover', () =>
             this.lookup_action('properties').enabled = true)
         this._epub.connect('data-ready', () =>
@@ -1197,15 +1252,119 @@ var FoliateWindow = GObject.registerClass({
         popover.popup()
         if (select) {
             this._epub.selectByCfi(this._epub.selection.cfi)
-            popover.connect('closed', () => this._clearSelection())
-        } else this._clearSelection()
+            popover.connect('closed', () => this._epub.clearSelection())
+        } else this._epub.clearSelection()
     }
-    _clearSelection() {
-        this._epub.clearSelection()
+    _buildPopovers() {
+        this._sidePopover = new Gtk.Popover()
+        this._findPopover = new Gtk.Popover()
+        this._mainPopover = new MainMenu()
+
+        this._findBox = new FindBox({
+            visible: true,
+            orientation: Gtk.Orientation.VERTICAL,
+            margin: 10,
+            spacing: 10,
+            width_request: 300
+        })
+        this._findPopover.add(this._findBox)
+
+        this._contentsStack = new ContentsStack({ visible: true })
+        const stackSwitcher = new Gtk.StackSwitcher({
+            visible: true,
+            homogeneous: true,
+            stack: this._contentsStack
+        })
+        const box = new Gtk.Box({
+            visible: true,
+            orientation: Gtk.Orientation.VERTICAL,
+            margin: 10,
+            spacing: 10,
+            width_request: 300,
+            height_request: 400
+        })
+        box.pack_start(stackSwitcher, false, true, 0)
+        box.pack_start(this._contentsStack, false, true, 0)
+        this._sidePopover.add(box)
+
+        this._contentsStack.epub = this._epub
+        this._findBox.epub = this._epub
+    }
+    _buildHeaderBar(autohide) {
+        if (autohide === this._headerBarAutoHide) return
+        this._headerBarAutoHide = autohide
+        const title = this.title
+
+        this._sidePopover.hide()
+        this._findPopover.hide()
+        this._mainPopover.hide()
+
+        if (this._headerBar) this._headerBar.destroy()
+        this._headerBar = new HeaderBar({
+            visible: true,
+            side_popover: this._sidePopover,
+            find_popover: this._findPopover,
+            main_popover: this._mainPopover
+        })
+        if (!autohide) this.set_titlebar(this._headerBar)
+        else {
+            const dummyButton = new Gtk.Button({ visible: true, opacity: 0 })
+            const dummyHeaderBar = new Gtk.HeaderBar({ visible: true, opacity: 0 })
+            this._titleLabel = new Gtk.Label({ visible: true })
+            this._titleLabel.get_style_context().add_class('distraction-free-label')
+            dummyHeaderBar.pack_start(dummyButton)
+            const b = new AutoHideBox({ visible: true })
+            b.setWidget(dummyHeaderBar)
+            b.addOverlay(this._titleLabel)
+            b.setOverlay(this._headerBar)
+            const showHeaderBar = widget => widget.visible
+                ? b.stayReveal(true) : null
+            const hideHeaderBar = () => b.stayReveal(false)
+            ;[this._sidePopover, this._findPopover, this._mainPopover].forEach(p => {
+                const h1 = p.connect('notify::visible', showHeaderBar)
+                const h2 = p.connect('closed', hideHeaderBar)
+                b.connect('unrealize', () => {
+                    p.disconnect(h1)
+                    p.disconnect(h2)
+                })
+            })
+            b.alwaysReveal(this._mainOverlay.navbarVisible)
+            this._autoHideHeaderBar = b
+            this.set_titlebar(b)
+        }
+        this._setTitle(title)
+    }
+    _setTitle(title) {
+        this.title = title
+        this._headerBar.title = title
+        this._fullscreenHeaderBar.title = title
+        if (this._titleLabel) this._titleLabel.label = title
+    }
+    get loading() {
+        return this._loading
+    }
+    set loading(state) {
+        this._loading = state
+        this.lookup_action('side-menu').enabled = !state
+        this.lookup_action('find-menu').enabled = !state
+        this.lookup_action('location-menu').enabled = !state
+        this.lookup_action('open-copy').enabled = !state
+        this.lookup_action('reload').enabled = !state
+        this._headerBar.loading = state
+        this._fullscreenHeaderBar.loading = state
+        if (this._autoHideHeaderBar)
+            this._autoHideHeaderBar.alwaysReveal(state || this._mainOverlay.navbarVisible)
+        if (state) {
+            this.lookup_action('properties').enabled = false
+            this.lookup_action('export-annotations').enabled = false
+            this._setTitle(_('Loading…'))
+        }
     }
     _themeUI() {
-        this._mainOverlay.skeuomorph(viewSettings.get_boolean('skeuomorphism'))
-        this._revealHeaderBar = false
+        const skeuomorphism = viewSettings.get_boolean('skeuomorphism')
+        this._mainOverlay.skeuomorph(skeuomorphism)
+
+        this._buildHeaderBar(!skeuomorphism)
 
         const invert = viewSettings.get_boolean('invert') ? invertRotate : (x => x)
         const brightness = viewSettings.get_double('brightness')
@@ -1220,25 +1379,18 @@ var FoliateWindow = GObject.registerClass({
             }
             .distraction-free-label {
                 color: ${fgColor};
+                opacity: 0.5;
             }`)
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),
             cssProvider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
     }
-    toggleSideMenu() {
-        this._sideMenu.relative_to.active = !this._sideMenu.relative_to.active
-    }
-    toggleFindMenu() {
-        this._findMenu.relative_to.active = !this._findMenu.relative_to.active
-    }
-    toggleMainMenu() {
-        this._mainMenu.relative_to.active = !this._mainMenu.relative_to.active
-    }
-    toggleLocationMenu() {
-        this._mainOverlay.toggleLocationMenu()
-    }
     get epub() {
         return this._epub
     }
+    get activeHeaderBar() {
+        return this._fullscreen ? this._fullscreenHeaderBar : this._headerBar
+    }
 })
+

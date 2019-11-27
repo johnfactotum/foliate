@@ -23,7 +23,7 @@ pkg.require({
 const { Gio, Gtk } = imports.gi
 
 const { mimetypes } = imports.utils
-const { FoliateWindow } = imports.window
+const { Window } = imports.window
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -115,12 +115,12 @@ function main(argv) {
 
     application.connect('activate', () => {
         const activeWindow = application.activeWindow
-            || new FoliateWindow({ application })
+            || new Window({ application })
         activeWindow.present()
     })
 
     application.connect('open', (_, files) => files.forEach(file => {
-        const window = new FoliateWindow({ application, file })
+        const window = new Window({ application, file })
         window.present()
     }))
 
@@ -151,6 +151,7 @@ function main(argv) {
             ['win.location-menu', ['<ctrl>l']],
             ['win.speak', ['F5']],
             ['win.selection-copy', ['<ctrl>c']],
+            ['win.show-help-overlay', ['<ctrl>question']],
             ['view.zoom-in', ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
             ['view.go-prev', ['p']],
             ['view.go-next', ['n']],
