@@ -388,6 +388,38 @@ var EpubView = GObject.registerClass({
 
         this.settings = defaultSettings
 
+        this.actionGroup = new Gio.SimpleActionGroup()
+        ;[
+            'use-publisher-font',
+            'justify',
+            'hyphenate',
+            'enable-footnote',
+            'enable-devtools',
+            'allow-unsafe',
+            'layout',
+            'skeuomorphism',
+            'autohide-cursor'
+        ].forEach(k => this.actionGroup.add_action(settings.create_action(k)))
+
+        const actions = {
+            'go-prev': () => this.prev(),
+            'go-next': () => this.next(),
+            'go-back': () => this.goBack(),
+            'zoom-in': () => this.settings.set_property('zoom_level',
+                this.settings.zoom_level + 0.1),
+            'zoom-out': () => this.settings.set_property('zoom_level',
+                this.settings.zoom_level - 0.1),
+            'zoom-restore': () => this.settings.set_property('zoom_level', 1),
+            'bookmark': () => this.hasBookmark()
+                ? this.removeBookmark()
+                : this.addBookmark(),
+        }
+        Object.keys(actions).forEach(name => {
+            const action = new Gio.SimpleAction({ name })
+            action.connect('activate', actions[name])
+            this.actionGroup.add_action(action)
+        })
+
         this.metadata = null
         this.cover = null
         this.location = null
@@ -426,9 +458,9 @@ var EpubView = GObject.registerClass({
         this._connectData()
     }
     _connectSettings() {
-        this._webView.zoom_level = this.settings.zoom_level
+        this._zoomLevel = this.settings.zoom_level
         this.settings.connect('notify::zoom-level', () => {
-            this._webView.zoom_level = this.settings.zoom_level
+            this._zoomLevel = this.settings.zoom_level
             this._run(`zoomLevel = ${this.settings.zoom_level}`)
         })
         this.settings.connect('notify::font', () => this._applyStyle())
@@ -581,13 +613,20 @@ var EpubView = GObject.registerClass({
                 this.emit('cover')
                 break
 
-            case 'relocated':
+            case 'relocated': {
                 debug(payload.cfi)
                 this.location = payload
                 this.location.canGoBack = Boolean(this._history.length)
+
+                const { atStart, atEnd, canGoBack } = this.location
+                this.actionGroup.lookup_action('go-prev').enabled = !atStart
+                this.actionGroup.lookup_action('go-next').enabled = !atEnd
+                this.actionGroup.lookup_action('go-back').enabled = canGoBack
+
                 if (this._findResultCfi) this.selectByCfi(this._findResultCfi)
                 this.emit('relocated')
                 break
+            }
             case 'spread':
                 this.emit('spread', payload)
                 break
@@ -691,6 +730,12 @@ var EpubView = GObject.registerClass({
             ibooksInternalTheme: getIbooksInternalTheme(this.settings.bg_color)
         }
         return this._run(`setStyle(${JSON.stringify(style)})`)
+    }
+    set _zoomLevel(zoomLevel) {
+        this._webView.zoom_level = zoomLevel
+        this.actionGroup.lookup_action('zoom-restore').enabled = zoomLevel !== 1
+        this.actionGroup.lookup_action('zoom-out').enabled = zoomLevel > 0.2
+        this.actionGroup.lookup_action('zoom-in').enabled = zoomLevel < 4
     }
     set _skeuomorphism(state) {
         this._run(`skeuomorphism = ${state}`)

@@ -55,7 +55,7 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Bookmark current location</property>
-                <property name="action-name">win.bookmark</property>
+                <property name="action-name">view.bookmark</property>
               </object>
             </child>
             <child>
@@ -90,7 +90,7 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Zoom in</property>
-                <!-- <property name="action-name">win.zoom-in</property> -->
+                <!-- <property name="action-name">view.zoom-in</property> -->
                 <property name="accelerator">plus &lt;ctrl&gt;plus</property>
               </object>
             </child>
@@ -98,14 +98,14 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Zoom out</property>
-                <property name="action-name">win.zoom-out</property>
+                <property name="action-name">view.zoom-out</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Restore zoom level</property>
-                <property name="action-name">win.zoom-restore</property>
+                <property name="action-name">view.zoom-restore</property>
               </object>
             </child>
             <child>
@@ -140,21 +140,21 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Go to next page</property>
-                <property name="action-name">win.go-next</property>
+                <property name="action-name">view.go-next</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Go to previous page</property>
-                <property name="action-name">win.go-prev</property>
+                <property name="action-name">view.go-prev</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Go back to previous location</property>
-                <!-- <property name="action-name">win.go-back</property> -->
+                <!-- <property name="action-name">view.go-back</property> -->
                 <property name="accelerator">&lt;alt&gt;p</property>
               </object>
             </child>

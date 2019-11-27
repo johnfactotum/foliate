@@ -209,7 +209,7 @@
         <property name="visible">True</property>
         <property name="valign">center</property>
         <property name="halign">start</property>
-        <property name="action-name">win.go-prev</property>
+        <property name="action-name">view.go-prev</property>
         <property name="tooltip-text" translatable="yes">Previous page</property>
         <child>
           <object class="GtkImage">
@@ -223,7 +223,7 @@
       <object class="GtkButton">
         <property name="visible">True</property>
         <property name="valign">center</property>
-        <property name="action-name">win.go-back</property>
+        <property name="action-name">view.go-back</property>
         <property name="tooltip_text" translatable="yes">Go back</property>
         <child>
           <object class="GtkImage">
@@ -298,7 +298,7 @@
         <property name="valign">center</property>
         <property name="halign">end</property>
         <property name="visible">True</property>
-        <property name="action-name">win.go-next</property>
+        <property name="action-name">view.go-next</property>
         <property name="tooltip-text" translatable="yes">Next page</property>
         <child>
           <object class="GtkImage">

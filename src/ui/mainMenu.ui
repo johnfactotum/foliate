@@ -39,7 +39,7 @@
                   <object class="GtkButton">
                     <property name="visible">True</property>
                     <property name="hexpand">True</property>
-                    <property name="action_name">win.zoom-out</property>
+                    <property name="action_name">view.zoom-out</property>
                     <property name="tooltip_text" translatable="yes">Zoom out</property>
                     <child>
                       <object class="GtkImage">
@@ -53,7 +53,7 @@
                   <object class="GtkButton" id="zoomRestoreButton">
                     <property name="visible">True</property>
                     <property name="hexpand">True</property>
-                    <property name="action_name">win.zoom-restore</property>
+                    <property name="action_name">view.zoom-restore</property>
                     <property name="tooltip_text" translatable="yes">Restore zoom</property>
                     <property name="label">100%</property>
                   </object>
@@ -62,7 +62,7 @@
                   <object class="GtkButton">
                     <property name="visible">True</property>
                     <property name="hexpand">True</property>
-                    <property name="action_name">win.zoom-in</property>
+                    <property name="action_name">view.zoom-in</property>
                     <property name="tooltip_text" translatable="yes">Zoom in</property>
                     <child>
                       <object class="GtkImage">
@@ -400,7 +400,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.layout</property>
+            <property name="action_name">view.layout</property>
             <property name="action_target">'auto'</property>
             <property name="text" translatable="yes">Automatic</property>
           </object>
@@ -408,7 +408,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.layout</property>
+            <property name="action_name">view.layout</property>
             <property name="action_target">'single'</property>
             <property name="text" translatable="yes">Single Column</property>
           </object>
@@ -416,7 +416,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.layout</property>
+            <property name="action_name">view.layout</property>
             <property name="action_target">'scrolled'</property>
             <property name="text" translatable="yes">Scrolled</property>
           </object>
@@ -424,7 +424,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.layout</property>
+            <property name="action_name">view.layout</property>
             <property name="action_target">'continuous'</property>
             <property name="text" translatable="yes">Continuous</property>
           </object>
@@ -459,21 +459,21 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.use-publisher-font</property>
+            <property name="action_name">view.use-publisher-font</property>
             <property name="text" translatable="yes">Use Publisher Font</property>
           </object>
         </child>
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.justify</property>
+            <property name="action_name">view.justify</property>
             <property name="text" translatable="yes">Full Justification</property>
           </object>
         </child>
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.hyphenate</property>
+            <property name="action_name">view.hyphenate</property>
             <property name="text" translatable="yes">Auto-hyphenation</property>
           </object>
         </child>
@@ -507,21 +507,21 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.enable-footnote</property>
+            <property name="action_name">view.enable-footnote</property>
             <property name="text" translatable="yes">Footnote Preview</property>
           </object>
         </child>
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.autohide-cursor</property>
+            <property name="action_name">view.autohide-cursor</property>
             <property name="text" translatable="yes">Auto-hide Cursor</property>
           </object>
         </child>
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.skeuomorphism</property>
+            <property name="action_name">view.skeuomorphism</property>
             <property name="text" translatable="yes">Realistic Shadows</property>
           </object>
         </child>
@@ -533,7 +533,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.allow-unsafe</property>
+            <property name="action_name">view.allow-unsafe</property>
             <property name="tooltip_text" translatable="yes">Allow JavaScript and external resources</property>
             <property name="text" translatable="yes">Allow Unsafe Content</property>
           </object>
@@ -541,7 +541,7 @@
         <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
-            <property name="action_name">win.enable-devtools</property>
+            <property name="action_name">view.enable-devtools</property>
             <property name="text" translatable="yes">Enable Developer Tools</property>
           </object>
         </child>

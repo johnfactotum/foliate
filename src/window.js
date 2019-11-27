@@ -523,6 +523,7 @@ const MainMenu = GObject.registerClass({
         settings.bind('margin', this._marginButton, 'value', flag)
         settings.bind('brightness', this._brightnessScale.adjustment, 'value', flag)
 
+        this._updateZoom()
         const zoomHandler = settings.connect('changed::zoom-level',
             this._updateZoom.bind(this))
         this.connect('destroy', () => settings.disconnect(zoomHandler))
@@ -834,41 +835,23 @@ class ImgViewer {
 }
 
 const makeActions = self => ({
-    'go-prev': [() => self._epub.prev(), ['p']],
-    'go-next': [() => self._epub.next(), ['n']],
-    'go-back': [() => self._epub.goBack(), ['<alt>p', '<alt>Left']],
-
-    'zoom-in': [() =>
-        settings.set_double('zoom-level', settings.get_double('zoom-level') + 0.1),
-    ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
-    'zoom-out': [() =>
-        settings.set_double('zoom-level', settings.get_double('zoom-level') - 0.1),
-    ['minus', '<ctrl>minus']],
-    'zoom-restore': [() => settings.set_double('zoom-level', 1),
-        ['0', '<ctrl>0']],
-
-    'bookmark': [() => {
-        if (self._epub.hasBookmark()) self._epub.removeBookmark()
-        else self._epub.addBookmark()
-    }, ['<ctrl>d']],
-
-    'selection-menu': [() => self._showSelectionPopover()],
-    'selection-copy': [() => {
+    'selection-menu': () => self._showSelectionPopover(),
+    'selection-copy': () => {
         Gtk.Clipboard.get_default(Gdk.Display.get_default())
             .set_text(self._epub.selection.text, -1)
-    }, ['<ctrl>c']],
-    'selection-highlight': [() => {
+    },
+    'selection-highlight': () => {
         const { cfi, text } = self._epub.selection
         const color = settings.get_string('highlight')
         self._epub.addAnnotation({ cfi, color, text, note: '' })
         self._epub.emit('highlight-menu')
-    }],
-    'selection-unhighlight': [() => {
+    },
+    'selection-unhighlight': () => {
         const annotation = self._epub.annotation
         self._epub.removeAnnotation(annotation)
         if (self._highlightMenu.visible) self._highlightMenu.popdown()
-    }],
-    'selection-dictionary': [() => {
+    },
+    'selection-dictionary': () => {
         const { language, text } = self._epub.selection
         const popover = new Gtk.Popover()
         const dictionaryBox = new DictionaryBox({ border_width: 10 },
@@ -878,16 +861,16 @@ const makeActions = self => ({
         popover.add(dictionaryBox)
         dictionaryBox.lookup(text, language)
         self._showPopover(popover)
-    }],
-    'selection-wikipedia': [() => {
+    },
+    'selection-wikipedia': () => {
         const { language, text } = self._epub.selection
         const popover = new Gtk.Popover()
         const wikipediaBox = new WikipediaBox({ border_width: 10 })
         popover.add(wikipediaBox)
         wikipediaBox.lookup(text, language)
         self._showPopover(popover)
-    }],
-    'selection-translate': [() => {
+    },
+    'selection-translate': () => {
         const { text } = self._epub.selection
         const popover = new Gtk.Popover()
         const translationBox = new TranslationBox({ border_width: 10 },
@@ -898,51 +881,51 @@ const makeActions = self => ({
         popover.add(translationBox)
         translationBox.lookup(text)
         self._showPopover(popover)
-    }],
-    'selection-find': [() => {
+    },
+    'selection-find': () => {
         const { text } = self._epub.selection
         self._findBox.find(text)
         self._findMenuButton.active = true
-    }],
-    'selection-speech-start': [() => {
+    },
+    'selection-speech-start': () => {
         tts.epub = self._epub
         tts.start(self._epub.selection.cfi)
-    }],
-    'speak': [() => {
+    },
+    'speak': () => {
         if (!tts.enabled) return
         tts.epub = self._epub
         if (tts.speaking) tts.stop()
         else tts.start()
-    }, ['F5']],
+    },
 
-    'side-menu': [() => self.toggleSideMenu(), ['F9']],
-    'find-menu': [() => self.toggleFindMenu(), ['<ctrl>f', 'slash']],
-    'main-menu': [() => self.toggleMainMenu(), ['F10']],
-    'location-menu': [() => self.toggleLocationMenu(), ['<ctrl>l']],
+    'side-menu': () => self.toggleSideMenu(),
+    'find-menu': () => self.toggleFindMenu(),
+    'main-menu': () => self.toggleMainMenu(),
+    'location-menu': () => self.toggleLocationMenu(),
 
-    'fullscreen': [() =>
-        self._isFullscreen ? self.unfullscreen() : self.fullscreen(), ['F11']],
-    'unfullscreen': [() => self.unfullscreen(), ['Escape']],
+    'fullscreen': () =>
+        self._isFullscreen ? self.unfullscreen() : self.fullscreen(),
+    'unfullscreen': () => self.unfullscreen(),
 
-    'properties': [() => {
+    'properties': () => {
         const window = new PropertiesWindow({
             modal: true,
             transient_for: self,
             use_header_bar: true
         }, self._epub.metadata, self._epub.cover)
         window.show()
-    }, ['<ctrl>i']],
-    'open-copy': [() => {
+    },
+    'open-copy': () => {
         const window = new self.constructor({
             application: self.application,
             file: self.file
         })
         window.present()
-    }, ['<ctrl>n']],
-    'reload': [() => {
+    },
+    'reload': () => {
         self.open(self.file)
-    }, ['<ctrl>r']],
-    'export-annotations': [() => {
+    },
+    'export-annotations': () => {
         const data = self._epub.data
         if (!data.annotations || !data.annotations.length) {
             const msg = new Gtk.MessageDialog({
@@ -961,8 +944,8 @@ const makeActions = self => ({
         exportAnnotations(self, data, self._epub.metadata, cfi =>
             self._epub.getSectionFromCfi(cfi).then(x => x.label))
             .catch(e => logError(e))
-    }],
-    'close': [() => self.close(), ['<ctrl>w']],
+    },
+    'close': () => self.close(),
 })
 
 var FoliateWindow = GObject.registerClass({
@@ -988,40 +971,15 @@ var FoliateWindow = GObject.registerClass({
 
         this._buildUI()
 
-        // bind settings to UI
-        this.add_action(settings.create_action('use-publisher-font'))
-        this.add_action(settings.create_action('justify'))
-        this.add_action(settings.create_action('hyphenate'))
-        this.add_action(settings.create_action('enable-footnote'))
-        this.add_action(settings.create_action('enable-devtools'))
-        this.add_action(settings.create_action('allow-unsafe'))
-        this.add_action(settings.create_action('layout'))
-        this.add_action(settings.create_action('skeuomorphism'))
-        this.add_action(settings.create_action('autohide-cursor'))
-
         settings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
             'gtk-application-prefer-dark-theme', Gio.SettingsBindFlags.DEFAULT)
 
-        // add other actions
         const actions = makeActions(this)
         Object.keys(actions).forEach(name => {
-            const [func, accels] = actions[name]
             const action = new Gio.SimpleAction({ name })
-            action.connect('activate', func)
+            action.connect('activate', actions[name])
             this.add_action(action)
-            if (accels) this.application.set_accels_for_action(`win.${name}`, accels)
         })
-
-        // update zoom buttons when zoom level changes
-        const updateZoomButtons = () => {
-            const zoomLevel = settings.get_double('zoom-level')
-            this.lookup_action('zoom-restore').enabled = zoomLevel !== 1
-            this.lookup_action('zoom-out').enabled = zoomLevel > 0.2
-            this.lookup_action('zoom-in').enabled = zoomLevel < 4
-        }
-        updateZoomButtons()
-        const zoomHandler =
-            settings.connect('changed::zoom-level', updateZoomButtons)
 
         this._themeUI()
         const themeHandlers = [
@@ -1038,7 +996,6 @@ var FoliateWindow = GObject.registerClass({
 
         this.connect('destroy', () => {
             themeHandlers.forEach(x => settings.disconnect(x))
-            settings.disconnect(zoomHandler)
             settings.disconnect(ttsHandler)
         })
 
@@ -1185,13 +1142,12 @@ var FoliateWindow = GObject.registerClass({
         if (state) {
             this.lookup_action('properties').enabled = false
             this.lookup_action('export-annotations').enabled = false
-            this.lookup_action('go-prev').enabled = false
-            this.lookup_action('go-next').enabled = false
-            this.lookup_action('go-back').enabled = false
             this.title = _('Loading…')
         }
     }
     _connectEpub() {
+        this.insert_action_group('view', this._epub.actionGroup)
+
         this._mainOverlay.epub = this._epub
         this._contentsStack.epub = this._epub
         this._findBox.epub = this._epub
@@ -1215,12 +1171,6 @@ var FoliateWindow = GObject.registerClass({
             this.lookup_action('properties').enabled = true)
         this._epub.connect('data-ready', () =>
             this.lookup_action('export-annotations').enabled = true)
-        this._epub.connect('relocated', () => {
-            const { atStart, atEnd, canGoBack } = this._epub.location
-            this.lookup_action('go-prev').enabled = !atStart
-            this.lookup_action('go-next').enabled = !atEnd
-            this.lookup_action('go-back').enabled = canGoBack
-        })
         this._epub.connect('selection', () => {
             const { text } = this._epub.selection
             if (!text) return
