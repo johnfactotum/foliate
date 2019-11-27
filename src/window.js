@@ -16,7 +16,9 @@
 const { GObject, Gtk, Gio, Gdk, GdkPixbuf } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const { isExternalURL, alphaColor, invertRotate, brightenColor } = imports.utils
+const {
+    isExternalURL, setPopoverPosition, alphaColor, invertRotate, brightenColor
+} = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
 const { DictionaryBox, WikipediaBox, TranslationBox } = imports.lookup
 const { tts, TtsButton } = imports.tts
@@ -28,47 +30,6 @@ const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 
 const highlightColors = ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
-
-const maxBy = (arr, f) =>
-    arr[arr.map(f).reduce((prevI, x, i, arr) => x > arr[prevI] ? i : prevI, 0)]
-
-const makePopoverPosition = ({ left, right, top, bottom }, window, height) => {
-    const [winWidth, winHeight] = window.get_size()
-
-    const borders = [
-        [left, Gtk.PositionType.LEFT, left, (top + bottom) / 2],
-        [winWidth - right, Gtk.PositionType.RIGHT, right, (top + bottom) / 2],
-        [top, Gtk.PositionType.TOP, (left + right) / 2, top],
-        [winHeight - bottom, Gtk.PositionType.BOTTOM, (left + right) / 2, bottom]
-    ]
-    const maxBorder = borders[3][0] > height ? borders[3]
-        : borders[2][0] > height ? borders[2]
-        : maxBy(borders, x => x[0])
-
-    const x = maxBorder[2]
-    const y = maxBorder[3]
-    return {
-        // sometimes the reported position values are wrong
-        // setting x, y to zero insures that the popover is at least visible
-        position: {
-            x: x <= winWidth && x > 0 ? x : 0,
-            y: y <= winHeight && y > 0 ? y : 0
-        },
-        positionType: maxBorder[1]
-    }
-}
-const setPopoverPosition = (popover, position, window, height) => {
-    const setPosition = height => {
-        const { position: rectPosition, positionType } =
-            makePopoverPosition(position, window, height)
-        popover.position = positionType
-        popover.pointing_to = new Gdk.Rectangle(rectPosition)
-    }
-    popover.connect('size-allocate', () =>
-        setPosition(popover.get_allocation().height))
-
-    setPosition(height)
-}
 
 const PropertyBox = GObject.registerClass({
     GTypeName: 'FoliatePropertyBox',
