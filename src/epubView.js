@@ -15,7 +15,13 @@
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
 
-const { debug, error, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf } = imports.utils
+const {
+    debug, error, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf,
+    mimetypes, execCommand, recursivelyDeleteDir
+} = imports.utils
+
+const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
+const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
 
 // must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
 const CHARACTERS_PER_PAGE = 1024
@@ -505,7 +511,7 @@ var EpubView = GObject.registerClass({
                 this._skeuomorphism = this.settings.skeuomorphism
                 this._autohideCursor = this.settings.autohide_cursor
 
-                this._run(`open("${encodeURI(this.file)}", '${this.inputType}',
+                this._run(`open("${encodeURI(this._path)}", '${this._inputType}',
                     ${layouts[this.settings.layout].renderTo},
                     ${JSON.stringify(layouts[this.settings.layout].options)})`)
                 break
@@ -675,12 +681,43 @@ var EpubView = GObject.registerClass({
         this._webView.get_settings().enable_developer_extras = state
         this._contextMenu = () => !state
     }
-    open(file, inputType) {
+    open_(path, inputType) {
         this.findResults.clear()
         this._history = []
-        this.file = file
-        this.inputType = inputType
+        this._path = path
+        this._inputType = inputType
         this._load()
+    }
+    open(file) {
+        this.close()
+        this._file = file
+        try {
+            this._fileInfo = this._file.query_info('standard::content-type',
+                Gio.FileQueryInfoFlags.NONE, null)
+        } catch (e) {
+            this._fileInto = null
+        }
+        if (!this._fileInfo) return this.emit('error')
+
+        const contentType = this._fileInfo.get_content_type()
+        const path = this._file.get_path()
+        if (contentType === mimetypes.mobi || contentType === mimetypes.kindle) {
+            const dir = GLib.dir_make_tmp(null)
+            this._tmpdir = dir
+            const command = [python, kindleUnpack, '--epub_version=3', path, dir]
+            execCommand(command, null, false, null, true).then(() => {
+                const mobi8 = dir + '/mobi8/'
+                if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
+                    this.open_(mobi8, 'directory')
+                else this.open_(dir + '/mobi7/content.opf', 'opf')
+            })
+        } else this.open_(path, 'epub')
+    }
+    close() {
+        if (this._tmpdir) {
+            recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
+            this._tmpdir = null
+        }
     }
     prev() {
         this._run(`rendition.prev()`)

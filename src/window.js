@@ -13,14 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gtk, Gio, GLib, Gdk, GdkPixbuf } = imports.gi
+const { GObject, Gtk, Gio, Gdk, GdkPixbuf } = imports.gi
 const ngettext = imports.gettext.ngettext
 
-const {
-    mimetypes,
-    execCommand, recursivelyDeleteDir, isExternalURL,
-    alphaColor, invertRotate, brightenColor
-} = imports.utils
+const { isExternalURL, alphaColor, invertRotate, brightenColor } = imports.utils
 const { EpubView, EpubViewSettings, EpubViewAnnotation } = imports.epubView
 const { DictionaryBox, WikipediaBox, TranslationBox } = imports.lookup
 const { tts, TtsButton } = imports.tts
@@ -937,12 +933,14 @@ const makeActions = self => ({
         window.show()
     }, ['<ctrl>i']],
     'open-copy': [() => {
-        const window = new self.constructor({ application: self.application })
-        window.open(self._fileName)
+        const window = new self.constructor({
+            application: self.application,
+            file: self.file
+        })
         window.present()
     }, ['<ctrl>n']],
     'reload': [() => {
-        self.open(self._fileName)
+        self.open(self.file)
     }, ['<ctrl>r']],
     'export-annotations': [() => {
         const data = self._epub.data
@@ -970,6 +968,10 @@ const makeActions = self => ({
 var FoliateWindow = GObject.registerClass({
     GTypeName: 'FoliateWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/window.ui',
+    Properties: {
+        file: GObject.ParamSpec.object('file', 'file', 'file',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gio.File.$gtype)
+    },
     InternalChildren: [
         'mainOverlay',
         'sideMenu', 'contentsStack', 'findMenu', 'findBox', 'mainMenu',
@@ -981,7 +983,7 @@ var FoliateWindow = GObject.registerClass({
         'fullscreenFindMenuButton', 'fullscreenMainMenuButton'
     ]
 }, class FoliateWindow extends Gtk.ApplicationWindow {
-    _init(params, file) {
+    _init(params) {
         super._init(params)
 
         this._buildUI()
@@ -1074,9 +1076,17 @@ var FoliateWindow = GObject.registerClass({
         if (windowState.get_boolean('fullscreen')) this.fullscreen()
 
         const lastFile = windowState.get_string('last-file')
-        if (file) this.open(file)
-        else if (settings.get_boolean('restore-last-file') && lastFile)
-            this.open(lastFile)
+        if (!this.file && settings.get_boolean('restore-last-file') && lastFile)
+            this.file  = Gio.File.new_for_path(lastFile)
+
+        this._epub = new EpubView(this._epubSettings)
+        this._connectEpub()
+        this.connect('destroy', () => this._epub.close())
+        if (this.file) this.open(this.file)
+    }
+    open(file) {
+        this.file = file
+        this._epub.open(file)
     }
     get _alwaysRevealHeaderBar() {
         return settings.get_boolean('skeuomorphism')
@@ -1175,9 +1185,9 @@ var FoliateWindow = GObject.registerClass({
         windowState.set_int('height', this._height)
         windowState.set_boolean('maximized', this.is_maximized)
         windowState.set_boolean('fullscreen', this._isFullscreen)
-        windowState.set_string('last-file', this._fileName)
+        if (this.file)
+            windowState.set_string('last-file', this.file.get_path())
 
-        if (this._tmpdir) recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
         if (tts.epub === this._epub) tts.stop()
     }
     get _loading() {
@@ -1203,39 +1213,6 @@ var FoliateWindow = GObject.registerClass({
             this.lookup_action('go-back').enabled = false
             this.title = _('Loading…')
         }
-    }
-    open(fileName, realFileName, inputType = 'epub') {
-        this._fileName = realFileName || fileName
-        const file = Gio.File.new_for_path(fileName)
-        const fileInfo = file.query_info('standard::content-type',
-            Gio.FileQueryInfoFlags.NONE, null)
-        const contentType = fileInfo.get_content_type()
-
-        if (contentType === mimetypes.mobi || contentType === mimetypes.kindle) {
-            const python = GLib.find_program_in_path('python')
-                || GLib.find_program_in_path('python3')
-            const kindleUnpack = pkg.pkgdatadir
-                + '/assets/KindleUnpack/kindleunpack.py'
-
-            const dir = GLib.dir_make_tmp(null)
-            this._tmpdir = dir
-
-            const command = [python, kindleUnpack, '--epub_version=3', fileName, dir]
-            execCommand(command, null, false, null, true).then(() => {
-                const mobi8 = dir + '/mobi8/'
-                if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
-                    this.open(mobi8, fileName, 'directory')
-                else this.open(dir + '/mobi7/content.opf', fileName, 'opf')
-            })
-            return
-        }
-
-        if (!this._epub) {
-            this._epub = new EpubView(this._epubSettings)
-            this._connectEpub()
-        }
-        this._loading = true
-        this._epub.open(fileName, inputType)
     }
     _connectEpub() {
         this._mainOverlay.epub = this._epub

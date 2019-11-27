@@ -83,10 +83,8 @@ const makeActions = app => ({
         dialog.add_filter(epubFiles)
         dialog.add_filter(allFiles)
 
-        const response = dialog.run()
-        if (response === Gtk.ResponseType.ACCEPT) {
-            app.active_window.open(dialog.get_filename())
-        }
+        if (dialog.run() === Gtk.ResponseType.ACCEPT)
+            app.active_window.open(dialog.get_file())
     }, ['<ctrl>o']],
     'about': [() => {
         const aboutDialog = new Gtk.AboutDialog({
@@ -121,12 +119,10 @@ function main(argv) {
         activeWindow.present()
     })
 
-    application.connect('open', (_, files) => {
-        files.map(file => file.get_path()).forEach(file => {
-            const window = new FoliateWindow({ application }, file)
-            window.present()
-        })
-    })
+    application.connect('open', (_, files) => files.forEach(file => {
+        const window = new FoliateWindow({ application, file })
+        window.present()
+    }))
 
     const actions = makeActions(application)
     Object.keys(actions).forEach(name => {
