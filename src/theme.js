@@ -16,7 +16,7 @@
 const { GObject, Gtk, Gio } = imports.gi
 const { RGBAFromString, invertRotate, Storage } = imports.utils
 
-const settings = new Gio.Settings({ schema_id: pkg.name })
+const settings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 
 const defaultThemes = [
     {

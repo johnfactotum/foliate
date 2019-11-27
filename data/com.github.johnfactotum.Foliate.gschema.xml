@@ -8,6 +8,7 @@
   </enum>
   <schema id="com.github.johnfactotum.Foliate" path="/com/github/johnfactotum/Foliate/">
     <child schema="com.github.johnfactotum.Foliate.window-state" name="window-state"/>
+    <child schema="com.github.johnfactotum.Foliate.window-state" name="view"/>
     <key name="restore-last-file" type="b">
       <default>true</default>
       <summary>Restore last file opened</summary>
@@ -18,6 +19,34 @@
         <summary>Default highlight color</summary>
         <description>Default highlight color for annotations</description>
     </key>
+    <key name="dictionary" type="s">
+        <default>'wiktionary'</default>
+        <summary>Dictionary</summary>
+        <description>Identifier of the default dictionary. Dictionaries from dictd, if any, are available with the "dcitd_" prefix added to the database ID</description>
+    </key>
+    <key name="translate-target-language" type="s">
+        <default>'en'</default>
+        <summary>Target language of translation</summary>
+        <description>Target language for translations</description>
+    </key>
+    <key name="selection-action-single" type="s">
+        <default>'menu'</default>
+        <summary>Default action when selecting a word</summary>
+        <description>Default action to perform when selecting a single word</description>
+    </key>
+    <key name="selection-action-multiple" type="s">
+        <default>'menu'</default>
+        <summary>Default action when selecting multiple words</summary>
+        <description>Default action to perform when selecting multiple words</description>
+    </key>
+    <key name="tts-command" type="s">
+        <default>''</default>
+        <summary>Text-to-speech command</summary>
+        <description>Command to execute for text-to-speech</description>
+    </key>
+  </schema>
+  <schema id="com.github.johnfactotum.Foliate.view"
+    path="/com/github/johnfactotum/Foliate/view/">
     <key name="prefer-dark-theme" type="b">
       <default>false</default>
       <summary>Prefer dark GTK theme</summary>
@@ -112,31 +141,6 @@
       <default>false</default>
       <summary>Auto-hide cursor</summary>
       <description>Whether to hide the cursor automatically</description>
-    </key>
-    <key name="dictionary" type="s">
-        <default>'wiktionary'</default>
-        <summary>Dictionary</summary>
-        <description>Identifier of the default dictionary. Dictionaries from dictd, if any, are available with the "dcitd_" prefix added to the database ID</description>
-    </key>
-    <key name="translate-target-language" type="s">
-        <default>'en'</default>
-        <summary>Target language of translation</summary>
-        <description>Target language for translations</description>
-    </key>
-    <key name="selection-action-single" type="s">
-        <default>'menu'</default>
-        <summary>Default action when selecting a word</summary>
-        <description>Default action to perform when selecting a single word</description>
-    </key>
-    <key name="selection-action-multiple" type="s">
-        <default>'menu'</default>
-        <summary>Default action when selecting multiple words</summary>
-        <description>Default action to perform when selecting multiple words</description>
-    </key>
-    <key name="tts-command" type="s">
-        <default>''</default>
-        <summary>Text-to-speech command</summary>
-        <description>Command to execute for text-to-speech</description>
     </key>
   </schema>
   <schema id="com.github.johnfactotum.Foliate.window-state"

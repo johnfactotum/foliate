@@ -25,6 +25,7 @@ const { exportAnnotations } = imports.export
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
+const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 
 const highlightColors = ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
 
@@ -518,10 +519,10 @@ const MainMenu = GObject.registerClass({
         this._fullscreenButton.connect('clicked', () => this.popdown())
 
         const flag = Gio.SettingsBindFlags.DEFAULT
-        settings.bind('font', this._fontButton, 'font', flag)
-        settings.bind('spacing', this._spacingButton, 'value', flag)
-        settings.bind('margin', this._marginButton, 'value', flag)
-        settings.bind('brightness', this._brightnessScale.adjustment, 'value', flag)
+        viewSettings.bind('font', this._fontButton, 'font', flag)
+        viewSettings.bind('spacing', this._spacingButton, 'value', flag)
+        viewSettings.bind('margin', this._marginButton, 'value', flag)
+        viewSettings.bind('brightness', this._brightnessScale.adjustment, 'value', flag)
 
         this._updateZoom()
         const zoomHandler = settings.connect('changed::zoom-level',
@@ -553,7 +554,7 @@ const MainMenu = GObject.registerClass({
         this._customThemesSep.visible = hasCustomThemes
     }
     _updateZoom() {
-        const zoomLevel = settings.get_double('zoom-level')
+        const zoomLevel = viewSettings.get_double('zoom-level')
         this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
     }
     set fullscreen(isFullscreen) {
@@ -729,9 +730,9 @@ const MainOverlay = GObject.registerClass({
             .remove_class('skeuomorph-page')
 
         const cssProvider = new Gtk.CssProvider()
-        const invert = settings.get_boolean('invert') ? invertRotate : (x => x)
-        const brightness = settings.get_double('brightness')
-        const bgColor = brightenColor(invert(settings.get_string('bg-color')), brightness)
+        const invert = viewSettings.get_boolean('invert') ? invertRotate : (x => x)
+        const brightness = viewSettings.get_double('brightness')
+        const bgColor = brightenColor(invert(viewSettings.get_string('bg-color')), brightness)
         const shadowColor = 'rgba(0, 0, 0, 0.2)'
         cssProvider.load_from_data(`
             .skeuomorph-page {
@@ -971,7 +972,7 @@ var FoliateWindow = GObject.registerClass({
 
         this._buildUI()
 
-        settings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
+        viewSettings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
             'gtk-application-prefer-dark-theme', Gio.SettingsBindFlags.DEFAULT)
 
         const actions = makeActions(this)
@@ -983,11 +984,11 @@ var FoliateWindow = GObject.registerClass({
 
         this._themeUI()
         const themeHandlers = [
-            settings.connect('changed::bg-color', () => this._themeUI()),
-            settings.connect('changed::fg-color', () => this._themeUI()),
-            settings.connect('changed::invert', () => this._themeUI()),
-            settings.connect('changed::brightness', () => this._themeUI()),
-            settings.connect('changed::skeuomorphism', () => this._themeUI())
+            viewSettings.connect('changed::bg-color', () => this._themeUI()),
+            viewSettings.connect('changed::fg-color', () => this._themeUI()),
+            viewSettings.connect('changed::invert', () => this._themeUI()),
+            viewSettings.connect('changed::brightness', () => this._themeUI()),
+            viewSettings.connect('changed::skeuomorphism', () => this._themeUI())
         ]
 
         const updateTTS = () => tts.command = settings.get_string('tts-command')
@@ -1023,7 +1024,7 @@ var FoliateWindow = GObject.registerClass({
         this._epub.open(file)
     }
     get _alwaysRevealHeaderBar() {
-        return settings.get_boolean('skeuomorphism')
+        return viewSettings.get_boolean('skeuomorphism')
     }
     set _revealHeaderBar(reveal) {
         if (this._alwaysRevealHeaderBar || reveal)
@@ -1238,13 +1239,13 @@ var FoliateWindow = GObject.registerClass({
         this._epub.clearSelection()
     }
     _themeUI() {
-        this._mainOverlay.skeuomorph(settings.get_boolean('skeuomorphism'))
+        this._mainOverlay.skeuomorph(viewSettings.get_boolean('skeuomorphism'))
         this._revealHeaderBar = false
 
-        const invert = settings.get_boolean('invert') ? invertRotate : (x => x)
-        const brightness = settings.get_double('brightness')
-        const bgColor = brightenColor(invert(settings.get_string('bg-color')), brightness)
-        const fgColor = brightenColor(invert(settings.get_string('fg-color')), brightness)
+        const invert = viewSettings.get_boolean('invert') ? invertRotate : (x => x)
+        const brightness = viewSettings.get_double('brightness')
+        const bgColor = brightenColor(invert(viewSettings.get_string('bg-color')), brightness)
+        const fgColor = brightenColor(invert(viewSettings.get_string('fg-color')), brightness)
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
             .distraction-free-container {
