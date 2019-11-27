@@ -23,6 +23,8 @@ const {
 const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
 const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
 
+const settings = new Gio.Settings({ schema_id: pkg.name })
+
 // must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
 const CHARACTERS_PER_PAGE = 1024
 
@@ -324,6 +326,28 @@ var EpubViewSettings = GObject.registerClass({
     }
 }, class EpubViewSettings extends GObject.Object {})
 
+const defaultSettings = new EpubViewSettings()
+;[
+    'zoom-level',
+    'font',
+    'spacing',
+    'margin',
+    'use-publisher-font',
+    'justify',
+    'hyphenate',
+    'fg-color',
+    'bg-color',
+    'link-color',
+    'invert',
+    'brightness',
+    'enable-footnote',
+    'enable-devtools',
+    'allow-unsafe',
+    'layout',
+    'skeuomorphism',
+    'autohide-cursor'
+].forEach(p => settings.bind(p, defaultSettings, p, Gio.SettingsBindFlags.DEFAULT))
+
 var EpubView = GObject.registerClass({
     GTypeName: 'FoliateEpubView',
     Signals: {
@@ -359,10 +383,10 @@ var EpubView = GObject.registerClass({
         },
     }
 }, class EpubView extends GObject.Object {
-    _init(settings) {
-        super._init()
+    _init(params) {
+        super._init(params)
 
-        this.settings = settings
+        this.settings = defaultSettings
 
         this.metadata = null
         this.cover = null

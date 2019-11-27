@@ -988,29 +988,6 @@ var FoliateWindow = GObject.registerClass({
 
         this._buildUI()
 
-        this._epubSettings = new EpubViewSettings()
-
-        // bind settings to EpubView settings
-        const defaultFlag = Gio.SettingsBindFlags.DEFAULT
-        settings.bind('zoom-level', this._epubSettings, 'zoom-level', defaultFlag)
-        settings.bind('font', this._epubSettings, 'font', defaultFlag)
-        settings.bind('spacing', this._epubSettings, 'spacing', defaultFlag)
-        settings.bind('margin', this._epubSettings, 'margin', defaultFlag)
-        settings.bind('use-publisher-font', this._epubSettings, 'use-publisher-font', defaultFlag)
-        settings.bind('justify', this._epubSettings, 'justify', defaultFlag)
-        settings.bind('hyphenate', this._epubSettings, 'hyphenate', defaultFlag)
-        settings.bind('fg-color', this._epubSettings, 'fg-color', defaultFlag)
-        settings.bind('bg-color', this._epubSettings, 'bg-color', defaultFlag)
-        settings.bind('link-color', this._epubSettings, 'link-color', defaultFlag)
-        settings.bind('invert', this._epubSettings, 'invert', defaultFlag)
-        settings.bind('brightness', this._epubSettings, 'brightness', defaultFlag)
-        settings.bind('enable-footnote', this._epubSettings, 'enable-footnote', defaultFlag)
-        settings.bind('enable-devtools', this._epubSettings, 'enable-devtools', defaultFlag)
-        settings.bind('allow-unsafe', this._epubSettings, 'allow-unsafe', defaultFlag)
-        settings.bind('layout', this._epubSettings, 'layout', defaultFlag)
-        settings.bind('skeuomorphism', this._epubSettings, 'skeuomorphism', defaultFlag)
-        settings.bind('autohide-cursor', this._epubSettings, 'autohide-cursor', defaultFlag)
-
         // bind settings to UI
         this.add_action(settings.create_action('use-publisher-font'))
         this.add_action(settings.create_action('justify'))
@@ -1023,7 +1000,7 @@ var FoliateWindow = GObject.registerClass({
         this.add_action(settings.create_action('autohide-cursor'))
 
         settings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
-            'gtk-application-prefer-dark-theme', defaultFlag)
+            'gtk-application-prefer-dark-theme', Gio.SettingsBindFlags.DEFAULT)
 
         // add other actions
         const actions = makeActions(this)
@@ -1079,7 +1056,7 @@ var FoliateWindow = GObject.registerClass({
         if (!this.file && settings.get_boolean('restore-last-file') && lastFile)
             this.file  = Gio.File.new_for_path(lastFile)
 
-        this._epub = new EpubView(this._epubSettings)
+        this._epub = new EpubView()
         this._connectEpub()
         this.connect('destroy', () => this._epub.close())
         if (this.file) this.open(this.file)
