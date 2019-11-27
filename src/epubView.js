@@ -486,6 +486,12 @@ var EpubView = GObject.registerClass({
         this.settings.connect('notify::skeuomorphism', () =>
             this._skeuomorphism = this.settings.skeuomorphism)
     }
+    get annotations() {
+        return this._data ? this._data.annotationsList : null
+    }
+    get bookmarks() {
+        return this._data ? this._data.bookmarksList : null
+    }
     _connectData() {
         this.connect('metadata', () => {
             const { identifier } = this.metadata

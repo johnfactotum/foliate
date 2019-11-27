@@ -194,27 +194,10 @@ const ContentsStack = GObject.registerClass({
         this._epub = epub
         this._tocTreeView.model = this._epub.toc
 
-        this._epub.connect('data-ready', (_, annotations, bookmarks) => {
-            this._annotationsStack.visible_child_name =
-                annotations.get_n_items() ? 'main' : 'empty'
-            annotations.connect('items-changed', () => {
-                this._annotationsStack.visible_child_name =
-                    annotations.get_n_items() ? 'main' : 'empty'
-            })
-            this._annotationsListBox.bind_model(annotations, annotation =>
-                new AnnotationRow(annotation, this._epub))
-
-            this._bookmarksStack.visible_child_name =
-                bookmarks.get_n_items() ? 'main' : 'empty'
-            bookmarks.connect('items-changed', () => {
-                this._bookmarksStack.visible_child_name =
-                    bookmarks.get_n_items() ? 'main' : 'empty'
-                this._updateBookmarkButton()
-            })
-            this._bookmarksListBox.bind_model(bookmarks, bookmark =>
-                new BookmarkRow(bookmark, this._epub))
-        })
-        this._epub.connect('relocated', () => {
+        this._updateData(epub.annotations, epub.bookmarks)
+        const handlers = [epub.connect('data-ready', (_, annotations, bookmarks) =>
+            this._updateData(annotations, bookmarks)),
+        epub.connect('relocated', () => {
             this._updateBookmarkButton()
 
             // select toc item
@@ -245,7 +228,8 @@ const ContentsStack = GObject.registerClass({
                     }
                 }
             }
-        })
+        })]
+        this.connect('unrealize', () => handlers.forEach(h => epub.disconnect(h)))
     }
     _onTocRowActivated() {
         const store = this._tocTreeView.model
@@ -262,6 +246,29 @@ const ContentsStack = GObject.registerClass({
     _onBookmarkRowActivated(_, row) {
         this._epub.goTo(row.bookmark.cfi)
         this.emit('row-activated')
+    }
+    _updateData(annotations, bookmarks) {
+        if (annotations) {
+            this._annotationsStack.visible_child_name =
+                annotations.get_n_items() ? 'main' : 'empty'
+            annotations.connect('items-changed', () => {
+                this._annotationsStack.visible_child_name =
+                    annotations.get_n_items() ? 'main' : 'empty'
+            })
+            this._annotationsListBox.bind_model(annotations, annotation =>
+                new AnnotationRow(annotation, this._epub))
+        }
+        if (bookmarks) {
+            this._bookmarksStack.visible_child_name =
+                bookmarks.get_n_items() ? 'main' : 'empty'
+            bookmarks.connect('items-changed', () => {
+                this._bookmarksStack.visible_child_name =
+                    bookmarks.get_n_items() ? 'main' : 'empty'
+                this._updateBookmarkButton()
+            })
+            this._bookmarksListBox.bind_model(bookmarks, bookmark =>
+                new BookmarkRow(bookmark, this._epub))
+        }
     }
     _updateBookmarkButton() {
         if (this._epub.hasBookmark()) {

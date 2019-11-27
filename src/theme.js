@@ -110,7 +110,7 @@ var ThemeRow = GObject.registerClass({
             settings.connect('changed::invert', () => this._updateSelected()),
             settings.connect('changed::prefer-dark-theme', () => this._updateSelected()),
         ]
-        this.connect('destroy', () => themeHandlers.forEach(x => settings.disconnect(x)))
+        this.connect('unrealize', () => themeHandlers.forEach(x => settings.disconnect(x)))
     }
     _updateSelected() {
         const theme = this.theme
@@ -280,4 +280,4 @@ var CustomThemes = class CustomThemes {
     }
 }
 
-const customThemes = new CustomThemes()
+var customThemes = new CustomThemes()
