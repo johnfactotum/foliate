@@ -27,6 +27,7 @@ const { FoliateWindow } = imports.window
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
+const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 
 const makeActions = app => ({
     'new-theme': () => {
@@ -123,37 +124,42 @@ function main(argv) {
         window.present()
     }))
 
-    const actions = makeActions(application)
-    Object.keys(actions).forEach(name => {
-        const action = new Gio.SimpleAction({ name })
-        action.connect('activate', actions[name])
-        application.add_action(action)
-    })
+    application.connect('startup', () => {
+        viewSettings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
+            'gtk-application-prefer-dark-theme', Gio.SettingsBindFlags.DEFAULT)
 
-    ;[
-        ['app.quit', ['<ctrl>q']],
-        ['app.open', ['<ctrl>o']],
-        ['app.preferences', ['<ctrl>comma']],
-        ['win.close', ['<ctrl>w']],
-        ['win.reload', ['<ctrl>r']],
-        ['win.open-copy', ['<ctrl>n']],
-        ['win.properties', ['<ctrl>i']],
-        ['win.fullscreen', ['F11']],
-        ['win.unfullscreen', ['Escape']],
-        ['win.side-menu', ['F9']],
-        ['win.find-menu', ['<ctrl>f', 'slash']],
-        ['win.main-menu', ['F10']],
-        ['win.location-menu', ['<ctrl>l']],
-        ['win.speak', ['F5']],
-        ['win.selection-copy', ['<ctrl>c']],
-        ['view.zoom-in', ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
-        ['view.go-prev', ['p']],
-        ['view.go-next', ['n']],
-        ['view.go-back', ['<alt>p', '<alt>Left']],
-        ['view.zoom-out', ['minus', '<ctrl>minus']],
-        ['view.zoom-restore', ['0', '<ctrl>0']],
-        ['view.bookmark', ['<ctrl>d']],
-    ].forEach(([name, accels]) => application.set_accels_for_action(name, accels))
+        const actions = makeActions(application)
+        Object.keys(actions).forEach(name => {
+            const action = new Gio.SimpleAction({ name })
+            action.connect('activate', actions[name])
+            application.add_action(action)
+        })
+
+        ;[
+            ['app.quit', ['<ctrl>q']],
+            ['app.open', ['<ctrl>o']],
+            ['app.preferences', ['<ctrl>comma']],
+            ['win.close', ['<ctrl>w']],
+            ['win.reload', ['<ctrl>r']],
+            ['win.open-copy', ['<ctrl>n']],
+            ['win.properties', ['<ctrl>i']],
+            ['win.fullscreen', ['F11']],
+            ['win.unfullscreen', ['Escape']],
+            ['win.side-menu', ['F9']],
+            ['win.find-menu', ['<ctrl>f', 'slash']],
+            ['win.main-menu', ['F10']],
+            ['win.location-menu', ['<ctrl>l']],
+            ['win.speak', ['F5']],
+            ['win.selection-copy', ['<ctrl>c']],
+            ['view.zoom-in', ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
+            ['view.go-prev', ['p']],
+            ['view.go-next', ['n']],
+            ['view.go-back', ['<alt>p', '<alt>Left']],
+            ['view.zoom-out', ['minus', '<ctrl>minus']],
+            ['view.zoom-restore', ['0', '<ctrl>0']],
+            ['view.bookmark', ['<ctrl>d']],
+        ].forEach(([name, accels]) => application.set_accels_for_action(name, accels))
+    })
 
     return application.run(argv)
 }

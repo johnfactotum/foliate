@@ -972,9 +972,6 @@ var FoliateWindow = GObject.registerClass({
 
         this._buildUI()
 
-        viewSettings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
-            'gtk-application-prefer-dark-theme', Gio.SettingsBindFlags.DEFAULT)
-
         const actions = makeActions(this)
         Object.keys(actions).forEach(name => {
             const action = new Gio.SimpleAction({ name })
