@@ -659,7 +659,8 @@ const MainOverlay = GObject.registerClass({
         this._autohideDivider.get_style_context().add_class('spread-divider')
 
         const dummyButton = new Gtk.Button({ visible: true, opacity: 0 })
-        const dummyScale = new Gtk.Scale({ visible: true, opacity: 0 })
+        const dummyScale = new Gtk.Scale({ visible: true, opacity: 0, draw_value: false })
+        dummyScale.add_mark(0, Gtk.PositionType.TOP, null)
         const dummyNavBar = new Gtk.ActionBar({ visible: true, opacity: 0 })
         dummyNavBar.pack_start(dummyButton)
         dummyNavBar.pack_start(dummyScale)
