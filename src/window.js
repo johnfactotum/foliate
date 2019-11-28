@@ -613,29 +613,69 @@ const NavBar = GObject.registerClass({
     }
 })
 
+const Footer = GObject.registerClass({
+    GTypeName: 'FoliateFooter',
+}, class Footer extends Gtk.Box {
+    _init(params) {
+        super._init(params)
+        this._left = new Gtk.Label({ visible: true })
+        this._right = new Gtk.Label({ visible: true })
+        this._left.get_style_context().add_class('autohide-label')
+        this._right.get_style_context().add_class('autohide-label')
+        this.pack_start(this._left, true, true, 0)
+        this.pack_start(this._right, true, true, 0)
+    }
+    set spread(spread) {
+        this.homogeneous = spread
+        this._left.xalign = spread ? 0.5 : 1
+        this._right.xalign = spread ? 0.5 : 0
+        this._left.margin_right = spread ? 18 : 6
+        this._right.margin_left = spread ? 18 : 6
+    }
+    set left(label) {
+        this._left.label = label
+    }
+    set right(label) {
+        this._right.label = label
+    }
+})
+
 const MainOverlay = GObject.registerClass({
     GTypeName: 'FoliateMainOverlay',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainOverlay.ui',
     InternalChildren: [
-        'overlayStack', 'mainBox', 'bookBox', 'contentBox',
-        'navBarEventBox', 'navBar', 'navBarRevealer',
-        'distractionFreeBox', 'distractionFreeBottomLabel', 'distractionFreeBottomLabel2',
-        'divider', 'distractionFreeDivider'
+        'overlayStack', 'mainBox', 'bookBox', 'contentBox', 'divider'
     ]
 }, class MainOverlay extends Gtk.Overlay {
     _init() {
         super._init()
         this._skeuomorphism = false
+        this._navBar = new NavBar({ visible: true })
+        this._footer = new Footer({ visible: true })
+        this._autohideDivider = new Gtk.Box({
+            halign: Gtk.Align.CENTER,
+            width_request: 1
+        })
+        this._autohideDivider.get_style_context().add_class('spread-divider')
 
-        this._navBarEventBox.connect('enter-notify-event', () =>
-            this._navBarRevealer.reveal_child = true)
-        this._navBarEventBox.connect('leave-notify-event', () => {
-            if (!this._navBarVisible && !this._navBar.locationMenu.visible)
-                this._navBarRevealer.reveal_child = false
-        })
-        this._navBar.locationMenu.connect('closed', () => {
-            if (!this._navBarVisible) this._navBarRevealer.reveal_child = false
-        })
+        const dummyButton = new Gtk.Button({ visible: true, opacity: 0 })
+        const dummyScale = new Gtk.Scale({ visible: true, opacity: 0 })
+        const dummyNavBar = new Gtk.ActionBar({ visible: true, opacity: 0 })
+        dummyNavBar.pack_start(dummyButton)
+        dummyNavBar.pack_start(dummyScale)
+
+        const a = new AutoHide({ visible: true })
+        a.setWidget(dummyNavBar)
+        a.addOverlay(this._footer)
+        a.addOverlay(this._autohideDivider)
+        a.setOverlay(this._navBar)
+        this._autohide = a
+        this._bookBox.pack_start(a, false, true, 0)
+
+        const show = widget => widget.visible ? a.stayReveal(true) : null
+        const hide = () => a.stayReveal(false)
+        this._navBar.locationMenu.connect('notify::visible', show)
+        this._navBar.locationMenu.connect('closed', hide)
     }
     set epub(epub) {
         this._epub = epub
@@ -645,27 +685,23 @@ const MainOverlay = GObject.registerClass({
         this._epub.connect('book-displayed', () => this._setStatus('loaded'))
         this._epub.connect('book-loading', () => {
             this._setStatus('loading')
-            this._distractionFreeBottomLabel.label = '…'
-            this._distractionFreeBottomLabel2.label = '…'
+            this._footer.left = '…'
+            this._footer.right = '…'
         })
         this._epub.connect('book-error', () => this._setStatus('error'))
         this._epub.connect('relocated', () => this._update())
         this._epub.connect('spread', (_, spread) => {
             this._spread = spread
             this._showDivider()
-            this._distractionFreeBox.homogeneous = spread
-            this._distractionFreeBottomLabel.xalign = spread ? 0.5 : 1
-            this._distractionFreeBottomLabel2.xalign = spread ? 0.5 : 0
-            this._distractionFreeBottomLabel.margin_right = spread ? 18 : 6
-            this._distractionFreeBottomLabel2.margin_left = spread ? 18 : 6
+            this._footer.spread = spread
         })
     }
     _update() {
         const { endCfi, location, locationTotal } = this._epub.location
-        if (locationTotal) this._distractionFreeBottomLabel.label =
-            (location + 1) + ' / ' + (locationTotal + 1)
+        if (locationTotal)
+            this._footer.left = (location + 1) + ' / ' + (locationTotal + 1)
         this._epub.getSectionFromCfi(endCfi).then(section =>
-            this._distractionFreeBottomLabel2.label = section.label)
+            this._footer.right = section.label)
     }
     _setStatus(status) {
         const loaded = status === 'loaded'
@@ -674,21 +710,18 @@ const MainOverlay = GObject.registerClass({
         if (!loaded) this._overlayStack.visible_child_name = status
     }
     toggleNavBar() {
-        this._navBarVisible = !this._navBarVisible
-        this._navBarRevealer.reveal_child = this._navBarVisible
-        return this._navBarVisible
+        return this._autohide.toggle()
     }
     toggleLocationMenu() {
-        this._navBarRevealer.reveal_child = true
         this._navBar.toggleLocationMenu()
     }
     get navbarVisible() {
-        return this._navBarVisible || false
+        return this._autohide.revealed
     }
     _showDivider() {
         const showDivider = this._skeuomorphism && this._spread
         this._divider.visible = showDivider
-        this._distractionFreeDivider.visible = showDivider
+        this._autohideDivider.visible = showDivider
     }
     skeuomorph(enabled) {
         this._skeuomorphism = enabled
@@ -951,13 +984,13 @@ const FullscreenOverlay = GObject.registerClass({
     }
 })
 
-const AutoHideBox =  GObject.registerClass({
-    GTypeName: 'FoliateAutoHideBox',
-}, class AutoHideBox extends Gtk.Frame {
+const AutoHide =  GObject.registerClass({
+    GTypeName: 'FoliateAutoHide',
+}, class AutoHide extends Gtk.Frame {
     _init(params) {
         super._init(params)
         this.shadow_type = Gtk.ShadowType.NONE
-        this.get_style_context().add_class('distraction-free-container')
+        this.get_style_context().add_class('autohide-container')
 
         this.stayVisible = false
         this.alwaysVisible = false
@@ -987,6 +1020,13 @@ const AutoHideBox =  GObject.registerClass({
     }
     reveal(reveal) {
         this._revealer.reveal_child =  this.alwaysVisible || this.stayVisible || reveal
+    }
+    get revealed() {
+        return this._revealer.reveal_child
+    }
+    toggle() {
+        this.alwaysReveal(!this.revealed)
+        return this.revealed
     }
     stayReveal(reveal) {
         this.stayVisible = reveal
@@ -1316,26 +1356,26 @@ var Window = GObject.registerClass({
             dummyHeaderBar.pack_start(dummyButton)
 
             this._titleLabel = new Gtk.Label({ visible: true })
-            this._titleLabel.get_style_context().add_class('distraction-free-label')
+            this._titleLabel.get_style_context().add_class('autohide-label')
 
-            const b = new AutoHideBox({ visible: true })
-            b.setWidget(dummyHeaderBar)
-            b.addOverlay(this._titleLabel)
-            b.setOverlay(this._headerBar)
+            const a = new AutoHide({ visible: true })
+            a.setWidget(dummyHeaderBar)
+            a.addOverlay(this._titleLabel)
+            a.setOverlay(this._headerBar)
 
-            const showHeaderBar = widget => widget.visible ? b.stayReveal(true) : null
-            const hideHeaderBar = () => b.stayReveal(false)
+            const show = widget => widget.visible ? a.stayReveal(true) : null
+            const hide = () => a.stayReveal(false)
             ;[this._sidePopover, this._findPopover, this._mainPopover].forEach(p => {
-                const h1 = p.connect('notify::visible', showHeaderBar)
-                const h2 = p.connect('closed', hideHeaderBar)
-                b.connect('destroy', () => {
+                const h1 = p.connect('notify::visible', show)
+                const h2 = p.connect('closed', hide)
+                a.connect('destroy', () => {
                     p.disconnect(h1)
                     p.disconnect(h2)
                 })
             })
-            b.alwaysReveal(this._mainOverlay.navbarVisible)
-            this._autoHideHeaderBar = b
-            this.set_titlebar(b)
+            a.alwaysReveal(this._mainOverlay.navbarVisible)
+            this._autoHideHeaderBar = a
+            this.set_titlebar(a)
         }
         this._setTitle(title)
     }
@@ -1374,12 +1414,12 @@ var Window = GObject.registerClass({
         const fgColor = brightenColor(invert(viewSettings.get_string('fg-color')), brightness)
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
-            .distraction-free-container {
+            .autohide-container {
                 background: ${bgColor};
                 border: 0;
                 box-shadow: none;
             }
-            .distraction-free-label {
+            .autohide-label {
                 color: ${fgColor};
                 opacity: 0.5;
             }`)
