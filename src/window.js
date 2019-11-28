@@ -195,8 +195,8 @@ const ContentsStack = GObject.registerClass({
         this._tocTreeView.model = this._epub.toc
 
         this._updateData(epub.annotations, epub.bookmarks)
-        const handlers = [epub.connect('data-ready', (_, annotations, bookmarks) =>
-            this._updateData(annotations, bookmarks)),
+        epub.connect('data-ready', (_, annotations, bookmarks) =>
+            this._updateData(annotations, bookmarks))
         epub.connect('relocated', () => {
             this._updateBookmarkButton()
 
@@ -228,8 +228,7 @@ const ContentsStack = GObject.registerClass({
                     }
                 }
             }
-        })]
-        this.connect('unrealize', () => handlers.forEach(h => epub.disconnect(h)))
+        })
     }
     _onTocRowActivated() {
         const store = this._tocTreeView.model
@@ -1003,42 +1002,34 @@ const HeaderBar = GObject.registerClass({
     GTypeName: 'FoliateHeaderBar',
     Properties: {
         'fullscreen': GObject.ParamSpec.boolean('fullscreen', 'fullscreen', 'fullscreen',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, false),
-        'side-popover': GObject.ParamSpec.object('side-popover', 'side-popover', 'side-popover',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gtk.Popover.$gtype),
-        'find-popover': GObject.ParamSpec.object('find-popover', 'find-popover', 'find-popover',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gtk.Popover.$gtype),
-        'main-popover': GObject.ParamSpec.object('main-popover', 'main-popover', 'main-popover',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gtk.Popover.$gtype),
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, false)
     }
 }, class HeaderBar extends Gtk.HeaderBar {
     _init(params) {
         super._init(params)
-        this.sideButton = this._makeMenuButton(_('Contents'), 'view-list-symbolic', this.side_popover)
-        this.findButton = this._makeMenuButton(_('Find'), 'edit-find-symbolic', this.find_popover)
-        this.mainButton = this._makeMenuButton(_('Menu'), 'open-menu-symbolic', this.main_popover)
+        this.has_subtitle = false
+        this.sideButton = this._makeMenuButton(_('Contents'), 'view-list-symbolic')
+        this.findButton = this._makeMenuButton(_('Find'), 'edit-find-symbolic')
+        this.mainButton = this._makeMenuButton(_('Menu'), 'open-menu-symbolic')
         this.pack_start(this.sideButton)
         if (this.fullscreen) {
-            this.fullscreenButton = this._makeButton(_('Leave fullscreen'), 'view-restore-symbolic')
+            this.fullscreenButton = new Gtk.MenuButton({
+                visible: true,
+                valign: Gtk.Align.CENTER,
+                tooltip_text: _('Leave fullscreen'),
+                image: new Gtk.Image({
+                    visible: true, icon_name: 'view-restore-symbolic' }),
+            })
             this.fullscreenButton.action_name = 'win.unfullscreen'
             this.pack_end(this.fullscreenButton)
         } else this.show_close_button = true
         this.pack_end(this.mainButton)
         this.pack_end(this.findButton)
     }
-    _makeMenuButton(text, icon, popover) {
+    _makeMenuButton(text, icon) {
         return new Gtk.MenuButton({
             visible: true,
-            valign: 'center',
-            tooltip_text: text,
-            image: new Gtk.Image({ visible: true, icon_name: icon }),
-            popover,
-        })
-    }
-    _makeButton(text, icon) {
-        return new Gtk.Button({
-            visible: true,
-            valign: 'center',
+            valign: Gtk.Align.CENTER,
             tooltip_text: text,
             image: new Gtk.Image({ visible: true, icon_name: icon }),
         })
@@ -1050,6 +1041,16 @@ const HeaderBar = GObject.registerClass({
         this._loading = state
         this.sideButton.sensitive = !state
         this.findButton.sensitive = !state
+    }
+    setPopovers(side, find, main) {
+        this.sideButton.popover = side
+        this.findButton.popover = find
+        this.mainButton.popover = main
+    }
+    unsetPopovers() {
+        this.sideButton.popover = null
+        this.findButton.popover = null
+        this.mainButton.popover = null
     }
     grabPopovers() {
         this.sideButton.popover.relative_to = this.sideButton
@@ -1088,22 +1089,14 @@ var Window = GObject.registerClass({
         this._mainOverlay.epub = this._epub
         this._fullscreenOverlay = new FullscreenOverlay({ visible: true })
         this._fullscreenOverlay.add(this._mainOverlay)
-        this._fullscreenHeaderBar = new HeaderBar({
-            visible: true,
-            side_popover: this._sidePopover,
-            find_popover: this._findPopover,
-            main_popover: this._mainPopover,
-            fullscreen: true
-        })
-        const showHeaderBar = widget => widget.visible
-            ? this._fullscreenOverlay.stayReveal(true) : null
-        const hideHeaderBar = () => this._fullscreenOverlay.stayReveal(false)
-        ;[this._sidePopover, this._findPopover, this._mainPopover].forEach(p => {
-            p.connect('notify::visible', showHeaderBar)
-            p.connect('closed', hideHeaderBar)
-        })
-        this._fullscreenOverlay.setOverlay(this._fullscreenHeaderBar)
         this.add(this._fullscreenOverlay)
+        this._buildFullscreenHeaderBar()
+
+        const buildHeaderBar = () =>
+            this._buildHeaderBar(!viewSettings.get_boolean('skeuomorphism'))
+        buildHeaderBar()
+        const headerBarHandler =
+            viewSettings.connect('changed::skeuomorphism', buildHeaderBar)
 
         this._themeUI()
         const themeHandlers = [
@@ -1146,8 +1139,7 @@ var Window = GObject.registerClass({
 
             this._fullscreenOverlay.enabled = this._fullscreen
             this._fullscreenOverlay.alwaysReveal(this._mainOverlay.navbarVisible)
-            if (this._fullscreen) this._fullscreenHeaderBar.grabPopovers()
-            else this._headerBar.grabPopovers()
+            this.activeHeaderBar.grabPopovers()
         })
         this.connect('size-allocate', () => {
             const [width, height] = this.get_size()
@@ -1162,6 +1154,7 @@ var Window = GObject.registerClass({
             if (this.file)
                 windowState.set_string('last-file', this.file.get_path())
 
+            viewSettings.disconnect(headerBarHandler)
             themeHandlers.forEach(x => viewSettings.disconnect(x))
             settings.disconnect(ttsHandler)
         })
@@ -1289,41 +1282,53 @@ var Window = GObject.registerClass({
 
         this._contentsStack.epub = this._epub
         this._findBox.epub = this._epub
+
+        this._contentsStack.connect('row-activated', () => this._sidePopover.popdown())
+        this._findBox.connect('row-activated', () => this._findPopover.popdown())
+    }
+    _buildFullscreenHeaderBar() {
+        const o = this._fullscreenOverlay
+        const b = new HeaderBar({ visible: true, fullscreen: true })
+        b.setPopovers(this._sidePopover, this._findPopover, this._mainPopover)
+        const show = widget => widget.visible ? o.stayReveal(true) : null
+        const hide = () => o.stayReveal(false)
+        ;[this._sidePopover, this._findPopover, this._mainPopover].forEach(p => {
+            p.connect('notify::visible', show)
+            p.connect('closed', hide)
+        })
+        o.setOverlay(b)
+        this._fullscreenHeaderBar = b
     }
     _buildHeaderBar(autohide) {
         if (autohide === this._headerBarAutoHide) return
         this._headerBarAutoHide = autohide
         const title = this.title
 
-        this._sidePopover.hide()
-        this._findPopover.hide()
-        this._mainPopover.hide()
+        if (this._headerBar) this._headerBar.unsetPopovers()
+        this._headerBar = new HeaderBar({ visible: true })
+        this._headerBar.setPopovers(
+            this._sidePopover, this._findPopover, this._mainPopover)
 
-        if (this._headerBar) this._headerBar.destroy()
-        this._headerBar = new HeaderBar({
-            visible: true,
-            side_popover: this._sidePopover,
-            find_popover: this._findPopover,
-            main_popover: this._mainPopover
-        })
         if (!autohide) this.set_titlebar(this._headerBar)
         else {
             const dummyButton = new Gtk.Button({ visible: true, opacity: 0 })
             const dummyHeaderBar = new Gtk.HeaderBar({ visible: true, opacity: 0 })
+            dummyHeaderBar.pack_start(dummyButton)
+
             this._titleLabel = new Gtk.Label({ visible: true })
             this._titleLabel.get_style_context().add_class('distraction-free-label')
-            dummyHeaderBar.pack_start(dummyButton)
+
             const b = new AutoHideBox({ visible: true })
             b.setWidget(dummyHeaderBar)
             b.addOverlay(this._titleLabel)
             b.setOverlay(this._headerBar)
-            const showHeaderBar = widget => widget.visible
-                ? b.stayReveal(true) : null
+
+            const showHeaderBar = widget => widget.visible ? b.stayReveal(true) : null
             const hideHeaderBar = () => b.stayReveal(false)
             ;[this._sidePopover, this._findPopover, this._mainPopover].forEach(p => {
                 const h1 = p.connect('notify::visible', showHeaderBar)
                 const h2 = p.connect('closed', hideHeaderBar)
-                b.connect('unrealize', () => {
+                b.connect('destroy', () => {
                     p.disconnect(h1)
                     p.disconnect(h2)
                 })
@@ -1361,10 +1366,7 @@ var Window = GObject.registerClass({
         }
     }
     _themeUI() {
-        const skeuomorphism = viewSettings.get_boolean('skeuomorphism')
-        this._mainOverlay.skeuomorph(skeuomorphism)
-
-        this._buildHeaderBar(!skeuomorphism)
+        this._mainOverlay.skeuomorph(viewSettings.get_boolean('skeuomorphism'))
 
         const invert = viewSettings.get_boolean('invert') ? invertRotate : (x => x)
         const brightness = viewSettings.get_double('brightness')
