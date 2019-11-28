@@ -1048,6 +1048,7 @@ const HeaderBar = GObject.registerClass({
 }, class HeaderBar extends Gtk.HeaderBar {
     _init(params) {
         super._init(params)
+        this.show_close_button = true
         this.has_subtitle = false
         this.sideButton = this._makeMenuButton(_('Contents'), 'view-list-symbolic')
         this.findButton = this._makeMenuButton(_('Find'), 'edit-find-symbolic')
@@ -1063,7 +1064,7 @@ const HeaderBar = GObject.registerClass({
             })
             this.fullscreenButton.action_name = 'win.unfullscreen'
             this.pack_end(this.fullscreenButton)
-        } else this.show_close_button = true
+        }
         this.pack_end(this.mainButton)
         this.pack_end(this.findButton)
     }
