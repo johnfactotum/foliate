@@ -1054,7 +1054,7 @@ const HeaderBar = GObject.registerClass({
         this.mainButton = this._makeMenuButton(_('Menu'), 'open-menu-symbolic')
         this.pack_start(this.sideButton)
         if (this.fullscreen) {
-            this.fullscreenButton = new Gtk.MenuButton({
+            this.fullscreenButton = new Gtk.Button({
                 visible: true,
                 valign: Gtk.Align.CENTER,
                 tooltip_text: _('Leave fullscreen'),
@@ -1180,6 +1180,9 @@ var Window = GObject.registerClass({
 
             this._fullscreenOverlay.enabled = this._fullscreen
             this._fullscreenOverlay.alwaysReveal(this._mainOverlay.navbarVisible)
+            if (this._autoHideHeaderBar)
+                this._autoHideHeaderBar
+                    .alwaysReveal(this.loading || this._mainOverlay.navbarVisible)
             this.activeHeaderBar.grabPopovers()
         })
         this.connect('size-allocate', () => {
