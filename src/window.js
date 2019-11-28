@@ -651,6 +651,7 @@ const MainOverlay = GObject.registerClass({
         super._init()
         this._skeuomorphism = false
         this._navBar = new NavBar({ visible: true })
+        this._navBar.get_style_context().add_class('background')
         this._footer = new Footer({ visible: true })
         this._autohideDivider = new Gtk.Box({
             halign: Gtk.Align.CENTER,
