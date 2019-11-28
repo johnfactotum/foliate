@@ -359,65 +359,44 @@ var AnnotationBox = GObject.registerClass({
     }
 })
 
-const copyPixbuf = pixbuf => Gtk.Clipboard
-    .get_default(Gdk.Display.get_default())
-    .set_image(pixbuf)
-
-var ImgViewer = class ImgViewer {
-    constructor(parent, pixbuf, alt) {
+var ImageViewer = GObject.registerClass({
+    GTypeName: 'FoliateImageViewer',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/imageViewer.ui',
+    InternalChildren: ['scale', 'paned', 'labelArea', 'image', 'label'],
+    Properties: {
+        pixbuf: GObject.ParamSpec.object('pixbuf', 'pixbuf', 'pixbuf',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, GdkPixbuf.Pixbuf.$gtype),
+        alt: GObject.ParamSpec.string('alt', 'alt', 'alt',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, '')
+    }
+}, class ImageViewer extends Gtk.Window {
+    _init(params) {
+        super._init(params)
+        const pixbuf = this.pixbuf
         const width = pixbuf.get_width()
         const height = pixbuf.get_height()
-        const [windowWidth, windowHeight] = parent.get_size()
-        const window = new Gtk.Window({
-            default_width: Math.min(width * 2, windowWidth),
-            default_height: Math.min(height * 2 + 70, windowHeight),
-            transient_for: parent
-        })
-        const headerBar = new Gtk.HeaderBar()
-        headerBar.show_close_button = true
-        headerBar.has_subtitle = false
-        window.set_titlebar(headerBar)
-        window.title = alt
+        const [windowWidth, windowHeight] = this.transient_for.get_size()
+        this.default_width = Math.min(width * 2, windowWidth)
+        this.default_height = Math.min(height * 2 + 150, windowHeight)
+        this._image.set_from_pixbuf(pixbuf)
+        if (this.alt) this._label.label = this.alt
+        else this._labelArea.hide()
 
-        const button = new Gtk.Button({ label: _('Copy') })
-        button.connect('clicked', () => copyPixbuf(pixbuf))
-        headerBar.pack_start(button)
-
-        const slider = new Gtk.Scale({
-            orientation: Gtk.Orientation.HORIZONTAL,
-            adjustment: new Gtk.Adjustment({
-                lower: 0.1, upper: 4, step_increment: 0.1
-            }),
-            digits: 2,
-            hexpand: true,
-            draw_value: false
-        })
-        slider.set_value(1)
-        slider.connect('format-value',
-            (_, x) => `${Math.round(x * 100)}%`)
-        slider.add_mark(1, Gtk.PositionType.BOTTOM, '100%')
-        slider.add_mark(2, Gtk.PositionType.BOTTOM, '200%')
-        slider.add_mark(4, Gtk.PositionType.BOTTOM, '400%')
-        slider.connect('value-changed', () => {
-            const zoom = slider.get_value()
-            image.set_from_pixbuf(pixbuf.scale_simple(
+        this._scale.width_request = Math.min(300, this.default_width)
+        this._scale.connect('format-value', (_, x) => `${Math.round(x * 100)}%`)
+        this._scale.connect('value-changed', () => {
+            const zoom = this._scale.get_value()
+            this._image.set_from_pixbuf(pixbuf.scale_simple(
                 width * zoom,
                 height * zoom,
                 GdkPixbuf.InterpType.BILINEAR))
         })
-        const bar = new Gtk.ActionBar()
-        bar.pack_start(slider)
-
-        const scroll = new Gtk.ScrolledWindow()
-        const image = Gtk.Image.new_from_pixbuf(pixbuf)
-        scroll.add(image)
-        const container = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL
-        })
-        container.pack_start(scroll, true, true, 0)
-        container.pack_end(bar, false, true, 0)
-        window.add(container)
-
-        window.show_all()
     }
-}
+    show() {
+        super.show()
+        this._label.select_region(-1, -1)
+    }
+    copy() {
+        Gtk.Clipboard.get_default(Gdk.Display.get_default()).set_image(this.pixbuf)
+    }
+})

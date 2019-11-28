@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkAdjustment" id="zoomAdjustment">
+    <property name="lower">0.1</property>
+    <property name="upper">4</property>
+    <property name="step_increment">0.1</property>
+    <property name="page_increment">0.1</property>
+    <property name="value">1</property>
+  </object>
+  <template class="FoliateImageViewer" parent="GtkWindow">
+    <child type="titlebar">
+      <object class="GtkHeaderBar">
+        <property name="visible">True</property>
+        <property name="has-subtitle">False</property>
+        <property name="show-close-button">True</property>
+        <child>
+          <object class="GtkButton">
+            <property name="visible">True</property>
+            <property name="tooltip-text" translatable="yes">Copy</property>
+            <signal name="clicked" handler="copy"/>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">edit-copy-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
+        <!-- <child> -->
+        <!--   <object class="GtkButton"> -->
+        <!--     <property name="visible">True</property> -->
+        <!--     <property name="tooltip-text" translatable="yes">Save</property> -->
+        <!--     <child> -->
+        <!--       <object class="GtkImage"> -->
+        <!--         <property name="visible">True</property> -->
+        <!--         <property name="icon-name">document-save-symbolic</property> -->
+        <!--       </object> -->
+        <!--     </child> -->
+        <!--   </object> -->
+        <!--   <packing> -->
+        <!--     <property name="pack-type">end</property> -->
+        <!--   </packing> -->
+        <!-- </child> -->
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkPaned" id="paned">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="visible">True</property>
+                <property name="expand">True</property>
+                <child>
+                  <object class="GtkImage" id="image">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="labelArea">
+                <property name="visible">True</property>
+                <property name="propagate-natural-height">True</property>
+                <child>
+                  <object class="GtkLabel" id="label">
+                    <property name="visible">True</property>
+                    <property name="margin">12</property>
+                    <property name="valign">start</property>
+                    <property name="halign">center</property>
+                    <property name="wrap">True</property>
+                    <property name="selectable">True</property>
+                    <property name="xalign">0</property>
+                    <property name="max-width-chars">100</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">False</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkActionBar">
+            <property name="visible">True</property>
+            <child type="center">
+              <object class="GtkScale" id="scale">
+                <property name="visible">True</property>
+                <property name="draw-value">True</property>
+                <property name="value-pos">right</property>
+                <property name="adjustment">zoomAdjustment</property>
+                <marks>
+                  <mark value="1"/>
+                  <mark value="2"/>
+                  <mark value="3"/>
+                </marks>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -19,7 +19,7 @@ const ngettext = imports.gettext.ngettext
 const { setPopoverPosition, invertRotate, brightenColor } = imports.utils
 const { EpubView } = imports.epubView
 const { ContentsStack, FindBox,
-    FootnotePopover, AnnotationBox, ImgViewer } = imports.contents
+    FootnotePopover, AnnotationBox, ImageViewer } = imports.contents
 const { DictionaryBox, WikipediaBox, TranslationBox } = imports.lookup
 const { tts, TtsButton } = imports.tts
 const { themes, customThemes, ThemeRow, applyTheme } = imports.theme
@@ -804,8 +804,14 @@ var Window = GObject.registerClass({
             setPopoverPosition(popover, position, this, 200)
             popover.popup()
         })
-        this._epub.connect('img', (_, pixbuf, alt) => {
-            new ImgViewer(this, pixbuf, alt)
+        this._epub.connect('img', (__, pixbuf, alt) => {
+            const title = this._epub.metadata.title
+            const window = new ImageViewer({
+                pixbuf, alt,
+                title: title ? _('Image from “%s”').format(title) : _('Image'),
+                transient_for: this
+            })
+            window.show()
         })
     }
     _showSelectionPopover() {
