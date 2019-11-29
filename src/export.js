@@ -43,7 +43,7 @@ const exportToHTML = async ({ annotations }, metadata, getSection) => {
 }
 
 const exportToTxt = async ({ annotations }, metadata, getSection) => {
-    const head = _('Annotations for\n%s\nBy %s').format(metadata.title, metadata.creator) + '\n\n'
+    const head = _('Annotations for “%s” by %s').format(metadata.title, metadata.creator) + '\n\n'
         + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length)
     const body = await Promise.all(annotations.map(async ({ value, text, color, note }) => '\n\n'
         + '--------------------------------------------------------------------------------\n\n'
@@ -111,7 +111,7 @@ var exportAnnotations = async (window, data, metadata, getSection) => {
             transient_for: window
         })
         const title = window._epub.metadata.title
-        chooser.set_current_name(_('Annotations for %s').format(title) + '.' + format)
+        chooser.set_current_name(_('Annotations for “%s”').format(title) + '.' + format)
         const response = chooser.run()
         if (response === Gtk.ResponseType.ACCEPT) {
             let contents = ''
