@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gtk, Gio, Gdk } = imports.gi
+const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
 const ngettext = imports.gettext.ngettext
 
 const { setPopoverPosition, invertRotate, brightenColor } = imports.utils
@@ -207,8 +207,14 @@ const Footer = GObject.registerClass({
 }, class Footer extends Gtk.Box {
     _init(params) {
         super._init(params)
-        this._left = new Gtk.Label({ visible: true })
-        this._right = new Gtk.Label({ visible: true })
+        const labelOpts = {
+            visible: true,
+            ellipsize: Pango.EllipsizeMode.END,
+            margin_left: 18,
+            margin_right: 18
+        }
+        this._left = new Gtk.Label(labelOpts)
+        this._right = new Gtk.Label(labelOpts)
         this._left.get_style_context().add_class('autohide-label')
         this._right.get_style_context().add_class('autohide-label')
         this.pack_start(this._left, true, true, 0)
@@ -966,7 +972,12 @@ var Window = GObject.registerClass({
             const dummyHeaderBar = new Gtk.HeaderBar({ visible: true, opacity: 0 })
             dummyHeaderBar.pack_start(dummyButton)
 
-            this._titleLabel = new Gtk.Label({ visible: true })
+            this._titleLabel = new Gtk.Label({
+                visible: true,
+                ellipsize: Pango.EllipsizeMode.END,
+                margin_left: 18,
+                margin_right: 18
+            })
             this._titleLabel.get_style_context().add_class('autohide-label')
 
             const a = new AutoHide({ visible: true })
