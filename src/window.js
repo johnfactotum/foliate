@@ -682,19 +682,17 @@ var Window = GObject.registerClass({
 
         this._buildPopovers()
 
-        const buildMain = () =>
-            this._buildMain(settings.get_boolean('use-sidebar'))
-        buildMain()
+        this._buildMain()
         const mainHandler =
-            settings.connect('changed::use-sidebar', buildMain)
+            settings.connect('changed::use-sidebar', () => this._buildMain())
 
         this._buildFullscreenHeaderBar()
 
-        const buildHeaderBar = () =>
-            this._buildHeaderBar(!viewSettings.get_boolean('skeuomorphism'))
-        buildHeaderBar()
-        const headerBarHandler =
-            viewSettings.connect('changed::skeuomorphism', buildHeaderBar)
+        this._buildHeaderBar()
+        const headerBarHandlers = [
+            viewSettings.connect('changed::skeuomorphism', () => this._buildHeaderBar()),
+            settings.connect('changed::use-sidebar', () => this._buildHeaderBar())
+        ]
 
         this._themeUI()
         const themeHandlers = [
@@ -756,7 +754,7 @@ var Window = GObject.registerClass({
                 windowState.set_string('last-file', this.file.get_path())
 
             settings.disconnect(mainHandler)
-            viewSettings.disconnect(headerBarHandler)
+            headerBarHandlers.forEach(x => viewSettings.disconnect(x))
             themeHandlers.forEach(x => viewSettings.disconnect(x))
             settings.disconnect(ttsHandler)
         })
@@ -856,7 +854,8 @@ var Window = GObject.registerClass({
             popover.connect('closed', () => this._epub.clearSelection())
         } else this._epub.clearSelection()
     }
-    _buildMain(useSidebar) {
+    _buildMain() {
+        const useSidebar = settings.get_boolean('use-sidebar')
         const child = this._fullscreenOverlay.get_child()
         if (child) this._fullscreenOverlay.remove(child)
         this._buildContents()
@@ -865,7 +864,8 @@ var Window = GObject.registerClass({
             this._paned = new Gtk.Paned({ visible: true })
             this._paned.pack1(this._sidebar, false, false)
             this._paned.pack2(this._mainOverlay, true, false)
-            this._paned.position = 250
+            settings.bind('sidebar-size', this._paned, 'position',
+                Gio.SettingsBindFlags.DEFAULT)
             this._fullscreenOverlay.add(this._paned)
         } else {
             if (this._paned) this._paned.remove(this._mainOverlay)
@@ -893,10 +893,11 @@ var Window = GObject.registerClass({
             homogeneous: true,
             stack: this._contentsStack
         })
-        box.pack_start(stackSwitcher, false, true, 0)
         box.pack_start(this._contentsStack, true, true, 0)
+        box.pack_start(stackSwitcher, false, true, 0)
         this._sidebar = box
-        settings.bind('show-sidebar', this._sidebar, 'visible', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('show-sidebar', this._sidebar, 'visible',
+            Gio.SettingsBindFlags.DEFAULT)
     }
     _buildPopovers() {
         this._sidePopover = new Gtk.Popover()
@@ -947,7 +948,9 @@ var Window = GObject.registerClass({
         o.setOverlay(b)
         this._fullscreenHeaderBar = b
     }
-    _buildHeaderBar(autohide) {
+    _buildHeaderBar() {
+        const autohide = !viewSettings.get_boolean('skeuomorphism')
+            && !settings.get_boolean('use-sidebar')
         if (autohide === this._headerBarAutoHide) return
         this._headerBarAutoHide = autohide
         const title = this.title
