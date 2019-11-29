@@ -362,7 +362,9 @@ var AnnotationBox = GObject.registerClass({
 var ImageViewer = GObject.registerClass({
     GTypeName: 'FoliateImageViewer',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/imageViewer.ui',
-    InternalChildren: ['scale', 'paned', 'labelArea', 'image', 'label'],
+    InternalChildren: [
+        'scale', 'paned', 'labelArea', 'image', 'label', 'fileChooser'
+    ],
     Properties: {
         pixbuf: GObject.ParamSpec.object('pixbuf', 'pixbuf', 'pixbuf',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, GdkPixbuf.Pixbuf.$gtype),
@@ -390,6 +392,7 @@ var ImageViewer = GObject.registerClass({
                 height * zoom,
                 GdkPixbuf.InterpType.BILINEAR))
         })
+        this._fileChooser.transient_for = this
     }
     show() {
         super.show()
@@ -397,5 +400,10 @@ var ImageViewer = GObject.registerClass({
     }
     copy() {
         Gtk.Clipboard.get_default(Gdk.Display.get_default()).set_image(this.pixbuf)
+    }
+    saveAs() {
+        this._fileChooser.set_current_name(this.title + '.png')
+        if (this._fileChooser.run() === Gtk.ResponseType.ACCEPT)
+            this.pixbuf.savev(this._fileChooser.get_filename(), 'png', [], [])
     }
 })
