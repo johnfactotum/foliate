@@ -9,6 +9,27 @@
       </object>
     </child>
     <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkRadioButton" id="inBook">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">All chapters</property>
+            <signal name="toggled" handler="_onFindEntryActivate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="inSection">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Current chapter</property>
+            <property name="group">inBook</property>
+            <signal name="toggled" handler="_onFindEntryActivate"/>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
       <object class="GtkScrolledWindow" id="findScrolledWindow">
         <property name="visible">False</property>
         <property name="height_request">400</property>

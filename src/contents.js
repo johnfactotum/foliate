@@ -201,7 +201,9 @@ var ContentsStack = GObject.registerClass({
 var FindBox = GObject.registerClass({
     GTypeName: 'FoliateFindBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/findBox.ui',
-    InternalChildren: ['findEntry', 'findScrolledWindow', 'findTreeView'],
+    InternalChildren: [
+        'findEntry', 'findScrolledWindow', 'findTreeView', 'inBook'
+    ],
     Signals: {
         'row-activated': { flags: GObject.SignalFlags.RUN_FIRST }
     }
@@ -225,8 +227,8 @@ var FindBox = GObject.registerClass({
         this._findEntry.emit('activate')
     }
     _onFindEntryActivate() {
-        const text = this._findEntry.text
-        this._epub.find(text)
+        const text = this._findEntry.text.trim()
+        if (text) this._epub.find(text, this._inBook.active)
     }
     _onFindEntryChanged() {
         this._findEntry.get_style_context().remove_class('error')

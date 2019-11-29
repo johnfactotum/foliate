@@ -108,7 +108,6 @@ class Find {
                 Promise.resolve([].concat.apply([], results)))
     }
     find(q, inBook, highlight) {
-        this.clearHighlight()
         return (inBook ? this._findInBook : this._findInSection)(q)
             .then(results => {
                 results.forEach(result =>
@@ -119,6 +118,7 @@ class Find {
             })
     }
     highlight() {
+        this.clearHighlight()
         this.results.forEach(({ cfi }) =>
             rendition.annotations.underline(cfi, {}, () => {}, 'ul', {
                 'stroke-width': '3px',
