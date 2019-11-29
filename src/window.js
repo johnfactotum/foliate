@@ -81,7 +81,7 @@ const MainMenu = GObject.registerClass({
         viewSettings.bind('brightness', this._brightnessScale.adjustment, 'value', flag)
 
         this._updateZoom()
-        const zoomHandler = settings.connect('changed::zoom-level',
+        const zoomHandler = viewSettings.connect('changed::zoom-level',
             this._updateZoom.bind(this))
         this.connect('destroy', () => settings.disconnect(zoomHandler))
 
