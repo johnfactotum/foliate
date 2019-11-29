@@ -404,7 +404,11 @@ var EpubView = GObject.registerClass({
         const actions = {
             'go-prev': () => this.prev(),
             'go-next': () => this.next(),
-            'go-back': () => this.goBack(),
+            'go-next-section': () => this.nextSection(),
+            'go-prev-section': () => this.prevSection(),
+            'go-first': () => this.goToPercentage(0),
+            'go-last': () => this.goToPercentage(1),
+            'go-back': () => this.back(),
             'zoom-in': () => this.settings.set_property('zoom_level',
                 this.settings.zoom_level + 0.1),
             'zoom-out': () => this.settings.set_property('zoom_level',
@@ -624,10 +628,16 @@ var EpubView = GObject.registerClass({
                 this.location = payload
                 this.location.canGoBack = Boolean(this._history.length)
 
-                const { atStart, atEnd, canGoBack } = this.location
-                this.actionGroup.lookup_action('go-prev').enabled = !atStart
-                this.actionGroup.lookup_action('go-next').enabled = !atEnd
-                this.actionGroup.lookup_action('go-back').enabled = canGoBack
+                const { atStart, atEnd, canGoBack,
+                    percentage, section, sectionTotal } = this.location
+                const action = this.actionGroup.lookup_action.bind(this.actionGroup)
+                action('go-prev').enabled = !atStart
+                action('go-next').enabled = !atEnd
+                action('go-back').enabled = canGoBack
+                action('go-next-section').enabled = section + 1 < sectionTotal
+                action('go-prev-section').enabled = section > 0
+                action('go-first').enabled = percentage > 0
+                action('go-last').enabled = !atEnd
 
                 if (this._findResultCfi) this.selectByCfi(this._findResultCfi)
                 this.emit('relocated')
@@ -800,6 +810,12 @@ var EpubView = GObject.registerClass({
     next() {
         this._run(`rendition.next()`)
     }
+    nextSection() {
+        this.goTo(this.location.section + 1)
+    }
+    prevSection() {
+        this.goTo(this.location.section - 1)
+    }
     async goTo(x, withHistory = true) {
         const current = await this._get(`rendition.currentLocation().start.cfi`)
         if (x === current) return
@@ -812,7 +828,7 @@ var EpubView = GObject.registerClass({
     async goToPercentage(x) {
         this.goTo(await this._get(`book.locations.cfiFromPercentage(${x})`))
     }
-    goBack() {
+    back() {
         if (!this._history.length) return
         this.goTo(this._history.pop(), false)
     }

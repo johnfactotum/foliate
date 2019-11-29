@@ -198,6 +198,74 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="margin-top">10</property>
+            <style><class name="linked"/></style>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="action-name">view.go-first</property>
+                <property name="tooltip-text" translatable="yes">Go to beginning of book</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">media-skip-backward-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="action-name">view.go-prev-section</property>
+                <property name="tooltip-text" translatable="yes">Go to previous chapter</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">media-seek-backward-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="action-name">view.go-next-section</property>
+                <property name="tooltip-text" translatable="yes">Go to next chapter</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">media-seek-forward-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="action-name">view.go-last</property>
+                <property name="tooltip-text" translatable="yes">Go to end of book</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">media-skip-forward-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </object>
@@ -208,9 +276,8 @@
       <object class="GtkButton">
         <property name="visible">True</property>
         <property name="valign">center</property>
-        <property name="halign">start</property>
         <property name="action-name">view.go-prev</property>
-        <property name="tooltip-text" translatable="yes">Previous page</property>
+        <property name="tooltip-text" translatable="yes">Go to previous page</property>
         <child>
           <object class="GtkImage">
             <property name="visible">True</property>
@@ -224,7 +291,7 @@
         <property name="visible">True</property>
         <property name="valign">center</property>
         <property name="action-name">view.go-back</property>
-        <property name="tooltip_text" translatable="yes">Go back</property>
+        <property name="tooltip_text" translatable="yes">Go back to previous location</property>
         <child>
           <object class="GtkImage">
             <property name="visible">True</property>
@@ -296,10 +363,9 @@
     <child>
       <object class="GtkButton">
         <property name="valign">center</property>
-        <property name="halign">end</property>
         <property name="visible">True</property>
         <property name="action-name">view.go-next</property>
-        <property name="tooltip-text" translatable="yes">Next page</property>
+        <property name="tooltip-text" translatable="yes">Go to next page</property>
         <child>
           <object class="GtkImage">
             <property name="visible">True</property>
