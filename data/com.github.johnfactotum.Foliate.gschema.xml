@@ -44,6 +44,16 @@
         <summary>Text-to-speech command</summary>
         <description>Command to execute for text-to-speech</description>
     </key>
+    <key name="use-sidebar" type="b">
+        <default>false</default>
+        <summary>Use sidebar</summary>
+        <description>If true, a side pane will be used instead of popovers</description>
+    </key>
+    <key name="show-sidebar" type="b">
+        <default>true</default>
+        <summary>Show sidebar</summary>
+        <description>Whether the sidebar is shown</description>
+    </key>
   </schema>
   <schema id="com.github.johnfactotum.Foliate.view"
     path="/com/github/johnfactotum/Foliate/view/">

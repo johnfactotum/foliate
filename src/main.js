@@ -45,6 +45,10 @@ const makeActions = app => ({
         const builder = Gtk.Builder.new_from_resource(
             '/com/github/johnfactotum/Foliate/ui/preferenceWindow.ui')
 
+        const useSidebar = builder.get_object('useSidebar')
+        settings.bind('use-sidebar', useSidebar,
+            'state', Gio.SettingsBindFlags.DEFAULT)
+
         const restoreLastFile = builder.get_object('restoreLastFile')
         settings.bind('restore-last-file', restoreLastFile,
             'state', Gio.SettingsBindFlags.DEFAULT)

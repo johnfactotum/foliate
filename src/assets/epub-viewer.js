@@ -30,6 +30,8 @@ let autohideCursor, myScreenX, myScreenY, cursorHidden
 let ibooksInternalTheme = 'Light'
 let doubleClickTime = 400
 let zoomLevel = 1
+let windowSize
+const getWindowIsZoomed = () => windowSize - window.innerWidth * zoomLevel !== 0
 
 const CFI = new ePub.CFI()
 
@@ -571,11 +573,6 @@ const setupRendition = () => {
             if (autohideCursor) timeout = setTimeout(hideCursor, 1000)
         }, false)
     })
-
-    const getWindowIsZoomed = () =>
-        Math.abs(window.outerWidth - window.innerWidth * zoomLevel) > 2
-            // `.skeuomorph-page` has 24px horizontal margins
-            + (skeuomorphism ? 24 * 2 : 0)
 
     // keyboard shortcuts
     const handleKeydown = event => {

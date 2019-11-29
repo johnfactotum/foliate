@@ -449,6 +449,7 @@ var EpubView = GObject.registerClass({
         })
         this._webView.connect('context-menu', () =>
             this._contextMenu ? this._contextMenu() : true)
+        this._webView.connect('size-allocate', () => this._updateWindowSize())
 
         const contentManager = this._webView.get_user_content_manager()
         contentManager.connect('script-message-received::action', (_, jsResult) => {
@@ -570,6 +571,7 @@ var EpubView = GObject.registerClass({
             case 'ready':
                 this._run(`doubleClickTime =
                     ${Gtk.Settings.get_default().gtk_double_click_time}`)
+                this._updateWindowSize()
                 this._run(`zoomLevel = ${this.settings.zoom_level}`)
 
                 this._enableFootnote = this.settings.enable_footnote
@@ -746,6 +748,9 @@ var EpubView = GObject.registerClass({
             ibooksInternalTheme: getIbooksInternalTheme(this.settings.bg_color)
         }
         return this._run(`setStyle(${JSON.stringify(style)})`)
+    }
+    _updateWindowSize() {
+        this._run(`windowSize = ${this._webView.get_allocation().width}`)
     }
     set _zoomLevel(zoomLevel) {
         this._webView.zoom_level = zoomLevel

@@ -577,10 +577,23 @@ const HeaderBar = GObject.registerClass({
         super._init(params)
         this.show_close_button = true
         this.has_subtitle = false
+
         this.sideButton = this._makeMenuButton(_('Contents'), 'view-list-symbolic')
+        this.sidebarButton = new Gtk.ToggleButton({
+            visible: true,
+            valign: Gtk.Align.CENTER,
+            tooltip_text: _('Show sidebar'),
+            image: new Gtk.Image({
+                visible: true, icon_name: 'sidebar-show-symbolic' }),
+        })
+        settings.bind('show-sidebar', this.sidebarButton, 'active', Gio.SettingsBindFlags.DEFAULT)
+        this.pack_start(this.sidebarButton)
+        this.pack_start(this.sideButton)
+        this._showSideButton()
+        settings.connect('changed::use-sidebar', () => this._showSideButton())
+
         this.findButton = this._makeMenuButton(_('Find'), 'edit-find-symbolic')
         this.mainButton = this._makeMenuButton(_('Menu'), 'open-menu-symbolic')
-        this.pack_start(this.sideButton)
         if (this.fullscreen) {
             this.fullscreenButton = new Gtk.Button({
                 visible: true,
@@ -594,6 +607,11 @@ const HeaderBar = GObject.registerClass({
         }
         this.pack_end(this.mainButton)
         this.pack_end(this.findButton)
+    }
+    _showSideButton() {
+        const useSidebar = settings.get_boolean('use-sidebar')
+        this.sideButton.visible = !useSidebar
+        this.sidebarButton.visible = useSidebar
     }
     _makeMenuButton(text, icon) {
         return new Gtk.MenuButton({
@@ -627,7 +645,9 @@ const HeaderBar = GObject.registerClass({
         this.mainButton.popover.relative_to = this.mainButton
     }
     toggleSide() {
-        this.sideButton.active = !this.sideButton.active
+        const button = settings.get_boolean('use-sidebar')
+            ? this.sidebarButton : this.sideButton
+        button.active = !button.active
     }
     toggleFind() {
         this.findButton.active = !this.findButton.active
@@ -652,13 +672,22 @@ var Window = GObject.registerClass({
         this._connectEpub()
         this.connect('destroy', () => this._epub.close())
 
-        this._buildPopovers()
+        this._fullscreenOverlay = new FullscreenOverlay({ visible: true })
+        this.add(this._fullscreenOverlay)
 
         this._mainOverlay = new MainOverlay({ visible: true })
         this._mainOverlay.epub = this._epub
-        this._fullscreenOverlay = new FullscreenOverlay({ visible: true })
-        this._fullscreenOverlay.add(this._mainOverlay)
-        this.add(this._fullscreenOverlay)
+
+        this._buildContents()
+
+        this._buildPopovers()
+
+        const buildMain = () =>
+            this._buildMain(settings.get_boolean('use-sidebar'))
+        buildMain()
+        const mainHandler =
+            settings.connect('changed::use-sidebar', buildMain)
+
         this._buildFullscreenHeaderBar()
 
         const buildHeaderBar = () =>
@@ -726,6 +755,7 @@ var Window = GObject.registerClass({
             if (this.file)
                 windowState.set_string('last-file', this.file.get_path())
 
+            settings.disconnect(mainHandler)
             viewSettings.disconnect(headerBarHandler)
             themeHandlers.forEach(x => viewSettings.disconnect(x))
             settings.disconnect(ttsHandler)
@@ -826,6 +856,48 @@ var Window = GObject.registerClass({
             popover.connect('closed', () => this._epub.clearSelection())
         } else this._epub.clearSelection()
     }
+    _buildMain(useSidebar) {
+        const child = this._fullscreenOverlay.get_child()
+        if (child) this._fullscreenOverlay.remove(child)
+        this._buildContents()
+        if (useSidebar) {
+            this._buildSidebar()
+            this._paned = new Gtk.Paned({ visible: true })
+            this._paned.pack1(this._sidebar, false, false)
+            this._paned.pack2(this._mainOverlay, true, false)
+            this._paned.position = 250
+            this._fullscreenOverlay.add(this._paned)
+        } else {
+            if (this._paned) this._paned.remove(this._mainOverlay)
+            this._sidePopover.get_child().pack_start(this._contentsStack, false, true, 0)
+            this._fullscreenOverlay.add(this._mainOverlay)
+        }
+    }
+    _buildContents() {
+        if (this._contentsStack) {
+            this._contentsStack.get_parent().remove(this._contentsStack)
+            return
+        }
+        this._contentsStack = new ContentsStack({ visible: true })
+        this._contentsStack.epub = this._epub
+    }
+    _buildSidebar() {
+        const box = new Gtk.Box({
+            visible: true,
+            orientation: Gtk.Orientation.VERTICAL,
+            margin: 6,
+            spacing: 6,
+        })
+        const stackSwitcher = new Gtk.StackSwitcher({
+            visible: true,
+            homogeneous: true,
+            stack: this._contentsStack
+        })
+        box.pack_start(stackSwitcher, false, true, 0)
+        box.pack_start(this._contentsStack, true, true, 0)
+        this._sidebar = box
+        settings.bind('show-sidebar', this._sidebar, 'visible', Gio.SettingsBindFlags.DEFAULT)
+    }
     _buildPopovers() {
         this._sidePopover = new Gtk.Popover()
         this._findPopover = new Gtk.Popover()
@@ -840,7 +912,6 @@ var Window = GObject.registerClass({
         })
         this._findPopover.add(this._findBox)
 
-        this._contentsStack = new ContentsStack({ visible: true })
         const stackSwitcher = new Gtk.StackSwitcher({
             visible: true,
             homogeneous: true,
@@ -858,7 +929,6 @@ var Window = GObject.registerClass({
         box.pack_start(this._contentsStack, false, true, 0)
         this._sidePopover.add(box)
 
-        this._contentsStack.epub = this._epub
         this._findBox.epub = this._epub
 
         this._contentsStack.connect('row-activated', () => this._sidePopover.popdown())
