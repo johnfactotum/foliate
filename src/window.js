@@ -414,7 +414,7 @@ const makeActions = self => ({
     'selection-find': () => {
         const { text } = self._epub.selection
         self._findBox.find(text)
-        self._findMenuButton.active = true
+        self.activeHeaderBar.toggleFind()
     },
     'selection-speech-start': () => {
         tts.epub = self._epub
