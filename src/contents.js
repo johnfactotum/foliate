@@ -376,13 +376,12 @@ var ImageViewer = GObject.registerClass({
         const width = pixbuf.get_width()
         const height = pixbuf.get_height()
         const [windowWidth, windowHeight] = this.transient_for.get_size()
-        this.default_width = Math.min(width * 2, windowWidth)
-        this.default_height = Math.min(height * 2 + 150, windowHeight)
+        this.default_width = Math.max(Math.min(width * 1.5, windowWidth), 320)
+        this.default_height = Math.max(Math.min(height * 1.5 + 150, windowHeight), 200)
         this._image.set_from_pixbuf(pixbuf)
         if (this.alt) this._label.label = this.alt
         else this._labelArea.hide()
 
-        this._scale.width_request = Math.min(300, this.default_width)
         this._scale.connect('format-value', (_, x) => `${Math.round(x * 100)}%`)
         this._scale.connect('value-changed', () => {
             const zoom = this._scale.get_value()
