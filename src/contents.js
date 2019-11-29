@@ -14,6 +14,7 @@
  */
 
 const { GObject, Gtk, Gio, Gdk, GdkPixbuf } = imports.gi
+const ngettext = imports.gettext.ngettext
 
 const { alphaColor, isExternalURL } = imports.utils
 const { EpubViewAnnotation } = imports.epubView
@@ -202,7 +203,7 @@ var FindBox = GObject.registerClass({
     GTypeName: 'FoliateFindBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/findBox.ui',
     InternalChildren: [
-        'findEntry', 'findScrolledWindow', 'findTreeView', 'inBook'
+        'findEntry', 'findScrolledWindow', 'findTreeView', 'inBook', 'status'
     ],
     Signals: {
         'row-activated': { flags: GObject.SignalFlags.RUN_FIRST }
@@ -217,9 +218,17 @@ var FindBox = GObject.registerClass({
         this._epub = epub
         this._findTreeView.model = this._epub.findResults
         this._epub.connect('find-results', () => {
-            if (!this._epub.findResults.get_iter_first()[0])
+            const n = this._epub.findResults.iter_n_children(null)
+            if (n === 0) {
                 this._findEntry.get_style_context().add_class('error')
-            this._findScrolledWindow.show()
+                this._findScrolledWindow.hide()
+            } else {
+                this._findEntry.get_style_context().remove_class('error')
+                this._findScrolledWindow.show()
+            }
+            this._status.label = n === 0
+                ? _('No results')
+                : ngettext('%d result', '%d results', n).format(n)
         })
     }
     find(text) {
@@ -228,13 +237,18 @@ var FindBox = GObject.registerClass({
     }
     _onFindEntryActivate() {
         const text = this._findEntry.text.trim()
-        if (text) this._epub.find(text, this._inBook.active)
+        if (text) {
+            this._status.show()
+            this._status.label = _('Searching…')
+            this._epub.find(text, this._inBook.active)
+        }
     }
     _onFindEntryChanged() {
-        this._findEntry.get_style_context().remove_class('error')
         if (!this._findEntry.text) {
+            this._findEntry.get_style_context().remove_class('error')
             this._epub.clearFind()
             this._findScrolledWindow.hide()
+            this._status.hide()
         }
     }
     _onFindRowActivated() {

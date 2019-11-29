@@ -864,6 +864,7 @@ var EpubView = GObject.registerClass({
         return this._data.data
     }
     find(q, inBook = true, highlight = true) {
+        this.findResults.clear()
         this._run(`find.find(decodeURI("${encodeURI(q)}"), ${inBook}, ${highlight})`)
     }
     goToFindResult(cfi) {

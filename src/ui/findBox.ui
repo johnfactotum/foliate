@@ -32,7 +32,7 @@
     <child>
       <object class="GtkScrolledWindow" id="findScrolledWindow">
         <property name="visible">False</property>
-        <property name="height_request">400</property>
+        <property name="height_request">350</property>
         <property name="vexpand">True</property>
         <property name="hscrollbar-policy">never</property>
         <child>
@@ -66,6 +66,12 @@
           </object>
         </child>
         <style><class name="frame"/></style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="status">
+        <property name="xalign">0</property>
+        <style><class name="dim-label"/></style>
       </object>
     </child>
   </template>
