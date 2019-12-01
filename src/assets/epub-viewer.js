@@ -31,7 +31,7 @@ let ibooksInternalTheme = 'Light'
 let doubleClickTime = 400
 let zoomLevel = 1
 let windowSize
-const getWindowIsZoomed = () => windowSize - window.innerWidth * zoomLevel !== 0
+const getWindowIsZoomed = () => Math.abs(windowSize - window.innerWidth * zoomLevel) > 2
 
 const CFI = new ePub.CFI()
 
