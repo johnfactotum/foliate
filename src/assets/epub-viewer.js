@@ -525,20 +525,31 @@ const setupRendition = () => {
 
         // handle selection and clicks
         let timer = 0
-        const dispatchClick = () =>
-            timer = setTimeout(() => dispatch({ type: 'click' }), doubleClickTime)
+        const dispatchClick = e => {
+            const clientX = (e.changedTouches ? e.changedTouches[0] : e).clientX
+            const left = e.target === document.documentElement ? 0 : frame
+                .getBoundingClientRect().left
+            const f = () => dispatch({
+                 type: 'click',
+                 payload: {
+                    width: window.innerWidth,
+                    position: clientX + left
+                }
+            })
+            timer = setTimeout(f, doubleClickTime)
+        }
 
-        document.onclick = () => dispatch({ type: 'click' })
+        document.onclick = dispatchClick
         contents.document.onmousedown = () => isSelecting = true
         contents.document.onclick = e => {
             isSelecting = false
 
             const selection = contents.window.getSelection()
             // see https://stackoverflow.com/q/22935320
-            if (!selection.rangeCount) return dispatchClick()
+            if (!selection.rangeCount) return dispatchClick(e)
 
             const range = selection.getRangeAt(0)
-            if (range.collapsed) return dispatchClick()
+            if (range.collapsed) return dispatchClick(e)
 
             clearTimeout(timer)
             dispatch({

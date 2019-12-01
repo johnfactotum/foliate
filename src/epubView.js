@@ -376,7 +376,10 @@ var EpubView = GObject.registerClass({
             flags: GObject.SignalFlags.RUN_FIRST,
             param_types: [GdkPixbuf.Pixbuf.$gtype, GObject.TYPE_STRING]
         },
-        'click': { flags: GObject.SignalFlags.RUN_FIRST },
+        'click': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_INT, GObject.TYPE_INT]
+        },
         'speech': {
             flags: GObject.SignalFlags.RUN_FIRST,
             param_types: [GObject.TYPE_STRING, GObject.TYPE_BOOLEAN]
@@ -698,7 +701,7 @@ var EpubView = GObject.registerClass({
                 break
             }
             case 'click':
-                this.emit('click')
+                this.emit('click', payload.width, payload.position)
                 break
 
             case 'speech': {

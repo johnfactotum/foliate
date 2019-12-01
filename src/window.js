@@ -772,13 +772,18 @@ var Window = GObject.registerClass({
         this._epub.open(file)
     }
     _connectEpub() {
-        this._epub.connect('click', () => {
-            if (this._highlightMenu && this._highlightMenu.visible) return
-            const visible = this._mainOverlay.toggleNavBar()
-            if (this._fullscreen)
-                this._fullscreenOverlay.alwaysReveal(visible)
-            else if (this._autoHideHeaderBar)
-                this._autoHideHeaderBar.alwaysReveal(visible)
+        this._epub.connect('click', (_, width, position) => {
+            const place = position / width
+            if (place > 2/3) return this._epub.next()
+            else if (place < 1/3) return this._epub.prev()
+            else if (this._highlightMenu && this._highlightMenu.visible) return
+            else {
+                const visible = this._mainOverlay.toggleNavBar()
+                if (this._fullscreen)
+                    this._fullscreenOverlay.alwaysReveal(visible)
+                else if (this._autoHideHeaderBar)
+                    this._autoHideHeaderBar.alwaysReveal(visible)
+            }
         })
         this._epub.connect('book-displayed', () => this.loading = false)
         this._epub.connect('book-loading', () => {
