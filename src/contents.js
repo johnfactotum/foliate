@@ -15,6 +15,7 @@
 
 const { GObject, Gtk, Gio, Gdk, GdkPixbuf } = imports.gi
 const ngettext = imports.gettext.ngettext
+let Gspell; try { Gspell = imports.gi.Gspell } catch (e) {}
 
 const { alphaColor, isExternalURL } = imports.utils
 const { EpubViewAnnotation } = imports.epubView
@@ -304,6 +305,10 @@ var AnnotationBox = GObject.registerClass({
     _init(params) {
         super._init(params)
         const annotation = params.annotation
+
+        if (Gspell) Gspell.TextView
+            .get_from_gtk_text_view(this._noteTextView)
+            .basic_setup()
 
         this._noteTextView.buffer.text = annotation.note
         this._noteTextView.buffer.connect('changed', () => {
