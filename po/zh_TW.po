@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-13 10:22+0800\n"
+"POT-Creation-Date: 2019-12-02 13:45+0800\n"
 "PO-Revision-Date: 2019-06-15 15:30+0800\n"
 "Last-Translator: John Factotum\n"
 "Language-Team: none\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1750
-#: src/main.js:3303 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:89
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
 
@@ -38,1210 +38,1594 @@ msgstr ""
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook;Book;EPUB;Viewer;Reader;電子書;書;檢視器;閱讀器;"
 
-#: src/main.js:136
-msgid "Light"
-msgstr "亮色"
+#: src/main.js:64
+msgid "All Files"
+msgstr "所有檔案"
 
-#: src/main.js:140
-msgid "Sepia"
-msgstr "褐色"
+#: src/main.js:68
+msgid "E-book Files"
+msgstr "電子書檔案"
 
-#: src/main.js:144
-msgid "Dark"
-msgstr "暗色"
+#: src/main.js:74
+msgid "Open File"
+msgstr "開啟檔案"
 
-#: src/main.js:148
-msgid "Invert"
-msgstr "反轉"
+#: src/main.js:88
+msgid "translator-credits"
+msgstr ""
 
-#: src/main.js:154
-msgid "Auto"
-msgstr "自動"
+#: src/main.js:90 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+msgid "A simple and modern eBook viewer"
+msgstr "一個簡單而現代化的電子書閱讀器"
 
-#: src/main.js:155
-msgid "Single"
-msgstr "單頁"
+#: src/window.js:120
+#, fuzzy
+msgid "Leave fullscreen"
+msgstr "切換全螢幕"
 
-#: src/main.js:156
-msgid "Scrolled"
-msgstr "捲動"
+#: src/window.js:123 src/ui/mainMenu.ui:84
+msgid "Fullscreen"
+msgstr "全螢幕"
 
-#: src/main.js:159
-msgid "Yellow"
-msgstr "黃"
-
-#: src/main.js:159
-msgid "Orange"
-msgstr "橘"
-
-#: src/main.js:160
-msgid "Red"
-msgstr "紅"
-
-#: src/main.js:160
-msgid "Magenta"
-msgstr "紫"
-
-#: src/main.js:160
-msgid "Aqua"
-msgstr "藍"
-
-#: src/main.js:160
-msgid "Lime"
-msgstr "綠"
-
-#: src/main.js:207
-msgid "Wiktionary (English)"
-msgstr "維基詞典（英語）"
-
-#: src/main.js:214
-msgid "From Wiktionary, the free dictionary"
-msgstr "來自維基詞典，自由的多語言辭典"
-
-#: src/main.js:218
-msgid "View on Wiktionary"
-msgstr "在維基詞典上檢視"
-
-#: src/main.js:256 src/main.js:270
+#: src/window.js:170
 #, javascript-format
-msgid "%d Annotation"
-msgid_plural "%d Annotations"
-msgstr[0] "%d 個註解"
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
 
-#: src/main.js:269
+#: src/window.js:171
 #, javascript-format
-msgid ""
-"Annotations for\n"
-"%s\n"
-"By %s"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+
+#: src/window.js:178 src/window.js:179
+#, javascript-format
+msgid "of %d"
+msgstr "共 %d"
+
+#: src/export.js:31
+#, fuzzy, javascript-format
+msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
 msgstr ""
 "註解資料\n"
 "書名：%s\n"
 "作者：%s"
 
-#: src/main.js:273
+#: src/export.js:33 src/export.js:47 src/export.js:59
+#, javascript-format
+msgid "%d Annotation"
+msgid_plural "%d Annotations"
+msgstr[0] "%d 個註解"
+
+#: src/export.js:46
+#, fuzzy, javascript-format
+msgid "Annotations for “%s” by %s"
+msgstr ""
+"註解資料\n"
+"書名：%s\n"
+"作者：%s"
+
+#: src/export.js:50
+msgid "Section: "
+msgstr ""
+
+#: src/export.js:51
+#, fuzzy
+msgid "Highlight: "
+msgstr "註解"
+
+#: src/export.js:52
 msgid "Text:"
 msgstr "文字："
 
-#: src/main.js:274
+#: src/export.js:53
 msgid "Note:"
 msgstr "筆記："
 
-#: src/main.js:298
+#: src/export.js:58
+#, fuzzy, javascript-format
+msgid "Annotations for *%s* by %s"
+msgstr ""
+"註解資料\n"
+"書名：%s\n"
+"作者：%s"
+
+#: src/export.js:92
 #, fuzzy
 msgid "Quote: "
 msgstr "筆記："
 
-#: src/main.js:298
+#: src/export.js:92
 #, fuzzy
 msgid " Note: "
 msgstr "筆記："
 
-#: src/main.js:319
-msgid "Previous page"
-msgstr "上一頁"
+#: src/lookup.js:90
+msgid "Search on Wikipedia"
+msgstr "搜尋維基百科"
 
-#: src/main.js:325
-msgid "Next page"
-msgstr "下一頁"
+#: src/lookup.js:212
+msgid "Source: "
+msgstr ""
 
-#: src/main.js:340
-msgid "Go back"
-msgstr "返回"
+#: src/lookup.js:272
+msgid "Wiktionary (English)"
+msgstr "維基詞典（英語）"
 
-#: src/main.js:406
-#, javascript-format
-msgid "%d minute left in book"
-msgid_plural "%d minutes left in book"
-msgstr[0] "全書剩餘 %d 分鐘"
-
-#: src/main.js:411
-#, javascript-format
-msgid "%d hour left in book"
-msgid_plural "%d hours left in book"
-msgstr[0] "全書剩餘 %d 小時"
-
-#: src/main.js:417
-#, fuzzy, javascript-format
-msgid "%d minute left in section"
-msgid_plural "%d minutes left in section"
-msgstr[0] "全書剩餘 %d 分鐘"
-
-#: src/main.js:422
-#, fuzzy, javascript-format
-msgid "%d hour left in section"
-msgid_plural "%d hours left in section"
-msgstr[0] "全書剩餘 %d 小時"
-
-#: src/main.js:451
-#, javascript-format
-msgid "of %d"
-msgstr "共 %d"
-
-#: src/main.js:585
-msgid "Find in Book"
-msgstr "搜尋書籍內容"
-
-#: src/main.js:600
-#, fuzzy
-msgid "All sections"
-msgstr "左右對齊"
-
-#: src/main.js:602
-#, fuzzy
-msgid "Current section"
-msgstr "目前章節"
-
-#: src/main.js:634
-msgid "Searching…"
-msgstr "搜尋中…"
-
-#: src/main.js:640
-msgid "No results"
-msgstr "沒有結果"
-
-#: src/main.js:641
-#, javascript-format
-msgid "%d result"
-msgid_plural "%d results"
-msgstr[0] "%d 項結果"
-
-#: src/main.js:849
-msgid "Use Publisher Font"
-msgstr "使用出版社字體"
-
-#: src/main.js:851
-msgid "Full Justification"
-msgstr "左右對齊"
-
-#: src/main.js:853
-msgid "Auto-Hyphenation"
-msgstr "自動斷字"
-
-#: src/main.js:879
-msgid "Font"
-msgstr "字體"
-
-#: src/main.js:880
-msgid "Spacing"
-msgstr "行距"
-
-#: src/main.js:881
-msgid "Margins"
-msgstr "邊界"
-
-#: src/main.js:882
-msgid "Brightness"
-msgstr "亮度"
-
-#: src/main.js:883 src/main.js:935 src/main.js:3435
-msgid "Theme"
-msgstr "主題"
-
-#: src/main.js:884
-msgid "Layout"
-msgstr "版面"
-
-#: src/main.js:885
-msgid "Options"
-msgstr "選項"
-
-#: src/main.js:1131
-msgid "No bookmarks"
-msgstr "沒有書籤"
-
-#: src/main.js:1132
-msgid "Add some bookmarks to see them here."
-msgstr "新增書籤之後，就可以在這裡檢視它們"
-
-#: src/main.js:1169 src/main.js:3238
-msgid "Bookmark current location"
-msgstr "將目前位置加入書籤"
-
-#: src/main.js:1175
-msgid "Remove current location"
-msgstr "移除目前位置"
-
-#: src/main.js:1190 src/main.js:2711
-msgid "No annotations"
-msgstr "沒有註解"
-
-#: src/main.js:1191 src/main.js:2713
-msgid "Highlight some text to add annotations."
-msgstr "選取一些文字以新增註解"
-
-#: src/main.js:1274 src/main.js:1306 src/main.js:1510 src/main.js:1605
-#: src/main.js:1630
-msgid "Copy"
-msgstr "複製"
-
-#: src/main.js:1279 src/main.js:1311 src/main.js:3399
-msgid "Highlight"
-msgstr "註解"
-
-#: src/main.js:1284
-msgid "Lookup"
-msgstr "查詢"
-
-#: src/main.js:1289 src/main.js:1435 src/main.js:3402
-msgid "Translate"
-msgstr "翻譯"
-
-#: src/main.js:1318 src/main.js:1367 src/main.js:1387 src/main.js:1463
-#: src/main.js:1499
-msgid "Loading…"
-msgstr "載入中…"
-
-#: src/main.js:1433 src/main.js:3414
-msgid "Dictionary"
-msgstr "字典"
-
-#: src/main.js:1434 src/main.js:3415
-msgid "Wikipedia"
-msgstr "維基百科"
-
-#: src/main.js:1473
-msgid "No entry found."
-msgstr "找不到條目。"
-
-#: src/main.js:1477
+#: src/lookup.js:332
 #, fuzzy
 msgid "Search on Wiktionary"
 msgstr "在維基詞典上檢視"
 
-#: src/main.js:1485
-msgid "From Wikipedia, the free encyclopedia"
-msgstr "來自維基百科，自由的百科全書"
-
-#: src/main.js:1488
-msgid "View on Wikipedia"
-msgstr "在維基百科上檢視"
-
-#: src/main.js:1494
-msgid "Search on Wikipedia"
-msgstr "搜尋維基百科"
-
-#: src/main.js:1502
+#: src/lookup.js:355
+#, fuzzy
 msgid "Translation by Google Translate"
 msgstr "翻譯來自 Google 翻譯"
 
-#: src/main.js:1505
-msgid "Cannot retrieve translation."
-msgstr "無法取得翻譯。"
-
-#: src/main.js:1515 src/main.js:3123
-msgid "Remove"
-msgstr "移除"
-
-#: src/main.js:1520
-msgid "Note"
-msgstr "筆記"
-
-#: src/main.js:1587
-msgid "Go to Linked Location"
-msgstr "前往連結位置"
-
-#: src/main.js:1610
-msgid "Zoom"
-msgstr "放大"
-
-#: src/main.js:1685
-msgid "Open some books to start reading"
-msgstr "開啟電子書以開始閱讀"
-
-#: src/main.js:1690
-msgid "Open a file, or continue reading the last opened book."
-msgstr "開啟檔案，或繼續閱讀上次開啟的電子書"
-
-#: src/main.js:1694
-msgid "Open File…"
-msgstr "開啟檔案…"
-
-#: src/main.js:1698
-msgid "Continue Reading"
-msgstr "繼續閱讀"
-
-#: src/main.js:1848
-msgid "Oh no! The file cannot be opened"
-msgstr "噢不！無法開啟檔案"
-
-#: src/main.js:1857
-msgid "Open Another File…"
-msgstr "開啟其他檔案…"
-
-#: src/main.js:1891
-#, fuzzy
-msgid "Go to Location…"
-msgstr "前往連結位置"
-
-#: src/main.js:1895 src/main.js:2806
-msgid "About This Book"
-msgstr "關於這本書"
-
-#: src/main.js:1896
-msgid "Export Annotations…"
-msgstr "匯出註解…"
-
-#: src/main.js:2343 src/main.js:3239
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
-msgid "Find in book"
-msgstr "搜尋書籍內容"
-
-#: src/main.js:2356
-msgid "Set font, theme, and layout"
-msgstr "設定字體、主題與版面"
-
-#: src/main.js:2406 src/main.js:2475
-msgid "Table of contents"
-msgstr "目錄"
-
-#: src/main.js:2408 src/main.js:2487
-msgid "Annotations"
-msgstr "註解"
-
-#: src/main.js:2410 src/main.js:2481
-msgid "Bookmarks"
-msgstr "書籤"
-
-#: src/main.js:2435 src/main.js:3224
-msgid "Toggle sidebar"
-msgstr "顯示/隱藏側邊欄"
-
-#: src/main.js:2578
-msgid "Fullscreen"
-msgstr "全螢幕"
-
-#: src/main.js:2579
-msgid "Reading Progress Bar"
-msgstr "閱讀進度列"
-
-#: src/main.js:2583
-msgid "Open…"
-msgstr "開啟…"
-
-#: src/main.js:2587 src/main.js:3334
-msgid "Preferences"
-msgstr "偏好設定"
-
-#: src/main.js:2588
-msgid "Keyboard Shortcuts"
-msgstr "鍵盤捷徑鍵"
-
-#: src/main.js:2589
-msgid "About Foliate"
-msgstr "關於 Foliate"
-
-#: src/main.js:2650
-msgid "Text-to-speech"
-msgstr "文字轉語音"
-
-#: src/main.js:2675
-#, fuzzy
-msgid "Go to Location"
-msgstr "前往連結位置"
-
-#: src/main.js:2680 src/main.js:2730
-msgid "Cancel"
-msgstr "取消"
-
-#: src/main.js:2681
-msgid "Go"
-msgstr ""
-
-#: src/main.js:2685
-msgid "EPUB Canonical Fragment Identifier (CFI):"
-msgstr ""
-
-#: src/main.js:2712
-msgid "You don't have any annotations for this book."
-msgstr "這本書沒有任何註解。"
-
-#: src/main.js:2724
-msgid "Export Annotations"
-msgstr "匯出註解"
-
-#: src/main.js:2731
-msgid "Export"
-msgstr "匯出"
-
-#: src/main.js:2735
-msgid "Choose export format:"
-msgstr "選擇匯出格式："
-
-#: src/main.js:2736
-msgid "HTML"
-msgstr "HTML"
-
-#: src/main.js:2737
-msgid "Plain Text"
-msgstr "純文字"
-
-#: src/main.js:2738
-msgid "BibTeX"
-msgstr ""
-
-#: src/main.js:2739
-msgid "JSON"
-msgstr "JSON"
-
-#: src/main.js:2751
-msgid "Save File"
-msgstr "儲存檔案"
-
-#: src/main.js:2755
-#, javascript-format
-msgid "Annotations for %s"
-msgstr "對%s的註解"
-
-#: src/main.js:2875
+#: src/properties.js:65
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/main.js:2876
+#: src/properties.js:69
 msgid "Publication Date"
 msgstr "出版日期"
 
-#: src/main.js:2877
+#: src/properties.js:73
 msgid "Modified Date"
 msgstr "修改日期"
 
-#: src/main.js:2878
+#: src/properties.js:77
 msgid "Language"
 msgstr "語言"
 
-#: src/main.js:2879
-msgid "Copyright"
-msgstr "版權"
-
-#: src/main.js:2880
+#: src/properties.js:81
 msgid "Identifier"
 msgstr "識別碼"
 
-#: src/main.js:2992
-msgid "Text"
-msgstr "文字"
+#: src/properties.js:85
+msgid "Copyright"
+msgstr "版權"
 
-#: src/main.js:2993
-msgid "Background"
-msgstr "背景"
+#: src/theme.js:23
+msgid "Light"
+msgstr "亮色"
 
-#: src/main.js:2994
-msgid "Link"
-msgstr "連結"
+#: src/theme.js:27
+msgid "Sepia"
+msgstr "褐色"
 
-#: src/main.js:2996
-msgid "Enable Dark Mode"
-msgstr "啟用深色模式"
+#: src/theme.js:31
+msgid "Gray"
+msgstr ""
 
-#: src/main.js:2998
-msgid "Invert Colors"
-msgstr "反轉顏色"
+#: src/theme.js:35
+msgid "Dark"
+msgstr "暗色"
 
-#: src/main.js:3069
-msgid "Theme name"
-msgstr "主題名稱"
+#: src/theme.js:39 src/ui/themeWindow.ui:145
+msgid "Invert"
+msgstr "反轉"
 
-#: src/main.js:3073
-msgid "A theme with that name already exists."
-msgstr "已經存在相同名稱的主題。"
+#: src/theme.js:43
+msgid "Solarized Light"
+msgstr ""
 
-#: src/main.js:3075
-msgid "Add"
-msgstr "新增"
+#: src/theme.js:47
+msgid "Solarized Dark"
+msgstr ""
 
-#: src/main.js:3116
-msgid "Add…"
-msgstr "新增…"
+#: src/theme.js:51
+msgid "Gruvbox Light"
+msgstr ""
 
-#: src/main.js:3118
-msgid "Add a new theme"
-msgstr "新增主題"
+#: src/theme.js:55
+msgid "Gruvbox Dark"
+msgstr ""
 
-#: src/main.js:3125
-msgid "Remove selected theme"
-msgstr "移除選取的主題"
+#: src/theme.js:59
+msgid "Nord"
+msgstr ""
 
-#: src/main.js:3190
-msgid "All Files"
-msgstr "所有檔案"
+#: src/ui/annotationBox.ui:35
+msgid "Change highlight color"
+msgstr ""
 
-#: src/main.js:3194
-msgid "E-book Files"
-msgstr "電子書檔案"
+#: src/ui/annotationBox.ui:64 src/ui/annotationRow.ui:53
+#: src/ui/bookmarkRow.ui:44
+msgid "Remove"
+msgstr "移除"
 
-#: src/main.js:3199
-msgid "Open File"
-msgstr "開啟檔案"
+#: src/ui/annotationBox.ui:100
+msgid "Choose custom color"
+msgstr ""
 
-#: src/main.js:3225 src/main.js:3227
-msgid "Show table of contents"
-msgstr "顯示目錄"
-
-#: src/main.js:3230
-msgid "Start/stop text-to-speech"
-msgstr "開始/停止文字轉語音"
-
-#: src/main.js:3233 src/main.js:3394
-msgid "General"
-msgstr "一般"
-
-#: src/main.js:3236
-msgid "Show annotations"
-msgstr "顯示註解"
-
-#: src/main.js:3237
-msgid "Show bookmarks"
-msgstr "顯示書籤"
-
-#: src/main.js:3240
-msgid "Show menu"
-msgstr "顯示選單"
-
-#: src/main.js:3242
-msgid "Close current window"
-msgstr "關閉目前視窗"
-
-#: src/main.js:3243
-msgid "Quit"
-msgstr "結束"
-
-#: src/main.js:3247
-msgid "Navigation"
-msgstr "瀏覽"
-
-#. I can't find where to access the enums in GJS,
-#. so just use ints for now
-#: src/main.js:3249 src/main.js:3270
-msgid "Go to the next page"
-msgstr "前往下一頁"
-
-#: src/main.js:3250 src/main.js:3271
-msgid "Go to the previous page"
-msgstr "前往上一頁"
-
-#: src/main.js:3251
-msgid "Go back to previous location"
-msgstr "返回先前位置"
-
-#: src/main.js:3252
+#: src/ui/contentsStack.ui:40
 #, fuzzy
-msgid "Go to location"
-msgstr "前往連結位置"
+msgid "Table of Contents"
+msgstr "目錄"
 
-#: src/main.js:3256
+#: src/ui/contentsStack.ui:75
+msgid "No annotations"
+msgstr "沒有註解"
+
+#: src/ui/contentsStack.ui:87
+#, fuzzy
+msgid "Select some text to add annotations."
+msgstr "選取一些文字以新增註解"
+
+#: src/ui/contentsStack.ui:120
+msgid "Annotations"
+msgstr "註解"
+
+#: src/ui/contentsStack.ui:155
+msgid "No bookmarks"
+msgstr "沒有書籤"
+
+#: src/ui/contentsStack.ui:167
+msgid "Add some bookmarks to see them here."
+msgstr "新增書籤之後，就可以在這裡檢視它們"
+
+#: src/ui/contentsStack.ui:201 src/ui/shortcutsWindow.ui:57
+msgid "Bookmark current location"
+msgstr "將目前位置加入書籤"
+
+#: src/ui/contentsStack.ui:213
+msgid "Bookmarks"
+msgstr "書籤"
+
+#: src/ui/dictionaryBox.ui:65
+#, fuzzy
+msgid "No definitions found"
+msgstr "無法找到定義。"
+
+#: src/ui/exportWindow.ui:11
+msgid "HTML"
+msgstr "HTML"
+
+#: src/ui/exportWindow.ui:15
+msgid "Markdown"
+msgstr ""
+
+#: src/ui/exportWindow.ui:19
+msgid "Plain Text"
+msgstr "純文字"
+
+#: src/ui/exportWindow.ui:23
+msgid "BibTeX"
+msgstr ""
+
+#: src/ui/exportWindow.ui:27
+msgid "JSON"
+msgstr "JSON"
+
+#: src/ui/exportWindow.ui:34
+msgid "Export Annotations"
+msgstr "匯出註解"
+
+#: src/ui/exportWindow.ui:38 src/ui/themeWindow.ui:10
+msgid "Cancel"
+msgstr "取消"
+
+#: src/ui/exportWindow.ui:45
+msgid "Export"
+msgstr "匯出"
+
+#: src/ui/exportWindow.ui:67
+msgid "Choose export format:"
+msgstr "選擇匯出格式："
+
+#: src/ui/findBox.ui:18
+msgid "All chapters"
+msgstr "所有章節"
+
+#: src/ui/findBox.ui:25
+#, fuzzy
+msgid "Current chapter"
+msgstr "目前章節"
+
+#: src/ui/footnotePopover.ui:37 src/ui/mainMenu.ui:511
+msgid "Footnote Preview"
+msgstr ""
+
+#: src/ui/footnotePopover.ui:47 src/ui/shortcutsWindow.ui:88
+#: src/ui/wikipediaBox.ui:107
 msgid "View"
 msgstr "檢視"
 
-#: src/main.js:3258
-msgid "Show viewing options"
-msgstr "顯示檢視選項"
+#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:19
+#: src/ui/selectionPopover.ui:20
+msgid "Copy"
+msgstr "複製"
 
-#: src/main.js:3259
-msgid "Increase font size"
-msgstr "放大字體"
+#: src/ui/imageViewer.ui:46
+#, fuzzy
+msgid "Save as"
+msgstr "儲存檔案"
 
-#: src/main.js:3260
-msgid "Decrease font size"
-msgstr "縮小字體"
-
-#: src/main.js:3261
-msgid "Toggle fullscreen"
-msgstr "切換全螢幕"
-
-#: src/main.js:3262
-msgid "Toggle reading progress bar"
-msgstr "顯示/隱藏閱讀進度列"
-
-#: src/main.js:3266
-msgid "Touchpad Gestures"
-msgstr "觸控板手勢"
-
-#: src/main.js:3272
-msgid "Zoom in"
-msgstr "放大"
-
-#: src/main.js:3273
+#: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
+#: src/ui/shortcutsWindow.ui:199
 msgid "Zoom out"
 msgstr "縮小"
 
-#: src/main.js:3304 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
-msgid "A simple and modern eBook viewer"
-msgstr "一個簡單而現代化的電子書閱讀器"
-
-#: src/main.js:3337
-msgid "Use sidebar (requires restart)"
-msgstr "使用側邊欄（須重新啟動）"
-
-#: src/main.js:3338
-msgid "Use a sidebar to display table of contents, annotations, and bookmarks."
-msgstr "使用側邊欄來顯示目錄、註解與書籤。"
-
-#: src/main.js:3342
-msgid "Open last opened file on startup"
-msgstr "啟動時開啟上次上次開啟的檔案"
-
-#: src/main.js:3345
-msgid "Auto-hide cursor"
-msgstr "自動隱藏游標"
-
-#: src/main.js:3348
-msgid "Never"
-msgstr "永不"
-
-#: src/main.js:3349
-msgid "Always"
-msgstr "總是"
-
-#: src/main.js:3350
-msgid "When in fullscreen mode"
-msgstr "全螢幕時"
-
-#: src/main.js:3354
-msgid "Display non-EPUB-3 footnotes in a popover"
-msgstr "彈出顯示非 EPUB 3 的註腳"
-
-#: src/main.js:3355
-msgid "This feature is experimental and might not work with all books."
-msgstr "此功能為實驗性質，可能不會對所有書籍都正常運作。"
-
-#: src/main.js:3360
-msgid "Allow unsafe content (not recommended)"
-msgstr "允許不安全的內容（不建議）"
-
-#: src/main.js:3361
-msgid "Enabling this will allow JavaScript and external resources to load."
+#: src/ui/mainMenu.ui:57
+msgid "Restore zoom"
 msgstr ""
-"啟用後將允許 JavaScript 與外部資源載入。\n"
-"這將構成潛在安全與隱私風險。"
 
-#: src/main.js:3362
-msgid "This will pose potential security and privacy risks."
+#: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
+#: src/ui/shortcutsWindow.ui:192
+msgid "Zoom in"
+msgstr "放大"
+
+#: src/ui/mainMenu.ui:108
+msgid "Brightness"
+msgstr "亮度"
+
+#: src/ui/mainMenu.ui:141
+msgid "Font"
+msgstr "字體"
+
+#: src/ui/mainMenu.ui:155
+msgid "Spacing"
+msgstr "行距"
+
+#: src/ui/mainMenu.ui:169
+msgid "Margins"
+msgstr "邊界"
+
+#: src/ui/mainMenu.ui:231 src/ui/mainMenu.ui:301
+msgid "Theme"
+msgstr "主題"
+
+#: src/ui/mainMenu.ui:238 src/ui/mainMenu.ui:367
+msgid "Advanced"
 msgstr ""
-"啟用後將允許 JavaScript 與外部資源載入。\n"
-"這將構成潛在安全與隱私風險。"
 
-#: src/main.js:3366
-msgid "Text-to-speech command"
-msgstr "文字轉語音指令"
-
-#: src/main.js:3367
-msgid "Leave blank to disable text-to-speech."
-msgstr "空白表示停用文字轉語音功能。"
-
-#: src/main.js:3397
-msgid "Do nothing"
-msgstr "不做任何事"
-
-#: src/main.js:3398
-msgid "Ask what to do"
-msgstr "詢問要做什麼"
-
-#: src/main.js:3400
-msgid "Lookup in dictionary"
-msgstr "查詢字典"
-
-#: src/main.js:3401
-msgid "Lookup in Wikipedia"
-msgstr "查詢維基百科"
-
-#: src/main.js:3405
-msgid "When a word is selected"
-msgstr "選取一個單字時"
-
-#: src/main.js:3408
-msgid "When multiple words are selected"
-msgstr "選取多個單字時"
-
-#: src/main.js:3411
+#: src/ui/mainMenu.ui:250 src/ui/mainMenu.ui:561 src/ui/shortcutsWindow.ui:53
 #, fuzzy
-msgid "Lookup method"
-msgstr "查詢"
+msgid "Book"
+msgstr "書籤"
 
-#: src/main.js:3413
+#: src/ui/mainMenu.ui:262
+msgid "Open…"
+msgstr "開啟…"
+
+#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:50
+msgid "Preferences"
+msgstr "偏好設定"
+
+#: src/ui/mainMenu.ui:281
+msgid "Keyboard Shortcuts"
+msgstr "鍵盤捷徑鍵"
+
+#: src/ui/mainMenu.ui:288
+msgid "About Foliate"
+msgstr "關於 Foliate"
+
+#: src/ui/mainMenu.ui:341
+msgid "Add Custom Theme…"
+msgstr ""
+
+#: src/ui/mainMenu.ui:387
+msgid "Layout"
+msgstr "版面"
+
+#: src/ui/mainMenu.ui:405
 #, fuzzy
 msgid "Automatic"
 msgstr "自動"
 
-#: src/main.js:3426
-msgid "Selection"
+#: src/ui/mainMenu.ui:413
+#, fuzzy
+msgid "Single Column"
+msgstr "單頁"
+
+#: src/ui/mainMenu.ui:421
+msgid "Scrolled"
+msgstr "捲動"
+
+#: src/ui/mainMenu.ui:429
+msgid "Continuous"
 msgstr ""
 
-#: src/main.js:3459
+#: src/ui/mainMenu.ui:446
+msgid "Text"
+msgstr "文字"
+
+#: src/ui/mainMenu.ui:463
+#, fuzzy
+msgid "Use Publisher Font"
+msgstr "出版社"
+
+#: src/ui/mainMenu.ui:470
+msgid "Full Justification"
+msgstr "左右對齊"
+
+#: src/ui/mainMenu.ui:477
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
+#, fuzzy
+msgid "Auto-hyphenation"
+msgstr "自動斷字"
+
+#: src/ui/mainMenu.ui:494
+msgid "Other"
+msgstr ""
+
+#: src/ui/mainMenu.ui:518
+#, fuzzy
+msgid "Auto-hide Cursor"
+msgstr "自動隱藏游標"
+
+#: src/ui/mainMenu.ui:525
+msgid "Realistic Shadows"
+msgstr ""
+
+#: src/ui/mainMenu.ui:537
+#, fuzzy
+msgid "Allow JavaScript and external resources"
+msgstr ""
+"啟用後將允許 JavaScript 與外部資源載入。\n"
+"這將構成潛在安全與隱私風險。"
+
+#: src/ui/mainMenu.ui:538
+#, fuzzy
+msgid "Allow Unsafe Content"
+msgstr "允許不安全的內容（不建議）"
+
+#: src/ui/mainMenu.ui:545
+msgid "Enable Developer Tools"
+msgstr ""
+
+#: src/ui/mainMenu.ui:571 src/ui/propertiesWindow.ui:4
+msgid "About This Book"
+msgstr "關於這本書"
+
+#: src/ui/mainMenu.ui:583
+msgid "Open a Copy"
+msgstr ""
+
+#: src/ui/mainMenu.ui:590 src/ui/shortcutsWindow.ui:29
+msgid "Reload"
+msgstr ""
+
+#: src/ui/mainMenu.ui:602
+#, fuzzy
+msgid "Export annotations…"
+msgstr "匯出註解…"
+
+#: src/ui/mainOverlay.ui:33
+#, fuzzy
+msgid "No books open"
+msgstr "沒有書籤"
+
+#: src/ui/mainOverlay.ui:45
+#, fuzzy
+msgid "Open a book to start reading."
+msgstr "開啟電子書以開始閱讀"
+
+#: src/ui/mainOverlay.ui:54
+msgid "Open File…"
+msgstr "開啟檔案…"
+
+#: src/ui/mainOverlay.ui:83
+msgid "Something's wrong"
+msgstr ""
+
+#: src/ui/mainOverlay.ui:95
+#, fuzzy
+msgid "The file cannot be opened."
+msgstr "噢不！無法開啟檔案"
+
+#: src/ui/mainOverlay.ui:104
+msgid "Open Another File…"
+msgstr "開啟其他檔案…"
+
+#: src/ui/navBar.ui:27
+#, fuzzy
+msgid "Time left in book"
+msgstr "全書剩餘 %d 分鐘"
+
+#: src/ui/navBar.ui:41
+#, fuzzy
+msgid "Time left in chapter"
+msgstr "章節剩餘 %d 分鐘"
+
+#: src/ui/navBar.ui:95
+#, fuzzy
+msgid "Chapter"
+msgstr "所有章節"
+
+#: src/ui/navBar.ui:135 src/ui/navBar.ui:325
+#, fuzzy
+msgid "Location"
+msgstr "前往連結位置"
+
+#: src/ui/navBar.ui:175
+msgid "CFI"
+msgstr ""
+
+#: src/ui/navBar.ui:176
+msgid "EPUB Canonical Fragment Identifier"
+msgstr ""
+
+#: src/ui/navBar.ui:216
+msgid "Go to beginning of book"
+msgstr ""
+
+#: src/ui/navBar.ui:230
+#, fuzzy
+msgid "Go to previous chapter"
+msgstr "前往上一頁"
+
+#: src/ui/navBar.ui:244
+#, fuzzy
+msgid "Go to next chapter"
+msgstr "前往下一頁"
+
+#: src/ui/navBar.ui:258
+msgid "Go to end of book"
+msgstr ""
+
+#: src/ui/navBar.ui:280 src/ui/shortcutsWindow.ui:149
+#: src/ui/shortcutsWindow.ui:185
+#, fuzzy
+msgid "Go to previous page"
+msgstr "前往上一頁"
+
+#: src/ui/navBar.ui:294 src/ui/shortcutsWindow.ui:156
+msgid "Go back to previous location"
+msgstr "返回先前位置"
+
+#: src/ui/navBar.ui:368 src/ui/shortcutsWindow.ui:142
+#: src/ui/shortcutsWindow.ui:178
+#, fuzzy
+msgid "Go to next page"
+msgstr "前往下一頁"
+
+#: src/ui/navBar.ui:383
+msgid "Text-to-speech"
+msgstr "文字轉語音"
+
+#: src/ui/preferenceWindow.ui:11
+msgid "Do nothing"
+msgstr "不做任何事"
+
+#: src/ui/preferenceWindow.ui:15
+msgid "Show menu"
+msgstr "顯示選單"
+
+#: src/ui/preferenceWindow.ui:23 src/ui/selectionPopover.ui:35
+msgid "Highlight"
+msgstr "註解"
+
+#: src/ui/preferenceWindow.ui:27
+#, fuzzy
+msgid "Look up in dictionary"
+msgstr "查詢維基百科"
+
+#: src/ui/preferenceWindow.ui:31
+#, fuzzy
+msgid "Look up in Wikipedia"
+msgstr "查詢維基百科"
+
+#: src/ui/preferenceWindow.ui:35 src/ui/selectionPopover.ui:95
+msgid "Translate"
+msgstr "翻譯"
+
+#: src/ui/preferenceWindow.ui:39 src/ui/shortcutsWindow.ui:64
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
+msgid "Find in book"
+msgstr "搜尋書籍內容"
+
+#: src/ui/preferenceWindow.ui:43 src/ui/selectionPopover.ui:61
+msgid "Speak"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:84
+#, fuzzy
+msgid "Use sidebar"
+msgstr "顯示/隱藏側邊欄"
+
+#: src/ui/preferenceWindow.ui:111
+msgid "Open last opened file on startup"
+msgstr "啟動時開啟上次上次開啟的檔案"
+
+#: src/ui/preferenceWindow.ui:138
+msgid "When a word is selected"
+msgstr "選取一個單字時"
+
+#: src/ui/preferenceWindow.ui:176
+#, fuzzy
+msgid "When multiple words are selected"
+msgstr "選取一個單字時"
+
+#: src/ui/preferenceWindow.ui:215
+msgid "Text-to-speech command"
+msgstr "文字轉語音指令"
+
+#: src/ui/selectionPopover.ui:49
+msgid "Find"
+msgstr ""
+
+#: src/ui/selectionPopover.ui:81
+#, fuzzy
+msgid "Look Up in Dictionary"
+msgstr "字典"
+
+#: src/ui/selectionPopover.ui:88
+#, fuzzy
+msgid "Look Up in Wikipedia"
+msgstr "查詢維基百科"
+
+#: src/ui/selectionPopover.ui:107
+msgid "Speak from Here"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:11
+#, fuzzy
+msgid "File"
+msgstr "所有檔案"
+
+#: src/ui/shortcutsWindow.ui:15
+#, fuzzy
+msgid "Open file"
+msgstr "開啟檔案"
+
+#: src/ui/shortcutsWindow.ui:22
+msgid "Open a copy"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:36
+msgid "Close current window"
+msgstr "關閉目前視窗"
+
+#: src/ui/shortcutsWindow.ui:43
+msgid "Quit"
+msgstr "結束"
+
+#: src/ui/shortcutsWindow.ui:71
+#, fuzzy
+msgid "View book info"
+msgstr "閱讀電子書"
+
+#: src/ui/shortcutsWindow.ui:78
+#, fuzzy
+msgid "Start/stop text-to-speech"
+msgstr "文字轉語音"
+
+#: src/ui/shortcutsWindow.ui:107
+msgid "Restore zoom level"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:114
+msgid "Toggle fullscreen"
+msgstr "切換全螢幕"
+
+#: src/ui/shortcutsWindow.ui:121
+#, fuzzy
+msgid "Show contents"
+msgstr "顯示目錄"
+
+#: src/ui/shortcutsWindow.ui:128
+#, fuzzy
+msgid "Show primary menu"
+msgstr "顯示選單"
+
+#: src/ui/shortcutsWindow.ui:138
+msgid "Navigation"
+msgstr "瀏覽"
+
+#: src/ui/shortcutsWindow.ui:164
+#, fuzzy
+msgid "Go to location"
+msgstr "前往連結位置"
+
+#: src/ui/shortcutsWindow.ui:174
+msgid "Touchpad Gestures"
+msgstr "觸控板手勢"
+
+#: src/ui/themeRow.ui:26
+msgid "Edit"
+msgstr ""
+
+#: src/ui/themeWindow.ui:6
+msgid "Custom Theme"
+msgstr ""
+
+#: src/ui/themeWindow.ui:17
+msgid "OK"
+msgstr ""
+
+#: src/ui/themeWindow.ui:39
+#, fuzzy
+msgid "Theme Name"
+msgstr "主題名稱"
+
+#: src/ui/themeWindow.ui:64
+msgid "Background"
+msgstr "背景"
+
+#: src/ui/themeWindow.ui:78
+#, fuzzy
+msgid "Text Color"
+msgstr "反轉顏色"
+
+#: src/ui/themeWindow.ui:92
+#, fuzzy
+msgid "Link Color"
+msgstr "反轉顏色"
+
+#: src/ui/themeWindow.ui:159
+#, fuzzy
+msgid "Dark Mode"
+msgstr "啟用深色模式"
+
+#: src/ui/themeWindow.ui:200
+#, fuzzy
+msgid "Remove Theme"
+msgstr "移除選取的主題"
+
+#: src/ui/translationBox.ui:53
+#, fuzzy
+msgid "Cannot retrieve translation"
+msgstr "無法取得翻譯。"
+
+#: src/ui/translationBox.ui:128
 msgid "Afrikaans"
 msgstr "南非荷蘭文"
 
-#: src/main.js:3460
+#: src/ui/translationBox.ui:132
 msgid "Albanian"
 msgstr "阿爾巴尼亞文"
 
-#: src/main.js:3461
+#: src/ui/translationBox.ui:136
 msgid "Amharic"
 msgstr "阿姆哈拉文"
 
-#: src/main.js:3462
+#: src/ui/translationBox.ui:140
 msgid "Arabic"
 msgstr "阿拉伯文"
 
-#: src/main.js:3463
+#: src/ui/translationBox.ui:144
 msgid "Armenian"
 msgstr "亞美尼亞文"
 
-#: src/main.js:3464
+#: src/ui/translationBox.ui:148
 msgid "Azerbaijani"
 msgstr "亞塞拜然文"
 
-#: src/main.js:3465
+#: src/ui/translationBox.ui:152
 msgid "Basque"
 msgstr "巴斯克文"
 
-#: src/main.js:3466
+#: src/ui/translationBox.ui:156
 msgid "Belarusian"
 msgstr "白俄羅斯語"
 
-#: src/main.js:3467
+#: src/ui/translationBox.ui:160
 msgid "Bengali"
 msgstr "孟加拉文"
 
-#: src/main.js:3468
+#: src/ui/translationBox.ui:164
 msgid "Bosnian"
 msgstr "波士尼亞文"
 
-#: src/main.js:3469
+#: src/ui/translationBox.ui:168
 msgid "Bulgarian"
 msgstr "保加利亞文"
 
-#: src/main.js:3470
+#: src/ui/translationBox.ui:172
 msgid "Catalan"
 msgstr "加泰隆尼亞文"
 
-#: src/main.js:3471
+#: src/ui/translationBox.ui:176
 msgid "Cebuano"
 msgstr "宿霧文"
 
-#: src/main.js:3472
+#: src/ui/translationBox.ui:180
 msgid "Chinese (Simplified)"
 msgstr "中文 (簡體)"
 
-#: src/main.js:3473
+#: src/ui/translationBox.ui:184
 msgid "Chinese (Traditional)"
 msgstr "中文 (繁體)"
 
-#: src/main.js:3474
+#: src/ui/translationBox.ui:188
 msgid "Corsican"
 msgstr "科西嘉文"
 
-#: src/main.js:3475
+#: src/ui/translationBox.ui:192
 msgid "Croatian"
 msgstr "克羅埃西亞文"
 
-#: src/main.js:3476
+#: src/ui/translationBox.ui:196
 msgid "Czech"
 msgstr "捷克文"
 
-#: src/main.js:3477
+#: src/ui/translationBox.ui:200
 msgid "Danish"
 msgstr "丹麥文"
 
-#: src/main.js:3478
+#: src/ui/translationBox.ui:204
 msgid "Dutch"
 msgstr "荷蘭語"
 
-#: src/main.js:3479
+#: src/ui/translationBox.ui:208
 msgid "English"
 msgstr "英文"
 
-#: src/main.js:3480
+#: src/ui/translationBox.ui:212
 msgid "Esperanto"
 msgstr "世界語"
 
-#: src/main.js:3481
+#: src/ui/translationBox.ui:216
 msgid "Estonian"
 msgstr "愛沙尼亞文"
 
-#: src/main.js:3482
+#: src/ui/translationBox.ui:220
 msgid "Finnish"
 msgstr "芬蘭文"
 
-#: src/main.js:3483
+#: src/ui/translationBox.ui:224
 msgid "French"
 msgstr "法文"
 
-#: src/main.js:3484
+#: src/ui/translationBox.ui:228
 msgid "Frisian"
 msgstr "弗利然文"
 
-#: src/main.js:3485
+#: src/ui/translationBox.ui:232
 msgid "Galician"
 msgstr "加里西亞語"
 
-#: src/main.js:3486
+#: src/ui/translationBox.ui:236
 msgid "Georgian"
 msgstr "喬治亞文"
 
-#: src/main.js:3487
+#: src/ui/translationBox.ui:240
 msgid "German"
 msgstr "德文"
 
-#: src/main.js:3488
+#: src/ui/translationBox.ui:244
 msgid "Greek"
 msgstr "希臘文"
 
-#: src/main.js:3489
+#: src/ui/translationBox.ui:248
 msgid "Gujarati"
 msgstr "古吉拉特文"
 
-#: src/main.js:3490
+#: src/ui/translationBox.ui:252
 msgid "Haitian Creole"
 msgstr "海地克里奧文"
 
-#: src/main.js:3491
+#: src/ui/translationBox.ui:256
 msgid "Hausa"
 msgstr "豪薩文"
 
-#: src/main.js:3492
+#: src/ui/translationBox.ui:260
 msgid "Hawaiian"
 msgstr "夏威夷文"
 
-#: src/main.js:3493
+#: src/ui/translationBox.ui:264
 msgid "Hebrew"
 msgstr "希伯來文"
 
-#: src/main.js:3494
+#: src/ui/translationBox.ui:268
 msgid "Hindi"
 msgstr "北印度文"
 
-#: src/main.js:3495
+#: src/ui/translationBox.ui:272
 msgid "Hmong"
 msgstr "苗文"
 
-#: src/main.js:3496
+#: src/ui/translationBox.ui:276
 msgid "Hungarian"
 msgstr "匈牙利文"
 
-#: src/main.js:3497
+#: src/ui/translationBox.ui:280
 msgid "Icelandic"
 msgstr "冰島文"
 
-#: src/main.js:3498
+#: src/ui/translationBox.ui:284
 msgid "Igbo"
 msgstr "伊布文"
 
-#: src/main.js:3499
+#: src/ui/translationBox.ui:288
 msgid "Indonesian"
 msgstr "印尼文"
 
-#: src/main.js:3500
+#: src/ui/translationBox.ui:292
 msgid "Irish"
 msgstr "愛爾蘭文"
 
-#: src/main.js:3501
+#: src/ui/translationBox.ui:296
 msgid "Italian"
 msgstr "義大利文"
 
-#: src/main.js:3502
+#: src/ui/translationBox.ui:300
 msgid "Japanese"
 msgstr "日文"
 
-#: src/main.js:3503
+#: src/ui/translationBox.ui:304
 msgid "Javanese"
 msgstr "爪哇文"
 
-#: src/main.js:3504
+#: src/ui/translationBox.ui:308
 msgid "Kannada"
 msgstr "卡納達文"
 
-#: src/main.js:3505
+#: src/ui/translationBox.ui:312
 msgid "Kazakh"
 msgstr "哈薩克文"
 
-#: src/main.js:3506
+#: src/ui/translationBox.ui:316
 msgid "Khmer"
 msgstr "高棉文"
 
-#: src/main.js:3507
+#: src/ui/translationBox.ui:320
 msgid "Korean"
 msgstr "韓文"
 
-#: src/main.js:3508
+#: src/ui/translationBox.ui:324
 msgid "Kurdish"
 msgstr "庫德語"
 
-#: src/main.js:3509
+#: src/ui/translationBox.ui:328
 msgid "Kyrgyz"
 msgstr "吉爾吉斯文"
 
-#: src/main.js:3510
+#: src/ui/translationBox.ui:332
 msgid "Lao"
 msgstr "寮文"
 
-#: src/main.js:3511
+#: src/ui/translationBox.ui:336
 msgid "Latin"
 msgstr "拉丁文"
 
-#: src/main.js:3512
+#: src/ui/translationBox.ui:340
 msgid "Latvian"
 msgstr "拉脫維亞文"
 
-#: src/main.js:3513
+#: src/ui/translationBox.ui:344
 msgid "Lithuanian"
 msgstr "立陶宛文"
 
-#: src/main.js:3514
+#: src/ui/translationBox.ui:348
 msgid "Luxembourgish"
 msgstr "盧森堡文"
 
-#: src/main.js:3515
+#: src/ui/translationBox.ui:352
 msgid "Macedonian"
 msgstr "馬其頓文"
 
-#: src/main.js:3516
+#: src/ui/translationBox.ui:356
 msgid "Malagasy"
 msgstr "馬達加斯加文"
 
-#: src/main.js:3517
+#: src/ui/translationBox.ui:360
 msgid "Malay"
 msgstr "馬來文"
 
-#: src/main.js:3518
+#: src/ui/translationBox.ui:364
 msgid "Malayalam"
 msgstr "馬拉雅拉姆文"
 
-#: src/main.js:3519
+#: src/ui/translationBox.ui:368
 msgid "Maltese"
 msgstr "馬耳他文"
 
-#: src/main.js:3520
+#: src/ui/translationBox.ui:372
 msgid "Maori"
 msgstr "毛利文"
 
-#: src/main.js:3521
+#: src/ui/translationBox.ui:376
 msgid "Marathi"
 msgstr "馬拉地文"
 
-#: src/main.js:3522
+#: src/ui/translationBox.ui:380
 msgid "Mongolian"
 msgstr "蒙古文"
 
-#: src/main.js:3523
+#: src/ui/translationBox.ui:384
 msgid "Myanmar (Burmese)"
 msgstr "緬甸文"
 
-#: src/main.js:3524
+#: src/ui/translationBox.ui:388
 msgid "Nepali"
 msgstr "尼泊爾文"
 
-#: src/main.js:3525
+#: src/ui/translationBox.ui:392
 msgid "Norwegian"
 msgstr "挪威文"
 
-#: src/main.js:3526
+#: src/ui/translationBox.ui:396
 msgid "Nyanja (Chichewa)"
 msgstr "尼揚賈文 (齊切瓦文)"
 
-#: src/main.js:3527
+#: src/ui/translationBox.ui:400
 msgid "Pashto"
 msgstr "帕施圖文"
 
-#: src/main.js:3528
+#: src/ui/translationBox.ui:404
 msgid "Persian"
 msgstr "波斯文"
 
-#: src/main.js:3529
+#: src/ui/translationBox.ui:408
 msgid "Polish"
 msgstr "波蘭文"
 
-#: src/main.js:3530
+#: src/ui/translationBox.ui:412
 msgid "Portuguese (Portugal, Brazil)"
 msgstr "葡萄牙文 (葡萄牙、巴西)"
 
-#: src/main.js:3531
+#: src/ui/translationBox.ui:416
 msgid "Punjabi"
 msgstr "旁遮普文"
 
-#: src/main.js:3532
+#: src/ui/translationBox.ui:420
 msgid "Romanian"
 msgstr "旁遮普文"
 
-#: src/main.js:3533
+#: src/ui/translationBox.ui:424
 msgid "Russian"
 msgstr "俄文"
 
-#: src/main.js:3534
+#: src/ui/translationBox.ui:428
 msgid "Samoan"
 msgstr "薩摩亞文"
 
-#: src/main.js:3535
+#: src/ui/translationBox.ui:432
 msgid "Scots Gaelic"
 msgstr "蘇格蘭蓋爾文"
 
-#: src/main.js:3536
+#: src/ui/translationBox.ui:436
 msgid "Serbian"
 msgstr "塞爾維亞文"
 
-#: src/main.js:3537
+#: src/ui/translationBox.ui:440
 msgid "Sesotho"
 msgstr "瑟索托文"
 
-#: src/main.js:3538
+#: src/ui/translationBox.ui:444
 msgid "Shona"
 msgstr "修納文"
 
-#: src/main.js:3539
+#: src/ui/translationBox.ui:448
 msgid "Sindhi"
 msgstr "信德文"
 
-#: src/main.js:3540
+#: src/ui/translationBox.ui:452
 msgid "Sinhala (Sinhalese)"
 msgstr "僧伽羅文 (錫蘭文)"
 
-#: src/main.js:3541
+#: src/ui/translationBox.ui:456
 msgid "Slovak"
 msgstr "斯洛伐克文"
 
-#: src/main.js:3542
+#: src/ui/translationBox.ui:460
 msgid "Slovenian"
 msgstr "斯洛維尼亞文"
 
-#: src/main.js:3543
+#: src/ui/translationBox.ui:464
 msgid "Somali"
 msgstr "索馬利亞文"
 
-#: src/main.js:3544
+#: src/ui/translationBox.ui:468
 msgid "Spanish"
 msgstr "西班牙文"
 
-#: src/main.js:3545
+#: src/ui/translationBox.ui:472
 msgid "Sundanese"
 msgstr "巽他文"
 
-#: src/main.js:3546
+#: src/ui/translationBox.ui:476
 msgid "Swahili"
 msgstr "斯瓦希里文"
 
-#: src/main.js:3547
+#: src/ui/translationBox.ui:480
 msgid "Swedish"
 msgstr "瑞典文"
 
-#: src/main.js:3548
+#: src/ui/translationBox.ui:484
 msgid "Tagalog (Filipino)"
 msgstr "塔加路文 (菲律賓文)"
 
-#: src/main.js:3549
+#: src/ui/translationBox.ui:488
 msgid "Tajik"
 msgstr "塔吉克文"
 
-#: src/main.js:3550
+#: src/ui/translationBox.ui:492
 msgid "Tamil"
 msgstr "泰米爾文"
 
-#: src/main.js:3551
+#: src/ui/translationBox.ui:496
 msgid "Telugu"
 msgstr "泰盧固文"
 
-#: src/main.js:3552
+#: src/ui/translationBox.ui:500
 msgid "Thai"
 msgstr "泰文"
 
-#: src/main.js:3553
+#: src/ui/translationBox.ui:504
 msgid "Turkish"
 msgstr "土耳其文"
 
-#: src/main.js:3554
+#: src/ui/translationBox.ui:508
 msgid "Ukrainian"
 msgstr "烏克蘭文"
 
-#: src/main.js:3555
+#: src/ui/translationBox.ui:512
 msgid "Urdu"
 msgstr "烏都文"
 
-#: src/main.js:3556
+#: src/ui/translationBox.ui:516
 msgid "Uzbek"
 msgstr "烏茲別克文"
 
-#: src/main.js:3557
+#: src/ui/translationBox.ui:520
 msgid "Vietnamese"
 msgstr "越南文"
 
-#: src/main.js:3558
+#: src/ui/translationBox.ui:524
 msgid "Welsh"
 msgstr "威爾斯文"
 
-#: src/main.js:3559
+#: src/ui/translationBox.ui:528
 msgid "Xhosa"
 msgstr "柯薩文"
 
-#: src/main.js:3560
+#: src/ui/translationBox.ui:532
 msgid "Yiddish"
 msgstr "意第緒文"
 
-#: src/main.js:3561
+#: src/ui/translationBox.ui:536
 msgid "Yoruba"
 msgstr "約魯巴文"
 
-#: src/main.js:3562
+#: src/ui/translationBox.ui:540
 msgid "Zulu"
 msgstr "祖魯文"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:9
+#: src/ui/wikipediaBox.ui:53
+#, fuzzy
+msgid "No entry found"
+msgstr "找不到條目。"
+
+#: src/ui/wikipediaBox.ui:80
+msgid "Wikipedia"
+msgstr "維基百科"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
 msgstr "Foliate 是一個簡單而現代化的 GTK 電子書閱讀器"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:11
 msgid "Features include:"
 msgstr "功能包括："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:12
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:13
 msgid "Two-page view and scrolled view"
 msgstr "兩欄頁面與捲動檢視"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:13
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:14
 msgid "Customize font and line-spacing"
 msgstr "自訂字體與行距"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:14
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
 msgid "Light, sepia, dark, and invert mode"
 msgstr "亮、褐、暗色主題與反轉模式"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
 msgid "Reading progress slider with chapter marks"
 msgstr "有標示章節的閱讀進度滑桿"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
 msgstr "書籤與註解"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
 msgstr "快速字典查詢"
 
-#~ msgid "%d minute left in chapter"
-#~ msgid_plural "%d minutes left in chapter"
-#~ msgstr[0] "章節剩餘 %d 分鐘"
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:22
+msgid "John Factotum"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
+msgid ""
+"Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
+msgid "Improved Wiktionary lookup, now with links and example sentences"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
+msgid "Improved popover footnote extraction and formatting"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
+msgid "Added option to export annotations to BibTeX"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
+msgid "Fixed table of contents navigation not working with some books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
+msgid "Fixed not being able to zoom images with Kindle books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
+msgid "Fixed not being able to open books with .epub3 filename extension"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
+msgid "Fixed temporary directory not being cleaned after closing"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
+msgid "Fixed F9 shortcut not working"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:102
+#, fuzzy
+msgid "Updated translations"
+msgstr "無法取得翻譯。"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
+msgid "External resources and JavaScript are now blocked by default"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
+#, fuzzy
+msgid "Basic text-to-speech support"
+msgstr "開始/停止文字轉語音"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
+msgid "Export annotations to HTML, plain text, or JSON"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
+msgid "Support for viewing .mobi, .azw, and .azw3 files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
+msgid "New alternative sidebar UI"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
+msgid "Lookup words in Wikipedia and offline dictionaries"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+#, fuzzy
+msgid "Translate passages with Google Translate"
+msgstr "翻譯來自 Google 翻譯"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
+#, fuzzy
+msgid "Configure default action when words are selected"
+msgstr "選取多個單字時"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+msgid "Experimental popup footnote support"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
+msgid "Ability to find within only the current chapter"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
+msgid "Fixed CPU spikes when left open"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
+msgid "Fixed highlights not rendering at the correct positions"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
+msgid "Fixed crashing when opening files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
+msgid "Customize page margins and brightness"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
+msgid "Tweak the theme colors, or add your own custom themes"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
+msgid "Ability to zoom and copy images"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
+#, fuzzy
+msgid "Option to auto-hide cursor"
+msgstr "自動隱藏游標"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
+msgid "See reading time left by hovering over the reading progress slider"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
+#, fuzzy
+msgid "Fixed some books not rendering sometimes"
+msgstr "開啟電子書以開始閱讀"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
+msgid "Fixed images being too wide in some cases"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
+msgid "New features:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:130
+msgid "Option to switch between left and full justification"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
+msgid "New layout option: single-column paginated view"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
+msgid "Fixed:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:135
+msgid ""
+"Generated locations are now stored in the cache directory rather than "
+"localStorage"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
+msgid "Allow font size adjustment when using publisher fonts"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
+msgid ""
+"Fixed reading progress slider not appearing after localStorage quota is "
+"exceeded"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
+msgid "Touchpad gestures and ability to scroll through pages"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
+#, fuzzy
+msgid "Fullscreen mode"
+msgstr "全螢幕"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
+#, fuzzy
+msgid "Option to hide reading progress bar"
+msgstr "顯示/隱藏閱讀進度列"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:154
+#, fuzzy
+msgid "Option to disable dictionary"
+msgstr "查詢字典"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:155
+#, fuzzy
+msgid "Option to use publisher font"
+msgstr "使用出版社字體"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:157
+msgid "Fixes:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
+msgid "Restoring reading progress is now smooth and jank-free"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:160
+#, fuzzy
+msgid "Fixed custom styles not applying in some cases"
+msgstr "開啟電子書以開始閱讀"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
+msgid "Fixed invalid AppData file"
+msgstr "修正無效的 AppData 檔案"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
+msgid "Initial release"
+msgstr "首次發布"
+
+#~ msgid "Auto"
+#~ msgstr "自動"
+
+#~ msgid "Yellow"
+#~ msgstr "黃"
+
+#~ msgid "Orange"
+#~ msgstr "橘"
+
+#~ msgid "Red"
+#~ msgstr "紅"
+
+#~ msgid "Magenta"
+#~ msgstr "紫"
+
+#~ msgid "Aqua"
+#~ msgstr "藍"
+
+#~ msgid "Lime"
+#~ msgstr "綠"
+
+#~ msgid "From Wiktionary, the free dictionary"
+#~ msgstr "來自維基詞典，自由的多語言辭典"
+
+#~ msgid "View on Wiktionary"
+#~ msgstr "在維基詞典上檢視"
+
+#~ msgid "Previous page"
+#~ msgstr "上一頁"
+
+#~ msgid "Next page"
+#~ msgstr "下一頁"
+
+#~ msgid "Go back"
+#~ msgstr "返回"
+
+#, javascript-format
+#~ msgid "%d hour left in book"
+#~ msgid_plural "%d hours left in book"
+#~ msgstr[0] "全書剩餘 %d 小時"
+
+#, fuzzy, javascript-format
+#~ msgid "%d minute left in section"
+#~ msgid_plural "%d minutes left in section"
+#~ msgstr[0] "全書剩餘 %d 分鐘"
+
+#, fuzzy, javascript-format
+#~ msgid "%d hour left in section"
+#~ msgid_plural "%d hours left in section"
+#~ msgstr[0] "全書剩餘 %d 小時"
+
+#~ msgid "Find in Book"
+#~ msgstr "搜尋書籍內容"
+
+#, fuzzy
+#~ msgid "All sections"
+#~ msgstr "左右對齊"
+
+#~ msgid "Searching…"
+#~ msgstr "搜尋中…"
+
+#~ msgid "No results"
+#~ msgstr "沒有結果"
+
+#, javascript-format
+#~ msgid "%d result"
+#~ msgid_plural "%d results"
+#~ msgstr[0] "%d 項結果"
+
+#~ msgid "Options"
+#~ msgstr "選項"
+
+#~ msgid "Remove current location"
+#~ msgstr "移除目前位置"
+
+#~ msgid "Lookup"
+#~ msgstr "查詢"
+
+#~ msgid "Loading…"
+#~ msgstr "載入中…"
+
+#~ msgid "From Wikipedia, the free encyclopedia"
+#~ msgstr "來自維基百科，自由的百科全書"
+
+#~ msgid "View on Wikipedia"
+#~ msgstr "在維基百科上檢視"
+
+#~ msgid "Note"
+#~ msgstr "筆記"
+
+#~ msgid "Go to Linked Location"
+#~ msgstr "前往連結位置"
+
+#~ msgid "Zoom"
+#~ msgstr "放大"
+
+#~ msgid "Open a file, or continue reading the last opened book."
+#~ msgstr "開啟檔案，或繼續閱讀上次開啟的電子書"
+
+#~ msgid "Continue Reading"
+#~ msgstr "繼續閱讀"
+
+#, fuzzy
+#~ msgid "Go to Location…"
+#~ msgstr "前往連結位置"
+
+#~ msgid "Set font, theme, and layout"
+#~ msgstr "設定字體、主題與版面"
+
+#~ msgid "Reading Progress Bar"
+#~ msgstr "閱讀進度列"
+
+#~ msgid "You don't have any annotations for this book."
+#~ msgstr "這本書沒有任何註解。"
+
+#, javascript-format
+#~ msgid "Annotations for %s"
+#~ msgstr "對%s的註解"
+
+#~ msgid "Link"
+#~ msgstr "連結"
+
+#~ msgid "A theme with that name already exists."
+#~ msgstr "已經存在相同名稱的主題。"
+
+#~ msgid "Add"
+#~ msgstr "新增"
+
+#~ msgid "Add…"
+#~ msgstr "新增…"
+
+#~ msgid "Add a new theme"
+#~ msgstr "新增主題"
+
+#~ msgid "General"
+#~ msgstr "一般"
+
+#~ msgid "Show annotations"
+#~ msgstr "顯示註解"
+
+#~ msgid "Show bookmarks"
+#~ msgstr "顯示書籤"
+
+#~ msgid "Show viewing options"
+#~ msgstr "顯示檢視選項"
+
+#~ msgid "Increase font size"
+#~ msgstr "放大字體"
+
+#~ msgid "Decrease font size"
+#~ msgstr "縮小字體"
+
+#~ msgid "Use sidebar (requires restart)"
+#~ msgstr "使用側邊欄（須重新啟動）"
+
+#~ msgid ""
+#~ "Use a sidebar to display table of contents, annotations, and bookmarks."
+#~ msgstr "使用側邊欄來顯示目錄、註解與書籤。"
+
+#~ msgid "Never"
+#~ msgstr "永不"
+
+#~ msgid "Always"
+#~ msgstr "總是"
+
+#~ msgid "When in fullscreen mode"
+#~ msgstr "全螢幕時"
+
+#~ msgid "Display non-EPUB-3 footnotes in a popover"
+#~ msgstr "彈出顯示非 EPUB 3 的註腳"
+
+#~ msgid "This feature is experimental and might not work with all books."
+#~ msgstr "此功能為實驗性質，可能不會對所有書籍都正常運作。"
+
+#~ msgid "This will pose potential security and privacy risks."
+#~ msgstr ""
+#~ "啟用後將允許 JavaScript 與外部資源載入。\n"
+#~ "這將構成潛在安全與隱私風險。"
+
+#~ msgid "Leave blank to disable text-to-speech."
+#~ msgstr "空白表示停用文字轉語音功能。"
+
+#~ msgid "Ask what to do"
+#~ msgstr "詢問要做什麼"
+
+#, fuzzy
+#~ msgid "Lookup method"
+#~ msgstr "查詢"
 
 #~ msgid "%d hour left in chapter"
 #~ msgid_plural "%d hours left in chapter"
 #~ msgstr[0] "章節剩餘 %d 小時"
-
-#~ msgid "All chapters"
-#~ msgstr "所有章節"
-
-#, fuzzy
-#~ msgid "Option to auto-hide cursor"
-#~ msgstr "自動隱藏游標"
-
-#, fuzzy
-#~ msgid "Fixed some books not rendering sometimes"
-#~ msgstr "開啟電子書以開始閱讀"
-
-#, fuzzy
-#~ msgid "Fullscreen mode"
-#~ msgstr "全螢幕"
-
-#~ msgid "Fixed invalid AppData file"
-#~ msgstr "修正無效的 AppData 檔案"
-
-#~ msgid "Initial release"
-#~ msgstr "首次發布"
-
-#~ msgid "No definitions found."
-#~ msgstr "無法找到定義。"

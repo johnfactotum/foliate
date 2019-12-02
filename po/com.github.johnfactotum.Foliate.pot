@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-13 10:22+0800\n"
+"POT-Creation-Date: 2019-12-02 13:45+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1750
-#: src/main.js:3303 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:89
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
 
@@ -39,1167 +39,1331 @@ msgstr ""
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr ""
 
-#: src/main.js:136
-msgid "Light"
+#: src/main.js:64
+msgid "All Files"
 msgstr ""
 
-#: src/main.js:140
-msgid "Sepia"
+#: src/main.js:68
+msgid "E-book Files"
 msgstr ""
 
-#: src/main.js:144
-msgid "Dark"
+#: src/main.js:74
+msgid "Open File"
 msgstr ""
 
-#: src/main.js:148
-msgid "Invert"
+#: src/main.js:88
+msgid "translator-credits"
 msgstr ""
 
-#: src/main.js:154
-msgid "Auto"
+#: src/main.js:90 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+msgid "A simple and modern eBook viewer"
 msgstr ""
 
-#: src/main.js:155
-msgid "Single"
+#: src/window.js:120
+msgid "Leave fullscreen"
 msgstr ""
 
-#: src/main.js:156
-msgid "Scrolled"
+#: src/window.js:123 src/ui/mainMenu.ui:84
+msgid "Fullscreen"
 msgstr ""
 
-#: src/main.js:159
-msgid "Yellow"
+#: src/window.js:170
+#, javascript-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window.js:171
+#, javascript-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window.js:178 src/window.js:179
+#, javascript-format
+msgid "of %d"
 msgstr ""
 
-#: src/main.js:159
-msgid "Orange"
+#: src/export.js:31
+#, javascript-format
+msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
 msgstr ""
 
-#: src/main.js:160
-msgid "Red"
-msgstr ""
-
-#: src/main.js:160
-msgid "Magenta"
-msgstr ""
-
-#: src/main.js:160
-msgid "Aqua"
-msgstr ""
-
-#: src/main.js:160
-msgid "Lime"
-msgstr ""
-
-#: src/main.js:207
-msgid "Wiktionary (English)"
-msgstr ""
-
-#: src/main.js:214
-msgid "From Wiktionary, the free dictionary"
-msgstr ""
-
-#: src/main.js:218
-msgid "View on Wiktionary"
-msgstr ""
-
-#: src/main.js:256 src/main.js:270
+#: src/export.js:33 src/export.js:47 src/export.js:59
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/main.js:269
+#: src/export.js:46
 #, javascript-format
-msgid ""
-"Annotations for\n"
-"%s\n"
-"By %s"
+msgid "Annotations for “%s” by %s"
 msgstr ""
 
-#: src/main.js:273
+#: src/export.js:50
+msgid "Section: "
+msgstr ""
+
+#: src/export.js:51
+msgid "Highlight: "
+msgstr ""
+
+#: src/export.js:52
 msgid "Text:"
 msgstr ""
 
-#: src/main.js:274
+#: src/export.js:53
 msgid "Note:"
 msgstr ""
 
-#: src/main.js:298
+#: src/export.js:58
+#, javascript-format
+msgid "Annotations for *%s* by %s"
+msgstr ""
+
+#: src/export.js:92
 msgid "Quote: "
 msgstr ""
 
-#: src/main.js:298
+#: src/export.js:92
 msgid " Note: "
 msgstr ""
 
-#: src/main.js:319
-msgid "Previous page"
-msgstr ""
-
-#: src/main.js:325
-msgid "Next page"
-msgstr ""
-
-#: src/main.js:340
-msgid "Go back"
-msgstr ""
-
-#: src/main.js:406
-#, javascript-format
-msgid "%d minute left in book"
-msgid_plural "%d minutes left in book"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:411
-#, javascript-format
-msgid "%d hour left in book"
-msgid_plural "%d hours left in book"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:417
-#, javascript-format
-msgid "%d minute left in section"
-msgid_plural "%d minutes left in section"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:422
-#, javascript-format
-msgid "%d hour left in section"
-msgid_plural "%d hours left in section"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:451
-#, javascript-format
-msgid "of %d"
-msgstr ""
-
-#: src/main.js:585
-msgid "Find in Book"
-msgstr ""
-
-#: src/main.js:600
-msgid "All sections"
-msgstr ""
-
-#: src/main.js:602
-msgid "Current section"
-msgstr ""
-
-#: src/main.js:634
-msgid "Searching…"
-msgstr ""
-
-#: src/main.js:640
-msgid "No results"
-msgstr ""
-
-#: src/main.js:641
-#, javascript-format
-msgid "%d result"
-msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/main.js:849
-msgid "Use Publisher Font"
-msgstr ""
-
-#: src/main.js:851
-msgid "Full Justification"
-msgstr ""
-
-#: src/main.js:853
-msgid "Auto-Hyphenation"
-msgstr ""
-
-#: src/main.js:879
-msgid "Font"
-msgstr ""
-
-#: src/main.js:880
-msgid "Spacing"
-msgstr ""
-
-#: src/main.js:881
-msgid "Margins"
-msgstr ""
-
-#: src/main.js:882
-msgid "Brightness"
-msgstr ""
-
-#: src/main.js:883 src/main.js:935 src/main.js:3435
-msgid "Theme"
-msgstr ""
-
-#: src/main.js:884
-msgid "Layout"
-msgstr ""
-
-#: src/main.js:885
-msgid "Options"
-msgstr ""
-
-#: src/main.js:1131
-msgid "No bookmarks"
-msgstr ""
-
-#: src/main.js:1132
-msgid "Add some bookmarks to see them here."
-msgstr ""
-
-#: src/main.js:1169 src/main.js:3238
-msgid "Bookmark current location"
-msgstr ""
-
-#: src/main.js:1175
-msgid "Remove current location"
-msgstr ""
-
-#: src/main.js:1190 src/main.js:2711
-msgid "No annotations"
-msgstr ""
-
-#: src/main.js:1191 src/main.js:2713
-msgid "Highlight some text to add annotations."
-msgstr ""
-
-#: src/main.js:1274 src/main.js:1306 src/main.js:1510 src/main.js:1605
-#: src/main.js:1630
-msgid "Copy"
-msgstr ""
-
-#: src/main.js:1279 src/main.js:1311 src/main.js:3399
-msgid "Highlight"
-msgstr ""
-
-#: src/main.js:1284
-msgid "Lookup"
-msgstr ""
-
-#: src/main.js:1289 src/main.js:1435 src/main.js:3402
-msgid "Translate"
-msgstr ""
-
-#: src/main.js:1318 src/main.js:1367 src/main.js:1387 src/main.js:1463
-#: src/main.js:1499
-msgid "Loading…"
-msgstr ""
-
-#: src/main.js:1433 src/main.js:3414
-msgid "Dictionary"
-msgstr ""
-
-#: src/main.js:1434 src/main.js:3415
-msgid "Wikipedia"
-msgstr ""
-
-#: src/main.js:1473
-msgid "No entry found."
-msgstr ""
-
-#: src/main.js:1477
-msgid "Search on Wiktionary"
-msgstr ""
-
-#: src/main.js:1485
-msgid "From Wikipedia, the free encyclopedia"
-msgstr ""
-
-#: src/main.js:1488
-msgid "View on Wikipedia"
-msgstr ""
-
-#: src/main.js:1494
+#: src/lookup.js:90
 msgid "Search on Wikipedia"
 msgstr ""
 
-#: src/main.js:1502
+#: src/lookup.js:212
+msgid "Source: "
+msgstr ""
+
+#: src/lookup.js:272
+msgid "Wiktionary (English)"
+msgstr ""
+
+#: src/lookup.js:332
+msgid "Search on Wiktionary"
+msgstr ""
+
+#: src/lookup.js:355
 msgid "Translation by Google Translate"
 msgstr ""
 
-#: src/main.js:1505
-msgid "Cannot retrieve translation."
-msgstr ""
-
-#: src/main.js:1515 src/main.js:3123
-msgid "Remove"
-msgstr ""
-
-#: src/main.js:1520
-msgid "Note"
-msgstr ""
-
-#: src/main.js:1587
-msgid "Go to Linked Location"
-msgstr ""
-
-#: src/main.js:1610
-msgid "Zoom"
-msgstr ""
-
-#: src/main.js:1685
-msgid "Open some books to start reading"
-msgstr ""
-
-#: src/main.js:1690
-msgid "Open a file, or continue reading the last opened book."
-msgstr ""
-
-#: src/main.js:1694
-msgid "Open File…"
-msgstr ""
-
-#: src/main.js:1698
-msgid "Continue Reading"
-msgstr ""
-
-#: src/main.js:1848
-msgid "Oh no! The file cannot be opened"
-msgstr ""
-
-#: src/main.js:1857
-msgid "Open Another File…"
-msgstr ""
-
-#: src/main.js:1891
-msgid "Go to Location…"
-msgstr ""
-
-#: src/main.js:1895 src/main.js:2806
-msgid "About This Book"
-msgstr ""
-
-#: src/main.js:1896
-msgid "Export Annotations…"
-msgstr ""
-
-#: src/main.js:2343 src/main.js:3239
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
-msgid "Find in book"
-msgstr ""
-
-#: src/main.js:2356
-msgid "Set font, theme, and layout"
-msgstr ""
-
-#: src/main.js:2406 src/main.js:2475
-msgid "Table of contents"
-msgstr ""
-
-#: src/main.js:2408 src/main.js:2487
-msgid "Annotations"
-msgstr ""
-
-#: src/main.js:2410 src/main.js:2481
-msgid "Bookmarks"
-msgstr ""
-
-#: src/main.js:2435 src/main.js:3224
-msgid "Toggle sidebar"
-msgstr ""
-
-#: src/main.js:2578
-msgid "Fullscreen"
-msgstr ""
-
-#: src/main.js:2579
-msgid "Reading Progress Bar"
-msgstr ""
-
-#: src/main.js:2583
-msgid "Open…"
-msgstr ""
-
-#: src/main.js:2587 src/main.js:3334
-msgid "Preferences"
-msgstr ""
-
-#: src/main.js:2588
-msgid "Keyboard Shortcuts"
-msgstr ""
-
-#: src/main.js:2589
-msgid "About Foliate"
-msgstr ""
-
-#: src/main.js:2650
-msgid "Text-to-speech"
-msgstr ""
-
-#: src/main.js:2675
-msgid "Go to Location"
-msgstr ""
-
-#: src/main.js:2680 src/main.js:2730
-msgid "Cancel"
-msgstr ""
-
-#: src/main.js:2681
-msgid "Go"
-msgstr ""
-
-#: src/main.js:2685
-msgid "EPUB Canonical Fragment Identifier (CFI):"
-msgstr ""
-
-#: src/main.js:2712
-msgid "You don't have any annotations for this book."
-msgstr ""
-
-#: src/main.js:2724
-msgid "Export Annotations"
-msgstr ""
-
-#: src/main.js:2731
-msgid "Export"
-msgstr ""
-
-#: src/main.js:2735
-msgid "Choose export format:"
-msgstr ""
-
-#: src/main.js:2736
-msgid "HTML"
-msgstr ""
-
-#: src/main.js:2737
-msgid "Plain Text"
-msgstr ""
-
-#: src/main.js:2738
-msgid "BibTeX"
-msgstr ""
-
-#: src/main.js:2739
-msgid "JSON"
-msgstr ""
-
-#: src/main.js:2751
-msgid "Save File"
-msgstr ""
-
-#: src/main.js:2755
-#, javascript-format
-msgid "Annotations for %s"
-msgstr ""
-
-#: src/main.js:2875
+#: src/properties.js:65
 msgid "Publisher"
 msgstr ""
 
-#: src/main.js:2876
+#: src/properties.js:69
 msgid "Publication Date"
 msgstr ""
 
-#: src/main.js:2877
+#: src/properties.js:73
 msgid "Modified Date"
 msgstr ""
 
-#: src/main.js:2878
+#: src/properties.js:77
 msgid "Language"
 msgstr ""
 
-#: src/main.js:2879
-msgid "Copyright"
-msgstr ""
-
-#: src/main.js:2880
+#: src/properties.js:81
 msgid "Identifier"
 msgstr ""
 
-#: src/main.js:2992
-msgid "Text"
+#: src/properties.js:85
+msgid "Copyright"
 msgstr ""
 
-#: src/main.js:2993
-msgid "Background"
+#: src/theme.js:23
+msgid "Light"
 msgstr ""
 
-#: src/main.js:2994
-msgid "Link"
+#: src/theme.js:27
+msgid "Sepia"
 msgstr ""
 
-#: src/main.js:2996
-msgid "Enable Dark Mode"
+#: src/theme.js:31
+msgid "Gray"
 msgstr ""
 
-#: src/main.js:2998
-msgid "Invert Colors"
+#: src/theme.js:35
+msgid "Dark"
 msgstr ""
 
-#: src/main.js:3069
-msgid "Theme name"
+#: src/theme.js:39 src/ui/themeWindow.ui:145
+msgid "Invert"
 msgstr ""
 
-#: src/main.js:3073
-msgid "A theme with that name already exists."
+#: src/theme.js:43
+msgid "Solarized Light"
 msgstr ""
 
-#: src/main.js:3075
-msgid "Add"
+#: src/theme.js:47
+msgid "Solarized Dark"
 msgstr ""
 
-#: src/main.js:3116
-msgid "Add…"
+#: src/theme.js:51
+msgid "Gruvbox Light"
 msgstr ""
 
-#: src/main.js:3118
-msgid "Add a new theme"
+#: src/theme.js:55
+msgid "Gruvbox Dark"
 msgstr ""
 
-#: src/main.js:3125
-msgid "Remove selected theme"
+#: src/theme.js:59
+msgid "Nord"
 msgstr ""
 
-#: src/main.js:3190
-msgid "All Files"
+#: src/ui/annotationBox.ui:35
+msgid "Change highlight color"
 msgstr ""
 
-#: src/main.js:3194
-msgid "E-book Files"
+#: src/ui/annotationBox.ui:64 src/ui/annotationRow.ui:53
+#: src/ui/bookmarkRow.ui:44
+msgid "Remove"
 msgstr ""
 
-#: src/main.js:3199
-msgid "Open File"
+#: src/ui/annotationBox.ui:100
+msgid "Choose custom color"
 msgstr ""
 
-#: src/main.js:3225 src/main.js:3227
-msgid "Show table of contents"
+#: src/ui/contentsStack.ui:40
+msgid "Table of Contents"
 msgstr ""
 
-#: src/main.js:3230
-msgid "Start/stop text-to-speech"
+#: src/ui/contentsStack.ui:75
+msgid "No annotations"
 msgstr ""
 
-#: src/main.js:3233 src/main.js:3394
-msgid "General"
+#: src/ui/contentsStack.ui:87
+msgid "Select some text to add annotations."
 msgstr ""
 
-#: src/main.js:3236
-msgid "Show annotations"
+#: src/ui/contentsStack.ui:120
+msgid "Annotations"
 msgstr ""
 
-#: src/main.js:3237
-msgid "Show bookmarks"
+#: src/ui/contentsStack.ui:155
+msgid "No bookmarks"
 msgstr ""
 
-#: src/main.js:3240
-msgid "Show menu"
+#: src/ui/contentsStack.ui:167
+msgid "Add some bookmarks to see them here."
 msgstr ""
 
-#: src/main.js:3242
-msgid "Close current window"
+#: src/ui/contentsStack.ui:201 src/ui/shortcutsWindow.ui:57
+msgid "Bookmark current location"
 msgstr ""
 
-#: src/main.js:3243
-msgid "Quit"
+#: src/ui/contentsStack.ui:213
+msgid "Bookmarks"
 msgstr ""
 
-#: src/main.js:3247
-msgid "Navigation"
+#: src/ui/dictionaryBox.ui:65
+msgid "No definitions found"
 msgstr ""
 
-#. I can't find where to access the enums in GJS,
-#. so just use ints for now
-#: src/main.js:3249 src/main.js:3270
-msgid "Go to the next page"
+#: src/ui/exportWindow.ui:11
+msgid "HTML"
 msgstr ""
 
-#: src/main.js:3250 src/main.js:3271
-msgid "Go to the previous page"
+#: src/ui/exportWindow.ui:15
+msgid "Markdown"
 msgstr ""
 
-#: src/main.js:3251
-msgid "Go back to previous location"
+#: src/ui/exportWindow.ui:19
+msgid "Plain Text"
 msgstr ""
 
-#: src/main.js:3252
-msgid "Go to location"
+#: src/ui/exportWindow.ui:23
+msgid "BibTeX"
 msgstr ""
 
-#: src/main.js:3256
+#: src/ui/exportWindow.ui:27
+msgid "JSON"
+msgstr ""
+
+#: src/ui/exportWindow.ui:34
+msgid "Export Annotations"
+msgstr ""
+
+#: src/ui/exportWindow.ui:38 src/ui/themeWindow.ui:10
+msgid "Cancel"
+msgstr ""
+
+#: src/ui/exportWindow.ui:45
+msgid "Export"
+msgstr ""
+
+#: src/ui/exportWindow.ui:67
+msgid "Choose export format:"
+msgstr ""
+
+#: src/ui/findBox.ui:18
+msgid "All chapters"
+msgstr ""
+
+#: src/ui/findBox.ui:25
+msgid "Current chapter"
+msgstr ""
+
+#: src/ui/footnotePopover.ui:37 src/ui/mainMenu.ui:511
+msgid "Footnote Preview"
+msgstr ""
+
+#: src/ui/footnotePopover.ui:47 src/ui/shortcutsWindow.ui:88
+#: src/ui/wikipediaBox.ui:107
 msgid "View"
 msgstr ""
 
-#: src/main.js:3258
-msgid "Show viewing options"
+#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:19
+#: src/ui/selectionPopover.ui:20
+msgid "Copy"
 msgstr ""
 
-#: src/main.js:3259
-msgid "Increase font size"
+#: src/ui/imageViewer.ui:46
+msgid "Save as"
 msgstr ""
 
-#: src/main.js:3260
-msgid "Decrease font size"
-msgstr ""
-
-#: src/main.js:3261
-msgid "Toggle fullscreen"
-msgstr ""
-
-#: src/main.js:3262
-msgid "Toggle reading progress bar"
-msgstr ""
-
-#: src/main.js:3266
-msgid "Touchpad Gestures"
-msgstr ""
-
-#: src/main.js:3272
-msgid "Zoom in"
-msgstr ""
-
-#: src/main.js:3273
+#: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
+#: src/ui/shortcutsWindow.ui:199
 msgid "Zoom out"
 msgstr ""
 
-#: src/main.js:3304 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
-msgid "A simple and modern eBook viewer"
+#: src/ui/mainMenu.ui:57
+msgid "Restore zoom"
 msgstr ""
 
-#: src/main.js:3337
-msgid "Use sidebar (requires restart)"
+#: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
+#: src/ui/shortcutsWindow.ui:192
+msgid "Zoom in"
 msgstr ""
 
-#: src/main.js:3338
-msgid "Use a sidebar to display table of contents, annotations, and bookmarks."
+#: src/ui/mainMenu.ui:108
+msgid "Brightness"
 msgstr ""
 
-#: src/main.js:3342
-msgid "Open last opened file on startup"
+#: src/ui/mainMenu.ui:141
+msgid "Font"
 msgstr ""
 
-#: src/main.js:3345
-msgid "Auto-hide cursor"
+#: src/ui/mainMenu.ui:155
+msgid "Spacing"
 msgstr ""
 
-#: src/main.js:3348
-msgid "Never"
+#: src/ui/mainMenu.ui:169
+msgid "Margins"
 msgstr ""
 
-#: src/main.js:3349
-msgid "Always"
+#: src/ui/mainMenu.ui:231 src/ui/mainMenu.ui:301
+msgid "Theme"
 msgstr ""
 
-#: src/main.js:3350
-msgid "When in fullscreen mode"
+#: src/ui/mainMenu.ui:238 src/ui/mainMenu.ui:367
+msgid "Advanced"
 msgstr ""
 
-#: src/main.js:3354
-msgid "Display non-EPUB-3 footnotes in a popover"
+#: src/ui/mainMenu.ui:250 src/ui/mainMenu.ui:561 src/ui/shortcutsWindow.ui:53
+msgid "Book"
 msgstr ""
 
-#: src/main.js:3355
-msgid "This feature is experimental and might not work with all books."
+#: src/ui/mainMenu.ui:262
+msgid "Open…"
 msgstr ""
 
-#: src/main.js:3360
-msgid "Allow unsafe content (not recommended)"
+#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:50
+msgid "Preferences"
 msgstr ""
 
-#: src/main.js:3361
-msgid "Enabling this will allow JavaScript and external resources to load."
+#: src/ui/mainMenu.ui:281
+msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: src/main.js:3362
-msgid "This will pose potential security and privacy risks."
+#: src/ui/mainMenu.ui:288
+msgid "About Foliate"
 msgstr ""
 
-#: src/main.js:3366
-msgid "Text-to-speech command"
+#: src/ui/mainMenu.ui:341
+msgid "Add Custom Theme…"
 msgstr ""
 
-#: src/main.js:3367
-msgid "Leave blank to disable text-to-speech."
+#: src/ui/mainMenu.ui:387
+msgid "Layout"
 msgstr ""
 
-#: src/main.js:3397
-msgid "Do nothing"
-msgstr ""
-
-#: src/main.js:3398
-msgid "Ask what to do"
-msgstr ""
-
-#: src/main.js:3400
-msgid "Lookup in dictionary"
-msgstr ""
-
-#: src/main.js:3401
-msgid "Lookup in Wikipedia"
-msgstr ""
-
-#: src/main.js:3405
-msgid "When a word is selected"
-msgstr ""
-
-#: src/main.js:3408
-msgid "When multiple words are selected"
-msgstr ""
-
-#: src/main.js:3411
-msgid "Lookup method"
-msgstr ""
-
-#: src/main.js:3413
+#: src/ui/mainMenu.ui:405
 msgid "Automatic"
 msgstr ""
 
-#: src/main.js:3426
-msgid "Selection"
+#: src/ui/mainMenu.ui:413
+msgid "Single Column"
 msgstr ""
 
-#: src/main.js:3459
+#: src/ui/mainMenu.ui:421
+msgid "Scrolled"
+msgstr ""
+
+#: src/ui/mainMenu.ui:429
+msgid "Continuous"
+msgstr ""
+
+#: src/ui/mainMenu.ui:446
+msgid "Text"
+msgstr ""
+
+#: src/ui/mainMenu.ui:463
+msgid "Use Publisher Font"
+msgstr ""
+
+#: src/ui/mainMenu.ui:470
+msgid "Full Justification"
+msgstr ""
+
+#: src/ui/mainMenu.ui:477
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
+msgid "Auto-hyphenation"
+msgstr ""
+
+#: src/ui/mainMenu.ui:494
+msgid "Other"
+msgstr ""
+
+#: src/ui/mainMenu.ui:518
+msgid "Auto-hide Cursor"
+msgstr ""
+
+#: src/ui/mainMenu.ui:525
+msgid "Realistic Shadows"
+msgstr ""
+
+#: src/ui/mainMenu.ui:537
+msgid "Allow JavaScript and external resources"
+msgstr ""
+
+#: src/ui/mainMenu.ui:538
+msgid "Allow Unsafe Content"
+msgstr ""
+
+#: src/ui/mainMenu.ui:545
+msgid "Enable Developer Tools"
+msgstr ""
+
+#: src/ui/mainMenu.ui:571 src/ui/propertiesWindow.ui:4
+msgid "About This Book"
+msgstr ""
+
+#: src/ui/mainMenu.ui:583
+msgid "Open a Copy"
+msgstr ""
+
+#: src/ui/mainMenu.ui:590 src/ui/shortcutsWindow.ui:29
+msgid "Reload"
+msgstr ""
+
+#: src/ui/mainMenu.ui:602
+msgid "Export annotations…"
+msgstr ""
+
+#: src/ui/mainOverlay.ui:33
+msgid "No books open"
+msgstr ""
+
+#: src/ui/mainOverlay.ui:45
+msgid "Open a book to start reading."
+msgstr ""
+
+#: src/ui/mainOverlay.ui:54
+msgid "Open File…"
+msgstr ""
+
+#: src/ui/mainOverlay.ui:83
+msgid "Something's wrong"
+msgstr ""
+
+#: src/ui/mainOverlay.ui:95
+msgid "The file cannot be opened."
+msgstr ""
+
+#: src/ui/mainOverlay.ui:104
+msgid "Open Another File…"
+msgstr ""
+
+#: src/ui/navBar.ui:27
+msgid "Time left in book"
+msgstr ""
+
+#: src/ui/navBar.ui:41
+msgid "Time left in chapter"
+msgstr ""
+
+#: src/ui/navBar.ui:95
+msgid "Chapter"
+msgstr ""
+
+#: src/ui/navBar.ui:135 src/ui/navBar.ui:325
+msgid "Location"
+msgstr ""
+
+#: src/ui/navBar.ui:175
+msgid "CFI"
+msgstr ""
+
+#: src/ui/navBar.ui:176
+msgid "EPUB Canonical Fragment Identifier"
+msgstr ""
+
+#: src/ui/navBar.ui:216
+msgid "Go to beginning of book"
+msgstr ""
+
+#: src/ui/navBar.ui:230
+msgid "Go to previous chapter"
+msgstr ""
+
+#: src/ui/navBar.ui:244
+msgid "Go to next chapter"
+msgstr ""
+
+#: src/ui/navBar.ui:258
+msgid "Go to end of book"
+msgstr ""
+
+#: src/ui/navBar.ui:280 src/ui/shortcutsWindow.ui:149
+#: src/ui/shortcutsWindow.ui:185
+msgid "Go to previous page"
+msgstr ""
+
+#: src/ui/navBar.ui:294 src/ui/shortcutsWindow.ui:156
+msgid "Go back to previous location"
+msgstr ""
+
+#: src/ui/navBar.ui:368 src/ui/shortcutsWindow.ui:142
+#: src/ui/shortcutsWindow.ui:178
+msgid "Go to next page"
+msgstr ""
+
+#: src/ui/navBar.ui:383
+msgid "Text-to-speech"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:11
+msgid "Do nothing"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:15
+msgid "Show menu"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:23 src/ui/selectionPopover.ui:35
+msgid "Highlight"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:27
+msgid "Look up in dictionary"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:31
+msgid "Look up in Wikipedia"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:35 src/ui/selectionPopover.ui:95
+msgid "Translate"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:39 src/ui/shortcutsWindow.ui:64
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
+msgid "Find in book"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:43 src/ui/selectionPopover.ui:61
+msgid "Speak"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:84
+msgid "Use sidebar"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:111
+msgid "Open last opened file on startup"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:138
+msgid "When a word is selected"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:176
+msgid "When multiple words are selected"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:215
+msgid "Text-to-speech command"
+msgstr ""
+
+#: src/ui/selectionPopover.ui:49
+msgid "Find"
+msgstr ""
+
+#: src/ui/selectionPopover.ui:81
+msgid "Look Up in Dictionary"
+msgstr ""
+
+#: src/ui/selectionPopover.ui:88
+msgid "Look Up in Wikipedia"
+msgstr ""
+
+#: src/ui/selectionPopover.ui:107
+msgid "Speak from Here"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:11
+msgid "File"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:15
+msgid "Open file"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:22
+msgid "Open a copy"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:36
+msgid "Close current window"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:43
+msgid "Quit"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:71
+msgid "View book info"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:78
+msgid "Start/stop text-to-speech"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:107
+msgid "Restore zoom level"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:114
+msgid "Toggle fullscreen"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:121
+msgid "Show contents"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:128
+msgid "Show primary menu"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:138
+msgid "Navigation"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:164
+msgid "Go to location"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:174
+msgid "Touchpad Gestures"
+msgstr ""
+
+#: src/ui/themeRow.ui:26
+msgid "Edit"
+msgstr ""
+
+#: src/ui/themeWindow.ui:6
+msgid "Custom Theme"
+msgstr ""
+
+#: src/ui/themeWindow.ui:17
+msgid "OK"
+msgstr ""
+
+#: src/ui/themeWindow.ui:39
+msgid "Theme Name"
+msgstr ""
+
+#: src/ui/themeWindow.ui:64
+msgid "Background"
+msgstr ""
+
+#: src/ui/themeWindow.ui:78
+msgid "Text Color"
+msgstr ""
+
+#: src/ui/themeWindow.ui:92
+msgid "Link Color"
+msgstr ""
+
+#: src/ui/themeWindow.ui:159
+msgid "Dark Mode"
+msgstr ""
+
+#: src/ui/themeWindow.ui:200
+msgid "Remove Theme"
+msgstr ""
+
+#: src/ui/translationBox.ui:53
+msgid "Cannot retrieve translation"
+msgstr ""
+
+#: src/ui/translationBox.ui:128
 msgid "Afrikaans"
 msgstr ""
 
-#: src/main.js:3460
+#: src/ui/translationBox.ui:132
 msgid "Albanian"
 msgstr ""
 
-#: src/main.js:3461
+#: src/ui/translationBox.ui:136
 msgid "Amharic"
 msgstr ""
 
-#: src/main.js:3462
+#: src/ui/translationBox.ui:140
 msgid "Arabic"
 msgstr ""
 
-#: src/main.js:3463
+#: src/ui/translationBox.ui:144
 msgid "Armenian"
 msgstr ""
 
-#: src/main.js:3464
+#: src/ui/translationBox.ui:148
 msgid "Azerbaijani"
 msgstr ""
 
-#: src/main.js:3465
+#: src/ui/translationBox.ui:152
 msgid "Basque"
 msgstr ""
 
-#: src/main.js:3466
+#: src/ui/translationBox.ui:156
 msgid "Belarusian"
 msgstr ""
 
-#: src/main.js:3467
+#: src/ui/translationBox.ui:160
 msgid "Bengali"
 msgstr ""
 
-#: src/main.js:3468
+#: src/ui/translationBox.ui:164
 msgid "Bosnian"
 msgstr ""
 
-#: src/main.js:3469
+#: src/ui/translationBox.ui:168
 msgid "Bulgarian"
 msgstr ""
 
-#: src/main.js:3470
+#: src/ui/translationBox.ui:172
 msgid "Catalan"
 msgstr ""
 
-#: src/main.js:3471
+#: src/ui/translationBox.ui:176
 msgid "Cebuano"
 msgstr ""
 
-#: src/main.js:3472
+#: src/ui/translationBox.ui:180
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: src/main.js:3473
+#: src/ui/translationBox.ui:184
 msgid "Chinese (Traditional)"
 msgstr ""
 
-#: src/main.js:3474
+#: src/ui/translationBox.ui:188
 msgid "Corsican"
 msgstr ""
 
-#: src/main.js:3475
+#: src/ui/translationBox.ui:192
 msgid "Croatian"
 msgstr ""
 
-#: src/main.js:3476
+#: src/ui/translationBox.ui:196
 msgid "Czech"
 msgstr ""
 
-#: src/main.js:3477
+#: src/ui/translationBox.ui:200
 msgid "Danish"
 msgstr ""
 
-#: src/main.js:3478
+#: src/ui/translationBox.ui:204
 msgid "Dutch"
 msgstr ""
 
-#: src/main.js:3479
+#: src/ui/translationBox.ui:208
 msgid "English"
 msgstr ""
 
-#: src/main.js:3480
+#: src/ui/translationBox.ui:212
 msgid "Esperanto"
 msgstr ""
 
-#: src/main.js:3481
+#: src/ui/translationBox.ui:216
 msgid "Estonian"
 msgstr ""
 
-#: src/main.js:3482
+#: src/ui/translationBox.ui:220
 msgid "Finnish"
 msgstr ""
 
-#: src/main.js:3483
+#: src/ui/translationBox.ui:224
 msgid "French"
 msgstr ""
 
-#: src/main.js:3484
+#: src/ui/translationBox.ui:228
 msgid "Frisian"
 msgstr ""
 
-#: src/main.js:3485
+#: src/ui/translationBox.ui:232
 msgid "Galician"
 msgstr ""
 
-#: src/main.js:3486
+#: src/ui/translationBox.ui:236
 msgid "Georgian"
 msgstr ""
 
-#: src/main.js:3487
+#: src/ui/translationBox.ui:240
 msgid "German"
 msgstr ""
 
-#: src/main.js:3488
+#: src/ui/translationBox.ui:244
 msgid "Greek"
 msgstr ""
 
-#: src/main.js:3489
+#: src/ui/translationBox.ui:248
 msgid "Gujarati"
 msgstr ""
 
-#: src/main.js:3490
+#: src/ui/translationBox.ui:252
 msgid "Haitian Creole"
 msgstr ""
 
-#: src/main.js:3491
+#: src/ui/translationBox.ui:256
 msgid "Hausa"
 msgstr ""
 
-#: src/main.js:3492
+#: src/ui/translationBox.ui:260
 msgid "Hawaiian"
 msgstr ""
 
-#: src/main.js:3493
+#: src/ui/translationBox.ui:264
 msgid "Hebrew"
 msgstr ""
 
-#: src/main.js:3494
+#: src/ui/translationBox.ui:268
 msgid "Hindi"
 msgstr ""
 
-#: src/main.js:3495
+#: src/ui/translationBox.ui:272
 msgid "Hmong"
 msgstr ""
 
-#: src/main.js:3496
+#: src/ui/translationBox.ui:276
 msgid "Hungarian"
 msgstr ""
 
-#: src/main.js:3497
+#: src/ui/translationBox.ui:280
 msgid "Icelandic"
 msgstr ""
 
-#: src/main.js:3498
+#: src/ui/translationBox.ui:284
 msgid "Igbo"
 msgstr ""
 
-#: src/main.js:3499
+#: src/ui/translationBox.ui:288
 msgid "Indonesian"
 msgstr ""
 
-#: src/main.js:3500
+#: src/ui/translationBox.ui:292
 msgid "Irish"
 msgstr ""
 
-#: src/main.js:3501
+#: src/ui/translationBox.ui:296
 msgid "Italian"
 msgstr ""
 
-#: src/main.js:3502
+#: src/ui/translationBox.ui:300
 msgid "Japanese"
 msgstr ""
 
-#: src/main.js:3503
+#: src/ui/translationBox.ui:304
 msgid "Javanese"
 msgstr ""
 
-#: src/main.js:3504
+#: src/ui/translationBox.ui:308
 msgid "Kannada"
 msgstr ""
 
-#: src/main.js:3505
+#: src/ui/translationBox.ui:312
 msgid "Kazakh"
 msgstr ""
 
-#: src/main.js:3506
+#: src/ui/translationBox.ui:316
 msgid "Khmer"
 msgstr ""
 
-#: src/main.js:3507
+#: src/ui/translationBox.ui:320
 msgid "Korean"
 msgstr ""
 
-#: src/main.js:3508
+#: src/ui/translationBox.ui:324
 msgid "Kurdish"
 msgstr ""
 
-#: src/main.js:3509
+#: src/ui/translationBox.ui:328
 msgid "Kyrgyz"
 msgstr ""
 
-#: src/main.js:3510
+#: src/ui/translationBox.ui:332
 msgid "Lao"
 msgstr ""
 
-#: src/main.js:3511
+#: src/ui/translationBox.ui:336
 msgid "Latin"
 msgstr ""
 
-#: src/main.js:3512
+#: src/ui/translationBox.ui:340
 msgid "Latvian"
 msgstr ""
 
-#: src/main.js:3513
+#: src/ui/translationBox.ui:344
 msgid "Lithuanian"
 msgstr ""
 
-#: src/main.js:3514
+#: src/ui/translationBox.ui:348
 msgid "Luxembourgish"
 msgstr ""
 
-#: src/main.js:3515
+#: src/ui/translationBox.ui:352
 msgid "Macedonian"
 msgstr ""
 
-#: src/main.js:3516
+#: src/ui/translationBox.ui:356
 msgid "Malagasy"
 msgstr ""
 
-#: src/main.js:3517
+#: src/ui/translationBox.ui:360
 msgid "Malay"
 msgstr ""
 
-#: src/main.js:3518
+#: src/ui/translationBox.ui:364
 msgid "Malayalam"
 msgstr ""
 
-#: src/main.js:3519
+#: src/ui/translationBox.ui:368
 msgid "Maltese"
 msgstr ""
 
-#: src/main.js:3520
+#: src/ui/translationBox.ui:372
 msgid "Maori"
 msgstr ""
 
-#: src/main.js:3521
+#: src/ui/translationBox.ui:376
 msgid "Marathi"
 msgstr ""
 
-#: src/main.js:3522
+#: src/ui/translationBox.ui:380
 msgid "Mongolian"
 msgstr ""
 
-#: src/main.js:3523
+#: src/ui/translationBox.ui:384
 msgid "Myanmar (Burmese)"
 msgstr ""
 
-#: src/main.js:3524
+#: src/ui/translationBox.ui:388
 msgid "Nepali"
 msgstr ""
 
-#: src/main.js:3525
+#: src/ui/translationBox.ui:392
 msgid "Norwegian"
 msgstr ""
 
-#: src/main.js:3526
+#: src/ui/translationBox.ui:396
 msgid "Nyanja (Chichewa)"
 msgstr ""
 
-#: src/main.js:3527
+#: src/ui/translationBox.ui:400
 msgid "Pashto"
 msgstr ""
 
-#: src/main.js:3528
+#: src/ui/translationBox.ui:404
 msgid "Persian"
 msgstr ""
 
-#: src/main.js:3529
+#: src/ui/translationBox.ui:408
 msgid "Polish"
 msgstr ""
 
-#: src/main.js:3530
+#: src/ui/translationBox.ui:412
 msgid "Portuguese (Portugal, Brazil)"
 msgstr ""
 
-#: src/main.js:3531
+#: src/ui/translationBox.ui:416
 msgid "Punjabi"
 msgstr ""
 
-#: src/main.js:3532
+#: src/ui/translationBox.ui:420
 msgid "Romanian"
 msgstr ""
 
-#: src/main.js:3533
+#: src/ui/translationBox.ui:424
 msgid "Russian"
 msgstr ""
 
-#: src/main.js:3534
+#: src/ui/translationBox.ui:428
 msgid "Samoan"
 msgstr ""
 
-#: src/main.js:3535
+#: src/ui/translationBox.ui:432
 msgid "Scots Gaelic"
 msgstr ""
 
-#: src/main.js:3536
+#: src/ui/translationBox.ui:436
 msgid "Serbian"
 msgstr ""
 
-#: src/main.js:3537
+#: src/ui/translationBox.ui:440
 msgid "Sesotho"
 msgstr ""
 
-#: src/main.js:3538
+#: src/ui/translationBox.ui:444
 msgid "Shona"
 msgstr ""
 
-#: src/main.js:3539
+#: src/ui/translationBox.ui:448
 msgid "Sindhi"
 msgstr ""
 
-#: src/main.js:3540
+#: src/ui/translationBox.ui:452
 msgid "Sinhala (Sinhalese)"
 msgstr ""
 
-#: src/main.js:3541
+#: src/ui/translationBox.ui:456
 msgid "Slovak"
 msgstr ""
 
-#: src/main.js:3542
+#: src/ui/translationBox.ui:460
 msgid "Slovenian"
 msgstr ""
 
-#: src/main.js:3543
+#: src/ui/translationBox.ui:464
 msgid "Somali"
 msgstr ""
 
-#: src/main.js:3544
+#: src/ui/translationBox.ui:468
 msgid "Spanish"
 msgstr ""
 
-#: src/main.js:3545
+#: src/ui/translationBox.ui:472
 msgid "Sundanese"
 msgstr ""
 
-#: src/main.js:3546
+#: src/ui/translationBox.ui:476
 msgid "Swahili"
 msgstr ""
 
-#: src/main.js:3547
+#: src/ui/translationBox.ui:480
 msgid "Swedish"
 msgstr ""
 
-#: src/main.js:3548
+#: src/ui/translationBox.ui:484
 msgid "Tagalog (Filipino)"
 msgstr ""
 
-#: src/main.js:3549
+#: src/ui/translationBox.ui:488
 msgid "Tajik"
 msgstr ""
 
-#: src/main.js:3550
+#: src/ui/translationBox.ui:492
 msgid "Tamil"
 msgstr ""
 
-#: src/main.js:3551
+#: src/ui/translationBox.ui:496
 msgid "Telugu"
 msgstr ""
 
-#: src/main.js:3552
+#: src/ui/translationBox.ui:500
 msgid "Thai"
 msgstr ""
 
-#: src/main.js:3553
+#: src/ui/translationBox.ui:504
 msgid "Turkish"
 msgstr ""
 
-#: src/main.js:3554
+#: src/ui/translationBox.ui:508
 msgid "Ukrainian"
 msgstr ""
 
-#: src/main.js:3555
+#: src/ui/translationBox.ui:512
 msgid "Urdu"
 msgstr ""
 
-#: src/main.js:3556
+#: src/ui/translationBox.ui:516
 msgid "Uzbek"
 msgstr ""
 
-#: src/main.js:3557
+#: src/ui/translationBox.ui:520
 msgid "Vietnamese"
 msgstr ""
 
-#: src/main.js:3558
+#: src/ui/translationBox.ui:524
 msgid "Welsh"
 msgstr ""
 
-#: src/main.js:3559
+#: src/ui/translationBox.ui:528
 msgid "Xhosa"
 msgstr ""
 
-#: src/main.js:3560
+#: src/ui/translationBox.ui:532
 msgid "Yiddish"
 msgstr ""
 
-#: src/main.js:3561
+#: src/ui/translationBox.ui:536
 msgid "Yoruba"
 msgstr ""
 
-#: src/main.js:3562
+#: src/ui/translationBox.ui:540
 msgid "Zulu"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:9
-msgid "Foliate is a simple and modern GTK eBook viewer."
+#: src/ui/wikipediaBox.ui:53
+msgid "No entry found"
+msgstr ""
+
+#: src/ui/wikipediaBox.ui:80
+msgid "Wikipedia"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
+msgid "Foliate is a simple and modern GTK eBook viewer."
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:11
 msgid "Features include:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:12
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:13
 msgid "Two-page view and scrolled view"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:13
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:14
 msgid "Customize font and line-spacing"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:14
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
 msgid "Light, sepia, dark, and invert mode"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
 msgid "Reading progress slider with chapter marks"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:22
+msgid "John Factotum"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
+msgid ""
+"Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
+msgid "Improved Wiktionary lookup, now with links and example sentences"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
+msgid "Improved popover footnote extraction and formatting"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
+msgid "Added option to export annotations to BibTeX"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
+msgid "Fixed table of contents navigation not working with some books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
+msgid "Fixed not being able to zoom images with Kindle books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
+msgid "Fixed not being able to open books with .epub3 filename extension"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
+msgid "Fixed temporary directory not being cleaned after closing"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
+msgid "Fixed F9 shortcut not working"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:102
+msgid "Updated translations"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
+msgid "External resources and JavaScript are now blocked by default"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
+msgid "Basic text-to-speech support"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
+msgid "Export annotations to HTML, plain text, or JSON"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
+msgid "Support for viewing .mobi, .azw, and .azw3 files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
+msgid "New alternative sidebar UI"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
+msgid "Lookup words in Wikipedia and offline dictionaries"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+msgid "Translate passages with Google Translate"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
+msgid "Configure default action when words are selected"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+msgid "Experimental popup footnote support"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
+msgid "Ability to find within only the current chapter"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
+msgid "Fixed CPU spikes when left open"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
+msgid "Fixed highlights not rendering at the correct positions"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
+msgid "Fixed crashing when opening files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
+msgid "Customize page margins and brightness"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
+msgid "Tweak the theme colors, or add your own custom themes"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
+msgid "Ability to zoom and copy images"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
+msgid "Option to auto-hide cursor"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
+msgid "See reading time left by hovering over the reading progress slider"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
+msgid "Fixed some books not rendering sometimes"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
+msgid "Fixed images being too wide in some cases"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
+msgid "New features:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:130
+msgid "Option to switch between left and full justification"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
+msgid "New layout option: single-column paginated view"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
+msgid "Fixed:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:135
+msgid ""
+"Generated locations are now stored in the cache directory rather than "
+"localStorage"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
+msgid "Allow font size adjustment when using publisher fonts"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
+msgid ""
+"Fixed reading progress slider not appearing after localStorage quota is "
+"exceeded"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
+msgid "Touchpad gestures and ability to scroll through pages"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
+msgid "Fullscreen mode"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
+msgid "Option to hide reading progress bar"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:154
+msgid "Option to disable dictionary"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:155
+msgid "Option to use publisher font"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:157
+msgid "Fixes:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
+msgid "Restoring reading progress is now smooth and jank-free"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:160
+msgid "Fixed custom styles not applying in some cases"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
+msgid "Fixed invalid AppData file"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
+msgid "Initial release"
 msgstr ""

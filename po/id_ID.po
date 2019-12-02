@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-03 07:25+0700\n"
+"POT-Creation-Date: 2019-12-02 13:45+0800\n"
 "PO-Revision-Date: 2019-06-14 21:02+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:1774
-#: src/main.js:3347 data/com.github.johnfactotum.Foliate.appdata.xml.in:6
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:89
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
 
@@ -39,1166 +39,1161 @@ msgstr "com.github.johnfactotum.Foliate"
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook,Buku,EPUB,Pemirsa,Pembaca;"
 
-#: src/main.js:137
-msgid "Light"
-msgstr "Terang"
+#: src/main.js:64
+#, fuzzy
+msgid "All Files"
+msgstr "Semua berkas"
 
-#: src/main.js:141
-msgid "Sepia"
-msgstr "Sepia"
+#: src/main.js:68
+msgid "E-book Files"
+msgstr "Berkas E-book"
 
-#: src/main.js:145
-msgid "Dark"
-msgstr "Gelap"
+#: src/main.js:74
+msgid "Open File"
+msgstr "Buka berkas"
 
-#: src/main.js:149
-msgid "Invert"
-msgstr "Inversi"
+#: src/main.js:88
+msgid "translator-credits"
+msgstr ""
 
-#: src/main.js:155
-msgid "Auto"
-msgstr "Auto"
+#: src/main.js:90 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+msgid "A simple and modern eBook viewer"
+msgstr "Pembaca eBook yang sederhana dan modern"
 
-#: src/main.js:156
-msgid "Single"
-msgstr "Tunggal"
+#: src/window.js:120
+#, fuzzy
+msgid "Leave fullscreen"
+msgstr "Beralih ke layar penuh"
 
-#: src/main.js:157
-msgid "Scrolled"
-msgstr "Gulir"
+#: src/window.js:123 src/ui/mainMenu.ui:84
+msgid "Fullscreen"
+msgstr "Layar Penuh"
 
-#: src/main.js:160
-msgid "Yellow"
-msgstr "Kuning"
+#: src/window.js:170
+#, javascript-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
 
-#: src/main.js:160
-msgid "Orange"
-msgstr "Oranye"
+#: src/window.js:171
+#, javascript-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
 
-#: src/main.js:161
-msgid "Red"
-msgstr "Merah"
+#: src/window.js:178 src/window.js:179
+#, javascript-format
+msgid "of %d"
+msgstr "dari %d"
 
-#: src/main.js:161
-msgid "Magenta"
-msgstr "Magenta"
-
-#: src/main.js:161
-msgid "Aqua"
-msgstr "Aqua"
-
-#: src/main.js:161
-msgid "Lime"
-msgstr "Limau"
-
-#: src/main.js:213
-msgid "Wiktionary (English)"
-msgstr "Wikitionary (Inggris)"
-
-#: src/main.js:220
-msgid "From Wiktionary, the free dictionary"
-msgstr "Dari Wiktionary, kamus yang gratis"
-
-#: src/main.js:224
-msgid "View on Wiktionary"
-msgstr "Lihat di Wikitionary"
-
-#: src/main.js:262 src/main.js:276
+#: src/export.js:31
 #, fuzzy, javascript-format
-msgid "%d Annotation"
-msgid_plural "%d Annotations"
-msgstr[0] "%d Anotasi"
-
-#: src/main.js:275
-#, fuzzy, javascript-format
-msgid ""
-"Annotations for\n"
-"%s\n"
-"By %s"
+msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
 msgstr ""
 "Anotasi untuk\n"
 "%s\n"
 "Oleh %s"
 
-#: src/main.js:279
+#: src/export.js:33 src/export.js:47 src/export.js:59
+#, fuzzy, javascript-format
+msgid "%d Annotation"
+msgid_plural "%d Annotations"
+msgstr[0] "%d Anotasi"
+
+#: src/export.js:46
+#, fuzzy, javascript-format
+msgid "Annotations for “%s” by %s"
+msgstr ""
+"Anotasi untuk\n"
+"%s\n"
+"Oleh %s"
+
+#: src/export.js:50
+#, fuzzy
+msgid "Section: "
+msgstr "Seleksi"
+
+#: src/export.js:51
+#, fuzzy
+msgid "Highlight: "
+msgstr "Sorot"
+
+#: src/export.js:52
 msgid "Text:"
 msgstr "Teks:"
 
-#: src/main.js:280
+#: src/export.js:53
 #, fuzzy
 msgid "Note:"
 msgstr "Catatan"
 
-#: src/main.js:304
+#: src/export.js:58
+#, fuzzy, javascript-format
+msgid "Annotations for *%s* by %s"
+msgstr ""
+"Anotasi untuk\n"
+"%s\n"
+"Oleh %s"
+
+#: src/export.js:92
 #, fuzzy
 msgid "Quote: "
 msgstr "Kutipan:"
 
-#: src/main.js:304
+#: src/export.js:92
 #, fuzzy
 msgid " Note: "
 msgstr "Catatan"
 
-#: src/main.js:325
-msgid "Previous page"
-msgstr "Halaman sebelumnya"
-
-#: src/main.js:332
-msgid "Next page"
-msgstr "Halaman berikutnya"
-
-#: src/main.js:348
-msgid "Go back"
-msgstr "Kembali"
-
-#: src/main.js:417
-#, javascript-format
-msgid "%d minute left in book"
-msgid_plural "%d minutes left in book"
-msgstr[0] "%d menit lagi pada buku"
-
-#: src/main.js:422
-#, javascript-format
-msgid "%d hour left in book"
-msgid_plural "%d hours left in book"
-msgstr[0] "%d jam lagi pada buku"
-
-#: src/main.js:428
-#, fuzzy, javascript-format
-msgid "%d minute left in section"
-msgid_plural "%d minutes left in section"
-msgstr[0] "%d menit lagi pada buku"
-
-#: src/main.js:433
-#, fuzzy, javascript-format
-msgid "%d hour left in section"
-msgid_plural "%d hours left in section"
-msgstr[0] "%d jam lagi pada buku"
-
-#: src/main.js:462
-#, javascript-format
-msgid "of %d"
-msgstr "dari %d"
-
-#: src/main.js:592
-msgid "Find in Book"
-msgstr "Temukan dalam Buku"
-
-#: src/main.js:607
-#, fuzzy
-msgid "All sections"
-msgstr "Seluruh bagian"
-
-#: src/main.js:609
-#, fuzzy
-msgid "Current section"
-msgstr "Bagian saat ini"
-
-#: src/main.js:641
-msgid "Searching…"
-msgstr "Mencari…"
-
-#: src/main.js:647
-msgid "No results"
-msgstr "Tidak ada hasil"
-
-#: src/main.js:648
-#, javascript-format
-msgid "%d result"
-msgid_plural "%d results"
-msgstr[0] "%d hasil"
-
-#: src/main.js:856
-msgid "Use Publisher Font"
-msgstr "Gunakan Fonta Penerbit"
-
-#: src/main.js:858
-msgid "Full Justification"
-msgstr "Rata Kanan-Kiri"
-
-#: src/main.js:860
-msgid "Auto-Hyphenation"
-msgstr "Tanda hubung otomatis"
-
-#: src/main.js:886
-msgid "Font"
-msgstr "Fonta"
-
-#: src/main.js:887
-msgid "Spacing"
-msgstr "Jarak"
-
-#: src/main.js:888
-msgid "Margins"
-msgstr "Margin"
-
-#: src/main.js:889
-msgid "Brightness"
-msgstr "Kecerahan"
-
-#: src/main.js:890 src/main.js:946 src/main.js:3485
-msgid "Theme"
-msgstr "Tema"
-
-#: src/main.js:891
-msgid "Layout"
-msgstr "Tata letak"
-
-#: src/main.js:892
-msgid "Options"
-msgstr "Opsi"
-
-#: src/main.js:1142
-msgid "No bookmarks"
-msgstr "Tidak ada penanda buku"
-
-#: src/main.js:1143
-msgid "Add some bookmarks to see them here."
-msgstr "Tambahkan penanda buku untuk melihatnya di sini."
-
-#: src/main.js:1294 src/main.js:1328 src/main.js:1533 src/main.js:1630
-#: src/main.js:1655
-msgid "Copy"
-msgstr "Salin"
-
-#: src/main.js:1299 src/main.js:1333 src/main.js:3448
-msgid "Highlight"
-msgstr "Sorot"
-
-#: src/main.js:1304
-msgid "Lookup"
-msgstr "Cari"
-
-#: src/main.js:1309 src/main.js:1457 src/main.js:3452
-msgid "Translate"
-msgstr "Terjemahkan"
-
-#: src/main.js:1340 src/main.js:1389 src/main.js:1409 src/main.js:1486
-#: src/main.js:1522
-msgid "Loading…"
-msgstr "Memuat…"
-
-#: src/main.js:1455 src/main.js:3464
-#, fuzzy
-msgid "Dictionary"
-msgstr "Izinkan Kamus"
-
-#: src/main.js:1456 src/main.js:3465
-msgid "Wikipedia"
-msgstr "Wikipedia"
-
-#: src/main.js:1496
-msgid "No entry found."
-msgstr "Entri tidak ditemukan."
-
-#: src/main.js:1500
-msgid "Search on Wiktionary"
-msgstr "Cari di Wikitionary"
-
-#: src/main.js:1508
-#, fuzzy
-msgid "From Wikipedia, the free encyclopedia"
-msgstr "Dari Wiktionary, ensiklopedia gratis"
-
-#: src/main.js:1511
-msgid "View on Wikipedia"
-msgstr "Lihat di Wikipedia"
-
-#: src/main.js:1517
+#: src/lookup.js:90
 msgid "Search on Wikipedia"
 msgstr "Cari di Wikipedia"
 
-#: src/main.js:1525
+#: src/lookup.js:212
+msgid "Source: "
+msgstr ""
+
+#: src/lookup.js:272
+msgid "Wiktionary (English)"
+msgstr "Wikitionary (Inggris)"
+
+#: src/lookup.js:332
+msgid "Search on Wiktionary"
+msgstr "Cari di Wikitionary"
+
+#: src/lookup.js:355
 msgid "Translation by Google Translate"
 msgstr "Terjemahan oleh Google Terjemahan"
 
-#: src/main.js:1528
-msgid "Cannot retrieve translation."
-msgstr "Tidak dapat mengambil terjemahan"
+#: src/properties.js:65
+msgid "Publisher"
+msgstr "Penerbit"
 
-#: src/main.js:1538 src/main.js:3167
+#: src/properties.js:69
+msgid "Publication Date"
+msgstr "Tanggal Publikasi"
+
+#: src/properties.js:73
+msgid "Modified Date"
+msgstr "Tanggal Modifikasi"
+
+#: src/properties.js:77
+msgid "Language"
+msgstr "Bahasa"
+
+#: src/properties.js:81
+msgid "Identifier"
+msgstr "Pengidentifikasi"
+
+#: src/properties.js:85
+msgid "Copyright"
+msgstr "Hak cipta"
+
+#: src/theme.js:23
+msgid "Light"
+msgstr "Terang"
+
+#: src/theme.js:27
+msgid "Sepia"
+msgstr "Sepia"
+
+#: src/theme.js:31
+msgid "Gray"
+msgstr ""
+
+#: src/theme.js:35
+msgid "Dark"
+msgstr "Gelap"
+
+#: src/theme.js:39 src/ui/themeWindow.ui:145
+msgid "Invert"
+msgstr "Inversi"
+
+#: src/theme.js:43
+msgid "Solarized Light"
+msgstr ""
+
+#: src/theme.js:47
+msgid "Solarized Dark"
+msgstr ""
+
+#: src/theme.js:51
+msgid "Gruvbox Light"
+msgstr ""
+
+#: src/theme.js:55
+msgid "Gruvbox Dark"
+msgstr ""
+
+#: src/theme.js:59
+msgid "Nord"
+msgstr ""
+
+#: src/ui/annotationBox.ui:35
+msgid "Change highlight color"
+msgstr ""
+
+#: src/ui/annotationBox.ui:64 src/ui/annotationRow.ui:53
+#: src/ui/bookmarkRow.ui:44
 msgid "Remove"
 msgstr "Hapus"
 
-#: src/main.js:1543
-msgid "Note"
-msgstr "Catatan"
-
-#: src/main.js:1612
-#, fuzzy
-msgid "Go to Linked Location"
-msgstr "Kembali ke lokasi sebelumnya"
-
-#: src/main.js:1635
-msgid "Zoom"
-msgstr "Perbesaran"
-
-#: src/main.js:1710
-msgid "Open some books to start reading"
-msgstr "Buka buku untuk memulai membaca"
-
-#: src/main.js:1715
-msgid "Open a file, or continue reading the last opened book."
-msgstr "Buka berkas, atau lanjutkan membaca buku yang terakhir dibuka."
-
-#: src/main.js:1719
-msgid "Open File…"
-msgstr "Buka Berkas…"
-
-#: src/main.js:1723
-msgid "Continue Reading"
-msgstr "Lanjutkan Membaca"
-
-#: src/main.js:1875
-msgid "Oh no! The file cannot be opened"
-msgstr "Oh, tidak! Berkas tidak dapat dibuka"
-
-#: src/main.js:1884
-#, fuzzy
-msgid "Open Another File…"
-msgstr "Buka Berkas…"
-
-#: src/main.js:1919
-#, fuzzy
-msgid "Go to Location…"
-msgstr "Kembali ke lokasi sebelumnya"
-
-#: src/main.js:1923 src/main.js:2852
-msgid "About This Book"
-msgstr "Tentang Buku Ini"
-
-#: src/main.js:1924
-#, fuzzy
-msgid "Export Annotations…"
-msgstr "Ekspor Anotasi…"
-
-#: src/main.js:2385 src/main.js:3283
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
-msgid "Find in book"
-msgstr "Temukan dalam buku"
-
-#: src/main.js:2398
-msgid "Set font, theme, and layout"
-msgstr "Atur fonta, tema, dan tata letak"
-
-#: src/main.js:2448 src/main.js:2517
-msgid "Table of contents"
-msgstr "Daftar isi"
-
-#: src/main.js:2450 src/main.js:2529
-msgid "Annotations"
-msgstr "Anotasi"
-
-#: src/main.js:2452 src/main.js:2523
-msgid "Bookmarks"
-msgstr "Penanda buku"
-
-#: src/main.js:2477 src/main.js:3268
-msgid "Buka/tutup sidebar"
+#: src/ui/annotationBox.ui:100
+msgid "Choose custom color"
 msgstr ""
 
-#: src/main.js:2616
-msgid "Fullscreen"
-msgstr "Layar Penuh"
-
-#: src/main.js:2617
-msgid "Reading Progress Bar"
-msgstr "Bar Progres Baca"
-
-#: src/main.js:2621
-msgid "Open…"
-msgstr "Buka…"
-
-#: src/main.js:2625 src/main.js:3378
-msgid "Preferences"
-msgstr "Preferensi"
-
-#: src/main.js:2626
-msgid "Keyboard Shortcuts"
-msgstr "Pintasan Keyboard"
-
-#: src/main.js:2627
-msgid "About Foliate"
-msgstr "Tentang Foliate"
-
-#: src/main.js:2688
-msgid "Text-to-speech"
-msgstr "Text-to-speech"
-
-#: src/main.js:2721
+#: src/ui/contentsStack.ui:40
 #, fuzzy
-msgid "Go to Location"
-msgstr "Kembali ke lokasi sebelumnya"
+msgid "Table of Contents"
+msgstr "Daftar isi"
 
-#: src/main.js:2726 src/main.js:2776
-msgid "Cancel"
-msgstr "Batalkan"
-
-#: src/main.js:2727
-msgid "Go"
-msgstr "Pergi"
-
-#: src/main.js:2731
-msgid "EPUB Canonical Fragment Identifier (CFI):"
-msgstr "EPUB Canonical Fragment Identifier (CFI):"
-
-#: src/main.js:2757
+#: src/ui/contentsStack.ui:75
 msgid "No annotations"
 msgstr "Tidak ada anotasi"
 
-#: src/main.js:2758
-msgid "You don't have any annotations for this book."
-msgstr "Anda tidak memiliki anotasi untuk buku ini"
-
-#: src/main.js:2759
-msgid "Highlight some text to add annotations."
+#: src/ui/contentsStack.ui:87
+#, fuzzy
+msgid "Select some text to add annotations."
 msgstr "Sorot teks untuk memberi anotasi."
 
-#: src/main.js:2770
+#: src/ui/contentsStack.ui:120
+msgid "Annotations"
+msgstr "Anotasi"
+
+#: src/ui/contentsStack.ui:155
+msgid "No bookmarks"
+msgstr "Tidak ada penanda buku"
+
+#: src/ui/contentsStack.ui:167
+msgid "Add some bookmarks to see them here."
+msgstr "Tambahkan penanda buku untuk melihatnya di sini."
+
+#: src/ui/contentsStack.ui:201 src/ui/shortcutsWindow.ui:57
+msgid "Bookmark current location"
+msgstr "Tandai lokasi saat ini"
+
+#: src/ui/contentsStack.ui:213
+msgid "Bookmarks"
+msgstr "Penanda buku"
+
+#: src/ui/dictionaryBox.ui:65
+#, fuzzy
+msgid "No definitions found"
+msgstr "Entri tidak ditemukan."
+
+#: src/ui/exportWindow.ui:11
+msgid "HTML"
+msgstr "HTML"
+
+#: src/ui/exportWindow.ui:15
+msgid "Markdown"
+msgstr ""
+
+#: src/ui/exportWindow.ui:19
+msgid "Plain Text"
+msgstr "Teks Biasa"
+
+#: src/ui/exportWindow.ui:23
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: src/ui/exportWindow.ui:27
+msgid "JSON"
+msgstr "JSON"
+
+#: src/ui/exportWindow.ui:34
 #, fuzzy
 msgid "Export Annotations"
 msgstr "Anotasi"
 
-#: src/main.js:2777
+#: src/ui/exportWindow.ui:38 src/ui/themeWindow.ui:10
+msgid "Cancel"
+msgstr "Batalkan"
+
+#: src/ui/exportWindow.ui:45
 msgid "Export"
 msgstr "Ekspor"
 
-#: src/main.js:2781
+#: src/ui/exportWindow.ui:67
 msgid "Choose export format:"
 msgstr "Pilih format ekspor:"
 
-#: src/main.js:2782
-msgid "HTML"
-msgstr "HTML"
+#: src/ui/findBox.ui:18
+msgid "All chapters"
+msgstr ""
 
-#: src/main.js:2783
-msgid "Plain Text"
-msgstr "Teks Biasa"
-
-#: src/main.js:2784
-msgid "BibTeX"
-msgstr "BibTeX"
-
-#: src/main.js:2785
-msgid "JSON"
-msgstr "JSON"
-
-#: src/main.js:2797
+#: src/ui/findBox.ui:25
 #, fuzzy
-msgid "Save File"
-msgstr "Simpan berkas"
+msgid "Current chapter"
+msgstr "Bagian saat ini"
 
-#: src/main.js:2801
-#, fuzzy, javascript-format
-msgid "Annotations for %s"
-msgstr "Anotasi untuk %s"
+#: src/ui/footnotePopover.ui:37 src/ui/mainMenu.ui:511
+msgid "Footnote Preview"
+msgstr ""
 
-#: src/main.js:2917
-msgid "Publisher"
-msgstr "Penerbit"
-
-#: src/main.js:2918
-msgid "Publication Date"
-msgstr "Tanggal Publikasi"
-
-#: src/main.js:2919
-msgid "Modified Date"
-msgstr "Tanggal Modifikasi"
-
-#: src/main.js:2920
-msgid "Language"
-msgstr "Bahasa"
-
-#: src/main.js:2921
-msgid "Copyright"
-msgstr "Hak cipta"
-
-#: src/main.js:2922
-msgid "Identifier"
-msgstr "Pengidentifikasi"
-
-#: src/main.js:3036
-msgid "Text"
-msgstr "Teks"
-
-#: src/main.js:3037
-msgid "Background"
-msgstr "Latar Belakang"
-
-#: src/main.js:3038
-msgid "Link"
-msgstr "Tautan"
-
-#: src/main.js:3040
-#, fuzzy
-msgid "Enable Dark Mode"
-msgstr "Gunakan Mode Gelap"
-
-#: src/main.js:3042
-#, fuzzy
-msgid "Invert Colors"
-msgstr "Inversi Warna"
-
-#: src/main.js:3113
-#, fuzzy
-msgid "Theme name"
-msgstr "Nama tema"
-
-#: src/main.js:3117
-msgid "A theme with that name already exists."
-msgstr "Tema dengan nama tersebut sudah ada."
-
-#: src/main.js:3119
-msgid "Add"
-msgstr "Tambahkan"
-
-#: src/main.js:3160
-msgid "Add…"
-msgstr "Tambahkan…"
-
-#: src/main.js:3162
-msgid "Add a new theme"
-msgstr "Tambah tema baru"
-
-#: src/main.js:3169
-msgid "Remove selected theme"
-msgstr "Hapus tema terpilih"
-
-#: src/main.js:3234
-#, fuzzy
-msgid "All Files"
-msgstr "Semua berkas"
-
-#: src/main.js:3238
-msgid "E-book Files"
-msgstr "Berkas E-book"
-
-#: src/main.js:3243
-msgid "Open File"
-msgstr "Buka berkas"
-
-#: src/main.js:3269 src/main.js:3271
-msgid "Show table of contents"
-msgstr "Tampilkan daftar isi"
-
-#: src/main.js:3274
-msgid "Start/stop text-to-speech"
-msgstr "Mulai/stop text-to-speech"
-
-#: src/main.js:3277 src/main.js:3443
-msgid "General"
-msgstr "Umum"
-
-#: src/main.js:3280
-#, fuzzy
-msgid "Show annotations"
-msgstr "Tampilkan anotasi"
-
-#: src/main.js:3281
-msgid "Show bookmarks"
-msgstr "Tampilkan penanda buku"
-
-#: src/main.js:3282
-msgid "Bookmark current location"
-msgstr "Tandai lokasi saat ini"
-
-#: src/main.js:3284
-msgid "Show menu"
-msgstr "Tampilkan menu"
-
-#: src/main.js:3286
-msgid "Close current window"
-msgstr "Tutup jendela saat ini"
-
-#: src/main.js:3287
-msgid "Quit"
-msgstr "Keluar"
-
-#: src/main.js:3291
-msgid "Navigation"
-msgstr "Navigasi"
-
-#. I can't find where to access the enums in GJS,
-#. so just use ints for now
-#: src/main.js:3293 src/main.js:3314
-msgid "Go to the next page"
-msgstr "Pergi ke halaman berikutnya"
-
-#: src/main.js:3294 src/main.js:3315
-msgid "Go to the previous page"
-msgstr "Pergi ke halaman sebelumnya"
-
-#: src/main.js:3295
-msgid "Go back to previous location"
-msgstr "Kembali ke lokasi sebelumnya"
-
-#: src/main.js:3296
-#, fuzzy
-msgid "Go to location"
-msgstr "Kembali ke lokasi sebelumnya"
-
-#: src/main.js:3300
+#: src/ui/footnotePopover.ui:47 src/ui/shortcutsWindow.ui:88
+#: src/ui/wikipediaBox.ui:107
 msgid "View"
 msgstr "Lihat"
 
-#: src/main.js:3302
-msgid "Show viewing options"
-msgstr "Tampilkan opsi tampilan"
+#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:19
+#: src/ui/selectionPopover.ui:20
+msgid "Copy"
+msgstr "Salin"
 
-#: src/main.js:3303
-msgid "Increase font size"
-msgstr "Perbesar ukuran fonta"
-
-#: src/main.js:3304
-msgid "Decrease font size"
-msgstr "Perkecil ukuran fonta"
-
-#: src/main.js:3305
-msgid "Toggle fullscreen"
-msgstr "Beralih ke layar penuh"
-
-#: src/main.js:3306
+#: src/ui/imageViewer.ui:46
 #, fuzzy
-msgid "Toggle reading progress bar"
-msgstr "Pilihan untuk menyembunyikan bar progres baca"
+msgid "Save as"
+msgstr "Simpan berkas"
 
-#: src/main.js:3310
-msgid "Touchpad Gestures"
-msgstr "Gestur Touchpad"
-
-#: src/main.js:3316
-msgid "Zoom in"
-msgstr "Perbesar"
-
-#: src/main.js:3317
+#: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
+#: src/ui/shortcutsWindow.ui:199
 msgid "Zoom out"
 msgstr "Perkecil"
 
-#: src/main.js:3348 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
-msgid "A simple and modern eBook viewer"
-msgstr "Pembaca eBook yang sederhana dan modern"
+#: src/ui/mainMenu.ui:57
+msgid "Restore zoom"
+msgstr ""
 
-#: src/main.js:3381
-msgid "Continous scrolling (requires restart)"
-msgstr "Gulir Berlanjut (membutuhkan restart)"
+#: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
+#: src/ui/shortcutsWindow.ui:192
+msgid "Zoom in"
+msgstr "Perbesar"
 
-#: src/main.js:3385
-msgid "Use sidebar (requires restart)"
-msgstr "Gunakan sidebar (membutuhkan restart)"
+#: src/ui/mainMenu.ui:108
+msgid "Brightness"
+msgstr "Kecerahan"
 
-#: src/main.js:3386
-msgid "Use a sidebar to display table of contents, annotations, and bookmarks."
-msgstr "Gunakan sidebar untuk menampilkan daftar isi, anotasi, dan penanda buku."
+#: src/ui/mainMenu.ui:141
+msgid "Font"
+msgstr "Fonta"
 
-#: src/main.js:3390
-msgid "Open last opened file on startup"
-msgstr "Buka berkas terakhir ketika mulai"
+#: src/ui/mainMenu.ui:155
+msgid "Spacing"
+msgstr "Jarak"
 
-#: src/main.js:3393
-msgid "Auto-hide cursor"
-msgstr "Sembunyikan kursor otomatis"
+#: src/ui/mainMenu.ui:169
+msgid "Margins"
+msgstr "Margin"
 
-#: src/main.js:3396
-msgid "Never"
-msgstr "Tidak pernah"
+#: src/ui/mainMenu.ui:231 src/ui/mainMenu.ui:301
+msgid "Theme"
+msgstr "Tema"
 
-#: src/main.js:3397
-msgid "Always"
-msgstr "Selalu"
+#: src/ui/mainMenu.ui:238 src/ui/mainMenu.ui:367
+msgid "Advanced"
+msgstr ""
 
-#: src/main.js:3398
+#: src/ui/mainMenu.ui:250 src/ui/mainMenu.ui:561 src/ui/shortcutsWindow.ui:53
 #, fuzzy
-msgid "When in fullscreen mode"
-msgstr "Ketika dalam mode layar penuh"
+msgid "Book"
+msgstr "Penanda buku"
 
-#: src/main.js:3402
-msgid "Display non-EPUB-3 footnotes in a popover"
-msgstr "Tampilkan catatan kaki untuk bukan EPUB-3 di popover"
+#: src/ui/mainMenu.ui:262
+msgid "Open…"
+msgstr "Buka…"
 
-#: src/main.js:3403
-msgid "This feature is experimental and might not work with all books."
-msgstr "Fitur ini dalam masa percobaan dan mungkin tidak bekerja untuk semua buku."
+#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:50
+msgid "Preferences"
+msgstr "Preferensi"
 
-#: src/main.js:3408
-msgid "Allow unsafe content (not recommended)"
-msgstr "Izinkan konten tidak aman (tidak direkomendasikan)"
+#: src/ui/mainMenu.ui:281
+msgid "Keyboard Shortcuts"
+msgstr "Pintasan Keyboard"
 
-#: src/main.js:3409
-msgid "Enabling this will allow JavaScript and external resources to load."
-msgstr "Mengaktifkan ini akan mengizinkan JavaScript dan resource luar dimuat."
+#: src/ui/mainMenu.ui:288
+msgid "About Foliate"
+msgstr "Tentang Foliate"
 
-#: src/main.js:3410
-msgid "This will pose potential security and privacy risks."
-msgstr "Ini dapat berpotensi menimbulkan risiko keamanan dan privasi."
+#: src/ui/mainMenu.ui:341
+msgid "Add Custom Theme…"
+msgstr ""
 
-#: src/main.js:3414
-msgid "Text-to-speech command"
-msgstr "Perintah text-to-speech"
+#: src/ui/mainMenu.ui:387
+msgid "Layout"
+msgstr "Tata letak"
 
-#: src/main.js:3415
-msgid "Leave blank to disable text-to-speech."
-msgstr "Biarkan kosong untuk menonaktifkan text-to-speech"
-
-#: src/main.js:3446
-msgid "Do nothing"
-msgstr "Tidak lakukan apa-apa"
-
-#: src/main.js:3447
-msgid "Ask what to do"
-msgstr "Tanyakan apa yang harus dilakukan"
-
-#: src/main.js:3449
-msgid "Copy to clipboard"
-msgstr "Salin ke clipboard"
-
-#: src/main.js:3450
-#, fuzzy
-msgid "Lookup in dictionary"
-msgstr "Cari di kamus"
-
-#: src/main.js:3451
-msgid "Lookup in Wikipedia"
-msgstr "Cari di Wikipedia"
-
-#: src/main.js:3455
-msgid "When a word is selected"
-msgstr "Ketika kata dipilih"
-
-#: src/main.js:3458
-msgid "When multiple words are selected"
-msgstr "Ketika banyak kata dipilih"
-
-#: src/main.js:3461
-msgid "Lookup method"
-msgstr "Metode pencarian"
-
-#: src/main.js:3463
+#: src/ui/mainMenu.ui:405
 #, fuzzy
 msgid "Automatic"
 msgstr "Otomatis"
 
-#: src/main.js:3476
-msgid "Selection"
-msgstr "Seleksi"
+#: src/ui/mainMenu.ui:413
+#, fuzzy
+msgid "Single Column"
+msgstr "Tunggal"
 
-#: src/main.js:3509
+#: src/ui/mainMenu.ui:421
+msgid "Scrolled"
+msgstr "Gulir"
+
+#: src/ui/mainMenu.ui:429
+msgid "Continuous"
+msgstr ""
+
+#: src/ui/mainMenu.ui:446
+msgid "Text"
+msgstr "Teks"
+
+#: src/ui/mainMenu.ui:463
+msgid "Use Publisher Font"
+msgstr "Gunakan Fonta Penerbit"
+
+#: src/ui/mainMenu.ui:470
+msgid "Full Justification"
+msgstr "Rata Kanan-Kiri"
+
+#: src/ui/mainMenu.ui:477
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
+msgid "Auto-hyphenation"
+msgstr "Tanda hubung otomatis"
+
+#: src/ui/mainMenu.ui:494
+msgid "Other"
+msgstr ""
+
+#: src/ui/mainMenu.ui:518
+#, fuzzy
+msgid "Auto-hide Cursor"
+msgstr "Sembunyikan kursor otomatis"
+
+#: src/ui/mainMenu.ui:525
+msgid "Realistic Shadows"
+msgstr ""
+
+#: src/ui/mainMenu.ui:537
+#, fuzzy
+msgid "Allow JavaScript and external resources"
+msgstr "Mengaktifkan ini akan mengizinkan JavaScript dan resource luar dimuat."
+
+#: src/ui/mainMenu.ui:538
+#, fuzzy
+msgid "Allow Unsafe Content"
+msgstr "Izinkan konten tidak aman (tidak direkomendasikan)"
+
+#: src/ui/mainMenu.ui:545
+msgid "Enable Developer Tools"
+msgstr ""
+
+#: src/ui/mainMenu.ui:571 src/ui/propertiesWindow.ui:4
+msgid "About This Book"
+msgstr "Tentang Buku Ini"
+
+#: src/ui/mainMenu.ui:583
+msgid "Open a Copy"
+msgstr ""
+
+#: src/ui/mainMenu.ui:590 src/ui/shortcutsWindow.ui:29
+msgid "Reload"
+msgstr ""
+
+#: src/ui/mainMenu.ui:602
+#, fuzzy
+msgid "Export annotations…"
+msgstr "Ekspor Anotasi…"
+
+#: src/ui/mainOverlay.ui:33
+#, fuzzy
+msgid "No books open"
+msgstr "Tidak ada penanda buku"
+
+#: src/ui/mainOverlay.ui:45
+#, fuzzy
+msgid "Open a book to start reading."
+msgstr "Buka buku untuk memulai membaca"
+
+#: src/ui/mainOverlay.ui:54
+msgid "Open File…"
+msgstr "Buka Berkas…"
+
+#: src/ui/mainOverlay.ui:83
+msgid "Something's wrong"
+msgstr ""
+
+#: src/ui/mainOverlay.ui:95
+#, fuzzy
+msgid "The file cannot be opened."
+msgstr "Oh, tidak! Berkas tidak dapat dibuka"
+
+#: src/ui/mainOverlay.ui:104
+#, fuzzy
+msgid "Open Another File…"
+msgstr "Buka Berkas…"
+
+#: src/ui/navBar.ui:27
+#, fuzzy
+msgid "Time left in book"
+msgstr "%d menit lagi pada buku"
+
+#: src/ui/navBar.ui:41
+#, fuzzy
+msgid "Time left in chapter"
+msgstr "%d menit lagi pada bab"
+
+#: src/ui/navBar.ui:95
+msgid "Chapter"
+msgstr ""
+
+#: src/ui/navBar.ui:135 src/ui/navBar.ui:325
+#, fuzzy
+msgid "Location"
+msgstr "Kembali ke lokasi sebelumnya"
+
+#: src/ui/navBar.ui:175
+msgid "CFI"
+msgstr ""
+
+#: src/ui/navBar.ui:176
+#, fuzzy
+msgid "EPUB Canonical Fragment Identifier"
+msgstr "EPUB Canonical Fragment Identifier (CFI):"
+
+#: src/ui/navBar.ui:216
+msgid "Go to beginning of book"
+msgstr ""
+
+#: src/ui/navBar.ui:230
+#, fuzzy
+msgid "Go to previous chapter"
+msgstr "Pergi ke halaman sebelumnya"
+
+#: src/ui/navBar.ui:244
+#, fuzzy
+msgid "Go to next chapter"
+msgstr "Pergi ke halaman berikutnya"
+
+#: src/ui/navBar.ui:258
+msgid "Go to end of book"
+msgstr ""
+
+#: src/ui/navBar.ui:280 src/ui/shortcutsWindow.ui:149
+#: src/ui/shortcutsWindow.ui:185
+#, fuzzy
+msgid "Go to previous page"
+msgstr "Pergi ke halaman sebelumnya"
+
+#: src/ui/navBar.ui:294 src/ui/shortcutsWindow.ui:156
+msgid "Go back to previous location"
+msgstr "Kembali ke lokasi sebelumnya"
+
+#: src/ui/navBar.ui:368 src/ui/shortcutsWindow.ui:142
+#: src/ui/shortcutsWindow.ui:178
+#, fuzzy
+msgid "Go to next page"
+msgstr "Pergi ke halaman berikutnya"
+
+#: src/ui/navBar.ui:383
+msgid "Text-to-speech"
+msgstr "Text-to-speech"
+
+#: src/ui/preferenceWindow.ui:11
+msgid "Do nothing"
+msgstr "Tidak lakukan apa-apa"
+
+#: src/ui/preferenceWindow.ui:15
+msgid "Show menu"
+msgstr "Tampilkan menu"
+
+#: src/ui/preferenceWindow.ui:23 src/ui/selectionPopover.ui:35
+msgid "Highlight"
+msgstr "Sorot"
+
+#: src/ui/preferenceWindow.ui:27
+#, fuzzy
+msgid "Look up in dictionary"
+msgstr "Cari di kamus"
+
+#: src/ui/preferenceWindow.ui:31
+#, fuzzy
+msgid "Look up in Wikipedia"
+msgstr "Cari di Wikipedia"
+
+#: src/ui/preferenceWindow.ui:35 src/ui/selectionPopover.ui:95
+msgid "Translate"
+msgstr "Terjemahkan"
+
+#: src/ui/preferenceWindow.ui:39 src/ui/shortcutsWindow.ui:64
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
+msgid "Find in book"
+msgstr "Temukan dalam buku"
+
+#: src/ui/preferenceWindow.ui:43 src/ui/selectionPopover.ui:61
+msgid "Speak"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:84
+msgid "Use sidebar"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:111
+msgid "Open last opened file on startup"
+msgstr "Buka berkas terakhir ketika mulai"
+
+#: src/ui/preferenceWindow.ui:138
+msgid "When a word is selected"
+msgstr "Ketika kata dipilih"
+
+#: src/ui/preferenceWindow.ui:176
+msgid "When multiple words are selected"
+msgstr "Ketika banyak kata dipilih"
+
+#: src/ui/preferenceWindow.ui:215
+msgid "Text-to-speech command"
+msgstr "Perintah text-to-speech"
+
+#: src/ui/selectionPopover.ui:49
+msgid "Find"
+msgstr ""
+
+#: src/ui/selectionPopover.ui:81
+#, fuzzy
+msgid "Look Up in Dictionary"
+msgstr "Cari di kamus"
+
+#: src/ui/selectionPopover.ui:88
+#, fuzzy
+msgid "Look Up in Wikipedia"
+msgstr "Cari di Wikipedia"
+
+#: src/ui/selectionPopover.ui:107
+msgid "Speak from Here"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:11
+#, fuzzy
+msgid "File"
+msgstr "Semua berkas"
+
+#: src/ui/shortcutsWindow.ui:15
+#, fuzzy
+msgid "Open file"
+msgstr "Buka berkas"
+
+#: src/ui/shortcutsWindow.ui:22
+msgid "Open a copy"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:36
+msgid "Close current window"
+msgstr "Tutup jendela saat ini"
+
+#: src/ui/shortcutsWindow.ui:43
+msgid "Quit"
+msgstr "Keluar"
+
+#: src/ui/shortcutsWindow.ui:71
+#, fuzzy
+msgid "View book info"
+msgstr "Lihat eBook"
+
+#: src/ui/shortcutsWindow.ui:78
+msgid "Start/stop text-to-speech"
+msgstr "Mulai/stop text-to-speech"
+
+#: src/ui/shortcutsWindow.ui:107
+msgid "Restore zoom level"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:114
+msgid "Toggle fullscreen"
+msgstr "Beralih ke layar penuh"
+
+#: src/ui/shortcutsWindow.ui:121
+#, fuzzy
+msgid "Show contents"
+msgstr "Tampilkan daftar isi"
+
+#: src/ui/shortcutsWindow.ui:128
+#, fuzzy
+msgid "Show primary menu"
+msgstr "Tampilkan menu"
+
+#: src/ui/shortcutsWindow.ui:138
+msgid "Navigation"
+msgstr "Navigasi"
+
+#: src/ui/shortcutsWindow.ui:164
+#, fuzzy
+msgid "Go to location"
+msgstr "Kembali ke lokasi sebelumnya"
+
+#: src/ui/shortcutsWindow.ui:174
+msgid "Touchpad Gestures"
+msgstr "Gestur Touchpad"
+
+#: src/ui/themeRow.ui:26
+msgid "Edit"
+msgstr ""
+
+#: src/ui/themeWindow.ui:6
+msgid "Custom Theme"
+msgstr ""
+
+#: src/ui/themeWindow.ui:17
+msgid "OK"
+msgstr ""
+
+#: src/ui/themeWindow.ui:39
+#, fuzzy
+msgid "Theme Name"
+msgstr "Nama tema"
+
+#: src/ui/themeWindow.ui:64
+msgid "Background"
+msgstr "Latar Belakang"
+
+#: src/ui/themeWindow.ui:78
+#, fuzzy
+msgid "Text Color"
+msgstr "Inversi Warna"
+
+#: src/ui/themeWindow.ui:92
+#, fuzzy
+msgid "Link Color"
+msgstr "Inversi Warna"
+
+#: src/ui/themeWindow.ui:159
+#, fuzzy
+msgid "Dark Mode"
+msgstr "Gunakan Mode Gelap"
+
+#: src/ui/themeWindow.ui:200
+#, fuzzy
+msgid "Remove Theme"
+msgstr "Hapus tema terpilih"
+
+#: src/ui/translationBox.ui:53
+#, fuzzy
+msgid "Cannot retrieve translation"
+msgstr "Tidak dapat mengambil terjemahan"
+
+#: src/ui/translationBox.ui:128
 msgid "Afrikaans"
 msgstr "Bahasa Afrika"
 
-#: src/main.js:3510
+#: src/ui/translationBox.ui:132
 msgid "Albanian"
 msgstr "Bahasa Albania"
 
-#: src/main.js:3511
+#: src/ui/translationBox.ui:136
 msgid "Amharic"
 msgstr "Bahasa Amharik"
 
-#: src/main.js:3512
+#: src/ui/translationBox.ui:140
 msgid "Arabic"
 msgstr "Bahasa Arab"
 
-#: src/main.js:3513
+#: src/ui/translationBox.ui:144
 msgid "Armenian"
 msgstr "Bahasa Armenia"
 
-#: src/main.js:3514
+#: src/ui/translationBox.ui:148
 msgid "Azerbaijani"
 msgstr "Bahasa Azerbaijan"
 
-#: src/main.js:3515
+#: src/ui/translationBox.ui:152
 msgid "Basque"
 msgstr "Bahasa Basque"
 
-#: src/main.js:3516
+#: src/ui/translationBox.ui:156
 msgid "Belarusian"
 msgstr "Bahasa Belarusia"
 
-#: src/main.js:3517
+#: src/ui/translationBox.ui:160
 msgid "Bengali"
 msgstr "Bahasa Bengali"
 
-#: src/main.js:3518
+#: src/ui/translationBox.ui:164
 msgid "Bosnian"
 msgstr "Bahasa Bosnia"
 
-#: src/main.js:3519
+#: src/ui/translationBox.ui:168
 msgid "Bulgarian"
 msgstr "Bahasa Bulgaria"
 
-#: src/main.js:3520
+#: src/ui/translationBox.ui:172
 msgid "Catalan"
 msgstr "Bahasa Katala"
 
-#: src/main.js:3521
+#: src/ui/translationBox.ui:176
 msgid "Cebuano"
 msgstr "Bahasa Cebú"
 
-#: src/main.js:3522
+#: src/ui/translationBox.ui:180
 msgid "Chinese (Simplified)"
 msgstr "Bahasa China (Disederhanakan)"
 
-#: src/main.js:3523
+#: src/ui/translationBox.ui:184
 msgid "Chinese (Traditional)"
 msgstr "Bahasa China (Tradisional)"
 
-#: src/main.js:3524
+#: src/ui/translationBox.ui:188
 msgid "Corsican"
 msgstr "Bahasa Korsika"
 
-#: src/main.js:3525
+#: src/ui/translationBox.ui:192
 msgid "Croatian"
 msgstr "Bahasa Kroasia"
 
-#: src/main.js:3526
+#: src/ui/translationBox.ui:196
 msgid "Czech"
 msgstr "Bahasa Ceska"
 
-#: src/main.js:3527
+#: src/ui/translationBox.ui:200
 msgid "Danish"
 msgstr "Bahasa Denmark"
 
-#: src/main.js:3528
+#: src/ui/translationBox.ui:204
 msgid "Dutch"
 msgstr "Bahasa Belanda"
 
-#: src/main.js:3529
+#: src/ui/translationBox.ui:208
 msgid "English"
 msgstr "Bahasa Inggris"
 
-#: src/main.js:3530
+#: src/ui/translationBox.ui:212
 msgid "Esperanto"
 msgstr "Bahasa Esperanto"
 
-#: src/main.js:3531
+#: src/ui/translationBox.ui:216
 msgid "Estonian"
 msgstr "Bahasa Estonia"
 
-#: src/main.js:3532
+#: src/ui/translationBox.ui:220
 msgid "Finnish"
 msgstr "Bahasa Finlandia"
 
-#: src/main.js:3533
+#: src/ui/translationBox.ui:224
 msgid "French"
 msgstr "Bahasa Perancis"
 
-#: src/main.js:3534
+#: src/ui/translationBox.ui:228
 msgid "Frisian"
 msgstr "Bahasa Frisia"
 
-#: src/main.js:3535
+#: src/ui/translationBox.ui:232
 msgid "Galician"
 msgstr "Bahasa Galisia"
 
-#: src/main.js:3536
+#: src/ui/translationBox.ui:236
 msgid "Georgian"
 msgstr "Bahasa Georgia"
 
-#: src/main.js:3537
+#: src/ui/translationBox.ui:240
 msgid "German"
 msgstr "Bahasa Jerman"
 
-#: src/main.js:3538
+#: src/ui/translationBox.ui:244
 msgid "Greek"
 msgstr "Bahasa Yunani"
 
-#: src/main.js:3539
+#: src/ui/translationBox.ui:248
 msgid "Gujarati"
 msgstr "Bahasa Gujarat"
 
-#: src/main.js:3540
+#: src/ui/translationBox.ui:252
 #, fuzzy
 msgid "Haitian Creole"
 msgstr "Bahasa Kreol Haiti"
 
-#: src/main.js:3541
+#: src/ui/translationBox.ui:256
 msgid "Hausa"
 msgstr "Bahasa Hausa"
 
-#: src/main.js:3542
+#: src/ui/translationBox.ui:260
 msgid "Hawaiian"
 msgstr "Bahasa Hawaii"
 
-#: src/main.js:3543
+#: src/ui/translationBox.ui:264
 msgid "Hebrew"
 msgstr "Bahasa Ibrani"
 
-#: src/main.js:3544
+#: src/ui/translationBox.ui:268
 msgid "Hindi"
 msgstr "Bahasa Hindi"
 
-#: src/main.js:3545
+#: src/ui/translationBox.ui:272
 msgid "Hmong"
 msgstr "Bahasa Hmong"
 
-#: src/main.js:3546
+#: src/ui/translationBox.ui:276
 msgid "Hungarian"
 msgstr "Bahasa Hungaria"
 
-#: src/main.js:3547
+#: src/ui/translationBox.ui:280
 msgid "Icelandic"
 msgstr "Bahasa Islandia"
 
-#: src/main.js:3548
+#: src/ui/translationBox.ui:284
 msgid "Igbo"
 msgstr "Bahasa Igbo"
 
-#: src/main.js:3549
+#: src/ui/translationBox.ui:288
 msgid "Indonesian"
 msgstr "Bahasa Indonesia"
 
-#: src/main.js:3550
+#: src/ui/translationBox.ui:292
 msgid "Irish"
 msgstr "Bahasa Irlandia"
 
-#: src/main.js:3551
+#: src/ui/translationBox.ui:296
 msgid "Italian"
 msgstr "Bahasa Italia"
 
-#: src/main.js:3552
+#: src/ui/translationBox.ui:300
 msgid "Japanese"
 msgstr "Bahasa Jepang"
 
-#: src/main.js:3553
+#: src/ui/translationBox.ui:304
 msgid "Javanese"
 msgstr "Bahasa Jawa"
 
-#: src/main.js:3554
+#: src/ui/translationBox.ui:308
 msgid "Kannada"
 msgstr "Bahasa Kannada"
 
-#: src/main.js:3555
+#: src/ui/translationBox.ui:312
 msgid "Kazakh"
 msgstr "Bahasa Kazakh"
 
-#: src/main.js:3556
+#: src/ui/translationBox.ui:316
 msgid "Khmer"
 msgstr "Bahasa Khmer"
 
-#: src/main.js:3557
+#: src/ui/translationBox.ui:320
 msgid "Korean"
 msgstr "Bahasa Korea"
 
-#: src/main.js:3558
+#: src/ui/translationBox.ui:324
 msgid "Kurdish"
 msgstr "Bahasa Kurdi"
 
-#: src/main.js:3559
+#: src/ui/translationBox.ui:328
 msgid "Kyrgyz"
 msgstr "Bahasa Kirgizstan"
 
-#: src/main.js:3560
+#: src/ui/translationBox.ui:332
 #, fuzzy
 msgid "Lao"
 msgstr "Bahasa Laos"
 
-#: src/main.js:3561
+#: src/ui/translationBox.ui:336
 msgid "Latin"
 msgstr "Bahasa Latin"
 
-#: src/main.js:3562
+#: src/ui/translationBox.ui:340
 msgid "Latvian"
 msgstr "Bahasa Latvia"
 
-#: src/main.js:3563
+#: src/ui/translationBox.ui:344
 msgid "Lithuanian"
 msgstr "Bahasa Lithuania"
 
-#: src/main.js:3564
+#: src/ui/translationBox.ui:348
 msgid "Luxembourgish"
 msgstr "Bahasa Luxembourg"
 
-#: src/main.js:3565
+#: src/ui/translationBox.ui:352
 msgid "Macedonian"
 msgstr "Bahasa Makedonia"
 
-#: src/main.js:3566
+#: src/ui/translationBox.ui:356
 msgid "Malagasy"
 msgstr "Bahasa Malagasi"
 
-#: src/main.js:3567
+#: src/ui/translationBox.ui:360
 msgid "Malay"
 msgstr "Bahasa Malaysia"
 
-#: src/main.js:3568
+#: src/ui/translationBox.ui:364
 msgid "Malayalam"
 msgstr "Bahasa Malayalam"
 
-#: src/main.js:3569
+#: src/ui/translationBox.ui:368
 msgid "Maltese"
 msgstr "Bahasa Malta"
 
-#: src/main.js:3570
+#: src/ui/translationBox.ui:372
 msgid "Maori"
 msgstr "Bahasa Maori"
 
-#: src/main.js:3571
+#: src/ui/translationBox.ui:376
 msgid "Marathi"
 msgstr "Bahasa Marathi"
 
-#: src/main.js:3572
+#: src/ui/translationBox.ui:380
 msgid "Mongolian"
 msgstr "Bahasa Mongol"
 
-#: src/main.js:3573
+#: src/ui/translationBox.ui:384
 msgid "Myanmar (Burmese)"
 msgstr "Bahasa Myanmar"
 
-#: src/main.js:3574
+#: src/ui/translationBox.ui:388
 msgid "Nepali"
 msgstr "Bahasa Nepali"
 
-#: src/main.js:3575
+#: src/ui/translationBox.ui:392
 msgid "Norwegian"
 msgstr "Bahasa Norwegia"
 
-#: src/main.js:3576
+#: src/ui/translationBox.ui:396
 msgid "Nyanja (Chichewa)"
 msgstr "Bahasa Chichewa"
 
-#: src/main.js:3577
+#: src/ui/translationBox.ui:400
 msgid "Pashto"
 msgstr "Bahasa Pashtun"
 
-#: src/main.js:3578
+#: src/ui/translationBox.ui:404
 msgid "Persian"
 msgstr "Bahasa Persia"
 
-#: src/main.js:3579
+#: src/ui/translationBox.ui:408
 #, fuzzy
 msgid "Polish"
 msgstr "Bahasa Polandia"
 
-#: src/main.js:3580
+#: src/ui/translationBox.ui:412
 msgid "Portuguese (Portugal, Brazil)"
 msgstr "Bahasa Portugis"
 
-#: src/main.js:3581
+#: src/ui/translationBox.ui:416
 msgid "Punjabi"
 msgstr "Bahasa Punjab"
 
-#: src/main.js:3582
+#: src/ui/translationBox.ui:420
 msgid "Romanian"
 msgstr "Bahasa Rumania"
 
-#: src/main.js:3583
+#: src/ui/translationBox.ui:424
 msgid "Russian"
 msgstr "Bahasa Rusia"
 
-#: src/main.js:3584
+#: src/ui/translationBox.ui:428
 msgid "Samoan"
 msgstr "Bahasa Samoa"
 
-#: src/main.js:3585
+#: src/ui/translationBox.ui:432
 msgid "Scots Gaelic"
 msgstr "Bahasa Gaelik Skotlandia"
 
-#: src/main.js:3586
+#: src/ui/translationBox.ui:436
 msgid "Serbian"
 msgstr "Bahasa Serbia"
 
-#: src/main.js:3587
+#: src/ui/translationBox.ui:440
 msgid "Sesotho"
 msgstr "Bahasa Sesotho"
 
-#: src/main.js:3588
+#: src/ui/translationBox.ui:444
 msgid "Shona"
 msgstr "Bahasa Shona"
 
-#: src/main.js:3589
+#: src/ui/translationBox.ui:448
 msgid "Sindhi"
 msgstr "Bahasa Shindi"
 
-#: src/main.js:3590
+#: src/ui/translationBox.ui:452
 msgid "Sinhala (Sinhalese)"
 msgstr "Bahasa Sinhala"
 
-#: src/main.js:3591
+#: src/ui/translationBox.ui:456
 msgid "Slovak"
 msgstr "Bahasa Slowakia"
 
-#: src/main.js:3592
+#: src/ui/translationBox.ui:460
 msgid "Slovenian"
 msgstr "Bahasa Slovenia"
 
-#: src/main.js:3593
+#: src/ui/translationBox.ui:464
 msgid "Somali"
 msgstr "Bahasa Somali"
 
-#: src/main.js:3594
+#: src/ui/translationBox.ui:468
 msgid "Spanish"
 msgstr "Bahasa Spanyol"
 
-#: src/main.js:3595
+#: src/ui/translationBox.ui:472
 msgid "Sundanese"
 msgstr "Bahasa Sunda"
 
-#: src/main.js:3596
+#: src/ui/translationBox.ui:476
 msgid "Swahili"
 msgstr "Bahasa Swahili"
 
-#: src/main.js:3597
+#: src/ui/translationBox.ui:480
 msgid "Swedish"
 msgstr "Bahasa Swedia"
 
-#: src/main.js:3598
+#: src/ui/translationBox.ui:484
 msgid "Tagalog (Filipino)"
 msgstr "Bahasa Tagalog"
 
-#: src/main.js:3599
+#: src/ui/translationBox.ui:488
 msgid "Tajik"
 msgstr "Bahasa Tajik"
 
-#: src/main.js:3600
+#: src/ui/translationBox.ui:492
 msgid "Tamil"
 msgstr "Bahasa Tamil"
 
-#: src/main.js:3601
+#: src/ui/translationBox.ui:496
 msgid "Telugu"
 msgstr "Bahasa Telugu"
 
-#: src/main.js:3602
+#: src/ui/translationBox.ui:500
 msgid "Thai"
 msgstr "Bahasa Thai"
 
-#: src/main.js:3603
+#: src/ui/translationBox.ui:504
 msgid "Turkish"
 msgstr "Bahasa Turki"
 
-#: src/main.js:3604
+#: src/ui/translationBox.ui:508
 msgid "Ukrainian"
 msgstr "Bahasa Ukraina"
 
-#: src/main.js:3605
+#: src/ui/translationBox.ui:512
 msgid "Urdu"
 msgstr "Bahasa Urdu"
 
-#: src/main.js:3606
+#: src/ui/translationBox.ui:516
 msgid "Uzbek"
 msgstr "Bahasa Uzbek"
 
-#: src/main.js:3607
+#: src/ui/translationBox.ui:520
 msgid "Vietnamese"
 msgstr "Bahasa Vietnam"
 
-#: src/main.js:3608
+#: src/ui/translationBox.ui:524
 msgid "Welsh"
 msgstr "Bahasa Welsh"
 
-#: src/main.js:3609
+#: src/ui/translationBox.ui:528
 msgid "Xhosa"
 msgstr "Bahasa Xhosa"
 
-#: src/main.js:3610
+#: src/ui/translationBox.ui:532
 msgid "Yiddish"
 msgstr "Bahasa Yiddi"
 
-#: src/main.js:3611
+#: src/ui/translationBox.ui:536
 msgid "Yoruba"
 msgstr "Bahasa Yoruba"
 
-#: src/main.js:3612
+#: src/ui/translationBox.ui:540
 msgid "Zulu"
 msgstr "Bahasa Zulu"
+
+#: src/ui/wikipediaBox.ui:53
+#, fuzzy
+msgid "No entry found"
+msgstr "Entri tidak ditemukan."
+
+#: src/ui/wikipediaBox.ui:80
+msgid "Wikipedia"
+msgstr "Wikipedia"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
@@ -1239,11 +1234,13 @@ msgstr "John Factotum"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
-msgstr "Perbaikan versi flatpak tidak dapat membuka berkas .mobi, .azw, dan .azw3"
+msgstr ""
+"Perbaikan versi flatpak tidak dapat membuka berkas .mobi, .azw, dan .azw3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid "Improved Wiktionary lookup, now with links and example sentences"
-msgstr "Pengembangan pencarian Wikitionary, sekarang dengan tautan dan contoh kalimat"
+msgstr ""
+"Pengembangan pencarian Wikitionary, sekarang dengan tautan dan contoh kalimat"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Improved popover footnote extraction and formatting"
@@ -1363,10 +1360,6 @@ msgstr "Perbaikan gambar terlalu lebar pada beberapa kasus"
 msgid "New features:"
 msgstr "Fitur-fitur baru:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
-msgid "Auto-hyphenation"
-msgstr "Tanda hubung otomatis"
-
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:130
 msgid "Option to switch between left and full justification"
 msgstr "Opsi untuk beralih antara rata kiri dan rata kanan-kiri"
@@ -1437,13 +1430,218 @@ msgstr "Perbaikan berkas AppData tidak valid"
 msgid "Initial release"
 msgstr "Rilis awal"
 
+#~ msgid "Auto"
+#~ msgstr "Auto"
+
+#~ msgid "Yellow"
+#~ msgstr "Kuning"
+
+#~ msgid "Orange"
+#~ msgstr "Oranye"
+
+#~ msgid "Red"
+#~ msgstr "Merah"
+
+#~ msgid "Magenta"
+#~ msgstr "Magenta"
+
+#~ msgid "Aqua"
+#~ msgstr "Aqua"
+
+#~ msgid "Lime"
+#~ msgstr "Limau"
+
+#~ msgid "From Wiktionary, the free dictionary"
+#~ msgstr "Dari Wiktionary, kamus yang gratis"
+
+#~ msgid "View on Wiktionary"
+#~ msgstr "Lihat di Wikitionary"
+
+#~ msgid "Previous page"
+#~ msgstr "Halaman sebelumnya"
+
+#~ msgid "Next page"
+#~ msgstr "Halaman berikutnya"
+
+#~ msgid "Go back"
+#~ msgstr "Kembali"
+
+#, javascript-format
+#~ msgid "%d hour left in book"
+#~ msgid_plural "%d hours left in book"
+#~ msgstr[0] "%d jam lagi pada buku"
+
+#, fuzzy, javascript-format
+#~ msgid "%d minute left in section"
+#~ msgid_plural "%d minutes left in section"
+#~ msgstr[0] "%d menit lagi pada buku"
+
+#, fuzzy, javascript-format
+#~ msgid "%d hour left in section"
+#~ msgid_plural "%d hours left in section"
+#~ msgstr[0] "%d jam lagi pada buku"
+
+#~ msgid "Find in Book"
+#~ msgstr "Temukan dalam Buku"
+
+#, fuzzy
+#~ msgid "All sections"
+#~ msgstr "Seluruh bagian"
+
+#~ msgid "Searching…"
+#~ msgstr "Mencari…"
+
+#~ msgid "No results"
+#~ msgstr "Tidak ada hasil"
+
+#, javascript-format
+#~ msgid "%d result"
+#~ msgid_plural "%d results"
+#~ msgstr[0] "%d hasil"
+
+#~ msgid "Auto-Hyphenation"
+#~ msgstr "Tanda hubung otomatis"
+
+#~ msgid "Options"
+#~ msgstr "Opsi"
+
+#~ msgid "Lookup"
+#~ msgstr "Cari"
+
+#~ msgid "Loading…"
+#~ msgstr "Memuat…"
+
+#, fuzzy
+#~ msgid "Dictionary"
+#~ msgstr "Izinkan Kamus"
+
+#, fuzzy
+#~ msgid "From Wikipedia, the free encyclopedia"
+#~ msgstr "Dari Wiktionary, ensiklopedia gratis"
+
+#~ msgid "View on Wikipedia"
+#~ msgstr "Lihat di Wikipedia"
+
+#~ msgid "Note"
+#~ msgstr "Catatan"
+
+#, fuzzy
+#~ msgid "Go to Linked Location"
+#~ msgstr "Kembali ke lokasi sebelumnya"
+
+#~ msgid "Zoom"
+#~ msgstr "Perbesaran"
+
+#~ msgid "Open a file, or continue reading the last opened book."
+#~ msgstr "Buka berkas, atau lanjutkan membaca buku yang terakhir dibuka."
+
+#~ msgid "Continue Reading"
+#~ msgstr "Lanjutkan Membaca"
+
+#, fuzzy
+#~ msgid "Go to Location…"
+#~ msgstr "Kembali ke lokasi sebelumnya"
+
+#~ msgid "Set font, theme, and layout"
+#~ msgstr "Atur fonta, tema, dan tata letak"
+
+#~ msgid "Reading Progress Bar"
+#~ msgstr "Bar Progres Baca"
+
+#~ msgid "Go"
+#~ msgstr "Pergi"
+
+#~ msgid "You don't have any annotations for this book."
+#~ msgstr "Anda tidak memiliki anotasi untuk buku ini"
+
+#, fuzzy, javascript-format
+#~ msgid "Annotations for %s"
+#~ msgstr "Anotasi untuk %s"
+
+#~ msgid "Link"
+#~ msgstr "Tautan"
+
+#~ msgid "A theme with that name already exists."
+#~ msgstr "Tema dengan nama tersebut sudah ada."
+
+#~ msgid "Add"
+#~ msgstr "Tambahkan"
+
+#~ msgid "Add…"
+#~ msgstr "Tambahkan…"
+
+#~ msgid "Add a new theme"
+#~ msgstr "Tambah tema baru"
+
+#~ msgid "General"
+#~ msgstr "Umum"
+
+#, fuzzy
+#~ msgid "Show annotations"
+#~ msgstr "Tampilkan anotasi"
+
+#~ msgid "Show bookmarks"
+#~ msgstr "Tampilkan penanda buku"
+
+#~ msgid "Show viewing options"
+#~ msgstr "Tampilkan opsi tampilan"
+
+#~ msgid "Increase font size"
+#~ msgstr "Perbesar ukuran fonta"
+
+#~ msgid "Decrease font size"
+#~ msgstr "Perkecil ukuran fonta"
+
+#, fuzzy
+#~ msgid "Toggle reading progress bar"
+#~ msgstr "Pilihan untuk menyembunyikan bar progres baca"
+
+#~ msgid "Continous scrolling (requires restart)"
+#~ msgstr "Gulir Berlanjut (membutuhkan restart)"
+
+#~ msgid "Use sidebar (requires restart)"
+#~ msgstr "Gunakan sidebar (membutuhkan restart)"
+
+#~ msgid ""
+#~ "Use a sidebar to display table of contents, annotations, and bookmarks."
+#~ msgstr ""
+#~ "Gunakan sidebar untuk menampilkan daftar isi, anotasi, dan penanda buku."
+
+#~ msgid "Never"
+#~ msgstr "Tidak pernah"
+
+#~ msgid "Always"
+#~ msgstr "Selalu"
+
+#, fuzzy
+#~ msgid "When in fullscreen mode"
+#~ msgstr "Ketika dalam mode layar penuh"
+
+#~ msgid "Display non-EPUB-3 footnotes in a popover"
+#~ msgstr "Tampilkan catatan kaki untuk bukan EPUB-3 di popover"
+
+#~ msgid "This feature is experimental and might not work with all books."
+#~ msgstr ""
+#~ "Fitur ini dalam masa percobaan dan mungkin tidak bekerja untuk semua buku."
+
+#~ msgid "This will pose potential security and privacy risks."
+#~ msgstr "Ini dapat berpotensi menimbulkan risiko keamanan dan privasi."
+
+#~ msgid "Leave blank to disable text-to-speech."
+#~ msgstr "Biarkan kosong untuk menonaktifkan text-to-speech"
+
+#~ msgid "Ask what to do"
+#~ msgstr "Tanyakan apa yang harus dilakukan"
+
+#~ msgid "Copy to clipboard"
+#~ msgstr "Salin ke clipboard"
+
+#~ msgid "Lookup method"
+#~ msgstr "Metode pencarian"
+
 #, fuzzy
 #~ msgid "Remove current location"
 #~ msgstr "Bersihkan Lokasi Kini"
-
-#~ msgid "%d minute left in chapter"
-#~ msgid_plural "%d minutes left in chapter"
-#~ msgstr[0] "%d menit lagi pada bab"
 
 #~ msgid "%d hour left in chapter"
 #~ msgid_plural "%d hours left in chapter"
