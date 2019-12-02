@@ -49,16 +49,6 @@
         <summary>Use sidebar</summary>
         <description>If true, a side pane will be used instead of popovers</description>
     </key>
-    <key name="show-sidebar" type="b">
-        <default>true</default>
-        <summary>Show sidebar</summary>
-        <description>Whether the sidebar is shown</description>
-    </key>
-    <key name="sidebar-size" type="i">
-        <default>240</default>
-        <summary>Sidebar size</summary>
-        <description>Sidebar width</description>
-    </key>
   </schema>
   <schema id="com.github.johnfactotum.Foliate.view"
     path="/com/github/johnfactotum/Foliate/view/">
@@ -184,6 +174,16 @@
       <default>''</default>
       <summary>Last file opened</summary>
       <description>Last file opened</description>
+    </key>
+    <key name="show-sidebar" type="b">
+        <default>true</default>
+        <summary>Show sidebar</summary>
+        <description>Whether the sidebar is shown</description>
+    </key>
+    <key name="sidebar-size" type="i">
+        <default>240</default>
+        <summary>Sidebar size</summary>
+        <description>Sidebar width</description>
     </key>
   </schema>
 </schemalist>

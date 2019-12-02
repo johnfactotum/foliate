@@ -592,7 +592,8 @@ const HeaderBar = GObject.registerClass({
             image: new Gtk.Image({
                 visible: true, icon_name: 'sidebar-show-symbolic' }),
         })
-        settings.bind('show-sidebar', this.sidebarButton, 'active', Gio.SettingsBindFlags.DEFAULT)
+        windowState.bind('show-sidebar', this.sidebarButton, 'active',
+            Gio.SettingsBindFlags.DEFAULT)
         this.pack_start(this.sidebarButton)
         this.pack_start(this.sideButton)
         this._showSideButton()
@@ -875,7 +876,7 @@ var Window = GObject.registerClass({
             this._paned = new Gtk.Paned({ visible: true })
             this._paned.pack1(this._sidebar, false, false)
             this._paned.pack2(this._mainOverlay, true, false)
-            settings.bind('sidebar-size', this._paned, 'position',
+            windowState.bind('sidebar-size', this._paned, 'position',
                 Gio.SettingsBindFlags.DEFAULT)
             this._fullscreenOverlay.add(this._paned)
         } else {
@@ -907,7 +908,7 @@ var Window = GObject.registerClass({
         box.pack_start(this._contentsStack, true, true, 0)
         box.pack_start(stackSwitcher, false, true, 0)
         this._sidebar = box
-        settings.bind('show-sidebar', this._sidebar, 'visible',
+        windowState.bind('show-sidebar', this._sidebar, 'visible',
             Gio.SettingsBindFlags.DEFAULT)
     }
     _buildPopovers() {
