@@ -540,8 +540,8 @@ const setupRendition = () => {
             const left = e.target === document.documentElement ? 0 : frame
                 .getBoundingClientRect().left
             const f = () => dispatch({
-                 type: 'click',
-                 payload: {
+                type: 'click',
+                payload: {
                     width: window.innerWidth,
                     position: clientX + left
                 }

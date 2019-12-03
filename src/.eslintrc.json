@@ -11,11 +11,15 @@
         "indent": ["warn", 4, { "flatTernaryExpressions": true, "SwitchCase": 1 }],
         "no-unused-vars": "warn",
         "no-cond-assign": ["error", "except-parens"],
-        "no-constant-condition": ["error", { "checkLoops": false }]
+        "no-constant-condition": ["error", { "checkLoops": false }],
+        "no-empty": ["error", { "allowEmptyCatch": true }]
     },
     "globals": {
         "pkg": "readonly",
         "imports": "readonly",
+        "log": "readonly",
+        "logError": "readonly",
+        "print": "readonly",
         "_": "readonly"
     }
 }
