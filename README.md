@@ -116,6 +116,10 @@ Open [Gnome Builder](https://wiki.gnome.org/Apps/Builder), choose "Clone Reposit
 flatpak-builder --force-clean --install --user build com.github.johnfactotum.Foliate.json
 ```
 
+### Snap
+
+Foliate is available on the [Snap Store](https://snapcraft.io/foliate).
+
 ---
 
 **Note:** two JavaScript libraries are bundled in this software:
