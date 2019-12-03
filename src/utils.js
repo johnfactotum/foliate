@@ -13,6 +13,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// timers polyfill
+const Mainloop = imports.mainloop
+var setTimeout = (func, delay, ...args) =>
+    Mainloop.timeout_add(delay, () => (func(...args), false), null)
+var clearTimeout = id => id ? Mainloop.source_remove(id) : null
+var setInterval = (func, delay, ...args) =>
+    Mainloop.timeout_add(delay, () => (func(...args), true), null)
+var clearInterval = id => id ? Mainloop.source_remove(id) : null
+
+var debounce = (f, wait, immediate) => {
+    let timeout
+    return (...args) => {
+        const later = () => {
+            timeout = null
+            if (!immediate) f(...args)
+        }
+        const callNow = immediate && !timeout
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+        if (callNow) f(...args)
+    }
+}
+
 const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf } = imports.gi
 const ByteArray = imports.byteArray
 const ngettext = imports.gettext.ngettext
@@ -108,6 +131,7 @@ var Storage = GObject.registerClass({
                 this.emit('externally-modified')
             }
         })
+        this._debouncedWrite = debounce(this._write.bind(this), 1000)
     }
     static getDestination(type, key) {
         const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
@@ -137,6 +161,7 @@ var Storage = GObject.registerClass({
         }
     }
     _write(data) {
+        debug('writing to ' + this._file.get_path())
         // TODO: throttle?
         const mkdirp = GLib.mkdir_with_parents(
             this._file.get_parent().get_path(), parseInt('0755', 8))
@@ -154,7 +179,7 @@ var Storage = GObject.registerClass({
     }
     set(property, value) {
         this._data[property] = value
-        this._write(this._data)
+        this._debouncedWrite(this._data)
     }
     get data() {
         return JSON.parse(JSON.stringify(this._data))
