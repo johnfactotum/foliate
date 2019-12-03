@@ -747,9 +747,11 @@ var Window = GObject.registerClass({
         this._buildFullscreenHeaderBar()
 
         this._buildHeaderBar()
+        const headerBarHandler =
+            viewSettings.connect('changed::skeuomorphism', () => this._buildHeaderBar())
         const headerBarHandlers = [
-            viewSettings.connect('changed::skeuomorphism', () => this._buildHeaderBar()),
-            settings.connect('changed::use-sidebar', () => this._buildHeaderBar())
+            settings.connect('changed::use-sidebar', () => this._buildHeaderBar()),
+            settings.connect('changed::autohide-headerbar', () => this._buildHeaderBar())
         ]
 
         this._themeUI()
@@ -812,7 +814,8 @@ var Window = GObject.registerClass({
                 windowState.set_string('last-file', this.file.get_path())
 
             settings.disconnect(mainHandler)
-            headerBarHandlers.forEach(x => viewSettings.disconnect(x))
+            viewSettings.disconnect(headerBarHandler)
+            headerBarHandlers.forEach(x => settings.disconnect(x))
             themeHandlers.forEach(x => viewSettings.disconnect(x))
             settings.disconnect(ttsHandler)
         })
@@ -1014,6 +1017,7 @@ var Window = GObject.registerClass({
     _buildHeaderBar() {
         const autohide = !viewSettings.get_boolean('skeuomorphism')
             && !settings.get_boolean('use-sidebar')
+            && settings.get_boolean('autohide-headerbar')
         if (autohide === this._headerBarAutoHide) return
         this._headerBarAutoHide = autohide
         const title = this.title

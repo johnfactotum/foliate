@@ -50,16 +50,28 @@ const makeActions = app => ({
 
         settings.bind('restore-last-file', $('restoreLastFile'), 'state', flag)
         settings.bind('use-sidebar', $('useSidebar'), 'state', flag)
+        settings.bind('autohide-headerbar', $('autohideHeaderbar'), 'state', flag)
         settings.bind('footer-left', $('footerLeftCombo'), 'active-id', flag)
         settings.bind('footer-right', $('footerRightCombo'), 'active-id', flag)
         settings.bind('selection-action-single', $('singleActionCombo'), 'active-id', flag)
         settings.bind('selection-action-multiple', $('multipleActionCombo'), 'active-id', flag)
         settings.bind('tts-command', $('ttsEntry'), 'text', flag)
 
+        const showAHBox = () => {
+            $('autohideHeaderbarBox').visible =
+                !viewSettings.get_boolean('skeuomorphism')
+                && !settings.get_boolean('use-sidebar')
+        }
+        showAHBox()
+        const h1 = viewSettings.connect('changed::skeuomorphism', showAHBox)
+        const h2 = settings.connect('changed::use-sidebar', showAHBox)
+
         const dialog = builder.get_object('preferenceDialog')
         dialog.transient_for = app.active_window
         dialog.run()
         dialog.destroy()
+        viewSettings.disconnect(h1)
+        settings.disconnect(h2)
     },
     'open': () => {
         const allFiles = new Gtk.FileFilter()
