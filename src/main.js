@@ -48,8 +48,10 @@ const makeActions = app => ({
         const $ = builder.get_object.bind(builder)
         const flag = Gio.SettingsBindFlags.DEFAULT
 
-        settings.bind('use-sidebar', $('useSidebar'), 'state', flag)
         settings.bind('restore-last-file', $('restoreLastFile'), 'state', flag)
+        settings.bind('use-sidebar', $('useSidebar'), 'state', flag)
+        settings.bind('footer-left', $('footerLeftCombo'), 'active-id', flag)
+        settings.bind('footer-right', $('footerRightCombo'), 'active-id', flag)
         settings.bind('selection-action-single', $('singleActionCombo'), 'active-id', flag)
         settings.bind('selection-action-multiple', $('multipleActionCombo'), 'active-id', flag)
         settings.bind('tts-command', $('ttsEntry'), 'text', flag)

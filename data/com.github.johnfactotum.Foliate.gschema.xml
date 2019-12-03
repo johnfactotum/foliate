@@ -49,6 +49,16 @@
         <summary>Use sidebar</summary>
         <description>If true, a side pane will be used instead of popovers</description>
     </key>
+    <key name="footer-left" type="s">
+        <default>'location'</default>
+        <summary>Left footer</summary>
+        <description>Information to be displayed on the left footer</description>
+    </key>
+    <key name="footer-right" type="s">
+        <default>'section-name'</default>
+        <summary>Right footer</summary>
+        <description>Information to be displayed on the right footer</description>
+    </key>
   </schema>
   <schema id="com.github.johnfactotum.Foliate.view"
     path="/com/github/johnfactotum/Foliate/view/">

@@ -15,6 +15,7 @@
 
 const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf } = imports.gi
 const ByteArray = imports.byteArray
+const ngettext = imports.gettext.ngettext
 
 var LOG_DOMAIN = 'Foliate'
 
@@ -295,4 +296,13 @@ var setPopoverPosition = (popover, position, window, height) => {
     popover.connect('size-allocate', () =>
         setPosition(popover.get_allocation().height))
     setPosition(height)
+}
+
+const formatMinutes = n => {
+    n = Math.round(n)
+    if (n < 60) return ngettext('%d minute', '%d minutes', n).format(n)
+    else {
+        const h = Math.round(n / 60)
+        return ngettext('%d hour', '%d hours', h).format(h)
+    }
 }

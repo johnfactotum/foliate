@@ -528,7 +528,7 @@ var EpubView = GObject.registerClass({
             this._run(`display(${lastLocation ? `'${lastLocation}'` : ''})`)
         })
         this.connect('locations-generated', () => this._data.locations = this.locations)
-        this.connect('relocated', () => this._data.lastLocation = this.location.cfi)
+        this.connect('relocated', () => this._data.lastLocation = this.location.start.cfi)
         this._webView.connect('destroy', () => {
             if (!this._data) return
             this._disconnectData()
@@ -629,19 +629,19 @@ var EpubView = GObject.registerClass({
                 break
 
             case 'relocated': {
-                debug(payload.cfi)
+                debug(payload.start.cfi)
                 this.location = payload
                 this.location.canGoBack = Boolean(this._history.length)
 
                 const { atStart, atEnd, canGoBack,
-                    percentage, section, sectionTotal } = this.location
+                    section, sectionTotal } = this.location
                 const action = this.actionGroup.lookup_action.bind(this.actionGroup)
                 action('go-prev').enabled = !atStart
                 action('go-next').enabled = !atEnd
                 action('go-back').enabled = canGoBack
                 action('go-next-section').enabled = section + 1 < sectionTotal
                 action('go-prev-section').enabled = section > 0
-                action('go-first').enabled = percentage > 0
+                action('go-first').enabled = !atStart
                 action('go-last').enabled = !atEnd
 
                 if (this._findResultCfi) this.selectByCfi(this._findResultCfi)
@@ -859,13 +859,13 @@ var EpubView = GObject.registerClass({
     removeAnnotation(cfi) {
         this._data.removeAnnotation(cfi)
     }
-    addBookmark(cfi = this.location.cfi) {
+    addBookmark(cfi = this.location.start.cfi) {
         this._data.addBookmark(cfi)
     }
-    removeBookmark(cfi = this.location.cfi) {
+    removeBookmark(cfi = this.location.start.cfi) {
         this._data.removeBookmark(cfi)
     }
-    hasBookmark(cfi = this.location.cfi) {
+    hasBookmark(cfi = this.location.start.cfi) {
         return this._data.hasBookmark(cfi)
     }
     get data() {

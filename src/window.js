@@ -14,9 +14,8 @@
  */
 
 const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
-const ngettext = imports.gettext.ngettext
 
-const { setPopoverPosition, invertRotate, brightenColor } = imports.utils
+const { setPopoverPosition, invertRotate, brightenColor, formatMinutes } = imports.utils
 const { EpubView } = imports.epubView
 const { ContentsStack, FindBox,
     FootnotePopover, AnnotationBox, ImageViewer } = imports.contents
@@ -157,21 +156,18 @@ const NavBar = GObject.registerClass({
     }
     _update() {
         const {
-            cfi, section, sectionTotal, location, locationTotal, percentage,
+            section, sectionTotal, locationTotal,
             timeInBook, timeInChapter,
         } = this._epub.location
+        const { cfi, location, percentage } = this._epub.location.start
 
         this._locationScale.set_value(percentage)
 
         const progress = Math.round(percentage * 100)
         this._locationLabel.label = progress + '%'
 
-        const makeTimeLabel = n => n < 60
-            ? ngettext('%d minute', '%d minutes').format(Math.round(n))
-            : ngettext('%d hour', '%d hours').format(Math.round(n / 60))
-
-        this._timeInBook.label = makeTimeLabel(timeInBook)
-        this._timeInChapter.label = makeTimeLabel(timeInChapter)
+        this._timeInBook.label = formatMinutes(timeInBook)
+        this._timeInChapter.label = formatMinutes(timeInChapter)
         this._sectionEntry.text = (section + 1).toString()
         this._locationEntry.text = (location + 1).toString()
         this._cfiEntry.text = cfi
@@ -219,19 +215,86 @@ const Footer = GObject.registerClass({
         this._right.get_style_context().add_class('autohide-label')
         this.pack_start(this._left, true, true, 0)
         this.pack_start(this._right, true, true, 0)
+
+        const hl = settings.connect('changed::footer-left', this._update.bind(this))
+        const hr = settings.connect('changed::footer-right', this._update.bind(this))
+        this.connect('destroy', () => {
+            settings.disconnect(hl)
+            settings.disconnect(hr)
+        })
     }
-    set spread(spread) {
+    set epub(epub) {
+        this._epub = epub
+        this._epub.connect('book-loading', () => {
+            this._left.label = '…'
+            this._right.label = '…'
+        })
+        this._epub.connect('relocated', () => {
+            this._update()
+        })
+        this._epub.connect('spread', (_, spread) => {
+            this._spread = spread
+            this._update()
+        })
+    }
+    _update() {
+        const spread = this._spread
+        this._setLabel(this._left)
+        this._setLabel(this._right)
+
         this.homogeneous = spread
-        this._left.xalign = spread ? 0.5 : 1
-        this._right.xalign = spread ? 0.5 : 0
-        this._left.margin_right = spread ? 18 : 6
-        this._right.margin_left = spread ? 18 : 6
+        if (!spread) {
+            const lv = this._left.label !== ''
+                && settings.get_string('footer-left')
+                    !== settings.get_string('footer-right')
+            const rv = this._right.label !== ''
+
+            this._left.visible = lv
+            this._right.visible = rv
+
+            this._left.xalign =  rv ? 1 : 0.5
+            this._left.margin_right = rv ? 12 : 18
+
+            this._right.xalign =  lv ? 0 : 0.5
+            this._right.margin_left = lv ? 12 : 18
+        } else {
+            this._left.visible = true
+            this._right.visible = true
+            this._left.xalign = 0.5
+            this._right.xalign = 0.5
+        }
     }
-    set left(label) {
-        this._left.label = label
-    }
-    set right(label) {
-        this._right.label = label
+    _setLabel(label) {
+        if (!this._epub.location) return
+        const { start, end, locationTotal, section, sectionTotal,
+            timeInBook, timeInChapter } = this._epub.location
+        const isLeft = label === this._left
+        const type = isLeft
+            ? settings.get_string('footer-left')
+            : settings.get_string('footer-right')
+        const p = isLeft && this._spread ? start : end
+        let s = ''
+        switch (type) {
+            case 'percentage':
+                if (locationTotal) s = Math.round(p.percentage * 100) + '%'
+                break
+            case 'location':
+                if (locationTotal) s = (p.location + 1) + ' / ' + (locationTotal + 1)
+                break
+            case 'section':
+                s = (section + 1) + ' / ' + (sectionTotal + 1)
+                break
+            case 'section-name':
+                s = p.label
+                break
+            case 'time-left-section':
+                if (locationTotal) s = formatMinutes(timeInChapter)
+                break
+            case 'time-left-book':
+                if (locationTotal) s = formatMinutes(timeInBook)
+                break
+        }
+        label.label = s
     }
 })
 
@@ -276,29 +339,17 @@ const MainOverlay = GObject.registerClass({
     }
     set epub(epub) {
         this._epub = epub
+        this._footer.epub = this._epub
         this._navBar.epub = this._epub
         this._contentBox.add(this._epub.widget)
 
         this._epub.connect('book-displayed', () => this._setStatus('loaded'))
-        this._epub.connect('book-loading', () => {
-            this._setStatus('loading')
-            this._footer.left = '…'
-            this._footer.right = '…'
-        })
+        this._epub.connect('book-loading', () => this._setStatus('loading'))
         this._epub.connect('book-error', () => this._setStatus('error'))
-        this._epub.connect('relocated', () => this._update())
         this._epub.connect('spread', (_, spread) => {
             this._spread = spread
             this._showDivider()
-            this._footer.spread = spread
         })
-    }
-    _update() {
-        const { endCfi, location, locationTotal } = this._epub.location
-        if (locationTotal)
-            this._footer.left = (location + 1) + ' / ' + (locationTotal + 1)
-        this._epub.getSectionFromCfi(endCfi).then(section =>
-            this._footer.right = section.label)
     }
     _setStatus(status) {
         const loaded = status === 'loaded'

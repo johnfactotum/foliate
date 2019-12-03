@@ -151,22 +151,32 @@ const dispatchLocation = async () => {
         * CHARACTERS_PER_PAGE
         / CHARACTERS_PER_WORD(book.package.metadata.language)
         / WORDS_PER_MINUTE
-
     const nextSectionPercentage = (sectionMarks || []).find(x => x > percentage)
+
+    const startSection = getSectionFromCfi(location.start.cfi)
+    const endSection = getSectionFromCfi(location.end.cfi)
 
     dispatch({
         type: 'relocated',
         payload: {
             atStart: location.atStart,
             atEnd: location.atEnd,
-            cfi: location.start.cfi,
-            endCfi: location.end.cfi,
-            sectionHref: getSectionFromCfi(location.start.cfi).href,
+            start: {
+                cfi: location.start.cfi,
+                percentage: location.start.percentage,
+                location: book.locations.locationFromCfi(location.start.cfi),
+                label: startSection.label
+            },
+            end: {
+                end: location.end.cfi,
+                percentage: location.end.percentage,
+                location: book.locations.locationFromCfi(location.end.cfi),
+                label: startSection.label
+            },
+            sectionHref: startSection.href,
             section: index,
             sectionTotal: book.spine.length,
-            location: book.locations.locationFromCfi(location.start.cfi),
             locationTotal: book.locations.total,
-            percentage,
             timeInBook: estimate(1),
             timeInChapter: estimate(nextSectionPercentage)
         }

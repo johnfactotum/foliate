@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <object class="GtkListStore" id="footer">
+    <columns>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">none</col>
+        <col id="1" translatable="yes">Nothing</col>
+      </row>
+      <row>
+        <col id="0">percentage</col>
+        <col id="1" translatable="yes">Percentage</col>
+      </row>
+      <row>
+        <col id="0">location</col>
+        <col id="1" translatable="yes">Location</col>
+      </row>
+      <row>
+        <col id="0">section</col>
+        <col id="1" translatable="yes">Chapter</col>
+      </row>
+      <row>
+        <col id="0">section-name</col>
+        <col id="1" translatable="yes">Chapter name</col>
+      </row>
+      <row>
+        <col id="0">time-left-section</col>
+        <col id="1" translatable="yes">Time left in chapter</col>
+      </row>
+      <row>
+        <col id="0">time-left-book</col>
+        <col id="1" translatable="yes">Time left in book</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkListStore" id="action">
     <columns>
       <column type="gchararray"/>
@@ -81,6 +117,33 @@
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="wrap">True</property>
+                        <property name="label" translatable="yes">Open last opened file on startup</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="restoreLastFile">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="margin-left">18</property>
+                    <property name="margin-right">18</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
                         <property name="label" translatable="yes">Use sidebar</property>
                       </object>
                     </child>
@@ -108,13 +171,62 @@
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="wrap">True</property>
-                        <property name="label" translatable="yes">Open last opened file on startup</property>
+                        <property name="label" translatable="yes">Left footer</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="restoreLastFile">
+                      <object class="GtkComboBox" id="footerLeftCombo">
                         <property name="visible">True</property>
                         <property name="valign">center</property>
+                        <property name="model">footer</property>
+                        <property name="id-column">0</property>
+                        <property name="active-id">location</property>
+                        <child>
+                          <object class="GtkCellRendererText">
+                            <property name="ellipsize">end</property>
+                          </object>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="margin-left">18</property>
+                    <property name="margin-right">18</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="label" translatable="yes">Right footer</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="footerRightCombo">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                        <property name="model">footer</property>
+                        <property name="id-column">0</property>
+                        <property name="active-id">section-name</property>
+                        <child>
+                          <object class="GtkCellRendererText">
+                            <property name="ellipsize">end</property>
+                          </object>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
                       </object>
                       <packing>
                         <property name="pack_type">end</property>
