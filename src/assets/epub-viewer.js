@@ -171,7 +171,7 @@ const dispatchLocation = async () => {
                 end: location.end.cfi,
                 percentage: location.end.percentage,
                 location: book.locations.locationFromCfi(location.end.cfi),
-                label: startSection.label
+                label: endSection.label
             },
             sectionHref: startSection.href,
             section: index,
@@ -292,7 +292,7 @@ const setStyle = style => {
         // force font on everything that isn't code
         const notCode = '*:not(code):not(pre):not(code *):not(pre *)'
         stylesheet[`.${themeName} ${notCode}`] = {
-            'font-family': '"${fontFamily}" !important'
+            'font-family': `"${fontFamily}" !important`
         }
     }
 

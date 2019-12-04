@@ -93,7 +93,7 @@ var WikipediaBox = GObject.registerClass({
     }
 })
 
-const baseWikiRegExp = new RegExp('^https://en.wiktionary.org/wiki/')
+const baseWikiRegExp = /^https:\/\/en\.wiktionary\.org\/wiki\//
 
 // see https://en.wiktionary.org/wiki/Wiktionary:Namespace
 const wikiNamespaces = [
@@ -119,7 +119,7 @@ const wiktionary = (word, language, lookupFunc) => lookup(
                 return true
             }
         }
-        const displayWord = word.replace(/_/g, ' ')
+        // const displayWord = word.replace(/_/g, ' ')
         const displayLanguage = results[0].language
         const linkLanguage = displayLanguage.replace(/ /g, '_')
 

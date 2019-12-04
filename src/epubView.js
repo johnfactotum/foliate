@@ -37,7 +37,7 @@ const getIbooksInternalTheme = bgColor => {
     const l = 0.299 * red + 0.587 * green + 0.114 * blue
     if (l < 0.3) return 'Night'
     else if (l < 0.7) return 'Gray'
-    else if (red > green > blue) return 'Sepia'
+    else if (red > green && green > blue) return 'Sepia'
     else return 'White'
 }
 
