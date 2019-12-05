@@ -29,11 +29,11 @@ const defaultThemes = [
     },
     {
         theme_name: _('Gray'), dark_mode: true, invert: false,
-        fg_color: '#ccc', bg_color: '#555', link_color: 'cyan',
+        fg_color: '#ccc', bg_color: '#555', link_color: 'skyblue',
     },
     {
         theme_name: _('Dark'), dark_mode: true, invert: false,
-        fg_color: '#ddd', bg_color: '#292929', link_color: 'cyan',
+        fg_color: '#ddd', bg_color: '#292929', link_color: 'cornflowerblue',
     },
     {
         theme_name: _('Invert'), dark_mode: true, invert: true,
