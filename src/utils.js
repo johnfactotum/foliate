@@ -275,6 +275,8 @@ var hueRotateColor = (color, degree) => {
 
 var invertRotate = color => hueRotateColor(invertColor(color), 180)
 
+var doubleInvert = x => invertRotate(invertRotate(x))
+
 var base64ToPixbuf = base64 => {
     try {
         const data = GLib.base64_decode(base64)

@@ -14,6 +14,7 @@
  */
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
+const { invertRotate } = imports.utils
 
 const {
     debug, error, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf,
@@ -736,6 +737,8 @@ var EpubView = GObject.registerClass({
         webViewSettings.default_font_family = fontFamily
         webViewSettings.default_font_size = fontSize
 
+        const invert = this.settings.invert ? invertRotate : (x => x)
+
         const style = {
             fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
             spacing: this.settings.spacing,
@@ -743,9 +746,9 @@ var EpubView = GObject.registerClass({
             usePublisherFont: this.settings.use_publisher_font,
             justify: this.settings.justify,
             hyphenate: this.settings.hyphenate,
-            fgColor: this.settings.fg_color,
-            bgColor: this.settings.bg_color,
-            linkColor: this.settings.link_color,
+            fgColor: invert(this.settings.fg_color),
+            bgColor: invert(this.settings.bg_color),
+            linkColor: invert(this.settings.link_color),
             invert: this.settings.invert,
             brightness: this.settings.brightness,
             ibooksInternalTheme: getIbooksInternalTheme(this.settings.bg_color)

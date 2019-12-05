@@ -15,7 +15,7 @@
 
 const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
 
-const { setPopoverPosition, invertRotate, brightenColor, formatMinutes } = imports.utils
+const { setPopoverPosition, doubleInvert, brightenColor, formatMinutes } = imports.utils
 const { EpubView } = imports.epubView
 const { ContentsStack, FindBox,
     FootnotePopover, AnnotationBox, ImageViewer } = imports.contents
@@ -378,7 +378,7 @@ const MainOverlay = GObject.registerClass({
             .remove_class('skeuomorph-page')
 
         const cssProvider = new Gtk.CssProvider()
-        const invert = viewSettings.get_boolean('invert') ? invertRotate : (x => x)
+        const invert = viewSettings.get_boolean('invert') ? doubleInvert : (x => x)
         const brightness = viewSettings.get_double('brightness')
         const bgColor = brightenColor(invert(viewSettings.get_string('bg-color')), brightness)
         const shadowColor = 'rgba(0, 0, 0, 0.2)'
@@ -1024,6 +1024,7 @@ var Window = GObject.registerClass({
 
         if (this._headerBar) this._headerBar.unsetPopovers()
         this._headerBar = new HeaderBar({ visible: true })
+        this._headerBar.get_style_context().add_class('titlebar')
         this._headerBar.setPopovers(
             this._sidePopover, this._findPopover, this._mainPopover)
 
@@ -1091,7 +1092,7 @@ var Window = GObject.registerClass({
     _themeUI() {
         this._mainOverlay.skeuomorph(viewSettings.get_boolean('skeuomorphism'))
 
-        const invert = viewSettings.get_boolean('invert') ? invertRotate : (x => x)
+        const invert = viewSettings.get_boolean('invert') ? doubleInvert : (x => x)
         const brightness = viewSettings.get_double('brightness')
         const bgColor = brightenColor(invert(viewSettings.get_string('bg-color')), brightness)
         const fgColor = brightenColor(invert(viewSettings.get_string('fg-color')), brightness)

@@ -14,7 +14,7 @@
  */
 
 const { GObject, Gtk, Gio } = imports.gi
-const { RGBAFromString, invertRotate, Storage } = imports.utils
+const { RGBAFromString, doubleInvert, Storage } = imports.utils
 
 const settings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 
@@ -37,7 +37,7 @@ const defaultThemes = [
     },
     {
         theme_name: _('Invert'), dark_mode: true, invert: true,
-        fg_color: '#000', bg_color: '#fff', link_color: 'blue',
+        fg_color: '#fff', bg_color: '#000', link_color: 'cornflowerblue',
     },
     {
         theme_name: _('Solarized Light'), dark_mode: false, invert: false,
@@ -127,8 +127,8 @@ var ThemeRow = GObject.registerClass({
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
             * {
-                color: ${invert ? invertRotate(fg_color) : fg_color};
-                background: ${invert ? invertRotate(bg_color) : bg_color};
+                color: ${invert ? doubleInvert(fg_color) : fg_color};
+                background: ${invert ? doubleInvert(bg_color) : bg_color};
             }`)
         this.get_style_context()
             .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
