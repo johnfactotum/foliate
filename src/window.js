@@ -744,15 +744,26 @@ var Window = GObject.registerClass({
         const mainHandler =
             settings.connect('changed::use-sidebar', () => this._buildMain())
 
-        this._buildFullscreenHeaderBar()
+        const useMenubar = settings.get_boolean('use-menubar')
 
-        this._buildHeaderBar()
-        const headerBarHandler =
-            viewSettings.connect('changed::skeuomorphism', () => this._buildHeaderBar())
-        const headerBarHandlers = [
-            settings.connect('changed::use-sidebar', () => this._buildHeaderBar()),
-            settings.connect('changed::autohide-headerbar', () => this._buildHeaderBar())
-        ]
+        if (useMenubar) {
+            this.show_menubar = true
+        } else {
+            this.show_menubar = false
+            this._buildFullscreenHeaderBar()
+
+            this._buildHeaderBar()
+            const headerBarHandler =
+                viewSettings.connect('changed::skeuomorphism', () => this._buildHeaderBar())
+            const headerBarHandlers = [
+                settings.connect('changed::use-sidebar', () => this._buildHeaderBar()),
+                settings.connect('changed::autohide-headerbar', () => this._buildHeaderBar())
+            ]
+            this.connect('destroy', () => {
+                viewSettings.disconnect(headerBarHandler)
+                headerBarHandlers.forEach(x => settings.disconnect(x))
+            })
+        }
 
         this._themeUI()
         const themeHandlers = [
@@ -798,7 +809,7 @@ var Window = GObject.registerClass({
             if (this._autoHideHeaderBar)
                 this._autoHideHeaderBar
                     .alwaysReveal(this.loading || this._mainOverlay.navbarVisible)
-            this.activeHeaderBar.grabPopovers()
+            if (this.activeHeaderBar) this.activeHeaderBar.grabPopovers()
         })
         this.connect('size-allocate', () => {
             const [width, height] = this.get_size()
@@ -814,8 +825,6 @@ var Window = GObject.registerClass({
                 windowState.set_string('last-file', this.file.get_path())
 
             settings.disconnect(mainHandler)
-            viewSettings.disconnect(headerBarHandler)
-            headerBarHandlers.forEach(x => settings.disconnect(x))
             themeHandlers.forEach(x => viewSettings.disconnect(x))
             settings.disconnect(ttsHandler)
         })
@@ -1018,8 +1027,6 @@ var Window = GObject.registerClass({
         const autohide = !viewSettings.get_boolean('skeuomorphism')
             && !settings.get_boolean('use-sidebar')
             && settings.get_boolean('autohide-headerbar')
-        if (autohide === this._headerBarAutoHide) return
-        this._headerBarAutoHide = autohide
         const title = this.title
 
         if (this._headerBar) this._headerBar.unsetPopovers()
@@ -1065,8 +1072,8 @@ var Window = GObject.registerClass({
     }
     _setTitle(title) {
         this.title = title
-        this._headerBar.title = title
-        this._fullscreenHeaderBar.title = title
+        if (this._headerBar) this._headerBar.title = title
+        if (this._fullscreenHeaderBar) this._fullscreenHeaderBar.title = title
         if (this._titleLabel) this._titleLabel.label = title
     }
     get loading() {
@@ -1079,8 +1086,8 @@ var Window = GObject.registerClass({
         this.lookup_action('location-menu').enabled = !state
         this.lookup_action('open-copy').enabled = !state
         this.lookup_action('reload').enabled = !state
-        this._headerBar.loading = state
-        this._fullscreenHeaderBar.loading = state
+        if (this._headerBar) this._headerBar.loading = state
+        if (this._fullscreenHeaderBar) this._fullscreenHeaderBar.loading = state
         if (this._autoHideHeaderBar)
             this._autoHideHeaderBar.alwaysReveal(state || this._mainOverlay.navbarVisible)
         if (state) {

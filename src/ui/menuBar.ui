@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="menu">
+    <submenu>
+      <attribute name="label" translatable="yes">_File</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Open…</attribute>
+          <attribute name="action">app.open</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Reload</attribute>
+          <attribute name="action">win.reload</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Open a Copy</attribute>
+          <attribute name="action">win.open-copy</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Properties</attribute>
+          <attribute name="action">win.properties</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Export annotations…</attribute>
+          <attribute name="action">win.export-annotations</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Close Window</attribute>
+          <attribute name="action">win.close</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Quit</attribute>
+          <attribute name="action">app.quit</attribute>
+        </item>
+      </section>
+    </submenu>
+
+    <submenu>
+      <attribute name="label" translatable="yes">_Edit</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Copy</attribute>
+          <attribute name="action">win.selection-copy</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Bookmark Current Location</attribute>
+          <attribute name="action">view.bookmark</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Text-to-Speech</attribute>
+          <attribute name="action">win.speak</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Prefernces</attribute>
+          <attribute name="action">app.preferences</attribute>
+        </item>
+      </section>
+    </submenu>
+
+    <submenu>
+      <attribute name="label" translatable="yes">_View</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Toggle Fullscreen</attribute>
+          <attribute name="action">win.fullscreen</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Zoom In</attribute>
+          <attribute name="action">view.zoom-in</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Restore Zoom</attribute>
+          <attribute name="action">view.zoom-restore</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Zoom Out</attribute>
+          <attribute name="action">view.zoom-out</attribute>
+        </item>
+      </section>
+      <section>
+        <submenu>
+          <attribute name="label" translatable="yes">Layout</attribute>
+          <section>
+            <item>
+              <attribute name="label" translatable="yes">Automatic</attribute>
+              <attribute name="action">view.layout</attribute>
+              <attribute name="target">auto</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">Single Column</attribute>
+              <attribute name="action">view.layout</attribute>
+              <attribute name="target">single</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">Scrolled</attribute>
+              <attribute name="action">view.layout</attribute>
+              <attribute name="target">scrolled</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">Continuous</attribute>
+              <attribute name="action">view.layout</attribute>
+              <attribute name="target">continuous</attribute>
+            </item>
+          </section>
+        </submenu>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Use Publisher Font</attribute>
+          <attribute name="action">view.use-publisher-font</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Full Justification</attribute>
+          <attribute name="action">view.justify</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Auto-hyphenation</attribute>
+          <attribute name="action">view.hyphenate</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Footnote Preview</attribute>
+          <attribute name="action">view.enable-footnote</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Auto-hide Cursor</attribute>
+          <attribute name="action">view.autohide-cursor</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Realistic Shadows</attribute>
+          <attribute name="action">view.skeuomorphism</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Allow Unsafe Content</attribute>
+          <attribute name="action">view.allow-unsafe</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Enable Developer Tools</attribute>
+          <attribute name="action">view.enable-devtools</attribute>
+        </item>
+      </section>
+    </submenu>
+
+    <submenu>
+      <attribute name="label" translatable="yes">_Go</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Go Back</attribute>
+          <attribute name="action">view.go-back</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Next Page</attribute>
+          <attribute name="action">view.go-next</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Previous Page</attribute>
+          <attribute name="action">view.go-prev</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Next Chapter</attribute>
+          <attribute name="action">view.go-next-section</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Previous Chapter</attribute>
+          <attribute name="action">view.go-prev-section</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Beginning</attribute>
+          <attribute name="action">view.go-first</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">End</attribute>
+          <attribute name="action">view.go-last</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Location</attribute>
+          <attribute name="action">win.location-menu</attribute>
+        </item>
+      </section>
+    </submenu>
+
+    <submenu>
+      <attribute name="label" translatable="yes">_Help</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Keyboard Shortcuts</attribute>
+          <attribute name="action">win.show-help-overlay</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">About Foliate</attribute>
+          <attribute name="action">app.about</attribute>
+        </item>
+      </section>
+    </submenu>
+  </menu>
+</interface>
+

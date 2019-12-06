@@ -49,6 +49,7 @@ const makeActions = app => ({
         const flag = Gio.SettingsBindFlags.DEFAULT
 
         settings.bind('restore-last-file', $('restoreLastFile'), 'state', flag)
+        settings.bind('use-menubar', $('useMenubar'), 'state', flag)
         settings.bind('use-sidebar', $('useSidebar'), 'state', flag)
         settings.bind('autohide-headerbar', $('autohideHeaderbar'), 'state', flag)
         settings.bind('footer-left', $('footerLeftCombo'), 'active-id', flag)
@@ -168,6 +169,11 @@ function main(argv) {
             ['view.zoom-restore', ['0', '<ctrl>0']],
             ['view.bookmark', ['<ctrl>d']],
         ].forEach(([name, accels]) => application.set_accels_for_action(name, accels))
+
+        const menu = Gtk.Builder.new_from_resource(
+            '/com/github/johnfactotum/Foliate/ui/menuBar.ui')
+            .get_object('menu')
+        application.menubar = menu
     })
 
     return application.run(argv)

@@ -144,60 +144,6 @@
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="wrap">True</property>
-                        <property name="label" translatable="yes">Use sidebar</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSwitch" id="useSidebar">
-                        <property name="visible">True</property>
-                        <property name="valign">center</property>
-                      </object>
-                      <packing>
-                        <property name="pack_type">end</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox" id="autohideHeaderbarBox">
-                    <property name="visible">True</property>
-                    <property name="margin-left">18</property>
-                    <property name="margin-right">18</property>
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="wrap">True</property>
-                        <property name="label" translatable="yes">Auto-hide header bar</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSwitch" id="autohideHeaderbar">
-                        <property name="visible">True</property>
-                        <property name="valign">center</property>
-                      </object>
-                      <packing>
-                        <property name="pack_type">end</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="margin-left">18</property>
-                    <property name="margin-right">18</property>
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="wrap">True</property>
                         <property name="label" translatable="yes">Left footer</property>
                       </object>
                     </child>
@@ -371,6 +317,89 @@
                         <!--   </object> -->
                         <!-- </child> -->
                       </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="margin-left">18</property>
+                    <property name="margin-right">18</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">Use traditional titlebar (experimental)
+(requires restart)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="useMenubar">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="margin-left">18</property>
+                    <property name="margin-right">18</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="label" translatable="yes">Use sidebar</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="useSidebar">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="autohideHeaderbarBox">
+                    <property name="visible">True</property>
+                    <property name="margin-left">18</property>
+                    <property name="margin-right">18</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="label" translatable="yes">Auto-hide header bar</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="autohideHeaderbar">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
                     </child>
                   </object>
                 </child>
