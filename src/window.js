@@ -1033,6 +1033,7 @@ var Window = GObject.registerClass({
         this._headerBar = new HeaderBar({ visible: true })
         this._headerBar.setPopovers(
             this._sidePopover, this._findPopover, this._mainPopover)
+        this._headerBar.loading = this.loading
 
         if (!autohide) this.set_titlebar(this._headerBar)
         else {
