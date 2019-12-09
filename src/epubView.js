@@ -544,6 +544,7 @@ var EpubView = GObject.registerClass({
     }
     _load() {
         this.emit('book-loading')
+        this._ready = false
         const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
         this._webView.load_uri(GLib.filename_to_uri(viewer, null))
     }
@@ -573,6 +574,7 @@ var EpubView = GObject.registerClass({
         debug(type)
         switch (type) {
             case 'ready': {
+                this._ready = true
                 this._run(`doubleClickTime =
                     ${Gtk.Settings.get_default().gtk_double_click_time}`)
                 this._updateWindowSize()
@@ -758,7 +760,8 @@ var EpubView = GObject.registerClass({
         return this._run(`setStyle(${JSON.stringify(style)})`)
     }
     _updateWindowSize() {
-        this._run(`windowSize = ${this._webView.get_allocation().width}`)
+        if (this._ready)
+            this._run(`windowSize = ${this._webView.get_allocation().width}`)
     }
     set _zoomLevel(zoomLevel) {
         this._webView.zoom_level = zoomLevel
