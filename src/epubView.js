@@ -572,7 +572,7 @@ var EpubView = GObject.registerClass({
     _handleAction(type, payload) {
         debug(type)
         switch (type) {
-            case 'ready':
+            case 'ready': {
                 this._run(`doubleClickTime =
                     ${Gtk.Settings.get_default().gtk_double_click_time}`)
                 this._updateWindowSize()
@@ -583,10 +583,12 @@ var EpubView = GObject.registerClass({
                 this._skeuomorphism = this.settings.skeuomorphism
                 this._autohideCursor = this.settings.autohide_cursor
 
-                this._run(`open("${encodeURI(this._path)}", '${this._inputType}',
+                const uri = GLib.filename_to_uri(this._path, null)
+                this._run(`open("${encodeURI(uri)}", '${this._inputType}',
                     ${layouts[this.settings.layout].renderTo},
                     ${JSON.stringify(layouts[this.settings.layout].options)})`)
                 break
+            }
             case 'book-error':
                 this.emit('book-error')
                 break

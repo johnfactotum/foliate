@@ -311,8 +311,7 @@ open() -> 'book-ready' -> loadLocations()
 */
 
 const open = (fileName, inputType, renderTo, options) => {
-    book.open(decodeURI(fileName), inputType) // works for non-flatpak
-        .catch(() => book.open(fileName, inputType)) // works for flatpak
+    book.open(decodeURI(fileName), inputType)
         .catch(() => dispatch({ type: 'book-error' }))
 
     rendition = book.renderTo(renderTo, options)
