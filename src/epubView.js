@@ -793,7 +793,7 @@ var EpubView = GObject.registerClass({
         } catch (e) {
             this._fileInto = null
         }
-        if (!this._fileInfo) return this.emit('error')
+        if (!this._fileInfo) return this.emit('book-error')
 
         const contentType = this._fileInfo.get_content_type()
         const path = this._file.get_path()

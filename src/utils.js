@@ -162,7 +162,6 @@ var Storage = GObject.registerClass({
     }
     _write(data) {
         debug('writing to ' + this._file.get_path())
-        // TODO: throttle?
         const mkdirp = GLib.mkdir_with_parents(
             this._file.get_parent().get_path(), parseInt('0755', 8))
         if (mkdirp === 0) {
@@ -325,7 +324,7 @@ var setPopoverPosition = (popover, position, window, height) => {
     setPosition(height)
 }
 
-const formatMinutes = n => {
+var formatMinutes = n => {
     n = Math.round(n)
     if (n < 60) return ngettext('%d minute', '%d minutes', n).format(n)
     else {
