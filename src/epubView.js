@@ -790,6 +790,7 @@ var EpubView = GObject.registerClass({
         this._load()
     }
     open(file) {
+        this.emit('book-loading')
         this.close()
         this._file = file
         try {
