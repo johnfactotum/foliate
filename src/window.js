@@ -69,8 +69,8 @@ const MainMenu = GObject.registerClass({
         'customThemesListBox', 'customThemesSep', 'themesListBox'
     ]
 }, class MainMenu extends Gtk.PopoverMenu {
-    _init() {
-        super._init()
+    _init(params) {
+        super._init(params)
         this._fullscreenButton.connect('clicked', () => this.popdown())
 
         const flag = Gio.SettingsBindFlags.DEFAULT
@@ -305,8 +305,8 @@ const MainOverlay = GObject.registerClass({
         'overlayStack', 'mainBox', 'bookBox', 'contentBox', 'divider'
     ]
 }, class MainOverlay extends Gtk.Overlay {
-    _init() {
-        super._init()
+    _init(params) {
+        super._init(params)
         this._skeuomorphism = false
         this._navBar = new NavBar({ visible: true })
         this._navBar.get_style_context().add_class('background')
@@ -1031,7 +1031,6 @@ var Window = GObject.registerClass({
 
         if (this._headerBar) this._headerBar.unsetPopovers()
         this._headerBar = new HeaderBar({ visible: true })
-        this._headerBar.get_style_context().add_class('titlebar')
         this._headerBar.setPopovers(
             this._sidePopover, this._findPopover, this._mainPopover)
 
