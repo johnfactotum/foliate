@@ -423,10 +423,23 @@ var EpubView = GObject.registerClass({
                 : this.addBookmark(),
         }
         Object.keys(actions).forEach(name => {
-            const action = new Gio.SimpleAction({ name })
+            const action = new Gio.SimpleAction({ name, enabled: false })
             action.connect('activate', actions[name])
             this.actionGroup.add_action(action)
         })
+        const disableActions = () => [
+            'go-prev',
+            'go-next',
+            'go-back',
+            'go-next-section',
+            'go-prev-section',
+            'go-first',
+            'go-last',
+            'bookmark'
+        ].forEach(name => this.actionGroup.lookup_action(name).enabled = false)
+        this.connect('book-loading', disableActions)
+        this.connect('book-displayed', () =>
+            this.actionGroup.lookup_action('bookmark').enabled = true)
 
         this.metadata = null
         this.cover = null
