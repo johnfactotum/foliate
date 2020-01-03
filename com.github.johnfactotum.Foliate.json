@@ -11,10 +11,7 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--device=dri",
-        "--filesystem=xdg-run/dconf",
-        "--filesystem=~/.config/dconf:ro",
-        "--talk-name=ca.desrt.dconf",
-        "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+        "--metadata=X-DConf=migrate-path=/com/github/johnfactotum/Foliate/",
         "--talk-name=org.freedesktop.Flatpak"
     ],
     "modules": [
