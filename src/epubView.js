@@ -481,32 +481,36 @@ var EpubView = GObject.registerClass({
     }
     _connectSettings() {
         this._zoomLevel = this.settings.zoom_level
-        this.settings.connect('notify::zoom-level', () => {
-            this._zoomLevel = this.settings.zoom_level
-            this._run(`zoomLevel = ${this.settings.zoom_level}`)
-        })
-        this.settings.connect('notify::font', () => this._applyStyle())
-        this.settings.connect('notify::spacing', () => this._applyStyle())
-        this.settings.connect('notify::margin', () => this._applyStyle())
-        this.settings.connect('notify::use-publisher-font', () => this._applyStyle())
-        this.settings.connect('notify::justify', () => this._applyStyle())
-        this.settings.connect('notify::hyphenate', () => this._applyStyle())
-        this.settings.connect('notify::fg-color', () => this._applyStyle())
-        this.settings.connect('notify::bg-color', () => this._applyStyle())
-        this.settings.connect('notify::link-color', () => this._applyStyle())
-        this.settings.connect('notify::invert', () => this._applyStyle())
-        this.settings.connect('notify::brightness', () => this._applyStyle())
+        const handlers = [
+            this.settings.connect('notify::zoom-level', () => {
+                this._zoomLevel = this.settings.zoom_level
+                this._run(`zoomLevel = ${this.settings.zoom_level}`)
+            }),
+            this.settings.connect('notify::font', () => this._applyStyle()),
+            this.settings.connect('notify::spacing', () => this._applyStyle()),
+            this.settings.connect('notify::margin', () => this._applyStyle()),
+            this.settings.connect('notify::use-publisher-font', () => this._applyStyle()),
+            this.settings.connect('notify::justify', () => this._applyStyle()),
+            this.settings.connect('notify::hyphenate', () => this._applyStyle()),
+            this.settings.connect('notify::fg-color', () => this._applyStyle()),
+            this.settings.connect('notify::bg-color', () => this._applyStyle()),
+            this.settings.connect('notify::link-color', () => this._applyStyle()),
+            this.settings.connect('notify::invert', () => this._applyStyle()),
+            this.settings.connect('notify::brightness', () => this._applyStyle()),
 
-        this.settings.connect('notify::enable-footnote', () =>
-            this._enableFootnote = this.settings.enable_footnote)
-        this.settings.connect('notify::autohide-cursor', () =>
-            this._autohideCursor = this.settings.autohide_cursor)
-        this.settings.connect('notify::enable-devtools', () =>
-            this._enableDevtools = this.settings.enable_devtools)
-        this.settings.connect('notify::allow-unsafe', () => this.reload())
-        this.settings.connect('notify::layout', () => this.reload())
-        this.settings.connect('notify::skeuomorphism', () =>
-            this._skeuomorphism = this.settings.skeuomorphism)
+            this.settings.connect('notify::enable-footnote', () =>
+                this._enableFootnote = this.settings.enable_footnote),
+            this.settings.connect('notify::autohide-cursor', () =>
+                this._autohideCursor = this.settings.autohide_cursor),
+            this.settings.connect('notify::enable-devtools', () =>
+                this._enableDevtools = this.settings.enable_devtools),
+            this.settings.connect('notify::allow-unsafe', () => this.reload()),
+            this.settings.connect('notify::layout', () => this.reload()),
+            this.settings.connect('notify::skeuomorphism', () =>
+                this._skeuomorphism = this.settings.skeuomorphism),
+        ]
+        this._webView.connect('destroy', () =>
+            handlers.forEach(h => this.settings.disconnect(h)))
     }
     get annotations() {
         return this._data ? this._data.annotationsList : null
@@ -547,7 +551,6 @@ var EpubView = GObject.registerClass({
             if (!this._data) return
             this._disconnectData()
             this._data.deleteView(this)
-            disconnectAllHandlers(this.settings, 'notify')
         })
     }
     _disconnectData() {
