@@ -618,9 +618,40 @@ const setupRendition = () => {
     rendition.on('keydown', handleKeydown)
     document.addEventListener('keydown', handleKeydown, false)
 
+    //Enable swipe gesture to flip a page
+    let start;
+    let end;
+
+    rendition.touchStarted = false;
+
+    document.addEventListener('touchstart', (event) => {
+        start = event.changedTouches[0];
+        rendition.touchStarted = true;
+        event.preventDefault();
+    });
+
+    document.addEventListener('touchend', (event) => {
+        rendition.touchStarted = false;
+        if (!paginated) { return };
+        event.preventDefault();
+        end = event.changedTouches[0];
+        const elBook = document.querySelector('#viewer'); //Parent div, which contains the #area div
+        if (elBook) {
+            const bound = elBook.getBoundingClientRect();
+            const hr = (end.screenX - start.screenX) / bound.width;
+            const vr = Math.abs((end.screenY - start.screenY) / bound.height);
+            if (hr > 0.25 && vr < 0.1) return rendition.prev();
+            if (hr < -0.25 && vr < 0.1) return rendition.next();
+        }
+    });
+
     if (paginated) {
         // scroll through pages
         const onwheel = debounce(event => {
+            if (rendition.touchStarted) {
+                event.preventDefault();
+                return;
+            }
             if (getWindowIsZoomed()) return
             const { deltaX, deltaY } = event
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
