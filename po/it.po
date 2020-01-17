@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 13:45+0800\n"
+"POT-Creation-Date: 2020-01-17 12:42+0800\n"
 "PO-Revision-Date: 2019-06-20 09:05+0200\n"
 "Last-Translator: Shiba\n"
 "Language-Team: Italian\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.1.1\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:89
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:104
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
@@ -40,52 +40,38 @@ msgstr ""
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook;Book;EPUB;Viewer;Reader;libri;visualizzatore;lettore;"
 
-#: src/main.js:64
+#: src/main.js:79
 #, fuzzy
 msgid "All Files"
 msgstr "Tutti i file"
 
-#: src/main.js:68
+#: src/main.js:83
 msgid "E-book Files"
 msgstr ""
 
-#: src/main.js:74
+#: src/main.js:89
 msgid "Open File"
 msgstr "Apri file"
 
-#: src/main.js:88
+#: src/main.js:103
 msgid "translator-credits"
 msgstr ""
 
-#: src/main.js:90 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:105 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Un visualizzatore di eBook semplice e moderno"
 
-#: src/window.js:120
+#: src/window.js:119
 #, fuzzy
 msgid "Leave fullscreen"
 msgstr "Attiva/Disattiva lo schermo intero"
 
-#: src/window.js:123 src/ui/mainMenu.ui:84
+#: src/window.js:122 src/ui/mainMenu.ui:84
 #, fuzzy
 msgid "Fullscreen"
 msgstr "Schermo intero"
 
-#: src/window.js:170
-#, javascript-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/window.js:171
-#, javascript-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/window.js:178 src/window.js:179
+#: src/window.js:174 src/window.js:175
 #, javascript-format
 msgid "of %d"
 msgstr ""
@@ -331,7 +317,7 @@ msgstr ""
 msgid "View"
 msgstr "Visualizzazione"
 
-#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:19
+#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:20
 msgid "Copy"
 msgstr "Copia"
@@ -388,7 +374,7 @@ msgstr "Segnalibri"
 msgid "Open…"
 msgstr "Apri…"
 
-#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:50
+#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:90
 msgid "Preferences"
 msgstr "Preferenze"
 
@@ -514,21 +500,21 @@ msgstr "Oh no! Il file non può essere aperto"
 msgid "Open Another File…"
 msgstr "Apri file…"
 
-#: src/ui/navBar.ui:27
+#: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 #, fuzzy
 msgid "Time left in book"
 msgstr "%d minuto alla fine del libro"
 
-#: src/ui/navBar.ui:41
+#: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
 #, fuzzy
 msgid "Time left in chapter"
 msgstr "%d minuto alla fine del capitolo"
 
-#: src/ui/navBar.ui:95
+#: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
 msgid "Chapter"
 msgstr ""
 
-#: src/ui/navBar.ui:135 src/ui/navBar.ui:325
+#: src/ui/navBar.ui:135 src/ui/navBar.ui:325 src/ui/preferenceWindow.ui:19
 #, fuzzy
 msgid "Location"
 msgstr "Torna al punto precedente"
@@ -580,58 +566,106 @@ msgid "Text-to-speech"
 msgstr ""
 
 #: src/ui/preferenceWindow.ui:11
-msgid "Do nothing"
+msgid "Nothing"
 msgstr ""
 
 #: src/ui/preferenceWindow.ui:15
+msgid "Percentage"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:27
+msgid "Chapter name"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:39
+msgid "Clock"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:51
+msgid "Do nothing"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:55
 msgid "Show menu"
 msgstr "Mostra il menu"
 
-#: src/ui/preferenceWindow.ui:23 src/ui/selectionPopover.ui:35
+#: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:35
 msgid "Highlight"
 msgstr "Evidenzia"
 
-#: src/ui/preferenceWindow.ui:27
+#: src/ui/preferenceWindow.ui:67
 #, fuzzy
 msgid "Look up in dictionary"
 msgstr "Ricerca rapida nel dizionario"
 
-#: src/ui/preferenceWindow.ui:31
+#: src/ui/preferenceWindow.ui:71
 msgid "Look up in Wikipedia"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:35 src/ui/selectionPopover.ui:95
+#: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:95
 msgid "Translate"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:39 src/ui/shortcutsWindow.ui:64
+#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:64
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
 msgstr "Trova nel libro"
 
-#: src/ui/preferenceWindow.ui:43 src/ui/selectionPopover.ui:61
+#: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:61
 msgid "Speak"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:84
-msgid "Use sidebar"
-msgstr ""
+#: src/ui/preferenceWindow.ui:114
+msgid "General"
+msgstr "Generale"
 
-#: src/ui/preferenceWindow.ui:111
+#: src/ui/preferenceWindow.ui:129
 msgid "Open last opened file on startup"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:138
+#: src/ui/preferenceWindow.ui:148
+#, fuzzy
+msgid "Reading"
+msgstr "Continua a leggere"
+
+#: src/ui/preferenceWindow.ui:163
+msgid "Left footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:197
+msgid "Right footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:231
 msgid "When a word is selected"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:176
+#: src/ui/preferenceWindow.ui:265
 msgid "When multiple words are selected"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:215
+#: src/ui/preferenceWindow.ui:300
 msgid "Text-to-speech command"
 msgstr ""
+
+#: src/ui/preferenceWindow.ui:328
+msgid "Interface"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:344
+msgid ""
+"Use traditional titlebar (experimental)\n"
+"(requires restart)"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:368
+msgid "Use sidebar"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:391
+#, fuzzy
+msgid "Auto-hide header bar"
+msgstr "Nascondi il puntatore"
 
 #: src/ui/selectionPopover.ui:49
 msgid "Find"
@@ -1518,9 +1552,6 @@ msgstr ""
 #~ msgid "Open a file, or continue reading the last opened book."
 #~ msgstr "Apri un file o continua a leggere l'ultimo libro aperto."
 
-#~ msgid "Continue Reading"
-#~ msgstr "Continua a leggere"
-
 #, fuzzy
 #~ msgid "Go to Location…"
 #~ msgstr "Torna al punto precedente"
@@ -1549,9 +1580,6 @@ msgstr ""
 
 #~ msgid "Add a new theme"
 #~ msgstr "Aggiungi un nuovo tema"
-
-#~ msgid "General"
-#~ msgstr "Generale"
 
 #, fuzzy
 #~ msgid "Show annotations"

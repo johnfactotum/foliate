@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 13:45+0800\n"
+"POT-Creation-Date: 2020-01-17 12:42+0800\n"
 "PO-Revision-Date: 2019-06-02 11:14+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Lokalize 19.04.0\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:89
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:104
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -38,54 +38,38 @@ msgstr "com.github.johnfactotum.Foliate"
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Elektronická kniha;Kniha;EPUB;Prohlížeč;Čtečka;"
 
-#: src/main.js:64
+#: src/main.js:79
 #, fuzzy
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: src/main.js:68
+#: src/main.js:83
 msgid "E-book Files"
 msgstr ""
 
-#: src/main.js:74
+#: src/main.js:89
 #, fuzzy
 msgid "Open File"
 msgstr "Otevřít soubor..."
 
-#: src/main.js:88
+#: src/main.js:103
 msgid "translator-credits"
 msgstr ""
 
-#: src/main.js:90 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:105 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Jednoduchý a moderní prohlížeč elektronických knih"
 
-#: src/window.js:120
+#: src/window.js:119
 #, fuzzy
 msgid "Leave fullscreen"
 msgstr "Přepnout na celou obrazovku"
 
-#: src/window.js:123 src/ui/mainMenu.ui:84
+#: src/window.js:122 src/ui/mainMenu.ui:84
 msgid "Fullscreen"
 msgstr "Celá obrazovka"
 
-#: src/window.js:170
-#, javascript-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: src/window.js:171
-#, javascript-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: src/window.js:178 src/window.js:179
+#: src/window.js:174 src/window.js:175
 #, javascript-format
 msgid "of %d"
 msgstr ""
@@ -332,7 +316,7 @@ msgstr ""
 msgid "View"
 msgstr "Pohled"
 
-#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:19
+#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:20
 msgid "Copy"
 msgstr "Kopírovat"
@@ -389,7 +373,7 @@ msgstr "Záložky"
 msgid "Open…"
 msgstr "Otevřít..."
 
-#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:50
+#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:90
 msgid "Preferences"
 msgstr ""
 
@@ -512,20 +496,20 @@ msgstr "Ale ne! Soubor nelze otevřít"
 msgid "Open Another File…"
 msgstr "Otevřít soubor..."
 
-#: src/ui/navBar.ui:27
+#: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 #, fuzzy
 msgid "Time left in book"
 msgstr "Najít v knize"
 
-#: src/ui/navBar.ui:41
+#: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
 msgid "Time left in chapter"
 msgstr ""
 
-#: src/ui/navBar.ui:95
+#: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
 msgid "Chapter"
 msgstr ""
 
-#: src/ui/navBar.ui:135 src/ui/navBar.ui:325
+#: src/ui/navBar.ui:135 src/ui/navBar.ui:325 src/ui/preferenceWindow.ui:19
 #, fuzzy
 msgid "Location"
 msgstr "Jít zpět na předchozí polohu"
@@ -577,57 +561,104 @@ msgid "Text-to-speech"
 msgstr ""
 
 #: src/ui/preferenceWindow.ui:11
-msgid "Do nothing"
+msgid "Nothing"
 msgstr ""
 
 #: src/ui/preferenceWindow.ui:15
+msgid "Percentage"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:27
+msgid "Chapter name"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:39
+msgid "Clock"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:51
+msgid "Do nothing"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:55
 msgid "Show menu"
 msgstr "Ukázat nabídku"
 
-#: src/ui/preferenceWindow.ui:23 src/ui/selectionPopover.ui:35
+#: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:35
 msgid "Highlight"
 msgstr "Zvýraznit"
 
-#: src/ui/preferenceWindow.ui:27
+#: src/ui/preferenceWindow.ui:67
 #, fuzzy
 msgid "Look up in dictionary"
 msgstr "Rychlé prohledání slovníku"
 
-#: src/ui/preferenceWindow.ui:31
+#: src/ui/preferenceWindow.ui:71
 msgid "Look up in Wikipedia"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:35 src/ui/selectionPopover.ui:95
+#: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:95
 msgid "Translate"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:39 src/ui/shortcutsWindow.ui:64
+#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:64
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
 msgstr "Najít v knize"
 
-#: src/ui/preferenceWindow.ui:43 src/ui/selectionPopover.ui:61
+#: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:61
 msgid "Speak"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:84
-msgid "Use sidebar"
-msgstr ""
+#: src/ui/preferenceWindow.ui:114
+msgid "General"
+msgstr "Obecné"
 
-#: src/ui/preferenceWindow.ui:111
+#: src/ui/preferenceWindow.ui:129
 msgid "Open last opened file on startup"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:138
+#: src/ui/preferenceWindow.ui:148
+#, fuzzy
+msgid "Reading"
+msgstr "Pokračovat ve čtení"
+
+#: src/ui/preferenceWindow.ui:163
+msgid "Left footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:197
+msgid "Right footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:231
 msgid "When a word is selected"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:176
+#: src/ui/preferenceWindow.ui:265
 msgid "When multiple words are selected"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:215
+#: src/ui/preferenceWindow.ui:300
 msgid "Text-to-speech command"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:328
+msgid "Interface"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:344
+msgid ""
+"Use traditional titlebar (experimental)\n"
+"(requires restart)"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:368
+msgid "Use sidebar"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:391
+msgid "Auto-hide header bar"
 msgstr ""
 
 #: src/ui/selectionPopover.ui:49
@@ -1476,9 +1507,6 @@ msgstr "Počáteční vydání"
 #~ msgid "Open a file, or continue reading the last opened book."
 #~ msgstr "Otevřete soubor nebo pokračujte ve čtení naposledy otevřené knihy."
 
-#~ msgid "Continue Reading"
-#~ msgstr "Pokračovat ve čtení"
-
 #, fuzzy
 #~ msgid "Go to Location…"
 #~ msgstr "Jít zpět na předchozí polohu"
@@ -1489,9 +1517,6 @@ msgstr "Počáteční vydání"
 #, fuzzy, javascript-format
 #~ msgid "Annotations for %s"
 #~ msgstr "Vysvětlivky"
-
-#~ msgid "General"
-#~ msgstr "Obecné"
 
 #, fuzzy
 #~ msgid "Show annotations"

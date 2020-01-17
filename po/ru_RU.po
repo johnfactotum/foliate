@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 13:45+0800\n"
+"POT-Creation-Date: 2020-01-17 12:42+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: zluka <https://github.com/zluca>\n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 2.2.4\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:89
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:104
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
@@ -41,51 +41,35 @@ msgstr ""
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr ""
 
-#: src/main.js:64
+#: src/main.js:79
 msgid "All Files"
 msgstr "Все файлы"
 
-#: src/main.js:68
+#: src/main.js:83
 msgid "E-book Files"
 msgstr "Файлы электронных книг"
 
-#: src/main.js:74
+#: src/main.js:89
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: src/main.js:88
+#: src/main.js:103
 msgid "translator-credits"
 msgstr ""
 
-#: src/main.js:90 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:105 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Простая и современная программа для чтения электронных книг"
 
-#: src/window.js:120
+#: src/window.js:119
 msgid "Leave fullscreen"
 msgstr "Выйти из полноэкранного режима"
 
-#: src/window.js:123 src/ui/mainMenu.ui:84
+#: src/window.js:122 src/ui/mainMenu.ui:84
 msgid "Fullscreen"
 msgstr "Полноэкранный режим"
 
-#: src/window.js:170
-#, javascript-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d минута"
-msgstr[1] "%d минуты"
-msgstr[2] "%d минут"
-
-#: src/window.js:171
-#, javascript-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d час"
-msgstr[1] "%d часа"
-msgstr[2] "%d часов"
-
-#: src/window.js:178 src/window.js:179
+#: src/window.js:174 src/window.js:175
 #, javascript-format
 msgid "of %d"
 msgstr "из %d"
@@ -323,7 +307,7 @@ msgstr "Предпросмотр сноски"
 msgid "View"
 msgstr "Вид"
 
-#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:19
+#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:20
 msgid "Copy"
 msgstr "Копировать"
@@ -378,7 +362,7 @@ msgstr "Книга"
 msgid "Open…"
 msgstr "Открыть…"
 
-#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:50
+#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:90
 msgid "Preferences"
 msgstr "Параметры"
 
@@ -495,19 +479,19 @@ msgstr "Файл не может быть открыт."
 msgid "Open Another File…"
 msgstr "Открыть другой файл…"
 
-#: src/ui/navBar.ui:27
+#: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 msgid "Time left in book"
 msgstr "Книгу осталось читать"
 
-#: src/ui/navBar.ui:41
+#: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
 msgid "Time left in chapter"
 msgstr "Главу осталось читать"
 
-#: src/ui/navBar.ui:95
+#: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
 msgid "Chapter"
 msgstr "Глава"
 
-#: src/ui/navBar.ui:135 src/ui/navBar.ui:325
+#: src/ui/navBar.ui:135 src/ui/navBar.ui:325 src/ui/preferenceWindow.ui:19
 msgid "Location"
 msgstr "Расположение"
 
@@ -554,57 +538,108 @@ msgid "Text-to-speech"
 msgstr "Озвучка текста"
 
 #: src/ui/preferenceWindow.ui:11
-msgid "Do nothing"
+#, fuzzy
+msgid "Nothing"
 msgstr "Ничего не делать"
 
 #: src/ui/preferenceWindow.ui:15
+msgid "Percentage"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:27
+#, fuzzy
+msgid "Chapter name"
+msgstr "Глава"
+
+#: src/ui/preferenceWindow.ui:39
+msgid "Clock"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:51
+msgid "Do nothing"
+msgstr "Ничего не делать"
+
+#: src/ui/preferenceWindow.ui:55
 msgid "Show menu"
 msgstr "Показать меню"
 
-#: src/ui/preferenceWindow.ui:23 src/ui/selectionPopover.ui:35
+#: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:35
 msgid "Highlight"
 msgstr "Выделить"
 
-#: src/ui/preferenceWindow.ui:27
+#: src/ui/preferenceWindow.ui:67
 msgid "Look up in dictionary"
 msgstr "Искать в словаре"
 
-#: src/ui/preferenceWindow.ui:31
+#: src/ui/preferenceWindow.ui:71
 msgid "Look up in Wikipedia"
 msgstr "Искать в Википедии"
 
-#: src/ui/preferenceWindow.ui:35 src/ui/selectionPopover.ui:95
+#: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:95
 msgid "Translate"
 msgstr "Перевести"
 
-#: src/ui/preferenceWindow.ui:39 src/ui/shortcutsWindow.ui:64
+#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:64
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
 msgstr "Найти в книге"
 
-#: src/ui/preferenceWindow.ui:43 src/ui/selectionPopover.ui:61
+#: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:61
 msgid "Speak"
 msgstr "Произнести"
 
-#: src/ui/preferenceWindow.ui:84
-msgid "Use sidebar"
-msgstr "Использовать боковую панель"
+#: src/ui/preferenceWindow.ui:114
+msgid "General"
+msgstr "Общие"
 
-#: src/ui/preferenceWindow.ui:111
+#: src/ui/preferenceWindow.ui:129
 msgid "Open last opened file on startup"
 msgstr "Открывать последний открытый файл при запуске"
 
-#: src/ui/preferenceWindow.ui:138
+#: src/ui/preferenceWindow.ui:148
+#, fuzzy
+msgid "Reading"
+msgstr "Продолжить чтение"
+
+#: src/ui/preferenceWindow.ui:163
+msgid "Left footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:197
+msgid "Right footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:231
 msgid "When a word is selected"
 msgstr "Когда выбрано одно слово"
 
-#: src/ui/preferenceWindow.ui:176
+#: src/ui/preferenceWindow.ui:265
 msgid "When multiple words are selected"
 msgstr "Когда выбрано несколько слов"
 
-#: src/ui/preferenceWindow.ui:215
+#: src/ui/preferenceWindow.ui:300
 msgid "Text-to-speech command"
 msgstr "Команда озвучания текста"
+
+#: src/ui/preferenceWindow.ui:328
+msgid "Interface"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:344
+#, fuzzy
+msgid ""
+"Use traditional titlebar (experimental)\n"
+"(requires restart)"
+msgstr "Использовать боковую панель (требуется перезапуск)"
+
+#: src/ui/preferenceWindow.ui:368
+msgid "Use sidebar"
+msgstr "Использовать боковую панель"
+
+#: src/ui/preferenceWindow.ui:391
+#, fuzzy
+msgid "Auto-hide header bar"
+msgstr "Скрывать курсор"
 
 #: src/ui/selectionPopover.ui:49
 msgid "Find"
@@ -1377,6 +1412,20 @@ msgstr "Исправлен некорректный файл AppData"
 msgid "Initial release"
 msgstr "Начальный релиз"
 
+#, javascript-format
+#~ msgid "%d minute"
+#~ msgid_plural "%d minutes"
+#~ msgstr[0] "%d минута"
+#~ msgstr[1] "%d минуты"
+#~ msgstr[2] "%d минут"
+
+#, javascript-format
+#~ msgid "%d hour"
+#~ msgid_plural "%d hours"
+#~ msgstr[0] "%d час"
+#~ msgstr[1] "%d часа"
+#~ msgstr[2] "%d часов"
+
 #~ msgid "Auto"
 #~ msgstr "Авто"
 
@@ -1489,9 +1538,6 @@ msgstr "Начальный релиз"
 #~ msgid "Open a file, or continue reading the last opened book."
 #~ msgstr "Откройте файл или продолжите читать последнюю открытую книгу."
 
-#~ msgid "Continue Reading"
-#~ msgstr "Продолжить чтение"
-
 #~ msgid "Go to Location…"
 #~ msgstr "Перейти в расположение..."
 
@@ -1526,9 +1572,6 @@ msgstr "Начальный релиз"
 #~ msgid "Add a new theme"
 #~ msgstr "Добавить новую тему"
 
-#~ msgid "General"
-#~ msgstr "Общие"
-
 #~ msgid "Show annotations"
 #~ msgstr "Показать примечания"
 
@@ -1546,9 +1589,6 @@ msgstr "Начальный релиз"
 
 #~ msgid "Toggle reading progress bar"
 #~ msgstr "Скрывать ползунок навигации"
-
-#~ msgid "Use sidebar (requires restart)"
-#~ msgstr "Использовать боковую панель (требуется перезапуск)"
 
 #~ msgid ""
 #~ "Use a sidebar to display table of contents, annotations, and bookmarks."

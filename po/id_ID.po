@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 13:45+0800\n"
+"POT-Creation-Date: 2020-01-17 12:42+0800\n"
 "PO-Revision-Date: 2019-06-14 21:02+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:89
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:104
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -39,49 +39,37 @@ msgstr "com.github.johnfactotum.Foliate"
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook,Buku,EPUB,Pemirsa,Pembaca;"
 
-#: src/main.js:64
+#: src/main.js:79
 #, fuzzy
 msgid "All Files"
 msgstr "Semua berkas"
 
-#: src/main.js:68
+#: src/main.js:83
 msgid "E-book Files"
 msgstr "Berkas E-book"
 
-#: src/main.js:74
+#: src/main.js:89
 msgid "Open File"
 msgstr "Buka berkas"
 
-#: src/main.js:88
+#: src/main.js:103
 msgid "translator-credits"
 msgstr ""
 
-#: src/main.js:90 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:105 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Pembaca eBook yang sederhana dan modern"
 
-#: src/window.js:120
+#: src/window.js:119
 #, fuzzy
 msgid "Leave fullscreen"
 msgstr "Beralih ke layar penuh"
 
-#: src/window.js:123 src/ui/mainMenu.ui:84
+#: src/window.js:122 src/ui/mainMenu.ui:84
 msgid "Fullscreen"
 msgstr "Layar Penuh"
 
-#: src/window.js:170
-#, javascript-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] ""
-
-#: src/window.js:171
-#, javascript-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] ""
-
-#: src/window.js:178 src/window.js:179
+#: src/window.js:174 src/window.js:175
 #, javascript-format
 msgid "of %d"
 msgstr "dari %d"
@@ -336,7 +324,7 @@ msgstr ""
 msgid "View"
 msgstr "Lihat"
 
-#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:19
+#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:20
 msgid "Copy"
 msgstr "Salin"
@@ -393,7 +381,7 @@ msgstr "Penanda buku"
 msgid "Open…"
 msgstr "Buka…"
 
-#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:50
+#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:90
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -520,21 +508,21 @@ msgstr "Oh, tidak! Berkas tidak dapat dibuka"
 msgid "Open Another File…"
 msgstr "Buka Berkas…"
 
-#: src/ui/navBar.ui:27
+#: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 #, fuzzy
 msgid "Time left in book"
 msgstr "%d menit lagi pada buku"
 
-#: src/ui/navBar.ui:41
+#: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
 #, fuzzy
 msgid "Time left in chapter"
 msgstr "%d menit lagi pada bab"
 
-#: src/ui/navBar.ui:95
+#: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
 msgid "Chapter"
 msgstr ""
 
-#: src/ui/navBar.ui:135 src/ui/navBar.ui:325
+#: src/ui/navBar.ui:135 src/ui/navBar.ui:325 src/ui/preferenceWindow.ui:19
 #, fuzzy
 msgid "Location"
 msgstr "Kembali ke lokasi sebelumnya"
@@ -587,59 +575,109 @@ msgid "Text-to-speech"
 msgstr "Text-to-speech"
 
 #: src/ui/preferenceWindow.ui:11
-msgid "Do nothing"
+#, fuzzy
+msgid "Nothing"
 msgstr "Tidak lakukan apa-apa"
 
 #: src/ui/preferenceWindow.ui:15
+msgid "Percentage"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:27
+msgid "Chapter name"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:39
+msgid "Clock"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:51
+msgid "Do nothing"
+msgstr "Tidak lakukan apa-apa"
+
+#: src/ui/preferenceWindow.ui:55
 msgid "Show menu"
 msgstr "Tampilkan menu"
 
-#: src/ui/preferenceWindow.ui:23 src/ui/selectionPopover.ui:35
+#: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:35
 msgid "Highlight"
 msgstr "Sorot"
 
-#: src/ui/preferenceWindow.ui:27
+#: src/ui/preferenceWindow.ui:67
 #, fuzzy
 msgid "Look up in dictionary"
 msgstr "Cari di kamus"
 
-#: src/ui/preferenceWindow.ui:31
+#: src/ui/preferenceWindow.ui:71
 #, fuzzy
 msgid "Look up in Wikipedia"
 msgstr "Cari di Wikipedia"
 
-#: src/ui/preferenceWindow.ui:35 src/ui/selectionPopover.ui:95
+#: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:95
 msgid "Translate"
 msgstr "Terjemahkan"
 
-#: src/ui/preferenceWindow.ui:39 src/ui/shortcutsWindow.ui:64
+#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:64
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
 msgstr "Temukan dalam buku"
 
-#: src/ui/preferenceWindow.ui:43 src/ui/selectionPopover.ui:61
+#: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:61
 msgid "Speak"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:84
-msgid "Use sidebar"
-msgstr ""
+#: src/ui/preferenceWindow.ui:114
+msgid "General"
+msgstr "Umum"
 
-#: src/ui/preferenceWindow.ui:111
+#: src/ui/preferenceWindow.ui:129
 msgid "Open last opened file on startup"
 msgstr "Buka berkas terakhir ketika mulai"
 
-#: src/ui/preferenceWindow.ui:138
+#: src/ui/preferenceWindow.ui:148
+#, fuzzy
+msgid "Reading"
+msgstr "Lanjutkan Membaca"
+
+#: src/ui/preferenceWindow.ui:163
+msgid "Left footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:197
+msgid "Right footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:231
 msgid "When a word is selected"
 msgstr "Ketika kata dipilih"
 
-#: src/ui/preferenceWindow.ui:176
+#: src/ui/preferenceWindow.ui:265
 msgid "When multiple words are selected"
 msgstr "Ketika banyak kata dipilih"
 
-#: src/ui/preferenceWindow.ui:215
+#: src/ui/preferenceWindow.ui:300
 msgid "Text-to-speech command"
 msgstr "Perintah text-to-speech"
+
+#: src/ui/preferenceWindow.ui:328
+msgid "Interface"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:344
+#, fuzzy
+msgid ""
+"Use traditional titlebar (experimental)\n"
+"(requires restart)"
+msgstr "Gunakan sidebar (membutuhkan restart)"
+
+#: src/ui/preferenceWindow.ui:368
+msgid "Use sidebar"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:391
+#, fuzzy
+msgid "Auto-hide header bar"
+msgstr "Sembunyikan kursor otomatis"
 
 #: src/ui/selectionPopover.ui:49
 msgid "Find"
@@ -1535,9 +1573,6 @@ msgstr "Rilis awal"
 #~ msgid "Open a file, or continue reading the last opened book."
 #~ msgstr "Buka berkas, atau lanjutkan membaca buku yang terakhir dibuka."
 
-#~ msgid "Continue Reading"
-#~ msgstr "Lanjutkan Membaca"
-
 #, fuzzy
 #~ msgid "Go to Location…"
 #~ msgstr "Kembali ke lokasi sebelumnya"
@@ -1573,9 +1608,6 @@ msgstr "Rilis awal"
 #~ msgid "Add a new theme"
 #~ msgstr "Tambah tema baru"
 
-#~ msgid "General"
-#~ msgstr "Umum"
-
 #, fuzzy
 #~ msgid "Show annotations"
 #~ msgstr "Tampilkan anotasi"
@@ -1598,9 +1630,6 @@ msgstr "Rilis awal"
 
 #~ msgid "Continous scrolling (requires restart)"
 #~ msgstr "Gulir Berlanjut (membutuhkan restart)"
-
-#~ msgid "Use sidebar (requires restart)"
-#~ msgstr "Gunakan sidebar (membutuhkan restart)"
 
 #~ msgid ""
 #~ "Use a sidebar to display table of contents, annotations, and bookmarks."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 13:45+0800\n"
+"POT-Creation-Date: 2020-01-17 12:42+0800\n"
 "PO-Revision-Date: 2019-06-15 15:30+0800\n"
 "Last-Translator: John Factotum\n"
 "Language-Team: none\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:89
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:104
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
@@ -38,48 +38,36 @@ msgstr ""
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook;Book;EPUB;Viewer;Reader;電子書;書;檢視器;閱讀器;"
 
-#: src/main.js:64
+#: src/main.js:79
 msgid "All Files"
 msgstr "所有檔案"
 
-#: src/main.js:68
+#: src/main.js:83
 msgid "E-book Files"
 msgstr "電子書檔案"
 
-#: src/main.js:74
+#: src/main.js:89
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: src/main.js:88
+#: src/main.js:103
 msgid "translator-credits"
 msgstr ""
 
-#: src/main.js:90 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:105 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "一個簡單而現代化的電子書閱讀器"
 
-#: src/window.js:120
+#: src/window.js:119
 #, fuzzy
 msgid "Leave fullscreen"
 msgstr "切換全螢幕"
 
-#: src/window.js:123 src/ui/mainMenu.ui:84
+#: src/window.js:122 src/ui/mainMenu.ui:84
 msgid "Fullscreen"
 msgstr "全螢幕"
 
-#: src/window.js:170
-#, javascript-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] ""
-
-#: src/window.js:171
-#, javascript-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] ""
-
-#: src/window.js:178 src/window.js:179
+#: src/window.js:174 src/window.js:175
 #, javascript-format
 msgid "of %d"
 msgstr "共 %d"
@@ -333,7 +321,7 @@ msgstr ""
 msgid "View"
 msgstr "檢視"
 
-#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:19
+#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:20
 msgid "Copy"
 msgstr "複製"
@@ -390,7 +378,7 @@ msgstr "書籤"
 msgid "Open…"
 msgstr "開啟…"
 
-#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:50
+#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:90
 msgid "Preferences"
 msgstr "偏好設定"
 
@@ -520,22 +508,22 @@ msgstr "噢不！無法開啟檔案"
 msgid "Open Another File…"
 msgstr "開啟其他檔案…"
 
-#: src/ui/navBar.ui:27
+#: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 #, fuzzy
 msgid "Time left in book"
 msgstr "全書剩餘 %d 分鐘"
 
-#: src/ui/navBar.ui:41
+#: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
 #, fuzzy
 msgid "Time left in chapter"
 msgstr "章節剩餘 %d 分鐘"
 
-#: src/ui/navBar.ui:95
+#: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
 #, fuzzy
 msgid "Chapter"
 msgstr "所有章節"
 
-#: src/ui/navBar.ui:135 src/ui/navBar.ui:325
+#: src/ui/navBar.ui:135 src/ui/navBar.ui:325 src/ui/preferenceWindow.ui:19
 #, fuzzy
 msgid "Location"
 msgstr "前往連結位置"
@@ -587,61 +575,112 @@ msgid "Text-to-speech"
 msgstr "文字轉語音"
 
 #: src/ui/preferenceWindow.ui:11
-msgid "Do nothing"
+#, fuzzy
+msgid "Nothing"
 msgstr "不做任何事"
 
 #: src/ui/preferenceWindow.ui:15
+msgid "Percentage"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:27
+#, fuzzy
+msgid "Chapter name"
+msgstr "所有章節"
+
+#: src/ui/preferenceWindow.ui:39
+msgid "Clock"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:51
+msgid "Do nothing"
+msgstr "不做任何事"
+
+#: src/ui/preferenceWindow.ui:55
 msgid "Show menu"
 msgstr "顯示選單"
 
-#: src/ui/preferenceWindow.ui:23 src/ui/selectionPopover.ui:35
+#: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:35
 msgid "Highlight"
 msgstr "註解"
 
-#: src/ui/preferenceWindow.ui:27
+#: src/ui/preferenceWindow.ui:67
 #, fuzzy
 msgid "Look up in dictionary"
 msgstr "查詢維基百科"
 
-#: src/ui/preferenceWindow.ui:31
+#: src/ui/preferenceWindow.ui:71
 #, fuzzy
 msgid "Look up in Wikipedia"
 msgstr "查詢維基百科"
 
-#: src/ui/preferenceWindow.ui:35 src/ui/selectionPopover.ui:95
+#: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:95
 msgid "Translate"
 msgstr "翻譯"
 
-#: src/ui/preferenceWindow.ui:39 src/ui/shortcutsWindow.ui:64
+#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:64
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
 msgstr "搜尋書籍內容"
 
-#: src/ui/preferenceWindow.ui:43 src/ui/selectionPopover.ui:61
+#: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:61
 msgid "Speak"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:84
-#, fuzzy
-msgid "Use sidebar"
-msgstr "顯示/隱藏側邊欄"
+#: src/ui/preferenceWindow.ui:114
+msgid "General"
+msgstr "一般"
 
-#: src/ui/preferenceWindow.ui:111
+#: src/ui/preferenceWindow.ui:129
 msgid "Open last opened file on startup"
 msgstr "啟動時開啟上次上次開啟的檔案"
 
-#: src/ui/preferenceWindow.ui:138
+#: src/ui/preferenceWindow.ui:148
+#, fuzzy
+msgid "Reading"
+msgstr "繼續閱讀"
+
+#: src/ui/preferenceWindow.ui:163
+msgid "Left footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:197
+msgid "Right footer"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:231
 msgid "When a word is selected"
 msgstr "選取一個單字時"
 
-#: src/ui/preferenceWindow.ui:176
+#: src/ui/preferenceWindow.ui:265
 #, fuzzy
 msgid "When multiple words are selected"
 msgstr "選取一個單字時"
 
-#: src/ui/preferenceWindow.ui:215
+#: src/ui/preferenceWindow.ui:300
 msgid "Text-to-speech command"
 msgstr "文字轉語音指令"
+
+#: src/ui/preferenceWindow.ui:328
+msgid "Interface"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:344
+#, fuzzy
+msgid ""
+"Use traditional titlebar (experimental)\n"
+"(requires restart)"
+msgstr "使用側邊欄（須重新啟動）"
+
+#: src/ui/preferenceWindow.ui:368
+#, fuzzy
+msgid "Use sidebar"
+msgstr "顯示/隱藏側邊欄"
+
+#: src/ui/preferenceWindow.ui:391
+#, fuzzy
+msgid "Auto-hide header bar"
+msgstr "自動隱藏游標"
 
 #: src/ui/selectionPopover.ui:49
 msgid "Find"
@@ -1536,9 +1575,6 @@ msgstr "首次發布"
 #~ msgid "Open a file, or continue reading the last opened book."
 #~ msgstr "開啟檔案，或繼續閱讀上次開啟的電子書"
 
-#~ msgid "Continue Reading"
-#~ msgstr "繼續閱讀"
-
 #, fuzzy
 #~ msgid "Go to Location…"
 #~ msgstr "前往連結位置"
@@ -1571,9 +1607,6 @@ msgstr "首次發布"
 #~ msgid "Add a new theme"
 #~ msgstr "新增主題"
 
-#~ msgid "General"
-#~ msgstr "一般"
-
 #~ msgid "Show annotations"
 #~ msgstr "顯示註解"
 
@@ -1588,9 +1621,6 @@ msgstr "首次發布"
 
 #~ msgid "Decrease font size"
 #~ msgstr "縮小字體"
-
-#~ msgid "Use sidebar (requires restart)"
-#~ msgstr "使用側邊欄（須重新啟動）"
 
 #~ msgid ""
 #~ "Use a sidebar to display table of contents, annotations, and bookmarks."
