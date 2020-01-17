@@ -293,6 +293,10 @@ const Footer = GObject.registerClass({
             case 'time-left-book':
                 if (locationTotal) s = formatMinutes(timeInBook)
                 break
+            case 'clock':
+                s = new Date().toLocaleTimeString([],
+                    { hour: '2-digit', minute: '2-digit' })
+                break
         }
         label.label = s
     }
