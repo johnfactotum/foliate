@@ -8,6 +8,8 @@
 
 A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/GNOME/gjs) and [Epub.js](https://github.com/futurepress/epub.js/).
 
+![View](data/screenshots/view.png)
+
 Website: https://johnfactotum.github.io/foliate/
 
 Documentation: https://github.com/johnfactotum/foliate/wiki
@@ -43,13 +45,15 @@ Debian/Ubuntu packages can be downloaded from the [releases](https://github.com/
 
 #### Optional dependencies
 
+For Mobipocket (.mobi) and Kindle File Format (.azw, .azw3) support, you would need Python (2.7 or >= 3.4).
+
 Auto-hyphenation is done using CSS hyphenation. To enable CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
 
 For offline dictionary support, install `dictd`.
 
 For text-to-speech support, install `espeak-ng`, or `festival`, and packages for the individual voices.
 
-For Mobipocket (.mobi) and Kindle File Format (.azw, .azw3) support, you would need Python (2.7 or >= 3.4).
+To enable spellchecking for notes, `gspell` is requried.
 
 ### Building manually from source
 
@@ -119,6 +123,42 @@ flatpak-builder --force-clean --install --user build com.github.johnfactotum.Fol
 ### Snap
 
 Foliate is available on the [Snap Store](https://snapcraft.io/foliate).
+
+## Screenshots
+
+Primary menu:
+
+![Menu](data/screenshots/menu.png)
+
+Navigation:
+
+![Navigation](data/screenshots/navigation.png)
+
+Lookup:
+
+![Lookup](data/screenshots/lookup.png)
+
+Annotations:
+
+![Note](data/screenshots/note.png)
+
+![Annotations](data/screenshots/annotations.png)
+
+Skeuomorphic mode:
+
+![Skeuomorphism](data/screenshots/skeuomorphism.png)
+
+Dark mode:
+
+![Dark](data/screenshots/dark.png)
+
+Book metadata display:
+
+![About](data/screenshots/about.png)
+
+Alternative sidebar UI:
+
+![Sidebar](data/screenshots/sidebar.png)
 
 ---
 
