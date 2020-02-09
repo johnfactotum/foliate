@@ -3,3 +3,16 @@ build/
 .flatpak-builder/
 .mo
 __pycache__/
+
+#snapcraft specific ignores
+/parts/
+/stage/
+/prime/
+
+*.snap
+
+.snapcraft
+__pycache__
+*.pyc
+*_source.tar.bz2
+snap/.snapcraft
