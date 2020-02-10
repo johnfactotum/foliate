@@ -16,6 +16,8 @@ Documentation: https://github.com/johnfactotum/foliate/wiki
 
 <a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a>
 
+<a href="https://snapcraft.io/foliate"><img height="50" alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" /></a>
+
 ## Features
 
 - View .epub, .mobi, .azw, and .azw3 files in two-page view or scrolled view
@@ -37,9 +39,10 @@ Documentation: https://github.com/johnfactotum/foliate/wiki
 | Arch Linux | [`foliate`](https://www.archlinux.org/packages/community/x86_64/foliate/) |
 | Fedora | [`foliate`](https://src.fedoraproject.org/rpms/foliate) |
 | Manjaro | `foliate` |
+| Ubuntu | [`foliate`](https://snapcraft.io/foliate) |
 | Void Linux | [`foliate`](https://github.com/void-linux/void-packages/tree/master/srcpkgs/foliate) |
 
-Debian/Ubuntu packages can be downloaded from the [releases](https://github.com/johnfactotum/foliate/releases) page.
+Debian packages can be downloaded from the [releases](https://github.com/johnfactotum/foliate/releases) page.
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/foliate.svg)](https://repology.org/project/foliate/versions)
 
@@ -92,6 +95,7 @@ ninja -C build install
 ```
 
 To run the application, you'll need to set the schema directory for GSettings:
+
 ```bash
 GSETTINGS_SCHEMA_DIR=$PWD/run/share/glib-2.0/schemas ./run/bin/com.github.johnfactotum.Foliate
 ```
@@ -112,6 +116,7 @@ Foliate is available on [Flathub](https://flathub.org/apps/details/com.github.jo
 #### Building Flatpaks manually
 
 ##### Using Gnome Builder
+
 Open [Gnome Builder](https://wiki.gnome.org/Apps/Builder), choose "Clone Repository…", and follow the instructions. After cloning the project, hit Ctrl+F5 to build and run Foliate.
 
 ##### Using `flatpak-builder`
