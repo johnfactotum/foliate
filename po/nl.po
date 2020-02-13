@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-17 12:42+0800\n"
-"PO-Revision-Date: 2019-09-15 19:51+0200\n"
+"PO-Revision-Date: 2020-02-11 21:04+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:104
@@ -53,16 +53,15 @@ msgstr "Bestand openen"
 
 #: src/main.js:103
 msgid "translator-credits"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: src/main.js:105 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Een eenvoudige, moderne E-boeklezer"
 
 #: src/window.js:119
-#, fuzzy
 msgid "Leave fullscreen"
-msgstr "Volledig scherm aan/uit"
+msgstr "Beeldvullende modus verlaten"
 
 #: src/window.js:122 src/ui/mainMenu.ui:84
 msgid "Fullscreen"
@@ -74,12 +73,9 @@ msgid "of %d"
 msgstr "van %d"
 
 #: src/export.js:31
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr ""
-"Aantekeningen bij\n"
-"%s\n"
-"van %s"
+msgstr "<p>Aantekeningen bij</p><h1>%s</h1><h2>van %s</h2>"
 
 #: src/export.js:33 src/export.js:47 src/export.js:59
 #, javascript-format
@@ -89,22 +85,17 @@ msgstr[0] "%d aantekening"
 msgstr[1] "%d aantekeningen"
 
 #: src/export.js:46
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr ""
-"Aantekeningen bij\n"
-"%s\n"
-"van %s"
+msgstr "Aantekeningen bij '%s' van '%s'"
 
 #: src/export.js:50
-#, fuzzy
 msgid "Section: "
-msgstr "Selectie"
+msgstr "Sectie: "
 
 #: src/export.js:51
-#, fuzzy
 msgid "Highlight: "
-msgstr "Markeren"
+msgstr "Markeren: "
 
 #: src/export.js:52
 msgid "Text:"
@@ -115,12 +106,9 @@ msgid "Note:"
 msgstr "Notitie:"
 
 #: src/export.js:58
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr ""
-"Aantekeningen bij\n"
-"%s\n"
-"van %s"
+msgstr "Aantekeningen bij *%s* van %s"
 
 #: src/export.js:92
 msgid "Quote: "
@@ -136,7 +124,7 @@ msgstr "Zoeken op Wikipedia"
 
 #: src/lookup.js:212
 msgid "Source: "
-msgstr ""
+msgstr "Bron: "
 
 #: src/lookup.js:272
 msgid "Wiktionary (English)"
@@ -196,27 +184,27 @@ msgstr "Negatief"
 
 #: src/theme.js:43
 msgid "Solarized Light"
-msgstr ""
+msgstr "Gesolariseerd (licht)"
 
 #: src/theme.js:47
 msgid "Solarized Dark"
-msgstr ""
+msgstr "Gesolariseerd (donker)"
 
 #: src/theme.js:51
 msgid "Gruvbox Light"
-msgstr ""
+msgstr "Gruvbox (licht)"
 
 #: src/theme.js:55
 msgid "Gruvbox Dark"
-msgstr ""
+msgstr "Gruvbox (donker)"
 
 #: src/theme.js:59
 msgid "Nord"
-msgstr ""
+msgstr "Nord"
 
 #: src/ui/annotationBox.ui:35
 msgid "Change highlight color"
-msgstr ""
+msgstr "Markeerkleur wijzigen"
 
 #: src/ui/annotationBox.ui:64 src/ui/annotationRow.ui:53
 #: src/ui/bookmarkRow.ui:44
@@ -225,10 +213,9 @@ msgstr "Verwijderen"
 
 #: src/ui/annotationBox.ui:100
 msgid "Choose custom color"
-msgstr ""
+msgstr "Aangepaste kleur kiezen"
 
 #: src/ui/contentsStack.ui:40
-#, fuzzy
 msgid "Table of Contents"
 msgstr "Inhoudsopgave"
 
@@ -237,9 +224,8 @@ msgid "No annotations"
 msgstr "Geen aantekeningen"
 
 #: src/ui/contentsStack.ui:87
-#, fuzzy
 msgid "Select some text to add annotations."
-msgstr "Markeer tekst om aantekeningen te creëren."
+msgstr "Maak aantekeningen door tekst te markeren."
 
 #: src/ui/contentsStack.ui:120
 msgid "Annotations"
@@ -262,9 +248,8 @@ msgid "Bookmarks"
 msgstr "Bladwijzers"
 
 #: src/ui/dictionaryBox.ui:65
-#, fuzzy
 msgid "No definitions found"
-msgstr "Geen definities gevonden."
+msgstr "Geen definities gevonden"
 
 #: src/ui/exportWindow.ui:11
 msgid "HTML"
@@ -272,7 +257,7 @@ msgstr "HTML"
 
 #: src/ui/exportWindow.ui:15
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #: src/ui/exportWindow.ui:19
 msgid "Plain Text"
@@ -307,13 +292,12 @@ msgid "All chapters"
 msgstr "Alle hoofdsukken"
 
 #: src/ui/findBox.ui:25
-#, fuzzy
 msgid "Current chapter"
 msgstr "Huidige hoofdstuk"
 
 #: src/ui/footnotePopover.ui:37 src/ui/mainMenu.ui:511
 msgid "Footnote Preview"
-msgstr ""
+msgstr "Voorvertoning van voetnoot"
 
 #: src/ui/footnotePopover.ui:47 src/ui/shortcutsWindow.ui:88
 #: src/ui/wikipediaBox.ui:107
@@ -326,9 +310,8 @@ msgid "Copy"
 msgstr "Kopiëren"
 
 #: src/ui/imageViewer.ui:46
-#, fuzzy
 msgid "Save as"
-msgstr "Bestand opslaan"
+msgstr "Opslaan als"
 
 #: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
 #: src/ui/shortcutsWindow.ui:199
@@ -337,7 +320,7 @@ msgstr "Uitzoomen"
 
 #: src/ui/mainMenu.ui:57
 msgid "Restore zoom"
-msgstr ""
+msgstr "Oorspronkelijk zoomniveau"
 
 #: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
 #: src/ui/shortcutsWindow.ui:192
@@ -366,12 +349,11 @@ msgstr "Thema"
 
 #: src/ui/mainMenu.ui:238 src/ui/mainMenu.ui:367
 msgid "Advanced"
-msgstr ""
+msgstr "Geavanceerd"
 
 #: src/ui/mainMenu.ui:250 src/ui/mainMenu.ui:561 src/ui/shortcutsWindow.ui:53
-#, fuzzy
 msgid "Book"
-msgstr "Bladwijzers"
+msgstr "Boek"
 
 #: src/ui/mainMenu.ui:262
 msgid "Open…"
@@ -391,7 +373,7 @@ msgstr "Over Foliate"
 
 #: src/ui/mainMenu.ui:341
 msgid "Add Custom Theme…"
-msgstr ""
+msgstr "Aangepast thema toevoegen…"
 
 #: src/ui/mainMenu.ui:387
 msgid "Layout"
@@ -402,7 +384,6 @@ msgid "Automatic"
 msgstr "Automatisch"
 
 #: src/ui/mainMenu.ui:413
-#, fuzzy
 msgid "Single Column"
 msgstr "Eén kolom"
 
@@ -412,7 +393,7 @@ msgstr "Oneindig scrollen"
 
 #: src/ui/mainMenu.ui:429
 msgid "Continuous"
-msgstr ""
+msgstr "Doorlopend"
 
 #: src/ui/mainMenu.ui:446
 msgid "Text"
@@ -433,32 +414,27 @@ msgstr "Automatische woordafbreking"
 
 #: src/ui/mainMenu.ui:494
 msgid "Other"
-msgstr ""
+msgstr "Overig"
 
 #: src/ui/mainMenu.ui:518
-#, fuzzy
 msgid "Auto-hide Cursor"
 msgstr "Cursor automatisch verbergen"
 
 #: src/ui/mainMenu.ui:525
 msgid "Realistic Shadows"
-msgstr ""
+msgstr "Realistische schaduw"
 
 #: src/ui/mainMenu.ui:537
-#, fuzzy
 msgid "Allow JavaScript and external resources"
-msgstr ""
-"Als je dit inschakelt, dan worden JavaScript en externe bronnen geladen.\n"
-"Hiermee neem je een veiligheids- en privacyrisico."
+msgstr "JavaScript en externe bronnen toestaan"
 
 #: src/ui/mainMenu.ui:538
-#, fuzzy
 msgid "Allow Unsafe Content"
-msgstr "Onveilige inhoud toestaan (niet aanbevolen)"
+msgstr "Onveilige inhoud toestaan"
 
 #: src/ui/mainMenu.ui:545
 msgid "Enable Developer Tools"
-msgstr ""
+msgstr "Ontwikkelaarshulpmiddelen inschakelen"
 
 #: src/ui/mainMenu.ui:571 src/ui/propertiesWindow.ui:4
 msgid "About This Book"
@@ -466,26 +442,23 @@ msgstr "Over dit boek"
 
 #: src/ui/mainMenu.ui:583
 msgid "Open a Copy"
-msgstr ""
+msgstr "Kopie openen"
 
 #: src/ui/mainMenu.ui:590 src/ui/shortcutsWindow.ui:29
 msgid "Reload"
-msgstr ""
+msgstr "Herladen"
 
 #: src/ui/mainMenu.ui:602
-#, fuzzy
 msgid "Export annotations…"
 msgstr "Aantekeningen exporteren…"
 
 #: src/ui/mainOverlay.ui:33
-#, fuzzy
 msgid "No books open"
-msgstr "Geen bladwijzers"
+msgstr "Geen geopende boeken"
 
 #: src/ui/mainOverlay.ui:45
-#, fuzzy
 msgid "Open a book to start reading."
-msgstr "Open een boek en begin met lezen"
+msgstr "Open een boek en begin met lezen."
 
 #: src/ui/mainOverlay.ui:54
 msgid "Open File…"
@@ -493,67 +466,58 @@ msgstr "Bestand openen…"
 
 #: src/ui/mainOverlay.ui:83
 msgid "Something's wrong"
-msgstr ""
+msgstr "Er is iets misgegaan"
 
 #: src/ui/mainOverlay.ui:95
-#, fuzzy
 msgid "The file cannot be opened."
-msgstr "Oeps, het bestand kan niet worden geopend!"
+msgstr "Het bestand kan niet worden geopend."
 
 #: src/ui/mainOverlay.ui:104
 msgid "Open Another File…"
 msgstr "Ander bestand openen…"
 
 #: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
-#, fuzzy
 msgid "Time left in book"
-msgstr "Over %d minuut is het boek uit"
+msgstr "Resterende tijd"
 
 #: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
-#, fuzzy
 msgid "Time left in chapter"
-msgstr "Over %d minuut is het hoofdstuk uit"
+msgstr "Resterende hoofdstuktijd"
 
 #: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
-#, fuzzy
 msgid "Chapter"
-msgstr "Alle hoofdsukken"
+msgstr "Hoofdstuk"
 
 #: src/ui/navBar.ui:135 src/ui/navBar.ui:325 src/ui/preferenceWindow.ui:19
-#, fuzzy
 msgid "Location"
-msgstr "Ga naar locatie"
+msgstr "Locatie"
 
 #: src/ui/navBar.ui:175
 msgid "CFI"
-msgstr ""
+msgstr "CFI"
 
 #: src/ui/navBar.ui:176
-#, fuzzy
 msgid "EPUB Canonical Fragment Identifier"
-msgstr "EPUB Canonical Fragment-identificatie (CFI):"
+msgstr "EPUB Canonical Fragment-identificatie"
 
 #: src/ui/navBar.ui:216
 msgid "Go to beginning of book"
-msgstr ""
+msgstr "Ga naar het begin van het boek"
 
 #: src/ui/navBar.ui:230
-#, fuzzy
 msgid "Go to previous chapter"
-msgstr "Ga naar de vorige pagina"
+msgstr "Ga naar het vorige hoofdstuk"
 
 #: src/ui/navBar.ui:244
-#, fuzzy
 msgid "Go to next chapter"
-msgstr "Ga naar de volgende pagina"
+msgstr "Ga naar het volgende hoofdstuk"
 
 #: src/ui/navBar.ui:258
 msgid "Go to end of book"
-msgstr ""
+msgstr "Ga naar het einde van het boek"
 
 #: src/ui/navBar.ui:280 src/ui/shortcutsWindow.ui:149
 #: src/ui/shortcutsWindow.ui:185
-#, fuzzy
 msgid "Go to previous page"
 msgstr "Ga naar de vorige pagina"
 
@@ -563,7 +527,6 @@ msgstr "Ga terug naar de vorige locatie"
 
 #: src/ui/navBar.ui:368 src/ui/shortcutsWindow.ui:142
 #: src/ui/shortcutsWindow.ui:178
-#, fuzzy
 msgid "Go to next page"
 msgstr "Ga naar de volgende pagina"
 
@@ -572,22 +535,20 @@ msgid "Text-to-speech"
 msgstr "Tekst-naar-spraak"
 
 #: src/ui/preferenceWindow.ui:11
-#, fuzzy
 msgid "Nothing"
 msgstr "Niks doen"
 
 #: src/ui/preferenceWindow.ui:15
 msgid "Percentage"
-msgstr ""
+msgstr "Percentage"
 
 #: src/ui/preferenceWindow.ui:27
-#, fuzzy
 msgid "Chapter name"
-msgstr "Alle hoofdsukken"
+msgstr "Hoofdstuknaam"
 
 #: src/ui/preferenceWindow.ui:39
 msgid "Clock"
-msgstr ""
+msgstr "Klok"
 
 #: src/ui/preferenceWindow.ui:51
 msgid "Do nothing"
@@ -602,12 +563,10 @@ msgid "Highlight"
 msgstr "Markeren"
 
 #: src/ui/preferenceWindow.ui:67
-#, fuzzy
 msgid "Look up in dictionary"
 msgstr "Opzoeken in woordenboek"
 
 #: src/ui/preferenceWindow.ui:71
-#, fuzzy
 msgid "Look up in Wikipedia"
 msgstr "Opzoeken op Wikipedia"
 
@@ -622,7 +581,7 @@ msgstr "Doorzoek het boek"
 
 #: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:61
 msgid "Speak"
-msgstr ""
+msgstr "Voorlezen"
 
 #: src/ui/preferenceWindow.ui:114
 msgid "General"
@@ -633,17 +592,16 @@ msgid "Open last opened file on startup"
 msgstr "Laatst geopend bestand laden na opstarten"
 
 #: src/ui/preferenceWindow.ui:148
-#, fuzzy
 msgid "Reading"
-msgstr "Verder lezen"
+msgstr "Lezen"
 
 #: src/ui/preferenceWindow.ui:163
 msgid "Left footer"
-msgstr ""
+msgstr "Linkervoetnoot"
 
 #: src/ui/preferenceWindow.ui:197
 msgid "Right footer"
-msgstr ""
+msgstr "Rechtervoetnoot"
 
 #: src/ui/preferenceWindow.ui:231
 msgid "When a word is selected"
@@ -659,56 +617,51 @@ msgstr "Tekst-naar-spraak-opdracht"
 
 #: src/ui/preferenceWindow.ui:328
 msgid "Interface"
-msgstr ""
+msgstr "Uiterlijk"
 
 #: src/ui/preferenceWindow.ui:344
-#, fuzzy
 msgid ""
 "Use traditional titlebar (experimental)\n"
 "(requires restart)"
-msgstr "Zijbalk gebruiken (herstart vereist)"
+msgstr ""
+"Traditionele titelbalk gebruiken (experimenteel)\n"
+"(herstart vereist)"
 
 #: src/ui/preferenceWindow.ui:368
-#, fuzzy
 msgid "Use sidebar"
-msgstr "Zijbalk tonen/verbergen"
+msgstr "Zijbalk tonen"
 
 #: src/ui/preferenceWindow.ui:391
-#, fuzzy
 msgid "Auto-hide header bar"
-msgstr "Cursor automatisch verbergen"
+msgstr "Titelbalk automatisch verbergen"
 
 #: src/ui/selectionPopover.ui:49
 msgid "Find"
-msgstr ""
+msgstr "Zoeken"
 
 #: src/ui/selectionPopover.ui:81
-#, fuzzy
 msgid "Look Up in Dictionary"
 msgstr "Opzoeken in woordenboek"
 
 #: src/ui/selectionPopover.ui:88
-#, fuzzy
 msgid "Look Up in Wikipedia"
 msgstr "Opzoeken op Wikipedia"
 
 #: src/ui/selectionPopover.ui:107
 msgid "Speak from Here"
-msgstr ""
+msgstr "Vanaf hier voorlezen"
 
 #: src/ui/shortcutsWindow.ui:11
-#, fuzzy
 msgid "File"
-msgstr "Alle bestanden"
+msgstr "Bestand"
 
 #: src/ui/shortcutsWindow.ui:15
-#, fuzzy
 msgid "Open file"
 msgstr "Bestand openen"
 
 #: src/ui/shortcutsWindow.ui:22
 msgid "Open a copy"
-msgstr ""
+msgstr "Kopie openen"
 
 #: src/ui/shortcutsWindow.ui:36
 msgid "Close current window"
@@ -719,9 +672,8 @@ msgid "Quit"
 msgstr "Afsluiten"
 
 #: src/ui/shortcutsWindow.ui:71
-#, fuzzy
 msgid "View book info"
-msgstr "Lees E-boeken"
+msgstr "Informatie over boek tonen"
 
 #: src/ui/shortcutsWindow.ui:78
 msgid "Start/stop text-to-speech"
@@ -729,21 +681,19 @@ msgstr "Tekst-naar-spraak aan/uit"
 
 #: src/ui/shortcutsWindow.ui:107
 msgid "Restore zoom level"
-msgstr ""
+msgstr "Oorspronkelijk zoomniveau"
 
 #: src/ui/shortcutsWindow.ui:114
 msgid "Toggle fullscreen"
-msgstr "Volledig scherm aan/uit"
+msgstr "Beeldvullende modus aan/uit"
 
 #: src/ui/shortcutsWindow.ui:121
-#, fuzzy
 msgid "Show contents"
-msgstr "Inhoudsopgave tonen"
+msgstr "Inhoud tonen"
 
 #: src/ui/shortcutsWindow.ui:128
-#, fuzzy
 msgid "Show primary menu"
-msgstr "Menu tonen"
+msgstr "Hoofdmenu tonen"
 
 #: src/ui/shortcutsWindow.ui:138
 msgid "Navigation"
@@ -759,18 +709,17 @@ msgstr "Touchpad-gebaren"
 
 #: src/ui/themeRow.ui:26
 msgid "Edit"
-msgstr ""
+msgstr "Bewerken"
 
 #: src/ui/themeWindow.ui:6
 msgid "Custom Theme"
-msgstr ""
+msgstr "Aangepast thema"
 
 #: src/ui/themeWindow.ui:17
 msgid "OK"
-msgstr ""
+msgstr "Oké"
 
 #: src/ui/themeWindow.ui:39
-#, fuzzy
 msgid "Theme Name"
 msgstr "Naam van thema"
 
@@ -779,29 +728,24 @@ msgid "Background"
 msgstr "Achtergrond"
 
 #: src/ui/themeWindow.ui:78
-#, fuzzy
 msgid "Text Color"
-msgstr "Kleuren omdraaien (negatief)"
+msgstr "Tekstkleur"
 
 #: src/ui/themeWindow.ui:92
-#, fuzzy
 msgid "Link Color"
-msgstr "Kleuren omdraaien (negatief)"
+msgstr "Linkkleur"
 
 #: src/ui/themeWindow.ui:159
-#, fuzzy
 msgid "Dark Mode"
-msgstr "Donkere modus inschakelen"
+msgstr "Donker thema"
 
 #: src/ui/themeWindow.ui:200
-#, fuzzy
 msgid "Remove Theme"
-msgstr "Geselecteerd thema verwijderen"
+msgstr "Thema verwijderen"
 
 #: src/ui/translationBox.ui:53
-#, fuzzy
 msgid "Cannot retrieve translation"
-msgstr "Kan vertaling niet ophalen."
+msgstr "Kan vertaling niet ophalen"
 
 #: src/ui/translationBox.ui:128
 msgid "Afrikaans"
@@ -1220,9 +1164,8 @@ msgid "Zulu"
 msgstr "Zulu"
 
 #: src/ui/wikipediaBox.ui:53
-#, fuzzy
 msgid "No entry found"
-msgstr "Geen item gevonden."
+msgstr "Geen item gevonden"
 
 #: src/ui/wikipediaBox.ui:80
 msgid "Wikipedia"
@@ -1504,19 +1447,16 @@ msgstr "Initiële uitgave"
 #~ msgid "Go back"
 #~ msgstr "Ga terug"
 
-#, javascript-format
 #~ msgid "%d hour left in book"
 #~ msgid_plural "%d hours left in book"
 #~ msgstr[0] "Over %d uur is het boek uit"
 #~ msgstr[1] "Over %d uur is het boek uit"
 
-#, javascript-format
 #~ msgid "%d minute left in section"
 #~ msgid_plural "%d minutes left in section"
 #~ msgstr[0] "Over %d minuut is het hoofdstuk uit"
 #~ msgstr[1] "Over %d minuten is het boek uit"
 
-#, javascript-format
 #~ msgid "%d hour left in section"
 #~ msgid_plural "%d hours left in section"
 #~ msgstr[0] "Over %d uur is het hoofdstuk uit"
@@ -1534,7 +1474,6 @@ msgstr "Initiële uitgave"
 #~ msgid "No results"
 #~ msgstr "Geen resultaten"
 
-#, javascript-format
 #~ msgid "%d result"
 #~ msgid_plural "%d results"
 #~ msgstr[0] "%d resultaat"
@@ -1591,7 +1530,6 @@ msgstr "Initiële uitgave"
 #~ msgid "You don't have any annotations for this book."
 #~ msgstr "Je hebt geen aantekeningen gemaakt bij dit boek."
 
-#, javascript-format
 #~ msgid "Annotations for %s"
 #~ msgstr "Aantekeningen bij %s"
 
