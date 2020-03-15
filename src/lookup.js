@@ -36,8 +36,14 @@ const lookup = (script, againScript) => new Promise((resolve, reject) => {
         switch (type) {
             case 'ready': runScript(script); break
             case 'lookup-again': runScript(againScript(payload)); break
-            case 'lookup-results': resolve(payload); break
-            case 'lookup-error': reject(); break
+            case 'lookup-results':
+                resolve(payload)
+                webView.destroy()
+                break
+            case 'lookup-error':
+                reject()
+                webView.destroy()
+                break
         }
     })
     contentManager.register_script_message_handler('action')
