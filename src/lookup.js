@@ -73,7 +73,7 @@ var WikipediaBox = GObject.registerClass({
     GTypeName: 'FoliateWikipediaBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/wikipediaBox.ui',
     InternalChildren: ['wikiStack', 'wikiContent', 'wikiErrorLabel', 'wikiButton']
-}, class DictionaryBox extends Gtk.Box {
+}, class WikipediaBox extends Gtk.Box {
     lookup(text, language) {
         language = language.slice(0, 2).toLowerCase()
         this._wikiStack.visible_child_name = 'loading'
