@@ -1,0 +1,37 @@
+name: foliate
+grade: stable
+adopt-info: foliate
+license: GPL-3.0+
+
+base: core18
+confinement: strict
+
+apps:
+  foliate:
+    command: usr/bin/com.github.johnfactotum.Foliate
+    extensions: [gnome-3-28]
+    plugs:
+      - home
+      - opengl
+    slots:
+      - dbus-daemon
+    common-id: com.github.johnfactotum.Foliate
+
+parts:
+  foliate:
+    plugin: meson
+    source: .
+    meson-parameters: [--prefix=/snap/foliate/current/usr]
+    build-packages:
+      - libgjs-dev
+      - gettext
+      - libglu1-mesa
+    organize:
+      snap/foliate/current/usr: usr
+    parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
+
+slots:
+  dbus-daemon:
+    interface: dbus
+    bus: session
+    name: com.github.johnfactotum.Foliate
