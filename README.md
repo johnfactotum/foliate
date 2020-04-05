@@ -125,6 +125,14 @@ flatpak-builder --force-clean --install --user build com.github.johnfactotum.Fol
 
 Foliate is available on the [Snap Store](https://snapcraft.io/foliate).
 
+#### Daily builds
+
+You can test out the latest code in this repository using the `edge` channel of the snap. Run `snap install --edge foliate` to install the latest build from master. (`snap refresh --edge foliate` if you already have the snap installed)
+
+#### Building the snap manually
+
+You can build the snap manually using [snapcraft](https://snapcraft.io/snapcraft). Install snapcraft and run `snapcraft` in the root of this repository.
+
 ## Screenshots
 
 Primary menu:
