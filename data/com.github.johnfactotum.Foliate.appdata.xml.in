@@ -30,19 +30,78 @@
             <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/dark.png</image>
         </screenshot>
         <screenshot>
+            <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/skeuomorphism.png</image>
+        </screenshot>
+        <screenshot>
             <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/note.png</image>
         </screenshot>
         <screenshot>
             <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/annotations.png</image>
         </screenshot>
         <screenshot>
-            <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/find.png</image>
-        </screenshot>
-        <screenshot>
             <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/lookup.png</image>
         </screenshot>
     </screenshots>
     <releases>
+        <release version="2.0.0" date="2020-04-05">
+            <description>
+              <p>Interface:</p>
+              <ul>
+              <li>A redesigned interface that works better for smaller screens</li>
+              <li>Improved fullscreen mode with an overlaid headerbar</li>
+              <li>The headerbar and the progress bar now auto-hide, for a distraction-free reading experience</li>
+              <li>Various location information, as well as a clock, can now be displayed in the footer</li>
+              <li>A new location popover (Ctrl + L) that shows reading time estimates and allows skipping to locations</li>
+              <li>E-reader style navigation: go to the previous or next page by tapping on the left or right part of the view; tap on the middle to toggle header bar and progress bar</li>
+              <li>Annotations, bookmarks, and find results now show chapter titles</li>
+              <li>When looking up words in dictionaries, the query can now be edited</li>
+              <li>New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)</li>
+              <li>A new traditional menubar, which may be displayed depending on the desktop environment</li>
+              <li>Option to use a traditional titlebar and menubar instead of a headerbar (experimental)</li>
+              </ul>
+              <p>Reading:</p>
+              <ul>
+              <li>Continuous scrolling layout</li>
+              <li>Option to show decorative shadows that mimic the appearance of a real book</li>
+              <li>Ability to zoom in and zoom out</li>
+              <li>Improved image viewer with "save as" option</li>
+              <li>Open copies of a book in new windows (Ctrl + N)</li>
+              <li>Reload book (Ctrl + R)</li>
+              <li>New built-in themes: Gray, Solarized, Gruvbox, Nord</li>
+              </ul>
+              <p>Text selection:</p>
+              <ul>
+              <li>Ability to select text across pages</li>
+              <li>Find selected text in book</li>
+              <li>Speak selected text or from the selected locatio</li>
+              </ul>
+              <p>Annotations:</p>
+              <ul>
+              <li>Spellcheck notes</li>
+              <li>Export annotations to Markdown</li>
+              <li>Options to use custom colors for highlights</li>
+              </ul>
+              <p>For publishers and developers:</p>
+              <ul>
+              <li>Support for Apple Books theme attribute, which allows books to detect themes without JavaScript</li>
+              <li>WebKit's developer tools can be enabled</li>
+              </ul>
+              <p>Breaking changes:</p>
+              <ul>
+              <li>The settings schemas has been reorganized</li>
+              <li>The format for custom themes has changed</li>
+              <li>Locations are now 1024 characters in size</li>
+              </ul>
+              <p>Bug fixes:</p>
+              <ul>
+              <li>Fixed not restoring exact last location</li>
+              <li>Fixed navigation not working with scrolled layout</li>
+              <li>Fixed font size not changing when the book uses absolute-size keywords</li>
+              <li>Fixed text cut off at margin edge</li>
+              <li>Fixed unable to open books with "#" or "?" in the file name</li>
+              </ul>
+            </description>
+        </release>
         <release version="1.5.3" date="2019-07-25">
             <description>
                 <ul>
