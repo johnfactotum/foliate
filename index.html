@@ -149,7 +149,10 @@ footer a:link, footer a:visited {
         <p class="tagline">A simple and modern eBook viewer</p>
     </div>
     <div>
-        <p><a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="flathub-badge-en.svg"></a></p>
+        <p><a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="flathub-badge-en.svg"></a>
+            <a href="https://snapcraft.io/foliate"><img height="50" alt="Get it from the Snap Store" src="snap-badge.svg"></a>
+        </p>
+        <p><a href="https://repology.org/project/foliate/versions"><img src="https://repology.org/badge/tiny-repos/foliate.svg" alt="Packaging status"></a></p>
         <p><a href="https://github.com/johnfactotum/foliate">Source</a> &middot; <a href="https://github.com/johnfactotum/foliate/releases">Releases</a> &middot; <a href="https://github.com/johnfactotum/foliate/issues">Issues</a></p>
     </div>
 </header>
@@ -161,7 +164,7 @@ footer a:link, footer a:visited {
                 <p><strong>View .epub, .mobi, .azw, and .azw3 files.</strong> Foliate is based on <a href="https://github.com/futurepress/epub.js/">Epub.js</a>, and supports both two-page view and scrolled view. Customize font and line-spacing. Choose between light, sepia, dark, and invert mode, or add your own custom themes</p>
             </div>
             <div>
-                <p><strong>Easy navigation.</strong> View the table of contents, or use the find in book feature. Reading progress slider with chapter marks makes it easy to find your way through the book. Hover over the slider to see reading time left estimates.</p>
+                <p><strong>Easy navigation.</strong> View the table of contents, or use the find in book feature. Reading progress slider with chapter marks makes it easy to find your way through the book. Open the location popover (Ctrl + L) to see reading time estimates.</p>
             </div>
         </div>
         <div class="mono"><img class="screenshot screenshot-main" src="screenshot.png" alt="Screenshot"></div>
@@ -207,6 +210,7 @@ footer a:link, footer a:visited {
                     <h3>Flatpak</h3>
                     <p><a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="flathub-badge-en.svg"></a></p>
                     <h3>Distribution packages</h3>
+                    <p><a href="https://repology.org/project/foliate/versions"><img src="https://repology.org/badge/tiny-repos/foliate.svg" alt="Packaging status"></a></p>
                     <ul>
                         <li>Arch Linux: <a href="https://www.archlinux.org/packages/community/x86_64/foliate/"><code>foliate</code></a></li>
                         <li>Arch Linux (AUR): <a href="https://aur.archlinux.org/packages/foliate-git/"><code>foliate-git</code></a></li>
@@ -214,7 +218,13 @@ footer a:link, footer a:visited {
                         <li>Void Linux: <code>xbps-install -S foliate</code></li>
                     </ul>
                     <p>Debian/Ubuntu packages can be downloaded from the <a href="https://github.com/johnfactotum/foliate/releases">releases</a> page.</p>
-                    <p><strong>Note</strong>: to enable auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.; to use offline dictionaries, install <code>dictd</code>. For text-to-speech support, install <code>espeak-ng</code>, or <code>festival</code>.</p>
+                    <h4>Optional dependencies</h4>
+                        <ul>
+                            <li>To enable auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.</li>
+                            <li>To use offline dictionaries, install <code>dictd</code></li>
+                            <li>For text-to-speech support, install <code>espeak-ng</code>, or <code>festival</code></li>
+                            <li>Spellchecking notes requires <code>gspell</code></li>
+                        </ul>
                 </div>
             </div>
             <div>
