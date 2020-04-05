@@ -397,6 +397,7 @@ var AnnotationBox = GObject.registerClass({
         if (dialog.run() === Gtk.ResponseType.OK) {
             const color = dialog.get_rgba().to_string()
             this.annotation.set_property('color', color)
+            settings.set_string('highlight', color)
         }
         dialog.destroy()
     }
