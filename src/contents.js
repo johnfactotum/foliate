@@ -28,7 +28,7 @@ const AnnotationRow = GObject.registerClass({
     GTypeName: 'FoliateAnnotationRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/annotationRow.ui',
     InternalChildren: [
-        'annotationSection', 'annotationText', 'annotationNote'
+        'annotationSection', 'annotationText', 'annotationNote', 'removeButton'
     ]
 }, class AnnotationRow extends Gtk.ListBoxRow {
     _init(annotation, epubView) {
@@ -45,6 +45,8 @@ const AnnotationRow = GObject.registerClass({
 
         this._applyNote()
         annotation.connect('notify::note', this._applyNote.bind(this))
+
+        this._removeButton.connect('clicked', () => this._remove())
     }
     _applyNote() {
         const note = this.annotation.note
@@ -71,7 +73,7 @@ const BookmarkRow = GObject.registerClass({
     GTypeName: 'FoliateBookmarkRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookmarkRow.ui',
     InternalChildren: [
-        'bookmarkSection', 'bookmarkText'
+        'bookmarkSection', 'bookmarkText', 'removeButton'
     ]
 }, class BookmarkRow extends Gtk.ListBoxRow {
     _init(bookmark, epubView) {
@@ -82,6 +84,8 @@ const BookmarkRow = GObject.registerClass({
         this._bookmarkText.label = bookmark.cfi
         this._epub.getSectionFromCfi(bookmark.cfi).then(section =>
             this._bookmarkSection.label = section.label)
+
+        this._removeButton.connect('clicked', () => this._remove())
     }
     _remove() {
         this._epub.removeBookmark(this.bookmark.cfi)
@@ -109,6 +113,10 @@ var ContentsStack = GObject.registerClass({
         this._bookmarksListBox.set_header_func((row) => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
+
+        this._tocTreeView.connect('row-activated', () => this._onTocRowActivated())
+        this._annotationsListBox.connect('row-activated', this._onAnnotationRowActivated.bind(this))
+        this._bookmarksListBox.connect('row-activated', this._onBookmarkRowActivated.bind(this))
     }
     set epub(epub) {
         this._epub = epub
@@ -204,7 +212,7 @@ var FindBox = GObject.registerClass({
     GTypeName: 'FoliateFindBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/findBox.ui',
     InternalChildren: [
-        'findEntry', 'findScrolledWindow', 'findTreeView', 'inBook', 'status'
+        'findEntry', 'findScrolledWindow', 'findTreeView', 'inBook', 'inSection', 'status'
     ],
     Signals: {
         'row-activated': { flags: GObject.SignalFlags.RUN_FIRST }
@@ -214,6 +222,12 @@ var FindBox = GObject.registerClass({
         super._init(params)
         const column = this._findTreeView.get_column(0)
         column.get_area().orientation = Gtk.Orientation.VERTICAL
+
+        this._findEntry.connect('activate', () => this._onFindEntryActivate())
+        this._findEntry.connect('search-changed', () => this._onFindEntryChanged())
+        this._inBook.connect('toggled', () => this._onFindEntryActivate())
+        this._inSection.connect('toggled', () => this._onFindEntryActivate())
+        this._findTreeView.connect('row-activated', () => this._onFindRowActivated())
     }
     set epub(epub) {
         this._epub = epub
@@ -266,7 +280,7 @@ var FootnotePopover = GObject.registerClass({
     GTypeName: 'FoliateFootnotePopover',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/footnotePopover.ui',
     InternalChildren: [
-        'footnoteLabel', 'controls'
+        'footnoteLabel', 'controls', 'button'
     ]
 }, class FootnotePopover extends Gtk.Popover {
     _init(footnote, link, epubView) {
@@ -274,6 +288,8 @@ var FootnotePopover = GObject.registerClass({
         this._link = link
         this._epub = epubView
         this._footnoteLabel.label = footnote
+        this._footnoteLabel.connect('activate-link', this._activateLink.bind(this))
+        this._button.connect('clicked', () => this._goToLinkedLocation())
         if (!link) this._controls.hide()
     }
     popup() {
@@ -296,7 +312,9 @@ var FootnotePopover = GObject.registerClass({
 var AnnotationBox = GObject.registerClass({
     GTypeName: 'FoliateAnnotationBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/annotationBox.ui',
-    InternalChildren: ['noteTextView', 'controls', 'colorButton', 'colorsBox'],
+    InternalChildren: [
+        'noteTextView', 'controls', 'colorButton', 'colorsBox', 'backButton', 'customColorButton'
+    ],
     Properties: {
         annotation: GObject.ParamSpec.object('annotation', 'annotation', 'annotation',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, EpubViewAnnotation.$gtype)
@@ -314,6 +332,10 @@ var AnnotationBox = GObject.registerClass({
         this._noteTextView.buffer.connect('changed', () => {
             annotation.set_property('note', this._noteTextView.buffer.text)
         })
+
+        this._colorButton.connect('clicked', () => this._showColors())
+        this._backButton.connect('clicked', () => this._showMain())
+        this._customColorButton.connect('clicked', () => this._chooseColor())
 
         const buttons = highlightColors.map(color => {
             const button = new Gtk.Button({
@@ -384,7 +406,8 @@ var ImageViewer = GObject.registerClass({
     GTypeName: 'FoliateImageViewer',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/imageViewer.ui',
     InternalChildren: [
-        'scale', 'paned', 'labelArea', 'image', 'label', 'fileChooser'
+        'scale', 'paned', 'labelArea', 'image', 'label', 'fileChooser',
+        'copyButton', 'saveAsButton'
     ],
     Properties: {
         pixbuf: GObject.ParamSpec.object('pixbuf', 'pixbuf', 'pixbuf',
@@ -404,6 +427,9 @@ var ImageViewer = GObject.registerClass({
         this._image.set_from_pixbuf(pixbuf)
         if (this.alt) this._label.label = this.alt
         else this._labelArea.hide()
+
+        this._copyButton.connect('clicked', () => this.copy())
+        this._saveAsButton.connect('clicked', () => this.saveAs())
 
         this._scale.connect('format-value', (_, x) => `${Math.round(x * 100)}%`)
         this._scale.connect('value-changed', () => {

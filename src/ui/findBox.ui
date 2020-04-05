@@ -4,8 +4,6 @@
     <child>
       <object class="GtkSearchEntry" id="findEntry">
         <property name="visible">True</property>
-        <signal name="activate" handler="_onFindEntryActivate"/>
-        <signal name="search-changed" handler="_onFindEntryChanged"/>
       </object>
     </child>
     <child>
@@ -16,7 +14,6 @@
           <object class="GtkRadioButton" id="inBook">
             <property name="visible">True</property>
             <property name="label" translatable="yes">All chapters</property>
-            <signal name="toggled" handler="_onFindEntryActivate"/>
           </object>
         </child>
         <child>
@@ -24,7 +21,6 @@
             <property name="visible">True</property>
             <property name="label" translatable="yes">Current chapter</property>
             <property name="group">inBook</property>
-            <signal name="toggled" handler="_onFindEntryActivate"/>
           </object>
         </child>
       </object>
@@ -41,7 +37,6 @@
             <property name="headers-visible">False</property>
             <property name="activate-on-single-click">True</property>
             <property name="enable-grid-lines">horizontal</property>
-            <signal name="row-activated" handler="_onFindRowActivated"/>
             <child>
               <object class="GtkTreeViewColumn">
                 <child>

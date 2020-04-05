@@ -92,7 +92,10 @@ var ThemeRow = GObject.registerClass({
 }, class ThemeRow extends Gtk.ListBoxRow {
     _init(theme, editable) {
         super._init()
-        if (editable) this._button.show()
+        if (editable) {
+            this._button.connect('clicked', () => this._edit())
+            this._button.show()
+        }
         this.theme = theme
         theme.bind_property('theme-name', this._label, 'label',
             GObject.BindingFlags.DEFAULT | GObject.BindingFlags.SYNC_CREATE)

@@ -33,7 +33,6 @@
               <object class="GtkButton" id="colorButton">
                 <property name="visible">True</property>
                 <property name="tooltip-text" translatable="yes">Change highlight color</property>
-                <signal name="clicked" handler="_showColors"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
@@ -85,7 +84,6 @@
             <child>
               <object class="GtkButton" id="backButton">
                 <property name="visible">True</property>
-                <signal name="clicked" handler="_showMain"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
@@ -95,10 +93,9 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="customColorButton">
                 <property name="visible">True</property>
                 <property name="tooltip-text" translatable="yes">Choose custom color</property>
-                <signal name="clicked" handler="_chooseColor"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>

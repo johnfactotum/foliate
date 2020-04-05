@@ -112,7 +112,6 @@
                     <property name="xalign">1</property>
                     <property name="width-chars">5</property>
                     <property name="input-purpose">digits</property>
-                    <signal name="activate" handler="_onSectionEntryActivate"/>
                   </object>
                 </child>
                 <child>
@@ -152,7 +151,6 @@
                     <property name="xalign">1</property>
                     <property name="width-chars">5</property>
                     <property name="input-purpose">digits</property>
-                    <signal name="activate" handler="_onLocationEntryActivate"/>
                   </object>
                 </child>
                 <child>
@@ -187,7 +185,6 @@
               <object class="GtkEntry" id="cfiEntry">
                 <property name="visible">True</property>
                 <property name="width-chars">18</property>
-                <signal name="activate" handler="_onCfiEntryActivate"/>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -271,7 +268,6 @@
   </object>
 
   <template class="FoliateNavBar" parent="GtkActionBar">
-    <signal name="size-allocate" handler="_onSizeAllocate"/>
     <child>
       <object class="GtkButton">
         <property name="visible">True</property>
@@ -349,8 +345,6 @@
                 <property name="draw-value">False</property>
                 <property name="hexpand">True</property>
                 <property name="adjustment">progressAdjustment</property>
-                <!-- <signal name="value-changed" handler="_onlocationScaleChanged"/> -->
-                <signal name="button-release-event" handler="_onlocationScaleChanged"/>
               </object>
             </child>
           </object>

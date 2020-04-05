@@ -32,13 +32,20 @@ const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 const SelectionPopover = GObject.registerClass({
     GTypeName: 'FoliateSelectionPopover',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/selectionPopover.ui',
-    InternalChildren: ['ttsButton', 'ttsSeparator', 'ttsModelButton']
+    InternalChildren: [
+        'copyButton',
+        'ttsButton', 'ttsSeparator', 'ttsModelButton'
+    ]
 }, class SelectionPopover extends Gtk.PopoverMenu {
     _init(params) {
         super._init(params)
         this._showTts(tts.enabled)
         this._ttsHandler = tts.connect('notify::enabled', () =>
             this._showTts(tts.enabled))
+
+        this.connect('closed', () => this._onClosed())
+        this._copyButton.connect('clicked', () => this.popdown())
+        this._ttsModelButton.connect('clicked', () => this.popdown())
     }
     _showTts(enabled) {
         this._ttsSeparator.visible = enabled
@@ -47,11 +54,6 @@ const SelectionPopover = GObject.registerClass({
     popup() {
         super.popup()
         this._isAlreadySpeaking = this._ttsButton.active
-    }
-    popdown() {
-        // wrap `super.popdown()` so we can use it as a signal handler
-        // without getting warnings about `popdown()` taking no arguments
-        super.popdown()
     }
     _onClosed() {
         if (!this._isAlreadySpeaking) this._ttsButton.active = false
@@ -145,6 +147,12 @@ const NavBar = GObject.registerClass({
         })
         this._epub.connect('book-loading', () => this._loading = true)
         this._epub.connect('relocated', () => this._update())
+
+        this.connect('size-allocate', () => this._onSizeAllocate())
+        this._locationScale.connect('button-release-event', () => this._onlocationScaleChanged())
+        this._sectionEntry.connect('activate', () => this._onSectionEntryActivate())
+        this._locationEntry.connect('activate', () => this._onLocationEntryActivate())
+        this._cfiEntry.connect('activate', () => this._onCfiEntryActivate())
     }
     set _loading(loading) {
         this._locationStack.visible_child_name = loading ? 'loading' : 'loaded'

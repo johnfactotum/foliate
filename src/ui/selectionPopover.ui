@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="FoliateSelectionPopover" parent="GtkPopoverMenu">
-    <signal name="closed" handler="_onClosed"/>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -13,12 +12,11 @@
             <property name="spacing">6</property>
             <property name="margin-bottom">6</property>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="copyButton">
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="action-name">win.selection-copy</property>
                 <property name="tooltip-text" translatable="yes">Copy</property>
-                <signal name="clicked" handler="popdown"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
@@ -105,7 +103,6 @@
             <property name="visible">True</property>
             <property name="action-name">win.selection-speech-start</property>
             <property name="text" translatable="yes">Speak from Here</property>
-            <signal name="clicked" handler="popdown"/>
           </object>
         </child>
       </object>

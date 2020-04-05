@@ -25,10 +25,9 @@
         <property name="has-subtitle">False</property>
         <property name="show-close-button">True</property>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="copyButton">
             <property name="visible">True</property>
             <property name="tooltip-text" translatable="yes">Copy</property>
-            <signal name="clicked" handler="copy"/>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
@@ -41,10 +40,9 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="saveAsButton">
             <property name="visible">True</property>
             <property name="tooltip-text" translatable="yes">Save as</property>
-            <signal name="clicked" handler="saveAs"/>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>

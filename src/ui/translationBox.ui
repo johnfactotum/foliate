@@ -70,7 +70,6 @@
             <property name="visible">True</property>
             <property name="model">langStore</property>
             <property name="id-column">0</property>
-            <signal name="changed" handler="_langChanged"/>
             <child>
               <object class="GtkCellRendererText">
                 <property name="ellipsize">end</property>

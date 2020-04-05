@@ -303,6 +303,8 @@ var DictionaryBox = GObject.registerClass({
                 [0, 1], [dict, dictionary.name])
         })
         this.dictCombo.active_id = dict
+        this.dictCombo.connect('changed', () => this._lookupFromEntry())
+        this._dictEntry.connect('activate', () => this._lookupFromEntry())
     }
     lookup(text, language) {
         this.language = language
@@ -378,6 +380,7 @@ var TranslationBox = GObject.registerClass({
     _init(params, lang = 'en') {
         super._init(params)
         this.langCombo.active_id = lang
+        this.langCombo.connect('changed', () => this._langChanged())
     }
     lookup(text) {
         this._text = text

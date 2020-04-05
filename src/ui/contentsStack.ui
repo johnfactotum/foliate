@@ -16,7 +16,6 @@
                 <property name="headers-visible">False</property>
                 <property name="activate-on-single-click">True</property>
                 <property name="tooltip-column">1</property>
-                <signal name="row-activated" handler="_onTocRowActivated"/>
                 <child>
                   <object class="GtkTreeViewColumn">
                     <child>
@@ -103,7 +102,6 @@
                 <child>
                   <object class="GtkListBox" id="annotationsListBox">
                     <property name="visible">True</property>
-                    <signal name="row-activated" handler="_onAnnotationRowActivated"/>
                   </object>
                 </child>
                 <style><class name="frame"/></style>
@@ -183,7 +181,6 @@
                 <child>
                   <object class="GtkListBox" id="bookmarksListBox">
                     <property name="visible">True</property>
-                    <signal name="row-activated" handler="_onBookmarkRowActivated"/>
                   </object>
                 </child>
                 <style><class name="frame"/></style>

@@ -13,7 +13,6 @@
     <child>
       <object class="GtkSearchEntry" id="dictEntry">
         <property name="visible">True</property>
-        <signal name="activate" handler="_lookupFromEntry"/>
       </object>
     </child>
     <child>
@@ -90,7 +89,6 @@
             <property name="visible">True</property>
             <property name="model">dictStore</property>
             <property name="id-column">0</property>
-            <signal name="changed" handler="_lookupFromEntry"/>
             <child>
               <object class="GtkCellRendererText">
                 <property name="ellipsize">end</property>

@@ -20,7 +20,6 @@
                 <property name="selectable">True</property>
                 <property name="xalign">0</property>
                 <property name="valign">start</property>
-                <signal name="activate-link" handler="_activateLink"/>
               </object>
             </child>
           </object>
@@ -42,10 +41,9 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="button">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">View</property>
-                <signal name="clicked" handler="_goToLinkedLocation"/>
               </object>
             </child>
           </object>
