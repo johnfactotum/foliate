@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-17 12:42+0800\n"
+"POT-Creation-Date: 2020-04-07 10:49+0800\n"
 "PO-Revision-Date: 2019-06-15 15:30+0800\n"
 "Last-Translator: John Factotum\n"
 "Language-Team: none\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:104
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:105
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
@@ -38,36 +38,36 @@ msgstr ""
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook;Book;EPUB;Viewer;Reader;電子書;書;檢視器;閱讀器;"
 
-#: src/main.js:79
+#: src/main.js:80
 msgid "All Files"
 msgstr "所有檔案"
 
-#: src/main.js:83
+#: src/main.js:84
 msgid "E-book Files"
 msgstr "電子書檔案"
 
-#: src/main.js:89
+#: src/main.js:90
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: src/main.js:103
+#: src/main.js:104
 msgid "translator-credits"
 msgstr ""
 
-#: src/main.js:105 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:106 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "一個簡單而現代化的電子書閱讀器"
 
-#: src/window.js:119
+#: src/window.js:121
 #, fuzzy
 msgid "Leave fullscreen"
 msgstr "切換全螢幕"
 
-#: src/window.js:122 src/ui/mainMenu.ui:84
+#: src/window.js:124 src/ui/mainMenu.ui:84
 msgid "Fullscreen"
 msgstr "全螢幕"
 
-#: src/window.js:174 src/window.js:175
+#: src/window.js:182 src/window.js:183
 #, javascript-format
 msgid "of %d"
 msgstr "共 %d"
@@ -129,24 +129,24 @@ msgstr "筆記："
 msgid " Note: "
 msgstr "筆記："
 
-#: src/lookup.js:90
+#: src/lookup.js:96
 msgid "Search on Wikipedia"
 msgstr "搜尋維基百科"
 
-#: src/lookup.js:212
+#: src/lookup.js:218
 msgid "Source: "
 msgstr ""
 
-#: src/lookup.js:272
+#: src/lookup.js:278
 msgid "Wiktionary (English)"
 msgstr "維基詞典（英語）"
 
-#: src/lookup.js:332
+#: src/lookup.js:340
 #, fuzzy
 msgid "Search on Wiktionary"
 msgstr "在維基詞典上檢視"
 
-#: src/lookup.js:355
+#: src/lookup.js:363
 #, fuzzy
 msgid "Translation by Google Translate"
 msgstr "翻譯來自 Google 翻譯"
@@ -219,50 +219,50 @@ msgstr ""
 msgid "Change highlight color"
 msgstr ""
 
-#: src/ui/annotationBox.ui:64 src/ui/annotationRow.ui:53
+#: src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookmarkRow.ui:44
 msgid "Remove"
 msgstr "移除"
 
-#: src/ui/annotationBox.ui:100
+#: src/ui/annotationBox.ui:98
 msgid "Choose custom color"
 msgstr ""
 
-#: src/ui/contentsStack.ui:40
+#: src/ui/contentsStack.ui:39
 #, fuzzy
 msgid "Table of Contents"
 msgstr "目錄"
 
-#: src/ui/contentsStack.ui:75
+#: src/ui/contentsStack.ui:74
 msgid "No annotations"
 msgstr "沒有註解"
 
-#: src/ui/contentsStack.ui:87
+#: src/ui/contentsStack.ui:86
 #, fuzzy
 msgid "Select some text to add annotations."
 msgstr "選取一些文字以新增註解"
 
-#: src/ui/contentsStack.ui:120
+#: src/ui/contentsStack.ui:118
 msgid "Annotations"
 msgstr "註解"
 
-#: src/ui/contentsStack.ui:155
+#: src/ui/contentsStack.ui:153
 msgid "No bookmarks"
 msgstr "沒有書籤"
 
-#: src/ui/contentsStack.ui:167
+#: src/ui/contentsStack.ui:165
 msgid "Add some bookmarks to see them here."
 msgstr "新增書籤之後，就可以在這裡檢視它們"
 
-#: src/ui/contentsStack.ui:201 src/ui/shortcutsWindow.ui:57
+#: src/ui/contentsStack.ui:198 src/ui/shortcutsWindow.ui:57
 msgid "Bookmark current location"
 msgstr "將目前位置加入書籤"
 
-#: src/ui/contentsStack.ui:213
+#: src/ui/contentsStack.ui:210
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: src/ui/dictionaryBox.ui:65
+#: src/ui/dictionaryBox.ui:64
 #, fuzzy
 msgid "No definitions found"
 msgstr "無法找到定義。"
@@ -303,30 +303,30 @@ msgstr "匯出"
 msgid "Choose export format:"
 msgstr "選擇匯出格式："
 
-#: src/ui/findBox.ui:18
+#: src/ui/findBox.ui:16
 msgid "All chapters"
 msgstr "所有章節"
 
-#: src/ui/findBox.ui:25
+#: src/ui/findBox.ui:22
 #, fuzzy
 msgid "Current chapter"
 msgstr "目前章節"
 
-#: src/ui/footnotePopover.ui:37 src/ui/mainMenu.ui:511
+#: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:511
 msgid "Footnote Preview"
 msgstr ""
 
-#: src/ui/footnotePopover.ui:47 src/ui/shortcutsWindow.ui:88
+#: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:88
 #: src/ui/wikipediaBox.ui:107
 msgid "View"
 msgstr "檢視"
 
 #: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:59
-#: src/ui/selectionPopover.ui:20
+#: src/ui/selectionPopover.ui:19
 msgid "Copy"
 msgstr "複製"
 
-#: src/ui/imageViewer.ui:46
+#: src/ui/imageViewer.ui:45
 #, fuzzy
 msgid "Save as"
 msgstr "儲存檔案"
@@ -430,7 +430,7 @@ msgid "Full Justification"
 msgstr "左右對齊"
 
 #: src/ui/mainMenu.ui:477
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
 #, fuzzy
 msgid "Auto-hyphenation"
 msgstr "自動斷字"
@@ -523,54 +523,54 @@ msgstr "章節剩餘 %d 分鐘"
 msgid "Chapter"
 msgstr "所有章節"
 
-#: src/ui/navBar.ui:135 src/ui/navBar.ui:325 src/ui/preferenceWindow.ui:19
+#: src/ui/navBar.ui:134 src/ui/navBar.ui:321 src/ui/preferenceWindow.ui:19
 #, fuzzy
 msgid "Location"
 msgstr "前往連結位置"
 
-#: src/ui/navBar.ui:175
+#: src/ui/navBar.ui:173
 msgid "CFI"
 msgstr ""
 
-#: src/ui/navBar.ui:176
+#: src/ui/navBar.ui:174
 msgid "EPUB Canonical Fragment Identifier"
 msgstr ""
 
-#: src/ui/navBar.ui:216
+#: src/ui/navBar.ui:213
 msgid "Go to beginning of book"
 msgstr ""
 
-#: src/ui/navBar.ui:230
+#: src/ui/navBar.ui:227
 #, fuzzy
 msgid "Go to previous chapter"
 msgstr "前往上一頁"
 
-#: src/ui/navBar.ui:244
+#: src/ui/navBar.ui:241
 #, fuzzy
 msgid "Go to next chapter"
 msgstr "前往下一頁"
 
-#: src/ui/navBar.ui:258
+#: src/ui/navBar.ui:255
 msgid "Go to end of book"
 msgstr ""
 
-#: src/ui/navBar.ui:280 src/ui/shortcutsWindow.ui:149
+#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:149
 #: src/ui/shortcutsWindow.ui:185
 #, fuzzy
 msgid "Go to previous page"
 msgstr "前往上一頁"
 
-#: src/ui/navBar.ui:294 src/ui/shortcutsWindow.ui:156
+#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:156
 msgid "Go back to previous location"
 msgstr "返回先前位置"
 
-#: src/ui/navBar.ui:368 src/ui/shortcutsWindow.ui:142
+#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:142
 #: src/ui/shortcutsWindow.ui:178
 #, fuzzy
 msgid "Go to next page"
 msgstr "前往下一頁"
 
-#: src/ui/navBar.ui:383
+#: src/ui/navBar.ui:377
 msgid "Text-to-speech"
 msgstr "文字轉語音"
 
@@ -600,7 +600,7 @@ msgstr "不做任何事"
 msgid "Show menu"
 msgstr "顯示選單"
 
-#: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:35
+#: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:33
 msgid "Highlight"
 msgstr "註解"
 
@@ -614,7 +614,7 @@ msgstr "查詢維基百科"
 msgid "Look up in Wikipedia"
 msgstr "查詢維基百科"
 
-#: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:95
+#: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:93
 msgid "Translate"
 msgstr "翻譯"
 
@@ -623,7 +623,7 @@ msgstr "翻譯"
 msgid "Find in book"
 msgstr "搜尋書籍內容"
 
-#: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:61
+#: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:59
 msgid "Speak"
 msgstr ""
 
@@ -641,62 +641,66 @@ msgid "Reading"
 msgstr "繼續閱讀"
 
 #: src/ui/preferenceWindow.ui:163
+msgid "Turn page on tap"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:186
 msgid "Left footer"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:197
+#: src/ui/preferenceWindow.ui:220
 msgid "Right footer"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:231
+#: src/ui/preferenceWindow.ui:254
 msgid "When a word is selected"
 msgstr "選取一個單字時"
 
-#: src/ui/preferenceWindow.ui:265
+#: src/ui/preferenceWindow.ui:288
 #, fuzzy
 msgid "When multiple words are selected"
 msgstr "選取一個單字時"
 
-#: src/ui/preferenceWindow.ui:300
+#: src/ui/preferenceWindow.ui:323
 msgid "Text-to-speech command"
 msgstr "文字轉語音指令"
 
-#: src/ui/preferenceWindow.ui:328
+#: src/ui/preferenceWindow.ui:351
 msgid "Interface"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:344
+#: src/ui/preferenceWindow.ui:367
 #, fuzzy
 msgid ""
 "Use traditional titlebar (experimental)\n"
 "(requires restart)"
 msgstr "使用側邊欄（須重新啟動）"
 
-#: src/ui/preferenceWindow.ui:368
+#: src/ui/preferenceWindow.ui:391
 #, fuzzy
 msgid "Use sidebar"
 msgstr "顯示/隱藏側邊欄"
 
-#: src/ui/preferenceWindow.ui:391
+#: src/ui/preferenceWindow.ui:414
 #, fuzzy
 msgid "Auto-hide header bar"
 msgstr "自動隱藏游標"
 
-#: src/ui/selectionPopover.ui:49
+#: src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr ""
 
-#: src/ui/selectionPopover.ui:81
+#: src/ui/selectionPopover.ui:79
 #, fuzzy
 msgid "Look Up in Dictionary"
 msgstr "字典"
 
-#: src/ui/selectionPopover.ui:88
+#: src/ui/selectionPopover.ui:86
 #, fuzzy
 msgid "Look Up in Wikipedia"
 msgstr "查詢維基百科"
 
-#: src/ui/selectionPopover.ui:107
+#: src/ui/selectionPopover.ui:105
 msgid "Speak from Here"
 msgstr ""
 
@@ -809,419 +813,419 @@ msgstr "移除選取的主題"
 msgid "Cannot retrieve translation"
 msgstr "無法取得翻譯。"
 
-#: src/ui/translationBox.ui:128
+#: src/ui/translationBox.ui:127
 msgid "Afrikaans"
 msgstr "南非荷蘭文"
 
-#: src/ui/translationBox.ui:132
+#: src/ui/translationBox.ui:131
 msgid "Albanian"
 msgstr "阿爾巴尼亞文"
 
-#: src/ui/translationBox.ui:136
+#: src/ui/translationBox.ui:135
 msgid "Amharic"
 msgstr "阿姆哈拉文"
 
-#: src/ui/translationBox.ui:140
+#: src/ui/translationBox.ui:139
 msgid "Arabic"
 msgstr "阿拉伯文"
 
-#: src/ui/translationBox.ui:144
+#: src/ui/translationBox.ui:143
 msgid "Armenian"
 msgstr "亞美尼亞文"
 
-#: src/ui/translationBox.ui:148
+#: src/ui/translationBox.ui:147
 msgid "Azerbaijani"
 msgstr "亞塞拜然文"
 
-#: src/ui/translationBox.ui:152
+#: src/ui/translationBox.ui:151
 msgid "Basque"
 msgstr "巴斯克文"
 
-#: src/ui/translationBox.ui:156
+#: src/ui/translationBox.ui:155
 msgid "Belarusian"
 msgstr "白俄羅斯語"
 
-#: src/ui/translationBox.ui:160
+#: src/ui/translationBox.ui:159
 msgid "Bengali"
 msgstr "孟加拉文"
 
-#: src/ui/translationBox.ui:164
+#: src/ui/translationBox.ui:163
 msgid "Bosnian"
 msgstr "波士尼亞文"
 
-#: src/ui/translationBox.ui:168
+#: src/ui/translationBox.ui:167
 msgid "Bulgarian"
 msgstr "保加利亞文"
 
-#: src/ui/translationBox.ui:172
+#: src/ui/translationBox.ui:171
 msgid "Catalan"
 msgstr "加泰隆尼亞文"
 
-#: src/ui/translationBox.ui:176
+#: src/ui/translationBox.ui:175
 msgid "Cebuano"
 msgstr "宿霧文"
 
-#: src/ui/translationBox.ui:180
+#: src/ui/translationBox.ui:179
 msgid "Chinese (Simplified)"
 msgstr "中文 (簡體)"
 
-#: src/ui/translationBox.ui:184
+#: src/ui/translationBox.ui:183
 msgid "Chinese (Traditional)"
 msgstr "中文 (繁體)"
 
-#: src/ui/translationBox.ui:188
+#: src/ui/translationBox.ui:187
 msgid "Corsican"
 msgstr "科西嘉文"
 
-#: src/ui/translationBox.ui:192
+#: src/ui/translationBox.ui:191
 msgid "Croatian"
 msgstr "克羅埃西亞文"
 
-#: src/ui/translationBox.ui:196
+#: src/ui/translationBox.ui:195
 msgid "Czech"
 msgstr "捷克文"
 
-#: src/ui/translationBox.ui:200
+#: src/ui/translationBox.ui:199
 msgid "Danish"
 msgstr "丹麥文"
 
-#: src/ui/translationBox.ui:204
+#: src/ui/translationBox.ui:203
 msgid "Dutch"
 msgstr "荷蘭語"
 
-#: src/ui/translationBox.ui:208
+#: src/ui/translationBox.ui:207
 msgid "English"
 msgstr "英文"
 
-#: src/ui/translationBox.ui:212
+#: src/ui/translationBox.ui:211
 msgid "Esperanto"
 msgstr "世界語"
 
-#: src/ui/translationBox.ui:216
+#: src/ui/translationBox.ui:215
 msgid "Estonian"
 msgstr "愛沙尼亞文"
 
-#: src/ui/translationBox.ui:220
+#: src/ui/translationBox.ui:219
 msgid "Finnish"
 msgstr "芬蘭文"
 
-#: src/ui/translationBox.ui:224
+#: src/ui/translationBox.ui:223
 msgid "French"
 msgstr "法文"
 
-#: src/ui/translationBox.ui:228
+#: src/ui/translationBox.ui:227
 msgid "Frisian"
 msgstr "弗利然文"
 
-#: src/ui/translationBox.ui:232
+#: src/ui/translationBox.ui:231
 msgid "Galician"
 msgstr "加里西亞語"
 
-#: src/ui/translationBox.ui:236
+#: src/ui/translationBox.ui:235
 msgid "Georgian"
 msgstr "喬治亞文"
 
-#: src/ui/translationBox.ui:240
+#: src/ui/translationBox.ui:239
 msgid "German"
 msgstr "德文"
 
-#: src/ui/translationBox.ui:244
+#: src/ui/translationBox.ui:243
 msgid "Greek"
 msgstr "希臘文"
 
-#: src/ui/translationBox.ui:248
+#: src/ui/translationBox.ui:247
 msgid "Gujarati"
 msgstr "古吉拉特文"
 
-#: src/ui/translationBox.ui:252
+#: src/ui/translationBox.ui:251
 msgid "Haitian Creole"
 msgstr "海地克里奧文"
 
-#: src/ui/translationBox.ui:256
+#: src/ui/translationBox.ui:255
 msgid "Hausa"
 msgstr "豪薩文"
 
-#: src/ui/translationBox.ui:260
+#: src/ui/translationBox.ui:259
 msgid "Hawaiian"
 msgstr "夏威夷文"
 
-#: src/ui/translationBox.ui:264
+#: src/ui/translationBox.ui:263
 msgid "Hebrew"
 msgstr "希伯來文"
 
-#: src/ui/translationBox.ui:268
+#: src/ui/translationBox.ui:267
 msgid "Hindi"
 msgstr "北印度文"
 
-#: src/ui/translationBox.ui:272
+#: src/ui/translationBox.ui:271
 msgid "Hmong"
 msgstr "苗文"
 
-#: src/ui/translationBox.ui:276
+#: src/ui/translationBox.ui:275
 msgid "Hungarian"
 msgstr "匈牙利文"
 
-#: src/ui/translationBox.ui:280
+#: src/ui/translationBox.ui:279
 msgid "Icelandic"
 msgstr "冰島文"
 
-#: src/ui/translationBox.ui:284
+#: src/ui/translationBox.ui:283
 msgid "Igbo"
 msgstr "伊布文"
 
-#: src/ui/translationBox.ui:288
+#: src/ui/translationBox.ui:287
 msgid "Indonesian"
 msgstr "印尼文"
 
-#: src/ui/translationBox.ui:292
+#: src/ui/translationBox.ui:291
 msgid "Irish"
 msgstr "愛爾蘭文"
 
-#: src/ui/translationBox.ui:296
+#: src/ui/translationBox.ui:295
 msgid "Italian"
 msgstr "義大利文"
 
-#: src/ui/translationBox.ui:300
+#: src/ui/translationBox.ui:299
 msgid "Japanese"
 msgstr "日文"
 
-#: src/ui/translationBox.ui:304
+#: src/ui/translationBox.ui:303
 msgid "Javanese"
 msgstr "爪哇文"
 
-#: src/ui/translationBox.ui:308
+#: src/ui/translationBox.ui:307
 msgid "Kannada"
 msgstr "卡納達文"
 
-#: src/ui/translationBox.ui:312
+#: src/ui/translationBox.ui:311
 msgid "Kazakh"
 msgstr "哈薩克文"
 
-#: src/ui/translationBox.ui:316
+#: src/ui/translationBox.ui:315
 msgid "Khmer"
 msgstr "高棉文"
 
-#: src/ui/translationBox.ui:320
+#: src/ui/translationBox.ui:319
 msgid "Korean"
 msgstr "韓文"
 
-#: src/ui/translationBox.ui:324
+#: src/ui/translationBox.ui:323
 msgid "Kurdish"
 msgstr "庫德語"
 
-#: src/ui/translationBox.ui:328
+#: src/ui/translationBox.ui:327
 msgid "Kyrgyz"
 msgstr "吉爾吉斯文"
 
-#: src/ui/translationBox.ui:332
+#: src/ui/translationBox.ui:331
 msgid "Lao"
 msgstr "寮文"
 
-#: src/ui/translationBox.ui:336
+#: src/ui/translationBox.ui:335
 msgid "Latin"
 msgstr "拉丁文"
 
-#: src/ui/translationBox.ui:340
+#: src/ui/translationBox.ui:339
 msgid "Latvian"
 msgstr "拉脫維亞文"
 
-#: src/ui/translationBox.ui:344
+#: src/ui/translationBox.ui:343
 msgid "Lithuanian"
 msgstr "立陶宛文"
 
-#: src/ui/translationBox.ui:348
+#: src/ui/translationBox.ui:347
 msgid "Luxembourgish"
 msgstr "盧森堡文"
 
-#: src/ui/translationBox.ui:352
+#: src/ui/translationBox.ui:351
 msgid "Macedonian"
 msgstr "馬其頓文"
 
-#: src/ui/translationBox.ui:356
+#: src/ui/translationBox.ui:355
 msgid "Malagasy"
 msgstr "馬達加斯加文"
 
-#: src/ui/translationBox.ui:360
+#: src/ui/translationBox.ui:359
 msgid "Malay"
 msgstr "馬來文"
 
-#: src/ui/translationBox.ui:364
+#: src/ui/translationBox.ui:363
 msgid "Malayalam"
 msgstr "馬拉雅拉姆文"
 
-#: src/ui/translationBox.ui:368
+#: src/ui/translationBox.ui:367
 msgid "Maltese"
 msgstr "馬耳他文"
 
-#: src/ui/translationBox.ui:372
+#: src/ui/translationBox.ui:371
 msgid "Maori"
 msgstr "毛利文"
 
-#: src/ui/translationBox.ui:376
+#: src/ui/translationBox.ui:375
 msgid "Marathi"
 msgstr "馬拉地文"
 
-#: src/ui/translationBox.ui:380
+#: src/ui/translationBox.ui:379
 msgid "Mongolian"
 msgstr "蒙古文"
 
-#: src/ui/translationBox.ui:384
+#: src/ui/translationBox.ui:383
 msgid "Myanmar (Burmese)"
 msgstr "緬甸文"
 
-#: src/ui/translationBox.ui:388
+#: src/ui/translationBox.ui:387
 msgid "Nepali"
 msgstr "尼泊爾文"
 
-#: src/ui/translationBox.ui:392
+#: src/ui/translationBox.ui:391
 msgid "Norwegian"
 msgstr "挪威文"
 
-#: src/ui/translationBox.ui:396
+#: src/ui/translationBox.ui:395
 msgid "Nyanja (Chichewa)"
 msgstr "尼揚賈文 (齊切瓦文)"
 
-#: src/ui/translationBox.ui:400
+#: src/ui/translationBox.ui:399
 msgid "Pashto"
 msgstr "帕施圖文"
 
-#: src/ui/translationBox.ui:404
+#: src/ui/translationBox.ui:403
 msgid "Persian"
 msgstr "波斯文"
 
-#: src/ui/translationBox.ui:408
+#: src/ui/translationBox.ui:407
 msgid "Polish"
 msgstr "波蘭文"
 
-#: src/ui/translationBox.ui:412
+#: src/ui/translationBox.ui:411
 msgid "Portuguese (Portugal, Brazil)"
 msgstr "葡萄牙文 (葡萄牙、巴西)"
 
-#: src/ui/translationBox.ui:416
+#: src/ui/translationBox.ui:415
 msgid "Punjabi"
 msgstr "旁遮普文"
 
-#: src/ui/translationBox.ui:420
+#: src/ui/translationBox.ui:419
 msgid "Romanian"
 msgstr "旁遮普文"
 
-#: src/ui/translationBox.ui:424
+#: src/ui/translationBox.ui:423
 msgid "Russian"
 msgstr "俄文"
 
-#: src/ui/translationBox.ui:428
+#: src/ui/translationBox.ui:427
 msgid "Samoan"
 msgstr "薩摩亞文"
 
-#: src/ui/translationBox.ui:432
+#: src/ui/translationBox.ui:431
 msgid "Scots Gaelic"
 msgstr "蘇格蘭蓋爾文"
 
-#: src/ui/translationBox.ui:436
+#: src/ui/translationBox.ui:435
 msgid "Serbian"
 msgstr "塞爾維亞文"
 
-#: src/ui/translationBox.ui:440
+#: src/ui/translationBox.ui:439
 msgid "Sesotho"
 msgstr "瑟索托文"
 
-#: src/ui/translationBox.ui:444
+#: src/ui/translationBox.ui:443
 msgid "Shona"
 msgstr "修納文"
 
-#: src/ui/translationBox.ui:448
+#: src/ui/translationBox.ui:447
 msgid "Sindhi"
 msgstr "信德文"
 
-#: src/ui/translationBox.ui:452
+#: src/ui/translationBox.ui:451
 msgid "Sinhala (Sinhalese)"
 msgstr "僧伽羅文 (錫蘭文)"
 
-#: src/ui/translationBox.ui:456
+#: src/ui/translationBox.ui:455
 msgid "Slovak"
 msgstr "斯洛伐克文"
 
-#: src/ui/translationBox.ui:460
+#: src/ui/translationBox.ui:459
 msgid "Slovenian"
 msgstr "斯洛維尼亞文"
 
-#: src/ui/translationBox.ui:464
+#: src/ui/translationBox.ui:463
 msgid "Somali"
 msgstr "索馬利亞文"
 
-#: src/ui/translationBox.ui:468
+#: src/ui/translationBox.ui:467
 msgid "Spanish"
 msgstr "西班牙文"
 
-#: src/ui/translationBox.ui:472
+#: src/ui/translationBox.ui:471
 msgid "Sundanese"
 msgstr "巽他文"
 
-#: src/ui/translationBox.ui:476
+#: src/ui/translationBox.ui:475
 msgid "Swahili"
 msgstr "斯瓦希里文"
 
-#: src/ui/translationBox.ui:480
+#: src/ui/translationBox.ui:479
 msgid "Swedish"
 msgstr "瑞典文"
 
-#: src/ui/translationBox.ui:484
+#: src/ui/translationBox.ui:483
 msgid "Tagalog (Filipino)"
 msgstr "塔加路文 (菲律賓文)"
 
-#: src/ui/translationBox.ui:488
+#: src/ui/translationBox.ui:487
 msgid "Tajik"
 msgstr "塔吉克文"
 
-#: src/ui/translationBox.ui:492
+#: src/ui/translationBox.ui:491
 msgid "Tamil"
 msgstr "泰米爾文"
 
-#: src/ui/translationBox.ui:496
+#: src/ui/translationBox.ui:495
 msgid "Telugu"
 msgstr "泰盧固文"
 
-#: src/ui/translationBox.ui:500
+#: src/ui/translationBox.ui:499
 msgid "Thai"
 msgstr "泰文"
 
-#: src/ui/translationBox.ui:504
+#: src/ui/translationBox.ui:503
 msgid "Turkish"
 msgstr "土耳其文"
 
-#: src/ui/translationBox.ui:508
+#: src/ui/translationBox.ui:507
 msgid "Ukrainian"
 msgstr "烏克蘭文"
 
-#: src/ui/translationBox.ui:512
+#: src/ui/translationBox.ui:511
 msgid "Urdu"
 msgstr "烏都文"
 
-#: src/ui/translationBox.ui:516
+#: src/ui/translationBox.ui:515
 msgid "Uzbek"
 msgstr "烏茲別克文"
 
-#: src/ui/translationBox.ui:520
+#: src/ui/translationBox.ui:519
 msgid "Vietnamese"
 msgstr "越南文"
 
-#: src/ui/translationBox.ui:524
+#: src/ui/translationBox.ui:523
 msgid "Welsh"
 msgstr "威爾斯文"
 
-#: src/ui/translationBox.ui:528
+#: src/ui/translationBox.ui:527
 msgid "Xhosa"
 msgstr "柯薩文"
 
-#: src/ui/translationBox.ui:532
+#: src/ui/translationBox.ui:531
 msgid "Yiddish"
 msgstr "意第緒文"
 
-#: src/ui/translationBox.ui:536
+#: src/ui/translationBox.ui:535
 msgid "Yoruba"
 msgstr "約魯巴文"
 
-#: src/ui/translationBox.ui:540
+#: src/ui/translationBox.ui:539
 msgid "Zulu"
 msgstr "祖魯文"
 
@@ -1270,209 +1274,393 @@ msgstr "快速字典查詢"
 msgid "John Factotum"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-msgid ""
-"Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:48
+msgid "Interface:"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
-msgid "Improved Wiktionary lookup, now with links and example sentences"
+msgid "A redesigned interface that works better for smaller screens"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
-msgid "Improved popover footnote extraction and formatting"
+msgid "Improved fullscreen mode with an overlaid headerbar"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
-msgid "Added option to export annotations to BibTeX"
+msgid ""
+"The headerbar and the progress bar now auto-hide, for a distraction-free "
+"reading experience"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
+msgid ""
+"Various location information, as well as a clock, can now be displayed in "
+"the footer"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
+msgid ""
+"A new location popover (Ctrl + L) that shows reading time estimates and "
+"allows skipping to locations"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
+msgid ""
+"E-reader style navigation: go to the previous or next page by tapping on the "
+"left or right part of the view; tap on the middle to toggle header bar and "
+"progress bar"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
+msgid "Annotations, bookmarks, and find results now show chapter titles"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
+msgid "When looking up words in dictionaries, the query can now be edited"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
+msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
-msgid "Fixed table of contents navigation not working with some books"
+msgid ""
+"A new traditional menubar, which may be displayed depending on the desktop "
+"environment"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
-msgid "Fixed not being able to zoom images with Kindle books"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
-msgid "Fixed not being able to open books with .epub3 filename extension"
+msgid ""
+"Option to use a traditional titlebar and menubar instead of a headerbar "
+"(experimental)"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
-msgid "Fixed temporary directory not being cleaned after closing"
+#, fuzzy
+msgid "Reading:"
+msgstr "繼續閱讀"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
+msgid "Continuous scrolling layout"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
+msgid ""
+"Option to show decorative shadows that mimic the appearance of a real book"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
+msgid "Ability to zoom in and zoom out"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
+msgid "Improved image viewer with \"save as\" option"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
+msgid "Open copies of a book in new windows (Ctrl + N)"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
-msgid "Fixed F9 shortcut not working"
+msgid "Reload book (Ctrl + R)"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:102
-#, fuzzy
-msgid "Updated translations"
-msgstr "無法取得翻譯。"
+msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
+msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
-msgid "External resources and JavaScript are now blocked by default"
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
+msgid "Text selection:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
+msgid "Ability to select text across pages"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
+#, fuzzy
+msgid "Find selected text in book"
+msgstr "搜尋書籍內容"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
+msgid "Speak selected text or from the selected locatio"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
 #, fuzzy
-msgid "Basic text-to-speech support"
-msgstr "開始/停止文字轉語音"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
-msgid "Export annotations to HTML, plain text, or JSON"
-msgstr ""
+msgid "Annotations:"
+msgstr "註解"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
-msgid "Support for viewing .mobi, .azw, and .azw3 files"
+msgid "Spellcheck notes"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
+#, fuzzy
+msgid "Export annotations to Markdown"
+msgstr "匯出註解"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
+msgid "Options to use custom colors for highlights"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:84
+msgid "For publishers and developers:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
+msgid ""
+"Support for Apple Books theme attribute, which allows books to detect themes "
+"without JavaScript"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
-msgid "New alternative sidebar UI"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
-msgid "Lookup words in Wikipedia and offline dictionaries"
+msgid "WebKit's developer tools can be enabled"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+msgid "Breaking changes:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+msgid "The settings schemas has been reorganized"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
+msgid "The format for custom themes has changed"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
+msgid "Locations are now 1024 characters in size"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
+msgid "Bug fixes:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:97
+msgid "Fixed not restoring exact last location"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
+msgid "Fixed navigation not working with scrolled layout"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
+msgid "Fixed font size not changing when the book uses absolute-size keywords"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:100
+msgid "Fixed text cut off at margin edge"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
+msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
+msgid ""
+"Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
+msgid "Improved Wiktionary lookup, now with links and example sentences"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
+msgid "Improved popover footnote extraction and formatting"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
+msgid "Added option to export annotations to BibTeX"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:118
+msgid "Fixed table of contents navigation not working with some books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:119
+msgid "Fixed not being able to zoom images with Kindle books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
+msgid "Fixed not being able to open books with .epub3 filename extension"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
+msgid "Fixed temporary directory not being cleaned after closing"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:128
+msgid "Fixed F9 shortcut not working"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
+#, fuzzy
+msgid "Updated translations"
+msgstr "無法取得翻譯。"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
+msgid "External resources and JavaScript are now blocked by default"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
+#, fuzzy
+msgid "Basic text-to-speech support"
+msgstr "開始/停止文字轉語音"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:138
+msgid "Export annotations to HTML, plain text, or JSON"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:139
+msgid "Support for viewing .mobi, .azw, and .azw3 files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:146
+msgid "New alternative sidebar UI"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:147
+msgid "Lookup words in Wikipedia and offline dictionaries"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
 #, fuzzy
 msgid "Translate passages with Google Translate"
 msgstr "翻譯來自 Google 翻譯"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
 #, fuzzy
 msgid "Configure default action when words are selected"
 msgstr "選取多個單字時"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:150
 msgid "Experimental popup footnote support"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
 msgid "Ability to find within only the current chapter"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
 msgid "Fixed CPU spikes when left open"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
 msgid "Fixed highlights not rendering at the correct positions"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:160
 msgid "Fixed crashing when opening files"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:168
 msgid "Customize page margins and brightness"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
 msgid "Tweak the theme colors, or add your own custom themes"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
 msgid "Ability to zoom and copy images"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
 #, fuzzy
 msgid "Option to auto-hide cursor"
 msgstr "自動隱藏游標"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
 msgid "See reading time left by hovering over the reading progress slider"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:179
 #, fuzzy
 msgid "Fixed some books not rendering sometimes"
 msgstr "開啟電子書以開始閱讀"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
 msgid "Fixed images being too wide in some cases"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:186
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:208
 msgid "New features:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:130
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
 msgid "Option to switch between left and full justification"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:190
 msgid "New layout option: single-column paginated view"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
 msgid "Fixed:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:135
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:194
 msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:201
 msgid "Allow font size adjustment when using publisher fonts"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
 msgid ""
 "Fixed reading progress slider not appearing after localStorage quota is "
 "exceeded"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
 msgid "Touchpad gestures and ability to scroll through pages"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
 #, fuzzy
 msgid "Fullscreen mode"
 msgstr "全螢幕"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:212
 #, fuzzy
 msgid "Option to hide reading progress bar"
 msgstr "顯示/隱藏閱讀進度列"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:154
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
 #, fuzzy
 msgid "Option to disable dictionary"
 msgstr "查詢字典"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:155
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:214
 #, fuzzy
 msgid "Option to use publisher font"
 msgstr "使用出版社字體"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:157
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
 msgid "Fixes:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:218
 msgid "Restoring reading progress is now smooth and jank-free"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:160
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
 #, fuzzy
 msgid "Fixed custom styles not applying in some cases"
 msgstr "開啟電子書以開始閱讀"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:225
 msgid "Fixed invalid AppData file"
 msgstr "修正無效的 AppData 檔案"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
 msgid "Initial release"
 msgstr "首次發布"
 
