@@ -353,7 +353,7 @@ const MainOverlay = GObject.registerClass({
         this._recentMenu.connect('item-activated', () => {
             const uri = this._recentMenu.get_current_uri()
             const file = Gio.File.new_for_uri(uri)
-            this._epub.open(file)
+            this.get_toplevel().open(file)
         })
     }
     set epub(epub) {
