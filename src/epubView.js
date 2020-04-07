@@ -559,7 +559,7 @@ var EpubView = GObject.registerClass({
         this._data.disconnectAll()
     }
     _load() {
-        this.emit('book-loading')
+        if (this._file) this.emit('book-loading')
         this._ready = false
         const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
         this._webView.load_uri(GLib.filename_to_uri(viewer, null))
@@ -590,6 +590,7 @@ var EpubView = GObject.registerClass({
         debug(type)
         switch (type) {
             case 'ready': {
+                if (!this._file) return
                 this._ready = true
                 this._run(`doubleClickTime =
                     ${Gtk.Settings.get_default().gtk_double_click_time}`)
