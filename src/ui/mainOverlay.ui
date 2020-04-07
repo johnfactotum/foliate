@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <object class="GtkRecentFilter" id="recentFilter">
+    <mime-types>
+      <mime-type>application/epub+zip</mime-type>
+      <mime-type>application/x-mobipocket-ebook</mime-type>
+      <mime-type>application/vnd.amazon.mobi8-ebook</mime-type>
+    </mime-types>
+  </object>
+  <object class="GtkRecentChooserMenu" id="recentMenu">
+    <property name="visible">True</property>
+    <property name="show-tips">True</property>
+    <property name="filter">recentFilter</property>
+    <property name="sort-type">mru</property>
+  </object>
   <!--
   we use an overlay and set the main area's opacity to 0,
   because apparently Epub.js won't load properly if the webView is hidden
@@ -47,11 +60,42 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="action-name">app.open</property>
-                <property name="halign">center</property>
-                <property name="label" translatable="yes">Open File…</property>
+                <property name="spacing">12</property>
+                <child>
+                  <object class="GtkButton">
+                    <property name="visible">True</property>
+                    <property name="action-name">app.open</property>
+                    <property name="halign">center</property>
+                    <property name="label" translatable="yes">Open File…</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkMenuButton">
+                    <property name="visible">True</property>
+                    <property name="popup">recentMenu</property>
+                    <property name="halign">center</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Recent Files</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="icon-name">pan-down-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
           </object>

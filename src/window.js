@@ -314,7 +314,8 @@ const MainOverlay = GObject.registerClass({
     GTypeName: 'FoliateMainOverlay',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainOverlay.ui',
     InternalChildren: [
-        'overlayStack', 'mainBox', 'bookBox', 'contentBox', 'divider'
+        'overlayStack', 'mainBox', 'bookBox', 'contentBox', 'divider',
+        'recentMenu'
     ]
 }, class MainOverlay extends Gtk.Overlay {
     _init(params) {
@@ -348,6 +349,12 @@ const MainOverlay = GObject.registerClass({
         const hide = () => a.stayReveal(false)
         this._navBar.locationMenu.connect('notify::visible', show)
         this._navBar.locationMenu.connect('closed', hide)
+
+        this._recentMenu.connect('item-activated', () => {
+            const uri = this._recentMenu.get_current_uri()
+            const file = Gio.File.new_for_uri(uri)
+            this._epub.open(file)
+        })
     }
     set epub(epub) {
         this._epub = epub
