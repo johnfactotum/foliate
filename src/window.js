@@ -849,6 +849,8 @@ var Window = GObject.registerClass({
     }
     _connectEpub() {
         this._epub.connect('click', (_, width, position) => {
+            const turnPageOnTap = settings.get_boolean('turn-page-on-tap')
+            if (!turnPageOnTap) return
             const place = position / width
             if (this._highlightMenu && this._highlightMenu.visible) return
             else if (place > 2/3) return this._epub.next()

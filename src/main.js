@@ -57,6 +57,7 @@ const makeActions = app => ({
         settings.bind('selection-action-single', $('singleActionCombo'), 'active-id', flag)
         settings.bind('selection-action-multiple', $('multipleActionCombo'), 'active-id', flag)
         settings.bind('tts-command', $('ttsEntry'), 'text', flag)
+        settings.bind('turn-page-on-tap', $('turnPageOnTap'), 'state', flag)
 
         const showAHBox = () => {
             $('autohideHeaderbarBox').visible =
