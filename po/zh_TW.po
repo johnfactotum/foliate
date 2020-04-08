@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-07 10:49+0800\n"
-"PO-Revision-Date: 2019-06-15 15:30+0800\n"
+"POT-Creation-Date: 2020-04-08 19:12+0800\n"
+"PO-Revision-Date: 2020-04-08 18:57+0800\n"
 "Last-Translator: John Factotum\n"
 "Language-Team: none\n"
 "Language: zh_TW\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.3\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:105
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
@@ -59,9 +60,8 @@ msgid "A simple and modern eBook viewer"
 msgstr "一個簡單而現代化的電子書閱讀器"
 
 #: src/window.js:121
-#, fuzzy
 msgid "Leave fullscreen"
-msgstr "切換全螢幕"
+msgstr "離開全螢幕"
 
 #: src/window.js:124 src/ui/mainMenu.ui:84
 msgid "Fullscreen"
@@ -73,12 +73,9 @@ msgid "of %d"
 msgstr "共 %d"
 
 #: src/export.js:31
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr ""
-"註解資料\n"
-"書名：%s\n"
-"作者：%s"
+msgstr "<p>註解</p><h1>%s</h1><h2>%s 著</h2>"
 
 #: src/export.js:33 src/export.js:47 src/export.js:59
 #, javascript-format
@@ -87,21 +84,17 @@ msgid_plural "%d Annotations"
 msgstr[0] "%d 個註解"
 
 #: src/export.js:46
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr ""
-"註解資料\n"
-"書名：%s\n"
-"作者：%s"
+msgstr "《%s》（%s 著）的註解"
 
 #: src/export.js:50
 msgid "Section: "
-msgstr ""
+msgstr "章節："
 
 #: src/export.js:51
-#, fuzzy
 msgid "Highlight: "
-msgstr "註解"
+msgstr "標示："
 
 #: src/export.js:52
 msgid "Text:"
@@ -112,20 +105,15 @@ msgid "Note:"
 msgstr "筆記："
 
 #: src/export.js:58
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr ""
-"註解資料\n"
-"書名：%s\n"
-"作者：%s"
+msgstr "《%s》（%s 著）的註解"
 
 #: src/export.js:92
-#, fuzzy
 msgid "Quote: "
-msgstr "筆記："
+msgstr "引用："
 
 #: src/export.js:92
-#, fuzzy
 msgid " Note: "
 msgstr "筆記："
 
@@ -135,19 +123,17 @@ msgstr "搜尋維基百科"
 
 #: src/lookup.js:218
 msgid "Source: "
-msgstr ""
+msgstr "來源："
 
 #: src/lookup.js:278
 msgid "Wiktionary (English)"
 msgstr "維基詞典（英語）"
 
 #: src/lookup.js:340
-#, fuzzy
 msgid "Search on Wiktionary"
 msgstr "在維基詞典上檢視"
 
 #: src/lookup.js:363
-#, fuzzy
 msgid "Translation by Google Translate"
 msgstr "翻譯來自 Google 翻譯"
 
@@ -185,7 +171,7 @@ msgstr "褐色"
 
 #: src/theme.js:31
 msgid "Gray"
-msgstr ""
+msgstr "灰色"
 
 #: src/theme.js:35
 msgid "Dark"
@@ -217,7 +203,7 @@ msgstr ""
 
 #: src/ui/annotationBox.ui:35
 msgid "Change highlight color"
-msgstr ""
+msgstr "修改顏色"
 
 #: src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookmarkRow.ui:44
@@ -226,10 +212,9 @@ msgstr "移除"
 
 #: src/ui/annotationBox.ui:98
 msgid "Choose custom color"
-msgstr ""
+msgstr "自訂顏色"
 
 #: src/ui/contentsStack.ui:39
-#, fuzzy
 msgid "Table of Contents"
 msgstr "目錄"
 
@@ -238,9 +223,8 @@ msgid "No annotations"
 msgstr "沒有註解"
 
 #: src/ui/contentsStack.ui:86
-#, fuzzy
 msgid "Select some text to add annotations."
-msgstr "選取一些文字以新增註解"
+msgstr "選取一些文字以新增註解。"
 
 #: src/ui/contentsStack.ui:118
 msgid "Annotations"
@@ -252,7 +236,7 @@ msgstr "沒有書籤"
 
 #: src/ui/contentsStack.ui:165
 msgid "Add some bookmarks to see them here."
-msgstr "新增書籤之後，就可以在這裡檢視它們"
+msgstr "新增書籤之後，就可以在這裡檢視它們。"
 
 #: src/ui/contentsStack.ui:198 src/ui/shortcutsWindow.ui:57
 msgid "Bookmark current location"
@@ -263,9 +247,8 @@ msgid "Bookmarks"
 msgstr "書籤"
 
 #: src/ui/dictionaryBox.ui:64
-#, fuzzy
 msgid "No definitions found"
-msgstr "無法找到定義。"
+msgstr "無法找到定義"
 
 #: src/ui/exportWindow.ui:11
 msgid "HTML"
@@ -273,7 +256,7 @@ msgstr "HTML"
 
 #: src/ui/exportWindow.ui:15
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #: src/ui/exportWindow.ui:19
 msgid "Plain Text"
@@ -281,7 +264,7 @@ msgstr "純文字"
 
 #: src/ui/exportWindow.ui:23
 msgid "BibTeX"
-msgstr ""
+msgstr "BibTex"
 
 #: src/ui/exportWindow.ui:27
 msgid "JSON"
@@ -308,13 +291,12 @@ msgid "All chapters"
 msgstr "所有章節"
 
 #: src/ui/findBox.ui:22
-#, fuzzy
 msgid "Current chapter"
 msgstr "目前章節"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:511
 msgid "Footnote Preview"
-msgstr ""
+msgstr "腳註預覽"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:88
 #: src/ui/wikipediaBox.ui:107
@@ -327,9 +309,8 @@ msgid "Copy"
 msgstr "複製"
 
 #: src/ui/imageViewer.ui:45
-#, fuzzy
 msgid "Save as"
-msgstr "儲存檔案"
+msgstr "另存新檔"
 
 #: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
 #: src/ui/shortcutsWindow.ui:199
@@ -338,7 +319,7 @@ msgstr "縮小"
 
 #: src/ui/mainMenu.ui:57
 msgid "Restore zoom"
-msgstr ""
+msgstr "重設縮放"
 
 #: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
 #: src/ui/shortcutsWindow.ui:192
@@ -367,12 +348,11 @@ msgstr "主題"
 
 #: src/ui/mainMenu.ui:238 src/ui/mainMenu.ui:367
 msgid "Advanced"
-msgstr ""
+msgstr "進階"
 
 #: src/ui/mainMenu.ui:250 src/ui/mainMenu.ui:561 src/ui/shortcutsWindow.ui:53
-#, fuzzy
 msgid "Book"
-msgstr "書籤"
+msgstr "書籍"
 
 #: src/ui/mainMenu.ui:262
 msgid "Open…"
@@ -392,19 +372,17 @@ msgstr "關於 Foliate"
 
 #: src/ui/mainMenu.ui:341
 msgid "Add Custom Theme…"
-msgstr ""
+msgstr "新增自訂主題…"
 
 #: src/ui/mainMenu.ui:387
 msgid "Layout"
 msgstr "版面"
 
 #: src/ui/mainMenu.ui:405
-#, fuzzy
 msgid "Automatic"
 msgstr "自動"
 
 #: src/ui/mainMenu.ui:413
-#, fuzzy
 msgid "Single Column"
 msgstr "單頁"
 
@@ -414,16 +392,15 @@ msgstr "捲動"
 
 #: src/ui/mainMenu.ui:429
 msgid "Continuous"
-msgstr ""
+msgstr "連續"
 
 #: src/ui/mainMenu.ui:446
 msgid "Text"
 msgstr "文字"
 
 #: src/ui/mainMenu.ui:463
-#, fuzzy
 msgid "Use Publisher Font"
-msgstr "出版社"
+msgstr "使用出版社字體"
 
 #: src/ui/mainMenu.ui:470
 msgid "Full Justification"
@@ -431,38 +408,32 @@ msgstr "左右對齊"
 
 #: src/ui/mainMenu.ui:477
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
-#, fuzzy
 msgid "Auto-hyphenation"
 msgstr "自動斷字"
 
 #: src/ui/mainMenu.ui:494
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 #: src/ui/mainMenu.ui:518
-#, fuzzy
 msgid "Auto-hide Cursor"
 msgstr "自動隱藏游標"
 
 #: src/ui/mainMenu.ui:525
 msgid "Realistic Shadows"
-msgstr ""
+msgstr "寫實陰影"
 
 #: src/ui/mainMenu.ui:537
-#, fuzzy
 msgid "Allow JavaScript and external resources"
-msgstr ""
-"啟用後將允許 JavaScript 與外部資源載入。\n"
-"這將構成潛在安全與隱私風險。"
+msgstr "允許 JavaScript 與外部資源"
 
 #: src/ui/mainMenu.ui:538
-#, fuzzy
 msgid "Allow Unsafe Content"
-msgstr "允許不安全的內容（不建議）"
+msgstr "允許不安全的內容"
 
 #: src/ui/mainMenu.ui:545
 msgid "Enable Developer Tools"
-msgstr ""
+msgstr "啟用開發者工具"
 
 #: src/ui/mainMenu.ui:571 src/ui/propertiesWindow.ui:4
 msgid "About This Book"
@@ -470,93 +441,86 @@ msgstr "關於這本書"
 
 #: src/ui/mainMenu.ui:583
 msgid "Open a Copy"
-msgstr ""
+msgstr "開啟副本"
 
 #: src/ui/mainMenu.ui:590 src/ui/shortcutsWindow.ui:29
 msgid "Reload"
-msgstr ""
+msgstr "重新載入"
 
 #: src/ui/mainMenu.ui:602
-#, fuzzy
 msgid "Export annotations…"
 msgstr "匯出註解…"
 
-#: src/ui/mainOverlay.ui:33
-#, fuzzy
+#: src/ui/mainOverlay.ui:46
 msgid "No books open"
-msgstr "沒有書籤"
+msgstr "未開啟任何書籍"
 
-#: src/ui/mainOverlay.ui:45
-#, fuzzy
+#: src/ui/mainOverlay.ui:58
 msgid "Open a book to start reading."
-msgstr "開啟電子書以開始閱讀"
+msgstr "開啟電子書以開始閱讀。"
 
-#: src/ui/mainOverlay.ui:54
+#: src/ui/mainOverlay.ui:71
 msgid "Open File…"
 msgstr "開啟檔案…"
 
-#: src/ui/mainOverlay.ui:83
+#: src/ui/mainOverlay.ui:86
+msgid "Recent Files"
+msgstr "最近檔案"
+
+#: src/ui/mainOverlay.ui:127
 msgid "Something's wrong"
-msgstr ""
+msgstr "錯誤"
 
-#: src/ui/mainOverlay.ui:95
-#, fuzzy
+#: src/ui/mainOverlay.ui:139
 msgid "The file cannot be opened."
-msgstr "噢不！無法開啟檔案"
+msgstr "無法開啟檔案。"
 
-#: src/ui/mainOverlay.ui:104
+#: src/ui/mainOverlay.ui:148
 msgid "Open Another File…"
 msgstr "開啟其他檔案…"
 
 #: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
-#, fuzzy
 msgid "Time left in book"
-msgstr "全書剩餘 %d 分鐘"
+msgstr "全書剩餘時間"
 
 #: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
-#, fuzzy
 msgid "Time left in chapter"
-msgstr "章節剩餘 %d 分鐘"
+msgstr "章節剩餘時間"
 
 #: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
-#, fuzzy
 msgid "Chapter"
-msgstr "所有章節"
+msgstr "章節"
 
 #: src/ui/navBar.ui:134 src/ui/navBar.ui:321 src/ui/preferenceWindow.ui:19
-#, fuzzy
 msgid "Location"
-msgstr "前往連結位置"
+msgstr "位置"
 
 #: src/ui/navBar.ui:173
 msgid "CFI"
-msgstr ""
+msgstr "CFI"
 
 #: src/ui/navBar.ui:174
 msgid "EPUB Canonical Fragment Identifier"
-msgstr ""
+msgstr "EPUB Canonical Fragment Identifier"
 
 #: src/ui/navBar.ui:213
 msgid "Go to beginning of book"
-msgstr ""
+msgstr "前往第一頁"
 
 #: src/ui/navBar.ui:227
-#, fuzzy
 msgid "Go to previous chapter"
-msgstr "前往上一頁"
+msgstr "前往上一章節"
 
 #: src/ui/navBar.ui:241
-#, fuzzy
 msgid "Go to next chapter"
-msgstr "前往下一頁"
+msgstr "前往下一章節"
 
 #: src/ui/navBar.ui:255
 msgid "Go to end of book"
-msgstr ""
+msgstr "前往最後一頁"
 
 #: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:149
 #: src/ui/shortcutsWindow.ui:185
-#, fuzzy
 msgid "Go to previous page"
 msgstr "前往上一頁"
 
@@ -566,31 +530,28 @@ msgstr "返回先前位置"
 
 #: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:142
 #: src/ui/shortcutsWindow.ui:178
-#, fuzzy
 msgid "Go to next page"
 msgstr "前往下一頁"
 
 #: src/ui/navBar.ui:377
 msgid "Text-to-speech"
-msgstr "文字轉語音"
+msgstr "朗讀"
 
 #: src/ui/preferenceWindow.ui:11
-#, fuzzy
 msgid "Nothing"
-msgstr "不做任何事"
+msgstr "無"
 
 #: src/ui/preferenceWindow.ui:15
 msgid "Percentage"
-msgstr ""
+msgstr "百分比"
 
 #: src/ui/preferenceWindow.ui:27
-#, fuzzy
 msgid "Chapter name"
-msgstr "所有章節"
+msgstr "章節名稱"
 
 #: src/ui/preferenceWindow.ui:39
 msgid "Clock"
-msgstr ""
+msgstr "時鐘"
 
 #: src/ui/preferenceWindow.ui:51
 msgid "Do nothing"
@@ -605,12 +566,10 @@ msgid "Highlight"
 msgstr "註解"
 
 #: src/ui/preferenceWindow.ui:67
-#, fuzzy
 msgid "Look up in dictionary"
-msgstr "查詢維基百科"
+msgstr "查詢字典"
 
 #: src/ui/preferenceWindow.ui:71
-#, fuzzy
 msgid "Look up in Wikipedia"
 msgstr "查詢維基百科"
 
@@ -625,7 +584,7 @@ msgstr "搜尋書籍內容"
 
 #: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:59
 msgid "Speak"
-msgstr ""
+msgstr "朗讀"
 
 #: src/ui/preferenceWindow.ui:114
 msgid "General"
@@ -636,30 +595,28 @@ msgid "Open last opened file on startup"
 msgstr "啟動時開啟上次上次開啟的檔案"
 
 #: src/ui/preferenceWindow.ui:148
-#, fuzzy
 msgid "Reading"
-msgstr "繼續閱讀"
+msgstr "閱讀"
 
 #: src/ui/preferenceWindow.ui:163
 msgid "Turn page on tap"
-msgstr ""
+msgstr "點擊時翻頁"
 
 #: src/ui/preferenceWindow.ui:186
 msgid "Left footer"
-msgstr ""
+msgstr "左頁尾"
 
 #: src/ui/preferenceWindow.ui:220
 msgid "Right footer"
-msgstr ""
+msgstr "右頁尾"
 
 #: src/ui/preferenceWindow.ui:254
 msgid "When a word is selected"
 msgstr "選取一個單字時"
 
 #: src/ui/preferenceWindow.ui:288
-#, fuzzy
 msgid "When multiple words are selected"
-msgstr "選取一個單字時"
+msgstr "選取多個單字時"
 
 #: src/ui/preferenceWindow.ui:323
 msgid "Text-to-speech command"
@@ -667,56 +624,49 @@ msgstr "文字轉語音指令"
 
 #: src/ui/preferenceWindow.ui:351
 msgid "Interface"
-msgstr ""
+msgstr "介面"
 
 #: src/ui/preferenceWindow.ui:367
-#, fuzzy
 msgid ""
 "Use traditional titlebar (experimental)\n"
 "(requires restart)"
-msgstr "使用側邊欄（須重新啟動）"
+msgstr "使用傳統標題列（實驗性）（須重新啟動）"
 
 #: src/ui/preferenceWindow.ui:391
-#, fuzzy
 msgid "Use sidebar"
-msgstr "顯示/隱藏側邊欄"
+msgstr "使用側邊欄"
 
 #: src/ui/preferenceWindow.ui:414
-#, fuzzy
 msgid "Auto-hide header bar"
-msgstr "自動隱藏游標"
+msgstr "自動隱藏標題列"
 
 #: src/ui/selectionPopover.ui:47
 msgid "Find"
-msgstr ""
+msgstr "尋找"
 
 #: src/ui/selectionPopover.ui:79
-#, fuzzy
 msgid "Look Up in Dictionary"
-msgstr "字典"
+msgstr "查詢字典"
 
 #: src/ui/selectionPopover.ui:86
-#, fuzzy
 msgid "Look Up in Wikipedia"
 msgstr "查詢維基百科"
 
 #: src/ui/selectionPopover.ui:105
 msgid "Speak from Here"
-msgstr ""
+msgstr "從這裡開始朗讀"
 
 #: src/ui/shortcutsWindow.ui:11
-#, fuzzy
 msgid "File"
-msgstr "所有檔案"
+msgstr "檔案"
 
 #: src/ui/shortcutsWindow.ui:15
-#, fuzzy
 msgid "Open file"
 msgstr "開啟檔案"
 
 #: src/ui/shortcutsWindow.ui:22
 msgid "Open a copy"
-msgstr ""
+msgstr "開啟副本"
 
 #: src/ui/shortcutsWindow.ui:36
 msgid "Close current window"
@@ -727,30 +677,26 @@ msgid "Quit"
 msgstr "結束"
 
 #: src/ui/shortcutsWindow.ui:71
-#, fuzzy
 msgid "View book info"
-msgstr "閱讀電子書"
+msgstr "檢視書籍資訊"
 
 #: src/ui/shortcutsWindow.ui:78
-#, fuzzy
 msgid "Start/stop text-to-speech"
-msgstr "文字轉語音"
+msgstr "開始/停止朗讀"
 
 #: src/ui/shortcutsWindow.ui:107
 msgid "Restore zoom level"
-msgstr ""
+msgstr "重設縮放"
 
 #: src/ui/shortcutsWindow.ui:114
 msgid "Toggle fullscreen"
 msgstr "切換全螢幕"
 
 #: src/ui/shortcutsWindow.ui:121
-#, fuzzy
 msgid "Show contents"
 msgstr "顯示目錄"
 
 #: src/ui/shortcutsWindow.ui:128
-#, fuzzy
 msgid "Show primary menu"
 msgstr "顯示選單"
 
@@ -759,7 +705,6 @@ msgid "Navigation"
 msgstr "瀏覽"
 
 #: src/ui/shortcutsWindow.ui:164
-#, fuzzy
 msgid "Go to location"
 msgstr "前往連結位置"
 
@@ -769,18 +714,17 @@ msgstr "觸控板手勢"
 
 #: src/ui/themeRow.ui:26
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #: src/ui/themeWindow.ui:6
 msgid "Custom Theme"
-msgstr ""
+msgstr "自訂主題"
 
 #: src/ui/themeWindow.ui:17
 msgid "OK"
-msgstr ""
+msgstr "確定"
 
 #: src/ui/themeWindow.ui:39
-#, fuzzy
 msgid "Theme Name"
 msgstr "主題名稱"
 
@@ -789,29 +733,24 @@ msgid "Background"
 msgstr "背景"
 
 #: src/ui/themeWindow.ui:78
-#, fuzzy
 msgid "Text Color"
-msgstr "反轉顏色"
+msgstr "文字顏色"
 
 #: src/ui/themeWindow.ui:92
-#, fuzzy
 msgid "Link Color"
-msgstr "反轉顏色"
+msgstr "連結顏色"
 
 #: src/ui/themeWindow.ui:159
-#, fuzzy
 msgid "Dark Mode"
 msgstr "啟用深色模式"
 
 #: src/ui/themeWindow.ui:200
-#, fuzzy
 msgid "Remove Theme"
-msgstr "移除選取的主題"
+msgstr "移除主題"
 
 #: src/ui/translationBox.ui:53
-#, fuzzy
 msgid "Cannot retrieve translation"
-msgstr "無法取得翻譯。"
+msgstr "無法取得翻譯"
 
 #: src/ui/translationBox.ui:127
 msgid "Afrikaans"
@@ -1230,9 +1169,8 @@ msgid "Zulu"
 msgstr "祖魯文"
 
 #: src/ui/wikipediaBox.ui:53
-#, fuzzy
 msgid "No entry found"
-msgstr "找不到條目。"
+msgstr "找不到條目"
 
 #: src/ui/wikipediaBox.ui:80
 msgid "Wikipedia"
@@ -1240,7 +1178,7 @@ msgstr "維基百科"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
-msgstr "Foliate 是一個簡單而現代化的 GTK 電子書閱讀器"
+msgstr "Foliate 是一個簡單而現代化的 GTK 電子書閱讀器。"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:11
 msgid "Features include:"
