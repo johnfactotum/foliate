@@ -100,7 +100,7 @@ const makeActions = app => ({
     'about': () => {
         const aboutDialog = new Gtk.AboutDialog({
             authors: ['John Factotum'],
-            artists: ['John Factotum'],
+            artists: ['John Factotum', 'Tobias Bernard <tbernard@gnome.org>'],
             translator_credits: _('translator-credits'),
             program_name: _('Foliate'),
             comments: _('A simple and modern eBook viewer'),
