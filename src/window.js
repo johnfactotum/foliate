@@ -439,6 +439,21 @@ const MainOverlay = GObject.registerClass({
     }
 })
 
+const makeContentsStackPageAction = (self, page) => () => {
+    const sb = self.activeHeaderBar.sideButton
+    const sbb = self.activeHeaderBar.sidebarButton
+    const stack = self._contentsStack
+    let button = sb.visible ? sb : sbb
+    if (button.active) {
+        if (stack.visible_child_name !== page)
+            stack.visible_child_name = page
+        else button.active = false
+    } else {
+        stack.visible_child_name = page
+        button.active = true
+    }
+}
+
 const makeActions = self => ({
     'selection-menu': () => self._showSelectionPopover(),
     'selection-copy': () => {
@@ -504,6 +519,9 @@ const makeActions = self => ({
     },
 
     'side-menu': () => self.activeHeaderBar.toggleSide(),
+    'show-toc': makeContentsStackPageAction(self, 'toc'),
+    'show-annotations': makeContentsStackPageAction(self, 'annotations'),
+    'show-bookmarks': makeContentsStackPageAction(self, 'bookmarks'),
     'find-menu': () => self.activeHeaderBar.toggleFind(),
     'main-menu': () => self.activeHeaderBar.toggleMain(),
     'location-menu': () => self._mainOverlay.toggleLocationMenu(),
@@ -1103,6 +1121,9 @@ var Window = GObject.registerClass({
     set loading(state) {
         this._loading = state
         this.lookup_action('side-menu').enabled = !state
+        this.lookup_action('show-toc').enabled = !state
+        this.lookup_action('show-annotations').enabled = !state
+        this.lookup_action('show-bookmarks').enabled = !state
         this.lookup_action('find-menu').enabled = !state
         this.lookup_action('location-menu').enabled = !state
         this.lookup_action('open-copy').enabled = !state
