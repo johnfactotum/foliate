@@ -214,8 +214,8 @@ const Footer = GObject.registerClass({
         const labelOpts = {
             visible: true,
             ellipsize: Pango.EllipsizeMode.END,
-            margin_left: 18,
-            margin_right: 18
+            margin_start: 18,
+            margin_end: 18
         }
         this._left = new Gtk.Label(labelOpts)
         this._right = new Gtk.Label(labelOpts)
@@ -261,10 +261,10 @@ const Footer = GObject.registerClass({
             this._right.visible = rv
 
             this._left.xalign =  rv ? 1 : 0.5
-            this._left.margin_right = rv ? 12 : 18
+            this._left.margin_end = rv ? 12 : 18
 
             this._right.xalign =  lv ? 0 : 0.5
-            this._right.margin_left = lv ? 12 : 18
+            this._right.margin_start = lv ? 12 : 18
         } else {
             this._left.visible = true
             this._right.visible = true
@@ -1065,8 +1065,8 @@ var Window = GObject.registerClass({
             this._titleLabel = new Gtk.Label({
                 visible: true,
                 ellipsize: Pango.EllipsizeMode.END,
-                margin_left: 18,
-                margin_right: 18
+                margin_start: 18,
+                margin_end: 18
             })
             this._titleLabel.get_style_context().add_class('autohide-label')
 
