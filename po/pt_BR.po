@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 19:12+0800\n"
+"POT-Creation-Date: 2020-04-08 21:44+0800\n"
 "PO-Revision-Date: 2020-02-14 11:33-0300\n"
 "Last-Translator: Marcelo dos Santos Mafra <msmafra@gmail.com>\n"
 "Language-Team: Fábio Nogueira <fnogueira@gnome.org>; Marcelo dos Santos "
@@ -326,7 +326,7 @@ msgid "Save as"
 msgstr "Salvar como"
 
 #: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
-#: src/ui/shortcutsWindow.ui:199
+#: src/ui/shortcutsWindow.ui:220
 msgid "Zoom out"
 msgstr "Reduzir o zoom"
 
@@ -335,7 +335,7 @@ msgid "Restore zoom"
 msgstr "Restaurar zoom"
 
 #: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
-#: src/ui/shortcutsWindow.ui:192
+#: src/ui/shortcutsWindow.ui:213
 msgid "Zoom in"
 msgstr "Ampliar o zoom"
 
@@ -549,18 +549,18 @@ msgstr "Ir para o próxima capítulo"
 msgid "Go to end of book"
 msgstr "Ir para o fim do livro"
 
-#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:149
-#: src/ui/shortcutsWindow.ui:185
+#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:170
+#: src/ui/shortcutsWindow.ui:206
 #, fuzzy
 msgid "Go to previous page"
 msgstr "Ir para a página anterior"
 
-#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:156
+#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:177
 msgid "Go back to previous location"
 msgstr "Voltar para a localização anterior"
 
-#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:142
-#: src/ui/shortcutsWindow.ui:178
+#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:163
+#: src/ui/shortcutsWindow.ui:199
 #, fuzzy
 msgid "Go to next page"
 msgstr "Ir para a próxima página"
@@ -746,18 +746,31 @@ msgstr "Exibir índice"
 
 #: src/ui/shortcutsWindow.ui:128
 #, fuzzy
+msgid "Show table of contents"
+msgstr "Índice"
+
+#: src/ui/shortcutsWindow.ui:135
+msgid "Show annotations"
+msgstr "Exibir anotações"
+
+#: src/ui/shortcutsWindow.ui:142
+msgid "Show bookmarks"
+msgstr "Exibir marcadores"
+
+#: src/ui/shortcutsWindow.ui:149
+#, fuzzy
 msgid "Show primary menu"
 msgstr "Exibir menu"
 
-#: src/ui/shortcutsWindow.ui:138
+#: src/ui/shortcutsWindow.ui:159
 msgid "Navigation"
 msgstr "Navegação"
 
-#: src/ui/shortcutsWindow.ui:164
+#: src/ui/shortcutsWindow.ui:185
 msgid "Go to location"
 msgstr "Ir para localização"
 
-#: src/ui/shortcutsWindow.ui:174
+#: src/ui/shortcutsWindow.ui:195
 msgid "Touchpad Gestures"
 msgstr "Gestos do Touchpad"
 
@@ -1802,12 +1815,6 @@ msgstr "Lançamento inicial"
 
 #~ msgid "Add a new theme"
 #~ msgstr "Adicionar um novo tema"
-
-#~ msgid "Show annotations"
-#~ msgstr "Exibir anotações"
-
-#~ msgid "Show bookmarks"
-#~ msgstr "Exibir marcadores"
 
 #~ msgid "Show viewing options"
 #~ msgstr "Exibir opções de visualização"

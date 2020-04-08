@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 19:12+0800\n"
+"POT-Creation-Date: 2020-04-08 21:44+0800\n"
 "PO-Revision-Date: 2020-04-08 18:57+0800\n"
 "Last-Translator: John Factotum\n"
 "Language-Team: none\n"
@@ -313,7 +313,7 @@ msgid "Save as"
 msgstr "另存新檔"
 
 #: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
-#: src/ui/shortcutsWindow.ui:199
+#: src/ui/shortcutsWindow.ui:220
 msgid "Zoom out"
 msgstr "縮小"
 
@@ -322,7 +322,7 @@ msgid "Restore zoom"
 msgstr "重設縮放"
 
 #: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
-#: src/ui/shortcutsWindow.ui:192
+#: src/ui/shortcutsWindow.ui:213
 msgid "Zoom in"
 msgstr "放大"
 
@@ -519,17 +519,17 @@ msgstr "前往下一章節"
 msgid "Go to end of book"
 msgstr "前往最後一頁"
 
-#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:149
-#: src/ui/shortcutsWindow.ui:185
+#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:170
+#: src/ui/shortcutsWindow.ui:206
 msgid "Go to previous page"
 msgstr "前往上一頁"
 
-#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:156
+#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:177
 msgid "Go back to previous location"
 msgstr "返回先前位置"
 
-#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:142
-#: src/ui/shortcutsWindow.ui:178
+#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:163
+#: src/ui/shortcutsWindow.ui:199
 msgid "Go to next page"
 msgstr "前往下一頁"
 
@@ -697,18 +697,31 @@ msgid "Show contents"
 msgstr "顯示目錄"
 
 #: src/ui/shortcutsWindow.ui:128
+#, fuzzy
+msgid "Show table of contents"
+msgstr "目錄"
+
+#: src/ui/shortcutsWindow.ui:135
+msgid "Show annotations"
+msgstr "顯示註解"
+
+#: src/ui/shortcutsWindow.ui:142
+msgid "Show bookmarks"
+msgstr "顯示書籤"
+
+#: src/ui/shortcutsWindow.ui:149
 msgid "Show primary menu"
 msgstr "顯示選單"
 
-#: src/ui/shortcutsWindow.ui:138
+#: src/ui/shortcutsWindow.ui:159
 msgid "Navigation"
 msgstr "瀏覽"
 
-#: src/ui/shortcutsWindow.ui:164
+#: src/ui/shortcutsWindow.ui:185
 msgid "Go to location"
 msgstr "前往連結位置"
 
-#: src/ui/shortcutsWindow.ui:174
+#: src/ui/shortcutsWindow.ui:195
 msgid "Touchpad Gestures"
 msgstr "觸控板手勢"
 
@@ -1732,12 +1745,6 @@ msgstr "首次發布"
 
 #~ msgid "Add a new theme"
 #~ msgstr "新增主題"
-
-#~ msgid "Show annotations"
-#~ msgstr "顯示註解"
-
-#~ msgid "Show bookmarks"
-#~ msgstr "顯示書籤"
 
 #~ msgid "Show viewing options"
 #~ msgstr "顯示檢視選項"

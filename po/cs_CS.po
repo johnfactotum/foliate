@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 19:12+0800\n"
+"POT-Creation-Date: 2020-04-08 21:44+0800\n"
 "PO-Revision-Date: 2020-04-07 21:11+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -314,7 +314,7 @@ msgid "Save as"
 msgstr "Uložit jako"
 
 #: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
-#: src/ui/shortcutsWindow.ui:199
+#: src/ui/shortcutsWindow.ui:220
 msgid "Zoom out"
 msgstr "Oddálit"
 
@@ -323,7 +323,7 @@ msgid "Restore zoom"
 msgstr "Obnovit zvětšení"
 
 #: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
-#: src/ui/shortcutsWindow.ui:192
+#: src/ui/shortcutsWindow.ui:213
 msgid "Zoom in"
 msgstr "Přiblížit"
 
@@ -521,17 +521,17 @@ msgstr "Jít na další kapitolu"
 msgid "Go to end of book"
 msgstr "Jít na konec knihy"
 
-#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:149
-#: src/ui/shortcutsWindow.ui:185
+#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:170
+#: src/ui/shortcutsWindow.ui:206
 msgid "Go to previous page"
 msgstr "Jít na předchozí stranu"
 
-#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:156
+#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:177
 msgid "Go back to previous location"
 msgstr "Jít zpět na předchozí polohu"
 
-#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:142
-#: src/ui/shortcutsWindow.ui:178
+#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:163
+#: src/ui/shortcutsWindow.ui:199
 msgid "Go to next page"
 msgstr "Jít na další stranu"
 
@@ -701,18 +701,32 @@ msgid "Show contents"
 msgstr "Ukázat obsah"
 
 #: src/ui/shortcutsWindow.ui:128
+#, fuzzy
+msgid "Show table of contents"
+msgstr "Obsah"
+
+#: src/ui/shortcutsWindow.ui:135
+#, fuzzy
+msgid "Show annotations"
+msgstr "Žádné vysvětlivky"
+
+#: src/ui/shortcutsWindow.ui:142
+msgid "Show bookmarks"
+msgstr "Ukázat záložky"
+
+#: src/ui/shortcutsWindow.ui:149
 msgid "Show primary menu"
 msgstr "Ukázat základní nabídku"
 
-#: src/ui/shortcutsWindow.ui:138
+#: src/ui/shortcutsWindow.ui:159
 msgid "Navigation"
 msgstr "Pohyb"
 
-#: src/ui/shortcutsWindow.ui:164
+#: src/ui/shortcutsWindow.ui:185
 msgid "Go to location"
 msgstr "Jít na polohu"
 
-#: src/ui/shortcutsWindow.ui:174
+#: src/ui/shortcutsWindow.ui:195
 msgid "Touchpad Gestures"
 msgstr "Gesta pro dotykovou plochu"
 
@@ -1671,13 +1685,6 @@ msgstr "Počáteční vydání"
 #, fuzzy, javascript-format
 #~ msgid "Annotations for %s"
 #~ msgstr "Vysvětlivky"
-
-#, fuzzy
-#~ msgid "Show annotations"
-#~ msgstr "Žádné vysvětlivky"
-
-#~ msgid "Show bookmarks"
-#~ msgstr "Ukázat záložky"
 
 #~ msgid "Increase font size"
 #~ msgstr "Zvětšit velikost písma"

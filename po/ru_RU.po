@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 19:12+0800\n"
+"POT-Creation-Date: 2020-04-08 21:44+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: zluka <https://github.com/zluca>\n"
 "Language-Team: \n"
@@ -317,7 +317,7 @@ msgid "Save as"
 msgstr "Сохранить как"
 
 #: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
-#: src/ui/shortcutsWindow.ui:199
+#: src/ui/shortcutsWindow.ui:220
 msgid "Zoom out"
 msgstr "Уменьшить масштаб"
 
@@ -326,7 +326,7 @@ msgid "Restore zoom"
 msgstr "Сбросить масштаб"
 
 #: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
-#: src/ui/shortcutsWindow.ui:192
+#: src/ui/shortcutsWindow.ui:213
 msgid "Zoom in"
 msgstr "Увеличить масштаб"
 
@@ -524,17 +524,17 @@ msgstr "Перейти к следующей главе"
 msgid "Go to end of book"
 msgstr "Перейти в конец книги"
 
-#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:149
-#: src/ui/shortcutsWindow.ui:185
+#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:170
+#: src/ui/shortcutsWindow.ui:206
 msgid "Go to previous page"
 msgstr "Перейти на предыдущую страницу"
 
-#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:156
+#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:177
 msgid "Go back to previous location"
 msgstr "Перейти в предыдущее расположение"
 
-#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:142
-#: src/ui/shortcutsWindow.ui:178
+#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:163
+#: src/ui/shortcutsWindow.ui:199
 msgid "Go to next page"
 msgstr "Перейти на следующую страницу"
 
@@ -704,18 +704,31 @@ msgid "Show contents"
 msgstr "Показать оглавление"
 
 #: src/ui/shortcutsWindow.ui:128
+#, fuzzy
+msgid "Show table of contents"
+msgstr "Оглавление"
+
+#: src/ui/shortcutsWindow.ui:135
+msgid "Show annotations"
+msgstr "Показать примечания"
+
+#: src/ui/shortcutsWindow.ui:142
+msgid "Show bookmarks"
+msgstr "Показать закладки"
+
+#: src/ui/shortcutsWindow.ui:149
 msgid "Show primary menu"
 msgstr "Показать меню"
 
-#: src/ui/shortcutsWindow.ui:138
+#: src/ui/shortcutsWindow.ui:159
 msgid "Navigation"
 msgstr "Навигация"
 
-#: src/ui/shortcutsWindow.ui:164
+#: src/ui/shortcutsWindow.ui:185
 msgid "Go to location"
 msgstr "Перейти в расположение"
 
-#: src/ui/shortcutsWindow.ui:174
+#: src/ui/shortcutsWindow.ui:195
 msgid "Touchpad Gestures"
 msgstr "Жесты тачпада"
 
@@ -1766,12 +1779,6 @@ msgstr "Начальный релиз"
 
 #~ msgid "Add a new theme"
 #~ msgstr "Добавить новую тему"
-
-#~ msgid "Show annotations"
-#~ msgstr "Показать примечания"
-
-#~ msgid "Show bookmarks"
-#~ msgstr "Показать закладки"
 
 #~ msgid "Show viewing options"
 #~ msgstr "Показать опции просмотра"

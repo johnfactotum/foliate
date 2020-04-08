@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 19:12+0800\n"
+"POT-Creation-Date: 2020-04-08 21:44+0800\n"
 "PO-Revision-Date: 2020-04-05 13:08+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -314,7 +314,7 @@ msgid "Save as"
 msgstr "Opslaan als"
 
 #: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
-#: src/ui/shortcutsWindow.ui:199
+#: src/ui/shortcutsWindow.ui:220
 msgid "Zoom out"
 msgstr "Uitzoomen"
 
@@ -323,7 +323,7 @@ msgid "Restore zoom"
 msgstr "Oorspronkelijk zoomniveau"
 
 #: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
-#: src/ui/shortcutsWindow.ui:192
+#: src/ui/shortcutsWindow.ui:213
 msgid "Zoom in"
 msgstr "Inzoomen"
 
@@ -521,17 +521,17 @@ msgstr "Ga naar het volgende hoofdstuk"
 msgid "Go to end of book"
 msgstr "Ga naar het einde van het boek"
 
-#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:149
-#: src/ui/shortcutsWindow.ui:185
+#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:170
+#: src/ui/shortcutsWindow.ui:206
 msgid "Go to previous page"
 msgstr "Ga naar de vorige pagina"
 
-#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:156
+#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:177
 msgid "Go back to previous location"
 msgstr "Ga terug naar de vorige locatie"
 
-#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:142
-#: src/ui/shortcutsWindow.ui:178
+#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:163
+#: src/ui/shortcutsWindow.ui:199
 msgid "Go to next page"
 msgstr "Ga naar de volgende pagina"
 
@@ -701,18 +701,31 @@ msgid "Show contents"
 msgstr "Inhoud tonen"
 
 #: src/ui/shortcutsWindow.ui:128
+#, fuzzy
+msgid "Show table of contents"
+msgstr "Inhoudsopgave"
+
+#: src/ui/shortcutsWindow.ui:135
+msgid "Show annotations"
+msgstr "Aantekeningen tonen"
+
+#: src/ui/shortcutsWindow.ui:142
+msgid "Show bookmarks"
+msgstr "Bladwijzers tonen"
+
+#: src/ui/shortcutsWindow.ui:149
 msgid "Show primary menu"
 msgstr "Hoofdmenu tonen"
 
-#: src/ui/shortcutsWindow.ui:138
+#: src/ui/shortcutsWindow.ui:159
 msgid "Navigation"
 msgstr "Navigatie"
 
-#: src/ui/shortcutsWindow.ui:164
+#: src/ui/shortcutsWindow.ui:185
 msgid "Go to location"
 msgstr "Ga naar locatie"
 
-#: src/ui/shortcutsWindow.ui:174
+#: src/ui/shortcutsWindow.ui:195
 msgid "Touchpad Gestures"
 msgstr "Touchpad-gebaren"
 
@@ -1746,12 +1759,6 @@ msgstr "Initiële uitgave"
 
 #~ msgid "Add a new theme"
 #~ msgstr "Voeg een nieuw thema toe"
-
-#~ msgid "Show annotations"
-#~ msgstr "Aantekeningen tonen"
-
-#~ msgid "Show bookmarks"
-#~ msgstr "Bladwijzers tonen"
 
 #~ msgid "Show viewing options"
 #~ msgstr "Weergave-opties tonen"
