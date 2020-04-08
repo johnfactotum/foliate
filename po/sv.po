@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-07 10:49+0800\n"
-"PO-Revision-Date: 2020-04-03 20:36+0100\n"
+"PO-Revision-Date: 2020-04-08 09:42+0200\n"
 "Last-Translator: Jonatan Nyberg <jonatan.nyberg.karl@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -597,7 +597,7 @@ msgstr "Läsning"
 
 #: src/ui/preferenceWindow.ui:163
 msgid "Turn page on tap"
-msgstr ""
+msgstr "Vänd sida vid tryck"
 
 #: src/ui/preferenceWindow.ui:186
 msgid "Left footer"
@@ -1212,35 +1212,38 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:48
-#, fuzzy
 msgid "Interface:"
-msgstr "Gränssnitt"
+msgstr "Gränssnitt:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid "A redesigned interface that works better for smaller screens"
-msgstr ""
+msgstr "Ett nytt gränssnitt som fungerar bättre för mindre skärmar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Improved fullscreen mode with an overlaid headerbar"
-msgstr ""
+msgstr "Förbättrad helskärmsläge med en överlagrad rubrikrad"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
 msgid ""
 "The headerbar and the progress bar now auto-hide, for a distraction-free "
 "reading experience"
 msgstr ""
+"Rubrikraden och förloppsindikatorn döljer sig nu automatiskt för en "
+"distraktionsfri läsupplevelse"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
 msgid ""
 "Various location information, as well as a clock, can now be displayed in "
 "the footer"
-msgstr ""
+msgstr "Olika platsinformation samt en klocka kan nu visas i sidfoten"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
 msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
 msgstr ""
+"En ny flytande platsruta (Ctrl + L) som visar lästidsuppskattningar och gör "
+"det möjligt att hoppa till platser"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
 msgid ""
@@ -1248,159 +1251,163 @@ msgid ""
 "left or right part of the view; tap on the middle to toggle header bar and "
 "progress bar"
 msgstr ""
+"E-läsare stilnavigering: gå till föregående eller nästa sida genom att "
+"trycka på vänster eller höger del av vyn; tryck på mitten för att växla "
+"rubrikraden och förloppsindikatorn"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
 msgid "Annotations, bookmarks, and find results now show chapter titles"
-msgstr ""
+msgstr "Kommentarer, bokmärken och hitta resultat visar nu kapiteltitlar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
 msgid "When looking up words in dictionaries, the query can now be edited"
-msgstr ""
+msgstr "När du slår upp ord i ordböcker kan förfrågan nu redigeras"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
 msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr ""
+"Nytt kortkommando för visning av metadata (Ctrl + I) och inställningar (Ctrl "
+"+ ,)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 msgid ""
 "A new traditional menubar, which may be displayed depending on the desktop "
 "environment"
-msgstr ""
+msgstr "En ny traditionell menyrad, som kan visas beroende på skrivbordsmiljön"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid ""
 "Option to use a traditional titlebar and menubar instead of a headerbar "
 "(experimental)"
 msgstr ""
+"Alternativ att använda en traditionell titelrad och menyrad istället för en "
+"rubrikrad (experimentell)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
-#, fuzzy
 msgid "Reading:"
-msgstr "Läsning"
+msgstr "Läser:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 msgid "Continuous scrolling layout"
-msgstr ""
+msgstr "Kontinuerlig rullningslayout"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid ""
 "Option to show decorative shadows that mimic the appearance of a real book"
 msgstr ""
+"Alternativ att visa dekorativa skuggor som härmar utseendet på en riktig bok"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
-#, fuzzy
 msgid "Ability to zoom in and zoom out"
-msgstr "Möjlighet att zooma och kopiera bilder"
+msgstr "Möjlighet att zooma in och zooma ut"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
 msgid "Improved image viewer with \"save as\" option"
-msgstr ""
+msgstr "Förbättrad bildvisare med alternativet \"spara som\""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid "Open copies of a book in new windows (Ctrl + N)"
-msgstr ""
+msgstr "Öppna kopior av en bok i nya fönster (Ctrl + N)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
 msgid "Reload book (Ctrl + R)"
-msgstr ""
+msgstr "Läs om boken (Ctrl + R)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
-msgstr ""
+msgstr "Nya inbyggda teman: Grå, Solarized, Gruvbox, Nord"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
 msgid "Text selection:"
-msgstr ""
+msgstr "Textmarkering:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
-#, fuzzy
 msgid "Ability to select text across pages"
-msgstr "Möjlighet att zooma och kopiera bilder"
+msgstr "Möjlighet att välja text mellan sidor"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
-#, fuzzy
 msgid "Find selected text in book"
-msgstr "Hitta i boken"
+msgstr "Hitta vald text i book"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
 msgid "Speak selected text or from the selected locatio"
-msgstr ""
+msgstr "Säg markerad text eller från den valda platsen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
-#, fuzzy
 msgid "Annotations:"
-msgstr "Kommentarer"
+msgstr "Kommentarer:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
 msgid "Spellcheck notes"
-msgstr ""
+msgstr "Stavekontrollanteckningar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
-#, fuzzy
 msgid "Export annotations to Markdown"
-msgstr "Exportera kommentarer"
+msgstr "Exportera kommentarer till Markdown"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
 msgid "Options to use custom colors for highlights"
-msgstr ""
+msgstr "Alternativ för att använda anpassade färger för markeringar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:84
 msgid "For publishers and developers:"
-msgstr ""
+msgstr "För utgivare och utvecklare:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
 msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
 msgstr ""
+"Stöd för Apple Books-temaattribut, som gör det möjligt för böcker att "
+"upptäcka teman utan JavaScript"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
 msgid "WebKit's developer tools can be enabled"
-msgstr ""
+msgstr "WebKits utvecklarverktyg kan aktiveras"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
 msgid "Breaking changes:"
-msgstr ""
+msgstr "Stora förändringar:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
 msgid "The settings schemas has been reorganized"
-msgstr ""
+msgstr "Inställningsschema har omorganiserats"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
 msgid "The format for custom themes has changed"
-msgstr ""
+msgstr "Formatet för anpassade teman har ändrats"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
 msgid "Locations are now 1024 characters in size"
-msgstr ""
+msgstr "Platserna är nu 1024 tecken i storlek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
-#, fuzzy
 msgid "Bug fixes:"
-msgstr "Åtgärder:"
+msgstr "Felrättningar:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:97
 msgid "Fixed not restoring exact last location"
-msgstr ""
+msgstr "Åtgärdade att exakt sista plats inte återställdes korrekt"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
-#, fuzzy
 msgid "Fixed navigation not working with scrolled layout"
 msgstr ""
-"Åtgärdat att innehållsförteckningsnavigering inte fungerar med vissa böcker"
+"Åtgärdat att innehållsförteckningsnavigering inte fungerar med "
+"rullningslayout"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
 msgstr ""
+"Åtgärdat att teckenstorleken inte ändras när boken använder nyckelord i "
+"absolut storlek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:100
 msgid "Fixed text cut off at margin edge"
-msgstr ""
+msgstr "Åtgärdat att texten avskärs i marginalkanten"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
-#, fuzzy
 msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
-msgstr "Åtgärdat att inte kunna öppna böcker med .epub3-filnamnstillägg"
+msgstr "Åtgärdat att inte kunna öppna böcker med \"#\" eller \"?\" i filnamnet"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
 msgid ""
@@ -1512,7 +1519,7 @@ msgstr "Möjlighet att zooma och kopiera bilder"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
 msgid "Option to auto-hide cursor"
-msgstr "Möjlighet att automatiskt dölja markören"
+msgstr "Alternativ att automatiskt dölja markören"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
 msgid "See reading time left by hovering over the reading progress slider"
@@ -1533,7 +1540,7 @@ msgstr "Nya funktioner:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
 msgid "Option to switch between left and full justification"
-msgstr "Möjlighet att växla mellan vänster och fullständig justering"
+msgstr "Alternativ att växla mellan vänster och fullständig justering"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:190
 msgid "New layout option: single-column paginated view"
@@ -1571,15 +1578,15 @@ msgstr "Helskärmsläge"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:212
 msgid "Option to hide reading progress bar"
-msgstr "Möjlighet att dölja läsförloppsindikatorn"
+msgstr "Alternativ att dölja läsförloppsindikatorn"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
 msgid "Option to disable dictionary"
-msgstr "Möjlighet att inaktivera ordbok"
+msgstr "Alternativ att inaktivera ordbok"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:214
 msgid "Option to use publisher font"
-msgstr "Möjlighet att använda förlagstypsnitt"
+msgstr "Alternativ att använda förlagstypsnitt"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
 msgid "Fixes:"
@@ -1600,199 +1607,3 @@ msgstr "Åtgärdat ogiltig AppData-fil"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
 msgid "Initial release"
 msgstr "Första utgåvan"
-
-#~ msgid "Auto"
-#~ msgstr "Automatisch"
-
-#~ msgid "Yellow"
-#~ msgstr "Geel"
-
-#~ msgid "Orange"
-#~ msgstr "Oranje"
-
-#~ msgid "Red"
-#~ msgstr "Rood"
-
-#~ msgid "Magenta"
-#~ msgstr "Magenta"
-
-#~ msgid "Aqua"
-#~ msgstr "Aqua"
-
-#~ msgid "Lime"
-#~ msgstr "Limoen"
-
-#~ msgid "From Wiktionary, the free dictionary"
-#~ msgstr "Afkomstig van Wiktionary, hét vrije woordenboek"
-
-#~ msgid "View on Wiktionary"
-#~ msgstr "Bekijken op Wiktionary"
-
-#~ msgid "Previous page"
-#~ msgstr "Vorige pagina"
-
-#~ msgid "Next page"
-#~ msgstr "Volgende pagina"
-
-#~ msgid "Go back"
-#~ msgstr "Ga terug"
-
-#~ msgid "%d hour left in book"
-#~ msgid_plural "%d hours left in book"
-#~ msgstr[0] "Over %d uur is het boek uit"
-#~ msgstr[1] "Over %d uur is het boek uit"
-
-#~ msgid "%d minute left in section"
-#~ msgid_plural "%d minutes left in section"
-#~ msgstr[0] "Over %d minuut is het hoofdstuk uit"
-#~ msgstr[1] "Over %d minuten is het boek uit"
-
-#~ msgid "%d hour left in section"
-#~ msgid_plural "%d hours left in section"
-#~ msgstr[0] "Over %d uur is het hoofdstuk uit"
-#~ msgstr[1] "Over %d uur is het boek uit"
-
-#~ msgid "Find in Book"
-#~ msgstr "Doorzoek het boek"
-
-#~ msgid "All sections"
-#~ msgstr "Alle hoofdstukken"
-
-#~ msgid "Searching…"
-#~ msgstr "Bezig met zoeken…"
-
-#~ msgid "No results"
-#~ msgstr "Geen resultaten"
-
-#~ msgid "%d result"
-#~ msgid_plural "%d results"
-#~ msgstr[0] "%d resultaat"
-#~ msgstr[1] "%d resultaten"
-
-#~ msgid "Auto-Hyphenation"
-#~ msgstr "Automatische woordafbreking"
-
-#~ msgid "Options"
-#~ msgstr "Opties"
-
-#~ msgid "Remove current location"
-#~ msgstr "Huidige locatie verwijderen"
-
-#~ msgid "Lookup"
-#~ msgstr "Opzoeken"
-
-#~ msgid "Loading…"
-#~ msgstr "Bezig met laden…"
-
-#~ msgid "Dictionary"
-#~ msgstr "Woordenboek"
-
-#~ msgid "From Wikipedia, the free encyclopedia"
-#~ msgstr "Afkomstig van Wikipedia, de vrije encyclopedie"
-
-#~ msgid "View on Wikipedia"
-#~ msgstr "Bekijken op Wikipedia"
-
-#~ msgid "Note"
-#~ msgstr "Notitie"
-
-#~ msgid "Go to Linked Location"
-#~ msgstr "Ga naar gelinkte locatie"
-
-#~ msgid "Zoom"
-#~ msgstr "Zoomen"
-
-#~ msgid "Open a file, or continue reading the last opened book."
-#~ msgstr "Open een bestand of ga door met lezen van het vorige boek."
-
-#~ msgid "Go to Location…"
-#~ msgstr "Ga naar locatie…"
-
-#~ msgid "Set font, theme, and layout"
-#~ msgstr "Stel het lettertype, thema en de indeling in"
-
-#~ msgid "Reading Progress Bar"
-#~ msgstr "Voortgangsbalk"
-
-#~ msgid "Go"
-#~ msgstr "Gaan"
-
-#~ msgid "You don't have any annotations for this book."
-#~ msgstr "Je hebt geen aantekeningen gemaakt bij dit boek."
-
-#~ msgid "Annotations for %s"
-#~ msgstr "Aantekeningen bij %s"
-
-#~ msgid "Link"
-#~ msgstr "Link"
-
-#~ msgid "A theme with that name already exists."
-#~ msgstr "Er is al een thema met die naam."
-
-#~ msgid "Add"
-#~ msgstr "Toevoegen"
-
-#~ msgid "Add…"
-#~ msgstr "Toevoegen…"
-
-#~ msgid "Add a new theme"
-#~ msgstr "Voeg een nieuw thema toe"
-
-#~ msgid "Show annotations"
-#~ msgstr "Aantekeningen tonen"
-
-#~ msgid "Show bookmarks"
-#~ msgstr "Bladwijzers tonen"
-
-#~ msgid "Show viewing options"
-#~ msgstr "Weergave-opties tonen"
-
-#~ msgid "Increase font size"
-#~ msgstr "Grotere tekst"
-
-#~ msgid "Decrease font size"
-#~ msgstr "Kleinere tekst"
-
-#~ msgid "Toggle reading progress bar"
-#~ msgstr "Leesvoortgang tonen/verbergen"
-
-#~ msgid ""
-#~ "Use a sidebar to display table of contents, annotations, and bookmarks."
-#~ msgstr ""
-#~ "Gebruik een zijbalk om de inhoudsopgave, aantekeningen en bladwijzers te "
-#~ "tonen."
-
-#~ msgid "Never"
-#~ msgstr "Nooit"
-
-#~ msgid "Always"
-#~ msgstr "Altijd"
-
-#~ msgid "When in fullscreen mode"
-#~ msgstr "In beeldvullende modus"
-
-#~ msgid "Display non-EPUB-3 footnotes in a popover"
-#~ msgstr "Niet-EPUB-3-voetnoten tonen in uitklapvenster"
-
-#~ msgid "This feature is experimental and might not work with all books."
-#~ msgstr ""
-#~ "Deze functie is experimenteel en werkt mogelijk niet in alle boeken."
-
-#~ msgid "This will pose potential security and privacy risks."
-#~ msgstr ""
-#~ "Als je dit inschakelt, dan worden JavaScript en externe bronnen geladen.\n"
-#~ "Hiermee neem je een veiligheids- en privacyrisico."
-
-#~ msgid "Leave blank to disable text-to-speech."
-#~ msgstr "Laat leeg om tekst-naar-spraak uit te schakelen."
-
-#~ msgid "Ask what to do"
-#~ msgstr "Vragen"
-
-#~ msgid "Lookup method"
-#~ msgstr "Zoekmethode"
-
-#~ msgid "%d hour left in chapter"
-#~ msgid_plural "%d hours left in chapter"
-#~ msgstr[0] "Over %d uur is het hoofdstuk uit"
-#~ msgstr[1] "Over %d uur is het hoofdstuk uit"
