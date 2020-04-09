@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-09 12:38+0800\n"
-"PO-Revision-Date: 2020-04-08 15:53+0200\n"
+"PO-Revision-Date: 2020-04-09 18:01+0200\n"
 "Last-Translator: Jonatan Nyberg <jonatan.nyberg.karl@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -571,7 +571,7 @@ msgstr "Markera"
 
 #: src/ui/preferenceWindow.ui:67
 msgid "Look up in dictionary"
-msgstr "Slå upp i ordboken"
+msgstr "Slå upp i ordbok"
 
 #: src/ui/preferenceWindow.ui:71
 msgid "Look up in Wikipedia"
@@ -596,7 +596,7 @@ msgstr "Allmänt"
 
 #: src/ui/preferenceWindow.ui:129
 msgid "Open last opened file on startup"
-msgstr "Öppna senast öppnade filen vid start"
+msgstr "Öppna senast öppnade fil vid start"
 
 #: src/ui/preferenceWindow.ui:148
 msgid "Reading"
@@ -645,7 +645,7 @@ msgstr ""
 #: src/ui/preferenceWindow.ui:391
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Use sidebar"
-msgstr "Använd sidofältet"
+msgstr "Använd sidofält"
 
 #: src/ui/preferenceWindow.ui:414
 msgid "Auto-hide header bar"
@@ -657,7 +657,7 @@ msgstr "Hitta"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
-msgstr "Slå upp i ordboken"
+msgstr "Slå upp i ordbok"
 
 #: src/ui/selectionPopover.ui:86
 msgid "Look Up in Wikipedia"
@@ -1237,12 +1237,13 @@ msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Fixed wrong version number"
-msgstr ""
+msgstr "Åtgärdat felversionsnummer"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid ""
 "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
 msgstr ""
+"Åtgärdade att ordbok, översättning och Wikipedia inte fungerar i Snap-paketet"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
@@ -1252,20 +1253,21 @@ msgstr "Nya funktioner:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
 msgid "New and improved icon"
-msgstr ""
+msgstr "Ny och förbättrad ikon"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
-#, fuzzy
 msgid "Option to disable turn page on tap"
-msgstr "Alternativ att inaktivera ordbok"
+msgstr "Alternativ att inaktivera vänd sida vid tryck"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid "A menu on the welcome screen for opening recent files"
-msgstr ""
+msgstr "En meny på välkomstskärmen för att öppna nya filer"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
 msgstr ""
+"Återställda kortkommandon för att visa innehållsföreteckning, kommentarer "
+"och bokmärken"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:239
@@ -1274,7 +1276,7 @@ msgstr "Åtgärder:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Fixed application not translated"
-msgstr ""
+msgstr "Åtgärdat att applikationen inte översatts"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 msgid "Interface:"
@@ -1486,7 +1488,7 @@ msgstr "Förbättrad Wiktionary-uppslagning, nu med länkar och exempelmeningar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
 msgid "Improved popover footnote extraction and formatting"
-msgstr "Förbättrad flytande fönster fotnotsextraktion och -formatering"
+msgstr "Förbättrad fotnotsextraktion och -formatering i flytande ruta"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
 msgid "Added option to export annotations to BibTeX"
@@ -1666,189 +1668,175 @@ msgstr "Första utgåvan"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:14
 msgid "Restore last file opened"
-msgstr ""
+msgstr "Återställ senast öppnade fil"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:15
 msgid "Whether to automatically restore the last file"
-msgstr ""
+msgstr "Huruvida du ska återställa den senaste filen automatiskt"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:19
-#, fuzzy
 msgid "Default highlight color"
-msgstr "Ändra markeringsfärg"
+msgstr "Standardmarkeringsfärg"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:20
 msgid "Default highlight color for annotations"
-msgstr ""
+msgstr "Standardmarkeringsfärg för kommentarer"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:24
-#, fuzzy
 msgid "Dictionary"
-msgstr "Slå upp i ordboken"
+msgstr "Ordbok"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:25
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd, if any, are "
 "available with the \"dcitd_\" prefix added to the database ID"
 msgstr ""
+"Identifierare för standardordboken. Ordböcker från dictd, om några, finns "
+"tillgängliga med prefixet \"dcitd_\" som läggs till i databas-ID:t"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
-#, fuzzy
 msgid "Target language of translation"
-msgstr "Uppdaterade översättningar"
+msgstr "Målspråk för översättning"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:30
-#, fuzzy
 msgid "Target language for translations"
-msgstr "Uppdaterade översättningar"
+msgstr "Målspråk för översättningar"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
-#, fuzzy
 msgid "Default action when selecting a word"
-msgstr "Konfigurera standardåtgärd när ord är markerade"
+msgstr "Standardåtgärd när du markerar ett ord"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:35
 msgid "Default action to perform when selecting a single word"
-msgstr ""
+msgstr "Standardåtgärd att utföra när du markerar ett enda ord"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Default action when selecting multiple words"
-msgstr ""
+msgstr "Standardåtgärd när du markerar flera ord"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:40
 msgid "Default action to perform when selecting multiple words"
-msgstr ""
+msgstr "Standardåtgärd att utföra när du markerar flera ord"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:45
-#, fuzzy
 msgid "Command to execute for text-to-speech"
-msgstr "Starta/stoppa text-till-tal"
+msgstr "Kommando att utföra för text-till-tal"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:50
 msgid "If true, a side pane will be used instead of popovers"
 msgstr ""
+"Om det är sant kommer en sidoruta att användas istället för flytande rutor"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
-#, fuzzy
 msgid "Use menubar"
-msgstr "Använd sidofältet"
+msgstr "Använd menyrad"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:55
-#, fuzzy
 msgid "If true, use traditional titlebars and menubars"
-msgstr ""
-"Alternativ att använda en traditionell titelrad och menyrad istället för en "
-"rubrikrad (experimentell)"
+msgstr "Om det är sant används traditionella titelrader och menyrader"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:59
-#, fuzzy
 msgid "Auto-hide headerbar"
-msgstr "Dölj rubrikfältet automatiskt"
+msgstr "Dölj rubrikrad automatiskt"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:60
 msgid ""
 "Whether to hide the headerbar automatically (this is setting has no effect "
 "if skeuomorphism or sidebar is enabled)"
 msgstr ""
+"Huruvida man rubrikraden automatiskt (den här inställningen har ingen effekt "
+"om skeuomorfism eller sidofältet är aktiverat)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:65
 msgid "Information to be displayed on the left footer"
-msgstr ""
+msgstr "Information som ska visas på vänster sidfot"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:70
 msgid "Information to be displayed on the right footer"
-msgstr ""
+msgstr "Information som ska visas på höger sidfot"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:75
-#, fuzzy
 msgid ""
 "If true, you can go to the previous or next page by tapping on the left or "
 "right part of the view; tap on the middle to toggle header bar and progress "
 "bar"
 msgstr ""
-"E-läsare stilnavigering: gå till föregående eller nästa sida genom att "
-"trycka på vänster eller höger del av vyn; tryck på mitten för att växla "
-"rubrikraden och förloppsindikatorn"
+"Om det är sant kan du gå till föregående eller nästa sida genom att trycka "
+"på vänster eller höger del av vyn; tryck på mitten för att växla rubrikraden och "
+"förloppsindikatorn"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:82
 msgid "Prefer dark GTK theme"
-msgstr ""
+msgstr "Föredra mörkt GTK-tema"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:83
 msgid "If true, the dark variant of a GTK theme, if available, will be used"
 msgstr ""
+"Om det är sant kommer den mörka varianten av ett GTK-tema, om det finns, att "
+"användas"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:87
 #: data/com.github.johnfactotum.Foliate.gschema.xml:88
-#, fuzzy
 msgid "Zoom level"
-msgstr "Återställ zoomnivån"
+msgstr "Zoomnivå"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:98
-#, fuzzy
 msgid "Line-height"
-msgstr "Ljust"
+msgstr "Radhöjd"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:102
-#, fuzzy
 msgid "Margin"
-msgstr "Marginaler"
+msgstr "Marginal"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:103
 msgid "Page margin in percentage"
-msgstr ""
+msgstr "Sidmarginal i procent"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:107
-#, fuzzy
 msgid "Use publisher font"
 msgstr "Använd förlagstypsnitt"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:108
 msgid "If true, custom font is disabled"
-msgstr ""
+msgstr "Om det är sant är anpassat teckensnitt inaktiverat"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:112
 msgid "Justify text"
-msgstr ""
+msgstr "Justera text"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:113
 msgid "If true, text will be justified"
-msgstr ""
+msgstr "Om det är sant kommer texten att justeras"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:117
-#, fuzzy
 msgid "Hyphenation"
-msgstr "Automatisk avstavning"
+msgstr "Avstavning"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:118
 msgid "If true, auto-hyphenation is enabled"
-msgstr ""
+msgstr "Om det är sant är automatisk bindestreck aktiverad"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:122
 msgid "Foreground color"
-msgstr ""
+msgstr "Förgrundsfärg"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:123
-#, fuzzy
 msgid "Text color"
 msgstr "Textfärg"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:127
 #: data/com.github.johnfactotum.Foliate.gschema.xml:128
-#, fuzzy
 msgid "Background color"
-msgstr "Bakgrund"
+msgstr "Bakgrundsfärg"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:132
 #: data/com.github.johnfactotum.Foliate.gschema.xml:133
-#, fuzzy
 msgid "Link color"
 msgstr "Länkfärg"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:138
-#, fuzzy
 msgid "Invert page"
-msgstr "Invertera"
+msgstr "Invertera sida"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:143
 msgid ""
@@ -1856,18 +1844,18 @@ msgid ""
 "of 0 will make the page completely black, while a value of 1 leaves the "
 "brightness unchanged"
 msgstr ""
+"Ett värde under 1 mörknar sidan, medan ett värde över 1 lyser det. Ett värde "
+"på 0 gör sidan helt svart medan ett värde på 1 lämnar ljusstyrkan oförändrad"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:147
-#, fuzzy
 msgid "Footnote preview"
 msgstr "Förhandsvisning av fotnot"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:148
 msgid "If true, will attempt to display footnotes in a popover"
-msgstr ""
+msgstr "Om det är sant kommer fotnoter att försöka visas i en flytande ruta"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:152
-#, fuzzy
 msgid "Allow unsafe content"
 msgstr "Tillåt osäkert innehåll"
 
@@ -1876,86 +1864,86 @@ msgid ""
 "If true, Content Security Policy is disabled, which will allow JavaScript "
 "and external resources to load"
 msgstr ""
+"Om det är sant är innehållssäkerhetspolicy inaktiverad, vilket gör att "
+"JavaScript och externa resurser kan läsas in"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:157
-#, fuzzy
 msgid "Enable developer tools"
 msgstr "Aktivera utvecklingsverktyg"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:158
-#, fuzzy
 msgid "If true, developer tools are enabled"
-msgstr "WebKits utvecklarverktyg kan aktiveras"
+msgstr "Om det är sant är utvecklarverktyg aktiverade"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:163
 msgid "Page layout"
-msgstr ""
+msgstr "Sidlayout"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:167
 msgid "Skeuomorphism"
-msgstr ""
+msgstr "Skeuomorfism"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:168
 msgid ""
 "If true, the book is decoratively presented in a way that resembles physical "
 "books"
 msgstr ""
+"Om det är sant presenteras boken dekorativt på ett sätt som liknar fysiska "
+"böcker"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:172
-#, fuzzy
 msgid "Auto-hide cursor"
-msgstr "Dölj automatiskt markör"
+msgstr "Dölj markör automatiskt"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:173
 msgid "Whether to hide the cursor automatically"
-msgstr ""
+msgstr "Huruvida markören ska döljas automatiskt"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:180
 msgid "Window width"
-msgstr ""
+msgstr "Fönsterbredd"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:181
 msgid "Width of the window"
-msgstr ""
+msgstr "Bredden på fönstret"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:185
 msgid "Window height"
-msgstr ""
+msgstr "Fönsterhöjd"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:186
 msgid "Height of the window"
-msgstr ""
+msgstr "Höjden på fönstret"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:190
 msgid "Maximized"
-msgstr ""
+msgstr "Maximerad"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:191
 msgid "Whether the window is maximized"
-msgstr ""
+msgstr "Huruvida fönstret är maximerat"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:196
 msgid "Whether the window is fullscreen"
-msgstr ""
+msgstr "Huruvida fönstret är helskärm"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:200
 #: data/com.github.johnfactotum.Foliate.gschema.xml:201
 msgid "Last file opened"
-msgstr ""
+msgstr "Senast öppnade fil"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:205
-#, fuzzy
 msgid "Show sidebar"
-msgstr "Använd sidofältet"
+msgstr "Visa sidofält"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:206
 msgid "Whether the sidebar is shown"
-msgstr ""
+msgstr "Huruvida sidofältet visas"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:210
 msgid "Sidebar size"
-msgstr ""
+msgstr "Sidfältets storlek"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:211
 msgid "Sidebar width"
-msgstr ""
+msgstr "Sidofältets bredd"
