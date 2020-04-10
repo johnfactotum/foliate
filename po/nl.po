@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-09 12:38+0800\n"
-"PO-Revision-Date: 2020-04-05 13:08+0200\n"
+"PO-Revision-Date: 2020-04-10 14:28+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
@@ -468,9 +468,8 @@ msgid "Open File…"
 msgstr "Bestand openen…"
 
 #: src/ui/mainOverlay.ui:86
-#, fuzzy
 msgid "Recent Files"
-msgstr "Bestand openen"
+msgstr "Recente bestanden"
 
 #: src/ui/mainOverlay.ui:127
 msgid "Something's wrong"
@@ -606,7 +605,7 @@ msgstr "Lezen"
 #: src/ui/preferenceWindow.ui:163
 #: data/com.github.johnfactotum.Foliate.gschema.xml:74
 msgid "Turn page on tap"
-msgstr ""
+msgstr "Eenmaal drukken om pagina om te slaan"
 
 #: src/ui/preferenceWindow.ui:186
 #: data/com.github.johnfactotum.Foliate.gschema.xml:64
@@ -709,9 +708,8 @@ msgid "Show contents"
 msgstr "Inhoud tonen"
 
 #: src/ui/shortcutsWindow.ui:128
-#, fuzzy
 msgid "Show table of contents"
-msgstr "Inhoudsopgave"
+msgstr "Inhoudsopgave tonen"
 
 #: src/ui/shortcutsWindow.ui:135
 msgid "Show annotations"
@@ -1239,12 +1237,12 @@ msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Fixed wrong version number"
-msgstr ""
+msgstr "Onjuist versienummer gerepareerd"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid ""
 "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
-msgstr ""
+msgstr "Woordenboek, vertaling en Wikipedia gerepareerd in Snap-pakket"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
@@ -1254,23 +1252,22 @@ msgstr "Nieuwe mogelijkheden:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
 msgid "New and improved icon"
-msgstr ""
+msgstr "Nieuw, verbeterd pictogram"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
-#, fuzzy
 msgid "Option to disable turn page on tap"
-msgstr "Optie om het woordenboek uit te schakelen"
+msgstr "Optie om pagina omslaan door drukken uit te schakelen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid "A menu on the welcome screen for opening recent files"
 msgstr ""
+"Menu toegevoegd op het welkomstscherm voor het openen van recente bestanden"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
-#, fuzzy
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
 msgstr ""
-"Gebruik een zijbalk om de inhoudsopgave, aantekeningen en bladwijzers te "
-"tonen."
+"Sneltoetsen hersteld voor het tonen van de inhoudsopgave, aantekeningen en "
+"bladwijzers"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:239
@@ -1279,38 +1276,43 @@ msgstr "Opgeloste fouten:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Fixed application not translated"
-msgstr ""
+msgstr "Vertaalprobleem opgelost"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
-#, fuzzy
 msgid "Interface:"
-msgstr "Uiterlijk"
+msgstr "Uiterlijk:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
 msgid "A redesigned interface that works better for smaller screens"
 msgstr ""
+"Het uiterlijk is opnieuw ontworpen om Foliate beter te laten werken op "
+"kleinere schermen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
 msgid "Improved fullscreen mode with an overlaid headerbar"
-msgstr ""
+msgstr "Verbeterde beeldvullende modus met kopbalk"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
 msgid ""
 "The headerbar and the progress bar now auto-hide, for a distraction-free "
 "reading experience"
 msgstr ""
+"De kop- en voortgangsbalk verbergen voortaan automatisch zodat je ongestoord "
+"kunt lezen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
 msgid ""
 "Various location information, as well as a clock, can now be displayed in "
 "the footer"
-msgstr ""
+msgstr "Locatie-informatie en klok toegevoegd aan de statusbalk"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
 msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
 msgstr ""
+"Locatiemenu (Ctrl + L) toegevoegd waar je de geschatte leestijd kunt zien en "
+"naar andere bladzijden kunt gaan"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
 msgid ""
@@ -1318,158 +1320,163 @@ msgid ""
 "left or right part of the view; tap on the middle to toggle header bar and "
 "progress bar"
 msgstr ""
+"E-readerachtige navigatie: ga naar de vorige of volgende pagina door eenmaal "
+"te drukken op de linker- of rechterkant van het boek - druk in het midden om "
+"de kop- en voortgangsbalk te tonen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid "Annotations, bookmarks, and find results now show chapter titles"
 msgstr ""
+"Aantekeningen, bladwijzers en zoekresultaten zijn nu voorzien van "
+"hoofdstuktitels"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
 msgid "When looking up words in dictionaries, the query can now be edited"
-msgstr ""
+msgstr "Woordenboekzoekopdrachten kunnen voortaan worden bewerkt"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr ""
+"Sneltoetsen toegevoegd voor het tonen van metagegevens (Ctrl + I) en "
+"voorkeuren (Ctrl + ,)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
 msgid ""
 "A new traditional menubar, which may be displayed depending on the desktop "
 "environment"
-msgstr ""
+msgstr "Traditionele menubalk toegevoegd voor niet-GTK-werkomgevingen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
 msgid ""
 "Option to use a traditional titlebar and menubar instead of a headerbar "
 "(experimental)"
 msgstr ""
+"Optie toegevoegd om een traditionele titel- en menubalk te gebruiken "
+"(experimenteel)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
-#, fuzzy
 msgid "Reading:"
-msgstr "Lezen"
+msgstr "Lezen:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
 msgid "Continuous scrolling layout"
-msgstr ""
+msgstr "Oneindig scrollen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
 msgid ""
 "Option to show decorative shadows that mimic the appearance of a real book"
-msgstr ""
+msgstr "Optie om schaduwen te tonen zodat het meer lijkt op een papieren boek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
-#, fuzzy
 msgid "Ability to zoom in and zoom out"
-msgstr "Zoom in/uit op afbeeldingen en kopieer ze"
+msgstr "Mogelijkheid om in en uit te zoomen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
 msgid "Improved image viewer with \"save as\" option"
-msgstr ""
+msgstr "Verbeterde afbeeldingsweergave met 'Opslaan als'-optie"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
 msgid "Open copies of a book in new windows (Ctrl + N)"
-msgstr ""
+msgstr "Kopieën openen in nieuwe vensters (Ctrl + N)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
 msgid "Reload book (Ctrl + R)"
-msgstr ""
+msgstr "Boek opnieuw inlezen (Ctrl +R)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
-msgstr ""
+msgstr "Nieuwe thema's: grijs, gesolariseerd, Gruvbox en Nord"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
 msgid "Text selection:"
-msgstr ""
+msgstr "Tekstselectie:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:97
-#, fuzzy
 msgid "Ability to select text across pages"
-msgstr "Zoom in/uit op afbeeldingen en kopieer ze"
+msgstr "Mogelijkheid om tekst te selecteren op meerdere pagina's"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
-#, fuzzy
 msgid "Find selected text in book"
-msgstr "Doorzoek het boek"
+msgstr "Geselecteerde tekst zoeken in boek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Speak selected text or from the selected locatio"
-msgstr ""
+msgstr "Geselecteerde tekst voorlezen, of voorlezen vanaf gekozen locatie"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
-#, fuzzy
 msgid "Annotations:"
-msgstr "Aantekeningen"
+msgstr "Aantekeningen:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:103
 msgid "Spellcheck notes"
-msgstr ""
+msgstr "Spellingscontrole-aantekeningen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
-#, fuzzy
 msgid "Export annotations to Markdown"
-msgstr "Aantekeningen exporteren"
+msgstr "Aantekeningen exporteren naar Markdown"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:105
 msgid "Options to use custom colors for highlights"
-msgstr ""
+msgstr "Optie om markeringen met aangepaste kleuren te gebruiken"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:107
 msgid "For publishers and developers:"
-msgstr ""
+msgstr "Voor uitgevers en ontwikkelaars:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
 msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
 msgstr ""
+"Ondersteuning voor Apple Books-thema's, zodat boeken thema's kunnen "
+"detecteren zonder gebruik van JavaScript"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
 msgid "WebKit's developer tools can be enabled"
-msgstr ""
+msgstr "WebKit's ontwikkelaarshulpmiddelen kunnen voortaan worden gebruikt"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
 msgid "Breaking changes:"
-msgstr ""
+msgstr "Grootschalige aanpassingen:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:114
 msgid "The settings schemas has been reorganized"
-msgstr ""
+msgstr "De instellingsschema's zijn geherorganiseerd"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
 msgid "The format for custom themes has changed"
-msgstr ""
+msgstr "De opmaak van aangepaste thema's is gewijzigd"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
 msgid "Locations are now 1024 characters in size"
-msgstr ""
+msgstr "Locaties zijn nu 1024 tekens lang"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:118
-#, fuzzy
 msgid "Bug fixes:"
 msgstr "Opgeloste fouten:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
 msgid "Fixed not restoring exact last location"
-msgstr ""
+msgstr "Niet herstellen van recentste locatie opgelost"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
-#, fuzzy
 msgid "Fixed navigation not working with scrolled layout"
-msgstr "Probleem opgelost met niet-verschijnende inhoudsopgaven"
+msgstr "Probleem opgelost met navigatie in scrollindeling"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:122
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
 msgstr ""
+"Probleem opgelost met lettertypegrootte als het boek trefwoorden met vaste "
+"groottes gebruikt"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:123
 msgid "Fixed text cut off at margin edge"
-msgstr ""
+msgstr "Probleem opgelost met tekst op de schermranden"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:124
-#, fuzzy
 msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
-msgstr "Probleem opgelost met het openen van .epub3-boeken"
+msgstr ""
+"Probleem opgelost met het openen van boeken met '#' of '?' in de bestandsnaam"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
 msgid ""
@@ -1668,20 +1675,20 @@ msgstr "Initiële uitgave"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:14
 msgid "Restore last file opened"
-msgstr ""
+msgstr "Recentste boek openen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:15
 msgid "Whether to automatically restore the last file"
 msgstr ""
+"Of het recentste boek al dan niet moet worden geopend bij het opstarten"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:19
-#, fuzzy
 msgid "Default highlight color"
-msgstr "Markeerkleur wijzigen"
+msgstr "Standaard markeerkleur"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:20
 msgid "Default highlight color for annotations"
-msgstr ""
+msgstr "Standaard markeerkleur op aantekeningen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:24
 msgid "Dictionary"
@@ -1692,70 +1699,68 @@ msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd, if any, are "
 "available with the \"dcitd_\" prefix added to the database ID"
 msgstr ""
+"Identificatie van het standaard woordenboek. Woordenboeken van dictd zijn "
+"beschikbaar als naam + 'dtictd_' in de databank-id"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
-#, fuzzy
 msgid "Target language of translation"
-msgstr "Bijgewerkte vertalingen"
+msgstr "Taal om in te vertalen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:30
-#, fuzzy
 msgid "Target language for translations"
-msgstr "Bijgewerkte vertalingen"
+msgstr "Talen om in te vertalen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
-#, fuzzy
 msgid "Default action when selecting a word"
-msgstr "Stel een standaardactie in bij woordselectie"
+msgstr "Standaardactie bij woordselectie"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:35
 msgid "Default action to perform when selecting a single word"
-msgstr ""
+msgstr "Stel een standaardactie in bij woordselectie"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Default action when selecting multiple words"
-msgstr ""
+msgstr "Standaardactie bij selecteren van meerdere woorden"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:40
 msgid "Default action to perform when selecting multiple words"
-msgstr ""
+msgstr "Stel een standaardactie in bij selectie van meerdere woorden"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:45
-#, fuzzy
 msgid "Command to execute for text-to-speech"
-msgstr "Tekst-naar-spraak aan/uit"
+msgstr "Opdracht voor tekst-naar-spraak"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:50
 msgid "If true, a side pane will be used instead of popovers"
-msgstr ""
+msgstr "Schakel in om een zijpaneel te gebruiken in plaats van uitklapvensters"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
-#, fuzzy
 msgid "Use menubar"
-msgstr "Zijbalk tonen"
+msgstr "Menubalk tonen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:55
 msgid "If true, use traditional titlebars and menubars"
-msgstr ""
+msgstr "Schakel in om traditionele titel- en menubalken te gebruiken"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:59
-#, fuzzy
 msgid "Auto-hide headerbar"
-msgstr "Titelbalk automatisch verbergen"
+msgstr "Kopbalk automatisch verbergen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:60
 msgid ""
 "Whether to hide the headerbar automatically (this is setting has no effect "
 "if skeuomorphism or sidebar is enabled)"
 msgstr ""
+"Of de kopbar automatisch verborgen moet worden (niet van toepassing als de "
+"traditionele menubalk of zijbalk zijn ingeschakeld)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:65
 msgid "Information to be displayed on the left footer"
-msgstr ""
+msgstr "De in de linkervoetnoot te tonen informatie"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:70
 msgid "Information to be displayed on the right footer"
-msgstr ""
+msgstr "De in de rechtervoetnoot te tonen informatie"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:75
 msgid ""
@@ -1763,84 +1768,80 @@ msgid ""
 "right part of the view; tap on the middle to toggle header bar and progress "
 "bar"
 msgstr ""
+"Schakel in om naar de vorige of volgende pagina te gaan door links of rechts "
+"op de pagina te drukken - druk op het midden op de kop- en voortgangsbalk te "
+"tonen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:82
 msgid "Prefer dark GTK theme"
-msgstr ""
+msgstr "Voorkeur voor donker GTK-thema"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:83
 msgid "If true, the dark variant of a GTK theme, if available, will be used"
 msgstr ""
+"Schakel in om de donkere variant van het GTK-thema te gebruiken (indien "
+"beschikbaar)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:87
 #: data/com.github.johnfactotum.Foliate.gschema.xml:88
-#, fuzzy
 msgid "Zoom level"
-msgstr "Oorspronkelijk zoomniveau"
+msgstr "Zoomniveau"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:98
-#, fuzzy
 msgid "Line-height"
-msgstr "Licht"
+msgstr "Regelhoogte"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:102
-#, fuzzy
 msgid "Margin"
-msgstr "Marges"
+msgstr "Marge"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:103
 msgid "Page margin in percentage"
-msgstr ""
+msgstr "Paginamarge (in procenten)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:107
-#, fuzzy
 msgid "Use publisher font"
 msgstr "Lettertype van uitgever gebruiken"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:108
 msgid "If true, custom font is disabled"
-msgstr ""
+msgstr "Schakel in om geen aangepast lettertype te gebruiken"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:112
 msgid "Justify text"
-msgstr ""
+msgstr "Tekst uitvullen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:113
 msgid "If true, text will be justified"
-msgstr ""
+msgstr "Schakel in om tekst uit te vullen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:117
-#, fuzzy
 msgid "Hyphenation"
-msgstr "Automatische woordafbreking"
+msgstr "Woordafbreking"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:118
 msgid "If true, auto-hyphenation is enabled"
-msgstr ""
+msgstr "Schakel in om automatische woordafbreking te gebruiken"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:122
 msgid "Foreground color"
-msgstr ""
+msgstr "Voorgrondkleur"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:123
-#, fuzzy
 msgid "Text color"
 msgstr "Tekstkleur"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:127
 #: data/com.github.johnfactotum.Foliate.gschema.xml:128
-#, fuzzy
 msgid "Background color"
-msgstr "Achtergrond"
+msgstr "Achtergrondkleur"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:132
 #: data/com.github.johnfactotum.Foliate.gschema.xml:133
-#, fuzzy
 msgid "Link color"
 msgstr "Linkkleur"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:138
-#, fuzzy
 msgid "Invert page"
 msgstr "Negatief"
 
@@ -1850,19 +1851,19 @@ msgid ""
 "of 0 will make the page completely black, while a value of 1 leaves the "
 "brightness unchanged"
 msgstr ""
+"Waarde lager dan 1: pagina donkerder maken. Waarde hoger dan 1: pagina "
+"lichter maken. Waarde van 0: pagina volledig zwart maken. Waarde van 1: "
+"helderheid ongewijzigd laten."
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:147
-#, fuzzy
 msgid "Footnote preview"
 msgstr "Voorvertoning van voetnoot"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:148
-#, fuzzy
 msgid "If true, will attempt to display footnotes in a popover"
-msgstr "Niet-EPUB-3-voetnoten tonen in uitklapvenster"
+msgstr "Schakel in om voetnoten in een uitklapvenster te tonen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:152
-#, fuzzy
 msgid "Allow unsafe content"
 msgstr "Onveilige inhoud toestaan"
 
@@ -1871,89 +1872,89 @@ msgid ""
 "If true, Content Security Policy is disabled, which will allow JavaScript "
 "and external resources to load"
 msgstr ""
+"Schakel in om inhoudsbeveiliging uit te schakelen zodat JavaScript externe "
+"bronnen kan laden"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:157
-#, fuzzy
 msgid "Enable developer tools"
 msgstr "Ontwikkelaarshulpmiddelen inschakelen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:158
 msgid "If true, developer tools are enabled"
-msgstr ""
+msgstr "Schakel in om ontwikkelaarshulpmiddelen in te schakelen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:163
 msgid "Page layout"
-msgstr ""
+msgstr "Pagina-indeling"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:167
 msgid "Skeuomorphism"
-msgstr ""
+msgstr "Papieren boek nabootsen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:168
 msgid ""
 "If true, the book is decoratively presented in a way that resembles physical "
 "books"
 msgstr ""
+"Schakel in om boeken te voorzien van een decoratie zodat ze op papieren "
+"boeken lijken"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:172
-#, fuzzy
 msgid "Auto-hide cursor"
 msgstr "Cursor automatisch verbergen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:173
 msgid "Whether to hide the cursor automatically"
-msgstr ""
+msgstr "Of de cursor automatisch verborgen moet worden"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:180
 msgid "Window width"
-msgstr ""
+msgstr "Vensterbreedte"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:181
 msgid "Width of the window"
-msgstr ""
+msgstr "De breedte van het venster"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:185
 msgid "Window height"
-msgstr ""
+msgstr "Vensterhoogte"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:186
 msgid "Height of the window"
-msgstr ""
+msgstr "De hoogte van het venster"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:190
 msgid "Maximized"
-msgstr ""
+msgstr "Gemaximaliseerd"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:191
 msgid "Whether the window is maximized"
-msgstr ""
+msgstr "Of het venster gemaximaliseerd moet zijn"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:196
-#, fuzzy
 msgid "Whether the window is fullscreen"
-msgstr "In beeldvullende modus"
+msgstr "Of het venster de beeldvullende modus moet gebruiken"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:200
 #: data/com.github.johnfactotum.Foliate.gschema.xml:201
 msgid "Last file opened"
-msgstr ""
+msgstr "Recentst geopende boek"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:205
-#, fuzzy
 msgid "Show sidebar"
 msgstr "Zijbalk tonen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:206
 msgid "Whether the sidebar is shown"
-msgstr ""
+msgstr "Of de zijbalk moet worden getoond"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:210
 msgid "Sidebar size"
-msgstr ""
+msgstr "Zijbalkgrootte"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:211
 msgid "Sidebar width"
-msgstr ""
+msgstr "Zijbalkbreedte"
 
 #~ msgid "Auto"
 #~ msgstr "Automatisch"
