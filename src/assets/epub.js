@@ -19200,7 +19200,7 @@ var Archive = function () {
 			} else if (type == "xhtml") {
 				r = (0, _core.parse)(response, "application/xhtml+xml");
 			} else if (type == "html" || type == "htm") {
-				r = (0, _core.parse)(response, "text/html");
+				r = (0, _core.parse)(response, /<\s*a[^>]*\/>/gi.test(response) ? "application/xhtml+xml" : "text/html");
 			} else {
 				r = response;
 			}
