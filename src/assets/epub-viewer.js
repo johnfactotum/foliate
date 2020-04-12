@@ -138,6 +138,7 @@ class Find {
 const find = new Find()
 
 const dispatchLocation = async () => {
+    if (!rendition.manager) return
     const location = await rendition.currentLocation()
 
     const percentage = location.start.percentage
@@ -346,11 +347,7 @@ book.ready.then(async () => {
             return null
         }
     }))
-    try {
-        cfiToc.sort(CFI.compare)
-    } catch (e) {
-        console.error(e)
-    }
+    cfiToc.sort((a, b) => CFI.compare(a.cfi, b.cfi))
 
     const metadata = book.package.metadata
     if (metadata.description)

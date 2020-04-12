@@ -761,6 +761,7 @@ var Window = GObject.registerClass({
 }, class Window extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
+        this._loading = false
 
         this._epub = new EpubView()
         this.insert_action_group('view', this._epub.actionGroup)

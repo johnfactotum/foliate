@@ -28,6 +28,7 @@ const TTS = GObject.registerClass({
     _init(params) {
         super._init(params)
         this._token = {}
+        this._epub = null
     }
     get epub() {
         return this._epub
