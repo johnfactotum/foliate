@@ -408,7 +408,6 @@ var ImageViewer = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/imageViewer.ui',
     InternalChildren: [
         'scale', 'paned', 'labelArea', 'image', 'label', 'fileChooser',
-        'copyButton', 'saveAsButton'
     ],
     Properties: {
         pixbuf: GObject.ParamSpec.object('pixbuf', 'pixbuf', 'pixbuf',
@@ -419,28 +418,70 @@ var ImageViewer = GObject.registerClass({
 }, class ImageViewer extends Gtk.Window {
     _init(params) {
         super._init(params)
+        this._rotation = 0
+        this._zoom = 1
+
+        this.actionGroup = new Gio.SimpleActionGroup()
+        const actions = {
+            'copy': () => this.copy(),
+            'save-as': () => this.saveAs(),
+            'zoom-in': () => this.zoom += 0.25,
+            'zoom-out': () => this.zoom -= 0.25,
+            'zoom-restore': () => this.zoom = 1,
+            'rotate-left': () => this.rotate(90),
+            'rotate-right': () => this.rotate(270),
+        }
+        Object.keys(actions).forEach(name => {
+            const action = new Gio.SimpleAction({ name })
+            action.connect('activate', actions[name])
+            this.actionGroup.add_action(action)
+        })
+        this.insert_action_group('img', this.actionGroup)
+
         const pixbuf = this.pixbuf
         const width = pixbuf.get_width()
         const height = pixbuf.get_height()
         const [windowWidth, windowHeight] = this.transient_for.get_size()
-        this.default_width = Math.max(Math.min(width * 1.5, windowWidth), 320)
+        this.default_width = Math.max(Math.min(width * 1.5, windowWidth), 360)
         this.default_height = Math.max(Math.min(height * 1.5 + 150, windowHeight), 200)
         this._image.set_from_pixbuf(pixbuf)
         if (this.alt) this._label.label = this.alt
         else this._labelArea.hide()
 
-        this._copyButton.connect('clicked', () => this.copy())
-        this._saveAsButton.connect('clicked', () => this.saveAs())
-
         this._scale.connect('format-value', (_, x) => `${Math.round(x * 100)}%`)
         this._scale.connect('value-changed', () => {
-            const zoom = this._scale.get_value()
-            this._image.set_from_pixbuf(pixbuf.scale_simple(
-                width * zoom,
-                height * zoom,
-                GdkPixbuf.InterpType.BILINEAR))
+            this._zoom = this._scale.get_value()
+            this._updateZoom()
+            this._update()
         })
         this._fileChooser.transient_for = this
+        this._updateZoom()
+    }
+    _updateZoom() {
+        const upper = this._scale.adjustment.upper
+        const lower = this._scale.adjustment.lower
+        this.actionGroup.lookup_action('zoom-in').enabled = this._zoom < upper
+        this.actionGroup.lookup_action('zoom-out').enabled = this._zoom > lower
+        this.actionGroup.lookup_action('zoom-restore').enabled = this._zoom !== 1
+    }
+    _update() {
+        const pixbuf = this.pixbuf
+        const width = pixbuf.get_width()
+        const height = pixbuf.get_height()
+        this._image.set_from_pixbuf(pixbuf.scale_simple(
+            width * this._zoom,
+            height * this._zoom,
+            GdkPixbuf.InterpType.BILINEAR).rotate_simple(this._rotation))
+    }
+    get zoom() {
+        return this._zoom
+    }
+    set zoom(value) {
+        if (value !== this._scale.get_value()) this._scale.set_value(value)
+    }
+    rotate(degree) {
+        this._rotation = (this._rotation + degree) % 360
+        this._update()
     }
     show() {
         super.show()
