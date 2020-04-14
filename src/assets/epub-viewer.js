@@ -138,8 +138,12 @@ class Find {
 const find = new Find()
 
 const dispatchLocation = async () => {
-    if (!rendition.manager) return
-    const location = await rendition.currentLocation()
+    let location
+    try {
+        location = await rendition.currentLocation()
+    } catch (e) {
+        return
+    }
 
     const percentage = location.start.percentage
     const index = book.spine.get(location.start.cfi).index
@@ -344,7 +348,7 @@ book.ready.then(async () => {
                 cfi: cfi.toString()
             }
         } catch (e) {
-            return null
+            return undefined
         }
     }))
     cfiToc.sort((a, b) => CFI.compare(a.cfi, b.cfi))
