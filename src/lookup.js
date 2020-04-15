@@ -273,6 +273,31 @@ const parseDictDbs = x => x.split('\n').filter(x => x).map(row => {
     const cols = row.split('\t')
     return { id: cols[2], name: cols[3] }
 })
+
+const makeStarDictDict = (name) => ({
+    name,
+    noWrap: true,
+    lookup: word => execCommand(['sdcv', '-n', `--use-dict=${name}`, word])
+        .then(text => {
+            const label = new Gtk.Label({
+                label: text,
+                selectable: true,
+                valign: Gtk.Align.START,
+                xalign: 0,
+                wrap: true,
+                max_width_chars: 60
+            })
+            const box = new Gtk.Box({ margin: 3 })
+            box.pack_start(label, false, true, 0)
+            box.show_all()
+            return box
+        })
+})
+const parseStarDictDbs = d => d.split('\n').filter(d => d).map(row => {
+    const cols = row.split(/\s+\d+/)
+    return { name: cols[0] }
+})
+
 const dictionaries = {
     wiktionary: {
         name: _('Wiktionary (English)'),
@@ -285,6 +310,17 @@ execCommand(['dict', '--dbs', '--formatted'])
         dictionaries['dcitd_' + db.id] =
             makeDictdDict(db.id, db.name)))
     .catch(() => {})
+
+execCommand(['sdcv', '--list-dicts'])
+    .then(stdout => {
+        // Remove the first line from the output which is a heading. 
+        const dictListOutput = stdout.split('\n').slice(1).join('\n')
+
+        return parseStarDictDbs(dictListOutput).forEach(db =>
+            dictionaries['stardict_' + db.name] = makeStarDictDict(db.name)
+        )
+    }
+    ).catch(() => {})
 
 var DictionaryBox = GObject.registerClass({
     GTypeName: 'FoliateDictionaryBox',
