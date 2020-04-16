@@ -313,14 +313,13 @@ execCommand(['dict', '--dbs', '--formatted'])
 
 execCommand(['sdcv', '--list-dicts'])
     .then(stdout => {
-        // Remove the first line from the output which is a heading. 
+        // Remove the first line from the output, which is a heading.
         const dictListOutput = stdout.split('\n').slice(1).join('\n')
 
         return parseStarDictDbs(dictListOutput).forEach(db =>
-            dictionaries['stardict_' + db.name] = makeStarDictDict(db.name)
-        )
-    }
-    ).catch(() => {})
+            dictionaries['stardict_' + db.name] = makeStarDictDict(db.name))
+    })
+    .catch(() => {})
 
 var DictionaryBox = GObject.registerClass({
     GTypeName: 'FoliateDictionaryBox',
