@@ -337,16 +337,15 @@ const MainOverlay = GObject.registerClass({
         dummyNavBar.pack_start(dummyButton)
         dummyNavBar.pack_start(dummyScale)
 
-        const a = new AutoHide({ visible: true })
-        a.setWidget(dummyNavBar)
-        a.addOverlay(this._footer)
-        a.addOverlay(this._autohideDivider)
-        a.setOverlay(this._navBar)
-        this._autohide = a
-        this._bookBox.pack_start(a, false, true, 0)
+        this._autohide = new AutoHide({ visible: true })
+        this._autohide.setWidget(dummyNavBar)
+        this._autohide.addOverlay(this._footer)
+        this._autohide.addOverlay(this._autohideDivider)
+        this._autohide.setOverlay(this._navBar)
+        this._bookBox.pack_start(this._autohide, false, true, 0)
 
-        const show = widget => widget.visible ? a.stayReveal(true) : null
-        const hide = () => a.stayReveal(false)
+        const show = widget => widget.visible ? this._autohide.stayReveal(true) : null
+        const hide = () => this._autohide.stayReveal(false)
         this._navBar.locationMenu.connect('notify::visible', show)
         this._navBar.locationMenu.connect('closed', hide)
 
