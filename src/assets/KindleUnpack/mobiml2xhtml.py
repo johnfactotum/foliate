@@ -8,6 +8,8 @@
 Convert from Mobi ML to XHTML
 '''
 
+from __future__ import division, absolute_import, print_function
+
 import os
 import sys
 import re
@@ -37,7 +39,7 @@ class MobiMLConverter(object):
         self.tag_css_rule_cnt = 0
         self.path = []
         self.filename = filename
-        self.wipml = open(self.filename, 'rb').read()
+        self.wipml = open(self.filename, 'r').read()
         self.pos = 0
         self.opfname = self.filename.rsplit('.',1)[0] + '.opf'
         self.opos = 0
@@ -108,7 +110,7 @@ class MobiMLConverter(object):
         if tname == '!doctype':
             tname = '!DOCTYPE'
         # special cases
-        if tname in SPECIAL_HANDLING_TAGS.keys():
+        if tname in SPECIAL_HANDLING_TAGS:
             ttype, backstep = SPECIAL_HANDLING_TAGS[tname]
             tattr['special'] = s[p:backstep]
         if ttype is None:
@@ -177,7 +179,7 @@ class MobiMLConverter(object):
                 ttype, tname, tattr = self.parsetag(tag)
 
                 # If we run into a DTD or xml declarations inside the body ... bail.
-                if tname in SPECIAL_HANDLING_TAGS.keys() and tname != 'comment' and body_done:
+                if tname in SPECIAL_HANDLING_TAGS and tname != 'comment' and body_done:
                     htmlstr += '\n</body></html>'
                     break
 
@@ -200,7 +202,7 @@ class MobiMLConverter(object):
 
                 # Get rid of font tags that only have a color attribute.
                 if tname == 'font' and ttype in ('begin', 'single', 'single_ext'):
-                    if 'color' in tattr.keys() and len(tattr.keys()) == 1:
+                    if 'color' in tattr and len(tattr) == 1:
                         tname = 'removeme:{0}'.format(tname)
                         tattr = None
 
@@ -241,18 +243,18 @@ class MobiMLConverter(object):
                     self.path.append(tname)
                 elif ttype == 'end':
                     if tname != self.path[-1]:
-                        print ('improper nesting: ', self.path, tname, ttype)
+                        print('improper nesting: ', self.path, tname, ttype)
                         if tname not in self.path:
                             # handle case of end tag with no beginning by injecting empty begin tag
                             taginfo = ('begin', tname, None)
                             htmlstr += self.processtag(taginfo)
-                            print "     - fixed by injecting empty start tag ", tname
+                            print("     - fixed by injecting empty start tag ", tname)
                             self.path.append(tname)
                         elif len(self.path) >  1 and tname == self.path[-2]:
                             # handle case of dangling missing end
                             taginfo = ('end', self.path[-1], None)
                             htmlstr += self.processtag(taginfo)
-                            print "     - fixed by injecting end tag ", self.path[-1]
+                            print("     - fixed by injecting end tag ", self.path[-1])
                             self.path.pop()
                     self.path.pop()
 
@@ -315,16 +317,16 @@ class MobiMLConverter(object):
             return ''
         if ttype == 'end':
             return '</%s>' % tname
-        if ttype in SPECIAL_HANDLING_TYPES and tattr is not None and 'special' in tattr.keys():
+        if ttype in SPECIAL_HANDLING_TYPES and tattr is not None and 'special' in tattr:
             info = tattr['special']
             if ttype == 'comment':
-                return '<%s %s-->' % tname, info
+                return '<%s %s-->' % (tname, info)
             else:
-                return '<%s %s>' % tname, info
+                return '<%s %s>' % (tname, info)
         res = []
         res.append('<%s' % tname)
         if tattr is not None:
-            for key in tattr.keys():
+            for key in tattr:
                 res.append(' %s="%s"' % (key, tattr[key]))
         if ttype == 'single':
             res.append('/>')
@@ -372,16 +374,16 @@ class MobiMLConverter(object):
         if tname in ('country-region', 'place', 'placetype', 'placename',
                 'state', 'city', 'street', 'address', 'content'):
             tname = 'div' if tname == 'content' else 'span'
-            for key in tattr.keys():
+            for key in tattr:
                 tattr.pop(key)
 
         # handle general case of style, height, width, bgcolor in any tag
-        if 'style' in tattr.keys():
+        if 'style' in tattr:
             style = tattr.pop('style').strip()
             if style:
                 styles.append(style)
 
-        if 'align' in tattr.keys():
+        if 'align' in tattr:
             align = tattr.pop('align').strip()
             if align:
                 if tname in ('table', 'td', 'tr'):
@@ -389,7 +391,7 @@ class MobiMLConverter(object):
                 else:
                     styles.append('text-align: %s' % align)
 
-        if 'height' in tattr.keys():
+        if 'height' in tattr:
             height = tattr.pop('height').strip()
             if height and '<' not in height and '>' not in height and re.search(r'\d+', height):
                 if tname in ('table', 'td', 'tr'):
@@ -399,7 +401,7 @@ class MobiMLConverter(object):
                 else:
                     styles.append('margin-top: %s' % self.ensure_unit(height))
 
-        if 'width' in tattr.keys():
+        if 'width' in tattr:
             width = tattr.pop('width').strip()
             if width and re.search(r'\d+', width):
                 if tname in ('table', 'td', 'tr'):
@@ -411,7 +413,7 @@ class MobiMLConverter(object):
                     if width.startswith('-'):
                         styles.append('margin-left: %s' % self.ensure_unit(width[1:]))
 
-        if 'bgcolor' in tattr.keys():
+        if 'bgcolor' in tattr:
             # no proprietary html allowed
             if tname == 'div':
                 del tattr['bgcolor']
@@ -421,7 +423,7 @@ class MobiMLConverter(object):
             tname = 'span'
             if ttype in ('begin', 'single', 'single_ext'):
                 # move the face attribute to css font-family
-                if 'face' in tattr.keys():
+                if 'face' in tattr:
                     face = tattr.pop('face').strip()
                     styles.append('font-family: "%s"' % face)
 
@@ -429,12 +431,12 @@ class MobiMLConverter(object):
                     # them to css. The following will work for 'flat' font tags, but nested font tags
                     # will cause things to go wonky. Need to revert to the parent font tag's size
                     # when a closing tag is encountered.
-                if 'size' in tattr.keys():
+                if 'size' in tattr:
                     sz = tattr.pop('size').strip().lower()
                     try:
                         float(sz)
                     except ValueError:
-                        if sz in size_map.keys():
+                        if sz in size_map:
                             sz = size_map[sz]
                     else:
                         if sz.startswith('-') or sz.startswith('+'):
@@ -504,18 +506,18 @@ def main(argv=sys.argv):
         infile = argv[1]
 
     try:
-        print 'Converting Mobi Markup Language to XHTML'
+        print('Converting Mobi Markup Language to XHTML')
         mlc = MobiMLConverter(infile)
-        print 'Processing ...'
+        print('Processing ...')
         htmlstr, css, cssname = mlc.processml()
         outname = infile.rsplit('.',1)[0] + '_converted.html'
-        file(outname, 'wb').write(htmlstr)
-        file(cssname, 'wb').write(css)
-        print 'Completed'
-        print 'XHTML version of book can be found at: ' + outname
+        open(outname, 'w').write(htmlstr)
+        open(cssname, 'w').write(css)
+        print('Completed')
+        print('XHTML version of book can be found at: ' + outname)
 
-    except ValueError, e:
-        print "Error: %s" % e
+    except ValueError as e:
+        print("Error: %s" % e)
         return 1
 
     return 0
