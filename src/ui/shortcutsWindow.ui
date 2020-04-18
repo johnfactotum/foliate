@@ -5,6 +5,7 @@
     <child>
       <object class="GtkShortcutsSection">
         <property name="visible">True</property>
+        <property name="title">E-book Viewer Shortcuts</property>
         <child>
           <object class="GtkShortcutsGroup">
             <property name="visible">True</property>
@@ -219,6 +220,89 @@
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Zoom out</property>
                 <property name="shortcut-type">1</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkShortcutsSection">
+        <property name="visible">True</property>
+        <property name="title">Image Viewer Shortcuts</property>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">True</property>
+            <property name="title" translatable="yes">General</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Copy</property>
+                <property name="action-name">img.copy</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Save as</property>
+                <property name="action-name">img.save-as</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Close current window</property>
+                <property name="action-name">img.close</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Quit</property>
+                <property name="action-name">app.quit</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">True</property>
+            <property name="title" translatable="yes">View</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Zoom in</property>
+                <!-- <property name="action-name">img.zoom-in</property> -->
+                <property name="accelerator">plus &lt;ctrl&gt;plus</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Zoom out</property>
+                <property name="action-name">img.zoom-out</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Restore zoom level</property>
+                <property name="action-name">img.zoom-restore</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Rotate 90° counter-clockwise</property>
+                <property name="action-name">img.rotate-left</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Rotate 90° clockwise</property>
+                <property name="action-name">img.rotate-right</property>
               </object>
             </child>
           </object>

@@ -430,6 +430,7 @@ var ImageViewer = GObject.registerClass({
             'zoom-restore': () => this.zoom = 1,
             'rotate-left': () => this.rotate(90),
             'rotate-right': () => this.rotate(270),
+            'close': () => this.close(),
         }
         Object.keys(actions).forEach(name => {
             const action = new Gio.SimpleAction({ name })

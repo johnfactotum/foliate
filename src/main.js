@@ -149,6 +149,7 @@ function main(argv) {
             ['app.quit', ['<ctrl>q']],
             ['app.open', ['<ctrl>o']],
             ['app.preferences', ['<ctrl>comma']],
+
             ['win.close', ['<ctrl>w']],
             ['win.reload', ['<ctrl>r']],
             ['win.open-copy', ['<ctrl>n']],
@@ -165,13 +166,23 @@ function main(argv) {
             ['win.speak', ['F5']],
             ['win.selection-copy', ['<ctrl>c']],
             ['win.show-help-overlay', ['<ctrl>question']],
-            ['view.zoom-in', ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
+
             ['view.go-prev', ['p']],
             ['view.go-next', ['n']],
             ['view.go-back', ['<alt>p', '<alt>Left']],
+            ['view.zoom-in', ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
             ['view.zoom-out', ['minus', '<ctrl>minus']],
             ['view.zoom-restore', ['0', '<ctrl>0']],
             ['view.bookmark', ['<ctrl>d']],
+
+            ['img.copy', ['<ctrl>c']],
+            ['img.save-as', ['<ctrl>s']],
+            ['img.zoom-in', ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
+            ['img.zoom-out', ['minus', '<ctrl>minus']],
+            ['img.zoom-restore', ['0', '<ctrl>0']],
+            ['img.rotate-left', ['<ctrl>Left']],
+            ['img.rotate-right', ['<ctrl>Right']],
+            ['img.close', ['<ctrl>w']],
         ].forEach(([name, accels]) => application.set_accels_for_action(name, accels))
 
         const menu = Gtk.Builder.new_from_resource(

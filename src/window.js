@@ -952,7 +952,8 @@ var Window = GObject.registerClass({
             const window = new ImageViewer({
                 pixbuf, alt,
                 title: title ? _('Image from “%s”').format(title) : _('Image'),
-                transient_for: this
+                transient_for: this,
+                application: this.application
             })
             window.show()
         })
