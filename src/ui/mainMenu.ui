@@ -14,6 +14,13 @@
     <property name="page_increment">7</property>
     <property name="value">0</property>
   </object>
+  <object class="GtkAdjustment" id="maxWidthAdjustment">
+    <property name="lower">0</property>
+    <property name="upper">99999</property>
+    <property name="step_increment">100</property>
+    <property name="page_increment">250</property>
+    <property name="value">1400</property>
+  </object>
   <object class="GtkAdjustment" id="brightnessAdjustment">
     <property name="lower">0.5</property>
     <property name="upper">1.5</property>
@@ -213,6 +220,34 @@
               <packing>
                 <property name="left-attach">1</property>
                 <property name="top-attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">Width</property>
+                <property name="tooltip-text" translatable="yes">Maximum page width</property>
+                <style><class name="dim-label"/></style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">3</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="maxWidthButton">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="adjustment">maxWidthAdjustment</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">3</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>

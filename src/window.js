@@ -67,7 +67,7 @@ const MainMenu = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainMenu.ui',
     InternalChildren: [
         'zoomRestoreButton', 'fullscreenButton',
-        'brightnessScale', 'fontButton', 'spacingButton', 'marginButton',
+        'brightnessScale', 'fontButton', 'spacingButton', 'marginButton', 'maxWidthButton',
         'customThemesListBox', 'customThemesSep', 'themesListBox'
     ]
 }, class MainMenu extends Gtk.PopoverMenu {
@@ -79,6 +79,7 @@ const MainMenu = GObject.registerClass({
         viewSettings.bind('font', this._fontButton, 'font', flag)
         viewSettings.bind('spacing', this._spacingButton, 'value', flag)
         viewSettings.bind('margin', this._marginButton, 'value', flag)
+        viewSettings.bind('max-width', this._maxWidthButton, 'value', flag)
         viewSettings.bind('brightness', this._brightnessScale.adjustment, 'value', flag)
 
         this._updateZoom()
@@ -367,6 +368,24 @@ const MainOverlay = GObject.registerClass({
         this._epub.connect('spread', (_, spread) => {
             this._spread = spread
             this._showDivider()
+        })
+
+        const updateMarginSize = () => {
+            const width = this._autohide.get_allocation().width
+            const margin = this._epub.settings.margin
+            const maxWidth = this._epub.settings.max_width
+            const marginSize = Math.max(0,
+                width * margin / 100,
+                Math.max(width - maxWidth, 0) / 2)
+            this._footer.margin_end = marginSize
+            this._footer.margin_start = marginSize
+        }
+        this._autohide.connect('size-allocate', updateMarginSize)
+        const h1 = this._epub.connect('notify::margin', updateMarginSize)
+        const h2 = this._epub.connect('notify::max-width', updateMarginSize)
+        this.connect('destroy', () => {
+            this._epub.disconnect(h1)
+            this._epub.disconnect(h2)
         })
     }
     _setStatus(status) {

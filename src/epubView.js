@@ -282,6 +282,9 @@ var EpubViewSettings = GObject.registerClass({
         margin:
             GObject.ParamSpec.double('margin', 'margin', 'margin',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 100, 3.5),
+        'max-width':
+            GObject.ParamSpec.int('max-width', 'max-width', 'max-width',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 2147483647, 1400),
         'use-publisher-font':
             GObject.ParamSpec.boolean('use-publisher-font', 'use-publisher-font', 'use-publisher-font',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
@@ -333,6 +336,7 @@ const defaultSettings = new EpubViewSettings()
     'font',
     'spacing',
     'margin',
+    'max-width',
     'use-publisher-font',
     'justify',
     'hyphenate',
@@ -489,6 +493,7 @@ var EpubView = GObject.registerClass({
             this.settings.connect('notify::font', () => this._applyStyle()),
             this.settings.connect('notify::spacing', () => this._applyStyle()),
             this.settings.connect('notify::margin', () => this._applyStyle()),
+            this.settings.connect('notify::max-width', () => this._applyStyle()),
             this.settings.connect('notify::use-publisher-font', () => this._applyStyle()),
             this.settings.connect('notify::justify', () => this._applyStyle()),
             this.settings.connect('notify::hyphenate', () => this._applyStyle()),
@@ -764,6 +769,7 @@ var EpubView = GObject.registerClass({
             fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
             spacing: this.settings.spacing,
             margin: this.settings.margin,
+            maxWidth: this.settings.max_width,
             usePublisherFont: this.settings.use_publisher_font,
             justify: this.settings.justify,
             hyphenate: this.settings.hyphenate,

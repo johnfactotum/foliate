@@ -242,7 +242,7 @@ const setStyle = style => {
     const {
         brightness, fgColor, bgColor, linkColor, invert,
         fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
-        spacing, margin,
+        spacing, margin, maxWidth,
         usePublisherFont, hyphenate, justify
     } = style
 
@@ -252,8 +252,8 @@ const setStyle = style => {
     rendition.getContents().forEach(contents => contents.document.documentElement
         .setAttribute('__ibooks_internal_theme', ibooksInternalTheme))
 
-    document.body.style.margin = `0 ${margin}%`
-    rendition.resize()
+    document.documentElement.style.margin = `0 ${margin}%`
+    document.body.style.maxWidth = `${maxWidth}px`
 
     document.documentElement.style.filter =
         (invert ? 'invert(1) hue-rotate(180deg) ' : '')
@@ -303,6 +303,7 @@ const setStyle = style => {
 
     rendition.themes.register(themeName, stylesheet)
     rendition.themes.select(themeName)
+    rendition.resize()
     redrawAnnotations()
 }
 
