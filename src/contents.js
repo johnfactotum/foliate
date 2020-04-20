@@ -415,9 +415,10 @@ var ImageViewer = GObject.registerClass({
         alt: GObject.ParamSpec.string('alt', 'alt', 'alt',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, '')
     }
-}, class ImageViewer extends Gtk.Window {
+}, class ImageViewer extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
+        this.show_menubar = false
         this._rotation = 0
         this._zoom = 1
 
@@ -438,6 +439,11 @@ var ImageViewer = GObject.registerClass({
             this.actionGroup.add_action(action)
         })
         this.insert_action_group('img', this.actionGroup)
+        const overlay = Gtk.Builder.new_from_resource(
+            '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
+            .get_object('shortcutsWindow')
+        overlay.section_name = 'image-viewer-shortcuts'
+        this.set_help_overlay(overlay)
 
         const pixbuf = this.pixbuf
         const width = pixbuf.get_width()

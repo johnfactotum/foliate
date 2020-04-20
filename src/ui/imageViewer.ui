@@ -18,7 +18,7 @@
     <property name="page_increment">0.1</property>
     <property name="value">1</property>
   </object>
-  <template class="FoliateImageViewer" parent="GtkWindow">
+  <template class="FoliateImageViewer" parent="GtkApplicationWindow">
     <child type="titlebar">
       <object class="GtkHeaderBar">
         <property name="visible">True</property>
