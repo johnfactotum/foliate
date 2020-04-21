@@ -607,7 +607,7 @@ var EpubView = GObject.registerClass({
                 this._skeuomorphism = this.settings.skeuomorphism
                 this._autohideCursor = this.settings.autohide_cursor
 
-                const uri = GLib.filename_to_uri(this._path, null)
+                const uri = this._uri
                 this._run(`open("${encodeURI(uri)}", '${this._inputType}',
                     ${layouts[this.settings.layout].renderTo},
                     ${JSON.stringify(layouts[this.settings.layout].options)})`)
@@ -805,10 +805,10 @@ var EpubView = GObject.registerClass({
         this._webView.get_settings().enable_developer_extras = state
         this._contextMenu = () => !state
     }
-    open_(path, inputType) {
+    open_(uri, inputType) {
         this.findResults.clear()
         this._history = []
-        this._path = path
+        this._uri = uri
         this._inputType = inputType
         this._load()
     }
@@ -820,13 +820,15 @@ var EpubView = GObject.registerClass({
             this._fileInfo = this._file.query_info('standard::content-type',
                 Gio.FileQueryInfoFlags.NONE, null)
         } catch (e) {
-            this._fileInto = null
+            this._fileInfo = null
         }
         if (!this._fileInfo) return this.emit('book-error')
 
         const contentType = this._fileInfo.get_content_type()
-        const path = this._file.get_path()
+        const uri = this._file.get_uri()
         if (contentType === mimetypes.mobi || contentType === mimetypes.kindle) {
+            // TODO: broken file has no local pathname
+            const path = this._file.get_path()
             const dir = GLib.dir_make_tmp(null)
             this._tmpdir = dir
             const command = [python, kindleUnpack, '--epub_version=3', path, dir]
@@ -836,7 +838,7 @@ var EpubView = GObject.registerClass({
                     this.open_(mobi8, 'directory')
                 else this.open_(dir + '/mobi7/content.opf', 'opf')
             })
-        } else this.open_(path, 'epub')
+        } else this.open_(uri, 'epub')
     }
     close() {
         if (this._tmpdir) {
