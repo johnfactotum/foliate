@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
+const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2, Soup } = imports.gi
 const { invertRotate } = imports.utils
 
 const {
@@ -812,7 +812,7 @@ var EpubView = GObject.registerClass({
         this._inputType = inputType
         this._load()
     }
-    open(file) {
+    async open(file) {
         this.emit('book-loading')
         this.close()
         this._file = file
@@ -826,11 +826,36 @@ var EpubView = GObject.registerClass({
 
         const contentType = this._fileInfo.get_content_type()
         const uri = this._file.get_uri()
-        if (contentType === mimetypes.mobi || contentType === mimetypes.kindle) {
-            // TODO: broken file has no local pathname
-            const path = this._file.get_path()
+        if (contentType === mimetypes.mobi
+            || contentType === mimetypes.kindle
+            || contentType === mimetypes.kindleAlias) {
+            let path = this._file.get_path()
             const dir = GLib.dir_make_tmp(null)
             this._tmpdir = dir
+            if (!path) {
+                // if path is null, we download the file with libsoup first
+                // then feed it to KindleUnpack
+                const session = new Soup.SessionAsync()
+                const request = Soup.Message.new('GET', uri)
+                try {
+                    await new Promise((resolve, reject) => {
+                        session.queue_message(request, (session, message) => {
+                            if (message.status_code !== 200) reject()
+                            else {
+                                path = GLib.build_filenamev([dir, this._file.get_basename()])
+                                const file = Gio.File.new_for_path(path)
+                                const outstream = file.replace(
+                                    null, false, Gio.FileCreateFlags.NONE, null)
+                                outstream.write_bytes(
+                                    message.response_body.flatten().get_as_bytes(), null)
+                                resolve()
+                            }
+                        })
+                    })
+                } catch (e) {
+                    return this.emit('book-error')
+                }
+            }
             const command = [python, kindleUnpack, '--epub_version=3', path, dir]
             execCommand(command, null, false, null, true).then(() => {
                 const mobi8 = dir + '/mobi8/'

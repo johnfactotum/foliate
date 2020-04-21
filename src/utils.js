@@ -59,7 +59,8 @@ var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 var mimetypes = {
     epub: 'application/epub+zip',
     mobi: 'application/x-mobipocket-ebook',
-    kindle: 'application/vnd.amazon.mobi8-ebook'
+    kindle: 'application/vnd.amazon.mobi8-ebook',
+    kindleAlias: 'application/x-mobi8-ebook'
 }
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
