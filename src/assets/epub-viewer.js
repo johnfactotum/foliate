@@ -372,6 +372,7 @@ book.ready.then(async () => {
     const metadata = book.package.metadata
     if (metadata.description)
         metadata.description = toPangoMarkup(metadata.description)
+    if (!metadata.language) metadata.language = 'en'
     dispatch({ type: 'book-ready' })
 })
 
