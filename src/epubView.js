@@ -826,44 +826,53 @@ var EpubView = GObject.registerClass({
 
         const contentType = this._fileInfo.get_content_type()
         const uri = this._file.get_uri()
-        if (contentType === mimetypes.mobi
-            || contentType === mimetypes.kindle
-            || contentType === mimetypes.kindleAlias) {
-            let path = this._file.get_path()
-            const dir = GLib.dir_make_tmp(null)
-            this._tmpdir = dir
-            if (!path) {
-                // if path is null, we download the file with libsoup first
-                // then feed it to KindleUnpack
-                const session = new Soup.SessionAsync()
-                const request = Soup.Message.new('GET', uri)
-                try {
-                    await new Promise((resolve, reject) => {
-                        session.queue_message(request, (session, message) => {
-                            if (message.status_code !== 200) reject()
-                            else {
-                                path = GLib.build_filenamev([dir, this._file.get_basename()])
-                                const file = Gio.File.new_for_path(path)
-                                const outstream = file.replace(
-                                    null, false, Gio.FileCreateFlags.NONE, null)
-                                outstream.write_bytes(
-                                    message.response_body.flatten().get_as_bytes(), null)
-                                resolve()
-                            }
+        switch (contentType) {
+            case mimetypes.mobi:
+            case mimetypes.kindle:
+            case mimetypes.kindleAlias: {
+                let path = this._file.get_path()
+                const dir = GLib.dir_make_tmp(null)
+                this._tmpdir = dir
+                if (!path) {
+                    // if path is null, we download the file with libsoup first
+                    // then feed it to KindleUnpack
+                    const session = new Soup.SessionAsync()
+                    const request = Soup.Message.new('GET', uri)
+                    try {
+                        await new Promise((resolve, reject) => {
+                            session.queue_message(request, (session, message) => {
+                                if (message.status_code !== 200) reject()
+                                else {
+                                    path = GLib.build_filenamev([dir, this._file.get_basename()])
+                                    const file = Gio.File.new_for_path(path)
+                                    const outstream = file.replace(
+                                        null, false, Gio.FileCreateFlags.NONE, null)
+                                    outstream.write_bytes(
+                                        message.response_body.flatten().get_as_bytes(), null)
+                                    resolve()
+                                }
+                            })
                         })
-                    })
-                } catch (e) {
-                    return this.emit('book-error')
+                    } catch (e) {
+                        return this.emit('book-error')
+                    }
                 }
+                const command = [python, kindleUnpack, '--epub_version=3', path, dir]
+                execCommand(command, null, false, null, true).then(() => {
+                    const mobi8 = dir + '/mobi8/'
+                    if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
+                        this.open_(mobi8, 'directory')
+                    else this.open_(dir + '/mobi7/content.opf', 'opf')
+                })
+                break
             }
-            const command = [python, kindleUnpack, '--epub_version=3', path, dir]
-            execCommand(command, null, false, null, true).then(() => {
-                const mobi8 = dir + '/mobi8/'
-                if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
-                    this.open_(mobi8, 'directory')
-                else this.open_(dir + '/mobi7/content.opf', 'opf')
-            })
-        } else this.open_(uri, 'epub')
+            case mimetypes.directory:
+                this.open_(GLib.build_filenamev([uri, '/']), 'directory')
+                break
+            case mimetypes.json: this.open_(uri, 'json'); break
+            case mimetypes.xml: this.open_(uri, 'opf'); break
+            default: this.open_(uri, 'epub'); break
+        }
     }
     close() {
         if (this._tmpdir) {
