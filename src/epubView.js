@@ -23,6 +23,7 @@ const {
 
 const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
 const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
+const cbunpack = pkg.pkgdatadir + '/assets/cbunpack/main.py'
 
 const settings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 
@@ -835,6 +836,14 @@ var EpubView = GObject.registerClass({
                 if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
                     this.open_(mobi8, 'directory')
                 else this.open_(dir + '/mobi7/content.opf', 'opf')
+            })
+        } else if (contentType === mimetypes.cbz) {
+            const tmpOutputDir = GLib.dir_make_tmp(null)
+            this._tmpdir = tmpOutputDir
+          
+            const command = [python, cbunpack, 'cbz', path, tmpOutputDir]
+            execCommand(command, null, true, null, true).then(() => {
+                this.open_(tmpOutputDir + '/OEBPS/package.opf', 'opf')
             })
         } else this.open_(path, 'epub')
     }
