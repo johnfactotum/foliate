@@ -363,7 +363,10 @@ var EpubView = GObject.registerClass({
         'rendition-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-displayed': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-loading': { flags: GObject.SignalFlags.RUN_FIRST },
-        'book-error': { flags: GObject.SignalFlags.RUN_FIRST },
+        'book-error': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_STRING]
+        },
         'metadata': { flags: GObject.SignalFlags.RUN_FIRST },
         'cover': { flags: GObject.SignalFlags.RUN_FIRST },
         'locations-generated': { flags: GObject.SignalFlags.RUN_FIRST },
@@ -614,7 +617,7 @@ var EpubView = GObject.registerClass({
                 break
             }
             case 'book-error':
-                this.emit('book-error')
+                this.emit('book-error', payload)
                 break
             case 'book-ready':
                 this._get('book.package.metadata').then(metadata => {
@@ -822,7 +825,7 @@ var EpubView = GObject.registerClass({
         } catch (e) {
             this._fileInfo = null
         }
-        if (!this._fileInfo) return this.emit('book-error')
+        if (!this._fileInfo) return this.emit('book-error', _('File not found.'))
 
         const contentType = this._fileInfo.get_content_type()
         const uri = this._file.get_uri()
@@ -854,7 +857,7 @@ var EpubView = GObject.registerClass({
                             })
                         })
                     } catch (e) {
-                        return this.emit('book-error')
+                        return this.emit('book-error', _('Failed to load remote file.'))
                     }
                 }
                 const command = [python, kindleUnpack, '--epub_version=3', path, dir]
@@ -863,7 +866,8 @@ var EpubView = GObject.registerClass({
                     if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
                         this.open_(mobi8, 'directory')
                     else this.open_(dir + '/mobi7/content.opf', 'opf')
-                })
+                }).catch(() =>
+                    this.emit('book-error', _('Could not unpack Kindle file.')))
                 break
             }
             case mimetypes.directory:
@@ -871,7 +875,8 @@ var EpubView = GObject.registerClass({
                 break
             case mimetypes.json: this.open_(uri, 'json'); break
             case mimetypes.xml: this.open_(uri, 'opf'); break
-            default: this.open_(uri, 'epub'); break
+            case mimetypes.epub: this.open_(uri, 'epub'); break
+            default: this.emit('book-error', _('File type not supported.'))
         }
     }
     close() {

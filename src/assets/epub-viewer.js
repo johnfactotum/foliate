@@ -318,7 +318,7 @@ open() -> 'book-ready' -> loadLocations()
 
 const open = (fileName, inputType, renderTo, options) => {
     book.open(decodeURI(fileName), inputType)
-        .catch(() => dispatch({ type: 'book-error' }))
+        .catch(e => dispatch({ type: 'book-error', payload: e.message || e.toString() }))
 
     rendition = book.renderTo(renderTo, options)
 }
