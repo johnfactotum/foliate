@@ -40,7 +40,8 @@ var PropertiesWindow = GObject.registerClass({
     GTypeName: 'FoliatePropertiesWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertiesWindow.ui',
     InternalChildren: [
-        'cover', 'title', 'creator', 'description', 'propertiesBox'
+        'cover', 'title', 'creator', 'description', 'propertiesBox',
+        'stack'
     ]
 }, class PropertiesWindow extends Gtk.Dialog {
     _init(params, metadata, cover) {
@@ -57,8 +58,10 @@ var PropertiesWindow = GObject.registerClass({
             title, creator, description,
             publisher, pubdate, modified_date, language, identifier, rights
         } = metadata
-        this._title.label = title
-        this._creator.label = creator
+        if (title) this._title.label = title
+        else this._title.hide()
+        if (creator) this._creator.label = creator
+        else this._creator.hide()
         if (description) this._description.label = description
         else this._description.hide()
         if (publisher) this._propertiesBox.pack_start(new PropertyBox({
@@ -85,5 +88,8 @@ var PropertiesWindow = GObject.registerClass({
             property_name: _('Copyright'),
             property_value: rights
         }), false, true, 0)
+        if (!(title || creator || description ||
+            publisher || pubdate || modified_date || language || identifier || rights))
+            this._stack.visible_child_name = 'nothing'
     }
 })

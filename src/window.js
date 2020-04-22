@@ -916,7 +916,10 @@ var Window = GObject.registerClass({
             if (tts.epub === this._epub) tts.stop()
         })
         this._epub.connect('book-error', () => this._setTitle(_('Error')))
-        this._epub.connect('metadata', () => this._setTitle(this._epub.metadata.title))
+        this._epub.connect('metadata', () => {
+            const title = this._epub.metadata.title || this.file.get_basename()
+            this._setTitle(title)
+        })
         this._epub.connect('cover', () =>
             this.lookup_action('properties').enabled = true)
         this._epub.connect('data-ready', () => {
