@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-09 12:38+0800\n"
+"POT-Creation-Date: 2020-04-21 15:05+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,16 +59,16 @@ msgstr ""
 msgid "A simple and modern eBook viewer"
 msgstr ""
 
-#: src/window.js:121
+#: src/window.js:122
 msgid "Leave fullscreen"
 msgstr ""
 
-#: src/window.js:124 src/ui/mainMenu.ui:84
-#: data/com.github.johnfactotum.Foliate.gschema.xml:195
+#: src/window.js:125 src/ui/mainMenu.ui:91
+#: data/com.github.johnfactotum.Foliate.gschema.xml:200
 msgid "Fullscreen"
 msgstr ""
 
-#: src/window.js:182 src/window.js:183
+#: src/window.js:183 src/window.js:184
 #, javascript-format
 msgid "of %d"
 msgstr ""
@@ -127,15 +127,11 @@ msgstr ""
 msgid "Source: "
 msgstr ""
 
-#: src/lookup.js:278
-msgid "Wiktionary (English)"
-msgstr ""
-
-#: src/lookup.js:340
+#: src/lookup.js:375
 msgid "Search on Wiktionary"
 msgstr ""
 
-#: src/lookup.js:363
+#: src/lookup.js:398
 msgid "Translation by Google Translate"
 msgstr ""
 
@@ -180,7 +176,7 @@ msgid "Dark"
 msgstr ""
 
 #: src/theme.js:39 src/ui/themeWindow.ui:145
-#: data/com.github.johnfactotum.Foliate.gschema.xml:137
+#: data/com.github.johnfactotum.Foliate.gschema.xml:142
 msgid "Invert"
 msgstr ""
 
@@ -241,7 +237,7 @@ msgstr ""
 msgid "Add some bookmarks to see them here."
 msgstr ""
 
-#: src/ui/contentsStack.ui:198 src/ui/shortcutsWindow.ui:57
+#: src/ui/contentsStack.ui:198 src/ui/shortcutsWindow.ui:59
 msgid "Bookmark current location"
 msgstr ""
 
@@ -297,161 +293,178 @@ msgstr ""
 msgid "Current chapter"
 msgstr ""
 
-#: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:511
+#: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:546
 msgid "Footnote Preview"
 msgstr ""
 
-#: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:88
-#: src/ui/wikipediaBox.ui:107
+#: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:90
+#: src/ui/shortcutsWindow.ui:273 src/ui/wikipediaBox.ui:107
 msgid "View"
 msgstr ""
 
-#: src/ui/imageViewer.ui:30 src/ui/preferenceWindow.ui:59
-#: src/ui/selectionPopover.ui:19
+#: src/ui/imageViewer.ui:31 src/ui/preferenceWindow.ui:59
+#: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:242
 msgid "Copy"
 msgstr ""
 
-#: src/ui/imageViewer.ui:45
+#: src/ui/imageViewer.ui:47 src/ui/shortcutsWindow.ui:249
 msgid "Save as"
 msgstr ""
 
-#: src/ui/mainMenu.ui:43 src/ui/shortcutsWindow.ui:100
-#: src/ui/shortcutsWindow.ui:220
+#: src/ui/imageViewer.ui:117 src/ui/mainMenu.ui:50
+#: src/ui/shortcutsWindow.ui:102 src/ui/shortcutsWindow.ui:222
+#: src/ui/shortcutsWindow.ui:285
 msgid "Zoom out"
 msgstr ""
 
-#: src/ui/mainMenu.ui:57
+#: src/ui/imageViewer.ui:130 src/ui/mainMenu.ui:64
 msgid "Restore zoom"
 msgstr ""
 
-#: src/ui/mainMenu.ui:66 src/ui/shortcutsWindow.ui:92
-#: src/ui/shortcutsWindow.ui:213
+#: src/ui/imageViewer.ui:143 src/ui/mainMenu.ui:73 src/ui/shortcutsWindow.ui:94
+#: src/ui/shortcutsWindow.ui:215 src/ui/shortcutsWindow.ui:277
 msgid "Zoom in"
 msgstr ""
 
-#: src/ui/mainMenu.ui:108 data/com.github.johnfactotum.Foliate.gschema.xml:142
+#: src/ui/imageViewer.ui:175 src/ui/shortcutsWindow.ui:299
+msgid "Rotate 90° counter-clockwise"
+msgstr ""
+
+#: src/ui/imageViewer.ui:188 src/ui/shortcutsWindow.ui:306
+msgid "Rotate 90° clockwise"
+msgstr ""
+
+#: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:147
 msgid "Brightness"
 msgstr ""
 
-#: src/ui/mainMenu.ui:141 data/com.github.johnfactotum.Foliate.gschema.xml:92
+#: src/ui/mainMenu.ui:148 data/com.github.johnfactotum.Foliate.gschema.xml:92
 #: data/com.github.johnfactotum.Foliate.gschema.xml:93
 msgid "Font"
 msgstr ""
 
-#: src/ui/mainMenu.ui:155 data/com.github.johnfactotum.Foliate.gschema.xml:97
+#: src/ui/mainMenu.ui:162 data/com.github.johnfactotum.Foliate.gschema.xml:97
 msgid "Spacing"
 msgstr ""
 
-#: src/ui/mainMenu.ui:169
+#: src/ui/mainMenu.ui:176
 msgid "Margins"
 msgstr ""
 
-#: src/ui/mainMenu.ui:231 src/ui/mainMenu.ui:301
+#: src/ui/mainMenu.ui:231
+msgid "Width"
+msgstr ""
+
+#: src/ui/mainMenu.ui:232 data/com.github.johnfactotum.Foliate.gschema.xml:108
+msgid "Maximum page width"
+msgstr ""
+
+#: src/ui/mainMenu.ui:266 src/ui/mainMenu.ui:336
 msgid "Theme"
 msgstr ""
 
-#: src/ui/mainMenu.ui:238 src/ui/mainMenu.ui:367
+#: src/ui/mainMenu.ui:273 src/ui/mainMenu.ui:402
 msgid "Advanced"
 msgstr ""
 
-#: src/ui/mainMenu.ui:250 src/ui/mainMenu.ui:561 src/ui/shortcutsWindow.ui:53
+#: src/ui/mainMenu.ui:285 src/ui/mainMenu.ui:596 src/ui/shortcutsWindow.ui:55
 msgid "Book"
 msgstr ""
 
-#: src/ui/mainMenu.ui:262
+#: src/ui/mainMenu.ui:297
 msgid "Open…"
 msgstr ""
 
-#: src/ui/mainMenu.ui:274 src/ui/preferenceWindow.ui:90
+#: src/ui/mainMenu.ui:309 src/ui/preferenceWindow.ui:90
 msgid "Preferences"
 msgstr ""
 
-#: src/ui/mainMenu.ui:281
+#: src/ui/mainMenu.ui:316
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: src/ui/mainMenu.ui:288
+#: src/ui/mainMenu.ui:323
 msgid "About Foliate"
 msgstr ""
 
-#: src/ui/mainMenu.ui:341
+#: src/ui/mainMenu.ui:376
 msgid "Add Custom Theme…"
 msgstr ""
 
-#: src/ui/mainMenu.ui:387 data/com.github.johnfactotum.Foliate.gschema.xml:162
+#: src/ui/mainMenu.ui:422 data/com.github.johnfactotum.Foliate.gschema.xml:167
 msgid "Layout"
 msgstr ""
 
-#: src/ui/mainMenu.ui:405
+#: src/ui/mainMenu.ui:440
 msgid "Automatic"
 msgstr ""
 
-#: src/ui/mainMenu.ui:413
+#: src/ui/mainMenu.ui:448
 msgid "Single Column"
 msgstr ""
 
-#: src/ui/mainMenu.ui:421
+#: src/ui/mainMenu.ui:456
 msgid "Scrolled"
 msgstr ""
 
-#: src/ui/mainMenu.ui:429
+#: src/ui/mainMenu.ui:464
 msgid "Continuous"
 msgstr ""
 
-#: src/ui/mainMenu.ui:446
+#: src/ui/mainMenu.ui:481
 msgid "Text"
 msgstr ""
 
-#: src/ui/mainMenu.ui:463
+#: src/ui/mainMenu.ui:498
 msgid "Use Publisher Font"
 msgstr ""
 
-#: src/ui/mainMenu.ui:470
+#: src/ui/mainMenu.ui:505
 msgid "Full Justification"
 msgstr ""
 
-#: src/ui/mainMenu.ui:477
+#: src/ui/mainMenu.ui:512
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
 msgid "Auto-hyphenation"
 msgstr ""
 
-#: src/ui/mainMenu.ui:494
+#: src/ui/mainMenu.ui:529
 msgid "Other"
 msgstr ""
 
-#: src/ui/mainMenu.ui:518
+#: src/ui/mainMenu.ui:553
 msgid "Auto-hide Cursor"
 msgstr ""
 
-#: src/ui/mainMenu.ui:525
+#: src/ui/mainMenu.ui:560
 msgid "Realistic Shadows"
 msgstr ""
 
-#: src/ui/mainMenu.ui:537
+#: src/ui/mainMenu.ui:572
 msgid "Allow JavaScript and external resources"
 msgstr ""
 
-#: src/ui/mainMenu.ui:538
+#: src/ui/mainMenu.ui:573
 msgid "Allow Unsafe Content"
 msgstr ""
 
-#: src/ui/mainMenu.ui:545
+#: src/ui/mainMenu.ui:580
 msgid "Enable Developer Tools"
 msgstr ""
 
-#: src/ui/mainMenu.ui:571 src/ui/propertiesWindow.ui:4
+#: src/ui/mainMenu.ui:606 src/ui/propertiesWindow.ui:4
 msgid "About This Book"
 msgstr ""
 
-#: src/ui/mainMenu.ui:583
+#: src/ui/mainMenu.ui:618
 msgid "Open a Copy"
 msgstr ""
 
-#: src/ui/mainMenu.ui:590 src/ui/shortcutsWindow.ui:29
+#: src/ui/mainMenu.ui:625 src/ui/shortcutsWindow.ui:31
 msgid "Reload"
 msgstr ""
 
-#: src/ui/mainMenu.ui:602
+#: src/ui/mainMenu.ui:637
 msgid "Export annotations…"
 msgstr ""
 
@@ -523,17 +536,17 @@ msgstr ""
 msgid "Go to end of book"
 msgstr ""
 
-#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:170
-#: src/ui/shortcutsWindow.ui:206
+#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:172
+#: src/ui/shortcutsWindow.ui:208
 msgid "Go to previous page"
 msgstr ""
 
-#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:177
+#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:179
 msgid "Go back to previous location"
 msgstr ""
 
-#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:163
-#: src/ui/shortcutsWindow.ui:199
+#: src/ui/navBar.ui:362 src/ui/shortcutsWindow.ui:165
+#: src/ui/shortcutsWindow.ui:201
 msgid "Go to next page"
 msgstr ""
 
@@ -581,7 +594,7 @@ msgstr ""
 msgid "Translate"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:64
+#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:66
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
 msgstr ""
@@ -590,7 +603,7 @@ msgstr ""
 msgid "Speak"
 msgstr ""
 
-#: src/ui/preferenceWindow.ui:114
+#: src/ui/preferenceWindow.ui:114 src/ui/shortcutsWindow.ui:238
 msgid "General"
 msgstr ""
 
@@ -665,72 +678,80 @@ msgstr ""
 msgid "Speak from Here"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:11
+#: src/ui/shortcutsWindow.ui:9
+msgid "E-book Viewer Shortcuts"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:13
 msgid "File"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:15
+#: src/ui/shortcutsWindow.ui:17
 msgid "Open file"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:22
+#: src/ui/shortcutsWindow.ui:24
 msgid "Open a copy"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:36
+#: src/ui/shortcutsWindow.ui:38 src/ui/shortcutsWindow.ui:256
 msgid "Close current window"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:43
+#: src/ui/shortcutsWindow.ui:45 src/ui/shortcutsWindow.ui:263
 msgid "Quit"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:71
+#: src/ui/shortcutsWindow.ui:73
 msgid "View book info"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:78
+#: src/ui/shortcutsWindow.ui:80
 msgid "Start/stop text-to-speech"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:107
+#: src/ui/shortcutsWindow.ui:109 src/ui/shortcutsWindow.ui:292
 msgid "Restore zoom level"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:114
+#: src/ui/shortcutsWindow.ui:116
 msgid "Toggle fullscreen"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:121
+#: src/ui/shortcutsWindow.ui:123
 msgid "Show contents"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:128
+#: src/ui/shortcutsWindow.ui:130
 msgid "Show table of contents"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:135
+#: src/ui/shortcutsWindow.ui:137
 msgid "Show annotations"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:142
+#: src/ui/shortcutsWindow.ui:144
 msgid "Show bookmarks"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:149
+#: src/ui/shortcutsWindow.ui:151
 msgid "Show primary menu"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:159
+#: src/ui/shortcutsWindow.ui:161
 msgid "Navigation"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:185
+#: src/ui/shortcutsWindow.ui:187
 msgid "Go to location"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:195
+#: src/ui/shortcutsWindow.ui:197
 msgid "Touchpad Gestures"
+msgstr ""
+
+#: src/ui/shortcutsWindow.ui:234
+msgid "Image Viewer Shortcuts"
 msgstr ""
 
 #: src/ui/themeRow.ui:26
@@ -1756,151 +1777,155 @@ msgid "Page margin in percentage"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:107
-msgid "Use publisher font"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.gschema.xml:108
-msgid "If true, custom font is disabled"
+msgid "Max width"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:112
-msgid "Justify text"
+msgid "Use publisher font"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:113
-msgid "If true, text will be justified"
+msgid "If true, custom font is disabled"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:117
-msgid "Hyphenation"
+msgid "Justify text"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:118
-msgid "If true, auto-hyphenation is enabled"
+msgid "If true, text will be justified"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:122
-msgid "Foreground color"
+msgid "Hyphenation"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:123
-msgid "Text color"
+msgid "If true, auto-hyphenation is enabled"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:127
+msgid "Foreground color"
+msgstr ""
+
 #: data/com.github.johnfactotum.Foliate.gschema.xml:128
-msgid "Background color"
+msgid "Text color"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:132
 #: data/com.github.johnfactotum.Foliate.gschema.xml:133
+msgid "Background color"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:137
+#: data/com.github.johnfactotum.Foliate.gschema.xml:138
 msgid "Link color"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:138
+#: data/com.github.johnfactotum.Foliate.gschema.xml:143
 msgid "Invert page"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:143
+#: data/com.github.johnfactotum.Foliate.gschema.xml:148
 msgid ""
 "A value under 1 darkens the page, while a value over 1 brightens it. A value "
 "of 0 will make the page completely black, while a value of 1 leaves the "
 "brightness unchanged"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:147
+#: data/com.github.johnfactotum.Foliate.gschema.xml:152
 msgid "Footnote preview"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:148
+#: data/com.github.johnfactotum.Foliate.gschema.xml:153
 msgid "If true, will attempt to display footnotes in a popover"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:152
+#: data/com.github.johnfactotum.Foliate.gschema.xml:157
 msgid "Allow unsafe content"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:153
+#: data/com.github.johnfactotum.Foliate.gschema.xml:158
 msgid ""
 "If true, Content Security Policy is disabled, which will allow JavaScript "
 "and external resources to load"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:157
+#: data/com.github.johnfactotum.Foliate.gschema.xml:162
 msgid "Enable developer tools"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:158
+#: data/com.github.johnfactotum.Foliate.gschema.xml:163
 msgid "If true, developer tools are enabled"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:163
+#: data/com.github.johnfactotum.Foliate.gschema.xml:168
 msgid "Page layout"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:167
+#: data/com.github.johnfactotum.Foliate.gschema.xml:172
 msgid "Skeuomorphism"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:168
+#: data/com.github.johnfactotum.Foliate.gschema.xml:173
 msgid ""
 "If true, the book is decoratively presented in a way that resembles physical "
 "books"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:172
+#: data/com.github.johnfactotum.Foliate.gschema.xml:177
 msgid "Auto-hide cursor"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:173
+#: data/com.github.johnfactotum.Foliate.gschema.xml:178
 msgid "Whether to hide the cursor automatically"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:180
+#: data/com.github.johnfactotum.Foliate.gschema.xml:185
 msgid "Window width"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:181
+#: data/com.github.johnfactotum.Foliate.gschema.xml:186
 msgid "Width of the window"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:185
+#: data/com.github.johnfactotum.Foliate.gschema.xml:190
 msgid "Window height"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:186
+#: data/com.github.johnfactotum.Foliate.gschema.xml:191
 msgid "Height of the window"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:190
+#: data/com.github.johnfactotum.Foliate.gschema.xml:195
 msgid "Maximized"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:191
+#: data/com.github.johnfactotum.Foliate.gschema.xml:196
 msgid "Whether the window is maximized"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:196
+#: data/com.github.johnfactotum.Foliate.gschema.xml:201
 msgid "Whether the window is fullscreen"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:200
-#: data/com.github.johnfactotum.Foliate.gschema.xml:201
+#: data/com.github.johnfactotum.Foliate.gschema.xml:205
+#: data/com.github.johnfactotum.Foliate.gschema.xml:206
 msgid "Last file opened"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:205
+#: data/com.github.johnfactotum.Foliate.gschema.xml:210
 msgid "Show sidebar"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:206
+#: data/com.github.johnfactotum.Foliate.gschema.xml:211
 msgid "Whether the sidebar is shown"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:210
+#: data/com.github.johnfactotum.Foliate.gschema.xml:215
 msgid "Sidebar size"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:211
+#: data/com.github.johnfactotum.Foliate.gschema.xml:216
 msgid "Sidebar width"
 msgstr ""

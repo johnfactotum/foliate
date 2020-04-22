@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
+const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2, Soup } = imports.gi
 const { invertRotate } = imports.utils
 
 const {
@@ -608,7 +608,7 @@ var EpubView = GObject.registerClass({
                 this._skeuomorphism = this.settings.skeuomorphism
                 this._autohideCursor = this.settings.autohide_cursor
 
-                const uri = GLib.filename_to_uri(this._path, null)
+                const uri = this._uri
                 this._run(`open("${encodeURI(uri)}", '${this._inputType}',
                     ${layouts[this.settings.layout].renderTo},
                     ${JSON.stringify(layouts[this.settings.layout].options)})`)
@@ -806,14 +806,14 @@ var EpubView = GObject.registerClass({
         this._webView.get_settings().enable_developer_extras = state
         this._contextMenu = () => !state
     }
-    open_(path, inputType) {
+    open_(uri, inputType) {
         this.findResults.clear()
         this._history = []
-        this._path = path
+        this._uri = uri
         this._inputType = inputType
         this._load()
     }
-    open(file) {
+    async open(file) {
         this.emit('book-loading')
         this.close()
         this._file = file
@@ -821,15 +821,42 @@ var EpubView = GObject.registerClass({
             this._fileInfo = this._file.query_info('standard::content-type',
                 Gio.FileQueryInfoFlags.NONE, null)
         } catch (e) {
-            this._fileInto = null
+            this._fileInfo = null
         }
         if (!this._fileInfo) return this.emit('book-error')
 
         const contentType = this._fileInfo.get_content_type()
-        const path = this._file.get_path()
-        if (contentType === mimetypes.mobi || contentType === mimetypes.kindle) {
+        const uri = this._file.get_uri()
+        if (contentType === mimetypes.mobi
+            || contentType === mimetypes.kindle
+            || contentType === mimetypes.kindleAlias) {
+            let path = this._file.get_path()
             const dir = GLib.dir_make_tmp(null)
             this._tmpdir = dir
+            if (!path) {
+                // if path is null, we download the file with libsoup first
+                // then feed it to KindleUnpack
+                const session = new Soup.SessionAsync()
+                const request = Soup.Message.new('GET', uri)
+                try {
+                    await new Promise((resolve, reject) => {
+                        session.queue_message(request, (session, message) => {
+                            if (message.status_code !== 200) reject()
+                            else {
+                                path = GLib.build_filenamev([dir, this._file.get_basename()])
+                                const file = Gio.File.new_for_path(path)
+                                const outstream = file.replace(
+                                    null, false, Gio.FileCreateFlags.NONE, null)
+                                outstream.write_bytes(
+                                    message.response_body.flatten().get_as_bytes(), null)
+                                resolve()
+                            }
+                        })
+                    })
+                } catch (e) {
+                    return this.emit('book-error')
+                }
+            }
             const command = [python, kindleUnpack, '--epub_version=3', path, dir]
             execCommand(command, null, false, null, true).then(() => {
                 const mobi8 = dir + '/mobi8/'
@@ -845,7 +872,7 @@ var EpubView = GObject.registerClass({
             execCommand(command, null, true, null, true).then(() => {
                 this.open_(tmpOutputDir + '/OEBPS/package.opf', 'opf')
             })
-        } else this.open_(path, 'epub')
+        } else this.open_(uri, 'epub')
     }
     close() {
         if (this._tmpdir) {
