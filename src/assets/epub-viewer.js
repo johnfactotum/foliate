@@ -325,6 +325,11 @@ const open = async (fileName, inputType, renderTo, options) => {
                 await book.openJSON(json)
                 break
             }
+            case 'fb2': {
+                const json = await webpubFromFB2(uri)
+                await book.openJSON(json)
+                break
+            }
             default:
                 await book.open(uri, inputType)
         }
