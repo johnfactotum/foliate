@@ -865,10 +865,11 @@ var EpubView = GObject.registerClass({
                 else this.open_(dir + '/mobi7/content.opf', 'opf')
             })
         } else if (contentType === mimetypes.cbz) {
+            const filePath = this._file.get_path()
             const tmpOutputDir = GLib.dir_make_tmp(null)
             this._tmpdir = tmpOutputDir
           
-            const command = [python, cbunpack, 'cbz', path, tmpOutputDir]
+            const command = [python, cbunpack, 'cbz', filePath, tmpOutputDir]
             execCommand(command, null, true, null, true).then(() => {
                 this.open_(tmpOutputDir + '/OEBPS/package.opf', 'opf')
             })
