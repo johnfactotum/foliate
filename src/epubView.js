@@ -445,8 +445,9 @@ var EpubView = GObject.registerClass({
             'bookmark'
         ].forEach(name => this.actionGroup.lookup_action(name).enabled = false)
         this.connect('book-loading', disableActions)
-        this.connect('book-displayed', () =>
-            this.actionGroup.lookup_action('bookmark').enabled = true)
+        this.connect('book-displayed', () => {
+            if (this._data) this.actionGroup.lookup_action('bookmark').enabled = true
+        })
 
         this.metadata = null
         this.cover = null
@@ -529,32 +530,41 @@ var EpubView = GObject.registerClass({
     _connectData() {
         this.connect('metadata', () => {
             const { identifier } = this.metadata
-            this._data = getData(identifier)
-            this._data.addView(this)
-            this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
-
-            const locations = this._data.locations
+            let locations
+            if (identifier) {
+                this._data = getData(identifier)
+                this._data.addView(this)
+                this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
+                locations = this._data.locations
+            }
             this._run(`loadLocations(${locations || 'null'})`)
             this._run('render()')
         })
         this.connect('rendition-ready', () => {
-            for (const annotation of this._data.annotations) {
-                this._addAnnotation(annotation.cfi, annotation.color)
-            }
-            const h1 = this._data.connect('annotation-added', (_, annotation) => {
-                this.annotation = annotation
-                this._addAnnotation(annotation.cfi, annotation.color)
-            })
-            const h2 = this._data.connect('annotation-removed', (_, cfi) =>
-                this._removeAnnotation(cfi))
-            const h3 = this._data.connect('externally-modified', () => this.reload())
-            this._dataHandlers = [h1, h2, h3]
+            let lastLocation
+            if (this._data) {
+                for (const annotation of this._data.annotations) {
+                    this._addAnnotation(annotation.cfi, annotation.color)
+                }
+                const h1 = this._data.connect('annotation-added', (_, annotation) => {
+                    this.annotation = annotation
+                    this._addAnnotation(annotation.cfi, annotation.color)
+                })
+                const h2 = this._data.connect('annotation-removed', (_, cfi) =>
+                    this._removeAnnotation(cfi))
+                const h3 = this._data.connect('externally-modified', () => this.reload())
+                this._dataHandlers = [h1, h2, h3]
 
-            const lastLocation = this._data.lastLocation
+                lastLocation = this._data.lastLocation
+            }
             this._run(`display(${lastLocation ? `'${lastLocation}'` : ''})`)
         })
-        this.connect('locations-generated', () => this._data.locations = this.locations)
-        this.connect('relocated', () => this._data.lastLocation = this.location.start.cfi)
+        this.connect('locations-generated', () => {
+            if (this._data) this._data.locations = this.locations
+        })
+        this.connect('relocated', () => {
+            if (this._data) this._data.lastLocation = this.location.start.cfi
+        })
         this._webView.connect('destroy', () => {
             if (!this._data) return
             this._disconnectData()
@@ -939,7 +949,7 @@ var EpubView = GObject.registerClass({
         this._data.removeBookmark(cfi)
     }
     hasBookmark(cfi = this.location.start.cfi) {
-        return this._data.hasBookmark(cfi)
+        return this._data ? this._data.hasBookmark(cfi) : undefined
     }
     get data() {
         return this._data.data

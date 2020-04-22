@@ -919,8 +919,10 @@ var Window = GObject.registerClass({
         this._epub.connect('metadata', () => this._setTitle(this._epub.metadata.title))
         this._epub.connect('cover', () =>
             this.lookup_action('properties').enabled = true)
-        this._epub.connect('data-ready', () =>
-            this.lookup_action('export-annotations').enabled = true)
+        this._epub.connect('data-ready', () => {
+            this.lookup_action('export-annotations').enabled = true
+            this.lookup_action('selection-highlight').enabled = true
+        })
         this._epub.connect('selection', () => {
             const { text } = this._epub.selection
             if (!text) return
@@ -1158,6 +1160,7 @@ var Window = GObject.registerClass({
         if (state) {
             this.lookup_action('properties').enabled = false
             this.lookup_action('export-annotations').enabled = false
+            this.lookup_action('selection-highlight').enabled = false
             this._setTitle(_('Loading…'))
         }
     }
