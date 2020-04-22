@@ -65,6 +65,7 @@ var mimetypes = {
     mobi: 'application/x-mobipocket-ebook',
     kindle: 'application/vnd.amazon.mobi8-ebook',
     kindleAlias: 'application/x-mobi8-ebook',
+    fb2: 'application/x-fictionbook+xml',
     cbz: 'application/vnd.comicbook+zip'
 }
 
