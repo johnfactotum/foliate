@@ -886,6 +886,7 @@ var EpubView = GObject.registerClass({
             case mimetypes.json: this.open_(uri, 'json'); break
             case mimetypes.xml: this.open_(uri, 'opf'); break
             case mimetypes.epub: this.open_(uri, 'epub'); break
+            case mimetypes.text: this.open_(uri, 'text'); break
             default: this.emit('book-error', _('File type not supported.'))
         }
     }

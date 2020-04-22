@@ -60,6 +60,7 @@ var mimetypes = {
     directory: 'inode/directory',
     json: 'application/json',
     xml: 'application/xml',
+    text: 'text/plain',
     epub: 'application/epub+zip',
     mobi: 'application/x-mobipocket-ebook',
     kindle: 'application/vnd.amazon.mobi8-ebook',

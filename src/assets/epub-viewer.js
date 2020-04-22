@@ -316,9 +316,24 @@ open() -> 'book-ready' -> loadLocations()
                                                         -> display() -> 'book-displayed'
 */
 
-const open = (fileName, inputType, renderTo, options) => {
-    book.open(decodeURI(fileName), inputType)
-        .catch(e => dispatch({ type: 'book-error', payload: e.message || e.toString() }))
+const open = async (fileName, inputType, renderTo, options) => {
+    const uri = decodeURI(fileName)
+    try {
+        switch (inputType) {
+            case 'text': {
+                const json = await webpubFromText(uri)
+                await book.openJSON(json)
+                break
+            }
+            default:
+                await book.open(uri, inputType)
+        }
+    } catch(e) {
+        dispatch({
+            type: 'book-error',
+            payload: e.message || e.toString()
+        })
+    }
 
     rendition = book.renderTo(renderTo, options)
 }
