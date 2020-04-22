@@ -11801,6 +11801,15 @@ var Book = function () {
 			});
 		}
 
+	/* Add a method to load a JSON manifest directly */
+	}, {
+		key: "openJSON",
+		value: function openJSON(json) {
+			this.packaging = new _packaging2.default();
+			this.packaging.load(json);
+			return this.unpack(this.packaging);
+		}
+
 		/**
    * Load a resource from the Book
    * @param  {string} path path to the resource to load
@@ -12007,7 +12016,7 @@ var Book = function () {
 
 					if (packaging.pageList) {
 						_this7.pageList = new _pagelist2.default(packaging.pageList); // TODO: handle page lists from Manifest
-					}
+					} else _this7.pageList = new _pagelist2.default(); // Fix pageList undefined when loading from manifest
 
 					resolve(_this7.navigation);
 				});
@@ -12999,6 +13008,13 @@ var Section = function () {
 				loading.resolve(this.contents);
 			} else {
 				request(this.url).then(function (xml) {
+					// when the url has no extension, `request` won't parse it,
+					// so we'll just have to parse it ourselves
+					if (typeof xml === 'string') {
+						const parser = new DOMParser();
+						xml = parser.parseFromString(xml, 'text/html');
+					}
+
 					// var directory = new Url(this.url).directory;
 
 					this.document = xml;

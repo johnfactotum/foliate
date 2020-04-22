@@ -57,6 +57,10 @@ var error = message =>
 var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 
 var mimetypes = {
+    directory: 'inode/directory',
+    json: 'application/json',
+    xml: 'application/xml',
+    text: 'text/plain',
     epub: 'application/epub+zip',
     mobi: 'application/x-mobipocket-ebook',
     kindle: 'application/vnd.amazon.mobi8-ebook',

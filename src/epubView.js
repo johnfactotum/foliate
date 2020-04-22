@@ -364,7 +364,10 @@ var EpubView = GObject.registerClass({
         'rendition-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-displayed': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-loading': { flags: GObject.SignalFlags.RUN_FIRST },
-        'book-error': { flags: GObject.SignalFlags.RUN_FIRST },
+        'book-error': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_STRING]
+        },
         'metadata': { flags: GObject.SignalFlags.RUN_FIRST },
         'cover': { flags: GObject.SignalFlags.RUN_FIRST },
         'locations-generated': { flags: GObject.SignalFlags.RUN_FIRST },
@@ -443,8 +446,9 @@ var EpubView = GObject.registerClass({
             'bookmark'
         ].forEach(name => this.actionGroup.lookup_action(name).enabled = false)
         this.connect('book-loading', disableActions)
-        this.connect('book-displayed', () =>
-            this.actionGroup.lookup_action('bookmark').enabled = true)
+        this.connect('book-displayed', () => {
+            if (this._data) this.actionGroup.lookup_action('bookmark').enabled = true
+        })
 
         this.metadata = null
         this.cover = null
@@ -527,32 +531,41 @@ var EpubView = GObject.registerClass({
     _connectData() {
         this.connect('metadata', () => {
             const { identifier } = this.metadata
-            this._data = getData(identifier)
-            this._data.addView(this)
-            this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
-
-            const locations = this._data.locations
+            let locations
+            if (identifier) {
+                this._data = getData(identifier)
+                this._data.addView(this)
+                this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
+                locations = this._data.locations
+            }
             this._run(`loadLocations(${locations || 'null'})`)
             this._run('render()')
         })
         this.connect('rendition-ready', () => {
-            for (const annotation of this._data.annotations) {
-                this._addAnnotation(annotation.cfi, annotation.color)
-            }
-            const h1 = this._data.connect('annotation-added', (_, annotation) => {
-                this.annotation = annotation
-                this._addAnnotation(annotation.cfi, annotation.color)
-            })
-            const h2 = this._data.connect('annotation-removed', (_, cfi) =>
-                this._removeAnnotation(cfi))
-            const h3 = this._data.connect('externally-modified', () => this.reload())
-            this._dataHandlers = [h1, h2, h3]
+            let lastLocation
+            if (this._data) {
+                for (const annotation of this._data.annotations) {
+                    this._addAnnotation(annotation.cfi, annotation.color)
+                }
+                const h1 = this._data.connect('annotation-added', (_, annotation) => {
+                    this.annotation = annotation
+                    this._addAnnotation(annotation.cfi, annotation.color)
+                })
+                const h2 = this._data.connect('annotation-removed', (_, cfi) =>
+                    this._removeAnnotation(cfi))
+                const h3 = this._data.connect('externally-modified', () => this.reload())
+                this._dataHandlers = [h1, h2, h3]
 
-            const lastLocation = this._data.lastLocation
+                lastLocation = this._data.lastLocation
+            }
             this._run(`display(${lastLocation ? `'${lastLocation}'` : ''})`)
         })
-        this.connect('locations-generated', () => this._data.locations = this.locations)
-        this.connect('relocated', () => this._data.lastLocation = this.location.start.cfi)
+        this.connect('locations-generated', () => {
+            if (this._data) this._data.locations = this.locations
+        })
+        this.connect('relocated', () => {
+            if (this._data) this._data.lastLocation = this.location.start.cfi
+        })
         this._webView.connect('destroy', () => {
             if (!this._data) return
             this._disconnectData()
@@ -615,7 +628,7 @@ var EpubView = GObject.registerClass({
                 break
             }
             case 'book-error':
-                this.emit('book-error')
+                this.emit('book-error', payload)
                 break
             case 'book-ready':
                 this._get('book.package.metadata').then(metadata => {
@@ -823,57 +836,71 @@ var EpubView = GObject.registerClass({
         } catch (e) {
             this._fileInfo = null
         }
-        if (!this._fileInfo) return this.emit('book-error')
+        if (!this._fileInfo) return this.emit('book-error', _('File not found.'))
 
         const contentType = this._fileInfo.get_content_type()
         const uri = this._file.get_uri()
-        if (contentType === mimetypes.mobi
-            || contentType === mimetypes.kindle
-            || contentType === mimetypes.kindleAlias) {
-            let path = this._file.get_path()
-            const dir = GLib.dir_make_tmp(null)
-            this._tmpdir = dir
-            if (!path) {
-                // if path is null, we download the file with libsoup first
-                // then feed it to KindleUnpack
-                const session = new Soup.SessionAsync()
-                const request = Soup.Message.new('GET', uri)
-                try {
-                    await new Promise((resolve, reject) => {
-                        session.queue_message(request, (session, message) => {
-                            if (message.status_code !== 200) reject()
-                            else {
-                                path = GLib.build_filenamev([dir, this._file.get_basename()])
-                                const file = Gio.File.new_for_path(path)
-                                const outstream = file.replace(
-                                    null, false, Gio.FileCreateFlags.NONE, null)
-                                outstream.write_bytes(
-                                    message.response_body.flatten().get_as_bytes(), null)
-                                resolve()
-                            }
+        switch (contentType) {
+            case mimetypes.mobi:
+            case mimetypes.kindle:
+            case mimetypes.kindleAlias: {
+                let path = this._file.get_path()
+                const dir = GLib.dir_make_tmp(null)
+                this._tmpdir = dir
+                if (!path) {
+                    // if path is null, we download the file with libsoup first
+                    // then feed it to KindleUnpack
+                    const session = new Soup.SessionAsync()
+                    const request = Soup.Message.new('GET', uri)
+                    try {
+                        await new Promise((resolve, reject) => {
+                            session.queue_message(request, (session, message) => {
+                                if (message.status_code !== 200) reject()
+                                else {
+                                    path = GLib.build_filenamev([dir, this._file.get_basename()])
+                                    const file = Gio.File.new_for_path(path)
+                                    const outstream = file.replace(
+                                        null, false, Gio.FileCreateFlags.NONE, null)
+                                    outstream.write_bytes(
+                                        message.response_body.flatten().get_as_bytes(), null)
+                                    resolve()
+                                }
+                            })
                         })
-                    })
-                } catch (e) {
-                    return this.emit('book-error')
+                    } catch (e) {
+                        return this.emit('book-error', _('Failed to load remote file.'))
+                    }
                 }
+                const command = [python, kindleUnpack, '--epub_version=3', path, dir]
+                execCommand(command, null, false, null, true).then(() => {
+                    const mobi8 = dir + '/mobi8/'
+                    if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
+                        this.open_(mobi8, 'directory')
+                    else this.open_(dir + '/mobi7/content.opf', 'opf')
+                }).catch(() =>
+                    this.emit('book-error', _('Could not unpack Kindle file.')))
+                break
             }
-            const command = [python, kindleUnpack, '--epub_version=3', path, dir]
-            execCommand(command, null, false, null, true).then(() => {
-                const mobi8 = dir + '/mobi8/'
-                if (GLib.file_test(mobi8, GLib.FileTest.EXISTS))
-                    this.open_(mobi8, 'directory')
-                else this.open_(dir + '/mobi7/content.opf', 'opf')
-            })
-        } else if (contentType === mimetypes.cbz) {
-            const filePath = this._file.get_path()
-            const tmpOutputDir = GLib.dir_make_tmp(null)
-            this._tmpdir = tmpOutputDir
-          
-            const command = [python, cbunpack, 'cbz', filePath, tmpOutputDir]
-            execCommand(command, null, true, null, true).then(() => {
-                this.open_(tmpOutputDir + '/OEBPS/package.opf', 'opf')
-            })
-        } else this.open_(uri, 'epub')
+            case mimetypes.cbz: {
+                const filePath = this._file.get_path()
+                const tmpOutputDir = GLib.dir_make_tmp(null)
+                this._tmpdir = tmpOutputDir
+                
+                const command = [python, cbunpack, 'cbz', filePath, tmpOutputDir]
+                execCommand(command, null, true, null, true).then(() => {
+                    this.open_(tmpOutputDir + '/OEBPS/package.opf', 'opf')
+                })
+                break
+            }
+            case mimetypes.directory:
+                this.open_(GLib.build_filenamev([uri, '/']), 'directory')
+                break
+            case mimetypes.json: this.open_(uri, 'json'); break
+            case mimetypes.xml: this.open_(uri, 'opf'); break
+            case mimetypes.epub: this.open_(uri, 'epub'); break
+            case mimetypes.text: this.open_(uri, 'text'); break
+            default: this.emit('book-error', _('File type not supported.'))
+        }
     }
     close() {
         if (this._tmpdir) {
@@ -935,7 +962,7 @@ var EpubView = GObject.registerClass({
         this._data.removeBookmark(cfi)
     }
     hasBookmark(cfi = this.location.start.cfi) {
-        return this._data.hasBookmark(cfi)
+        return this._data ? this._data.hasBookmark(cfi) : undefined
     }
     get data() {
         return this._data.data

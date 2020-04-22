@@ -316,7 +316,7 @@ const MainOverlay = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainOverlay.ui',
     InternalChildren: [
         'overlayStack', 'mainBox', 'bookBox', 'contentBox', 'divider',
-        'recentMenu'
+        'recentMenu', 'msg'
     ]
 }, class MainOverlay extends Gtk.Overlay {
     _init(params) {
@@ -364,7 +364,10 @@ const MainOverlay = GObject.registerClass({
 
         this._epub.connect('book-displayed', () => this._setStatus('loaded'))
         this._epub.connect('book-loading', () => this._setStatus('loading'))
-        this._epub.connect('book-error', () => this._setStatus('error'))
+        this._epub.connect('book-error', (_, msg) => {
+            this._msg.label = msg
+            this._setStatus('error')
+        })
         this._epub.connect('spread', (_, spread) => {
             this._spread = spread
             this._showDivider()
@@ -913,11 +916,16 @@ var Window = GObject.registerClass({
             if (tts.epub === this._epub) tts.stop()
         })
         this._epub.connect('book-error', () => this._setTitle(_('Error')))
-        this._epub.connect('metadata', () => this._setTitle(this._epub.metadata.title))
+        this._epub.connect('metadata', () => {
+            const title = this._epub.metadata.title || this.file.get_basename()
+            this._setTitle(title)
+        })
         this._epub.connect('cover', () =>
             this.lookup_action('properties').enabled = true)
-        this._epub.connect('data-ready', () =>
-            this.lookup_action('export-annotations').enabled = true)
+        this._epub.connect('data-ready', () => {
+            this.lookup_action('export-annotations').enabled = true
+            this.lookup_action('selection-highlight').enabled = true
+        })
         this._epub.connect('selection', () => {
             const { text } = this._epub.selection
             if (!text) return
@@ -1155,6 +1163,7 @@ var Window = GObject.registerClass({
         if (state) {
             this.lookup_action('properties').enabled = false
             this.lookup_action('export-annotations').enabled = false
+            this.lookup_action('selection-highlight').enabled = false
             this._setTitle(_('Loading…'))
         }
     }

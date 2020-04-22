@@ -124,7 +124,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="wrap">True</property>
-                <property name="label" translatable="yes">Something's wrong</property>
+                <property name="label" translatable="yes">Could not open file</property>
                 <style><class name="dim-label"/></style>
                 <attributes>
                   <attribute name="weight" value="bold"/>
@@ -133,10 +133,10 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="msg">
                 <property name="visible">True</property>
                 <property name="wrap">True</property>
-                <property name="label" translatable="yes">The file cannot be opened.</property>
+                <property name="max-width-chars">60</property>
                 <style><class name="dim-label"/></style>
               </object>
             </child>
