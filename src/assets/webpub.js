@@ -180,6 +180,8 @@ const webpubFromComicBookArchive = async (uri, inputType) => {
     let pages
     switch (inputType) {
         case 'cbz': pages = await unpackCBZ(uri); break
+        case 'cbr': pages = await unpackCB(uri, inputType); break
+        case 'cb7': pages = await unpackCB(uri, inputType); break
     }
 
     const stylesheet = `

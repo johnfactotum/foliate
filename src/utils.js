@@ -68,6 +68,8 @@ var mimetypes = {
     fb2: 'application/x-fictionbook+xml',
     fb2zip: 'application/x-zip-compressed-fb2',
     cbz: 'application/vnd.comicbook+zip',
+    cbr: 'application/vnd.comicbook-rar',
+    cb7: 'application/x-cb7',
 }
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
