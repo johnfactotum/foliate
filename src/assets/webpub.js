@@ -74,7 +74,7 @@ const fb2ToHtml = (x, h, getImage) => {
         .forEach(el => el.parentNode.replaceChild(h(`<p class="text-author">${el.innerHTML}</p>`), el))
     Array.from(x.querySelectorAll('v'))
         .forEach(el => { el.innerHTML = `${el.innerHTML}<br>`; usurp(el) })
-    Array.from(x.querySelectorAll('a'))
+    Array.from(x.querySelectorAll('a[type=note]'))
         .forEach(el => el.innerHTML = `<sup>${el.innerHTML}</sup>`)
     return x
 }
@@ -106,9 +106,16 @@ const processFB2 = doc => {
         x.querySelector('last-name')
     ].filter(x => x).map(x => x.textContent).join(' ')).join(', ')
 
+    const getIdFromHref = href => {
+        const [a, b] = href.split('#')
+        return a ? null : b
+    }
+
     const getImage = image => {
-        const id = image.getAttributeNS(XLINK_NS, 'href').replace(/^#/, '')
+        const href = image.getAttributeNS(XLINK_NS, 'href')
+        const id = getIdFromHref(href)
         const bin = doc.getElementById(id)
+        if (!bin) return {}
         const type = bin.getAttribute('content-type')
         return {
             content: bin.textContent,
@@ -167,7 +174,8 @@ const processFB2 = doc => {
             .forEach(el => {
                 const href = el.getAttributeNS(XLINK_NS, 'href')
                 if (href) {
-                    const id = href.replace(/^#/, '')
+                    const id = getIdFromHref(href)
+                    if (!id) return el.setAttribute('href', href)
                     const note = doc.getElementById(id)
                     let sectionTitle = note.querySelector('title')
                     fb2ToHtml(note, h, getImage)
