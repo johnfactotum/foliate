@@ -529,9 +529,11 @@ var EpubView = GObject.registerClass({
     }
     _connectData() {
         this.connect('metadata', () => {
+            const type = this._fileInfo.get_content_type()
+            const enabled = !(type === mimetypes.fb2 || type === mimetypes.fb2zip)
             const { identifier } = this.metadata
             let locations
-            if (identifier) {
+            if (identifier && enabled) {
                 this._data = getData(identifier)
                 this._data.addView(this)
                 this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
