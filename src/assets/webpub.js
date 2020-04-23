@@ -90,11 +90,21 @@ const processFB2 = doc => {
         return el.firstChild
     }
 
-    // FIXME: elements could be null
-    const title = $('book-title').textContent
-    const identifier = $('id').textContent
-    const description = $('title-info annotation').textContent
-    const language = $('lang').textContent
+    const getTextContent = x => {
+        const el = $(x)
+        return el ? el.textContent : ''
+    }
+    const title = getTextContent('title-info book-title')
+    const identifier = getTextContent('title-info id')
+    const description = getTextContent('title-info annotation')
+    const language = getTextContent('title-info lang')
+    const pubdate = getTextContent('title-info date')
+    const publisher = getTextContent('publish-info publisher')
+    const creator = Array.from($$('title-info author')).map(x => [
+        x.querySelector('first-name'),
+        x.querySelector('middle-name'),
+        x.querySelector('last-name')
+    ].filter(x => x).map(x => x.textContent).join(' ')).join(', ')
 
     const getImage = image => {
         const id = image.getAttributeNS(XLINK_NS, 'href').replace(/^#/, '')
@@ -200,9 +210,12 @@ const processFB2 = doc => {
     return {
         metadata: {
             title,
+            creator,
             identifier,
             description,
-            language
+            language,
+            pubdate,
+            publisher
         },
         links: [],
         readingOrder: sections,
