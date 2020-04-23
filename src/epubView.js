@@ -610,6 +610,7 @@ var EpubView = GObject.registerClass({
         debug(type)
         switch (type) {
             case 'ready': {
+                this.cover = null
                 if (!this._file) return
                 this._ready = true
                 this._run(`doubleClickTime =
