@@ -86,6 +86,7 @@ const makeActions = app => ({
         epubFiles.add_mime_type(mimetypes.mobi)
         epubFiles.add_mime_type(mimetypes.kindle)
         epubFiles.add_mime_type(mimetypes.fb2)
+        epubFiles.add_mime_type(mimetypes.fb2zip)
 
         const dialog = Gtk.FileChooserNative.new(
             _('Open File'),

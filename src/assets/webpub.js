@@ -29,7 +29,16 @@ const webpubFromText = async uri => {
 
 const XLINK_NS = 'http://www.w3.org/1999/xlink'
 
-let fb2doc // useful for debugging
+const webpubFromFB2Zip = async uri => {
+    let zip = new JSZip()
+    const res = await fetch(uri)
+    const data = await res.blob()
+    zip = await JSZip.loadAsync(data)
+    const text = await zip.file(/.fb2$/)[0].async('string')
+    let doc = new DOMParser().parseFromString(text, 'text/xml')
+    return processFB2(doc)
+}
+
 const webpubFromFB2 = async uri => {
     const res = await fetch(uri)
     const buffer = await res.arrayBuffer()
@@ -41,6 +50,11 @@ const webpubFromFB2 = async uri => {
         const data = decoder.decode(buffer)
         doc = new DOMParser().parseFromString(data, 'text/xml')
     }
+    return processFB2(doc)
+}
+
+let fb2doc // useful for debugging
+const processFB2 = doc => {
     fb2doc = doc
     const $ = doc.querySelector.bind(doc)
     const $$ = doc.querySelectorAll.bind(doc)
@@ -72,8 +86,42 @@ const webpubFromFB2 = async uri => {
         dispatch({ type: 'cover', payload: content })
     } catch (e) {}
 
-    const sections = Array.from($$('body > section')).map(x => {
-        const sectionTitle = x.querySelector('title')
+
+    const stylesheet = `
+        body > img, section > img {
+            display: block;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .text-author {
+            text-align: right;
+        }
+        .text-author:before {
+            content: "—";
+        }
+        .empty-line {
+            padding: 0;
+            border: none;
+            text-align: center;
+            opacity: 0.3;
+        }
+        .empty-line:before {
+            content: "⁂";
+        }
+    `
+    const styleBlob = new Blob([stylesheet], { type: 'text/css' })
+    const styleUrl = URL.createObjectURL(styleBlob)
+
+    const sections = Array.from($$('body > *')).map(x => {
+        let sectionTitle = x.querySelector('title')
+        if (x.tagName === 'image') x.innerHTML = `<img src="${getImage(x).data}">`
+        if (x.tagName === 'title') {
+            sectionTitle = x
+            Array.from(x.querySelectorAll('p'))
+                .forEach(el => el.parentNode.replaceChild(h(`<h1>${el.textContent}</h1>`), el))
+        }
 
         Array.from(x.querySelectorAll('title'))
             .forEach(el => el.parentNode.replaceChild(h(`<h2>${el.textContent}</h2>`), el))
@@ -82,20 +130,31 @@ const webpubFromFB2 = async uri => {
         Array.from(x.querySelectorAll('image'))
             .forEach(el => el.parentNode.replaceChild(h(`<img src="${getImage(el).data}">`), el))
         Array.from(x.querySelectorAll('empty-line'))
-            .forEach(el => el.parentNode.replaceChild(h(`<br>`), el))
+            .forEach(el => el.parentNode.replaceChild(h(`<hr class="empty-line">`), el))
         Array.from(x.querySelectorAll('style'))
             .forEach(el => usurp(el))
         Array.from(x.querySelectorAll('emphasis'))
             .forEach(el => el.innerHTML = `<em>${el.innerHTML}</em>`)
+        Array.from(x.querySelectorAll('poem, epigraph, cite'))
+            .forEach(el => el.parentNode.replaceChild(h(`<blockquote>${el.innerHTML}</blockquote>`), el))
+        Array.from(x.querySelectorAll('stanza'))
+            .forEach(el => el.parentNode.replaceChild(h(`<p>${el.innerHTML}</p>`), el))
+        Array.from(x.querySelectorAll('text-author'))
+            .forEach(el => el.parentNode.replaceChild(h(`<p class="text-author">${el.innerHTML}</p>`), el))
+        Array.from(x.querySelectorAll('v'))
+            .forEach(el => { el.innerHTML = `${el.innerHTML}<br>`; usurp(el) })
 
-        const html = `<!DOCTYPE html>${x.innerHTML}`
+        const html = `<!DOCTYPE html>
+            <link href="${styleUrl}" rel="stylesheet">
+            ${x.innerHTML}`
         const blob = new Blob([html], { type: 'text/html' })
         const url = URL.createObjectURL(blob)
 
         return {
             href: url,
             type: 'text/html',
-            title: sectionTitle ? sectionTitle.textContent : title
+            title: (sectionTitle ? sectionTitle.textContent : title)
+                .trim().replace(/\r?\n/g, ' ')
         }
     })
 
@@ -109,6 +168,8 @@ const webpubFromFB2 = async uri => {
         links: [],
         readingOrder: sections,
         toc: sections,
-        resources: []
+        resources: [
+            { href: styleUrl, type: 'text/css' }
+        ]
     }
 }
