@@ -61,7 +61,7 @@ const fb2ToHtml = (x, h, getImage) => {
     Array.from(x.querySelectorAll('image'))
         .forEach(el => el.parentNode.replaceChild(h(`<img src="${getImage(el).data}">`), el))
     Array.from(x.querySelectorAll('empty-line'))
-        .forEach(el => el.parentNode.replaceChild(h(`<hr class="empty-line">`), el))
+        .forEach(el => el.parentNode.replaceChild(h(`<br>`), el))
     Array.from(x.querySelectorAll('style'))
         .forEach(el => usurp(el))
     Array.from(x.querySelectorAll('emphasis'))
@@ -143,15 +143,6 @@ const processFB2 = doc => {
         }
         .text-author:before {
             content: "—";
-        }
-        .empty-line {
-            padding: 0;
-            border: none;
-            text-align: center;
-            opacity: 0.3;
-        }
-        .empty-line:before {
-            content: "⁂";
         }
     `
     const styleBlob = new Blob([stylesheet], { type: 'text/css' })
