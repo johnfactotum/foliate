@@ -919,9 +919,8 @@ var Window = GObject.registerClass({
         this._epub.connect('metadata', () => {
             const title = this._epub.metadata.title || this.file.get_basename()
             this._setTitle(title)
+            this.lookup_action('properties').enabled = true
         })
-        this._epub.connect('cover', () =>
-            this.lookup_action('properties').enabled = true)
         this._epub.connect('data-ready', () => {
             this.lookup_action('export-annotations').enabled = true
             this.lookup_action('selection-highlight').enabled = true
