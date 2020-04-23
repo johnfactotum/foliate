@@ -422,7 +422,7 @@ book.loaded.resources
             payload: reader.result.split(',')[1]
         })
     })
-    .catch(() => dispatch({ type: 'cover', payload: null }))
+    .catch(() => {})
 
 const getRect = (target, frame) => {
     const rect = target.getBoundingClientRect()
