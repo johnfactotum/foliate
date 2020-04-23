@@ -162,7 +162,7 @@ const processFB2 = doc => {
         const id = x.getAttribute('id')
         if (notes.has(id)) return notes.get(id)
 
-        let sectionTitle = x.querySelector('title')
+        let sectionTitle = x.querySelector('title') || x.querySelector('p')
         if (x.tagName === 'image') x.innerHTML = `<img src="${getImage(x).data}">`
         if (x.tagName === 'title') {
             sectionTitle = x
