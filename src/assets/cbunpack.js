@@ -18,3 +18,24 @@ const unpackCBZ = async uri => {
         })
     )
 }
+
+const unpackCB = async (uri, inputType) => {
+    const res = await fetch(uri)
+    const archiveBlob = await res.blob()
+
+    const archive = await Archive.open(archiveBlob)
+  
+    await archive.extractFiles()
+    
+    const archiveFiles = await archive.getFilesArray()
+    return archiveFiles.map(({file}) => {
+        const pageTitle = file.name.split('.').slice(0, -1).join('')
+        const pageBlob = file
+
+        return {
+            title: pageTitle,
+            blob: pageBlob,
+            type: pageBlob.type
+        }
+    })
+}
