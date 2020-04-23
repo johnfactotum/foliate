@@ -330,6 +330,11 @@ const open = async (fileName, inputType, renderTo, options) => {
                 await book.openJSON(json)
                 break
             }
+            case 'cbz': {
+                const json = await webpubFromComicBookArchive(uri, inputType)
+                await book.openJSON(json)
+                break
+            }
             default:
                 await book.open(uri, inputType)
         }

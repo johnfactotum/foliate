@@ -881,17 +881,6 @@ var EpubView = GObject.registerClass({
                     this.emit('book-error', _('Could not unpack Kindle file.')))
                 break
             }
-            case mimetypes.cbz: {
-                const filePath = this._file.get_path()
-                const tmpOutputDir = GLib.dir_make_tmp(null)
-                this._tmpdir = tmpOutputDir
-                
-                const command = [python, cbunpack, 'cbz', filePath, tmpOutputDir]
-                execCommand(command, null, true, null, true).then(() => {
-                    this.open_(tmpOutputDir + '/OEBPS/package.opf', 'opf')
-                })
-                break
-            }
             case mimetypes.directory:
                 this.open_(GLib.build_filenamev([uri, '/']), 'directory')
                 break
@@ -900,6 +889,7 @@ var EpubView = GObject.registerClass({
             case mimetypes.epub: this.open_(uri, 'epub'); break
             case mimetypes.text: this.open_(uri, 'text'); break
             case mimetypes.fb2: this.open_(uri, 'fb2'); break
+            case mimetypes.cbz: this.open_(uri, 'cbz'); break
             default: this.emit('book-error', _('File type not supported.'))
         }
     }

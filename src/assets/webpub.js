@@ -85,3 +85,79 @@ const webpubFromFB2 = async uri => {
         resources: []
     }
 }
+
+const webpubFromComicBookArchive = async (uri, inputType) => {
+    const cbArchiveName = decodeURI(uri).split('/').pop().split('.').slice(0, -1).join('')
+
+    let pages
+    switch (inputType) {
+        case 'cbz': pages = await unpackCBZ(uri); break
+    }
+
+    const stylesheet = `
+        * {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            min-height: 99.5vh;
+        }
+
+        .image-wrapper img {
+            width: 100vw;
+            max-height: 99.5vh;
+            object-fit: contain;
+        }
+    `
+    const stylesheetBlob = new Blob([stylesheet], { type: 'text/css' })
+    const stylesheetURL = URL.createObjectURL(stylesheetBlob)
+
+
+    const sectionLinkObjects = pages.map(page => {
+        const html = `
+        <!doctype html>
+        <html>
+            <head>
+                <title>${page.title}</title>
+                <link rel="stylesheet" type="text/css" href="${stylesheetURL}" />
+            </head>
+
+            <body>
+                <section class="image-wrapper">
+                    <img src="${URL.createObjectURL(page.blob)}" alt="${page.title}" />
+                </section>
+            </body>
+        </html>
+        `
+
+        const pageHTMLBlob = new Blob([html], { type: 'text/html' })
+        const pageURL = URL.createObjectURL(pageHTMLBlob)
+
+        return {
+            href: pageURL,
+            type: 'text/html',
+            title: page.title
+        }
+    })
+
+    return {
+        metadata: {
+            title: cbArchiveName
+        },
+        links: [],
+        readingOrder: sectionLinkObjects,
+        toc: sectionLinkObjects,
+        resources: []
+    }
+}
