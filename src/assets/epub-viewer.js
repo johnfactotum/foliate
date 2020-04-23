@@ -330,6 +330,11 @@ const open = async (fileName, inputType, renderTo, options) => {
                 await book.openJSON(json)
                 break
             }
+            case 'fb2zip': {
+                const json = await webpubFromFB2Zip(uri)
+                await book.openJSON(json)
+                break
+            }
             case 'cbz': {
                 const json = await webpubFromComicBookArchive(uri, inputType)
                 await book.openJSON(json)
@@ -427,7 +432,7 @@ book.loaded.resources
             payload: reader.result.split(',')[1]
         })
     })
-    .catch(() => dispatch({ type: 'cover', payload: null }))
+    .catch(() => {})
 
 const getRect = (target, frame) => {
     const rect = target.getBoundingClientRect()

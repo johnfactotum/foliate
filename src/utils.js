@@ -66,7 +66,8 @@ var mimetypes = {
     kindle: 'application/vnd.amazon.mobi8-ebook',
     kindleAlias: 'application/x-mobi8-ebook',
     fb2: 'application/x-fictionbook+xml',
-    cbz: 'application/vnd.comicbook+zip'
+    fb2zip: 'application/x-zip-compressed-fb2',
+    cbz: 'application/vnd.comicbook+zip',
 }
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
