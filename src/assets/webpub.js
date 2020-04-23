@@ -65,7 +65,7 @@ const fb2ToHtml = (x, h, getImage) => {
     Array.from(x.querySelectorAll('style'))
         .forEach(el => usurp(el))
     Array.from(x.querySelectorAll('emphasis'))
-        .forEach(el => el.innerHTML = `<em>${el.innerHTML}</em>`)
+        .forEach(el => el.parentNode.replaceChild(h(`<em>${el.innerHTML}</em>`), el))
     Array.from(x.querySelectorAll('poem, epigraph, cite'))
         .forEach(el => el.parentNode.replaceChild(h(`<blockquote>${el.innerHTML}</blockquote>`), el))
     Array.from(x.querySelectorAll('stanza'))
