@@ -70,6 +70,7 @@ var mimetypes = {
     cbz: 'application/vnd.comicbook+zip',
     cbr: 'application/vnd.comicbook-rar',
     cb7: 'application/x-cb7',
+    cbt: 'application/x-cbt',
 }
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
