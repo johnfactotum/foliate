@@ -15,7 +15,7 @@
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' blob:; script-src 'self'; style-src 'self' blob: 'unsafe-inline'; object-src 'none'; connect-src 'self' blob: *;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' blob:; script-src 'self' 'unsafe-eval'; style-src 'self' blob: 'unsafe-inline'; object-src 'none'; connect-src 'self' blob: *;">
 
 <link href="epub-viewer.css" rel="stylesheet">
 
@@ -25,5 +25,10 @@
 <div id="viewer"></div>
 
 <script src="utils.js"></script>
+<script type="module" src="libarchivejs/main.js"></script>
+<script src="cbunpack.js"></script>
 <script src="webpub.js"></script>
 <script src="epub-viewer.js"></script>
+<script>
+    console.log("inside html <script>")
+</script>

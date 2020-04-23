@@ -63,6 +63,7 @@ const layouts = {
 }
 
 const viewerPath = pkg.pkgdatadir + '/assets/epub-viewer.html'
+const cbViewerPath = pkg.pkgdatadir + '/assets/epub-viewer-cb.html'
 const unsafeViewerPath = pkg.pkgdatadir + '/assets/epub-viewer-nocsp.html'
 
 var EpubViewAnnotation = GObject.registerClass({
@@ -580,7 +581,12 @@ var EpubView = GObject.registerClass({
     _load() {
         if (this._file) this.emit('book-loading')
         this._ready = false
-        const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
+        let viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
+
+        if (['cbz', 'cbr', 'cb7', 'cbt'].includes(this._inputType)) {
+            viewer = cbViewerPath
+        }
+
         this._webView.load_uri(GLib.filename_to_uri(viewer, null))
     }
     reload() {
