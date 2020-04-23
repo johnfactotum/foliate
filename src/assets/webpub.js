@@ -53,6 +53,32 @@ const webpubFromFB2 = async uri => {
     return processFB2(doc)
 }
 
+const fb2ToHtml = (x, h, getImage) => {
+    Array.from(x.querySelectorAll('title'))
+        .forEach(el => el.parentNode.replaceChild(h(`<h2>${el.textContent}</h2>`), el))
+    Array.from(x.querySelectorAll('subtitle'))
+        .forEach(el => el.parentNode.replaceChild(h(`<h3>${el.textContent}</h3>`), el))
+    Array.from(x.querySelectorAll('image'))
+        .forEach(el => el.parentNode.replaceChild(h(`<img src="${getImage(el).data}">`), el))
+    Array.from(x.querySelectorAll('empty-line'))
+        .forEach(el => el.parentNode.replaceChild(h(`<hr class="empty-line">`), el))
+    Array.from(x.querySelectorAll('style'))
+        .forEach(el => usurp(el))
+    Array.from(x.querySelectorAll('emphasis'))
+        .forEach(el => el.innerHTML = `<em>${el.innerHTML}</em>`)
+    Array.from(x.querySelectorAll('poem, epigraph, cite'))
+        .forEach(el => el.parentNode.replaceChild(h(`<blockquote>${el.innerHTML}</blockquote>`), el))
+    Array.from(x.querySelectorAll('stanza'))
+        .forEach(el => el.parentNode.replaceChild(h(`<p>${el.innerHTML}</p>`), el))
+    Array.from(x.querySelectorAll('text-author'))
+        .forEach(el => el.parentNode.replaceChild(h(`<p class="text-author">${el.innerHTML}</p>`), el))
+    Array.from(x.querySelectorAll('v'))
+        .forEach(el => { el.innerHTML = `${el.innerHTML}<br>`; usurp(el) })
+    Array.from(x.querySelectorAll('a'))
+        .forEach(el => el.innerHTML = `<sup>${el.innerHTML}</sup>`)
+    return x
+}
+
 let fb2doc // useful for debugging
 const processFB2 = doc => {
     fb2doc = doc
@@ -114,7 +140,11 @@ const processFB2 = doc => {
     const styleBlob = new Blob([stylesheet], { type: 'text/css' })
     const styleUrl = URL.createObjectURL(styleBlob)
 
+    const notes = new Map()
     const sections = Array.from($$('body > *')).map(x => {
+        const id = x.getAttribute('id')
+        if (notes.has(id)) return notes.get(id)
+
         let sectionTitle = x.querySelector('title')
         if (x.tagName === 'image') x.innerHTML = `<img src="${getImage(x).data}">`
         if (x.tagName === 'title') {
@@ -123,27 +153,36 @@ const processFB2 = doc => {
                 .forEach(el => el.parentNode.replaceChild(h(`<h1>${el.textContent}</h1>`), el))
         }
 
-        Array.from(x.querySelectorAll('title'))
-            .forEach(el => el.parentNode.replaceChild(h(`<h2>${el.textContent}</h2>`), el))
-        Array.from(x.querySelectorAll('subtitle'))
-            .forEach(el => el.parentNode.replaceChild(h(`<h3>${el.textContent}</h3>`), el))
-        Array.from(x.querySelectorAll('image'))
-            .forEach(el => el.parentNode.replaceChild(h(`<img src="${getImage(el).data}">`), el))
-        Array.from(x.querySelectorAll('empty-line'))
-            .forEach(el => el.parentNode.replaceChild(h(`<hr class="empty-line">`), el))
-        Array.from(x.querySelectorAll('style'))
-            .forEach(el => usurp(el))
-        Array.from(x.querySelectorAll('emphasis'))
-            .forEach(el => el.innerHTML = `<em>${el.innerHTML}</em>`)
-        Array.from(x.querySelectorAll('poem, epigraph, cite'))
-            .forEach(el => el.parentNode.replaceChild(h(`<blockquote>${el.innerHTML}</blockquote>`), el))
-        Array.from(x.querySelectorAll('stanza'))
-            .forEach(el => el.parentNode.replaceChild(h(`<p>${el.innerHTML}</p>`), el))
-        Array.from(x.querySelectorAll('text-author'))
-            .forEach(el => el.parentNode.replaceChild(h(`<p class="text-author">${el.innerHTML}</p>`), el))
-        Array.from(x.querySelectorAll('v'))
-            .forEach(el => { el.innerHTML = `${el.innerHTML}<br>`; usurp(el) })
+        Array.from(x.querySelectorAll('a'))
+            .forEach(el => {
+                const href = el.getAttributeNS(XLINK_NS, 'href')
+                if (href) {
+                    const id = href.replace(/^#/, '')
+                    const note = doc.getElementById(id)
+                    let sectionTitle = note.querySelector('title')
+                    fb2ToHtml(note, h, getImage)
+                    const html = `<!DOCTYPE html>
+                        <link href="${styleUrl}" rel="stylesheet">
+                        <section id="${id}">
+                            ${note.innerHTML}
+                        </section>`
+                    if (notes.has(id)) {
+                        el.setAttribute('href', notes.get(id).href + '#' + id)
+                    } else {
+                        const blob = new Blob([html], { type: 'text/html' })
+                        const url = URL.createObjectURL(blob)
+                        const item = {
+                            href: url,
+                            type: 'text/html',
+                            title: (sectionTitle ? sectionTitle.textContent : title)
+                        }
+                        notes.set(id, item)
+                        el.setAttribute('href', url + '#' + id)
+                    }
+                }
+            })
 
+        fb2ToHtml(x, h, getImage)
         const html = `<!DOCTYPE html>
             <link href="${styleUrl}" rel="stylesheet">
             ${x.innerHTML}`

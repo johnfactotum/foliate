@@ -33,8 +33,10 @@ const dispatch = action => {
     window.webkit.messageHandlers.action.postMessage(JSON.stringify(obj))
 }
 
-const isExternalURL = href =>
-    href.indexOf("mailto:") === 0 || href.indexOf("://") > -1
+const isExternalURL = href => {
+    if (href.startsWith('blob:')) return false
+    return href.startsWith('mailto:') || href.includes('://')
+}
 
 const resolveURL = (url, relativeTo) => {
     // HACK-ish: abuse the URL API a little to resolve the path
