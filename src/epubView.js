@@ -169,6 +169,9 @@ const EpubViewData = GObject.registerClass({
     set lastLocation(location) {
         this._storage.set('lastLocation', location)
     }
+    set metadata(metadata) {
+        this._storage.set('metadata', metadata)
+    }
     get locations() {
         const locationsChars = this._cache.get('locationsChars')
         if (locationsChars === CHARACTERS_PER_PAGE)
@@ -538,6 +541,7 @@ var EpubView = GObject.registerClass({
                 this._data.addView(this)
                 this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
                 locations = this._data.locations
+                this._data.metadata = this.metadata
             }
             this._run(`loadLocations(${locations || 'null'})`)
             this._run('render()')
