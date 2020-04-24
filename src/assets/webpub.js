@@ -54,10 +54,13 @@ const webpubFromFB2 = async uri => {
 }
 
 const fb2ToHtml = (x, h, getImage) => {
-    Array.from(x.querySelectorAll('title'))
-        .forEach(el => el.parentNode.replaceChild(h(`<h2>${el.textContent}</h2>`), el))
-    Array.from(x.querySelectorAll('subtitle'))
-        .forEach(el => el.parentNode.replaceChild(h(`<h3>${el.textContent}</h3>`), el))
+    Array.from(x.querySelectorAll('title, subtitle'))
+        .forEach(el => {
+            const tag = el.tagName === 'title' ? 'h2' : 'h3'
+            Array.from(el.querySelectorAll('p'))
+                .forEach(el => { el.innerHTML = `${el.innerHTML}<br>`; usurp(el) })
+            el.parentNode.replaceChild(h(`<${tag}>${el.innerHTML}</${tag}>`), el)
+        })
     Array.from(x.querySelectorAll('image'))
         .forEach(el => el.parentNode.replaceChild(h(`<img src="${getImage(el).data}">`), el))
     Array.from(x.querySelectorAll('empty-line'))
@@ -66,12 +69,16 @@ const fb2ToHtml = (x, h, getImage) => {
         .forEach(el => usurp(el))
     Array.from(x.querySelectorAll('emphasis'))
         .forEach(el => el.parentNode.replaceChild(h(`<em>${el.innerHTML}</em>`), el))
+    Array.from(x.querySelectorAll('strikethrough'))
+        .forEach(el => el.parentNode.replaceChild(h(`<s>${el.innerHTML}</s>`), el))
     Array.from(x.querySelectorAll('poem, epigraph, cite'))
         .forEach(el => el.parentNode.replaceChild(h(`<blockquote>${el.innerHTML}</blockquote>`), el))
     Array.from(x.querySelectorAll('stanza'))
         .forEach(el => el.parentNode.replaceChild(h(`<p>${el.innerHTML}</p>`), el))
     Array.from(x.querySelectorAll('text-author'))
         .forEach(el => el.parentNode.replaceChild(h(`<p class="text-author">${el.innerHTML}</p>`), el))
+    Array.from(x.querySelectorAll('date'))
+        .forEach(el => el.parentNode.replaceChild(h(`<p class="date">${el.innerHTML}</p>`), el))
     Array.from(x.querySelectorAll('v'))
         .forEach(el => { el.innerHTML = `${el.innerHTML}<br>`; usurp(el) })
     Array.from(x.querySelectorAll('a[type=note]'))
@@ -138,7 +145,7 @@ const processFB2 = doc => {
         h1 {
             text-align: center;
         }
-        .text-author {
+        .text-author, .date {
             text-align: right;
         }
         .text-author:before {
