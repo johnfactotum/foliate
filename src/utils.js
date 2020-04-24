@@ -40,6 +40,17 @@ const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf } = imports.gi
 const ByteArray = imports.byteArray
 const ngettext = imports.gettext.ngettext
 
+// wrap Object as GObject.Object, mainly so that we can put it in Gio.ListStore
+// this is much easier than defining types for everything
+var Obj = GObject.registerClass({
+    GTypeName: 'FoliateObj'
+}, class Obj extends GObject.Object {
+    _init(x) {
+        super._init()
+        this.value = x
+    }
+})
+
 var LOG_DOMAIN = 'Foliate'
 
 var debug = message =>

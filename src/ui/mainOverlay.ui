@@ -25,6 +25,39 @@
       <object class="GtkStack" id="overlayStack">
         <property name="visible">True</property>
         <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="expand">True</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <property name="border-width">18</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Recent Books</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
+                <child>
+                  <object class="FoliateBookListBox">
+                    <property name="visible">True</property>
+                    <style><class name="frame"/></style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">main</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="orientation">vertical</property>

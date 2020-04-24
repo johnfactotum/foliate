@@ -169,6 +169,9 @@ const EpubViewData = GObject.registerClass({
     set lastLocation(location) {
         this._storage.set('lastLocation', location)
     }
+    set progress([current, total]) {
+        this._storage.set('progress', [current, total])
+    }
     set metadata(metadata) {
         this._storage.set('metadata', metadata)
     }
@@ -568,8 +571,20 @@ var EpubView = GObject.registerClass({
         this.connect('locations-generated', () => {
             if (this._data) this._data.locations = this.locations
         })
+        this.connect('locations-ready', () => {
+            if (this._data) {
+                const l = this.location
+                if (l.locationTotal)
+                    this._data.progress = [l.start.location, l.locationTotal]
+            }
+        })
         this.connect('relocated', () => {
-            if (this._data) this._data.lastLocation = this.location.start.cfi
+            if (this._data) {
+                const l = this.location
+                this._data.lastLocation = l.start.cfi
+                if (l.locationTotal)
+                    this._data.progress = [l.start.location, l.locationTotal]
+            }
         })
         this._webView.connect('destroy', () => {
             if (!this._data) return
