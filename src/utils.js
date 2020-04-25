@@ -135,12 +135,11 @@ var Storage = GObject.registerClass({
         'externally-modified': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class Storage extends GObject.Object {
-    _init(type, key) {
+    _init(path, indent) {
         super._init()
 
-        this.indent = type === 'config' ? 2 : null
-        this._destination = Storage.getDestination(type, key)
-        this._file = Gio.File.new_for_path(this._destination)
+        this.indent = indent
+        this._file = Gio.File.new_for_path(path)
         this._data = this._read()
         this._monitor = this._file.monitor(Gio.FileMonitorFlags.NONE, null)
         this._monitor.connect('changed', () => {
@@ -151,7 +150,7 @@ var Storage = GObject.registerClass({
         })
         this._debouncedWrite = debounce(this._write.bind(this), 1000)
     }
-    static getDestination(type, key) {
+    static getPath(type, key) {
         const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
             : type === 'config' ? GLib.get_user_config_dir()
             : GLib.get_user_data_dir()

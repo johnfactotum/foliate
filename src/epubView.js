@@ -15,6 +15,7 @@
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2, Soup } = imports.gi
 const { invertRotate } = imports.utils
+const { uriStore } = imports.bookList
 
 const {
     debug, error, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf,
@@ -116,8 +117,8 @@ const EpubViewData = GObject.registerClass({
         this._identifier = identifier
         this._viewSet = new Set()
 
-        this._storage = new Storage('data', identifier)
-        this._cache = new Storage('cache', identifier)
+        this._storage = new Storage(Storage.getPath('data', identifier))
+        this._cache = new Storage(Storage.getPath('cache', identifier))
 
         this._annotationsMap = new Map()
         this._annotationsList = new Gio.ListStore()
@@ -545,6 +546,7 @@ var EpubView = GObject.registerClass({
                 this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
                 locations = this._data.locations
                 this._data.metadata = this.metadata
+                uriStore.set(identifier, this._file.get_uri())
             }
             this._run(`loadLocations(${locations || 'null'})`)
             this._run('render()')

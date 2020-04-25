@@ -15,7 +15,25 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk } = imports.gi
 const ByteArray = imports.byteArray
-const { Obj } = imports.utils
+const { Storage, Obj } = imports.utils
+
+class UriStore {
+    constructor() {
+        const dataDir = GLib.get_user_data_dir()
+        const path =  GLib.build_filenamev([dataDir, pkg.name, 'library/uri-store.json'])
+        this._storage = new Storage(path)
+        this._map = new Map(this._storage.get('uris'))
+    }
+    get(id) {
+        return this._map.get(id)
+    }
+    set(id, uri) {
+        this._map.set(id, uri)
+        this._storage.set('uris', Array.from(this._map.entries()))
+    }
+}
+
+var uriStore = new UriStore()
 
 const listBooks = function* (path) {
     const dir = Gio.File.new_for_path(path)
@@ -95,6 +113,30 @@ var BookListBox = GObject.registerClass({
             .forEach(x => {
                 this._list.append(new Obj(x))
             })
+
+        this.connect('row-activated', (box, row) => {
+            const id = row.book.value.metadata.identifier
+            const uri = uriStore.get(id)
+            if (!uri) {
+                const window = this.get_toplevel()
+                const msg = new Gtk.MessageDialog({
+                    text: _('File location unkown'),
+                    secondary_text: _('Choose the location of this file to open it.'),
+                    message_type: Gtk.MessageType.QUESTION,
+                    buttons: Gtk.ButtonsType.OK_CANCEL,
+                    modal: true,
+                    transient_for: window
+                })
+                msg.set_default_response(Gtk.ResponseType.OK)
+                const res = msg.run()
+                if (res === Gtk.ResponseType.OK)
+                    window.application.lookup_action('open').activate(null)
+                msg.close()
+                return
+            }
+            const file = Gio.File.new_for_uri(uri)
+            this.get_toplevel().open(file)
+        })
 
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`progress, trough { min-width: 1px; }`)

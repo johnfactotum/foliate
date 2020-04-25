@@ -24,7 +24,6 @@ const { tts, TtsButton } = imports.tts
 const { themes, customThemes, ThemeRow, applyTheme } = imports.theme
 const { exportAnnotations } = imports.export
 const { PropertiesWindow } = imports.properties
-const { bookList } = imports.bookList
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })

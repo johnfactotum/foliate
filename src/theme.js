@@ -242,7 +242,7 @@ defaultThemes.forEach(theme => themes.append(new Theme(theme)))
 var CustomThemes = class CustomThemes {
     constructor() {
         this._themes = new Gio.ListStore()
-        this._storage = new Storage('config', 'themes')
+        this._storage = new Storage(Storage.getPath('config', 'themes'), 2)
         const themes = this._storage.get('themes', [])
         if (Array.isArray(themes))
             themes.forEach(theme => this.addTheme(new Theme(theme), true))
