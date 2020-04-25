@@ -692,6 +692,7 @@ const HeaderBar = GObject.registerClass({
         super._init(params)
         this.show_close_button = true
         this.has_subtitle = false
+        this.get_style_context().add_class('titlebar')
 
         this.sideButton = this._makeMenuButton(_('Contents'), 'view-list-symbolic')
         this.sidebarButton = new Gtk.ToggleButton({
@@ -1107,6 +1108,7 @@ var Window = GObject.registerClass({
         else {
             const dummyButton = new Gtk.Button({ visible: true, opacity: 0 })
             const dummyHeaderBar = new Gtk.HeaderBar({ visible: true, opacity: 0 })
+            dummyHeaderBar.get_style_context().add_class('titlebar')
             dummyHeaderBar.pack_start(dummyButton)
 
             this._titleLabel = new Gtk.Label({
