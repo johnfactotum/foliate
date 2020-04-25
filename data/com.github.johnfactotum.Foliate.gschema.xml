@@ -39,6 +39,11 @@
         <summary>Default action when selecting multiple words</summary>
         <description>Default action to perform when selecting multiple words</description>
     </key>
+    <key name="img-event-type" type="s">
+        <default>'click'</default>
+        <summary>Event for opening image viewer</summary>
+        <description>DOM event type for viewing images; the special value "middleclick" is available for the middle click event</description>
+    </key>
     <key name="tts-command" type="s">
         <default>''</default>
         <summary>Text-to-speech command</summary>

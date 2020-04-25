@@ -785,6 +785,8 @@ var Window = GObject.registerClass({
         this._loading = false
 
         this._epub = new EpubView()
+        settings.bind('img-event-type', this._epub, 'img-event-type',
+            Gio.SettingsBindFlags.DEFAULT)
         this.insert_action_group('view', this._epub.actionGroup)
         this._connectEpub()
         this.connect('destroy', () => this._epub.close())

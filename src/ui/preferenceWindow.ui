@@ -84,6 +84,34 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="imgEventType">
+    <columns>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0"></col>
+        <col id="1" translatable="yes">Disabled</col>
+      </row>
+      <row>
+        <col id="0">click</col>
+        <col id="1" translatable="yes">Single click</col>
+      </row>
+      <row>
+        <col id="0">dblclick</col>
+        <col id="1" translatable="yes">Double click</col>
+      </row>
+      <row>
+        <col id="0">middleclick</col>
+        <col id="1" translatable="yes">Middle click</col>
+      </row>
+      <row>
+        <col id="0">contextmenu</col>
+        <col id="1" translatable="yes">Right click</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkDialog" id="preferenceDialog">
     <property name="modal">True</property>
     <property name="use-header-bar">1</property>
@@ -293,6 +321,40 @@
                         <property name="visible">True</property>
                         <property name="valign">center</property>
                         <property name="model">action</property>
+                        <property name="id-column">0</property>
+                        <property name="active-id">menu</property>
+                        <child>
+                          <object class="GtkCellRendererText">
+                            <property name="ellipsize">end</property>
+                          </object>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="label" translatable="yes">Open images on</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="imgEventTypeCombo">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                        <property name="model">imgEventType</property>
                         <property name="id-column">0</property>
                         <property name="active-id">menu</property>
                         <child>

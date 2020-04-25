@@ -29,6 +29,7 @@ let skeuomorphism = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
 let ibooksInternalTheme = 'Light'
 let doubleClickTime = 400
+let imgEventType = 'click'
 let zoomLevel = 1
 let windowSize
 const getWindowIsZoomed = () => Math.abs(windowSize - window.innerWidth * zoomLevel) > 2
@@ -542,23 +543,29 @@ const setupRendition = () => {
         }, true))
 
         const imgs = contents.document.querySelectorAll('img')
-        Array.from(imgs).forEach(img => img.addEventListener('click', e => {
-            e.stopPropagation()
-            fetch(img.src)
-                .then(res => res.blob())
-                .then(blob => {
-                    const reader = new FileReader()
-                    reader.readAsDataURL(blob)
-                    reader.onloadend = () => dispatch({
-                        type: 'img',
-                        payload: {
-                            alt: img.getAttribute('alt'),
-                            base64: reader.result.split(',')[1],
-                            position: getRect(e.target, frame)
-                        }
+        const eventType = imgEventType === 'middleclick' ? 'click' : imgEventType
+        if (eventType) {
+            Array.from(imgs).forEach(img => img.addEventListener(eventType, e => {
+                if (imgEventType === 'click' && e.button !== 0) return
+                if (imgEventType === 'middleclick' && e.button !== 1) return
+                e.preventDefault()
+                e.stopPropagation()
+                fetch(img.src)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const reader = new FileReader()
+                        reader.readAsDataURL(blob)
+                        reader.onloadend = () => dispatch({
+                            type: 'img',
+                            payload: {
+                                alt: img.getAttribute('alt'),
+                                base64: reader.result.split(',')[1],
+                                position: getRect(e.target, frame)
+                            }
+                        })
                     })
-                })
-        }, true))
+            }, true))
+        }
 
         // handle selection and clicks
         let timer = 0

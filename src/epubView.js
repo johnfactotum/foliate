@@ -362,6 +362,11 @@ const defaultSettings = new EpubViewSettings()
 
 var EpubView = GObject.registerClass({
     GTypeName: 'FoliateEpubView',
+    Properties: {
+        'img-event-type':
+            GObject.ParamSpec.string('img-event-type', 'img-event-type', 'img-event-type',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'click'),
+    },
     Signals: {
         'data-ready': {
             flags: GObject.SignalFlags.RUN_FIRST,
@@ -496,6 +501,7 @@ var EpubView = GObject.registerClass({
     }
     _connectSettings() {
         this._zoomLevel = this.settings.zoom_level
+        this.connect('notify::img-event-type', () => this.reload())
         const handlers = [
             this.settings.connect('notify::zoom-level', () => {
                 this._zoomLevel = this.settings.zoom_level
@@ -636,6 +642,7 @@ var EpubView = GObject.registerClass({
                 this._ready = true
                 this._run(`doubleClickTime =
                     ${Gtk.Settings.get_default().gtk_double_click_time}`)
+                this._run(`imgEventType = "${this.img_event_type}"`)
                 this._updateWindowSize()
                 this._run(`zoomLevel = ${this.settings.zoom_level}`)
 
