@@ -62,7 +62,13 @@ const fb2ToHtml = (x, h, getImage) => {
             el.parentNode.replaceChild(h(`<${tag}>${el.innerHTML}</${tag}>`), el)
         })
     Array.from(x.querySelectorAll('image'))
-        .forEach(el => el.parentNode.replaceChild(h(`<img src="${getImage(el).data}">`), el))
+        .forEach(el => {
+            const src = getImage(el).data
+            const alt = el.getAttribute('alt') || ''
+            const title = el.getAttribute('title') || ''
+            const img = h(`<img src="${src}" alt="${alt}" title="${title}">`)
+            el.parentNode.replaceChild(img, el)
+        })
     Array.from(x.querySelectorAll('empty-line'))
         .forEach(el => el.parentNode.replaceChild(h(`<br>`), el))
     Array.from(x.querySelectorAll('style'))
