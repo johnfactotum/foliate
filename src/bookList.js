@@ -31,6 +31,10 @@ class UriStore {
         this._map.set(id, uri)
         this._storage.set('uris', Array.from(this._map.entries()))
     }
+    delete(id) {
+        this._map.delete(id)
+        this._storage.set('uris', Array.from(this._map.entries()))
+    }
 }
 
 var uriStore = new UriStore()
@@ -67,15 +71,17 @@ const BookListRow =  GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookListRow.ui',
     InternalChildren: [
         'title', 'creator',
-        'progressGrid', 'progressBar', 'progressLabel'
+        'progressGrid', 'progressBar', 'progressLabel',
+        'remove'
     ],
     Properties: {
         book: GObject.ParamSpec.object('book', 'book', 'book',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
     }
 }, class BookListRow extends Gtk.ListBoxRow {
-    _init(params) {
+    _init(params, removeFunc) {
         super._init(params)
+        this._removeFunc = removeFunc
         const { progress, metadata: { title, creator } } = this.book.value
         this._title.label = title || ''
         this._creator.label = creator || ''
@@ -91,6 +97,32 @@ const BookListRow =  GObject.registerClass({
             this._progressGrid.child_set_property(this._progressLabel, 'width', steps - span)
             this._progressGrid.child_set_property(this._progressLabel, 'left-attach', span)
         } else this._progressGrid.hide()
+        
+        this._remove.connect('clicked', this.remove.bind(this))
+    }
+    remove() {
+        const window = this.get_toplevel()
+        const msg = new Gtk.MessageDialog({
+            text: _('Are you sure you want to remove this book?'),
+            secondary_text: _('Reading progress, annotations, and bookmarks will be permanently lost.'),
+            message_type: Gtk.MessageType.WARNING,
+            modal: true,
+            transient_for: window
+        })
+        msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+        msg.add_button(_('Remove'), Gtk.ResponseType.ACCEPT)
+        msg.set_default_response(Gtk.ResponseType.CANCEL)
+        msg.get_widget_for_response(Gtk.ResponseType.ACCEPT)
+            .get_style_context().add_class('destructive-action')
+        const res = msg.run()
+        if (res === Gtk.ResponseType.ACCEPT) {
+            const id = this.book.value.metadata.identifier
+            this._removeFunc(id)
+            uriStore.delete(id)
+            Gio.File.new_for_path(Storage.getPath('data', id)).delete(null)
+            Gio.File.new_for_path(Storage.getPath('cache', id)).delete(null)
+        }
+        msg.close()
     }
 })
 
@@ -103,7 +135,16 @@ var BookListBox = GObject.registerClass({
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
         this._list = new Gio.ListStore()
-        this.bind_model(this._list, book => new BookListRow({ book }))
+        const removeFunc = id => {
+            const n = this._list.get_n_items()
+            for (let i = 0; i < n; i++) {
+                if (this._list.get_item(i).value.metadata.identifier === id) {
+                    this._list.remove(i)
+                    break
+                }
+            }
+        }
+        this.bind_model(this._list, book => new BookListRow({ book }, removeFunc))
 
         const datadir = GLib.build_filenamev([GLib.get_user_data_dir(), pkg.name])
         const books = listBooks(datadir)

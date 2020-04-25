@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <object class="GtkPopoverMenu" id="bookMenu">
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="margin">10</property>
+        <child>
+          <object class="GtkModelButton" id="remove">
+            <property name="visible">True</property>
+            <property name="text" translatable="yes">Remove from Library</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
   <template class="FoliateBookListRow" parent="GtkListBoxRow">
     <property name="visible">True</property>
     <property name="selectable">False</property>
@@ -62,10 +77,11 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button">
-            <!-- <property name="visible">True</property> -->
+          <object class="GtkMenuButton">
+            <property name="visible">True</property>
             <property name="relief">none</property>
             <property name="valign">center</property>
+            <property name="popover">bookMenu</property>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
