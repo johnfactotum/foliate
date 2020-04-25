@@ -579,13 +579,6 @@ var EpubView = GObject.registerClass({
         this.connect('locations-generated', () => {
             if (this._data) this._data.locations = this.locations
         })
-        this.connect('locations-ready', () => {
-            if (this._data) {
-                const l = this.location
-                if (l.locationTotal)
-                    this._data.progress = [l.start.location, l.locationTotal]
-            }
-        })
         this.connect('relocated', () => {
             if (this._data) {
                 const l = this.location
