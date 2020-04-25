@@ -1184,8 +1184,11 @@ var Window = GObject.registerClass({
         const bgColor = brightenColor(invert(viewSettings.get_string('bg-color')), brightness)
         const fgColor = brightenColor(invert(viewSettings.get_string('fg-color')), brightness)
         const cssProvider = new Gtk.CssProvider()
-        const context = this._headerBar.get_style_context()
-        const borderRadius = context.get_property('border-radius', context.get_state())
+        let borderRadius = 8
+        if (this._headerBar) {
+            const context = this._headerBar.get_style_context()
+            borderRadius = context.get_property('border-radius', context.get_state())
+        }
         cssProvider.load_from_data(`
             .foliate-autohide-container {
                 background: ${bgColor};
