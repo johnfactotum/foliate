@@ -46,6 +46,10 @@ const resolveURL = (url, relativeTo) => {
     return new URL(url, base + relativeTo).href.replace(base, '')
 }
 
+// Remove whitespace like CSS `white-space: normal`
+const whitespaceNormal = str =>
+    str.replace(/\r?\n/g, ' ').replace(/(\s){2,}/g, ' ')
+
 // from https://stackoverflow.com/a/11892228
 const usurp = p => {
     let last = p
@@ -59,7 +63,8 @@ const usurp = p => {
 const pangoMarkupTags = ['a', 'b', 'big', 'i', 's', 'sub', 'sup', 'small', 'tt', 'u']
 const toPangoMarkup = (html, baseURL = '') => {
     const isBaseURLExternal = isExternalURL(baseURL)
-    const doc = new DOMParser().parseFromString(html.replace(/\n/g, ' '), 'text/html')
+    html = whitespaceNormal(html)
+    const doc = new DOMParser().parseFromString(html, 'text/html')
     Array.from(doc.querySelectorAll('p'))
         .forEach(el => el.innerHTML = '\n\n' + el.innerHTML)
     Array.from(doc.querySelectorAll('div'))
