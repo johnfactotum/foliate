@@ -61,7 +61,7 @@ const fb2ToHtml = (x, h, getImage) => {
                 .forEach(el => { el.innerHTML = `${el.innerHTML}<br>`; usurp(el) })
             el.parentNode.replaceChild(h(`<${tag}>${el.innerHTML}</${tag}>`), el)
         })
-    Array.from(x.querySelectorAll('image'))
+    if (getImage) Array.from(x.querySelectorAll('image'))
         .forEach(el => {
             const src = getImage(el).data
             const alt = el.getAttribute('alt') || ''
@@ -109,7 +109,8 @@ const processFB2 = doc => {
     }
     const title = getTextContent('title-info book-title')
     const identifier = getTextContent('title-info id')
-    const description = getTextContent('title-info annotation')
+    const annotation = $('title-info annotation')
+    const description = annotation ? fb2ToHtml(annotation, h).innerHTML : undefined
     const language = getTextContent('title-info lang')
     const pubdate = getTextContent('title-info date')
     const publisher = getTextContent('publish-info publisher')
