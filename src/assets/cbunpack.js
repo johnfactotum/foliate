@@ -56,7 +56,15 @@ const unpackCB = async (uri, inputType) => {
 
     const archive = await Archive.open(archiveBlob)
   
-    await archive.extractFiles()
+    try {
+        await archive.extractFiles()
+    } catch (error) {
+        if (inputType === 'cbr' && error && error.message && error.message === 'Parsing filters is unsupported.') {
+            throw new Error('CBR could not be extracted. [Parsing filters is unsupported]')
+        }
+    
+        throw error
+    }
     
     const archiveFiles = await archive.getFilesArray()
     
