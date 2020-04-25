@@ -1,3 +1,33 @@
+const imageType = async blob => {
+    // Construct an ArrayBuffer (byte array) from the first 16 bytes of the given blob.
+    const slicedBlob = blob.slice(0, 16)
+    const blobArrayBuffer = await new Response(slicedBlob).arrayBuffer()
+
+    // Construct a Uint8Array object to represent the ArrayBuffer (byte array).
+    const byteArray = new Uint8Array(blobArrayBuffer)
+
+    // Convert the byte array to hexadecimal.
+    let hex = '';
+    byteArray.forEach(byte => {
+        hex += `0${byte.toString(16)}`.slice(-2).toUpperCase()
+    })
+
+    // Return image type based on the converted hexadecimal
+    if (hex.startsWith('FFD8FF')) {
+        return 'jpeg'
+    } else if (hex.startsWith('89504E47')) {
+        return 'png'
+    } else if (hex.startsWith('47494638')) {
+        return 'gif'
+    } else if (hex.startsWith('424D')) {
+        return 'bmp'
+    } else if (hex.startsWith('52494646') && hex.slice(16, 24) === '57454250') {
+        return 'webp'
+    } else {
+        return 'unknown'
+    }
+}
+
 const unpackCBZ = async uri => {
     const res = await fetch(uri)
     const cbzArchiveBlob = await res.blob()
@@ -9,11 +39,12 @@ const unpackCBZ = async uri => {
         archiveFiles.map(async file => {
             const pageTitle = file.name.split('.').slice(0, -1).join('')
             const pageBlob = await file.async('blob')
+            const pageType = await imageType(pageBlob)
 
             return {
                 title: pageTitle,
                 blob: pageBlob,
-                type: pageBlob.type
+                type: pageType
             }
         })
     )
@@ -28,14 +59,18 @@ const unpackCB = async (uri, inputType) => {
     await archive.extractFiles()
     
     const archiveFiles = await archive.getFilesArray()
-    return archiveFiles.map(({file}) => {
-        const pageTitle = file.name.split('.').slice(0, -1).join('')
-        const pageBlob = file
-
-        return {
-            title: pageTitle,
-            blob: pageBlob,
-            type: pageBlob.type
-        }
-    })
+    
+    return Promise.all(
+        archiveFiles.map(async ({file}) => {
+            const pageTitle = file.name.split('.').slice(0, -1).join('')
+            const pageBlob = file
+            const pageType = await imageType(pageBlob)
+    
+            return {
+                title: pageTitle,
+                blob: pageBlob,
+                type: pageType
+            }
+        })
+    )
 }

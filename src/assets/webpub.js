@@ -214,33 +214,34 @@ const webpubFromComicBookArchive = async (uri, inputType) => {
     const stylesheetBlob = new Blob([stylesheet], { type: 'text/css' })
     const stylesheetURL = URL.createObjectURL(stylesheetBlob)
 
+    const sectionLinkObjects = pages.filter(page =>
+            ['jpeg', 'png', 'gif', 'bmp', 'webp'].includes(page.type))
+        .map(page => {
+            const html = `
+            <!doctype html>
+            <html>
+                <head>
+                    <title>${page.title}</title>
+                    <link rel="stylesheet" type="text/css" href="${stylesheetURL}" />
+                </head>
 
-    const sectionLinkObjects = pages.map(page => {
-        const html = `
-        <!doctype html>
-        <html>
-            <head>
-                <title>${page.title}</title>
-                <link rel="stylesheet" type="text/css" href="${stylesheetURL}" />
-            </head>
+                <body>
+                    <section class="image-wrapper">
+                        <img src="${URL.createObjectURL(page.blob)}" alt="${page.title}" />
+                    </section>
+                </body>
+            </html>
+            `
 
-            <body>
-                <section class="image-wrapper">
-                    <img src="${URL.createObjectURL(page.blob)}" alt="${page.title}" />
-                </section>
-            </body>
-        </html>
-        `
+            const pageHTMLBlob = new Blob([html], { type: 'text/html' })
+            const pageURL = URL.createObjectURL(pageHTMLBlob)
 
-        const pageHTMLBlob = new Blob([html], { type: 'text/html' })
-        const pageURL = URL.createObjectURL(pageHTMLBlob)
-
-        return {
-            href: pageURL,
-            type: 'text/html',
-            title: page.title
-        }
-    })
+            return {
+                href: pageURL,
+                type: 'text/html',
+                title: page.title
+            }
+        })
 
     return {
         metadata: {
