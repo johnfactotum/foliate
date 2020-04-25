@@ -220,8 +220,8 @@ const Footer = GObject.registerClass({
         }
         this._left = new Gtk.Label(labelOpts)
         this._right = new Gtk.Label(labelOpts)
-        this._left.get_style_context().add_class('autohide-label')
-        this._right.get_style_context().add_class('autohide-label')
+        this._left.get_style_context().add_class('foliate-autohide-label')
+        this._right.get_style_context().add_class('foliate-autohide-label')
         this.pack_start(this._left, true, true, 0)
         this.pack_start(this._right, true, true, 0)
 
@@ -329,7 +329,7 @@ const MainOverlay = GObject.registerClass({
             halign: Gtk.Align.CENTER,
             width_request: 1
         })
-        this._autohideDivider.get_style_context().add_class('spread-divider')
+        this._autohideDivider.get_style_context().add_class('foliate-spread-divider')
 
         const dummyButton = new Gtk.Button({ visible: true, opacity: 0 })
         const dummyScale = new Gtk.Scale({ visible: true, opacity: 0, draw_value: false })
@@ -415,7 +415,7 @@ const MainOverlay = GObject.registerClass({
         this._skeuomorphism = enabled
         this._showDivider()
         if (!enabled) return this._bookBox.get_style_context()
-            .remove_class('skeuomorph-page')
+            .remove_class('foliate-skeuomorph-page')
 
         const cssProvider = new Gtk.CssProvider()
         const invert = viewSettings.get_boolean('invert') ? doubleInvert : (x => x)
@@ -423,7 +423,7 @@ const MainOverlay = GObject.registerClass({
         const bgColor = brightenColor(invert(viewSettings.get_string('bg-color')), brightness)
         const shadowColor = 'rgba(0, 0, 0, 0.2)'
         cssProvider.load_from_data(`
-            .skeuomorph-page {
+            .foliate-skeuomorph-page {
                 margin: 12px 24px;
                 box-shadow:
                     -26px 0 0 -14px ${shadowColor},
@@ -447,12 +447,12 @@ const MainOverlay = GObject.registerClass({
                     0 0 15px 5px ${shadowColor},
                     0 0 0 1px ${shadowColor};
             }
-            .spread-divider {
+            .foliate-spread-divider {
                 background: rgba(0, 0, 0, 0.3);
                 box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.15);
             }`)
         const styleContext = this._bookBox.get_style_context()
-        styleContext.add_class('skeuomorph-page')
+        styleContext.add_class('foliate-skeuomorph-page')
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),
             cssProvider,
@@ -633,7 +633,7 @@ const AutoHide =  GObject.registerClass({
     _init(params) {
         super._init(params)
         this.shadow_type = Gtk.ShadowType.NONE
-        this.get_style_context().add_class('autohide-container')
+        this.get_style_context().add_class('foliate-autohide-container')
 
         this.stayVisible = false
         this.alwaysVisible = false
@@ -1117,10 +1117,10 @@ var Window = GObject.registerClass({
                 margin_start: 18,
                 margin_end: 18
             })
-            this._titleLabel.get_style_context().add_class('autohide-label')
+            this._titleLabel.get_style_context().add_class('foliate-autohide-label')
 
             const a = new AutoHide({ visible: true })
-            a.get_style_context().add_class('autohide-titlebar')
+            a.get_style_context().add_class('foliate-autohide-titlebar')
             a.setWidget(dummyHeaderBar)
             a.addOverlay(this._titleLabel)
             a.setOverlay(this._headerBar)
@@ -1183,16 +1183,16 @@ var Window = GObject.registerClass({
         const context = this._headerBar.get_style_context()
         const borderRadius = context.get_property('border-radius', context.get_state())
         cssProvider.load_from_data(`
-            .autohide-container {
+            .foliate-autohide-container {
                 background: ${bgColor};
                 border: 0;
                 box-shadow: none;
             }
-            .autohide-titlebar {
+            .foliate-autohide-titlebar {
                 border-top-left-radius: ${borderRadius}px;
                 border-top-right-radius: ${borderRadius}px;
             }
-            .autohide-label {
+            .foliate-autohide-label {
                 color: ${fgColor};
                 opacity: 0.5;
             }`)
