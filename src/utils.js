@@ -144,6 +144,7 @@ var Storage = GObject.registerClass({
         this._monitor = this._file.monitor(Gio.FileMonitorFlags.NONE, null)
         this._monitor.connect('changed', () => {
             if (this._getModified() > this._modified) {
+                debug('externally modified: ' + this._file.get_path())
                 this._data = this._read()
                 this.emit('externally-modified')
             }
@@ -163,6 +164,9 @@ var Storage = GObject.registerClass({
                 Gio.FileQueryInfoFlags.NONE, null)
             return info.get_attribute_uint64('time::modified')
         } catch (e) {
+            debug('failed to get file info')
+            this._data = {}
+            this.emit('externally-modified')
             return null
         }
     }
