@@ -108,7 +108,8 @@ const EpubViewData = GObject.registerClass({
             flags: GObject.SignalFlags.RUN_FIRST,
             param_types: [GObject.TYPE_STRING]
         },
-        'externally-modified': { flags: GObject.SignalFlags.RUN_FIRST }
+        'externally-modified': { flags: GObject.SignalFlags.RUN_FIRST },
+        'cache-modified': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class EpubViewData extends GObject.Object {
     _init(identifier) {
@@ -130,6 +131,9 @@ const EpubViewData = GObject.registerClass({
         this._storage.connect('externally-modified', () => {
             this._loadData()
             this.emit('externally-modified')
+        })
+        this._cache.connect('externally-modified', () => {
+            this.emit('cache-modified')
         })
     }
     _loadData() {
@@ -245,6 +249,9 @@ const EpubViewData = GObject.registerClass({
             }
         }
         this._onBookmarksChanged()
+    }
+    clearCache() {
+        this._cache.clear()
     }
     disconnectAll() {
         for (const annotation of this.annotations) {
@@ -404,6 +411,7 @@ var EpubView = GObject.registerClass({
             flags: GObject.SignalFlags.RUN_FIRST,
             param_types: [GObject.TYPE_STRING, GObject.TYPE_BOOLEAN]
         },
+        'should-reload': { flags: GObject.SignalFlags.RUN_FIRST },
     }
 }, class EpubView extends GObject.Object {
     _init(params) {
@@ -440,6 +448,9 @@ var EpubView = GObject.registerClass({
             'bookmark': () => this.hasBookmark()
                 ? this.removeBookmark()
                 : this.addBookmark(),
+            'clear-cache': () => {
+                if (this._data) this._data.clearCache()
+            }
         }
         Object.keys(actions).forEach(name => {
             const action = new Gio.SimpleAction({ name, enabled: false })
@@ -454,7 +465,8 @@ var EpubView = GObject.registerClass({
             'go-prev-section',
             'go-first',
             'go-last',
-            'bookmark'
+            'bookmark',
+            'clear-cache'
         ].forEach(name => this.actionGroup.lookup_action(name).enabled = false)
         this.connect('book-loading', disableActions)
         this.connect('book-displayed', () => {
@@ -553,6 +565,7 @@ var EpubView = GObject.registerClass({
                 locations = this._data.locations
                 this._data.metadata = this.metadata
                 uriStore.set(identifier, this._file.get_uri())
+                this.actionGroup.lookup_action('clear-cache').enabled = true
             }
             this._run(`loadLocations(${locations || 'null'})`)
             this._run('render()')
@@ -563,14 +576,17 @@ var EpubView = GObject.registerClass({
                 for (const annotation of this._data.annotations) {
                     this._addAnnotation(annotation.cfi, annotation.color)
                 }
-                const h1 = this._data.connect('annotation-added', (_, annotation) => {
-                    this.annotation = annotation
-                    this._addAnnotation(annotation.cfi, annotation.color)
-                })
-                const h2 = this._data.connect('annotation-removed', (_, cfi) =>
-                    this._removeAnnotation(cfi))
-                const h3 = this._data.connect('externally-modified', () => this.reload())
-                this._dataHandlers = [h1, h2, h3]
+
+                this._dataHandlers = [
+                    this._data.connect('annotation-added', (_, annotation) => {
+                        this.annotation = annotation
+                        this._addAnnotation(annotation.cfi, annotation.color)
+                    }),
+                    this._data.connect('annotation-removed', (_, cfi) =>
+                        this._removeAnnotation(cfi)),
+                    this._data.connect('externally-modified', () => this.reload()),
+                    this._data.connect('cache-modified', () => this.emit('should-reload'))
+                ]
 
                 lastLocation = this._data.lastLocation
             }

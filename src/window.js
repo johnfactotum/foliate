@@ -928,6 +928,9 @@ var Window = GObject.registerClass({
             this.lookup_action('export-annotations').enabled = true
             this.lookup_action('selection-highlight').enabled = true
         })
+        this._epub.connect('should-reload', () => {
+            this.lookup_action('reload').activate(null)
+        })
         this._epub.connect('selection', () => {
             const { text } = this._epub.selection
             if (!text) return

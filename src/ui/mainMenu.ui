@@ -626,6 +626,13 @@
           </object>
         </child>
         <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">view.clear-cache</property>
+            <property name="text" translatable="yes">Clear Locations Cache</property>
+          </object>
+        </child>
+        <child>
           <object class="GtkSeparator">
             <property name="visible">True</property>
           </object>

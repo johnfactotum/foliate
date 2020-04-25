@@ -177,6 +177,7 @@ function main(argv) {
             ['view.zoom-out', ['minus', '<ctrl>minus']],
             ['view.zoom-restore', ['0', '<ctrl>0']],
             ['view.bookmark', ['<ctrl>d']],
+            ['view.clear-cache', ['<ctrl><shift>r']],
 
             ['img.copy', ['<ctrl>c']],
             ['img.save-as', ['<ctrl>s']],

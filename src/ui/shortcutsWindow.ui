@@ -35,6 +35,13 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
+                <property name="title" translatable="yes">Clear locations cache</property>
+                <property name="action-name">view.clear-cache</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
                 <property name="title" translatable="yes">Close current window</property>
                 <property name="action-name">win.close</property>
               </object>
