@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gtk, Gio, Gdk, GdkPixbuf } = imports.gi
+const { GObject, Gtk, Gio, Gdk, GdkPixbuf, cairo } = imports.gi
 const ngettext = imports.gettext.ngettext
 let Gspell; try { Gspell = imports.gi.Gspell } catch (e) {}
 
@@ -408,12 +408,15 @@ var ImageViewer = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/imageViewer.ui',
     InternalChildren: [
         'scale', 'paned', 'labelArea', 'image', 'label', 'fileChooser',
+        'invertButton'
     ],
     Properties: {
         pixbuf: GObject.ParamSpec.object('pixbuf', 'pixbuf', 'pixbuf',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, GdkPixbuf.Pixbuf.$gtype),
         alt: GObject.ParamSpec.string('alt', 'alt', 'alt',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, '')
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, ''),
+        invert: GObject.ParamSpec.boolean('invert', 'invert', 'invert',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false)
     }
 }, class ImageViewer extends Gtk.ApplicationWindow {
     _init(params) {
@@ -421,6 +424,8 @@ var ImageViewer = GObject.registerClass({
         this.show_menubar = false
         this._rotation = 0
         this._zoom = 1
+        this.bind_property('invert', this._invertButton, 'active',
+            GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
 
         this.actionGroup = new Gio.SimpleActionGroup()
         const actions = {
@@ -431,6 +436,7 @@ var ImageViewer = GObject.registerClass({
             'zoom-restore': () => this.zoom = 1,
             'rotate-left': () => this.rotate(90),
             'rotate-right': () => this.rotate(270),
+            'invert': () => this.set_property('invert', !this.invert),
             'close': () => this.close(),
         }
         Object.keys(actions).forEach(name => {
@@ -463,6 +469,7 @@ var ImageViewer = GObject.registerClass({
         })
         this._fileChooser.transient_for = this
         this._updateZoom()
+        this._update()
     }
     _updateZoom() {
         const upper = this._scale.adjustment.upper
@@ -472,12 +479,35 @@ var ImageViewer = GObject.registerClass({
         this.actionGroup.lookup_action('zoom-restore').enabled = this._zoom !== 1
     }
     _update() {
-        const pixbuf = this.pixbuf
+        let pixbuf = this.pixbuf
         const width = pixbuf.get_width()
         const height = pixbuf.get_height()
+        const zoom = this.zoom
+
+        if (this.invert) {
+            const surface = new cairo.ImageSurface(cairo.Format.ARGB32, width, height)
+            const context = new cairo.Context(surface)
+
+            // paint a whtie background first for transparent images
+            context.setSourceRGBA(1, 1, 1, 1)
+            context.paint()
+
+            // paint the image
+            Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
+            context.paint()
+
+            // invert
+            context.setOperator(cairo.Operator.DIFFERENCE)
+            context.setSourceRGBA(1, 1, 1, 1)
+            context.paint()
+
+            // no hue-rotate :(
+
+            pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, width, height)
+        }
         this._image.set_from_pixbuf(pixbuf.scale_simple(
-            width * this._zoom,
-            height * this._zoom,
+            width * zoom,
+            height * zoom,
             GdkPixbuf.InterpType.BILINEAR).rotate_simple(this._rotation))
     }
     get zoom() {
@@ -489,6 +519,13 @@ var ImageViewer = GObject.registerClass({
     rotate(degree) {
         this._rotation = (this._rotation + degree) % 360
         this._update()
+    }
+    get invert() {
+        return this._invert
+    }
+    set invert(invert) {
+        this._invert = invert
+        if (this._image) this._update()
     }
     show() {
         super.show()

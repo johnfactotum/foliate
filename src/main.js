@@ -185,6 +185,7 @@ function main(argv) {
             ['img.zoom-restore', ['0', '<ctrl>0']],
             ['img.rotate-left', ['<ctrl>Left']],
             ['img.rotate-right', ['<ctrl>Right']],
+            ['img.invert', ['<ctrl>i']],
             ['img.close', ['<ctrl>w']],
         ].forEach(([name, accels]) => application.set_accels_for_action(name, accels))
 

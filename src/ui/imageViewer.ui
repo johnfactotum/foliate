@@ -36,9 +36,6 @@
               </object>
             </child>
           </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
         </child>
         <child>
           <object class="GtkButton">
@@ -49,6 +46,18 @@
               <object class="GtkImage">
                 <property name="visible">True</property>
                 <property name="icon-name">document-save-as-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="invertButton">
+            <property name="visible">True</property>
+            <property name="tooltip-text" translatable="yes">Invert</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">night-light-symbolic</property>
               </object>
             </child>
           </object>

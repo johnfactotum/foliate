@@ -981,7 +981,8 @@ var Window = GObject.registerClass({
                 pixbuf, alt,
                 title: title ? _('Image from “%s”').format(title) : _('Image'),
                 transient_for: this,
-                application: this.application
+                application: this.application,
+                invert: viewSettings.get_boolean('invert')
             })
             window.show()
         })
