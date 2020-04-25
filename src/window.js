@@ -1120,6 +1120,7 @@ var Window = GObject.registerClass({
             this._titleLabel.get_style_context().add_class('autohide-label')
 
             const a = new AutoHide({ visible: true })
+            a.get_style_context().add_class('autohide-titlebar')
             a.setWidget(dummyHeaderBar)
             a.addOverlay(this._titleLabel)
             a.setOverlay(this._headerBar)
@@ -1137,6 +1138,7 @@ var Window = GObject.registerClass({
             a.alwaysReveal(this._mainOverlay.navbarVisible)
             this._autoHideHeaderBar = a
             this.set_titlebar(a)
+            a.get_style_context().remove_class('titlebar')
         }
         this._setTitle(title)
     }
@@ -1178,11 +1180,17 @@ var Window = GObject.registerClass({
         const bgColor = brightenColor(invert(viewSettings.get_string('bg-color')), brightness)
         const fgColor = brightenColor(invert(viewSettings.get_string('fg-color')), brightness)
         const cssProvider = new Gtk.CssProvider()
+        const context = this._headerBar.get_style_context()
+        const borderRadius = context.get_property('border-radius', context.get_state())
         cssProvider.load_from_data(`
             .autohide-container {
                 background: ${bgColor};
                 border: 0;
                 box-shadow: none;
+            }
+            .autohide-titlebar {
+                border-top-left-radius: ${borderRadius}px;
+                border-top-right-radius: ${borderRadius}px;
             }
             .autohide-label {
                 color: ${fgColor};
