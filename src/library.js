@@ -55,47 +55,20 @@ const BookBoxChild =  GObject.registerClass({
 }, class BookBoxChild extends Gtk.FlowBoxChild {
     _init(params) {
         super._init(params)
-        this._image = new Gtk.Image({
-            visible: true,
-            halign: Gtk.Align.CENTER,
-            valign: Gtk.Align.CENTER
-        })
-        const overlay = new Gtk.Overlay({ visible: true })
-        overlay.add(this._image)
-        this._grid = new Gtk.Grid({
-            visible: true,
-            column_homogeneous: true,
-            row_homogeneous: true,
-            halign: Gtk.Align.CENTER,
-            valign: Gtk.Align.CENTER
-        })
-        overlay.add_overlay(this._grid)
-        this.add(overlay)
+        this._image = new Gtk.Image({ visible: true })
+        this.add(this._image)
 
         const { title } = this.entry.value
         this._image.tooltip_text = title
     }
     loadCover(pixbuf) {
-        let width = pixbuf.get_width()
-        let height = pixbuf.get_height()
-        const maxWidth = 120
-        const ratio = maxWidth / width
+        const width = 120
+        const ratio = width / pixbuf.get_width()
         if (ratio < 1) {
-            width = maxWidth
-            height = parseInt(height * ratio, 10)
+            const height = parseInt(pixbuf.get_height() * ratio, 10)
             this._image.set_from_pixbuf(pixbuf
                 .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
         } else this._image.set_from_pixbuf(pixbuf)
-        this._image.get_style_context().add_class('foliate-book-image')
-
-        this._grid.width_request = width
-        this._grid.height_request = height
-        const spine = new Gtk.Box({ visible: true })
-        const cover = new Gtk.Box({ visible: true })
-        this._grid.attach(spine, 0, 0, 1, 1)
-        this._grid.attach(cover, 1, 0, 20, 1)
-        spine.get_style_context().add_class('foliate-book-spine')
-        cover.get_style_context().add_class('foliate-book-cover')
     }
 })
 
@@ -294,31 +267,6 @@ var LibraryWindow =  GObject.registerClass({
                 this._storeLoaded = true
             }
         })
-
-        const cssProvider = new Gtk.CssProvider()
-        cssProvider.load_from_data(`
-            .foliate-book-image {
-                box-shadow:
-                    5px 5px 5px 2px rgba(0, 0, 0, 0.05),
-                    0 0 2px 1px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(0, 0, 0, 0.25);
-                border-radius: 2px;
-            }
-            .foliate-book-spine {
-                box-shadow:
-                    inset 11px 0 3px -10px rgba(255, 255, 255, 0.5),
-                    inset 10px 0 2px -10px rgba(0, 0, 0, 0.1),
-                    inset -10px 0 3px -10px rgba(0, 0, 0, 0.3);
-            }
-            .foliate-book-cover {
-                box-shadow:
-                    inset 10px 0 3px -10px rgba(255, 255, 255, 0.7);
-            }
-        `)
-        Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(),
-            cssProvider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
     }
     open(file) {
         new Window({ application: this.application, file}).present()
