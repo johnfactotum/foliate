@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+-->
+<meta charset="utf-8">
+<script src="utils.js"></script>
+<script>
+let baseURI
+
+// very simple OPDS parser
+// the basic idea is derived from https://github.com/SamyPesse/xml-schema
+const link = {
+    tag: 'link',
+    array: true,
+    attrs: {
+        href: { transform: x => new URL(x, baseURI).href },
+        rel: {},
+        type: {}
+    }
+}
+const author = {
+    tag: 'author',
+    array: true,
+    fields: { name: {}, uri: {} }
+}
+const entry = {
+    tag: 'entry',
+    array: true,
+    fields: {
+        id: {},
+        title: {},
+        updated: {},
+        summary: {},
+        links: link,
+        authors: author,
+        categories: {
+            tag: 'category',
+            array: true,
+            attrs: { term: {}, label: {}, scheme: {} }
+        },
+        publisher: { tag: "dc:publisher" },
+        language: { tag: "dc:language" },
+        content: {}
+    }
+}
+const feed = {
+    tag: 'feed',
+    fields: {
+        id: {},
+        title: {},
+        icon: {},
+        updated: {},
+        links: link,
+        authors: author,
+        entries: entry
+    }
+}
+
+const parse = (el, schema) => {
+    const attrs = schema.attrs || {}
+    const fields = schema.fields || {}
+    const attrList = Object.keys(attrs)
+    const fieldList = Object.keys(fields)
+    if (!attrList.length && !fieldList.length) {
+        const transform = schema.transform || (x => x)
+        return transform(el.textContent)
+    }
+    const output = {}
+    attrList.forEach(key => {
+        const attr = attrs[key]
+        const attrName = attr.name || key
+        const value = el.getAttribute(attrName) || attr.default
+        const transform = attr.transform || (x => x)
+        output[key] = transform(value)
+    })
+    fieldList.forEach(key => {
+        const field = fields[key]
+        const tagName = field.tag || key
+        const tags = Array.from(el.children)
+            .filter(child => child.tagName === tagName)
+        if (!tags.length) return
+        const values = tags.map(tag => parse(tag, field))
+        output[key] = field.array || values.length > 1 ? values : values[0]
+    })
+    return output
+}
+
+const getCover = async (i, src) => {
+    const res = await fetch(src)
+    const blob = await res.blob()
+
+    const reader = new FileReader()
+    reader.readAsDataURL(blob)
+    reader.onloadend = () => {
+        const base64 = reader.result.split(',')[1]
+        dispatch({
+            type: 'cover',
+            payload: { i, base64 }
+        })
+    }
+}
+
+const handleDoc = doc => {
+    const obj = parse(doc.children[0], feed)
+    const entries = obj.entries.slice(0, 20)
+    entries.forEach((entry, i) => {
+        entry.i = i
+        dispatch({
+            type: 'entry',
+            payload: entry
+        })
+        const thumbnail = entry.links
+            .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
+        if (thumbnail) getCover(i, thumbnail.href)
+    })
+}
+
+const main = uri => {
+    uri = decodeURI(uri)
+    baseURI = uri
+    const parser = new DOMParser()
+    fetch(uri)
+        .then(res => res.text())
+        .then(text => parser.parseFromString(text, 'text/xml'))
+        .then(handleDoc)
+        .catch(e => dispatch({ type: 'error', payload: JSON.stringify(e) }))
+}
+
+dispatch({ type: 'ready' })
+</script>

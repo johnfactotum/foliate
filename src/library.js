@@ -13,9 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gio, GLib, Gtk, Gdk } = imports.gi
+const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2 } = imports.gi
 const ByteArray = imports.byteArray
-const { Storage, Obj } = imports.utils
+const { Storage, Obj, base64ToPixbuf } = imports.utils
 const { Window } = imports.window
 const { uriStore } = imports.uriStore
 
@@ -45,6 +45,32 @@ const listBooks = function* (path) {
         }
     }
 }
+
+const BookBoxChild =  GObject.registerClass({
+    GTypeName: 'FoliateBookBoxChild',
+    Properties: {
+        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
+    }
+}, class BookBoxChild extends Gtk.FlowBoxChild {
+    _init(params) {
+        super._init(params)
+        this._image = new Gtk.Image({ visible: true })
+        this.add(this._image)
+
+        const { title } = this.entry.value
+        this._image.tooltip_text = title
+    }
+    loadCover(pixbuf) {
+        const width = 120
+        const ratio = width / pixbuf.get_width()
+        if (ratio < 1) {
+            const height = parseInt(pixbuf.get_height() * ratio, 10)
+            this._image.set_from_pixbuf(pixbuf
+                .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
+        } else this._image.set_from_pixbuf(pixbuf)
+    }
+})
 
 const BookListRow =  GObject.registerClass({
     GTypeName: 'FoliateBookListRow',
@@ -168,14 +194,79 @@ var BookListBox = GObject.registerClass({
     }
 })
 
+const htmlPath = pkg.pkgdatadir + '/assets/opds.html'
+const getCatalog = (uri, handleCover) => {
+    const list = new Gio.ListStore()
+    const webView = new WebKit2.WebView({
+        settings: new WebKit2.Settings({
+            enable_write_console_messages_to_stdout: true,
+            allow_file_access_from_file_urls: true,
+            allow_universal_access_from_file_urls: true,
+            enable_developer_extras: true
+        })
+    })
+    const runScript = script => webView.run_javascript(script, null, () => {})
+
+    const contentManager = webView.get_user_content_manager()
+    contentManager.connect('script-message-received::action', (_, jsResult) => {
+        const data = jsResult.get_js_value().to_string()
+        const { type, payload } = JSON.parse(data)
+        switch (type) {
+            case 'ready':
+                runScript(`main("${encodeURI(uri)}")`)
+                break
+            case 'error':
+                print(`Could not retrieve catalog: ${payload}`)
+                break
+            case 'entry': {
+                const entry = new Obj(payload)
+                list.append(entry)
+                break
+            }
+            case 'cover': {
+                const pixbuf = base64ToPixbuf(payload.base64)
+                handleCover(payload.i, pixbuf)
+                break
+            }
+        }
+    })
+    contentManager.register_script_message_handler('action')
+
+    webView.load_uri(GLib.filename_to_uri(htmlPath, null))
+    return list
+}
+
 var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
+    InternalChildren: [
+        'stack', 'storeBookBox',
+    ],
 }, class LibraryWindow extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
         this.show_menubar = false
         this.title = _('Foliate')
+
+        this._storeLoaded = false
+        this._stack.connect('notify::visible-child-name', () => {
+            if (this._stack.visible_child_name === 'store') {
+                if (this._storeLoaded) return
+                const uri = 'https://standardebooks.org/opds/all'
+                const map = new Map()
+                const handleCover = (i, pixbuf) => {
+                    const child = map.get(i)
+                    if (child) child.loadCover(pixbuf)
+                }
+                const catalog = getCatalog(uri, handleCover)
+                this._storeBookBox.bind_model(catalog, entry => {
+                    const child = new BookBoxChild({ entry })
+                    map.set(entry.value.i, child)
+                    return child
+                })
+                this._storeLoaded = true
+            }
+        })
     }
     open(file) {
         new Window({ application: this.application, file}).present()
