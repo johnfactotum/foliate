@@ -856,9 +856,6 @@ var Window = GObject.registerClass({
         if (windowState.get_boolean('maximized')) this.maximize()
         if (windowState.get_boolean('fullscreen')) this.fullscreen()
 
-        const lastFile = windowState.get_string('last-file')
-        if (!this.file && settings.get_boolean('restore-last-file') && lastFile)
-            this.file  = Gio.File.new_for_path(lastFile)
         if (this.file) this.open(this.file)
 
         this.connect('window-state-event', (_, event) => {

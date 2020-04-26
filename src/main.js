@@ -28,6 +28,7 @@ const { LibraryWindow } = imports.library
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
+const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 
 const makeActions = app => ({
@@ -136,8 +137,16 @@ function main(argv) {
     })
 
     application.connect('activate', () => {
-        const activeWindow = application.activeWindow
-            || new LibraryWindow({ application })
+        let activeWindow = application.activeWindow
+        if (!activeWindow) {
+            const lastFile = windowState.get_string('last-file')
+            if (settings.get_boolean('restore-last-file') && lastFile)
+                activeWindow = new Window({
+                    application,
+                    file: Gio.File.new_for_path(lastFile)
+                })
+            else activeWindow = new LibraryWindow({ application })
+        }
         activeWindow.present()
     })
 
