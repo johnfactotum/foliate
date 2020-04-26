@@ -24,6 +24,7 @@ const { Gio, Gtk } = imports.gi
 
 const { mimetypes } = imports.utils
 const { Window } = imports.window
+const { LibraryWindow } = imports.library
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -97,8 +98,16 @@ const makeActions = app => ({
         dialog.add_filter(epubFiles)
         dialog.add_filter(allFiles)
 
-        if (dialog.run() === Gtk.ResponseType.ACCEPT)
-            app.active_window.open(dialog.get_file())
+        if (dialog.run() === Gtk.ResponseType.ACCEPT) {
+            new Window({ application: app, file: dialog.get_file() }).present()
+            const activeWindow = app.active_window
+            if (activeWindow instanceof LibraryWindow) activeWindow.close()
+        }
+    },
+    'library': () => {
+        const windows = app.get_windows()
+        ;(windows.find(window => window instanceof LibraryWindow)
+            || new LibraryWindow({ application: app })).present()
     },
     'about': () => {
         const aboutDialog = new Gtk.AboutDialog({
@@ -128,7 +137,7 @@ function main(argv) {
 
     application.connect('activate', () => {
         const activeWindow = application.activeWindow
-            || new Window({ application })
+            || new LibraryWindow({ application })
         activeWindow.present()
     })
 

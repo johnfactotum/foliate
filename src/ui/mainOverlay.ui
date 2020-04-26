@@ -25,50 +25,6 @@
       <object class="GtkStack" id="overlayStack">
         <property name="visible">True</property>
         <child>
-          <object class="GtkScrolledWindow">
-            <property name="visible">True</property>
-            <property name="expand">True</property>
-            <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="halign">center</property>
-                <property name="spacing">6</property>
-                <property name="border-width">18</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Recent Books</property>
-                    <style><class name="dim-label"/></style>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                </child>
-                <child>
-                  <object class="FoliateBookListBox">
-                    <property name="visible">True</property>
-                    <style><class name="frame"/></style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="ellipsize">end</property>
-                    <property name="max-width-chars">70</property>
-                    <property name="opacity">0</property>
-                    <property name="label">_______________________________________________________________________________________________________________________</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="name">main</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="orientation">vertical</property>

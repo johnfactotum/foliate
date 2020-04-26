@@ -15,7 +15,7 @@
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2, Soup } = imports.gi
 const { invertRotate } = imports.utils
-const { uriStore } = imports.bookList
+const { uriStore } = imports.uriStore
 
 const {
     debug, error, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf,

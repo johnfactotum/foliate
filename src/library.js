@@ -16,28 +16,8 @@
 const { GObject, Gio, GLib, Gtk, Gdk } = imports.gi
 const ByteArray = imports.byteArray
 const { Storage, Obj } = imports.utils
-
-class UriStore {
-    constructor() {
-        const dataDir = GLib.get_user_data_dir()
-        const path =  GLib.build_filenamev([dataDir, pkg.name, 'library/uri-store.json'])
-        this._storage = new Storage(path)
-        this._map = new Map(this._storage.get('uris'))
-    }
-    get(id) {
-        return this._map.get(id)
-    }
-    set(id, uri) {
-        this._map.set(id, uri)
-        this._storage.set('uris', Array.from(this._map.entries()))
-    }
-    delete(id) {
-        this._map.delete(id)
-        this._storage.set('uris', Array.from(this._map.entries()))
-    }
-}
-
-var uriStore = new UriStore()
+const { Window } = imports.window
+const { uriStore } = imports.uriStore
 
 const listBooks = function* (path) {
     const dir = Gio.File.new_for_path(path)
@@ -97,7 +77,7 @@ const BookListRow =  GObject.registerClass({
             this._progressGrid.child_set_property(this._progressLabel, 'width', steps - span)
             this._progressGrid.child_set_property(this._progressLabel, 'left-attach', span)
         } else this._progressGrid.hide()
-        
+
         this._remove.connect('clicked', this.remove.bind(this))
     }
     remove() {
@@ -188,3 +168,17 @@ var BookListBox = GObject.registerClass({
     }
 })
 
+var LibraryWindow =  GObject.registerClass({
+    GTypeName: 'FoliateLibraryWindow',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
+}, class LibraryWindow extends Gtk.ApplicationWindow {
+    _init(params) {
+        super._init(params)
+        this.show_menubar = false
+        this.title = _('Foliate')
+    }
+    open(file) {
+        new Window({ application: this.application, file}).present()
+        this.close()
+    }
+})
