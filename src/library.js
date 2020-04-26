@@ -55,7 +55,11 @@ const BookBoxChild =  GObject.registerClass({
 }, class BookBoxChild extends Gtk.FlowBoxChild {
     _init(params) {
         super._init(params)
-        this._image = new Gtk.Image({ visible: true })
+        this._image = new Gtk.Image({
+            visible: true,
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.END
+        })
         this.add(this._image)
 
         const { title } = this.entry.value
@@ -69,6 +73,7 @@ const BookBoxChild =  GObject.registerClass({
             this._image.set_from_pixbuf(pixbuf
                 .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
         } else this._image.set_from_pixbuf(pixbuf)
+        this._image.get_style_context().add_class('foliate-book-image')
     }
 })
 

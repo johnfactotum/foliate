@@ -20,7 +20,7 @@ pkg.require({
     'Gtk': '3.0'
 })
 
-const { Gio, Gtk } = imports.gi
+const { Gio, Gtk, Gdk } = imports.gi
 
 const { mimetypes } = imports.utils
 const { Window } = imports.window
@@ -212,6 +212,19 @@ function main(argv) {
             '/com/github/johnfactotum/Foliate/ui/menuBar.ui')
             .get_object('menu')
         application.menubar = menu
+
+        const cssProvider = new Gtk.CssProvider()
+        cssProvider.load_from_data(`
+            .foliate-book-image {
+                box-shadow:
+                    5px 5px 12px 2px rgba(0, 0, 0, 0.1),
+                    0 0 2px 1px rgba(0, 0, 0, 0.2);
+            }
+        `)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            cssProvider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
     })
 
     return application.run(argv)

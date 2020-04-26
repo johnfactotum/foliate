@@ -52,6 +52,7 @@ var PropertiesWindow = GObject.registerClass({
             const height = parseInt(cover.get_height() * ratio, 10)
             this._cover.set_from_pixbuf(cover
                 .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
+            this._cover.get_style_context().add_class('foliate-book-image')
         } else this._cover.hide()
 
         const {
