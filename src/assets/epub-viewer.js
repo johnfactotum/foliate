@@ -350,8 +350,10 @@ const open = async (fileName, inputType, renderTo, options) => {
                     }
                 }
 
-                // Set `spread` to 'none' for all layouts
-                options.spread = 'none'
+                // Set `spread` to 'none' for all layouts, except 'automatic'
+                if (layout !== 'automatic') {
+                    options.spread = 'none'
+                }
 
                 const json = await webpubFromComicBookArchive(uri, inputType, layout)
                 await book.openJSON(json)

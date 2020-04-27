@@ -185,6 +185,35 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
         case 'cbt': pages = await unpackCB(uri, inputType); break
     }
 
+    const automaticStylesheet = () => {
+        return `
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .image-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+                min-height: 99.5vh;
+            }
+
+            .image-wrapper img {
+                width: 100vw;
+                max-height: 99.5vh;
+                object-fit: contain;
+            }
+        `
+    }
+
     const fitPageStylesheet = () => {
         return `
             * {
@@ -236,11 +265,16 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
     const fitPageScripts = async () => { return `` }
     const fitWidthScripts = async () => { return `` }
     const continuousScripts = async () => { return `` }
+    const automaticScripts = async () => { return `` }
 
     let stylesheet;
     let scripts;
     switch (layout) {
-        case 'automatic':
+        case 'automatic': {
+            stylesheet = automaticStylesheet()
+            scripts = await automaticScripts()
+            break
+        }
         case 'single-column': {
             stylesheet = fitPageStylesheet()
             scripts = await fitPageScripts()
