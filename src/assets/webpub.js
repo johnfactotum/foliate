@@ -177,14 +177,6 @@ const processFB2 = doc => {
 const webpubFromComicBookArchive = async (uri, inputType, layout) => {
     const cbArchiveName = decodeURI(uri).split('/').pop().split('.').slice(0, -1).join('')
 
-    let pages
-    switch (inputType) {
-        case 'cbz': pages = await unpackCBZ(uri); break
-        case 'cbr': pages = await unpackCB(uri, inputType); break
-        case 'cb7': pages = await unpackCB(uri, inputType); break
-        case 'cbt': pages = await unpackCB(uri, inputType); break
-    }
-
     const automaticStylesheet = () => {
         return `
             * {
@@ -202,7 +194,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                
+
                 min-height: 99.5vh;
             }
 
@@ -300,20 +292,28 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
     const stylesheetBlob = new Blob([stylesheet], { type: 'text/css' })
     const stylesheetURL = URL.createObjectURL(stylesheetBlob)
 
-    const sectionLinkObjects = pages.filter(page =>
-            ['jpeg', 'png', 'gif', 'bmp', 'webp'].includes(page.type))
-        .map(page => {
+    let files
+    switch (inputType) {
+        case 'cbz': files = await unpackCBZ(uri); break
+        case 'cbr': files = await unpackCB(uri, inputType); break
+        case 'cb7': files = await unpackCB(uri, inputType); break
+        case 'cbt': files = await unpackCB(uri, inputType); break
+    }
+
+    const sectionLinkObjects = files.filter(file =>
+            ['jpeg', 'png', 'gif', 'bmp', 'webp'].includes(file.type))
+        .map(image => {
             const html = `
             <!doctype html>
             <html>
                 <head>
-                    <title>${page.title}</title>
+                    <title>${image.name}</title>
                     <link rel="stylesheet" type="text/css" href="${stylesheetURL}" />
                 </head>
 
                 <body>
                     <section class="image-wrapper">
-                        <img src="${URL.createObjectURL(page.blob)}" alt="${page.title}" />
+                        <img src="${URL.createObjectURL(image.blob)}" alt="${image.name}" />
                     </section>
 
                     <!-- SCRIPTS -->
@@ -328,7 +328,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
             return {
                 href: pageURL,
                 type: 'text/html',
-                title: page.title
+                title: image.name
             }
         })
 

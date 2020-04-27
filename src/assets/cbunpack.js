@@ -37,15 +37,11 @@ const unpackCBZ = async uri => {
     const archiveFiles = Object.keys(cbzArchive.files).map(name => cbzArchive.files[name])
     return Promise.all(
         archiveFiles.map(async file => {
-            const pageTitle = file.name.split('.').slice(0, -1).join('')
-            const pageBlob = await file.async('blob')
-            const pageType = await imageType(pageBlob)
+            const name = file.name.split('.').slice(0, -1).join('')
+            const blob = await file.async('blob')
+            const type = await imageType(blob)
 
-            return {
-                title: pageTitle,
-                blob: pageBlob,
-                type: pageType
-            }
+            return { name, blob, type }
         })
     )
 }
@@ -70,15 +66,11 @@ const unpackCB = async (uri, inputType) => {
     
     return Promise.all(
         archiveFiles.map(async ({file}) => {
-            const pageTitle = file.name.split('.').slice(0, -1).join('')
-            const pageBlob = file
-            const pageType = await imageType(pageBlob)
+            const name = file.name.split('.').slice(0, -1).join('')
+            const blob = file
+            const type = await imageType(blob)
     
-            return {
-                title: pageTitle,
-                blob: pageBlob,
-                type: pageType
-            }
+            return { name, blob, type }
         })
     )
 }

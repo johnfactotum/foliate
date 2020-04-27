@@ -23,7 +23,6 @@ const {
 
 const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
 const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
-const cbunpack = pkg.pkgdatadir + '/assets/cbunpack/main.py'
 
 const settings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 
