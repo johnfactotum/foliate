@@ -77,6 +77,107 @@ const BookBoxChild =  GObject.registerClass({
     }
 })
 
+const makeAcquisitionButton = (links, onActivate) => {
+    const rel = links[0].rel.split('/').pop()
+    let label = _('Get This Book')
+    switch (rel) {
+        case 'buy': label = _('Buy'); break
+        case 'open-access': label = _('Free'); break
+        case 'sample': label = _('Sample'); break
+        case 'borrow': label = _('Borrow'); break
+        case 'subscribe': label = _('Subscribe'); break
+    }
+    if (links.length === 1) {
+        const button = new Gtk.Button({ visible: true, label })
+        button.connect('clicked', () => onActivate(links[0]))
+        return button
+    } else {
+        const popover = new Gtk.PopoverMenu()
+        const box = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            margin: 10
+        })
+        const titleBox = new Gtk.Box({
+            spacing: 6
+        })
+        const title = new Gtk.Label({ label: _('Choose a file:') })
+        title.get_style_context().add_class('dim-label')
+        titleBox.pack_start(new Gtk.Separator({ valign: Gtk.Align.CENTER }), true, true, 0)
+        titleBox.pack_start(title, false, true, 0)
+        titleBox.pack_start(new Gtk.Separator({ valign: Gtk.Align.CENTER }), true, true, 0)
+        box.pack_start(titleBox, false, true, 0)
+        box.show_all()
+        popover.add(box)
+        const button = new Gtk.MenuButton({ popover })
+        const buttonBox = new Gtk.Box()
+        const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
+        buttonBox.pack_start(new Gtk.Label({ label }), true, true, 0)
+        buttonBox.pack_end(icon, false, true, 0)
+        button.add(buttonBox)
+        button.show_all()
+        links.forEach(link => {
+            const mimetype = link.type
+            const menuItem = new Gtk.ModelButton({
+                visible: true,
+                text: Gio.content_type_get_description(mimetype),
+                tooltip_text: mimetype
+            })
+            menuItem.connect('clicked', () => onActivate(link))
+            box.pack_start(menuItem, false, true, 0)
+        })
+        return button
+    }
+}
+
+const BookInfoBox =  GObject.registerClass({
+    GTypeName: 'FoliateBookInfoBox',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookInfoBox.ui',
+    InternalChildren: [
+        'title', 'summary', 'authors', 'acquisitionBox',
+    ],
+    Properties: {
+        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
+    }
+}, class BookInfoBox extends Gtk.Box {
+    _init(params) {
+        super._init(params)
+        const {
+            title = '',
+            summary = '',
+            authors = [],
+            links = []
+        } = this.entry.value
+        this._title.label = title
+        this._summary.label = summary
+        this._authors.label = authors.map(x => x.name).join(', ')
+
+        const map = new Map()
+        links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
+            .forEach(x => {
+                if (!map.has(x.rel)) map.set(x.rel, [x])
+                else map.get(x.rel).push(x)
+            })
+        Array.from(map.values()).forEach((links, i) => {
+            const button = makeAcquisitionButton(links, ({ type, href }) => {
+                // open in a browser
+                // Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
+                // Gio.AppInfo.launch_default_for_uri(href, null)
+
+                // or, open with app directly
+                const appInfo = Gio.AppInfo.get_default_for_type(type, true)
+                appInfo.launch_uris([href], null)
+            })
+            if (i === 0) button.get_style_context().add_class('suggested-action')
+            this._acquisitionBox.pack_start(button, false, true, 0)
+        })
+        if (map.size === 2) {
+            this._acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
+            this._acquisitionBox.homogeneous = true
+        }
+    }
+})
+
 const BookListRow =  GObject.registerClass({
     GTypeName: 'FoliateBookListRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookListRow.ui',
@@ -253,11 +354,26 @@ var LibraryWindow =  GObject.registerClass({
         this.show_menubar = false
         this.title = _('Foliate')
 
+        this._storeBookBox.connect('child-activated', (flowbox, child) => {
+            const popover = new Gtk.Popover({
+                relative_to: child,
+                width_request: 320,
+                height_request: 320
+            })
+            const infoBox = new BookInfoBox({
+                entry: child.entry,
+            })
+            popover.add(infoBox)
+            popover.popup()
+        })
+
         this._storeLoaded = false
         this._stack.connect('notify::visible-child-name', () => {
             if (this._stack.visible_child_name === 'store') {
                 if (this._storeLoaded) return
                 const uri = 'https://standardebooks.org/opds/all'
+                // const uri = 'https://catalog.feedbooks.com/publicdomain/browse/en/top.atom'
+                // const uri = 'https://catalog.feedbooks.com/featured/en.atom'
                 const map = new Map()
                 const handleCover = (i, pixbuf) => {
                     const child = map.get(i)

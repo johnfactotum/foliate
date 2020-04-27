@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateBookInfoBox" parent="GtkBox">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="visible">True</property>
+        <property name="expand">True</property>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">6</property>
+            <property name="border-width">18</property>
+            <child>
+              <object class="GtkLabel" id="title">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="xalign">0</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                  <attribute name="scale" value="1.18"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="authors">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="xalign">0</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="summary">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="xalign">0</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="acquisitionBox">
+        <property name="visible">True</property>
+        <property name="spacing">6</property>
+        <property name="border-width">12</property>
+        <property name="orientation">vertical</property>
+      </object>
+    </child>
+  </template>
+</interface>
