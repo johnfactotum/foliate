@@ -7,7 +7,7 @@ const imageType = async blob => {
     const byteArray = new Uint8Array(blobArrayBuffer)
 
     // Convert the byte array to hexadecimal.
-    let hex = '';
+    let hex = ''
     byteArray.forEach(byte => {
         hex += `0${byte.toString(16)}`.slice(-2).toUpperCase()
     })
