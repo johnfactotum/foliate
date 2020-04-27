@@ -171,9 +171,10 @@ Alternative sidebar UI:
 
 ---
 
-**Note:** two JavaScript libraries are bundled in this software:
+**Note:** Three JavaScript libraries are bundled in this software:
 
 - [Epub.js](https://github.com/futurepress/epub.js/), which is licensed under [FreeBSD](https://github.com/futurepress/epub.js/blob/master/license). The included file is patched to fix [#76](https://github.com/johnfactotum/foliate/issues/76) and  [#177](https://github.com/johnfactotum/foliate/issues/177)
 - The minified version of [JSZip](https://stuk.github.io/jszip/), which is dual-licensed. You may use it under the MIT license or the GPLv3 license. See [LICENSE.markdown](https://github.com/Stuk/jszip/blob/master/LICENSE.markdown)
+- [libarchivejs](https://github.com/nika-begiashvili/libarchivejs), which is MIT licensed. It is a WASM port of the popular [libarchive](https://github.com/libarchive/libarchive) C library.
 
-This software also includes parts from [KindleUnpack](https://github.com/kevinhendricks/KindleUnpack), which is liscensed under GPL-3.0.
+This software also includes parts from [KindleUnpack](https://github.com/kevinhendricks/KindleUnpack), which is licensed under GPL-3.0.
