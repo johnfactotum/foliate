@@ -100,9 +100,9 @@ const makeActions = app => ({
         dialog.add_filter(allFiles)
 
         if (dialog.run() === Gtk.ResponseType.ACCEPT) {
-            new Window({ application: app, file: dialog.get_file() }).present()
             const activeWindow = app.active_window
             if (activeWindow instanceof LibraryWindow) activeWindow.close()
+            new Window({ application: app, file: dialog.get_file() }).present()
         }
     },
     'library': () => {
