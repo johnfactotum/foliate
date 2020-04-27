@@ -174,7 +174,7 @@ const processFB2 = doc => {
     }
 }
 
-const webpubFromComicBookArchive = async (uri, inputType) => {
+const webpubFromComicBookArchive = async (uri, inputType, layout) => {
     const cbArchiveName = decodeURI(uri).split('/').pop().split('.').slice(0, -1).join('')
 
     let pages
@@ -185,32 +185,84 @@ const webpubFromComicBookArchive = async (uri, inputType) => {
         case 'cbt': pages = await unpackCB(uri, inputType); break
     }
 
-    const stylesheet = `
-        * {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    const fitPageStylesheet = () => {
+        return `
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
 
-        .image-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-            min-height: 99.5vh;
-        }
+            body {
+                text-align: center;
+            }
+        `
+    }
+    
+    const fitWidthStylesheet = () => {
+        return `
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
 
-        .image-wrapper img {
-            width: 100vw;
-            max-height: 99.5vh;
-            object-fit: contain;
+            body {
+                text-align: center;
+            }
+
+            .image-wrapper img {
+                width: 100%;
+            }
+        `
+    }
+    
+    const continuousStylesheet = () => {
+        return `
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body {
+                text-align: center;
+                margin-bottom: 20px !important;
+            }
+
+            .image-wrapper img {
+                width: 100%;
+            }
+        `
+    }
+    
+    const fitPageScripts = async () => { return `` }
+    const fitWidthScripts = async () => { return `` }
+    const continuousScripts = async () => { return `` }
+
+    let stylesheet;
+    let scripts;
+    switch (layout) {
+        case 'automatic':
+        case 'single-column': {
+            stylesheet = fitPageStylesheet()
+            scripts = await fitPageScripts()
+            break
         }
-    `
+        case 'scrolled': {
+            stylesheet = fitWidthStylesheet()
+            scripts = await fitWidthScripts()
+            break
+        }
+        case 'continuous': {
+            stylesheet = continuousStylesheet()
+            scripts = await continuousScripts()
+            break
+        }
+        default: {
+            stylesheet = fitPageStylesheet()
+            scripts = await fitPageScripts()
+            console.log('unexpected layout')
+        }
+    }
+
     const stylesheetBlob = new Blob([stylesheet], { type: 'text/css' })
     const stylesheetURL = URL.createObjectURL(stylesheetBlob)
 
@@ -229,6 +281,9 @@ const webpubFromComicBookArchive = async (uri, inputType) => {
                     <section class="image-wrapper">
                         <img src="${URL.createObjectURL(page.blob)}" alt="${page.title}" />
                     </section>
+
+                    <!-- SCRIPTS -->
+                    ${scripts}
                 </body>
             </html>
             `

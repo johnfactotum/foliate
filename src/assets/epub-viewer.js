@@ -339,7 +339,22 @@ const open = async (fileName, inputType, renderTo, options) => {
             case 'cbr':
             case 'cb7':
             case 'cbt': {
-                const json = await webpubFromComicBookArchive(uri, inputType)
+                let layout = 'automatic'
+                if (options) {
+                    if (options.flow === 'paginated' && options.spread === 'none') {
+                        layout = 'single-column'
+                    }
+                    else if (options.flow === 'scrolled-doc') {
+                        layout = 'scrolled'
+                    } else if (options.flow === 'scrolled') {
+                        layout = 'continuous'
+                    }
+                }
+
+                // Set `spread` to 'none' for all layouts
+                options.spread = 'none'
+
+                const json = await webpubFromComicBookArchive(uri, inputType, layout)
                 await book.openJSON(json)
                 break
             }
