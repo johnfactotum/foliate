@@ -7,8 +7,14 @@ const webpubFromText = async uri => {
         .map(c => {
             const ps = c.split(/(\r?\n){2}/g)
                 .filter(x => !/^\r?\n$/.test(x))
+            const doc = document.implementation.createHTMLDocument()
+            ps.forEach(p => {
+                const el = doc.createElement('p')
+                el.textContent = p
+                doc.body.appendChild(el)
+            })
             const blob = new Blob(
-                [ps.map(p => `<p>${p}</p>`).join('')],
+                [doc.documentElement.outerHTML],
                 { type: 'text/html' })
             const url = URL.createObjectURL(blob)
             return {
