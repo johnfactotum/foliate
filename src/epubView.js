@@ -16,6 +16,7 @@
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2, Soup } = imports.gi
 const { invertRotate } = imports.utils
 const { uriStore } = imports.uriStore
+const { EpubCFI } = imports.epubcfi
 
 const {
     debug, error, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf,
@@ -142,6 +143,7 @@ const EpubViewData = GObject.registerClass({
         this._bookmarksSet.clear()
         this._bookmarksList.remove_all()
         this._storage.get('annotations', [])
+            .sort((a, b) => EpubCFI.compare(a.value, b.value))
             .forEach(({ value, color, text, note }) =>
                 this.addAnnotation(new EpubViewAnnotation({
                     cfi: value,
@@ -203,7 +205,23 @@ const EpubViewData = GObject.registerClass({
             this.emit('annotation-added', this._annotationsMap.get(cfi))
         } else {
             this._annotationsMap.set(cfi, annotation)
-            this._annotationsList.append(annotation)
+
+            if (init) this._annotationsList.append(annotation)
+            else {
+                // can't use `g_list_store_insert_sorted ()` because no arguments
+                // are passed to `compare_func`; maybe a GJS bug?
+                const store = this._annotationsList
+                const n = store.get_n_items()
+                let position = 0
+                for (let i = 0; i < n; i++) {
+                    const itemCfi = store.get_item(i).cfi
+                    const result = EpubCFI.compare(cfi, itemCfi)
+                    if (result <= 0) break
+                    position = i + 1
+                }
+                this._annotationsList.insert(position, annotation)
+            }
+
             annotation.connect('notify::color', () => {
                 this.emit('annotation-added', annotation)
                 this._onAnnotationsChanged()
