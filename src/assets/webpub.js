@@ -300,7 +300,8 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
 
     return {
         metadata: {
-            title: cbArchiveName
+            title: cbArchiveName,
+            layout: layout === 'automatic' ? 'pre-paginated' : 'reflowable'
         },
         links: [],
         readingOrder: sectionLinkObjects,
