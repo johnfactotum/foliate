@@ -343,8 +343,7 @@ const open = async (fileName, inputType, renderTo, options) => {
                 if (options) {
                     if (options.flow === 'paginated' && options.spread === 'none') {
                         layout = 'single-column'
-                    }
-                    else if (options.flow === 'scrolled-doc') {
+                    } else if (options.flow === 'scrolled-doc') {
                         layout = 'scrolled'
                     } else if (options.flow === 'scrolled') {
                         layout = 'continuous'
