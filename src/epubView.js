@@ -13,7 +13,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2, Soup } = imports.gi
+const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
+let Soup; try { Soup = imports.gi.Soup } catch (e) {}
 const { invertRotate } = imports.utils
 const { uriStore } = imports.uriStore
 const { EpubCFI } = imports.epubcfi
@@ -905,6 +906,8 @@ var EpubView = GObject.registerClass({
                 const dir = GLib.dir_make_tmp(null)
                 this._tmpdir = dir
                 if (!path) {
+                    const msg = _('Failed to load remote file.')
+                    if (!Soup) return this.emit('book-error', msg)
                     // if path is null, we download the file with libsoup first
                     // then feed it to KindleUnpack
                     const session = new Soup.SessionAsync()
@@ -925,7 +928,7 @@ var EpubView = GObject.registerClass({
                             })
                         })
                     } catch (e) {
-                        return this.emit('book-error', _('Failed to load remote file.'))
+                        return this.emit('book-error', msg)
                     }
                 }
                 const command = [python, kindleUnpack, '--epub_version=3', path, dir]
