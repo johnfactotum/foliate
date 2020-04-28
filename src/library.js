@@ -301,45 +301,83 @@ var BookListBox = GObject.registerClass({
 })
 
 const htmlPath = pkg.pkgdatadir + '/assets/opds.html'
-const getCatalog = (uri, handleCover) => {
-    const list = new Gio.ListStore()
-    const webView = new WebKit2.WebView({
-        settings: new WebKit2.Settings({
-            enable_write_console_messages_to_stdout: true,
-            allow_file_access_from_file_urls: true,
-            allow_universal_access_from_file_urls: true,
-            enable_developer_extras: true
+class OpdsClient {
+    constructor() {
+        this._resolveMap = new Map()
+        this._rejecteMap = new Map()
+        this._handleCoverMap = new Map()
+
+        this._webView = new WebKit2.WebView({
+            settings: new WebKit2.Settings({
+                enable_write_console_messages_to_stdout: true,
+                allow_file_access_from_file_urls: true,
+                allow_universal_access_from_file_urls: true,
+                enable_developer_extras: true
+            })
         })
-    })
-    const runScript = script => webView.run_javascript(script, null, () => {})
+        const contentManager = this._webView.get_user_content_manager()
+        contentManager.connect('script-message-received::action', (_, jsResult) => {
+            const data = jsResult.get_js_value().to_string()
+            const { type, payload, token } = JSON.parse(data)
+            switch (type) {
+                case 'ready':
+                    this._resolveMap.get('ready')()
+                    break
+                case 'error':
+                    this._rejectMap.get('ready')()
+                    break
+                case 'feed': {
+                    const self = payload.links.find(({ rel }) => rel === 'self')
+                    const isNavigationFeed = self && self.type
+                        && self.type.includes('kind=navigation')
 
-    const contentManager = webView.get_user_content_manager()
-    contentManager.connect('script-message-received::action', (_, jsResult) => {
-        const data = jsResult.get_js_value().to_string()
-        const { type, payload } = JSON.parse(data)
-        switch (type) {
-            case 'ready':
-                runScript(`main("${encodeURI(uri)}")`)
-                break
-            case 'error':
-                print(`Could not retrieve catalog: ${payload}`)
-                break
-            case 'entry': {
-                const entry = new Obj(payload)
-                list.append(entry)
-                break
-            }
-            case 'cover': {
-                const pixbuf = base64ToPixbuf(payload.base64)
-                handleCover(payload.i, pixbuf)
-                break
-            }
-        }
-    })
-    contentManager.register_script_message_handler('action')
+                    if (isNavigationFeed) {
+                        this._resolveMap.get(token)(payload)
+                        return
+                    }
 
-    webView.load_uri(GLib.filename_to_uri(htmlPath, null))
-    return list
+                    const list = new Gio.ListStore()
+                    const entries = payload.entries.slice(0, 20)
+                    entries.forEach((entry, i) => {
+                        entry.i = i
+                        list.append(new Obj(entry))
+                        const thumbnail = entry.links
+                            .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
+                        if (thumbnail)
+                            this._run(`getCover(${i},
+                                decodeURI("${encodeURI(thumbnail.href)}"),
+                                decodeURI("${encodeURI(token)}"))`)
+                    })
+                    this._resolveMap.get(token)(list)
+                    break
+                }
+                case 'cover': {
+                    const pixbuf = base64ToPixbuf(payload.base64)
+                    this._handleCoverMap.get(token)(payload.i, pixbuf)
+                    break
+                }
+            }
+        })
+        contentManager.register_script_message_handler('action')
+        this._webView.load_uri(GLib.filename_to_uri(htmlPath, null))
+    }
+    _run(script) {
+        this._webView.run_javascript(script, null, () => {})
+    }
+    init() {
+        return new Promise((resolve, reject) => {
+            this._resolveMap.set('ready', resolve)
+            this._rejecteMap.set('ready', reject)
+        })
+    }
+    get(uri, handleCover) {
+        this._handleCoverMap.set(uri, handleCover)
+        this._run(`main("${encodeURI(uri)}")`)
+        return new Promise((resolve, reject) => {
+            this._resolveMap.set(uri, resolve)
+            this._rejecteMap.set(uri, reject)
+        })
+    }
 }
 
 var LibraryWindow =  GObject.registerClass({
@@ -371,21 +409,26 @@ var LibraryWindow =  GObject.registerClass({
         this._stack.connect('notify::visible-child-name', () => {
             if (this._stack.visible_child_name === 'store') {
                 if (this._storeLoaded) return
-                const uri = 'https://standardebooks.org/opds/all'
-                // const uri = 'https://catalog.feedbooks.com/publicdomain/browse/en/top.atom'
-                // const uri = 'https://catalog.feedbooks.com/featured/en.atom'
-                const map = new Map()
-                const handleCover = (i, pixbuf) => {
-                    const child = map.get(i)
-                    if (child) child.loadCover(pixbuf)
-                }
-                const catalog = getCatalog(uri, handleCover)
-                this._storeBookBox.bind_model(catalog, entry => {
-                    const child = new BookBoxChild({ entry })
-                    map.set(entry.value.i, child)
-                    return child
+
+                const client = new OpdsClient()
+                client.init().then(() => {
+                    const map = new Map()
+                    const handleCover = (i, pixbuf) => {
+                        const child = map.get(i)
+                        if (child) child.loadCover(pixbuf)
+                    }
+                    client.get('https://standardebooks.org/opds/all', handleCover)
+                        .then(catalog => {
+                            this._storeBookBox.bind_model(catalog, entry => {
+                                const child = new BookBoxChild({ entry })
+                                map.set(entry.value.i, child)
+                                return child
+                            })
+                            this._storeLoaded = true
+                        })
+                }).catch(e => {
+                    logError(e)
                 })
-                this._storeLoaded = true
             }
         })
     }

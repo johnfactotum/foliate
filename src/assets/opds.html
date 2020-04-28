@@ -98,7 +98,7 @@ const parse = (el, schema) => {
     return output
 }
 
-const getCover = async (i, src) => {
+const getCover = async (i, src, token) => {
     const res = await fetch(src)
     const blob = await res.blob()
 
@@ -108,24 +108,10 @@ const getCover = async (i, src) => {
         const base64 = reader.result.split(',')[1]
         dispatch({
             type: 'cover',
-            payload: { i, base64 }
+            payload: { i, base64 },
+            token
         })
     }
-}
-
-const handleDoc = doc => {
-    const obj = parse(doc.children[0], feed)
-    const entries = obj.entries.slice(0, 20)
-    entries.forEach((entry, i) => {
-        entry.i = i
-        dispatch({
-            type: 'entry',
-            payload: entry
-        })
-        const thumbnail = entry.links
-            .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
-        if (thumbnail) getCover(i, thumbnail.href)
-    })
 }
 
 const main = uri => {
@@ -135,7 +121,14 @@ const main = uri => {
     fetch(uri)
         .then(res => res.text())
         .then(text => parser.parseFromString(text, 'text/xml'))
-        .then(handleDoc)
+        .then(doc => {
+            const obj = parse(doc.documentElement, feed)
+            dispatch({
+                type: 'feed',
+                payload: obj,
+                token: uri
+            })
+        })
         .catch(e => dispatch({ type: 'error', payload: JSON.stringify(e) }))
 }
 
