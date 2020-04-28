@@ -28,7 +28,8 @@ const link = {
     attrs: {
         href: { transform: x => new URL(x, baseURI).href },
         rel: {},
-        type: {}
+        type: {},
+        title: {}
     }
 }
 const author = {
@@ -98,7 +99,7 @@ const parse = (el, schema) => {
     return output
 }
 
-const getImage = async src => {
+const getImage = async (src, token) => {
     const res = await fetch(src)
     const blob = await res.blob()
 
@@ -109,12 +110,12 @@ const getImage = async src => {
         dispatch({
             type: 'image',
             payload: base64,
-            token: src
+            token
         })
     }
 }
 
-const getFeed = uri => {
+const getFeed = (uri, token) => {
     baseURI = uri
     const parser = new DOMParser()
     fetch(uri)
@@ -125,7 +126,7 @@ const getFeed = uri => {
             dispatch({
                 type: 'feed',
                 payload: obj,
-                token: uri
+                token
             })
         })
         .catch(e => dispatch({ type: 'error', payload: JSON.stringify(e) }))

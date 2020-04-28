@@ -92,23 +92,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkScrolledWindow">
+              <object class="GtkBox" id="storeBox">
                 <property name="visible">True</property>
-                <child>
-                  <object class="GtkFlowBox" id="storeBookBox">
-                    <property name="visible">True</property>
-                    <property name="max-children-per-line">100</property>
-                    <property name="valign">start</property>
-                    <property name="row-spacing">6</property>
-                    <property name="column-spacing">6</property>
-                    <property name="border-width">18</property>
-                    <property name="activate-on-single-click">True</property>
-                  </object>
-                </child>
               </object>
               <packing>
                 <property name="name">store</property>
-                <property name="title" translatable="yes">Store</property>
+                <property name="title" translatable="yes">Stores</property>
               </packing>
             </child>
           </object>

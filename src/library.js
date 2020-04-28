@@ -295,7 +295,7 @@ const htmlPath = pkg.pkgdatadir + '/assets/opds.html'
 class OpdsClient {
     constructor() {
         this._resolveMap = new Map()
-        this._rejecteMap = new Map()
+        this._rejectMap = new Map()
 
         this._webView = new WebKit2.WebView({
             settings: new WebKit2.Settings({
@@ -336,22 +336,31 @@ class OpdsClient {
     init() {
         return new Promise((resolve, reject) => {
             this._resolveMap.set('ready', resolve)
-            this._rejecteMap.set('ready', reject)
+            this._rejectMap.set('ready', reject)
         })
     }
     get(uri) {
-        this._run(`getFeed(decodeURI("${encodeURI(uri)}"))`)
+        const token = this._makeToken()
+        this._run(`getFeed(
+            decodeURI("${encodeURI(uri)}"),
+            decodeURI("${encodeURI(token)}"))`)
         return new Promise((resolve, reject) => {
-            this._resolveMap.set(uri, resolve)
-            this._rejecteMap.set(uri, reject)
+            this._resolveMap.set(token, resolve)
+            this._rejectMap.set(token, reject)
         })
     }
     getImage(uri) {
-        this._run(`getImage(decodeURI("${encodeURI(uri)}"))`)
+        const token = this._makeToken()
+        this._run(`getImage(
+            decodeURI("${encodeURI(uri)}"),
+            decodeURI("${encodeURI(token)}"))`)
         return new Promise((resolve, reject) => {
-            this._resolveMap.set(uri, resolve)
-            this._rejecteMap.set(uri, reject)
+            this._resolveMap.set(token, resolve)
+            this._rejectMap.set(token, reject)
         })
+    }
+    _makeToken() {
+        return Math.random() + '' + new Date().getTime()
     }
 }
 
@@ -359,7 +368,7 @@ var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
     InternalChildren: [
-        'stack', 'storeBookBox',
+        'stack', 'storeBox',
     ],
 }, class LibraryWindow extends Gtk.ApplicationWindow {
     _init(params) {
@@ -367,57 +376,122 @@ var LibraryWindow =  GObject.registerClass({
         this.show_menubar = false
         this.title = _('Foliate')
 
-        this._storeBookBox.connect('child-activated', (flowbox, child) => {
-            const popover = new Gtk.Popover({
-                relative_to: child,
-                width_request: 320,
-                height_request: 320
-            })
-            const infoBox = new BookInfoBox({
-                entry: child.entry,
-            })
-            popover.add(infoBox)
-            popover.popup()
-        })
-
         this._storeLoaded = false
         this._stack.connect('notify::visible-child-name', () => {
-            if (this._stack.visible_child_name === 'store') {
-                if (this._storeLoaded) return
-
-                const client = new OpdsClient()
-                client.init().then(() => {
-                    const map = new Map()
-                    client.get('https://standardebooks.org/opds/all')
-                        .then(feed => {
-                            const list = new Gio.ListStore()
-                            const entries = feed.entries.slice(0, 20)
-                            entries.forEach((entry, i) => {
-                                entry.i = i
-                                list.append(new Obj(entry))
-                                const thumbnail = entry.links
-                                    .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
-                                if (thumbnail)
-                                    client.getImage(thumbnail.href).then(pixbuf => {
-                                        const child = map.get(i)
-                                        if (child) child.loadCover(pixbuf)
-                                    })
-                            })
-                            this._storeBookBox.bind_model(list, entry => {
-                                const child = new BookBoxChild({ entry })
-                                map.set(entry.value.i, child)
-                                return child
-                            })
-                            this._storeLoaded = true
-                        })
-                }).catch(e => {
-                    logError(e)
-                })
-            }
+            if (this._stack.visible_child_name === 'store')
+                this._loadStore().catch(e => logError(e))
         })
     }
     open(file) {
         new Window({ application: this.application, file}).present()
         this.close()
+    }
+    async _loadStore() {
+        if (this._storeLoaded) return
+        this._storeLoaded = true
+
+        const client = new OpdsClient()
+        try {
+            await client.init()
+        } catch(e) {
+            logError(e)
+            return
+        }
+        const map = new Map()
+        const feed = await client.get('https://catalog.feedbooks.com/catalog/public_domain.atom')
+
+        const makePage = uri => {
+            const flowbox = new Gtk.FlowBox({
+                visible: true,
+                max_children_per_line: 100,
+                valign: Gtk.Align.START,
+                row_spacing: 12,
+                column_spacing: 12,
+                border_width: 18,
+                activate_on_single_click: true,
+                selection_mode: Gtk.SelectionMode.NONE
+            })
+            flowbox.connect('child-activated', (flowbox, child) => {
+                const popover = new Gtk.Popover({
+                    relative_to: child,
+                    width_request: 320,
+                    height_request: 320
+                })
+                const infoBox = new BookInfoBox({
+                    entry: child.entry,
+                })
+                popover.add(infoBox)
+                popover.popup()
+            })
+            const list = new Gio.ListStore()
+            flowbox.bind_model(list, entry => {
+                const child = new BookBoxChild({ entry })
+                map.set(entry.value.i, child)
+                return child
+            })
+            const load = feed => {
+                const entries = feed.entries.slice(0, 20)
+                entries.forEach((entry, i) => {
+                    entry.i = i
+                    list.append(new Obj(entry))
+                    const thumbnail = entry.links
+                        .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
+                    if (thumbnail)
+                        client.getImage(thumbnail.href).then(pixbuf => {
+                            const child = map.get(i)
+                            if (child) child.loadCover(pixbuf)
+                        })
+                })
+            }
+            return { widget: flowbox, load }
+        }
+
+        const self = feed.links.find(({ rel }) => rel === 'self')
+        const isNavigationLink = link => link && link.type
+            && link.type.includes('kind=navigation')
+        const isAcquisitionLink = link => link && link.type
+            && link.type.includes('kind=acquisition')
+
+        if (isNavigationLink(self)) {
+            const nb = new Gtk.Notebook({
+                visible: true,
+                scrollable: true,
+                show_border: false
+            })
+            this._storeBox.pack_start(nb, true, true, 0)
+            const hrefs = new Map()
+            const loadFuncs = new Map()
+            const isLoaded = new Map()
+            const tabs = feed.links.filter(link => {
+                return isAcquisitionLink(link) && 'title' in link
+                    && link.rel !== 'http://opds-spec.org/shelf'
+                    && link.rel !== 'http://opds-spec.org/subscriptions'
+            })
+            tabs.forEach(({ title, href }) => {
+                const { widget, load } = makePage()
+                const scrolled = new Gtk.ScrolledWindow({ visible: true })
+                scrolled.add(widget)
+                nb.append_page(scrolled, new Gtk.Label({ visible: true, label: title }))
+                nb.child_set_property(scrolled, 'tab-expand', true)
+                hrefs.set(scrolled, href)
+                loadFuncs.set(scrolled, load)
+                isLoaded.set(scrolled, false)
+            })
+            const loadPage = widget => {
+                if (isLoaded.get(widget)) return
+                isLoaded.set(widget, true)
+                const href = hrefs.get(widget)
+                const load = loadFuncs.get(widget)
+                client.get(href).then(feed => load(feed))
+            }
+            nb.connect('switch-page', (_, page) => loadPage(page))
+            loadPage(nb.get_nth_page(0))
+        } else {
+            const { widget, load } = makePage()
+            const scrolled = new Gtk.ScrolledWindow({ visible: true })
+            scrolled.add(widget)
+            this._storeBox.pack_start(scrolled, true, true, 0)
+            load(feed)
+        }
     }
 })
