@@ -98,7 +98,7 @@ const parse = (el, schema) => {
     return output
 }
 
-const getCover = async (i, src, token) => {
+const getImage = async src => {
     const res = await fetch(src)
     const blob = await res.blob()
 
@@ -107,15 +107,14 @@ const getCover = async (i, src, token) => {
     reader.onloadend = () => {
         const base64 = reader.result.split(',')[1]
         dispatch({
-            type: 'cover',
-            payload: { i, base64 },
-            token
+            type: 'image',
+            payload: base64,
+            token: src
         })
     }
 }
 
-const main = uri => {
-    uri = decodeURI(uri)
+const getFeed = uri => {
     baseURI = uri
     const parser = new DOMParser()
     fetch(uri)

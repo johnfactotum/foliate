@@ -305,7 +305,6 @@ class OpdsClient {
     constructor() {
         this._resolveMap = new Map()
         this._rejecteMap = new Map()
-        this._handleCoverMap = new Map()
 
         this._webView = new WebKit2.WebView({
             settings: new WebKit2.Settings({
@@ -327,33 +326,12 @@ class OpdsClient {
                     this._rejectMap.get('ready')()
                     break
                 case 'feed': {
-                    const self = payload.links.find(({ rel }) => rel === 'self')
-                    const isNavigationFeed = self && self.type
-                        && self.type.includes('kind=navigation')
-
-                    if (isNavigationFeed) {
-                        this._resolveMap.get(token)(payload)
-                        return
-                    }
-
-                    const list = new Gio.ListStore()
-                    const entries = payload.entries.slice(0, 20)
-                    entries.forEach((entry, i) => {
-                        entry.i = i
-                        list.append(new Obj(entry))
-                        const thumbnail = entry.links
-                            .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
-                        if (thumbnail)
-                            this._run(`getCover(${i},
-                                decodeURI("${encodeURI(thumbnail.href)}"),
-                                decodeURI("${encodeURI(token)}"))`)
-                    })
-                    this._resolveMap.get(token)(list)
+                    this._resolveMap.get(token)(payload)
                     break
                 }
-                case 'cover': {
-                    const pixbuf = base64ToPixbuf(payload.base64)
-                    this._handleCoverMap.get(token)(payload.i, pixbuf)
+                case 'image': {
+                    const pixbuf = base64ToPixbuf(payload)
+                    this._resolveMap.get(token)(pixbuf)
                     break
                 }
             }
@@ -370,9 +348,15 @@ class OpdsClient {
             this._rejecteMap.set('ready', reject)
         })
     }
-    get(uri, handleCover) {
-        this._handleCoverMap.set(uri, handleCover)
-        this._run(`main("${encodeURI(uri)}")`)
+    get(uri) {
+        this._run(`getFeed(decodeURI("${encodeURI(uri)}"))`)
+        return new Promise((resolve, reject) => {
+            this._resolveMap.set(uri, resolve)
+            this._rejecteMap.set(uri, reject)
+        })
+    }
+    getImage(uri) {
+        this._run(`getImage(decodeURI("${encodeURI(uri)}"))`)
         return new Promise((resolve, reject) => {
             this._resolveMap.set(uri, resolve)
             this._rejecteMap.set(uri, reject)
@@ -413,13 +397,22 @@ var LibraryWindow =  GObject.registerClass({
                 const client = new OpdsClient()
                 client.init().then(() => {
                     const map = new Map()
-                    const handleCover = (i, pixbuf) => {
-                        const child = map.get(i)
-                        if (child) child.loadCover(pixbuf)
-                    }
-                    client.get('https://standardebooks.org/opds/all', handleCover)
-                        .then(catalog => {
-                            this._storeBookBox.bind_model(catalog, entry => {
+                    client.get('https://standardebooks.org/opds/all')
+                        .then(feed => {
+                            const list = new Gio.ListStore()
+                            const entries = feed.entries.slice(0, 20)
+                            entries.forEach((entry, i) => {
+                                entry.i = i
+                                list.append(new Obj(entry))
+                                const thumbnail = entry.links
+                                    .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
+                                if (thumbnail)
+                                    client.getImage(thumbnail.href).then(pixbuf => {
+                                        const child = map.get(i)
+                                        if (child) child.loadCover(pixbuf)
+                                    })
+                            })
+                            this._storeBookBox.bind_model(list, entry => {
                                 const child = new BookBoxChild({ entry })
                                 map.set(entry.value.i, child)
                                 return child
