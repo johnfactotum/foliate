@@ -94,19 +94,10 @@ const makeAcquisitionButton = (links, onActivate) => {
     } else {
         const popover = new Gtk.PopoverMenu()
         const box = new Gtk.Box({
+            visible: true,
             orientation: Gtk.Orientation.VERTICAL,
             margin: 10
         })
-        const titleBox = new Gtk.Box({
-            spacing: 6
-        })
-        const title = new Gtk.Label({ label: _('Choose a file:') })
-        title.get_style_context().add_class('dim-label')
-        titleBox.pack_start(new Gtk.Separator({ valign: Gtk.Align.CENTER }), true, true, 0)
-        titleBox.pack_start(title, false, true, 0)
-        titleBox.pack_start(new Gtk.Separator({ valign: Gtk.Align.CENTER }), true, true, 0)
-        box.pack_start(titleBox, false, true, 0)
-        box.show_all()
         popover.add(box)
         const button = new Gtk.MenuButton({ popover })
         const buttonBox = new Gtk.Box()
