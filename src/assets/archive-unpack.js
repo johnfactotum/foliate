@@ -28,13 +28,13 @@ const imageType = async blob => {
     }
 }
 
-const unpackCBZ = async uri => {
+const unpackZipArchive = async uri => {
     const res = await fetch(uri)
-    const cbzArchiveBlob = await res.blob()
+    const archiveBlob = await res.blob()
 
-    const cbzArchive = await JSZip.loadAsync(cbzArchiveBlob)
+    const archive = await JSZip.loadAsync(archiveBlob)
 
-    const archiveFiles = Object.keys(cbzArchive.files).map(name => cbzArchive.files[name])
+    const archiveFiles = Object.keys(archive.files).map(name => archive.files[name])
     return Promise.all(
         archiveFiles.map(async file => {
             const name = file.name.split('.').slice(0, -1).join('')
@@ -46,7 +46,7 @@ const unpackCBZ = async uri => {
     )
 }
 
-const unpackCB = async (uri, inputType) => {
+const unpackArchive = async (uri, inputType) => {
     const res = await fetch(uri)
     const archiveBlob = await res.blob()
 
@@ -63,7 +63,6 @@ const unpackCB = async (uri, inputType) => {
     }
     
     const archiveFiles = await archive.getFilesArray()
-    
     return Promise.all(
         archiveFiles.map(async ({file}) => {
             const name = file.name.split('.').slice(0, -1).join('')

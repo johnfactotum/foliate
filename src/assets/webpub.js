@@ -294,10 +294,10 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
 
     let files
     switch (inputType) {
-        case 'cbz': files = await unpackCBZ(uri); break
-        case 'cbr': files = await unpackCB(uri, inputType); break
-        case 'cb7': files = await unpackCB(uri, inputType); break
-        case 'cbt': files = await unpackCB(uri, inputType); break
+        case 'cbz': files = await unpackZipArchive(uri); break
+        case 'cbr': files = await unpackArchive(uri, inputType); break
+        case 'cb7': files = await unpackArchive(uri, inputType); break
+        case 'cbt': files = await unpackArchive(uri, inputType); break
     }
 
     const sectionLinkObjects = files.filter(file =>
