@@ -1126,6 +1126,27 @@ var Window = GObject.registerClass({
             a.addOverlay(this._titleLabel)
             a.setOverlay(this._headerBar)
 
+            // round the autohide widget with radius from the actual headerbar
+            let borderRadius = 8
+            const context = this._headerBar.get_style_context()
+            const roundTitleBar = context => {
+                const cssProvider = new Gtk.CssProvider()
+                const currentRadius = context.get_property('border-radius', context.get_state())
+                if (currentRadius === borderRadius) return
+                borderRadius = currentRadius
+                cssProvider.load_from_data(`
+                    .foliate-autohide-titlebar {
+                        border-top-left-radius: ${borderRadius}px;
+                        border-top-right-radius: ${borderRadius}px;
+                    }
+                `)
+                a.get_style_context().add_provider(
+                    cssProvider,
+                    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+            }
+            roundTitleBar(context)
+            context.connect('changed', roundTitleBar)
+
             const show = widget => widget.visible ? a.stayReveal(true) : null
             const hide = () => a.stayReveal(false)
             ;[this._sidePopover, this._findPopover, this._mainPopover].forEach(p => {
@@ -1181,20 +1202,11 @@ var Window = GObject.registerClass({
         const bgColor = brightenColor(invert(viewSettings.get_string('bg-color')), brightness)
         const fgColor = brightenColor(invert(viewSettings.get_string('fg-color')), brightness)
         const cssProvider = new Gtk.CssProvider()
-        let borderRadius = 8
-        if (this._headerBar) {
-            const context = this._headerBar.get_style_context()
-            borderRadius = context.get_property('border-radius', context.get_state())
-        }
         cssProvider.load_from_data(`
             .foliate-autohide-container {
                 background: ${bgColor};
                 border: 0;
                 box-shadow: none;
-            }
-            .foliate-autohide-titlebar {
-                border-top-left-radius: ${borderRadius}px;
-                border-top-right-radius: ${borderRadius}px;
             }
             .foliate-autohide-label {
                 color: ${fgColor};
