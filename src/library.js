@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2 } = imports.gi
+const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango } = imports.gi
 const ByteArray = imports.byteArray
 const { Storage, Obj, base64ToPixbuf } = imports.utils
 const { Window } = imports.window
@@ -292,6 +292,23 @@ var BookListBox = GObject.registerClass({
     }
 })
 
+const NavigationRow =  GObject.registerClass({
+    GTypeName: 'FoliateNavigationRow',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/navigationRow.ui',
+    InternalChildren: ['title', 'content'],
+    Properties: {
+        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
+    }
+}, class NavigationRow extends Gtk.ListBoxRow {
+    _init(params) {
+        super._init(params)
+        const { title, content } = this.entry.value
+        this._title.label = title || ''
+        this._content.label = content || ''
+    }
+})
+
 const htmlPath = pkg.pkgdatadir + '/assets/opds.html'
 class OpdsClient {
     constructor() {
@@ -382,25 +399,28 @@ var LibraryWindow =  GObject.registerClass({
 
         this._storeLoaded = false
         this._stack.connect('notify::visible-child-name', () => {
-            if (this._stack.visible_child_name === 'store')
-                this._loadStore().catch(e => logError(e))
+            if (this._stack.visible_child_name === 'store') this._loadStore()
         })
     }
     open(file) {
         new Window({ application: this.application, file}).present()
         this.close()
     }
-    async _loadStore() {
+    _loadStore() {
         if (this._storeLoaded) return
         this._storeLoaded = true
-
+        const uri = 'https://catalog.feedbooks.com/catalog/public_domain.atom'
+        this._loadOpds(uri)
+    }
+    async _loadOpds(uri) {
+        if (this._opdsWidget) this._opdsWidget.destroy()
         const client = new OpdsClient()
         await client.init()
 
         const map = new Map()
         let feed
         try {
-            feed = await client.get('https://catalog.feedbooks.com/catalog/public_domain.atom')
+            feed = await client.get(uri)
         } catch (e) {
             logError(e)
             return
@@ -451,6 +471,54 @@ var LibraryWindow =  GObject.registerClass({
             }
             return { widget: flowbox, load }
         }
+        const makeNavigation = () => {
+            const box = new Gtk.Box({
+                visible: true,
+                orientation: Gtk.Orientation.VERTICAL,
+                halign: Gtk.Align.CENTER,
+                spacing: 6,
+                border_width: 18
+            })
+            const listbox = new Gtk.ListBox({
+                visible: true,
+                activate_on_single_click: true,
+                selection_mode: Gtk.SelectionMode.NONE
+            })
+            listbox.set_header_func((row) => {
+                if (row.get_index()) row.set_header(new Gtk.Separator())
+            })
+            listbox.get_style_context().add_class('frame')
+
+            box.pack_start(listbox, false, true, 0)
+            box.pack_start(new Gtk.Label({
+                visible: true,
+                opacity: 0,
+                ellipsize: Pango.EllipsizeMode.END,
+                max_width_chars: 70,
+                label: '_______________________________________________________________________________________________________________________'
+            }), false, true, 0)
+
+            const list = new Gio.ListStore()
+            const map = new Map()
+            listbox.bind_model(list, entry => {
+                const row = new NavigationRow({ entry })
+                map.set(row, entry)
+                return row
+            })
+            listbox.connect('row-activated', (listbox, row) => {
+                const entry = map.get(row).value
+                const href = entry.links[0].href
+                this._loadOpds(href)
+            })
+
+            const load = feed => {
+                const entries = feed.entries
+                entries.forEach(entry => {
+                    list.append(new Obj(entry))
+                })
+            }
+            return { widget: box, load }
+        }
 
         const self = feed.links.find(({ rel }) => rel === 'self')
         const isNavigationLink = link => link && link.type
@@ -458,48 +526,54 @@ var LibraryWindow =  GObject.registerClass({
         const isAcquisitionLink = link => link && link.type
             && link.type.includes('kind=acquisition')
 
-        if (isNavigationLink(self)) {
-            const nb = new Gtk.Notebook({
-                visible: true,
-                scrollable: true,
-                show_border: false
-            })
-            this._storeBox.pack_start(nb, true, true, 0)
-            const hrefs = new Map()
-            const loadFuncs = new Map()
-            const isLoaded = new Map()
-            const tabs = feed.links.filter(link => {
-                return isAcquisitionLink(link) && 'title' in link
-                    && link.rel !== 'http://opds-spec.org/shelf'
-                    && link.rel !== 'http://opds-spec.org/subscriptions'
-            })
-            tabs.forEach(({ title, href }) => {
-                const { widget, load } = makePage()
-                const scrolled = new Gtk.ScrolledWindow({ visible: true })
-                scrolled.add(widget)
-                nb.append_page(scrolled, new Gtk.Label({ visible: true, label: title }))
-                nb.child_set_property(scrolled, 'tab-expand', true)
-                hrefs.set(scrolled, href)
-                loadFuncs.set(scrolled, load)
-                isLoaded.set(scrolled, false)
-            })
-            const loadPage = widget => {
-                if (isLoaded.get(widget)) return
-                isLoaded.set(widget, true)
-                const href = hrefs.get(widget)
-                const load = loadFuncs.get(widget)
-                client.get(href)
-                    .then(feed => load(feed))
-                    .catch(e => logError(e))
-            }
-            nb.connect('switch-page', (_, page) => loadPage(page))
-            loadPage(nb.get_nth_page(0))
-        } else {
-            const { widget, load } = makePage()
+        const nb = new Gtk.Notebook({
+            visible: true,
+            scrollable: true,
+            show_border: false
+        })
+        this._opdsWidget = nb
+        this._storeBox.pack_start(nb, true, true, 0)
+
+        const hrefs = new Map()
+        const loadFuncs = new Map()
+        const isLoaded = new Map()
+        const tabs = feed.links.filter(link => {
+            return 'title' in link
+                && link.rel !== 'self'
+                && link.rel !== 'start'
+                && link.rel !== 'search'
+                && link.rel !== 'next'
+                && link.rel !== 'http://opds-spec.org/shelf'
+                && link.rel !== 'http://opds-spec.org/subscriptions'
+                && link.rel !== 'http://opds-spec.org/facet'
+                && link.rel !== 'http://opds-spec.org/next'
+        })
+        ;[self].concat(tabs).forEach(link => {
+            let { title, href } = link
+            if (!title) title = feed.title || ''
+            const { widget, load } = isAcquisitionLink(link) ? makePage() : makeNavigation()
             const scrolled = new Gtk.ScrolledWindow({ visible: true })
             scrolled.add(widget)
-            this._storeBox.pack_start(scrolled, true, true, 0)
-            load(feed)
+            const box = new Gtk.Box({ visible: true })
+            box.get_style_context().add_class('background')
+            box.pack_start(scrolled, true, true, 0)
+            nb.append_page(box, new Gtk.Label({ visible: true, label: title }))
+            nb.child_set_property(box, 'tab-expand', true)
+            hrefs.set(box, href)
+            loadFuncs.set(box, load)
+            isLoaded.set(box, false)
+        })
+        const loadPage = widget => {
+            if (isLoaded.get(widget)) return
+            isLoaded.set(widget, true)
+            const href = hrefs.get(widget)
+            const load = loadFuncs.get(widget)
+            if (href === uri) load(feed)
+            else client.get(href)
+                .then(feed => load(feed))
+                .catch(e => logError(e))
         }
+        nb.connect('switch-page', (_, page) => loadPage(page))
+        loadPage(nb.get_nth_page(0))
     }
 })
