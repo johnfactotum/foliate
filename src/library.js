@@ -610,10 +610,8 @@ var OpdsWindow =  GObject.registerClass({
         }
 
         const self = feed.links.find(({ rel }) => rel === 'self')
-        const isNavigationLink = link => link && link.type
-            && link.type.includes('kind=navigation')
-        const isAcquisitionLink = link => link && link.type
-            && link.type.includes('kind=acquisition')
+        const isNavigationFeed = feed.entries.some(entry =>
+            entry.links && entry.links[0].type.includes('profile=opds-catalog'))
 
         const nb = new Gtk.Notebook({
             visible: true,
@@ -636,11 +634,12 @@ var OpdsWindow =  GObject.registerClass({
                 && link.rel !== 'http://opds-spec.org/subscriptions'
                 && link.rel !== 'http://opds-spec.org/facet'
                 && link.rel !== 'http://opds-spec.org/next'
+                && link.rel !== 'http://opds-spec.org/crawlable'
         }))
         tabs.forEach(link => {
             let { title, href } = link
             if (!title) title = feed.title || ''
-            const { widget, load } = isNavigationLink(link) ? makeNavigation() : makePage()
+            const { widget, load } = isNavigationFeed ? makeNavigation() : makePage()
             const scrolled = new Gtk.ScrolledWindow({ visible: true })
             scrolled.add(widget)
             const box = new Gtk.Box({ visible: true })
