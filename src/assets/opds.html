@@ -129,7 +129,11 @@ const getFeed = (uri, token) => {
                 token
             })
         })
-        .catch(e => dispatch({ type: 'error', payload: JSON.stringify(e) }))
+        .catch(e => dispatch({
+            type: 'error',
+            payload: e.toString(),
+            token
+        }))
 }
 
 dispatch({ type: 'ready' })

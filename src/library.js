@@ -314,7 +314,7 @@ class OpdsClient {
                     this._promises.get('ready').resolve()
                     break
                 case 'error':
-                    this._promises.get('ready').reject()
+                    this._promises.get(token).reject(new Error(payload))
                     break
                 case 'feed': {
                     this._promises.get(token).resolve(payload)
@@ -395,16 +395,18 @@ var LibraryWindow =  GObject.registerClass({
         this._storeLoaded = true
 
         const client = new OpdsClient()
+        await client.init()
+
+        const map = new Map()
+        let feed
         try {
-            await client.init()
-        } catch(e) {
+            feed = await client.get('https://catalog.feedbooks.com/catalog/public_domain.atom')
+        } catch (e) {
             logError(e)
             return
         }
-        const map = new Map()
-        const feed = await client.get('https://catalog.feedbooks.com/catalog/public_domain.atom')
 
-        const makePage = uri => {
+        const makePage = () => {
             const flowbox = new Gtk.FlowBox({
                 visible: true,
                 max_children_per_line: 100,
@@ -486,7 +488,9 @@ var LibraryWindow =  GObject.registerClass({
                 isLoaded.set(widget, true)
                 const href = hrefs.get(widget)
                 const load = loadFuncs.get(widget)
-                client.get(href).then(feed => load(feed))
+                client.get(href)
+                    .then(feed => load(feed))
+                    .catch(e => logError(e))
             }
             nb.connect('switch-page', (_, page) => loadPage(page))
             loadPage(nb.get_nth_page(0))
