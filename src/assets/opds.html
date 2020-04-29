@@ -22,7 +22,10 @@ let baseURI
 
 // very simple OPDS parser
 // the basic idea is derived from https://github.com/SamyPesse/xml-schema
+
+const OPDS_NS = 'http://opds-spec.org/2010/catalog'
 const THR_NS = 'http://purl.org/syndication/thread/1.0'
+
 const link = {
     tag: 'link',
     array: true,
@@ -31,7 +34,9 @@ const link = {
         rel: {},
         type: {},
         title: {},
-        count: { tag: 'count', ns: THR_NS }
+        count: { tag: 'count', ns: THR_NS },
+        facetGroup: { tag: 'facetGroup', ns: OPDS_NS },
+        activeFacet: { tag: 'activeFacet', ns: OPDS_NS, transform: x => x === 'true' }
     }
 }
 const author = {

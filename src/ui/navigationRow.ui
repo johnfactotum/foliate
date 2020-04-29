@@ -15,12 +15,24 @@
             <property name="spacing">3</property>
             <property name="hexpand">True</property>
             <child>
-              <object class="GtkLabel" id="title">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="xalign">0</property>
-                <property name="wrap">True</property>
-                <property name="ellipsize">end</property>
-                <property name="max-width-chars">70</property>
+                <property name="spacing">3</property>
+                <child>
+                  <object class="GtkLabel" id="title">
+                    <property name="visible">True</property>
+                    <property name="halign">start</property>
+                    <property name="xalign">0</property>
+                    <property name="ellipsize">end</property>
+                    <property name="max-width-chars">70</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImage" id="select">
+                    <property name="halign">start</property>
+                    <property name="icon-name">object-select-symbolic</property>
+                  </object>
+                </child>
               </object>
             </child>
             <child>

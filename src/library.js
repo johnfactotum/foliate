@@ -15,7 +15,7 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango } = imports.gi
 const ByteArray = imports.byteArray
-const { Storage, Obj, base64ToPixbuf } = imports.utils
+const { Storage, Obj, base64ToPixbuf, markupEscape } = imports.utils
 const { Window } = imports.window
 const { uriStore } = imports.uriStore
 
@@ -293,7 +293,7 @@ var BookListBox = GObject.registerClass({
 const NavigationRow =  GObject.registerClass({
     GTypeName: 'FoliateNavigationRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/navigationRow.ui',
-    InternalChildren: ['title', 'content', 'count'],
+    InternalChildren: ['title', 'content', 'count', 'select'],
     Properties: {
         entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
@@ -309,6 +309,9 @@ const NavigationRow =  GObject.registerClass({
         const count = links[0].count
         if (typeof count !== 'undefined') this._count.label = String(count)
         else this._count.hide()
+
+        const activeFacet = links[0].activeFacet
+        if (activeFacet) this._select.show()
     }
 })
 
@@ -532,7 +535,35 @@ var OpdsWindow =  GObject.registerClass({
                 activate_on_single_click: true,
                 selection_mode: Gtk.SelectionMode.NONE
             })
-            listbox.set_header_func((row) => {
+            if (facet) {
+                let lastGroup
+                listbox.set_header_func(row => {
+                    const index = row.get_index()
+                    const entry = map.get(row).value
+                    const group = entry.links[0].facetGroup
+                    if (group && group !== lastGroup) {
+                        const box = new Gtk.Box({
+                            orientation: Gtk.Orientation.VERTICAL,
+                        })
+                        if (index) box.pack_start(new Gtk.Separator(), false, true, 0)
+                        const label = new Gtk.Label({
+                            label: `<b>${markupEscape(group)}</b>`,
+                            margin_top: index ? 18 : 6,
+                            margin_bottom: 6,
+                            margin_start: 6,
+                            margin_end: 6,
+                            use_markup: true,
+                            ellipsize: Pango.EllipsizeMode.END,
+                        })
+                        label.get_style_context().add_class('dim-label')
+                        box.pack_start(label, false, true, 0)
+                        box.pack_start(new Gtk.Separator(), false, true, 0)
+                        box.show_all()
+                        row.set_header(box)
+                    } else if (index) row.set_header(new Gtk.Separator())
+                    lastGroup = group
+                })
+            } else listbox.set_header_func(row => {
                 if (row.get_index()) row.set_header(new Gtk.Separator())
             })
             listbox.get_style_context().add_class('frame')
