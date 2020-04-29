@@ -1109,6 +1109,8 @@ var Window = GObject.registerClass({
         else {
             const dummyButton = new Gtk.Button({ visible: true, opacity: 0 })
             const dummyHeaderBar = new Gtk.HeaderBar({ visible: true, opacity: 0 })
+            dummyHeaderBar.show_close_button = true
+            dummyHeaderBar.has_subtitle = false
             dummyHeaderBar.get_style_context().add_class('titlebar')
             dummyHeaderBar.pack_start(dummyButton)
 
