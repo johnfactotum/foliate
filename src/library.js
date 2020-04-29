@@ -48,6 +48,10 @@ const listBooks = function* (path) {
 
 const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxChild.ui',
+    InternalChildren: [
+        'image', 'title'
+    ],
     Properties: {
         entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
@@ -55,15 +59,8 @@ const BookBoxChild =  GObject.registerClass({
 }, class BookBoxChild extends Gtk.FlowBoxChild {
     _init(params) {
         super._init(params)
-        this._image = new Gtk.Image({
-            visible: true,
-            halign: Gtk.Align.CENTER,
-            valign: Gtk.Align.END
-        })
-        this.add(this._image)
-
         const { title } = this.entry.value
-        this._image.tooltip_text = title
+        this._title.label = title
     }
     loadCover(pixbuf) {
         const width = 120
@@ -74,12 +71,13 @@ const BookBoxChild =  GObject.registerClass({
                 .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
         } else this._image.set_from_pixbuf(pixbuf)
         this._image.get_style_context().add_class('foliate-book-image')
+        this.width_request = width
     }
 })
 
 const makeAcquisitionButton = (links, onActivate) => {
     const rel = links[0].rel.split('/').pop()
-    let label = _('Get This Book')
+    let label = _('Download')
     switch (rel) {
         case 'buy': label = _('Buy'); break
         case 'open-access': label = _('Free'); break
@@ -153,12 +151,12 @@ const BookInfoBox =  GObject.registerClass({
         Array.from(map.values()).forEach((links, i) => {
             const button = makeAcquisitionButton(links, ({ type, href }) => {
                 // open in a browser
-                // Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
-                // Gio.AppInfo.launch_default_for_uri(href, null)
+                Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
+                //Gio.AppInfo.launch_default_for_uri(href, null)
 
                 // or, open with app directly
-                const appInfo = Gio.AppInfo.get_default_for_type(type, true)
-                appInfo.launch_uris([href], null)
+                // const appInfo = Gio.AppInfo.get_default_for_type(type, true)
+                // appInfo.launch_uris([href], null)
             })
             if (i === 0) button.get_style_context().add_class('suggested-action')
             this._acquisitionBox.pack_start(button, false, true, 0)
@@ -305,7 +303,8 @@ const NavigationRow =  GObject.registerClass({
         super._init(params)
         const { title, content } = this.entry.value
         this._title.label = title || ''
-        this._content.label = content || ''
+        if (content) this._content.label = content
+        else this._content.hide()
     }
 })
 
@@ -389,7 +388,7 @@ var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
     InternalChildren: [
-        'stack', 'storeBox',
+        'stack', 'storeBox', 'startButtonStack', 'backButton'
     ],
 }, class LibraryWindow extends Gtk.ApplicationWindow {
     _init(params) {
@@ -398,9 +397,14 @@ var LibraryWindow =  GObject.registerClass({
         this.title = _('Foliate')
 
         this._storeLoaded = false
+        const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
+        this._startButtonStack.bind_property('visible-child-name', this._stack, 'visible-child-name', flag)
         this._stack.connect('notify::visible-child-name', () => {
             if (this._stack.visible_child_name === 'store') this._loadStore()
         })
+
+        this._history = []
+        this._backButton.connect('clicked', () => this._goBack())
     }
     open(file) {
         new Window({ application: this.application, file}).present()
@@ -409,8 +413,18 @@ var LibraryWindow =  GObject.registerClass({
     _loadStore() {
         if (this._storeLoaded) return
         this._storeLoaded = true
-        const uri = 'https://catalog.feedbooks.com/catalog/public_domain.atom'
+        // const uri = 'https://cbeta.org/opds/'
+        const uri = 'https://catalog.feedbooks.com/catalog/index.atom'
         this._loadOpds(uri)
+    }
+    _goBack() {
+        if (!this._history.length) return
+        this._loadOpds(this._history.pop())
+        if (!this._history.length) this._backButton.sensitive = false
+    }
+    _pushHistory(x) {
+        this._history.push(x)
+        this._backButton.sensitive = true
     }
     async _loadOpds(uri) {
         if (this._opdsWidget) this._opdsWidget.destroy()
@@ -456,7 +470,7 @@ var LibraryWindow =  GObject.registerClass({
                 return child
             })
             const load = feed => {
-                const entries = feed.entries.slice(0, 20)
+                const entries = feed.entries
                 entries.forEach((entry, i) => {
                     entry.i = i
                     list.append(new Obj(entry))
@@ -508,6 +522,7 @@ var LibraryWindow =  GObject.registerClass({
             listbox.connect('row-activated', (listbox, row) => {
                 const entry = map.get(row).value
                 const href = entry.links[0].href
+                this._pushHistory(uri)
                 this._loadOpds(href)
             })
 
@@ -551,11 +566,10 @@ var LibraryWindow =  GObject.registerClass({
         ;[self].concat(tabs).forEach(link => {
             let { title, href } = link
             if (!title) title = feed.title || ''
-            const { widget, load } = isAcquisitionLink(link) ? makePage() : makeNavigation()
+            const { widget, load } = isNavigationLink(link) ? makeNavigation() : makePage()
             const scrolled = new Gtk.ScrolledWindow({ visible: true })
             scrolled.add(widget)
             const box = new Gtk.Box({ visible: true })
-            box.get_style_context().add_class('background')
             box.pack_start(scrolled, true, true, 0)
             nb.append_page(box, new Gtk.Label({ visible: true, label: title }))
             nb.child_set_property(box, 'tab-expand', true)

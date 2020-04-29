@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateBookBoxChild" parent="GtkFlowBoxChild">
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkImage" id="image">
+            <property name="visible">True</property>
+            <property name="halign">center</property>
+            <property name="valign">end</property>
+            <property name="icon-name">image-loading-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="title">
+            <property name="visible">True</property>
+            <property name="wrap">True</property>
+            <property name="lines">3</property>
+            <property name="ellipsize">end</property>
+            <property name="justify">center</property>
+            <property name="max-width-chars">15</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
