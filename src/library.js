@@ -294,8 +294,7 @@ var BookListBox = GObject.registerClass({
 const htmlPath = pkg.pkgdatadir + '/assets/opds.html'
 class OpdsClient {
     constructor() {
-        this._resolveMap = new Map()
-        this._rejectMap = new Map()
+        this._promises = new Map()
 
         this._webView = new WebKit2.WebView({
             settings: new WebKit2.Settings({
@@ -311,18 +310,18 @@ class OpdsClient {
             const { type, payload, token } = JSON.parse(data)
             switch (type) {
                 case 'ready':
-                    this._resolveMap.get('ready')()
+                    this._promises.get('ready').resolve()
                     break
                 case 'error':
-                    this._rejectMap.get('ready')()
+                    this._promises.get('ready').reject()
                     break
                 case 'feed': {
-                    this._resolveMap.get(token)(payload)
+                    this._promises.get(token).resolve(payload)
                     break
                 }
                 case 'image': {
                     const pixbuf = base64ToPixbuf(payload)
-                    this._resolveMap.get(token)(pixbuf)
+                    this._promises.get(token).resolve(pixbuf)
                     break
                 }
             }
@@ -334,30 +333,34 @@ class OpdsClient {
         this._webView.run_javascript(script, null, () => {})
     }
     init() {
-        return new Promise((resolve, reject) => {
-            this._resolveMap.set('ready', resolve)
-            this._rejectMap.set('ready', reject)
-        })
+        return this._makePromise('ready')
     }
     get(uri) {
         const token = this._makeToken()
         this._run(`getFeed(
             decodeURI("${encodeURI(uri)}"),
             decodeURI("${encodeURI(token)}"))`)
-        return new Promise((resolve, reject) => {
-            this._resolveMap.set(token, resolve)
-            this._rejectMap.set(token, reject)
-        })
+        return this._makePromise(token)
     }
     getImage(uri) {
         const token = this._makeToken()
         this._run(`getImage(
             decodeURI("${encodeURI(uri)}"),
             decodeURI("${encodeURI(token)}"))`)
-        return new Promise((resolve, reject) => {
-            this._resolveMap.set(token, resolve)
-            this._rejectMap.set(token, reject)
-        })
+        return this._makePromise(token)
+    }
+    _makePromise(token) {
+        return new Promise((resolve, reject) =>
+            this._promises.set(token, {
+                resolve: arg => {
+                    resolve(arg)
+                    this._promises.delete(token)
+                },
+                reject: arg => {
+                    reject(arg)
+                    this._promises.delete(token)
+                }
+            }))
     }
     _makeToken() {
         return Math.random() + '' + new Date().getTime()
