@@ -108,9 +108,10 @@ const makeAcquisitionButton = (links, onActivate) => {
         button.show_all()
         links.forEach(link => {
             const mimetype = link.type
+            const text = link.title || Gio.content_type_get_description(mimetype)
             const menuItem = new Gtk.ModelButton({
                 visible: true,
-                text: Gio.content_type_get_description(mimetype),
+                text,
                 tooltip_text: mimetype
             })
             menuItem.connect('clicked', () => onActivate(link))
