@@ -7,7 +7,7 @@
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="margin">10</property>
-        <property name="spacing">6</property>
+        <property name="spacing">12</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
@@ -35,6 +35,15 @@
                 </attributes>
               </object>
             </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="count">
+            <property name="visible">True</property>
+            <style><class name="dim-label"/></style>
+            <attributes>
+              <attribute name="scale" value="0.85"/>
+            </attributes>
           </object>
         </child>
         <child>

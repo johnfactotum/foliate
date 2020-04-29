@@ -293,7 +293,7 @@ var BookListBox = GObject.registerClass({
 const NavigationRow =  GObject.registerClass({
     GTypeName: 'FoliateNavigationRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/navigationRow.ui',
-    InternalChildren: ['title', 'content'],
+    InternalChildren: ['title', 'content', 'count'],
     Properties: {
         entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
@@ -301,10 +301,14 @@ const NavigationRow =  GObject.registerClass({
 }, class NavigationRow extends Gtk.ListBoxRow {
     _init(params) {
         super._init(params)
-        const { title, content } = this.entry.value
+        const { title, content, links } = this.entry.value
         this._title.label = title || ''
         if (content) this._content.label = content
         else this._content.hide()
+
+        const count = links[0].count
+        if (typeof count !== 'undefined') this._count.label = String(count)
+        else this._count.hide()
     }
 })
 
@@ -413,26 +417,47 @@ var OpdsWindow =  GObject.registerClass({
         this.title = _('Foliate')
 
         this._history = []
-        this._backButton.connect('clicked', () => this._goBack())
+
+        this.actionGroup = new Gio.SimpleActionGroup()
+        const actions = {
+            'back': () => this._goBack()
+        }
+        Object.keys(actions).forEach(name => {
+            const action = new Gio.SimpleAction({ name })
+            action.connect('activate', actions[name])
+            this.actionGroup.add_action(action)
+        })
+        this.insert_action_group('opds', this.actionGroup)
+        const overlay = Gtk.Builder.new_from_resource(
+            '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
+            .get_object('shortcutsWindow')
+        this.set_help_overlay(overlay)
+
+        this.actionGroup.lookup_action('back').bind_property('enabled',
+            this._backButton, 'visible', GObject.BindingFlags.DEFAULT)
+        this._updateBack()
+    }
+    _updateBack() {
+        this.actionGroup.lookup_action('back').enabled = this._history.length
     }
     _goBack() {
         if (!this._history.length) return
         this._loadOpds(this._history.pop())
-        if (!this._history.length) this._backButton.sensitive = false
+        this._updateBack()
     }
     _pushHistory(x) {
         this._history.push(x)
-        this._backButton.sensitive = true
+        this._updateBack()
     }
     _clearHistory() {
         this._history = []
-        this._backButton.sensitive = false
+        this._updateBack()
     }
     loadOpds(uri) {
         this._loadOpds(uri)
-        this._stack.visible_child_name = 'main'
     }
     async _loadOpds(uri) {
+        this._stack.visible_child_name = 'loading'
         if (this._opdsWidget) this._opdsWidget.destroy()
         const client = new OpdsClient()
         await client.init()
@@ -445,6 +470,7 @@ var OpdsWindow =  GObject.registerClass({
             logError(e)
             return
         }
+        this._stack.visible_child_name = 'main'
 
         if ('title' in feed) this.title = feed.title
 
@@ -493,7 +519,7 @@ var OpdsWindow =  GObject.registerClass({
             }
             return { widget: flowbox, load }
         }
-        const makeNavigation = () => {
+        const makeNavigation = facet => {
             const box = new Gtk.Box({
                 visible: true,
                 orientation: Gtk.Orientation.VERTICAL,
@@ -534,12 +560,21 @@ var OpdsWindow =  GObject.registerClass({
                 this._loadOpds(href)
             })
 
-            const load = feed => {
-                const entries = feed.entries
-                entries.forEach(entry => {
-                    list.append(new Obj(entry))
-                })
-            }
+            const load = facet
+                ? facets => {
+                    facets.forEach(facet => {
+                        list.append(new Obj({
+                            title: facet.title,
+                            links: [facet]
+                        }))
+                    })
+                }
+                : feed => {
+                    const entries = feed.entries
+                    entries.forEach(entry => {
+                        list.append(new Obj(entry))
+                    })
+                }
             return { widget: box, load }
         }
 
@@ -595,8 +630,20 @@ var OpdsWindow =  GObject.registerClass({
                 .then(feed => load(feed))
                 .catch(e => logError(e))
         }
-        nb.show_tabs = tabs.length > 1
         nb.connect('switch-page', (_, page) => loadPage(page))
-        loadPage(nb.get_nth_page(0))
+
+        const facets = feed.links.filter(({ rel }) => rel === 'http://opds-spec.org/facet')
+        if (facets.length) {
+            const { widget, load } = makeNavigation(true)
+            const scrolled = new Gtk.ScrolledWindow({ visible: true })
+            scrolled.add(widget)
+            const box = new Gtk.Box({ visible: true })
+            box.pack_start(scrolled, true, true, 0)
+            nb.insert_page(box, new Gtk.Label({ visible: true, label: 'Filter' }), 0)
+            isLoaded.set(box, true)
+            load(facets)
+            loadPage(nb.get_nth_page(1))
+        } else loadPage(nb.get_nth_page(0))
+        nb.show_tabs = tabs.length + facets.length > 1
     }
 })

@@ -29,7 +29,7 @@
         <child>
           <object class="GtkButton" id="backButton">
             <property name="visible">True</property>
-            <property name="sensitive">False</property>
+            <property name="action-name">opds.back</property>
             <property name="tooltip-text" translatable="yes">Go back</property>
             <child>
               <object class="GtkImage">
@@ -38,9 +38,6 @@
               </object>
             </child>
           </object>
-          <packing>
-            <property name="name">store</property>
-          </packing>
         </child>
         <child>
           <object class="GtkMenuButton">

@@ -22,6 +22,7 @@ let baseURI
 
 // very simple OPDS parser
 // the basic idea is derived from https://github.com/SamyPesse/xml-schema
+const THR_NS = 'http://purl.org/syndication/thread/1.0'
 const link = {
     tag: 'link',
     array: true,
@@ -29,7 +30,8 @@ const link = {
         href: { transform: x => new URL(x, baseURI).href },
         rel: {},
         type: {},
-        title: {}
+        title: {},
+        count: { tag: 'count', ns: THR_NS }
     }
 }
 const author = {
@@ -83,7 +85,9 @@ const parse = (el, schema) => {
     attrList.forEach(key => {
         const attr = attrs[key]
         const attrName = attr.name || key
-        const value = el.getAttribute(attrName) || attr.default
+        const value = (attr.ns
+            ? el.getAttributeNS(attr.ns, attrName)
+            : el.getAttribute(attrName)) || attr.default
         const transform = attr.transform || (x => x)
         output[key] = transform(value)
     })
