@@ -24,7 +24,7 @@ const { Gio, Gtk, Gdk } = imports.gi
 
 const { mimetypes } = imports.utils
 const { Window } = imports.window
-const { LibraryWindow } = imports.library
+const { LibraryWindow, OpdsWindow } = imports.library
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -100,8 +100,8 @@ const makeActions = app => ({
         dialog.add_filter(allFiles)
 
         if (dialog.run() === Gtk.ResponseType.ACCEPT) {
-            const activeWindow = app.active_window
-            if (activeWindow instanceof LibraryWindow) activeWindow.close()
+            // const activeWindow = app.active_window
+            // if (activeWindow instanceof LibraryWindow) activeWindow.close()
             new Window({ application: app, file: dialog.get_file() }).present()
         }
     },
@@ -151,7 +151,12 @@ function main(argv) {
     })
 
     application.connect('open', (_, files) => files.forEach(file => {
-        const window = new Window({ application, file })
+        let window
+        if (file.get_uri_scheme() === 'opds') {
+            window = new OpdsWindow({ application })
+            const uri = file.get_uri().replace(/^opds:\/\//, 'http:')
+            window.loadOpds(uri)
+        } else window = new Window({ application, file })
         window.present()
     }))
 

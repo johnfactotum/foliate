@@ -388,34 +388,32 @@ var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
     InternalChildren: [
-        'stack', 'storeBox', 'startButtonStack', 'backButton'
+        'stack', 'storeBox', 'startButtonStack'
     ],
 }, class LibraryWindow extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
         this.show_menubar = false
         this.title = _('Foliate')
-
-        this._storeLoaded = false
-        const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
-        this._startButtonStack.bind_property('visible-child-name', this._stack, 'visible-child-name', flag)
-        this._stack.connect('notify::visible-child-name', () => {
-            if (this._stack.visible_child_name === 'store') this._loadStore()
-        })
-
-        this._history = []
-        this._backButton.connect('clicked', () => this._goBack())
     }
     open(file) {
         new Window({ application: this.application, file}).present()
-        this.close()
+        // this.close()
     }
-    _loadStore() {
-        if (this._storeLoaded) return
-        this._storeLoaded = true
-        // const uri = 'https://cbeta.org/opds/'
-        const uri = 'https://catalog.feedbooks.com/catalog/index.atom'
-        this._loadOpds(uri)
+})
+
+var OpdsWindow =  GObject.registerClass({
+    GTypeName: 'FoliateOpdsWindow',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/opdsWindow.ui',
+    InternalChildren: ['stack', 'storeBox', 'backButton'],
+}, class OpdsWindow extends Gtk.ApplicationWindow {
+    _init(params) {
+        super._init(params)
+        this.show_menubar = false
+        this.title = _('Foliate')
+
+        this._history = []
+        this._backButton.connect('clicked', () => this._goBack())
     }
     _goBack() {
         if (!this._history.length) return
@@ -425,6 +423,14 @@ var LibraryWindow =  GObject.registerClass({
     _pushHistory(x) {
         this._history.push(x)
         this._backButton.sensitive = true
+    }
+    _clearHistory() {
+        this._history = []
+        this._backButton.sensitive = false
+    }
+    loadOpds(uri) {
+        this._loadOpds(uri)
+        this._stack.visible_child_name = 'main'
     }
     async _loadOpds(uri) {
         if (this._opdsWidget) this._opdsWidget.destroy()
@@ -439,6 +445,8 @@ var LibraryWindow =  GObject.registerClass({
             logError(e)
             return
         }
+
+        if ('title' in feed) this.title = feed.title
 
         const makePage = () => {
             const flowbox = new Gtk.FlowBox({
@@ -552,7 +560,7 @@ var LibraryWindow =  GObject.registerClass({
         const hrefs = new Map()
         const loadFuncs = new Map()
         const isLoaded = new Map()
-        const tabs = feed.links.filter(link => {
+        const tabs = [self].concat(feed.links.filter(link => {
             return 'title' in link
                 && link.rel !== 'self'
                 && link.rel !== 'start'
@@ -562,8 +570,8 @@ var LibraryWindow =  GObject.registerClass({
                 && link.rel !== 'http://opds-spec.org/subscriptions'
                 && link.rel !== 'http://opds-spec.org/facet'
                 && link.rel !== 'http://opds-spec.org/next'
-        })
-        ;[self].concat(tabs).forEach(link => {
+        }))
+        tabs.forEach(link => {
             let { title, href } = link
             if (!title) title = feed.title || ''
             const { widget, load } = isNavigationLink(link) ? makeNavigation() : makePage()
@@ -587,6 +595,7 @@ var LibraryWindow =  GObject.registerClass({
                 .then(feed => load(feed))
                 .catch(e => logError(e))
         }
+        nb.show_tabs = tabs.length > 1
         nb.connect('switch-page', (_, page) => loadPage(page))
         loadPage(nb.get_nth_page(0))
     }
