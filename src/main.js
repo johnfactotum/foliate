@@ -154,7 +154,7 @@ function main(argv) {
         let window
         if (file.get_uri_scheme() === 'opds') {
             window = new OpdsWindow({ application })
-            const uri = file.get_uri().replace(/^opds:\/\//, 'http:')
+            const uri = file.get_uri().replace(/^opds:\/\//, 'http://')
             window.loadOpds(uri)
         } else window = new Window({ application, file })
         window.present()

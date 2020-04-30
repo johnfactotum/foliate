@@ -15,7 +15,7 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango } = imports.gi
 const ByteArray = imports.byteArray
-const { Storage, Obj, base64ToPixbuf, markupEscape } = imports.utils
+const { Storage, Obj, base64ToPixbuf, markupEscape, debug } = imports.utils
 const { Window } = imports.window
 const { uriStore } = imports.uriStore
 
@@ -339,6 +339,7 @@ class OpdsClient {
                 case 'error':
                     this._promises.get(token).reject(new Error(payload))
                     break
+                case 'entry':
                 case 'feed': {
                     this._promises.get(token).resolve(payload)
                     break
@@ -360,6 +361,7 @@ class OpdsClient {
         return this._makePromise('ready')
     }
     get(uri) {
+        debug('OPDS: getting ' + uri)
         const token = this._makeToken()
         this._run(`getFeed(
             decodeURI("${encodeURI(uri)}"),
@@ -412,7 +414,7 @@ var LibraryWindow =  GObject.registerClass({
 var OpdsWindow =  GObject.registerClass({
     GTypeName: 'FoliateOpdsWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/opdsWindow.ui',
-    InternalChildren: ['stack', 'storeBox', 'backButton'],
+    InternalChildren: ['stack', 'storeBox', 'backButton', 'homeButton'],
 }, class OpdsWindow extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
@@ -423,7 +425,8 @@ var OpdsWindow =  GObject.registerClass({
 
         this.actionGroup = new Gio.SimpleActionGroup()
         const actions = {
-            'back': () => this._goBack()
+            'back': () => this._goBack(),
+            'home': () => this._goHome()
         }
         Object.keys(actions).forEach(name => {
             const action = new Gio.SimpleAction({ name })
@@ -438,7 +441,10 @@ var OpdsWindow =  GObject.registerClass({
 
         this.actionGroup.lookup_action('back').bind_property('enabled',
             this._backButton, 'visible', GObject.BindingFlags.DEFAULT)
+        this.actionGroup.lookup_action('home').bind_property('enabled',
+            this._homeButton, 'visible', GObject.BindingFlags.DEFAULT)
         this._updateBack()
+        this._home = null
     }
     _updateBack() {
         this.actionGroup.lookup_action('back').enabled = this._history.length
@@ -456,10 +462,23 @@ var OpdsWindow =  GObject.registerClass({
         this._history = []
         this._updateBack()
     }
+    get _home() {
+        return this.__home
+    }
+    set _home(home) {
+        this.__home = home
+        this.actionGroup.lookup_action('home').enabled = home && home !== this._uri
+    }
+    _goHome() {
+        if (!this._home) return
+        this._pushHistory(this._uri)
+        this._loadOpds(this._home)
+    }
     loadOpds(uri) {
-        this._loadOpds(uri)
+        this._loadOpds(uri).catch(e => logError(e))
     }
     async _loadOpds(uri) {
+        this._uri = uri
         this._stack.visible_child_name = 'loading'
         if (this._opdsWidget) this._opdsWidget.destroy()
         const client = new OpdsClient()
@@ -608,10 +627,55 @@ var OpdsWindow =  GObject.registerClass({
                 }
             return { widget: box, load }
         }
+        const makeEntryPage = () => {
+            const box = new Gtk.Box({ visible: true })
+            const load = entry => {
+                const infobox = new BookInfoBox({ entry: new Obj(entry) })
+                box.pack_start(infobox, true, true, 0)
+                box.show_all()
+            }
+            return { widget: box, load }
+        }
 
-        const self = feed.links.find(({ rel }) => rel === 'self')
-        const isNavigationFeed = feed.entries.some(entry =>
-            entry.links && entry.links[0].type.includes('profile=opds-catalog'))
+        const isAcquisitionLink = link => link && link.type
+            && link.type.includes('kind=acquisition')
+        // const isNavigationLink = link => link && link.type
+        //     && link.type.includes('kind=navigation')
+
+        let self = feed.links.find(({ rel }) => rel.includes('self'))
+
+        /*
+        Am I missing something? Why do a lot of feeds contain a self link that
+        specifies the wrong type?
+
+        What happend to this?
+        > "Links to Navigation Feeds must use the type attribute
+        > `application/atom+xml;profile=opds-catalog;kind=navigation`.
+
+        And this?
+        > Links to Acquisition Feeds must use the type attribute
+        > `application/atom+xml;profile=opds-catalog;kind=acquisition`.
+
+        Anyway, the following seems to be more reliable:
+
+        > A Navigation Feed must not contain OPDS Catalog Entries [...]
+
+        > "OPDS Catalog Entry Documents must contain at least one Acquisition
+        > Link, an atom:link element with a rel attribute that begins with
+        > http://opds-spec.org/acquisition."
+
+        Which, translated into code, is:                                      */
+        const isAcquisitionFeed = feed.entries && feed.entries.every(entry =>
+            entry.links && entry.links.some(({ rel }) =>
+                rel && rel.startsWith('http://opds-spec.org/acquisition')))
+
+        if (!self) self = { rel: 'self', href: uri }
+        self.type = 'application/atom+xml;profile=opds-catalog;'
+            + (isAcquisitionFeed ? 'kind=acquisition' : 'kind=navigation')
+        self.isEntry = feed.isEntry
+
+        const home = feed.links.find(({ rel }) => rel && rel.includes('start'))
+        if (home) this._home = home.href
 
         const nb = new Gtk.Notebook({
             visible: true,
@@ -630,6 +694,7 @@ var OpdsWindow =  GObject.registerClass({
                 && link.rel !== 'start'
                 && link.rel !== 'search'
                 && link.rel !== 'next'
+                && link.rel !== 'alternate'
                 && link.rel !== 'http://opds-spec.org/shelf'
                 && link.rel !== 'http://opds-spec.org/subscriptions'
                 && link.rel !== 'http://opds-spec.org/facet'
@@ -639,12 +704,19 @@ var OpdsWindow =  GObject.registerClass({
         tabs.forEach(link => {
             let { title, href } = link
             if (!title) title = feed.title || ''
-            const { widget, load } = isNavigationFeed ? makeNavigation() : makePage()
+            const { widget, load } = link.isEntry
+                ? makeEntryPage()
+                : isAcquisitionLink(link) ? makePage() : makeNavigation()
             const scrolled = new Gtk.ScrolledWindow({ visible: true })
             scrolled.add(widget)
             const box = new Gtk.Box({ visible: true })
             box.pack_start(scrolled, true, true, 0)
-            nb.append_page(box, new Gtk.Label({ visible: true, label: title }))
+            nb.append_page(box, new Gtk.Label({
+                visible: true,
+                ellipsize: Pango.EllipsizeMode.END,
+                label: title,
+                tooltip_text: title
+            }))
             nb.child_set_property(box, 'tab-expand', true)
             hrefs.set(box, href)
             loadFuncs.set(box, load)

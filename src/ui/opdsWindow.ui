@@ -40,6 +40,19 @@
           </object>
         </child>
         <child>
+          <object class="GtkButton" id="homeButton">
+            <property name="visible">True</property>
+            <property name="action-name">opds.home</property>
+            <property name="tooltip-text" translatable="yes">Go to start</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">go-home-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
           <object class="GtkMenuButton">
             <property name="visible">True</property>
             <property name="menu-model">menu</property>

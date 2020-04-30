@@ -25,6 +25,9 @@ let baseURI
 
 const OPDS_NS = 'http://opds-spec.org/2010/catalog'
 const THR_NS = 'http://purl.org/syndication/thread/1.0'
+const DC_NS = 'http://purl.org/dc/terms/'
+
+const trim = x => x ? x.trim() : x
 
 const link = {
     tag: 'link',
@@ -49,9 +52,9 @@ const entry = {
     array: true,
     fields: {
         id: {},
-        title: {},
+        title: { transform: trim },
         updated: {},
-        summary: {},
+        summary: { transform: trim },
         links: link,
         authors: author,
         categories: {
@@ -59,16 +62,16 @@ const entry = {
             array: true,
             attrs: { term: {}, label: {}, scheme: {} }
         },
-        publisher: { tag: "dc:publisher" },
-        language: { tag: "dc:language" },
-        content: {}
+        publisher: { ns: DC_NS },
+        language: { ns: DC_NS },
+        content: { transform: trim },
     }
 }
 const feed = {
     tag: 'feed',
     fields: {
         id: {},
-        title: {},
+        title: { transform: trim },
         icon: {},
         updated: {},
         links: link,
@@ -131,12 +134,17 @@ const getFeed = (uri, token) => {
         .then(res => res.text())
         .then(text => parser.parseFromString(text, 'text/xml'))
         .then(doc => {
-            const obj = parse(doc.documentElement, feed)
-            dispatch({
-                type: 'feed',
-                payload: obj,
-                token
-            })
+            const tagName = doc.documentElement.tagName
+            if (tagName === 'entry') {
+                const payload = parse(doc.documentElement, entry)
+                payload.isEntry = true
+                dispatch({ type: 'entry', payload, token })
+            } else if (tagName === 'feed') {
+                const payload = parse(doc.documentElement, feed)
+                payload.isEntry = false
+                dispatch({ type: 'feed', payload, token })
+            } else
+                throw new Error(`root element is "${tagName}"; should be "feed" or "entry"`)
         })
         .catch(e => dispatch({
             type: 'error',
