@@ -329,6 +329,10 @@ class OpdsClient {
         })
         contentManager.register_script_message_handler('action')
         this._webView.load_uri(GLib.filename_to_uri(htmlPath, null))
+        this._webView.connect('destroy', () => {
+            Array.from(this._promises.values()).forEach(({ reject }) =>
+                reject(new Error('OPDS: WebView destroyed')))
+        })
     }
     _run(script) {
         this._webView.run_javascript(script, null, () => {})
@@ -367,7 +371,112 @@ class OpdsClient {
     _makeToken() {
         return Math.random() + '' + new Date().getTime()
     }
+    close() {
+        this._webView.destroy()
+    }
 }
+
+const OpdsScrolledBox =  GObject.registerClass({
+    GTypeName: 'FoliateOpdsScrolledBox',
+    Properties: {
+        'max-entries':
+            GObject.ParamSpec.int('max-entries', 'max-entries', 'max-entries',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 1, 2147483647, 2147483647),
+        uri: GObject.ParamSpec.string('uri', 'uri', 'uri',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, ''),
+    }
+}, class OpdsScrolledBox extends Gtk.ScrolledWindow {
+    _init(params) {
+        super._init(params)
+        const { max_entries, uri } = this
+        const box = new OpdsBox({ max_entries, uri, visible: true })
+        box.max_children_per_line = max_entries
+        box.min_children_per_line = max_entries
+        this.propagate_natural_height = true
+        this.add(box)
+        box.connect('size-allocate', () => {
+            this.min_content_height = box.get_allocation().height
+        })
+        box.connect('loaded', () => {
+            this.show()
+        })
+    }
+})
+
+// https://stackoverflow.com/questions/11935175/
+const sample = (arr, size) => {
+    const shuffled = arr.slice(0)
+    let i = arr.length, temp, index
+    while (i--) {
+        index = Math.floor((i + 1) * Math.random())
+        temp = shuffled[index]
+        shuffled[index] = shuffled[i]
+        shuffled[i] = temp
+    }
+    return shuffled.slice(0, size)
+}
+
+const OpdsBox = GObject.registerClass({
+    GTypeName: 'FoliateOpdsBox',
+    Properties: {
+        'max-entries':
+            GObject.ParamSpec.int('max-entries', 'max-entries', 'max-entries',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 1, 2147483647, 2147483647),
+        uri: GObject.ParamSpec.string('uri', 'uri', 'uri',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, ''),
+    },
+    Signals: {
+        'loaded': { flags: GObject.SignalFlags.RUN_FIRST }
+    }
+}, class OpdsBox extends Gtk.FlowBox {
+    _init(params) {
+        super._init(Object.assign({
+            valign: Gtk.Align.START,
+            row_spacing: 12,
+            column_spacing: 12,
+            homogeneous: true,
+            activate_on_single_click: true,
+            selection_mode: Gtk.SelectionMode.NONE
+        }, params))
+
+        this.connect('child-activated', (flowbox, child) => {
+            const popover = new Gtk.Popover({
+                relative_to: child,
+                width_request: 320,
+                height_request: 320
+            })
+            const infoBox = new BookInfoBox({
+                entry: child.entry,
+            })
+            popover.add(infoBox)
+            popover.popup()
+        })
+
+        const client = new OpdsClient()
+        let loadCount = 0
+        client.init().then(() => client.get(this.uri)).then(feed => {
+            const list = new Gio.ListStore()
+            const entries = sample(feed.entries, this.max_entries)
+            entries.forEach(entry => list.append(new Obj(entry)))
+            this.bind_model(list, entry => {
+                const child = new BookBoxChild({ entry })
+                const thumbnail = entry.value.links
+                    .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
+                if (thumbnail)
+                    client.getImage(thumbnail.href)
+                        .then(pixbuf => child.loadCover(pixbuf))
+                        .finally(() => {
+                            loadCount++
+                            if (loadCount === entries.length) {
+                                client.close()
+                                this.emit('loaded')
+                            }
+                        })
+                return child
+            })
+        })
+    }
+})
 
 var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
