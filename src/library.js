@@ -618,7 +618,7 @@ var OpdsWindow =  GObject.registerClass({
         > http://opds-spec.org/acquisition."
 
         Which, translated into code, is:                                      */
-        const isAcquisitionFeed = feed.entries && feed.entries.every(entry =>
+        const isAcquisitionFeed = feed.entries && feed.entries.some(entry =>
             entry.links && entry.links.some(({ rel }) =>
                 rel && rel.startsWith('http://opds-spec.org/acquisition')))
 
