@@ -105,6 +105,40 @@ const makeActions = app => ({
             new Window({ application: app, file: dialog.get_file() }).present()
         }
     },
+    'open-opds': () => {
+        const window = new Gtk.Dialog({
+            title: _('Open a Catalog'),
+            modal: true,
+            use_header_bar: true,
+            transient_for: app.active_window
+        })
+        window.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+        window.add_button(_('Open'), Gtk.ResponseType.OK)
+        window.set_default_response(Gtk.ResponseType.OK)
+
+        const label = new Gtk.Label({
+            label: _('OPDS Catalog URL:'),
+            wrap: true,
+            xalign: 0
+        })
+        const entry =  new Gtk.Entry()
+        entry.connect('activate', () => window.response(Gtk.ResponseType.OK))
+
+        const container = window.get_content_area()
+        container.spacing = 6
+        container.border_width = 18
+        container.pack_start(label, false, true, 0)
+        container.pack_start(entry, false, true, 0)
+        window.show_all()
+        const response = window.run()
+        if (response === Gtk.ResponseType.OK && entry.text) {
+            const window = new OpdsWindow({ application: app })
+            const uri = entry.text.trim().replace(/^opds:\/\//, 'http://')
+            window.loadOpds(uri)
+            window.present()
+        }
+        window.close()
+    },
     'library': () => {
         const windows = app.get_windows()
         ;(windows.find(window => window instanceof LibraryWindow)

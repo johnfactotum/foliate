@@ -6,6 +6,10 @@
         <attribute name="action">app.open</attribute>
         <attribute name="label" translatable="yes">Open…</attribute>
       </item>
+      <item>
+        <attribute name="action">app.open-opds</attribute>
+        <attribute name="label" translatable="yes">Open a Catalog…</attribute>
+      </item>
     </section>
     <section>
       <item>
@@ -134,7 +138,7 @@
               </object>
               <packing>
                 <property name="name">store</property>
-                <property name="title" translatable="yes">Stores</property>
+                <property name="title" translatable="yes">Catalogs</property>
               </packing>
             </child>
           </object>

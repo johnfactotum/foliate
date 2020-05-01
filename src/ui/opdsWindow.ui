@@ -3,8 +3,18 @@
   <menu id="menu">
     <section>
       <item>
+        <attribute name="action">app.library</attribute>
+        <attribute name="label" translatable="yes">Library</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
         <attribute name="action">app.open</attribute>
         <attribute name="label" translatable="yes">Open…</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.open-opds</attribute>
+        <attribute name="label" translatable="yes">Open a Catalog…</attribute>
       </item>
     </section>
     <section>
