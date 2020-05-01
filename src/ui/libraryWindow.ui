@@ -26,7 +26,7 @@
     <property name="default-width">800</property>
     <property name="default-height">600</property>
     <child type="titlebar">
-      <object class="GtkHeaderBar">
+      <object class="HdyHeaderBar">
         <property name="visible">True</property>
         <property name="has-subtitle">False</property>
         <property name="show-close-button">True</property>
@@ -68,7 +68,7 @@
           </object>
         </child>
         <child type="title">
-          <object class="GtkStackSwitcher">
+          <object class="HdyViewSwitcher">
             <property name="visible">True</property>
             <property name="stack">stack</property>
           </object>
@@ -103,25 +103,14 @@
                 <property name="visible">True</property>
                 <property name="expand">True</property>
                 <child>
-                  <object class="GtkBox">
+                  <object class="HdyColumn">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
-                    <property name="halign">center</property>
-                    <property name="spacing">6</property>
-                    <property name="border-width">18</property>
+                    <property name="border-width">12</property>
+                    <property name="maximum-width">600</property>
                     <child>
                       <object class="FoliateBookListBox">
                         <property name="visible">True</property>
                         <style><class name="frame"/></style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="ellipsize">end</property>
-                        <property name="max-width-chars">70</property>
-                        <property name="opacity">0</property>
-                        <property name="label">_______________________________________________________________________________________________________________________</property>
                       </object>
                     </child>
                   </object>
@@ -130,6 +119,7 @@
               <packing>
                 <property name="name">library</property>
                 <property name="title" translatable="yes">Library</property>
+                <property name="icon-name">text-x-generic-symbolic</property>
               </packing>
             </child>
             <child>
@@ -139,6 +129,7 @@
               <packing>
                 <property name="name">store</property>
                 <property name="title" translatable="yes">Catalogs</property>
+                <property name="icon-name">application-rss+xml-symbolic</property>
               </packing>
             </child>
           </object>

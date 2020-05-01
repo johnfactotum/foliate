@@ -21,6 +21,8 @@ pkg.require({
 })
 
 const { Gio, Gtk, Gdk } = imports.gi
+let Handy; try { Handy = imports.gi.Handy } catch (e) {}
+if (Handy) Handy.init(null)
 
 const { mimetypes } = imports.utils
 const { Window } = imports.window
@@ -179,7 +181,8 @@ function main(argv) {
                     application,
                     file: Gio.File.new_for_path(lastFile)
                 })
-            else activeWindow = new LibraryWindow({ application })
+            else if (Handy) activeWindow = new LibraryWindow({ application })
+            else activeWindow = new Window({ application })
         }
         activeWindow.present()
     })
@@ -204,6 +207,7 @@ function main(argv) {
             action.connect('activate', actions[name])
             application.add_action(action)
         })
+        if (!Handy) application.lookup_action('library').enabled = false
 
         ;[
             ['app.quit', ['<ctrl>q']],
