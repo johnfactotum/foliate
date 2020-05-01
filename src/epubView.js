@@ -892,6 +892,7 @@ var EpubView = GObject.registerClass({
             this._fileInfo = this._file.query_info('standard::content-type',
                 Gio.FileQueryInfoFlags.NONE, null)
         } catch (e) {
+            logError(e)
             this._fileInfo = null
         }
         if (!this._fileInfo) return this.emit('book-error', _('File not found.'))
