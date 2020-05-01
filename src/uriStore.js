@@ -15,7 +15,7 @@
 
 const { GLib, Gio } = imports.gi
 const ByteArray = imports.byteArray
-const { Storage, Obj } = imports.utils
+const { Storage, Obj, debug } = imports.utils
 
 class UriStore {
     constructor() {
@@ -39,9 +39,12 @@ class UriStore {
 
 var uriStore = new UriStore()
 
-const listBooks = function* (path) {
+const listDir = function* (path) {
     const dir = Gio.File.new_for_path(path)
-    if (!GLib.file_test(path, GLib.FileTest.EXISTS)) return
+    if (!GLib.file_test(path, GLib.FileTest.IS_DIR)) {
+        debug(`"${path}" is not a directory`)
+        return
+    }
     const children = dir.enumerate_children('standard::name,time::modified',
         Gio.FileQueryInfoFlags.NONE, null)
 
@@ -49,15 +52,11 @@ const listBooks = function* (path) {
     while ((info = children.next_file(null)) != null) {
         try {
             const name = info.get_name()
+            if (!/\.json$/.test(name)) continue
             const child = dir.get_child(name)
-            const [/*success*/, data, /*tag*/] = child.load_contents(null)
-            const json = JSON.parse(data instanceof Uint8Array
-                ? ByteArray.toString(data) : data.toString())
-
             yield {
                 identifier: decodeURIComponent(name.replace(/\.json$/, '')),
-                metadata: json.metadata,
-                progress: json.progress,
+                file: child,
                 modified: new Date(info.get_attribute_uint64('time::modified') * 1000)
             }
         } catch (e) {
@@ -69,20 +68,45 @@ const listBooks = function* (path) {
 class BookList {
     constructor() {
         this.list = new Gio.ListStore()
+        this.list.append(new Obj('load-more'))
     }
     load() {
         const datadir = GLib.build_filenamev([GLib.get_user_data_dir(), pkg.name])
-        const books = listBooks(datadir)
-        Array.from(books)
-            .filter(x => x.metadata)
-            .sort((a, b) => b.modified - a.modified)
-            .forEach(x => this.list.append(new Obj(x)))
+        const books = listDir(datadir) || []
+        this._arr = Array.from(books).sort((a, b) => b.modified - a.modified)
+        this._iter = this._arr.values()
+    }
+    next(n = 10) {
+        let i = 0
+        while (i < n) {
+            const { value, done } = this._iter.next()
+            if (done) {
+                this.list.remove(this.list.get_n_items() - 1)
+                return
+            }
+            const { identifier, file, modified } = value
+            const [/*success*/, data, /*tag*/] = file.load_contents(null)
+            const json = JSON.parse(data instanceof Uint8Array
+                ? ByteArray.toString(data) : data.toString())
+
+            if (!json.metadata) continue
+            const result = {
+                identifier,
+                metadata: json.metadata,
+                progress: json.progress,
+                modified
+            }
+            this.list.insert(this.list.get_n_items() - 1, new Obj(result))
+            i++
+        }
     }
     remove(id) {
         const n = this.list.get_n_items()
         for (let i = 0; i < n; i++) {
-            if (this.list.get_item(i).value.metadata.identifier === id) {
+            const item = this.list.get_item(i).value
+            if (item.identifier === id) {
                 this.list.remove(i)
+                this.next(1)
                 break
             }
         }

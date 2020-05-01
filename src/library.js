@@ -199,6 +199,20 @@ const BookListRow =  GObject.registerClass({
     }
 })
 
+
+const LoadMoreRow =  GObject.registerClass({
+    GTypeName: 'FoliateLoadMoreRow'
+}, class LoadMoreRow extends Gtk.ListBoxRow {
+    _init(params) {
+        super._init(params)
+        this.add(new Gtk.Image({
+            visible: true,
+            icon_name: 'view-more-symbolic',
+            margin: 12
+        }))
+    }
+})
+
 var BookListBox = GObject.registerClass({
     GTypeName: 'FoliateBookListBox'
 }, class BookListBox extends Gtk.ListBox {
@@ -207,10 +221,19 @@ var BookListBox = GObject.registerClass({
         this.set_header_func((row) => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
-        this.bind_model(bookList.list, book => new BookListRow({ book }))
+        const lmr = new LoadMoreRow()
+        this.bind_model(bookList.list, book => {
+            if (book.value === 'load-more') return lmr
+            else return new BookListRow({ book })
+        })
         bookList.load()
+        bookList.next()
 
         this.connect('row-activated', (box, row) => {
+            if (row === lmr) {
+                bookList.next()
+                return
+            }
             const id = row.book.value.metadata.identifier
             const uri = uriStore.get(id)
             if (!uri) {
