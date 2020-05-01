@@ -132,6 +132,7 @@ var recursivelyDeleteDir = dir => {
 var Storage = GObject.registerClass({
     GTypeName: 'FoliateStorage',
     Signals: {
+        'modified': { flags: GObject.SignalFlags.RUN_FIRST },
         'externally-modified': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class Storage extends GObject.Object {
@@ -190,7 +191,10 @@ var Storage = GObject.registerClass({
                 .replace_contents(JSON.stringify(data, null, this.indent),
                     null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null)
             this._modified = this._getModified()
-            if (success) return true
+            if (success) {
+                this.emit('modified')
+                return true
+            }
         }
         throw new Error('Could not save file')
     }

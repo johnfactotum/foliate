@@ -14,37 +14,9 @@
  */
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango } = imports.gi
-const ByteArray = imports.byteArray
 const { Storage, Obj, base64ToPixbuf, markupEscape, debug } = imports.utils
 const { Window } = imports.window
-const { uriStore } = imports.uriStore
-
-const listBooks = function* (path) {
-    const dir = Gio.File.new_for_path(path)
-    if (!GLib.file_test(path, GLib.FileTest.EXISTS)) return
-    const children = dir.enumerate_children('standard::name,time::modified',
-        Gio.FileQueryInfoFlags.NONE, null)
-
-    let info
-    while ((info = children.next_file(null)) != null) {
-        try {
-            const name = info.get_name()
-            const child = dir.get_child(name)
-            const [success, data, tag] = child.load_contents(null)
-            const json = JSON.parse(data instanceof Uint8Array
-                ? ByteArray.toString(data) : data.toString())
-
-            yield {
-                identifier: decodeURIComponent(name.replace(/\.json$/, '')),
-                metadata: json.metadata,
-                progress: json.progress,
-                modified: new Date(info.get_attribute_uint64('time::modified') * 1000)
-            }
-        } catch (e) {
-            continue
-        }
-    }
-}
+const { uriStore, bookList } = imports.uriStore
 
 const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
@@ -181,13 +153,12 @@ const BookListRow =  GObject.registerClass({
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
     }
 }, class BookListRow extends Gtk.ListBoxRow {
-    _init(params, removeFunc) {
+    _init(params) {
         super._init(params)
-        this._removeFunc = removeFunc
         const { progress, metadata: { title, creator } } = this.book.value
         this._title.label = title || ''
         this._creator.label = creator || ''
-        if (progress) {
+        if (progress && progress[1]) {
             const fraction = (progress[0] + 1) / (progress[1] + 1)
             this._progressBar.fraction = fraction
             this._progressLabel.label = Math.round(fraction * 100) + '%'
@@ -219,7 +190,7 @@ const BookListRow =  GObject.registerClass({
         const res = msg.run()
         if (res === Gtk.ResponseType.ACCEPT) {
             const id = this.book.value.metadata.identifier
-            this._removeFunc(id)
+            bookList.remove(id)
             uriStore.delete(id)
             Gio.File.new_for_path(Storage.getPath('data', id)).delete(null)
             Gio.File.new_for_path(Storage.getPath('cache', id)).delete(null)
@@ -236,26 +207,8 @@ var BookListBox = GObject.registerClass({
         this.set_header_func((row) => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
-        this._list = new Gio.ListStore()
-        const removeFunc = id => {
-            const n = this._list.get_n_items()
-            for (let i = 0; i < n; i++) {
-                if (this._list.get_item(i).value.metadata.identifier === id) {
-                    this._list.remove(i)
-                    break
-                }
-            }
-        }
-        this.bind_model(this._list, book => new BookListRow({ book }, removeFunc))
-
-        const datadir = GLib.build_filenamev([GLib.get_user_data_dir(), pkg.name])
-        const books = listBooks(datadir)
-        Array.from(books)
-            .filter(x => x.metadata)
-            .sort((a, b) => b.modified - a.modified)
-            .forEach(x => {
-                this._list.append(new Obj(x))
-            })
+        this.bind_model(bookList.list, book => new BookListRow({ book }))
+        bookList.load()
 
         this.connect('row-activated', (box, row) => {
             const id = row.book.value.metadata.identifier

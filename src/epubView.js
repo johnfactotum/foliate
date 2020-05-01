@@ -16,7 +16,7 @@
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
 let Soup; try { Soup = imports.gi.Soup } catch (e) {}
 const { invertRotate } = imports.utils
-const { uriStore } = imports.uriStore
+const { uriStore, bookList } = imports.uriStore
 const { EpubCFI } = imports.epubcfi
 
 const {
@@ -130,6 +130,14 @@ const EpubViewData = GObject.registerClass({
         this._bookmarksList = new Gio.ListStore()
 
         this._loadData()
+        this._storage.connect('modified', () => {
+            bookList.update(identifier, {
+                identifier,
+                metadata: this._storage.get('metadata', {}),
+                progress: this._storage.get('progress', []),
+                modified: new Date()
+            })
+        })
         this._storage.connect('externally-modified', () => {
             this._loadData()
             this.emit('externally-modified')
