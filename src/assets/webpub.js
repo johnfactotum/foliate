@@ -302,6 +302,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
 
     const sectionLinkObjects = files.filter(file =>
             ['jpeg', 'png', 'gif', 'bmp', 'webp'].includes(file.type))
+        .sort((a, b) => a.name.localeCompare(b.name))
         .map(image => {
             const html = `
             <!doctype html>
