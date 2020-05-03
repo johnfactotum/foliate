@@ -81,32 +81,8 @@
       </object>
     </child>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="mainBox">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkStack" id="stack">
-            <property name="visible">True</property>
-            <property name="expand">True</property>
-            <child>
-              <object class="GtkSpinner">
-                <property name="visible">True</property>
-                <property name="active">True</property>
-              </object>
-              <packing>
-                <property name="name">loading</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="storeBox">
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="name">main</property>
-              </packing>
-            </child>
-          </object>
-        </child>
       </object>
     </child>
   </template>

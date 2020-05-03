@@ -292,31 +292,6 @@ var BookListBox = GObject.registerClass({
     }
 })
 
-const NavigationRow =  GObject.registerClass({
-    GTypeName: 'FoliateNavigationRow',
-    Template: 'resource:///com/github/johnfactotum/Foliate/ui/navigationRow.ui',
-    InternalChildren: ['title', 'content', 'count', 'select'],
-    Properties: {
-        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
-    }
-}, class NavigationRow extends Gtk.ListBoxRow {
-    _init(params) {
-        super._init(params)
-        const { title, content, links } = this.entry.value
-        this._title.label = title || ''
-        if (content) this._content.label = content
-        else this._content.hide()
-
-        const count = links[0].count
-        if (typeof count !== 'undefined') this._count.label = String(count)
-        else this._count.hide()
-
-        const activeFacet = links[0].activeFacet
-        if (activeFacet) this._select.show()
-    }
-})
-
 const htmlPath = pkg.pkgdatadir + '/assets/opds.html'
 class OpdsClient {
     constructor() {
@@ -416,7 +391,7 @@ const OpdsScrolledBox =  GObject.registerClass({
         super._init(params)
         const { max_entries, uri } = this
         const loadbox = new LoadBox({ visible: true }, () => {
-            const box = new OpdsBox({
+            const box = new OpdsAcquisitionBox({
                 visible: true,
                 max_entries, uri,
                 max_children_per_line: max_entries,
@@ -463,8 +438,8 @@ const LoadBox = GObject.registerClass({
     }
 })
 
-const OpdsBox = GObject.registerClass({
-    GTypeName: 'FoliateOpdsBox',
+const OpdsAcquisitionBox = GObject.registerClass({
+    GTypeName: 'FoliateOpdsAcquisitionBox',
     Properties: {
         'max-entries':
             GObject.ParamSpec.int('max-entries', 'max-entries', 'max-entries',
@@ -477,7 +452,7 @@ const OpdsBox = GObject.registerClass({
         'error': { flags: GObject.SignalFlags.RUN_FIRST },
         'image-draw': { flags: GObject.SignalFlags.RUN_FIRST }
     }
-}, class OpdsBox extends Gtk.FlowBox {
+}, class OpdsAcquisitionBox extends Gtk.FlowBox {
     _init(params, sort) {
         super._init(Object.assign({
             valign: Gtk.Align.START,
@@ -487,6 +462,7 @@ const OpdsBox = GObject.registerClass({
             activate_on_single_click: true,
             selection_mode: Gtk.SelectionMode.NONE
         }, params))
+        this.sort = sort
 
         this.connect('child-activated', (flowbox, child) => {
             const popover = new Gtk.Popover({
@@ -501,35 +477,198 @@ const OpdsBox = GObject.registerClass({
             popover.add(entryBox)
             popover.popup()
         })
-
-        const client = new OpdsClient()
+        if (this.uri) {
+            const client = new OpdsClient()
+            client.init()
+                .then(() => client.get(this.uri))
+                .then(({ entries }) => this.load(entries))
+                .catch(this.error.bind(this))
+                .finally(() => client.close())
+        }
+    }
+    async load(entries) {
+        this.emit('loaded')
         let loadCount = 0
-        client.init().then(() => client.get(this.uri)).then(feed => {
-            this.emit('loaded')
-            const list = new Gio.ListStore()
-            let entries = feed.entries
-            if (sort) entries = sort(entries.slice(0))
-            if (this.max_entries) entries = entries.slice(0, this.max_entries)
-            entries.forEach(entry => list.append(new Obj(entry)))
-            this.bind_model(list, entry => {
-                const child = new BookBoxChild({ entry })
-                const thumbnail = entry.value.links
-                    .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
-                child.image.connect('draw', () => this.emit('image-draw'))
-                child.image.connect('realize', () => {
-                    if (thumbnail)
-                        client.getImage(thumbnail.href)
-                            .then(pixbuf => child.loadCover(pixbuf))
-                            .finally(() => {
-                                loadCount++
-                                if (loadCount === entries.length) client.close()
-                            })
-                })
-                return child
+        const client = new OpdsClient()
+        await client.init()
+        const list = new Gio.ListStore()
+        if (this.sort) entries = this.sort(entries.slice(0))
+        if (this.max_entries) entries = entries.slice(0, this.max_entries)
+        entries.forEach(entry => list.append(new Obj(entry)))
+        this.bind_model(list, entry => {
+            const child = new BookBoxChild({ entry })
+            const thumbnail = entry.value.links
+                .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
+            child.image.connect('draw', () => this.emit('image-draw'))
+            child.image.connect('realize', () => {
+                if (thumbnail)
+                    client.getImage(thumbnail.href)
+                        .then(pixbuf => child.loadCover(pixbuf))
+                        .finally(() => {
+                            loadCount++
+                            if (loadCount === entries.length) client.close()
+                        })
             })
-        }).catch(() => {
-            this.emit('error')
+            return child
         })
+    }
+    error(e) {
+        logError(e)
+        this.emit('error')
+    }
+})
+
+const NavigationRow =  GObject.registerClass({
+    GTypeName: 'FoliateNavigationRow',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/navigationRow.ui',
+    InternalChildren: ['title', 'content', 'count', 'select'],
+    Properties: {
+        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
+    }
+}, class NavigationRow extends Gtk.ListBoxRow {
+    _init(params) {
+        super._init(params)
+        const { title, content, links } = this.entry.value
+        this._title.label = title || ''
+        if (content) this._content.label = content
+        else this._content.hide()
+
+        const count = links[0].count
+        if (typeof count !== 'undefined') this._count.label = String(count)
+        else this._count.hide()
+
+        const activeFacet = links[0].activeFacet
+        if (activeFacet) this._select.show()
+    }
+})
+
+const OpdsNavigationBox = GObject.registerClass({
+    GTypeName: 'FoliateOpdsNavigationBox',
+    Properties: {
+        uri: GObject.ParamSpec.string('uri', 'uri', 'uri',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, ''),
+        facet: GObject.ParamSpec.boolean('facet', 'facet', 'facet',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, false),
+    },
+    Signals: {
+        'loaded': { flags: GObject.SignalFlags.RUN_FIRST },
+        'error': { flags: GObject.SignalFlags.RUN_FIRST },
+        'link-activated': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_STRING, GObject.TYPE_STRING]
+        },
+    }
+}, class OpdsNavigationBox extends Gtk.ListBox {
+    _init(params) {
+        super._init(params)
+        this.get_style_context().add_class('frame')
+
+        this._map = new Map()
+
+        this.connect('row-activated', (listbox, row) => {
+            const entry = this._map.get(row).value
+            const { href, type } = entry.links[0]
+            this.emit('link-activated', href, type)
+        })
+
+        if (this.facet) {
+            let lastGroup
+            this.set_header_func(row => {
+                const index = row.get_index()
+                const entry = this._map.get(row).value
+                const group = entry.links[0].facetGroup
+                if (group && group !== lastGroup) {
+                    const box = new Gtk.Box({
+                        orientation: Gtk.Orientation.VERTICAL,
+                    })
+                    if (index) box.pack_start(new Gtk.Separator(), false, true, 0)
+                    const label = new Gtk.Label({
+                        label: `<b>${markupEscape(group)}</b>`,
+                        margin_top: index ? 18 : 6,
+                        margin_bottom: 6,
+                        margin_start: 6,
+                        margin_end: 6,
+                        use_markup: true,
+                        justify: Gtk.Justification.CENTER,
+                        ellipsize: Pango.EllipsizeMode.END,
+                    })
+                    label.get_style_context().add_class('dim-label')
+                    box.pack_start(label, false, true, 0)
+                    box.pack_start(new Gtk.Separator(), false, true, 0)
+                    box.show_all()
+                    row.set_header(box)
+                } else if (index) row.set_header(new Gtk.Separator())
+                lastGroup = group
+            })
+        } else this.set_header_func(row => {
+            if (row.get_index()) row.set_header(new Gtk.Separator())
+        })
+
+        if (this.uri) {
+            const client = new OpdsClient()
+            client.init()
+                .then(() => client.get(this.uri))
+                .then(({ entries }) => this.load(entries))
+                .catch(this.error.bind(this))
+                .finally(() => client.close())
+        }
+    }
+    load(entries) {
+        this.emit('loaded')
+        const list = new Gio.ListStore()
+        entries.forEach(entry => list.append(new Obj(entry)))
+        this.bind_model(list, entry => {
+            const row = new NavigationRow({ entry })
+            this._map.set(row, entry)
+            return row
+        })
+    }
+    error(e) {
+        logError(e)
+        this.emit('error')
+    }
+})
+
+const isAcquisitionFeed = feed => feed.entries && feed.entries.some(entry =>
+    entry.links && entry.links.some(({ rel }) =>
+        rel && rel.startsWith('http://opds-spec.org/acquisition')))
+
+const OpdsBox = GObject.registerClass({
+    GTypeName: 'FoliateOpdsBox',
+    Properties: {
+        uri: GObject.ParamSpec.string('uri', 'uri', 'uri',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, ''),
+    },
+    Signals: {
+        'loaded': { flags: GObject.SignalFlags.RUN_FIRST },
+        'error': { flags: GObject.SignalFlags.RUN_FIRST },
+    }
+}, class OpdsBox extends Gtk.Bin {
+    _init(params) {
+        super._init(params)
+        if (this.uri) {
+            const client = new OpdsClient()
+            client.init()
+                .then(() => client.get(this.uri))
+                .then(this.load.bind(this))
+                .catch(this.error.bind(this))
+                .finally(() => client.close())
+        }
+    }
+    load(feed) {
+        this.feed = feed
+        const isAcquisition = isAcquisitionFeed(feed)
+        const opdsbox = isAcquisition
+            ? new OpdsAcquisitionBox({ visible: true, margin: 18 })
+            : new OpdsNavigationBox({ visible: true, margin: 18 })
+        opdsbox.load(feed.entries)
+        this.add(opdsbox)
+        this.emit('loaded')
+    }
+    error(e) {
+        logError(e)
+        this.emit('error')
     }
 })
 
@@ -585,7 +724,7 @@ var LibraryWindow =  GObject.registerClass({
 var OpdsWindow =  GObject.registerClass({
     GTypeName: 'FoliateOpdsWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/opdsWindow.ui',
-    InternalChildren: ['stack', 'storeBox', 'backButton', 'homeButton'],
+    InternalChildren: ['mainBox', 'backButton', 'homeButton'],
 }, class OpdsWindow extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
@@ -650,213 +789,7 @@ var OpdsWindow =  GObject.registerClass({
     }
     async _loadOpds(uri) {
         this._uri = uri
-        this._stack.visible_child_name = 'loading'
         if (this._opdsWidget) this._opdsWidget.destroy()
-        const client = new OpdsClient()
-        await client.init()
-
-        const map = new Map()
-        let feed
-        try {
-            feed = await client.get(uri)
-        } catch (e) {
-            logError(e)
-            return
-        }
-        this._stack.visible_child_name = 'main'
-
-        if ('title' in feed) this.title = feed.title
-
-        const makePage = () => {
-            const flowbox = new Gtk.FlowBox({
-                visible: true,
-                max_children_per_line: 100,
-                valign: Gtk.Align.START,
-                row_spacing: 12,
-                column_spacing: 12,
-                border_width: 18,
-                activate_on_single_click: true,
-                selection_mode: Gtk.SelectionMode.NONE
-            })
-            flowbox.connect('child-activated', (flowbox, child) => {
-                const popover = new Gtk.Popover({
-                    relative_to: child.image,
-                    width_request: 320,
-                    height_request: 320
-                })
-                const entryBox = new OpdsEntryBox({
-                    visible: true,
-                    entry: child.entry,
-                })
-                popover.add(entryBox)
-                popover.popup()
-            })
-            const list = new Gio.ListStore()
-            flowbox.bind_model(list, entry => {
-                const child = new BookBoxChild({ entry })
-                map.set(entry.value.i, child)
-                return child
-            })
-            const load = feed => {
-                const entries = feed.entries
-                entries.forEach((entry, i) => {
-                    entry.i = i
-                    list.append(new Obj(entry))
-                    const thumbnail = entry.links
-                        .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
-                    if (thumbnail)
-                        client.getImage(thumbnail.href).then(pixbuf => {
-                            const child = map.get(i)
-                            if (child) child.loadCover(pixbuf)
-                        })
-                })
-            }
-            return { widget: flowbox, load }
-        }
-        const makeNavigation = facet => {
-            const box = new Gtk.Box({
-                visible: true,
-                orientation: Gtk.Orientation.VERTICAL,
-                halign: Gtk.Align.CENTER,
-                spacing: 6,
-                border_width: 18
-            })
-            const listbox = new Gtk.ListBox({
-                visible: true,
-                activate_on_single_click: true,
-                selection_mode: Gtk.SelectionMode.NONE
-            })
-            if (facet) {
-                let lastGroup
-                listbox.set_header_func(row => {
-                    const index = row.get_index()
-                    const entry = map.get(row).value
-                    const group = entry.links[0].facetGroup
-                    if (group && group !== lastGroup) {
-                        const box = new Gtk.Box({
-                            orientation: Gtk.Orientation.VERTICAL,
-                        })
-                        if (index) box.pack_start(new Gtk.Separator(), false, true, 0)
-                        const label = new Gtk.Label({
-                            label: `<b>${markupEscape(group)}</b>`,
-                            margin_top: index ? 18 : 6,
-                            margin_bottom: 6,
-                            margin_start: 6,
-                            margin_end: 6,
-                            use_markup: true,
-                            ellipsize: Pango.EllipsizeMode.END,
-                        })
-                        label.get_style_context().add_class('dim-label')
-                        box.pack_start(label, false, true, 0)
-                        box.pack_start(new Gtk.Separator(), false, true, 0)
-                        box.show_all()
-                        row.set_header(box)
-                    } else if (index) row.set_header(new Gtk.Separator())
-                    lastGroup = group
-                })
-            } else listbox.set_header_func(row => {
-                if (row.get_index()) row.set_header(new Gtk.Separator())
-            })
-            listbox.get_style_context().add_class('frame')
-
-            box.pack_start(listbox, false, true, 0)
-            box.pack_start(new Gtk.Label({
-                visible: true,
-                opacity: 0,
-                ellipsize: Pango.EllipsizeMode.END,
-                max_width_chars: 70,
-                label: '_______________________________________________________________________________________________________________________'
-            }), false, true, 0)
-
-            const list = new Gio.ListStore()
-            const map = new Map()
-            listbox.bind_model(list, entry => {
-                const row = new NavigationRow({ entry })
-                map.set(row, entry)
-                return row
-            })
-            listbox.connect('row-activated', (listbox, row) => {
-                const entry = map.get(row).value
-                const href = entry.links[0].href
-                this._pushHistory(uri)
-                this._loadOpds(href)
-            })
-
-            const load = facet
-                ? facets => {
-                    facets.forEach(facet => {
-                        list.append(new Obj({
-                            title: facet.title,
-                            links: [facet]
-                        }))
-                    })
-                }
-                : feed => {
-                    const entries = feed.entries
-                    entries.forEach(entry => {
-                        list.append(new Obj(entry))
-                    })
-                }
-            return { widget: box, load }
-        }
-        const makeEntryPage = () => {
-            const box = new Gtk.Box({ visible: true })
-            const load = entry => {
-                const infobox = new OpdsEntryBox({
-                    visible: true,
-                    entry: new Obj(entry)
-                })
-                if (Handy) {
-                    const column = new Handy.Column({
-                        visible: true,
-                        maximum_width: 600
-                    })
-                    column.add(infobox)
-                    box.pack_start(column, true, true, 0)
-                } else box.pack_start(infobox, true, true, 0)
-            }
-            return { widget: box, load }
-        }
-
-        const isAcquisitionLink = link => link && link.type
-            && link.type.includes('kind=acquisition')
-        // const isNavigationLink = link => link && link.type
-        //     && link.type.includes('kind=navigation')
-
-        let self = feed.links.find(({ rel }) => rel.includes('self'))
-
-        /*
-        Am I missing something? Why do a lot of feeds contain a self link that
-        specifies the wrong type?
-
-        What happend to this?
-        > "Links to Navigation Feeds must use the type attribute
-        > `application/atom+xml;profile=opds-catalog;kind=navigation`.
-
-        And this?
-        > Links to Acquisition Feeds must use the type attribute
-        > `application/atom+xml;profile=opds-catalog;kind=acquisition`.
-
-        Anyway, the following seems to be more reliable:
-
-        > A Navigation Feed must not contain OPDS Catalog Entries [...]
-
-        > "OPDS Catalog Entry Documents must contain at least one Acquisition
-        > Link, an atom:link element with a rel attribute that begins with
-        > http://opds-spec.org/acquisition."
-
-        Which, translated into code, is:                                      */
-        const isAcquisitionFeed = feed.entries && feed.entries.some(entry =>
-            entry.links && entry.links.some(({ rel }) =>
-                rel && rel.startsWith('http://opds-spec.org/acquisition')))
-
-        if (!self) self = { rel: 'self', href: uri }
-        self.type = 'application/atom+xml;profile=opds-catalog;'
-            + (isAcquisitionFeed ? 'kind=acquisition' : 'kind=navigation')
-        self.isEntry = feed.isEntry
-
-        const home = feed.links.find(({ rel }) => rel && rel.includes('start'))
-        if (home) this._home = home.href
 
         const nb = new Gtk.Notebook({
             visible: true,
@@ -864,13 +797,61 @@ var OpdsWindow =  GObject.registerClass({
             show_border: false
         })
         this._opdsWidget = nb
-        this._storeBox.pack_start(nb, true, true, 0)
+        this._mainBox.pack_start(nb, true, true, 0)
 
-        const hrefs = new Map()
-        const loadFuncs = new Map()
-        const isLoaded = new Map()
-        const tabs = [self].concat(feed.links.filter(link => {
-            return 'title' in link
+        const makePage = (uri, title, callback) => {
+            const label = new Gtk.Label({
+                visible: true,
+                ellipsize: Pango.EllipsizeMode.END,
+                label: title || _('Loading…'),
+                tooltip_text: title || null
+            })
+
+            const box = Handy
+                ? new Handy.Column({ visible: true,
+                    maximum_width: 2000, linear_growth_width: 2000 })
+                : new Gtk.Bin({ visible: true })
+
+            const loadbox = new LoadBox({ visible: true }, () => {
+                const widget = new OpdsBox({
+                    visible: true,
+                    valign: Gtk.Align.START,
+                    uri
+                })
+                widget.connect('loaded', () => {
+                    const feed = widget.feed
+                    if (!title) {
+                        const title = feed.title || ''
+                        label.label = title
+                        label.tooltip_text = title
+                    }
+                    callback(feed)
+
+                    const opdsbox = widget.get_child()
+                    if (opdsbox instanceof OpdsNavigationBox) {
+                        if (Handy) box.maximum_width = 700
+                        opdsbox.connect('link-activated', (_, href) => {
+                            this._pushHistory(uri)
+                            this._loadOpds(href)
+                        })
+                    }
+                })
+                widget.connect('error', () => {
+                    if (!title) label.label = _('Error')
+                })
+                return widget
+            })
+
+            box.add(loadbox, true, true, 0)
+            const scrolled = new Gtk.ScrolledWindow({ visible: true })
+            scrolled.add(box)
+            nb.append_page(scrolled, label)
+            nb.child_set_property(scrolled, 'tab-expand', true)
+        }
+        makePage(uri, null, feed => {
+            if (feed.title) this.title = feed.title
+            const tabs = [].concat(feed.links).filter(link => 'href' in link
+                && 'title' in link
                 && link.rel !== 'self'
                 && link.rel !== 'start'
                 && link.rel !== 'search'
@@ -880,53 +861,41 @@ var OpdsWindow =  GObject.registerClass({
                 && link.rel !== 'http://opds-spec.org/subscriptions'
                 && link.rel !== 'http://opds-spec.org/facet'
                 && link.rel !== 'http://opds-spec.org/next'
-                && link.rel !== 'http://opds-spec.org/crawlable'
-        }))
-        tabs.forEach(link => {
-            let { title, href } = link
-            if (!title) title = feed.title || ''
-            const { widget, load } = link.isEntry
-                ? makeEntryPage()
-                : isAcquisitionLink(link) ? makePage() : makeNavigation()
-            const scrolled = new Gtk.ScrolledWindow({ visible: true })
-            scrolled.add(widget)
-            const box = new Gtk.Box({ visible: true })
-            box.pack_start(scrolled, true, true, 0)
-            nb.append_page(box, new Gtk.Label({
-                visible: true,
-                ellipsize: Pango.EllipsizeMode.END,
-                label: title,
-                tooltip_text: title
-            }))
-            nb.child_set_property(box, 'tab-expand', true)
-            hrefs.set(box, href)
-            loadFuncs.set(box, load)
-            isLoaded.set(box, false)
-        })
-        const loadPage = widget => {
-            if (isLoaded.get(widget)) return
-            isLoaded.set(widget, true)
-            const href = hrefs.get(widget)
-            const load = loadFuncs.get(widget)
-            if (href === uri) load(feed)
-            else client.get(href)
-                .then(feed => load(feed))
-                .catch(e => logError(e))
-        }
-        nb.connect('switch-page', (_, page) => loadPage(page))
+                && link.rel !== 'http://opds-spec.org/crawlable')
 
-        const facets = feed.links.filter(({ rel }) => rel === 'http://opds-spec.org/facet')
-        if (facets.length) {
-            const { widget, load } = makeNavigation(true)
-            const scrolled = new Gtk.ScrolledWindow({ visible: true })
-            scrolled.add(widget)
-            const box = new Gtk.Box({ visible: true })
-            box.pack_start(scrolled, true, true, 0)
-            nb.insert_page(box, new Gtk.Label({ visible: true, label: 'Filter' }), 0)
-            isLoaded.set(box, true)
-            load(facets)
-            loadPage(nb.get_nth_page(1))
-        } else loadPage(nb.get_nth_page(0))
-        nb.show_tabs = tabs.length + facets.length > 1
+            tabs.forEach(({ title, href }) => {
+                makePage(href, title)
+            })
+
+            const facets = feed.links.filter(({ rel }) => rel === 'http://opds-spec.org/facet')
+            if (facets.length) {
+                const opdsbox = new OpdsNavigationBox({
+                    visible: true,
+                    facet: true,
+                    margin: 18,
+                    valign: Gtk.Align.START
+                })
+                opdsbox.load(facets.map(facet => ({
+                    title: facet.title,
+                    links: [facet]
+                })))
+                opdsbox.connect('link-activated', (_, href) => {
+                    this._pushHistory(uri)
+                    this._loadOpds(href)
+                })
+
+                const label = new Gtk.Label({
+                    visible: true,
+                    label: _('Filter'),
+                })
+                const box = Handy
+                    ? new Handy.Column({ visible: true, maximum_width: 700 })
+                    : new Gtk.Bin({ visible: true })
+                box.add(opdsbox, true, true, 0)
+                const scrolled = new Gtk.ScrolledWindow({ visible: true })
+                scrolled.add(box)
+                nb.insert_page(scrolled, label, 0)
+            }
+        })
     }
 })
