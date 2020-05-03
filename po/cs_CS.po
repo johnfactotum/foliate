@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 15:05+0800\n"
-"PO-Revision-Date: 2020-04-07 21:11+0200\n"
+"PO-Revision-Date: 2020-05-02 23:12+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -328,11 +328,11 @@ msgstr "Přiblížit"
 
 #: src/ui/imageViewer.ui:175 src/ui/shortcutsWindow.ui:299
 msgid "Rotate 90° counter-clockwise"
-msgstr ""
+msgstr "Otočit o 90° vlevo"
 
 #: src/ui/imageViewer.ui:188 src/ui/shortcutsWindow.ui:306
 msgid "Rotate 90° clockwise"
-msgstr ""
+msgstr "Otočit o 90° vpravo"
 
 #: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:147
 msgid "Brightness"
@@ -353,11 +353,11 @@ msgstr "Okraje"
 
 #: src/ui/mainMenu.ui:231
 msgid "Width"
-msgstr ""
+msgstr "Šířka"
 
 #: src/ui/mainMenu.ui:232 data/com.github.johnfactotum.Foliate.gschema.xml:108
 msgid "Maximum page width"
-msgstr ""
+msgstr "Největší šířka strany"
 
 #: src/ui/mainMenu.ui:266 src/ui/mainMenu.ui:336
 msgid "Theme"
@@ -481,9 +481,8 @@ msgid "Open File…"
 msgstr "Otevřít soubor..."
 
 #: src/ui/mainOverlay.ui:86
-#, fuzzy
 msgid "Recent Files"
-msgstr "Otevřít soubor"
+msgstr "Nedávné soubory"
 
 #: src/ui/mainOverlay.ui:127
 msgid "Something's wrong"
@@ -619,7 +618,7 @@ msgstr "Čtení"
 #: src/ui/preferenceWindow.ui:163
 #: data/com.github.johnfactotum.Foliate.gschema.xml:74
 msgid "Turn page on tap"
-msgstr ""
+msgstr "Obrátit stranu při ťuknutí"
 
 #: src/ui/preferenceWindow.ui:186
 #: data/com.github.johnfactotum.Foliate.gschema.xml:64
@@ -682,9 +681,8 @@ msgid "Speak from Here"
 msgstr "Mluvit odtud"
 
 #: src/ui/shortcutsWindow.ui:9
-#, fuzzy
 msgid "E-book Viewer Shortcuts"
-msgstr "Klávesové zkratky"
+msgstr "Klávesové zkratky čtečky knih"
 
 #: src/ui/shortcutsWindow.ui:13
 msgid "File"
@@ -727,14 +725,12 @@ msgid "Show contents"
 msgstr "Ukázat obsah"
 
 #: src/ui/shortcutsWindow.ui:130
-#, fuzzy
 msgid "Show table of contents"
-msgstr "Obsah"
+msgstr "Ukázat obsah"
 
 #: src/ui/shortcutsWindow.ui:137
-#, fuzzy
 msgid "Show annotations"
-msgstr "Žádné vysvětlivky"
+msgstr "Ukázat vysvětlivky"
 
 #: src/ui/shortcutsWindow.ui:144
 msgid "Show bookmarks"
@@ -757,9 +753,8 @@ msgid "Touchpad Gestures"
 msgstr "Gesta pro dotykovou plochu"
 
 #: src/ui/shortcutsWindow.ui:234
-#, fuzzy
 msgid "Image Viewer Shortcuts"
-msgstr "Klávesové zkratky"
+msgstr "Klávesové zkratky prohlížeče obrázků"
 
 #: src/ui/themeRow.ui:26
 msgid "Edit"
@@ -1264,12 +1259,12 @@ msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Fixed wrong version number"
-msgstr ""
+msgstr "Opraveno nesprávné číslo verze"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:50
 msgid ""
 "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
-msgstr ""
+msgstr "Opraven slovník, překlad a Wikipedie nepracující v balíčku Snap"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
@@ -1279,20 +1274,19 @@ msgstr "Nové vlastnosti:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
 msgid "New and improved icon"
-msgstr ""
+msgstr "Nová a lepší ikona"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
-#, fuzzy
 msgid "Option to disable turn page on tap"
-msgstr "Volba pro zakázání slovníku"
+msgstr "Volba pro zakázání obrácení strany při ťuknutí"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid "A menu on the welcome screen for opening recent files"
-msgstr ""
+msgstr "Nabídka na uvítací obrazovce pro otevření nedávných souborů"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
-msgstr ""
+msgstr "Obnoveny zkratky pro ukázání obsahu, vysvětlivek a záložek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:239
@@ -1301,12 +1295,11 @@ msgstr "Opravy:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Fixed application not translated"
-msgstr ""
+msgstr "Opraven program, nepřeloženo"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
-#, fuzzy
 msgid "Interface:"
-msgstr "Rozhraní"
+msgstr "Rozhraní:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
 msgid "A redesigned interface that works better for smaller screens"
@@ -1333,6 +1326,8 @@ msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
 msgstr ""
+"Nový vysunovací panel s polohami (Ctrl+L), který ukáže odhad pro dobu čtení a "
+"umožní přeskočit na umístění"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
 msgid ""
@@ -1366,9 +1361,8 @@ msgid ""
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
-#, fuzzy
 msgid "Reading:"
-msgstr "Čtení"
+msgstr "Čtení:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
 msgid "Continuous scrolling layout"
@@ -1381,7 +1375,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
 msgid "Ability to zoom in and zoom out"
-msgstr ""
+msgstr "Schopnost přibližovat a oddalovat"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
 msgid "Improved image viewer with \"save as\" option"
@@ -1389,54 +1383,51 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
 msgid "Open copies of a book in new windows (Ctrl + N)"
-msgstr ""
+msgstr "Otevřít kopie knihy v nových oknech (Ctrl + N)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
 msgid "Reload book (Ctrl + R)"
-msgstr ""
+msgstr "Nahrát knihu znovu  (Ctrl + R)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
-msgstr ""
+msgstr "Nová vestavěná témata: šedé, osluněné, Gruvbox, Nord"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
 msgid "Text selection:"
-msgstr ""
+msgstr "Výběr textu:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:97
 msgid "Ability to select text across pages"
-msgstr ""
+msgstr "Schopnost vybrat text přes stránky"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
-#, fuzzy
 msgid "Find selected text in book"
-msgstr "Najít v knize"
+msgstr "Najít vybraný text v knize"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Speak selected text or from the selected locatio"
-msgstr ""
+msgstr "Říct vybraný text nebo od vybrané polohy"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
-#, fuzzy
 msgid "Annotations:"
-msgstr "Vysvětlivky"
+msgstr "Vysvětlivky:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:103
 msgid "Spellcheck notes"
-msgstr ""
+msgstr "Zkontrolovat pravopis poznámek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
-#, fuzzy
 msgid "Export annotations to Markdown"
-msgstr "Vyvést vysvětlivky"
+msgstr "Vyvést vysvětlivky do Markdown"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:105
 msgid "Options to use custom colors for highlights"
-msgstr ""
+msgstr "Volbyk použití vlastních barev pro zvýraznění"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:107
 msgid "For publishers and developers:"
-msgstr ""
+msgstr "Pro vydavatele a vývojáře:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
 msgid ""
@@ -1450,24 +1441,23 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
 msgid "Breaking changes:"
-msgstr ""
+msgstr "Kritické změny:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:114
 msgid "The settings schemas has been reorganized"
-msgstr ""
+msgstr "Schéma nastavení bylo změněno"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
 msgid "The format for custom themes has changed"
-msgstr ""
+msgstr "Formát pro vlastní vzhled byl změněn"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
 msgid "Locations are now 1024 characters in size"
-msgstr ""
+msgstr "Umístění nyní mají velikost 1024 znaků"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:118
-#, fuzzy
 msgid "Bug fixes:"
-msgstr "Opravy:"
+msgstr "Opravy chyb:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
 msgid "Fixed not restoring exact last location"
@@ -1545,19 +1535,19 @@ msgstr "Základní podpora pro text na řeč"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr ""
+msgstr "Vyvést vysvětlivky do HTML, prostého textu nebo JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:162
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
-msgstr ""
+msgstr "Podpora pro zobrazení souborů .mobi, .azw, a .azw3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
 msgid "New alternative sidebar UI"
-msgstr "Nové rozhraní jiného postranního pruhu"
+msgstr "Nové další rozhraní postranního pruhu"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
 msgid "Lookup words in Wikipedia and offline dictionaries"
-msgstr ""
+msgstr "Vyhledat slova ve Wikipedii a ve slovnících mimo internet"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
 msgid "Translate passages with Google Translate"
@@ -1565,15 +1555,15 @@ msgstr "Překlad pasáží pomocí Google Translate"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
 msgid "Configure default action when words are selected"
-msgstr ""
+msgstr "Nastavit výchozí činnost, kdy jsou vybrána slova"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:173
 msgid "Experimental popup footnote support"
-msgstr ""
+msgstr "Pokusná podpora pro vysunovací poznámky pod čarou"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:174
 msgid "Ability to find within only the current chapter"
-msgstr ""
+msgstr "Schopnost hledat jen v nynější kapitole"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
 msgid "Fixed CPU spikes when left open"
@@ -1589,23 +1579,23 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
 msgid "Customize page margins and brightness"
-msgstr ""
+msgstr "Přizpůsobit okraje stran a jas"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
 msgid "Tweak the theme colors, or add your own custom themes"
-msgstr ""
+msgstr "Ladit barvy vzhledu nebo přidat své vlastní vzhledy"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:193
 msgid "Ability to zoom and copy images"
-msgstr ""
+msgstr "Schopnost zvětšovat a kopírovat obrázky"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:194
 msgid "Option to auto-hide cursor"
-msgstr ""
+msgstr "Volba automatického skrývání ukazatele"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:195
 msgid "See reading time left by hovering over the reading progress slider"
-msgstr ""
+msgstr "Vidět zbývající dobu čtení po přejetí nad posuvníkem s postupem čtení"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
 msgid "Fixed some books not rendering sometimes"
@@ -1617,7 +1607,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:212
 msgid "Option to switch between left and full justification"
-msgstr ""
+msgstr "Volba pro přepnutí mezi levým a zarovnáním do bloku"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
 msgid "New layout option: single-column paginated view"
@@ -1635,7 +1625,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:224
 msgid "Allow font size adjustment when using publisher fonts"
-msgstr ""
+msgstr "Povolit přizpůsobení velikosti písma při používání písma vydavatele"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:225
 msgid ""
@@ -1645,7 +1635,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:233
 msgid "Touchpad gestures and ability to scroll through pages"
-msgstr ""
+msgstr "Gesta pro dotykovou plochu a schopnost posunu skrze strany"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
 msgid "Fullscreen mode"
@@ -1681,78 +1671,73 @@ msgstr "Počáteční vydání"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:14
 msgid "Restore last file opened"
-msgstr ""
+msgstr "Obnovit naposledy otevřený soubor"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:15
 msgid "Whether to automatically restore the last file"
-msgstr ""
+msgstr "Zda automaticky obnovit poslední soubor"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:19
-#, fuzzy
 msgid "Default highlight color"
-msgstr "Změnit barvu zvýraznění"
+msgstr "Výchozí barva zvýraznění"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:20
 msgid "Default highlight color for annotations"
-msgstr ""
+msgstr "Výchozí barva zvýraznění pro vysvětlivky"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:24
-#, fuzzy
 msgid "Dictionary"
-msgstr "Vyhledat ve slovníku"
+msgstr "Slovník"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:25
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd, if any, are "
 "available with the \"dcitd_\" prefix added to the database ID"
 msgstr ""
+"Identifikátor výchozího slovníku. Slovníky z dictd, jsou-li jaké, jsou "
+"dostupné s předponou \"dcitd_\" přidanou k ID databáze"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
-#, fuzzy
 msgid "Target language of translation"
-msgstr "Aktualizovány překlady"
+msgstr "Cílový jazyk překladu"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:30
-#, fuzzy
 msgid "Target language for translations"
-msgstr "Aktualizovány překlady"
+msgstr "Cílový jazyk pro překlady"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
 msgid "Default action when selecting a word"
-msgstr ""
+msgstr "Výchozí činnost při vybrání slova"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:35
 msgid "Default action to perform when selecting a single word"
-msgstr ""
+msgstr "Výchozí činnost k provedení při vybrání jednoho slova"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Default action when selecting multiple words"
-msgstr ""
+msgstr "Výchozí činnost při vybrání více slov"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:40
 msgid "Default action to perform when selecting multiple words"
-msgstr ""
+msgstr "Výchozí činnost k provedení při vybrání více slov"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:45
-#, fuzzy
 msgid "Command to execute for text-to-speech"
-msgstr "Spustit/Zastavit text na řeč"
+msgstr "Příkaz pro vykonání převodu textu na řeč"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:50
 msgid "If true, a side pane will be used instead of popovers"
-msgstr ""
+msgstr "Je-li zapnuto, bude namísto vysunovacích použit postranní panel"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
-#, fuzzy
 msgid "Use menubar"
-msgstr "Použít postranní pruh"
+msgstr "Použít nabídkový pruh"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:55
 msgid "If true, use traditional titlebars and menubars"
-msgstr ""
+msgstr "Je-li zapnuto, používat obyčejné titulkové pruhy a nabídky"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:59
-#, fuzzy
 msgid "Auto-hide headerbar"
 msgstr "Automaticky skrývat pruh se záhlavím"
 
@@ -1761,14 +1746,16 @@ msgid ""
 "Whether to hide the headerbar automatically (this is setting has no effect "
 "if skeuomorphism or sidebar is enabled)"
 msgstr ""
+"Zda skrýt záhlaví automaticky (toto nastavení neúčinkuje, kdy se jedná "
+"o napodobení vzhledu skutečné knihy nebo je povolen postranní panel)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:65
 msgid "Information to be displayed on the left footer"
-msgstr ""
+msgstr "Informace k zobrazení v levé patičce strany"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:70
 msgid "Information to be displayed on the right footer"
-msgstr ""
+msgstr "Informace k zobrazení v pravé patičce strany"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:75
 msgid ""
@@ -1776,90 +1763,85 @@ msgid ""
 "right part of the view; tap on the middle to toggle header bar and progress "
 "bar"
 msgstr ""
+"Je-li zapnuto, můžete jít na předchozí nebo na další stranu ťuknutím "
+"do levé nebo pravé části zobrazeného; ťukněte doprostřed pro přepnutí "
+"záhlaví a ukazatele postupu"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:82
 msgid "Prefer dark GTK theme"
-msgstr ""
+msgstr "Dávat přednost tmavému vzhledu GTK"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:83
 msgid "If true, the dark variant of a GTK theme, if available, will be used"
 msgstr ""
+"Je-li zapnuto, bude se používat, je-li dostupná, tmavá podoba vzhledu (GTK)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:87
 #: data/com.github.johnfactotum.Foliate.gschema.xml:88
-#, fuzzy
 msgid "Zoom level"
-msgstr "Obnovit úroveň zvětšení"
+msgstr "Úroveň zvětšení"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:98
-#, fuzzy
 msgid "Line-height"
-msgstr "Světlý"
+msgstr "Výška řádku"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:102
-#, fuzzy
 msgid "Margin"
-msgstr "Okraje"
+msgstr "Okraj"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:103
 msgid "Page margin in percentage"
-msgstr ""
+msgstr "Okraj strany v procentech"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:107
 msgid "Max width"
-msgstr ""
+msgstr "Největší šířka"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:112
-#, fuzzy
 msgid "Use publisher font"
 msgstr "Použít písmo vydavatele"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:113
 msgid "If true, custom font is disabled"
-msgstr ""
+msgstr "Je-li zapnuto, vlastní písmo je zakázáno"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:117
 msgid "Justify text"
-msgstr ""
+msgstr "Zarovnat text"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:118
 msgid "If true, text will be justified"
-msgstr ""
+msgstr "Je-li zapnuto, soubor bude zarovnán"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:122
-#, fuzzy
 msgid "Hyphenation"
-msgstr "Automatické dělení slov"
+msgstr "Dělení slov"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:123
 msgid "If true, auto-hyphenation is enabled"
-msgstr ""
+msgstr "Je-li zapnuto, je povoleno automatické dělení slov"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:127
 msgid "Foreground color"
-msgstr ""
+msgstr "Barva popředí"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:128
-#, fuzzy
 msgid "Text color"
 msgstr "Barva textu"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:132
 #: data/com.github.johnfactotum.Foliate.gschema.xml:133
-#, fuzzy
 msgid "Background color"
-msgstr "Pozadí"
+msgstr "Barva pozadí"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:137
 #: data/com.github.johnfactotum.Foliate.gschema.xml:138
-#, fuzzy
 msgid "Link color"
 msgstr "Barva odkazu"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:143
-#, fuzzy
 msgid "Invert page"
-msgstr "Obrácený"
+msgstr "Obrátit barvu strany"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:148
 msgid ""
@@ -1867,18 +1849,19 @@ msgid ""
 "of 0 will make the page completely black, while a value of 1 leaves the "
 "brightness unchanged"
 msgstr ""
+"Hodnota pod 1 stranu ztmaví, zatímco hodnota nad 1 ji rozjasní. Hodnota "
+"0 způsobí úplné zčernání strany, zatímco hodnota 1 ponechá jas beze změny"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:152
-#, fuzzy
 msgid "Footnote preview"
 msgstr "Náhled poznámky pod čarou"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:153
 msgid "If true, will attempt to display footnotes in a popover"
 msgstr ""
+"Je-li zapnuto, poznámky pod čarou budou, půjde-li to, zobrazeny vysouvací"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:157
-#, fuzzy
 msgid "Allow unsafe content"
 msgstr "Povolit nezabezpečený obsah"
 
@@ -1887,89 +1870,90 @@ msgid ""
 "If true, Content Security Policy is disabled, which will allow JavaScript "
 "and external resources to load"
 msgstr ""
+"Je-li zapnuto, bezpečnostní politika pro obsah je zakázána, což umožní"
+" nahrání "
+"JavaScriptu a vnějších zdrojů"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:162
-#, fuzzy
 msgid "Enable developer tools"
 msgstr "Povolit vývojářské nástroje"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:163
 msgid "If true, developer tools are enabled"
-msgstr ""
+msgstr "Je-li zapnuto, jsou povoleny vývojářské nástroje"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:168
 msgid "Page layout"
-msgstr ""
+msgstr "Rozvržení strany"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:172
 msgid "Skeuomorphism"
-msgstr ""
+msgstr "Napodobení skutečné knihy"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:173
 msgid ""
 "If true, the book is decoratively presented in a way that resembles physical "
 "books"
 msgstr ""
+"Je-li pravdivé, kniha je ozdobně znázorněna způsobem připomínajícím hmotné"
+" knihy"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:177
-#, fuzzy
 msgid "Auto-hide cursor"
 msgstr "Automaticky skrývat ukazatel"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:178
 msgid "Whether to hide the cursor automatically"
-msgstr ""
+msgstr "Zda automaticky skrýt ukazatel"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:185
 msgid "Window width"
-msgstr ""
+msgstr "Šířka okna"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:186
 msgid "Width of the window"
-msgstr ""
+msgstr "Šířka okna"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:190
 msgid "Window height"
-msgstr ""
+msgstr "Výška okna"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:191
 msgid "Height of the window"
-msgstr ""
+msgstr "Výška okna"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:195
 msgid "Maximized"
-msgstr ""
+msgstr "Zvětšeno"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:196
 msgid "Whether the window is maximized"
-msgstr ""
+msgstr "Zda je okno zvětšeno"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:201
-#, fuzzy
 msgid "Whether the window is fullscreen"
-msgstr "Přepnout na celou obrazovku"
+msgstr "Zda je okno na celou obrazovku"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:205
 #: data/com.github.johnfactotum.Foliate.gschema.xml:206
 msgid "Last file opened"
-msgstr ""
+msgstr "Naposledy otevřený soubor"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:210
-#, fuzzy
 msgid "Show sidebar"
-msgstr "Použít postranní pruh"
+msgstr "Ukázat postranní pruh"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:211
 msgid "Whether the sidebar is shown"
-msgstr ""
+msgstr "Zda je ukázán postranní pruh"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:215
 msgid "Sidebar size"
-msgstr ""
+msgstr "Velikost postranního pruhu"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:216
 msgid "Sidebar width"
-msgstr ""
+msgstr "Šířka postranního pruhu"
 
 #~ msgid "Wiktionary (English)"
 #~ msgstr "Wiktionary (angličtina)"
