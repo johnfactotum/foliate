@@ -803,7 +803,10 @@ var Window = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT)
         this.insert_action_group('view', this._epub.actionGroup)
         this._connectEpub()
-        this.connect('destroy', () => this._epub.close())
+        this.connect('destroy', () => {
+            this._epub.close()
+            tts.stop()
+        })
 
         this._fullscreenOverlay = new FullscreenOverlay({ visible: true })
         this.add(this._fullscreenOverlay)
