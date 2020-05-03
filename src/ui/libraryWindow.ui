@@ -129,58 +129,10 @@
                 <property name="visible">True</property>
                 <property name="expand">True</property>
                 <child>
-                  <object class="HdyColumn">
+                  <object class="HdyColumn" id="catalogColumn">
                     <property name="visible">True</property>
                     <property name="maximum-width">900</property>
                     <property name="linear-growth-width">900</property>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">12</property>
-                        <property name="margin-start">12</property>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="label">Standard Ebooks</property>
-                            <property name="wrap">True</property>
-                            <property name="xalign">0</property>
-                            <property name="margin-top">12</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                              <attribute name="scale" value="1.18"/>
-                            </attributes>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="FoliateOpdsScrolledBox">
-                            <property name="hexpand">True</property>
-                            <property name="max-entries">5</property>
-                            <property name="uri">https://standardebooks.org/opds/all</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="label">Feedbooks</property>
-                            <property name="wrap">True</property>
-                            <property name="xalign">0</property>
-                            <property name="margin-top">12</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                              <attribute name="scale" value="1.18"/>
-                            </attributes>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="FoliateOpdsScrolledBox">
-                            <property name="hexpand">True</property>
-                            <property name="max-entries">5</property>
-                            <property name="uri">https://catalog.feedbooks.com/publicdomain/browse/en/homepage_selection.atom</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
                   </object>
                 </child>
               </object>

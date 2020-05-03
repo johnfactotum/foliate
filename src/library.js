@@ -14,7 +14,7 @@
  */
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango } = imports.gi
-const { Storage, Obj, base64ToPixbuf, markupEscape, debug } = imports.utils
+const { debug, Storage, Obj, base64ToPixbuf, markupEscape, shuffle } = imports.utils
 const { PropertiesBox } = imports.properties
 const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
@@ -46,6 +46,9 @@ const BookBoxChild =  GObject.registerClass({
         } else this._image.set_from_pixbuf(pixbuf)
         this._image.get_style_context().add_class('foliate-book-image')
         this.width_request = width
+    }
+    get image() {
+        return this._image
     }
 })
 
@@ -409,50 +412,73 @@ const OpdsScrolledBox =  GObject.registerClass({
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, ''),
     }
 }, class OpdsScrolledBox extends Gtk.ScrolledWindow {
-    _init(params) {
+    _init(params, sort) {
         super._init(params)
         const { max_entries, uri } = this
-        const box = new OpdsBox({ max_entries, uri, visible: true })
-        box.max_children_per_line = max_entries
-        box.min_children_per_line = max_entries
+        const loadbox = new LoadBox({ visible: true }, () => {
+            const box = new OpdsBox({
+                visible: true,
+                max_entries, uri,
+                max_children_per_line: max_entries,
+                min_children_per_line: max_entries,
+            }, sort)
+            box.connect('image-draw', () => {
+                this.min_content_height = box.get_allocation().height
+            })
+            return box
+        })
         this.propagate_natural_height = true
-        this.add(box)
-        box.connect('size-allocate', () => {
-            this.min_content_height = box.get_allocation().height
-        })
-        box.connect('loaded', () => {
-            this.show()
-        })
+        this.add(loadbox)
     }
 })
 
-// https://stackoverflow.com/questions/11935175/
-const sample = (arr, size) => {
-    const shuffled = arr.slice(0)
-    let i = arr.length, temp, index
-    while (i--) {
-        index = Math.floor((i + 1) * Math.random())
-        temp = shuffled[index]
-        shuffled[index] = shuffled[i]
-        shuffled[i] = temp
+const LoadBox = GObject.registerClass({
+    GTypeName: 'FoliateLoadBox'
+}, class LoadBox extends Gtk.Stack {
+    _init(params, load) {
+        super._init(params)
+        const spinner = new Gtk.Spinner({
+            visible: true,
+            active: true
+        })
+        this.add_named(spinner, 'loading')
+        const error = new Gtk.Label({
+            visible: true,
+            label: _('Unable to load OPDS feed')
+        })
+        this.add_named(error, 'error')
+        let loaded
+        this.connect('realize', () => {
+            if (loaded) return
+            const widget = load()
+            this.add_named(widget, 'loaded')
+            widget.connect('loaded', () => {
+                this.visible_child_name = 'loaded'
+            })
+            widget.connect('error', () => {
+                this.visible_child_name = 'error'
+            })
+            loaded = true
+        })
     }
-    return shuffled.slice(0, size)
-}
+})
 
 const OpdsBox = GObject.registerClass({
     GTypeName: 'FoliateOpdsBox',
     Properties: {
         'max-entries':
             GObject.ParamSpec.int('max-entries', 'max-entries', 'max-entries',
-                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 1, 2147483647, 2147483647),
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 2147483647, 0),
         uri: GObject.ParamSpec.string('uri', 'uri', 'uri',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, ''),
     },
     Signals: {
-        'loaded': { flags: GObject.SignalFlags.RUN_FIRST }
+        'loaded': { flags: GObject.SignalFlags.RUN_FIRST },
+        'error': { flags: GObject.SignalFlags.RUN_FIRST },
+        'image-draw': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class OpdsBox extends Gtk.FlowBox {
-    _init(params) {
+    _init(params, sort) {
         super._init(Object.assign({
             valign: Gtk.Align.START,
             row_spacing: 12,
@@ -464,7 +490,7 @@ const OpdsBox = GObject.registerClass({
 
         this.connect('child-activated', (flowbox, child) => {
             const popover = new Gtk.Popover({
-                relative_to: child,
+                relative_to: child.image,
                 width_request: 320,
                 height_request: 320
             })
@@ -479,25 +505,30 @@ const OpdsBox = GObject.registerClass({
         const client = new OpdsClient()
         let loadCount = 0
         client.init().then(() => client.get(this.uri)).then(feed => {
+            this.emit('loaded')
             const list = new Gio.ListStore()
-            const entries = sample(feed.entries, this.max_entries)
+            let entries = feed.entries
+            if (sort) entries = sort(entries.slice(0))
+            if (this.max_entries) entries = entries.slice(0, this.max_entries)
             entries.forEach(entry => list.append(new Obj(entry)))
             this.bind_model(list, entry => {
                 const child = new BookBoxChild({ entry })
                 const thumbnail = entry.value.links
                     .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
-                if (thumbnail)
-                    client.getImage(thumbnail.href)
-                        .then(pixbuf => child.loadCover(pixbuf))
-                        .finally(() => {
-                            loadCount++
-                            if (loadCount === entries.length) {
-                                client.close()
-                                this.emit('loaded')
-                            }
-                        })
+                child.image.connect('draw', () => this.emit('image-draw'))
+                child.image.connect('realize', () => {
+                    if (thumbnail)
+                        client.getImage(thumbnail.href)
+                            .then(pixbuf => child.loadCover(pixbuf))
+                            .finally(() => {
+                                loadCount++
+                                if (loadCount === entries.length) client.close()
+                            })
+                })
                 return child
             })
+        }).catch(() => {
+            this.emit('error')
         })
     }
 })
@@ -506,13 +537,44 @@ var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
     InternalChildren: [
-        'stack', 'storeBox', 'startButtonStack'
+        'stack', 'catalogColumn', 'startButtonStack'
     ],
 }, class LibraryWindow extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
         this.show_menubar = false
         this.title = _('Foliate')
+
+        const box = new Gtk.Box({
+            visible: true,
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 12,
+            margin: 12
+        })
+        ;[
+            {
+                title: 'Standard Ebooks',
+                uri: 'https://standardebooks.org/opds/all'
+            },
+            {
+                title: 'Feedbooks',
+                uri: 'https://catalog.feedbooks.com/publicdomain/browse/en/homepage_selection.atom'
+            }
+        ].forEach(({ title, uri }) => {
+            const x = new OpdsScrolledBox({
+                visible: true,
+                max_entries: 5,
+                uri
+            }, shuffle)
+            box.pack_start(new Gtk.Label({
+                visible: true,
+                xalign: 0,
+                wrap: true,
+                label: title
+            }), false, true, 0)
+            box.pack_start(x, false, true, 0)
+        })
+        this._catalogColumn.add(box)
     }
     open(file) {
         new Window({ application: this.application, file}).present()
@@ -618,7 +680,7 @@ var OpdsWindow =  GObject.registerClass({
             })
             flowbox.connect('child-activated', (flowbox, child) => {
                 const popover = new Gtk.Popover({
-                    relative_to: child,
+                    relative_to: child.image,
                     width_request: 320,
                     height_request: 320
                 })
