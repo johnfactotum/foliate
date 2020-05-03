@@ -36,14 +36,13 @@ const PropertyBox = GObject.registerClass({
     }
 })
 
-var PropertiesWindow = GObject.registerClass({
-    GTypeName: 'FoliatePropertiesWindow',
-    Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertiesWindow.ui',
+var PropertiesBox = GObject.registerClass({
+    GTypeName: 'FoliatePropertiesBox',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertiesBox.ui',
     InternalChildren: [
         'cover', 'title', 'creator', 'description', 'propertiesBox',
-        'stack'
     ]
-}, class PropertiesWindow extends Gtk.Dialog {
+}, class PropertiesBox extends Gtk.Stack {
     _init(params, metadata, cover) {
         super._init(params)
         if (cover) {
@@ -91,6 +90,6 @@ var PropertiesWindow = GObject.registerClass({
         }), false, true, 0)
         if (!(title || creator || description ||
             publisher || pubdate || modified_date || language || identifier || rights))
-            this._stack.visible_child_name = 'nothing'
+            this.visible_child_name = 'nothing'
     }
 })

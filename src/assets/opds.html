@@ -25,7 +25,9 @@ let baseURI
 
 const OPDS_NS = 'http://opds-spec.org/2010/catalog'
 const THR_NS = 'http://purl.org/syndication/thread/1.0'
-const DC_NS = 'http://purl.org/dc/terms/'
+const DC_ELS_NS = 'http://purl.org/dc/elements/1.1/'
+const DC_TERMS_NS = 'http://purl.org/dc/terms/'
+const DC_NS = [DC_TERMS_NS, DC_ELS_NS]
 
 const trim = x => x ? x.trim() : x
 
@@ -53,6 +55,7 @@ const entry = {
     fields: {
         id: {},
         title: { transform: trim },
+        published: {},
         updated: {},
         summary: { transform: trim },
         links: link,
@@ -62,8 +65,10 @@ const entry = {
             array: true,
             attrs: { term: {}, label: {}, scheme: {} }
         },
+        identifier: { ns: DC_NS },
         publisher: { ns: DC_NS },
         language: { ns: DC_NS },
+        issued: { ns: DC_TERMS_NS },
         content: { transform: trim },
     }
 }
@@ -102,8 +107,21 @@ const parse = (el, schema) => {
     fieldList.forEach(key => {
         const field = fields[key]
         const tagName = field.tag || key
-        const tags = Array.from(el.children)
+
+        let tags = []
+        if (!field.ns) tags = Array.from(el.children)
             .filter(child => child.tagName === tagName)
+        else if (Array.isArray(field.ns)) {
+            for (const ns of field.ns) {
+                tags = Array.from(el.children)
+                    .filter(child => child.localName === tagName
+                        && child.namespaceURI === ns)
+                if (tags.length) break
+            }
+        } else tags = Array.from(el.children)
+            .filter(child => child.localName === tagName
+                && child.namespaceURI === field.ns)
+
         if (!tags.length) return
         const values = tags.map(tag => parse(tag, field))
         output[key] = field.array || values.length > 1 ? values : values[0]

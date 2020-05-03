@@ -15,8 +15,10 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango } = imports.gi
 const { Storage, Obj, base64ToPixbuf, markupEscape, debug } = imports.utils
+const { PropertiesBox } = imports.properties
 const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
+let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 
 const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
@@ -91,28 +93,46 @@ const makeAcquisitionButton = (links, onActivate) => {
     }
 }
 
-const BookInfoBox =  GObject.registerClass({
-    GTypeName: 'FoliateBookInfoBox',
-    Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookInfoBox.ui',
-    InternalChildren: [
-        'title', 'summary', 'authors', 'acquisitionBox',
-    ],
+const OpdsEntryBox =  GObject.registerClass({
+    GTypeName: 'FoliateOpdsEntryBox',
     Properties: {
         entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
     }
-}, class BookInfoBox extends Gtk.Box {
+}, class OpdsEntryBox extends Gtk.Box {
     _init(params) {
         super._init(params)
+        this.orientation = Gtk.Orientation.VERTICAL
         const {
-            title = '',
-            summary = '',
+            title, summary, publisher, language, identifier,
+            published, updated, issued,
             authors = [],
-            links = []
+            links = [],
         } = this.entry.value
-        this._title.label = title
-        this._summary.label = summary
-        this._authors.label = authors.map(x => x.name).join(', ')
+
+        const scrolled = new Gtk.ScrolledWindow({
+            visible: true
+        })
+        const propertiesBox = new PropertiesBox({
+            visible: true,
+            border_width: 12
+        }, {
+            title, publisher, language, identifier,
+            creator: authors.map(x => x.name).join(', '),
+            description: summary,
+            pubdate: issued || published,
+            modified_date: updated
+        }, null)
+        scrolled.add(propertiesBox)
+        this.pack_start(scrolled, true, true, 0)
+
+        const acquisitionBox = new Gtk.Box({
+            visible: true,
+            spacing: 6,
+            border_width: 12,
+            orientation: Gtk.Orientation.VERTICAL
+        })
+        this.pack_end(acquisitionBox, false, true, 0)
 
         const map = new Map()
         links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
@@ -130,12 +150,15 @@ const BookInfoBox =  GObject.registerClass({
                 // const appInfo = Gio.AppInfo.get_default_for_type(type, true)
                 // appInfo.launch_uris([href], null)
             })
-            if (i === 0) button.get_style_context().add_class('suggested-action')
-            this._acquisitionBox.pack_start(button, false, true, 0)
+            acquisitionBox.pack_start(button, false, true, 0)
+            if (i === 0) {
+                button.get_style_context().add_class('suggested-action')
+                button.grab_focus()
+            }
         })
-        if (map.size === 2) {
-            this._acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
-            this._acquisitionBox.homogeneous = true
+        if (map.size <= 3) {
+            acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
+            acquisitionBox.homogeneous = true
         }
     }
 })
@@ -445,10 +468,11 @@ const OpdsBox = GObject.registerClass({
                 width_request: 320,
                 height_request: 320
             })
-            const infoBox = new BookInfoBox({
+            const entryBox = new OpdsEntryBox({
+                visible: true,
                 entry: child.entry,
             })
-            popover.add(infoBox)
+            popover.add(entryBox)
             popover.popup()
         })
 
@@ -598,10 +622,11 @@ var OpdsWindow =  GObject.registerClass({
                     width_request: 320,
                     height_request: 320
                 })
-                const infoBox = new BookInfoBox({
+                const entryBox = new OpdsEntryBox({
+                    visible: true,
                     entry: child.entry,
                 })
-                popover.add(infoBox)
+                popover.add(entryBox)
                 popover.popup()
             })
             const list = new Gio.ListStore()
@@ -715,9 +740,18 @@ var OpdsWindow =  GObject.registerClass({
         const makeEntryPage = () => {
             const box = new Gtk.Box({ visible: true })
             const load = entry => {
-                const infobox = new BookInfoBox({ entry: new Obj(entry) })
-                box.pack_start(infobox, true, true, 0)
-                box.show_all()
+                const infobox = new OpdsEntryBox({
+                    visible: true,
+                    entry: new Obj(entry)
+                })
+                if (Handy) {
+                    const column = new Handy.Column({
+                        visible: true,
+                        maximum_width: 600
+                    })
+                    column.add(infobox)
+                    box.pack_start(column, true, true, 0)
+                } else box.pack_start(infobox, true, true, 0)
             }
             return { widget: box, load }
         }
