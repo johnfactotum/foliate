@@ -104,7 +104,7 @@ const OpdsEntryBox =  GObject.registerClass({
         super._init(params)
         this.orientation = Gtk.Orientation.VERTICAL
         const {
-            title, summary, publisher, language, identifier,
+            title, summary, publisher, language, identifier, rights,
             published, updated, issued,
             authors = [],
             links = [],
@@ -117,7 +117,7 @@ const OpdsEntryBox =  GObject.registerClass({
             visible: true,
             border_width: 12
         }, {
-            title, publisher, language, identifier,
+            title, publisher, language, identifier, rights,
             creator: authors.map(x => x.name).join(', '),
             description: summary,
             pubdate: issued || published,
