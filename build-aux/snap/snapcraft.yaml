@@ -14,6 +14,8 @@ apps:
       - home
       - opengl
       - network
+      - audio-playback
+      - removable-media
     slots:
       - dbus-daemon
     common-id: com.github.johnfactotum.Foliate
@@ -22,17 +24,38 @@ parts:
   foliate:
     plugin: meson
     source: .
+    override-build: |
+      set -ex
+      xmlstarlet edit -L -u "/schemalist/schema/key[@name='tts-command']/default" -v "'espeak-ng -v mb-en1'" $SNAPCRAFT_PART_BUILD/data/com.github.johnfactotum.Foliate.gschema.xml
+      snapcraftctl build
     meson-parameters: [--prefix=/snap/foliate/current/usr]
     build-packages:
       - libgjs-dev
       - gettext
       - libglu1-mesa
+      - xmlstarlet  # for override-build
     organize:
       snap/foliate/current/usr: usr
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
+  tts:
+    plugin: nil
+    stage-packages:
+      - espeak-ng
+      - mbrola-en1
+      - mbrola
 
 slots:
   dbus-daemon:
     interface: dbus
     bus: session
     name: com.github.johnfactotum.Foliate
+
+layout:
+  /usr/lib/x86_64-linux-gnu/espeak-ng-data:
+    symlink: $SNAP/usr/lib/x86_64-linux-gnu/espeak-ng-data
+  # This is a bind instead of a (faster) symlink because mbrola uses LD_PRELOAD
+  # with libraries from this directory, which doesn't work with symlinks.
+  /usr/lib/x86_64-linux-gnu/mbrola:
+    bind: $SNAP/usr/lib/x86_64-linux-gnu/mbrola
+  /usr/share/mbrola:
+    symlink: $SNAP/usr/share/mbrola
