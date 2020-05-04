@@ -18,7 +18,7 @@ const { debug, Storage, Obj, base64ToPixbuf, markupEscape, shuffle } = imports.u
 const { PropertiesBox } = imports.properties
 const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
-let Handy; try { Handy = imports.gi.Handy } catch (e) {}
+const { HdyHeaderBar, HdyViewSwitcher, HdyColumn } = imports.handy
 
 const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
@@ -807,10 +807,11 @@ var OpdsWindow =  GObject.registerClass({
                 tooltip_text: title || null
             })
 
-            const box = Handy
-                ? new Handy.Column({ visible: true,
-                    maximum_width: 2000, linear_growth_width: 2000 })
-                : new Gtk.Bin({ visible: true })
+            const box = new HdyColumn({
+                visible: true,
+                maximum_width: 2000,
+                linear_growth_width: 2000
+            })
 
             const loadbox = new LoadBox({ visible: true }, () => {
                 const widget = new OpdsBox({
@@ -829,7 +830,7 @@ var OpdsWindow =  GObject.registerClass({
 
                     const opdsbox = widget.get_child()
                     if (opdsbox instanceof OpdsNavigationBox) {
-                        if (Handy) box.maximum_width = 700
+                        box.maximum_width = 700
                         opdsbox.connect('link-activated', (_, href) => {
                             this._pushHistory(uri)
                             this._loadOpds(href)
@@ -842,7 +843,7 @@ var OpdsWindow =  GObject.registerClass({
                 return widget
             })
 
-            box.add(loadbox, true, true, 0)
+            box.add(loadbox)
             const scrolled = new Gtk.ScrolledWindow({ visible: true })
             scrolled.add(box)
             nb.append_page(scrolled, label)
@@ -888,10 +889,8 @@ var OpdsWindow =  GObject.registerClass({
                     visible: true,
                     label: _('Filter'),
                 })
-                const box = Handy
-                    ? new Handy.Column({ visible: true, maximum_width: 700 })
-                    : new Gtk.Bin({ visible: true })
-                box.add(opdsbox, true, true, 0)
+                const box = new HdyColumn({ visible: true, maximum_width: 700 })
+                box.add(opdsbox)
                 const scrolled = new Gtk.ScrolledWindow({ visible: true })
                 scrolled.add(box)
                 nb.insert_page(scrolled, label, 0)

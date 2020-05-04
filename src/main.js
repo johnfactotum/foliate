@@ -181,8 +181,7 @@ function main(argv) {
                     application,
                     file: Gio.File.new_for_path(lastFile)
                 })
-            else if (Handy) activeWindow = new LibraryWindow({ application })
-            else activeWindow = new Window({ application })
+            else activeWindow = new LibraryWindow({ application })
         }
         activeWindow.present()
     })
@@ -207,7 +206,6 @@ function main(argv) {
             action.connect('activate', actions[name])
             application.add_action(action)
         })
-        if (!Handy) application.lookup_action('library').enabled = false
 
         ;[
             ['app.quit', ['<ctrl>q']],

@@ -26,7 +26,7 @@
     <property name="default-width">800</property>
     <property name="default-height">600</property>
     <child type="titlebar">
-      <object class="HdyHeaderBar">
+      <object class="FoliateHdyHeaderBar">
         <property name="visible">True</property>
         <property name="has-subtitle">False</property>
         <property name="show-close-button">True</property>
@@ -68,7 +68,7 @@
           </object>
         </child>
         <child type="title">
-          <object class="HdyViewSwitcher">
+          <object class="FoliateHdyViewSwitcher">
             <property name="visible">True</property>
             <property name="stack">stack</property>
           </object>
@@ -103,7 +103,7 @@
                 <property name="visible">True</property>
                 <property name="expand">True</property>
                 <child>
-                  <object class="HdyColumn">
+                  <object class="FoliateHdyColumn">
                     <property name="visible">True</property>
                     <property name="border-width">12</property>
                     <property name="maximum-width">600</property>
@@ -121,7 +121,6 @@
               <packing>
                 <property name="name">library</property>
                 <property name="title" translatable="yes">Library</property>
-                <property name="icon-name">text-x-generic-symbolic</property>
               </packing>
             </child>
             <child>
@@ -129,7 +128,7 @@
                 <property name="visible">True</property>
                 <property name="expand">True</property>
                 <child>
-                  <object class="HdyColumn" id="catalogColumn">
+                  <object class="FoliateHdyColumn" id="catalogColumn">
                     <property name="visible">True</property>
                     <property name="maximum-width">900</property>
                     <property name="linear-growth-width">900</property>
@@ -139,7 +138,6 @@
               <packing>
                 <property name="name">store</property>
                 <property name="title" translatable="yes">Catalogs</property>
-                <property name="icon-name">application-rss+xml-symbolic</property>
               </packing>
             </child>
           </object>
