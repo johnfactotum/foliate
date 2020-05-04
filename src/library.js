@@ -438,6 +438,36 @@ const LoadBox = GObject.registerClass({
     }
 })
 
+const OpdsFeed = GObject.registerClass({
+    GTypeName: 'FoliateOpdsFeed',
+    Properties: {
+        uri: GObject.ParamSpec.string('uri', 'uri', 'uri',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, ''),
+    },
+    Signals: {
+        'loaded': { flags: GObject.SignalFlags.RUN_FIRST },
+        'error': { flags: GObject.SignalFlags.RUN_FIRST },
+    }
+}, class OpdsFeed extends Gtk.Bin {
+    _init(params) {
+        super._init(params)
+        if (this.uri) {
+            const client = new OpdsClient()
+            client.init()
+                .then(() => client.get(this.uri))
+                .then(feed => {
+                    this.feed = feed
+                    this.emit('loaded')
+                })
+                .catch(e => {
+                    logError(e)
+                    this.emit('error')
+                })
+                .finally(() => client.close())
+        }
+    }
+})
+
 const OpdsAcquisitionBox = GObject.registerClass({
     GTypeName: 'FoliateOpdsAcquisitionBox',
     Properties: {
@@ -684,40 +714,81 @@ var LibraryWindow =  GObject.registerClass({
         this.show_menubar = false
         this.title = _('Foliate')
 
+        this._loadCatalogs().catch(logError)
+    }
+    open(file) {
+        new Window({ application: this.application, file}).present()
+        // this.close()
+    }
+    async _loadCatalogs() {
         const box = new Gtk.Box({
             visible: true,
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 12,
             margin: 12
         })
-        ;[
+        const arr = [
             {
                 title: 'Standard Ebooks',
-                uri: 'https://standardebooks.org/opds/all'
+                uri: 'https://standardebooks.org/opds/all',
+                categories: [
+                    { term: 'Science fiction' },
+                    { term: 'Detective and mystery stories' },
+                    { term: 'Domestic fiction' },
+                ]
             },
-            {
-                title: 'Feedbooks',
-                uri: 'https://catalog.feedbooks.com/publicdomain/browse/en/homepage_selection.atom'
-            }
-        ].forEach(({ title, uri }) => {
-            const x = new OpdsScrolledBox({
-                visible: true,
-                max_entries: 5,
-                uri
-            }, shuffle)
-            box.pack_start(new Gtk.Label({
-                visible: true,
-                xalign: 0,
-                wrap: true,
-                label: title
-            }), false, true, 0)
-            box.pack_start(x, false, true, 0)
-        })
+            // {
+            //     title: 'Feedbooks',
+            //     uri: 'https://catalog.feedbooks.com/publicdomain/browse/en/homepage_selection.atom'
+            // }
+        ]
+
+        for (const { title, uri, categories } of arr) {
+            const loadbox = new LoadBox({ visible: true }, () => {
+                const widget = new OpdsFeed({ visible: true, uri })
+
+                const box = new Gtk.Box({
+                    visible: true,
+                    orientation: Gtk.Orientation.VERTICAL,
+                    spacing: 12,
+                    margin: 12
+                })
+                box.pack_start(new Gtk.Label({
+                    visible: true,
+                    xalign: 0,
+                    wrap: true,
+                    useMarkup: true,
+                    label: `<b><big>${markupEscape(title)}</big></b>`
+                }), false, true, 0)
+                widget.add(box)
+                widget.connect('loaded', () => {
+                    const feed = widget.feed
+                    const items = categories.map(({ term }) => [term,
+                        feed.entries.filter(entry => entry.categories && entry.categories
+                            .some(category => category.term && category.term.includes(term)))])
+
+                    for (const [subtitle, entries] of items) {
+                        const x = new OpdsAcquisitionBox({
+                            visible: true,
+                            max_entries: 5,
+                        }, shuffle)
+                        x.load(entries)
+
+                        box.pack_start(new Gtk.Label({
+                            visible: true,
+                            xalign: 0,
+                            wrap: true,
+                            useMarkup: true,
+                            label: `<b>${markupEscape(subtitle)}</b>`
+                        }), false, true, 0)
+                        box.pack_start(x, false, true, 0)
+                    }
+                })
+                return widget
+            })
+            box.pack_start(loadbox, false, true, 0)
+        }
         this._catalogColumn.add(box)
-    }
-    open(file) {
-        new Window({ application: this.application, file}).present()
-        // this.close()
     }
 })
 
