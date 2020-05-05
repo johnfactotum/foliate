@@ -327,10 +327,10 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
         `
     }
     
+    const automaticScripts = async () => { return `` }
     const fitPageScripts = async () => { return `` }
     const fitWidthScripts = async () => { return `` }
     const continuousScripts = async () => { return `` }
-    const automaticScripts = async () => { return `` }
 
     let stylesheet;
     let scripts;
@@ -378,22 +378,22 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
         .sort((a, b) => a.name.localeCompare(b.name))
         .map(image => {
             const html = `
-            <!doctype html>
-            <html>
-                <head>
-                    <title>${image.name}</title>
-                    <link rel="stylesheet" type="text/css" href="${stylesheetURL}" />
-                </head>
+                <!doctype html>
+                <html>
+                    <head>
+                        <title>${image.name}</title>
+                        <link rel="stylesheet" type="text/css" href="${stylesheetURL}" />
+                    </head>
 
-                <body>
-                    <section class="image-wrapper">
-                        <img src="${URL.createObjectURL(image.blob)}" alt="${image.name}" />
-                    </section>
+                    <body>
+                        <section class="image-wrapper">
+                            <img src="${URL.createObjectURL(image.blob)}" alt="${image.name}" />
+                        </section>
 
-                    <!-- SCRIPTS -->
-                    ${scripts}
-                </body>
-            </html>
+                        <!-- SCRIPTS -->
+                        ${scripts}
+                    </body>
+                </html>
             `
 
             const pageHTMLBlob = new Blob([html], { type: 'text/html' })
