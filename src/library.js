@@ -377,36 +377,6 @@ class OpdsClient {
     }
 }
 
-const OpdsScrolledBox =  GObject.registerClass({
-    GTypeName: 'FoliateOpdsScrolledBox',
-    Properties: {
-        'max-entries':
-            GObject.ParamSpec.int('max-entries', 'max-entries', 'max-entries',
-                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 1, 2147483647, 2147483647),
-        uri: GObject.ParamSpec.string('uri', 'uri', 'uri',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, ''),
-    }
-}, class OpdsScrolledBox extends Gtk.ScrolledWindow {
-    _init(params, sort) {
-        super._init(params)
-        const { max_entries, uri } = this
-        const loadbox = new LoadBox({ visible: true }, () => {
-            const box = new OpdsAcquisitionBox({
-                visible: true,
-                max_entries, uri,
-                max_children_per_line: max_entries,
-                min_children_per_line: max_entries,
-            }, sort)
-            box.connect('image-draw', () => {
-                this.min_content_height = box.get_allocation().height
-            })
-            return box
-        })
-        this.propagate_natural_height = true
-        this.add(loadbox)
-    }
-})
-
 const LoadBox = GObject.registerClass({
     GTypeName: 'FoliateLoadBox'
 }, class LoadBox extends Gtk.Stack {
@@ -717,76 +687,189 @@ var LibraryWindow =  GObject.registerClass({
         this._loadCatalogs().catch(logError)
     }
     open(file) {
-        new Window({ application: this.application, file}).present()
+        new Window({ application: this.application, file }).present()
         // this.close()
+    }
+    openCatalog(uri) {
+        const window = new OpdsWindow({ application: this.application })
+        window.loadOpds(uri)
+        window.present()
+    }
+    _makeSectionTitle(title, uri) {
+        const titlebox = new Gtk.Box({
+            visible: true,
+            spacing: 12,
+            margin_start: 12,
+            margin_end: 12,
+            margin_top: 18
+        })
+        titlebox.pack_start(new Gtk.Label({
+            visible: true,
+            xalign: 0,
+            wrap: true,
+            useMarkup: true,
+            label: `<b><big>${markupEscape(title)}</big></b>`,
+        }), false, true, 0)
+        titlebox.pack_start(new Gtk.Separator({
+            visible: true,
+            valign: Gtk.Align.CENTER
+        }), true, true, 0)
+        const button = new Gtk.Button({
+            visible: true,
+            label: _('See more'),
+            valign: Gtk.Align.CENTER
+        })
+        button.connect('clicked', () => this.openCatalog(uri))
+        titlebox.pack_end(button, false, true, 0)
+        return titlebox
     }
     async _loadCatalogs() {
         const box = new Gtk.Box({
             visible: true,
             orientation: Gtk.Orientation.VERTICAL,
-            spacing: 12,
-            margin: 12
+            margin_bottom: 18
         })
         const arr = [
             {
                 title: 'Standard Ebooks',
                 uri: 'https://standardebooks.org/opds/all',
-                categories: [
-                    { term: 'Science fiction' },
-                    { term: 'Detective and mystery stories' },
-                    { term: 'Domestic fiction' },
+                filters: [
+                    {
+                        title: 'Recently Added',
+                        sortBy: (a, b) =>
+                            new Date(b.published) - new Date(a.published)
+                    },
+                    {
+                        title: 'Science Fiction',
+                        term: 'Science fiction',
+                        shuffle: true
+                    },
+                    {
+                        title: 'Detective and Mystery Stories',
+                        term: 'Detective and mystery stories',
+                        shuffle: true
+                    },
                 ]
             },
-            // {
-            //     title: 'Feedbooks',
-            //     uri: 'https://catalog.feedbooks.com/publicdomain/browse/en/homepage_selection.atom'
-            // }
+            {
+                title: 'Feedbooks',
+                uri: 'https://catalog.feedbooks.com/catalog/index.atom',
+                featured: [
+                    {
+                        title: 'New & Noteworthy',
+                        uri: 'https://catalog.feedbooks.com/featured/en.atom'
+                    },
+                    {
+                        title: 'Public Domain Books',
+                        uri: 'https://catalog.feedbooks.com/publicdomain/browse/en/homepage_selection.atom'
+                    }
+                ]
+            }
         ]
 
-        for (const { title, uri, categories } of arr) {
-            const loadbox = new LoadBox({ visible: true }, () => {
-                const widget = new OpdsFeed({ visible: true, uri })
+        for (const { title, uri, filters, featured } of arr) {
+            if (filters) {
+                const titlebox = this._makeSectionTitle(title, uri)
+                box.pack_start(titlebox, false, true, 0)
+                const loadbox = new LoadBox({ visible: true }, () => {
+                    const widget = new OpdsFeed({ visible: true, uri })
 
-                const box = new Gtk.Box({
+                    const box = new Gtk.Box({
+                        visible: true,
+                        orientation: Gtk.Orientation.VERTICAL,
+                    })
+                    widget.add(box)
+                    widget.connect('loaded', () => {
+                        const feed = widget.feed
+                        const items = filters.map(filter => {
+                            let arr = []
+                            if (filter.term) arr =  feed.entries
+                                .filter(entry => entry.categories && entry.categories
+                                    .some(category => category.term
+                                        && category.term.includes(filter.term)))
+                            else if (filter.sortBy) arr = feed.entries.slice(0)
+                                .sort(filter.sortBy)
+                            return [filter.title, arr, filter.shuffle]
+                        })
+
+                        for (const [subtitle, entries, shouldShuffle] of items) {
+                            const scrolled = new Gtk.ScrolledWindow({
+                                visible: true,
+                                propagate_natural_height: true
+                            })
+                            const max_entries = 5
+                            const opdsbox = new OpdsAcquisitionBox({
+                                visible: true,
+                                max_entries,
+                                max_children_per_line: max_entries,
+                                min_children_per_line: max_entries,
+                                margin_start: 12,
+                                margin_end: 12
+                            }, shouldShuffle ? shuffle : null)
+                            opdsbox.connect('image-draw', () => {
+                                scrolled.min_content_height = opdsbox.get_allocation().height
+                            })
+                            opdsbox.load(entries)
+                            scrolled.add(opdsbox)
+
+                            box.pack_start(new Gtk.Label({
+                                visible: true,
+                                xalign: 0,
+                                wrap: true,
+                                useMarkup: true,
+                                label: `<b>${markupEscape(subtitle)}</b>`,
+                                margin: 12
+                            }), false, true, 0)
+                            box.pack_start(scrolled, false, true, 0)
+                        }
+                    })
+                    return widget
+                })
+                box.pack_start(loadbox, false, true, 0)
+            } else if (featured) {
+                const titlebox = this._makeSectionTitle(title, uri)
+                box.pack_start(titlebox, false, true, 0)
+
+                const box2 = new Gtk.Box({
                     visible: true,
                     orientation: Gtk.Orientation.VERTICAL,
-                    spacing: 12,
-                    margin: 12
                 })
-                box.pack_start(new Gtk.Label({
-                    visible: true,
-                    xalign: 0,
-                    wrap: true,
-                    useMarkup: true,
-                    label: `<b><big>${markupEscape(title)}</big></b>`
-                }), false, true, 0)
-                widget.add(box)
-                widget.connect('loaded', () => {
-                    const feed = widget.feed
-                    const items = categories.map(({ term }) => [term,
-                        feed.entries.filter(entry => entry.categories && entry.categories
-                            .some(category => category.term && category.term.includes(term)))])
 
-                    for (const [subtitle, entries] of items) {
-                        const x = new OpdsAcquisitionBox({
+                featured.forEach(({ title, uri }) => {
+                    const scrolled = new Gtk.ScrolledWindow({
+                        visible: true,
+                        propagate_natural_height: true
+                    })
+                    const max_entries = 5
+                    const loadbox = new LoadBox({ visible: true }, () => {
+                        const opdsbox = new OpdsAcquisitionBox({
                             visible: true,
-                            max_entries: 5,
+                            max_entries,
+                            max_children_per_line: max_entries,
+                            min_children_per_line: max_entries,
+                            margin_start: 12,
+                            margin_end: 12,
+                            uri
                         }, shuffle)
-                        x.load(entries)
-
-                        box.pack_start(new Gtk.Label({
-                            visible: true,
-                            xalign: 0,
-                            wrap: true,
-                            useMarkup: true,
-                            label: `<b>${markupEscape(subtitle)}</b>`
-                        }), false, true, 0)
-                        box.pack_start(x, false, true, 0)
-                    }
+                        opdsbox.connect('image-draw', () => {
+                            scrolled.min_content_height = opdsbox.get_allocation().height
+                        })
+                        return opdsbox
+                    })
+                    scrolled.add(loadbox)
+                    box2.pack_start(new Gtk.Label({
+                        visible: true,
+                        xalign: 0,
+                        wrap: true,
+                        useMarkup: true,
+                        label: `<b>${markupEscape(title)}</b>`,
+                        margin: 12
+                    }), false, true, 0)
+                    box2.pack_start(scrolled, false, true, 0)
                 })
-                return widget
-            })
-            box.pack_start(loadbox, false, true, 0)
+
+                box.pack_start(box2, false, true, 0)
+            }
         }
         this._catalogColumn.add(box)
     }
