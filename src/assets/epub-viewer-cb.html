@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' blob:; script-src 'self' 'unsafe-eval'; style-src 'self' blob: 'unsafe-inline'; object-src 'none'; connect-src 'self' blob: *;">
+
+<link href="epub-viewer.css" rel="stylesheet">
+
+<script src="jszip.min.js"></script>
+<script src="epub.js"></script>
+
+<div id="viewer"></div>
+
+<script src="utils.js"></script>
+<script type="module" src="libarchivejs/main.js"></script>
+<script src="archive-unpack.js"></script>
+<script src="webpub.js"></script>
+<script src="epub-viewer.js"></script>

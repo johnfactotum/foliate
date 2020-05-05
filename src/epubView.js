@@ -65,6 +65,7 @@ const layouts = {
 }
 
 const viewerPath = pkg.pkgdatadir + '/assets/epub-viewer.html'
+const cbViewerPath = pkg.pkgdatadir + '/assets/epub-viewer-cb.html'
 const unsafeViewerPath = pkg.pkgdatadir + '/assets/epub-viewer-nocsp.html'
 
 var EpubViewAnnotation = GObject.registerClass({
@@ -644,7 +645,12 @@ var EpubView = GObject.registerClass({
     _load() {
         this.emit('book-loading')
         this._ready = false
-        const viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
+        let viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
+
+        if (['cbz', 'cbr', 'cb7', 'cbt'].includes(this._inputType)) {
+            viewer = cbViewerPath
+        }
+
         this._webView.load_uri(GLib.filename_to_uri(viewer, null))
     }
     reload() {
@@ -959,6 +965,10 @@ var EpubView = GObject.registerClass({
             case mimetypes.text: this.open_(uri, 'text'); break
             case mimetypes.fb2: this.open_(uri, 'fb2'); break
             case mimetypes.fb2zip: this.open_(uri, 'fb2zip'); break
+            case mimetypes.cbz: this.open_(uri, 'cbz'); break
+            case mimetypes.cbr: this.open_(uri, 'cbr'); break
+            case mimetypes.cb7: this.open_(uri, 'cb7'); break
+            case mimetypes.cbt: this.open_(uri, 'cbt'); break
             default: this.emit('book-error', _('File type not supported.'))
         }
     }

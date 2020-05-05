@@ -244,3 +244,174 @@ const processFB2 = doc => {
         ]
     }
 }
+
+const webpubFromComicBookArchive = async (uri, inputType, layout) => {
+    const cbArchiveName = decodeURI(uri).split('/').pop().split('.').slice(0, -1).join('')
+
+    const automaticStylesheet = () => {
+        return `
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .image-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                min-height: 99.5vh;
+            }
+
+            .image-wrapper img {
+                width: 100vw;
+                max-height: 99.5vh;
+                object-fit: contain;
+            }
+        `
+    }
+
+    const fitPageStylesheet = () => {
+        return `
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body {
+                text-align: center;
+            }
+        `
+    }
+    
+    const fitWidthStylesheet = () => {
+        return `
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body {
+                text-align: center;
+            }
+
+            .image-wrapper img {
+                width: 100%;
+            }
+        `
+    }
+    
+    const continuousStylesheet = () => {
+        return `
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body {
+                text-align: center;
+                margin-bottom: 20px !important;
+            }
+
+            .image-wrapper img {
+                width: 100%;
+            }
+        `
+    }
+    
+    const fitPageScripts = async () => { return `` }
+    const fitWidthScripts = async () => { return `` }
+    const continuousScripts = async () => { return `` }
+    const automaticScripts = async () => { return `` }
+
+    let stylesheet;
+    let scripts;
+    switch (layout) {
+        case 'automatic': {
+            stylesheet = automaticStylesheet()
+            scripts = await automaticScripts()
+            break
+        }
+        case 'single-column': {
+            stylesheet = fitPageStylesheet()
+            scripts = await fitPageScripts()
+            break
+        }
+        case 'scrolled': {
+            stylesheet = fitWidthStylesheet()
+            scripts = await fitWidthScripts()
+            break
+        }
+        case 'continuous': {
+            stylesheet = continuousStylesheet()
+            scripts = await continuousScripts()
+            break
+        }
+        default: {
+            stylesheet = fitPageStylesheet()
+            scripts = await fitPageScripts()
+            console.log('unexpected layout')
+        }
+    }
+
+    const stylesheetBlob = new Blob([stylesheet], { type: 'text/css' })
+    const stylesheetURL = URL.createObjectURL(stylesheetBlob)
+
+    let files
+    switch (inputType) {
+        case 'cbz': files = await unpackZipArchive(uri); break
+        case 'cbr': files = await unpackArchive(uri, inputType); break
+        case 'cb7': files = await unpackArchive(uri, inputType); break
+        case 'cbt': files = await unpackArchive(uri, inputType); break
+    }
+
+    const sectionLinkObjects = files.filter(file =>
+            ['jpeg', 'png', 'gif', 'bmp', 'webp'].includes(file.type))
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(image => {
+            const html = `
+            <!doctype html>
+            <html>
+                <head>
+                    <title>${image.name}</title>
+                    <link rel="stylesheet" type="text/css" href="${stylesheetURL}" />
+                </head>
+
+                <body>
+                    <section class="image-wrapper">
+                        <img src="${URL.createObjectURL(image.blob)}" alt="${image.name}" />
+                    </section>
+
+                    <!-- SCRIPTS -->
+                    ${scripts}
+                </body>
+            </html>
+            `
+
+            const pageHTMLBlob = new Blob([html], { type: 'text/html' })
+            const pageURL = URL.createObjectURL(pageHTMLBlob)
+
+            return {
+                href: pageURL,
+                type: 'text/html',
+                title: image.name
+            }
+        })
+
+    return {
+        metadata: {
+            title: cbArchiveName,
+            layout: layout === 'automatic' ? 'pre-paginated' : 'reflowable'
+        },
+        links: [],
+        readingOrder: sectionLinkObjects,
+        toc: sectionLinkObjects,
+        resources: []
+    }
+}
