@@ -270,7 +270,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
             }
 
             .image-wrapper img {
-                width: 99vw;
+                width: 100vw;
                 max-height: 99.5vh;
                 object-fit: contain;
             }
