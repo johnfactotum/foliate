@@ -260,6 +260,7 @@ function main(argv) {
 
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
+            progress, trough { min-width: 1px; }
             .foliate-book-image {
                 box-shadow:
                     5px 5px 12px 2px rgba(0, 0, 0, 0.1),

@@ -31,6 +31,12 @@ var HdyViewSwitcher =  GObject.registerClass({
     ? class HdyViewSwitcher extends Handy.ViewSwitcher {}
     : class HdyViewSwitcher extends Gtk.StackSwitcher {})
 
+var HdySearchBar =  GObject.registerClass({
+    GTypeName: 'FoliateHdySearchBar',
+}, Handy
+    ? class HdySearchBar extends Handy.SearchBar {}
+    : class HdySearchBar extends Gtk.SearchBar {})
+
 var HdyColumn =  GObject.registerClass({
     GTypeName: 'FoliateHdyColumn',
     Properties: Handy ? {} : {

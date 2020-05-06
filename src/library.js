@@ -18,7 +18,7 @@ const { debug, Storage, Obj, base64ToPixbuf, markupEscape, shuffle } = imports.u
 const { PropertiesBox } = imports.properties
 const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
-const { HdyHeaderBar, HdyViewSwitcher, HdyColumn } = imports.handy
+const { HdyHeaderBar, HdyViewSwitcher, HdySearchBar, HdyColumn } = imports.handy
 
 const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
@@ -218,8 +218,10 @@ const BookListRow =  GObject.registerClass({
             const id = this.book.value.metadata.identifier
             bookList.remove(id)
             uriStore.delete(id)
-            Gio.File.new_for_path(Storage.getPath('data', id)).delete(null)
-            Gio.File.new_for_path(Storage.getPath('cache', id)).delete(null)
+            try {
+                Gio.File.new_for_path(Storage.getPath('data', id)).delete(null)
+                Gio.File.new_for_path(Storage.getPath('cache', id)).delete(null)
+            } catch (e) {}
         }
         msg.close()
     }
@@ -247,48 +249,50 @@ var BookListBox = GObject.registerClass({
         this.set_header_func((row) => {
             if (row.get_index()) row.set_header(new Gtk.Separator())
         })
-        const lmr = new LoadMoreRow()
+        this._bindBookList()
+        this.connect('row-activated', this._onRowActivated.bind(this))
+    }
+    _bindBookList() {
         this.bind_model(bookList.list, book => {
-            if (book.value === 'load-more') return lmr
+            if (book.value === 'load-more') return new LoadMoreRow()
             else return new BookListRow({ book })
         })
-        bookList.load()
-        bookList.next()
-
-        this.connect('row-activated', (box, row) => {
-            if (row === lmr) {
-                bookList.next()
-                return
-            }
-            const id = row.book.value.metadata.identifier
-            const uri = uriStore.get(id)
-            if (!uri) {
-                const window = this.get_toplevel()
-                const msg = new Gtk.MessageDialog({
-                    text: _('File location unkown'),
-                    secondary_text: _('Choose the location of this file to open it.'),
-                    message_type: Gtk.MessageType.QUESTION,
-                    buttons: Gtk.ButtonsType.OK_CANCEL,
-                    modal: true,
-                    transient_for: window
-                })
-                msg.set_default_response(Gtk.ResponseType.OK)
-                const res = msg.run()
-                if (res === Gtk.ResponseType.OK)
-                    window.application.lookup_action('open').activate(null)
-                msg.close()
-                return
-            }
-            const file = Gio.File.new_for_uri(uri)
-            this.get_toplevel().open(file)
-        })
-
-        const cssProvider = new Gtk.CssProvider()
-        cssProvider.load_from_data(`progress, trough { min-width: 1px; }`)
-        Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(),
-            cssProvider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    }
+    search(query) {
+        const q = query ? query.trim() : ''
+        if (q) {
+            const matches = bookList.search(query)
+            this.bind_model(matches, book => new BookListRow({ book }))
+        } else {
+            this._bindBookList()
+        }
+    }
+    _onRowActivated(box, row) {
+        if (row instanceof LoadMoreRow) {
+            bookList.next()
+            return
+        }
+        const id = row.book.value.metadata.identifier
+        const uri = uriStore.get(id)
+        if (!uri) {
+            const window = this.get_toplevel()
+            const msg = new Gtk.MessageDialog({
+                text: _('File location unkown'),
+                secondary_text: _('Choose the location of this file to open it.'),
+                message_type: Gtk.MessageType.QUESTION,
+                buttons: Gtk.ButtonsType.OK_CANCEL,
+                modal: true,
+                transient_for: window
+            })
+            msg.set_default_response(Gtk.ResponseType.OK)
+            const res = msg.run()
+            if (res === Gtk.ResponseType.OK)
+                window.application.lookup_action('open').activate(null)
+            msg.close()
+            return
+        }
+        const file = Gio.File.new_for_uri(uri)
+        this.get_toplevel().open(file)
     }
 })
 
@@ -676,7 +680,10 @@ var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
     InternalChildren: [
-        'stack', 'catalogColumn', 'startButtonStack'
+        'stack', 'bookListBox', 'catalogColumn',
+        'startButtonStack', 'endButtonStack',
+        'searchButton', 'searchBar', 'searchEntry',
+        'bookListStack'
     ],
 }, class LibraryWindow extends Gtk.ApplicationWindow {
     _init(params) {
@@ -684,7 +691,39 @@ var LibraryWindow =  GObject.registerClass({
         this.show_menubar = false
         this.title = _('Foliate')
 
-        this._loadCatalogs().catch(logError)
+        const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
+        ;[this._startButtonStack, this._endButtonStack].forEach(stack =>
+            this._stack.bind_property('visible-child-name', stack, 'visible-child-name', flag))
+        this._searchButton.bind_property('active', this._searchBar, 'search-mode-enabled', flag)
+        this._searchBar.connect('notify::search-mode-enabled', ({ search_mode_enabled }) => {
+            if (search_mode_enabled) this._searchEntry.grab_focus()
+            else {
+                this._bookListStack.visible_child_name = 'main'
+                this._bookListBox.search()
+            }
+        })
+
+        this._searchEntry.connect('search-changed', ({ text }) => {
+            this._bookListBox.search(text)
+            if (!text) this._bookListStack.visible_child_name = 'main'
+        })
+        this._searchEntry.connect('stop-search', () =>
+            this._searchBar.search_mode_enabled = false)
+
+        bookList.next()
+        const updateEmptiness = () => {
+            const isEmpty = bookList.list.get_n_items() === 0
+            this._bookListStack.visible_child_name = isEmpty ? 'empty' : 'main'
+            this._searchButton.sensitive = !isEmpty
+        }
+        bookList.list.connect('items-changed', updateEmptiness)
+        updateEmptiness()
+
+        const updateSearchEmptiness = () => this._bookListStack.visible_child_name =
+            bookList.searchList.get_n_items() ? 'main' : 'search-empty'
+        bookList.searchList.connect('items-changed', updateSearchEmptiness)
+
+        this._loadCatalogs()
     }
     open(file) {
         new Window({ application: this.application, file }).present()
@@ -723,7 +762,7 @@ var LibraryWindow =  GObject.registerClass({
         titlebox.pack_end(button, false, true, 0)
         return titlebox
     }
-    async _loadCatalogs() {
+    _loadCatalogs() {
         const box = new Gtk.Box({
             visible: true,
             orientation: Gtk.Orientation.VERTICAL,

@@ -68,39 +68,66 @@ const listDir = function* (path) {
 class BookList {
     constructor() {
         this.list = new Gio.ListStore()
+        this.searchList = new Gio.ListStore()
         this.list.append(new Obj('load-more'))
+        this.map = new Map()
     }
-    load() {
+    _load() {
         const datadir = GLib.build_filenamev([GLib.get_user_data_dir(), pkg.name])
         const books = listDir(datadir) || []
-        this._arr = Array.from(books).sort((a, b) => b.modified - a.modified)
-        this._iter = this._arr.values()
+        return Array.from(books).sort((a, b) => b.modified - a.modified)
+    }
+    search(query) {
+        const q = query.toLowerCase()
+        const books = this._load()
+        const list = this.searchList
+        list.remove_all()
+        for (const item of books) {
+            const { identifier } = item
+            const data = this.map.get(identifier) || this._loadItem(item)
+            if (!data) continue
+            const title = (data.metadata.title || '').toLowerCase()
+            const creator = (data.metadata.creator || '').toLowerCase()
+            const match = title.includes(q) || creator.includes(q)
+            if (match) list.append(new Obj(data))
+        }
+        return list
+    }
+    _loadItem(item) {
+        const { identifier, file, modified } = item
+        const [/*success*/, data, /*tag*/] = file.load_contents(null)
+        const json = JSON.parse(data instanceof Uint8Array
+            ? ByteArray.toString(data) : data.toString())
+        if (!json.metadata) return
+        const result = {
+            identifier,
+            metadata: json.metadata,
+            progress: json.progress,
+            modified
+        }
+        this.map.set(identifier, result)
+        return result
     }
     next(n = 10) {
+        if (!this._iter) this._iter = this._load().values()
         let i = 0
         while (i < n) {
             const { value, done } = this._iter.next()
             if (done) {
-                this.list.remove(this.list.get_n_items() - 1)
+                const length = this.list.get_n_items()
+                if (!length) return
+                if (this.list.get_item(length - 1).value === 'load-more')
+                    this.list.remove(length - 1)
                 return
             }
-            const { identifier, file, modified } = value
-            const [/*success*/, data, /*tag*/] = file.load_contents(null)
-            const json = JSON.parse(data instanceof Uint8Array
-                ? ByteArray.toString(data) : data.toString())
-
-            if (!json.metadata) continue
-            const result = {
-                identifier,
-                metadata: json.metadata,
-                progress: json.progress,
-                modified
-            }
-            this.list.insert(this.list.get_n_items() - 1, new Obj(result))
+            const { identifier } = value
+            const data = this.map.get(identifier) || this._loadItem(value)
+            if (!data) continue
+            this.list.insert(this.list.get_n_items() - 1, new Obj(data))
             i++
         }
     }
-    remove(id) {
+    _remove(id) {
         const n = this.list.get_n_items()
         for (let i = 0; i < n; i++) {
             const item = this.list.get_item(i).value
@@ -111,8 +138,13 @@ class BookList {
             }
         }
     }
+    remove(id) {
+        this.map.delete(id)
+        this._remove(id)
+    }
     update(id, obj) {
-        this.remove(id)
+        this._remove(id)
+        this.map.set(id, obj)
         this.list.insert(0, new Obj(obj))
     }
 }
