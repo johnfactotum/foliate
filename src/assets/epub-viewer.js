@@ -262,7 +262,7 @@ const setStyle = style => {
     document.body.style.color = fgColor
     document.body.style.background = bgColor
 
-    const themeName = usePublisherFont ? 'publisher-font' : 'custom-font'
+    const themeName = usePublisherFont ? '__foliate_publisher-font' : '__foliate_custom-font'
     const stylesheet = {
         [`.${themeName}`]: {
             'color': fgColor,
