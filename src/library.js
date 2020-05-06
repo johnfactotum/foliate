@@ -27,13 +27,13 @@ const BookBoxChild =  GObject.registerClass({
         'image', 'title'
     ],
     Properties: {
-        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
+        book: GObject.ParamSpec.object('book', 'book', 'book',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
     }
 }, class BookBoxChild extends Gtk.FlowBoxChild {
     _init(params) {
         super._init(params)
-        const { title } = this.entry.value
+        const { progress, metadata: { title, creator } } = this.book.value
         this._title.label = title
     }
     loadCover(pixbuf) {
@@ -49,120 +49,6 @@ const BookBoxChild =  GObject.registerClass({
     }
     get image() {
         return this._image
-    }
-})
-
-const makeAcquisitionButton = (links, onActivate) => {
-    const rel = links[0].rel.split('/').pop()
-    let label = _('Download')
-    switch (rel) {
-        case 'buy': label = _('Buy'); break
-        case 'open-access': label = _('Free'); break
-        case 'sample': label = _('Sample'); break
-        case 'borrow': label = _('Borrow'); break
-        case 'subscribe': label = _('Subscribe'); break
-    }
-    if (links.length === 1) {
-        const button = new Gtk.Button({ visible: true, label })
-        button.connect('clicked', () => onActivate(links[0]))
-        return button
-    } else {
-        const popover = new Gtk.PopoverMenu()
-        const box = new Gtk.Box({
-            visible: true,
-            orientation: Gtk.Orientation.VERTICAL,
-            margin: 10
-        })
-        popover.add(box)
-        const button = new Gtk.MenuButton({ popover })
-        const buttonBox = new Gtk.Box()
-        const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
-        buttonBox.pack_start(new Gtk.Label({ label }), true, true, 0)
-        buttonBox.pack_end(icon, false, true, 0)
-        button.add(buttonBox)
-        button.show_all()
-        links.forEach(link => {
-            const mimetype = link.type
-            const text = link.title || Gio.content_type_get_description(mimetype)
-            const menuItem = new Gtk.ModelButton({
-                visible: true,
-                text,
-                tooltip_text: mimetype
-            })
-            menuItem.connect('clicked', () => onActivate(link))
-            box.pack_start(menuItem, false, true, 0)
-        })
-        return button
-    }
-}
-
-const OpdsEntryBox =  GObject.registerClass({
-    GTypeName: 'FoliateOpdsEntryBox',
-    Properties: {
-        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
-    }
-}, class OpdsEntryBox extends Gtk.Box {
-    _init(params) {
-        super._init(params)
-        this.orientation = Gtk.Orientation.VERTICAL
-        const {
-            title, summary, publisher, language, identifier, rights,
-            published, updated, issued,
-            authors = [],
-            links = [],
-        } = this.entry.value
-
-        const scrolled = new Gtk.ScrolledWindow({
-            visible: true
-        })
-        const propertiesBox = new PropertiesBox({
-            visible: true,
-            border_width: 12
-        }, {
-            title, publisher, language, identifier, rights,
-            creator: authors.map(x => x.name).join(', '),
-            description: summary,
-            pubdate: issued || published,
-            modified_date: updated
-        }, null)
-        scrolled.add(propertiesBox)
-        this.pack_start(scrolled, true, true, 0)
-
-        const acquisitionBox = new Gtk.Box({
-            visible: true,
-            spacing: 6,
-            border_width: 12,
-            orientation: Gtk.Orientation.VERTICAL
-        })
-        this.pack_end(acquisitionBox, false, true, 0)
-
-        const map = new Map()
-        links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
-            .forEach(x => {
-                if (!map.has(x.rel)) map.set(x.rel, [x])
-                else map.get(x.rel).push(x)
-            })
-        Array.from(map.values()).forEach((links, i) => {
-            const button = makeAcquisitionButton(links, ({ type, href }) => {
-                // open in a browser
-                Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
-                //Gio.AppInfo.launch_default_for_uri(href, null)
-
-                // or, open with app directly
-                // const appInfo = Gio.AppInfo.get_default_for_type(type, true)
-                // appInfo.launch_uris([href], null)
-            })
-            acquisitionBox.pack_start(button, false, true, 0)
-            if (i === 0) {
-                button.get_style_context().add_class('suggested-action')
-                button.grab_focus()
-            }
-        })
-        if (map.size <= 3) {
-            acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
-            acquisitionBox.homogeneous = true
-        }
     }
 })
 
@@ -227,8 +113,7 @@ const BookListRow =  GObject.registerClass({
     }
 })
 
-
-const LoadMoreRow =  GObject.registerClass({
+const LoadMoreRow = GObject.registerClass({
     GTypeName: 'FoliateLoadMoreRow'
 }, class LoadMoreRow extends Gtk.ListBoxRow {
     _init(params) {
@@ -240,61 +125,82 @@ const LoadMoreRow =  GObject.registerClass({
         }))
     }
 })
-
-var BookListBox = GObject.registerClass({
-    GTypeName: 'FoliateBookListBox'
-}, class BookListBox extends Gtk.ListBox {
+const LoadMoreChild = GObject.registerClass({
+    GTypeName: 'FoliateLoadMoreChild'
+}, class LoadMoreChild extends Gtk.FlowBoxChild {
     _init(params) {
         super._init(params)
-        this.set_header_func((row) => {
-            if (row.get_index()) row.set_header(new Gtk.Separator())
-        })
-        this._bindBookList()
-        this.connect('row-activated', this._onRowActivated.bind(this))
-    }
-    _bindBookList() {
-        this.bind_model(bookList.list, book => {
-            if (book.value === 'load-more') return new LoadMoreRow()
-            else return new BookListRow({ book })
-        })
-    }
-    search(query) {
-        const q = query ? query.trim() : ''
-        if (q) {
-            const matches = bookList.search(query)
-            this.bind_model(matches, book => new BookListRow({ book }))
-        } else {
-            this._bindBookList()
-        }
-    }
-    _onRowActivated(box, row) {
-        if (row instanceof LoadMoreRow) {
-            bookList.next()
-            return
-        }
-        const id = row.book.value.metadata.identifier
-        const uri = uriStore.get(id)
-        if (!uri) {
-            const window = this.get_toplevel()
-            const msg = new Gtk.MessageDialog({
-                text: _('File location unkown'),
-                secondary_text: _('Choose the location of this file to open it.'),
-                message_type: Gtk.MessageType.QUESTION,
-                buttons: Gtk.ButtonsType.OK_CANCEL,
-                modal: true,
-                transient_for: window
-            })
-            msg.set_default_response(Gtk.ResponseType.OK)
-            const res = msg.run()
-            if (res === Gtk.ResponseType.OK)
-                window.application.lookup_action('open').activate(null)
-            msg.close()
-            return
-        }
-        const file = Gio.File.new_for_uri(uri)
-        this.get_toplevel().open(file)
+        this.add(new Gtk.Image({
+            visible: true,
+            icon_name: 'view-more-symbolic',
+            margin: 12
+        }))
     }
 })
+
+const makeLibrary = (params, widget) => {
+    const isListBox = widget === Gtk.ListBox
+    const LoadMore = isListBox ? LoadMoreRow : LoadMoreChild
+    const ChildWidget = isListBox ? BookListRow : BookBoxChild
+    const activateSignal = isListBox ? 'row-activated' : 'child-activated'
+
+    return GObject.registerClass(params, class Library extends widget {
+        _init(params) {
+            super._init(params)
+            if (isListBox) this.set_header_func(row => {
+                if (row.get_index()) row.set_header(new Gtk.Separator())
+            })
+            this._bindBookList()
+            this.connect(activateSignal, this._onRowActivated.bind(this))
+        }
+        _bindBookList() {
+            this.bind_model(bookList.list, book => {
+                if (book.value === 'load-more') return new LoadMore()
+                else return new ChildWidget({ book })
+            })
+        }
+        search(query) {
+            const q = query ? query.trim() : ''
+            if (q) {
+                const matches = bookList.search(query)
+                this.bind_model(matches, book => new ChildWidget({ book }))
+            } else {
+                this._bindBookList()
+            }
+        }
+        _onRowActivated(box, row) {
+            if (row instanceof LoadMore) {
+                bookList.next()
+                return
+            }
+            const id = row.book.value.metadata.identifier
+            const uri = uriStore.get(id)
+            if (!uri) {
+                const window = this.get_toplevel()
+                const msg = new Gtk.MessageDialog({
+                    text: _('File location unkown'),
+                    secondary_text: _('Choose the location of this file to open it.'),
+                    message_type: Gtk.MessageType.QUESTION,
+                    buttons: Gtk.ButtonsType.OK_CANCEL,
+                    modal: true,
+                    transient_for: window
+                })
+                msg.set_default_response(Gtk.ResponseType.OK)
+                const res = msg.run()
+                if (res === Gtk.ResponseType.OK)
+                    window.application.lookup_action('open').activate(null)
+                msg.close()
+                return
+            }
+            const file = Gio.File.new_for_uri(uri)
+            this.get_toplevel().open(file)
+        }
+    })
+}
+
+const BookListBox = makeLibrary({ GTypeName: 'FoliateBookListBox' }, Gtk.ListBox)
+
+const BookFlowBox = makeLibrary({ GTypeName: 'FoliateBookFlowBox' }, Gtk.FlowBox)
 
 const htmlPath = pkg.pkgdatadir + '/assets/opds.html'
 class OpdsClient {
@@ -412,6 +318,120 @@ const LoadBox = GObject.registerClass({
     }
 })
 
+const makeAcquisitionButton = (links, onActivate) => {
+    const rel = links[0].rel.split('/').pop()
+    let label = _('Download')
+    switch (rel) {
+        case 'buy': label = _('Buy'); break
+        case 'open-access': label = _('Free'); break
+        case 'sample': label = _('Sample'); break
+        case 'borrow': label = _('Borrow'); break
+        case 'subscribe': label = _('Subscribe'); break
+    }
+    if (links.length === 1) {
+        const button = new Gtk.Button({ visible: true, label })
+        button.connect('clicked', () => onActivate(links[0]))
+        return button
+    } else {
+        const popover = new Gtk.PopoverMenu()
+        const box = new Gtk.Box({
+            visible: true,
+            orientation: Gtk.Orientation.VERTICAL,
+            margin: 10
+        })
+        popover.add(box)
+        const button = new Gtk.MenuButton({ popover })
+        const buttonBox = new Gtk.Box()
+        const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
+        buttonBox.pack_start(new Gtk.Label({ label }), true, true, 0)
+        buttonBox.pack_end(icon, false, true, 0)
+        button.add(buttonBox)
+        button.show_all()
+        links.forEach(link => {
+            const mimetype = link.type
+            const text = link.title || Gio.content_type_get_description(mimetype)
+            const menuItem = new Gtk.ModelButton({
+                visible: true,
+                text,
+                tooltip_text: mimetype
+            })
+            menuItem.connect('clicked', () => onActivate(link))
+            box.pack_start(menuItem, false, true, 0)
+        })
+        return button
+    }
+}
+
+const OpdsEntryBox =  GObject.registerClass({
+    GTypeName: 'FoliateOpdsEntryBox',
+    Properties: {
+        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
+    }
+}, class OpdsEntryBox extends Gtk.Box {
+    _init(params) {
+        super._init(params)
+        this.orientation = Gtk.Orientation.VERTICAL
+        const {
+            title, summary, publisher, language, identifier, rights,
+            published, updated, issued,
+            authors = [],
+            links = [],
+        } = this.entry.value
+
+        const scrolled = new Gtk.ScrolledWindow({
+            visible: true
+        })
+        const propertiesBox = new PropertiesBox({
+            visible: true,
+            border_width: 12
+        }, {
+            title, publisher, language, identifier, rights,
+            creator: authors.map(x => x.name).join(', '),
+            description: summary,
+            pubdate: issued || published,
+            modified_date: updated
+        }, null)
+        scrolled.add(propertiesBox)
+        this.pack_start(scrolled, true, true, 0)
+
+        const acquisitionBox = new Gtk.Box({
+            visible: true,
+            spacing: 6,
+            border_width: 12,
+            orientation: Gtk.Orientation.VERTICAL
+        })
+        this.pack_end(acquisitionBox, false, true, 0)
+
+        const map = new Map()
+        links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
+            .forEach(x => {
+                if (!map.has(x.rel)) map.set(x.rel, [x])
+                else map.get(x.rel).push(x)
+            })
+        Array.from(map.values()).forEach((links, i) => {
+            const button = makeAcquisitionButton(links, ({ type, href }) => {
+                // open in a browser
+                Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
+                //Gio.AppInfo.launch_default_for_uri(href, null)
+
+                // or, open with app directly
+                // const appInfo = Gio.AppInfo.get_default_for_type(type, true)
+                // appInfo.launch_uris([href], null)
+            })
+            acquisitionBox.pack_start(button, false, true, 0)
+            if (i === 0) {
+                button.get_style_context().add_class('suggested-action')
+                button.grab_focus()
+            }
+        })
+        if (map.size <= 3) {
+            acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
+            acquisitionBox.homogeneous = true
+        }
+    }
+})
+
 const OpdsFeed = GObject.registerClass({
     GTypeName: 'FoliateOpdsFeed',
     Properties: {
@@ -439,6 +459,38 @@ const OpdsFeed = GObject.registerClass({
                 })
                 .finally(() => client.close())
         }
+    }
+})
+
+const OpdsBoxChild =  GObject.registerClass({
+    GTypeName: 'FoliateOpdsBoxChild',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/opdsBoxChild.ui',
+    InternalChildren: [
+        'image', 'title'
+    ],
+    Properties: {
+        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
+    }
+}, class OpdsBoxChild extends Gtk.FlowBoxChild {
+    _init(params) {
+        super._init(params)
+        const { title } = this.entry.value
+        this._title.label = title
+    }
+    loadCover(pixbuf) {
+        const width = 120
+        const ratio = width / pixbuf.get_width()
+        if (ratio < 1) {
+            const height = parseInt(pixbuf.get_height() * ratio, 10)
+            this._image.set_from_pixbuf(pixbuf
+                .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
+        } else this._image.set_from_pixbuf(pixbuf)
+        this._image.get_style_context().add_class('foliate-book-image')
+        this.width_request = width
+    }
+    get image() {
+        return this._image
     }
 })
 
@@ -500,7 +552,7 @@ const OpdsAcquisitionBox = GObject.registerClass({
         if (this.max_entries) entries = entries.slice(0, this.max_entries)
         entries.forEach(entry => list.append(new Obj(entry)))
         this.bind_model(list, entry => {
-            const child = new BookBoxChild({ entry })
+            const child = new OpdsBoxChild({ entry })
             const thumbnail = entry.value.links
                 .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
             child.image.connect('draw', () => this.emit('image-draw'))
