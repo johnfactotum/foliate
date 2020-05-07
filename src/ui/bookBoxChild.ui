@@ -7,11 +7,52 @@
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
         <child>
-          <object class="GtkImage" id="image">
+          <object class="GtkOverlay" id="imageStack">
             <property name="visible">True</property>
             <property name="halign">center</property>
             <property name="valign">end</property>
-            <property name="icon-name">image-loading-symbolic</property>
+            <child>
+              <object class="GtkImage" id="image">
+                <property name="visible">True</property>
+                <property name="icon-name">image-loading-symbolic</property>
+              </object>
+            </child>
+            <child type="overlay">
+              <object class="GtkBox" id="imageBox">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="valign">center</property>
+                <child>
+                  <object class="GtkLabel" id="imageTitle">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="wrap">True</property>
+                    <property name="wrap-mode">word-char</property>
+                    <property name="ellipsize">end</property>
+                    <property name="lines">5</property>
+                    <style><class name="foliate-book-image-title"/></style>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="imageCreator">
+                    <property name="visible">True</property>
+                    <property name="xalign">1</property>
+                    <property name="ellipsize">end</property>
+                    <property name="opacity">0.85</property>
+                    <property name="margin">12</property>
+                    <attributes>
+                      <attribute name="scale" value="0.85"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="pack-type">end</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
         <child>

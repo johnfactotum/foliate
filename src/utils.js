@@ -373,3 +373,50 @@ var shuffle = arr => {
     }
     return arr
 }
+
+// convert HSL to RGB
+const hueToRgb = (p, q, t) => {
+    if (t < 0) t += 1
+    if (t > 1) t -= 1
+    if (t < 1 / 6) return p + (q - p) * 6 * t
+    if (t < 1 / 2) return q
+    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6
+    return p
+}
+var hslToRgb = (h, s, l) => {
+    let r, g, b
+    if(s == 0) r = g = b = l
+    else {
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s
+        const p = 2 * l - q
+        r = hueToRgb(p, q, h + 1 / 3)
+        g = hueToRgb(p, q, h)
+        b = hueToRgb(p, q, h - 1 / 3)
+    }
+    return [r, g, b]
+}
+
+// random number between two numbers
+var between = (min, max, x = Math.random()) => x * (max - min) + min
+
+// random number between 0 and 1, from a number
+var random = seed => {
+    const x = Math.sin(seed) * 10000
+    return x - Math.floor(x)
+}
+
+// generate a color based on a string
+const charSum = str => str.split('').map(x => x.charCodeAt(0)).reduce((a, b) => a + b)
+const splitString = str => {
+    const p = Math.floor(str.length / 2)
+    return [str.slice(0, p), str.slice(p)]
+}
+var colorFromString = str => {
+    const [a, b] = splitString(str)
+    const x = random(charSum(a))
+    const y = random(charSum(b))
+    const z = random(charSum(str))
+    return [x, between(0, 0.6, y), between(0.2, 1, z)]
+}
+
+var isLight = (r, g, b) => (r * 0.2126 + g * 0.7152 + b * 0.0722) > 0.6

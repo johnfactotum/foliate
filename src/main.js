@@ -266,6 +266,25 @@ function main(argv) {
                     5px 5px 12px 2px rgba(0, 0, 0, 0.1),
                     0 0 2px 1px rgba(0, 0, 0, 0.2);
             }
+            .foliate-book-image-dark {
+                color: #fff;
+            }
+            .foliate-book-image-light {
+                color: #000;
+            }
+            .foliate-book-image-dark .foliate-book-image-title {
+                border-color: rgba(255, 255, 255, 0.2);
+                background: rgba(0, 0, 0, 0.2);
+            }
+            .foliate-book-image-light .foliate-book-image-title {
+                border-color: rgba(0, 0, 0, 0.2);
+                background: rgba(255, 255, 255, 0.2);
+            }
+            .foliate-book-image-title {
+                border-width: 1px 0px;
+                border-style: solid;
+                padding: 12px;
+            }
         `)
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),

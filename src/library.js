@@ -13,8 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango } = imports.gi
-const { debug, Storage, Obj, base64ToPixbuf, markupEscape, shuffle } = imports.utils
+const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
+const { debug, Storage, Obj, base64ToPixbuf, markupEscape,
+    shuffle, hslToRgb, colorFromString, isLight } = imports.utils
 const { PropertiesBox } = imports.properties
 const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
@@ -24,7 +25,7 @@ const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxChild.ui',
     InternalChildren: [
-        'image', 'title'
+        'image', 'title', 'imageTitle', 'imageCreator', 'imageBox'
     ],
     Properties: {
         book: GObject.ParamSpec.object('book', 'book', 'book',
@@ -35,6 +36,25 @@ const BookBoxChild =  GObject.registerClass({
         super._init(params)
         const { progress, metadata: { title, creator } } = this.book.value
         this._title.label = title
+        this._imageTitle.label = title
+        this._imageCreator.label = creator
+        this.generateCover()
+    }
+    generateCover() {
+        const { metadata: { title, creator, publisher } } = this.book.value
+        const width = 120
+        const height = 180
+        const surface = new cairo.ImageSurface(cairo.Format.ARGB32, width, height)
+        const context = new cairo.Context(surface)
+        const bg = colorFromString(title + creator + publisher)
+        const [r, g, b] = hslToRgb(...bg)
+        context.setSourceRGBA(r, g, b, 1)
+        context.paint()
+        const pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, width, height)
+        this.loadCover(pixbuf)
+        const className = isLight(r, g, b)
+            ? 'foliate-book-image-light' : 'foliate-book-image-dark'
+        this._imageBox.get_style_context().add_class(className)
     }
     loadCover(pixbuf) {
         const width = 120
