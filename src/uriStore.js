@@ -71,16 +71,37 @@ class BookList {
         this.searchList = new Gio.ListStore()
         this.list.append(new Obj('load-more'))
         this.map = new Map()
+        this._query = ''
+        this._shouldLoad = true
+        this._arr = null
     }
     _load() {
+        debug('Loading book library')
         const datadir = GLib.build_filenamev([GLib.get_user_data_dir(), pkg.name])
         const books = listDir(datadir) || []
-        return Array.from(books).sort((a, b) => b.modified - a.modified)
+        this._arr = Array.from(books).sort((a, b) => b.modified - a.modified)
+        this._shouldLoad = false
+        return this._arr
     }
-    search(query) {
-        const q = query.toLowerCase()
-        const books = this._load()
+    search(query, force) {
+        debug(`Searching for "${query}"`)
         const list = this.searchList
+        if (!query) {
+            debug(`Query is empty; clearing the list`)
+            list.remove_all()
+            return list
+        }
+        const q = query.toLowerCase()
+        if (!force && q === this._query) {
+            debug(`Query hasn't changed; return the list`)
+            return list
+        }
+
+        this._query = q
+        let books
+        if (this._shouldLoad) books = this._load()
+        else books = this._arr || this._load()
+
         list.remove_all()
         for (const item of books) {
             const { identifier } = item
@@ -133,19 +154,22 @@ class BookList {
             const item = this.list.get_item(i).value
             if (item.identifier === id) {
                 this.list.remove(i)
-                this.next(1)
-                break
+                this._shouldLoad = true
+                this.search(this._query, true)
+                return true
             }
         }
     }
     remove(id) {
         this.map.delete(id)
-        this._remove(id)
+        if (this._remove(id)) this.next(1)
     }
     update(id, obj) {
         this._remove(id)
         this.map.set(id, obj)
         this.list.insert(0, new Obj(obj))
+        this._shouldLoad = true
+        this.search(this._query, true)
     }
 }
 

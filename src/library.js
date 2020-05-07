@@ -102,12 +102,12 @@ const BookListRow =  GObject.registerClass({
         const res = msg.run()
         if (res === Gtk.ResponseType.ACCEPT) {
             const id = this.book.value.metadata.identifier
-            bookList.remove(id)
-            uriStore.delete(id)
             try {
                 Gio.File.new_for_path(Storage.getPath('data', id)).delete(null)
                 Gio.File.new_for_path(Storage.getPath('cache', id)).delete(null)
             } catch (e) {}
+            bookList.remove(id)
+            uriStore.delete(id)
         }
         msg.close()
     }
@@ -732,16 +732,36 @@ var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
     InternalChildren: [
-        'stack', 'bookListBox', 'catalogColumn',
+        'stack', 'catalogColumn',
         'startButtonStack', 'endButtonStack',
         'searchButton', 'searchBar', 'searchEntry',
-        'bookListStack'
+        'libraryStack', 'bookListBox', 'bookFlowBox', 'viewButton'
     ],
+    Properties: {
+        'active-view': GObject.ParamSpec.string('active-view', 'active-view', 'active-view',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 'grid'),
+    },
 }, class LibraryWindow extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
         this.show_menubar = false
         this.title = _('Foliate')
+
+        this.actionGroup = new Gio.SimpleActionGroup()
+        const actions = {
+            'toggle-view': () => {
+                this.set_property('active-view',
+                    this.active_view === 'grid' ? 'list' : 'grid')
+            },
+            'catalog': () => this._stack.visible_child_name = 'catalog',
+            'close': () => this.close(),
+        }
+        Object.keys(actions).forEach(name => {
+            const action = new Gio.SimpleAction({ name })
+            action.connect('activate', actions[name])
+            this.actionGroup.add_action(action)
+        })
+        this.insert_action_group('lib', this.actionGroup)
 
         const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
         ;[this._startButtonStack, this._endButtonStack].forEach(stack =>
@@ -750,29 +770,39 @@ var LibraryWindow =  GObject.registerClass({
         this._searchBar.connect('notify::search-mode-enabled', ({ search_mode_enabled }) => {
             if (search_mode_enabled) this._searchEntry.grab_focus()
             else {
-                this._bookListStack.visible_child_name = 'main'
+                this._libraryStack.visible_child_name = this.active_view
+                this._bookFlowBox.search()
                 this._bookListBox.search()
             }
         })
-
-        this._searchEntry.connect('search-changed', ({ text }) => {
-            this._bookListBox.search(text)
-            if (!text) this._bookListStack.visible_child_name = 'main'
+        this.connect('notify::active-view', () => {
+            this._viewButton.get_child().icon_name = this.active_view === 'grid'
+                ? 'view-list-symbolic' : 'view-grid-symbolic'
+            updateEmptiness()
         })
+
+        const handleSearchEntry = ({ text }) => {
+            this._bookFlowBox.search(text)
+            this._bookListBox.search(text)
+            if (!text) this._libraryStack.visible_child_name = this.active_view
+        }
+        this._searchEntry.connect('search-changed', handleSearchEntry)
+        this._searchEntry.connect('activate', handleSearchEntry)
         this._searchEntry.connect('stop-search', () =>
             this._searchBar.search_mode_enabled = false)
 
         bookList.next()
         const updateEmptiness = () => {
+            if (this._libraryStack.visible_child_name === 'search-empty') return
             const isEmpty = bookList.list.get_n_items() === 0
-            this._bookListStack.visible_child_name = isEmpty ? 'empty' : 'main'
+            this._libraryStack.visible_child_name = isEmpty ? 'empty' : this.active_view
             this._searchButton.sensitive = !isEmpty
         }
         bookList.list.connect('items-changed', updateEmptiness)
         updateEmptiness()
 
-        const updateSearchEmptiness = () => this._bookListStack.visible_child_name =
-            bookList.searchList.get_n_items() ? 'main' : 'search-empty'
+        const updateSearchEmptiness = () => this._libraryStack.visible_child_name =
+            bookList.searchList.get_n_items() ? this.active_view : 'search-empty'
         bookList.searchList.connect('items-changed', updateSearchEmptiness)
 
         this._loadCatalogs()

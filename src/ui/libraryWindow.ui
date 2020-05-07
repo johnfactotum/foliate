@@ -95,13 +95,32 @@
             <property name="visible">True</property>
             <property name="transition-type">crossfade</property>
             <child>
-              <object class="GtkToggleButton" id="searchButton">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="tooltip-text" translatable="yes">Search</property>
+                <property name="spacing">6</property>
                 <child>
-                  <object class="GtkImage">
+                  <object class="GtkToggleButton" id="searchButton">
                     <property name="visible">True</property>
-                    <property name="icon-name">edit-find-symbolic</property>
+                    <property name="tooltip-text" translatable="yes">Search</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="icon-name">edit-find-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="viewButton">
+                    <property name="visible">True</property>
+                    <property name="action-name">lib.toggle-view</property>
+                    <property name="tooltip-text" translatable="yes">Toggle view</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="icon-name">view-list-symbolic</property>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -152,136 +171,148 @@
                 <property name="visible">True</property>
                 <property name="expand">True</property>
                 <child>
-                  <object class="FoliateHdyColumn">
+                  <object class="GtkStack" id="libraryStack">
                     <property name="visible">True</property>
-                    <property name="border-width">12</property>
-                    <property name="maximum-width">600</property>
+                    <property name="homogeneous">False</property>
                     <child>
-                      <object class="GtkStack" id="bookListStack">
+                      <object class="FoliateHdyColumn">
                         <property name="visible">True</property>
-                        <child>
-                          <object class="FoliateBookListBox" id="bookListBox">
-                            <property name="visible">True</property>
-                            <property name="valign">start</property>
-                            <property name="selection-mode">none</property>
-                            <style><class name="frame"/></style>
-                          </object>
-                          <packing>
-                            <property name="name">main</property>
-                          </packing>
-                        </child>
-
-                        <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin">18</property>
-                            <property name="spacing">9</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="pixel_size">96</property>
-                                <property name="margin-bottom">18</property>
-                                <property name="icon-name">com.github.johnfactotum.Foliate-symbolic</property>
-                                <style><class name="dim-label"/></style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="wrap">True</property>
-                                <property name="label" translatable="yes">No books yet</property>
-                                <style><class name="dim-label"/></style>
-                                <attributes>
-                                  <attribute name="weight" value="bold"/>
-                                  <attribute name="scale" value="1.36"/>
-                                </attributes>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="wrap">True</property>
-                                <property name="label" translatable="yes">Open a book to start reading.</property>
-                                <style><class name="dim-label"/></style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="spacing">12</property>
-                                <property name="margin-top">18</property>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="visible">True</property>
-                                    <property name="action-name">app.open</property>
-                                    <property name="halign">center</property>
-                                    <property name="label" translatable="yes">Open File…</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="visible">True</property>
-                                    <property name="action-name">lib.catalog</property>
-                                    <property name="halign">center</property>
-                                    <property name="label" translatable="yes">Browse Catalogs</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="name">empty</property>
-                          </packing>
-                        </child>
-
-                        <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin">18</property>
-                            <property name="spacing">9</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="pixel_size">96</property>
-                                <property name="margin-bottom">18</property>
-                                <property name="icon-name">edit-find-symbolic</property>
-                                <style><class name="dim-label"/></style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="wrap">True</property>
-                                <property name="label" translatable="yes">No results found</property>
-                                <style><class name="dim-label"/></style>
-                                <attributes>
-                                  <attribute name="weight" value="bold"/>
-                                  <attribute name="scale" value="1.36"/>
-                                </attributes>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="wrap">True</property>
-                                <property name="label" translatable="yes">Try a different search.</property>
-                                <style><class name="dim-label"/></style>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="name">search-empty</property>
-                          </packing>
-                        </child>
-
+                        <property name="border-width">12</property>
+                        <property name="maximum-width">600</property>
+                          <child>
+                            <object class="FoliateBookListBox" id="bookListBox">
+                              <property name="visible">True</property>
+                              <property name="valign">start</property>
+                              <property name="selection-mode">none</property>
+                              <style><class name="frame"/></style>
+                            </object>
+                          </child>
                       </object>
+                      <packing>
+                        <property name="name">list</property>
+                      </packing>
                     </child>
+                    <child>
+                      <object class="FoliateBookFlowBox" id="bookFlowBox">
+                        <property name="visible">True</property>
+                        <property name="valign">start</property>
+                        <property name="selection-mode">none</property>
+                        <property name="border-width">18</property>
+                      </object>
+                      <packing>
+                        <property name="name">grid</property>
+                      </packing>
+                    </child>
+
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="margin">18</property>
+                        <property name="spacing">9</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="pixel_size">96</property>
+                            <property name="margin-bottom">18</property>
+                            <property name="icon-name">com.github.johnfactotum.Foliate-symbolic</property>
+                            <style><class name="dim-label"/></style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">No books yet</property>
+                            <style><class name="dim-label"/></style>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="1.36"/>
+                            </attributes>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Open a book to start reading.</property>
+                            <style><class name="dim-label"/></style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="spacing">12</property>
+                            <property name="margin-top">18</property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="visible">True</property>
+                                <property name="action-name">app.open</property>
+                                <property name="halign">center</property>
+                                <property name="label" translatable="yes">Open File…</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="visible">True</property>
+                                <property name="action-name">lib.catalog</property>
+                                <property name="halign">center</property>
+                                <property name="label" translatable="yes">Browse Catalogs</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="name">empty</property>
+                      </packing>
+                    </child>
+
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="margin">18</property>
+                        <property name="spacing">9</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="pixel_size">96</property>
+                            <property name="margin-bottom">18</property>
+                            <property name="icon-name">edit-find-symbolic</property>
+                            <style><class name="dim-label"/></style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">No results found</property>
+                            <style><class name="dim-label"/></style>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="1.36"/>
+                            </attributes>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Try a different search.</property>
+                            <style><class name="dim-label"/></style>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="name">search-empty</property>
+                      </packing>
+                    </child>
+
                   </object>
                 </child>
               </object>
