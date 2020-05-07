@@ -770,21 +770,22 @@ var LibraryWindow =  GObject.registerClass({
         this._searchBar.connect('notify::search-mode-enabled', ({ search_mode_enabled }) => {
             if (search_mode_enabled) this._searchEntry.grab_focus()
             else {
-                this._libraryStack.visible_child_name = this.active_view
+                this._searchEntry.text = ''
                 this._bookFlowBox.search()
                 this._bookListBox.search()
             }
+            this._updateLibraryStack()
         })
         this.connect('notify::active-view', () => {
             this._viewButton.get_child().icon_name = this.active_view === 'grid'
                 ? 'view-list-symbolic' : 'view-grid-symbolic'
-            updateEmptiness()
+            this._updateLibraryStack()
         })
 
         const handleSearchEntry = ({ text }) => {
             this._bookFlowBox.search(text)
             this._bookListBox.search(text)
-            if (!text) this._libraryStack.visible_child_name = this.active_view
+            this._updateLibraryStack()
         }
         this._searchEntry.connect('search-changed', handleSearchEntry)
         this._searchEntry.connect('activate', handleSearchEntry)
@@ -792,20 +793,22 @@ var LibraryWindow =  GObject.registerClass({
             this._searchBar.search_mode_enabled = false)
 
         bookList.next()
-        const updateEmptiness = () => {
-            if (this._libraryStack.visible_child_name === 'search-empty') return
-            const isEmpty = bookList.list.get_n_items() === 0
-            this._libraryStack.visible_child_name = isEmpty ? 'empty' : this.active_view
-            this._searchButton.sensitive = !isEmpty
-        }
-        bookList.list.connect('items-changed', updateEmptiness)
-        updateEmptiness()
-
-        const updateSearchEmptiness = () => this._libraryStack.visible_child_name =
-            bookList.searchList.get_n_items() ? this.active_view : 'search-empty'
-        bookList.searchList.connect('items-changed', updateSearchEmptiness)
+        bookList.list.connect('items-changed', () => this._updateLibraryStack())
+        bookList.searchList.connect('items-changed', () => this._updateLibraryStack())
+        this._updateLibraryStack()
 
         this._loadCatalogs()
+    }
+    _updateLibraryStack() {
+        const stack = this._libraryStack
+        const search = this._searchBar.search_mode_enabled
+        if (search && bookList.searchList.get_n_items())
+            stack.visible_child_name = this.active_view
+        else if (search && this._searchEntry.text.trim() !== '')
+            stack.visible_child_name = 'search-empty'
+        else
+            stack.visible_child_name = bookList.list.get_n_items()
+                ? this.active_view : 'empty'
     }
     open(file) {
         new Window({ application: this.application, file }).present()
