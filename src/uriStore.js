@@ -72,6 +72,7 @@ class BookList {
         this.list.append(new Obj('load-more'))
         this.map = new Map()
         this._query = ''
+        this._shouldUpdateList = false
         this._shouldLoad = true
         this._arr = null
     }
@@ -147,6 +148,7 @@ class BookList {
             this.list.insert(this.list.get_n_items() - 1, new Obj(data))
             i++
         }
+        this._shouldUpdateList = true
     }
     _remove(id) {
         const n = this.list.get_n_items()
@@ -167,7 +169,7 @@ class BookList {
     update(id, obj) {
         this._remove(id)
         this.map.set(id, obj)
-        this.list.insert(0, new Obj(obj))
+        if (this._shouldUpdateList) this.list.insert(0, new Obj(obj))
         this._shouldLoad = true
         this.search(this._query, true)
     }
