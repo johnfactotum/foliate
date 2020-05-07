@@ -150,6 +150,7 @@ const makeLibrary = (params, widget) => {
             if (isListBox) this.set_header_func(row => {
                 if (row.get_index()) row.set_header(new Gtk.Separator())
             })
+            this._model = null
             this._bindBookList()
             this.connect(activateSignal, this._onRowActivated.bind(this))
         }
@@ -158,6 +159,11 @@ const makeLibrary = (params, widget) => {
                 if (book.value === 'load-more') return new LoadMore()
                 else return new ChildWidget({ book })
             })
+        }
+        bind_model(model, func) {
+            if (model === this._model) return
+            this._model = model
+            super.bind_model(model, func)
         }
         search(query) {
             const q = query ? query.trim() : ''
