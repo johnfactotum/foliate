@@ -5,7 +5,9 @@
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">12</property>
+        <property name="spacing">6</property>
+        <property name="halign">center</property>
+        <property name="width-request">120</property>
         <child>
           <object class="GtkOverlay" id="imageStack">
             <property name="visible">True</property>
@@ -56,13 +58,16 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="title">
+          <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="wrap">True</property>
-            <property name="lines">3</property>
-            <property name="ellipsize">end</property>
-            <property name="justify">center</property>
-            <property name="max-width-chars">15</property>
+            <property name="margin-start">6</property>
+            <child>
+              <object class="GtkLabel" id="progressLabel">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <style><class name="dim-label"/></style>
+              </object>
+            </child>
           </object>
         </child>
       </object>

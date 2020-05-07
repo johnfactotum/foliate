@@ -25,7 +25,7 @@ const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxChild.ui',
     InternalChildren: [
-        'image', 'title', 'imageTitle', 'imageCreator', 'imageBox'
+        'image', 'imageTitle', 'imageCreator', 'imageBox', 'progressLabel'
     ],
     Properties: {
         book: GObject.ParamSpec.object('book', 'book', 'book',
@@ -35,9 +35,15 @@ const BookBoxChild =  GObject.registerClass({
     _init(params) {
         super._init(params)
         const { progress, metadata: { title, creator } } = this.book.value
-        this._title.label = title
+        this.tooltip_text = title
         this._imageTitle.label = title
         this._imageCreator.label = creator
+
+        if (progress && progress[1]) {
+            const fraction = (progress[0] + 1) / (progress[1] + 1)
+            this._progressLabel.label = Math.round(fraction * 100) + '%'
+        }
+
         this.generateCover()
     }
     generateCover() {
