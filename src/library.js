@@ -201,11 +201,16 @@ const LoadMoreChild = GObject.registerClass({
 }, class LoadMoreChild extends Gtk.FlowBoxChild {
     _init(params) {
         super._init(params)
-        this.add(new Gtk.Image({
+        const image = new Gtk.Image({
             visible: true,
-            icon_name: 'view-more-symbolic',
-            margin: 12
-        }))
+            icon_name: 'view-more-horizontal-symbolic',
+            width_request: 120,
+            height_request: 180,
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.START
+        })
+        image.get_style_context().add_class('frame')
+        this.add(image)
     }
 })
 
