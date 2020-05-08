@@ -73,7 +73,6 @@ class BookList {
         this.map = new Map()
         this._query = ''
         this._shouldUpdateList = false
-        this._shouldLoad = true
         this._arr = null
     }
     _load() {
@@ -81,7 +80,6 @@ class BookList {
         const datadir = GLib.build_filenamev([GLib.get_user_data_dir(), pkg.name])
         const books = listDir(datadir) || []
         this._arr = Array.from(books).sort((a, b) => b.modified - a.modified)
-        this._shouldLoad = false
         return this._arr
     }
     search(query, force) {
@@ -99,9 +97,7 @@ class BookList {
         }
 
         this._query = q
-        let books
-        if (this._shouldLoad) books = this._load()
-        else books = this._arr || this._load()
+        const books = this._arr || this._load()
 
         list.remove_all()
         for (const item of books) {
@@ -131,6 +127,7 @@ class BookList {
         return result
     }
     next(n = 10) {
+        this._shouldUpdateList = true
         if (!this._iter) this._iter = this._load().values()
         let i = 0
         while (i < n) {
@@ -148,15 +145,17 @@ class BookList {
             this.list.insert(this.list.get_n_items() - 1, new Obj(data))
             i++
         }
-        this._shouldUpdateList = true
     }
     _remove(id) {
+        if (this._arr) {
+            const i = this._arr.findIndex(({ identifier }) => identifier === id)
+            if (i !== -1) this._arr.splice(i, 1)
+        }
         const n = this.list.get_n_items()
         for (let i = 0; i < n; i++) {
             const item = this.list.get_item(i).value
             if (item.identifier === id) {
                 this.list.remove(i)
-                this._shouldLoad = true
                 this.search(this._query, true)
                 return true
             }
@@ -167,10 +166,12 @@ class BookList {
         if (this._remove(id)) this.next(1)
     }
     update(id, obj) {
-        this._remove(id)
         this.map.set(id, obj)
-        if (this._shouldUpdateList) this.list.insert(0, new Obj(obj))
-        this._shouldLoad = true
+        if (this._shouldUpdateList) {
+            this._remove(id)
+            this.list.insert(0, new Obj(obj))
+        }
+        if (this._arr) this._arr.unshift({ identifier: id })
         this.search(this._query, true)
     }
 }
