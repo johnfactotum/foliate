@@ -51,11 +51,9 @@ const BookImage =  GObject.registerClass({
     load(pixbuf) {
         const width = 120
         const ratio = width / pixbuf.get_width()
-        if (ratio < 1) {
-            const height = parseInt(pixbuf.get_height() * ratio, 10)
-            this._image.set_from_pixbuf(pixbuf
-                .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
-        } else this._image.set_from_pixbuf(pixbuf)
+        const height = parseInt(pixbuf.get_height() * ratio, 10)
+        this._image.set_from_pixbuf(pixbuf
+            .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
         this._image.get_style_context().add_class('foliate-book-image')
         this.width_request = width
     }
