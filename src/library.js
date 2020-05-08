@@ -911,7 +911,7 @@ var LibraryWindow =  GObject.registerClass({
         }), true, true, 0)
         const button = new Gtk.Button({
             visible: true,
-            label: _('See more'),
+            label: _('See More'),
             valign: Gtk.Align.CENTER
         })
         button.connect('clicked', () => this.openCatalog(uri))
