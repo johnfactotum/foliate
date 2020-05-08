@@ -27,12 +27,14 @@ parts:
     override-pull: |
       snapcraftctl pull
       sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
+      snapcraftctl set-version $(git describe --tags --abbrev=10)
     override-build: |
       set -ex
       xmlstarlet edit -L -u "/schemalist/schema/key[@name='tts-command']/default" -v "'espeak-ng -v mb-en1'" $SNAPCRAFT_PART_BUILD/data/com.github.johnfactotum.Foliate.gschema.xml
       snapcraftctl build
     meson-parameters: [--prefix=/snap/foliate/current/usr]
     build-packages:
+      - git # for set-version
       - xmlstarlet  # for override-build
     organize:
       snap/foliate/current/usr: usr
