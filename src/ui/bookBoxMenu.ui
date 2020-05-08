@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateBookBoxMenu" parent="GtkPopoverMenu">
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="margin">10</property>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">lib-book.remove</property>
+            <property name="text" translatable="yes">Remove from Library</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -21,28 +21,97 @@ const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
 const { HdyHeaderBar, HdyViewSwitcher, HdySearchBar, HdyColumn } = imports.handy
 
+const BookBoxMenu =  GObject.registerClass({
+    GTypeName: 'FoliateBookBoxMenu',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxMenu.ui',
+}, class BookBoxMenu extends Gtk.PopoverMenu {
+    // TODO
+})
+
+const makeLibraryChild = (params, widget) => {
+    params = Object.assign({
+        Properties: {
+            book: GObject.ParamSpec.object('book', 'book', 'book',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
+        }
+    }, params)
+
+    return GObject.registerClass(params, class LibraryChild extends widget {
+        _init(params) {
+            super._init(params)
+            this.actionGroup = new Gio.SimpleActionGroup()
+            const actions = {
+                'remove': () => this.removeBook(),
+            }
+            Object.keys(actions).forEach(name => {
+                const action = new Gio.SimpleAction({ name })
+                action.connect('activate', actions[name])
+                this.actionGroup.add_action(action)
+            })
+            this.insert_action_group('lib-book', this.actionGroup)
+        }
+        getMenu() {
+            return new BookBoxMenu()
+        }
+        getProgress() {
+            const { progress } = this.book.value
+            if (progress && progress[1]) {
+                const fraction = (progress[0] + 1) / (progress[1] + 1)
+                return { progress, fraction, label: Math.round(fraction * 100) + '%' }
+            }
+            return {}
+        }
+        removeBook() {
+            const window = this.get_toplevel()
+            const msg = new Gtk.MessageDialog({
+                text: _('Are you sure you want to remove this book?'),
+                secondary_text: _('Reading progress, annotations, and bookmarks will be permanently lost.'),
+                message_type: Gtk.MessageType.QUESTION,
+                modal: true,
+                transient_for: window
+            })
+            msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+            msg.add_button(_('Remove'), Gtk.ResponseType.ACCEPT)
+            msg.set_default_response(Gtk.ResponseType.CANCEL)
+            msg.get_widget_for_response(Gtk.ResponseType.ACCEPT)
+                .get_style_context().add_class('destructive-action')
+            const res = msg.run()
+            if (res === Gtk.ResponseType.ACCEPT) {
+                const id = this.book.value.metadata.identifier
+                try {
+                    Gio.File.new_for_path(Storage.getPath('data', id)).delete(null)
+                    Gio.File.new_for_path(Storage.getPath('cache', id)).delete(null)
+                } catch (e) {}
+                bookList.remove(id)
+                uriStore.delete(id)
+            }
+            msg.close()
+        }
+    })
+}
+
+const BookFlowBoxChild =
+    makeLibraryChild({ GTypeName: 'FoliateBookFlowBoxChild' }, Gtk.FlowBoxChild)
+
 const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxChild.ui',
     InternalChildren: [
-        'image', 'imageTitle', 'imageCreator', 'imageBox', 'progressLabel'
-    ],
-    Properties: {
-        book: GObject.ParamSpec.object('book', 'book', 'book',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
-    }
-}, class BookBoxChild extends Gtk.FlowBoxChild {
+        'image', 'imageTitle', 'imageCreator', 'imageBox',
+        'progressLabel', 'menuButton'
+    ]
+}, class BookBoxChild extends BookFlowBoxChild {
     _init(params) {
         super._init(params)
-        const { progress, metadata: { title, creator } } = this.book.value
+        const { metadata: { title, creator } } = this.book.value
         this.tooltip_text = title
         this._imageTitle.label = title
         this._imageCreator.label = creator
 
-        if (progress && progress[1]) {
-            const fraction = (progress[0] + 1) / (progress[1] + 1)
-            this._progressLabel.label = Math.round(fraction * 100) + '%'
-        }
+        const { label } = this.getProgress()
+        if (label) this._progressLabel.label = label
+
+        this._menuButton.popover = this.getMenu()
 
         this.generateCover()
     }
@@ -73,34 +142,30 @@ const BookBoxChild =  GObject.registerClass({
         this._image.get_style_context().add_class('foliate-book-image')
         this.width_request = width
     }
-    get image() {
-        return this._image
-    }
 })
 
-const BookListRow =  GObject.registerClass({
-    GTypeName: 'FoliateBookListRow',
-    Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookListRow.ui',
+const BookListBoxRow =
+    makeLibraryChild({ GTypeName: 'FoliateBookListBoxRow' }, Gtk.ListBoxRow)
+
+const BookBoxRow =  GObject.registerClass({
+    GTypeName: 'FoliateBookBoxRow',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxRow.ui',
     InternalChildren: [
         'title', 'creator',
         'progressGrid', 'progressBar', 'progressLabel',
-        'remove'
-    ],
-    Properties: {
-        book: GObject.ParamSpec.object('book', 'book', 'book',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
-    }
-}, class BookListRow extends Gtk.ListBoxRow {
+        'menuButton'
+    ]
+}, class BookListRow extends BookListBoxRow {
     _init(params) {
         super._init(params)
-        const { progress, metadata: { title, creator } } = this.book.value
+        const { metadata: { title, creator } } = this.book.value
         this._title.label = title || ''
         this._creator.label = creator || ''
+
+        const { progress, fraction, label } = this.getProgress()
         if (progress && progress[1]) {
-            const fraction = (progress[0] + 1) / (progress[1] + 1)
             this._progressBar.fraction = fraction
-            this._progressLabel.label = Math.round(fraction * 100) + '%'
-            // this._progressLabel.label = `${(progress[0] + 1)} / ${(progress[1] + 1)}`
+            this._progressLabel.label = label
             const bookSize = Math.min((progress[1] + 1) / 1500, 0.8)
             const steps = 20
             const span = Math.round(bookSize * steps) + 1
@@ -109,33 +174,7 @@ const BookListRow =  GObject.registerClass({
             this._progressGrid.child_set_property(this._progressLabel, 'left-attach', span)
         } else this._progressGrid.hide()
 
-        this._remove.connect('clicked', this.remove.bind(this))
-    }
-    remove() {
-        const window = this.get_toplevel()
-        const msg = new Gtk.MessageDialog({
-            text: _('Are you sure you want to remove this book?'),
-            secondary_text: _('Reading progress, annotations, and bookmarks will be permanently lost.'),
-            message_type: Gtk.MessageType.WARNING,
-            modal: true,
-            transient_for: window
-        })
-        msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
-        msg.add_button(_('Remove'), Gtk.ResponseType.ACCEPT)
-        msg.set_default_response(Gtk.ResponseType.CANCEL)
-        msg.get_widget_for_response(Gtk.ResponseType.ACCEPT)
-            .get_style_context().add_class('destructive-action')
-        const res = msg.run()
-        if (res === Gtk.ResponseType.ACCEPT) {
-            const id = this.book.value.metadata.identifier
-            try {
-                Gio.File.new_for_path(Storage.getPath('data', id)).delete(null)
-                Gio.File.new_for_path(Storage.getPath('cache', id)).delete(null)
-            } catch (e) {}
-            bookList.remove(id)
-            uriStore.delete(id)
-        }
-        msg.close()
+        this._menuButton.popover = this.getMenu()
     }
 })
 
@@ -167,7 +206,7 @@ const LoadMoreChild = GObject.registerClass({
 const makeLibrary = (params, widget) => {
     const isListBox = widget === Gtk.ListBox
     const LoadMore = isListBox ? LoadMoreRow : LoadMoreChild
-    const ChildWidget = isListBox ? BookListRow : BookBoxChild
+    const ChildWidget = isListBox ? BookBoxRow : BookBoxChild
     const activateSignal = isListBox ? 'row-activated' : 'child-activated'
 
     return GObject.registerClass(params, class Library extends widget {
