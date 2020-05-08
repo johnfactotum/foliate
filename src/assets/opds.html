@@ -131,16 +131,24 @@ const parse = (el, schema) => {
 }
 
 const getImage = async (src, token) => {
-    const res = await fetch(src)
-    const blob = await res.blob()
+    try {
+        const res = await fetch(src)
+        const blob = await res.blob()
 
-    const reader = new FileReader()
-    reader.readAsDataURL(blob)
-    reader.onloadend = () => {
-        const base64 = reader.result.split(',')[1]
+        const reader = new FileReader()
+        reader.readAsDataURL(blob)
+        reader.onloadend = () => {
+            const base64 = reader.result.split(',')[1]
+            dispatch({
+                type: 'image',
+                payload: base64,
+                token
+            })
+        }
+    } catch (e) {
         dispatch({
-            type: 'image',
-            payload: base64,
+            type: 'error',
+            payload: e.toString(),
             token
         })
     }

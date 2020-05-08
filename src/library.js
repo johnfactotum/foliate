@@ -21,6 +21,46 @@ const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
 const { HdyHeaderBar, HdyViewSwitcher, HdySearchBar, HdyColumn } = imports.handy
 
+
+const BookImage =  GObject.registerClass({
+    GTypeName: 'FoliateBookImage',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookImage.ui',
+    InternalChildren: [
+        'image', 'imageTitle', 'imageCreator', 'imageBox',
+    ]
+}, class BookImage extends Gtk.Overlay {
+    generate(metadata) {
+        const { title, creator, publisher } = metadata
+        this._imageTitle.label = title || ''
+        this._imageCreator.label = creator || ''
+        const width = 120
+        const height = 180
+        const surface = new cairo.ImageSurface(cairo.Format.ARGB32, width, height)
+        const context = new cairo.Context(surface)
+        const bg = colorFromString(title + creator + publisher)
+        const [r, g, b] = hslToRgb(...bg)
+        context.setSourceRGBA(r, g, b, 1)
+        context.paint()
+        const pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, width, height)
+        this.load(pixbuf)
+        const className = isLight(r, g, b)
+            ? 'foliate-book-image-light' : 'foliate-book-image-dark'
+        this._imageBox.get_style_context().add_class(className)
+        this._imageBox.show()
+    }
+    load(pixbuf) {
+        const width = 120
+        const ratio = width / pixbuf.get_width()
+        if (ratio < 1) {
+            const height = parseInt(pixbuf.get_height() * ratio, 10)
+            this._image.set_from_pixbuf(pixbuf
+                .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
+        } else this._image.set_from_pixbuf(pixbuf)
+        this._image.get_style_context().add_class('foliate-book-image')
+        this.width_request = width
+    }
+})
+
 const BookBoxMenu =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxMenu',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxMenu.ui',
@@ -97,50 +137,18 @@ const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxChild.ui',
     InternalChildren: [
-        'image', 'imageTitle', 'imageCreator', 'imageBox',
-        'progressLabel', 'menuButton'
+        'image', 'progressLabel', 'menuButton'
     ]
 }, class BookBoxChild extends BookFlowBoxChild {
     _init(params) {
         super._init(params)
-        const { metadata: { title, creator } } = this.book.value
-        this.tooltip_text = title
-        this._imageTitle.label = title
-        this._imageCreator.label = creator
+        const { metadata } = this.book.value
+        this._image.generate(metadata)
 
         const { label } = this.getProgress()
         if (label) this._progressLabel.label = label
 
         this._menuButton.popover = this.getMenu()
-
-        this.generateCover()
-    }
-    generateCover() {
-        const { metadata: { title, creator, publisher } } = this.book.value
-        const width = 120
-        const height = 180
-        const surface = new cairo.ImageSurface(cairo.Format.ARGB32, width, height)
-        const context = new cairo.Context(surface)
-        const bg = colorFromString(title + creator + publisher)
-        const [r, g, b] = hslToRgb(...bg)
-        context.setSourceRGBA(r, g, b, 1)
-        context.paint()
-        const pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, width, height)
-        this.loadCover(pixbuf)
-        const className = isLight(r, g, b)
-            ? 'foliate-book-image-light' : 'foliate-book-image-dark'
-        this._imageBox.get_style_context().add_class(className)
-    }
-    loadCover(pixbuf) {
-        const width = 120
-        const ratio = width / pixbuf.get_width()
-        if (ratio < 1) {
-            const height = parseInt(pixbuf.get_height() * ratio, 10)
-            this._image.set_from_pixbuf(pixbuf
-                .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
-        } else this._image.set_from_pixbuf(pixbuf)
-        this._image.get_style_context().add_class('foliate-book-image')
-        this.width_request = width
     }
 })
 
@@ -358,6 +366,21 @@ class OpdsClient {
     }
 }
 
+const opdsEntryToMetadata = entry => {
+    const {
+        title, summary, publisher, language, identifier, rights,
+        published, updated, issued,
+        authors = [],
+    } = entry
+    return {
+        title, publisher, language, identifier, rights,
+        creator: authors.map(x => x.name).join(', '),
+        description: summary,
+        pubdate: issued || published,
+        modified_date: updated
+    }
+}
+
 const LoadBox = GObject.registerClass({
     GTypeName: 'FoliateLoadBox'
 }, class LoadBox extends Gtk.Stack {
@@ -443,12 +466,7 @@ const OpdsEntryBox =  GObject.registerClass({
     _init(params) {
         super._init(params)
         this.orientation = Gtk.Orientation.VERTICAL
-        const {
-            title, summary, publisher, language, identifier, rights,
-            published, updated, issued,
-            authors = [],
-            links = [],
-        } = this.entry.value
+        const { links = [] } = this.entry.value
 
         const scrolled = new Gtk.ScrolledWindow({
             visible: true
@@ -456,13 +474,7 @@ const OpdsEntryBox =  GObject.registerClass({
         const propertiesBox = new PropertiesBox({
             visible: true,
             border_width: 12
-        }, {
-            title, publisher, language, identifier, rights,
-            creator: authors.map(x => x.name).join(', '),
-            description: summary,
-            pubdate: issued || published,
-            modified_date: updated
-        }, null)
+        }, opdsEntryToMetadata(this.entry.value), null)
         scrolled.add(propertiesBox)
         this.pack_start(scrolled, true, true, 0)
 
@@ -550,15 +562,11 @@ const OpdsBoxChild =  GObject.registerClass({
         this._title.label = title
     }
     loadCover(pixbuf) {
-        const width = 120
-        const ratio = width / pixbuf.get_width()
-        if (ratio < 1) {
-            const height = parseInt(pixbuf.get_height() * ratio, 10)
-            this._image.set_from_pixbuf(pixbuf
-                .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
-        } else this._image.set_from_pixbuf(pixbuf)
-        this._image.get_style_context().add_class('foliate-book-image')
-        this.width_request = width
+        this._image.load(pixbuf)
+    }
+    generateCover() {
+        const metadata = opdsEntryToMetadata(this.entry.value)
+        this._image.generate(metadata)
     }
     get image() {
         return this._image
@@ -631,10 +639,12 @@ const OpdsAcquisitionBox = GObject.registerClass({
                 if (thumbnail)
                     client.getImage(thumbnail.href)
                         .then(pixbuf => child.loadCover(pixbuf))
+                        .catch(() => child.generateCover())
                         .finally(() => {
                             loadCount++
                             if (loadCount === entries.length) client.close()
                         })
+                else child.generateCover()
             })
             return child
         })

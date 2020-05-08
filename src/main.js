@@ -285,6 +285,10 @@ function main(argv) {
                 border-style: solid;
                 padding: 12px;
             }
+            .foliate-book-image-creator {
+                opacity: 0.7;
+                padding: 12px;
+            }
         `)
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),
