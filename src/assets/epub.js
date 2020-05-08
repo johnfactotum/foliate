@@ -16314,7 +16314,11 @@ var Layout = function () {
 			var pageWidth;
 			var delta;
 
-			if (this._spread && width >= this._minSpreadWidth) {
+			if (this._spread && width >= this._minSpreadWidth * 2
+			&& this.name === "reflowable" && this._flow === "paginated") {
+				divisor = 4;
+				section = section / 2
+			} else if (this._spread && width >= this._minSpreadWidth) {
 				divisor = 2;
 			} else {
 				divisor = 1;
