@@ -15,7 +15,7 @@
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
 let Soup; try { Soup = imports.gi.Soup } catch (e) {}
-const { invertRotate } = imports.utils
+const { invertRotate, scalePixbuf } = imports.utils
 const { uriStore, bookList } = imports.uriStore
 const { EpubCFI } = imports.epubcfi
 
@@ -123,6 +123,7 @@ const EpubViewData = GObject.registerClass({
 
         this._storage = new Storage(Storage.getPath('data', identifier))
         this._cache = new Storage(Storage.getPath('cache', identifier))
+        this._coverPath = Storage.getPath('cache', this._identifier, '.png')
 
         this._annotationsMap = new Map()
         this._annotationsList = new Gio.ListStore()
@@ -280,6 +281,9 @@ const EpubViewData = GObject.registerClass({
     }
     clearCache() {
         this._cache.clear()
+        try {
+            Gio.File.new_for_path(this._coverPath).delete(null)
+        } catch (e) {}
     }
     disconnectAll() {
         for (const annotation of this.annotations) {
@@ -306,6 +310,12 @@ const EpubViewData = GObject.registerClass({
     }
     get data() {
         return this._storage.data
+    }
+    saveCover(cover) {
+        // TODO: maybe don't save cover if one already exists
+        debug(`saving cover to ${this._coverPath}`)
+        const pixbuf = scalePixbuf(cover)
+        pixbuf.savev(this._coverPath, 'png', [], [])
     }
 })
 
@@ -597,6 +607,9 @@ var EpubView = GObject.registerClass({
             }
             this._run(`loadLocations(${locations || 'null'})`)
             this._run('render()')
+        })
+        this.connect('cover', () => {
+            if (this._data) this._data.saveCover(this.cover)
         })
         this.connect('rendition-ready', () => {
             let lastLocation

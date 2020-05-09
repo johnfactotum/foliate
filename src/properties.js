@@ -13,7 +13,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gtk, GdkPixbuf } = imports.gi
+const { GObject, Gtk } = imports.gi
+const { scalePixbuf } = imports.utils
 
 const PropertyBox = GObject.registerClass({
     GTypeName: 'FoliatePropertyBox',
@@ -46,11 +47,7 @@ var PropertiesBox = GObject.registerClass({
     _init(params, metadata, cover) {
         super._init(params)
         if (cover) {
-            const width = 120
-            const ratio = width / cover.get_width()
-            const height = parseInt(cover.get_height() * ratio, 10)
-            this._cover.set_from_pixbuf(cover
-                .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
+            this._cover.set_from_pixbuf(scalePixbuf(cover))
             this._cover.get_style_context().add_class('foliate-book-image')
         } else this._cover.hide()
 

@@ -14,7 +14,7 @@
  */
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
-const { debug, Storage, Obj, base64ToPixbuf, markupEscape,
+const { debug, Storage, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight } = imports.utils
 const { PropertiesBox } = imports.properties
 const { Window } = imports.window
@@ -30,6 +30,17 @@ const BookImage =  GObject.registerClass({
         'image', 'imageTitle', 'imageCreator', 'imageBox',
     ]
 }, class BookImage extends Gtk.Overlay {
+    loadCover(metadata) {
+        const { identifier } = metadata
+        const coverPath = Storage.getPath('cache', identifier, '.png')
+        try {
+            // TODO: loading the file synchronously is probably bad
+            const pixbuf = GdkPixbuf.Pixbuf.new_from_file(coverPath)
+            this.load(pixbuf)
+        } catch (e) {
+            this.generate(metadata)
+        }
+    }
     generate(metadata) {
         const { title, creator, publisher } = metadata
         this._imageTitle.label = title || ''
@@ -50,13 +61,8 @@ const BookImage =  GObject.registerClass({
         this._imageBox.show()
     }
     load(pixbuf) {
-        const width = 120
-        const ratio = width / pixbuf.get_width()
-        const height = parseInt(pixbuf.get_height() * ratio, 10)
-        this._image.set_from_pixbuf(pixbuf
-            .scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR))
+        this._image.set_from_pixbuf(scalePixbuf(pixbuf))
         this._image.get_style_context().add_class('foliate-book-image')
-        this.width_request = width
     }
 })
 
@@ -117,10 +123,16 @@ const makeLibraryChild = (params, widget) => {
             const res = msg.run()
             if (res === Gtk.ResponseType.ACCEPT) {
                 const id = this.book.value.metadata.identifier
-                try {
-                    Gio.File.new_for_path(Storage.getPath('data', id)).delete(null)
-                    Gio.File.new_for_path(Storage.getPath('cache', id)).delete(null)
-                } catch (e) {}
+                ;[
+                    Storage.getPath('data', id),
+                    Storage.getPath('cache', id),
+                    Storage.getPath('cache', id, '.png')
+                ].forEach(path => {
+                    try {
+                        Gio.File.new_for_path(path).delete(null)
+                    } catch (e) {}
+                })
+
                 bookList.remove(id)
                 uriStore.delete(id)
             }
@@ -142,7 +154,7 @@ const BookBoxChild =  GObject.registerClass({
     _init(params) {
         super._init(params)
         const { metadata } = this.book.value
-        this._image.generate(metadata)
+        this._image.loadCover(metadata)
 
         const { label } = this.getProgress()
         if (label) this._progressLabel.label = label

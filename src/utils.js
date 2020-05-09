@@ -156,12 +156,12 @@ var Storage = GObject.registerClass({
         })
         this._debouncedWrite = debounce(this._write.bind(this), 1000)
     }
-    static getPath(type, key) {
+    static getPath(type, key, ext = '.json') {
         const dataDir = type === 'cache' ? GLib.get_user_cache_dir()
             : type === 'config' ? GLib.get_user_config_dir()
             : GLib.get_user_data_dir()
         return GLib.build_filenamev([dataDir, pkg.name,
-            `${encodeURIComponent(key)}.json`])
+            `${encodeURIComponent(key)}${ext}`])
     }
     _getModified() {
         try {
@@ -316,6 +316,14 @@ var base64ToPixbuf = base64 => {
     } catch (e) {
         return null
     }
+}
+
+var scalePixbuf = (pixbuf, width = 120) => {
+    // TODO: maybe just use gdkpixbuf's "[...]_at_sacale" functions instead of this?
+    const ratio = width / pixbuf.get_width()
+    if (ratio === 1) return pixbuf
+    const height = parseInt(pixbuf.get_height() * ratio, 10)
+    return pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
 }
 
 const maxBy = (arr, f) =>
