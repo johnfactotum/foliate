@@ -31,6 +31,23 @@ var HdyViewSwitcher =  GObject.registerClass({
     ? class HdyViewSwitcher extends Handy.ViewSwitcher {}
     : class HdyViewSwitcher extends Gtk.StackSwitcher {})
 
+var HdyViewSwitcherBar =  GObject.registerClass({
+    GTypeName: 'FoliateHdyViewSwitcherBar',
+}, Handy
+    ? class HdyViewSwitcher extends Handy.ViewSwitcherBar {}
+    : class HdyViewSwitcher extends Gtk.StackSwitcher {})
+
+var HdySqueezer =  GObject.registerClass({
+    GTypeName: 'FoliateHdySqueezer',
+    Properties: Handy ? {} : {
+        'transition-type':
+            GObject.ParamSpec.int('transition-type', 'transition-type', 'transition-type',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 2147483647, 0),
+    }
+}, Handy
+    ? class HdySqueezer extends Handy.Squeezer {}
+    : class HdySqueezer extends Gtk.Box {})
+
 var HdySearchBar =  GObject.registerClass({
     GTypeName: 'FoliateHdySearchBar',
 }, Handy

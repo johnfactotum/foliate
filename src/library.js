@@ -19,7 +19,8 @@ const { debug, Storage, Obj, base64ToPixbuf, markupEscape,
 const { PropertiesBox } = imports.properties
 const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
-const { HdyHeaderBar, HdyViewSwitcher, HdySearchBar, HdyColumn } = imports.handy
+let Handy; try { Handy = imports.gi.Handy } catch (e) {}
+const { HdyColumn } = imports.handy
 
 
 const BookImage =  GObject.registerClass({
@@ -819,7 +820,8 @@ var LibraryWindow =  GObject.registerClass({
         'stack', 'catalogColumn',
         'startButtonStack', 'endButtonStack',
         'searchButton', 'searchBar', 'searchEntry',
-        'libraryStack', 'bookListBox', 'bookFlowBox', 'viewButton'
+        'libraryStack', 'bookListBox', 'bookFlowBox', 'viewButton',
+        'squeezer', 'squeezerLabel', 'switcherBar'
     ],
     Properties: {
         'active-view': GObject.ParamSpec.string('active-view', 'active-view', 'active-view',
@@ -830,6 +832,12 @@ var LibraryWindow =  GObject.registerClass({
         super._init(params)
         this.show_menubar = false
         this.title = _('Foliate')
+
+        if (Handy) {
+            this._switcherBar.show()
+            this._squeezer.connect('notify::visible-child', () =>
+                this._switcherBar.reveal = this._squeezer.visible_child === this._squeezerLabel)
+        }
 
         this.actionGroup = new Gio.SimpleActionGroup()
         const actions = {
