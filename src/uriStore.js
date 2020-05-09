@@ -128,7 +128,7 @@ class BookList {
     }
     next(n = 10) {
         this._shouldUpdateList = true
-        if (!this._iter) this._iter = this._load().values()
+        if (!this._iter) this._iter = this._load().entries()
         let i = 0
         while (i < n) {
             const { value, done } = this._iter.next()
@@ -139,8 +139,8 @@ class BookList {
                     this.list.remove(length - 1)
                 return
             }
-            const { identifier } = value
-            const data = this.map.get(identifier) || this._loadItem(value)
+            const { identifier } = value[1]
+            const data = this.map.get(identifier) || this._loadItem(value[1])
             if (!data) continue
             this.list.insert(this.list.get_n_items() - 1, new Obj(data))
             i++

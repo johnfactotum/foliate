@@ -543,7 +543,7 @@ const OpdsFeed = GObject.registerClass({
                     logError(e)
                     this.emit('error')
                 })
-                .finally(() => client.close())
+                .then(() => client.close())
         }
     }
 })
@@ -621,7 +621,7 @@ const OpdsAcquisitionBox = GObject.registerClass({
                 .then(() => client.get(this.uri))
                 .then(({ entries }) => this.load(entries))
                 .catch(this.error.bind(this))
-                .finally(() => client.close())
+                .then(() => client.close())
         }
     }
     async load(entries) {
@@ -643,7 +643,7 @@ const OpdsAcquisitionBox = GObject.registerClass({
                     client.getImage(thumbnail.href)
                         .then(pixbuf => child.loadCover(pixbuf))
                         .catch(() => child.generateCover())
-                        .finally(() => {
+                        .then(() => {
                             loadCount++
                             if (loadCount === entries.length) client.close()
                         })
@@ -751,7 +751,7 @@ const OpdsNavigationBox = GObject.registerClass({
                 .then(() => client.get(this.uri))
                 .then(({ entries }) => this.load(entries))
                 .catch(this.error.bind(this))
-                .finally(() => client.close())
+                .then(() => client.close())
         }
     }
     load(entries) {
@@ -793,7 +793,7 @@ const OpdsBox = GObject.registerClass({
                 .then(() => client.get(this.uri))
                 .then(this.load.bind(this))
                 .catch(this.error.bind(this))
-                .finally(() => client.close())
+                .then(() => client.close())
         }
     }
     load(feed) {
