@@ -41,8 +41,8 @@ var HdySqueezer =  GObject.registerClass({
     GTypeName: 'FoliateHdySqueezer',
     Properties: Handy ? {} : {
         'transition-type':
-            GObject.ParamSpec.int('transition-type', 'transition-type', 'transition-type',
-                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 2147483647, 0),
+            GObject.ParamSpec.string('transition-type', 'transition-type', 'transition-type',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, ''),
     }
 }, Handy
     ? class HdySqueezer extends Handy.Squeezer {}
