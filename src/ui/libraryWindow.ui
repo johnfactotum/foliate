@@ -165,7 +165,7 @@
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
             <child>
-              <object class="GtkBox">
+              <object class="GtkBox" id="library">
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -345,7 +345,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkScrolledWindow">
+              <object class="GtkScrolledWindow" id="catalog">
                 <property name="visible">True</property>
                 <property name="expand">True</property>
                 <child>

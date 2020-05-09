@@ -829,7 +829,7 @@ var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
     InternalChildren: [
-        'stack', 'catalogColumn',
+        'stack', 'library', 'catalog', 'catalogColumn',
         'startButtonStack', 'endButtonStack',
         'searchButton', 'searchBar', 'searchEntry',
         'libraryStack', 'bookListBox', 'bookFlowBox', 'viewButton',
@@ -846,6 +846,8 @@ var LibraryWindow =  GObject.registerClass({
         this.title = _('Foliate')
 
         if (Handy) {
+            this._stack.child_set_property(this._library, 'icon-name', 'system-file-manager-symbolic')
+            this._stack.child_set_property(this._catalog, 'icon-name', 'application-rss+xml-symbolic')
             this._switcherBar.show()
             this._squeezer.connect('notify::visible-child', () =>
                 this._switcherBar.reveal = this._squeezer.visible_child === this._squeezerLabel)
