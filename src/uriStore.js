@@ -155,6 +155,7 @@ class BookList {
             // so that we don't mess up the iterator
             if (i !== -1) this._arr[i] = null
         }
+        if (this._iter) this._iter.next(1)
         const n = this.list.get_n_items()
         for (let i = 0; i < n; i++) {
             const item = this.list.get_item(i).value
@@ -164,9 +165,6 @@ class BookList {
                 return true
             }
         }
-        // if id not found in list, that means we'll be inserting a new element
-        // at the beginning of the array, so we need to skip an item in the iter
-        if (this._iter) this._iter.next(1)
     }
     remove(id) {
         this.map.delete(id)
