@@ -873,7 +873,7 @@ var LibraryWindow =  GObject.registerClass({
             this._switcherBar.show()
             this._squeezer.connect('notify::visible-child', () =>
                 this._switcherBar.reveal = this._squeezer.visible_child === this._squeezerLabel)
-        }
+        } else this._squeezerLabel.hide()
 
         this._headlessEpubs = new Set()
 
