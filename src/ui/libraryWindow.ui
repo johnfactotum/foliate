@@ -17,6 +17,10 @@
         <attribute name="action">app.preferences</attribute>
       </item>
       <item>
+        <attribute name="label" translatable="yes">Keyboard Shortcuts</attribute>
+        <attribute name="action">win.show-help-overlay</attribute>
+      </item>
+      <item>
         <attribute name="label" translatable="yes">About Foliate</attribute>
         <attribute name="action">app.about</attribute>
       </item>
@@ -89,7 +93,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkMenuButton">
+          <object class="GtkMenuButton" id="mainMenuButton">
             <property name="visible">True</property>
             <property name="menu-model">menu</property>
             <property name="tooltip-text" translatable="yes">Menu</property>

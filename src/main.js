@@ -216,6 +216,12 @@ function main(argv) {
             ['app.open', ['<ctrl>o']],
             ['app.preferences', ['<ctrl>comma']],
 
+            ['lib.list-view', ['<ctrl>1']],
+            ['lib.grid-view', ['<ctrl>2']],
+            ['lib.main-menu', ['F10']],
+            ['lib.search', ['<ctrl>f', 'slash']],
+            ['lib.close', ['<ctrl>w']],
+
             ['win.close', ['<ctrl>w']],
             ['win.reload', ['<ctrl>r']],
             ['win.open-copy', ['<ctrl>n']],

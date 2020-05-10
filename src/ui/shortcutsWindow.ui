@@ -5,6 +5,68 @@
     <child>
       <object class="GtkShortcutsSection">
         <property name="visible">True</property>
+        <property name="section-name">library-shortcuts</property>
+        <property name="title" translatable="yes">Library Shortcuts</property>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">True</property>
+            <property name="title" translatable="yes">General</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Search</property>
+                <property name="action-name">lib.search</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Close current window</property>
+                <property name="action-name">lib.close</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Quit</property>
+                <property name="action-name">app.quit</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">True</property>
+            <property name="title" translatable="yes">View</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Show primary menu</property>
+                <property name="action-name">lib.main-menu</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">List view</property>
+                <property name="action-name">lib.list-view</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Grid view</property>
+                <property name="action-name">lib.grid-view</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkShortcutsSection">
+        <property name="visible">True</property>
         <property name="section-name">shortcuts</property>
         <property name="title" translatable="yes">E-book Viewer Shortcuts</property>
         <child>

@@ -847,7 +847,7 @@ var LibraryWindow =  GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
     InternalChildren: [
         'stack', 'library', 'catalog', 'catalogColumn',
-        'startButtonStack', 'endButtonStack',
+        'startButtonStack', 'endButtonStack', 'mainMenuButton',
         'searchButton', 'searchBar', 'searchEntry',
         'libraryStack', 'bookListBox', 'bookFlowBox', 'viewButton',
         'squeezer', 'squeezerLabel', 'switcherBar'
@@ -879,7 +879,11 @@ var LibraryWindow =  GObject.registerClass({
                 this.set_property('active-view',
                     this.active_view === 'grid' ? 'list' : 'grid')
             },
+            'grid-view': () => this.set_property('active-view', 'grid'),
+            'list-view': () => this.set_property('active-view', 'list'),
+            'search': () => this._searchButton.active = !this._searchButton.active,
             'catalog': () => this._stack.visible_child_name = 'catalog',
+            'main-menu': () => this._mainMenuButton.active = !this._mainMenuButton.active,
             'close': () => this.close(),
         }
         Object.keys(actions).forEach(name => {
@@ -888,6 +892,11 @@ var LibraryWindow =  GObject.registerClass({
             this.actionGroup.add_action(action)
         })
         this.insert_action_group('lib', this.actionGroup)
+        const overlay = Gtk.Builder.new_from_resource(
+            '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
+            .get_object('shortcutsWindow')
+        overlay.section_name = 'library-shortcuts'
+        this.set_help_overlay(overlay)
 
         const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
         ;[this._startButtonStack, this._endButtonStack].forEach(stack =>
