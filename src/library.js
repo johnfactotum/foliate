@@ -898,7 +898,9 @@ var LibraryWindow =  GObject.registerClass({
         this._searchEntry.connect('stop-search', () =>
             this._searchBar.search_mode_enabled = false)
 
-        bookList.next()
+        // if there's only one item (likely the 'load-more' item), load some books
+        // otherwise there's already some books loaded and no need to do that
+        if (bookList.list.get_n_items() === 1) bookList.next()
         bookList.list.connect('items-changed', () => this._updateLibraryStack())
         bookList.searchList.connect('items-changed', () => this._updateLibraryStack())
         this._updateLibraryStack()
