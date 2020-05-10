@@ -101,6 +101,7 @@ class BookList {
 
         list.remove_all()
         for (const item of books) {
+            if (!item) continue
             const { identifier } = item
             const data = this.map.get(identifier) || this._loadItem(item)
             if (!data) continue
@@ -139,6 +140,7 @@ class BookList {
                     this.list.remove(length - 1)
                 return
             }
+            if (!value[1]) continue
             const { identifier } = value[1]
             const data = this.map.get(identifier) || this._loadItem(value[1])
             if (!data) continue
@@ -148,8 +150,10 @@ class BookList {
     }
     _remove(id) {
         if (this._arr) {
-            const i = this._arr.findIndex(({ identifier }) => identifier === id)
-            if (i !== -1) this._arr.splice(i, 1)
+            const i = this._arr.findIndex(x => x && x.identifier === id)
+            // set the item to null instead of removig it
+            // so that we don't mess up the iterator
+            if (i !== -1) this._arr[i] = null
         }
         const n = this.list.get_n_items()
         for (let i = 0; i < n; i++) {
@@ -160,6 +164,9 @@ class BookList {
                 return true
             }
         }
+        // if id not found in list, that means we'll be inserting a new element
+        // at the beginning of the array, so we need to skip an item in the iter
+        if (this._iter) this._iter.next(1)
     }
     remove(id) {
         this.map.delete(id)
