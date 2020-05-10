@@ -22,6 +22,7 @@ const { uriStore, bookList } = imports.uriStore
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 const { HdyColumn } = imports.handy
 
+const settings = new Gio.Settings({ schema_id: pkg.name + '.library' })
 
 const BookImage =  GObject.registerClass({
     GTypeName: 'FoliateBookImage',
@@ -825,6 +826,22 @@ const OpdsBox = GObject.registerClass({
     }
 })
 
+const setWindowSize = self => {
+    self.default_width = settings.get_int('width')
+    self.default_height = settings.get_int('height')
+
+    self.connect('size-allocate', () => {
+        const [width, height] = self.get_size()
+        self._width = width
+        self._height = height
+    })
+    self.connect('destroy', () => {
+        settings.set_int('width', self._width)
+        settings.set_int('height', self._height)
+        settings.set_boolean('maximized', self.is_maximized)
+    })
+}
+
 var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
@@ -844,6 +861,9 @@ var LibraryWindow =  GObject.registerClass({
         super._init(params)
         this.show_menubar = false
         this.title = _('Foliate')
+
+        setWindowSize(this)
+        settings.bind('view-mode', this, 'active-view', Gio.SettingsBindFlags.DEFAULT)
 
         if (Handy) {
             this._stack.child_set_property(this._library, 'icon-name', 'system-file-manager-symbolic')
@@ -1116,6 +1136,7 @@ var OpdsWindow =  GObject.registerClass({
         super._init(params)
         this.show_menubar = false
         this.title = _('Foliate')
+        setWindowSize(this)
 
         this._history = []
 

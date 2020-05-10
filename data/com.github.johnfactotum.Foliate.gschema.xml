@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="com.github.johnfactotum.Foliate">
+  <enum id="com.github.johnfactotum.Foliate.ViewMode">
+      <value nick="grid" value="0"/>
+      <value nick="list" value="1"/>
+  </enum>
   <enum id="com.github.johnfactotum.Foliate.Layout">
       <value nick="auto" value="0"/>
       <value nick="single" value="1"/>
@@ -7,8 +11,9 @@
       <value nick="continuous" value="3"/>
   </enum>
   <schema id="com.github.johnfactotum.Foliate" path="/com/github/johnfactotum/Foliate/">
+    <child schema="com.github.johnfactotum.Foliate.library" name="library"/>
     <child schema="com.github.johnfactotum.Foliate.window-state" name="window-state"/>
-    <child schema="com.github.johnfactotum.Foliate.window-state" name="view"/>
+    <child schema="com.github.johnfactotum.Foliate.view" name="view"/>
     <key name="restore-last-file" type="b">
       <default>true</default>
       <summary>Restore last file opened</summary>
@@ -219,6 +224,29 @@
         <default>240</default>
         <summary>Sidebar size</summary>
         <description>Sidebar width</description>
+    </key>
+  </schema>
+  <schema id="com.github.johnfactotum.Foliate.library"
+    path="/com/github/johnfactotum/Foliate/library/">
+    <key name="width" type="i">
+      <default>800</default>
+      <summary>Window width</summary>
+      <description>Width of the library window</description>
+    </key>
+    <key name="height" type="i">
+      <default>600</default>
+      <summary>Window height</summary>
+      <description>Height of the library window</description>
+    </key>
+    <key name="maximized" type="b">
+      <default>false</default>
+      <summary>Maximized</summary>
+      <description>Whether the library window is maximized</description>
+    </key>
+    <key name="view-mode" enum="com.github.johnfactotum.Foliate.ViewMode">
+      <default>'grid'</default>
+      <summary>View</summary>
+      <description>How to view the library</description>
     </key>
   </schema>
 </schemalist>
