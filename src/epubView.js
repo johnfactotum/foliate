@@ -548,6 +548,7 @@ var EpubView = GObject.registerClass({
 
         this._connectSettings()
         this._connectData()
+        this.connect('book-error', (_, msg) => logError(new Error(msg)))
     }
     _connectSettings() {
         this._zoomLevel = this.settings.zoom_level
@@ -652,7 +653,7 @@ var EpubView = GObject.registerClass({
     }
     _disconnectData() {
         if (!this._data) return
-        this._dataHandlers.forEach(h => this._data.disconnect(h))
+        if (this._dataHandlers) this._dataHandlers.forEach(h => this._data.disconnect(h))
         this._data.disconnectAll()
     }
     _load() {

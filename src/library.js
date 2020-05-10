@@ -15,10 +15,11 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
 const { debug, Storage, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
-    shuffle, hslToRgb, colorFromString, isLight } = imports.utils
+    shuffle, hslToRgb, colorFromString, isLight, mimetypes } = imports.utils
 const { PropertiesBox } = imports.properties
 const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
+const { EpubView } = imports.epubView
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 const { HdyColumn } = imports.handy
 
@@ -850,7 +851,8 @@ var LibraryWindow =  GObject.registerClass({
         'startButtonStack', 'endButtonStack', 'mainMenuButton',
         'searchButton', 'searchBar', 'searchEntry',
         'libraryStack', 'bookListBox', 'bookFlowBox', 'viewButton',
-        'squeezer', 'squeezerLabel', 'switcherBar'
+        'squeezer', 'squeezerLabel', 'switcherBar',
+        'loadingBar', 'loadingProgressBar'
     ],
     Properties: {
         'active-view': GObject.ParamSpec.string('active-view', 'active-view', 'active-view',
@@ -873,8 +875,15 @@ var LibraryWindow =  GObject.registerClass({
                 this._switcherBar.reveal = this._squeezer.visible_child === this._squeezerLabel)
         }
 
+        this._headlessEpubs = new Set()
+
         this.actionGroup = new Gio.SimpleActionGroup()
         const actions = {
+            'add-files': () => this.addFiles(),
+            'add-files-stop': () => {
+                for (const epub of this._headlessEpubs) epub.widget.destroy()
+                this._loadingBar.hide()
+            },
             'toggle-view': () => {
                 this.set_property('active-view',
                     this.active_view === 'grid' ? 'list' : 'grid')
@@ -946,6 +955,73 @@ var LibraryWindow =  GObject.registerClass({
         else
             stack.visible_child_name = bookList.list.get_n_items()
                 ? this.active_view : 'empty'
+    }
+    addFiles() {
+        const allFiles = new Gtk.FileFilter()
+        allFiles.set_name(_('All Files'))
+        allFiles.add_pattern('*')
+
+        const epubFiles = new Gtk.FileFilter()
+        epubFiles.set_name(_('E-book Files'))
+        epubFiles.add_mime_type(mimetypes.epub)
+        epubFiles.add_mime_type(mimetypes.mobi)
+        epubFiles.add_mime_type(mimetypes.kindle)
+
+        const dialog = Gtk.FileChooserNative.new(
+            _('Add Files'),
+            this,
+            Gtk.FileChooserAction.OPEN,
+            null, null)
+        dialog.select_multiple = true
+        dialog.add_filter(epubFiles)
+        dialog.add_filter(allFiles)
+
+        if (dialog.run() !== Gtk.ResponseType.ACCEPT) return
+
+        const files = dialog.get_files()
+
+        this._loadingProgressBar.fraction = 0
+        this._loadingProgressBar.visible = files.length > 1
+        this._loadingBar.show()
+
+        const total = files.length
+        let progress = 0
+
+        let promise = Promise.resolve()
+        for (const file of files) {
+            const then = () => {
+                progress ++
+                this._loadingProgressBar.fraction = progress / total
+                if (progress === total) this._loadingBar.hide()
+            }
+            const f = () => this.addFile(file).then(then).catch(then)
+            promise = promise.then(f).catch(f)
+        }
+    }
+    addFile(file) {
+        return new Promise((resolve, reject) => {
+            let metadataLoaded, coverLoaded
+            const epub = new EpubView()
+            this._headlessEpubs.add(epub)
+            const close = () => {
+                if (!metadataLoaded || !coverLoaded) return
+                this._headlessEpubs.delete(epub)
+                epub.widget.destroy()
+                resolve()
+            }
+            epub.connect('metadata', () => {
+                metadataLoaded = true
+                close()
+            })
+            epub.connect('cover', () => {
+                coverLoaded = true
+                close()
+            })
+            epub.connect('book-error', () => reject())
+            // NOTE: must not open until we've connected to `book-error`
+            // because opening a book can fail synchronously!
+            epub.open(file)
+        })
     }
     open(file) {
         new Window({ application: this.application, file }).present()

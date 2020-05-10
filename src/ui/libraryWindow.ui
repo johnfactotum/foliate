@@ -41,8 +41,8 @@
             <child>
               <object class="GtkButton">
                 <property name="visible">True</property>
-                <property name="sensitive">False</property>
-                <property name="tooltip-text" translatable="yes">Add</property>
+                <property name="action-name">lib.add-files</property>
+                <property name="tooltip-text" translatable="yes">Add books</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
@@ -165,6 +165,40 @@
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkInfoBar" id="loadingBar">
+            <child internal-child="content_area">
+              <object class="GtkBox">
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Loading…</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkProgressBar" id="loadingProgressBar">
+                    <property name="visible">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child internal-child="action_area">
+              <object class="GtkBox">
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkButton">
+                    <property name="visible">True</property>
+                    <property name="action-name">lib.add-files-stop</property>
+                    <property name="label" translatable="yes">Stop</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
         <child>
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
