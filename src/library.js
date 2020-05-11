@@ -662,7 +662,11 @@ const OpdsAcquisitionBox = GObject.registerClass({
                             loadCount++
                             if (loadCount === entries.length) client.close()
                         })
-                else child.generateCover()
+                else {
+                    child.generateCover()
+                    loadCount++
+                    if (loadCount === entries.length) client.close()
+                }
             })
             return child
         })
