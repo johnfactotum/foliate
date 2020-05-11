@@ -78,11 +78,43 @@
             <property name="pack-type">end</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkToggleButton" id="searchButton">
+            <property name="visible">False</property>
+            <property name="tooltip-text" translatable="yes">Search</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">edit-find-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
       </object>
     </child>
     <child>
       <object class="GtkBox" id="mainBox">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="FoliateHdySearchBar" id="searchBar">
+            <property name="visible">True</property>
+            <child>
+              <object class="FoliateHdyColumn">
+                <property name="visible">True</property>
+                <property name="maximum-width">400</property>
+                <child>
+                  <object class="GtkSearchEntry" id="searchEntry">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>

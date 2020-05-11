@@ -323,6 +323,7 @@ class OpdsClient {
                 case 'error':
                     this._promises.get(token).reject(new Error(payload))
                     break
+                case 'opensearch':
                 case 'entry':
                 case 'feed': {
                     this._promises.get(token).resolve(payload)
@@ -359,6 +360,14 @@ class OpdsClient {
     getImage(uri) {
         const token = this._makeToken()
         this._run(`getImage(
+            decodeURI("${encodeURI(uri)}"),
+            decodeURI("${encodeURI(token)}"))`)
+        return this._makePromise(token)
+    }
+    getOpenSearch(query, uri) {
+        const token = this._makeToken()
+        this._run(`getOpenSearch(
+            "${encodeURIComponent(query)}",
             decodeURI("${encodeURI(uri)}"),
             decodeURI("${encodeURI(token)}"))`)
         return this._makePromise(token)
@@ -1221,7 +1230,10 @@ var LibraryWindow =  GObject.registerClass({
 var OpdsWindow =  GObject.registerClass({
     GTypeName: 'FoliateOpdsWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/opdsWindow.ui',
-    InternalChildren: ['mainBox', 'backButton', 'homeButton'],
+    InternalChildren: [
+        'mainBox', 'backButton', 'homeButton',
+        'searchButton', 'searchBar', 'searchEntry'
+    ],
 }, class OpdsWindow extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
@@ -1230,6 +1242,7 @@ var OpdsWindow =  GObject.registerClass({
         setWindowSize(this)
 
         this._history = []
+        this._searchLink = null
 
         this.actionGroup = new Gio.SimpleActionGroup()
         const actions = {
@@ -1246,6 +1259,31 @@ var OpdsWindow =  GObject.registerClass({
             '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
             .get_object('shortcutsWindow')
         this.set_help_overlay(overlay)
+
+        const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
+        this._searchButton.bind_property('active', this._searchBar, 'search-mode-enabled', flag)
+        this._searchBar.connect('notify::search-mode-enabled', ({ search_mode_enabled }) => {
+            if (search_mode_enabled) this._searchEntry.grab_focus()
+        })
+
+        const handleSearchEntry = ({ text }) => {
+            if (!this._searchLink) return
+            const query = text.trim()
+            if (!query) return
+            this._opdsWidget.destroy()
+            const client = new OpdsClient()
+            client.init()
+                .then(() => client.getOpenSearch(query, this._searchLink.href))
+                .then(uri => {
+                    this._pushHistory(this._uri)
+                    this._loadOpds(uri)
+                })
+                .catch(e => logError(e))
+                .then(() => client.close())
+        }
+        this._searchEntry.connect('activate', handleSearchEntry)
+        this._searchEntry.connect('stop-search', () =>
+            this._searchBar.search_mode_enabled = false)
 
         this.actionGroup.lookup_action('back').bind_property('enabled',
             this._backButton, 'visible', GObject.BindingFlags.DEFAULT)
@@ -1433,6 +1471,12 @@ var OpdsWindow =  GObject.registerClass({
                 scrolled.add(box)
                 nb.insert_page(scrolled, label, 0)
             }
+
+            const search = feed.links.find(link => linkIsRel(link, 'search'))
+            if (search) {
+                this._searchLink = search
+                this._searchButton.show()
+            } else this._searchButton.hide()
         })
     }
 })

@@ -180,5 +180,30 @@ const getFeed = (uri, token) => {
         }))
 }
 
+const getOpenSearch = (query, uri, token) => {
+    const parser = new DOMParser()
+    fetch(uri)
+        .then(res => res.text())
+        .then(text => parser.parseFromString(text, 'text/xml'))
+        .then(doc => {
+            const urls = doc.querySelectorAll('Url')
+            const url = Array.from(urls).find(url =>
+                url.getAttribute('type').includes('application/atom+xml'))
+
+            if (!url) throw new Error('could not find an OpenSearch Url of Atom type')
+
+            // really naive handling of OpenSearch template, probably bad
+            const template = url.getAttribute('template')
+            const result = template.replace('{searchTerms}', query)
+            const payload = new URL(result, uri).href
+            dispatch({ type: 'opensearch', payload, token })
+        })
+        .catch(e => dispatch({
+            type: 'error',
+            payload: e.toString(),
+            token
+        }))
+}
+
 dispatch({ type: 'ready' })
 </script>
