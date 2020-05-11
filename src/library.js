@@ -415,7 +415,11 @@ const LoadBox = GObject.registerClass({
         super._init(params)
         const spinner = new Gtk.Spinner({
             visible: true,
-            active: true
+            active: true,
+            valign: Gtk.Align.CENTER,
+            halign: Gtk.Align.CENTER,
+            width_request: 64,
+            height_request: 64
         })
         this.add_named(spinner, 'loading')
         const error = new Gtk.Label({
@@ -1270,7 +1274,18 @@ var OpdsWindow =  GObject.registerClass({
             if (!this._searchLink) return
             const query = text.trim()
             if (!query) return
+
             this._opdsWidget.destroy()
+            this._opdsWidget = new Gtk.Spinner({
+                visible: true,
+                active: true,
+                valign: Gtk.Align.CENTER,
+                halign: Gtk.Align.CENTER,
+                width_request: 64,
+                height_request: 64
+            })
+            this._mainBox.pack_start(this._opdsWidget, true, true, 0)
+
             const client = new OpdsClient()
             client.init()
                 .then(() => client.getOpenSearch(query, this._searchLink.href))
@@ -1353,7 +1368,10 @@ var OpdsWindow =  GObject.registerClass({
                 orientation: Gtk.Orientation.VERTICAL
             })
 
-            const loadbox = new LoadBox({ visible: true }, () => {
+            const loadbox = new LoadBox({
+                visible: true,
+                expand: true
+            }, () => {
                 const widget = new OpdsBox({
                     visible: true,
                     valign: Gtk.Align.START,
