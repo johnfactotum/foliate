@@ -15,7 +15,7 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
 const { debug, Storage, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
-    shuffle, hslToRgb, colorFromString, isLight, mimetypes } = imports.utils
+    shuffle, hslToRgb, colorFromString, isLight, mimetypes, linkIsRel } = imports.utils
 const { PropertiesBox } = imports.properties
 const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
@@ -641,6 +641,7 @@ const OpdsAcquisitionBox = GObject.registerClass({
     }
     async load(entries) {
         this.emit('loaded')
+        if (!entries) return // TODO: empty placeholder
         let loadCount = 0
         const client = new OpdsClient()
         await client.init()
@@ -775,6 +776,7 @@ const OpdsNavigationBox = GObject.registerClass({
     }
     load(entries) {
         this.emit('loaded')
+        if (!entries) return // TODO: empty placeholder
         const list = new Gio.ListStore()
         entries.forEach(entry => list.append(new Obj(entry)))
         this.bind_model(list, entry => {
@@ -790,8 +792,8 @@ const OpdsNavigationBox = GObject.registerClass({
 })
 
 const isAcquisitionFeed = feed => feed.entries && feed.entries.some(entry =>
-    entry.links && entry.links.some(({ rel }) =>
-        rel && rel.startsWith('http://opds-spec.org/acquisition')))
+    entry.links && entry.links.some(link =>
+        linkIsRel(link, rel => rel.startsWith('http://opds-spec.org/acquisition'))))
 
 const OpdsBox = GObject.registerClass({
     GTypeName: 'FoliateOpdsBox',
@@ -1303,10 +1305,14 @@ var OpdsWindow =  GObject.registerClass({
                 tooltip_text: title || null
             })
 
-            const box = new HdyColumn({
+            const column = new HdyColumn({
                 visible: true,
                 maximum_width: 2000,
                 linear_growth_width: 2000
+            })
+            const box = new Gtk.Box({
+                visible: true,
+                orientation: Gtk.Orientation.VERTICAL
             })
 
             const loadbox = new LoadBox({ visible: true }, () => {
@@ -1322,11 +1328,44 @@ var OpdsWindow =  GObject.registerClass({
                         label.label = title
                         label.tooltip_text = title
                     }
-                    callback(feed)
+
+                    const buttonBox = new Gtk.Box({
+                        visible: true,
+                        margin: 18,
+                        halign: Gtk.Align.CENTER
+                    })
+                    buttonBox.get_style_context().add_class('linked')
+                    box.pack_end(buttonBox, false, true, 0)
+
+                    const paginationRels = {
+                        fisrt: { icon: 'go-first-symbolic', label: _('First') },
+                        previous: { icon: 'go-previous-symbolic', label: _('Previous') },
+                        next: { icon: 'go-next-symbolic', label: _('Next') },
+                        last: { icon: 'go-last-symbolic', label: _('Last') }
+                    }
+                    Object.keys(paginationRels).forEach(rel => {
+                        const link = feed.links.find(link => 'href' in link && linkIsRel(link, rel))
+                        if (!link) return
+                        const icon_name = paginationRels[rel].icon
+                        const label = paginationRels[rel].label
+                        const paginationBtton = new Gtk.Button({
+                            visible: true,
+                            hexpand: true,
+                            image: new Gtk.Image({ visible: true, icon_name }),
+                            tooltip_text: label
+                        })
+                        paginationBtton.connect('clicked', () => {
+                            this._pushHistory(uri)
+                            this._loadOpds(link.href)
+                        })
+                        buttonBox.pack_start(paginationBtton, false, true, 0)
+                    })
+
+                    if (callback) callback(feed)
 
                     const opdsbox = widget.get_child()
                     if (opdsbox instanceof OpdsNavigationBox) {
-                        box.maximum_width = 700
+                        column.maximum_width = 600
                         opdsbox.connect('link-activated', (_, href) => {
                             this._pushHistory(uri)
                             this._loadOpds(href)
@@ -1338,33 +1377,36 @@ var OpdsWindow =  GObject.registerClass({
                 })
                 return widget
             })
+            box.pack_start(loadbox, false, true, 0)
+            column.add(box)
 
-            box.add(loadbox)
             const scrolled = new Gtk.ScrolledWindow({ visible: true })
-            scrolled.add(box)
+            scrolled.add(column)
             nb.append_page(scrolled, label)
             nb.child_set_property(scrolled, 'tab-expand', true)
         }
+
+        const related = {
+            'related': _('Related'),
+            'section': _('Section'),
+            'subsection': _('Subsection'),
+            'http://opds-spec.org/sort/new': _('New'),
+            'http://opds-spec.org/sort/popular': _('Popular'),
+            'http://opds-spec.org/featured': _('Featured'),
+            'http://opds-spec.org/recommended': _('Recommended')
+        }
+
         makePage(uri, null, feed => {
             if (feed.title) this.title = feed.title
             const tabs = [].concat(feed.links).filter(link => 'href' in link
-                && 'title' in link
-                && link.rel !== 'self'
-                && link.rel !== 'start'
-                && link.rel !== 'search'
-                && link.rel !== 'next'
-                && link.rel !== 'alternate'
-                && link.rel !== 'http://opds-spec.org/shelf'
-                && link.rel !== 'http://opds-spec.org/subscriptions'
-                && link.rel !== 'http://opds-spec.org/facet'
-                && link.rel !== 'http://opds-spec.org/next'
-                && link.rel !== 'http://opds-spec.org/crawlable')
+                && 'rel' in link
+                && Object.keys(related).some(rel => linkIsRel(link, rel)))
 
-            tabs.forEach(({ title, href }) => {
-                makePage(href, title)
+            tabs.forEach(({ title, href, rel }) => {
+                makePage(href, title || related[rel])
             })
 
-            const facets = feed.links.filter(({ rel }) => rel === 'http://opds-spec.org/facet')
+            const facets = feed.links.filter(link => linkIsRel(link, 'http://opds-spec.org/facet'))
             if (facets.length) {
                 const opdsbox = new OpdsNavigationBox({
                     visible: true,

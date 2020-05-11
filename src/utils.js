@@ -429,3 +429,13 @@ var colorFromString = str => {
 }
 
 var isLight = (r, g, b) => (r * 0.2126 + g * 0.7152 + b * 0.0722) > 0.6
+
+// check if a link is of a certain rel
+// the `rel` attribute is space separated
+var linkIsRel = (link, rel) => {
+    if (!('rel' in link)) return false
+    const rels = link.rel.split(' ')
+    return typeof rel === 'function'
+        ? rels.some(rel)
+        : rels.some(x => x === rel)
+}
