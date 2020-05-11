@@ -144,11 +144,12 @@ const processFB2 = doc => {
         }
     }
 
+    let cover, coverType
     try {
-        const { content } = getImage($('coverpage image'))
-        dispatch({ type: 'cover', payload: content })
+        const image = getImage($('coverpage image'))
+        cover = image.data
+        coverType = image.type
     } catch (e) {}
-
 
     const stylesheet = `
         body > img, section > img {
@@ -240,6 +241,7 @@ const processFB2 = doc => {
         readingOrder: sections,
         toc: sections,
         resources: [
+            { rel: ['cover'], href: cover, type: coverType },
             { href: styleUrl, type: 'text/css' }
         ]
     }
@@ -373,10 +375,13 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
         case 'cbt': files = await unpackArchive(uri, inputType); break
     }
 
+    let cover
     const sectionLinkObjects = files.filter(file =>
             ['jpeg', 'png', 'gif', 'bmp', 'webp'].includes(file.type))
         .sort((a, b) => a.name.localeCompare(b.name))
-        .map(image => {
+        .map((image, i) => {
+            const src = URL.createObjectURL(image.blob)
+            if (i === 0) cover = src
             const html = `
                 <!doctype html>
                 <html>
@@ -387,7 +392,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
 
                     <body>
                         <section class="image-wrapper">
-                            <img src="${URL.createObjectURL(image.blob)}" alt="${image.name}" />
+                            <img src="${src}" alt="${image.name}" />
                         </section>
 
                         <!-- SCRIPTS -->
@@ -414,6 +419,8 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
         links: [],
         readingOrder: sectionLinkObjects,
         toc: sectionLinkObjects,
-        resources: []
+        resources: [
+            { rel: ['cover'], href: cover }
+        ]
     }
 }

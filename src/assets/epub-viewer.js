@@ -441,8 +441,11 @@ const display = lastLocation =>
 
 // get book cover for "about this book" dialogue
 book.loaded.resources
-    .then(resources => resources.createUrl(book.cover))
-    .then(blobUrl => fetch(blobUrl))
+    .then(resources => {
+        if (book.cover.includes(':')) return book.cover
+        else return resources.createUrl(book.cover)
+    })
+    .then(url => fetch(url))
     .then(res => res.blob())
     .then(blob => {
         const reader = new FileReader()
