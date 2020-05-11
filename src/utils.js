@@ -314,6 +314,7 @@ var base64ToPixbuf = base64 => {
         const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
         return GdkPixbuf.Pixbuf.new_from_stream(imageStream, null)
     } catch (e) {
+        debug(e.toString())
         return null
     }
 }
