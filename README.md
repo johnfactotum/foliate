@@ -30,13 +30,14 @@ Documentation: https://github.com/johnfactotum/foliate/wiki
 
 ### Distribution packages
 
-|Distro|Package Name/Link|
-|:----:|:----:|
-| Arch Linux | [`foliate`](https://www.archlinux.org/packages/community/x86_64/foliate/) |
-| Fedora | [`foliate`](https://src.fedoraproject.org/rpms/foliate) |
-| Manjaro | `foliate` |
-| Ubuntu | [`foliate`](https://snapcraft.io/foliate) |
-| Void Linux | [`foliate`](https://github.com/void-linux/void-packages/tree/master/srcpkgs/foliate) |
+|Distro|Package Name/Link|Maintainer|
+|:----:|:----:|:----:|
+| Arch Linux | [`foliate`](https://www.archlinux.org/packages/community/x86_64/foliate/) | [Jerome Leclanche](https://github.com/jleclanche) |
+| Fedora | [`foliate`](https://src.fedoraproject.org/rpms/foliate) | [Artem Polishchuk](https://github.com/tim77) |
+| Manjaro | `foliate` | |
+| Ubuntu (Snap) | [`foliate`](https://snapcraft.io/foliate) | [Merlijn Sebrechts](https://github.com/galgalesh) and [John Factotum](https://github.com/johnfactotum) |
+| Ubuntu (PPA) | [Stable Releases](https://launchpad.net/~apandada1/+archive/ubuntu/foliate)<br>[Daily Buillds](https://launchpad.net/~apandada1/+archive/ubuntu/foliate-daily) | [Archisman Panigrahi](https://github.com/apandada1) |
+| Void Linux | [`foliate`](https://github.com/void-linux/void-packages/tree/master/srcpkgs/foliate) | [Lorem](https://github.com/not-chicken) |
 
 Debian packages can be downloaded from the [releases](https://github.com/johnfactotum/foliate/releases) page.
 
