@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 15:05+0800\n"
-"PO-Revision-Date: 2019-06-17 20:32+0200\n"
-"Last-Translator: Juan Campos <juan.camposzambrana@gmail.com>\n"
+"PO-Revision-Date: 2020-05-12 20:32+0200\n"
+"Last-Translator: Blanc Chan cdh4227@qq.com\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "Todos los ficheros"
 
 #: src/main.js:84
 msgid "E-book Files"
-msgstr ""
+msgstr "Libros electrónico"
 
 #: src/main.js:90
 msgid "Open File"
@@ -63,7 +63,7 @@ msgstr "Un visor sencillo y moderno de  eBooks"
 #: src/window.js:122
 #, fuzzy
 msgid "Leave fullscreen"
-msgstr "Activa/desactiva la pantalla completa"
+msgstr "Desactiva la pantalla completa"
 
 #: src/window.js:125 src/ui/mainMenu.ui:91
 #: data/com.github.johnfactotum.Foliate.gschema.xml:200
@@ -78,7 +78,7 @@ msgstr ""
 #: src/export.js:31
 #, fuzzy, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr "Anotaciones"
+msgstr "<p>Anotaciones para</p><h1>%s</h1><h2>de %s</h2>"
 
 #: src/export.js:33 src/export.js:47 src/export.js:59
 #, fuzzy, javascript-format
@@ -90,11 +90,11 @@ msgstr[1] "Anotaciones"
 #: src/export.js:46
 #, fuzzy, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "Anotaciones"
+msgstr "Anotaciones para “%s” de %s"
 
 #: src/export.js:50
 msgid "Section: "
-msgstr ""
+msgstr "Sección"
 
 #: src/export.js:51
 #, fuzzy
@@ -114,12 +114,12 @@ msgstr "Nota"
 #: src/export.js:58
 #, fuzzy, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr "Anotaciones"
+msgstr "Anotaciones para “%s” de %s"
 
 #: src/export.js:92
 #, fuzzy
 msgid "Quote: "
-msgstr "Nota"
+msgstr "Cita"
 
 #: src/export.js:92
 #, fuzzy
@@ -128,7 +128,7 @@ msgstr "Nota"
 
 #: src/lookup.js:96
 msgid "Search on Wikipedia"
-msgstr ""
+msgstr "Buscar en Wikipedia"
 
 #: src/lookup.js:218
 msgid "Source: "
@@ -136,11 +136,11 @@ msgstr ""
 
 #: src/lookup.js:375
 msgid "Search on Wiktionary"
-msgstr ""
+msgstr "Buscar en Wiktionary"
 
 #: src/lookup.js:398
 msgid "Translation by Google Translate"
-msgstr ""
+msgstr "Traducción de Google Translate"
 
 #: src/properties.js:65
 msgid "Publisher"
@@ -218,7 +218,7 @@ msgstr "Quitar"
 
 #: src/ui/annotationBox.ui:98
 msgid "Choose custom color"
-msgstr ""
+msgstr "Elige un color personalizado"
 
 #: src/ui/contentsStack.ui:39
 #, fuzzy
@@ -256,7 +256,7 @@ msgstr "Marcadores"
 
 #: src/ui/dictionaryBox.ui:64
 msgid "No definitions found"
-msgstr ""
+msgstr "Ninguna definición"
 
 #: src/ui/exportWindow.ui:11
 msgid "HTML"
@@ -285,11 +285,11 @@ msgstr "Anotaciones"
 
 #: src/ui/exportWindow.ui:38 src/ui/themeWindow.ui:10
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/ui/exportWindow.ui:45
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: src/ui/exportWindow.ui:67
 msgid "Choose export format:"
@@ -297,7 +297,7 @@ msgstr ""
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
-msgstr ""
+msgstr "Todos los capítulos"
 
 #: src/ui/findBox.ui:22
 #, fuzzy
@@ -321,7 +321,7 @@ msgstr "Copiar"
 #: src/ui/imageViewer.ui:47 src/ui/shortcutsWindow.ui:249
 #, fuzzy
 msgid "Save as"
-msgstr "Abrir fichero"
+msgstr "Guardar como"
 
 #: src/ui/imageViewer.ui:117 src/ui/mainMenu.ui:50
 #: src/ui/shortcutsWindow.ui:102 src/ui/shortcutsWindow.ui:222
@@ -402,7 +402,7 @@ msgstr "Acerca de Foliate"
 
 #: src/ui/mainMenu.ui:376
 msgid "Add Custom Theme…"
-msgstr ""
+msgstr "Añadir tema personalizado"
 
 #: src/ui/mainMenu.ui:422 data/com.github.johnfactotum.Foliate.gschema.xml:167
 msgid "Layout"
@@ -506,7 +506,7 @@ msgstr "Abrir fichero"
 
 #: src/ui/mainOverlay.ui:127
 msgid "Something's wrong"
-msgstr ""
+msgstr "Un error"
 
 #: src/ui/mainOverlay.ui:139
 #, fuzzy
@@ -530,7 +530,7 @@ msgstr "Queda %d  minuto en el capítulo"
 
 #: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
 msgid "Chapter"
-msgstr ""
+msgstr "Capítulo"
 
 #: src/ui/navBar.ui:134 src/ui/navBar.ui:321 src/ui/preferenceWindow.ui:19
 #, fuzzy
@@ -547,7 +547,7 @@ msgstr ""
 
 #: src/ui/navBar.ui:213
 msgid "Go to beginning of book"
-msgstr ""
+msgstr "Ir al inicio del libro"
 
 #: src/ui/navBar.ui:227
 #, fuzzy
@@ -561,7 +561,7 @@ msgstr "Ir a la página siguiente"
 
 #: src/ui/navBar.ui:255
 msgid "Go to end of book"
-msgstr ""
+msgstr "Ir al final del libro"
 
 #: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:172
 #: src/ui/shortcutsWindow.ui:208
@@ -581,11 +581,11 @@ msgstr "Ir a la página siguiente"
 
 #: src/ui/navBar.ui:377
 msgid "Text-to-speech"
-msgstr ""
+msgstr "Leer en voz"
 
 #: src/ui/preferenceWindow.ui:11
 msgid "Nothing"
-msgstr ""
+msgstr "No hay nada"
 
 #: src/ui/preferenceWindow.ui:15
 msgid "Percentage"
@@ -623,7 +623,7 @@ msgstr "Opción para desabilitar el diccionario"
 
 #: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:93
 msgid "Translate"
-msgstr ""
+msgstr "Traducir"
 
 #: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:66
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
@@ -632,7 +632,7 @@ msgstr "Buscar en el libro"
 
 #: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:59
 msgid "Speak"
-msgstr ""
+msgstr "Leer en voz"
 
 #: src/ui/preferenceWindow.ui:114 src/ui/shortcutsWindow.ui:238
 msgid "General"
@@ -697,7 +697,7 @@ msgstr "Auto-ocultar el cursor"
 
 #: src/ui/selectionPopover.ui:47
 msgid "Find"
-msgstr ""
+msgstr "Buscar"
 
 #: src/ui/selectionPopover.ui:79
 #, fuzzy
@@ -805,11 +805,11 @@ msgstr ""
 
 #: src/ui/themeWindow.ui:6
 msgid "Custom Theme"
-msgstr ""
+msgstr "Tema personalizado"
 
 #: src/ui/themeWindow.ui:17
 msgid "OK"
-msgstr ""
+msgstr "Sí"
 
 #: src/ui/themeWindow.ui:39
 #, fuzzy
