@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 15:05+0800\n"
-"PO-Revision-Date: 2020-05-12 13:45+0800\n"
+"PO-Revision-Date: 2020-05-12 18:07+0800\n"
 "Last-Translator: Blanc Chan\n"
 "Language-Team: none\n"
 "Language: zh_TW\n"
@@ -37,7 +37,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:12
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "電子書;圖書;EPUB;檢視器;閱讀器"
+msgstr "Ebook;Book;EPUB;Viewer;Reader;電子書;圖書;EPUB;檢視器;閱讀器;"
 
 #: src/main.js:80
 msgid "All Files"
@@ -53,7 +53,7 @@ msgstr "開啟檔案"
 
 #: src/main.js:104#, fuzzy
 msgid "translator-credits"
-msgstr "翻譯者致謝"
+msgstr ""
 
 #: src/main.js:106 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
@@ -76,18 +76,18 @@ msgstr "共 %d"
 #: src/export.js:31
 #, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr "<p>註解</p><h1>%s</h1><h2>%s 註</h2>"
+msgstr "<p>註解</p><h1>《%s》</h1>(<h2>%s 著</h2>)"
 
 #: src/export.js:33 src/export.js:47 src/export.js:59
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "%d 條註釋"
+msgstr[0] "%d 條註解"
 
 #: src/export.js:46
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "《%s》的註釋（%s 註）"
+msgstr "註解《%s》(%s 著)"
 
 #: src/export.js:50
 msgid "Section: "
@@ -108,7 +108,7 @@ msgstr "筆記"
 #: src/export.js:58
 #, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr "《%s》的註釋（%s 注）"
+msgstr "註解《%s》(%s 著)"
 
 #: src/export.js:92
 msgid "Quote: "
@@ -215,7 +215,7 @@ msgstr "移除"
 
 #: src/ui/annotationBox.ui:98
 msgid "Choose custom color"
-msgstr "自定義顏色"
+msgstr "自訂顏色"
 
 #: src/ui/contentsStack.ui:39
 msgid "Table of Contents"
@@ -223,15 +223,15 @@ msgstr "目錄"
 
 #: src/ui/contentsStack.ui:74
 msgid "No annotations"
-msgstr "無註釋"
+msgstr "無註解"
 
 #: src/ui/contentsStack.ui:86
 msgid "Select some text to add annotations."
-msgstr "選中文本以添加註釋"
+msgstr "選中文本以添加註解"
 
 #: src/ui/contentsStack.ui:118
 msgid "Annotations"
-msgstr "註釋"
+msgstr "註解"
 
 #: src/ui/contentsStack.ui:153
 msgid "No bookmarks"
@@ -471,7 +471,7 @@ msgstr "重新載入"
 
 #: src/ui/mainMenu.ui:637
 msgid "Export annotations…"
-msgstr "導出註釋…"
+msgstr "導出註解…"
 
 #: src/ui/mainOverlay.ui:46
 msgid "No books open"
@@ -733,7 +733,7 @@ msgstr "顯示目錄"
 
 #: src/ui/shortcutsWindow.ui:137
 msgid "Show annotations"
-msgstr "顯示註釋"
+msgstr "顯示註解"
 
 #: src/ui/shortcutsWindow.ui:144
 msgid "Show bookmarks"
@@ -1237,7 +1237,7 @@ msgstr "兩欄視圖及捲動視圖"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:14
 msgid "Customize font and line-spacing"
-msgstr "自定義字體和行距"
+msgstr "自訂字體和行距"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
 msgid "Light, sepia, dark, and invert mode"
@@ -1249,7 +1249,7 @@ msgstr "帶章節標籤的閱讀進度條"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
-msgstr "書籤和註釋"
+msgstr "書籤和註解"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
@@ -1288,7 +1288,7 @@ msgstr "歡迎屏幕添加開啟最近檔案的菜單"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
-msgstr "還原了用於顯示目錄、註釋和書籤的快捷方式"
+msgstr "還原了用於顯示目錄、註解和書籤的快捷方式"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:239
@@ -1343,7 +1343,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid "Annotations, bookmarks, and find results now show chapter titles"
-msgstr "註釋、書籤和搜尋結果現在顯示章節標題"
+msgstr "註解、書籤和搜尋結果現在顯示章節標題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
 msgid "When looking up words in dictionaries, the query can now be edited"
@@ -1416,7 +1416,7 @@ msgstr "朗讀選定文本"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
 msgid "Annotations:"
-msgstr "註釋："
+msgstr "註解："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:103
 msgid "Spellcheck notes"
@@ -1424,11 +1424,11 @@ msgstr "拼寫檢查記錄"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
 msgid "Export annotations to Markdown"
-msgstr "以 Markdown 格式導出註釋"
+msgstr "以 Markdown 格式導出註解"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:105
 msgid "Options to use custom colors for highlights"
-msgstr "支持以自定義顏色標示"
+msgstr "支持以自訂顏色標示"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:107
 msgid "For publishers and developers:"
@@ -1499,7 +1499,7 @@ msgstr "改進的腳註解壓和格式"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
 msgid "Added option to export annotations to BibTeX"
-msgstr "支持導出註釋為 BibTeX"
+msgstr "支持導出註解為 BibTeX"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:141
 msgid "Fixed table of contents navigation not working with some books"
@@ -1536,7 +1536,7 @@ msgstr "基本的文字轉語音支持"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr "導出註釋到 HTML、純文本或JSON"
+msgstr "導出註解到 HTML、純文本或JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:162
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
@@ -1580,7 +1580,7 @@ msgstr "修復了開啟檔案時崩潰的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
 msgid "Customize page margins and brightness"
-msgstr "自定義頁面縮進和亮度"
+msgstr "自訂頁面縮進和亮度"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
 msgid "Tweak the theme colors, or add your own custom themes"
@@ -1660,7 +1660,7 @@ msgstr "現在恢復閱讀進度變得順暢，且不產生垃圾"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
 msgid "Fixed custom styles not applying in some cases"
-msgstr "修復了偶爾不能應用自定義顏色的問題"
+msgstr "修復了偶爾不能應用自訂顏色的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:248
 msgid "Fixed invalid AppData file"
@@ -1684,7 +1684,7 @@ msgstr "默認標示顏色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:20
 msgid "Default highlight color for annotations"
-msgstr "默認的註釋和標示顏色"
+msgstr "默認的註解和標示顏色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:24
 msgid "Dictionary"
@@ -1800,7 +1800,7 @@ msgstr "使用出版社字體"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:113
 msgid "If true, custom font is disabled"
-msgstr "如果此值為真，則禁用自定義字體"
+msgstr "如果此值為真，則禁用自訂字體"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:117
 msgid "Justify text"
