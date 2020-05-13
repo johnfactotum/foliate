@@ -104,9 +104,12 @@ class BookList {
             const { identifier } = item
             const data = this.map.get(identifier) || this._loadItem(item)
             if (!data) continue
-            const title = (data.metadata.title || '').toLowerCase()
-            const creator = (data.metadata.creator || '').toLowerCase()
-            const match = title.includes(q) || creator.includes(q)
+
+            const match = (data.metadata.title || '').toLowerCase().includes(q)
+                || (data.metadata.creator || '').toLowerCase().includes(q)
+                || (data.metadata.subjects || []).map(x => x.toLowerCase())
+                    .some(subject => subject.includes(q))
+
             if (match) list.append(new Obj(data))
         }
         return list
