@@ -111,7 +111,7 @@ const getData = identifier => {
     }
 }
 
-const EpubViewData = GObject.registerClass({
+var EpubViewData = GObject.registerClass({
     GTypeName: 'FoliateEpubViewData',
     Signals: {
         'annotation-added': {

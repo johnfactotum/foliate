@@ -14,7 +14,7 @@
  */
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
-const { debug, Storage, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
+const { debug, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight, mimetypes, linkIsRel } = imports.utils
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
@@ -198,7 +198,8 @@ const BookBoxRow =  GObject.registerClass({
         super._init(params)
         const { metadata: { title, creator } } = this.book.value
         this._title.label = title || ''
-        this._creator.label = creator || ''
+        if (creator) this._creator.label = creator
+        else this._creator.hide()
 
         const { progress, fraction, label } = this.getProgress()
         if (progress && progress[1]) {
