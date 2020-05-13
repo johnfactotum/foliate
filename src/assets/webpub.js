@@ -144,6 +144,7 @@ const processFB2 = async (doc, blob, filename) => {
         x.querySelector('middle-name'),
         x.querySelector('last-name')
     ].filter(x => x).map(x => x.textContent).join(' ')).join(', ')
+    const subjects = Array.from($$('title-info genre')).map(x => x.textContent)
 
     const getIdFromHref = href => {
         const [a, b] = href.split('#')
@@ -254,7 +255,8 @@ const processFB2 = async (doc, blob, filename) => {
             description,
             language,
             pubdate,
-            publisher
+            publisher,
+            subjects
         },
         links: [],
         readingOrder: sections,
