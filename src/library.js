@@ -174,6 +174,8 @@ const BookBoxChild =  GObject.registerClass({
         super._init(params)
         const { metadata } = this.book.value
         this._image.loadCover(metadata)
+        this._image.tooltip_markup = `<b>${markupEscape(metadata.title)}</b>`
+            + (metadata.creator ? '\n' + markupEscape(metadata.creator) : '')
 
         const { label } = this.getProgress()
         if (label) this._progressLabel.label = label
@@ -227,6 +229,7 @@ const LoadMoreRow = GObject.registerClass({
             icon_name: 'view-more-symbolic',
             margin: 12
         }))
+        this.tooltip_text = _('Load more items')
     }
 })
 const LoadMoreChild = GObject.registerClass({
@@ -244,6 +247,7 @@ const LoadMoreChild = GObject.registerClass({
         })
         image.get_style_context().add_class('frame')
         this.add(image)
+        this.tooltip_text = _('Load more items')
     }
 })
 
