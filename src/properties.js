@@ -90,3 +90,24 @@ var PropertiesBox = GObject.registerClass({
             this.visible_child_name = 'nothing'
     }
 })
+
+var PropertiesWindow = GObject.registerClass({
+    GTypeName: 'FoliatePropertiesWindow',
+}, class PropertiesWindow extends Gtk.Dialog {
+    _init(params, ...args) {
+        super._init(params)
+
+        const scrolled = new Gtk.ScrolledWindow({
+            visible: true,
+            min_content_width: 360,
+            min_content_height: 480,
+        })
+        const propertiesBox = new PropertiesBox({
+            visible: true,
+            border_width: 18
+        }, ...args)
+        scrolled.add(propertiesBox)
+        const box = this.get_content_area()
+        box.pack_start(scrolled, true, true, 0)
+    }
+})

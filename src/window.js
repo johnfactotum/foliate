@@ -23,7 +23,7 @@ const { DictionaryBox, WikipediaBox, TranslationBox } = imports.lookup
 const { tts, TtsButton } = imports.tts
 const { themes, customThemes, ThemeRow, applyTheme } = imports.theme
 const { exportAnnotations } = imports.export
-const { PropertiesBox } = imports.properties
+const { PropertiesWindow } = imports.properties
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
@@ -552,24 +552,12 @@ const makeActions = self => ({
     'unfullscreen': () => self.unfullscreen(),
 
     'properties': () => {
-        const window = new Gtk.Dialog({
+        const window = new PropertiesWindow({
             modal: true,
             title: _('About This Book'),
             transient_for: self,
             use_header_bar: true
-        })
-        const scrolled = new Gtk.ScrolledWindow({
-            visible: true,
-            min_content_width: 360,
-            min_content_height: 480,
-        })
-        const propertiesBox = new PropertiesBox({
-            visible: true,
-            border_width: 18
         }, self._epub.metadata, self._epub.cover)
-        scrolled.add(propertiesBox)
-        const box = window.get_content_area()
-        box.pack_start(scrolled, true, true, 0)
         window.show()
     },
     'open-copy': () => {

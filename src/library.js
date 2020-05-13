@@ -16,10 +16,10 @@
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
 const { debug, Storage, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight, mimetypes, linkIsRel } = imports.utils
-const { PropertiesBox } = imports.properties
+const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
 const { uriStore, bookList } = imports.uriStore
-const { EpubView } = imports.epubView
+const { EpubView, EpubViewData } = imports.epubView
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 const { HdyColumn } = imports.handy
 
@@ -34,7 +34,7 @@ const BookImage =  GObject.registerClass({
 }, class BookImage extends Gtk.Overlay {
     loadCover(metadata) {
         const { identifier } = metadata
-        const coverPath = Storage.getPath('cache', identifier, '.png')
+        const coverPath = EpubViewData.coverPath(identifier)
         try {
             // TODO: loading the file synchronously is probably bad
             const pixbuf = GdkPixbuf.Pixbuf.new_from_file(coverPath)
@@ -88,6 +88,7 @@ const makeLibraryChild = (params, widget) => {
             super._init(params)
             this.actionGroup = new Gio.SimpleActionGroup()
             const actions = {
+                'properties': () => this.showProperties(),
                 'remove': () => this.removeBook(),
             }
             Object.keys(actions).forEach(name => {
@@ -108,6 +109,22 @@ const makeLibraryChild = (params, widget) => {
             }
             return {}
         }
+        showProperties() {
+            const { metadata } = this.book.value
+            let cover = null
+            try {
+                const { identifier } = metadata
+                const coverPath = EpubViewData.coverPath(identifier)
+                cover = GdkPixbuf.Pixbuf.new_from_file(coverPath)
+            } catch (e) {}
+            const window = new PropertiesWindow({
+                modal: true,
+                title: _('About This Book'),
+                transient_for: this.get_toplevel(),
+                use_header_bar: true
+            }, metadata, cover)
+            window.show()
+        }
         removeBook() {
             const window = this.get_toplevel()
             const msg = new Gtk.MessageDialog({
@@ -126,9 +143,9 @@ const makeLibraryChild = (params, widget) => {
             if (res === Gtk.ResponseType.ACCEPT) {
                 const id = this.book.value.metadata.identifier
                 ;[
-                    Storage.getPath('data', id),
-                    Storage.getPath('cache', id),
-                    Storage.getPath('cache', id, '.png')
+                    EpubViewData.dataPath(id),
+                    EpubViewData.cachePath(id),
+                    EpubViewData.coverPath(id)
                 ].forEach(path => {
                     try {
                         Gio.File.new_for_path(path).delete(null)

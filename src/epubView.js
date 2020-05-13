@@ -121,9 +121,9 @@ const EpubViewData = GObject.registerClass({
         this._identifier = identifier
         this._viewSet = new Set()
 
-        this._storage = new Storage(Storage.getPath('data', identifier))
-        this._cache = new Storage(Storage.getPath('cache', identifier))
-        this._coverPath = Storage.getPath('cache', this._identifier, '.png')
+        this._storage = new Storage(EpubViewData.dataPath(identifier))
+        this._cache = new Storage(EpubViewData.cachePath(identifier))
+        this._coverPath = EpubViewData.coverPath(identifier)
 
         this._annotationsMap = new Map()
         this._annotationsList = new Gio.ListStore()
@@ -316,6 +316,15 @@ const EpubViewData = GObject.registerClass({
         debug(`saving cover to ${this._coverPath}`)
         const pixbuf = scalePixbuf(cover)
         pixbuf.savev(this._coverPath, 'png', [], [])
+    }
+    static dataPath(identifier) {
+        return Storage.getPath('data', identifier)
+    }
+    static cachePath(identifier) {
+        return Storage.getPath('cache', identifier)
+    }
+    static coverPath(identifier) {
+        return Storage.getPath('cache', identifier, '.png')
     }
 })
 
