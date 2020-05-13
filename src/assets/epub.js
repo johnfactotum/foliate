@@ -14756,6 +14756,11 @@ var Packaging = function () {
 			metadata.creator = this.getElementText(xml, "creator");
 			metadata.description = this.getElementText(xml, "description");
 
+			metadata.subjects = Array.from(xml.getElementsByTagNameNS(
+				"http://purl.org/dc/elements/1.1/", "subject"))
+					.filter(node => node.childNodes.length)
+					.map(node => node.childNodes[0].nodeValue)
+
 			metadata.pubdate = this.getElementText(xml, "date");
 
 			metadata.publisher = this.getElementText(xml, "publisher");

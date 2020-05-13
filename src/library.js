@@ -422,7 +422,7 @@ const opdsEntryToMetadata = entry => {
         // Translators: this is the punctuation used to join together a list of
         // authors or categories
         creator: authors.map(x => x.name).join(_(', ')),
-        categories: categories.map(x => x.label || x.term).join(_(', ')),
+        categories: categories.map(x => x.label || x.term),
         description: summary,
         pubdate: issued || published,
         modified_date: updated,

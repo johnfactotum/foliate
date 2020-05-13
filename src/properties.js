@@ -51,20 +51,25 @@ var PropertiesBox = GObject.registerClass({
             this._cover.get_style_context().add_class('foliate-book-image')
         } else this._cover.hide()
 
-        const {
+        let {
             title, creator, description,
             publisher, pubdate, modified_date, language, identifier, rights,
-            extent, format, categories
+            extent, format, categories, subjects
         } = metadata
+        if (!categories) categories = subjects
+
         if (title) this._title.label = title
         else this._title.hide()
+
         if (creator) this._creator.label = creator
         else this._creator.hide()
+
         if (description) this._description.label = description
         else this._description.hide()
-        if (categories) this._propertiesBox.pack_start(new PropertyBox({
+
+        if (categories && categories.length) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Categories'),
-            property_value: categories
+            property_value: categories.join(_(', '))
         }), false, true, 0)
         if (publisher) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Publisher'),
