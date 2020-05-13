@@ -72,7 +72,6 @@ class BookList {
         this.list.append(new Obj('load-more'))
         this.map = new Map()
         this._query = ''
-        this._shouldUpdateList = false
         this._arr = null
     }
     _load() {
@@ -128,7 +127,6 @@ class BookList {
         return result
     }
     next(n = 10) {
-        this._shouldUpdateList = true
         if (!this._iter) this._iter = this._load().entries()
         let i = 0
         while (i < n) {
@@ -155,7 +153,6 @@ class BookList {
             // so that we don't mess up the iterator
             if (i !== -1) this._arr[i] = null
         }
-        if (this._iter) this._iter.next(1)
         const n = this.list.get_n_items()
         for (let i = 0; i < n; i++) {
             const item = this.list.get_item(i).value
@@ -172,9 +169,10 @@ class BookList {
     }
     update(id, obj) {
         this.map.set(id, obj)
-        if (this._shouldUpdateList) {
+        if (this._iter) {
             this._remove(id)
             this.list.insert(0, new Obj(obj))
+            this._iter.next(1)
         }
         if (this._arr) this._arr.unshift({ identifier: id })
         this.search(this._query, true)
