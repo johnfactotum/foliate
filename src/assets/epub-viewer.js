@@ -326,12 +326,12 @@ const open = async (uri, filename, inputType, renderTo, options) => {
                 break
             }
             case 'fb2': {
-                const json = await webpubFromFB2(uri)
+                const json = await webpubFromFB2(uri, filename)
                 await book.openJSON(json)
                 break
             }
             case 'fb2zip': {
-                const json = await webpubFromFB2Zip(uri)
+                const json = await webpubFromFB2Zip(uri, filename)
                 await book.openJSON(json)
                 break
             }

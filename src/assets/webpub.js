@@ -1,39 +1,18 @@
 
-if (!Blob.prototype.arrayBuffer) {
-    Blob.prototype.arrayBuffer = function () {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader()
-            reader.readAsBinaryString(this)
-            reader.onloadend = () => resolve(reader.result)
-        })
-    }
-}
-if (!Blob.prototype.text) {
-    Blob.prototype.text = function () {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader()
-            reader.readAsText(this)
-            reader.onloadend = () => resolve(reader.result)
-        })
-    }
-}
-const processBlob = async (blob, getText) => {
-    let hash
-    try {
-        const buffer = await blob.arrayBuffer()
-        hash = CryptoJS.MD5(CryptoJS.enc.Latin1.parse(buffer)).toString()
-    } catch (e) {}
+const readAsArrayBuffer = blob => new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsBinaryString(blob)
+    reader.onloadend = () => resolve(reader.result)
+})
 
-    const result = { identifier: hash ? 'foliate-md5sum-' + hash : undefined }
-    if (getText) result.text = await blob.text()
-    return result
-}
+const generateIdentifier = async blob => 'foliate-md5sum-'
+    + CryptoJS.MD5(CryptoJS.enc.Latin1.parse(await readAsArrayBuffer(blob))).toString()
 
 const webpubFromText = async (uri, filename) => {
     const res = await fetch(uri)
     const blob = await res.blob()
-
-    const { identifier, text } = await processBlob(blob, true)
+    const identifier = await generateIdentifier(blob)
+    const text = await new Response(blob).text()
 
     const chapters = text.split(/(\r?\n){3,}/g)
         .filter(x => !/^\r?\n$/.test(x))
@@ -71,19 +50,8 @@ const webpubFromText = async (uri, filename) => {
 
 const XLINK_NS = 'http://www.w3.org/1999/xlink'
 
-const webpubFromFB2Zip = async uri => {
-    let zip = new JSZip()
-    const res = await fetch(uri)
-    const data = await res.blob()
-    zip = await JSZip.loadAsync(data)
-    const text = await zip.file(/.fb2$/)[0].async('string')
-    let doc = new DOMParser().parseFromString(text, 'text/xml')
-    return processFB2(doc)
-}
-
-const webpubFromFB2 = async uri => {
-    const res = await fetch(uri)
-    const buffer = await res.arrayBuffer()
+const fb2FromBlob = async (blob, filename) => {
+    const buffer = await new Response(blob).arrayBuffer()
     const decoder = new TextDecoder('utf-8')
     const data = decoder.decode(buffer)
     let doc = new DOMParser().parseFromString(data, 'text/xml')
@@ -92,7 +60,22 @@ const webpubFromFB2 = async uri => {
         const data = decoder.decode(buffer)
         doc = new DOMParser().parseFromString(data, 'text/xml')
     }
-    return processFB2(doc)
+    return processFB2(doc, blob, filename)
+}
+
+const webpubFromFB2Zip = async (uri, filename) => {
+    let zip = new JSZip()
+    const res = await fetch(uri)
+    const data = await res.blob()
+    zip = await JSZip.loadAsync(data)
+    const blob = await zip.file(/\.fb2$/)[0].async('blob')
+    return fb2FromBlob(blob, filename)
+}
+
+const webpubFromFB2 = async (uri, filename) => {
+    const res = await fetch(uri)
+    const blob = await res.blob()
+    return fb2FromBlob(blob, filename)
 }
 
 const fb2ToHtml = (x, h, getImage) => {
@@ -135,7 +118,7 @@ const fb2ToHtml = (x, h, getImage) => {
 }
 
 let fb2doc // useful for debugging
-const processFB2 = doc => {
+const processFB2 = async (doc, blob, filename) => {
     fb2doc = doc
     const $ = doc.querySelector.bind(doc)
     const $$ = doc.querySelectorAll.bind(doc)
@@ -149,8 +132,8 @@ const processFB2 = doc => {
         const el = $(x)
         return el ? el.textContent : ''
     }
-    const title = getTextContent('title-info book-title')
-    const identifier = getTextContent('title-info id')
+    const title = getTextContent('title-info book-title') || filename
+    const identifier = getTextContent('title-info id') || await generateIdentifier(blob)
     const annotation = $('title-info annotation')
     const description = annotation ? fb2ToHtml(annotation, h).innerHTML : undefined
     const language = getTextContent('title-info lang')
