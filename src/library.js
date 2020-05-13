@@ -956,22 +956,16 @@ var LibraryWindow =  GObject.registerClass({
         const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
         ;[this._startButtonStack, this._endButtonStack].forEach(stack =>
             this._stack.bind_property('visible-child-name', stack, 'visible-child-name', flag))
-        this._searchButton.bind_property('active', this._searchBar, 'search-mode-enabled', flag)
-        this._searchBar.connect('notify::search-mode-enabled', ({ search_mode_enabled }) => {
-            if (search_mode_enabled) this._searchEntry.grab_focus()
-            else {
-                this._searchEntry.text = ''
-                this._bookFlowBox.search()
-                this._bookListBox.search()
-            }
-            this._updateLibraryStack()
-        })
         this.connect('notify::active-view', () => {
             this._viewButton.get_child().icon_name = this.active_view === 'grid'
                 ? 'view-list-symbolic' : 'view-grid-symbolic'
             this._updateLibraryStack()
         })
 
+        this._searchButton.bind_property('active', this._searchBar, 'search-mode-enabled', flag)
+        this.connect('key-press-event', (__, event) => this._searchBar.handle_event(event))
+        this._searchBar.connect_entry(this._searchEntry)
+        this._searchBar.connect('notify::search-mode-enabled', () => this._updateLibraryStack())
         const handleSearchEntry = ({ text }) => {
             this._bookFlowBox.search(text)
             this._bookListBox.search(text)
