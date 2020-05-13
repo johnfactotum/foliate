@@ -415,8 +415,11 @@ var random = seed => {
 }
 
 // generate a color based on a string
-const charSum = str => str.split('').map(x => x.charCodeAt(0)).reduce((a, b) => a + b)
+const charSum = str => str
+    ? str.split('').map(x => x.charCodeAt(0)).reduce((a, b) => a + b, 0)
+    : 0
 const splitString = str => {
+    if (!str) return ['', '']
     const p = Math.floor(str.length / 2)
     return [str.slice(0, p), str.slice(p)]
 }
