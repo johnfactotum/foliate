@@ -3,25 +3,25 @@
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 # Blanc Chan cdh4227@qq.com, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 15:05+0800\n"
-"PO-Revision-Date: 2020-05-12 18:03+0800\n"
+"PO-Revision-Date: 2020-05-13 14:29+0800\n"
 "Last-Translator: Blan Chan cdh4227@qq.com\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.3\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:105
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
-msgstr ""
+msgstr "Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "eBook Viewer"
@@ -33,7 +33,7 @@ msgstr "阅读电子书"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:9
 msgid "com.github.johnfactotum.Foliate"
-msgstr ""
+msgstr "com.github.johnfactotum.Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:12
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
@@ -53,7 +53,7 @@ msgstr "打开文件"
 
 #: src/main.js:104#, fuzzy
 msgid "translator-credits"
-msgstr ""
+msgstr "Blanc Chan"
 
 #: src/main.js:106 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
@@ -91,19 +91,19 @@ msgstr "注释关于《%s》（%s 著）"
 
 #: src/export.js:50
 msgid "Section: "
-msgstr "章节"
+msgstr "章节: "
 
 #: src/export.js:51
 msgid "Highlight: "
-msgstr "高亮"
+msgstr "高亮: "
 
 #: src/export.js:52
 msgid "Text:"
-msgstr "文本"
+msgstr "文本:"
 
 #: src/export.js:53
 msgid "Note:"
-msgstr "笔记"
+msgstr "笔记:"
 
 #: src/export.js:58
 #, javascript-format
@@ -112,11 +112,11 @@ msgstr "注释关于《%s》（%s 著）"
 
 #: src/export.js:92
 msgid "Quote: "
-msgstr "引用"
+msgstr "引用: "
 
 #: src/export.js:92
 msgid " Note: "
-msgstr "笔记"
+msgstr " 笔记: "
 
 #: src/lookup.js:96
 msgid "Search on Wikipedia"
@@ -124,7 +124,7 @@ msgstr "在维基百科上搜索"
 
 #: src/lookup.js:218
 msgid "Source: "
-msgstr "来源："
+msgstr "来源: "
 
 #: src/lookup.js:375
 msgid "Search on Wiktionary"
@@ -179,28 +179,28 @@ msgstr "暗色"
 msgid "Invert"
 msgstr "反转色"
 
-#, fuzzy
 #: src/theme.js:43
+#, fuzzy
 msgid "Solarized Light"
 msgstr "日光"
 
-#, fuzzy
 #: src/theme.js:47
+#, fuzzy
 msgid "Solarized Dark"
 msgstr "月光"
 
-#, fuzzy
 #: src/theme.js:51
+#, fuzzy
 msgid "Gruvbox Light"
 msgstr "亮色护眼"
 
-#, fuzzy
 #: src/theme.js:55
+#, fuzzy
 msgid "Gruvbox Dark"
 msgstr "暗色护眼"
 
-#, fuzzy
 #: src/theme.js:59
+#, fuzzy
 msgid "Nord"
 msgstr "深蓝色"
 
@@ -227,7 +227,7 @@ msgstr "无注释"
 
 #: src/ui/contentsStack.ui:86
 msgid "Select some text to add annotations."
-msgstr "选中文本以添加注释"
+msgstr "选中文本以添加注释。"
 
 #: src/ui/contentsStack.ui:118
 msgid "Annotations"
@@ -239,7 +239,7 @@ msgstr "无书签"
 
 #: src/ui/contentsStack.ui:165
 msgid "Add some bookmarks to see them here."
-msgstr "新增书签以在此处显示"
+msgstr "新增书签以在此处显示。"
 
 #: src/ui/contentsStack.ui:198 src/ui/shortcutsWindow.ui:59
 msgid "Bookmark current location"
@@ -332,11 +332,11 @@ msgstr "放大"
 
 #: src/ui/imageViewer.ui:175 src/ui/shortcutsWindow.ui:299
 msgid "Rotate 90° counter-clockwise"
-msgstr "逆时针旋转90° "
+msgstr "逆时针旋转90°"
 
 #: src/ui/imageViewer.ui:188 src/ui/shortcutsWindow.ui:306
 msgid "Rotate 90° clockwise"
-msgstr "顺时针旋转90° "
+msgstr "顺时针旋转90°"
 
 #: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:147
 msgid "Brightness"
@@ -440,8 +440,8 @@ msgstr "其它"
 msgid "Auto-hide Cursor"
 msgstr "自动隐藏鼠标"
 
-#, fuzzy
 #: src/ui/mainMenu.ui:560
+#, fuzzy
 msgid "Realistic Shadows"
 msgstr "仿真阴影效果"
 
@@ -479,7 +479,7 @@ msgstr "未打开任何书本"
 
 #: src/ui/mainOverlay.ui:58
 msgid "Open a book to start reading."
-msgstr "打开书本以开始阅读"
+msgstr "打开书本以开始阅读。"
 
 #: src/ui/mainOverlay.ui:71
 msgid "Open File…"
@@ -495,7 +495,7 @@ msgstr "出错了"
 
 #: src/ui/mainOverlay.ui:139
 msgid "The file cannot be opened."
-msgstr "无法打开文件"
+msgstr "无法打开文件。"
 
 #: src/ui/mainOverlay.ui:148
 msgid "Open Another File…"
@@ -1225,7 +1225,7 @@ msgstr "维基百科"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
-msgstr "Foliate 是简洁现代的 GTK 电子书阅读器"
+msgstr "Foliate 是简洁现代的 GTK 电子书阅读器。"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:11
 msgid "Features include:"
@@ -1301,15 +1301,15 @@ msgstr "修复了程序未被翻译的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 msgid "Interface:"
-msgstr "界面"
+msgstr "界面："
 
-#, fuzzy
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
+#, fuzzy
 msgid "A redesigned interface that works better for smaller screens"
 msgstr "重新设计了界面，以适配较小的屏幕"
 
-#, fuzzy
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
+#, fuzzy
 msgid "Improved fullscreen mode with an overlaid headerbar"
 msgstr "改进了全屏模式，加入了悬浮标题栏"
 
@@ -1325,8 +1325,8 @@ msgid ""
 "the footer"
 msgstr "底栏可显示更多的位置信息和时钟"
 
-#, fuzzy
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
+#, fuzzy
 msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
@@ -1338,8 +1338,8 @@ msgid ""
 "left or right part of the view; tap on the middle to toggle header bar and "
 "progress bar"
 msgstr ""
-"电子阅读器风格的导航："
-"点击页面左侧向上翻页，点击页面右侧向下翻页；点击页面中间显示标题栏和进度栏"
+"电子阅读器风格的导航：点击页面左侧向上翻页，点击页面右侧向下翻页；点击页面中"
+"间显示标题栏和进度栏"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid "Annotations, bookmarks, and find results now show chapter titles"
@@ -1744,9 +1744,7 @@ msgstr "标题栏自动隐藏"
 msgid ""
 "Whether to hide the headerbar automatically (this is setting has no effect "
 "if skeuomorphism or sidebar is enabled)"
-msgstr ""
-"是/否自动隐藏标题栏"
-"（如果开启了仿真或侧边栏，此设置无效）"
+msgstr "是/否自动隐藏标题栏（如果开启了仿真或侧边栏，此设置无效）"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:65
 msgid "Information to be displayed on the left footer"
@@ -1762,8 +1760,8 @@ msgid ""
 "right part of the view; tap on the middle to toggle header bar and progress "
 "bar"
 msgstr ""
-"如果此值为真，则点击页面左侧向上翻页，点击页面右侧向下翻页；"
-"点击页面中间则会显示标题栏和进度栏"
+"如果此值为真，则点击页面左侧向上翻页，点击页面右侧向下翻页；点击页面中间则会"
+"显示标题栏和进度栏"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:82
 msgid "Prefer dark GTK theme"
@@ -1845,9 +1843,7 @@ msgid ""
 "A value under 1 darkens the page, while a value over 1 brightens it. A value "
 "of 0 will make the page completely black, while a value of 1 leaves the "
 "brightness unchanged"
-msgstr ""
-"小于1的值使页面变暗，大于1的值使页面变亮"
-"0值使页面全黑，1值则不改变亮度"
+msgstr "小于1的值使页面变暗，大于1的值使页面变亮0值使页面全黑，1值则不改变亮度"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:152
 msgid "Footnote preview"
@@ -1883,8 +1879,8 @@ msgstr "页面布局"
 msgid "Skeuomorphism"
 msgstr "仿真"
 
-#, fuzzy
 #: data/com.github.johnfactotum.Foliate.gschema.xml:173
+#, fuzzy
 msgid ""
 "If true, the book is decoratively presented in a way that resembles physical "
 "books"
