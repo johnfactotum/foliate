@@ -602,7 +602,8 @@ var EpubView = GObject.registerClass({
     }
     _connectData() {
         this.connect('metadata', () => {
-            const type = this._fileInfo.get_content_type()
+            const type = this.contentType
+            this.metadata.format = type
             const enabled = !(type === mimetypes.fb2 || type === mimetypes.fb2zip)
             const { identifier } = this.metadata
             let locations
@@ -995,6 +996,10 @@ var EpubView = GObject.registerClass({
             case mimetypes.cbt: this.open_(uri, 'cbt'); break
             default: this.emit('book-error', _('File type not supported.'))
         }
+    }
+    get contentType() {
+        if (this._fileInfo) return this._fileInfo.get_content_type()
+        return null
     }
     close() {
         if (this._tmpdir) {

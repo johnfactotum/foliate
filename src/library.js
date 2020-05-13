@@ -413,15 +413,20 @@ class OpdsClient {
 const opdsEntryToMetadata = entry => {
     const {
         title, summary, publisher, language, identifier, rights,
-        published, updated, issued,
+        published, updated, issued, extent,
         authors = [],
+        categories = []
     } = entry
     return {
         title, publisher, language, identifier, rights,
-        creator: authors.map(x => x.name).join(', '),
+        // Translators: this is the punctuation used to join together a list of
+        // authors or categories
+        creator: authors.map(x => x.name).join(_(', ')),
+        categories: categories.map(x => x.label || x.term).join(_(', ')),
         description: summary,
         pubdate: issued || published,
-        modified_date: updated
+        modified_date: updated,
+        extent
     }
 }
 

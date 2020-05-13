@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gtk } = imports.gi
+const { GObject, Gtk, Gio } = imports.gi
 const { scalePixbuf } = imports.utils
 
 const PropertyBox = GObject.registerClass({
@@ -43,7 +43,7 @@ var PropertiesBox = GObject.registerClass({
     InternalChildren: [
         'cover', 'title', 'creator', 'description', 'propertiesBox',
     ]
-}, class PropertiesBox extends Gtk.Stack {
+}, class PropertiesBox extends Gtk.Box {
     _init(params, metadata, cover) {
         super._init(params)
         if (cover) {
@@ -53,7 +53,8 @@ var PropertiesBox = GObject.registerClass({
 
         const {
             title, creator, description,
-            publisher, pubdate, modified_date, language, identifier, rights
+            publisher, pubdate, modified_date, language, identifier, rights,
+            extent, format, categories
         } = metadata
         if (title) this._title.label = title
         else this._title.hide()
@@ -61,6 +62,10 @@ var PropertiesBox = GObject.registerClass({
         else this._creator.hide()
         if (description) this._description.label = description
         else this._description.hide()
+        if (categories) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('Categories'),
+            property_value: categories
+        }), false, true, 0)
         if (publisher) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Publisher'),
             property_value: publisher
@@ -76,6 +81,14 @@ var PropertiesBox = GObject.registerClass({
         if (language) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Language'),
             property_value: language
+        }), false, true, 0)
+        if (extent) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('File Size'),
+            property_value: extent
+        }), false, true, 0)
+        if (format) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('Format'),
+            property_value: Gio.content_type_get_description(format)
         }), false, true, 0)
         if (identifier) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Identifier'),
