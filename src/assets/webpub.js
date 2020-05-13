@@ -1,8 +1,41 @@
+
+if (!Blob.prototype.arrayBuffer) {
+    Blob.prototype.arrayBuffer = function () {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.readAsBinaryString(this)
+            reader.onloadend = () => resolve(reader.result)
+        })
+    }
+}
+if (!Blob.prototype.text) {
+    Blob.prototype.text = function () {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.readAsText(this)
+            reader.onloadend = () => resolve(reader.result)
+        })
+    }
+}
+const processBlob = async (blob, getText) => {
+    let hash
+    try {
+        const buffer = await blob.arrayBuffer()
+        hash = CryptoJS.MD5(CryptoJS.enc.Latin1.parse(buffer)).toString()
+    } catch (e) {}
+
+    const result = { identifier: hash ? 'foliate-md5sum-' + hash : undefined }
+    if (getText) result.text = await blob.text()
+    return result
+}
+
 const webpubFromText = async uri => {
     const res = await fetch(uri)
-    const data = await res.text()
+    const blob = await res.blob()
 
-    const chapters = data.split(/(\r?\n){3,}/g)
+    const { identifier, text } = await processBlob(blob, true)
+
+    const chapters = text.split(/(\r?\n){3,}/g)
         .filter(x => !/^\r?\n$/.test(x))
         .map(c => {
             const ps = c.split(/(\r?\n){2}/g)
@@ -25,7 +58,7 @@ const webpubFromText = async uri => {
         })
 
     return {
-        metadata: {},
+        metadata: { identifier },
         links: [],
         readingOrder: chapters,
         toc: chapters,

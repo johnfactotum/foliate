@@ -16,7 +16,7 @@
 const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
 
 const { setPopoverPosition, doubleInvert, brightenColor, formatMinutes } = imports.utils
-const { EpubView } = imports.epubView
+const { EpubView, enableAnnotations } = imports.epubView
 const { ContentsStack, FindBox,
     FootnotePopover, AnnotationBox, ImageViewer } = imports.contents
 const { DictionaryBox, WikipediaBox, TranslationBox } = imports.lookup
@@ -482,6 +482,24 @@ const makeActions = self => ({
             .set_text(self._epub.selection.text, -1)
     },
     'selection-highlight': () => {
+        const { identifier } = self._epub.metadata
+        const warn = identifier.startsWith('foliate-md5sum-')
+            || enableAnnotations.every(x => self._epub.contentType !== x)
+        if (warn) {
+            const msg = new Gtk.MessageDialog({
+                text: _('This file or format does not work well with annotations'),
+                secondary_text: _('Your annotations might stop working properly at any time.'),
+                message_type: Gtk.MessageType.QUESTION,
+                modal: true,
+                transient_for: self
+            })
+            msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+            msg.add_button(_('Continue Anyway'), Gtk.ResponseType.ACCEPT)
+            msg.set_default_response(Gtk.ResponseType.CANCEL)
+            const res = msg.run()
+            msg.destroy()
+            if (res !== Gtk.ResponseType.ACCEPT) return
+        }
         const { cfi, text } = self._epub.selection
         const color = settings.get_string('highlight')
         self._epub.addAnnotation({ cfi, color, text, note: '' })

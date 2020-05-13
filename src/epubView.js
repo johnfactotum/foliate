@@ -24,6 +24,17 @@ const {
     mimetypes, execCommand, recursivelyDeleteDir
 } = imports.utils
 
+// formats where we let the user add annotations without warning
+var enableAnnotations = [
+    mimetypes.directory,
+    mimetypes.json,
+    mimetypes.xml,
+    mimetypes.epub,
+    mimetypes.mobi,
+    mimetypes.kindle,
+    mimetypes.kindleAlias,
+]
+
 const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
 const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
 
@@ -604,10 +615,9 @@ var EpubView = GObject.registerClass({
         this.connect('metadata', () => {
             const type = this.contentType
             this.metadata.format = type
-            const enabled = !(type === mimetypes.fb2 || type === mimetypes.fb2zip)
             const { identifier } = this.metadata
             let locations
-            if (identifier && enabled) {
+            if (identifier) {
                 this._data = getData(identifier)
                 this._data.addView(this)
                 this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)

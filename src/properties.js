@@ -95,10 +95,33 @@ var PropertiesBox = GObject.registerClass({
             property_name: _('Format'),
             property_value: Gio.content_type_get_description(format)
         }), false, true, 0)
-        if (identifier) this._propertiesBox.pack_start(new PropertyBox({
-            property_name: _('Identifier'),
-            property_value: identifier
-        }), false, true, 0)
+        if (identifier) {
+            const isHash = identifier.startsWith('foliate-md5sum-')
+            this._propertiesBox.pack_start(new PropertyBox({
+                property_name: _('Identifier'),
+                property_value: isHash
+                    ? identifier.replace('foliate-md5sum-', '')
+                    : identifier
+            }), false, true, 0)
+            if (isHash) {
+                const image = new Gtk.Image({
+                    visible: true,
+                    icon_name: 'dialog-warning-symbolic'
+                })
+                const note = new Gtk.Label({
+                    visible: true,
+                    wrap: true,
+                    xalign: 0,
+                    label: _('This book has no identifier. This is the MD5 hash generated from the file.')
+                })
+                image.get_style_context().add_class('dim-label')
+                note.get_style_context().add_class('dim-label')
+                const box = new Gtk.Box({ visible: true, spacing: 12 })
+                box.pack_start(image, false, true, 0)
+                box.pack_start(note, false, true, 0)
+                this._propertiesBox.pack_start(box, false, true, 0)
+            }
+        }
         if (rights) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Copyright'),
             property_value: rights
