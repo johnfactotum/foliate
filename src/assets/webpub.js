@@ -29,7 +29,7 @@ const processBlob = async (blob, getText) => {
     return result
 }
 
-const webpubFromText = async uri => {
+const webpubFromText = async (uri, filename) => {
     const res = await fetch(uri)
     const blob = await res.blob()
 
@@ -58,7 +58,10 @@ const webpubFromText = async uri => {
         })
 
     return {
-        metadata: { identifier },
+        metadata: {
+            title: filename,
+            identifier
+        },
         links: [],
         readingOrder: chapters,
         toc: chapters,

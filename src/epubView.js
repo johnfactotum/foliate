@@ -729,7 +729,11 @@ var EpubView = GObject.registerClass({
                 this._autohideCursor = this.settings.autohide_cursor
 
                 const uri = this._uri
-                this._run(`open("${encodeURI(uri)}", '${this._inputType}',
+                const filename = this._file.get_basename().replace(/\.[^\s.]+$/, '')
+                this._run(`open(
+                    decodeURI("${encodeURI(uri)}"),
+                    decodeURI("${encodeURI(filename)}"),
+                    '${this._inputType}',
                     ${layouts[this.settings.layout].renderTo},
                     ${JSON.stringify(layouts[this.settings.layout].options)})`)
                 break

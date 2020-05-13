@@ -317,12 +317,11 @@ open() -> 'book-ready' -> loadLocations()
                                                         -> display() -> 'book-displayed'
 */
 
-const open = async (fileName, inputType, renderTo, options) => {
-    const uri = decodeURI(fileName)
+const open = async (uri, filename, inputType, renderTo, options) => {
     try {
         switch (inputType) {
             case 'text': {
-                const json = await webpubFromText(uri)
+                const json = await webpubFromText(uri, filename)
                 await book.openJSON(json)
                 break
             }
