@@ -282,7 +282,10 @@ const makeLibrary = (params, widget) => {
             const q = query ? query.trim() : ''
             if (q) {
                 const matches = bookList.search(query)
-                this.bind_model(matches, book => new ChildWidget({ book }))
+                this.bind_model(matches, book => {
+                    if (book.value === 'loading') return null
+                    else return new ChildWidget({ book })
+                })
             } else {
                 this._bindBookList()
             }

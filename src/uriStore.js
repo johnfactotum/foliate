@@ -68,8 +68,11 @@ const listDir = function* (path) {
 class BookList {
     constructor() {
         this.list = new Gio.ListStore()
-        this.searchList = new Gio.ListStore()
         this.list.append(new Obj('load-more'))
+
+        this.searchList = new Gio.ListStore()
+        this.searchList.append(new Obj('loading'))
+
         this.map = new Map()
         this._query = ''
         this._arr = null
