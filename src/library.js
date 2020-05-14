@@ -18,7 +18,7 @@ const { debug, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight, mimetypes, linkIsRel } = imports.utils
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
-const { uriStore, bookList } = imports.uriStore
+const { uriStore, library } = imports.uriStore
 const { EpubView, EpubViewData } = imports.epubView
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 const { HdyColumn } = imports.handy
@@ -152,7 +152,7 @@ const makeLibraryChild = (params, widget) => {
                     } catch (e) {}
                 })
 
-                bookList.remove(id)
+                library.remove(id)
                 uriStore.delete(id)
             }
             msg.close()
@@ -251,48 +251,43 @@ const LoadMoreChild = GObject.registerClass({
     }
 })
 
-const makeLibrary = (params, widget) => {
+const makeLibraryWidget = (params, widget) => {
     const isListBox = widget === Gtk.ListBox
     const LoadMore = isListBox ? LoadMoreRow : LoadMoreChild
     const ChildWidget = isListBox ? BookBoxRow : BookBoxChild
     const activateSignal = isListBox ? 'row-activated' : 'child-activated'
 
-    return GObject.registerClass(params, class Library extends widget {
+    return GObject.registerClass(params, class LibraryWidget extends widget {
         _init(params) {
             super._init(params)
             if (isListBox) this.set_header_func(row => {
                 if (row.get_index()) row.set_header(new Gtk.Separator())
             })
             this._model = null
-            this._bindBookList()
+            this._bindModel(library.list)
             this.connect(activateSignal, this._onRowActivated.bind(this))
         }
-        _bindBookList() {
-            this.bind_model(bookList.list, book => {
+        _bindModel(model) {
+            if (model === this._model) return
+            this._model = model
+            this.bind_model(model, book => {
                 if (book.value === 'load-more') return new LoadMore()
                 else return new ChildWidget({ book })
             })
         }
-        bind_model(model, func) {
-            if (model === this._model) return
-            this._model = model
-            super.bind_model(model, func)
-        }
         search(query) {
             const q = query ? query.trim() : ''
             if (q) {
-                const matches = bookList.search(query)
-                this.bind_model(matches, book => {
-                    if (book.value === 'loading') return null
-                    else return new ChildWidget({ book })
-                })
+                library.search(query)
+                this._bindModel(library.searchList)
             } else {
-                this._bindBookList()
+                this._bindModel(library.list)
             }
         }
         _onRowActivated(box, row) {
             if (row instanceof LoadMore) {
-                bookList.next()
+                if (this._model === library.searchList) library.searchNext()
+                else library.next()
                 return
             }
             const id = row.book.value.metadata.identifier
@@ -320,9 +315,9 @@ const makeLibrary = (params, widget) => {
     })
 }
 
-const BookListBox = makeLibrary({ GTypeName: 'FoliateBookListBox' }, Gtk.ListBox)
+const BookListBox = makeLibraryWidget({ GTypeName: 'FoliateBookListBox' }, Gtk.ListBox)
 
-const BookFlowBox = makeLibrary({ GTypeName: 'FoliateBookFlowBox' }, Gtk.FlowBox)
+const BookFlowBox = makeLibraryWidget({ GTypeName: 'FoliateBookFlowBox' }, Gtk.FlowBox)
 
 const htmlPath = pkg.pkgdatadir + '/assets/opds.html'
 class OpdsClient {
@@ -981,9 +976,9 @@ var LibraryWindow =  GObject.registerClass({
 
         // if there's only one item (likely the 'load-more' item), load some books
         // otherwise there's already some books loaded and no need to do that
-        if (bookList.list.get_n_items() === 1) bookList.next()
-        bookList.list.connect('items-changed', () => this._updateLibraryStack())
-        bookList.searchList.connect('items-changed', () => this._updateLibraryStack())
+        if (library.list.get_n_items() === 1) library.next()
+        library.list.connect('items-changed', () => this._updateLibraryStack())
+        library.searchList.connect('items-changed', () => this._updateLibraryStack())
         this._updateLibraryStack()
 
         this._loadCatalogs()
@@ -991,12 +986,12 @@ var LibraryWindow =  GObject.registerClass({
     _updateLibraryStack() {
         const stack = this._libraryStack
         const search = this._searchBar.search_mode_enabled
-        if (search && bookList.searchList.get_n_items())
+        if (search && library.searchList.get_n_items())
             stack.visible_child_name = this.active_view
         else if (search && this._searchEntry.text.trim() !== '')
             stack.visible_child_name = 'search-empty'
         else
-            stack.visible_child_name = bookList.list.get_n_items()
+            stack.visible_child_name = library.list.get_n_items()
                 ? this.active_view : 'empty'
     }
     addFiles() {

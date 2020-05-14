@@ -68,54 +68,23 @@ const listDir = function* (path) {
 class BookList {
     constructor() {
         this.list = new Gio.ListStore()
-        this.list.append(new Obj('load-more'))
-
-        this.searchList = new Gio.ListStore()
-        this.searchList.append(new Obj('loading'))
-
         this.map = new Map()
-        this._query = ''
+    }
+    clear() {
+        this.list.remove_all()
         this._arr = null
+        this._iter = null
     }
-    _load() {
-        debug('Loading book library')
-        const datadir = GLib.build_filenamev([GLib.get_user_data_dir(), pkg.name])
-        const books = listDir(datadir) || []
-        this._arr = Array.from(books).sort((a, b) => b.modified - a.modified)
-        return this._arr
+    load(loadFunc) {
+        this.list.append(new Obj('load-more'))
+        this._load = () => {
+            debug('book list: loading items')
+            this._arr = loadFunc()
+            return this._arr
+        }
     }
-    search(query, force) {
-        debug(`Searching for "${query}"`)
-        const list = this.searchList
-        if (!query) {
-            debug(`Query is empty; clearing the list`)
-            list.remove_all()
-            return list
-        }
-        const q = query.toLowerCase()
-        if (!force && q === this._query) {
-            debug(`Query hasn't changed; return the list`)
-            return list
-        }
-
-        this._query = q
-        const books = this._arr || this._load()
-
-        list.remove_all()
-        for (const item of books) {
-            if (!item) continue
-            const { identifier } = item
-            const data = this.map.get(identifier) || this._loadItem(item)
-            if (!data) continue
-
-            const match = (data.metadata.title || '').toLowerCase().includes(q)
-                || (data.metadata.creator || '').toLowerCase().includes(q)
-                || (data.metadata.subjects || []).map(x => x.toLowerCase())
-                    .some(subject => subject.includes(q))
-
-            if (match) list.append(new Obj(data))
-        }
-        return list
+    getArray() {
+        return this._arr || this._load()
     }
     _loadItem(item) {
         const { identifier, file, modified } = item
@@ -132,7 +101,16 @@ class BookList {
         this.map.set(identifier, result)
         return result
     }
-    next(n = 10) {
+    getItem(item) {
+        try {
+            const { identifier } = item
+            return this.map.get(identifier) || this._loadItem(item)
+        } catch (e) {
+            return null
+        }
+    }
+    next(n = 19) {
+        debug('book list: loading more items')
         if (!this._iter) this._iter = this._load().entries()
         let i = 0
         while (i < n) {
@@ -144,9 +122,9 @@ class BookList {
                     this.list.remove(length - 1)
                 return
             }
-            if (!value[1]) continue
-            const { identifier } = value[1]
-            const data = this.map.get(identifier) || this._loadItem(value[1])
+            const item = value[1]
+            if (!item) continue
+            const data = this.getItem(item)
             if (!data) continue
             this.list.insert(this.list.get_n_items() - 1, new Obj(data))
             i++
@@ -164,16 +142,17 @@ class BookList {
             const item = this.list.get_item(i).value
             if (item.identifier === id) {
                 this.list.remove(i)
-                this.search(this._query, true)
                 return true
             }
         }
     }
     remove(id) {
+        debug('book list: removing ' + id)
         this.map.delete(id)
         if (this._remove(id)) this.next(1)
     }
     update(id, obj) {
+        debug('book list: updating ' + id)
         this.map.set(id, obj)
         if (this._iter) {
             this._remove(id)
@@ -181,9 +160,66 @@ class BookList {
             this._iter.next(1)
         }
         if (this._arr) this._arr.unshift({ identifier: id })
-        this.search(this._query, true)
     }
 }
 
-var bookList = new BookList()
+class Library {
+    constructor() {
+        this._list = new BookList()
+        this._list.load(() => {
+            debug('Loading book library')
+            const datadir = GLib.build_filenamev([GLib.get_user_data_dir(), pkg.name])
+            const books = listDir(datadir) || []
+            return Array.from(books).sort((a, b) => b.modified - a.modified)
+        })
+        this.list = this._list.list
+
+        this._searchList = new BookList()
+        this.searchList = this._searchList.list
+
+        this._query = ''
+    }
+    search(query) {
+        if (!query) return this._searchList.clear()
+        const q = query.toLowerCase()
+        if (q === this._query) return
+
+        debug(`Searching for "${query}"`)
+        this._query = q
+        const books = this._list.getArray()
+
+        const results = []
+        for (const item of books) {
+            if (!item) continue
+            const data = this._searchList.getItem(item)
+            if (!data) continue
+
+            const match = (data.metadata.title || '').toLowerCase().includes(q)
+                || (data.metadata.creator || '').toLowerCase().includes(q)
+                || (data.metadata.subjects || []).map(x => x.toLowerCase())
+                    .some(subject => subject.includes(q))
+
+            if (match) results.push(item)
+        }
+        this._searchList.clear()
+        this._searchList.load(() => results)
+        this._searchList.next()
+    }
+    next(n) {
+        this._list.next(n)
+    }
+    searchNext(n) {
+        this._searchList.next(n)
+    }
+    remove(id) {
+        this._list.remove(id)
+        this._searchList.remove(id)
+    }
+    update(id, obj) {
+        this._list.update(id, obj)
+        this._searchList.update(id, obj)
+    }
+}
+
+var library = new Library()
 
