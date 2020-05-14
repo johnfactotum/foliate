@@ -927,7 +927,7 @@ var LibraryWindow =  GObject.registerClass({
         const actions = {
             'add-files': () => this.addFiles(),
             'add-files-stop': () => {
-                for (const epub of this._headlessEpubs) epub.widget.destroy()
+                for (const offscreen of this._headlessEpubs) offscreen.destroy()
                 this._loadingBar.hide()
             },
             'toggle-view': () => {
@@ -1042,11 +1042,14 @@ var LibraryWindow =  GObject.registerClass({
         return new Promise((resolve, reject) => {
             let metadataLoaded, coverLoaded
             const epub = new EpubView()
-            this._headlessEpubs.add(epub)
+            const offscreen = new Gtk.OffscreenWindow()
+            offscreen.add(epub.widget)
+            offscreen.show_all()
+            this._headlessEpubs.add(offscreen)
             const close = () => {
                 if (!metadataLoaded || !coverLoaded) return
-                this._headlessEpubs.delete(epub)
-                epub.widget.destroy()
+                this._headlessEpubs.delete(offscreen)
+                offscreen.destroy()
                 resolve()
             }
             epub.connect('metadata', () => {
