@@ -272,6 +272,7 @@ function main(argv) {
                     5px 5px 12px 2px rgba(0, 0, 0, 0.1),
                     0 0 2px 1px rgba(0, 0, 0, 0.2);
             }
+
             .foliate-book-image-dark {
                 color: #fff;
             }
@@ -294,6 +295,20 @@ function main(argv) {
             .foliate-book-image-creator {
                 opacity: 0.7;
                 padding: 12px;
+            }
+
+            .foliate-emblem {
+                color: white;
+                background: gray;
+                border-radius: 100%;
+                padding: 6px;
+                opacity: 0.9;
+            }
+            row .foliate-emblem {
+                opacity: 0.6;
+            }
+            row .foliate-emblem:backdrop {
+                opacity: 0.3;
             }
         `)
         Gtk.StyleContext.add_provider_for_screen(

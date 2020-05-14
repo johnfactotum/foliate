@@ -10,10 +10,26 @@
         <property name="valign">end</property>
         <property name="width-request">120</property>
         <child>
-          <object class="FoliateBookImage" id="image">
+          <object class="GtkOverlay">
             <property name="visible">True</property>
-            <property name="halign">center</property>
-            <property name="valign">end</property>
+            <child>
+              <object class="FoliateBookImage" id="image">
+                <property name="visible">True</property>
+                <property name="halign">center</property>
+                <property name="valign">end</property>
+              </object>
+            </child>
+            <child type="overlay">
+              <object class="GtkImage" id="emblem">
+                <property name="visible">False</property>
+                <property name="valign">start</property>
+                <property name="halign">end</property>
+                <property name="margin">6</property>
+                <property name="icon-name">emblem-cloud-symbolic</property>
+                <property name="tooltip-text" translatable="yes">This book is online</property>
+                <style><class name="foliate-emblem"/></style>
+              </object>
+            </child>
           </object>
         </child>
         <child>

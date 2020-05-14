@@ -167,12 +167,16 @@ const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxChild.ui',
     InternalChildren: [
-        'image', 'progressLabel', 'menuButton'
+        'image', 'progressLabel', 'menuButton', 'emblem'
     ]
 }, class BookBoxChild extends BookFlowBoxChild {
     _init(params) {
         super._init(params)
-        const { metadata } = this.book.value
+        const { identifier, metadata } = this.book.value
+
+        const uri = uriStore.get(identifier)
+        if (!uri.startsWith('file:')) this._emblem.show()
+
         this._image.loadCover(metadata)
         this._image.tooltip_markup = `<b>${markupEscape(metadata.title)}</b>`
             + (metadata.creator ? '\n' + markupEscape(metadata.creator) : '')
@@ -191,17 +195,21 @@ const BookBoxRow =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxRow.ui',
     InternalChildren: [
-        'title', 'creator',
+        'title', 'creator', 'emblem',
         'progressGrid', 'progressBar', 'progressLabel',
         'menuButton'
     ]
 }, class BookListRow extends BookListBoxRow {
     _init(params) {
         super._init(params)
-        const { metadata: { title, creator } } = this.book.value
+
+        const { identifier, metadata: { title, creator } } = this.book.value
         this._title.label = title || ''
         if (creator) this._creator.label = creator
         else this._creator.hide()
+
+        const uri = uriStore.get(identifier)
+        if (!uri.startsWith('file:')) this._emblem.show()
 
         const { progress, fraction, label } = this.getProgress()
         if (progress && progress[1]) {
