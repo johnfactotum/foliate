@@ -20,7 +20,9 @@ pkg.require({
     'Gtk': '3.0'
 })
 
-const { Gio, Gtk, Gdk } = imports.gi
+const { Gio, Gtk, Gdk, GObject, GLib } = imports.gi
+const { tts } = imports.tts
+const { execCommand } = imports.utils
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 if (Handy) Handy.init(null)
 
@@ -43,6 +45,76 @@ const makeActions = app => ({
             customThemes.addTheme(theme)
             applyTheme(theme)
         }
+        dialog.destroy()
+    },
+    'setup-tts': () => {
+        tts.stop()
+
+        const builder = Gtk.Builder.new_from_resource(
+            '/com/github/johnfactotum/Foliate/ui/ttsDialog.ui')
+
+        const $ = builder.get_object.bind(builder)
+        const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
+
+        const options = ['espeak', 'festival', 'other']
+        options.forEach(option =>
+            $(option).bind_property('active', $(option + 'Box'), 'visible', flag))
+
+        let activeOption = 'other'
+        const command = settings.get_string('tts-command')
+        if (command.includes('espeak-ng')) activeOption = 'espeak'
+        else if (command.includes('festival')) activeOption = 'festival'
+        $(activeOption).active = true
+
+        const defaultCommands = {
+            espeak: 'espeak-ng',
+            festival: 'festival --tts'
+        }
+        options.forEach(option => {
+            $(option + 'Entry').text = option === activeOption && command ? command
+                :  defaultCommands[option] || ''
+
+            const reset = $(option + 'Reset')
+            if (reset) reset.connect('clicked', () =>
+                $(option + 'Entry').text = defaultCommands[option])
+        })
+
+        const getCommand = () => {
+            const activeOption = options.find(option => $(option).active)
+            return $(activeOption + 'Entry').text
+        }
+
+        // Translatros: these are sentences from "The North Wind and the Sun",
+        // used for testing text-to=speech
+        $('test1').buffer.text = _('The North Wind and the Sun were disputing which was the stronger,')
+        $('test2').buffer.text = _('when a traveler came along wrapped in a warm cloak.')
+
+        const token = {}
+        let speaking = false
+        $('testButton').connect('toggled', button => {
+            if (button.active === speaking) return
+            if (button.active) {
+                const command = getCommand()
+                const argv = command ? GLib.shell_parse_argv(command)[1] : null
+                speaking = true
+                execCommand(argv, $('test1').buffer.text, true, token)
+                    .then(() => { if (speaking)
+                        return execCommand(argv, $('test2').buffer.text, true, token) })
+                    .catch(e => logError(e))
+                    .then(() => button.active = false)
+            } else if (token.interrupt) {
+                speaking = false
+                token.interrupt()
+            }
+        })
+
+        const dialog = $('ttsDialog')
+        dialog.transient_for = app.active_window
+
+        const res = dialog.run()
+        if (res === Gtk.ResponseType.OK)
+            settings.set_string('tts-command', getCommand())
+
         dialog.destroy()
     },
     'preferences': () => {
@@ -75,6 +147,7 @@ const makeActions = app => ({
 
         const dialog = builder.get_object('preferenceDialog')
         dialog.transient_for = app.active_window
+        dialog.application = app
         dialog.run()
         dialog.destroy()
         viewSettings.disconnect(h1)

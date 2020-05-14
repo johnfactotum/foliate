@@ -395,12 +395,13 @@
                             <property name="hexpand">True</property>
                           </object>
                         </child>
-                        <!-- <child> -->
-                        <!--   <object class="GtkButton"> -->
-                        <!--     <property name="visible">True</property> -->
-                        <!--     <property name="label" translatable="yes">Configure…</property> -->
-                        <!--   </object> -->
-                        <!-- </child> -->
+                        <child>
+                          <object class="GtkButton">
+                            <property name="visible">True</property>
+                            <property name="action-name">app.setup-tts</property>
+                            <property name="label" translatable="yes">Configure…</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>

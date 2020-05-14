@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkDialog" id="ttsDialog">
+    <property name="modal">True</property>
+    <property name="use-header-bar">1</property>
+    <property name="title" translatable="yes">Text-to-Speech</property>
+    <child type="action">
+      <object class="GtkButton" id="cancelButton">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Cancel</property>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkButton" id="okButton">
+        <property name="visible">True</property>
+        <property name="can-default">True</property>
+        <property name="label" translatable="yes">OK</property>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="cancel">cancelButton</action-widget>
+      <action-widget response="ok" default="true">okButton</action-widget>
+    </action-widgets>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="vexpand">True</property>
+            <property name="propagate-natural-height">True</property>
+            <property name="propagate-natural-width">True</property>
+            <property name="max-content-width">360</property>
+            <property name="max-content-height">480</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="margin">18</property>
+                <property name="spacing">12</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="wrap">True</property>
+                    <property name="label" translatable="yes">Text-to-Speech Command</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="wrap">True</property>
+                    <property name="label" translatable="yes">Make sure the selected text-to-speech program is correctly installed.</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="espeak">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">eSpeak NG</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="espeakBox">
+                    <property name="visible">True</property>
+                    <property name="margin-start">18</property>
+                    <style><class name="linked"/></style>
+                    <child>
+                      <object class="GtkEntry" id="espeakEntry">
+                        <property name="visible">True</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="espeakReset">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Reset</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="festival">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Festival</property>
+                    <property name="group">espeak</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="festivalBox">
+                    <property name="visible">True</property>
+                    <property name="margin-start">18</property>
+                    <style><class name="linked"/></style>
+                    <child>
+                      <object class="GtkEntry" id="festivalEntry">
+                        <property name="visible">True</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="festivalReset">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Reset</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="other">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Other</property>
+                    <property name="group">espeak</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="otherBox">
+                    <property name="visible">True</property>
+                    <property name="margin-start">18</property>
+                    <style><class name="linked"/></style>
+                    <child>
+                      <object class="GtkEntry" id="otherEntry">
+                        <property name="visible">True</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="label" translatable="yes">Test Your Configuration</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="testButton">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Speak</property>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="wrap">True</property>
+                    <property name="label" translatable="yes">The program should speak the following test sentences in order:</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkGrid">
+                    <property name="visible">True</property>
+                    <property name="row-spacing">6</property>
+                    <property name="column-spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="label" translatable="yes">1</property>
+                        <style><class name="dim-label"/></style>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFrame">
+                        <property name="visible">True</property>
+                        <property name="hexpand">True</property>
+                        <child>
+                          <object class="GtkTextView" id="test1">
+                            <property name="visible">True</property>
+                            <property name="wrap-mode">word</property>
+                            <property name="top-margin">3</property>
+                            <property name="bottom-margin">3</property>
+                            <property name="left-margin">3</property>
+                            <property name="right-margin">3</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="label" translatable="yes">2</property>
+                        <style><class name="dim-label"/></style>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFrame">
+                        <property name="visible">True</property>
+                        <property name="hexpand">True</property>
+                        <child>
+                          <object class="GtkTextView" id="test2">
+                            <property name="visible">True</property>
+                            <property name="wrap-mode">word</property>
+                            <property name="top-margin">3</property>
+                            <property name="bottom-margin">3</property>
+                            <property name="left-margin">3</property>
+                            <property name="right-margin">3</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">1</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
