@@ -112,6 +112,11 @@ const makeActions = app => ({
         }
     },
     'open-opds': () => {
+        const clipboardText = Gtk.Clipboard.get_default(Gdk.Display.get_default())
+            .wait_for_text()
+        const text = clipboardText && clipboardText.includes('://')
+            ? clipboardText : ''
+
         const window = new Gtk.Dialog({
             title: _('Open a Catalog'),
             modal: true,
@@ -127,7 +132,7 @@ const makeActions = app => ({
             wrap: true,
             xalign: 0
         })
-        const entry =  new Gtk.Entry()
+        const entry =  new Gtk.Entry({ text })
         entry.connect('activate', () => window.response(Gtk.ResponseType.OK))
 
         const container = window.get_content_area()
@@ -139,7 +144,8 @@ const makeActions = app => ({
         const response = window.run()
         if (response === Gtk.ResponseType.OK && entry.text) {
             const window = new OpdsWindow({ application: app })
-            const uri = entry.text.trim().replace(/^opds:\/\//, 'http://')
+            let uri = entry.text.trim().replace(/^opds:\/\//, 'http://')
+            if (!uri.includes(':')) uri = 'http://' + uri
             window.loadOpds(uri)
             window.present()
         }
