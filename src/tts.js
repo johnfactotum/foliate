@@ -18,6 +18,45 @@ const { error, execCommand } = imports.utils
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
+// parse the output of `espeak-ng --voices` and get a voice for a language
+const espeakGetVoice = (espeakVoices, language) => {
+    language = language.trim().toLowerCase()
+    const result = espeakVoices
+        .split('\n')
+        .slice(1)               // remove heading
+        .map(x => x.trim())     // remove extra space
+        .filter(x => x)         // and empty lines
+        .map(x => {
+            // I think "Pty" means "priority"
+            const [pty, lang, ageGender, voiceName, file, ...otherLangs] = x.split(/\s+/)
+
+            const otherLanguages = otherLangs
+                // reverse the earlier split...
+                .join(' ')
+                // ...because these are separated by parentheses
+                .split(/\(|\)/).filter(x => x)
+                .map((langPty) => {
+                    const [lang, pty] = langPty.split(' ')
+                    return { lang, pty }
+                })
+
+            const languages = [{ pty, lang }].concat(otherLanguages)
+
+            return { languages, file }
+        })
+        // get the voice with lowest value of "Pty"
+        .reduce((prev, current) => {
+            const prevMatch = prev.languages.find(({ lang }) => lang === language)
+            const match = current.languages.find(({ lang }) => lang === language)
+            if (!match) return prev
+            else if (!prevMatch) return current
+            else if (match.pty < prevMatch.pty) return current
+            else return prev
+        }, { languages: [], file: null })
+
+    return result.file
+}
+
 const TTS = GObject.registerClass({
     GTypeName: 'FoliateTTS',
     Properties: {
@@ -31,6 +70,16 @@ const TTS = GObject.registerClass({
         super._init(params)
         this._token = {}
         this._epub = null
+        this._shouldGetEspeakVoice = false
+        this._espeakVoice = null
+    }
+    async _getEseapkVoice(language) {
+        try {
+            const espeakVoices = await execCommand(['espeak-ng', '--voices'])
+            return espeakGetVoice(espeakVoices, language)
+        } catch (e) {
+            logError(e)
+        }
     }
     get epub() {
         return this._epub
@@ -39,7 +88,7 @@ const TTS = GObject.registerClass({
         if (this._epub)
             this._epub.disconnect(this._epubHandler)
         this._epub = epub
-        this._epubHandler = this._epub.connect('speech', (_, text, nextPage) => {
+        this._epubHandler = this._epub.connect('speech', (epub, text, nextPage) => {
             const processedText = text
                 .replace(/“|”/g, '"')
                 .replace(/‛|’/g, "'")
@@ -49,7 +98,17 @@ const TTS = GObject.registerClass({
                 .replace(/\xa0/g, ' ')
                 .replace(/\xad|\u2060/g, '')
                 .replace(/\n/g, '; ')
-            execCommand(this._command, processedText, true, this._token)
+
+            const lang = epub.metadata.language
+            const getCommand = this._shouldGetEspeakVoice
+                ? this._getEseapkVoice(lang)
+                    .then(voice => this._command.concat(['-v', voice]))
+                    .catch(() => this._command)
+                : Promise.resolve(this._command.map(x => x === '$lang' ? lang : x))
+
+            getCommand
+                .then(command =>
+                    execCommand(command, processedText, true, this._token))
                 .then(() => nextPage
                     ? this._epub.speakNext()
                     : this.stop())
@@ -63,6 +122,11 @@ const TTS = GObject.registerClass({
         this._command = command ? GLib.shell_parse_argv(command)[1] : null
         this.set_property('enabled', Boolean(this._command))
         if (!command) this._stop()
+
+        if (this._command
+        && this._command[0] === 'espeak-ng'
+        && this._command.every(a => a !== '-v'))
+            this._shouldGetEspeakVoice = true
     }
     _start(from) {
         this._stop()
@@ -156,7 +220,9 @@ var ttsDialog = (window) => {
         if (button.active === speaking) return
         if (button.active) {
             const command = getCommand()
-            const argv = command ? GLib.shell_parse_argv(command)[1] : null
+            const argv = command ? GLib.shell_parse_argv(command)[1]
+                // Translator: this is the language code of the test sentences
+                .map(x => x === '$lang' ? _('en') : x) : null
             speaking = true
             execCommand(argv, $('test1').buffer.text, true, token)
                 .then(() => { if (speaking)
