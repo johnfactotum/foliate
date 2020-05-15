@@ -118,12 +118,23 @@
                 <child>
                   <object class="GtkBox" id="otherBox">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <property name="margin-start">18</property>
-                    <style><class name="linked"/></style>
+                    <property name="spacing">6</property>
                     <child>
                       <object class="GtkEntry" id="otherEntry">
                         <property name="visible">True</property>
                         <property name="hexpand">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="selectable">True</property>
+                        <property name="label" translatable="yes">&lt;small&gt;The environment variable &lt;tt&gt;$FOLIATE_TTS_LANG&lt;/tt&gt; is available for the language code of the book, or use &lt;tt&gt;$FOLIATE_TTS_LANG_LOWER&lt;/tt&gt; for the all lower case code.&lt;/small&gt;</property>
                       </object>
                     </child>
                   </object>
@@ -244,6 +255,36 @@
                         <property name="top-attach">1</property>
                         <property name="width">1</property>
                         <property name="height">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="testResetButton">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Reset</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="testLang">
+                        <property name="visible">True</property>
+                        <property name="width-chars">6</property>
+                      </object>
+                      <packing>
+                        <property name="pack-type">end</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Language</property>
+                      </object>
+                      <packing>
+                        <property name="pack-type">end</property>
                       </packing>
                     </child>
                   </object>

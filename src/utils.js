@@ -87,7 +87,7 @@ var mimetypes = {
 }
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
-var execCommand = (argv, input = null, waitCheck, token, inFlatpak) =>
+var execCommand = (argv, input = null, waitCheck, token, inFlatpak, envs) =>
     new Promise((resolve, reject) => {
         if (flatpakSpawn && !inFlatpak) argv = [flatpakSpawn, '--host', ...argv]
         const flags = input
@@ -97,6 +97,8 @@ var execCommand = (argv, input = null, waitCheck, token, inFlatpak) =>
         try {
             const launcher = new Gio.SubprocessLauncher({ flags })
             launcher.setenv('G_MESSAGES_DEBUG', '', true)
+            if (envs) envs.forEach(([variable, value]) =>
+                launcher.setenv(variable, value, true))
 
             const proc = launcher.spawnv(argv)
             proc.communicate_utf8_async(input, null, (proc, res) => {

@@ -18,6 +18,15 @@ const { error, execCommand } = imports.utils
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
+const replaceVars = (argv, lang) => argv.map(x =>
+    x === '$FOLIATE_TTS_LANG' ? lang
+    : x === '$FOLIATE_TTS_LANG_LOWER' ? lang.toLowerCase() : x)
+
+const makeEnv = lang => [
+    ['FOLIATE_TTS_LANG', lang],
+    ['FOLIATE_TTS_LANG_LOWER', lang.toLowerCase()]
+]
+
 // parse the output of `espeak-ng --voices` and get a voice for a language
 const espeakGetVoice = (espeakVoices, language) => {
     language = language.trim().toLowerCase()
@@ -104,11 +113,11 @@ const TTS = GObject.registerClass({
                 ? this._getEseapkVoice(lang)
                     .then(voice => this._command.concat(['-v', voice]))
                     .catch(() => this._command)
-                : Promise.resolve(this._command.map(x => x === '$lang' ? lang : x))
+                : Promise.resolve(replaceVars(this._command, lang))
 
             getCommand
                 .then(command =>
-                    execCommand(command, processedText, true, this._token))
+                    execCommand(command, processedText, true, this._token, false, makeEnv(lang)))
                 .then(() => nextPage
                     ? this._epub.speakNext()
                     : this.stop())
@@ -211,22 +220,36 @@ var ttsDialog = (window) => {
 
     // Translatros: these are sentences from "The North Wind and the Sun",
     // used for testing text-to=speech
-    $('test1').buffer.text = _('The North Wind and the Sun were disputing which was the stronger,')
-    $('test2').buffer.text = _('when a traveler came along wrapped in a warm cloak.')
+    const test1 = _('The North Wind and the Sun were disputing which was the stronger,')
+    const test2 = _('when a traveler came along wrapped in a warm cloak.')
+    // Translator: this is the language code of the test sentences
+    const testLang = _('en')
+
+    const setTest = () => {
+        $('test1').buffer.text = test1
+        $('test2').buffer.text = test2
+        $('testLang').text = testLang
+    }
+    setTest()
+    $('testResetButton').connect('clicked', setTest)
 
     const token = {}
     let speaking = false
     $('testButton').connect('toggled', button => {
         if (button.active === speaking) return
         if (button.active) {
+            const testLang = $('testLang').text
             const command = getCommand()
-            const argv = command ? GLib.shell_parse_argv(command)[1]
-                // Translator: this is the language code of the test sentences
-                .map(x => x === '$lang' ? _('en') : x) : null
+            const argv = command
+                ? replaceVars(GLib.shell_parse_argv(command)[1], testLang)
+                : null
             speaking = true
-            execCommand(argv, $('test1').buffer.text, true, token)
-                .then(() => { if (speaking)
-                    return execCommand(argv, $('test2').buffer.text, true, token) })
+
+            const opts = id =>
+                [argv, $(id).buffer.text, true, token, false, makeEnv(testLang)]
+
+            execCommand(...opts('test1'))
+                .then(() => { if (speaking) return execCommand(...opts('test2')) })
                 .catch(e => logError(e))
                 .then(() => button.active = false)
         } else if (token.interrupt) {
