@@ -13,8 +13,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gtk, Gio } = imports.gi
-const { scalePixbuf } = imports.utils
+const { GObject, Gtk, Gio, Gdk } = imports.gi
+const { scalePixbuf, makeLinksButton } = imports.utils
 
 const PropertyBox = GObject.registerClass({
     GTypeName: 'FoliatePropertyBox',
@@ -132,10 +132,37 @@ var PropertiesBox = GObject.registerClass({
     }
 })
 
+const findBookOn = [
+    {
+        title: _('Amazon'),
+        href: 'https://www.amazon.com/s?k=%s'
+    },
+    {
+        title: _('Goodreads'),
+        href: 'http://www.goodreads.com/search/search?search_type=books&search%5Bquery%5D=%s'
+    },
+    {
+        title: _('Google Books'),
+        href: 'https://www.google.com/search?tbm=bks&q=%s'
+    },
+    {
+        title: _('LibraryThing'),
+        href: 'https://www.librarything.com/search.php?searchtype=work&search=%s'
+    },
+    {
+        title: _('Open Library'),
+        href: 'https://openlibrary.org/search?q=%s'
+    },
+    {
+        title: _('WorldCat'),
+        href: 'https://www.worldcat.org/search?q==%s'
+    },
+]
+
 var PropertiesWindow = GObject.registerClass({
     GTypeName: 'FoliatePropertiesWindow',
 }, class PropertiesWindow extends Gtk.Dialog {
-    _init(params, ...args) {
+    _init(params, metadata, cover) {
         super._init(params)
 
         const scrolled = new Gtk.ScrolledWindow({
@@ -146,9 +173,32 @@ var PropertiesWindow = GObject.registerClass({
         const propertiesBox = new PropertiesBox({
             visible: true,
             border_width: 18
-        }, ...args)
+        }, metadata, cover)
         scrolled.add(propertiesBox)
+
         const box = this.get_content_area()
         box.pack_start(scrolled, true, true, 0)
+
+        if (metadata.title) {
+            const actionBar = new Gtk.ActionBar({
+                visible: true
+            })
+            const buttonLinks = findBookOn.map(link => {
+                const { href, title } = link
+                const uri = href.replace(/%s/g, encodeURIComponent(metadata.title))
+                return {
+                    href: uri, title
+                }
+            })
+            const button = makeLinksButton(
+                {
+                    visible: true,
+                    label: _('Find on…')
+                },
+                buttonLinks,
+                ({ href }) => Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME))
+            actionBar.pack_end(button)
+            box.pack_end(actionBar, false, true, 0)
+        }
     }
 })

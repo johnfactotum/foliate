@@ -15,7 +15,8 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
 const { debug, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
-    shuffle, hslToRgb, colorFromString, isLight, mimetypes, linkIsRel } = imports.utils
+    shuffle, hslToRgb, colorFromString, isLight, mimetypes,
+    linkIsRel, makeLinksButton } = imports.utils
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
 const { uriStore, library } = imports.uriStore
@@ -488,34 +489,21 @@ const makeAcquisitionButton = (links, onActivate) => {
     }
     if (links.length === 1) {
         const button = new Gtk.Button({ visible: true, label })
-        button.connect('clicked', () => onActivate(links[0]))
+        const link = links[0]
+        const { title, type } = link
+        button.tooltip_text = title || type
+        button.connect('clicked', () => onActivate(link))
         return button
     } else {
-        const popover = new Gtk.PopoverMenu()
-        const box = new Gtk.Box({
-            visible: true,
-            orientation: Gtk.Orientation.VERTICAL,
-            margin: 10
+        const buttonLinks = links.map(link => {
+            const { href, type } = link
+            const title = link.title || Gio.content_type_get_description(type)
+            return {
+                href, type, title,
+                tooltip: type
+            }
         })
-        popover.add(box)
-        const button = new Gtk.MenuButton({ popover })
-        const buttonBox = new Gtk.Box()
-        const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
-        buttonBox.pack_start(new Gtk.Label({ label }), true, true, 0)
-        buttonBox.pack_end(icon, false, true, 0)
-        button.add(buttonBox)
-        button.show_all()
-        links.forEach(link => {
-            const mimetype = link.type
-            const text = link.title || Gio.content_type_get_description(mimetype)
-            const menuItem = new Gtk.ModelButton({
-                visible: true,
-                text,
-                tooltip_text: mimetype
-            })
-            menuItem.connect('clicked', () => onActivate(link))
-            box.pack_start(menuItem, false, true, 0)
-        })
+        const button = makeLinksButton({ visible: true, label }, buttonLinks, onActivate)
         return button
     }
 }

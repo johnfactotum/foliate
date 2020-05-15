@@ -446,3 +446,30 @@ var linkIsRel = (link, rel) => {
         ? rels.some(rel)
         : rels.some(x => x === rel)
 }
+
+var makeLinksButton = (params, links, onActivate) => {
+    const popover = new Gtk.PopoverMenu()
+    const box = new Gtk.Box({
+        visible: true,
+        orientation: Gtk.Orientation.VERTICAL,
+        margin: 10
+    })
+    popover.add(box)
+    const button = new Gtk.MenuButton(Object.assign({ popover }, params, { label: null }))
+    const buttonBox = new Gtk.Box()
+    const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
+    buttonBox.pack_start(new Gtk.Label({ label: params.label }), true, true, 0)
+    buttonBox.pack_end(icon, false, true, 0)
+    button.add(buttonBox)
+    button.show_all()
+    links.forEach(({ href, type, title, tooltip }) => {
+        const menuItem = new Gtk.ModelButton({
+            visible: true,
+            text: title,
+            tooltip_text: tooltip || ''
+        })
+        menuItem.connect('clicked', () => onActivate({ href, type }))
+        box.pack_start(menuItem, false, true, 0)
+    })
+    return button
+}
