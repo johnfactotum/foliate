@@ -4427,6 +4427,8 @@ var Contents = function () {
 
 			if (value) {
 				content.style.setProperty(property, value, priority ? "important" : "");
+			} else {
+				content.style.removeProperty(property);
 			}
 
 			return this.window.getComputedStyle(content)[property];
@@ -4560,7 +4562,6 @@ var Contents = function () {
 	}, {
 		key: "listeners",
 		value: function listeners() {
-
 			this.imageLoadListeners();
 
 			this.mediaQueryListeners();
@@ -4631,9 +4632,7 @@ var Contents = function () {
 			var width, height;
 			// Test size again
 			clearTimeout(this.expanding);
-
 			requestAnimationFrame(this.resizeCheck.bind(this));
-			//this.expanding = setTimeout(this.resizeListeners.bind(this), 350);
 		}
 
 		/**
@@ -4783,7 +4782,7 @@ var Contents = function () {
 					try {
 						if (!range.endContainer || range.startContainer == range.endContainer && range.startOffset == range.endOffset) {
 							// If the end for the range is not set, it results in collapsed becoming
-							// true. This in turn leads to inconsistent behaviour when calling
+							// true. This in turn leads to inconsistent behaviour when calling 
 							// getBoundingRect. Wrong bounds lead to the wrong page being displayed.
 							// https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/15684911/
 							var pos = range.startContainer.textContent.indexOf(" ", range.startOffset);
@@ -4896,35 +4895,60 @@ var Contents = function () {
 				this.document.head.appendChild($stylesheet);
 			}.bind(this));
 		}
+	}, {
+		key: "_getStylesheetNode",
+		value: function _getStylesheetNode(key) {
+			var styleEl;
+			key = "epubjs-inserted-css-" + (key || '');
+
+			if (!this.document) return false;
+
+			// Check if link already exists
+			styleEl = this.document.getElementById(key);
+			if (!styleEl) {
+				styleEl = this.document.createElement("style");
+				styleEl.id = key;
+				// Append style element to head
+				this.document.head.appendChild(styleEl);
+			}
+			return styleEl;
+		}
+
+		/**
+   * Append stylesheet css
+   * @param {string} serializedCss 
+   * @param {string} key If the key is the same, the CSS will be replaced instead of inserted
+   */
+
+	}, {
+		key: "addStylesheetCss",
+		value: function addStylesheetCss(serializedCss, key) {
+			if (!this.document || !serializedCss) return false;
+
+			var styleEl;
+			styleEl = this._getStylesheetNode(key);
+			styleEl.innerHTML = serializedCss;
+
+			return true;
+		}
 
 		/**
    * Append stylesheet rules to a generate stylesheet
    * Array: https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/insertRule
    * Object: https://github.com/desirable-objects/json-to-css
    * @param {array | object} rules
+   * @param {string} key If the key is the same, the CSS will be replaced instead of inserted
    */
 
 	}, {
 		key: "addStylesheetRules",
-		value: function addStylesheetRules(rules) {
-			var styleEl;
+		value: function addStylesheetRules(rules, key) {
 			var styleSheet;
-			var key = "epubjs-inserted-css";
 
 			if (!this.document || !rules || rules.length === 0) return;
 
-			// Check if link already exists
-			styleEl = this.document.getElementById("#" + key);
-			if (!styleEl) {
-				styleEl = this.document.createElement("style");
-				styleEl.id = key;
-			}
-
-			// Append style element to head
-			this.document.head.appendChild(styleEl);
-
 			// Grab style sheet
-			styleSheet = styleEl.sheet;
+			styleSheet = this._getStylesheetNode(key).sheet;
 
 			if (Object.prototype.toString.call(rules) === "[object Array]") {
 				for (var i = 0, rl = rules.length; i < rl; i++) {
@@ -5332,7 +5356,7 @@ var Contents = function () {
 
 	}, {
 		key: "fit",
-		value: function fit(width, height) {
+		value: function fit(width, height, section) {
 			var viewport = this.viewport();
 			var viewportWidth = parseInt(viewport.width);
 			var viewportHeight = parseInt(viewport.height);
@@ -5362,6 +5386,11 @@ var Contents = function () {
 			this.css("background-size", viewportWidth * scale + "px " + viewportHeight * scale + "px");
 
 			this.css("background-color", "transparent");
+			if (section && section.properties.includes("page-spread-left")) {
+				// set margin since scale is weird
+				var marginLeft = width - viewportWidth * scale;
+				this.css("margin-left", marginLeft + "px");
+			}
 		}
 
 		/**
@@ -5506,6 +5535,8 @@ module.exports = exports["default"];
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -5762,8 +5793,24 @@ var DefaultViewManager = function () {
 		}
 	}, {
 		key: "createView",
-		value: function createView(section) {
-			return new this.View(section, this.viewSettings);
+		value: function createView(section, forceRight) {
+			return new this.View(section, (0, _core.extend)(this.viewSettings, { forceRight: forceRight }));
+		}
+	}, {
+		key: "handleNextPrePaginated",
+		value: function handleNextPrePaginated(forceRight, section, action) {
+			var next = void 0;
+
+			if (this.layout.name === "pre-paginated" && this.layout.divisor > 1) {
+				if (forceRight || section.index === 0) {
+					// First page (cover) should stand alone for pre-paginated books
+					return;
+				}
+				next = section.next();
+				if (next && !next.properties.includes("page-spread-left")) {
+					return action.call(this, next);
+				}
+			}
 		}
 	}, {
 		key: "display",
@@ -5781,7 +5828,7 @@ var DefaultViewManager = function () {
 			var visible = this.views.find(section);
 
 			// View is already shown, just move to correct location in view
-			if (visible && section) {
+			if (visible && section && this.layout.name !== "pre-paginated") {
 				var offset = visible.offset();
 
 				if (this.settings.direction === "ltr") {
@@ -5803,7 +5850,12 @@ var DefaultViewManager = function () {
 			// Hide all current views
 			this.clear();
 
-			this.add(section).then(function (view) {
+			var forceRight = false;
+			if (this.layout.name === "pre-paginated" && this.layout.divisor === 2 && section.properties.includes("page-spread-right")) {
+				forceRight = true;
+			}
+
+			this.add(section, forceRight).then(function (view) {
 
 				// Move to correct place within the section, if needed
 				if (target) {
@@ -5813,14 +5865,7 @@ var DefaultViewManager = function () {
 			}.bind(this), function (err) {
 				displaying.reject(err);
 			}).then(function () {
-				var next;
-				if (this.layout.name === "pre-paginated" && this.layout.divisor > 1 && section.index > 0) {
-					// First page (cover) should stand alone for pre-paginated books
-					next = section.next();
-					if (next) {
-						return this.add(next);
-					}
-				}
+				return this.handleNextPrePaginated(forceRight, section, this.add);
 			}.bind(this)).then(function () {
 
 				this.views.show();
@@ -5864,10 +5909,10 @@ var DefaultViewManager = function () {
 		}
 	}, {
 		key: "add",
-		value: function add(section) {
+		value: function add(section, forceRight) {
 			var _this = this;
 
-			var view = this.createView(section);
+			var view = this.createView(section, forceRight);
 
 			this.views.append(view);
 
@@ -5883,10 +5928,10 @@ var DefaultViewManager = function () {
 		}
 	}, {
 		key: "append",
-		value: function append(section) {
+		value: function append(section, forceRight) {
 			var _this2 = this;
 
-			var view = this.createView(section);
+			var view = this.createView(section, forceRight);
 			this.views.append(view);
 
 			view.onDisplayed = this.afterDisplayed.bind(this);
@@ -5900,10 +5945,10 @@ var DefaultViewManager = function () {
 		}
 	}, {
 		key: "prepend",
-		value: function prepend(section) {
+		value: function prepend(section, forceRight) {
 			var _this3 = this;
 
-			var view = this.createView(section);
+			var view = this.createView(section, forceRight);
 
 			view.on(_constants.EVENTS.VIEWS.RESIZED, function (bounds) {
 				_this3.counter(bounds);
@@ -5990,14 +6035,13 @@ var DefaultViewManager = function () {
 			if (next) {
 				this.clear();
 
-				return this.append(next).then(function () {
-					var right;
-					if (this.layout.name === "pre-paginated" && this.layout.divisor > 1) {
-						right = next.next();
-						if (right) {
-							return this.append(right);
-						}
-					}
+				var forceRight = false;
+				if (this.layout.name === "pre-paginated" && this.layout.divisor === 2 && next.properties.includes("page-spread-right")) {
+					forceRight = true;
+				}
+
+				return this.append(next, forceRight).then(function () {
+					return this.handleNextPrePaginated(forceRight, next, this.append);
 				}.bind(this), function (err) {
 					return err;
 				}).then(function () {
@@ -6055,7 +6099,12 @@ var DefaultViewManager = function () {
 			if (prev) {
 				this.clear();
 
-				return this.prepend(prev).then(function () {
+				var forceRight = false;
+				if (this.layout.name === "pre-paginated" && this.layout.divisor === 2 && _typeof(prev.prev()) !== "object") {
+					forceRight = true;
+				}
+
+				return this.prepend(prev, forceRight).then(function () {
 					var left;
 					if (this.layout.name === "pre-paginated" && this.layout.divisor > 1) {
 						left = prev.prev();
@@ -6191,18 +6240,10 @@ var DefaultViewManager = function () {
 				var width = view.width();
 
 				// Find mapping
-				var start = left + container.left - position + used;
+				var start = left + container.left - position + offset + used;
 				var end = start + _this5.layout.width - used;
 
 				var mapping = _this5.mapping.page(view.contents, view.section.cfiBase, start, end);
-
-				// Find displayed pages
-				//console.log("pre", end, offset + width);
-				// if (end > offset + width) {
-				// 	end = offset + width;
-				// 	used = this.layout.pageWidth;
-				// }
-				// console.log("post", end);
 
 				var totalPages = _this5.layout.count(width).pages;
 				var startPage = Math.floor(start / _this5.layout.pageWidth);
@@ -6355,6 +6396,9 @@ var DefaultViewManager = function () {
 
 			this.layout = layout;
 			this.updateLayout();
+			if (this.views && this.views.length > 0 && this.layout.name === "pre-paginated") {
+				this.display(this.views.first().section);
+			}
 			// this.manager.layout(this.layout.format);
 		}
 	}, {
@@ -8069,6 +8113,14 @@ var Rendition = function () {
 			if (!this.settings.layout && (this.book.package.metadata.layout === "pre-paginated" || this.book.displayOptions.fixedLayout === "true")) {
 				this.settings.layout = "pre-paginated";
 			}
+			switch (this.book.package.metadata.spread) {
+				case 'none':
+					this.settings.spread = 'none';
+					break;
+				case 'both':
+					this.settings.spread = true;
+					break;
+			}
 
 			if (!this.manager) {
 				this.ViewManager = this.requireManager(this.settings.manager);
@@ -8190,6 +8242,10 @@ var Rendition = function () {
 			}
 
 			section = this.book.spine.get(target);
+
+			if (!section && target.includes(".xhtml")) {
+				section = this.book.spine.get("xhtml/" + target);
+			}
 
 			if (!section) {
 				displaying.reject(new Error("No Section Found"));
@@ -9614,7 +9670,8 @@ var IframeView = function () {
 			height: 0,
 			layout: undefined,
 			globalLayoutProperties: {},
-			method: undefined
+			method: undefined,
+			forceRight: false
 		}, options || {});
 
 		this.id = "epubjs-view-" + (0, _core.uuid)();
@@ -9749,7 +9806,7 @@ var IframeView = function () {
 				var _this = this;
 
 				// apply the layout function to the contents
-				this.layout.format(this.contents);
+				this.layout.format(this.contents, this.section);
 
 				// find and report the writingMode axis
 				var writingMode = this.contents.writingMode();
@@ -9764,6 +9821,10 @@ var IframeView = function () {
 				return new Promise(function (resolve, reject) {
 					// Expand the iframe to the full size of the content
 					_this.expand();
+					//
+					if (_this.settings.forceRight) {
+						_this.element.style.marginLeft = _this.width() + "px";
+					}
 					resolve();
 				});
 			}.bind(this), function (e) {
@@ -9981,7 +10042,15 @@ var IframeView = function () {
 				}
 
 				this.iframe.contentDocument.open();
-				this.iframe.contentDocument.write(contents);
+				// For Cordova windows platform
+				if (window.MSApp && MSApp.execUnsafeLocalFunction) {
+					var outerThis = this;
+					MSApp.execUnsafeLocalFunction(function () {
+						outerThis.iframe.contentDocument.write(contents);
+					});
+				} else {
+					this.iframe.contentDocument.write(contents);
+				}
 				this.iframe.contentDocument.close();
 			}
 
@@ -10628,6 +10697,7 @@ function debounce(func, wait, options) {
       }
       if (maxing) {
         // Handle invocations in a tight loop.
+        clearTimeout(timerId);
         timerId = setTimeout(timerExpired, wait);
         return invokeFunc(lastCallTime);
       }
@@ -11013,14 +11083,12 @@ var ContinuousViewManager = function (_DefaultViewManager) {
 			}
 
 			var promises = newViews.map(function (view) {
-				return view.displayed;
+				return view.display(_this6.request);
 			});
 
 			if (newViews.length) {
 				return Promise.all(promises).then(function () {
-					if (_this6.layout.name === "pre-paginated" && _this6.layout.props.spread) {
-						return _this6.check();
-					}
+					return _this6.check();
 				}).then(function () {
 					// Check to see if anything new is on screen after rendering
 					return _this6.update(delta);
@@ -11709,7 +11777,7 @@ var Book = function () {
 			} else if (type === INPUT_TYPE.EPUB) {
 				this.archived = true;
 				this.url = new _url2.default("/", "");
-				opening = this.request(input, "binary", this.settings.requestCredentials).then(this.openEpub.bind(this));
+				opening = this.request(input, "binary", this.settings.requestCredentials, this.settings.requestHeaders).then(this.openEpub.bind(this));
 			} else if (type == INPUT_TYPE.OPF) {
 				this.url = new _url2.default(input);
 				opening = this.openPackaging(this.url.Path.toString());
@@ -11907,6 +11975,11 @@ var Book = function () {
 			url = new _url2.default(input);
 			path = url.path();
 			extension = path.extension;
+
+			// If there's a search string, remove it before determining type
+			if (extension) {
+				extension = extension.replace(/\?.*$/, "");
+			}
 
 			if (!extension) {
 				return INPUT_TYPE.DIRECTORY;
@@ -13137,8 +13210,86 @@ var Section = function () {
 			return matches;
 		}
 	}, {
-		key: "reconcileLayoutSettings",
+		key: "search",
 
+
+		/**
+   * Search a string in multiple sequential Element of the section. If the document.createTreeWalker api is missed(eg: IE8), use `find` as a fallback.
+   * @param  {string} _query The query string to search
+   * @param  {int} maxSeqEle The maximum number of Element that are combined for search, defualt value is 5.
+   * @return {object[]} A list of matches, with form {cfi, excerpt}
+   */
+		value: function search(_query) {
+			var maxSeqEle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 5;
+
+			if (typeof document.createTreeWalker == "undefined") {
+				return this.find(_query);
+			}
+			var matches = [];
+			var excerptLimit = 150;
+			var section = this;
+			var query = _query.toLowerCase();
+			var search = function search(nodeList) {
+				var textWithCase = nodeList.reduce(function (acc, current) {
+					return acc + current.textContent;
+				}, "");
+				var text = textWithCase.toLowerCase();
+				var pos = text.indexOf(query);
+				if (pos != -1) {
+					var startNodeIndex = 0,
+					    endPos = pos + query.length;
+					var endNodeIndex = 0,
+					    l = 0;
+					if (pos < nodeList[startNodeIndex].length) {
+						var cfi = void 0;
+						while (endNodeIndex < nodeList.length - 1) {
+							l += nodeList[endNodeIndex].length;
+							if (endPos <= l) {
+								break;
+							}
+							endNodeIndex += 1;
+						}
+
+						var startNode = nodeList[startNodeIndex],
+						    endNode = nodeList[endNodeIndex];
+						var range = section.document.createRange();
+						range.setStart(startNode, pos);
+						var beforeEndLengthCount = nodeList.slice(0, endNodeIndex).reduce(function (acc, current) {
+							return acc + current.textContent.length;
+						}, 0);
+						range.setEnd(endNode, beforeEndLengthCount > endPos ? endPos : endPos - beforeEndLengthCount);
+						cfi = section.cfiFromRange(range);
+
+						var excerpt = nodeList.slice(0, endNodeIndex + 1).reduce(function (acc, current) {
+							return acc + current.textContent;
+						}, "");
+						if (excerpt.length > excerptLimit) {
+							excerpt = excerpt.substring(pos - excerptLimit / 2, pos + excerptLimit / 2);
+							excerpt = "..." + excerpt + "...";
+						}
+						matches.push({
+							cfi: cfi,
+							excerpt: excerpt
+						});
+					}
+				}
+			};
+
+			var treeWalker = document.createTreeWalker(section.document, NodeFilter.SHOW_TEXT, null, false);
+			var node = void 0,
+			    nodeList = [];
+			while (node = treeWalker.nextNode()) {
+				nodeList.push(node);
+				if (nodeList.length == maxSeqEle) {
+					search(nodeList.slice(0, maxSeqEle));
+					nodeList = nodeList.slice(1, maxSeqEle);
+				}
+			}
+			if (nodeList.length > 0) {
+				search(nodeList);
+			}
+			return matches;
+		}
 
 		/**
   * Reconciles the current chapters layout properies with
@@ -13146,6 +13297,9 @@ var Section = function () {
   * @param {object} globalLayout  The global layout settings object, chapter properties string
   * @return {object} layoutProperties Object with layout properties
   */
+
+	}, {
+		key: "reconcileLayoutSettings",
 		value: function reconcileLayoutSettings(globalLayout) {
 			//-- Get the global defaults
 			var settings = {
@@ -13238,7 +13392,7 @@ module.exports = exports["default"];
 
 function DOMParser(options){
 	this.options = options ||{locator:{}};
-
+	
 }
 DOMParser.prototype.parseFromString = function(source,mimeType){
 	var options = this.options;
@@ -13251,7 +13405,7 @@ DOMParser.prototype.parseFromString = function(source,mimeType){
 	if(locator){
 		domBuilder.setDocumentLocator(locator)
 	}
-
+	
 	sax.errorHandler = buildErrorHandler(errorHandler,domBuilder,locator);
 	sax.domBuilder = options.domBuilder || domBuilder;
 	if(/\/x?html?$/.test(mimeType)){
@@ -13296,8 +13450,8 @@ function buildErrorHandler(errorImpl,domBuilder,locator){
 /**
  * +ContentHandler+ErrorHandler
  * +LexicalHandler+EntityResolver2
- * -DeclHandler-DTDHandler
- *
+ * -DeclHandler-DTDHandler 
+ * 
  * DefaultHandler:EntityResolver, DTDHandler, ContentHandler, ErrorHandler
  * DefaultHandler2:DefaultHandler,LexicalHandler, DeclHandler, EntityResolver2
  * @link http://www.saxproject.org/apidoc/org/xml/sax/helpers/DefaultHandler.html
@@ -13312,7 +13466,7 @@ function position(locator,node){
 /**
  * @see org.xml.sax.ContentHandler#startDocument
  * @link http://www.saxproject.org/apidoc/org/xml/sax/ContentHandler.html
- */
+ */ 
 DOMHandler.prototype = {
 	startDocument : function() {
     	this.doc = new DOMImplementation().createDocument(null, null, null);
@@ -13326,7 +13480,7 @@ DOMHandler.prototype = {
 	    var len = attrs.length;
 	    appendElement(this, el);
 	    this.currentElement = el;
-
+	    
 		this.locator && position(this.locator,el)
 	    for (var i = 0 ; i < len; i++) {
 	        var namespaceURI = attrs.getURI(i);
@@ -13389,7 +13543,7 @@ DOMHandler.prototype = {
 	    this.locator && position(this.locator,comm)
 	    appendElement(this, comm);
 	},
-
+	
 	startCDATA:function() {
 	    //used in characters() methods
 	    this.cdata = true;
@@ -13397,7 +13551,7 @@ DOMHandler.prototype = {
 	endCDATA:function() {
 	    this.cdata = false;
 	},
-
+	
 	startDTD:function(name, publicId, systemId) {
 		var impl = this.doc.implementation;
 	    if (impl && impl.createDocumentType) {
@@ -13505,7 +13659,7 @@ var tagNamePattern = new RegExp('^'+nameStartChar.source+nameChar.source+'*(?:\:
 //S_TAG,	S_ATTR,	S_EQ,	S_ATTR_NOQUOT_VALUE
 //S_ATTR_SPACE,	S_ATTR_END,	S_TAG_SPACE, S_TAG_CLOSE
 var S_TAG = 0;//tag name offerring
-var S_ATTR = 1;//attr name offerring
+var S_ATTR = 1;//attr name offerring 
 var S_ATTR_SPACE=2;//attr name end and space offer
 var S_EQ = 3;//=space?
 var S_ATTR_NOQUOT_VALUE = 4;//attr value(no quot value only)
@@ -13514,7 +13668,7 @@ var S_TAG_SPACE = 6;//(attr value end || tag end ) && (space offer)
 var S_TAG_CLOSE = 7;//closed el<el />
 
 function XMLReader(){
-
+	
 }
 
 XMLReader.prototype = {
@@ -13544,7 +13698,7 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 	function entityReplacer(a){
 		var k = a.slice(1,-1);
 		if(k in entityMap){
-			return entityMap[k];
+			return entityMap[k]; 
 		}else if(k.charAt(0) === '#'){
 			return fixedFromCharCode(parseInt(k.substr(1).replace('x','0x')))
 		}else{
@@ -13573,7 +13727,7 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 	var lineEnd = 0;
 	var linePattern = /.*(?:\r\n?|\n)|.*$/g
 	var locator = domBuilder.locator;
-
+	
 	var parseStack = [{currentNSMap:defaultNSMapCopy}]
 	var closeMap = {};
 	var start = 0;
@@ -13598,7 +13752,7 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 				var tagName = source.substring(tagStart+2,end);
 				var config = parseStack.pop();
 				if(end<0){
-
+					
 	        		tagName = source.substring(tagStart+2).replace(/[\s<].*/,'');
 	        		//console.error('#@@@@@@'+tagName)
 	        		errorHandler.error("end tag name: "+tagName+' is not complete:'+config.tagName);
@@ -13626,7 +13780,7 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 		        }else{
 		        	parseStack.push(config)
 		        }
-
+				
 				end++;
 				break;
 				// end elment
@@ -13645,8 +13799,8 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 				//elStartEnd
 				var end = parseElementStartPart(source,tagStart,el,currentNSMap,entityReplacer,errorHandler);
 				var len = el.length;
-
-
+				
+				
 				if(!el.closed && fixSelfClosed(source,end,el.tagName,closeMap)){
 					el.closed = true;
 					if(!entityMap.nbsp){
@@ -13672,9 +13826,9 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 						parseStack.push(el)
 					}
 				}
-
-
-
+				
+				
+				
 				if(el.uri === 'http://www.w3.org/1999/xhtml' && !el.closed){
 					end = parseHtmlSpecialContent(source,end,el.tagName,entityReplacer,domBuilder)
 				}else{
@@ -13901,7 +14055,7 @@ function appendElement(el,domBuilder,currentNSMap){
 		}
 		//can not set prefix,because prefix !== ''
 		a.localName = localName ;
-		//prefix == null for no ns prefix attribute
+		//prefix == null for no ns prefix attribute 
 		if(nsPrefix !== false){//hack!!
 			if(localNSMap == null){
 				localNSMap = {}
@@ -13911,7 +14065,7 @@ function appendElement(el,domBuilder,currentNSMap){
 			}
 			currentNSMap[nsPrefix] = localNSMap[nsPrefix] = value;
 			a.uri = 'http://www.w3.org/2000/xmlns/'
-			domBuilder.startPrefixMapping(nsPrefix, value)
+			domBuilder.startPrefixMapping(nsPrefix, value) 
 		}
 	}
 	var i = el.length;
@@ -13923,7 +14077,7 @@ function appendElement(el,domBuilder,currentNSMap){
 				a.uri = 'http://www.w3.org/XML/1998/namespace';
 			}if(prefix !== 'xmlns'){
 				a.uri = currentNSMap[prefix || '']
-
+				
 				//{console.log('###'+a.qName,domBuilder.locator.systemId+'',currentNSMap,a.uri)}
 			}
 		}
@@ -13945,7 +14099,7 @@ function appendElement(el,domBuilder,currentNSMap){
 		domBuilder.endElement(ns,localName,tagName);
 		if(localNSMap){
 			for(prefix in localNSMap){
-				domBuilder.endPrefixMapping(prefix)
+				domBuilder.endPrefixMapping(prefix) 
 			}
 		}
 	}else{
@@ -13972,7 +14126,7 @@ function parseHtmlSpecialContent(source,elStartEnd,tagName,entityReplacer,domBui
 				domBuilder.characters(text,0,text.length);
 				return elEndStart;
 			//}
-
+			
 		}
 	}
 	return elStartEnd+1;
@@ -13989,7 +14143,7 @@ function fixSelfClosed(source,elStartEnd,tagName,closeMap){
 		closeMap[tagName] =pos
 	}
 	return pos<elStartEnd;
-	//}
+	//} 
 }
 function _copy(source,target){
 	for(var n in source){target[n] = source[n]}
@@ -14017,11 +14171,11 @@ function parseDCC(source,start,domBuilder,errorHandler){//sure start with '<!'
 			var end = source.indexOf(']]>',start+9);
 			domBuilder.startCDATA();
 			domBuilder.characters(source,start+9,end-start-9);
-			domBuilder.endCDATA()
+			domBuilder.endCDATA() 
 			return end+3;
 		}
 		//<!DOCTYPE
-		//startDTD(java.lang.String name, java.lang.String publicId, java.lang.String systemId)
+		//startDTD(java.lang.String name, java.lang.String publicId, java.lang.String systemId) 
 		var matchs = split(source,start);
 		var len = matchs.length;
 		if(len>1 && /!doctype/i.test(matchs[0][0])){
@@ -14032,7 +14186,7 @@ function parseDCC(source,start,domBuilder,errorHandler){//sure start with '<!'
 			domBuilder.startDTD(name,pubid && pubid.replace(/^(['"])(.*?)\1$/,'$2'),
 					sysid && sysid.replace(/^(['"])(.*?)\1$/,'$2'));
 			domBuilder.endDTD();
-
+			
 			return lastMatch.index+lastMatch[0].length
 		}
 	}
@@ -14060,7 +14214,7 @@ function parseInstruction(source,start,domBuilder){
  * @param source
  */
 function ElementAttributes(source){
-
+	
 }
 ElementAttributes.prototype = {
 	setTagName:function(tagName){
@@ -14083,7 +14237,7 @@ ElementAttributes.prototype = {
 	getValue:function(i){return this[i].value}
 //	,getIndex:function(uri, localName)){
 //		if(localName){
-//
+//			
 //		}else{
 //			var qName = uri
 //		}
@@ -14179,11 +14333,14 @@ var Locations = function () {
 		this.epubcfi = new _epubcfi2.default();
 
 		this._locations = [];
+		this._locationsWords = [];
 		this.total = 0;
 
 		this.break = 150;
 
 		this._current = 0;
+
+		this._wordCounter = 0;
 
 		this.currentLocation = '';
 		this._currentCfi = '';
@@ -14332,6 +14489,145 @@ var Locations = function () {
 				locations.push(cfi);
 				counter = 0;
 			}
+
+			return locations;
+		}
+
+		/**
+   * Load all of sections in the book to generate locations
+   * @param  {string} startCfi start position
+   * @param  {int} wordCount how many words to split on
+   * @param  {int} count result count
+   * @return {object} locations
+   */
+
+	}, {
+		key: "generateFromWords",
+		value: function generateFromWords(startCfi, wordCount, count) {
+			var start = startCfi ? new _epubcfi2.default(startCfi) : undefined;
+			this.q.pause();
+			this._locationsWords = [];
+			this._wordCounter = 0;
+
+			this.spine.each(function (section) {
+				if (section.linear) {
+					if (start) {
+						if (section.index >= start.spinePos) {
+							this.q.enqueue(this.processWords.bind(this), section, wordCount, start, count);
+						}
+					} else {
+						this.q.enqueue(this.processWords.bind(this), section, wordCount, start, count);
+					}
+				}
+			}.bind(this));
+
+			return this.q.run().then(function () {
+				if (this._currentCfi) {
+					this.currentLocation = this._currentCfi;
+				}
+
+				return this._locationsWords;
+			}.bind(this));
+		}
+	}, {
+		key: "processWords",
+		value: function processWords(section, wordCount, startCfi, count) {
+			if (count && this._locationsWords.length >= count) {
+				return Promise.resolve();
+			}
+
+			return section.load(this.request).then(function (contents) {
+				var completed = new _core.defer();
+				var locations = this.parseWords(contents, section, wordCount, startCfi);
+				var remainingCount = count - this._locationsWords.length;
+				this._locationsWords = this._locationsWords.concat(locations.length >= count ? locations.slice(0, remainingCount) : locations);
+
+				section.unload();
+
+				this.processingTimeout = setTimeout(function () {
+					return completed.resolve(locations);
+				}, this.pause);
+				return completed.promise;
+			}.bind(this));
+		}
+
+		//http://stackoverflow.com/questions/18679576/counting-words-in-string
+
+	}, {
+		key: "countWords",
+		value: function countWords(s) {
+			s = s.replace(/(^\s*)|(\s*$)/gi, ""); //exclude  start and end white-space
+			s = s.replace(/[ ]{2,}/gi, " "); //2 or more space to 1
+			s = s.replace(/\n /, "\n"); // exclude newline with a start spacing
+			return s.split(" ").length;
+		}
+	}, {
+		key: "parseWords",
+		value: function parseWords(contents, section, wordCount, startCfi) {
+			var cfiBase = section.cfiBase;
+			var locations = [];
+			var doc = contents.ownerDocument;
+			var body = (0, _core.qs)(doc, "body");
+			var prev;
+			var _break = wordCount;
+			var foundStartNode = startCfi ? startCfi.spinePos !== section.index : true;
+			var startNode;
+			if (startCfi && section.index === startCfi.spinePos) {
+				startNode = startCfi.findNode(startCfi.range ? startCfi.path.steps.concat(startCfi.start.steps) : startCfi.path.steps, contents.ownerDocument);
+			}
+			var parser = function parser(node) {
+				if (!foundStartNode) {
+					if (node === startNode) {
+						foundStartNode = true;
+					} else {
+						return false;
+					}
+				}
+				if (node.textContent.length < 10) {
+					if (node.textContent.trim().length === 0) {
+						return false;
+					}
+				}
+				var len = this.countWords(node.textContent);
+				var dist;
+				var pos = 0;
+
+				if (len === 0) {
+					return false; // continue
+				}
+
+				dist = _break - this._wordCounter;
+
+				// Node is smaller than a break,
+				// skip over it
+				if (dist > len) {
+					this._wordCounter += len;
+					pos = len;
+				}
+
+				while (pos < len) {
+					dist = _break - this._wordCounter;
+
+					// Gone over
+					if (pos + dist >= len) {
+						// Continue counter for next node
+						this._wordCounter += len - pos;
+						// break
+						pos = len;
+						// At End
+					} else {
+						// Advance pos
+						pos += dist;
+
+						var cfi = new _epubcfi2.default(node, cfiBase);
+						locations.push({ cfi: cfi.toString(), wordCount: this._wordCounter });
+						this._wordCounter = 0;
+					}
+				}
+				prev = node;
+			};
+
+			(0, _core.sprint)(body, parser.bind(this));
 
 			return locations;
 		}
@@ -14776,6 +15072,7 @@ var Packaging = function () {
 			metadata.flow = this.getPropertyText(xml, "rendition:flow");
 			metadata.viewport = this.getPropertyText(xml, "rendition:viewport");
 			metadata.media_active_class = this.getPropertyText(xml, "media:active-class");
+			metadata.spread = this.getPropertyText(xml, "rendition:spread");
 			// metadata.page_prog_dir = packageXml.querySelector("spine").getAttribute("page-progression-direction");
 
 			return metadata;
@@ -15196,7 +15493,37 @@ var Navigation = function () {
 				index = this.tocByHref[target];
 			}
 
-			return this.toc[index];
+			return this.getByIndex(target, index, this.toc);
+		}
+
+		/**
+   * Get an item from navigation subitems recursively by index
+   * @param  {string} target
+   * @param  {number} index
+   * @param  {array} navItems
+   * @return {object} navItem
+   */
+
+	}, {
+		key: "getByIndex",
+		value: function getByIndex(target, index, navItems) {
+			if (navItems.length === 0) {
+				return;
+			}
+
+			var item = navItems[index];
+			if (item && (target === item.id || target === item.href)) {
+				return item;
+			} else {
+				var result = void 0;
+				for (var i = 0; i < navItems.length; ++i) {
+					result = this.getByIndex(target, index, navItems[i].subitems);
+					if (result) {
+						break;
+					}
+				}
+				return result;
+			}
 		}
 
 		/**
@@ -16397,11 +16724,11 @@ var Layout = function () {
 
 	}, {
 		key: "format",
-		value: function format(contents) {
+		value: function format(contents, section) {
 			var formating;
 
 			if (this.name === "pre-paginated") {
-				formating = contents.fit(this.columnWidth, this.height);
+				formating = contents.fit(this.columnWidth, this.height, section);
 			} else if (this._flow === "paginated") {
 				formating = contents.columns(this.width, this.height, this.columnWidth, this.gap);
 			} else {
@@ -16596,6 +16923,21 @@ var Themes = function () {
 		}
 
 		/**
+   * Register a theme by passing its css as string
+   * @param {string} name 
+   * @param {string} css 
+   */
+
+	}, {
+		key: "registerCss",
+		value: function registerCss(name, css) {
+			this._themes[name] = { "serialized": css };
+			if (this._injected[name] || name == 'default') {
+				this.update(name);
+			}
+		}
+
+		/**
    * Register a url
    * @param {string} name
    * @param {string} input
@@ -16606,7 +16948,7 @@ var Themes = function () {
 		value: function registerUrl(name, input) {
 			var url = new _url2.default(input);
 			this._themes[name] = { "url": url.toString() };
-			if (this._injected[name]) {
+			if (this._injected[name] || name == 'default') {
 				this.update(name);
 			}
 		}
@@ -16622,7 +16964,7 @@ var Themes = function () {
 		value: function registerRules(name, rules) {
 			this._themes[name] = { "rules": rules };
 			// TODO: serialize css rules
-			if (this._injected[name]) {
+			if (this._injected[name] || name == 'default') {
 				this.update(name);
 			}
 		}
@@ -16709,9 +17051,10 @@ var Themes = function () {
 			if (theme.url) {
 				contents.addStylesheet(theme.url);
 			} else if (theme.serialized) {
-				// TODO: handle serialized
+				contents.addStylesheetCss(theme.serialized, name);
+				theme.injected = true;
 			} else if (theme.rules) {
-				contents.addStylesheetRules(theme.rules);
+				contents.addStylesheetRules(theme.rules, name);
 				theme.injected = true;
 			}
 		}
@@ -16737,6 +17080,17 @@ var Themes = function () {
 
 			contents.forEach(function (content) {
 				content.css(name, _this2._overrides[name].value, _this2._overrides[name].priority);
+			});
+		}
+	}, {
+		key: "removeOverride",
+		value: function removeOverride(name) {
+			var contents = this.rendition.getContents();
+
+			delete this._overrides[name];
+
+			contents.forEach(function (content) {
+				content.css(name);
 			});
 		}
 
@@ -19849,7 +20203,7 @@ module.exports = exports["default"];
 
 /* WEBPACK VAR INJECTION */(function(global) {var require;var require;/*!
     localForage -- Offline Storage, Improved
-    Version 1.7.2
+    Version 1.7.3
     https://localforage.github.io/localForage
     (c) 2013-2017 Mozilla, Apache License 2.0
 */
@@ -22794,7 +23148,7 @@ module.exports = exports["default"];
   };
 
   var deserializeParam = function(value) {
-    return decodeURIComponent(value).replace(/\+/g, ' ');
+    return decodeURIComponent(String(value).replace(/\+/g, ' '));
   };
 
   var polyfillURLSearchParams = function() {
@@ -22918,11 +23272,21 @@ module.exports = exports["default"];
     global.URLSearchParams = URLSearchParams;
   };
 
-  if (!('URLSearchParams' in global) || (new URLSearchParams('?a=1').toString() !== 'a=1')) {
+  var checkIfURLSearchParamsSupported = function() {
+    try {
+      var URLSearchParams = global.URLSearchParams;
+
+      return (new URLSearchParams('?a=1').toString() === 'a=1') && (typeof URLSearchParams.prototype.set === 'function');
+    } catch (e) {
+      return false;
+    }
+  };
+
+  if (!checkIfURLSearchParamsSupported()) {
     polyfillURLSearchParams();
   }
 
-  var proto = URLSearchParams.prototype;
+  var proto = global.URLSearchParams.prototype;
 
   if (typeof proto.sort !== 'function') {
     proto.sort = function() {
@@ -23001,8 +23365,8 @@ module.exports = exports["default"];
 
   var checkIfURLIsSupported = function() {
     try {
-      var u = new URL('b', 'http://a');
-      u.pathname = 'c%20d';
+      var u = new global.URL('b', 'http://a');
+      u.pathname = 'c d';
       return (u.href === 'http://a/c%20d') && u.searchParams;
     } catch (e) {
       return false;
@@ -23037,7 +23401,11 @@ module.exports = exports["default"];
         anchorElement.href = anchorElement.href; // force href to refresh
       }
 
-      if (anchorElement.protocol === ':' || !/:/.test(anchorElement.href)) {
+      var inputElement = doc.createElement('input');
+      inputElement.type = 'url';
+      inputElement.value = url;
+
+      if (anchorElement.protocol === ':' || !/:/.test(anchorElement.href) || (!inputElement.checkValidity() && !base)) {
         throw new TypeError('Invalid URL');
       }
 
@@ -23047,7 +23415,7 @@ module.exports = exports["default"];
 
 
       // create a linked searchParams which reflect its changes on URL
-      var searchParams = new URLSearchParams(this.search);
+      var searchParams = new global.URLSearchParams(this.search);
       var enableSearchUpdate = true;
       var enableSearchParamsUpdate = true;
       var _this = this;
