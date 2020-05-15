@@ -96,30 +96,28 @@ class Find {
     constructor() {
         this.results = []
     }
-    _findInSection(q, section) {
+    async _findInSection(q, section) {
         if (!section) section = book.spine.get(rendition.location.start.cfi)
-        return section.load(book.load.bind(book))
-            .then(section.find.bind(section, q))
-            .finally(section.unload.bind(section))
+        await section.load(book.load.bind(book))
+        const results = await section.search(q)
+        await section.unload()
+        return results
     }
-    _findInBook(q) {
-        return  Promise.all(book.spine.spineItems.map(item =>
-            item.load(book.load.bind(book))
-                .then(item.find.bind(item, q))
-                .finally(item.unload.bind(item))))
-            .then(results =>
-                Promise.resolve([].concat.apply([], results)))
-    }
-    find(q, inBook, highlight) {
+    async find(q, inBook, highlight) {
         this.clearHighlight()
-        return (inBook ? this._findInBook : this._findInSection)(q)
-            .then(results => {
-                results.forEach(result =>
-                    result.section = getSectionFromCfi(result.cfi).label)
-                this.results = results
-                dispatch({ type: 'find-results', payload: { q, results } })
-                if (highlight) this.highlight()
-            })
+        let results = []
+        if (inBook) {
+            const arr = await Promise.all(book.spine.spineItems
+                .map(section => this._findInSection(q, section)))
+            results = arr.reduce((a, b) => a.concat(b), [])
+        } else {
+            results = await this._findInSection(q)
+        }
+        results.forEach(result =>
+            result.section = getSectionFromCfi(result.cfi).label)
+        this.results = results
+        dispatch({ type: 'find-results', payload: { q, results } })
+        if (highlight) this.highlight()
     }
     highlight() {
         this.clearHighlight()
