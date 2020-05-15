@@ -428,7 +428,8 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
             return {
                 href: pageURL,
                 type: 'text/html',
-                title: image.name
+                title: image.name,
+                properties: []
             }
         })
 
