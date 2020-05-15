@@ -20,7 +20,8 @@ const { uriStore, library } = imports.uriStore
 const { EpubCFI } = imports.epubcfi
 
 const {
-    debug, error, markupEscape, Storage, disconnectAllHandlers, base64ToPixbuf,
+    debug, error, markupEscape, regexEscape,
+    Storage, disconnectAllHandlers, base64ToPixbuf,
     mimetypes, execCommand, recursivelyDeleteDir
 } = imports.utils
 
@@ -821,7 +822,7 @@ var EpubView = GObject.registerClass({
                 const { q, results } = payload
                 const store = this.findResults
                 store.clear()
-                const regex = new RegExp(markupEscape(q), 'ig')
+                const regex = new RegExp(regexEscape(q), 'ig')
                 results.forEach(({ cfi, excerpt, section }) => {
                     const newIter = store.append()
                     const text = markupEscape(excerpt.trim().replace(/\n/g, ' '))

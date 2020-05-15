@@ -67,6 +67,8 @@ var error = message =>
 
 var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 
+var regexEscape = str => str ? str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&') : ''
+
 var mimetypes = {
     directory: 'inode/directory',
     json: 'application/json',
