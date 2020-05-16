@@ -221,10 +221,10 @@ var ttsDialog = (window) => {
     }
 
     // Translatros: these are sentences from "The North Wind and the Sun",
-    // used for testing text-to=speech
+    // used for testing text-to-speech
     const test1 = _('The North Wind and the Sun were disputing which was the stronger,')
     const test2 = _('when a traveler came along wrapped in a warm cloak.')
-    // Translator: this is the language code of the test sentences
+    // Translators: this is the language code of the test sentences
     const testLang = _('en')
 
     const setTest = () => {

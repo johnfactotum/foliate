@@ -164,6 +164,8 @@ const makeActions = app => ({
         const aboutDialog = new Gtk.AboutDialog({
             authors: ['John Factotum'],
             artists: ['John Factotum', 'Tobias Bernard <tbernard@gnome.org>'],
+            // Translators: put your names here, one name per line
+            // they will be shown in the "About" dialog
             translator_credits: _('translator-credits'),
             program_name: _('Foliate'),
             comments: _('A simple and modern eBook viewer'),
