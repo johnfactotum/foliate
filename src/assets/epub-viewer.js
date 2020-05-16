@@ -204,7 +204,7 @@ const addAnnotation = (cfi, color) => {
     })
 }
 
-const speak = from => {
+const speak = async from => {
     // speak selection
     const selections = getSelections()
         .filter(s => s.rangeCount && !s.getRangeAt(0).collapsed)
@@ -222,14 +222,33 @@ const speak = from => {
         cfi.collapse(true)
         from = cfi.toString()
     }
-    book.getRange(makeRangeCfi(from || currentLoc.start.cfi, currentLoc.end.cfi))
-        .then(range => dispatch({
-            type: 'speech',
-            payload: {
-                text: range.toString(),
-                nextPage: !currentLoc.atEnd
-            }
-        }))
+    let start = currentLoc.start.cfi
+    let end = currentLoc.end.cfi
+    let nextPage = !currentLoc.atEnd
+    let nextSection = false
+
+    let range = await book.getRange(makeRangeCfi(from || start, end))
+
+    const isScrolled = rendition.settings.flow === 'scrolled'
+    const isScrolledDoc = rendition.settings.flow === 'scrolled-doc'
+    if (isScrolled || isScrolledDoc) {
+        // when in non-paginated mode, read to the end of the section
+        const section = book.spine.get(currentLoc.start.cfi)
+        range.setEndAfter(section.document.body.lastChild)
+
+        // "next page" when using scrolled-doc is the same as "next section"
+        nextPage = section.index + 1 < book.spine.length
+        if (isScrolled) nextSection = section.index + 1 < book.spine.length
+    }
+
+    dispatch({
+        type: 'speech',
+        payload: {
+            text: range.toString(),
+            nextPage,
+            nextSection
+        }
+    })
 }
 
 // redraw annotations on view changes

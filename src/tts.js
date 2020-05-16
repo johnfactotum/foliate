@@ -97,7 +97,7 @@ const TTS = GObject.registerClass({
         if (this._epub)
             this._epub.disconnect(this._epubHandler)
         this._epub = epub
-        this._epubHandler = this._epub.connect('speech', (epub, text, nextPage) => {
+        this._epubHandler = this._epub.connect('speech', (epub, text, nextPage, nextSection) => {
             const processedText = text
                 .replace(/“|”/g, '"')
                 .replace(/‛|’/g, "'")
@@ -118,9 +118,11 @@ const TTS = GObject.registerClass({
             getCommand
                 .then(command =>
                     execCommand(command, processedText, true, this._token, false, makeEnv(lang)))
-                .then(() => nextPage
-                    ? this._epub.speakNext()
-                    : this.stop())
+                .then(() => nextSection
+                    ? this._epub.speakNextSection()
+                    : nextPage
+                        ? this._epub.speakNext()
+                        : this.stop())
                 .catch(e => {
                     error(e.toString())
                     this.stop()

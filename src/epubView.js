@@ -468,7 +468,7 @@ var EpubView = GObject.registerClass({
         },
         'speech': {
             flags: GObject.SignalFlags.RUN_FIRST,
-            param_types: [GObject.TYPE_STRING, GObject.TYPE_BOOLEAN]
+            param_types: [GObject.TYPE_STRING, GObject.TYPE_BOOLEAN, GObject.TYPE_BOOLEAN]
         },
         'should-reload': { flags: GObject.SignalFlags.RUN_FIRST },
     }
@@ -858,8 +858,8 @@ var EpubView = GObject.registerClass({
                 break
 
             case 'speech': {
-                const { text, nextPage } = payload
-                this.emit('speech', text, nextPage)
+                const { text, nextPage, nextSection } = payload
+                this.emit('speech', text, nextPage, nextSection)
                 break
             }
         }
@@ -1101,6 +1101,10 @@ var EpubView = GObject.registerClass({
     }
     speak(from) {
         this._run(`speak(${from ? `'${from}'` : ''})`)
+    }
+    speakNextSection() {
+        this._run(`rendition.display(${this.location.section + 1})
+            .then(() => speak())`)
     }
     speakNext() {
         this._run(`rendition.next().then(() => speak())`)
