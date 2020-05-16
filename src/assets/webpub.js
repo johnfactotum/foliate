@@ -1,3 +1,8 @@
+// generate md5 hash for this many bytes
+// I don't know if this is a good value.
+// for me this seems like a fairly large value,
+// but without noticeable performance impact
+let hashByteLimit =  10 * 1000 * 1000
 
 const readAsArrayBuffer = blob => new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -6,7 +11,8 @@ const readAsArrayBuffer = blob => new Promise((resolve, reject) => {
 })
 
 const generateIdentifier = async blob => 'foliate-md5sum-'
-    + CryptoJS.MD5(CryptoJS.enc.Latin1.parse(await readAsArrayBuffer(blob))).toString()
+    + CryptoJS.MD5(CryptoJS.enc.Latin1.parse(
+        await readAsArrayBuffer(blob.slice(0, hashByteLimit)))).toString()
 
 const webpubFromText = async (uri, filename) => {
     const res = await fetch(uri)
@@ -388,12 +394,15 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
     const stylesheetBlob = new Blob([stylesheet], { type: 'text/css' })
     const stylesheetURL = URL.createObjectURL(stylesheetBlob)
 
+    const res = await fetch(uri)
+    const blob = await res.blob()
+    const identifier = await generateIdentifier(blob)
     let files
     switch (inputType) {
-        case 'cbz': files = await unpackZipArchive(uri); break
-        case 'cbr': files = await unpackArchive(uri, inputType); break
-        case 'cb7': files = await unpackArchive(uri, inputType); break
-        case 'cbt': files = await unpackArchive(uri, inputType); break
+        case 'cbz': files = await unpackZipArchive(blob); break
+        case 'cbr': files = await unpackArchive(blob, inputType); break
+        case 'cb7': files = await unpackArchive(blob, inputType); break
+        case 'cbt': files = await unpackArchive(blob, inputType); break
     }
 
     let cover
@@ -436,6 +445,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
     return {
         metadata: {
             title: cbArchiveName,
+            identifier,
             layout: layout === 'automatic' ? 'pre-paginated' : 'reflowable'
         },
         links: [],

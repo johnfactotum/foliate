@@ -28,10 +28,7 @@ const imageType = async blob => {
     }
 }
 
-const unpackZipArchive = async uri => {
-    const res = await fetch(uri)
-    const archiveBlob = await res.blob()
-
+const unpackZipArchive = async archiveBlob => {
     const archive = await JSZip.loadAsync(archiveBlob)
 
     const archiveFiles = Object.keys(archive.files).map(name => archive.files[name])
@@ -46,10 +43,7 @@ const unpackZipArchive = async uri => {
     )
 }
 
-const unpackArchive = async (uri, inputType) => {
-    const res = await fetch(uri)
-    const archiveBlob = await res.blob()
-
+const unpackArchive = async (archiveBlob, inputType) => {
     const archive = await Archive.open(archiveBlob)
   
     try {
