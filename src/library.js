@@ -24,6 +24,12 @@ const { EpubView, EpubViewData } = imports.epubView
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 const { HdyColumn } = imports.handy
 
+let trackerConnection
+try {
+    const Tracker = imports.gi.Tracker
+    trackerConnection = Tracker.SparqlConnection.get(null)
+} catch(e) {}
+
 const settings = new Gio.Settings({ schema_id: pkg.name + '.library' })
 
 const BookImage =  GObject.registerClass({
@@ -300,7 +306,19 @@ const makeLibraryWidget = (params, widget) => {
                 return
             }
             const id = row.book.value.metadata.identifier
-            const uri = uriStore.get(id)
+            let uri = uriStore.get(id)
+
+            if (trackerConnection) {
+                // get file url with Tracker
+                try {
+                    const sparql = `SELECT nie:url(?u) WHERE { ?u nie:identifier <${id}> }`
+                    const cursor = trackerConnection.query(sparql, null)
+                    cursor.next(null)
+                    const url = cursor.get_string(0)[0]
+                    if (url) uri = url
+                } catch (e) {}
+            }
+
             if (!uri) {
                 const window = this.get_toplevel()
                 const msg = new Gtk.MessageDialog({
