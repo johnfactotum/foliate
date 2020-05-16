@@ -68,7 +68,7 @@ const toPangoMarkup = (html, baseURL = '') => {
     Array.from(doc.querySelectorAll('div'))
         .forEach(el => el.innerHTML = '\n' + el.innerHTML)
     Array.from(doc.querySelectorAll('li'))
-        .forEach(el => el.innerHTML = '\n• ' + el.innerHTML)
+        .forEach(el => el.innerHTML = '\n • ' + el.innerHTML)
     Array.from(doc.querySelectorAll('br'))
         .forEach(el => el.innerHTML = '\n')
     Array.from(doc.querySelectorAll('em'))

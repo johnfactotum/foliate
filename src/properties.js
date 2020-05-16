@@ -69,7 +69,7 @@ var PropertiesBox = GObject.registerClass({
 
         if (categories && categories.length) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Categories'),
-            property_value: categories.join(_(', '))
+            property_value: categories.join(_(' • '))
         }), false, true, 0)
         if (publisher) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Publisher'),
