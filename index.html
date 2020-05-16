@@ -2,117 +2,121 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Foliate - A simple and modern eBook viewer</title>
+<title>Foliate — A simple and modern eBook viewer for Linux desktops</title>
 <link rel="icon" type="image/png" href="symbolic.png">
 <style>
 body {
     font-family: Cantarell, "Trebuchet MS", sans-serif;
-    background: #ddd;
-    color: #222;
+    background: #333;
+    color: #ccc;
     line-height: 1.4;
     margin: 0;
-    text-align: justify;
     hyphens: auto;
 }
 a:link, a:visited {
-    color: #099;
+    color: cyan;
     text-decoration: none;
 }
 a:hover{
     text-decoration: underline;
 }
-header {
-    background: rgba(0, 0, 0, 0.05);
-    padding: 20px 0 20px 0;
-    margin-bottom: 10px;
+.header {
+    background-color: #666;
+    background-image: url("bg.jpg");
+    background-position: center;
+    background-size: cover;
+    padding: 40px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-wrap: wrap;
+    margin-bottom: -150px;
+    border-bottom: 1px solid #666;
 }
-header > div {
-    max-width: 800px;
-    margin: auto;
-    text-align: center;
+.header header, .header section {
     padding: 0 10px;
 }
-.title {
-    margin-bottom: 20px;
+header {
+    text-align: center;
+    max-width: 400px;
 }
-.title img {
+.icon {
     filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.15));
 }
-.title h1 {
+header h1 {
     margin-top: -10px;
-    margin-bottom: 0;
+    margin-bottom: -10px;
 }
-.title .tagline {
-    margin: 0;
+header .tagline {
     font-size: x-large;
-    color: #666;
+    opacity: 0.7;
 }
-header p {
-    margin: .5em 0;
+header blockquote a:link, header blockquote a:visited {
+    color: #fff;
 }
-.screenshot {
+main {
+    margin: auto;
+    max-width: 820px;
+    color: #fff;
+    background: #404a4a;
+    border: 1px solid #666;
+}
+main > div:first-child {
+    padding-top: 80px;
+}
+main .screenshot {
     filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.15));
     border-radius: 8px;
-}
-.screenshot-main {
     max-width: 100%;
-    min-height: 160px;
-    display: block;
-    margin: 5px auto 40px auto;
 }
 .grid {
-    max-width: 820px;
-    margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 0 40px;
-    padding: 0 10px;
-}
-.grid .screenshot {
-    max-width: 100%;
-}
-.grid > div > p {
-    padding: 0 10px;
-}
-.grid > div > div {
-    padding: 0 10px;
-}
-
-.screenshots {
-    max-width: 820px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     grid-gap: 0 10px;
-    align-items: center;
-    padding: 0 10px;
-    margin-top: 20px;
+    padding: 20px;
 }
-.screenshots img {
-    max-width: 100%;
+.grid > div {
+    max-width: 400px;
+    padding: 20px;
 }
-.screenshots > div > p {
-    padding: 0 10px;
-    margin-top: 0;
+.installation {
+    background: rgba(255, 255, 255, 0.1);
+}
+ul {
+    list-style: square;
+    padding-left: 1em;
+}
+hr {
+    border: 0;
+    height: 1px;
+    background: #777;
+    margin: 0;
+}
+footer {
     text-align: center;
-    color: gray;
+    padding: 20px;
 }
-.screenshots > div > div {
-    padding: 0 10px;
+li {
+    padding: 5px 0;
 }
-
-.mono {
-    max-width: 820px;
-    padding: 0 10px;
-    margin: auto;
+ul li::marker {
+    color: cyan;
 }
-.mono h2, .mono h3 {
-    padding: 0 10px;
-    margin: 1em 0 0 0;
+table {
+    border-collapse: collapse;
+}
+td, th {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #888;
+    padding: 5px 10px;
+}
+th {
+    background: rgba(255, 255, 255, 0.15);
 }
 code, pre {
-    background: #e9e9e9;
+    background: rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;
 }
@@ -124,170 +128,151 @@ pre {
     padding: 10px;
     overflow: auto;
 }
-
-hr {
-    border: 0;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
-}
-footer {
-    text-align: center;
-    background: #333;
-    color: #ccc;
-    margin-top: 20px;
-    padding: 20px;
-}
-footer a:link, footer a:visited {
-    color: #fff;
-}
 </style>
-<header>
-    <div class="title">
-        <img src="logo.svg" width="96" alt="Foliate icon">
+<div class="header">
+    <header>
+        <img src="logo.svg" width="96" alt="Foliate icon" class="icon">
         <h1>Foliate</h1>
-        <p class="tagline">A simple and modern eBook viewer</p>
-    </div>
-    <div>
-        <p><a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="flathub-badge-en.svg"></a>
+        <p class="tagline">A simple and modern eBook viewer for Linux desktops</p>
+        <blockquote>
+            “… an epic eBook reader …”<br>—<em><a href="https://www.omgubuntu.co.uk/2019/05/foliate-ebook-reader-linux">OMG! Ubuntu!</a></em>
+        </blockquote>
+        <p>
+            <a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="flathub-badge-en.svg"></a>
             <a href="https://snapcraft.io/foliate"><img height="50" alt="Get it from the Snap Store" src="snap-badge.svg"></a>
         </p>
-        <p><a href="https://repology.org/project/foliate/versions"><img src="https://repology.org/badge/tiny-repos/foliate.svg" alt="Packaging status"></a></p>
-        <p><a href="https://github.com/johnfactotum/foliate">Source</a> &middot; <a href="https://github.com/johnfactotum/foliate/releases">Releases</a> &middot; <a href="https://github.com/johnfactotum/foliate/issues">Issues</a></p>
-    </div>
-</header>
+        <p><a href="https://github.com/johnfactotum/foliate">Source</a> &middot; <a href="https://github.com/johnfactotum/foliate/releases">Releases</a> &middot; <a href="https://github.com/johnfactotum/foliate/issues">Issues</a> &middot; <a href="https://github.com/johnfactotum/foliate/wiki">FAQ</a></p>
+    </header>
+    <img src="screenshot.png" alt="Screenshot"">
+</div>
 <main>
-    <section>
-        <div class="mono"><h2>Features</h2></div>
-        <div class="grid">
-            <div>
-                <p><strong>View .epub, .mobi, .azw, and .azw3 files.</strong> Foliate is based on <a href="https://github.com/futurepress/epub.js/">Epub.js</a>, and supports both two-page view and scrolled view. Customize font and line-spacing. Choose between light, sepia, dark, and invert mode, or add your own custom themes</p>
-            </div>
-            <div>
-                <p><strong>Easy navigation.</strong> View the table of contents, or use the find in book feature. Reading progress slider with chapter marks makes it easy to find your way through the book. Open the location popover (Ctrl + L) to see reading time estimates.</p>
-            </div>
+    <div class="grid">
+        <div>
+            <ul>
+                <li>Supports EPUB, Mobipocket, Kindle, FictionBook, and comic book archive formats</li>
+                <li>Single-column, two-column, or continuous scrolling layouts</li>
+                <li>Adjust font, line-spacing, and margins</li>
+                <li>Customize colors and brightness</li>
+                <li>Hyphenation support</li>
+            </ul>
         </div>
-        <div class="mono"><img class="screenshot screenshot-main" src="screenshot.png" alt="Screenshot"></div>
-        <div class="grid">
-            <div>
-                <a href="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/lookup.png"><img class="screenshot" src="lookup.png" alt="Screenshot"></a>
-                <p><strong>Quick dictionary lookup.</strong> Foliate uses metadata included in the eBook to determine which language to lookup. This feature is powered by <a href="https://en.wiktionary.org/">Wiktionary</a>, the free dictionary. Folate also supports Wikipedia lookup and Google Translate, as well as offline dictionaries via <code>dictd</code>.</p>
-            </div>
-            <div>
-                <a href="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/note.png"><img class="screenshot" src="annotation.png" alt="Screenshot"></a>
-                <p><strong>Add bookmarks, highlights, and notes.</strong> Foliate stores your reading progress, bookmarks, and annotations in your XDG data directory as plain JSON files, so you can export or sync them easily.</p>
-            </div>
+        <div>
+            <ul>
+                <li>Progress slider, with chapter marks</li>
+                <li>Reading time estimates</li>
+                <li>Table of contents menu
+                <li>Search in book</li>
+                <li>Zoom in on and rotate images</li>
+                <li>Trackpad gestures—use two-finger swipe to turn the page</li>
+            </ul>
         </div>
-        <hr>
-        <div class="mono">
-            <h3>More Screenshots</h3>
+        <div>
+            <img src="annotation.png" alt="Screenshot" class="screenshot">
+            <ul>
+                <li>Reading progress, bookmarks, and annotations stored in your XDG data directory as plain JSON files, so you can export or sync them easily.</li>
+            </ul>
         </div>
-        <div class="screenshots">
-            <div>
-                <a href="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/skeuomorphism.png"><img src="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/skeuomorphism.png" alt="Skeuomorphism"></a>
-                <p>Skeuomorphic mode</p>
-            </div>
-            <div>
-                <a href="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/dark.png"><img src="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/dark.png" alt="Dark"></a>
-                <p>Dark mode</p>
-            </div>
-            <div>
-                <a href="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/about.png"><img src="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/about.png" alt="About"></a>
-                <p>Book metadata</p>
-            </div>
-            <div>
-                <a href="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/sidebar.png"><img src="https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/sidebar.png" alt="Sidebar"></a>
-                <p>Alternative sidebar UI</p>
-            </div>
+        <div>
+            <ul>
+                <li>Look up words in Wiktionary, Wikipedia, or offline dictionaries</li>
+                <li>Translate passages with Google Translate</li>
+                <li>Text-to-speech with eSpeak NG, Festival, or other engines</li>
+            </ul>
+            <img src="lookup.png" alt="Screenshot" class="screenshot">
         </div>
-    </section>
+    </div>
     <hr>
-    <section>
-        <div class="mono"><h2>Installation</h2></div>
-        <div class="grid">
-            <div>
-                <div>
-                    <h3>Flatpak</h3>
-                    <p><a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="flathub-badge-en.svg"></a></p>
-                    <h3>Distribution packages</h3>
-                    <p><a href="https://repology.org/project/foliate/versions"><img src="https://repology.org/badge/tiny-repos/foliate.svg" alt="Packaging status"></a></p>
+    <div class="grid installation">
+        <div>
+            <h2>Get Foliate</h2>
+            <p>Foliate is available on Flathub and the Snap Store:</p>
+            <center>
+            <p>
+                <a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img width="182" alt="Download on Flathub" src="flathub-badge-en.svg"></a>
+            </p>
+            <p>
+                <a href="https://snapcraft.io/foliate"><img width="182" alt="Get it from the Snap Store" src="snap-badge.svg"></a>
+            </p>
+            </center>
+        </div>
+        <div>
+            <h3>Distribution packages</h3>
+            <p><a href="https://repology.org/project/foliate/versions"><img src="https://repology.org/badge/tiny-repos/foliate.svg" alt="Packaging status"></a></p>
+            <table>
+                <thead>
+                    <th>Distribution</th>
+                    <th>Command/Package</th>
+                </thead>
+                <tr>
+                    <td>Arch Linux</td>
+                    <td><code>pacman -S <a href="https://www.archlinux.org/packages/community/x86_64/foliate/">foliate</a></code></td>
+                </tr>
+                <tr>
+                    <td>Fedora</td>
+                    <td><code>dnf install <a href="https://src.fedoraproject.org/rpms/foliate">foliate</a></code></td>
+                </tr>
+                <tr>
+                    <td>Ubuntu (.deb)</td>
+                    <td>
+                        <a href="https://github.com/johnfactotum/foliate/releases/latest">Download</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ubuntu (PPA)</td>
+                    <td>
+                        <a href="https://launchpad.net/~apandada1/+archive/ubuntu/foliate">Stable</a> · <a href="https://launchpad.net/~apandada1/+archive/ubuntu/foliate-daily">Daily Builds</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ubuntu (Snap)</td>
+                    <td>
+                        <a href="https://snapcraft.io/foliate">Snap Store</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Void Linux</td>
+                    <td><code>xbps-install -S <a href="https://github.com/void-linux/void-packages/tree/master/srcpkgs/foliate">foliate</a></code></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <div class="grid">
+        <div>
+            <h3>Manual installation from source</h3>
+            <ol>
+                <li>Clone the source code from <a href="https://github.com/johnfactotum/foliate.git">GitHub</a> or download one of the <a href="https://github.com/johnfactotum/foliate/releases">releases</a>.</li>
+                <li>Make sure you have these dependencies installed:
                     <ul>
-                        <li>Arch Linux: <a href="https://www.archlinux.org/packages/community/x86_64/foliate/"><code>foliate</code></a></li>
-                        <li>Arch Linux (AUR): <a href="https://aur.archlinux.org/packages/foliate-git/"><code>foliate-git</code></a></li>
-                        <li>Fedora: <code>sudo dnf install foliate</code></li>
-                        <li>Void Linux: <code>xbps-install -S foliate</code></li>
+                        <li><code>gjs >= 1.52</code></li>
+                        <li><code>webkit2gtk</code></li>
+                        <li><code>meson >= 0.40</code> (required for building)</li>
+                        <li><code>gettext</code> (required for building)</li>
                     </ul>
-                    <p>Debian/Ubuntu packages can be downloaded from the <a href="https://github.com/johnfactotum/foliate/releases">releases</a> page.</p>
-                    <h4>Optional dependencies</h4>
-                        <ul>
-                            <li>To enable auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.</li>
-                            <li>To use offline dictionaries, install <code>dictd</code></li>
-                            <li>For text-to-speech support, install <code>espeak-ng</code>, or <code>festival</code></li>
-                            <li>Spellchecking notes requires <code>gspell</code></li>
-                        </ul>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <h3>Manual Installation from Source</h3>
-                    <ol>
-                        <li>Clone the source code from <a href="https://github.com/johnfactotum/foliate.git">GitHub</a> or download one of the <a href="https://github.com/johnfactotum/foliate/releases">releases</a>.</li>
-                        <li>Make sure you have these dependencies installed:
-                            <ul>
-                                <li><code>gjs >= 1.52</code></li>
-                                <li><code>webkit2gtk</code></li>
-                                <li><code>meson >= 0.40</code> (required for building)</li>
-                                <li><code>gettext</code> (required for building)</li>
-                            </ul>
-                        </li>
-                        <li>To install, run these commands:
+                </li>
+                <li>To install, run these commands:
 <pre>
 meson build --prefix=/usr
-cd build
-ninja
-sudo ninja install
+ninja -C build
+sudo ninja -C build install
 </pre></li>
-                        <li>To uninstall, run <code>sudo ninja uninstall</code>
-                    </ol>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <h3>Other Methods</h3>
-                    <p><a href="https://github.com/johnfactotum/foliate#installation">See the readme</a> for more installation options.</p>
-                </div>
-            </div>
+                <li>To uninstall, run <code>sudo ninja uninstall</code>
+            </ol>
+            <p>See <a href="https://github.com/johnfactotum/foliate#building-manually-from-source">README</a> for more information.</p>
         </div>
-    </section>
+        <div>
+            <h4>Optional dependencies</h4>
+            <ul>
+                <li>To enable auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.</li>
+                <li>To use offline dictionaries, install <code>dictd</code> or <code>sdcv</code></li>
+                <li>For text-to-speech support, install <code>espeak-ng</code> or <code>festival</code></li>
+                <li>Spellchecking notes requires <code>gspell</code></li>
+            </ul>
+        </div>
+    </div>
     <hr>
-    <section>
-        <div class="mono"><h2>Questions and Answers</h2></div>
-        <div class="grid">
-            <div>
-                <div>
-                    <h3>Reading progress slider not showing up?</h3>
-                    <p>In order to display the slider, Epub.js must generate locations for the entire book. For books with lots of pages, this could take a while. In the meantime, you can still read the book and use all other functionalities normally.</p>
-                    <p>Once the locations are generated, the info is cached and should load instantly next time you open the book.</p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <h3>How are notes and bookmarks stored?</h3>
-                    <p>Your reading progress, bookmarks, and annotations are saved in <pre>~/.local/share/com.github.johnfactotum.Foliate</pre>
-                    If you're using the flatpak version, they should be in <pre>~/.var/app/com.github.johnfactotum.Foliate/data/com.github.johnfactotum.Foliate</pre></p>
-                    <p>The data for each book is stored in a JSON file named after the book's identifier. If you'd like to sync or backup your progress and notes, simply copy these files and everything should just work™.</p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <h3>More questions and answers?</h3>
-                    <p><a href="https://github.com/johnfactotum/foliate/wiki">Visit the wiki</a> for more detailed docmentation.</p>
-                    <p><a href="https://github.com/johnfactotum/foliate/issues">Visit the issue tracker</a> for discussions.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <footer>
+        <p><a href="https://github.com/johnfactotum/foliate">Source</a> &middot; <a href="https://github.com/johnfactotum/foliate/releases">Releases</a> &middot; <a href="https://github.com/johnfactotum/foliate/issues">Issues</a> &middot; <a href="https://github.com/johnfactotum/foliate/wiki">FAQ</a></p>
+        <p>Coded with mild annoyance by <a href="https://github.com/johnfactotum">John Factotum</a></p>
+    </footer>
 </main>
-<footer>
-<p>Coded with mild annoyance by <a href="https://github.com/johnfactotum">John Factotum</a></p>
-</footer>
