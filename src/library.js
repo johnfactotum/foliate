@@ -1000,6 +1000,12 @@ var LibraryWindow =  GObject.registerClass({
         epubFiles.add_mime_type(mimetypes.epub)
         epubFiles.add_mime_type(mimetypes.mobi)
         epubFiles.add_mime_type(mimetypes.kindle)
+        epubFiles.add_mime_type(mimetypes.fb2)
+        epubFiles.add_mime_type(mimetypes.fb2zip)
+        epubFiles.add_mime_type(mimetypes.cbz)
+        epubFiles.add_mime_type(mimetypes.cbr)
+        epubFiles.add_mime_type(mimetypes.cb7)
+        epubFiles.add_mime_type(mimetypes.cbt)
 
         const dialog = Gtk.FileChooserNative.new(
             _('Add Files'),
