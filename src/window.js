@@ -136,27 +136,34 @@ const NavBar = GObject.registerClass({
         'locationButton', 'timeInBook', 'timeInChapter',
         'sectionEntry', 'locationEntry', 'cfiEntry',
         'sectionTotal', 'locationTotal',
+        'fallbackSectionEntry', 'fallbackSectionTotal', 'fallbackScale'
     ]
 }, class NavBar extends Gtk.ActionBar {
     set epub(epub) {
         this._epub = epub
+        this._epub.connect('locations-fallback', () => this._status = 'fallback')
         this._epub.connect('locations-ready', () => {
             this._epub.sectionMarks.then(sectionMarks => {
                 this._setSectionMarks(sectionMarks)
-                this._loading = false
+                this._status = 'loaded'
             })
         })
-        this._epub.connect('book-loading', () => this._loading = true)
+        this._epub.connect('book-loading', () => this._status = 'loading')
         this._epub.connect('relocated', () => this._update())
 
         this.connect('size-allocate', () => this._onSizeAllocate())
         this._locationScale.connect('button-release-event', () => this._onlocationScaleChanged())
+        this._fallbackScale.connect('button-release-event', () => this._onFallbackScaleChanged())
         this._sectionEntry.connect('activate', () => this._onSectionEntryActivate())
+        this._fallbackSectionEntry.connect('activate', () => this._onFallbackSectionEntryActivate())
         this._locationEntry.connect('activate', () => this._onLocationEntryActivate())
         this._cfiEntry.connect('activate', () => this._onCfiEntryActivate())
     }
-    set _loading(loading) {
-        this._locationStack.visible_child_name = loading ? 'loading' : 'loaded'
+    set _status(status) {
+        this._locationStack.visible_child_name = status
+    }
+    get _status() {
+        return this._locationStack.visible_child_name
     }
     _setSectionMarks(sectionMarks) {
         this._locationScale.clear_marks()
@@ -182,9 +189,18 @@ const NavBar = GObject.registerClass({
         this._cfiEntry.text = cfi
         this._sectionTotal.label = _('of %d').format(sectionTotal)
         this._locationTotal.label = _('of %d').format(locationTotal + 1)
+
+        this._fallbackSectionEntry.text = this._sectionEntry.text
+        this._fallbackSectionTotal.label = this._sectionTotal.label
+        this._fallbackScale.set_range(1, sectionTotal)
+        this._fallbackScale.set_value(section + 1)
     }
     _onSectionEntryActivate() {
         const x = parseInt(this._sectionEntry.text) - 1
+        this._epub.goTo(x)
+    }
+    _onFallbackSectionEntryActivate() {
+        const x = parseInt(this._fallbackSectionEntry.text) - 1
         this._epub.goTo(x)
     }
     _onLocationEntryActivate() {
@@ -198,11 +214,17 @@ const NavBar = GObject.registerClass({
         const value = this._locationScale.get_value()
         this._epub.goToPercentage(value)
     }
+    _onFallbackScaleChanged() {
+        const value = this._fallbackScale.get_value()
+        this._epub.goTo(Math.round(value) - 1)
+    }
     _onSizeAllocate() {
         const narrow = this.get_allocation().width < 500
         this._locationScale.visible = !narrow
+        this._fallbackScale.visible = !narrow
     }
     toggleLocationMenu() {
+        if (this._status !== 'loaded') return
         return this._locationButton.active = !this._locationButton.active
     }
 })
@@ -212,6 +234,7 @@ const Footer = GObject.registerClass({
 }, class Footer extends Gtk.Box {
     _init(params) {
         super._init(params)
+        this._locationsFallback = false
         const labelOpts = {
             visible: true,
             ellipsize: Pango.EllipsizeMode.END,
@@ -238,6 +261,7 @@ const Footer = GObject.registerClass({
             this._left.label = '…'
             this._right.label = '…'
         })
+        this._epub.connect('locations-fallback', () => this._locationsFallback = true)
         this._epub.connect('relocated', () => {
             this._update()
         })
@@ -288,10 +312,14 @@ const Footer = GObject.registerClass({
                 if (locationTotal) s = Math.round(p.percentage * 100) + '%'
                 break
             case 'location':
-                if (locationTotal) s = (p.location + 1) + ' / ' + (locationTotal + 1)
+                if (this._locationsFallback)
+                    s = (section + 1) + ' / ' + sectionTotal
+                else if (locationTotal > 0)
+                    s = (p.location + 1) + ' / ' + (locationTotal + 1)
+                else s = '…'
                 break
             case 'section':
-                s = (section + 1) + ' / ' + (sectionTotal + 1)
+                s = (section + 1) + ' / ' + sectionTotal
                 break
             case 'section-name':
                 s = p.label

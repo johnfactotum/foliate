@@ -430,7 +430,7 @@ book.ready.then(async () => {
 const render = () =>
     rendition.display().then(() => dispatch({ type: 'rendition-ready' }))
 
-const loadLocations = locations => {
+const loadLocations = async locations => {
     const locationsReady = () => {
         sectionMarks = book.spine.items.map(section => book.locations
             .percentageFromCfi('epubcfi(' + section.cfiBase + '!/0)'))
@@ -439,15 +439,17 @@ const loadLocations = locations => {
 
     if (locations) {
         book.locations.load(locations)
+        if (book.locations.total < 0) return dispatch({ type: 'locations-fallback' })
         locationsReady()
         dispatch({ type: 'locations-ready' })
     } else {
-        book.locations.generate(CHARACTERS_PER_PAGE)
-            .then(() => locationsReady())
-            .then(() => dispatch({
-                type: 'locations-generated',
-                payload: book.locations.save()
-            }))
+        await book.locations.generate(CHARACTERS_PER_PAGE)
+        if (book.locations.total < 0) return dispatch({ type: 'locations-fallback' })
+        locationsReady()
+        dispatch({
+            type: 'locations-generated',
+            payload: book.locations.save()
+        })
     }
 }
 

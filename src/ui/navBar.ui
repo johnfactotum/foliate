@@ -312,6 +312,35 @@
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkEntry" id="fallbackSectionEntry">
+                <property name="visible">True</property>
+                <property name="xalign">1</property>
+                <property name="width-chars">5</property>
+                <property name="input-purpose">digits</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="fallbackSectionTotal">
+                <property name="visible">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScale" id="fallbackScale">
+                <property name="visible">True</property>
+                <property name="draw-value">False</property>
+                <property name="hexpand">True</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">fallback</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
             <child>
               <object class="GtkMenuButton" id="locationButton">
                 <property name="visible">True</property>

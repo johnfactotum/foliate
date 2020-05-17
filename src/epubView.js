@@ -449,6 +449,7 @@ var EpubView = GObject.registerClass({
         'cover': { flags: GObject.SignalFlags.RUN_FIRST },
         'locations-generated': { flags: GObject.SignalFlags.RUN_FIRST },
         'locations-ready': { flags: GObject.SignalFlags.RUN_FIRST },
+        'locations-fallback': { flags: GObject.SignalFlags.RUN_FIRST },
         'relocated': { flags: GObject.SignalFlags.RUN_FIRST },
         'spread': {
             flags: GObject.SignalFlags.RUN_FIRST,
@@ -628,7 +629,11 @@ var EpubView = GObject.registerClass({
                 this.actionGroup.lookup_action('clear-cache').enabled = true
                 if (this.cover) this._data.saveCover(this.cover)
             }
-            this._run(`loadLocations(${locations || 'null'})`)
+            // since locations are based on characters, don't generate locations
+            // for comic books, which contain no characters
+            const fallback = ['cbz', 'cbr', 'cb7', 'cbt'].includes(this._inputType)
+            if (fallback) this.emit('locations-fallback')
+            else this._run(`loadLocations(${locations || 'null'})`)
             this._run('render()')
         })
         this.connect('cover', () => {
@@ -663,8 +668,10 @@ var EpubView = GObject.registerClass({
             if (this._data) {
                 const l = this.location
                 this._data.lastLocation = l.start.cfi
-                if (l.locationTotal)
-                    this._data.progress = [l.start.location, l.locationTotal]
+                const fallback = l.locationTotal <= 0
+                const current = fallback ? l.section + 1 : l.start.location
+                const total = fallback ? l.sectionTotal : l.locationTotal
+                this._data.progress = [current, total]
             }
         })
         this._webView.connect('destroy', () => {
@@ -775,6 +782,9 @@ var EpubView = GObject.registerClass({
                 // falls through
             case 'locations-ready':
                 this.emit('locations-ready')
+                break
+            case 'locations-fallback':
+                this.emit('locations-fallback')
                 break
             case 'cover':
                 this.cover = base64ToPixbuf(payload)
