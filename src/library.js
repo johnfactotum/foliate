@@ -991,9 +991,16 @@ var LibraryWindow =  GObject.registerClass({
         // if there's only one item (likely the 'load-more' item), load some books
         // otherwise there's already some books loaded and no need to do that
         if (library.list.get_n_items() === 1) library.next()
-        library.list.connect('items-changed', () => this._updateLibraryStack())
-        library.searchList.connect('items-changed', () => this._updateLibraryStack())
+        const listHandler = library.list
+            .connect('items-changed', () => this._updateLibraryStack())
+        const searchListHAndler = library.searchList
+            .connect('items-changed', () => this._updateLibraryStack())
         this._updateLibraryStack()
+
+        this.connect('destroy', () => {
+            library.list.disconnect(listHandler)
+            library.searchList.disconnect(searchListHAndler)
+        })
 
         this._loadCatalogs()
     }
