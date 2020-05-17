@@ -303,6 +303,12 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
                 max-height: 99.5vh;
                 object-fit: contain;
             }
+            .image-wrapper img.left {
+                object-position: right center;
+            }
+            .image-wrapper img.right {
+                object-position: left center;
+            }
         `
     }
 
@@ -410,6 +416,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
             ['jpeg', 'png', 'gif', 'bmp', 'webp'].includes(file.type))
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((image, i) => {
+            const left = i % 2
             const src = URL.createObjectURL(image.blob)
             if (i === 0) cover = src
             const html = `
@@ -422,7 +429,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
 
                     <body>
                         <section class="image-wrapper">
-                            <img src="${src}" alt="${image.name}" />
+                            <img src="${src}" alt="${image.name}" class="${left ? 'left' : 'right'}" />
                         </section>
 
                         <!-- SCRIPTS -->
@@ -438,7 +445,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
                 href: pageURL,
                 type: 'text/html',
                 title: image.name,
-                properties: []
+                properties: [left ? 'page-spread-left' : 'page-spread-right']
             }
         })
 
