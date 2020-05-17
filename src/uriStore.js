@@ -176,6 +176,7 @@ class Library {
 
         this._searchList = new BookList()
         this.searchList = this._searchList.list
+        this.searchList.append(new Obj('load-more'))
 
         this._query = ''
     }
