@@ -7,7 +7,7 @@
 		exports["ePub"] = factory(require("xmldom"), (function webpackLoadOptionalExternalModule() { try { return require("jszip"); } catch(e) {} }()));
 	else
 		root["ePub"] = factory(root["xmldom"], root["jszip"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_42__, __WEBPACK_EXTERNAL_MODULE_72__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_42__, __WEBPACK_EXTERNAL_MODULE_73__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -4782,7 +4782,7 @@ var Contents = function () {
 					try {
 						if (!range.endContainer || range.startContainer == range.endContainer && range.startOffset == range.endOffset) {
 							// If the end for the range is not set, it results in collapsed becoming
-							// true. This in turn leads to inconsistent behaviour when calling 
+							// true. This in turn leads to inconsistent behaviour when calling
 							// getBoundingRect. Wrong bounds lead to the wrong page being displayed.
 							// https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/15684911/
 							var pos = range.startContainer.textContent.indexOf(" ", range.startOffset);
@@ -4916,7 +4916,7 @@ var Contents = function () {
 
 		/**
    * Append stylesheet css
-   * @param {string} serializedCss 
+   * @param {string} serializedCss
    * @param {string} key If the key is the same, the CSS will be replaced instead of inserted
    */
 
@@ -5271,7 +5271,7 @@ var Contents = function () {
 
 	}, {
 		key: "columns",
-		value: function columns(width, height, columnWidth, gap) {
+		value: function columns(width, height, columnWidth, gap, dir) {
 			var COLUMN_AXIS = (0, _core.prefixed)("column-axis");
 			var COLUMN_GAP = (0, _core.prefixed)("column-gap");
 			var COLUMN_WIDTH = (0, _core.prefixed)("column-width");
@@ -5282,9 +5282,8 @@ var Contents = function () {
 
 			this.layoutStyle("paginated");
 
-			// Fix body width issues if rtl is only set on body element
-			if (this.content.dir === "rtl") {
-				this.direction("rtl");
+			if (dir === "rtl") {
+				this.direction(dir);
 			}
 
 			this.width(width);
@@ -5546,6 +5545,10 @@ var _eventEmitter2 = _interopRequireDefault(_eventEmitter);
 
 var _core = __webpack_require__(0);
 
+var _scrolltype = __webpack_require__(59);
+
+var _scrolltype2 = _interopRequireDefault(_scrolltype);
+
 var _mapping = __webpack_require__(19);
 
 var _mapping2 = _interopRequireDefault(_mapping);
@@ -5554,11 +5557,11 @@ var _queue = __webpack_require__(12);
 
 var _queue2 = _interopRequireDefault(_queue);
 
-var _stage = __webpack_require__(59);
+var _stage = __webpack_require__(60);
 
 var _stage2 = _interopRequireDefault(_stage);
 
-var _views = __webpack_require__(69);
+var _views = __webpack_require__(70);
 
 var _views2 = _interopRequireDefault(_views);
 
@@ -5621,6 +5624,8 @@ var DefaultViewManager = function () {
 			}
 
 			this.settings.size = size;
+
+			this.settings.rtlScrollType = (0, _scrolltype2.default)();
 
 			// Save the stage
 			this.stage = new _stage2.default({
@@ -6010,12 +6015,22 @@ var DefaultViewManager = function () {
 
 				this.scrollLeft = this.container.scrollLeft;
 
-				left = this.container.scrollLeft;
+				if (this.settings.rtlScrollType === "default") {
+					left = this.container.scrollLeft;
 
-				if (left > 0) {
-					this.scrollBy(this.layout.delta, 0, true);
+					if (left > 0) {
+						this.scrollBy(this.layout.delta, 0, true);
+					} else {
+						next = this.views.last().section.next();
+					}
 				} else {
-					next = this.views.last().section.next();
+					left = this.container.scrollLeft + this.layout.delta * -1;
+
+					if (left > this.container.scrollWidth * -1) {
+						this.scrollBy(this.layout.delta, 0, true);
+					} else {
+						next = this.views.last().section.next();
+					}
 				}
 			} else if (this.isPaginated && this.settings.axis === "vertical") {
 
@@ -6073,12 +6088,22 @@ var DefaultViewManager = function () {
 
 				this.scrollLeft = this.container.scrollLeft;
 
-				left = this.container.scrollLeft + this.container.offsetWidth + this.layout.delta;
+				if (this.settings.rtlScrollType === "default") {
+					left = this.container.scrollLeft + this.container.offsetWidth + this.layout.delta;
 
-				if (left <= this.container.scrollWidth) {
-					this.scrollBy(-this.layout.delta, 0, true);
+					if (left <= this.container.scrollWidth) {
+						this.scrollBy(-this.layout.delta, 0, true);
+					} else {
+						prev = this.views.first().section.prev();
+					}
 				} else {
-					prev = this.views.first().section.prev();
+					left = this.container.scrollLeft;
+
+					if (left < 0) {
+						this.scrollBy(-this.layout.delta, 0, true);
+					} else {
+						prev = this.views.first().section.prev();
+					}
 				}
 			} else if (this.isPaginated && this.settings.axis === "vertical") {
 
@@ -6117,7 +6142,11 @@ var DefaultViewManager = function () {
 				}).then(function () {
 					if (this.isPaginated && this.settings.axis === "horizontal") {
 						if (this.settings.direction === "rtl") {
-							this.scrollTo(0, 0, true);
+							if (this.settings.rtlScrollType === "default") {
+								this.scrollTo(0, 0, true);
+							} else {
+								this.scrollTo(this.container.scrollWidth * -1 + this.layout.delta, 0, true);
+							}
 						} else {
 							this.scrollTo(this.container.scrollWidth - this.layout.delta, 0, true);
 						}
@@ -7947,7 +7976,8 @@ var Rendition = function () {
 			stylesheet: null,
 			resizeOnOrientationChange: true,
 			script: null,
-			snap: false
+			snap: false,
+			defaultDirection: "ltr"
 		});
 
 		(0, _core.extend)(this.settings, options);
@@ -8134,7 +8164,7 @@ var Rendition = function () {
 				});
 			}
 
-			this.direction(this.book.package.metadata.direction);
+			this.direction(this.book.package.metadata.direction || this.settings.defaultDirection);
 
 			// Parse metadata to get layout props
 			this.settings.globalLayoutProperties = this.determineLayoutProperties(this.book.package.metadata);
@@ -8242,10 +8272,6 @@ var Rendition = function () {
 			}
 
 			section = this.book.spine.get(target);
-
-			if (!section && target.includes(".xhtml")) {
-				section = this.book.spine.get("xhtml/" + target);
-			}
 
 			if (!section) {
 				displaying.reject(new Error("No Section Found"));
@@ -10523,8 +10549,8 @@ module.exports = exports["default"];
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(16),
-    now = __webpack_require__(61),
-    toNumber = __webpack_require__(63);
+    now = __webpack_require__(62),
+    toNumber = __webpack_require__(64);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -10719,7 +10745,7 @@ module.exports = debounce;
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var freeGlobal = __webpack_require__(62);
+var freeGlobal = __webpack_require__(63);
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -10765,7 +10791,7 @@ var _default = __webpack_require__(15);
 
 var _default2 = _interopRequireDefault(_default);
 
-var _snap = __webpack_require__(70);
+var _snap = __webpack_require__(71);
 
 var _snap2 = _interopRequireDefault(_snap);
 
@@ -11065,22 +11091,35 @@ var ContinuousViewManager = function (_DefaultViewManager) {
 					newViews.push(_this6.append(next));
 				}
 			};
+			//Horizontal negative scrolling
+			if (horizontal && rtl && this.settings.rtlScrollType === "negative") {
 
-			if (offset + visibleLength + delta >= contentLength) {
-				if (horizontal && rtl) {
-					prepend();
-				} else {
+				if (offset - delta <= -1 * contentLength) {
 					append();
 				}
-			}
 
-			if (offset - delta < 0) {
-				if (horizontal && rtl) {
-					append();
-				} else {
+				if (offset + delta > 0) {
 					prepend();
 				}
 			}
+			//default scrolling
+			else {
+					if (offset + visibleLength + delta >= contentLength) {
+						if (horizontal && rtl) {
+							prepend();
+						} else {
+							append();
+						}
+					}
+
+					if (offset - delta < 0) {
+						if (horizontal && rtl) {
+							append();
+						} else {
+							prepend();
+						}
+					}
+				}
 
 			var promises = newViews.map(function (view) {
 				return view.display(_this6.request);
@@ -11152,7 +11191,15 @@ var ContinuousViewManager = function (_DefaultViewManager) {
 				if (this.settings.axis === "vertical") {
 					this.scrollTo(0, prevTop - bounds.height, true);
 				} else {
-					this.scrollTo(prevLeft - Math.floor(bounds.width), 0, true);
+					if (this.settings.direction === 'rtl') {
+						if (this.settings.rtlScrollType === "default") {
+							this.scrollTo(prevLeft, 0, true);
+						} else {
+							this.scrollTo(prevLeft + Math.floor(bounds.width), 0, true);
+						}
+					} else {
+						this.scrollTo(prevLeft - Math.floor(bounds.width), 0, true);
+					}
 				}
 			}
 		}
@@ -11407,7 +11454,7 @@ var utils = _interopRequireWildcard(_core);
 
 var _constants = __webpack_require__(2);
 
-var _urlPolyfill = __webpack_require__(76);
+var _urlPolyfill = __webpack_require__(77);
 
 var URLpolyfill = _interopRequireWildcard(_urlPolyfill);
 
@@ -11513,7 +11560,7 @@ var _rendition = __webpack_require__(18);
 
 var _rendition2 = _interopRequireDefault(_rendition);
 
-var _archive = __webpack_require__(71);
+var _archive = __webpack_require__(72);
 
 var _archive2 = _interopRequireDefault(_archive);
 
@@ -11525,11 +11572,11 @@ var _epubcfi = __webpack_require__(1);
 
 var _epubcfi2 = _interopRequireDefault(_epubcfi);
 
-var _store = __webpack_require__(73);
+var _store = __webpack_require__(74);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _displayoptions = __webpack_require__(75);
+var _displayoptions = __webpack_require__(76);
 
 var _displayoptions2 = _interopRequireDefault(_displayoptions);
 
@@ -16730,7 +16777,7 @@ var Layout = function () {
 			if (this.name === "pre-paginated") {
 				formating = contents.fit(this.columnWidth, this.height, section);
 			} else if (this._flow === "paginated") {
-				formating = contents.columns(this.width, this.height, this.columnWidth, this.gap);
+				formating = contents.columns(this.width, this.height, this.columnWidth, this.gap, this.settings.direction);
 			} else {
 				// scrolled
 				formating = contents.size(this.width, null);
@@ -18068,12 +18115,80 @@ function contains(item, target, x, y) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.default = scrollType;
+exports.createDefiner = createDefiner;
+// Detect RTL scroll type
+// Based on https://github.com/othree/jquery.rtl-scroll-type/blob/master/src/jquery.rtl-scroll.js
+function scrollType() {
+	var type = "reverse";
+	var definer = createDefiner();
+	document.body.appendChild(definer);
+
+	if (definer.scrollLeft > 0) {
+		type = "default";
+	} else {
+		if (typeof Element !== 'undefined' && Element.prototype.scrollIntoView) {
+			definer.children[0].children[1].scrollIntoView();
+			if (definer.scrollLeft < 0) {
+				type = "negative";
+			}
+		} else {
+			definer.scrollLeft = 1;
+			if (definer.scrollLeft === 0) {
+				type = "negative";
+			}
+		}
+	}
+
+	document.body.removeChild(definer);
+	return type;
+}
+
+function createDefiner() {
+	var definer = document.createElement('div');
+	definer.dir = "rtl";
+
+	definer.style.position = "fixed";
+	definer.style.width = "1px";
+	definer.style.height = "1px";
+	definer.style.top = "0px";
+	definer.style.left = "0px";
+	definer.style.overflow = "hidden";
+
+	var innerDiv = document.createElement('div');
+	innerDiv.style.width = "2px";
+
+	var spanA = document.createElement('span');
+	spanA.style.width = "1px";
+	spanA.style.display = "inline-block";
+
+	var spanB = document.createElement('span');
+	spanB.style.width = "1px";
+	spanB.style.display = "inline-block";
+
+	innerDiv.appendChild(spanA);
+	innerDiv.appendChild(spanB);
+	definer.appendChild(innerDiv);
+
+	return definer;
+}
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _core = __webpack_require__(0);
 
-var _throttle = __webpack_require__(60);
+var _throttle = __webpack_require__(61);
 
 var _throttle2 = _interopRequireDefault(_throttle);
 
@@ -18451,7 +18566,7 @@ exports.default = Stage;
 module.exports = exports["default"];
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var debounce = __webpack_require__(21),
@@ -18526,7 +18641,7 @@ module.exports = throttle;
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(22);
@@ -18555,7 +18670,7 @@ module.exports = now;
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
@@ -18566,11 +18681,11 @@ module.exports = freeGlobal;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(16),
-    isSymbol = __webpack_require__(64);
+    isSymbol = __webpack_require__(65);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -18638,11 +18753,11 @@ module.exports = toNumber;
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(65),
-    isObjectLike = __webpack_require__(68);
+var baseGetTag = __webpack_require__(66),
+    isObjectLike = __webpack_require__(69);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -18673,12 +18788,12 @@ module.exports = isSymbol;
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(23),
-    getRawTag = __webpack_require__(66),
-    objectToString = __webpack_require__(67);
+    getRawTag = __webpack_require__(67),
+    objectToString = __webpack_require__(68);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -18707,7 +18822,7 @@ module.exports = baseGetTag;
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(23);
@@ -18759,7 +18874,7 @@ module.exports = getRawTag;
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -18787,7 +18902,7 @@ module.exports = objectToString;
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports) {
 
 /**
@@ -18822,7 +18937,7 @@ module.exports = isObjectLike;
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19028,7 +19143,7 @@ exports.default = Views;
 module.exports = exports["default"];
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19426,7 +19541,7 @@ exports.default = Snap;
 module.exports = exports["default"];
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19482,7 +19597,7 @@ var Archive = function () {
 		value: function checkRequirements() {
 			try {
 				if (typeof JSZip === "undefined") {
-					var _JSZip = __webpack_require__(72);
+					var _JSZip = __webpack_require__(73);
 					this.zip = new _JSZip();
 				} else {
 					this.zip = new JSZip();
@@ -19735,14 +19850,14 @@ exports.default = Archive;
 module.exports = exports["default"];
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports) {
 
-if(typeof __WEBPACK_EXTERNAL_MODULE_72__ === 'undefined') {var e = new Error("Cannot find module \"jszip\""); e.code = 'MODULE_NOT_FOUND'; throw e;}
-module.exports = __WEBPACK_EXTERNAL_MODULE_72__;
+if(typeof __WEBPACK_EXTERNAL_MODULE_73__ === 'undefined') {var e = new Error("Cannot find module \"jszip\""); e.code = 'MODULE_NOT_FOUND'; throw e;}
+module.exports = __WEBPACK_EXTERNAL_MODULE_73__;
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19815,7 +19930,7 @@ var Store = function () {
 			try {
 				var store = void 0;
 				if (typeof localforage === "undefined") {
-					store = __webpack_require__(74);
+					store = __webpack_require__(75);
 				} else {
 					store = localforage;
 				}
@@ -20198,7 +20313,7 @@ exports.default = Store;
 module.exports = exports["default"];
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var require;var require;/*!
@@ -23002,7 +23117,7 @@ module.exports = localforage_js;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23101,7 +23216,7 @@ exports.default = DisplayOptions;
 module.exports = exports["default"];
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {(function(global) {
