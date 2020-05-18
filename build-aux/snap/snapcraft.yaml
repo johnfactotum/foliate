@@ -9,7 +9,7 @@ confinement: strict
 apps:
   foliate:
     command: usr/bin/com.github.johnfactotum.Foliate
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-34]
     plugs:
       - home
       - opengl
@@ -24,15 +24,17 @@ parts:
   foliate:
     plugin: meson
     source: .
+    override-pull: |
+      snapcraftctl pull
+      sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
+      snapcraftctl set-version $(git describe --tags --abbrev=10)
     override-build: |
       set -ex
       xmlstarlet edit -L -u "/schemalist/schema/key[@name='tts-command']/default" -v "'espeak-ng -v mb-en1'" $SNAPCRAFT_PART_BUILD/data/com.github.johnfactotum.Foliate.gschema.xml
       snapcraftctl build
     meson-parameters: [--prefix=/snap/foliate/current/usr]
     build-packages:
-      - libgjs-dev
-      - gettext
-      - libglu1-mesa
+      - git # for set-version
       - xmlstarlet  # for override-build
     organize:
       snap/foliate/current/usr: usr
@@ -51,11 +53,13 @@ slots:
     name: com.github.johnfactotum.Foliate
 
 layout:
-  /usr/lib/x86_64-linux-gnu/espeak-ng-data:
-    symlink: $SNAP/usr/lib/x86_64-linux-gnu/espeak-ng-data
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/espeak-ng-data:
+    symlink: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/espeak-ng-data
   # This is a bind instead of a (faster) symlink because mbrola uses LD_PRELOAD
   # with libraries from this directory, which doesn't work with symlinks.
-  /usr/lib/x86_64-linux-gnu/mbrola:
-    bind: $SNAP/usr/lib/x86_64-linux-gnu/mbrola
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/mbrola:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/mbrola
   /usr/share/mbrola:
     symlink: $SNAP/usr/share/mbrola
+  /usr/bin/gjs:
+    symlink: $SNAP/gnome-platform/usr/bin/gjs
