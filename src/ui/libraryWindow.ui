@@ -376,6 +376,42 @@
                     </child>
                   </object>
                 </child>
+
+                <child>
+                  <object class="GtkActionBar" id="actionBar">
+                    <property name="visible">False</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="visible">True</property>
+                        <property name="action-name">lib.selection-remove</property>
+                        <property name="tooltip-text" translatable="yes">Remove</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="icon-name">user-trash-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="center">
+                      <object class="GtkLabel" id="selectionLabel">
+                        <property name="visible">True</property>
+                        <property name="ellipsize">end</property>
+                        <style><class name="dim-label"/></style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="visible">True</property>
+                        <property name="action-name">lib.selection-clear</property>
+                        <property name="label" translatable="yes">Cancel</property>
+                      </object>
+                      <packing>
+                        <property name="pack-type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="name">library</property>
@@ -397,42 +433,6 @@
               <packing>
                 <property name="name">catalog</property>
                 <property name="title" translatable="yes">Catalogs</property>
-              </packing>
-            </child>
-          </object>
-        </child>
-
-        <child>
-          <object class="GtkActionBar" id="actionBar">
-            <property name="visible">False</property>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="action-name">lib.selection-remove</property>
-                <property name="tooltip-text" translatable="yes">Remove</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon-name">user-trash-symbolic</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child type="center">
-              <object class="GtkLabel" id="selectionLabel">
-                <property name="visible">True</property>
-                <property name="ellipsize">end</property>
-                <style><class name="dim-label"/></style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="action-name">lib.selection-clear</property>
-                <property name="label" translatable="yes">Cancel</property>
-              </object>
-              <packing>
-                <property name="pack-type">end</property>
               </packing>
             </child>
           </object>
