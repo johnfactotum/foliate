@@ -278,13 +278,20 @@ function main(argv) {
 
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
-            progress, trough { min-width: 1px; }
+            /* set min-width to 1px,
+               so we can have variable width progress bars a la Kindle */
+            progress, trough {
+                min-width: 1px;
+            }
+
+            /* add shadow to book covers */
             .foliate-book-image {
                 box-shadow:
                     5px 5px 12px 2px rgba(0, 0, 0, 0.1),
                     0 0 2px 1px rgba(0, 0, 0, 0.2);
             }
 
+            /* for generated covers */
             .foliate-book-image-dark {
                 color: #fff;
             }
@@ -321,6 +328,11 @@ function main(argv) {
             }
             row .foliate-emblem:backdrop {
                 opacity: 0.3;
+            }
+
+            .foliate-select {
+                color: #fff;
+                background: rgba(0, 0, 0, 0.4);
             }
         `)
         Gtk.StyleContext.add_provider_for_screen(

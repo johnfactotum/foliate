@@ -30,6 +30,14 @@
                 <style><class name="foliate-emblem"/></style>
               </object>
             </child>
+            <child type="overlay">
+              <object class="GtkImage" id="select">
+                <property name="visible">False</property>
+                <property name="icon-name">object-select-symbolic</property>
+                <property name="icon-size">5</property>
+                <style><class name="foliate-select"/></style>
+              </object>
+            </child>
           </object>
         </child>
         <child>

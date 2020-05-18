@@ -7,7 +7,14 @@
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="margin">10</property>
-        <property name="spacing">6</property>
+        <property name="spacing">3</property>
+        <child>
+          <object class="GtkCheckButton" id="check">
+            <property name="visible">False</property>
+            <property name="valign">center</property>
+            <property name="margin-end">10</property>
+          </object>
+        </child>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>

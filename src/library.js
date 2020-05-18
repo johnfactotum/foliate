@@ -14,6 +14,7 @@
  */
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
+const ngettext = imports.gettext.ngettext
 const { debug, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight, mimetypes,
     linkIsRel, makeLinksButton } = imports.utils
@@ -133,36 +134,8 @@ const makeLibraryChild = (params, widget) => {
             window.show()
         }
         removeBook() {
-            const window = this.get_toplevel()
-            const msg = new Gtk.MessageDialog({
-                text: _('Are you sure you want to remove this book?'),
-                secondary_text: _('Reading progress, annotations, and bookmarks will be permanently lost.'),
-                message_type: Gtk.MessageType.QUESTION,
-                modal: true,
-                transient_for: window
-            })
-            msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
-            msg.add_button(_('Remove'), Gtk.ResponseType.ACCEPT)
-            msg.set_default_response(Gtk.ResponseType.CANCEL)
-            msg.get_widget_for_response(Gtk.ResponseType.ACCEPT)
-                .get_style_context().add_class('destructive-action')
-            const res = msg.run()
-            if (res === Gtk.ResponseType.ACCEPT) {
-                const id = this.book.value.metadata.identifier
-                ;[
-                    EpubViewData.dataPath(id),
-                    EpubViewData.cachePath(id),
-                    EpubViewData.coverPath(id)
-                ].forEach(path => {
-                    try {
-                        Gio.File.new_for_path(path).delete(null)
-                    } catch (e) {}
-                })
-
-                library.remove(id)
-                uriStore.delete(id)
-            }
-            msg.close()
+            const id = this.book.value.identifier
+            this.get_parent().removeBooks([id])
         }
     })
 }
@@ -174,7 +147,7 @@ const BookBoxChild =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxChild',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxChild.ui',
     InternalChildren: [
-        'image', 'progressLabel', 'menuButton', 'emblem'
+        'image', 'progressLabel', 'menuButton', 'emblem', 'select'
     ]
 }, class BookBoxChild extends BookFlowBoxChild {
     _init(params) {
@@ -193,6 +166,12 @@ const BookBoxChild =  GObject.registerClass({
 
         this._menuButton.popover = this.getMenu()
     }
+    selectItem() {
+        this._select.visible = true
+    }
+    deselectItem() {
+        this._select.visible = false
+    }
 })
 
 const BookListBoxRow =
@@ -202,6 +181,7 @@ const BookBoxRow =  GObject.registerClass({
     GTypeName: 'FoliateBookBoxRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookBoxRow.ui',
     InternalChildren: [
+        'check',
         'title', 'creator', 'emblem',
         'progressGrid', 'progressBar', 'progressLabel',
         'menuButton'
@@ -231,6 +211,22 @@ const BookBoxRow =  GObject.registerClass({
         } else this._progressGrid.hide()
 
         this._menuButton.popover = this.getMenu()
+
+        this._selected = false
+        this._check.connect('toggled', () => {
+            if (this._check.active !== this._selected) this.activate()
+        })
+    }
+    selectItem() {
+        this._selected = true
+        this._check.active = true
+    }
+    deselectItem() {
+        this._selected = false
+        this._check.active = false
+    }
+    set enableSelection(x) {
+        this._check.visible = x
     }
 })
 
@@ -244,7 +240,7 @@ const LoadMoreRow = GObject.registerClass({
             icon_name: 'view-more-symbolic',
             margin: 12
         }))
-        this.tooltip_text = _('Load more items')
+        this.tooltip_text = _('Load more')
     }
 })
 const LoadMoreChild = GObject.registerClass({
@@ -262,7 +258,43 @@ const LoadMoreChild = GObject.registerClass({
         })
         image.get_style_context().add_class('frame')
         this.add(image)
-        this.tooltip_text = _('Load more items')
+        this.tooltip_text = _('Load more')
+    }
+})
+
+const LibrarySelection = GObject.registerClass({
+    GTypeName: 'FoliateLibrarySelection',
+    Signals: {
+        'selection-changed': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_STRING, GObject.TYPE_STRING]
+        },
+    }
+}, class LibrarySelection extends GObject.Object {
+    _init(params) {
+        super._init(params)
+        this._set = new Set()
+    }
+    add(x) {
+        this._set.add(x)
+        this.emit('selection-changed', 'add', x)
+    }
+    delete(x) {
+        this._set.delete(x)
+        this.emit('selection-changed', 'delete', x)
+    }
+    clear() {
+        this._set.clear()
+        this.emit('selection-changed', 'clear', '')
+    }
+    has(x) {
+        return this._set.has(x)
+    }
+    get size() {
+        return this._set.size
+    }
+    toArray() {
+        return Array.from(this._set)
     }
 })
 
@@ -281,16 +313,53 @@ const makeLibraryWidget = (params, widget) => {
             this._model = null
             this._bindModel(library.list)
             this.connect(activateSignal, this._onRowActivated.bind(this))
+
+            const longpress = Gtk.GestureLongPress.new(this)
+            longpress.propagation_phase = Gtk.PropagationPhase.CAPTURE
+            longpress.connect('pressed', (gesture, x, y) => this._onRowRightClick(x, y))
+            this.connect('button-press-event', (self, event) => {
+                const [, button] = event.get_button()
+                if (button === 3) {
+                    const [, x, y] = event.get_coords()
+                    this._onRowRightClick(x, y)
+                }
+            })
+        }
+        bindSelection(selection) {
+            this._selection = selection
+            const h = selection.connect('selection-changed', (_, type, id) => {
+                const size = selection.size
+                let f
+                if (type === 'add') f = row => {
+                    if (row.book.value.identifier === id) row.selectItem()
+                }
+                else if (type === 'delete') f = row => {
+                    if (row.book.value.identifier === id) row.deselectItem()
+                }
+                else f = row => row.deselectItem()
+
+                this.foreach(row => {
+                    if (row instanceof LoadMore) return
+                    f(row)
+                    row.enableSelection = size
+                })
+            })
+            this.connect('destroy', () => selection.disconect(h))
         }
         _bindModel(model) {
             if (model === this._model) return
             this._model = model
             this.bind_model(model, book => {
                 if (book.value === 'load-more') return new LoadMore()
-                else return new ChildWidget({ book })
+                else {
+                    const id = book.value.identifier
+                    const row = new ChildWidget({ book })
+                    return row
+                }
             })
         }
         search(query) {
+            this._selection.clear()
             const q = query ? query.trim() : ''
             if (q) {
                 library.search(query)
@@ -299,13 +368,25 @@ const makeLibraryWidget = (params, widget) => {
                 this._bindModel(library.list)
             }
         }
+        _onRowRightClick(x, y) {
+            const row = isListBox ? this.get_row_at_y(y) : this.get_child_at_pos(x, y)
+            this._selectRow(row)
+        }
+        _selectRow(row) {
+            if (!row || row instanceof LoadMore) return
+            const id = row.book.value.identifier
+            const sel = this._selection
+            if (sel.has(id)) sel.delete(id)
+            else sel.add(id)
+        }
         _onRowActivated(box, row) {
             if (row instanceof LoadMore) {
                 if (this._model === library.searchList) library.searchNext()
                 else library.next()
                 return
             }
-            const id = row.book.value.metadata.identifier
+            if (this._selection.size) return this._selectRow(row)
+            const id = row.book.value.identifier
             let uri = uriStore.get(id)
 
             if (trackerConnection) {
@@ -338,6 +419,44 @@ const makeLibraryWidget = (params, widget) => {
             }
             const file = Gio.File.new_for_uri(uri)
             this.get_toplevel().open(file)
+        }
+        removeBooks(ids) {
+            const window = this.get_toplevel()
+            const n = ids.length
+            const msg = new Gtk.MessageDialog({
+                text: ngettext(
+                    'Are you sure you want to remove this book?',
+                    'Are you sure you want to remove the %d selected books?', n).format(n),
+                secondary_text: _('Reading progress, annotations, and bookmarks will be permanently lost.'),
+                message_type: Gtk.MessageType.QUESTION,
+                modal: true,
+                transient_for: window
+            })
+            msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+            msg.add_button(_('Remove'), Gtk.ResponseType.ACCEPT)
+            msg.set_default_response(Gtk.ResponseType.CANCEL)
+            msg.get_widget_for_response(Gtk.ResponseType.ACCEPT)
+                .get_style_context().add_class('destructive-action')
+            const res = msg.run()
+            const accept = res === Gtk.ResponseType.ACCEPT
+            if (accept) {
+                for (const id of ids) {
+                    [
+                        EpubViewData.dataPath(id),
+                        EpubViewData.cachePath(id),
+                        EpubViewData.coverPath(id)
+                    ].forEach(path => {
+                        try {
+                            Gio.File.new_for_path(path).delete(null)
+                        } catch (e) {}
+                    })
+
+                    library.remove(id)
+                    uriStore.delete(id)
+                }
+            }
+            msg.close()
+            return accept
         }
     })
 }
@@ -910,7 +1029,8 @@ var LibraryWindow =  GObject.registerClass({
         'searchButton', 'searchBar', 'searchEntry',
         'libraryStack', 'bookListBox', 'bookFlowBox', 'viewButton',
         'squeezer', 'squeezerLabel', 'switcherBar',
-        'loadingBar', 'loadingProgressBar'
+        'loadingBar', 'loadingProgressBar',
+        'actionBar', 'selectionLabel'
     ],
     Properties: {
         'active-view': GObject.ParamSpec.string('active-view', 'active-view', 'active-view',
@@ -935,8 +1055,23 @@ var LibraryWindow =  GObject.registerClass({
 
         this._headlessEpubs = new Set()
 
+        const selection = new LibrarySelection()
+        this._bookFlowBox.bindSelection(selection)
+        this._bookListBox.bindSelection(selection)
+        selection.connect('selection-changed', () => {
+            const size = selection.size
+            this._actionBar.visible = size > 0
+            if (size) this._selectionLabel.label =
+                ngettext('%d selected', '%d selected', size).format(size)
+        })
+
         this.actionGroup = new Gio.SimpleActionGroup()
         const actions = {
+            'selection-remove': () => {
+                if (this._bookFlowBox.removeBooks(selection.toArray()))
+                    selection.clear()
+            },
+            'selection-clear': () => selection.clear(),
             'add-files': () => this.addFiles(),
             'add-files-stop': () => {
                 for (const offscreen of this._headlessEpubs) offscreen.destroy()
