@@ -273,9 +273,7 @@ const processFB2 = async (doc, blob, filename) => {
     }
 }
 
-const webpubFromComicBookArchive = async (uri, inputType, layout) => {
-    const cbArchiveName = decodeURI(uri).split('/').pop().split('.').slice(0, -1).join('')
-
+const webpubFromComicBookArchive = async (uri, inputType, layout, filename) => {
     const automaticStylesheet = () => {
         return `
             * {
@@ -450,7 +448,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout) => {
 
     return {
         metadata: {
-            title: cbArchiveName,
+            title: filename,
             identifier,
             layout: layout === 'automatic' ? 'pre-paginated' : 'reflowable'
         },

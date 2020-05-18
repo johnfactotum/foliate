@@ -372,7 +372,7 @@ const open = async (uri, filename, inputType, renderTo, options) => {
                     options.spread = 'none'
                 }
 
-                const json = await webpubFromComicBookArchive(uri, inputType, layout)
+                const json = await webpubFromComicBookArchive(uri, inputType, layout, filename)
                 await book.openJSON(json)
                 break
             }
