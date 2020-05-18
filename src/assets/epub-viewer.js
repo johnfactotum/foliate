@@ -497,6 +497,36 @@ const setupRendition = () => {
     rendition.on('rendered', redrawAnnotations)
     rendition.on('relocated', dispatchLocation)
 
+    // fix location drift when resizing multiple times in a row
+    // we keep a `location` that doesn't change when rendition has just been resized,
+    // then, when the resize is done, we correct the location with it,
+    // but this correction will itself trigger a `relocated` event,
+    // so we create a further `correcting` variable to track this
+    let location
+    let justResized = false
+    let correcting = false
+    rendition.on('relocated', () => {
+        // console.log('relocated')
+        if (!justResized) {
+            if (!correcting) {
+                // console.log('real relocation')
+                location = rendition.currentLocation().start.cfi
+            } else {
+                // console.log('corrected')
+                correcting = false
+            }
+        } else {
+            // console.log('correcting')
+            justResized = false
+            correcting = true
+            rendition.display(location)
+        }
+    })
+    rendition.on('resized', () => {
+        // console.log('resized')
+        justResized = true
+    })
+
     const updateDivider = () => {
         const spread = paginated && rendition.settings.spread !== 'none'
             && document.getElementById('viewer').clientWidth >= 800
