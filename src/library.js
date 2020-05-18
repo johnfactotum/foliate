@@ -351,11 +351,7 @@ const makeLibraryWidget = (params, widget) => {
             this._model = model
             this.bind_model(model, book => {
                 if (book.value === 'load-more') return new LoadMore()
-                else {
-                    const id = book.value.identifier
-                    const row = new ChildWidget({ book })
-                    return row
-                }
+                else return new ChildWidget({ book })
             })
         }
         search(query) {

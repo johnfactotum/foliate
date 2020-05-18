@@ -70,10 +70,9 @@ const fb2FromBlob = async (blob, filename) => {
 }
 
 const webpubFromFB2Zip = async (uri, filename) => {
-    let zip = new JSZip()
     const res = await fetch(uri)
     const data = await res.blob()
-    zip = await JSZip.loadAsync(data)
+    const zip = await JSZip.loadAsync(data)
     const blob = await zip.file(/\.fb2$/)[0].async('blob')
     return fb2FromBlob(blob, filename)
 }
