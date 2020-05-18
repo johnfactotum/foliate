@@ -274,8 +274,10 @@ const setStyle = style => {
     document.body.style.maxWidth = `${maxWidth}px`
 
     document.documentElement.style.filter =
-        (invert ? 'invert(1) hue-rotate(180deg) ' : '')
-        + `brightness(${brightness})`
+        invert || brightness !== 1
+            ? (invert ? 'invert(1) hue-rotate(180deg) ' : '')
+                + `brightness(${brightness})`
+            : ''
     document.body.style.color = fgColor
     document.body.style.background = bgColor
 
