@@ -58,7 +58,7 @@ header blockquote a:link, header blockquote a:visited {
 }
 main {
     margin: auto;
-    max-width: 820px;
+    max-width: 850px;
     color: #fff;
     background: #404a4a;
     border: 1px solid #666;
@@ -70,6 +70,8 @@ main .screenshot {
     filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.15));
     border-radius: 8px;
     max-width: 100%;
+    display: block;
+    margin: auto;
 }
 .grid {
     display: grid;
@@ -153,7 +155,7 @@ pre {
                 <li>Single-column, two-column, or continuous scrolling layouts</li>
                 <li>Adjust font, line-spacing, and margins</li>
                 <li>Customize colors and brightness</li>
-                <li>Hyphenation support</li>
+                <li>Auto-hyphenation</li>
             </ul>
         </div>
         <div>
@@ -169,7 +171,8 @@ pre {
         <div>
             <img src="annotation.png" alt="Screenshot" class="screenshot">
             <ul>
-                <li>Reading progress, bookmarks, and annotations stored in your XDG data directory as plain JSON files, so you can export or sync them easily.</li>
+                <li>Reading progress, bookmarks, and annotations stored in your XDG data directory as plain JSON files, so you can backup or sync them easily</li>
+                <li>Export annotations to plain text, HTML, Markdown, and more</li>
             </ul>
         </div>
         <div>
@@ -212,6 +215,10 @@ pre {
                     <td><code>dnf install <a href="https://src.fedoraproject.org/rpms/foliate">foliate</a></code></td>
                 </tr>
                 <tr>
+                    <td>OpenSUSE</td>
+                    <td><code><a href="https://software.opensuse.org/package/foliate">foliate</a></code></td>
+                </tr>
+                <tr>
                     <td>Ubuntu (.deb)</td>
                     <td>
                         <a href="https://github.com/johnfactotum/foliate/releases/latest">Download</a>
@@ -245,7 +252,7 @@ pre {
                 <li>Make sure you have these dependencies installed:
                     <ul>
                         <li><code>gjs >= 1.52</code></li>
-                        <li><code>webkit2gtk</code></li>
+                        <li><code>webkit2gtk</code><br>(<code>gir1.2-webkit2-4.0</code> for Debian based distros)</li>
                         <li><code>meson >= 0.40</code> (required for building)</li>
                         <li><code>gettext</code> (required for building)</li>
                     </ul>
@@ -263,10 +270,14 @@ sudo ninja -C build install
         <div>
             <h4>Optional dependencies</h4>
             <ul>
+                <li><code>libhandy</code> is recommended to make the interface work better on larger as well as smaller screens</li>
+                <li>Spellchecking notes requires <code>gspell</code></li>
+                <li>If <code>tracker</code> is installed, it will be used to track the locations of files</li>
+                <li><code>libsoup</code> may be required for opening remote files</li>
+                <li><code>python</code> (2.7 or >= 3.4) is required for Mobipocket (.mobi) and Kindle (.azw, .azw3) books</li>
                 <li>To enable auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.</li>
                 <li>To use offline dictionaries, install <code>dictd</code> or <code>sdcv</code></li>
                 <li>For text-to-speech support, install <code>espeak-ng</code> or <code>festival</code></li>
-                <li>Spellchecking notes requires <code>gspell</code></li>
             </ul>
         </div>
     </div>
