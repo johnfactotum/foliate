@@ -179,14 +179,17 @@ class Library {
         this.searchList.append(new Obj('load-more'))
 
         this._query = ''
+        this._fields = ''
     }
-    search(query) {
+    search(query, fields) {
         if (!query) return this._searchList.clear()
         const q = query.toLowerCase()
-        if (q === this._query) return
+        const f = fields.toString()
+        if (q === this._query && f === this._fields) return
 
         debug(`Searching for "${query}"`)
         this._query = q
+        this._fields = f
         const books = this._list.getArray()
 
         const results = []
@@ -195,10 +198,12 @@ class Library {
             const data = this._searchList.getItem(item)
             if (!data) continue
 
-            const match = (data.metadata.title || '').toLowerCase().includes(q)
-                || (data.metadata.creator || '').toLowerCase().includes(q)
-                || (data.metadata.subjects || []).map(x => x.toLowerCase())
+            const match = fields.some(field => {
+                if (field === 'subjects') return (data.metadata.subjects || [])
+                    .map(x => x.toLowerCase())
                     .some(subject => subject.includes(q))
+                else return (data.metadata[field] || '').toLowerCase().includes(q)
+            })
 
             if (match) results.push(item)
         }

@@ -214,8 +214,26 @@
                         <property name="visible">True</property>
                         <property name="maximum-width">400</property>
                         <child>
-                          <object class="GtkSearchEntry" id="searchEntry">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
+                            <style><class name="linked"/></style>
+                            <child>
+                              <object class="GtkSearchEntry" id="searchEntry">
+                                <property name="visible">True</property>
+                                <property name="hexpand">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkMenuButton" id="searchMenuButton">
+                                <property name="visible">True</property>
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="visible">True</property>
+                                    <property name="icon-name">pan-down-symbolic</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>

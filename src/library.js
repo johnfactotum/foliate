@@ -354,11 +354,11 @@ const makeLibraryWidget = (params, widget) => {
                 else return new ChildWidget({ book })
             })
         }
-        search(query) {
+        search(query, fields) {
             this._selection.clear()
             const q = query ? query.trim() : ''
             if (q) {
-                library.search(query)
+                library.search(query, fields)
                 this._bindModel(library.searchList)
             } else {
                 this._bindModel(library.list)
@@ -1022,7 +1022,7 @@ var LibraryWindow =  GObject.registerClass({
     InternalChildren: [
         'stack', 'library', 'catalog', 'catalogColumn',
         'startButtonStack', 'endButtonStack', 'mainMenuButton',
-        'searchButton', 'searchBar', 'searchEntry',
+        'searchButton', 'searchBar', 'searchEntry', 'searchMenuButton',
         'libraryStack', 'bookListBox', 'bookFlowBox', 'viewButton',
         'squeezer', 'squeezerLabel', 'switcherBar',
         'loadingBar', 'loadingProgressBar',
@@ -1105,17 +1105,14 @@ var LibraryWindow =  GObject.registerClass({
             this._updateLibraryStack()
         })
 
+        this._buildSearchOptions()
+
         this._searchButton.bind_property('active', this._searchBar, 'search-mode-enabled', flag)
         this.connect('key-press-event', (__, event) => this._searchBar.handle_event(event))
         this._searchBar.connect_entry(this._searchEntry)
         this._searchBar.connect('notify::search-mode-enabled', () => this._updateLibraryStack())
-        const handleSearchEntry = ({ text }) => {
-            this._bookFlowBox.search(text)
-            this._bookListBox.search(text)
-            this._updateLibraryStack()
-        }
-        this._searchEntry.connect('search-changed', handleSearchEntry)
-        this._searchEntry.connect('activate', handleSearchEntry)
+        this._searchEntry.connect('search-changed', () => this._doSearch())
+        this._searchEntry.connect('activate', () => this._doSearch())
         this._searchEntry.connect('stop-search', () =>
             this._searchBar.search_mode_enabled = false)
 
@@ -1134,6 +1131,46 @@ var LibraryWindow =  GObject.registerClass({
         })
 
         this._loadCatalogs()
+    }
+    _buildSearchOptions() {
+        const searchPopover = new Gtk.Popover()
+        const searchBox = new Gtk.Box({
+            visible: true,
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 3,
+            margin: 10
+        })
+        const all = Gtk.RadioButton.new_with_label_from_widget(null, _('All'))
+        searchBox.pack_start(all, false, true, 0)
+        const fields = [
+            ['title', _('Title')],
+            ['creator', _('Author')],
+            ['subjects', _('Tags')],
+            ['description', _('Description')],
+            ['publisher', _('Publisher')],
+            ['language', _('Language')],
+        ]
+        const radios = {}
+        fields.forEach(([name, label]) => {
+            const radio = Gtk.RadioButton.new_with_label_from_widget(all, label)
+            radios[name] = radio
+            searchBox.pack_start(radio, false, true, 0)
+            radio.connect('toggled', () => this._doSearch())
+        })
+        searchBox.show_all()
+        searchPopover.add(searchBox)
+        this._searchMenuButton.popover = searchPopover
+
+        this._getSearchFields = () => all.active
+            ? Object.keys(radios)
+            : [Object.keys(radios).find(x => radios[x].active === true)]
+    }
+    _doSearch() {
+        const text = this._searchEntry.text
+        const fields = this._getSearchFields()
+        this._bookFlowBox.search(text, fields)
+        this._bookListBox.search(text, fields)
+        this._updateLibraryStack()
     }
     _updateLibraryStack() {
         const stack = this._libraryStack
