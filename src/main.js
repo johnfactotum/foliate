@@ -69,14 +69,18 @@ const makeActions = app => ({
         settings.bind('cache-locations', $('cacheLocations'), 'state', flag)
         settings.bind('cache-covers', $('cacheCovers'), 'state', flag)
 
-        const showAHBox = () => {
-            $('autohideHeaderbarBox').visible =
+        const updateAHBox = () => {
+            const available =
                 !viewSettings.get_boolean('skeuomorphism')
                 && !settings.get_boolean('use-sidebar')
+
+            $('autohideHeaderbar').sensitive = available
+            $('autohideHeaderbar').visible = available
+            $('autohideHeaderbarDisabled').visible = !available
         }
-        showAHBox()
-        const h1 = viewSettings.connect('changed::skeuomorphism', showAHBox)
-        const h2 = settings.connect('changed::use-sidebar', showAHBox)
+        updateAHBox()
+        const h1 = viewSettings.connect('changed::skeuomorphism', updateAHBox)
+        const h2 = settings.connect('changed::use-sidebar', updateAHBox)
 
         const dialog = builder.get_object('preferenceDialog')
         dialog.transient_for = app.active_window

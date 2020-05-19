@@ -425,7 +425,63 @@
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="wrap">True</property>
-                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">Auto-hide header bar</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="autohideHeaderbar">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="autohideHeaderbarDisabled">
+                        <property name="visible">False</property>
+                        <property name="sensitive">False</property>
+                        <property name="state">False</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="pack-type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="label" translatable="yes">Use sidebar</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="useSidebar">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="pack-type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
                         <property name="label" translatable="yes">Use traditional titlebar (experimental)
 (requires restart)</property>
                       </object>
