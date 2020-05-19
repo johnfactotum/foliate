@@ -682,8 +682,12 @@ var EpubView = GObject.registerClass({
     }
     _disconnectData() {
         if (!this._data) return
-        if (this._dataHandlers) this._dataHandlers.forEach(h => this._data.disconnect(h))
+        if (this._dataHandlers) {
+            this._dataHandlers.forEach(h => this._data.disconnect(h))
+            this._dataHandlers = null
+        }
         this._data.disconnectAll()
+        this._data = null
     }
     _load() {
         this.emit('book-loading')
@@ -1027,6 +1031,7 @@ var EpubView = GObject.registerClass({
         return null
     }
     close() {
+        this._disconnectData()
         if (this._tmpdir) {
             recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
             this._tmpdir = null
