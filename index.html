@@ -79,12 +79,49 @@ main .screenshot {
     grid-gap: 0 10px;
     padding: 20px;
 }
-.grid > div {
-    max-width: 400px;
+.grid > * {
     padding: 20px;
 }
-.installation {
+#installation {
     background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+}
+#installation > * {
+    padding: 0 20px;
+}
+@media (min-width: 520px) {
+    #flatpak-snap {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 0 20px;
+        padding: 0;
+    }
+    #flatpak-snap h2 {
+        grid-column: 1 / -1;
+        padding: 0 20px;
+    }
+    #flatpak-snap > div {
+        padding: 0 20px;
+    }
+}
+@media (min-width: 800px) {
+    #flatpak-snap {
+        display: block;
+    }
+    #installation {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 0 20px;
+    }
+    #distro-packages {
+        grid-column: span 2;
+    }
+}
+h2, h3 {
+    text-align: center;
+}
+#installation h2, #installation h3 {
+    text-align: left;
 }
 ul {
     list-style: square;
@@ -100,6 +137,17 @@ footer {
     text-align: center;
     padding: 20px;
 }
+footer .credits {
+    opacity: 0.7;
+    font-size: small;
+}
+
+.distro-icon {
+    width: 32px;
+    display: block;
+    margin: auto;
+}
+
 li {
     padding: 5px 0;
 }
@@ -108,14 +156,17 @@ ul li::marker {
 }
 table {
     border-collapse: collapse;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 td, th {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #888;
+    background: rgba(0, 0, 0, 0.05);
+    border: solid rgba(255, 255, 255, 0.2);
+    border-width: 1px 0 1px 0;
     padding: 5px 10px;
 }
 th {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.15);
 }
 code, pre {
     background: rgba(0, 0, 0, 0.15);
@@ -150,15 +201,19 @@ pre {
 <main>
     <div class="grid">
         <div>
+            <h3>Beautiful Pages</h3>
             <ul>
                 <li>Supports EPUB, Mobipocket, Kindle, FictionBook, and comic book archive formats</li>
                 <li>Single-column, two-column, or continuous scrolling layouts</li>
                 <li>Adjust font, line-spacing, and margins</li>
                 <li>Customize colors and brightness</li>
                 <li>Auto-hyphenation</li>
+                <li>Skeuomorphic mode</li>
+                <li>Auto-hide cursor and window controls</li>
             </ul>
         </div>
         <div>
+            <h3>Navigate with Ease</h3>
             <ul>
                 <li>Progress slider, with chapter marks</li>
                 <li>Reading time estimates</li>
@@ -170,55 +225,79 @@ pre {
         </div>
         <div>
             <img src="annotation.png" alt="Screenshot" class="screenshot">
+            <h3>Bookmarks & Annotations</h3>
             <ul>
                 <li>Reading progress, bookmarks, and annotations stored in your XDG data directory as plain JSON files, so you can backup or sync them easily</li>
                 <li>Export annotations to plain text, HTML, Markdown, and more</li>
             </ul>
         </div>
         <div>
+            <img src="lookup.png" alt="Screenshot" class="screenshot">
+            <h3>Nifty Tools</h3>
             <ul>
                 <li>Look up words in Wiktionary, Wikipedia, or offline dictionaries</li>
                 <li>Translate passages with Google Translate</li>
                 <li>Text-to-speech with eSpeak NG, Festival, or other engines</li>
             </ul>
-            <img src="lookup.png" alt="Screenshot" class="screenshot">
         </div>
     </div>
     <hr>
-    <div class="grid installation">
-        <div>
+    <div id="installation">
+        <div id="flatpak-snap">
             <h2>Get Foliate</h2>
-            <p>Foliate is available on Flathub and the Snap Store:</p>
-            <center>
-            <p>
-                <a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img width="182" alt="Download on Flathub" src="flathub-badge-en.svg"></a>
-            </p>
-            <p>
-                <a href="https://snapcraft.io/foliate"><img width="182" alt="Get it from the Snap Store" src="snap-badge.svg"></a>
-            </p>
-            </center>
+            <div>
+                <h3>Flatpak</h2>
+                <p>
+                    <a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img width="182" alt="Download on Flathub" src="flathub-badge-en.svg"></a>
+                </p>
+                <p><a href="https://flatpak.org/">Flatpak</a> is a next-generation technology for building and distributing desktop applications on Linux.</p>
+            </div>
+            <div>
+                <h3>Snap</h2>
+                <p>
+                    <a href="https://snapcraft.io/foliate"><img width="182" alt="Get it from the Snap Store" src="snap-badge.svg"></a>
+                </p>
+                <p><a href="https://snapcraft.io/">Snap</a> is an universal Linux package format developed by Canonical.</p>
+            </div>
         </div>
-        <div>
+        <div id="distro-packages">
             <h3>Distribution packages</h3>
-            <p><a href="https://repology.org/project/foliate/versions"><img src="https://repology.org/badge/tiny-repos/foliate.svg" alt="Packaging status"></a></p>
             <table>
                 <thead>
-                    <th>Distribution</th>
-                    <th>Command/Package</th>
+                    <th colspan="3">Linux</th>
                 </thead>
                 <tr>
+                    <td><img src="icons/distributor-logo-archlinux.svg" class="distro-icon"></td>
                     <td>Arch Linux</td>
-                    <td><code>pacman -S <a href="https://www.archlinux.org/packages/community/x86_64/foliate/">foliate</a></code></td>
+                    <td><code>pacman -S <a href="https://www.archlinux.org/packages/?q=foliate">foliate</a></code></td>
                 </tr>
                 <tr>
+                    <td><img src="icons/distributor-logo-fedora.svg" class="distro-icon"></td>
                     <td>Fedora</td>
                     <td><code>dnf install <a href="https://src.fedoraproject.org/rpms/foliate">foliate</a></code></td>
                 </tr>
                 <tr>
+                    <td><img src="icons/distributor-logo-manjaro.svg" class="distro-icon"></td>
+                    <td>Manjaro</td>
+                    <td><code>foliate</code></td>
+                </tr>
+                <tr>
+                    <td><img src="icons/distributor-logo-mx.svg" class="distro-icon"></td>
+                    <td>MX Linux</td>
+                    <td><code>foliate</code></td>
+                </tr>
+                <tr>
+                    <td><img src="icons/distributor-logo-opensuse.svg" class="distro-icon"></td>
                     <td>OpenSUSE</td>
                     <td><code><a href="https://software.opensuse.org/package/foliate">foliate</a></code></td>
                 </tr>
                 <tr>
+                    <td><img src="icons/distributor-logo-parabola.svg" class="distro-icon"></td>
+                    <td>Parabola</td>
+                    <td><code><a href="https://www.parabola.nu/packages/?q=foliate">foliate</a></code></td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><img src="icons/distributor-logo-ubuntu.svg" class="distro-icon"></td>
                     <td>Ubuntu (.deb)</td>
                     <td>
                         <a href="https://github.com/johnfactotum/foliate/releases/latest">Download</a>
@@ -237,10 +316,30 @@ pre {
                     </td>
                 </tr>
                 <tr>
+                    <td><img src="icons/distributor-logo-void.svg" class="distro-icon"></td>
                     <td>Void Linux</td>
                     <td><code>xbps-install -S <a href="https://github.com/void-linux/void-packages/tree/master/srcpkgs/foliate">foliate</a></code></td>
                 </tr>
+                <thead>
+                    <th colspan="3">BSD</th>
+                </thead>
+                <tr>
+                    <td><img src="icons/distributor-logo-dragonflybsd.svg" class="distro-icon"></td>
+                    <td>DragonFly BSD</td>
+                    <td><code><a href="https://github.com/DragonFlyBSD/DPorts/tree/master/deskutils/foliate">deskutils/foliate</a></code></td>
+                </tr>
+                <tr>
+                    <td><img src="icons/distributor-logo-freebsd.svg" class="distro-icon"></td>
+                    <td>FreeBSD</td>
+                    <td><code><a href="https://www.freshports.org/deskutils/foliate">deskutils/foliate</a></code></td>
+                </tr>
+                <tr>
+                    <td><img src="icons/distributor-logo-netbsd.svg" class="distro-icon"></td>
+                    <td>NetBSD</td>
+                    <td><code><a href="https://pkgsrc.se/print/foliate">print/foliate</a></code></td>
+                </tr>
             </table>
+            <p>See <a href="https://repology.org/project/foliate/versions">packaging status</a> on Repology.</p>
         </div>
     </div>
     <hr>
@@ -268,14 +367,17 @@ sudo ninja -C build install
             <p>See <a href="https://github.com/johnfactotum/foliate#building-manually-from-source">README</a> for more information.</p>
         </div>
         <div>
-            <h4>Optional dependencies</h4>
+            <h3>Optional dependencies</h3>
             <ul>
                 <li><code>libhandy</code> is recommended to make the interface work better on larger as well as smaller screens</li>
                 <li>Spellchecking notes requires <code>gspell</code></li>
-                <li>If <code>tracker</code> is installed, it will be used to track the locations of files</li>
+                <li>If <code>tracker</code> is installed, it can be used to track the locations of files</li>
                 <li><code>libsoup</code> may be required for opening remote files</li>
                 <li><code>python</code> (2.7 or >= 3.4) is required for Mobipocket (.mobi) and Kindle (.azw, .azw3) books</li>
                 <li>To enable auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.</li>
+            </ul>
+            <p>External tools:</p>
+            <ul>
                 <li>To use offline dictionaries, install <code>dictd</code> or <code>sdcv</code></li>
                 <li>For text-to-speech support, install <code>espeak-ng</code> or <code>festival</code></li>
             </ul>
@@ -285,5 +387,6 @@ sudo ninja -C build install
     <footer>
         <p><a href="https://github.com/johnfactotum/foliate">Source</a> &middot; <a href="https://github.com/johnfactotum/foliate/releases">Releases</a> &middot; <a href="https://github.com/johnfactotum/foliate/issues">Issues</a> &middot; <a href="https://github.com/johnfactotum/foliate/wiki">FAQ</a></p>
         <p>Coded with mild annoyance by <a href="https://github.com/johnfactotum">John Factotum</a></p>
+        <p class="credits">Background image based on <a href="https://unsplash.com/photos/oRWRlTgBrPo">photo</a> by Scott Webb on Unsplash.<br>Icons from the <a href="https://github.com/numixproject/numix-icon-theme">Numix icon theme</a> by the Numix Project.</p>
     </footer>
 </main>
