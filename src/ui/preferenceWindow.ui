@@ -441,6 +441,19 @@
                     </child>
                   </object>
                 </child>
+
+
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="margin-top">12</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Advanced</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
                 <child>
                   <object class="GtkBox">
                     <property name="visible">True</property>
@@ -450,11 +463,12 @@
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="wrap">True</property>
-                        <property name="label" translatable="yes">Use sidebar</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">Use Tracker to track file locations</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="useSidebar">
+                      <object class="GtkSwitch" id="useTracker">
                         <property name="visible">True</property>
                         <property name="valign">center</property>
                       </object>
@@ -465,7 +479,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkBox" id="autohideHeaderbarBox">
+                  <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
                     <child>
@@ -473,11 +487,36 @@
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="wrap">True</property>
-                        <property name="label" translatable="yes">Auto-hide header bar</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">Cache locations in book</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="autohideHeaderbar">
+                      <object class="GtkSwitch" id="cacheLocations">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="use-markup">True</property>
+                        <property name="label" translatable="yes">Save book covers</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="cacheCovers">
                         <property name="visible">True</property>
                         <property name="valign">center</property>
                       </object>

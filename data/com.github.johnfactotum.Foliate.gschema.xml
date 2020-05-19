@@ -14,6 +14,16 @@
     <child schema="com.github.johnfactotum.Foliate.library" name="library"/>
     <child schema="com.github.johnfactotum.Foliate.window-state" name="window-state"/>
     <child schema="com.github.johnfactotum.Foliate.view" name="view"/>
+    <key name="cache-locations" type="b">
+      <default>true</default>
+      <summary>Cache locations</summary>
+      <description>Whether to save generated locations to cache (the locations are needed for calculating percentages of locations in book)</description>
+    </key>
+    <key name="cache-covers" type="b">
+      <default>true</default>
+      <summary>Cache covers</summary>
+      <description>Whether to save book covers to cache</description>
+    </key>
     <key name="restore-last-file" type="b">
       <default>true</default>
       <summary>Restore last file opened</summary>
@@ -247,6 +257,11 @@
       <default>'grid'</default>
       <summary>View</summary>
       <description>How to view the library</description>
+    </key>
+    <key name="use-tracker" type="b">
+      <default>true</default>
+      <summary>Use Tracker</summary>
+      <description>If true, will try to use Tracker (the file indexer) to get file locations</description>
     </key>
   </schema>
 </schemalist>

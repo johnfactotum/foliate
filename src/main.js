@@ -33,6 +33,7 @@ const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
+const librarySettings = new Gio.Settings({ schema_id: pkg.name + '.library' })
 
 const makeActions = app => ({
     'new-theme': () => {
@@ -64,6 +65,9 @@ const makeActions = app => ({
         settings.bind('img-event-type', $('imgEventTypeCombo'), 'active-id', flag)
         settings.bind('tts-command', $('ttsEntry'), 'text', flag)
         settings.bind('turn-page-on-tap', $('turnPageOnTap'), 'state', flag)
+        librarySettings.bind('use-tracker', $('useTracker'), 'state', flag)
+        settings.bind('cache-locations', $('cacheLocations'), 'state', flag)
+        settings.bind('cache-covers', $('cacheCovers'), 'state', flag)
 
         const showAHBox = () => {
             $('autohideHeaderbarBox').visible =

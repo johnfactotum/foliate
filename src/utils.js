@@ -214,7 +214,9 @@ var Storage = GObject.registerClass({
         this._debouncedWrite(this._data)
     }
     clear() {
-        this._file.delete(null)
+        try {
+            this._file.delete(null)
+        } catch (e) {}
     }
     get data() {
         return JSON.parse(JSON.stringify(this._data))

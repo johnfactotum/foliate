@@ -25,13 +25,15 @@ const { EpubView, EpubViewData } = imports.epubView
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 const { HdyColumn } = imports.handy
 
-let trackerConnection
-try {
-    const Tracker = imports.gi.Tracker
-    trackerConnection = Tracker.SparqlConnection.get(null)
-} catch(e) {}
-
 const settings = new Gio.Settings({ schema_id: pkg.name + '.library' })
+
+let trackerConnection
+if (settings.get_boolean('use-tracker')) {
+    try {
+        const Tracker = imports.gi.Tracker
+        trackerConnection = Tracker.SparqlConnection.get(null)
+    } catch(e) {}
+}
 
 const BookImage =  GObject.registerClass({
     GTypeName: 'FoliateBookImage',

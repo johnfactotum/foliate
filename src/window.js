@@ -262,6 +262,7 @@ const Footer = GObject.registerClass({
             this._right.label = '…'
         })
         this._epub.connect('locations-fallback', () => this._locationsFallback = true)
+        this._epub.connect('locations-ready', () => this._locationsFallback = false)
         this._epub.connect('relocated', () => {
             this._update()
         })

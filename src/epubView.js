@@ -40,6 +40,7 @@ const python = GLib.find_program_in_path('python') || GLib.find_program_in_path(
 const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
 
 const settings = new Gio.Settings({ schema_id: pkg.name + '.view' })
+const generalSettings = new Gio.Settings({ schema_id: pkg.name })
 
 // must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
 const CHARACTERS_PER_PAGE = 1024
@@ -324,6 +325,7 @@ var EpubViewData = GObject.registerClass({
         return this._storage.data
     }
     saveCover(cover) {
+        if (!generalSettings.get_boolean('cache-covers')) return
         // TODO: maybe don't save cover if one already exists
         debug(`saving cover to ${this._coverPath}`)
         const pixbuf = scalePixbuf(cover)
@@ -615,6 +617,8 @@ var EpubView = GObject.registerClass({
     }
     _connectData() {
         this.connect('metadata', () => {
+            const cacheLocations = generalSettings.get_boolean('cache-locations')
+
             const type = this.contentType
             this.metadata.format = type
             const { identifier } = this.metadata
@@ -629,9 +633,10 @@ var EpubView = GObject.registerClass({
                 this.actionGroup.lookup_action('clear-cache').enabled = true
                 if (this.cover) this._data.saveCover(this.cover)
             }
-            // since locations are based on characters, don't generate locations
-            // for comic books, which contain no characters
-            const fallback = ['cbz', 'cbr', 'cb7', 'cbt'].includes(this._inputType)
+            const fallback = !cacheLocations
+                // since locations are based on characters, don't generate locations
+                // for comic books, which contain no characters
+                || ['cbz', 'cbr', 'cb7', 'cbt'].includes(this._inputType)
             if (fallback) this.emit('locations-fallback')
             else this._run(`loadLocations(${locations || 'null'})`)
             this._run('render()')
