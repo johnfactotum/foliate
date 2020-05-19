@@ -73,6 +73,7 @@ const makeActions = app => ({
             const available =
                 !viewSettings.get_boolean('skeuomorphism')
                 && !settings.get_boolean('use-sidebar')
+                && !settings.get_boolean('use-menubar')
 
             $('autohideHeaderbar').sensitive = available
             $('autohideHeaderbar').visible = available
@@ -81,6 +82,7 @@ const makeActions = app => ({
         updateAHBox()
         const h1 = viewSettings.connect('changed::skeuomorphism', updateAHBox)
         const h2 = settings.connect('changed::use-sidebar', updateAHBox)
+        const h3 = settings.connect('changed::use-menubar', updateAHBox)
 
         const dialog = builder.get_object('preferenceDialog')
         dialog.transient_for = app.active_window
@@ -91,6 +93,7 @@ const makeActions = app => ({
         dialog.destroy()
         viewSettings.disconnect(h1)
         settings.disconnect(h2)
+        settings.disconnect(h3)
     },
     'open': () => {
         const allFiles = new Gtk.FileFilter()
