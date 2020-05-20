@@ -1054,6 +1054,7 @@ var LibraryWindow =  GObject.registerClass({
         } else this._squeezerLabel.hide()
 
         this._headlessEpubs = new Set()
+        this._buildDragDrop(this._library)
 
         const selection = new LibrarySelection()
         this._bookFlowBox.bindSelection(selection)
@@ -1072,7 +1073,7 @@ var LibraryWindow =  GObject.registerClass({
                     selection.clear()
             },
             'selection-clear': () => selection.clear(),
-            'add-files': () => this.addFiles(),
+            'add-files': () => this.runAddFilesDialog(),
             'add-files-stop': () => {
                 for (const offscreen of this._headlessEpubs) offscreen.destroy()
                 this._loadingBar.hide()
@@ -1136,6 +1137,22 @@ var LibraryWindow =  GObject.registerClass({
 
         this._loadCatalogs()
     }
+    _buildDragDrop(widget) {
+        widget.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
+        const targetList = widget.drag_dest_get_target_list() || Gtk.TargetList.new([])
+        targetList.add_uri_targets(0)
+        widget.drag_dest_set_target_list(targetList)
+        widget.connect('drag-data-received', (widget, context, x, y, data, info, time) => {
+            const uris = data.get_uris()
+            if (!uris) {
+                Gtk.drag_finish(context, false, false, time)
+                return
+            }
+            const files = uris.map(uri => Gio.File.new_for_uri(uri))
+            this.addFiles(files)
+            Gtk.drag_finish(context, true, false, time)
+        })
+    }
     _buildSearchOptions() {
         const searchPopover = new Gtk.Popover()
         const searchBox = new Gtk.Box({
@@ -1187,7 +1204,7 @@ var LibraryWindow =  GObject.registerClass({
             stack.visible_child_name = library.list.get_n_items()
                 ? this.active_view : 'empty'
     }
-    addFiles() {
+    runAddFilesDialog() {
         const allFiles = new Gtk.FileFilter()
         allFiles.set_name(_('All Files'))
         allFiles.add_pattern('*')
@@ -1216,7 +1233,9 @@ var LibraryWindow =  GObject.registerClass({
         if (dialog.run() !== Gtk.ResponseType.ACCEPT) return
 
         const files = dialog.get_files()
-
+        this.addFiles(files)
+    }
+    addFiles(files) {
         this._loadingProgressBar.fraction = 0
         this._loadingProgressBar.visible = files.length > 1
         this._loadingBar.show()

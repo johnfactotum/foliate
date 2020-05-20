@@ -681,8 +681,8 @@ var EpubView = GObject.registerClass({
         })
         this._webView.connect('destroy', () => {
             if (!this._data) return
-            this._disconnectData()
             this._data.deleteView(this)
+            this._disconnectData()
         })
     }
     _disconnectData() {
