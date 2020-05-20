@@ -194,23 +194,44 @@ const makeActions = app => ({
 })
 
 function main(argv) {
+    let restore = true
+
     const application = new Gtk.Application({
         application_id: 'com.github.johnfactotum.Foliate',
         flags: Gio.ApplicationFlags.HANDLES_OPEN
     })
 
+    application.add_main_option('library',
+        0, GLib.OptionFlags.NONE, GLib.OptionArg.NONE,
+        _('Open library window'), null)
+
+    application.add_main_option('version',
+        'v'.charCodeAt(0), GLib.OptionFlags.NONE, GLib.OptionArg.NONE,
+        _('Show version'), null)
+
     application.connect('activate', () => {
-        let activeWindow = application.activeWindow
-        if (!activeWindow) {
-            const lastFile = windowState.get_string('last-file')
-            if (settings.get_boolean('restore-last-file') && lastFile)
-                activeWindow = new Window({
-                    application,
-                    file: Gio.File.new_for_path(lastFile)
-                })
-            else activeWindow = new LibraryWindow({ application })
+        const windows = application.get_windows()
+        let window
+        const lastFile = windowState.get_string('last-file')
+        if (restore && !windows.length && settings.get_boolean('restore-last-file') && lastFile)
+            window = new Window({
+                application,
+                file: Gio.File.new_for_path(lastFile)
+            })
+        else {
+            window = windows.find(window => window instanceof LibraryWindow)
+                || new LibraryWindow({ application })
         }
-        activeWindow.present()
+        window.present_with_time(Gdk.CURRENT_TIME)
+    })
+
+    application.connect('handle-local-options', (application, options) => {
+        if (options.contains('version')) {
+            print(pkg.version)
+            return 0
+        }
+        if (options.contains('library')) restore = false
+        return -1
     })
 
     application.connect('open', (_, files) => files.forEach(file => {
