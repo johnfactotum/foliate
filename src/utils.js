@@ -40,6 +40,9 @@ const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf } = imports.gi
 const ByteArray = imports.byteArray
 const ngettext = imports.gettext.ngettext
 
+let verbose = false
+var setVerbose = value => verbose = value
+
 // wrap Object as GObject.Object, mainly so that we can put it in Gio.ListStore
 // this is much easier than defining types for everything
 var Obj = GObject.registerClass({
@@ -53,7 +56,7 @@ var Obj = GObject.registerClass({
 
 var LOG_DOMAIN = 'Foliate'
 
-var debug = message =>
+var debug = message => verbose ? log(message) :
     GLib.log_structured(LOG_DOMAIN, GLib.LogLevelFlags.LEVEL_DEBUG, {
         MESSAGE: message,
         SYSLOG_IDENTIFIER: pkg.name,

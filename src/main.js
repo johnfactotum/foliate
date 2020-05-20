@@ -29,6 +29,7 @@ const { mimetypes } = imports.utils
 const { Window } = imports.window
 const { LibraryWindow, OpdsWindow } = imports.library
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
+const { setVerbose } = imports.utils
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
@@ -209,6 +210,10 @@ function main(argv) {
         'v'.charCodeAt(0), GLib.OptionFlags.NONE, GLib.OptionArg.NONE,
         _('Show version'), null)
 
+    application.add_main_option('verbose',
+        0, GLib.OptionFlags.NONE, GLib.OptionArg.NONE,
+        _('Show verbose debugging information'), null)
+
     application.connect('activate', () => {
         const windows = application.get_windows()
         let window
@@ -230,6 +235,7 @@ function main(argv) {
             print(pkg.version)
             return 0
         }
+        if (options.contains('verbose')) setVerbose(true)
         if (options.contains('library')) restore = false
         return -1
     })
