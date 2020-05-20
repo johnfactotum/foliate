@@ -346,7 +346,7 @@ const makeLibraryWidget = (params, widget) => {
                     row.enableSelection = size
                 })
             })
-            this.connect('destroy', () => selection.disconect(h))
+            this.connect('unrealize', () => selection.disconnect(h))
         }
         _bindModel(model) {
             if (model === this._model) return
