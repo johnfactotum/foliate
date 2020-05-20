@@ -354,7 +354,7 @@ const makeLibraryWidget = (params, widget) => {
             this.bind_model(model, book => {
                 if (book.value === 'load-more') return new LoadMore()
                 const widget = new ChildWidget({ book })
-                widget.enableSelection = this._selection.size
+                widget.enableSelection = this._selection && this._selection.size
                 return widget
             })
         }
