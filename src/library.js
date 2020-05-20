@@ -21,7 +21,7 @@ const { debug, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
 const { uriStore, library } = imports.uriStore
-const { EpubView, EpubViewData } = imports.epubView
+const { headlessViewer, EpubViewData } = imports.epubView
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 const { HdyColumn } = imports.handy
 
@@ -1058,7 +1058,6 @@ var LibraryWindow =  GObject.registerClass({
                 this._switcherBar.reveal = this._squeezer.visible_child === this._squeezerLabel)
         } else this._squeezerLabel.hide()
 
-        this._headlessEpubs = new Set()
         this._buildDragDrop(this._library)
 
         const selection = new LibrarySelection()
@@ -1080,7 +1079,7 @@ var LibraryWindow =  GObject.registerClass({
             'selection-clear': () => selection.clear(),
             'add-files': () => this.runAddFilesDialog(),
             'add-files-stop': () => {
-                for (const offscreen of this._headlessEpubs) offscreen.destroy()
+                headlessViewer.stop()
                 this._loadingBar.hide()
             },
             'toggle-view': () => {
@@ -1135,9 +1134,18 @@ var LibraryWindow =  GObject.registerClass({
             .connect('items-changed', () => this._updateLibraryStack())
         this._updateLibraryStack()
 
+        const viewerHandler = headlessViewer.connect('progress', (viewer, progress, total) => {
+            this._loadingBar.show()
+            this._loadingProgressBar.fraction = progress / total
+            if (progress === total) {
+                this._loadingBar.hide()
+                this._loadingProgressBar.fraction = 0
+            }
+        })
         this.connect('destroy', () => {
             library.list.disconnect(listHandler)
             library.searchList.disconnect(searchListHAndler)
+            headlessViewer.disconnect(viewerHandler)
         })
 
         this._loadCatalogs()
@@ -1154,7 +1162,7 @@ var LibraryWindow =  GObject.registerClass({
                 return
             }
             const files = uris.map(uri => Gio.File.new_for_uri(uri))
-            this.addFiles(files)
+            headlessViewer.openFiles(files)
             Gtk.drag_finish(context, true, false, time)
         })
     }
@@ -1238,54 +1246,7 @@ var LibraryWindow =  GObject.registerClass({
         if (dialog.run() !== Gtk.ResponseType.ACCEPT) return
 
         const files = dialog.get_files()
-        this.addFiles(files)
-    }
-    addFiles(files) {
-        this._loadingProgressBar.fraction = 0
-        this._loadingProgressBar.visible = files.length > 1
-        this._loadingBar.show()
-
-        const total = files.length
-        let progress = 0
-
-        let promise = Promise.resolve()
-        for (const file of files) {
-            const then = () => {
-                progress ++
-                this._loadingProgressBar.fraction = progress / total
-                if (progress === total) this._loadingBar.hide()
-            }
-            const f = () => this.addFile(file).then(then).catch(then)
-            promise = promise.then(f).catch(f)
-        }
-    }
-    addFile(file) {
-        return new Promise((resolve, reject) => {
-            let metadataLoaded, coverLoaded
-            const epub = new EpubView()
-            const offscreen = new Gtk.OffscreenWindow()
-            offscreen.add(epub.widget)
-            offscreen.show_all()
-            this._headlessEpubs.add(offscreen)
-            const close = () => {
-                if (!metadataLoaded || !coverLoaded) return
-                this._headlessEpubs.delete(offscreen)
-                offscreen.destroy()
-                resolve()
-            }
-            epub.connect('metadata', () => {
-                metadataLoaded = true
-                close()
-            })
-            epub.connect('cover', () => {
-                coverLoaded = true
-                close()
-            })
-            epub.connect('book-error', () => reject())
-            // NOTE: must not open until we've connected to `book-error`
-            // because opening a book can fail synchronously!
-            epub.open(file)
-        })
+        headlessViewer.openFiles(files)
     }
     open(file) {
         new Window({ application: this.application, file }).present()

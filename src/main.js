@@ -30,6 +30,7 @@ const { Window } = imports.window
 const { LibraryWindow, OpdsWindow } = imports.library
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
 const { setVerbose } = imports.utils
+const { headlessViewer } = imports.epubView
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
@@ -197,6 +198,7 @@ const makeActions = app => ({
 
 function main(argv) {
     let restore = true
+    let openHint = ''
 
     const application = new Gtk.Application({
         application_id: 'com.github.johnfactotum.Foliate',
@@ -206,6 +208,10 @@ function main(argv) {
     application.add_main_option('library',
         0, GLib.OptionFlags.NONE, GLib.OptionArg.NONE,
         _('Open library window'), null)
+
+    application.add_main_option('add',
+        0, GLib.OptionFlags.NONE, GLib.OptionArg.NONE,
+        _('Add files to the library'), null)
 
     application.add_main_option('version',
         'v'.charCodeAt(0), GLib.OptionFlags.NONE, GLib.OptionArg.NONE,
@@ -232,24 +238,50 @@ function main(argv) {
     })
 
     application.connect('handle-local-options', (application, options) => {
+        application.register(null)
         if (options.contains('version')) {
             print(pkg.version)
             return 0
         }
         if (options.contains('verbose')) setVerbose(true)
         if (options.contains('library')) restore = false
+        if (options.contains('add')) {
+            if (application.get_is_remote()) {
+                const files = argv.splice(1)
+                    .filter(x => !x.startsWith('-'))
+                    .map(x => Gio.File.new_for_commandline_arg(x))
+                application.open(files, 'add')
+                return 0
+            } else openHint = 'add'
+        }
         return -1
     })
 
-    application.connect('open', (_, files) => files.forEach(file => {
-        let window
-        if (file.get_uri_scheme() === 'opds') {
-            window = new OpdsWindow({ application })
-            const uri = file.get_uri().replace(/^opds:\/\//, 'http://')
-            window.loadOpds(uri)
-        } else window = new Window({ application, file })
-        window.present()
-    }))
+    let held = false
+    application.connect('open', (application, files, hint) => {
+        if (hint === 'add' || openHint === 'add') {
+            if (!held) {
+                application.hold()
+                held = true
+            }
+            headlessViewer.connect('progress', (viewer, progress, total) => {
+                if (openHint) print(Math.round(progress / total * 100) + '%')
+                if (progress === total && held) {
+                    application.release()
+                    held = false
+                }
+            })
+            headlessViewer.openFiles(files)
+        } else files.forEach(file => {
+            let window
+            if (file.get_uri_scheme() === 'opds') {
+                window = new OpdsWindow({ application })
+                const uri = file.get_uri().replace(/^opds:\/\//, 'http://')
+                window.loadOpds(uri)
+            } else window = new Window({ application, file })
+            window.present()
+        })
+    })
 
     application.connect('startup', () => {
         viewSettings.bind('prefer-dark-theme', Gtk.Settings.get_default(),

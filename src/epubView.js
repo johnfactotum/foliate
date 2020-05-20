@@ -1133,3 +1133,70 @@ var EpubView = GObject.registerClass({
         return this._webView
     }
 })
+
+var HeadlessEpubViewer = GObject.registerClass({
+    GTypeName: 'FoliateHeadlessEpubViewer',
+    Signals: {
+        'progress': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_INT, GObject.TYPE_INT]
+        },
+    }
+}, class HeadlessEpubViewer extends GObject.Object {
+    _init(params) {
+        super._init(params)
+        this._set = new Set()
+        this._total = 0
+        this._progress = 0
+        this._queue = Promise.resolve()
+    }
+    openFiles(files) {
+        this._total += files.length
+        this.emit('progress', this._progress, this._total)
+        for (const file of files) {
+            const then = () => {
+                this._progress++
+                this.emit('progress', this._progress, this._total)
+                if (this._progress === this._total) this.stop()
+            }
+            const f = () => this.open(file).then(then).catch(then)
+            this._queue = this._queue.then(f).catch(f)
+        }
+    }
+    stop() {
+        for (const offscreen of this._set) offscreen.destroy()
+        this._set.clear()
+        this._total = 0
+        this._progress = 0
+    }
+    open(file) {
+        return new Promise((resolve, reject) => {
+            let metadataLoaded, coverLoaded
+            const epub = new EpubView()
+            const offscreen = new Gtk.OffscreenWindow()
+            offscreen.add(epub.widget)
+            offscreen.show_all()
+            this._set.add(offscreen)
+            const close = () => {
+                if (!metadataLoaded || !coverLoaded) return
+                this._set.delete(offscreen)
+                offscreen.destroy()
+                resolve()
+            }
+            epub.connect('metadata', () => {
+                metadataLoaded = true
+                close()
+            })
+            epub.connect('cover', () => {
+                coverLoaded = true
+                close()
+            })
+            epub.connect('book-error', () => reject())
+            // NOTE: must not open until we've connected to `book-error`
+            // because opening a book can fail synchronously!
+            epub.open(file)
+        })
+    }
+})
+
+var headlessViewer = new HeadlessEpubViewer()
