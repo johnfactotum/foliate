@@ -29,7 +29,7 @@ const { mimetypes } = imports.utils
 const { Window } = imports.window
 const { LibraryWindow, OpdsWindow } = imports.library
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
-const { setVerbose } = imports.utils
+const { setVerbose, setTimeout } = imports.utils
 const { headlessViewer } = imports.epubView
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -267,8 +267,13 @@ function main(argv) {
             headlessViewer.connect('progress', (viewer, progress, total) => {
                 if (openHint) print(Math.round(progress / total * 100) + '%')
                 if (progress === total && held) {
-                    application.release()
-                    held = false
+                    // add a delay because of debouncing when writing metadata
+                    // this doens't feel like the proper way but it's probably
+                    // the easiest fix
+                    setTimeout(() => {
+                        application.release()
+                        held = false
+                    }, 1500)
                 }
             })
             headlessViewer.openFiles(files)
