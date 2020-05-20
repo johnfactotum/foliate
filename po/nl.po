@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-18 20:43+0800\n"
-"PO-Revision-Date: 2020-05-15 17:31+0200\n"
+"PO-Revision-Date: 2020-05-19 17:25+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
@@ -62,21 +62,20 @@ msgid "Searching…"
 msgstr "Bezig met zoeken…"
 
 #: src/epubView.js:962
-#, fuzzy
 msgid "File not found."
-msgstr "Geen item gevonden"
+msgstr "Bestand niet aangetroffen."
 
 #: src/epubView.js:974
 msgid "Failed to load remote file."
-msgstr ""
+msgstr "Kan extern bestand niet laden."
 
 #: src/epubView.js:1006
 msgid "Could not unpack Kindle file."
-msgstr ""
+msgstr "Kan Kindle-bestand niet uitpakken."
 
 #: src/epubView.js:1022
 msgid "File type not supported."
-msgstr ""
+msgstr "Dit bestandstype wordt niet ondersteund."
 
 #: src/export.js:31
 #, javascript-format
@@ -125,14 +124,13 @@ msgid " Note: "
 msgstr " Notitie: "
 
 #: src/export.js:107
-#, fuzzy
 msgid "Save File"
-msgstr "Bestand openen"
+msgstr "Bestand opslaan"
 
 #: src/export.js:114
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for “%s”"
-msgstr "Aantekeningen bij '%s' van '%s'"
+msgstr "Aantekeningen bij '%s'"
 
 #: src/library.js:130 src/window.js:603 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
@@ -141,26 +139,27 @@ msgstr "Over dit boek"
 
 #: src/library.js:243 src/library.js:261
 msgid "Load more"
-msgstr ""
+msgstr "Meer laden"
 
 #: src/library.js:402
 msgid "File location unkown"
-msgstr ""
+msgstr "Onbekende bestandslocatie"
 
 #: src/library.js:403
 msgid "Choose the location of this file to open it."
-msgstr ""
+msgstr "Geef de locatie op van het te openen bestand."
 
 #: src/library.js:424
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Weet je zeker dat je dit boek wilt verwijderen?"
+msgstr[1] "Weet je zeker dat je de %d geselecteerde boeken wilt verwijderen?"
 
 #: src/library.js:426
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
+"De leesvoortgang, aantekeningen en bladwijzers worden permanent gewist."
 
 #: src/library.js:431 src/main.js:130 src/window.js:524
 #: src/ui/exportWindow.ui:38 src/ui/libraryWindow.ui:425
@@ -178,63 +177,62 @@ msgstr "Verwijderen"
 #. authors or categories
 #: src/library.js:569
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/library.js:594
 msgid "Unable to load OPDS feed"
-msgstr ""
+msgstr "Kan OPDS-feed niet laden"
 
 #: src/library.js:615
 msgid "Download"
-msgstr ""
+msgstr "Downloaden"
 
 #: src/library.js:617
 msgid "Buy"
-msgstr ""
+msgstr "Kopen"
 
 #: src/library.js:618
 msgid "Free"
-msgstr ""
+msgstr "Gratis"
 
 #: src/library.js:619
 msgid "Sample"
-msgstr ""
+msgstr "Voorbeeld"
 
 #: src/library.js:620
 msgid "Borrow"
-msgstr ""
+msgstr "Lenen"
 
 #: src/library.js:621
 msgid "Subscribe"
-msgstr ""
+msgstr "Abonneren"
 
 #: src/library.js:1061
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d geselecteerd"
+msgstr[1] "%d geselecteerd"
 
 #: src/library.js:1143
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: src/library.js:1146
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: src/library.js:1147
 msgid "Author"
-msgstr ""
+msgstr "Auteur"
 
 #: src/library.js:1148 src/properties.js:71
 msgid "Tags"
-msgstr ""
+msgstr "Labels"
 
 #: src/library.js:1149
-#, fuzzy
 msgid "Description"
-msgstr "Sectie: "
+msgstr "Beschrijving"
 
 #: src/library.js:1150 src/properties.js:75
 msgid "Publisher"
@@ -253,13 +251,12 @@ msgid "E-book Files"
 msgstr "E-boekbestanden"
 
 #: src/library.js:1204
-#, fuzzy
 msgid "Add Files"
-msgstr "Alle bestanden"
+msgstr "Bestanden toevoegen"
 
 #: src/library.js:1292
 msgid "See More"
-msgstr ""
+msgstr "Meer tonen"
 
 #: src/library.js:1574 src/window.js:1246 src/ui/libraryWindow.ui:176
 msgid "Loading…"
@@ -267,60 +264,55 @@ msgstr "Bezig met laden…"
 
 #: src/library.js:1614
 msgid "First"
-msgstr ""
+msgstr "Eerste"
 
 #: src/library.js:1615
-#, fuzzy
 msgid "Previous"
-msgstr "Vorige pagina"
+msgstr "Vorige"
 
 #: src/library.js:1616
-#, fuzzy
 msgid "Next"
-msgstr "Volgende pagina"
+msgstr "Volgende"
 
 #: src/library.js:1617
 msgid "Last"
-msgstr ""
+msgstr "Laatste"
 
 #: src/library.js:1649 src/window.js:968
 msgid "Error"
-msgstr ""
+msgstr "Fout"
 
 #: src/library.js:1663
 msgid "Related"
-msgstr ""
+msgstr "Verwant"
 
 #: src/library.js:1664
-#, fuzzy
 msgid "Section"
-msgstr "Sectie: "
+msgstr "Sectie"
 
 #: src/library.js:1665
-#, fuzzy
 msgid "Subsection"
-msgstr "Sectie: "
+msgstr "Subsectie"
 
 #: src/library.js:1666
 msgid "New"
-msgstr ""
+msgstr "Nieuw"
 
 #: src/library.js:1667
 msgid "Popular"
-msgstr ""
+msgstr "Populair"
 
 #: src/library.js:1668
-#, fuzzy
 msgid "Featured"
-msgstr "Mogelijkheden:"
+msgstr "Uitgelicht"
 
 #: src/library.js:1669
 msgid "Recommended"
-msgstr ""
+msgstr "Aanbevolen"
 
 #: src/library.js:1701
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: src/lookup.js:96
 msgid "Search on Wikipedia"
@@ -331,9 +323,8 @@ msgid "Source: "
 msgstr "Bron: "
 
 #: src/lookup.js:220
-#, fuzzy
 msgid "Wiktionary"
-msgstr "Woordenboek"
+msgstr "Wiktionary"
 
 #: src/lookup.js:303
 msgid "Wiktionary (English)"
@@ -352,18 +343,16 @@ msgid "Open File"
 msgstr "Bestand openen"
 
 #: src/main.js:125
-#, fuzzy
 msgid "Open a Catalog"
-msgstr "Kopie openen"
+msgstr "Catalogus openen"
 
 #: src/main.js:131
-#, fuzzy
 msgid "Open"
-msgstr "Openen…"
+msgstr "Openen"
 
 #: src/main.js:135
 msgid "OPDS Catalog URL:"
-msgstr ""
+msgstr "OPDS-catalogus-url:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
@@ -377,7 +366,7 @@ msgstr "Een eenvoudige, moderne e-boeklezer"
 
 #: src/properties.js:72
 msgid " • "
-msgstr ""
+msgstr " • "
 
 #: src/properties.js:79
 msgid "Publication Date"
@@ -388,13 +377,12 @@ msgid "Modified Date"
 msgstr "Bewerkt op"
 
 #: src/properties.js:91
-#, fuzzy
 msgid "File Size"
-msgstr "Bestand"
+msgstr "Bestandsgrootte"
 
 #: src/properties.js:95
 msgid "Format"
-msgstr ""
+msgstr "Formaat"
 
 #: src/properties.js:101
 msgid "Identifier"
@@ -404,6 +392,8 @@ msgstr "Identificatie"
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr ""
+"Dit boek bevat geen identificatie. Dit is de door het bestand gegenereerde "
+"md5-controlesom."
 
 #: src/properties.js:126
 msgid "Copyright"
@@ -411,33 +401,31 @@ msgstr "Copyright"
 
 #: src/properties.js:137
 msgid "Amazon"
-msgstr ""
+msgstr "Amazon"
 
 #: src/properties.js:141
 msgid "Goodreads"
-msgstr ""
+msgstr "Goodreads"
 
 #: src/properties.js:145
-#, fuzzy
 msgid "Google Books"
-msgstr "Lees e-boeken"
+msgstr "Google Books"
 
 #: src/properties.js:149
 msgid "LibraryThing"
-msgstr ""
+msgstr "LibraryThing"
 
 #: src/properties.js:153
-#, fuzzy
 msgid "Open Library"
-msgstr "Kopie openen"
+msgstr "Open Library"
 
 #: src/properties.js:157
 msgid "WorldCat"
-msgstr ""
+msgstr "WorldCat"
 
 #: src/properties.js:196
 msgid "Find on…"
-msgstr ""
+msgstr "Opzoeken op…"
 
 #: src/theme.js:23
 msgid "Light"
@@ -485,30 +473,30 @@ msgstr "Nord"
 #. used for testing text-to-speech
 #: src/tts.js:225
 msgid "The North Wind and the Sun were disputing which was the stronger,"
-msgstr ""
+msgstr "De noorderwind en zon waren het oneens over wie er sterker was,"
 
 #: src/tts.js:226
 msgid "when a traveler came along wrapped in a warm cloak."
-msgstr ""
+msgstr "toen een reiziger in een warm gewaad voorbijliep."
 
 #. Translators: this is the language code of the test sentences
 #: src/tts.js:228
 msgid "en"
-msgstr ""
+msgstr "nl"
 
 #: src/utils.js:374
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minuut"
+msgstr[1] "%d minuten"
 
 #: src/utils.js:377
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d uur"
+msgstr[1] "%d uur"
 
 #: src/window.js:122 src/window.js:765
 msgid "Leave fullscreen"
@@ -526,15 +514,15 @@ msgstr "van %d"
 
 #: src/window.js:518
 msgid "This file or format does not work well with annotations"
-msgstr ""
+msgstr "Dit bestand of bestandsformaat kan geen aantekeningen verwerken"
 
 #: src/window.js:519
 msgid "Your annotations might stop working properly at any time."
-msgstr ""
+msgstr "Mogelijk werken je aantekeningen binnenkort niet goed meer."
 
 #: src/window.js:525
 msgid "Continue Anyway"
-msgstr ""
+msgstr "Tóch doorgaan"
 
 #: src/window.js:623 src/ui/contentsStack.ui:74
 msgid "No annotations"
@@ -545,14 +533,12 @@ msgid "You don't have any annotations for this book."
 msgstr "Je hebt geen aantekeningen gemaakt bij dit boek."
 
 #: src/window.js:625
-#, fuzzy
 msgid "Highlight some text to add annotations."
 msgstr "Maak aantekeningen door tekst te markeren."
 
 #: src/window.js:744
-#, fuzzy
 msgid "Contents"
-msgstr "Inhoud tonen"
+msgstr "Inhoud"
 
 #: src/window.js:748 data/com.github.johnfactotum.Foliate.gschema.xml:220
 msgid "Show sidebar"
@@ -564,16 +550,16 @@ msgstr "Zoeken"
 
 #: src/window.js:760 src/ui/libraryWindow.ui:99 src/ui/opdsWindow.ui:69
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: src/window.js:1032
 #, javascript-format
 msgid "Image from “%s”"
-msgstr ""
+msgstr "Afbeelding van '%s'"
 
 #: src/window.js:1032
 msgid "Image"
-msgstr ""
+msgstr "Afbeelding"
 
 #: src/ui/annotationBox.ui:35
 msgid "Change highlight color"
@@ -584,9 +570,8 @@ msgid "Choose custom color"
 msgstr "Aangepaste kleur kiezen"
 
 #: src/ui/bookBoxChild.ui:29 src/ui/bookBoxRow.ui:76
-#, fuzzy
 msgid "Remote file"
-msgstr "Thema verwijderen"
+msgstr "Extern bestand"
 
 #: src/ui/contentsStack.ui:39
 msgid "Table of Contents"
@@ -706,9 +691,8 @@ msgid "Open…"
 msgstr "Openen…"
 
 #: src/ui/libraryWindow.ui:11 src/ui/opdsWindow.ui:17
-#, fuzzy
 msgid "Open a Catalog…"
-msgstr "Kopie openen"
+msgstr "Catalogus openen…"
 
 #: src/ui/libraryWindow.ui:16 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:72
 #: src/ui/opdsWindow.ui:22 src/ui/preferenceWindow.ui:118
@@ -726,30 +710,28 @@ msgstr "Over Foliate"
 
 #: src/ui/libraryWindow.ui:45
 msgid "Add books"
-msgstr ""
+msgstr "Boeken toevoegen"
 
 #: src/ui/libraryWindow.ui:61
 msgid "Add catalog"
-msgstr ""
+msgstr "Catalogus toevoegen"
 
 #: src/ui/libraryWindow.ui:122 src/ui/opdsWindow.ui:84
 #: src/ui/shortcutsWindow.ui:17
-#, fuzzy
 msgid "Search"
-msgstr "Bezig met zoeken…"
+msgstr "Zoeken"
 
 #: src/ui/libraryWindow.ui:135
 msgid "Toggle view"
-msgstr ""
+msgstr "Andere weergave"
 
 #: src/ui/libraryWindow.ui:195
 msgid "Stop"
-msgstr ""
+msgstr "Stoppen"
 
 #: src/ui/libraryWindow.ui:305
-#, fuzzy
 msgid "No books yet"
-msgstr "Geen geopende boeken"
+msgstr "Nog geen boeken"
 
 #: src/ui/libraryWindow.ui:317 src/ui/mainOverlay.ui:60
 msgid "Open a book to start reading."
@@ -761,25 +743,23 @@ msgstr "Bestand openen…"
 
 #: src/ui/libraryWindow.ui:339
 msgid "Browse Catalogs"
-msgstr ""
+msgstr "Bladeren door catalogi"
 
 #: src/ui/libraryWindow.ui:371
-#, fuzzy
 msgid "No results found"
 msgstr "Geen resultaten"
 
 #: src/ui/libraryWindow.ui:383
 msgid "Try a different search."
-msgstr ""
+msgstr "Probeer een andere zoekopdracht."
 
 #: src/ui/libraryWindow.ui:436 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
 msgid "Library"
-msgstr ""
+msgstr "Bibliotheek"
 
 #: src/ui/libraryWindow.ui:453
-#, fuzzy
 msgid "Catalogs"
-msgstr "Catalaans"
+msgstr "Catalogi"
 
 #: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:157
 msgid "Brightness"
@@ -894,10 +874,9 @@ msgstr "Herladen"
 
 #: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
 msgid "Clear Cache"
-msgstr ""
+msgstr "Cache wissen"
 
 #: src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
-#, fuzzy
 msgid "Export Annotations…"
 msgstr "Aantekeningen exporteren…"
 
@@ -911,25 +890,23 @@ msgstr "Recente bestanden"
 
 #: src/ui/mainOverlay.ui:129
 msgid "Could not open file"
-msgstr ""
+msgstr "Kan bestand niet openen"
 
 #: src/ui/mainOverlay.ui:150
 msgid "Open Another File…"
 msgstr "Ander bestand openen…"
 
 #: src/ui/menuBar.ui:5
-#, fuzzy
 msgid "_File"
-msgstr "Bestand"
+msgstr "_Bestand"
 
 #: src/ui/menuBar.ui:28
 msgid "Properties"
-msgstr ""
+msgstr "Eigenschappen"
 
 #: src/ui/menuBar.ui:40
-#, fuzzy
 msgid "Close Window"
-msgstr "Huidig venster sluiten"
+msgstr "Venster sluiten"
 
 #: src/ui/menuBar.ui:44 src/ui/shortcutsWindow.ui:31
 #: src/ui/shortcutsWindow.ui:114 src/ui/shortcutsWindow.ui:332
@@ -937,81 +914,68 @@ msgid "Quit"
 msgstr "Afsluiten"
 
 #: src/ui/menuBar.ui:51
-#, fuzzy
 msgid "_Edit"
-msgstr "Bewerken"
+msgstr "B_ewerken"
 
 #: src/ui/menuBar.ui:60
-#, fuzzy
 msgid "Bookmark Current Location"
 msgstr "Huidige locatie toevoegen aan bladwijzers"
 
 #: src/ui/menuBar.ui:66 src/ui/ttsDialog.ui:6
-#, fuzzy
 msgid "Text-to-Speech"
 msgstr "Tekst-naar-spraak"
 
 #: src/ui/menuBar.ui:79
-#, fuzzy
 msgid "_View"
-msgstr "Weergave"
+msgstr "Weerga_ve"
 
 #: src/ui/menuBar.ui:82
-#, fuzzy
 msgid "Toggle Fullscreen"
 msgstr "Beeldvullende modus aan/uit"
 
 #: src/ui/menuBar.ui:88
-#, fuzzy
 msgid "Zoom In"
 msgstr "Inzoomen"
 
 #: src/ui/menuBar.ui:92
-#, fuzzy
 msgid "Restore Zoom"
 msgstr "Oorspronkelijk zoomniveau"
 
 #: src/ui/menuBar.ui:96
-#, fuzzy
 msgid "Zoom Out"
 msgstr "Uitzoomen"
 
 #: src/ui/menuBar.ui:168
-#, fuzzy
 msgid "_Go"
-msgstr "Gaan"
+msgstr "Navi_gatie"
 
 #: src/ui/menuBar.ui:171
 msgid "Go Back"
-msgstr ""
+msgstr "Ga terug"
 
 #: src/ui/menuBar.ui:177
-#, fuzzy
 msgid "Next Page"
 msgstr "Volgende pagina"
 
 #: src/ui/menuBar.ui:181
-#, fuzzy
 msgid "Previous Page"
 msgstr "Vorige pagina"
 
 #: src/ui/menuBar.ui:187
-#, fuzzy
 msgid "Next Chapter"
-msgstr "Hoofdstuk"
+msgstr "Volgende hoofdstuk"
 
 #: src/ui/menuBar.ui:191
-#, fuzzy
 msgid "Previous Chapter"
-msgstr "Vorige pagina"
+msgstr "Vorige hoofdstuk"
 
 #: src/ui/menuBar.ui:197
 msgid "Beginning"
-msgstr ""
+msgstr "Begin"
 
 #: src/ui/menuBar.ui:201
 msgid "End"
-msgstr ""
+msgstr "Einde"
 
 #: src/ui/menuBar.ui:207 src/ui/navBar.ui:134 src/ui/navBar.ui:350
 #: src/ui/preferenceWindow.ui:19
@@ -1020,7 +984,7 @@ msgstr "Locatie"
 
 #: src/ui/menuBar.ui:214
 msgid "_Help"
-msgstr ""
+msgstr "_Hulp"
 
 #: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 msgid "Time left in book"
@@ -1081,9 +1045,8 @@ msgid "Go back"
 msgstr "Ga terug"
 
 #: src/ui/opdsWindow.ui:56
-#, fuzzy
 msgid "Go to start"
-msgstr "Ga naar locatie"
+msgstr "Ga naar begin"
 
 #: src/ui/preferenceWindow.ui:11
 msgid "Nothing"
@@ -1137,24 +1100,23 @@ msgstr "Voorlezen"
 
 #: src/ui/preferenceWindow.ui:95
 msgid "Disabled"
-msgstr ""
+msgstr "Uitgeschakeld"
 
 #: src/ui/preferenceWindow.ui:99
-#, fuzzy
 msgid "Single click"
-msgstr "Eén kolom"
+msgstr "Eén keer klikken"
 
 #: src/ui/preferenceWindow.ui:103
 msgid "Double click"
-msgstr ""
+msgstr "Dubbelklikken"
 
 #: src/ui/preferenceWindow.ui:107
 msgid "Middle click"
-msgstr ""
+msgstr "Middelklikken"
 
 #: src/ui/preferenceWindow.ui:111
 msgid "Right click"
-msgstr ""
+msgstr "Rechtsklikken"
 
 #: src/ui/preferenceWindow.ui:142 src/ui/shortcutsWindow.ui:13
 #: src/ui/shortcutsWindow.ui:307
@@ -1193,9 +1155,8 @@ msgid "When multiple words are selected"
 msgstr "Na selecteren van meerdere woorden"
 
 #: src/ui/preferenceWindow.ui:350
-#, fuzzy
 msgid "Open images on"
-msgstr "Kopie openen"
+msgstr "Afbeeldingen openen op"
 
 #: src/ui/preferenceWindow.ui:385
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
@@ -1204,7 +1165,7 @@ msgstr "Tekst-naar-spraak-opdracht"
 
 #: src/ui/preferenceWindow.ui:401
 msgid "Configure…"
-msgstr ""
+msgstr "Instellen…"
 
 #: src/ui/preferenceWindow.ui:413
 msgid "Interface"
@@ -1240,9 +1201,8 @@ msgid "Speak from Here"
 msgstr "Vanaf hier voorlezen"
 
 #: src/ui/shortcutsWindow.ui:9
-#, fuzzy
 msgid "Library Shortcuts"
-msgstr "Sneltoetsen"
+msgstr "Bibliotheeksneltoetsen"
 
 #: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:107
 #: src/ui/shortcutsWindow.ui:325
@@ -1255,11 +1215,11 @@ msgstr "Hoofdmenu tonen"
 
 #: src/ui/shortcutsWindow.ui:51
 msgid "List view"
-msgstr ""
+msgstr "Lijstweergave"
 
 #: src/ui/shortcutsWindow.ui:58
 msgid "Grid view"
-msgstr ""
+msgstr "Rasterweergave"
 
 #: src/ui/shortcutsWindow.ui:71
 msgid "E-book Viewer Shortcuts"
@@ -1279,7 +1239,7 @@ msgstr "Kopie openen"
 
 #: src/ui/shortcutsWindow.ui:100
 msgid "Clear locations cache"
-msgstr ""
+msgstr "Locatiecache wissen"
 
 #: src/ui/shortcutsWindow.ui:142
 msgid "View book info"
@@ -1786,26 +1746,26 @@ msgid "Zulu"
 msgstr "Zulu"
 
 #: src/ui/ttsDialog.ui:46
-#, fuzzy
 msgid "Text-to-Speech Command"
-msgstr "Tekst-naar-spraak-opdracht"
+msgstr "Tekst-naar-spraakopdracht"
 
 #: src/ui/ttsDialog.ui:57
 msgid "Make sure the selected text-to-speech program is correctly installed."
 msgstr ""
+"Zorg er voor dat het gekozen tekst-naar-spraakprogramma juist geïnstalleerd "
+"is."
 
 #: src/ui/ttsDialog.ui:63
-#, fuzzy
 msgid "eSpeak NG"
-msgstr "Voorlezen"
+msgstr "eSpeak NG"
 
 #: src/ui/ttsDialog.ui:80 src/ui/ttsDialog.ui:106 src/ui/ttsDialog.ui:269
 msgid "Reset"
-msgstr ""
+msgstr "Standaardwaarden"
 
 #: src/ui/ttsDialog.ui:88
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: src/ui/ttsDialog.ui:137
 msgid ""
@@ -1813,22 +1773,27 @@ msgid ""
 "the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for "
 "the all lower case code.</small>"
 msgstr ""
+"<small>De 'environment'-variabele <tt>$FOLIATE_TTS_LANG</tt> is beschikbaar "
+"voor de taalcode van het book, of gebruik <tt>$FOLIATE_TTS_LANG_LOWER</tt> "
+"voor alle tekst in kleine letters.</small>"
 
 #: src/ui/ttsDialog.ui:156
 msgid "Test Your Configuration"
-msgstr ""
+msgstr "Instellingen testen"
 
 #: src/ui/ttsDialog.ui:178
 msgid "The program should speak the following test sentences in order:"
 msgstr ""
+"Het programma zou de volgende testzinnen in de juiste volgorde moeten "
+"voorlezen:"
 
 #: src/ui/ttsDialog.ui:191
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: src/ui/ttsDialog.ui:228
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: src/ui/wikipediaBox.ui:53
 msgid "No entry found"
@@ -2128,7 +2093,7 @@ msgstr ""
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:232
 msgid "Changes:"
-msgstr ""
+msgstr "Wijzigingen:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
 msgid ""
@@ -2347,14 +2312,14 @@ msgid "Dictionary"
 msgstr "Woordenboek"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:30
-#, fuzzy
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd and stardict, "
 "if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
 "the database ID"
 msgstr ""
-"Identificatie van het standaard woordenboek. Woordenboeken van dictd zijn "
-"beschikbaar als naam + 'dtictd_' in de databank-id"
+"Identificatie van het standaard woordenboek. Woordenboeken van dictd en "
+"stardict zijn beschikbaar als naam + 'dtictd_' en 'stardict_' in de databank-"
+"id"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
 msgid "Target language of translation"
@@ -2382,13 +2347,15 @@ msgstr "Stel een standaardactie in bij selectie van meerdere woorden"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Event for opening image viewer"
-msgstr ""
+msgstr "Actie bij het openen van de afbeeldingsweergave"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:50
 msgid ""
 "DOM event type for viewing images; the special value \"middleclick\" is "
 "available for the middle click event"
 msgstr ""
+"DOM-actie voor het tonen van afbeeldingen. De speciale waarde 'middleclick' "
+"is beschikbaar voor middelklikken."
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:55
 msgid "Command to execute for text-to-speech"
@@ -2624,23 +2591,20 @@ msgid "Sidebar width"
 msgstr "Zijbalkbreedte"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:234
-#, fuzzy
 msgid "Width of the library window"
-msgstr "De breedte van het venster"
+msgstr "De breedte van het bibliotheekvenster"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:239
-#, fuzzy
 msgid "Height of the library window"
-msgstr "De hoogte van het venster"
+msgstr "De hoogte van het bibliotheekvenster"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:244
-#, fuzzy
 msgid "Whether the library window is maximized"
-msgstr "Of het venster gemaximaliseerd moet zijn"
+msgstr "Of het bibliotheekvenster gemaximaliseerd moet zijn"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:249
 msgid "How to view the library"
-msgstr ""
+msgstr "Hoe de bibliotheek moet worden getoond"
 
 #~ msgid "com.github.johnfactotum.Foliate"
 #~ msgstr "com.github.johnfactotum.Foliate"
