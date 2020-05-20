@@ -629,7 +629,7 @@ var EpubView = GObject.registerClass({
                 this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
                 locations = this._data.locations
                 this._data.metadata = this.metadata
-                uriStore.set(identifier, this._file.get_uri())
+                if (uriStore) uriStore.set(identifier, this._file.get_uri())
                 this.actionGroup.lookup_action('clear-cache').enabled = true
                 if (this.cover) this._data.saveCover(this.cover)
             }

@@ -478,12 +478,30 @@
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
                     <child>
-                      <object class="GtkLabel">
+                      <object class="GtkBox">
                         <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="wrap">True</property>
-                        <property name="label" translatable="yes">Use traditional titlebar (experimental)
-(requires restart)</property>
+                        <property name="spacing">3</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Use traditional titlebar (experimental)</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Requires restart</property>
+                            <style><class name="dim-label"/></style>
+                            <attributes>
+                              <attribute name="scale" value="0.85"/>
+                            </attributes>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
@@ -515,16 +533,76 @@
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
                     <child>
-                      <object class="GtkLabel">
+                      <object class="GtkBox">
                         <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="wrap">True</property>
-                        <property name="use-markup">True</property>
-                        <property name="label" translatable="yes">Use Tracker to track file locations</property>
+                        <property name="spacing">3</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Use Tracker to track file locations</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Requires restart</property>
+                            <style><class name="dim-label"/></style>
+                            <attributes>
+                              <attribute name="scale" value="0.85"/>
+                            </attributes>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
                       <object class="GtkSwitch" id="useTracker">
+                        <property name="visible">True</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="spacing">3</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Store file locations</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Requires restart</property>
+                            <style><class name="dim-label"/></style>
+                            <attributes>
+                              <attribute name="scale" value="0.85"/>
+                            </attributes>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="storeUris">
                         <property name="visible">True</property>
                         <property name="valign">center</property>
                       </object>

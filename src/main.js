@@ -67,6 +67,7 @@ const makeActions = app => ({
         settings.bind('tts-command', $('ttsEntry'), 'text', flag)
         settings.bind('turn-page-on-tap', $('turnPageOnTap'), 'state', flag)
         librarySettings.bind('use-tracker', $('useTracker'), 'state', flag)
+        settings.bind('store-uris', $('storeUris'), 'state', flag)
         settings.bind('cache-locations', $('cacheLocations'), 'state', flag)
         settings.bind('cache-covers', $('cacheCovers'), 'state', flag)
 

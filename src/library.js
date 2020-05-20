@@ -156,8 +156,10 @@ const BookBoxChild =  GObject.registerClass({
         super._init(params)
         const { identifier, metadata } = this.book.value
 
-        const uri = uriStore.get(identifier)
-        if (!uri.startsWith('file:')) this._emblem.show()
+        if (uriStore) {
+            const uri = uriStore.get(identifier)
+            if (!uri.startsWith('file:')) this._emblem.show()
+        }
 
         this._image.loadCover(metadata)
         this._image.tooltip_markup = `<b>${markupEscape(metadata.title)}</b>`
@@ -197,8 +199,10 @@ const BookBoxRow =  GObject.registerClass({
         if (creator) this._creator.label = creator
         else this._creator.hide()
 
-        const uri = uriStore.get(identifier)
-        if (!uri.startsWith('file:')) this._emblem.show()
+        if (uriStore) {
+            const uri = uriStore.get(identifier)
+            if (!uri.startsWith('file:')) this._emblem.show()
+        }
 
         const { progress, fraction, label } = this.getProgress()
         if (progress && progress[1]) {
@@ -387,7 +391,8 @@ const makeLibraryWidget = (params, widget) => {
             }
             if (this._selection.size) return this._selectRow(row)
             const id = row.book.value.identifier
-            let uri = uriStore.get(id)
+            let uri
+            if (uriStore) uri = uriStore.get(id)
 
             if (trackerConnection) {
                 // get file url with Tracker
@@ -452,7 +457,7 @@ const makeLibraryWidget = (params, widget) => {
                     })
 
                     library.remove(id)
-                    uriStore.delete(id)
+                    if (uriStore) uriStore.delete(id)
                 }
             }
             msg.close()

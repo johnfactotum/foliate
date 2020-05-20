@@ -17,6 +17,9 @@ const { GLib, Gio } = imports.gi
 const ByteArray = imports.byteArray
 const { Storage, Obj, debug } = imports.utils
 
+const settings = new Gio.Settings({ schema_id: pkg.name })
+const storeUris = settings.get_boolean('store-uris')
+
 class UriStore {
     constructor() {
         const dataDir = GLib.get_user_data_dir()
@@ -28,16 +31,18 @@ class UriStore {
         return this._map.get(id)
     }
     set(id, uri) {
+        debug('saving file uri')
         this._map.set(id, uri)
         this._storage.set('uris', Array.from(this._map.entries()))
     }
     delete(id) {
+        debug('deleting file uri')
         this._map.delete(id)
         this._storage.set('uris', Array.from(this._map.entries()))
     }
 }
 
-var uriStore = new UriStore()
+var uriStore = storeUris ? new UriStore() : null
 
 const listDir = function* (path) {
     const dir = Gio.File.new_for_path(path)

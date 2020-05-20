@@ -14,6 +14,11 @@
     <child schema="com.github.johnfactotum.Foliate.library" name="library"/>
     <child schema="com.github.johnfactotum.Foliate.window-state" name="window-state"/>
     <child schema="com.github.johnfactotum.Foliate.view" name="view"/>
+    <key name="store-uris" type="b">
+      <default>true</default>
+      <summary>Store URIs</summary>
+      <description>Whether to save file URIs</description>
+    </key>
     <key name="cache-locations" type="b">
       <default>true</default>
       <summary>Cache locations</summary>
