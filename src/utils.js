@@ -140,6 +140,17 @@ var recursivelyDeleteDir = dir => {
     dir.delete(null)
 }
 
+var readJSON = file => {
+    try {
+        const [success, data, /*tag*/] = file.load_contents(null)
+        if (success) return JSON.parse(data instanceof Uint8Array
+            ? ByteArray.toString(data) : data.toString())
+        else throw new Error()
+    } catch (e) {
+        return {}
+    }
+}
+
 var Storage = GObject.registerClass({
     GTypeName: 'FoliateStorage',
     Signals: {
@@ -184,14 +195,7 @@ var Storage = GObject.registerClass({
     }
     _read() {
         this._modified = this._getModified()
-        try {
-            const [success, data, /*tag*/] = this._file.load_contents(null)
-            if (success) return JSON.parse(data instanceof Uint8Array
-                ? ByteArray.toString(data) : data.toString())
-            else throw new Error()
-        } catch (e) {
-            return {}
-        }
+        return readJSON(this._file)
     }
     _write(data) {
         debug('writing to ' + this._file.get_path())
@@ -477,4 +481,8 @@ var makeLinksButton = (params, links, onActivate) => {
         box.pack_start(menuItem, false, true, 0)
     })
     return button
+}
+
+var sepHeaderFunc = row => {
+    if (row.get_index()) row.set_header(new Gtk.Separator())
 }

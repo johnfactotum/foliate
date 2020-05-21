@@ -16,13 +16,13 @@
 const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
 
 const { setPopoverPosition, doubleInvert, brightenColor, formatMinutes } = imports.utils
-const { EpubView, enableAnnotations } = imports.epubView
+const { EpubView, EpubViewAnnotation, enableAnnotations } = imports.epubView
 const { ContentsStack, FindBox,
     FootnotePopover, AnnotationBox, ImageViewer } = imports.contents
 const { DictionaryBox, WikipediaBox, TranslationBox } = imports.lookup
 const { tts, TtsButton } = imports.tts
 const { themes, customThemes, ThemeRow, applyTheme } = imports.theme
-const { exportAnnotations } = imports.export
+const { exportAnnotations, importAnnotations } = imports.export
 const { PropertiesWindow } = imports.properties
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
@@ -531,7 +531,7 @@ const makeActions = self => ({
         }
         const { cfi, text } = self._epub.selection
         const color = settings.get_string('highlight')
-        self._epub.addAnnotation({ cfi, color, text, note: '' })
+        self._epub.addAnnotation(new EpubViewAnnotation({ cfi, color, text, note: '' }))
         self._epub.emit('highlight-menu')
     },
     'selection-unhighlight': () => {
@@ -636,6 +636,11 @@ const makeActions = self => ({
         exportAnnotations(self, data, self._epub.metadata, cfi =>
             self._epub.getSectionFromCfi(cfi).then(x => x.label))
             .catch(e => logError(e))
+    },
+    'import-annotations': () => {
+        const annotations = importAnnotations(self, self._epub)
+        if (annotations) annotations.forEach(annotation =>
+            self._epub.addAnnotation(annotation))
     },
     'close': () => self.close(),
 })

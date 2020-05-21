@@ -651,6 +651,13 @@
             <property name="text" translatable="yes">Export Annotations…</property>
           </object>
         </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">win.import-annotations</property>
+            <property name="text" translatable="yes">Import Annotations…</property>
+          </object>
+        </child>
       </object>
       <packing>
         <property name="submenu">book</property>

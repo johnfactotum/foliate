@@ -1084,7 +1084,7 @@ var EpubView = GObject.registerClass({
         this._run(`rendition.annotations.remove("${cfi}", 'highlight')`)
     }
     addAnnotation(annotation) {
-        this._data.addAnnotation(new EpubViewAnnotation(annotation))
+        this._data.addAnnotation(annotation)
     }
     removeAnnotation(cfi) {
         this._data.removeAnnotation(cfi)

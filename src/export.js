@@ -15,6 +15,10 @@
 
 const { Gtk, Gio } = imports.gi
 const ngettext = imports.gettext.ngettext
+const { mimetypes, readJSON, sepHeaderFunc } = imports.utils
+const { EpubViewAnnotation } = imports.epubView
+const { EpubCFI } = imports.epubcfi
+const { AnnotationRow } = imports.contents
 
 const exportToHTML = async ({ annotations }, metadata, getSection) => {
     const head = `<!DOCTYPE html>
@@ -100,6 +104,8 @@ var exportAnnotations = async (window, data, metadata, getSection) => {
     const dialog = builder.get_object('exportDialog')
     dialog.transient_for = window
 
+    dialog.default_width = 360
+
     const response = dialog.run()
     if (response === Gtk.ResponseType.OK) {
         const format = builder.get_object('formatsCombo').active_id
@@ -140,3 +146,98 @@ var exportAnnotations = async (window, data, metadata, getSection) => {
     } else dialog.close()
 }
 
+var importAnnotations = (window, epub) => {
+    let annotations
+
+    const allFiles = new Gtk.FileFilter()
+    allFiles.set_name(_('All Files'))
+    allFiles.add_pattern('*')
+
+    const jsonFiles = new Gtk.FileFilter()
+    jsonFiles.set_name(_('JSON Files'))
+    jsonFiles.add_mime_type(mimetypes.json)
+    const dialog = Gtk.FileChooserNative.new(
+        _('Import Annotations'),
+        window,
+        Gtk.FileChooserAction.OPEN,
+        null, null)
+    dialog.add_filter(jsonFiles)
+    dialog.add_filter(allFiles)
+
+    if (dialog.run() === Gtk.ResponseType.ACCEPT) {
+        const file = dialog.get_file()
+        const json = readJSON(file)
+        try {
+            if (!json.annotations.length) {
+                const msg = new Gtk.MessageDialog({
+                    text: _('No annotations'),
+                    secondary_text: _('There’s nothing to import.'),
+                    message_type: Gtk.MessageType.INFO,
+                    buttons: [Gtk.ButtonsType.OK],
+                    modal: true,
+                    transient_for: window
+                })
+                msg.run()
+                msg.destroy()
+                return
+            }
+            const list = new Gio.ListStore()
+            let annotations = json.annotations
+                .sort((a, b) => EpubCFI.compare(a.value, b.value))
+                .map(({ value, color, text, note }) =>
+                    new EpubViewAnnotation({
+                        cfi: value,
+                        color: color || 'yellow',
+                        text: text || '',
+                        note: note || ''
+                    }))
+
+            annotations.forEach(annotation => list.append(annotation))
+
+            const builder = Gtk.Builder.new_from_resource(
+                '/com/github/johnfactotum/Foliate/ui/importWindow.ui')
+            const dialog = builder.get_object('importDialog')
+            dialog.transient_for = window
+
+            const [width, height] = window.get_size()
+            dialog.default_width = Math.min(500, width)
+            dialog.default_height = height * 0.7
+
+            const listbox = builder.get_object('annotationsListBox')
+            listbox.bind_model(list,
+                annotation => new AnnotationRow(annotation, epub, false))
+            listbox.set_header_func(sepHeaderFunc)
+
+            if (dialog.run() === Gtk.ResponseType.ACCEPT) {
+                if (!json.metadata || !json.metadata.identifier
+                || json.metadata.identifier !== epub.metadata.identifier) {
+                    const msg = new Gtk.MessageDialog({
+                        text: _('Identifier mismatch'),
+                        secondary_text: _('The identifier of the imported file does not match the book’s. This might indicate that the annotations do not belong to this book.'),
+                        message_type: Gtk.MessageType.QUESTION,
+                        modal: true,
+                        transient_for: dialog
+                    })
+                    msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+                    msg.add_button(_('Import Anyway'), Gtk.ResponseType.ACCEPT)
+                    const accept = msg.run() === Gtk.ResponseType.ACCEPT
+                    msg.destroy()
+                    if (!accept) annotations = null
+                }
+            }
+            dialog.close()
+            return annotations
+        } catch (e) {
+            const msg = new Gtk.MessageDialog({
+                text: _('Error'),
+                secondary_text: _('Could not import annotations.'),
+                message_type: Gtk.MessageType.ERROR,
+                buttons: [Gtk.ButtonsType.OK],
+                modal: true,
+                transient_for: window
+            })
+            msg.run()
+            msg.destroy()
+        }
+    }
+}

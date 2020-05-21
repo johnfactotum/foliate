@@ -19,19 +19,20 @@ let Gspell; try { Gspell = imports.gi.Gspell } catch (e) {}
 
 const { alphaColor, isExternalURL } = imports.utils
 const { EpubViewAnnotation } = imports.epubView
+const { sepHeaderFunc } = imports.utils
 
 const highlightColors = ['yellow', 'orange', 'red', 'magenta', 'aqua', 'lime']
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 
-const AnnotationRow = GObject.registerClass({
+var AnnotationRow = GObject.registerClass({
     GTypeName: 'FoliateAnnotationRow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/annotationRow.ui',
     InternalChildren: [
         'annotationSection', 'annotationText', 'annotationNote', 'removeButton'
     ]
 }, class AnnotationRow extends Gtk.ListBoxRow {
-    _init(annotation, epubView) {
+    _init(annotation, epubView, removable = true) {
         super._init()
         this.annotation = annotation
         this._epub = epubView
@@ -46,7 +47,8 @@ const AnnotationRow = GObject.registerClass({
         this._applyNote()
         annotation.connect('notify::note', this._applyNote.bind(this))
 
-        this._removeButton.connect('clicked', () => this._remove())
+        if (removable) this._removeButton.connect('clicked', () => this._remove())
+        else this._removeButton.hide()
     }
     _applyNote() {
         const note = this.annotation.note
@@ -108,12 +110,8 @@ var ContentsStack = GObject.registerClass({
     _init(params) {
         super._init(params)
 
-        this._annotationsListBox.set_header_func((row) => {
-            if (row.get_index()) row.set_header(new Gtk.Separator())
-        })
-        this._bookmarksListBox.set_header_func((row) => {
-            if (row.get_index()) row.set_header(new Gtk.Separator())
-        })
+        this._annotationsListBox.set_header_func(sepHeaderFunc)
+        this._bookmarksListBox.set_header_func(sepHeaderFunc)
 
         this._tocTreeView.connect('row-activated', () => this._onTocRowActivated())
         this._annotationsListBox.connect('row-activated', this._onAnnotationRowActivated.bind(this))

@@ -15,7 +15,7 @@
 
 const { GLib, Gio } = imports.gi
 const ByteArray = imports.byteArray
-const { Storage, Obj, debug } = imports.utils
+const { readJSON, Storage, Obj, debug } = imports.utils
 
 const settings = new Gio.Settings({ schema_id: pkg.name })
 const storeUris = settings.get_boolean('store-uris')
@@ -93,9 +93,7 @@ class BookList {
     }
     _loadItem(item) {
         const { identifier, file, modified } = item
-        const [/*success*/, data, /*tag*/] = file.load_contents(null)
-        const json = JSON.parse(data instanceof Uint8Array
-            ? ByteArray.toString(data) : data.toString())
+        const json = readJSON(file)
         if (!json.metadata) return
         const result = {
             identifier,

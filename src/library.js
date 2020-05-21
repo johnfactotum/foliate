@@ -17,7 +17,7 @@ const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = impor
 const ngettext = imports.gettext.ngettext
 const { debug, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight, mimetypes,
-    linkIsRel, makeLinksButton } = imports.utils
+    linkIsRel, makeLinksButton, sepHeaderFunc } = imports.utils
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
 const { uriStore, library } = imports.uriStore
@@ -313,9 +313,7 @@ const makeLibraryWidget = (params, widget) => {
     return GObject.registerClass(params, class LibraryWidget extends widget {
         _init(params) {
             super._init(params)
-            if (isListBox) this.set_header_func(row => {
-                if (row.get_index()) row.set_header(new Gtk.Separator())
-            })
+            if (isListBox) this.set_header_func(sepHeaderFunc)
             this._model = null
             this._bindModel(library.list)
             this.connect(activateSignal, this._onRowActivated.bind(this))
@@ -939,9 +937,7 @@ const OpdsNavigationBox = GObject.registerClass({
                 } else if (index) row.set_header(new Gtk.Separator())
                 lastGroup = group
             })
-        } else this.set_header_func(row => {
-            if (row.get_index()) row.set_header(new Gtk.Separator())
-        })
+        } else this.set_header_func(sepHeaderFunc)
 
         if (this.uri) {
             const client = new OpdsClient()

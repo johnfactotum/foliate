@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkDialog" id="importDialog">
+    <property name="modal">True</property>
+    <property name="use-header-bar">1</property>
+    <property name="title" translatable="yes">Import Annotations</property>
+    <child type="action">
+      <object class="GtkButton" id="cancelButton">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Cancel</property>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkButton" id="okButton">
+        <property name="visible">True</property>
+        <property name="can-default">True</property>
+        <property name="label" translatable="yes">Import</property>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="cancel">cancelButton</action-widget>
+      <action-widget response="accept" default="true">okButton</action-widget>
+    </action-widgets>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="border-width">18</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="wrap">True</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">These annotations will be added:</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkListBox" id="annotationsListBox">
+                <property name="visible">True</property>
+              </object>
+            </child>
+            <style><class name="frame"/></style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="spacing">12</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">dialog-warning-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">The imported annotations will NOT overwrite the existing ones when they highlight the same passages.</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
