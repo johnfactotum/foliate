@@ -251,6 +251,9 @@ var FindBox = GObject.registerClass({
         this._inSection.connect('toggled', () => this._onFindEntryActivate())
         this._findTreeView.connect('row-activated', () => this._onFindRowActivated())
     }
+    set height_request(h) {
+        this._findScrolledWindow.height_request = h
+    }
     set epub(epub) {
         this._epub = epub
         this._findTreeView.model = this._epub.findResults

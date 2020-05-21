@@ -925,6 +925,10 @@ var Window = GObject.registerClass({
             const [width, height] = this.get_size()
             this._width = width
             this._height = height
+
+            const popoverHeight = Math.max(150, height * 0.7)
+            if (this._findBox) this._findBox.height_request = popoverHeight
+            if (this._contentsStack) this._contentsStack.height_request = popoverHeight
         })
         this.connect('destroy', () => {
             windowState.set_int('width', this._width)
@@ -1119,8 +1123,7 @@ var Window = GObject.registerClass({
             orientation: Gtk.Orientation.VERTICAL,
             margin: 10,
             spacing: 10,
-            width_request: 300,
-            height_request: 400
+            width_request: 300
         })
         box.pack_start(stackSwitcher, false, true, 0)
         box.pack_start(this._contentsStack, false, true, 0)
