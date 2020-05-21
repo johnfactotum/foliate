@@ -158,7 +158,7 @@ const BookBoxChild =  GObject.registerClass({
 
         if (uriStore) {
             const uri = uriStore.get(identifier)
-            if (!uri.startsWith('file:')) this._emblem.show()
+            if (uri && !uri.startsWith('file:')) this._emblem.show()
         }
 
         this._image.loadCover(metadata)
@@ -201,7 +201,7 @@ const BookBoxRow =  GObject.registerClass({
 
         if (uriStore) {
             const uri = uriStore.get(identifier)
-            if (!uri.startsWith('file:')) this._emblem.show()
+            if (uri && !uri.startsWith('file:')) this._emblem.show()
         }
 
         const { progress, fraction, label } = this.getProgress()

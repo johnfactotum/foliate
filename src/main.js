@@ -307,7 +307,7 @@ function main(argv) {
             ['lib.list-view', ['<ctrl>1']],
             ['lib.grid-view', ['<ctrl>2']],
             ['lib.main-menu', ['F10']],
-            ['lib.search', ['<ctrl>f', 'slash']],
+            ['lib.search', ['<ctrl>f']],
             ['lib.close', ['<ctrl>w']],
 
             ['win.close', ['<ctrl>w']],
