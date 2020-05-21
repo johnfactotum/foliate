@@ -98,7 +98,8 @@ var ContentsStack = GObject.registerClass({
     InternalChildren: [
         'tocTreeView',
         'annotationsStack', 'annotationsListBox',
-        'bookmarksStack', 'bookmarksListBox', 'bookmarkButton'
+        'bookmarksStack', 'bookmarksListBox', 'bookmarkButton',
+        'annotationsSearchEntry'
     ],
     Signals: {
         'row-activated': { flags: GObject.SignalFlags.RUN_FIRST }
@@ -117,6 +118,7 @@ var ContentsStack = GObject.registerClass({
         this._tocTreeView.connect('row-activated', () => this._onTocRowActivated())
         this._annotationsListBox.connect('row-activated', this._onAnnotationRowActivated.bind(this))
         this._bookmarksListBox.connect('row-activated', this._onBookmarkRowActivated.bind(this))
+        this._annotationsSearchEntry.connect('search-changed', () => this._updateAnnotations())
     }
     set epub(epub) {
         this._epub = epub
@@ -174,6 +176,25 @@ var ContentsStack = GObject.registerClass({
         this._epub.goTo(row.bookmark.cfi)
         this.emit('row-activated')
     }
+    _updateAnnotations() {
+        let model = this._annotations
+        if (!model) return
+        const query = this._annotationsSearchEntry.text
+        if (query) {
+            const results = new Gio.ListStore()
+            const n = model.get_n_items()
+            for (let i = 0; i < n; i++) {
+                const annotation = model.get_item(i)
+                const { text, color, note } = annotation
+                if ([text, color, note]
+                    .some(x => x.toLowerCase().includes(query)))
+                    results.append(annotation)
+            }
+            model = results
+        }
+        this._annotationsListBox.bind_model(model, annotation =>
+            new AnnotationRow(annotation, this._epub))
+    }
     _updateData(annotations, bookmarks) {
         if (annotations) {
             this._annotationsStack.visible_child_name =
@@ -181,9 +202,10 @@ var ContentsStack = GObject.registerClass({
             annotations.connect('items-changed', () => {
                 this._annotationsStack.visible_child_name =
                     annotations.get_n_items() ? 'main' : 'empty'
+                this._updateAnnotations()
             })
-            this._annotationsListBox.bind_model(annotations, annotation =>
-                new AnnotationRow(annotation, this._epub))
+            this._annotations = annotations
+            this._updateAnnotations()
         }
         if (bookmarks) {
             this._bookmarksStack.visible_child_name =
