@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 20:50+0800\n"
+"POT-Creation-Date: 2020-05-22 18:44+0800\n"
 "PO-Revision-Date: 2020-05-13 14:29+0800\n"
 "Last-Translator: Blan Chan cdh4227@qq.com\n"
 "Language-Team: none\n"
@@ -147,7 +147,7 @@ msgstr "所有文件"
 msgid "JSON Files"
 msgstr "所有文件"
 
-#: src/export.js:160
+#: src/export.js:160 src/ui/importWindow.ui:6
 #, fuzzy
 msgid "Import Annotations"
 msgstr "导出书签"
@@ -172,8 +172,8 @@ msgid ""
 msgstr ""
 
 #: src/export.js:221 src/library.js:440 src/main.js:144 src/window.js:525
-#: src/ui/exportWindow.ui:38 src/ui/libraryWindow.ui:425
-#: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
+#: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
+#: src/ui/libraryWindow.ui:425 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "取消"
 
@@ -763,6 +763,21 @@ msgstr "逆时针旋转90°"
 #: src/ui/imageViewer.ui:197 src/ui/shortcutsWindow.ui:375
 msgid "Rotate 90° clockwise"
 msgstr "顺时针旋转90°"
+
+#: src/ui/importWindow.ui:17
+#, fuzzy
+msgid "Import"
+msgstr "导出"
+
+#: src/ui/importWindow.ui:34
+msgid "These annotations will be added:"
+msgstr ""
+
+#: src/ui/importWindow.ui:64
+msgid ""
+"The imported annotations will NOT overwrite the existing ones when they "
+"highlight the same passages."
+msgstr ""
 
 #: src/ui/libraryWindow.ui:7 src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8
 #: src/ui/opdsWindow.ui:13

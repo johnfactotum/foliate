@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 20:50+0800\n"
+"POT-Creation-Date: 2020-05-22 18:44+0800\n"
 "PO-Revision-Date: 2020-02-14 11:33-0300\n"
 "Last-Translator: Marcelo dos Santos Mafra <msmafra@gmail.com>\n"
 "Language-Team: Fábio Nogueira <fnogueira@gnome.org>; Marcelo dos Santos "
@@ -152,7 +152,7 @@ msgstr "Todos os arquivos"
 msgid "JSON Files"
 msgstr "Todos os arquivos"
 
-#: src/export.js:160
+#: src/export.js:160 src/ui/importWindow.ui:6
 #, fuzzy
 msgid "Import Annotations"
 msgstr "Exportar Anotações"
@@ -177,8 +177,8 @@ msgid ""
 msgstr ""
 
 #: src/export.js:221 src/library.js:440 src/main.js:144 src/window.js:525
-#: src/ui/exportWindow.ui:38 src/ui/libraryWindow.ui:425
-#: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
+#: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
+#: src/ui/libraryWindow.ui:425 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -777,6 +777,21 @@ msgstr ""
 
 #: src/ui/imageViewer.ui:197 src/ui/shortcutsWindow.ui:375
 msgid "Rotate 90° clockwise"
+msgstr ""
+
+#: src/ui/importWindow.ui:17
+#, fuzzy
+msgid "Import"
+msgstr "Exportar"
+
+#: src/ui/importWindow.ui:34
+msgid "These annotations will be added:"
+msgstr ""
+
+#: src/ui/importWindow.ui:64
+msgid ""
+"The imported annotations will NOT overwrite the existing ones when they "
+"highlight the same passages."
 msgstr ""
 
 #: src/ui/libraryWindow.ui:7 src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8
