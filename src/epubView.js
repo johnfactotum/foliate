@@ -753,10 +753,7 @@ var EpubView = GObject.registerClass({
                 const layoutOptions = layouts[this.settings.layout].options
                 const options = Object.assign({},
                     layoutOptions,
-                    layoutOptions.flow === 'paginated' ? {
-                        height: height / this.settings.zoom_level
-                    } : {}
-                )
+                    { height: height / this.settings.zoom_level })
 
                 this._run(`open(
                     decodeURI("${encodeURI(uri)}"),
@@ -940,8 +937,7 @@ var EpubView = GObject.registerClass({
     }
     _updateWindowSize() {
         if (this._ready) {
-            const width = this._webView.get_allocation().width
-            const height = this._webView.get_allocation().height
+            const { width, height } = this._webView.get_allocation()
             this._run(`windowSize = ${width}`)
             this._run(`rendition.resize('100%', ${height / this.settings.zoom_level})`)
         }

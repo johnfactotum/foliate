@@ -709,12 +709,16 @@ const setupRendition = () => {
         }, false)
     })
 
+    const rtl = book.package.metadata.direction === 'rtl'
+    const goLeft = rtl ? () => rendition.next() : () => rendition.prev()
+    const goRight = rtl ? () => rendition.prev() : () => rendition.next()
+
     // keyboard shortcuts
     const handleKeydown = event => {
         if (getWindowIsZoomed()) return
         const k = event.key
-        if (k === 'ArrowLeft' || k === 'h') rendition.prev()
-        else if(k === 'ArrowRight' || k === 'l') rendition.next()
+        if (k === 'ArrowLeft' || k === 'h') goLeft()
+        else if(k === 'ArrowRight' || k === 'l') goRight()
         else if (k === 'Backspace') {
             if (paginated) rendition.prev()
             else window.scrollBy(0, -window.innerHeight)
@@ -739,8 +743,8 @@ const setupRendition = () => {
             if (getWindowIsZoomed()) return
             const { deltaX, deltaY } = event
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                if (deltaX > 0) rendition.next()
-                else if (deltaX < 0) rendition.prev()
+                if (deltaX > 0) goRight()
+                else if (deltaX < 0) goLeft()
             } else {
                 if (deltaY > 0) rendition.next()
                 else if (deltaY < 0) rendition.prev()

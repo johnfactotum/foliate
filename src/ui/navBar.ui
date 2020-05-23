@@ -268,6 +268,14 @@
   </object>
 
   <template class="FoliateNavBar" parent="GtkActionBar">
+<child>
+  <!--
+  GtkActionBar does not honour gtk_widget_set_direction ()
+  so we need to wrap things in a GtkBox
+  -->
+  <object class="GtkBox" id="box">
+    <property name="visible">True</property>
+    <property name="spacing">6</property>
     <child>
       <object class="GtkButton">
         <property name="visible">True</property>
@@ -275,7 +283,7 @@
         <property name="action-name">view.go-prev</property>
         <property name="tooltip-text" translatable="yes">Go to previous page</property>
         <child>
-          <object class="GtkImage">
+          <object class="GtkImage" id="prevImage">
             <property name="visible">True</property>
             <property name="icon-name">go-previous-symbolic</property>
           </object>
@@ -289,7 +297,7 @@
         <property name="action-name">view.go-back</property>
         <property name="tooltip_text" translatable="yes">Go back to previous location</property>
         <child>
-          <object class="GtkImage">
+          <object class="GtkImage" id="backImage">
             <property name="visible">True</property>
             <property name="icon_name">edit-undo-symbolic</property>
           </object>
@@ -326,6 +334,7 @@
     <child>
       <object class="GtkStack" id="locationStack">
         <property name="visible">True</property>
+        <property name="hexpand">True</property>
         <child>
           <object class="GtkImage">
             <property name="visible">True</property>
@@ -377,7 +386,7 @@
         <property name="action-name">view.go-next</property>
         <property name="tooltip-text" translatable="yes">Go to next page</property>
         <child>
-          <object class="GtkImage">
+          <object class="GtkImage" id="nextImage">
             <property name="visible">True</property>
             <property name="icon-name">go-next-symbolic</property>
           </object>
@@ -402,5 +411,7 @@
         <property name="pack-type">end</property>
       </packing>
     </child>
+  </object>
+</child>
   </template>
 </interface>

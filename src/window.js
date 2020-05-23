@@ -132,17 +132,30 @@ const NavBar = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/navBar.ui',
     Children: ['locationMenu'],
     InternalChildren: [
+        'box', 'prevImage', 'nextImage', 'backImage',
         'locationStack', 'locationLabel', 'locationScale',
         'locationButton', 'timeInBook', 'timeInChapter',
         'sectionEntry', 'locationEntry', 'cfiEntry',
         'sectionTotal', 'locationTotal',
         'fallbackScale',
-
         'timeBox', 'timeSep', 'locLabel', 'locBox', 'navSep', 'navBox'
     ]
 }, class NavBar extends Gtk.ActionBar {
     set epub(epub) {
         this._epub = epub
+
+        this._epub.connect('metadata', () => {
+            const rtl = this._epub.metadata.direction === 'rtl'
+            const dir = rtl ? Gtk.TextDirection.RTL : Gtk.TextDirection.LTR
+            this._box.set_direction(dir)
+            this._locationScale.set_direction(dir)
+            this._prevImage.set_direction(dir)
+            this._nextImage.set_direction(dir)
+            this._backImage.set_direction(dir)
+            this._navBox.set_direction(dir)
+            this._navBox.foreach(button => button.get_child().set_direction(dir))
+        })
+
         this._epub.connect('locations-fallback', () => this._status = 'fallback')
         this._epub.connect('locations-ready', () => {
             this._epub.sectionMarks.then(sectionMarks => {
