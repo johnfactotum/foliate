@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-22 18:44+0800\n"
+"POT-Creation-Date: 2020-05-23 20:21+0800\n"
 "PO-Revision-Date: 2020-05-19 17:25+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1046
-#: src/library.js:1449 src/main.js:184 src/window.js:951
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1094
+#: src/library.js:1497 src/main.js:184 src/window.js:974
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -66,19 +66,19 @@ msgstr[1] "%d resultaten"
 msgid "Searching…"
 msgstr "Bezig met zoeken…"
 
-#: src/epubView.js:971
+#: src/epubView.js:982
 msgid "File not found."
 msgstr "Bestand niet aangetroffen."
 
-#: src/epubView.js:983
+#: src/epubView.js:994
 msgid "Failed to load remote file."
 msgstr "Kan extern bestand niet laden."
 
-#: src/epubView.js:1015
+#: src/epubView.js:1026
 msgid "Could not unpack Kindle file."
 msgstr "Kan Kindle-bestand niet uitpakken."
 
-#: src/epubView.js:1031
+#: src/epubView.js:1042
 msgid "File type not supported."
 msgstr "Dit bestandstype wordt niet ondersteund."
 
@@ -137,7 +137,7 @@ msgstr "Bestand opslaan"
 msgid "Annotations for “%s”"
 msgstr "Aantekeningen bij '%s'"
 
-#: src/export.js:153 src/library.js:1220 src/main.js:103
+#: src/export.js:153 src/library.js:1268 src/main.js:103
 msgid "All Files"
 msgstr "Alle bestanden"
 
@@ -151,7 +151,7 @@ msgstr "Alle bestanden"
 msgid "Import Annotations"
 msgstr "Aantekeningen exporteren"
 
-#: src/export.js:173 src/window.js:624 src/ui/contentsStack.ui:80
+#: src/export.js:173 src/window.js:647 src/ui/contentsStack.ui:80
 msgid "No annotations"
 msgstr "Geen aantekeningen"
 
@@ -170,7 +170,7 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr ""
 
-#: src/export.js:221 src/library.js:440 src/main.js:144 src/window.js:525
+#: src/export.js:221 src/library.js:441 src/main.js:144 src/window.js:548
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:425 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
@@ -181,7 +181,7 @@ msgstr "Annuleren"
 msgid "Import Anyway"
 msgstr "Tóch doorgaan"
 
-#: src/export.js:232 src/library.js:1636 src/window.js:978
+#: src/export.js:232 src/library.js:1684 src/window.js:1002
 msgid "Error"
 msgstr "Fout"
 
@@ -190,36 +190,36 @@ msgstr "Fout"
 msgid "Could not import annotations."
 msgstr "Aantekeningen exporteren"
 
-#: src/library.js:132 src/window.js:604 src/ui/bookBoxMenu.ui:13
+#: src/library.js:133 src/window.js:627 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "Over dit boek"
 
-#: src/library.js:249 src/library.js:267
+#: src/library.js:250 src/library.js:268
 msgid "Load more"
 msgstr "Meer laden"
 
-#: src/library.js:411
+#: src/library.js:412
 msgid "File location unkown"
 msgstr "Onbekende bestandslocatie"
 
-#: src/library.js:412
+#: src/library.js:413
 msgid "Choose the location of this file to open it."
 msgstr "Geef de locatie op van het te openen bestand."
 
-#: src/library.js:433
+#: src/library.js:434
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] "Weet je zeker dat je dit boek wilt verwijderen?"
 msgstr[1] "Weet je zeker dat je de %d geselecteerde boeken wilt verwijderen?"
 
-#: src/library.js:435
+#: src/library.js:436
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
 "De leesvoortgang, aantekeningen en bladwijzers worden permanent gewist."
 
-#: src/library.js:441 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/library.js:442 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:20 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:405
 msgid "Remove"
@@ -227,134 +227,142 @@ msgstr "Verwijderen"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/library.js:578
+#: src/library.js:579
 msgid ", "
 msgstr ", "
 
-#: src/library.js:603
+#: src/library.js:604
 msgid "Unable to load OPDS feed"
 msgstr "Kan OPDS-feed niet laden"
 
-#: src/library.js:624
+#: src/library.js:649
 msgid "Download"
 msgstr "Downloaden"
 
-#: src/library.js:626
+#: src/library.js:651
 msgid "Buy"
 msgstr "Kopen"
 
-#: src/library.js:627
+#: src/library.js:652
 msgid "Free"
 msgstr "Gratis"
 
-#: src/library.js:628
+#: src/library.js:653
 msgid "Sample"
 msgstr "Voorbeeld"
 
-#: src/library.js:629
+#: src/library.js:654
 msgid "Borrow"
 msgstr "Lenen"
 
-#: src/library.js:630
+#: src/library.js:655
 msgid "Subscribe"
 msgstr "Abonneren"
 
-#: src/library.js:1068
+#: src/library.js:672
+msgid "Protected by DRM"
+msgstr ""
+
+#: src/library.js:690
+msgid " (DRM)"
+msgstr ""
+
+#: src/library.js:1116
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d geselecteerd"
 msgstr[1] "%d geselecteerd"
 
-#: src/library.js:1175
+#: src/library.js:1223
 msgid "All"
 msgstr "Alle"
 
-#: src/library.js:1178
+#: src/library.js:1226
 msgid "Title"
 msgstr "Titel"
 
-#: src/library.js:1179
+#: src/library.js:1227
 msgid "Author"
 msgstr "Auteur"
 
-#: src/library.js:1180 src/properties.js:71
+#: src/library.js:1228 src/properties.js:71
 msgid "Tags"
 msgstr "Labels"
 
-#: src/library.js:1181
+#: src/library.js:1229
 msgid "Description"
 msgstr "Beschrijving"
 
-#: src/library.js:1182 src/properties.js:75
+#: src/library.js:1230 src/properties.js:75
 msgid "Publisher"
 msgstr "Uitgever"
 
-#: src/library.js:1183 src/properties.js:87 src/ui/ttsDialog.ui:284
+#: src/library.js:1231 src/properties.js:87 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Taal"
 
-#: src/library.js:1224 src/main.js:107
+#: src/library.js:1272 src/main.js:107
 msgid "E-book Files"
 msgstr "E-boekbestanden"
 
-#: src/library.js:1236
+#: src/library.js:1284
 msgid "Add Files"
 msgstr "Bestanden toevoegen"
 
-#: src/library.js:1279
+#: src/library.js:1327
 msgid "See More"
 msgstr "Meer tonen"
 
-#: src/library.js:1561 src/window.js:1255 src/ui/libraryWindow.ui:176
+#: src/library.js:1609 src/window.js:1279 src/ui/libraryWindow.ui:176
 msgid "Loading…"
 msgstr "Bezig met laden…"
 
-#: src/library.js:1601
+#: src/library.js:1649
 msgid "First"
 msgstr "Eerste"
 
-#: src/library.js:1602
+#: src/library.js:1650
 msgid "Previous"
 msgstr "Vorige"
 
-#: src/library.js:1603
+#: src/library.js:1651
 msgid "Next"
 msgstr "Volgende"
 
-#: src/library.js:1604
+#: src/library.js:1652
 msgid "Last"
 msgstr "Laatste"
 
-#: src/library.js:1650
+#: src/library.js:1698
 msgid "Related"
 msgstr "Verwant"
 
-#: src/library.js:1651
+#: src/library.js:1699
 msgid "Section"
 msgstr "Sectie"
 
-#: src/library.js:1652
+#: src/library.js:1700
 msgid "Subsection"
 msgstr "Subsectie"
 
-#: src/library.js:1653
+#: src/library.js:1701
 msgid "New"
 msgstr "Nieuw"
 
-#: src/library.js:1654
+#: src/library.js:1702
 msgid "Popular"
 msgstr "Populair"
 
-#: src/library.js:1655
+#: src/library.js:1703
 msgid "Featured"
 msgstr "Uitgelicht"
 
-#: src/library.js:1656
+#: src/library.js:1704
 msgid "Recommended"
 msgstr "Aanbevolen"
 
-#: src/library.js:1688
+#: src/library.js:1736
 msgid "Filter"
 msgstr "Filter"
 
@@ -547,76 +555,76 @@ msgstr "toen een reiziger in een warm gewaad voorbijliep."
 msgid "en"
 msgstr "nl"
 
-#: src/utils.js:383
+#: src/utils.js:86
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minuut"
 msgstr[1] "%d minuten"
 
-#: src/utils.js:386
+#: src/utils.js:89
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d uur"
 msgstr[1] "%d uur"
 
-#: src/window.js:122 src/window.js:771
+#: src/window.js:123 src/window.js:794
 msgid "Leave fullscreen"
 msgstr "Beeldvullende modus verlaten"
 
-#: src/window.js:125 src/ui/mainMenu.ui:91
+#: src/window.js:126 src/ui/mainMenu.ui:91
 #: data/com.github.johnfactotum.Foliate.gschema.xml:225
 msgid "Fullscreen"
 msgstr "Beeldvullend"
 
-#: src/window.js:190 src/window.js:191
+#: src/window.js:216 src/window.js:217
 #, javascript-format
 msgid "of %d"
 msgstr "van %d"
 
-#: src/window.js:519
+#: src/window.js:542
 msgid "This file or format does not work well with annotations"
 msgstr "Dit bestand of bestandsformaat kan geen aantekeningen verwerken"
 
-#: src/window.js:520
+#: src/window.js:543
 msgid "Your annotations might stop working properly at any time."
 msgstr "Mogelijk werken je aantekeningen binnenkort niet goed meer."
 
-#: src/window.js:526
+#: src/window.js:549
 msgid "Continue Anyway"
 msgstr "Tóch doorgaan"
 
-#: src/window.js:625
+#: src/window.js:648
 msgid "You don't have any annotations for this book."
 msgstr "Je hebt geen aantekeningen gemaakt bij dit boek."
 
-#: src/window.js:626
+#: src/window.js:649
 msgid "Highlight some text to add annotations."
 msgstr "Maak aantekeningen door tekst te markeren."
 
-#: src/window.js:750
+#: src/window.js:773
 msgid "Contents"
 msgstr "Inhoud"
 
-#: src/window.js:754 data/com.github.johnfactotum.Foliate.gschema.xml:235
+#: src/window.js:777 data/com.github.johnfactotum.Foliate.gschema.xml:235
 msgid "Show sidebar"
 msgstr "Zijbalk tonen"
 
-#: src/window.js:765 src/ui/selectionPopover.ui:47
+#: src/window.js:788 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr "Zoeken"
 
-#: src/window.js:766 src/ui/libraryWindow.ui:99 src/ui/opdsWindow.ui:69
+#: src/window.js:789 src/ui/libraryWindow.ui:99 src/ui/opdsWindow.ui:69
 msgid "Menu"
 msgstr "Menu"
 
-#: src/window.js:1042
+#: src/window.js:1066
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Afbeelding van '%s'"
 
-#: src/window.js:1042
+#: src/window.js:1066
 msgid "Image"
 msgstr "Afbeelding"
 
@@ -1061,7 +1069,7 @@ msgstr "Begin"
 msgid "End"
 msgstr "Einde"
 
-#: src/ui/menuBar.ui:213 src/ui/navBar.ui:134 src/ui/navBar.ui:350
+#: src/ui/menuBar.ui:213 src/ui/navBar.ui:134 src/ui/navBar.ui:313
 #: src/ui/preferenceWindow.ui:19
 msgid "Location"
 msgstr "Locatie"
@@ -1106,21 +1114,21 @@ msgstr "Ga naar het volgende hoofdstuk"
 msgid "Go to end of book"
 msgstr "Ga naar het einde van het boek"
 
-#: src/ui/navBar.ui:276 src/ui/shortcutsWindow.ui:241
+#: src/ui/navBar.ui:284 src/ui/shortcutsWindow.ui:241
 #: src/ui/shortcutsWindow.ui:277
 msgid "Go to previous page"
 msgstr "Ga naar de vorige pagina"
 
-#: src/ui/navBar.ui:290 src/ui/shortcutsWindow.ui:248
+#: src/ui/navBar.ui:298 src/ui/shortcutsWindow.ui:248
 msgid "Go back to previous location"
 msgstr "Ga terug naar de vorige locatie"
 
-#: src/ui/navBar.ui:391 src/ui/shortcutsWindow.ui:234
+#: src/ui/navBar.ui:387 src/ui/shortcutsWindow.ui:234
 #: src/ui/shortcutsWindow.ui:270
 msgid "Go to next page"
 msgstr "Ga naar de volgende pagina"
 
-#: src/ui/navBar.ui:406
+#: src/ui/navBar.ui:402
 msgid "Text-to-speech"
 msgstr "Tekst-naar-spraak"
 
@@ -1283,17 +1291,19 @@ msgstr "Ga terug naar de vorige locatie"
 
 #: src/ui/preferenceWindow.ui:587
 #, fuzzy
-msgid "Store file locations"
+msgid "Save file locations"
 msgstr "Ga naar locatie"
 
 #: src/ui/preferenceWindow.ui:625
+#: data/com.github.johnfactotum.Foliate.gschema.xml:24
 #, fuzzy
-msgid "Cache locations in book"
-msgstr "Onbekende bestandslocatie"
+msgid "Cache locations"
+msgstr "Locatiecache wissen"
 
 #: src/ui/preferenceWindow.ui:649
-msgid "Save book covers"
-msgstr ""
+#, fuzzy
+msgid "Cache book covers"
+msgstr "Locatiecache wissen"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
@@ -1345,8 +1355,9 @@ msgid "Open a copy"
 msgstr "Kopie openen"
 
 #: src/ui/shortcutsWindow.ui:100
-msgid "Clear locations cache"
-msgstr "Locatiecache wissen"
+#, fuzzy
+msgid "Clear cache"
+msgstr "Cache wissen"
 
 #: src/ui/shortcutsWindow.ui:142
 msgid "View book info"
@@ -2406,11 +2417,6 @@ msgstr ""
 msgid "Whether to save file URIs"
 msgstr "Of de zijbalk moet worden getoond"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:24
-#, fuzzy
-msgid "Cache locations"
-msgstr "Locatiecache wissen"
-
 #: data/com.github.johnfactotum.Foliate.gschema.xml:25
 msgid ""
 "Whether to save generated locations to cache (the locations are needed for "
@@ -2749,6 +2755,13 @@ msgstr ""
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Cache locations in book"
+#~ msgstr "Onbekende bestandslocatie"
+
+#~ msgid "Clear locations cache"
+#~ msgstr "Locatiecache wissen"
 
 #~ msgid "com.github.johnfactotum.Foliate"
 #~ msgstr "com.github.johnfactotum.Foliate"
