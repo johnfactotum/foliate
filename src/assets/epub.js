@@ -3343,6 +3343,9 @@ function replaceLinks(contents, fn) {
 function substitute(content, urls, replacements) {
 	urls.forEach(function (url, i) {
 		if (url && replacements[i]) {
+			// Account for special characters in the file name.
+			// See https://stackoverflow.com/a/6318729.
+			url = url.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 			content = content.replace(new RegExp(url, "g"), replacements[i]);
 		}
 	});
@@ -4208,7 +4211,7 @@ var Contents = function () {
 				// this.content.style.width = w;
 			}
 
-			return this.window.getComputedStyle(frame)["width"];
+			return parseInt(this.window.getComputedStyle(frame)["width"]);
 		}
 
 		/**
@@ -4232,7 +4235,7 @@ var Contents = function () {
 				// this.content.style.height = h;
 			}
 
-			return this.window.getComputedStyle(frame)["height"];
+			return parseInt(this.window.getComputedStyle(frame)["height"]);
 		}
 
 		/**
@@ -4255,7 +4258,7 @@ var Contents = function () {
 				content.style.width = w;
 			}
 
-			return this.window.getComputedStyle(content)["width"];
+			return parseInt(this.window.getComputedStyle(content)["width"]);
 		}
 
 		/**
@@ -4278,7 +4281,7 @@ var Contents = function () {
 				content.style.height = h;
 			}
 
-			return this.window.getComputedStyle(content)["height"];
+			return parseInt(this.window.getComputedStyle(content)["height"]);
 		}
 
 		/**
@@ -4330,10 +4333,6 @@ var Contents = function () {
 
 			if (height && border.height) {
 				height += border.height;
-			}
-
-			if (height && rect.top) {
-				height += rect.top;
 			}
 
 			return Math.round(height);
@@ -5282,7 +5281,7 @@ var Contents = function () {
 
 			this.layoutStyle("paginated");
 
-			if (dir === "rtl") {
+			if (dir === "rtl" && axis === "horizontal") {
 				this.direction(dir);
 			}
 
@@ -5304,17 +5303,18 @@ var Contents = function () {
 				this.css("padding-bottom", gap / 2 + "px", true);
 				this.css("padding-left", "20px");
 				this.css("padding-right", "20px");
+				this.css(COLUMN_AXIS, "vertical");
 			} else {
 				this.css("padding-top", "20px");
 				this.css("padding-bottom", "20px");
 				this.css("padding-left", gap / 2 + "px", true);
 				this.css("padding-right", gap / 2 + "px", true);
+				this.css(COLUMN_AXIS, "horizontal");
 			}
 
 			this.css("box-sizing", "border-box");
 			this.css("max-width", "inherit");
 
-			this.css(COLUMN_AXIS, "horizontal");
 			this.css(COLUMN_FILL, "auto");
 
 			this.css(COLUMN_GAP, gap + "px");
@@ -6089,9 +6089,9 @@ var DefaultViewManager = function () {
 				this.scrollLeft = this.container.scrollLeft;
 
 				if (this.settings.rtlScrollType === "default") {
-					left = this.container.scrollLeft + this.container.offsetWidth + this.layout.delta;
+					left = this.container.scrollLeft + this.container.offsetWidth;
 
-					if (left <= this.container.scrollWidth) {
+					if (left < this.container.scrollWidth) {
 						this.scrollBy(-this.layout.delta, 0, true);
 					} else {
 						prev = this.views.first().section.prev();
@@ -11624,7 +11624,7 @@ var Book = function () {
 		_classCallCheck(this, Book);
 
 		// Allow passing just options to the Book
-		if (typeof options === "undefined" && typeof url !== "string" && url instanceof Blob === false) {
+		if (typeof options === "undefined" && typeof url !== "string" && url instanceof Blob === false && url instanceof ArrayBuffer === false) {
 			options = url;
 			url = undefined;
 		}
@@ -12284,7 +12284,7 @@ var Book = function () {
 
 		/**
    * Get the cover url
-   * @return {string} coverUrl
+   * @return {Promise<?string>} coverUrl
    */
 
 	}, {
@@ -12292,16 +12292,17 @@ var Book = function () {
 		value: function coverUrl() {
 			var _this9 = this;
 
-			var retrieved = this.loaded.cover.then(function (url) {
+			return this.loaded.cover.then(function () {
+				if (!_this9.cover) {
+					return null;
+				}
+
 				if (_this9.archived) {
-					// return this.archive.createUrl(this.cover);
-					return _this9.resources.get(_this9.cover);
+					return _this9.archive.createUrl(_this9.cover);
 				} else {
 					return _this9.cover;
 				}
 			});
-
-			return retrieved;
 		}
 
 		/**

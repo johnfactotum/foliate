@@ -581,6 +581,7 @@ var EpubView = GObject.registerClass({
             this.settings.connect('notify::zoom-level', () => {
                 this._zoomLevel = this.settings.zoom_level
                 this._run(`zoomLevel = ${this.settings.zoom_level}`)
+                this._updateWindowSize()
             }),
             this.settings.connect('notify::font', () => this._applyStyle()),
             this.settings.connect('notify::spacing', () => this._applyStyle()),
@@ -747,12 +748,22 @@ var EpubView = GObject.registerClass({
 
                 const uri = this._uri
                 const filename = this._file.get_basename().replace(/\.[^\s.]+$/, '')
+
+                const height = this._webView.get_allocation().height
+                const layoutOptions = layouts[this.settings.layout].options
+                const options = Object.assign({},
+                    layoutOptions,
+                    layoutOptions.flow === 'paginated' ? {
+                        height: height / this.settings.zoom_level
+                    } : {}
+                )
+
                 this._run(`open(
                     decodeURI("${encodeURI(uri)}"),
                     decodeURI("${encodeURI(filename)}"),
                     '${this._inputType}',
                     ${layouts[this.settings.layout].renderTo},
-                    ${JSON.stringify(layouts[this.settings.layout].options)})`)
+                    ${JSON.stringify(options)})`)
                 break
             }
             case 'book-error':
@@ -928,8 +939,12 @@ var EpubView = GObject.registerClass({
         return this._run(`setStyle(${JSON.stringify(style)})`)
     }
     _updateWindowSize() {
-        if (this._ready)
-            this._run(`windowSize = ${this._webView.get_allocation().width}`)
+        if (this._ready) {
+            const width = this._webView.get_allocation().width
+            const height = this._webView.get_allocation().height
+            this._run(`windowSize = ${width}`)
+            this._run(`rendition.resize('100%', ${height / this.settings.zoom_level})`)
+        }
     }
     set _zoomLevel(zoomLevel) {
         this._webView.zoom_level = zoomLevel
