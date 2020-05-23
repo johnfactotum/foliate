@@ -73,13 +73,12 @@ var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 var regexEscape = str => str ? str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&') : ''
 
 var glibcLocaleToJsLocale = x => x === 'C' ? 'en' : x.split('.')[0].replace('_', '-')
-var locales = []
+var locales = GLib.get_language_names().map(glibcLocaleToJsLocale)
 try {
     const settings = new Gio.Settings({ schema_id: 'org.gnome.system.locale' })
-    locales = glibcLocaleToJsLocale(settings.get_string('region'))
-} catch (e) {
-    locales = GLib.get_language_names().map(glibcLocaleToJsLocale)
-}
+    const locale = glibcLocaleToJsLocale(settings.get_string('region'))
+    if (locale) locales = locale
+} catch (e) {}
 
 var formatMinutes = n => {
     n = Math.round(n)
