@@ -42,6 +42,16 @@ const link = {
         count: { tag: 'count', ns: THR_NS },
         facetGroup: { tag: 'facetGroup', ns: OPDS_NS },
         activeFacet: { tag: 'activeFacet', ns: OPDS_NS, transform: x => x === 'true' }
+    },
+    fields: {
+        price: {
+            tag: 'price',
+            ns: OPDS_NS,
+            content: 'value',
+            attrs: {
+                currencycode: {}
+            }
+        }
     }
 }
 const author = {
@@ -97,6 +107,10 @@ const parse = (el, schema) => {
         return transform(el.textContent)
     }
     const output = {}
+    if (schema.content) {
+        const transform = schema.transform || (x => x)
+        output[schema.content] = transform(el.textContent)
+    }
     attrList.forEach(key => {
         const attr = attrs[key]
         const attrName = attr.name || key

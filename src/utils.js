@@ -72,6 +72,32 @@ var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 
 var regexEscape = str => str ? str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&') : ''
 
+var glibcLocaleToJsLocale = x => x === 'C' ? 'en' : x.split('.')[0].replace('_', '-')
+var locales = []
+try {
+    const settings = new Gio.Settings({ schema_id: 'org.gnome.system.locale' })
+    locales = glibcLocaleToJsLocale(settings.get_string('region'))
+} catch (e) {
+    locales = GLib.get_language_names().map(glibcLocaleToJsLocale)
+}
+
+var formatMinutes = n => {
+    n = Math.round(n)
+    if (n < 60) return ngettext('%d minute', '%d minutes', n).format(n)
+    else {
+        const h = Math.round(n / 60)
+        return ngettext('%d hour', '%d hours', h).format(h)
+    }
+}
+
+var formatPercent = fraction => {
+    try {
+        return new Intl.NumberFormat(locales, { style: 'percent' }).format(fraction)
+    } catch (e) {
+        return Math.round(fraction * 100) + '%'
+    }
+}
+
 var mimetypes = {
     directory: 'inode/directory',
     json: 'application/json',
@@ -376,15 +402,6 @@ var setPopoverPosition = (popover, position, window, height) => {
     popover.connect('size-allocate', () =>
         setPosition(popover.get_allocation().height))
     setPosition(height)
-}
-
-var formatMinutes = n => {
-    n = Math.round(n)
-    if (n < 60) return ngettext('%d minute', '%d minutes', n).format(n)
-    else {
-        const h = Math.round(n / 60)
-        return ngettext('%d hour', '%d hours', h).format(h)
-    }
 }
 
 // See https://stackoverflow.com/a/12646864

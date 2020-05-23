@@ -15,7 +15,8 @@
 
 const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
 
-const { setPopoverPosition, doubleInvert, brightenColor, formatMinutes } = imports.utils
+const { locales, formatPercent, formatMinutes,
+    setPopoverPosition, doubleInvert, brightenColor } = imports.utils
 const { EpubView, EpubViewAnnotation, enableAnnotations } = imports.epubView
 const { ContentsStack, FindBox,
     FootnotePopover, AnnotationBox, ImageViewer } = imports.contents
@@ -113,7 +114,7 @@ const MainMenu = GObject.registerClass({
     }
     _updateZoom() {
         const zoomLevel = viewSettings.get_double('zoom-level')
-        this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
+        this._zoomRestoreButton.label = formatPercent(zoomLevel)
     }
     set fullscreen(isFullscreen) {
         const fullscreenImage = this._fullscreenButton.get_child()
@@ -202,10 +203,10 @@ const NavBar = GObject.registerClass({
         this._locationScale.set_value(percentage)
 
         const status = this._status
-        const progress = Math.round((status === 'fallback'
+        const progress = status === 'fallback'
             ? (section + 1) / sectionTotal
-            : percentage) * 100)
-        this._locationLabel.label = status === 'loading' ? '' : progress + '%'
+            : percentage
+        this._locationLabel.label = status === 'loading' ? '' : formatPercent(progress)
 
         this._timeInBook.label = formatMinutes(timeInBook)
         this._timeInChapter.label = formatMinutes(timeInChapter)
@@ -328,7 +329,7 @@ const Footer = GObject.registerClass({
         let s = ''
         switch (type) {
             case 'percentage':
-                if (locationTotal) s = Math.round(p.percentage * 100) + '%'
+                if (locationTotal) s = formatPercent(p.percentage)
                 break
             case 'location':
                 if (this._locationsFallback)
@@ -350,7 +351,7 @@ const Footer = GObject.registerClass({
                 if (locationTotal) s = formatMinutes(timeInBook)
                 break
             case 'clock':
-                s = new Date().toLocaleTimeString([],
+                s = new Date().toLocaleTimeString(locales,
                     { hour: '2-digit', minute: '2-digit' })
                 break
         }

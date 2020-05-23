@@ -15,7 +15,8 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
 const ngettext = imports.gettext.ngettext
-const { debug, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
+const { debug, locales, formatPercent,
+    Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight, mimetypes,
     linkIsRel, makeLinksButton, sepHeaderFunc } = imports.utils
 const { PropertiesBox, PropertiesWindow } = imports.properties
@@ -115,7 +116,7 @@ const makeLibraryChild = (params, widget) => {
             const { progress } = this.book.value
             if (progress && progress[1]) {
                 const fraction = (progress[0] + 1) / (progress[1] + 1)
-                return { progress, fraction, label: Math.round(fraction * 100) + '%' }
+                return { progress, fraction, label: formatPercent(fraction) }
             }
             return {}
         }
@@ -619,6 +620,15 @@ const LoadBox = GObject.registerClass({
     }
 })
 
+const formatPrice = ({ currencycode, value }) => {
+    try {
+        return new Intl.NumberFormat(locales,
+            { style: 'currency', currency: currencycode }).format(value)
+    } catch (e) {
+        return (currencycode ? currencycode + ' ' : '') + value
+    }
+}
+
 const makeAcquisitionButton = (links, onActivate) => {
     const rel = links[0].rel.split('/').pop()
     let label = _('Download')
@@ -632,6 +642,9 @@ const makeAcquisitionButton = (links, onActivate) => {
     if (links.length === 1) {
         const button = new Gtk.Button({ visible: true, label })
         const link = links[0]
+
+        if (link.price) button.label = formatPrice(link.price)
+
         const { title, type } = link
         button.tooltip_text = title || type
         button.connect('clicked', () => onActivate(link))
@@ -639,7 +652,8 @@ const makeAcquisitionButton = (links, onActivate) => {
     } else {
         const buttonLinks = links.map(link => {
             const { href, type } = link
-            const title = link.title || Gio.content_type_get_description(type)
+            const price = link.price ? ' ' + formatPrice(link.price) : ''
+            const title = (link.title || Gio.content_type_get_description(type)) + price
             return {
                 href, type, title,
                 tooltip: type
