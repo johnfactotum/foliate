@@ -329,7 +329,11 @@ const Footer = GObject.registerClass({
         let s = ''
         switch (type) {
             case 'percentage':
-                if (locationTotal) s = formatPercent(p.percentage)
+                if (this._locationsFallback)
+                    s = formatPercent((section + 1) / sectionTotal)
+                else if (locationTotal)
+                    s = formatPercent(p.percentage)
+                else s = '…'
                 break
             case 'location':
                 if (this._locationsFallback)
