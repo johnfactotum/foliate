@@ -629,7 +629,22 @@ const formatPrice = ({ currencycode, value }) => {
     }
 }
 
+const getIndirectAcquisition = link => {
+    const types = [link.type]
+    while ('indirectAcquisition' in link) {
+        link = link.indirectAcquisition
+        types.push(link.type)
+    }
+    return {
+        types,
+        type: types[types.length - 1],
+        drm: types.includes('application/vnd.adobe.adept+xml')
+    }
+}
+
 const makeAcquisitionButton = (links, onActivate) => {
+    links = links
+        .filter(x => x.type !== 'application/atom+xml;type=entry;profile=opds-catalog')
     const rel = links[0].rel.split('/').pop()
     let label = _('Download')
     switch (rel) {
@@ -640,20 +655,39 @@ const makeAcquisitionButton = (links, onActivate) => {
         case 'subscribe': label = _('Subscribe'); break
     }
     if (links.length === 1) {
-        const button = new Gtk.Button({ visible: true, label })
         const link = links[0]
 
-        if (link.price) button.label = formatPrice(link.price)
+        if (link.price) label = formatPrice(link.price)
 
-        const { title, type } = link
-        button.tooltip_text = title || type
+        const { title } = link
+        const { type, drm } = getIndirectAcquisition(link)
+
+        let button = new Gtk.Button({
+            tooltip_text: title || Gio.content_type_get_description(type)
+        })
+        if (drm) {
+            const buttonBox = new Gtk.Box()
+            const icon = new Gtk.Image({
+                icon_name: 'emblem-drm-symbolic',
+                tooltip_text: _('Protected by DRM')
+            })
+            buttonBox.pack_start(new Gtk.Label({ label }), true, true, 0)
+            buttonBox.pack_end(icon, false, true, 0)
+            button.add(buttonBox)
+        } else {
+            button.label = label
+        }
+        button.show_all()
         button.connect('clicked', () => onActivate(link))
         return button
     } else {
         const buttonLinks = links.map(link => {
-            const { href, type } = link
+            const { href } = link
+            const { type, drm } = getIndirectAcquisition(link)
             const price = link.price ? ' ' + formatPrice(link.price) : ''
-            const title = (link.title || Gio.content_type_get_description(type)) + price
+            let title = (link.title || Gio.content_type_get_description(type))
+            if (price) title += price
+            if (drm) title += _(' (DRM)')
             return {
                 href, type, title,
                 tooltip: type
@@ -716,7 +750,7 @@ const OpdsEntryBox =  GObject.registerClass({
                 button.grab_focus()
             }
         })
-        if (map.size <= 3) {
+        if (map.size < 3) {
             acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
             acquisitionBox.homogeneous = true
         }
