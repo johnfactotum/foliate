@@ -136,7 +136,9 @@ const NavBar = GObject.registerClass({
         'locationButton', 'timeInBook', 'timeInChapter',
         'sectionEntry', 'locationEntry', 'cfiEntry',
         'sectionTotal', 'locationTotal',
-        'fallbackSectionEntry', 'fallbackSectionTotal', 'fallbackScale'
+        'fallbackScale',
+
+        'timeBox', 'timeSep', 'locLabel', 'locBox', 'navSep', 'navBox'
     ]
 }, class NavBar extends Gtk.ActionBar {
     set epub(epub) {
@@ -146,6 +148,7 @@ const NavBar = GObject.registerClass({
             this._epub.sectionMarks.then(sectionMarks => {
                 this._setSectionMarks(sectionMarks)
                 this._status = 'loaded'
+                this._update()
             })
         })
         this._epub.connect('book-loading', () => this._status = 'loading')
@@ -155,12 +158,18 @@ const NavBar = GObject.registerClass({
         this._locationScale.connect('button-release-event', () => this._onlocationScaleChanged())
         this._fallbackScale.connect('button-release-event', () => this._onFallbackScaleChanged())
         this._sectionEntry.connect('activate', () => this._onSectionEntryActivate())
-        this._fallbackSectionEntry.connect('activate', () => this._onFallbackSectionEntryActivate())
         this._locationEntry.connect('activate', () => this._onLocationEntryActivate())
         this._cfiEntry.connect('activate', () => this._onCfiEntryActivate())
     }
     set _status(status) {
         this._locationStack.visible_child_name = status
+        this._timeBox.visible
+        = this._timeSep.visible
+        = this._locLabel.visible
+        = this._locBox.visible
+        = this._navSep.visible
+        = this._navBox.visible
+        = status === 'loaded'
     }
     get _status() {
         return this._locationStack.visible_child_name
@@ -179,8 +188,11 @@ const NavBar = GObject.registerClass({
 
         this._locationScale.set_value(percentage)
 
-        const progress = Math.round(percentage * 100)
-        this._locationLabel.label = progress + '%'
+        const status = this._status
+        const progress = Math.round((status === 'fallback'
+            ? (section + 1) / sectionTotal
+            : percentage) * 100)
+        this._locationLabel.label = status === 'loading' ? '' : progress + '%'
 
         this._timeInBook.label = formatMinutes(timeInBook)
         this._timeInChapter.label = formatMinutes(timeInChapter)
@@ -190,17 +202,11 @@ const NavBar = GObject.registerClass({
         this._sectionTotal.label = _('of %d').format(sectionTotal)
         this._locationTotal.label = _('of %d').format(locationTotal + 1)
 
-        this._fallbackSectionEntry.text = this._sectionEntry.text
-        this._fallbackSectionTotal.label = this._sectionTotal.label
         this._fallbackScale.set_range(1, sectionTotal)
         this._fallbackScale.set_value(section + 1)
     }
     _onSectionEntryActivate() {
         const x = parseInt(this._sectionEntry.text) - 1
-        this._epub.goTo(x)
-    }
-    _onFallbackSectionEntryActivate() {
-        const x = parseInt(this._fallbackSectionEntry.text) - 1
         this._epub.goTo(x)
     }
     _onLocationEntryActivate() {
@@ -224,7 +230,6 @@ const NavBar = GObject.registerClass({
         this._fallbackScale.visible = !narrow
     }
     toggleLocationMenu() {
-        if (this._status !== 'loaded') return
         return this._locationButton.active = !this._locationButton.active
     }
 })

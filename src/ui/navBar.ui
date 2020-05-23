@@ -15,7 +15,7 @@
         <property name="orientation">vertical</property>
         <property name="margin">10</property>
         <child>
-          <object class="GtkGrid">
+          <object class="GtkGrid" id="timeBox">
             <property name="visible">True</property>
             <property name="margin">10</property>
             <property name="row_spacing">6</property>
@@ -77,7 +77,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkSeparator">
+          <object class="GtkSeparator" id="timeSep">
             <property name="visible">True</property>
           </object>
         </child>
@@ -128,7 +128,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="locLabel">
                 <property name="visible">True</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">Location</property>
@@ -142,7 +142,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="GtkBox" id="locBox">
                 <property name="visible">True</property>
                 <property name="spacing">6</property>
                 <child>
@@ -196,12 +196,12 @@
           </object>
         </child>
         <child>
-          <object class="GtkSeparator">
+          <object class="GtkSeparator" id="navSep">
             <property name="visible">True</property>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="GtkBox" id="navBox">
             <property name="visible">True</property>
             <property name="margin-top">10</property>
             <style><class name="linked"/></style>
@@ -297,6 +297,33 @@
       </object>
     </child>
     <child>
+      <object class="GtkMenuButton" id="locationButton">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
+        <property name="relief">none</property>
+        <property name="popover">locationMenu</property>
+        <property name="tooltip-text" translatable="yes">Location</property>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="locationLabel">
+                <property name="visible">True</property>
+                <property name="label">0%</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">pan-down-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
       <object class="GtkStack" id="locationStack">
         <property name="visible">True</property>
         <child>
@@ -314,19 +341,6 @@
             <property name="visible">True</property>
             <property name="spacing">6</property>
             <child>
-              <object class="GtkEntry" id="fallbackSectionEntry">
-                <property name="visible">True</property>
-                <property name="xalign">1</property>
-                <property name="width-chars">5</property>
-                <property name="input-purpose">digits</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="fallbackSectionTotal">
-                <property name="visible">True</property>
-              </object>
-            </child>
-            <child>
               <object class="GtkScale" id="fallbackScale">
                 <property name="visible">True</property>
                 <property name="draw-value">False</property>
@@ -341,33 +355,6 @@
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
-            <child>
-              <object class="GtkMenuButton" id="locationButton">
-                <property name="visible">True</property>
-                <property name="valign">center</property>
-                <property name="relief">none</property>
-                <property name="popover">locationMenu</property>
-                <property name="tooltip-text" translatable="yes">Location</property>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel" id="locationLabel">
-                        <property name="visible">True</property>
-                        <property name="label">0%</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="icon-name">pan-down-symbolic</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
             <child>
               <object class="GtkScale" id="locationScale">
                 <property name="visible">True</property>
