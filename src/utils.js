@@ -114,6 +114,23 @@ var mimetypes = {
     cbt: 'application/x-cbt',
 }
 
+var fileFilters = {
+    all: new Gtk.FileFilter(),
+    ebook: new Gtk.FileFilter()
+}
+fileFilters.all.set_name(_('All Files'))
+fileFilters.all.add_pattern('*')
+fileFilters.ebook.set_name(_('E-book Files'))
+fileFilters.ebook.add_mime_type(mimetypes.epub)
+fileFilters.ebook.add_mime_type(mimetypes.mobi)
+fileFilters.ebook.add_mime_type(mimetypes.kindle)
+fileFilters.ebook.add_mime_type(mimetypes.fb2)
+fileFilters.ebook.add_mime_type(mimetypes.fb2zip)
+fileFilters.ebook.add_mime_type(mimetypes.cbz)
+fileFilters.ebook.add_mime_type(mimetypes.cbr)
+fileFilters.ebook.add_mime_type(mimetypes.cb7)
+fileFilters.ebook.add_mime_type(mimetypes.cbt)
+
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
 var execCommand = (argv, input = null, waitCheck, token, inFlatpak, envs) =>
     new Promise((resolve, reject) => {

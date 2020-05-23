@@ -17,7 +17,7 @@ const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = impor
 const ngettext = imports.gettext.ngettext
 const { debug, locales, formatPercent,
     Obj, base64ToPixbuf, scalePixbuf, markupEscape,
-    shuffle, hslToRgb, colorFromString, isLight, mimetypes,
+    shuffle, hslToRgb, colorFromString, isLight, fileFilters,
     linkIsRel, makeLinksButton, sepHeaderFunc } = imports.utils
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
@@ -100,6 +100,7 @@ const makeLibraryChild = (params, widget) => {
             this.actionGroup = new Gio.SimpleActionGroup()
             const actions = {
                 'properties': () => this.showProperties(),
+                'edit': () => this.editBook(),
                 'remove': () => this.removeBook(),
             }
             Object.keys(actions).forEach(name => {
@@ -136,9 +137,49 @@ const makeLibraryChild = (params, widget) => {
             }, metadata, cover)
             window.show()
         }
-        removeBook() {
+        removeBook(window) {
             const id = this.book.value.identifier
-            this.get_parent().removeBooks([id])
+            return this.get_parent().removeBooks([id], window)
+        }
+        editBook() {
+            const { metadata } = this.book.value
+            const { identifier } = metadata
+
+            const builder = Gtk.Builder.new_from_resource(
+                '/com/github/johnfactotum/Foliate/ui/bookEditDialog.ui')
+
+            const $ = builder.get_object.bind(builder)
+            const dialog = $('bookEditDialog')
+            dialog.transient_for = this.get_toplevel()
+            if (uriStore) {
+                $('uriEntry').text = uriStore.get(identifier)
+                $('uriBrowse').connect('clicked', () => {
+                    const chooser = Gtk.FileChooserNative.new(
+                        _('Choose File'),
+                        dialog,
+                        Gtk.FileChooserAction.OPEN,
+                        null, null)
+                    chooser.add_filter(fileFilters.all)
+                    chooser.add_filter(fileFilters.ebook)
+                    chooser.set_filter(fileFilters.ebook)
+                    if (chooser.run() === Gtk.ResponseType.ACCEPT) {
+                        const file = chooser.get_file()
+                        $('uriEntry').text = file.get_uri()
+                    }
+                })
+            } else {
+                $('uriBox').sensitive = false
+            }
+            $('removeButton').connect('clicked', () => {
+                if (this.removeBook(dialog)) dialog.close()
+            })
+
+            if (dialog.run() === Gtk.ResponseType.OK) {
+                if (uriStore) {
+                    uriStore.set(identifier, $('uriEntry').text)
+                }
+            }
+            dialog.close()
         }
     })
 }
@@ -426,8 +467,7 @@ const makeLibraryWidget = (params, widget) => {
             const file = Gio.File.new_for_uri(uri)
             this.get_toplevel().open(file)
         }
-        removeBooks(ids) {
-            const window = this.get_toplevel()
+        removeBooks(ids, window = this.get_toplevel()) {
             const n = ids.length
             const msg = new Gtk.MessageDialog({
                 text: ngettext(
@@ -1264,30 +1304,15 @@ var LibraryWindow =  GObject.registerClass({
                 ? this.active_view : 'empty'
     }
     runAddFilesDialog() {
-        const allFiles = new Gtk.FileFilter()
-        allFiles.set_name(_('All Files'))
-        allFiles.add_pattern('*')
-
-        const epubFiles = new Gtk.FileFilter()
-        epubFiles.set_name(_('E-book Files'))
-        epubFiles.add_mime_type(mimetypes.epub)
-        epubFiles.add_mime_type(mimetypes.mobi)
-        epubFiles.add_mime_type(mimetypes.kindle)
-        epubFiles.add_mime_type(mimetypes.fb2)
-        epubFiles.add_mime_type(mimetypes.fb2zip)
-        epubFiles.add_mime_type(mimetypes.cbz)
-        epubFiles.add_mime_type(mimetypes.cbr)
-        epubFiles.add_mime_type(mimetypes.cb7)
-        epubFiles.add_mime_type(mimetypes.cbt)
-
         const dialog = Gtk.FileChooserNative.new(
             _('Add Files'),
             this,
             Gtk.FileChooserAction.OPEN,
             null, null)
         dialog.select_multiple = true
-        dialog.add_filter(epubFiles)
-        dialog.add_filter(allFiles)
+        dialog.add_filter(fileFilters.all)
+        dialog.add_filter(fileFilters.ebook)
+        dialog.set_filter(fileFilters.ebook)
 
         if (dialog.run() !== Gtk.ResponseType.ACCEPT) return
 
