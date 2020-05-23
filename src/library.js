@@ -959,7 +959,7 @@ const NavigationRow =  GObject.registerClass({
         else this._content.hide()
 
         const count = links[0].count
-        if (typeof count !== 'undefined') this._count.label = String(count)
+        if (typeof count === 'string') this._count.label = count
         else this._count.hide()
 
         const activeFacet = links[0].activeFacet
@@ -1632,7 +1632,8 @@ var OpdsWindow =  GObject.registerClass({
                 visible: true,
                 ellipsize: Pango.EllipsizeMode.END,
                 label: title || _('Loading…'),
-                tooltip_text: title || null
+                tooltip_text: title || null,
+                width_chars: 10,
             })
 
             const column = new HdyColumn({

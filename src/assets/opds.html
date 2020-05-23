@@ -156,7 +156,7 @@ const parse = (el, schema) => {
         const values = field.recursive
             ? tags.map(tag => parse(tag, Object.assign({ fields: { [key]: field } }, field)))
             : tags.map(tag => parse(tag, field))
-        output[key] = field.array || values.length > 1 ? values : values[0]
+        output[key] = field.array ? values : values[0] || undefined
     })
     return output
 }
