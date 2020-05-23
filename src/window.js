@@ -976,10 +976,11 @@ var Window = GObject.registerClass({
         this._epub.connect('click', (_, width, position) => {
             const turnPageOnTap = settings.get_boolean('turn-page-on-tap')
             if (!turnPageOnTap) return
+            const rtl = this._epub.metadata.direction === 'rtl'
             const place = position / width
             if (this._highlightMenu && this._highlightMenu.visible) return
-            else if (place > 2/3) return this._epub.next()
-            else if (place < 1/3) return this._epub.prev()
+            else if (place > 2/3) return rtl ? this._epub.prev() : this._epub.next()
+            else if (place < 1/3) return rtl ? this._epub.next() : this._epub.prev()
             else {
                 const visible = this._mainOverlay.toggleNavBar()
                 if (this._fullscreen)
