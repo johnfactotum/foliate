@@ -122,9 +122,15 @@ const parse = (el, schema) => {
     attrList.forEach(key => {
         const attr = attrs[key]
         const attrName = attr.name || key
-        const value = (attr.ns
-            ? el.getAttributeNS(attr.ns, attrName)
-            : el.getAttribute(attrName)) || attr.default
+        let value
+        if (!attr.ns) {
+            value = el.getAttribute(attrName)
+        } else if (Array.isArray(attr.ns)) {
+            value = attr.ns.map(ns => el.getAttributeNS(ns, attrName))
+                .find(x => x)
+        } else {
+            value = el.getAttributeNS(attr.ns, attrName)
+        }
         const transform = attr.transform || (x => x)
         output[key] = transform(value)
     })
