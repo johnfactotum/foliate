@@ -749,11 +749,7 @@ var EpubView = GObject.registerClass({
                 const uri = this._uri
                 const filename = this._file.get_basename().replace(/\.[^\s.]+$/, '')
 
-                const height = this._webView.get_allocation().height
-                const layoutOptions = layouts[this.settings.layout].options
-                const options = Object.assign({},
-                    layoutOptions,
-                    { height: height / this.settings.zoom_level })
+                const options = layouts[this.settings.layout].options
 
                 this._run(`open(
                     decodeURI("${encodeURI(uri)}"),
@@ -939,7 +935,7 @@ var EpubView = GObject.registerClass({
         if (this._ready) {
             const { width, height } = this._webView.get_allocation()
             this._run(`windowSize = ${width}`)
-            this._run(`rendition.resize('100%', ${height / this.settings.zoom_level})`)
+            this._run(`windowHeight = ${height}`)
         }
     }
     set _zoomLevel(zoomLevel) {

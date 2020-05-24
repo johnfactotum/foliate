@@ -32,6 +32,7 @@ let doubleClickTime = 400
 let imgEventType = 'click'
 let zoomLevel = 1
 let windowSize
+let windowHeight
 const getWindowIsZoomed = () => Math.abs(windowSize - window.innerWidth * zoomLevel) > 2
 
 const CFI = new ePub.CFI()
@@ -493,6 +494,16 @@ const getRect = (target, frame) => {
 
 const setupRendition = () => {
     const paginated = rendition.settings.flow === 'paginated'
+
+    const resize = () => {
+        // set rendition height to window height for vertical books
+        // verticfal books don't work without explicitly setting height
+        if (rendition.manager.viewSettings.axis === 'vertical') {
+            rendition.resize('100%', windowHeight / zoomLevel)
+        }
+    }
+    resize()
+    rendition.on('layout', resize)
 
     rendition.on('rendered', redrawAnnotations)
     rendition.on('relocated', dispatchLocation)
