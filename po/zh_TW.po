@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 20:21+0800\n"
-"PO-Revision-Date: 2020-05-13 14:28+0800\n"
+"POT-Creation-Date: 2020-05-24 15:15+0800\n"
+"PO-Revision-Date: 2020-05-24 15:36+0800\n"
 "Last-Translator: Blanc Chan\n"
 "Language-Team: none\n"
 "Language: zh_TW\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1094
-#: src/library.js:1497 src/main.js:184 src/window.js:974
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1134
+#: src/library.js:1522 src/main.js:169 src/window.js:979
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "eBook Viewer"
-msgstr "電子書檢視器"
+msgstr "電子書閱讀器"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "View eBooks"
@@ -35,12 +35,12 @@ msgstr "閱讀電子書"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:13
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "Ebook;Book;EPUB;Viewer;Reader;電子書;圖書;EPUB;檢視器;閱讀器;"
+msgstr "Ebook;Book;EPUB;Viewer;Reader;電子書;書;檢視器;閱讀器;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
 #: src/ui/libraryWindow.ui:436 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
 msgid "Library"
-msgstr ""
+msgstr "書庫"
 
 #: src/contents.js:222
 msgid "Remove current location"
@@ -49,7 +49,7 @@ msgstr "移除目前位置"
 #: src/contents.js:225 src/ui/contentsStack.ui:204
 #: src/ui/shortcutsWindow.ui:128
 msgid "Bookmark current location"
-msgstr "將當前位置加入書籤"
+msgstr "將目前位置加入書籤"
 
 #: src/contents.js:268
 msgid "No results"
@@ -66,21 +66,20 @@ msgid "Searching…"
 msgstr "搜尋中…"
 
 #: src/epubView.js:982
-#, fuzzy
 msgid "File not found."
-msgstr "找不到該項目"
+msgstr "找不到檔案。"
 
 #: src/epubView.js:994
 msgid "Failed to load remote file."
-msgstr ""
+msgstr "無法載入遠端檔案。"
 
 #: src/epubView.js:1026
 msgid "Could not unpack Kindle file."
-msgstr ""
+msgstr "無法打開 Kindle 檔案。"
 
 #: src/epubView.js:1042
 msgid "File type not supported."
-msgstr ""
+msgstr "不支援此檔案類型。"
 
 #: src/export.js:35
 #, javascript-format
@@ -128,246 +127,235 @@ msgid " Note: "
 msgstr " 筆記： "
 
 #: src/export.js:113
-#, fuzzy
 msgid "Save File"
-msgstr "開啟檔案"
+msgstr "儲存檔案"
 
 #: src/export.js:120
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for “%s”"
-msgstr "註解《%s》(%s 著)"
+msgstr "《%s》的註解"
 
-#: src/export.js:153 src/library.js:1268 src/main.js:103
+#: src/export.js:153 src/utils.js:121
 msgid "All Files"
 msgstr "所有檔案"
 
 #: src/export.js:157
-#, fuzzy
 msgid "JSON Files"
-msgstr "所有檔案"
+msgstr "JSON 檔案"
 
 #: src/export.js:160 src/ui/importWindow.ui:6
-#, fuzzy
 msgid "Import Annotations"
-msgstr "導出書籤"
+msgstr "匯入註解…"
 
-#: src/export.js:173 src/window.js:647 src/ui/contentsStack.ui:80
+#: src/export.js:173 src/window.js:652 src/ui/contentsStack.ui:80
 msgid "No annotations"
 msgstr "無註解"
 
 #: src/export.js:174
 msgid "There’s nothing to import."
-msgstr ""
+msgstr "沒有註解可匯入。"
 
 #: src/export.js:215
-#, fuzzy
 msgid "Identifier mismatch"
-msgstr "標識符"
+msgstr "識別碼不符"
 
 #: src/export.js:216
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
-msgstr ""
+msgstr "匯入檔案識別碼與書籍識別碼不符。這可能表示這些註解不屬於此書籍。"
 
-#: src/export.js:221 src/library.js:441 src/main.js:144 src/window.js:548
-#: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
-#: src/ui/libraryWindow.ui:425 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
+#: src/export.js:221 src/library.js:481 src/main.js:129 src/window.js:553
+#: src/ui/bookEditDialog.ui:10 src/ui/exportWindow.ui:38
+#: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:425
+#: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "取消"
 
 #: src/export.js:222
 msgid "Import Anyway"
-msgstr ""
+msgstr "照樣匯入"
 
-#: src/export.js:232 src/library.js:1684 src/window.js:1002
+#: src/export.js:232 src/library.js:1710 src/window.js:1007
 msgid "Error"
-msgstr ""
+msgstr "錯誤"
 
 #: src/export.js:233
-#, fuzzy
 msgid "Could not import annotations."
-msgstr "導出書籤"
+msgstr "無法匯入註解。"
 
-#: src/library.js:133 src/window.js:627 src/ui/bookBoxMenu.ui:13
+#: src/library.js:134 src/window.js:632 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
-msgstr "關於此書"
+msgstr "關於這本書"
 
-#: src/library.js:250 src/library.js:268
+#: src/library.js:158
+msgid "Choose File"
+msgstr "選擇檔案"
+
+#: src/library.js:291 src/library.js:309
 msgid "Load more"
-msgstr ""
+msgstr "載入更多"
 
-#: src/library.js:412
+#: src/library.js:453
 msgid "File location unkown"
-msgstr ""
+msgstr "檔案位址不明"
 
-#: src/library.js:413
+#: src/library.js:454
 msgid "Choose the location of this file to open it."
-msgstr ""
+msgstr "選擇檔案位址以開啟此檔案。"
 
-#: src/library.js:434
+#: src/library.js:474
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
-msgstr[0] ""
+msgstr[0] "確定要移除選取的 %d 本書？"
 
-#: src/library.js:436
+#: src/library.js:476
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
-msgstr ""
+msgstr "閱讀進度、註解與書籤會被永久刪除。"
 
-#: src/library.js:442 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
-#: src/ui/bookBoxMenu.ui:20 src/ui/bookmarkRow.ui:44
+#: src/library.js:482 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:405
 msgid "Remove"
 msgstr "移除"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/library.js:579
+#: src/library.js:619
 msgid ", "
-msgstr ""
+msgstr "、"
 
-#: src/library.js:604
+#: src/library.js:644
 msgid "Unable to load OPDS feed"
-msgstr ""
+msgstr "無法載入 OPDS"
 
-#: src/library.js:649
+#: src/library.js:689
 msgid "Download"
-msgstr ""
+msgstr "下載"
 
-#: src/library.js:651
+#: src/library.js:691
 msgid "Buy"
-msgstr ""
+msgstr "購買"
 
-#: src/library.js:652
+#: src/library.js:692
 msgid "Free"
-msgstr ""
+msgstr "免費"
 
-#: src/library.js:653
+#: src/library.js:693
 msgid "Sample"
-msgstr ""
+msgstr "試讀"
 
-#: src/library.js:654
+#: src/library.js:694
 msgid "Borrow"
-msgstr ""
+msgstr "借閱"
 
-#: src/library.js:655
+#: src/library.js:695
 msgid "Subscribe"
-msgstr ""
+msgstr "訂閱"
 
-#: src/library.js:672
+#: src/library.js:712
 msgid "Protected by DRM"
-msgstr ""
+msgstr "DRM 保護"
 
-#: src/library.js:690
+#: src/library.js:730
 msgid " (DRM)"
-msgstr ""
+msgstr "（DRM）"
 
-#: src/library.js:1116
+#: src/library.js:1156
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] ""
+msgstr[0] "選取了 %d 個項目"
 
-#: src/library.js:1223
+#: src/library.js:1263
 msgid "All"
-msgstr ""
+msgstr "全部"
 
-#: src/library.js:1226
+#: src/library.js:1266
 msgid "Title"
-msgstr ""
+msgstr "標題"
 
-#: src/library.js:1227
+#: src/library.js:1267
 msgid "Author"
-msgstr ""
+msgstr "作者"
 
-#: src/library.js:1228 src/properties.js:71
+#: src/library.js:1268 src/properties.js:71
 msgid "Tags"
-msgstr ""
+msgstr "標籤"
 
-#: src/library.js:1229
-#, fuzzy
+#: src/library.js:1269
 msgid "Description"
-msgstr "章節： "
+msgstr "描述"
 
-#: src/library.js:1230 src/properties.js:75
+#: src/library.js:1270 src/properties.js:75
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/library.js:1231 src/properties.js:87 src/ui/ttsDialog.ui:284
+#: src/library.js:1271 src/properties.js:87 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "語言"
 
-#: src/library.js:1272 src/main.js:107
-msgid "E-book Files"
-msgstr "電子書檔案"
-
-#: src/library.js:1284
-#, fuzzy
+#: src/library.js:1308
 msgid "Add Files"
-msgstr "所有檔案"
+msgstr "新增檔案"
 
-#: src/library.js:1327
+#: src/library.js:1352
 msgid "See More"
-msgstr ""
+msgstr "看更多"
 
-#: src/library.js:1609 src/window.js:1279 src/ui/libraryWindow.ui:176
+#: src/library.js:1634 src/window.js:1284 src/ui/libraryWindow.ui:176
 msgid "Loading…"
 msgstr "載入中…"
 
-#: src/library.js:1649
+#: src/library.js:1675
 msgid "First"
-msgstr ""
+msgstr "第一頁"
 
-#: src/library.js:1650
-#, fuzzy
+#: src/library.js:1676
 msgid "Previous"
 msgstr "上一頁"
 
-#: src/library.js:1651
-#, fuzzy
+#: src/library.js:1677
 msgid "Next"
 msgstr "下一頁"
 
-#: src/library.js:1652
+#: src/library.js:1678
 msgid "Last"
-msgstr ""
+msgstr "最後一頁"
 
-#: src/library.js:1698
+#: src/library.js:1724
 msgid "Related"
-msgstr ""
+msgstr "相關"
 
-#: src/library.js:1699
-#, fuzzy
+#: src/library.js:1725
 msgid "Section"
-msgstr "章節： "
+msgstr "區塊"
 
-#: src/library.js:1700
-#, fuzzy
+#: src/library.js:1726
 msgid "Subsection"
-msgstr "章節： "
+msgstr "次區塊"
 
-#: src/library.js:1701
+#: src/library.js:1727
 msgid "New"
-msgstr ""
+msgstr "最新"
 
-#: src/library.js:1702
+#: src/library.js:1728
 msgid "Popular"
-msgstr ""
+msgstr "熱門"
 
-#: src/library.js:1703
-#, fuzzy
+#: src/library.js:1729
 msgid "Featured"
-msgstr "功能包括："
+msgstr "特選"
 
-#: src/library.js:1704
+#: src/library.js:1730
 msgid "Recommended"
-msgstr ""
+msgstr "推薦"
 
-#: src/library.js:1736
+#: src/library.js:1762
 msgid "Filter"
-msgstr ""
+msgstr "篩選"
 
 #: src/lookup.js:96
 msgid "Search on Wikipedia"
@@ -378,9 +366,8 @@ msgid "Source: "
 msgstr "來源： "
 
 #: src/lookup.js:220
-#, fuzzy
 msgid "Wiktionary"
-msgstr "詞典"
+msgstr "維基詞典"
 
 #: src/lookup.js:303
 msgid "Wiktionary (English)"
@@ -392,57 +379,55 @@ msgstr "在維基詞典上搜尋"
 
 #: src/lookup.js:398
 msgid "Translation by Google Translate"
-msgstr "由 Google Translate 翻譯"
+msgstr "翻譯來自 Google 翻譯"
 
-#: src/main.js:119
+#: src/main.js:103
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: src/main.js:139
-#, fuzzy
+#: src/main.js:124
 msgid "Open a Catalog"
-msgstr "開啟副本"
+msgstr "開啟目錄"
 
-#: src/main.js:145
-#, fuzzy
+#: src/main.js:130
 msgid "Open"
-msgstr "開啟…"
+msgstr "開啟"
 
-#: src/main.js:149
+#: src/main.js:134
 msgid "OPDS Catalog URL:"
-msgstr ""
+msgstr "OPDS 目錄 URL："
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:183
+#: src/main.js:168
 msgid "translator-credits"
-msgstr "Blan Chan"
+msgstr ""
+"Blan Chan\n"
+"John Factotum"
 
-#: src/main.js:185 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:170 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "簡潔現代的電子書檢視器"
 
-#: src/main.js:210
-#, fuzzy
+#: src/main.js:195
 msgid "Open library window"
-msgstr "開啟副本"
+msgstr "開啟書庫視窗"
 
-#: src/main.js:214
+#: src/main.js:199
 msgid "Add files to the library"
-msgstr ""
+msgstr "新增書籍至書庫"
 
-#: src/main.js:218
-#, fuzzy
+#: src/main.js:203
 msgid "Show version"
-msgstr "顯示菜單"
+msgstr "顯示版本"
 
-#: src/main.js:222
+#: src/main.js:207
 msgid "Show verbose debugging information"
-msgstr ""
+msgstr "顯示除錯訊息"
 
 #: src/properties.js:72
 msgid " • "
-msgstr ""
+msgstr " • "
 
 #: src/properties.js:79
 msgid "Publication Date"
@@ -450,25 +435,24 @@ msgstr "出版日期"
 
 #: src/properties.js:83
 msgid "Modified Date"
-msgstr "更改日期"
+msgstr "更新日期"
 
 #: src/properties.js:91
-#, fuzzy
 msgid "File Size"
-msgstr "檔案"
+msgstr "檔案大小"
 
 #: src/properties.js:95
 msgid "Format"
-msgstr ""
+msgstr "格式"
 
 #: src/properties.js:101
 msgid "Identifier"
-msgstr "標識符"
+msgstr "識別碼"
 
 #: src/properties.js:115
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
-msgstr ""
+msgstr "這本書沒有識別碼。這是從檔案產生的 MD5 雜湊值。"
 
 #: src/properties.js:126
 msgid "Copyright"
@@ -476,33 +460,31 @@ msgstr "版權"
 
 #: src/properties.js:137
 msgid "Amazon"
-msgstr ""
+msgstr "Amazon"
 
 #: src/properties.js:141
 msgid "Goodreads"
-msgstr ""
+msgstr "Goodreads"
 
 #: src/properties.js:145
-#, fuzzy
 msgid "Google Books"
-msgstr "閱讀電子書"
+msgstr "Google 圖書"
 
 #: src/properties.js:149
 msgid "LibraryThing"
-msgstr ""
+msgstr "LibraryThing"
 
 #: src/properties.js:153
-#, fuzzy
 msgid "Open Library"
-msgstr "開啟副本"
+msgstr "Open Library"
 
 #: src/properties.js:157
 msgid "WorldCat"
-msgstr ""
+msgstr "WorldCat"
 
 #: src/properties.js:196
 msgid "Find on…"
-msgstr ""
+msgstr "尋找這本書"
 
 #: src/theme.js:23
 msgid "Light"
@@ -524,63 +506,62 @@ msgstr "暗色"
 #: src/ui/themeWindow.ui:145
 #: data/com.github.johnfactotum.Foliate.gschema.xml:167
 msgid "Invert"
-msgstr "反轉色"
+msgstr "反轉顏色"
 
 #: src/theme.js:43
-#, fuzzy
 msgid "Solarized Light"
-msgstr "日光"
+msgstr "Solarized Light"
 
 #: src/theme.js:47
-#, fuzzy
 msgid "Solarized Dark"
-msgstr "月光"
+msgstr "Solarized Dark"
 
 #: src/theme.js:51
-#, fuzzy
 msgid "Gruvbox Light"
-msgstr "亮色護眼"
+msgstr "Gruvbox Light"
 
 #: src/theme.js:55
-#, fuzzy
 msgid "Gruvbox Dark"
-msgstr "暗色護眼"
+msgstr "Gruvbox Dark"
 
 #: src/theme.js:59
-#, fuzzy
 msgid "Nord"
-msgstr "深藍色"
+msgstr "Nord"
 
 #. Translatros: these are sentences from "The North Wind and the Sun",
 #. used for testing text-to-speech
 #: src/tts.js:225
 msgid "The North Wind and the Sun were disputing which was the stronger,"
-msgstr ""
+msgstr "有一次，北風和太陽正在爭論誰比較有本事。"
 
 #: src/tts.js:226
 msgid "when a traveler came along wrapped in a warm cloak."
-msgstr ""
+msgstr "他們正好看到有個人走過，那個人穿著一件斗篷。"
 
 #. Translators: this is the language code of the test sentences
 #: src/tts.js:228
 msgid "en"
-msgstr ""
+msgstr "zh-TW"
 
-#: src/utils.js:86
+#: src/utils.js:85
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] ""
+msgstr[0] "%d 分"
 
-#: src/utils.js:89
+#: src/utils.js:88
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] ""
+msgstr[0] "%d 時"
 
-#: src/window.js:123 src/window.js:794
+#: src/utils.js:123
+msgid "E-book Files"
+msgstr "電子書檔案"
+
+#: src/window.js:123 src/window.js:799
 msgid "Leave fullscreen"
-msgstr "退出全螢幕"
+msgstr "離開全螢幕"
 
 #: src/window.js:126 src/ui/mainMenu.ui:91
 #: data/com.github.johnfactotum.Foliate.gschema.xml:225
@@ -592,52 +573,50 @@ msgstr "全螢幕"
 msgid "of %d"
 msgstr "共 %d"
 
-#: src/window.js:542
+#: src/window.js:547
 msgid "This file or format does not work well with annotations"
-msgstr ""
+msgstr "此檔案或格式不適合新增註解"
 
-#: src/window.js:543
+#: src/window.js:548
 msgid "Your annotations might stop working properly at any time."
-msgstr ""
+msgstr "註解可能隨時停止運作。"
 
-#: src/window.js:549
+#: src/window.js:554
 msgid "Continue Anyway"
-msgstr ""
+msgstr "繼續"
 
-#: src/window.js:648
+#: src/window.js:653
 msgid "You don't have any annotations for this book."
 msgstr "這本書沒有任何註解。"
 
-#: src/window.js:649
-#, fuzzy
+#: src/window.js:654
 msgid "Highlight some text to add annotations."
-msgstr "選中文本以添加註解。"
+msgstr "選取一些文字以新增註解。"
 
-#: src/window.js:773
-#, fuzzy
+#: src/window.js:778
 msgid "Contents"
-msgstr "顯示內容"
+msgstr "內容"
 
-#: src/window.js:777 data/com.github.johnfactotum.Foliate.gschema.xml:235
+#: src/window.js:782 data/com.github.johnfactotum.Foliate.gschema.xml:235
 msgid "Show sidebar"
 msgstr "顯示側邊欄"
 
-#: src/window.js:788 src/ui/selectionPopover.ui:47
+#: src/window.js:793 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr "搜尋"
 
-#: src/window.js:789 src/ui/libraryWindow.ui:99 src/ui/opdsWindow.ui:69
+#: src/window.js:794 src/ui/libraryWindow.ui:99 src/ui/opdsWindow.ui:69
 msgid "Menu"
-msgstr ""
+msgstr "選單"
 
-#: src/window.js:1066
+#: src/window.js:1071
 #, javascript-format
 msgid "Image from “%s”"
-msgstr ""
+msgstr "來自《%s》的影像"
 
-#: src/window.js:1066
+#: src/window.js:1071
 msgid "Image"
-msgstr ""
+msgstr "影像"
 
 #: src/ui/annotationBox.ui:35
 msgid "Change highlight color"
@@ -648,22 +627,40 @@ msgid "Choose custom color"
 msgstr "自訂顏色"
 
 #: src/ui/bookBoxChild.ui:29 src/ui/bookBoxRow.ui:76
-#, fuzzy
 msgid "Remote file"
-msgstr "移除主題"
+msgstr "遠端檔案"
+
+#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/themeRow.ui:26
+msgid "Edit"
+msgstr "編輯"
+
+#: src/ui/bookEditDialog.ui:17
+msgid "Save"
+msgstr "儲存"
+
+#: src/ui/bookEditDialog.ui:46
+msgid "File URL:"
+msgstr "檔案 URL："
+
+#: src/ui/bookEditDialog.ui:62
+msgid "Browse…"
+msgstr "瀏覽…"
+
+#: src/ui/bookEditDialog.ui:72
+msgid "Remove Book"
+msgstr "移除書籍"
 
 #: src/ui/contentsStack.ui:39
 msgid "Table of Contents"
 msgstr "目錄"
 
 #: src/ui/contentsStack.ui:51
-#, fuzzy
 msgid "Search annotations"
-msgstr "顯示註解"
+msgstr "搜尋註解"
 
 #: src/ui/contentsStack.ui:92
 msgid "Select some text to add annotations."
-msgstr "選中文本以添加註解。"
+msgstr "選取一些文字以新增註解。"
 
 #: src/ui/contentsStack.ui:124
 msgid "Annotations"
@@ -675,7 +672,7 @@ msgstr "無書籤"
 
 #: src/ui/contentsStack.ui:171
 msgid "Add some bookmarks to see them here."
-msgstr "新增書籤以在此處顯示。"
+msgstr "新增書籤之後，就可以在這裡檢視它們。"
 
 #: src/ui/contentsStack.ui:216
 msgid "Bookmarks"
@@ -683,7 +680,7 @@ msgstr "書籤"
 
 #: src/ui/dictionaryBox.ui:64
 msgid "No definitions found"
-msgstr "找不到該定義"
+msgstr "找不到定義"
 
 #: src/ui/exportWindow.ui:11
 msgid "HTML"
@@ -695,7 +692,7 @@ msgstr "Markdown"
 
 #: src/ui/exportWindow.ui:19
 msgid "Plain Text"
-msgstr "純文本"
+msgstr "純文字"
 
 #: src/ui/exportWindow.ui:23
 msgid "BibTeX"
@@ -707,19 +704,19 @@ msgstr "JSON"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
-msgstr "導出書籤"
+msgstr "匯出註解"
 
 #: src/ui/exportWindow.ui:45
 msgid "Export"
-msgstr "導出"
+msgstr "匯出"
 
 #: src/ui/exportWindow.ui:67
 msgid "Choose export format:"
-msgstr "選擇導出格式："
+msgstr "選擇匯出格式："
 
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
-msgstr ""
+msgstr "若將來要匯入回 Foliate，請選擇「JSON」。"
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
@@ -727,7 +724,7 @@ msgstr "所有章節"
 
 #: src/ui/findBox.ui:22
 msgid "Current chapter"
-msgstr "當前章節"
+msgstr "目前章節"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
 msgid "Footnote Preview"
@@ -738,7 +735,7 @@ msgstr "腳註預覽"
 #: src/ui/wikipediaBox.ui:107
 #: data/com.github.johnfactotum.Foliate.gschema.xml:263
 msgid "View"
-msgstr "查看"
+msgstr "檢視"
 
 #: src/ui/imageViewer.ui:31 src/ui/menuBar.ui:60 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:311
@@ -757,7 +754,7 @@ msgstr "縮小"
 
 #: src/ui/imageViewer.ui:139 src/ui/mainMenu.ui:64
 msgid "Restore zoom"
-msgstr "恢復默認縮放"
+msgstr "重設縮放"
 
 #: src/ui/imageViewer.ui:152 src/ui/mainMenu.ui:73
 #: src/ui/shortcutsWindow.ui:163 src/ui/shortcutsWindow.ui:284
@@ -767,26 +764,25 @@ msgstr "放大"
 
 #: src/ui/imageViewer.ui:184 src/ui/shortcutsWindow.ui:368
 msgid "Rotate 90° counter-clockwise"
-msgstr "逆時針旋轉90°"
+msgstr "逆時針旋轉 90°"
 
 #: src/ui/imageViewer.ui:197 src/ui/shortcutsWindow.ui:375
 msgid "Rotate 90° clockwise"
-msgstr "順時針旋轉90°"
+msgstr "順時針旋轉 90°"
 
 #: src/ui/importWindow.ui:17
-#, fuzzy
 msgid "Import"
-msgstr "導出"
+msgstr "匯入"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr ""
+msgstr "將加入這些註解："
 
 #: src/ui/importWindow.ui:64
 msgid ""
 "The imported annotations will NOT overwrite the existing ones when they "
 "highlight the same passages."
-msgstr ""
+msgstr "當匯入的註解與現有的註解標示同一段落時，不會覆蓋現有註解。"
 
 #: src/ui/libraryWindow.ui:7 src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8
 #: src/ui/opdsWindow.ui:13
@@ -794,14 +790,13 @@ msgid "Open…"
 msgstr "開啟…"
 
 #: src/ui/libraryWindow.ui:11 src/ui/opdsWindow.ui:17
-#, fuzzy
 msgid "Open a Catalog…"
-msgstr "開啟副本"
+msgstr "開啟目錄…"
 
 #: src/ui/libraryWindow.ui:16 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
 #: src/ui/opdsWindow.ui:22 src/ui/preferenceWindow.ui:118
 msgid "Preferences"
-msgstr "偏好"
+msgstr "偏好設定"
 
 #: src/ui/libraryWindow.ui:20 src/ui/mainMenu.ui:323 src/ui/menuBar.ui:223
 msgid "Keyboard Shortcuts"
@@ -814,30 +809,28 @@ msgstr "關於 Foliate"
 
 #: src/ui/libraryWindow.ui:45
 msgid "Add books"
-msgstr ""
+msgstr "新增書籍"
 
 #: src/ui/libraryWindow.ui:61
 msgid "Add catalog"
-msgstr ""
+msgstr "新增目錄"
 
 #: src/ui/libraryWindow.ui:122 src/ui/opdsWindow.ui:84
 #: src/ui/shortcutsWindow.ui:17
-#, fuzzy
 msgid "Search"
-msgstr "搜尋中…"
+msgstr "搜尋"
 
 #: src/ui/libraryWindow.ui:135
 msgid "Toggle view"
-msgstr ""
+msgstr "切換檢視"
 
 #: src/ui/libraryWindow.ui:195
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: src/ui/libraryWindow.ui:305
-#, fuzzy
 msgid "No books yet"
-msgstr "未開啟任何書籍"
+msgstr "沒有書籍"
 
 #: src/ui/libraryWindow.ui:317 src/ui/mainOverlay.ui:60
 msgid "Open a book to start reading."
@@ -849,21 +842,19 @@ msgstr "開啟檔案…"
 
 #: src/ui/libraryWindow.ui:339
 msgid "Browse Catalogs"
-msgstr ""
+msgstr "瀏覽目錄"
 
 #: src/ui/libraryWindow.ui:371
-#, fuzzy
 msgid "No results found"
-msgstr "沒有結果"
+msgstr "找不到結果"
 
 #: src/ui/libraryWindow.ui:383
 msgid "Try a different search."
-msgstr ""
+msgstr "請嘗試不同的搜尋。"
 
 #: src/ui/libraryWindow.ui:453
-#, fuzzy
 msgid "Catalogs"
-msgstr "加泰隆尼亞文"
+msgstr "目錄"
 
 #: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:172
 msgid "Brightness"
@@ -880,7 +871,7 @@ msgstr "行距"
 
 #: src/ui/mainMenu.ui:176
 msgid "Margins"
-msgstr "縮進"
+msgstr "邊界"
 
 #: src/ui/mainMenu.ui:231
 msgid "Width"
@@ -904,7 +895,7 @@ msgstr "書籍"
 
 #: src/ui/mainMenu.ui:383
 msgid "Add Custom Theme…"
-msgstr "添加自訂主題…"
+msgstr "新增自訂主題…"
 
 #: src/ui/mainMenu.ui:429 src/ui/menuBar.ui:108
 #: data/com.github.johnfactotum.Foliate.gschema.xml:192
@@ -925,11 +916,11 @@ msgstr "捲動"
 
 #: src/ui/mainMenu.ui:471 src/ui/menuBar.ui:126
 msgid "Continuous"
-msgstr "連續滑動"
+msgstr "連續"
 
 #: src/ui/mainMenu.ui:488
 msgid "Text"
-msgstr "文本"
+msgstr "文字"
 
 #: src/ui/mainMenu.ui:505 src/ui/menuBar.ui:135
 msgid "Use Publisher Font"
@@ -942,7 +933,7 @@ msgstr "左右對齊"
 #: src/ui/mainMenu.ui:519 src/ui/menuBar.ui:143
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:220
 msgid "Auto-hyphenation"
-msgstr "自動斷字（外文书）"
+msgstr "自動斷字"
 
 #: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114
 msgid "Other"
@@ -953,17 +944,16 @@ msgid "Auto-hide Cursor"
 msgstr "自動隱藏游標"
 
 #: src/ui/mainMenu.ui:567 src/ui/menuBar.ui:157
-#, fuzzy
 msgid "Realistic Shadows"
 msgstr "仿真陰影效果"
 
 #: src/ui/mainMenu.ui:579
 msgid "Allow JavaScript and external resources"
-msgstr "允許 JavaScript 和外部內容"
+msgstr "允許 JavaScript 與外部資源"
 
 #: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
 msgid "Allow Unsafe Content"
-msgstr "允許不安全內容"
+msgstr "允許不安全的內容"
 
 #: src/ui/mainMenu.ui:587 src/ui/menuBar.ui:167
 msgid "Enable Developer Tools"
@@ -979,17 +969,15 @@ msgstr "重新載入"
 
 #: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
 msgid "Clear Cache"
-msgstr ""
+msgstr "清除快取"
 
 #: src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
-#, fuzzy
 msgid "Export Annotations…"
-msgstr "導出註解…"
+msgstr "匯出註解…"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
-#, fuzzy
 msgid "Import Annotations…"
-msgstr "導出註解…"
+msgstr "匯入註解…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
@@ -1001,106 +989,92 @@ msgstr "最近檔案…"
 
 #: src/ui/mainOverlay.ui:129
 msgid "Could not open file"
-msgstr ""
+msgstr "無法開啟檔案"
 
 #: src/ui/mainOverlay.ui:150
 msgid "Open Another File…"
-msgstr "開啟其他檔案"
+msgstr "開啟其他檔案…"
 
 #: src/ui/menuBar.ui:5
-#, fuzzy
 msgid "_File"
-msgstr "檔案"
+msgstr "檔案(_F)"
 
 #: src/ui/menuBar.ui:28
 msgid "Properties"
-msgstr ""
+msgstr "屬性"
 
 #: src/ui/menuBar.ui:46
-#, fuzzy
 msgid "Close Window"
-msgstr "關閉當前視窗"
+msgstr "關閉視窗"
 
 #: src/ui/menuBar.ui:50 src/ui/shortcutsWindow.ui:31
 #: src/ui/shortcutsWindow.ui:114 src/ui/shortcutsWindow.ui:332
 msgid "Quit"
-msgstr "退出"
+msgstr "離開"
 
 #: src/ui/menuBar.ui:57
-#, fuzzy
 msgid "_Edit"
-msgstr "編輯"
+msgstr "編輯(_E)"
 
 #: src/ui/menuBar.ui:66
-#, fuzzy
 msgid "Bookmark Current Location"
-msgstr "將當前位置加入書籤"
+msgstr "將目前位置加入書籤"
 
 #: src/ui/menuBar.ui:72 src/ui/ttsDialog.ui:6
-#, fuzzy
 msgid "Text-to-Speech"
 msgstr "文字轉語音"
 
 #: src/ui/menuBar.ui:85
-#, fuzzy
 msgid "_View"
-msgstr "查看"
+msgstr "檢視(_V)"
 
 #: src/ui/menuBar.ui:88
-#, fuzzy
 msgid "Toggle Fullscreen"
-msgstr "全螢幕"
+msgstr "切換全螢幕"
 
 #: src/ui/menuBar.ui:94
-#, fuzzy
 msgid "Zoom In"
 msgstr "放大"
 
 #: src/ui/menuBar.ui:98
-#, fuzzy
 msgid "Restore Zoom"
-msgstr "恢復默認縮放"
+msgstr "重設縮放"
 
 #: src/ui/menuBar.ui:102
-#, fuzzy
 msgid "Zoom Out"
 msgstr "縮小"
 
 #: src/ui/menuBar.ui:174
 msgid "_Go"
-msgstr ""
+msgstr "前往(_G)"
 
 #: src/ui/menuBar.ui:177
 msgid "Go Back"
-msgstr ""
+msgstr "返回"
 
 #: src/ui/menuBar.ui:183
-#, fuzzy
 msgid "Next Page"
 msgstr "下一頁"
 
 #: src/ui/menuBar.ui:187
-#, fuzzy
 msgid "Previous Page"
 msgstr "上一頁"
 
 #: src/ui/menuBar.ui:193
-#, fuzzy
 msgid "Next Chapter"
-msgstr "章節"
+msgstr "下一章節"
 
 #: src/ui/menuBar.ui:197
-#, fuzzy
 msgid "Previous Chapter"
-msgstr "上一頁"
+msgstr "上一章節"
 
 #: src/ui/menuBar.ui:203
 msgid "Beginning"
-msgstr ""
+msgstr "開頭"
 
 #: src/ui/menuBar.ui:207
 msgid "End"
-msgstr ""
+msgstr "結尾"
 
 #: src/ui/menuBar.ui:213 src/ui/navBar.ui:134 src/ui/navBar.ui:313
 #: src/ui/preferenceWindow.ui:19
@@ -1109,15 +1083,15 @@ msgstr "位置"
 
 #: src/ui/menuBar.ui:220
 msgid "_Help"
-msgstr ""
+msgstr "說明 (_H)"
 
 #: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 msgid "Time left in book"
-msgstr "本書剩餘時間"
+msgstr "全書剩餘時間"
 
 #: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
 msgid "Time left in chapter"
-msgstr "本章剩餘時間"
+msgstr "章節剩餘時間"
 
 #: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
 msgid "Chapter"
@@ -1129,37 +1103,37 @@ msgstr "CFI"
 
 #: src/ui/navBar.ui:174
 msgid "EPUB Canonical Fragment Identifier"
-msgstr "EPUB規範片段標識符"
+msgstr "EPUB 片段識別碼"
 
 #: src/ui/navBar.ui:213
 msgid "Go to beginning of book"
-msgstr "轉到書籍開頭"
+msgstr "前往開頭"
 
 #: src/ui/navBar.ui:227
 msgid "Go to previous chapter"
-msgstr "轉到前一章"
+msgstr "前往上一章節"
 
 #: src/ui/navBar.ui:241
 msgid "Go to next chapter"
-msgstr "轉到下一章"
+msgstr "前往下一章節"
 
 #: src/ui/navBar.ui:255
 msgid "Go to end of book"
-msgstr "轉到書籍結尾"
+msgstr "前往結尾"
 
 #: src/ui/navBar.ui:284 src/ui/shortcutsWindow.ui:241
 #: src/ui/shortcutsWindow.ui:277
 msgid "Go to previous page"
-msgstr "上一頁"
+msgstr "前往上一頁"
 
 #: src/ui/navBar.ui:298 src/ui/shortcutsWindow.ui:248
 msgid "Go back to previous location"
-msgstr "上一位置"
+msgstr "返回先前位置"
 
 #: src/ui/navBar.ui:387 src/ui/shortcutsWindow.ui:234
 #: src/ui/shortcutsWindow.ui:270
 msgid "Go to next page"
-msgstr "下一頁"
+msgstr "前往下一頁"
 
 #: src/ui/navBar.ui:402
 msgid "Text-to-speech"
@@ -1170,9 +1144,8 @@ msgid "Go back"
 msgstr "返回"
 
 #: src/ui/opdsWindow.ui:56
-#, fuzzy
 msgid "Go to start"
-msgstr "轉到位置"
+msgstr "前往起始頁"
 
 #: src/ui/preferenceWindow.ui:11
 msgid "Nothing"
@@ -1180,11 +1153,11 @@ msgstr "無"
 
 #: src/ui/preferenceWindow.ui:15
 msgid "Percentage"
-msgstr "百分之"
+msgstr "百分比"
 
 #: src/ui/preferenceWindow.ui:27
 msgid "Chapter name"
-msgstr "章節標題"
+msgstr "章節名稱"
 
 #: src/ui/preferenceWindow.ui:39
 msgid "Clock"
@@ -1192,11 +1165,11 @@ msgstr "時鐘"
 
 #: src/ui/preferenceWindow.ui:51
 msgid "Do nothing"
-msgstr "無操作"
+msgstr "不做任何事"
 
 #: src/ui/preferenceWindow.ui:55
 msgid "Show menu"
-msgstr "顯示菜單"
+msgstr "顯示選單"
 
 #: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:33
 msgid "Highlight"
@@ -1204,11 +1177,11 @@ msgstr "標示"
 
 #: src/ui/preferenceWindow.ui:67
 msgid "Look up in dictionary"
-msgstr "字典中搜尋"
+msgstr "查詢字典"
 
 #: src/ui/preferenceWindow.ui:71
 msgid "Look up in Wikipedia"
-msgstr "維基百科中搜尋"
+msgstr "查詢維基百科"
 
 #: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:93
 msgid "Translate"
@@ -1217,7 +1190,7 @@ msgstr "翻譯"
 #: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:135
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
-msgstr "書中搜尋"
+msgstr "搜尋書籍內容"
 
 #: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:59
 #: src/ui/ttsDialog.ui:165
@@ -1226,29 +1199,28 @@ msgstr "朗讀"
 
 #: src/ui/preferenceWindow.ui:95
 msgid "Disabled"
-msgstr ""
+msgstr "停用"
 
 #: src/ui/preferenceWindow.ui:99
-#, fuzzy
 msgid "Single click"
-msgstr "單欄"
+msgstr "單擊"
 
 #: src/ui/preferenceWindow.ui:103
 msgid "Double click"
-msgstr ""
+msgstr "雙擊"
 
 #: src/ui/preferenceWindow.ui:107
 msgid "Middle click"
-msgstr ""
+msgstr "中鍵"
 
 #: src/ui/preferenceWindow.ui:111
 msgid "Right click"
-msgstr ""
+msgstr "右鍵"
 
 #: src/ui/preferenceWindow.ui:142 src/ui/shortcutsWindow.ui:13
 #: src/ui/shortcutsWindow.ui:307
 msgid "General"
-msgstr "普通"
+msgstr "一般"
 
 #: src/ui/preferenceWindow.ui:157
 msgid "Open last opened file on startup"
@@ -1275,16 +1247,15 @@ msgstr "右頁尾"
 
 #: src/ui/preferenceWindow.ui:282
 msgid "When a word is selected"
-msgstr "選中單字時"
+msgstr "選取一個單字時"
 
 #: src/ui/preferenceWindow.ui:316
 msgid "When multiple words are selected"
-msgstr "選中多個單字時"
+msgstr "選取多個單字時"
 
 #: src/ui/preferenceWindow.ui:350
-#, fuzzy
 msgid "Open images on"
-msgstr "開啟副本"
+msgstr "以此動作開啟影像"
 
 #: src/ui/preferenceWindow.ui:385
 #: data/com.github.johnfactotum.Foliate.gschema.xml:69
@@ -1293,7 +1264,7 @@ msgstr "文字轉語音指令"
 
 #: src/ui/preferenceWindow.ui:401
 msgid "Configure…"
-msgstr ""
+msgstr "設定…"
 
 #: src/ui/preferenceWindow.ui:413
 msgid "Interface"
@@ -1301,7 +1272,7 @@ msgstr "介面"
 
 #: src/ui/preferenceWindow.ui:428
 msgid "Auto-hide header bar"
-msgstr "自動隱藏標題欄"
+msgstr "自動隱藏標題列"
 
 #: src/ui/preferenceWindow.ui:462
 #: data/com.github.johnfactotum.Foliate.gschema.xml:74
@@ -1309,73 +1280,67 @@ msgid "Use sidebar"
 msgstr "使用側邊欄"
 
 #: src/ui/preferenceWindow.ui:490
-#, fuzzy
 msgid "Use traditional titlebar (experimental)"
-msgstr "使用舊標題欄（實驗性）（需重啟）"
+msgstr "使用傳統標題列（實驗性）"
 
 #: src/ui/preferenceWindow.ui:498 src/ui/preferenceWindow.ui:553
 #: src/ui/preferenceWindow.ui:595
 msgid "Requires restart"
-msgstr ""
+msgstr "須重新啟動"
 
 #: src/ui/preferenceWindow.ui:545
-#, fuzzy
 msgid "Use Tracker to track file locations"
-msgstr "上一位置"
+msgstr "使用 Tracker 追蹤檔案位置"
 
 #: src/ui/preferenceWindow.ui:587
-#, fuzzy
 msgid "Save file locations"
-msgstr "轉到位置"
+msgstr "儲存檔案位置"
 
 #: src/ui/preferenceWindow.ui:625
 #: data/com.github.johnfactotum.Foliate.gschema.xml:24
-#, fuzzy
 msgid "Cache locations"
-msgstr "轉到位置"
+msgstr "位置快取"
 
 #: src/ui/preferenceWindow.ui:649
-#, fuzzy
 msgid "Cache book covers"
-msgstr "轉到位置"
+msgstr "封面快取"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
-msgstr "詞典中搜尋"
+msgstr "查詢字典"
 
 #: src/ui/selectionPopover.ui:86
 msgid "Look Up in Wikipedia"
-msgstr "維基百科中搜尋"
+msgstr "查詢維基百科"
 
 #: src/ui/selectionPopover.ui:105
 msgid "Speak from Here"
-msgstr "從此處開始朗讀"
+msgstr "從這裡開始朗讀"
 
 #: src/ui/shortcutsWindow.ui:9
-#, fuzzy
 msgid "Library Shortcuts"
-msgstr "鍵盤捷徑鍵"
+msgstr "書庫捷徑鍵"
 
 #: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:107
 #: src/ui/shortcutsWindow.ui:325
 msgid "Close current window"
-msgstr "關閉當前視窗"
+msgstr "關閉目前視窗"
 
 #: src/ui/shortcutsWindow.ui:44 src/ui/shortcutsWindow.ui:220
 msgid "Show primary menu"
-msgstr "顯示一級菜單"
+msgstr "顯示選單"
 
 #: src/ui/shortcutsWindow.ui:51
 msgid "List view"
-msgstr ""
+msgstr "列表檢視"
 
 #: src/ui/shortcutsWindow.ui:58
 msgid "Grid view"
-msgstr ""
+msgstr "方格檢視"
 
 #: src/ui/shortcutsWindow.ui:71
 msgid "E-book Viewer Shortcuts"
-msgstr "閱讀器鍵盤捷徑鍵"
+msgstr "閱讀器捷徑鍵"
 
 #: src/ui/shortcutsWindow.ui:75
 msgid "File"
@@ -1391,23 +1356,23 @@ msgstr "開啟副本"
 
 #: src/ui/shortcutsWindow.ui:100
 msgid "Clear cache"
-msgstr ""
+msgstr "清除快取"
 
 #: src/ui/shortcutsWindow.ui:142
 msgid "View book info"
-msgstr "書籍信息"
+msgstr "檢視書籍資訊"
 
 #: src/ui/shortcutsWindow.ui:149
 msgid "Start/stop text-to-speech"
-msgstr "開/關文字轉語音"
+msgstr "開始/停止朗讀"
 
 #: src/ui/shortcutsWindow.ui:178 src/ui/shortcutsWindow.ui:361
 msgid "Restore zoom level"
-msgstr "恢復默認縮放"
+msgstr "重設縮放"
 
 #: src/ui/shortcutsWindow.ui:185
 msgid "Toggle fullscreen"
-msgstr "全螢幕"
+msgstr "切換全螢幕"
 
 #: src/ui/shortcutsWindow.ui:192
 msgid "Show contents"
@@ -1427,11 +1392,11 @@ msgstr "顯示書籤"
 
 #: src/ui/shortcutsWindow.ui:230
 msgid "Navigation"
-msgstr "導航"
+msgstr "瀏覽"
 
 #: src/ui/shortcutsWindow.ui:256
 msgid "Go to location"
-msgstr "轉到位置"
+msgstr "前往位置"
 
 #: src/ui/shortcutsWindow.ui:266
 msgid "Touchpad Gestures"
@@ -1439,11 +1404,7 @@ msgstr "觸控板手勢"
 
 #: src/ui/shortcutsWindow.ui:303
 msgid "Image Viewer Shortcuts"
-msgstr "圖像檢視器鍵盤捷徑鍵"
-
-#: src/ui/themeRow.ui:26
-msgid "Edit"
-msgstr "編輯"
+msgstr "影像檢視器捷徑鍵"
 
 #: src/ui/themeWindow.ui:6
 msgid "Custom Theme"
@@ -1451,7 +1412,7 @@ msgstr "自訂主題"
 
 #: src/ui/themeWindow.ui:17 src/ui/ttsDialog.ui:17
 msgid "OK"
-msgstr "好的"
+msgstr "確定"
 
 #: src/ui/themeWindow.ui:39
 msgid "Theme Name"
@@ -1463,11 +1424,11 @@ msgstr "背景"
 
 #: src/ui/themeWindow.ui:78
 msgid "Text Color"
-msgstr "文本顏色"
+msgstr "文字顏色"
 
 #: src/ui/themeWindow.ui:92
 msgid "Link Color"
-msgstr "鏈接顏色"
+msgstr "連結顏色"
 
 #: src/ui/themeWindow.ui:159
 msgid "Dark Mode"
@@ -1479,7 +1440,7 @@ msgstr "移除主題"
 
 #: src/ui/translationBox.ui:53
 msgid "Cannot retrieve translation"
-msgstr "無法加載翻譯"
+msgstr "無法取得翻譯"
 
 #: src/ui/translationBox.ui:127
 msgid "Afrikaans"
@@ -1898,26 +1859,24 @@ msgid "Zulu"
 msgstr "祖魯文"
 
 #: src/ui/ttsDialog.ui:46
-#, fuzzy
 msgid "Text-to-Speech Command"
 msgstr "文字轉語音指令"
 
 #: src/ui/ttsDialog.ui:57
 msgid "Make sure the selected text-to-speech program is correctly installed."
-msgstr ""
+msgstr "請確定選取的文字轉語音程式已正確安裝。"
 
 #: src/ui/ttsDialog.ui:63
-#, fuzzy
 msgid "eSpeak NG"
-msgstr "朗讀"
+msgstr "eSpeak NG"
 
 #: src/ui/ttsDialog.ui:80 src/ui/ttsDialog.ui:106 src/ui/ttsDialog.ui:269
 msgid "Reset"
-msgstr ""
+msgstr "重設"
 
 #: src/ui/ttsDialog.ui:88
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: src/ui/ttsDialog.ui:137
 msgid ""
@@ -1925,26 +1884,28 @@ msgid ""
 "the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for "
 "the all lower case code.</small>"
 msgstr ""
+"<small>可用環境變數 <tt>$FOLIATE_TTS_LANG</tt> 取得書籍語言代碼，或使用 <tt>"
+"$FOLIATE_TTS_LANG_LOWER</tt> 取得小寫代碼。</small>"
 
 #: src/ui/ttsDialog.ui:156
 msgid "Test Your Configuration"
-msgstr ""
+msgstr "測試設定"
 
 #: src/ui/ttsDialog.ui:178
 msgid "The program should speak the following test sentences in order:"
-msgstr ""
+msgstr "文字轉語音程式應依序朗讀以下測試文句："
 
 #: src/ui/ttsDialog.ui:191
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: src/ui/ttsDialog.ui:228
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: src/ui/wikipediaBox.ui:53
 msgid "No entry found"
-msgstr "找不到該項目"
+msgstr "找不到條目"
 
 #: src/ui/wikipediaBox.ui:80
 msgid "Wikipedia"
@@ -1960,7 +1921,7 @@ msgstr "功能包括："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:13
 msgid "Two-page view and scrolled view"
-msgstr "兩欄視圖及捲動視圖"
+msgstr "兩欄頁面與捲動檢視"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:14
 msgid "Customize font and line-spacing"
@@ -1968,11 +1929,11 @@ msgstr "自訂字體和行距"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
 msgid "Light, sepia, dark, and invert mode"
-msgstr "亮色，棕色，暗色和反轉色模式"
+msgstr "亮色，棕色，暗色和反轉模式"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
 msgid "Reading progress slider with chapter marks"
-msgstr "帶章節標籤的閱讀進度條"
+msgstr "有標示章節的閱讀進度滑桿"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
@@ -1980,7 +1941,7 @@ msgstr "書籤和註解"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
-msgstr "快速查閱詞典"
+msgstr "快速字典查詢"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:22
 msgid "John Factotum"
@@ -2001,7 +1962,7 @@ msgstr "修正了錯誤的版本號"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid ""
 "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
-msgstr "修復了 snap 包中詞典、翻譯和維基百科不能使用的問題"
+msgstr "修復了 Snap 包中字典、翻譯和維基百科無法使用的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:218
@@ -2015,52 +1976,49 @@ msgstr "改進的新圖標"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid "Option to disable turn page on tap"
-msgstr "支持禁用“點擊翻頁”"
+msgstr "支援停用「點擊翻頁」"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "A menu on the welcome screen for opening recent files"
-msgstr "歡迎屏幕添加開啟最近檔案的菜單"
+msgstr "歡迎畫面新增開啟最近檔案選單"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
-msgstr "還原了用於顯示目錄、註解和書籤的快捷方式"
+msgstr "還原了用於顯示目錄、註解和書籤的捷徑鍵"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
 msgid "Fixed application not translated"
-msgstr "修復了程序未被翻譯的問題"
+msgstr "修復了程式未被翻譯的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
 msgid "Interface:"
 msgstr "介面："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
-#, fuzzy
 msgid "A redesigned interface that works better for smaller screens"
-msgstr "重新設計了介面，以適配較小的屏幕"
+msgstr "全新設計的介面，可適用較小的螢幕"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
-#, fuzzy
 msgid "Improved fullscreen mode with an overlaid headerbar"
-msgstr "改進了全螢幕模式，加入了懸浮標題欄"
+msgstr "改進全螢幕模式，加入懸浮標題列"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
 msgid ""
 "The headerbar and the progress bar now auto-hide, for a distraction-free "
 "reading experience"
-msgstr "自動隱藏標題欄和進度條，以免打擾閱讀"
+msgstr "自動隱藏標題列和進度列，以免打擾閱讀"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
 msgid ""
 "Various location information, as well as a clock, can now be displayed in "
 "the footer"
-msgstr "底欄可顯示更多的位置信息和時鐘"
+msgstr "頁尾可顯示多種位置訊息和時鐘"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
-#, fuzzy
 msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
-msgstr "新的彈窗(Ctrl + L)顯示預計閱讀時間，可以轉到書中位置"
+msgstr "新的彈出選單 (Ctrl + L) 顯示預計閱讀時間，與跳轉到書中位置"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid ""
@@ -2068,32 +2026,32 @@ msgid ""
 "left or right part of the view; tap on the middle to toggle header bar and "
 "progress bar"
 msgstr ""
-"電子閱讀器風格的導航：點擊頁面左側向上翻頁，點擊頁面右側向下翻頁；點擊頁面中"
-"間顯示標題欄和進度欄"
+"電子閱讀器風格的導航：點擊頁面左側前往上一頁，點擊頁面右側前往下一頁；點擊頁"
+"面中間顯示標題列和進度列"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
 msgid "Annotations, bookmarks, and find results now show chapter titles"
-msgstr "註解、書籤和搜尋結果現在顯示章節標題"
+msgstr "註解、書籤和搜尋結果標示章節標題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "When looking up words in dictionaries, the query can now be edited"
-msgstr "查詞典時，現在可以編輯查詢內容"
+msgstr "查詢字典時，可編輯查詢內容"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
 msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
-msgstr "新的鍵盤捷徑鍵：查看元數據(Ctrl + I)、查看偏好(Ctrl + ,)"
+msgstr "新的鍵盤捷徑鍵：檢視書籍資訊 (Ctrl + I)、偏好設定(Ctrl + ,)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
 msgid ""
 "A new traditional menubar, which may be displayed depending on the desktop "
 "environment"
-msgstr "新的舊式菜單欄，依桌面環境而顯示"
+msgstr "新的傳統選單列，依桌面環境而顯示"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:84
 msgid ""
 "Option to use a traditional titlebar and menubar instead of a headerbar "
 "(experimental)"
-msgstr "支持使用舊的標題欄和菜單欄（實驗性）"
+msgstr "支援使用傳統標題列和選單列（實驗性）"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
 msgid "Reading:"
@@ -2101,12 +2059,12 @@ msgstr "閱讀："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
 msgid "Continuous scrolling layout"
-msgstr "連續滑動功能"
+msgstr "連續捲動版面"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
 msgid ""
 "Option to show decorative shadows that mimic the appearance of a real book"
-msgstr "支持介面模仿紙質書"
+msgstr "支援介面模仿紙質書"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
 msgid "Ability to zoom in and zoom out"
@@ -2114,7 +2072,7 @@ msgstr "可放大/縮小"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
 msgid "Improved image viewer with \"save as\" option"
-msgstr "改進了在\"另存新檔\"時使用的圖片檢視器"
+msgstr "改進了影像檢視器，可將影像另存新檔"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
 msgid "Open copies of a book in new windows (Ctrl + N)"
@@ -2126,23 +2084,23 @@ msgstr "重新載入書籍 (Ctrl + R)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
-msgstr "新的預置主題：灰色，日光，護眼和深藍色"
+msgstr "新的預設主題：灰色、Solarized、Gruvbox、Nord"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
 msgid "Text selection:"
-msgstr "文本選擇："
+msgstr "選取文字："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
 msgid "Ability to select text across pages"
-msgstr "能夠跨頁選擇文本"
+msgstr "能夠跨頁選取文字"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Find selected text in book"
-msgstr "在書中搜尋選定文本"
+msgstr "在書中搜尋選取的文字"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:100
 msgid "Speak selected text or from the selected locatio"
-msgstr "朗讀選定文本"
+msgstr "朗讀選取的文字"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:102
 msgid "Annotations:"
@@ -2150,37 +2108,37 @@ msgstr "註解："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
 msgid "Spellcheck notes"
-msgstr "拼寫檢查記錄"
+msgstr "檢查註解拼寫"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:105
 msgid "Export annotations to Markdown"
-msgstr "以 Markdown 格式導出註解"
+msgstr "以 Markdown 格式匯出註解"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
 msgid "Options to use custom colors for highlights"
-msgstr "支持以自訂顏色標示"
+msgstr "支援以自訂顏色標示"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
 msgid "For publishers and developers:"
-msgstr "對於出版社和開發者："
+msgstr "出版商和開發者功能："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
 msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
-msgstr "支持 Apple Books 的主題標籤，即可以不使用 JavaScript 檢測主題"
+msgstr "支援 Apple Books 的主題屬性，可以不使用 JavaScript 偵測主題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
 msgid "WebKit's developer tools can be enabled"
-msgstr "WebKit 開發者工具可用"
+msgstr "可啟用 WebKit 開發者工具"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
 msgid "Breaking changes:"
-msgstr "重大改變："
+msgstr "不相容改變："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
 msgid "The settings schemas has been reorganized"
-msgstr "重構了設置的 schemas"
+msgstr "重構了設定的 schema"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
 msgid "The format for custom themes has changed"
@@ -2188,31 +2146,31 @@ msgstr "改變了自訂主題的格式"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
 msgid "Locations are now 1024 characters in size"
-msgstr "位置現在最大支持1024位數字"
+msgstr "位置大小改為 1024 個字元"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:119
 msgid "Bug fixes:"
-msgstr "修復的bug:"
+msgstr "修復的問題："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
 msgid "Fixed not restoring exact last location"
-msgstr "修復了不能完全恢復上次閱讀位置"
+msgstr "修復了無法準確恢復上次閱讀位置"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:122
 msgid "Fixed navigation not working with scrolled layout"
-msgstr "修復了導航在捲動模式下無法工作"
+msgstr "修復了目錄在捲動版面下無法使用"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:123
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
-msgstr "修復了書籍使用絕對字體大小時不能調節字體大小"
+msgstr "修復了書籍使用絕對字體大小時無法調整字體大小"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:124
 msgid "Fixed text cut off at margin edge"
-msgstr "修復了文本在縮進邊緣丟失"
+msgstr "修復了文字在邊界被截斷"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:125
 msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
-msgstr "修復了無法開啟檔案名中含 \"#\" 或 \"?\"的書籍"
+msgstr "修復了無法開啟檔案名稱中有「#」或「?」的書籍"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
@@ -2222,32 +2180,32 @@ msgstr "修復了無法開啟檔案名中含 \"#\" 或 \"?\"的書籍"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:232
 msgid "Changes:"
-msgstr ""
+msgstr "改變："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
-msgstr "修復了 Flatpak 版不能開啟 mobi、azw 和 azw3 檔案的問題"
+msgstr "修復了 Flatpak 無法開啟 mobi、azw 和 azw3 檔案"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
 msgid "Improved Wiktionary lookup, now with links and example sentences"
-msgstr "改進的維基詞典搜尋，現在有鏈接和例句"
+msgstr "改進了維基詞典搜尋，可顯示連結和例句"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:135
 msgid "Improved popover footnote extraction and formatting"
-msgstr "改進的腳註解壓和格式"
+msgstr "改進了腳註預覽擷取和格式"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
 msgid "Added option to export annotations to BibTeX"
-msgstr "支持導出註解為 BibTeX"
+msgstr "支援匯出註解為 BibTeX"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:144
 msgid "Fixed table of contents navigation not working with some books"
-msgstr "修復了目錄導航在部分書中無法使用的問題"
+msgstr "修復了目錄在部分書中無法使用的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:145
 msgid "Fixed not being able to zoom images with Kindle books"
-msgstr "修復了無法縮放 Kindle 電子書中的圖片的問題"
+msgstr "修復了無法縮放 Kindle 電子書中的影像的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:146
 msgid "Fixed not being able to open books with .epub3 filename extension"
@@ -2255,11 +2213,11 @@ msgstr "修復了無法開啟 .epub3 檔案的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:147
 msgid "Fixed temporary directory not being cleaned after closing"
-msgstr "修復了關閉時臨時目錄未清空的問題"
+msgstr "修復了關閉時臨時目錄未刪除的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:155
 msgid "Fixed F9 shortcut not working"
-msgstr "修復了鍵盤捷徑鍵 F9 沒用的問題"
+msgstr "修復了鍵盤捷徑鍵 F9 無法使用的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:156
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
@@ -2268,19 +2226,19 @@ msgstr "更新了翻譯"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:164
 msgid "External resources and JavaScript are now blocked by default"
-msgstr "外部內容和 JavaScript 現在默認禁用"
+msgstr "外部資源和 JavaScript 現在預設停用"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:165
 msgid "Basic text-to-speech support"
-msgstr "基本的文字轉語音支持"
+msgstr "基本的文字轉語音支援"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr "導出註解到 HTML、純文本或JSON"
+msgstr "匯出註解到 HTML、純文字或 JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:167
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
-msgstr "支持查看mobi、azw和azw3檔案"
+msgstr "支援檢視 mobi、azw 和 azw3 檔案"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
 msgid "New alternative sidebar UI"
@@ -2296,15 +2254,15 @@ msgstr "用 Google Translate 來翻譯頁面"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:178
 msgid "Configure default action when words are selected"
-msgstr "配置選中單詞時的默認操作"
+msgstr "設定選取單字時的預設動作"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:179
 msgid "Experimental popup footnote support"
-msgstr "支持實驗性的腳註彈窗"
+msgstr "支援實驗性的腳註彈出選單"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
 msgid "Ability to find within only the current chapter"
-msgstr "支持只在本章內搜尋"
+msgstr "支援只在目前章節內搜尋"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:181
 msgid "Fixed CPU spikes when left open"
@@ -2320,7 +2278,7 @@ msgstr "修復了開啟檔案時崩潰的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
 msgid "Customize page margins and brightness"
-msgstr "自訂頁面縮進和亮度"
+msgstr "自訂頁面邊界和亮度"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
 msgid "Tweak the theme colors, or add your own custom themes"
@@ -2328,15 +2286,15 @@ msgstr "改變主題顏色或添加自訂主題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:201
 msgid "Ability to zoom and copy images"
-msgstr "支持縮放和復製圖片"
+msgstr "支援縮放和復製影像"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
 msgid "Option to auto-hide cursor"
-msgstr "支持游標自動隱藏"
+msgstr "支援自動隱藏游標"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:203
 msgid "See reading time left by hovering over the reading progress slider"
-msgstr "支持在閱讀進度欄上懸停以查看"
+msgstr "在閱讀進度列上懸停以查看估計閱讀時間"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
 msgid "Fixed some books not rendering sometimes"
@@ -2344,15 +2302,15 @@ msgstr "修復了部分書籍無法渲染的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:212
 msgid "Fixed images being too wide in some cases"
-msgstr "修復了圖片有時太寬的問題"
+msgstr "修復了影像有時太寬的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
 msgid "Option to switch between left and full justification"
-msgstr "支持切換左對齊與兩端對齊"
+msgstr "支援切換左對齊與兩端對齊"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
 msgid "New layout option: single-column paginated view"
-msgstr "新的版面選項：單欄分頁視圖"
+msgstr "新的版面選項：單欄"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:224
 msgid "Fixed:"
@@ -2362,7 +2320,7 @@ msgstr "修復了："
 msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
-msgstr "生成的“位置”現在存儲在緩存目錄中"
+msgstr "產生的位置現在不使用 localStorage，而是儲存在快取目錄中"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
 msgid "Allow font size adjustment when using publisher fonts"
@@ -2372,11 +2330,11 @@ msgstr "使用出版社字體時，允許調整字體大小"
 msgid ""
 "Fixed reading progress slider not appearing after localStorage quota is "
 "exceeded"
-msgstr "修復閱讀進度條在超出存儲份額後無法顯示的問題"
+msgstr "修復閱讀進度滑桿在 localStorage 空間配額用滿後無法顯示的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:243
 msgid "Touchpad gestures and ability to scroll through pages"
-msgstr "觸控板手勢與頁間捲動"
+msgstr "觸控板手勢與捲動翻頁"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:244
 msgid "Fullscreen mode"
@@ -2384,23 +2342,23 @@ msgstr "全螢幕模式"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:245
 msgid "Option to hide reading progress bar"
-msgstr "支持隱藏閱讀進度條"
+msgstr "支援隱藏閱讀進度列"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:246
 msgid "Option to disable dictionary"
-msgstr "支持禁用詞典"
+msgstr "支援停字典"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:247
 msgid "Option to use publisher font"
-msgstr "支持使用出版社字體"
+msgstr "支援使用出版社字體"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:251
 msgid "Restoring reading progress is now smooth and jank-free"
-msgstr "現在恢復閱讀進度變得順暢，且不產生垃圾"
+msgstr "現在恢復閱讀進度變得順暢，且畫面不會閃爍"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:252
 msgid "Fixed custom styles not applying in some cases"
-msgstr "修復了偶爾不能應用自訂顏色的問題"
+msgstr "修復了有時無法套用自訂顏色的問題"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:258
 msgid "Fixed invalid AppData file"
@@ -2412,26 +2370,25 @@ msgstr "首次發布"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:19
 msgid "Store URIs"
-msgstr ""
+msgstr "儲存 URI"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:20
-#, fuzzy
 msgid "Whether to save file URIs"
-msgstr "是/否顯示側邊欄"
+msgstr "是否儲存檔案 URI"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:25
 msgid ""
 "Whether to save generated locations to cache (the locations are needed for "
 "calculating percentages of locations in book)"
-msgstr ""
+msgstr "是否儲存產生的位置至快取（位置是用來計算書籍內位置的百分比）"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
 msgid "Cache covers"
-msgstr ""
+msgstr "封面快取"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:30
 msgid "Whether to save book covers to cache"
-msgstr ""
+msgstr "是否儲存封面至快取"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
 msgid "Restore last file opened"
@@ -2439,61 +2396,63 @@ msgstr "恢復上次開啟的檔案"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:35
 msgid "Whether to automatically restore the last file"
-msgstr "是/否自動恢復上次開啟的檔案"
+msgstr "是否自動恢復上次開啟的檔案"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Default highlight color"
-msgstr "默認標示顏色"
+msgstr "預設標示顏色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:40
 msgid "Default highlight color for annotations"
-msgstr "默認的註解和標示顏色"
+msgstr "預設的註解和標示顏色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:44
 msgid "Dictionary"
-msgstr "詞典"
+msgstr "字典"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:45
-#, fuzzy
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd and stardict, "
 "if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
 "the database ID"
-msgstr "默認詞典的標識符，來自 dictd 的詞典在數據庫前加上 \"dcitd_\" 就可使用"
+msgstr ""
+"預設字典的識別碼，來自 dictd 和 stardict 的字典，須在代號前加上「dcitd_」和"
+"「stardict_」"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Target language of translation"
-msgstr "目標語言"
+msgstr "翻譯目標語言"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:50
 msgid "Target language for translations"
-msgstr ""
+msgstr "翻譯目標語言"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
 msgid "Default action when selecting a word"
-msgstr "選中一個單詞時的默認操作"
+msgstr "選取一個單詞時的預設動作"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:55
 msgid "Default action to perform when selecting a single word"
-msgstr ""
+msgstr "選取一個單詞時的預設動作"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:59
 msgid "Default action when selecting multiple words"
-msgstr "選中多個單詞時的默認操作"
+msgstr "選取多個單字時的預設動作"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:60
 msgid "Default action to perform when selecting multiple words"
-msgstr ""
+msgstr "選取多個單字時的預設動作"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:64
 msgid "Event for opening image viewer"
-msgstr ""
+msgstr "開啟影像檢視器的事件"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:65
 msgid ""
 "DOM event type for viewing images; the special value \"middleclick\" is "
 "available for the middle click event"
 msgstr ""
+"用來開啟影像檢視器的 DOM 事件。可使用特殊值「middleclick」代表中鍵點擊事件"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:70
 msgid "Command to execute for text-to-speech"
@@ -2501,25 +2460,25 @@ msgstr "文字轉語音要使用的指令"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:75
 msgid "If true, a side pane will be used instead of popovers"
-msgstr "如果此值為真，則會用側邊欄代替彈窗"
+msgstr "如果此值為真，則會用側邊欄代替彈出選單"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:79
 msgid "Use menubar"
-msgstr "使用菜單欄"
+msgstr "使用選單列"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:80
 msgid "If true, use traditional titlebars and menubars"
-msgstr "如果此值為真，則使用舊的標題欄和菜單欄"
+msgstr "如果此值為真，則使用傳統標題列和選單列"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:84
 msgid "Auto-hide headerbar"
-msgstr "標題欄自動隱藏"
+msgstr "標題列自動隱藏"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:85
 msgid ""
 "Whether to hide the headerbar automatically (this is setting has no effect "
 "if skeuomorphism or sidebar is enabled)"
-msgstr "是/否自動隱藏標題欄（如果開啟了仿真或側邊欄，此設置無效）"
+msgstr "是否自動隱藏標題列（如果開啟了仿真或側邊欄，此設置無效）"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:90
 msgid "Information to be displayed on the left footer"
@@ -2536,7 +2495,7 @@ msgid ""
 "bar"
 msgstr ""
 "如果此值為真，則點擊頁面左側向上翻頁，點擊頁面右側向下翻頁；點擊頁面中間則會"
-"顯示標題欄和進度欄"
+"顯示標題列和進度列"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:107
 msgid "Prefer dark GTK theme"
@@ -2557,11 +2516,11 @@ msgstr "行高"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:127
 msgid "Margin"
-msgstr "縮進"
+msgstr "邊界"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:128
 msgid "Page margin in percentage"
-msgstr "縮進（百分比格式）"
+msgstr "邊界（百分比）"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:132
 msgid "Max width"
@@ -2573,23 +2532,23 @@ msgstr "使用出版社字體"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:138
 msgid "If true, custom font is disabled"
-msgstr "如果此值為真，則禁用自訂字體"
+msgstr "如果此值為真，則停用自訂字體"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:142
 msgid "Justify text"
-msgstr "對齊文本"
+msgstr "對齊文字"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:143
 msgid "If true, text will be justified"
-msgstr "如果此值為真，則對齊文本"
+msgstr "如果此值為真，則對齊文字"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:147
 msgid "Hyphenation"
-msgstr "自動斷詞（外文書）"
+msgstr "自動斷字"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:148
 msgid "If true, auto-hyphenation is enabled"
-msgstr "如果此值為真，則自動斷詞（外文）已啟用"
+msgstr "如果此值為真，啟用自動斷字"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:152
 msgid "Foreground color"
@@ -2597,7 +2556,7 @@ msgstr "前景顏色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:153
 msgid "Text color"
-msgstr "文本顏色"
+msgstr "文字顏色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:157
 #: data/com.github.johnfactotum.Foliate.gschema.xml:158
@@ -2607,18 +2566,19 @@ msgstr "背景顏色"
 #: data/com.github.johnfactotum.Foliate.gschema.xml:162
 #: data/com.github.johnfactotum.Foliate.gschema.xml:163
 msgid "Link color"
-msgstr "鏈接顏色"
+msgstr "連結顏色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:168
 msgid "Invert page"
-msgstr "顏色反轉"
+msgstr "反轉顏色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:173
 msgid ""
 "A value under 1 darkens the page, while a value over 1 brightens it. A value "
 "of 0 will make the page completely black, while a value of 1 leaves the "
 "brightness unchanged"
-msgstr "小於1的值使頁面變暗，大於1的值使頁面變亮0值使頁面全黑，1值則不改變亮度"
+msgstr ""
+"小於 1 的值使頁面變暗，大於 1 的值使頁面變亮。0 使頁面全黑，1 則不改變亮度"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:177
 msgid "Footnote preview"
@@ -2655,7 +2615,6 @@ msgid "Skeuomorphism"
 msgstr "仿真"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:198
-#, fuzzy
 msgid ""
 "If true, the book is decoratively presented in a way that resembles physical "
 "books"
@@ -2667,7 +2626,7 @@ msgstr "自動隱藏游標"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:203
 msgid "Whether to hide the cursor automatically"
-msgstr "是/否自動隱藏游標"
+msgstr "是否自動隱藏游標"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:210
 #: data/com.github.johnfactotum.Foliate.gschema.xml:248
@@ -2694,11 +2653,11 @@ msgstr "最大化"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:221
 msgid "Whether the window is maximized"
-msgstr "視窗是/否最大化"
+msgstr "視窗是否最大化"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:226
 msgid "Whether the window is fullscreen"
-msgstr "是/否全螢幕"
+msgstr "是否全螢幕"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:230
 #: data/com.github.johnfactotum.Foliate.gschema.xml:231
@@ -2707,7 +2666,7 @@ msgstr "最近一次開啟的檔案"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:236
 msgid "Whether the sidebar is shown"
-msgstr "是/否顯示側邊欄"
+msgstr "是否顯示側邊欄"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Sidebar size"
@@ -2718,32 +2677,29 @@ msgid "Sidebar width"
 msgstr "側邊欄寬度"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:249
-#, fuzzy
 msgid "Width of the library window"
-msgstr "視窗寬度"
+msgstr "書庫視窗寬度"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:254
-#, fuzzy
 msgid "Height of the library window"
-msgstr "視窗高度"
+msgstr "書庫視窗高度"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:259
-#, fuzzy
 msgid "Whether the library window is maximized"
-msgstr "視窗是/否最大化"
+msgstr "書庫視窗是否最大化"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:264
 msgid "How to view the library"
-msgstr ""
+msgstr "如何檢視書庫"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:268
 msgid "Use Tracker"
-msgstr ""
+msgstr "使用 Tracker"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:269
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
-msgstr ""
+msgstr "如果此值為真，將試著使用 Tracker 來取得檔案位置"
 
 #, fuzzy
 #~ msgid "Cache locations in book"
