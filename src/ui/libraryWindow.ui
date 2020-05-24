@@ -43,6 +43,7 @@
                 <property name="visible">True</property>
                 <property name="action-name">lib.add-files</property>
                 <property name="tooltip-text" translatable="yes">Add books</property>
+                <property name="valign">center</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
@@ -59,6 +60,7 @@
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="tooltip-text" translatable="yes">Add catalog</property>
+                <property name="valign">center</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
@@ -97,6 +99,7 @@
             <property name="visible">True</property>
             <property name="menu-model">menu</property>
             <property name="tooltip-text" translatable="yes">Menu</property>
+            <property name="valign">center</property>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
@@ -120,6 +123,7 @@
                   <object class="GtkToggleButton" id="searchButton">
                     <property name="visible">True</property>
                     <property name="tooltip-text" translatable="yes">Search</property>
+                    <property name="valign">center</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -133,6 +137,7 @@
                     <property name="visible">True</property>
                     <property name="action-name">lib.toggle-view</property>
                     <property name="tooltip-text" translatable="yes">Toggle view</property>
+                    <property name="valign">center</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
