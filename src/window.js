@@ -276,6 +276,13 @@ const Footer = GObject.registerClass({
     }
     set epub(epub) {
         this._epub = epub
+        this._epub.connect('metadata', () => {
+            const rtl = this._epub.metadata.direction === 'rtl'
+            const dir = rtl ? Gtk.TextDirection.RTL : Gtk.TextDirection.LTR
+            this.set_direction(dir)
+            this._left.set_direction(dir)
+            this._right.set_direction(dir)
+        })
         this._epub.connect('book-loading', () => {
             this._left.label = '…'
             this._right.label = '…'
