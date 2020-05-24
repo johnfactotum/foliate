@@ -23,7 +23,9 @@ let baseURI
 // very simple OPDS parser
 // the basic idea is derived from https://github.com/SamyPesse/xml-schema
 
-const OPDS_NS = 'http://opds-spec.org/2010/catalog'
+const OPDS_CAT_NS = 'http://opds-spec.org/2010/catalog'
+const OPDS_ROOT_NS = 'http://opds-spec.org/'
+const OPDS_NS = [OPDS_CAT_NS, OPDS_ROOT_NS]
 const THR_NS = 'http://purl.org/syndication/thread/1.0'
 const DC_ELS_NS = 'http://purl.org/dc/elements/1.1/'
 const DC_TERMS_NS = 'http://purl.org/dc/terms/'
@@ -39,9 +41,25 @@ const link = {
         rel: {},
         type: {},
         title: {},
-        count: { tag: 'count', ns: THR_NS },
-        facetGroup: { tag: 'facetGroup', ns: OPDS_NS },
-        activeFacet: { tag: 'activeFacet', ns: OPDS_NS, transform: x => x === 'true' }
+        count: { ns: THR_NS },
+        facetGroup: { ns: OPDS_NS },
+        activeFacet: { ns: OPDS_NS, transform: x => x === 'true' }
+    },
+    fields: {
+        price: {
+            ns: OPDS_NS,
+            content: 'value',
+            attrs: {
+                currencycode: {}
+            }
+        },
+        indirectAcquisition: {
+            ns: OPDS_NS,
+            recursive: true,
+            attrs: {
+                type: {}
+            }
+        }
     }
 }
 const author = {
@@ -97,12 +115,22 @@ const parse = (el, schema) => {
         return transform(el.textContent)
     }
     const output = {}
+    if (schema.content) {
+        const transform = schema.transform || (x => x)
+        output[schema.content] = transform(el.textContent)
+    }
     attrList.forEach(key => {
         const attr = attrs[key]
         const attrName = attr.name || key
-        const value = (attr.ns
-            ? el.getAttributeNS(attr.ns, attrName)
-            : el.getAttribute(attrName)) || attr.default
+        let value
+        if (!attr.ns) {
+            value = el.getAttribute(attrName)
+        } else if (Array.isArray(attr.ns)) {
+            value = attr.ns.map(ns => el.getAttributeNS(ns, attrName))
+                .find(x => x)
+        } else {
+            value = el.getAttributeNS(attr.ns, attrName)
+        }
         const transform = attr.transform || (x => x)
         output[key] = transform(value)
     })
@@ -125,8 +153,10 @@ const parse = (el, schema) => {
                 && child.namespaceURI === field.ns)
 
         if (!tags.length) return
-        const values = tags.map(tag => parse(tag, field))
-        output[key] = field.array || values.length > 1 ? values : values[0]
+        const values = field.recursive
+            ? tags.map(tag => parse(tag, Object.assign({ fields: { [key]: field } }, field)))
+            : tags.map(tag => parse(tag, field))
+        output[key] = field.array ? values : values[0] || undefined
     })
     return output
 }

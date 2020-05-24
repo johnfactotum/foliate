@@ -20,12 +20,12 @@ pkg.require({
     'Gtk': '3.0'
 })
 
-const { Gio, Gtk, Gdk, GObject, GLib } = imports.gi
+const { Gio, Gtk, Gdk, GLib } = imports.gi
 const { ttsDialog } = imports.tts
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 if (Handy) Handy.init(null)
 
-const { mimetypes } = imports.utils
+const { fileFilters } = imports.utils
 const { Window } = imports.window
 const { LibraryWindow, OpdsWindow } = imports.library
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
@@ -99,29 +99,14 @@ const makeActions = app => ({
         settings.disconnect(h3)
     },
     'open': () => {
-        const allFiles = new Gtk.FileFilter()
-        allFiles.set_name(_('All Files'))
-        allFiles.add_pattern('*')
-
-        const epubFiles = new Gtk.FileFilter()
-        epubFiles.set_name(_('E-book Files'))
-        epubFiles.add_mime_type(mimetypes.epub)
-        epubFiles.add_mime_type(mimetypes.mobi)
-        epubFiles.add_mime_type(mimetypes.kindle)
-        epubFiles.add_mime_type(mimetypes.fb2)
-        epubFiles.add_mime_type(mimetypes.fb2zip)
-        epubFiles.add_mime_type(mimetypes.cbz)
-        epubFiles.add_mime_type(mimetypes.cbr)
-        epubFiles.add_mime_type(mimetypes.cb7)
-        epubFiles.add_mime_type(mimetypes.cbt)
-
         const dialog = Gtk.FileChooserNative.new(
             _('Open File'),
             app.active_window,
             Gtk.FileChooserAction.OPEN,
             null, null)
-        dialog.add_filter(epubFiles)
-        dialog.add_filter(allFiles)
+        dialog.add_filter(fileFilters.all)
+        dialog.add_filter(fileFilters.ebook)
+        dialog.set_filter(fileFilters.ebook)
 
         if (dialog.run() === Gtk.ResponseType.ACCEPT) {
             // const activeWindow = app.active_window

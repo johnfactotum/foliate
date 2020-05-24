@@ -15,7 +15,8 @@
 
 const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
 
-const { setPopoverPosition, doubleInvert, brightenColor, formatMinutes } = imports.utils
+const { locales, formatPercent, formatMinutes,
+    setPopoverPosition, doubleInvert, brightenColor } = imports.utils
 const { EpubView, EpubViewAnnotation, enableAnnotations } = imports.epubView
 const { ContentsStack, FindBox,
     FootnotePopover, AnnotationBox, ImageViewer } = imports.contents
@@ -113,7 +114,7 @@ const MainMenu = GObject.registerClass({
     }
     _updateZoom() {
         const zoomLevel = viewSettings.get_double('zoom-level')
-        this._zoomRestoreButton.label = parseInt(zoomLevel * 100) + '%'
+        this._zoomRestoreButton.label = formatPercent(zoomLevel)
     }
     set fullscreen(isFullscreen) {
         const fullscreenImage = this._fullscreenButton.get_child()
@@ -132,20 +133,36 @@ const NavBar = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/navBar.ui',
     Children: ['locationMenu'],
     InternalChildren: [
+        'box', 'prevImage', 'nextImage', 'backImage',
         'locationStack', 'locationLabel', 'locationScale',
         'locationButton', 'timeInBook', 'timeInChapter',
         'sectionEntry', 'locationEntry', 'cfiEntry',
         'sectionTotal', 'locationTotal',
-        'fallbackSectionEntry', 'fallbackSectionTotal', 'fallbackScale'
+        'fallbackScale',
+        'timeBox', 'timeSep', 'locLabel', 'locBox', 'navSep', 'navBox'
     ]
 }, class NavBar extends Gtk.ActionBar {
     set epub(epub) {
         this._epub = epub
+
+        this._epub.connect('metadata', () => {
+            const rtl = this._epub.metadata.direction === 'rtl'
+            const dir = rtl ? Gtk.TextDirection.RTL : Gtk.TextDirection.LTR
+            this._box.set_direction(dir)
+            this._locationScale.set_direction(dir)
+            this._prevImage.set_direction(dir)
+            this._nextImage.set_direction(dir)
+            this._backImage.set_direction(dir)
+            this._navBox.set_direction(dir)
+            this._navBox.foreach(button => button.get_child().set_direction(dir))
+        })
+
         this._epub.connect('locations-fallback', () => this._status = 'fallback')
         this._epub.connect('locations-ready', () => {
             this._epub.sectionMarks.then(sectionMarks => {
                 this._setSectionMarks(sectionMarks)
                 this._status = 'loaded'
+                this._update()
             })
         })
         this._epub.connect('book-loading', () => this._status = 'loading')
@@ -155,12 +172,18 @@ const NavBar = GObject.registerClass({
         this._locationScale.connect('button-release-event', () => this._onlocationScaleChanged())
         this._fallbackScale.connect('button-release-event', () => this._onFallbackScaleChanged())
         this._sectionEntry.connect('activate', () => this._onSectionEntryActivate())
-        this._fallbackSectionEntry.connect('activate', () => this._onFallbackSectionEntryActivate())
         this._locationEntry.connect('activate', () => this._onLocationEntryActivate())
         this._cfiEntry.connect('activate', () => this._onCfiEntryActivate())
     }
     set _status(status) {
         this._locationStack.visible_child_name = status
+        this._timeBox.visible
+        = this._timeSep.visible
+        = this._locLabel.visible
+        = this._locBox.visible
+        = this._navSep.visible
+        = this._navBox.visible
+        = status === 'loaded'
     }
     get _status() {
         return this._locationStack.visible_child_name
@@ -179,8 +202,11 @@ const NavBar = GObject.registerClass({
 
         this._locationScale.set_value(percentage)
 
-        const progress = Math.round(percentage * 100)
-        this._locationLabel.label = progress + '%'
+        const status = this._status
+        const progress = status === 'fallback'
+            ? (section + 1) / sectionTotal
+            : percentage
+        this._locationLabel.label = status === 'loading' ? '' : formatPercent(progress)
 
         this._timeInBook.label = formatMinutes(timeInBook)
         this._timeInChapter.label = formatMinutes(timeInChapter)
@@ -190,17 +216,11 @@ const NavBar = GObject.registerClass({
         this._sectionTotal.label = _('of %d').format(sectionTotal)
         this._locationTotal.label = _('of %d').format(locationTotal + 1)
 
-        this._fallbackSectionEntry.text = this._sectionEntry.text
-        this._fallbackSectionTotal.label = this._sectionTotal.label
         this._fallbackScale.set_range(1, sectionTotal)
         this._fallbackScale.set_value(section + 1)
     }
     _onSectionEntryActivate() {
         const x = parseInt(this._sectionEntry.text) - 1
-        this._epub.goTo(x)
-    }
-    _onFallbackSectionEntryActivate() {
-        const x = parseInt(this._fallbackSectionEntry.text) - 1
         this._epub.goTo(x)
     }
     _onLocationEntryActivate() {
@@ -224,7 +244,6 @@ const NavBar = GObject.registerClass({
         this._fallbackScale.visible = !narrow
     }
     toggleLocationMenu() {
-        if (this._status !== 'loaded') return
         return this._locationButton.active = !this._locationButton.active
     }
 })
@@ -310,7 +329,11 @@ const Footer = GObject.registerClass({
         let s = ''
         switch (type) {
             case 'percentage':
-                if (locationTotal) s = Math.round(p.percentage * 100) + '%'
+                if (this._locationsFallback)
+                    s = formatPercent((section + 1) / sectionTotal)
+                else if (locationTotal)
+                    s = formatPercent(p.percentage)
+                else s = '…'
                 break
             case 'location':
                 if (this._locationsFallback)
@@ -332,8 +355,13 @@ const Footer = GObject.registerClass({
                 if (locationTotal) s = formatMinutes(timeInBook)
                 break
             case 'clock':
-                s = new Date().toLocaleTimeString([],
-                    { hour: '2-digit', minute: '2-digit' })
+                try {
+                    s = new Date().toLocaleTimeString(locales,
+                        { hour: '2-digit', minute: '2-digit' })
+                } catch (e) {
+                    s = new Date().toLocaleTimeString([],
+                        { hour: '2-digit', minute: '2-digit' })
+                }
                 break
         }
         label.label = s
@@ -958,10 +986,11 @@ var Window = GObject.registerClass({
         this._epub.connect('click', (_, width, position) => {
             const turnPageOnTap = settings.get_boolean('turn-page-on-tap')
             if (!turnPageOnTap) return
+            const rtl = this._epub.metadata.direction === 'rtl'
             const place = position / width
             if (this._highlightMenu && this._highlightMenu.visible) return
-            else if (place > 2/3) return this._epub.next()
-            else if (place < 1/3) return this._epub.prev()
+            else if (place > 2/3) return rtl ? this._epub.prev() : this._epub.next()
+            else if (place < 1/3) return rtl ? this._epub.next() : this._epub.prev()
             else {
                 const visible = this._mainOverlay.toggleNavBar()
                 if (this._fullscreen)

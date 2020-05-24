@@ -72,6 +72,31 @@ var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 
 var regexEscape = str => str ? str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&') : ''
 
+var glibcLocaleToJsLocale = x => x === 'C' ? 'en' : x.split('.')[0].replace('_', '-')
+var locales = GLib.get_language_names().map(glibcLocaleToJsLocale)
+try {
+    const settings = new Gio.Settings({ schema_id: 'org.gnome.system.locale' })
+    const locale = glibcLocaleToJsLocale(settings.get_string('region'))
+    if (locale) locales = locale
+} catch (e) {}
+
+var formatMinutes = n => {
+    n = Math.round(n)
+    if (n < 60) return ngettext('%d minute', '%d minutes', n).format(n)
+    else {
+        const h = Math.round(n / 60)
+        return ngettext('%d hour', '%d hours', h).format(h)
+    }
+}
+
+var formatPercent = fraction => {
+    try {
+        return new Intl.NumberFormat(locales, { style: 'percent' }).format(fraction)
+    } catch (e) {
+        return Math.round(fraction * 100) + '%'
+    }
+}
+
 var mimetypes = {
     directory: 'inode/directory',
     json: 'application/json',
@@ -88,6 +113,23 @@ var mimetypes = {
     cb7: 'application/x-cb7',
     cbt: 'application/x-cbt',
 }
+
+var fileFilters = {
+    all: new Gtk.FileFilter(),
+    ebook: new Gtk.FileFilter()
+}
+fileFilters.all.set_name(_('All Files'))
+fileFilters.all.add_pattern('*')
+fileFilters.ebook.set_name(_('E-book Files'))
+fileFilters.ebook.add_mime_type(mimetypes.epub)
+fileFilters.ebook.add_mime_type(mimetypes.mobi)
+fileFilters.ebook.add_mime_type(mimetypes.kindle)
+fileFilters.ebook.add_mime_type(mimetypes.fb2)
+fileFilters.ebook.add_mime_type(mimetypes.fb2zip)
+fileFilters.ebook.add_mime_type(mimetypes.cbz)
+fileFilters.ebook.add_mime_type(mimetypes.cbr)
+fileFilters.ebook.add_mime_type(mimetypes.cb7)
+fileFilters.ebook.add_mime_type(mimetypes.cbt)
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
 var execCommand = (argv, input = null, waitCheck, token, inFlatpak, envs) =>
@@ -378,15 +420,6 @@ var setPopoverPosition = (popover, position, window, height) => {
     setPosition(height)
 }
 
-var formatMinutes = n => {
-    n = Math.round(n)
-    if (n < 60) return ngettext('%d minute', '%d minutes', n).format(n)
-    else {
-        const h = Math.round(n / 60)
-        return ngettext('%d hour', '%d hours', h).format(h)
-    }
-}
-
 // See https://stackoverflow.com/a/12646864
 var shuffle = arr => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -449,7 +482,7 @@ var isLight = (r, g, b) => (r * 0.2126 + g * 0.7152 + b * 0.0722) > 0.6
 // check if a link is of a certain rel
 // the `rel` attribute is space separated
 var linkIsRel = (link, rel) => {
-    if (!('rel' in link)) return false
+    if (!('rel' in link) || !link.rel) return false
     const rels = link.rel.split(' ')
     return typeof rel === 'function'
         ? rels.some(rel)

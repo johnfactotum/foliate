@@ -15,8 +15,9 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
 const ngettext = imports.gettext.ngettext
-const { debug, Obj, base64ToPixbuf, scalePixbuf, markupEscape,
-    shuffle, hslToRgb, colorFromString, isLight, mimetypes,
+const { debug, locales, formatPercent,
+    Obj, base64ToPixbuf, scalePixbuf, markupEscape,
+    shuffle, hslToRgb, colorFromString, isLight, fileFilters,
     linkIsRel, makeLinksButton, sepHeaderFunc } = imports.utils
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
@@ -99,6 +100,7 @@ const makeLibraryChild = (params, widget) => {
             this.actionGroup = new Gio.SimpleActionGroup()
             const actions = {
                 'properties': () => this.showProperties(),
+                'edit': () => this.editBook(),
                 'remove': () => this.removeBook(),
             }
             Object.keys(actions).forEach(name => {
@@ -115,7 +117,7 @@ const makeLibraryChild = (params, widget) => {
             const { progress } = this.book.value
             if (progress && progress[1]) {
                 const fraction = (progress[0] + 1) / (progress[1] + 1)
-                return { progress, fraction, label: Math.round(fraction * 100) + '%' }
+                return { progress, fraction, label: formatPercent(fraction) }
             }
             return {}
         }
@@ -135,9 +137,49 @@ const makeLibraryChild = (params, widget) => {
             }, metadata, cover)
             window.show()
         }
-        removeBook() {
+        removeBook(window) {
             const id = this.book.value.identifier
-            this.get_parent().removeBooks([id])
+            return this.get_parent().removeBooks([id], window)
+        }
+        editBook() {
+            const { metadata } = this.book.value
+            const { identifier } = metadata
+
+            const builder = Gtk.Builder.new_from_resource(
+                '/com/github/johnfactotum/Foliate/ui/bookEditDialog.ui')
+
+            const $ = builder.get_object.bind(builder)
+            const dialog = $('bookEditDialog')
+            dialog.transient_for = this.get_toplevel()
+            if (uriStore) {
+                $('uriEntry').text = uriStore.get(identifier)
+                $('uriBrowse').connect('clicked', () => {
+                    const chooser = Gtk.FileChooserNative.new(
+                        _('Choose File'),
+                        dialog,
+                        Gtk.FileChooserAction.OPEN,
+                        null, null)
+                    chooser.add_filter(fileFilters.all)
+                    chooser.add_filter(fileFilters.ebook)
+                    chooser.set_filter(fileFilters.ebook)
+                    if (chooser.run() === Gtk.ResponseType.ACCEPT) {
+                        const file = chooser.get_file()
+                        $('uriEntry').text = file.get_uri()
+                    }
+                })
+            } else {
+                $('uriBox').sensitive = false
+            }
+            $('removeButton').connect('clicked', () => {
+                if (this.removeBook(dialog)) dialog.close()
+            })
+
+            if (dialog.run() === Gtk.ResponseType.OK) {
+                if (uriStore) {
+                    uriStore.set(identifier, $('uriEntry').text)
+                }
+            }
+            dialog.close()
         }
     })
 }
@@ -425,8 +467,7 @@ const makeLibraryWidget = (params, widget) => {
             const file = Gio.File.new_for_uri(uri)
             this.get_toplevel().open(file)
         }
-        removeBooks(ids) {
-            const window = this.get_toplevel()
+        removeBooks(ids, window = this.get_toplevel()) {
             const n = ids.length
             const msg = new Gtk.MessageDialog({
                 text: ngettext(
@@ -619,7 +660,31 @@ const LoadBox = GObject.registerClass({
     }
 })
 
+const formatPrice = ({ currencycode, value }) => {
+    try {
+        return new Intl.NumberFormat(locales,
+            { style: 'currency', currency: currencycode }).format(value)
+    } catch (e) {
+        return (currencycode ? currencycode + ' ' : '') + value
+    }
+}
+
+const getIndirectAcquisition = link => {
+    const types = [link.type]
+    while ('indirectAcquisition' in link) {
+        link = link.indirectAcquisition
+        types.push(link.type)
+    }
+    return {
+        types,
+        type: types[types.length - 1],
+        drm: types.includes('application/vnd.adobe.adept+xml')
+    }
+}
+
 const makeAcquisitionButton = (links, onActivate) => {
+    links = links
+        .filter(x => x.type !== 'application/atom+xml;type=entry;profile=opds-catalog')
     const rel = links[0].rel.split('/').pop()
     let label = _('Download')
     switch (rel) {
@@ -630,16 +695,39 @@ const makeAcquisitionButton = (links, onActivate) => {
         case 'subscribe': label = _('Subscribe'); break
     }
     if (links.length === 1) {
-        const button = new Gtk.Button({ visible: true, label })
         const link = links[0]
-        const { title, type } = link
-        button.tooltip_text = title || type
+
+        if (link.price) label = formatPrice(link.price)
+
+        const { title } = link
+        const { type, drm } = getIndirectAcquisition(link)
+
+        let button = new Gtk.Button({
+            tooltip_text: title || Gio.content_type_get_description(type)
+        })
+        if (drm) {
+            const buttonBox = new Gtk.Box()
+            const icon = new Gtk.Image({
+                icon_name: 'emblem-drm-symbolic',
+                tooltip_text: _('Protected by DRM')
+            })
+            buttonBox.pack_start(new Gtk.Label({ label }), true, true, 0)
+            buttonBox.pack_end(icon, false, true, 0)
+            button.add(buttonBox)
+        } else {
+            button.label = label
+        }
+        button.show_all()
         button.connect('clicked', () => onActivate(link))
         return button
     } else {
         const buttonLinks = links.map(link => {
-            const { href, type } = link
-            const title = link.title || Gio.content_type_get_description(type)
+            const { href } = link
+            const { type, drm } = getIndirectAcquisition(link)
+            const price = link.price ? ' ' + formatPrice(link.price) : ''
+            let title = (link.title || Gio.content_type_get_description(type))
+            if (price) title += price
+            if (drm) title += _(' (DRM)')
             return {
                 href, type, title,
                 tooltip: type
@@ -702,7 +790,7 @@ const OpdsEntryBox =  GObject.registerClass({
                 button.grab_focus()
             }
         })
-        if (map.size <= 3) {
+        if (map.size < 3) {
             acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
             acquisitionBox.homogeneous = true
         }
@@ -871,7 +959,7 @@ const NavigationRow =  GObject.registerClass({
         else this._content.hide()
 
         const count = links[0].count
-        if (typeof count !== 'undefined') this._count.label = String(count)
+        if (typeof count === 'string') this._count.label = count
         else this._count.hide()
 
         const activeFacet = links[0].activeFacet
@@ -1216,30 +1304,15 @@ var LibraryWindow =  GObject.registerClass({
                 ? this.active_view : 'empty'
     }
     runAddFilesDialog() {
-        const allFiles = new Gtk.FileFilter()
-        allFiles.set_name(_('All Files'))
-        allFiles.add_pattern('*')
-
-        const epubFiles = new Gtk.FileFilter()
-        epubFiles.set_name(_('E-book Files'))
-        epubFiles.add_mime_type(mimetypes.epub)
-        epubFiles.add_mime_type(mimetypes.mobi)
-        epubFiles.add_mime_type(mimetypes.kindle)
-        epubFiles.add_mime_type(mimetypes.fb2)
-        epubFiles.add_mime_type(mimetypes.fb2zip)
-        epubFiles.add_mime_type(mimetypes.cbz)
-        epubFiles.add_mime_type(mimetypes.cbr)
-        epubFiles.add_mime_type(mimetypes.cb7)
-        epubFiles.add_mime_type(mimetypes.cbt)
-
         const dialog = Gtk.FileChooserNative.new(
             _('Add Files'),
             this,
             Gtk.FileChooserAction.OPEN,
             null, null)
         dialog.select_multiple = true
-        dialog.add_filter(epubFiles)
-        dialog.add_filter(allFiles)
+        dialog.add_filter(fileFilters.all)
+        dialog.add_filter(fileFilters.ebook)
+        dialog.set_filter(fileFilters.ebook)
 
         if (dialog.run() !== Gtk.ResponseType.ACCEPT) return
 
@@ -1559,7 +1632,8 @@ var OpdsWindow =  GObject.registerClass({
                 visible: true,
                 ellipsize: Pango.EllipsizeMode.END,
                 label: title || _('Loading…'),
-                tooltip_text: title || null
+                tooltip_text: title || null,
+                width_chars: 10,
             })
 
             const column = new HdyColumn({
