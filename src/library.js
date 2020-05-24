@@ -1278,6 +1278,41 @@ var LibraryWindow =  GObject.registerClass({
             if (progress === total) {
                 this._loadingBar.hide()
                 this._loadingProgressBar.fraction = 0
+
+                const failed = headlessViewer.failed
+                const n = failed.length
+                if (n) {
+                    const msg = new Gtk.MessageDialog({
+                        text: ngettext('Failed to add book',
+                            'Failed to add books', n),
+                        secondary_text: ngettext('Could not add the following file:',
+                            'Could not add the following files:', n),
+                        message_type: Gtk.MessageType.ERROR,
+                        buttons: [Gtk.ButtonsType.OK],
+                        modal: true,
+                        transient_for: this
+                    })
+
+                    const names = failed.map(x => x.get_basename()).join('\n')
+                    const label = new Gtk.Label({
+                        visible: true,
+                        label: names,
+                        valign: Gtk.Align.START,
+                        xalign: 0,
+                        margin: 6,
+                        selectable: true
+                    })
+                    const scrolled = new Gtk.ScrolledWindow({
+                        visible: true,
+                        min_content_height: 100
+                    })
+                    scrolled.get_style_context().add_class('frame')
+                    scrolled.add(label)
+                    msg.message_area.pack_start(scrolled, false, true, 0)
+
+                    msg.run()
+                    msg.destroy()
+                }
             }
         })
         this.connect('destroy', () => {

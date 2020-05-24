@@ -1160,6 +1160,7 @@ var HeadlessEpubViewer = GObject.registerClass({
         this._total = 0
         this._progress = 0
         this._queue = Promise.resolve()
+        this._failed = []
     }
     openFiles(files) {
         this._total += files.length
@@ -1170,7 +1171,7 @@ var HeadlessEpubViewer = GObject.registerClass({
                 this.emit('progress', this._progress, this._total)
                 if (this._progress === this._total) this.stop()
             }
-            const f = () => this.open(file).then(then).catch(then)
+            const f = () => this.open(file).then(then)
             this._queue = this._queue.then(f).catch(f)
         }
     }
@@ -1179,6 +1180,7 @@ var HeadlessEpubViewer = GObject.registerClass({
         this._set.clear()
         this._total = 0
         this._progress = 0
+        this._failed = []
     }
     open(file) {
         return new Promise((resolve, reject) => {
@@ -1206,7 +1208,10 @@ var HeadlessEpubViewer = GObject.registerClass({
             // NOTE: must not open until we've connected to `book-error`
             // because opening a book can fail synchronously!
             epub.open(file)
-        })
+        }).catch(() => this._failed.push(file))
+    }
+    get failed() {
+        return this._failed
     }
 })
 
