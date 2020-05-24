@@ -931,9 +931,11 @@ var Window = GObject.registerClass({
             this.add_action(action)
         })
 
-        this.set_help_overlay(Gtk.Builder.new_from_resource(
+        const overlay = Gtk.Builder.new_from_resource(
             '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
-            .get_object('shortcutsWindow'))
+            .get_object('shortcutsWindow')
+        overlay.section_name = 'shortcuts'
+        this.set_help_overlay(overlay)
 
         this.default_width = windowState.get_int('width')
         this.default_height = windowState.get_int('height')
