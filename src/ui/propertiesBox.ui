@@ -12,6 +12,7 @@
           <object class="GtkImage" id="cover">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="valign">center</property>
           </object>
         </child>
         <child>
@@ -37,6 +38,11 @@
                 <property name="wrap">True</property>
                 <property name="selectable">True</property>
                 <property name="xalign">0</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="actionArea">
+                <property name="visible">True</property>
               </object>
             </child>
           </object>

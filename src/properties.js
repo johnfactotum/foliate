@@ -42,6 +42,7 @@ var PropertiesBox = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertiesBox.ui',
     InternalChildren: [
         'cover', 'title', 'creator', 'description', 'propertiesBox',
+        'actionArea'
     ]
 }, class PropertiesBox extends Gtk.Box {
     _init(params, metadata, cover) {
@@ -129,6 +130,9 @@ var PropertiesBox = GObject.registerClass({
         if (!(title || creator || description ||
             publisher || pubdate || modified_date || language || identifier || rights))
             this.visible_child_name = 'nothing'
+    }
+    get actionArea() {
+        return this._actionArea
     }
 })
 

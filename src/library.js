@@ -706,7 +706,7 @@ const makeAcquisitionButton = (links, onActivate) => {
             tooltip_text: title || Gio.content_type_get_description(type)
         })
         if (drm) {
-            const buttonBox = new Gtk.Box()
+            const buttonBox = new Gtk.Box({ spacing: 3 })
             const icon = new Gtk.Image({
                 icon_name: 'emblem-drm-symbolic',
                 tooltip_text: _('Protected by DRM')
@@ -738,6 +738,28 @@ const makeAcquisitionButton = (links, onActivate) => {
     }
 }
 
+const makeAcquisitionButtons = (links = []) => {
+    const map = new Map()
+    links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
+        .forEach(x => {
+            if (!map.has(x.rel)) map.set(x.rel, [x])
+            else map.get(x.rel).push(x)
+        })
+    return Array.from(map.values()).map((links, i) => {
+        const button = makeAcquisitionButton(links, ({ type, href }) => {
+            // open in a browser
+            Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
+            //Gio.AppInfo.launch_default_for_uri(href, null)
+
+            // or, open with app directly
+            // const appInfo = Gio.AppInfo.get_default_for_type(type, true)
+            // appInfo.launch_uris([href], null)
+        })
+        if (i === 0) button.get_style_context().add_class('suggested-action')
+        return button
+    })
+}
+
 const OpdsEntryBox =  GObject.registerClass({
     GTypeName: 'FoliateOpdsEntryBox',
     Properties: {
@@ -748,7 +770,6 @@ const OpdsEntryBox =  GObject.registerClass({
     _init(params) {
         super._init(params)
         this.orientation = Gtk.Orientation.VERTICAL
-        const { links = [] } = this.entry.value
 
         const scrolled = new Gtk.ScrolledWindow({
             visible: true
@@ -768,32 +789,61 @@ const OpdsEntryBox =  GObject.registerClass({
         })
         this.pack_end(acquisitionBox, false, true, 0)
 
-        const map = new Map()
-        links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
-            .forEach(x => {
-                if (!map.has(x.rel)) map.set(x.rel, [x])
-                else map.get(x.rel).push(x)
-            })
-        Array.from(map.values()).forEach((links, i) => {
-            const button = makeAcquisitionButton(links, ({ type, href }) => {
-                // open in a browser
-                Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
-                //Gio.AppInfo.launch_default_for_uri(href, null)
-
-                // or, open with app directly
-                // const appInfo = Gio.AppInfo.get_default_for_type(type, true)
-                // appInfo.launch_uris([href], null)
-            })
-            acquisitionBox.pack_start(button, false, true, 0)
-            if (i === 0) {
-                button.get_style_context().add_class('suggested-action')
-                button.grab_focus()
-            }
-        })
-        if (map.size < 3) {
+        const { links } = this.entry.value
+        const acquisitionButtons = makeAcquisitionButtons(links)
+        acquisitionButtons.forEach(button =>
+            acquisitionBox.pack_start(button, false, true, 0))
+        if (acquisitionButtons.length < 3) {
             acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
             acquisitionBox.homogeneous = true
         }
+        if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
+    }
+})
+
+
+const OpdsFullEntryBox =  GObject.registerClass({
+    GTypeName: 'FoliateOpdsFullEntryBox',
+}, class OpdsFullEntryBox extends Gtk.Box {
+    _init(params) {
+        super._init(params)
+        this.orientation = Gtk.Orientation.VERTICAL
+    }
+    async load(entry) {
+        let pixbuf
+        const client = new OpdsClient()
+        await client.init()
+        try {
+            const thumbnail = entry.links
+                .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
+            if (thumbnail) pixbuf = await client.getImage(thumbnail.href)
+        } finally {
+            client.close()
+        }
+
+        const propertiesBox = new PropertiesBox({
+            visible: true,
+            border_width: 12
+        }, opdsEntryToMetadata(entry), pixbuf)
+        this.pack_start(propertiesBox, true, true, 0)
+
+        const acquisitionBox = new Gtk.Box({
+            visible: true,
+            spacing: 6,
+            margin_top: 12,
+            orientation: Gtk.Orientation.VERTICAL
+        })
+        propertiesBox.actionArea.pack_start(acquisitionBox, false, true, 0)
+
+        const { links } = entry
+        const acquisitionButtons = makeAcquisitionButtons(links)
+        acquisitionButtons.forEach(button =>
+            acquisitionBox.pack_start(button, false, true, 0))
+        if (acquisitionButtons.length < 3) {
+            acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
+            acquisitionBox.homogeneous = true
+        }
+        if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
     }
 })
 
@@ -1081,11 +1131,13 @@ const OpdsBox = GObject.registerClass({
     }
     load(feed) {
         this.feed = feed
-        const isAcquisition = isAcquisitionFeed(feed)
-        const opdsbox = isAcquisition
-            ? new OpdsAcquisitionBox({ visible: true, margin: 18 })
-            : new OpdsNavigationBox({ visible: true, margin: 18 })
-        opdsbox.load(feed.entries)
+        const opdsbox = feed.isEntry
+            ? new OpdsFullEntryBox({ visible: true, margin: 18 })
+            : isAcquisitionFeed(feed)
+                ? new OpdsAcquisitionBox({ visible: true, margin: 18 })
+                : new OpdsNavigationBox({ visible: true, margin: 18 })
+        if (feed.isEntry) opdsbox.load(feed)
+        else opdsbox.load(feed.entries)
         this.add(opdsbox)
         this.emit('loaded')
     }
@@ -1698,6 +1750,9 @@ var OpdsWindow =  GObject.registerClass({
                     if (callback) callback(feed)
 
                     const opdsbox = widget.get_child()
+                    if (opdsbox instanceof OpdsFullEntryBox) {
+                        column.maximum_width = 600
+                    }
                     if (opdsbox instanceof OpdsNavigationBox) {
                         column.maximum_width = 600
                         opdsbox.connect('link-activated', (_, href) => {
