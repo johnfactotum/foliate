@@ -74,6 +74,10 @@ const BookImage =  GObject.registerClass({
         this._imageBox.show()
     }
     load(pixbuf) {
+        // if thumbnail is too small,the experience is going to be bad
+        // might as well just show generated cover
+        // TODO: a slightly better way is to pack the tiny thumbnail inside the generated cover
+        if (pixbuf.get_width() < 48) throw new Error('thumbnail too small')
         this._image.set_from_pixbuf(scalePixbuf(pixbuf))
         this._image.get_style_context().add_class('foliate-book-image')
     }
@@ -897,7 +901,11 @@ const OpdsBoxChild =  GObject.registerClass({
         this._image.load(pixbuf)
     }
     generateCover() {
-        const metadata = opdsEntryToMetadata(this.entry.value)
+        const entry = this.entry.value
+        const metadata = opdsEntryToMetadata(entry)
+        if (!isCatalogEntry(entry) && !metadata.creator) {
+            metadata.creator = entry.content
+        }
         this._image.generate(metadata)
     }
     get image() {
@@ -917,7 +925,11 @@ const OpdsAcquisitionBox = GObject.registerClass({
     Signals: {
         'loaded': { flags: GObject.SignalFlags.RUN_FIRST },
         'error': { flags: GObject.SignalFlags.RUN_FIRST },
-        'image-draw': { flags: GObject.SignalFlags.RUN_FIRST }
+        'image-draw': { flags: GObject.SignalFlags.RUN_FIRST },
+        'link-activated': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_STRING, GObject.TYPE_STRING]
+        },
     }
 }, class OpdsAcquisitionBox extends Gtk.FlowBox {
     _init(params, sort) {
@@ -932,6 +944,12 @@ const OpdsAcquisitionBox = GObject.registerClass({
         this.sort = sort
 
         this.connect('child-activated', (flowbox, child) => {
+            const entry = child.entry.value
+            if (!isCatalogEntry(entry)) {
+                const { href, type } = entry.links[0]
+                this.emit('link-activated', href, type)
+                return
+            }
             const popover = new Gtk.Popover({
                 relative_to: child.image,
                 width_request: 320,
@@ -1103,9 +1121,14 @@ const OpdsNavigationBox = GObject.registerClass({
     }
 })
 
-const isAcquisitionFeed = feed => feed.entries && feed.entries.some(entry =>
-    entry.links && entry.links.some(link =>
-        linkIsRel(link, rel => rel.startsWith('http://opds-spec.org/acquisition'))))
+const isAcquisitionFeed = feed => feed.entries && feed.entries.some(isCatalogEntry)
+
+const isCatalogEntry = entry => entry.links && entry.links.some(link =>
+    linkIsRel(link, rel => rel.startsWith('http://opds-spec.org/acquisition')))
+
+const typeIsOpds = type =>
+    // should probably check "profile=opds-catalog" too/instead
+    type.includes('application/atom+xml')
 
 const OpdsBox = GObject.registerClass({
     GTypeName: 'FoliateOpdsBox',
@@ -1419,9 +1442,7 @@ var LibraryWindow =  GObject.registerClass({
         const titlebox = new Gtk.Box({
             visible: true,
             spacing: 12,
-            margin_start: 12,
-            margin_end: 12,
-            margin_top: 18
+            margin: 12
         })
         titlebox.pack_start(new Gtk.Label({
             visible: true,
@@ -1453,142 +1474,63 @@ var LibraryWindow =  GObject.registerClass({
             {
                 title: 'Standard Ebooks',
                 uri: 'https://standardebooks.org/opds/all',
-                filters: [
-                    {
-                        title: 'Recently Added',
-                        sortBy: (a, b) =>
-                            new Date(b.published) - new Date(a.published)
-                    },
-                    {
-                        title: 'Science Fiction',
-                        term: 'Science fiction',
-                        shuffle: true
-                    },
-                    {
-                        title: 'Detective and Mystery Stories',
-                        term: 'Detective and mystery stories',
-                        shuffle: true
-                    },
-                ]
+                preview: 'https://standardebooks.org/opds/all',
+                previewShuffle: true
             },
             {
                 title: 'Feedbooks',
                 uri: 'https://catalog.feedbooks.com/catalog/index.atom',
-                featured: [
-                    {
-                        title: 'New & Noteworthy',
-                        uri: 'https://catalog.feedbooks.com/featured/en.atom'
-                    },
-                    {
-                        title: 'Public Domain Books',
-                        uri: 'https://catalog.feedbooks.com/publicdomain/browse/en/homepage_selection.atom'
-                    }
-                ]
+                preview: 'https://catalog.feedbooks.com/publicdomain/browse/en/homepage_selection.atom',
+                previewShuffle: true
+            },
+            {
+                title: 'Project Gutenberg',
+                uri: 'https://m.gutenberg.org/ebooks.opds/',
+                preview: 'http://www.gutenberg.org/ebooks/search.opds/?sort_order=random',
+                previewShuffle: true,
+                previewSlice: 3
             }
         ]
 
-        for (const { title, uri, filters, featured } of arr) {
-            if (filters) {
+        for (const { title, uri, preview, previewShuffle, previewSlice } of arr) {
+            if (preview) {
                 const titlebox = this._makeSectionTitle(title, uri)
                 box.pack_start(titlebox, false, true, 0)
                 const loadbox = new LoadBox({ visible: true }, () => {
-                    const widget = new OpdsFeed({ visible: true, uri })
+                    const widget = new OpdsFeed({ visible: true, uri: preview })
 
-                    const box = new Gtk.Box({
-                        visible: true,
-                        orientation: Gtk.Orientation.VERTICAL,
-                    })
-                    widget.add(box)
                     widget.connect('loaded', () => {
                         const feed = widget.feed
-                        const items = filters.map(filter => {
-                            let arr = []
-                            if (filter.term) arr =  feed.entries
-                                .filter(entry => entry.categories && entry.categories
-                                    .some(category => category.term
-                                        && category.term.includes(filter.term)))
-                            else if (filter.sortBy) arr = feed.entries.slice(0)
-                                .sort(filter.sortBy)
-                            return [filter.title, arr, filter.shuffle]
+                        let entries = feed.entries
+                        if (previewSlice) entries = entries.slice(previewSlice)
+
+                        const scrolled = new Gtk.ScrolledWindow({
+                            visible: true,
+                            propagate_natural_height: true
                         })
-
-                        for (const [subtitle, entries, shouldShuffle] of items) {
-                            const scrolled = new Gtk.ScrolledWindow({
-                                visible: true,
-                                propagate_natural_height: true
-                            })
-                            const max_entries = 5
-                            const opdsbox = new OpdsAcquisitionBox({
-                                visible: true,
-                                max_entries,
-                                max_children_per_line: max_entries,
-                                min_children_per_line: max_entries,
-                                margin_start: 12,
-                                margin_end: 12
-                            }, shouldShuffle ? shuffle : null)
-                            opdsbox.connect('image-draw', () => {
-                                scrolled.min_content_height = opdsbox.get_allocation().height
-                            })
-                            opdsbox.load(entries)
-                            scrolled.add(opdsbox)
-
-                            box.pack_start(new Gtk.Label({
-                                visible: true,
-                                xalign: 0,
-                                wrap: true,
-                                useMarkup: true,
-                                label: `<b>${markupEscape(subtitle)}</b>`,
-                                margin: 12
-                            }), false, true, 0)
-                            box.pack_start(scrolled, false, true, 0)
-                        }
-                    })
-                    return widget
-                })
-                box.pack_start(loadbox, false, true, 0)
-            } else if (featured) {
-                const titlebox = this._makeSectionTitle(title, uri)
-                box.pack_start(titlebox, false, true, 0)
-
-                const box2 = new Gtk.Box({
-                    visible: true,
-                    orientation: Gtk.Orientation.VERTICAL,
-                })
-
-                featured.forEach(({ title, uri }) => {
-                    const scrolled = new Gtk.ScrolledWindow({
-                        visible: true,
-                        propagate_natural_height: true
-                    })
-                    const max_entries = 5
-                    const loadbox = new LoadBox({ visible: true }, () => {
+                        const max_entries = 5
                         const opdsbox = new OpdsAcquisitionBox({
                             visible: true,
                             max_entries,
                             max_children_per_line: max_entries,
                             min_children_per_line: max_entries,
                             margin_start: 12,
-                            margin_end: 12,
-                            uri
-                        }, shuffle)
+                            margin_end: 12
+                        }, previewShuffle ? shuffle : null)
                         opdsbox.connect('image-draw', () => {
                             scrolled.min_content_height = opdsbox.get_allocation().height
                         })
-                        return opdsbox
+                        opdsbox.connect('link-activated', (box, href, type) => {
+                            if (typeIsOpds(type)) this.openCatalog(href)
+                            else Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
+                        })
+                        opdsbox.load(entries)
+                        scrolled.add(opdsbox)
+                        widget.add(scrolled)
                     })
-                    scrolled.add(loadbox)
-                    box2.pack_start(new Gtk.Label({
-                        visible: true,
-                        xalign: 0,
-                        wrap: true,
-                        useMarkup: true,
-                        label: `<b>${markupEscape(title)}</b>`,
-                        margin: 12
-                    }), false, true, 0)
-                    box2.pack_start(scrolled, false, true, 0)
+                    return widget
                 })
-
-                box.pack_start(box2, false, true, 0)
+                box.pack_start(loadbox, false, true, 0)
             }
         }
         this._catalogColumn.add(box)
@@ -1706,6 +1648,13 @@ var OpdsWindow =  GObject.registerClass({
         this._uri = uri
         if (this._opdsWidget) this._opdsWidget.destroy()
 
+        const handleLink = (href, type) => {
+            if (typeIsOpds(type)) {
+                this._pushHistory(uri)
+                this._loadOpds(href)
+            } else Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
+        }
+
         const nb = new Gtk.Notebook({
             visible: true,
             scrollable: true,
@@ -1787,13 +1736,13 @@ var OpdsWindow =  GObject.registerClass({
                     const opdsbox = widget.get_child()
                     if (opdsbox instanceof OpdsFullEntryBox) {
                         column.maximum_width = 600
+                    } else {
+                        opdsbox.connect('link-activated', (_, href, type) => {
+                            handleLink(href, type)
+                        })
                     }
                     if (opdsbox instanceof OpdsNavigationBox) {
                         column.maximum_width = 600
-                        opdsbox.connect('link-activated', (_, href) => {
-                            this._pushHistory(uri)
-                            this._loadOpds(href)
-                        })
                     }
                 })
                 widget.connect('error', () => {
@@ -1842,9 +1791,8 @@ var OpdsWindow =  GObject.registerClass({
                     title: facet.title,
                     links: [facet]
                 })))
-                opdsbox.connect('link-activated', (_, href) => {
-                    this._pushHistory(uri)
-                    this._loadOpds(href)
+                opdsbox.connect('link-activated', (_, href, type) => {
+                    handleLink(href, type)
                 })
 
                 const label = new Gtk.Label({
