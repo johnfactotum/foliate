@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 15:15+0800\n"
+"POT-Creation-Date: 2020-05-25 21:16+0800\n"
 "PO-Revision-Date: 2019-06-14 21:02+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1134
-#: src/library.js:1522 src/main.js:169 src/window.js:979
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1209
+#: src/library.js:1551 src/main.js:169 src/window.js:991
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -38,7 +38,7 @@ msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook,Buku,EPUB,Pemirsa,Pembaca;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
-#: src/ui/libraryWindow.ui:436 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
+#: src/ui/libraryWindow.ui:441 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
 msgid "Library"
 msgstr ""
 
@@ -66,20 +66,20 @@ msgstr[0] "%d hasil"
 msgid "Searching…"
 msgstr "Mencari…"
 
-#: src/epubView.js:982
+#: src/epubView.js:978
 #, fuzzy
 msgid "File not found."
 msgstr "Entri tidak ditemukan."
 
-#: src/epubView.js:994
+#: src/epubView.js:990
 msgid "Failed to load remote file."
 msgstr ""
 
-#: src/epubView.js:1026
+#: src/epubView.js:1022
 msgid "Could not unpack Kindle file."
 msgstr ""
 
-#: src/epubView.js:1042
+#: src/epubView.js:1038
 msgid "File type not supported."
 msgstr ""
 
@@ -170,7 +170,7 @@ msgstr "Semua berkas"
 msgid "Import Annotations"
 msgstr "Anotasi"
 
-#: src/export.js:173 src/window.js:652 src/ui/contentsStack.ui:80
+#: src/export.js:173 src/window.js:662 src/ui/contentsStack.ui:80
 msgid "No annotations"
 msgstr "Tidak ada anotasi"
 
@@ -189,9 +189,9 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr ""
 
-#: src/export.js:221 src/library.js:481 src/main.js:129 src/window.js:553
+#: src/export.js:221 src/library.js:485 src/main.js:129 src/window.js:563
 #: src/ui/bookEditDialog.ui:10 src/ui/exportWindow.ui:38
-#: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:425
+#: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:430
 #: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Batalkan"
@@ -200,7 +200,7 @@ msgstr "Batalkan"
 msgid "Import Anyway"
 msgstr ""
 
-#: src/export.js:232 src/library.js:1710 src/window.js:1007
+#: src/export.js:232 src/library.js:1749 src/window.js:1019
 msgid "Error"
 msgstr ""
 
@@ -209,184 +209,195 @@ msgstr ""
 msgid "Could not import annotations."
 msgstr "Anotasi"
 
-#: src/library.js:134 src/window.js:632 src/ui/bookBoxMenu.ui:13
+#: src/library.js:138 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "Tentang Buku Ini"
 
-#: src/library.js:158
+#: src/library.js:162
 #, fuzzy
 msgid "Choose File"
 msgstr "Berkas E-book"
 
-#: src/library.js:291 src/library.js:309
+#: src/library.js:295 src/library.js:313
 msgid "Load more"
 msgstr ""
 
-#: src/library.js:453
+#: src/library.js:457
 msgid "File location unkown"
 msgstr ""
 
-#: src/library.js:454
+#: src/library.js:458
 msgid "Choose the location of this file to open it."
 msgstr ""
 
-#: src/library.js:474
+#: src/library.js:478
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] ""
 
-#: src/library.js:476
+#: src/library.js:480
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
 
-#: src/library.js:482 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/library.js:486 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
-#: src/ui/libraryWindow.ui:405
+#: src/ui/libraryWindow.ui:410
 msgid "Remove"
 msgstr "Hapus"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/library.js:619
+#: src/library.js:623
 msgid ", "
 msgstr ""
 
-#: src/library.js:644
+#: src/library.js:648
 msgid "Unable to load OPDS feed"
 msgstr ""
 
-#: src/library.js:689
+#: src/library.js:693
 msgid "Download"
 msgstr ""
 
-#: src/library.js:691
+#: src/library.js:695
 msgid "Buy"
 msgstr ""
 
-#: src/library.js:692
+#: src/library.js:696
 msgid "Free"
 msgstr ""
 
-#: src/library.js:693
+#: src/library.js:697
 msgid "Sample"
 msgstr ""
 
-#: src/library.js:694
+#: src/library.js:698
 msgid "Borrow"
 msgstr ""
 
-#: src/library.js:695
+#: src/library.js:699
 msgid "Subscribe"
 msgstr ""
 
-#: src/library.js:712
+#: src/library.js:716
 msgid "Protected by DRM"
 msgstr ""
 
-#: src/library.js:730
+#: src/library.js:734
 msgid " (DRM)"
 msgstr ""
 
-#: src/library.js:1156
+#: src/library.js:1231
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] ""
 
-#: src/library.js:1263
+#: src/library.js:1309
+#, fuzzy
+msgid "Failed to add book"
+msgid_plural "Failed to add books"
+msgstr[0] "Temukan dalam buku"
+
+#: src/library.js:1311
+msgid "Could not add the following file:"
+msgid_plural "Could not add the following files:"
+msgstr[0] ""
+
+#: src/library.js:1373
 msgid "All"
 msgstr ""
 
-#: src/library.js:1266
+#: src/library.js:1376
 msgid "Title"
 msgstr ""
 
-#: src/library.js:1267
+#: src/library.js:1377
 msgid "Author"
 msgstr ""
 
-#: src/library.js:1268 src/properties.js:71
+#: src/library.js:1378 src/properties.js:72
 msgid "Tags"
 msgstr ""
 
-#: src/library.js:1269
+#: src/library.js:1379
 #, fuzzy
 msgid "Description"
 msgstr "Seleksi"
 
-#: src/library.js:1270 src/properties.js:75
+#: src/library.js:1380 src/properties.js:76
 msgid "Publisher"
 msgstr "Penerbit"
 
-#: src/library.js:1271 src/properties.js:87 src/ui/ttsDialog.ui:284
+#: src/library.js:1381 src/properties.js:88 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Bahasa"
 
-#: src/library.js:1308
+#: src/library.js:1418
 #, fuzzy
 msgid "Add Files"
 msgstr "Semua berkas"
 
-#: src/library.js:1352
+#: src/library.js:1460
 msgid "See More"
 msgstr ""
 
-#: src/library.js:1634 src/window.js:1284 src/ui/libraryWindow.ui:176
+#: src/library.js:1670 src/window.js:1296 src/ui/libraryWindow.ui:181
 msgid "Loading…"
 msgstr "Memuat…"
 
-#: src/library.js:1675
+#: src/library.js:1711
 msgid "First"
 msgstr ""
 
-#: src/library.js:1676
+#: src/library.js:1712
 #, fuzzy
 msgid "Previous"
 msgstr "Halaman sebelumnya"
 
-#: src/library.js:1677
+#: src/library.js:1713
 #, fuzzy
 msgid "Next"
 msgstr "Halaman berikutnya"
 
-#: src/library.js:1678
+#: src/library.js:1714
 msgid "Last"
 msgstr ""
 
-#: src/library.js:1724
+#: src/library.js:1763
 msgid "Related"
 msgstr ""
 
-#: src/library.js:1725
+#: src/library.js:1764
 #, fuzzy
 msgid "Section"
 msgstr "Seleksi"
 
-#: src/library.js:1726
+#: src/library.js:1765
 #, fuzzy
 msgid "Subsection"
 msgstr "Seleksi"
 
-#: src/library.js:1727
+#: src/library.js:1766
 msgid "New"
 msgstr ""
 
-#: src/library.js:1728
+#: src/library.js:1767
 msgid "Popular"
 msgstr ""
 
-#: src/library.js:1729
+#: src/library.js:1768
 #, fuzzy
 msgid "Featured"
 msgstr "Fitur termasuk:"
 
-#: src/library.js:1730
+#: src/library.js:1769
 msgid "Recommended"
 msgstr ""
 
-#: src/library.js:1762
+#: src/library.js:1800
 msgid "Filter"
 msgstr ""
 
@@ -459,66 +470,66 @@ msgstr "Tampilkan menu"
 msgid "Show verbose debugging information"
 msgstr ""
 
-#: src/properties.js:72
+#: src/properties.js:73
 msgid " • "
 msgstr ""
 
-#: src/properties.js:79
+#: src/properties.js:80
 msgid "Publication Date"
 msgstr "Tanggal Publikasi"
 
-#: src/properties.js:83
+#: src/properties.js:84
 msgid "Modified Date"
 msgstr "Tanggal Modifikasi"
 
-#: src/properties.js:91
+#: src/properties.js:92
 #, fuzzy
 msgid "File Size"
 msgstr "Semua berkas"
 
-#: src/properties.js:95
+#: src/properties.js:96
 msgid "Format"
 msgstr ""
 
-#: src/properties.js:101
+#: src/properties.js:102
 msgid "Identifier"
 msgstr "Pengidentifikasi"
 
-#: src/properties.js:115
+#: src/properties.js:116
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr ""
 
-#: src/properties.js:126
+#: src/properties.js:127
 msgid "Copyright"
 msgstr "Hak cipta"
 
-#: src/properties.js:137
+#: src/properties.js:141
 msgid "Amazon"
 msgstr ""
 
-#: src/properties.js:141
+#: src/properties.js:145
 msgid "Goodreads"
 msgstr ""
 
-#: src/properties.js:145
+#: src/properties.js:149
 #, fuzzy
 msgid "Google Books"
 msgstr "Lihat eBook"
 
-#: src/properties.js:149
+#: src/properties.js:153
 msgid "LibraryThing"
 msgstr ""
 
-#: src/properties.js:153
+#: src/properties.js:157
 msgid "Open Library"
 msgstr ""
 
-#: src/properties.js:157
+#: src/properties.js:161
 msgid "WorldCat"
 msgstr ""
 
-#: src/properties.js:196
+#: src/properties.js:200
 msgid "Find on…"
 msgstr ""
 
@@ -595,7 +606,7 @@ msgstr[0] ""
 msgid "E-book Files"
 msgstr "Berkas E-book"
 
-#: src/window.js:123 src/window.js:799
+#: src/window.js:123 src/window.js:809
 #, fuzzy
 msgid "Leave fullscreen"
 msgstr "Beralih ke layar penuh"
@@ -610,51 +621,56 @@ msgstr "Layar Penuh"
 msgid "of %d"
 msgstr "dari %d"
 
-#: src/window.js:547
+#: src/window.js:337
+#, fuzzy, javascript-format
+msgid "%d of %d"
+msgstr "dari %d"
+
+#: src/window.js:557
 msgid "This file or format does not work well with annotations"
 msgstr ""
 
-#: src/window.js:548
+#: src/window.js:558
 msgid "Your annotations might stop working properly at any time."
 msgstr ""
 
-#: src/window.js:554
+#: src/window.js:564
 msgid "Continue Anyway"
 msgstr ""
 
-#: src/window.js:653
+#: src/window.js:663
 msgid "You don't have any annotations for this book."
 msgstr "Anda tidak memiliki anotasi untuk buku ini"
 
-#: src/window.js:654
+#: src/window.js:664
 #, fuzzy
 msgid "Highlight some text to add annotations."
 msgstr "Sorot teks untuk memberi anotasi."
 
-#: src/window.js:778
+#: src/window.js:788
 #, fuzzy
 msgid "Contents"
 msgstr "Tampilkan daftar isi"
 
-#: src/window.js:782 data/com.github.johnfactotum.Foliate.gschema.xml:235
+#: src/window.js:792 data/com.github.johnfactotum.Foliate.gschema.xml:235
 #, fuzzy
 msgid "Show sidebar"
 msgstr "Tampilkan penanda buku"
 
-#: src/window.js:793 src/ui/selectionPopover.ui:47
+#: src/window.js:803 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr ""
 
-#: src/window.js:794 src/ui/libraryWindow.ui:99 src/ui/opdsWindow.ui:69
+#: src/window.js:804 src/ui/libraryWindow.ui:101 src/ui/opdsWindow.ui:69
 msgid "Menu"
 msgstr ""
 
-#: src/window.js:1071
+#: src/window.js:1083
 #, javascript-format
 msgid "Image from “%s”"
 msgstr ""
 
-#: src/window.js:1071
+#: src/window.js:1083
 msgid "Image"
 msgstr ""
 
@@ -864,52 +880,52 @@ msgstr "Tentang Foliate"
 msgid "Add books"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:61
+#: src/ui/libraryWindow.ui:62
 msgid "Add catalog"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:122 src/ui/opdsWindow.ui:84
+#: src/ui/libraryWindow.ui:125 src/ui/opdsWindow.ui:84
 #: src/ui/shortcutsWindow.ui:17
 #, fuzzy
 msgid "Search"
 msgstr "Mencari…"
 
-#: src/ui/libraryWindow.ui:135
+#: src/ui/libraryWindow.ui:139
 msgid "Toggle view"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:195
+#: src/ui/libraryWindow.ui:200
 msgid "Stop"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:305
+#: src/ui/libraryWindow.ui:310
 #, fuzzy
 msgid "No books yet"
 msgstr "Tidak ada penanda buku"
 
-#: src/ui/libraryWindow.ui:317 src/ui/mainOverlay.ui:60
+#: src/ui/libraryWindow.ui:322 src/ui/mainOverlay.ui:60
 #, fuzzy
 msgid "Open a book to start reading."
 msgstr "Buka buku untuk memulai membaca"
 
-#: src/ui/libraryWindow.ui:331 src/ui/mainOverlay.ui:73
+#: src/ui/libraryWindow.ui:336 src/ui/mainOverlay.ui:73
 msgid "Open File…"
 msgstr "Buka Berkas…"
 
-#: src/ui/libraryWindow.ui:339
+#: src/ui/libraryWindow.ui:344
 msgid "Browse Catalogs"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:371
+#: src/ui/libraryWindow.ui:376
 #, fuzzy
 msgid "No results found"
 msgstr "Tidak ada hasil"
 
-#: src/ui/libraryWindow.ui:383
+#: src/ui/libraryWindow.ui:388
 msgid "Try a different search."
 msgstr ""
 
-#: src/ui/libraryWindow.ui:453
+#: src/ui/libraryWindow.ui:458
 #, fuzzy
 msgid "Catalogs"
 msgstr "Bahasa Katala"
