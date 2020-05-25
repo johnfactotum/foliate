@@ -333,6 +333,9 @@ const Footer = GObject.registerClass({
             ? settings.get_string('footer-left')
             : settings.get_string('footer-right')
         const p = isLeft && this._spread ? start : end
+
+        const of = (a, b) => _('%d of %d').format(a, b)
+
         let s = ''
         switch (type) {
             case 'percentage':
@@ -344,13 +347,13 @@ const Footer = GObject.registerClass({
                 break
             case 'location':
                 if (this._locationsFallback)
-                    s = (section + 1) + ' / ' + sectionTotal
+                    s = of(section + 1, sectionTotal)
                 else if (locationTotal > 0)
-                    s = (p.location + 1) + ' / ' + (locationTotal + 1)
+                    s = of(p.location + 1, locationTotal + 1)
                 else s = '…'
                 break
             case 'section':
-                s = (section + 1) + ' / ' + sectionTotal
+                s = of(section + 1, sectionTotal)
                 break
             case 'section-name':
                 s = p.label
