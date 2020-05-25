@@ -72,10 +72,10 @@ const entry = {
     array: true,
     fields: {
         id: {},
-        title: { transform: trim },
+        title: {},
         published: {},
         updated: {},
-        summary: { transform: trim },
+        summary: {},
         links: link,
         authors: author,
         categories: {
@@ -89,14 +89,14 @@ const entry = {
         issued: { ns: DC_TERMS_NS },
         extent: { ns: DC_TERMS_NS },
         rights: {},
-        content: { transform: trim },
+        content: {},
     }
 }
 const feed = {
     tag: 'feed',
     fields: {
         id: {},
-        title: { transform: trim },
+        title: {},
         icon: {},
         updated: {},
         links: link,
@@ -111,12 +111,12 @@ const parse = (el, schema) => {
     const attrList = Object.keys(attrs)
     const fieldList = Object.keys(fields)
     if (!attrList.length && !fieldList.length) {
-        const transform = schema.transform || (x => x)
+        const transform = schema.transform || trim
         return transform(el.textContent)
     }
     const output = {}
     if (schema.content) {
-        const transform = schema.transform || (x => x)
+        const transform = schema.transform || trim
         output[schema.content] = transform(el.textContent)
     }
     attrList.forEach(key => {
@@ -131,7 +131,7 @@ const parse = (el, schema) => {
         } else {
             value = el.getAttributeNS(attr.ns, attrName)
         }
-        const transform = attr.transform || (x => x)
+        const transform = attr.transform || trim
         output[key] = transform(value)
     })
     fieldList.forEach(key => {
