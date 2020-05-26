@@ -10,9 +10,7 @@ Website: https://johnfactotum.github.io/foliate/
 
 Documentation: https://github.com/johnfactotum/foliate/wiki
 
-<a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a>
-
-<a href="https://snapcraft.io/foliate"><img height="50" alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" /></a>
+<a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a> <a href="https://snapcraft.io/foliate"><img height="50" alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" /></a>
 
 ## Features
 
@@ -53,7 +51,7 @@ For offline dictionary support, install `dictd`.
 
 For text-to-speech support, install `espeak-ng`, or `festival`, and packages for the individual voices.
 
-To enable spellchecking for notes, `gspell` is requried.
+To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based distributions) is requried.
 
 ### Building manually from source
 
@@ -65,7 +63,7 @@ The following dependencies are required for building:
 The following are runtime requirements:
 
 - `gjs (>= 1.52)`
-- `webkit2gtk`
+- `webkit2gtk` (`gir1.2-webkit2-4.0` for Debian based distributions)
 
 To install, run the following commands:
 
