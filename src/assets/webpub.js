@@ -88,7 +88,7 @@ const fb2ToHtml = (x, h, getImage) => {
         .forEach(el => {
             const tag = el.tagName === 'title' ? 'h2' : 'h3'
             Array.from(el.querySelectorAll('p'))
-                .forEach(el => { el.innerHTML = `${el.innerHTML}<br>`; usurp(el) })
+                .forEach(el => { el.innerHTML = `${el.innerHTML}<br />`; usurp(el) })
             el.parentNode.replaceChild(h(`<${tag}>${el.innerHTML}</${tag}>`), el)
         })
     if (getImage) Array.from(x.querySelectorAll('image'))
@@ -96,11 +96,11 @@ const fb2ToHtml = (x, h, getImage) => {
             const src = getImage(el).data
             const alt = el.getAttribute('alt') || ''
             const title = el.getAttribute('title') || ''
-            const img = h(`<img src="${src}" alt="${alt}" title="${title}">`)
+            const img = h(`<img src="${src}" alt="${alt}" title="${title}" />`)
             el.parentNode.replaceChild(img, el)
         })
     Array.from(x.querySelectorAll('empty-line'))
-        .forEach(el => el.parentNode.replaceChild(h(`<br>`), el))
+        .forEach(el => el.parentNode.replaceChild(h(`<br />`), el))
     Array.from(x.querySelectorAll('style'))
         .forEach(el => usurp(el))
     Array.from(x.querySelectorAll('emphasis'))
@@ -116,7 +116,7 @@ const fb2ToHtml = (x, h, getImage) => {
     Array.from(x.querySelectorAll('date'))
         .forEach(el => el.parentNode.replaceChild(h(`<p class="date">${el.innerHTML}</p>`), el))
     Array.from(x.querySelectorAll('v'))
-        .forEach(el => { el.innerHTML = `${el.innerHTML}<br>`; usurp(el) })
+        .forEach(el => { el.innerHTML = `${el.innerHTML}<br />`; usurp(el) })
     Array.from(x.querySelectorAll('a[type=note]'))
         .forEach(el => el.innerHTML = `<sup>${el.innerHTML}</sup>`)
     return x
