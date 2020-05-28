@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 21:16+0800\n"
-"PO-Revision-Date: 2020-05-25 21:24+0800\n"
+"POT-Creation-Date: 2020-05-29 02:33+0800\n"
+"PO-Revision-Date: 2020-05-29 02:39+0800\n"
 "Last-Translator: Blanc Chan\n"
 "Language-Team: none\n"
 "Language: zh_TW\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1209
-#: src/library.js:1551 src/main.js:169 src/window.js:991
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1220
+#: src/library.js:1534 src/main.js:172 src/window.js:991
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -38,7 +38,7 @@ msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook;Book;EPUB;Viewer;Reader;電子書;書;檢視器;閱讀器;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
-#: src/ui/libraryWindow.ui:441 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
+#: src/ui/libraryWindow.ui:451 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
 msgid "Library"
 msgstr "書庫"
 
@@ -65,19 +65,19 @@ msgstr[0] "%d 項結果"
 msgid "Searching…"
 msgstr "搜尋中…"
 
-#: src/epubView.js:978
+#: src/epubView.js:1012
 msgid "File not found."
 msgstr "找不到檔案。"
 
-#: src/epubView.js:990
+#: src/epubView.js:1024
 msgid "Failed to load remote file."
 msgstr "無法載入遠端檔案。"
 
-#: src/epubView.js:1022
+#: src/epubView.js:1056
 msgid "Could not unpack Kindle file."
 msgstr "無法打開 Kindle 檔案。"
 
-#: src/epubView.js:1038
+#: src/epubView.js:1072
 msgid "File type not supported."
 msgstr "不支援此檔案類型。"
 
@@ -165,10 +165,10 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr "匯入檔案識別碼與書籍識別碼不符。這可能表示這些註解不屬於此書籍。"
 
-#: src/export.js:221 src/library.js:485 src/main.js:129 src/window.js:563
-#: src/ui/bookEditDialog.ui:10 src/ui/exportWindow.ui:38
-#: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:430
-#: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
+#: src/export.js:221 src/library.js:486 src/main.js:132 src/window.js:563
+#: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
+#: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
+#: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "取消"
 
@@ -176,7 +176,7 @@ msgstr "取消"
 msgid "Import Anyway"
 msgstr "照樣匯入"
 
-#: src/export.js:232 src/library.js:1749 src/window.js:1019
+#: src/export.js:232 src/library.js:1732 src/window.js:1019
 msgid "Error"
 msgstr "錯誤"
 
@@ -184,254 +184,250 @@ msgstr "錯誤"
 msgid "Could not import annotations."
 msgstr "無法匯入註解。"
 
-#: src/library.js:138 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/library.js:139 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "關於這本書"
 
-#: src/library.js:162
+#: src/library.js:163
 msgid "Choose File"
 msgstr "選擇檔案"
 
-#: src/library.js:295 src/library.js:313
+#: src/library.js:296 src/library.js:314
 msgid "Load more"
 msgstr "載入更多"
 
-#: src/library.js:457
+#: src/library.js:458
 msgid "File location unkown"
 msgstr "檔案位址不明"
 
-#: src/library.js:458
+#: src/library.js:459
 msgid "Choose the location of this file to open it."
 msgstr "選擇檔案位址以開啟此檔案。"
 
-#: src/library.js:478
+#: src/library.js:479
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] "確定要移除選取的 %d 本書？"
 
-#: src/library.js:480
+#: src/library.js:481
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr "閱讀進度、註解與書籤會被永久刪除。"
 
-#: src/library.js:486 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/library.js:487 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
-#: src/ui/libraryWindow.ui:410
+#: src/ui/libraryWindow.ui:420
 msgid "Remove"
 msgstr "移除"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/library.js:623
+#: src/library.js:633
 msgid ", "
 msgstr "、"
 
-#: src/library.js:648
+#: src/library.js:658
 msgid "Unable to load OPDS feed"
 msgstr "無法載入 OPDS"
 
-#: src/library.js:693
+#: src/library.js:703
 msgid "Download"
 msgstr "下載"
 
-#: src/library.js:695
+#: src/library.js:705
 msgid "Buy"
 msgstr "購買"
 
-#: src/library.js:696
+#: src/library.js:706
 msgid "Free"
 msgstr "免費"
 
-#: src/library.js:697
+#: src/library.js:707
 msgid "Sample"
 msgstr "試讀"
 
-#: src/library.js:698
+#: src/library.js:708
 msgid "Borrow"
 msgstr "借閱"
 
-#: src/library.js:699
+#: src/library.js:709
 msgid "Subscribe"
 msgstr "訂閱"
 
-#: src/library.js:716
+#: src/library.js:726
 msgid "Protected by DRM"
 msgstr "DRM 保護"
 
-#: src/library.js:734
+#: src/library.js:744
 msgid " (DRM)"
 msgstr "（DRM）"
 
-#: src/library.js:1231
+#: src/library.js:1242
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "選取了 %d 個項目"
 
-#: src/library.js:1309
+#: src/library.js:1324
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "無法新增書籍"
 
-#: src/library.js:1311
+#: src/library.js:1326
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "無法新增以下書籍："
 
-#: src/library.js:1373
+#: src/library.js:1388
 msgid "All"
 msgstr "全部"
 
-#: src/library.js:1376
+#: src/library.js:1391 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "標題"
 
-#: src/library.js:1377
+#: src/library.js:1392
 msgid "Author"
 msgstr "作者"
 
-#: src/library.js:1378 src/properties.js:72
+#: src/library.js:1393 src/properties.js:72
 msgid "Tags"
 msgstr "標籤"
 
-#: src/library.js:1379
+#: src/library.js:1394
 msgid "Description"
 msgstr "描述"
 
-#: src/library.js:1380 src/properties.js:76
+#: src/library.js:1395 src/properties.js:76
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/library.js:1381 src/properties.js:88 src/ui/ttsDialog.ui:284
+#: src/library.js:1396 src/properties.js:88 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "語言"
 
-#: src/library.js:1418
+#: src/library.js:1433
 msgid "Add Files"
 msgstr "新增檔案"
 
-#: src/library.js:1460
-msgid "See More"
-msgstr "看更多"
-
-#: src/library.js:1670 src/window.js:1296 src/ui/libraryWindow.ui:181
+#: src/library.js:1653 src/window.js:1296 src/ui/libraryWindow.ui:191
 msgid "Loading…"
 msgstr "載入中…"
 
-#: src/library.js:1711
+#: src/library.js:1694
 msgid "First"
 msgstr "第一頁"
 
-#: src/library.js:1712
+#: src/library.js:1695
 msgid "Previous"
 msgstr "上一頁"
 
-#: src/library.js:1713
+#: src/library.js:1696
 msgid "Next"
 msgstr "下一頁"
 
-#: src/library.js:1714
+#: src/library.js:1697
 msgid "Last"
 msgstr "最後一頁"
 
-#: src/library.js:1763
+#: src/library.js:1746
 msgid "Related"
 msgstr "相關"
 
-#: src/library.js:1764
+#: src/library.js:1747
 msgid "Section"
 msgstr "區塊"
 
-#: src/library.js:1765
+#: src/library.js:1748
 msgid "Subsection"
 msgstr "次區塊"
 
-#: src/library.js:1766
+#: src/library.js:1749
 msgid "New"
 msgstr "最新"
 
-#: src/library.js:1767
+#: src/library.js:1750
 msgid "Popular"
 msgstr "熱門"
 
-#: src/library.js:1768
+#: src/library.js:1751
 msgid "Featured"
 msgstr "特選"
 
-#: src/library.js:1769
+#: src/library.js:1752
 msgid "Recommended"
 msgstr "推薦"
 
-#: src/library.js:1800
+#: src/library.js:1783
 msgid "Filter"
 msgstr "篩選"
 
-#: src/lookup.js:96
+#: src/lookup.js:106
 msgid "Search on Wikipedia"
 msgstr "在維基百科上搜尋"
 
-#: src/lookup.js:218
+#: src/lookup.js:228
 msgid "Source: "
 msgstr "來源： "
 
-#: src/lookup.js:220
+#: src/lookup.js:230
 msgid "Wiktionary"
 msgstr "維基詞典"
 
-#: src/lookup.js:303
+#: src/lookup.js:313
 msgid "Wiktionary (English)"
 msgstr "維基詞典（英語）"
 
-#: src/lookup.js:375
+#: src/lookup.js:385
 msgid "Search on Wiktionary"
 msgstr "在維基詞典上搜尋"
 
-#: src/lookup.js:398
+#: src/lookup.js:408
 msgid "Translation by Google Translate"
 msgstr "翻譯來自 Google 翻譯"
 
-#: src/main.js:103
+#: src/main.js:106
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: src/main.js:124
-msgid "Open a Catalog"
+#: src/main.js:127
+msgid "Open Catalog"
 msgstr "開啟目錄"
 
-#: src/main.js:130
+#: src/main.js:133 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "開啟"
 
-#: src/main.js:134
+#: src/main.js:137
 msgid "OPDS Catalog URL:"
 msgstr "OPDS 目錄 URL："
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:168
+#: src/main.js:171
 msgid "translator-credits"
 msgstr ""
 "Blan Chan\n"
 "John Factotum"
 
-#: src/main.js:170 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:173 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "簡潔現代的電子書檢視器"
 
-#: src/main.js:195
+#: src/main.js:198
 msgid "Open library window"
 msgstr "開啟書庫視窗"
 
-#: src/main.js:199
+#: src/main.js:202
 msgid "Add files to the library"
 msgstr "新增書籍至書庫"
 
-#: src/main.js:203
+#: src/main.js:206
 msgid "Show version"
 msgstr "顯示版本"
 
-#: src/main.js:207
+#: src/main.js:210
 msgid "Show verbose debugging information"
 msgstr "顯示除錯訊息"
 
@@ -620,7 +616,7 @@ msgstr "顯示側邊欄"
 msgid "Find"
 msgstr "搜尋"
 
-#: src/window.js:804 src/ui/libraryWindow.ui:101 src/ui/opdsWindow.ui:69
+#: src/window.js:804 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
 msgid "Menu"
 msgstr "選單"
 
@@ -645,11 +641,13 @@ msgstr "自訂顏色"
 msgid "Remote file"
 msgstr "遠端檔案"
 
-#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/themeRow.ui:26
+#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
+#: src/ui/themeRow.ui:26
 msgid "Edit"
 msgstr "編輯"
 
-#: src/ui/bookEditDialog.ui:17
+#: src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
+#: src/ui/themeWindow.ui:17
 msgid "Save"
 msgstr "儲存"
 
@@ -664,6 +662,26 @@ msgstr "瀏覽…"
 #: src/ui/bookEditDialog.ui:72
 msgid "Remove Book"
 msgstr "移除書籍"
+
+#: src/ui/catalogWindow.ui:6
+msgid "OPDS Catalog"
+msgstr "OPDS 目錄"
+
+#: src/ui/catalogWindow.ui:53
+msgid "OPDS URL"
+msgstr "OPDS 目錄 URL"
+
+#: src/ui/catalogWindow.ui:68
+msgid "Preview URL"
+msgstr "預覽 URL"
+
+#: src/ui/catalogWindow.ui:77
+msgid "Optional"
+msgstr "選用"
+
+#: src/ui/catalogWindow.ui:93
+msgid "Remove Catalog"
+msgstr "移除目錄"
 
 #: src/ui/contentsStack.ui:39
 msgid "Table of Contents"
@@ -799,75 +817,94 @@ msgid ""
 "highlight the same passages."
 msgstr "當匯入的註解與現有的註解標示同一段落時，不會覆蓋現有註解。"
 
-#: src/ui/libraryWindow.ui:7 src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8
-#: src/ui/opdsWindow.ui:13
-msgid "Open…"
-msgstr "開啟…"
+#: src/ui/libraryWindow.ui:7
+msgid "Open Book…"
+msgstr "開啟書籍…"
 
-#: src/ui/libraryWindow.ui:11 src/ui/opdsWindow.ui:17
-msgid "Open a Catalog…"
+#: src/ui/libraryWindow.ui:11
+msgid "Open Catalog…"
 msgstr "開啟目錄…"
 
-#: src/ui/libraryWindow.ui:16 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
+#: src/ui/libraryWindow.ui:17
+msgid "Add Books…"
+msgstr "新增書籍…"
+
+#: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:522
+msgid "Add Catalog…"
+msgstr "新增目錄…"
+
+#: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
 #: src/ui/opdsWindow.ui:22 src/ui/preferenceWindow.ui:118
 msgid "Preferences"
 msgstr "偏好設定"
 
-#: src/ui/libraryWindow.ui:20 src/ui/mainMenu.ui:323 src/ui/menuBar.ui:223
+#: src/ui/libraryWindow.ui:30 src/ui/mainMenu.ui:323 src/ui/menuBar.ui:223
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤捷徑鍵"
 
-#: src/ui/libraryWindow.ui:24 src/ui/mainMenu.ui:330 src/ui/menuBar.ui:227
+#: src/ui/libraryWindow.ui:34 src/ui/mainMenu.ui:330 src/ui/menuBar.ui:227
 #: src/ui/opdsWindow.ui:26
 msgid "About Foliate"
 msgstr "關於 Foliate"
 
-#: src/ui/libraryWindow.ui:45
+#: src/ui/libraryWindow.ui:55
 msgid "Add books"
 msgstr "新增書籍"
 
-#: src/ui/libraryWindow.ui:62
+#: src/ui/libraryWindow.ui:72
 msgid "Add catalog"
 msgstr "新增目錄"
 
-#: src/ui/libraryWindow.ui:125 src/ui/opdsWindow.ui:84
+#: src/ui/libraryWindow.ui:135 src/ui/opdsWindow.ui:84
 #: src/ui/shortcutsWindow.ui:17
 msgid "Search"
 msgstr "搜尋"
 
-#: src/ui/libraryWindow.ui:139
+#: src/ui/libraryWindow.ui:149
 msgid "Toggle view"
 msgstr "切換檢視"
 
-#: src/ui/libraryWindow.ui:200
+#: src/ui/libraryWindow.ui:210
 msgid "Stop"
 msgstr "停止"
 
-#: src/ui/libraryWindow.ui:310
+#: src/ui/libraryWindow.ui:320
 msgid "No books yet"
 msgstr "沒有書籍"
 
-#: src/ui/libraryWindow.ui:322 src/ui/mainOverlay.ui:60
+#: src/ui/libraryWindow.ui:332 src/ui/mainOverlay.ui:60
 msgid "Open a book to start reading."
 msgstr "開啟書籍以開始閱讀。"
 
-#: src/ui/libraryWindow.ui:336 src/ui/mainOverlay.ui:73
+#: src/ui/libraryWindow.ui:346 src/ui/mainOverlay.ui:73
 msgid "Open File…"
 msgstr "開啟檔案…"
 
-#: src/ui/libraryWindow.ui:344
+#: src/ui/libraryWindow.ui:354
 msgid "Browse Catalogs"
 msgstr "瀏覽目錄"
 
-#: src/ui/libraryWindow.ui:376
+#: src/ui/libraryWindow.ui:386
 msgid "No results found"
 msgstr "找不到結果"
 
-#: src/ui/libraryWindow.ui:388
+#: src/ui/libraryWindow.ui:398
 msgid "Try a different search."
 msgstr "請嘗試不同的搜尋。"
 
-#: src/ui/libraryWindow.ui:458
+#: src/ui/libraryWindow.ui:495
+msgid "No catalogs"
+msgstr "無目錄"
+
+#: src/ui/libraryWindow.ui:507
+msgid "You can browse, search, and download content from OPDS catalogs."
+msgstr "可從 OPDS 書源瀏覽、搜尋和下載書籍。"
+
+#: src/ui/libraryWindow.ui:531
+msgid "Learn More"
+msgstr "了解更多"
+
+#: src/ui/libraryWindow.ui:547
 msgid "Catalogs"
 msgstr "目錄"
 
@@ -907,6 +944,10 @@ msgstr "進階"
 #: src/ui/mainMenu.ui:285 src/ui/mainMenu.ui:603 src/ui/shortcutsWindow.ui:124
 msgid "Book"
 msgstr "書籍"
+
+#: src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8 src/ui/opdsWindow.ui:13
+msgid "Open…"
+msgstr "開啟…"
 
 #: src/ui/mainMenu.ui:383
 msgid "Add Custom Theme…"
@@ -963,8 +1004,8 @@ msgid "Realistic Shadows"
 msgstr "仿真陰影效果"
 
 #: src/ui/mainMenu.ui:579
-msgid "Allow JavaScript and external resources"
-msgstr "允許 JavaScript 與外部資源"
+msgid "Allow JavaScript"
+msgstr "允許 JavaScript"
 
 #: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
 msgid "Allow Unsafe Content"
@@ -1153,6 +1194,10 @@ msgstr "前往下一頁"
 #: src/ui/navBar.ui:402
 msgid "Text-to-speech"
 msgstr "文字轉語音"
+
+#: src/ui/opdsWindow.ui:17
+msgid "Open a Catalog…"
+msgstr "開啟目錄…"
 
 #: src/ui/opdsWindow.ui:43
 msgid "Go back"
@@ -1424,10 +1469,6 @@ msgstr "影像檢視器捷徑鍵"
 #: src/ui/themeWindow.ui:6
 msgid "Custom Theme"
 msgstr "自訂主題"
-
-#: src/ui/themeWindow.ui:17 src/ui/ttsDialog.ui:17
-msgid "OK"
-msgstr "確定"
 
 #: src/ui/themeWindow.ui:39
 msgid "Theme Name"
@@ -1872,6 +1913,10 @@ msgstr "約魯巴文"
 #: src/ui/translationBox.ui:539
 msgid "Zulu"
 msgstr "祖魯文"
+
+#: src/ui/ttsDialog.ui:17
+msgid "OK"
+msgstr "確定"
 
 #: src/ui/ttsDialog.ui:46
 msgid "Text-to-Speech Command"
@@ -2608,10 +2653,8 @@ msgid "Allow unsafe content"
 msgstr "允許不安全內容"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:183
-msgid ""
-"If true, Content Security Policy is disabled, which will allow JavaScript "
-"and external resources to load"
-msgstr "如果此值為真，則關閉安全模式並允許 JavaScript 和外部內容"
+msgid "If true, allow JavaScript"
+msgstr "若此值為真，則允許 JavaScript"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:187
 msgid "Enable developer tools"
@@ -2716,6 +2759,14 @@ msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr "如果此值為真，將試著使用 Tracker 來取得檔案位置"
 
+#~ msgid "Allow JavaScript and external resources"
+#~ msgstr "允許 JavaScript 與外部資源"
+
+#~ msgid ""
+#~ "If true, Content Security Policy is disabled, which will allow JavaScript "
+#~ "and external resources to load"
+#~ msgstr "如果此值為真，則關閉安全模式並允許 JavaScript 和外部內容"
+
 #, fuzzy
 #~ msgid "Cache locations in book"
 #~ msgstr "本書剩餘時間"
@@ -2776,9 +2827,6 @@ msgstr "如果此值為真，將試著使用 Tracker 來取得檔案位置"
 #, fuzzy
 #~ msgid "All sections"
 #~ msgstr "左右對齊"
-
-#~ msgid "Options"
-#~ msgstr "選項"
 
 #~ msgid "Lookup"
 #~ msgstr "查詢"

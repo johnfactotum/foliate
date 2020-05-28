@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 21:16+0800\n"
+"POT-Creation-Date: 2020-05-29 02:33+0800\n"
 "PO-Revision-Date: 2020-05-23 23:04+0200\n"
 "Last-Translator: Jonatan Nyberg <jonatan.nyberg.karl@gmail.com>\n"
 "Language-Team: \n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1209
-#: src/library.js:1551 src/main.js:169 src/window.js:991
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1220
+#: src/library.js:1534 src/main.js:172 src/window.js:991
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -38,7 +38,7 @@ msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "E-bok;Bok;EPUB;Visare;Läsare;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
-#: src/ui/libraryWindow.ui:441 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
+#: src/ui/libraryWindow.ui:451 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
 msgid "Library"
 msgstr "Bibliotek"
 
@@ -66,19 +66,19 @@ msgstr[1] "%d resultat"
 msgid "Searching…"
 msgstr "Söker…"
 
-#: src/epubView.js:978
+#: src/epubView.js:1012
 msgid "File not found."
 msgstr "Filen hittades inte."
 
-#: src/epubView.js:990
+#: src/epubView.js:1024
 msgid "Failed to load remote file."
 msgstr "Det gick inte att läsa in fjärrfil."
 
-#: src/epubView.js:1022
+#: src/epubView.js:1056
 msgid "Could not unpack Kindle file."
 msgstr "Det gick inte att packa upp Kindle-filen."
 
-#: src/epubView.js:1038
+#: src/epubView.js:1072
 msgid "File type not supported."
 msgstr "Filtyp stöds inte."
 
@@ -169,10 +169,10 @@ msgstr ""
 "Identifieraren för den importerade filen stämmer inte överens med bokens. "
 "Detta kan indikera att kommerntarerna inte tillhör den här boken."
 
-#: src/export.js:221 src/library.js:485 src/main.js:129 src/window.js:563
-#: src/ui/bookEditDialog.ui:10 src/ui/exportWindow.ui:38
-#: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:430
-#: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
+#: src/export.js:221 src/library.js:486 src/main.js:132 src/window.js:563
+#: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
+#: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
+#: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -180,7 +180,7 @@ msgstr "Avbryt"
 msgid "Import Anyway"
 msgstr "Importera ändå"
 
-#: src/export.js:232 src/library.js:1749 src/window.js:1019
+#: src/export.js:232 src/library.js:1732 src/window.js:1019
 msgid "Error"
 msgstr "Fel"
 
@@ -188,260 +188,257 @@ msgstr "Fel"
 msgid "Could not import annotations."
 msgstr "Det gick inte att importera kommentarer."
 
-#: src/library.js:138 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/library.js:139 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "Om denna bok"
 
-#: src/library.js:162
+#: src/library.js:163
 #, fuzzy
 msgid "Choose File"
 msgstr "E-bokfiler"
 
-#: src/library.js:295 src/library.js:313
+#: src/library.js:296 src/library.js:314
 msgid "Load more"
 msgstr "Läs in mer"
 
-#: src/library.js:457
+#: src/library.js:458
 msgid "File location unkown"
 msgstr "Filplats okänd"
 
-#: src/library.js:458
+#: src/library.js:459
 msgid "Choose the location of this file to open it."
 msgstr "Välj platsen för den här filen för att öppna den."
 
-#: src/library.js:478
+#: src/library.js:479
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] "Är du säker på att du vill ta bort den här boken?"
 msgstr[1] "Är du säker på att du vill ta bort de %d valda böckerna?"
 
-#: src/library.js:480
+#: src/library.js:481
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
 "Läsningens framsteg, kommentarer och bokmärken kommer att förloras permanent."
 
-#: src/library.js:486 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/library.js:487 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
-#: src/ui/libraryWindow.ui:410
+#: src/ui/libraryWindow.ui:420
 msgid "Remove"
 msgstr "Ta bort"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/library.js:623
+#: src/library.js:633
 msgid ", "
 msgstr ", "
 
-#: src/library.js:648
+#: src/library.js:658
 msgid "Unable to load OPDS feed"
 msgstr "Det går inte att läsa in OPDS-flöde"
 
-#: src/library.js:693
+#: src/library.js:703
 msgid "Download"
 msgstr "Hämta"
 
-#: src/library.js:695
+#: src/library.js:705
 msgid "Buy"
 msgstr "Köp"
 
-#: src/library.js:696
+#: src/library.js:706
 msgid "Free"
 msgstr "Gratis"
 
-#: src/library.js:697
+#: src/library.js:707
 msgid "Sample"
 msgstr "Prov"
 
-#: src/library.js:698
+#: src/library.js:708
 msgid "Borrow"
 msgstr "Låna"
 
-#: src/library.js:699
+#: src/library.js:709
 msgid "Subscribe"
 msgstr "Prenumerera"
 
-#: src/library.js:716
+#: src/library.js:726
 msgid "Protected by DRM"
 msgstr ""
 
-#: src/library.js:734
+#: src/library.js:744
 msgid " (DRM)"
 msgstr ""
 
-#: src/library.js:1231
+#: src/library.js:1242
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d vald"
 msgstr[1] "%d valda"
 
-#: src/library.js:1309
+#: src/library.js:1324
 #, fuzzy
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Det gick inte att läsa in fjärrfil."
 msgstr[1] "Det gick inte att läsa in fjärrfil."
 
-#: src/library.js:1311
+#: src/library.js:1326
 #, fuzzy
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Det gick inte att öppna filen"
 msgstr[1] "Det gick inte att öppna filen"
 
-#: src/library.js:1373
+#: src/library.js:1388
 msgid "All"
 msgstr "Alla"
 
-#: src/library.js:1376
+#: src/library.js:1391 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Titel"
 
-#: src/library.js:1377
+#: src/library.js:1392
 msgid "Author"
 msgstr "Författare"
 
-#: src/library.js:1378 src/properties.js:72
+#: src/library.js:1393 src/properties.js:72
 msgid "Tags"
 msgstr "Taggar"
 
-#: src/library.js:1379
+#: src/library.js:1394
 msgid "Description"
 msgstr "Beskrivning"
 
-#: src/library.js:1380 src/properties.js:76
+#: src/library.js:1395 src/properties.js:76
 msgid "Publisher"
 msgstr "Förlag"
 
-#: src/library.js:1381 src/properties.js:88 src/ui/ttsDialog.ui:284
+#: src/library.js:1396 src/properties.js:88 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Språk"
 
-#: src/library.js:1418
+#: src/library.js:1433
 msgid "Add Files"
 msgstr "Lägga till filer"
 
-#: src/library.js:1460
-msgid "See More"
-msgstr "Se mer"
-
-#: src/library.js:1670 src/window.js:1296 src/ui/libraryWindow.ui:181
+#: src/library.js:1653 src/window.js:1296 src/ui/libraryWindow.ui:191
 msgid "Loading…"
 msgstr "Läser in…"
 
-#: src/library.js:1711
+#: src/library.js:1694
 msgid "First"
 msgstr "Första"
 
-#: src/library.js:1712
+#: src/library.js:1695
 msgid "Previous"
 msgstr "Tidigare"
 
-#: src/library.js:1713
+#: src/library.js:1696
 msgid "Next"
 msgstr "Nästa"
 
-#: src/library.js:1714
+#: src/library.js:1697
 msgid "Last"
 msgstr "Sista"
 
-#: src/library.js:1763
+#: src/library.js:1746
 msgid "Related"
 msgstr "Relaterad"
 
-#: src/library.js:1764
+#: src/library.js:1747
 msgid "Section"
 msgstr "Avsnitt"
 
-#: src/library.js:1765
+#: src/library.js:1748
 msgid "Subsection"
 msgstr "Delavsnitt"
 
-#: src/library.js:1766
+#: src/library.js:1749
 msgid "New"
 msgstr "Ny"
 
-#: src/library.js:1767
+#: src/library.js:1750
 msgid "Popular"
 msgstr "Populär"
 
-#: src/library.js:1768
+#: src/library.js:1751
 msgid "Featured"
 msgstr "Presenterade"
 
-#: src/library.js:1769
+#: src/library.js:1752
 msgid "Recommended"
 msgstr "Rekommenderad"
 
-#: src/library.js:1800
+#: src/library.js:1783
 msgid "Filter"
 msgstr "Filter"
 
-#: src/lookup.js:96
+#: src/lookup.js:106
 msgid "Search on Wikipedia"
 msgstr "Sök i Wikipedia"
 
-#: src/lookup.js:218
+#: src/lookup.js:228
 msgid "Source: "
 msgstr "Källa: "
 
-#: src/lookup.js:220
+#: src/lookup.js:230
 msgid "Wiktionary"
 msgstr "Wiktionary"
 
-#: src/lookup.js:303
+#: src/lookup.js:313
 msgid "Wiktionary (English)"
 msgstr "Wiktionary (engelska)"
 
-#: src/lookup.js:375
+#: src/lookup.js:385
 msgid "Search on Wiktionary"
 msgstr "Sök i Wiktionary"
 
-#: src/lookup.js:398
+#: src/lookup.js:408
 msgid "Translation by Google Translate"
 msgstr "Översättning av Google Translate"
 
-#: src/main.js:103
+#: src/main.js:106
 msgid "Open File"
 msgstr "Öppna fil"
 
-#: src/main.js:124
-msgid "Open a Catalog"
+#: src/main.js:127
+#, fuzzy
+msgid "Open Catalog"
 msgstr "Öppna en katalog"
 
-#: src/main.js:130
+#: src/main.js:133 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "Öppna"
 
-#: src/main.js:134
+#: src/main.js:137
 msgid "OPDS Catalog URL:"
 msgstr "OPDS katalogwebbadress:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:168
+#: src/main.js:171
 msgid "translator-credits"
 msgstr "Jonatan Nyberg"
 
-#: src/main.js:170 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:173 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "En enkel och modern e-bokvisare"
 
-#: src/main.js:195
+#: src/main.js:198
 msgid "Open library window"
 msgstr "Öppna biblioteksfönstret"
 
-#: src/main.js:199
+#: src/main.js:202
 msgid "Add files to the library"
 msgstr "Lägg till filer i biblioteket"
 
-#: src/main.js:203
+#: src/main.js:206
 msgid "Show version"
 msgstr "Visa version"
 
-#: src/main.js:207
+#: src/main.js:210
 msgid "Show verbose debugging information"
 msgstr "Visa felsökningsinformation"
 
@@ -634,7 +631,7 @@ msgstr "Visa sidofält"
 msgid "Find"
 msgstr "Hitta"
 
-#: src/window.js:804 src/ui/libraryWindow.ui:101 src/ui/opdsWindow.ui:69
+#: src/window.js:804 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
 msgid "Menu"
 msgstr "Meny"
 
@@ -659,11 +656,13 @@ msgstr "Välj anpassad färg"
 msgid "Remote file"
 msgstr "Fjärrfil"
 
-#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/themeRow.ui:26
+#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
+#: src/ui/themeRow.ui:26
 msgid "Edit"
 msgstr "Redigera"
 
-#: src/ui/bookEditDialog.ui:17
+#: src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
+#: src/ui/themeWindow.ui:17
 #, fuzzy
 msgid "Save"
 msgstr "Spara som"
@@ -681,6 +680,30 @@ msgstr ""
 #, fuzzy
 msgid "Remove Book"
 msgstr "Ta bort"
+
+#: src/ui/catalogWindow.ui:6
+#, fuzzy
+msgid "OPDS Catalog"
+msgstr "OPDS katalogwebbadress:"
+
+#: src/ui/catalogWindow.ui:53
+#, fuzzy
+msgid "OPDS URL"
+msgstr "OPDS katalogwebbadress:"
+
+#: src/ui/catalogWindow.ui:68
+#, fuzzy
+msgid "Preview URL"
+msgstr "Fil"
+
+#: src/ui/catalogWindow.ui:77
+msgid "Optional"
+msgstr ""
+
+#: src/ui/catalogWindow.ui:93
+#, fuzzy
+msgid "Remove Catalog"
+msgstr "Bläddra i kataloger"
 
 #: src/ui/contentsStack.ui:39
 msgid "Table of Contents"
@@ -818,75 +841,100 @@ msgid ""
 "highlight the same passages."
 msgstr ""
 
-#: src/ui/libraryWindow.ui:7 src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8
-#: src/ui/opdsWindow.ui:13
-msgid "Open…"
+#: src/ui/libraryWindow.ui:7
+#, fuzzy
+msgid "Open Book…"
 msgstr "Öppna…"
 
-#: src/ui/libraryWindow.ui:11 src/ui/opdsWindow.ui:17
-msgid "Open a Catalog…"
+#: src/ui/libraryWindow.ui:11
+#, fuzzy
+msgid "Open Catalog…"
 msgstr "Öppna en katalog…"
 
-#: src/ui/libraryWindow.ui:16 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
+#: src/ui/libraryWindow.ui:17
+#, fuzzy
+msgid "Add Books…"
+msgstr "Lägg till böcker"
+
+#: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:522
+#, fuzzy
+msgid "Add Catalog…"
+msgstr "Lägg till katalog"
+
+#: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
 #: src/ui/opdsWindow.ui:22 src/ui/preferenceWindow.ui:118
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: src/ui/libraryWindow.ui:20 src/ui/mainMenu.ui:323 src/ui/menuBar.ui:223
+#: src/ui/libraryWindow.ui:30 src/ui/mainMenu.ui:323 src/ui/menuBar.ui:223
 msgid "Keyboard Shortcuts"
 msgstr "Kortkommandon"
 
-#: src/ui/libraryWindow.ui:24 src/ui/mainMenu.ui:330 src/ui/menuBar.ui:227
+#: src/ui/libraryWindow.ui:34 src/ui/mainMenu.ui:330 src/ui/menuBar.ui:227
 #: src/ui/opdsWindow.ui:26
 msgid "About Foliate"
 msgstr "Om Foliate"
 
-#: src/ui/libraryWindow.ui:45
+#: src/ui/libraryWindow.ui:55
 msgid "Add books"
 msgstr "Lägg till böcker"
 
-#: src/ui/libraryWindow.ui:62
+#: src/ui/libraryWindow.ui:72
 msgid "Add catalog"
 msgstr "Lägg till katalog"
 
-#: src/ui/libraryWindow.ui:125 src/ui/opdsWindow.ui:84
+#: src/ui/libraryWindow.ui:135 src/ui/opdsWindow.ui:84
 #: src/ui/shortcutsWindow.ui:17
 msgid "Search"
 msgstr "Sök"
 
-#: src/ui/libraryWindow.ui:139
+#: src/ui/libraryWindow.ui:149
 msgid "Toggle view"
 msgstr "Växla vy"
 
-#: src/ui/libraryWindow.ui:200
+#: src/ui/libraryWindow.ui:210
 msgid "Stop"
 msgstr "Stopp"
 
-#: src/ui/libraryWindow.ui:310
+#: src/ui/libraryWindow.ui:320
 msgid "No books yet"
 msgstr "Inga böcker ännu"
 
-#: src/ui/libraryWindow.ui:322 src/ui/mainOverlay.ui:60
+#: src/ui/libraryWindow.ui:332 src/ui/mainOverlay.ui:60
 msgid "Open a book to start reading."
 msgstr "Öppna en bok för att börja läsa."
 
-#: src/ui/libraryWindow.ui:336 src/ui/mainOverlay.ui:73
+#: src/ui/libraryWindow.ui:346 src/ui/mainOverlay.ui:73
 msgid "Open File…"
 msgstr "Öppna fil…"
 
-#: src/ui/libraryWindow.ui:344
+#: src/ui/libraryWindow.ui:354
 msgid "Browse Catalogs"
 msgstr "Bläddra i kataloger"
 
-#: src/ui/libraryWindow.ui:376
+#: src/ui/libraryWindow.ui:386
 msgid "No results found"
 msgstr "Inga resultat hittades"
 
-#: src/ui/libraryWindow.ui:388
+#: src/ui/libraryWindow.ui:398
 msgid "Try a different search."
 msgstr "Prova en annan sökning."
 
-#: src/ui/libraryWindow.ui:458
+#: src/ui/libraryWindow.ui:495
+#, fuzzy
+msgid "No catalogs"
+msgstr "Kataloger"
+
+#: src/ui/libraryWindow.ui:507
+msgid "You can browse, search, and download content from OPDS catalogs."
+msgstr ""
+
+#: src/ui/libraryWindow.ui:531
+#, fuzzy
+msgid "Learn More"
+msgstr "Se mer"
+
+#: src/ui/libraryWindow.ui:547
 msgid "Catalogs"
 msgstr "Kataloger"
 
@@ -926,6 +974,10 @@ msgstr "Avancerat"
 #: src/ui/mainMenu.ui:285 src/ui/mainMenu.ui:603 src/ui/shortcutsWindow.ui:124
 msgid "Book"
 msgstr "Bok"
+
+#: src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8 src/ui/opdsWindow.ui:13
+msgid "Open…"
+msgstr "Öppna…"
 
 #: src/ui/mainMenu.ui:383
 msgid "Add Custom Theme…"
@@ -982,8 +1034,8 @@ msgid "Realistic Shadows"
 msgstr "Realistiska skuggor"
 
 #: src/ui/mainMenu.ui:579
-msgid "Allow JavaScript and external resources"
-msgstr "Tillåt JavaScript och externa resurser"
+msgid "Allow JavaScript"
+msgstr ""
 
 #: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
 msgid "Allow Unsafe Content"
@@ -1172,6 +1224,10 @@ msgstr "Gå till nästa sida"
 #: src/ui/navBar.ui:402
 msgid "Text-to-speech"
 msgstr "Text-till-tal"
+
+#: src/ui/opdsWindow.ui:17
+msgid "Open a Catalog…"
+msgstr "Öppna en katalog…"
 
 #: src/ui/opdsWindow.ui:43
 msgid "Go back"
@@ -1443,10 +1499,6 @@ msgstr "Kortkommandon för bildvisaren"
 #: src/ui/themeWindow.ui:6
 msgid "Custom Theme"
 msgstr "Anpassat tema"
-
-#: src/ui/themeWindow.ui:17 src/ui/ttsDialog.ui:17
-msgid "OK"
-msgstr "OK"
 
 #: src/ui/themeWindow.ui:39
 msgid "Theme Name"
@@ -1891,6 +1943,10 @@ msgstr "Yoruba"
 #: src/ui/translationBox.ui:539
 msgid "Zulu"
 msgstr "Zulu"
+
+#: src/ui/ttsDialog.ui:17
+msgid "OK"
+msgstr "OK"
 
 #: src/ui/ttsDialog.ui:46
 msgid "Text-to-Speech Command"
@@ -2662,12 +2718,8 @@ msgid "Allow unsafe content"
 msgstr "Tillåt osäkert innehåll"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:183
-msgid ""
-"If true, Content Security Policy is disabled, which will allow JavaScript "
-"and external resources to load"
+msgid "If true, allow JavaScript"
 msgstr ""
-"Om det är sant är innehållssäkerhetspolicy inaktiverad, vilket gör att "
-"JavaScript och externa resurser kan läsas in"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:187
 msgid "Enable developer tools"
@@ -2774,6 +2826,16 @@ msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
 "Om det är sant, försöker använda Tracker (filindexer) för att få filplatser"
+
+#~ msgid "Allow JavaScript and external resources"
+#~ msgstr "Tillåt JavaScript och externa resurser"
+
+#~ msgid ""
+#~ "If true, Content Security Policy is disabled, which will allow JavaScript "
+#~ "and external resources to load"
+#~ msgstr ""
+#~ "Om det är sant är innehållssäkerhetspolicy inaktiverad, vilket gör att "
+#~ "JavaScript och externa resurser kan läsas in"
 
 #, fuzzy
 #~ msgid "Cache locations in book"
