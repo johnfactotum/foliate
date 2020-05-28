@@ -37,5 +37,23 @@
 
     <file>icons/emblem-cloud-symbolic.svg</file>
     <file>icons/emblem-drm-symbolic.svg</file>
+
+    <!--
+    the `js/` prefix is already taken (for files to be run in GJS)
+    in any case it wouldn't make much sense, since it's all js
+    I don't really like `web` but I couldn't think of anything better
+    (PRs welcome)
+    -->
+    <file>web/jszip.min.js</file>
+    <file>web/epub.js</file>
+    <file>web/crypto-js/core.js</file>
+    <file>web/crypto-js/enc-latin1.js</file>
+    <file>web/crypto-js/md5.js</file>
+    <file>web/utils.js</file>
+    <file>web/webpub.js</file>
+    <file>web/epub-viewer.js</file>
+
+    <file>web/lookup.js</file>
+    <file>web/opds.js</file>
   </gresource>
 </gresources>

@@ -1,3 +1,18 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 // generate md5 hash for this many bytes
 // I don't know if this is a good value.
 // for me this seems like a fairly large value,
@@ -122,9 +137,7 @@ const fb2ToHtml = (x, h, getImage) => {
     return x
 }
 
-let fb2doc // useful for debugging
 const processFB2 = async (doc, blob, filename) => {
-    fb2doc = doc
     const $ = doc.querySelector.bind(doc)
     const $$ = doc.querySelectorAll.bind(doc)
     const h = html => {
@@ -268,9 +281,78 @@ const processFB2 = async (doc, blob, filename) => {
         toc: sections,
         resources: [
             { rel: ['cover'], href: cover, type: coverType },
-            { href: styleUrl, type: 'text/css' }
         ]
     }
+}
+
+const imageType = async blob => {
+    // Construct an ArrayBuffer (byte array) from the first 16 bytes of the given blob.
+    const slicedBlob = blob.slice(0, 16)
+    const blobArrayBuffer = await new Response(slicedBlob).arrayBuffer()
+
+    // Construct a Uint8Array object to represent the ArrayBuffer (byte array).
+    const byteArray = new Uint8Array(blobArrayBuffer)
+
+    // Convert the byte array to hexadecimal.
+    let hex = ''
+    byteArray.forEach(byte => {
+        hex += `0${byte.toString(16)}`.slice(-2).toUpperCase()
+    })
+
+    // Return image type based on the converted hexadecimal
+    if (hex.startsWith('FFD8FF')) {
+        return 'jpeg'
+    } else if (hex.startsWith('89504E47')) {
+        return 'png'
+    } else if (hex.startsWith('47494638')) {
+        return 'gif'
+    } else if (hex.startsWith('424D')) {
+        return 'bmp'
+    } else if (hex.startsWith('52494646') && hex.slice(16, 24) === '57454250') {
+        return 'webp'
+    } else {
+        return 'unknown'
+    }
+}
+
+const unpackZipArchive = async archiveBlob => {
+    const archive = await JSZip.loadAsync(archiveBlob)
+
+    const archiveFiles = Object.keys(archive.files).map(name => archive.files[name])
+    return Promise.all(
+        archiveFiles.map(async file => {
+            const name = file.name.split('.').slice(0, -1).join('')
+            const blob = await file.async('blob')
+            const type = await imageType(blob)
+
+            return { name, blob, type }
+        })
+    )
+}
+
+const unpackArchive = async (archiveBlob, inputType) => {
+    const archive = await Archive.open(archiveBlob)
+
+    try {
+        await archive.extractFiles()
+    } catch (error) {
+        if (inputType === 'cbr' && error && error.message && error.message === 'Parsing filters is unsupported.') {
+            throw new Error('CBR could not be extracted. [Parsing filters is unsupported]')
+        }
+
+        throw error
+    }
+
+    const archiveFiles = await archive.getFilesArray()
+    return Promise.all(
+        archiveFiles.map(async ({file}) => {
+            const name = file.name.split('.').slice(0, -1).join('')
+            const blob = file
+            const type = await imageType(blob)
+
+            return { name, blob, type }
+        })
+    )
 }
 
 const webpubFromComicBookArchive = async (uri, inputType, layout, filename) => {
@@ -323,7 +405,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout, filename) => {
             }
         `
     }
-    
+
     const fitWidthStylesheet = () => {
         return `
             * {
@@ -340,7 +422,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout, filename) => {
             }
         `
     }
-    
+
     const continuousStylesheet = () => {
         return `
             * {
@@ -358,7 +440,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout, filename) => {
             }
         `
     }
-    
+
     const automaticScripts = async () => { return `` }
     const fitPageScripts = async () => { return `` }
     const fitWidthScripts = async () => { return `` }

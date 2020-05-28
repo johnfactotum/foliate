@@ -515,7 +515,7 @@ const BookListBox = makeLibraryWidget({ GTypeName: 'FoliateBookListBox' }, Gtk.L
 
 const BookFlowBox = makeLibraryWidget({ GTypeName: 'FoliateBookFlowBox' }, Gtk.FlowBox)
 
-const htmlPath = pkg.pkgdatadir + '/assets/opds.html'
+const htmlPath = pkg.pkgdatadir + '/assets/client.html'
 class OpdsClient {
     constructor() {
         this._promises = new Map()
@@ -527,6 +527,15 @@ class OpdsClient {
                 allow_universal_access_from_file_urls: true,
                 enable_developer_extras: true
             })
+        })
+        const runResource = resource => new Promise((resolve) =>
+            this._webView.run_javascript_from_gresource(resource, null, () => resolve()))
+        const loadScripts = async () => {
+            await runResource('/com/github/johnfactotum/Foliate/web/utils.js')
+            await runResource('/com/github/johnfactotum/Foliate/web/opds.js')
+        }
+        this._webView.connect('load-changed', (webView, event) => {
+            if (event == WebKit2.LoadEvent.FINISHED) loadScripts()
         })
         const contentManager = this._webView.get_user_content_manager()
         contentManager.connect('script-message-received::action', (_, jsResult) => {

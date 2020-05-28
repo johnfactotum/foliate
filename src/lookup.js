@@ -24,10 +24,20 @@ const lookup = (script, againScript) => new Promise((resolve, reject) => {
             allow_universal_access_from_file_urls: true
         })
     })
+    const runResource = resource => new Promise((resolve) =>
+        webView.run_javascript_from_gresource(resource, null, () => resolve()))
+
+    const loadScripts = async () => {
+        await runResource('/com/github/johnfactotum/Foliate/web/utils.js')
+        await runResource('/com/github/johnfactotum/Foliate/web/lookup.js')
+    }
+    webView.connect('load-changed', (webView, event) => {
+        if (event == WebKit2.LoadEvent.FINISHED) loadScripts()
+    })
     const runScript = script => webView.run_javascript(script, null, () => {})
 
     webView.load_uri(GLib.filename_to_uri(
-        pkg.pkgdatadir + '/assets/lookup.html', null))
+        pkg.pkgdatadir + '/assets/client.html', null))
 
     const contentManager = webView.get_user_content_manager()
     contentManager.connect('script-message-received::action', (_, jsResult) => {

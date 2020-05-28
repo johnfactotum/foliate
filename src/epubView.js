@@ -566,12 +566,31 @@ var EpubView = GObject.registerClass({
                 enable_plugins: false,
                 media_playback_requires_user_gesture: true,
                 enable_write_console_messages_to_stdout: true,
-                allow_file_access_from_file_urls: true
+                allow_file_access_from_file_urls: true,
+                enable_javascript_markup: false
             })
         })
         this._webView.connect('context-menu', () =>
             this._contextMenu ? this._contextMenu() : true)
         this._webView.connect('size-allocate', () => this._updateWindowSize())
+
+        const runResource = resource => new Promise((resolve) =>
+            this._webView.run_javascript_from_gresource(resource, null, () => resolve()))
+
+        const loadScripts = async () => {
+            await runResource('/com/github/johnfactotum/Foliate/web/jszip.min.js')
+            await runResource('/com/github/johnfactotum/Foliate/web/epub.js')
+            await runResource('/com/github/johnfactotum/Foliate/web/crypto-js/core.js')
+            await runResource('/com/github/johnfactotum/Foliate/web/crypto-js/enc-latin1.js')
+            await runResource('/com/github/johnfactotum/Foliate/web/crypto-js/md5.js')
+            await runResource('/com/github/johnfactotum/Foliate/web/utils.js')
+            await runResource('/com/github/johnfactotum/Foliate/web/webpub.js')
+            await runResource('/com/github/johnfactotum/Foliate/web/epub-viewer.js')
+        }
+
+        this._webView.connect('load-changed', (webView, event) => {
+            if (event == WebKit2.LoadEvent.FINISHED) loadScripts()
+        })
 
         const contentManager = this._webView.get_user_content_manager()
         contentManager.connect('script-message-received::action', (_, jsResult) => {
@@ -711,8 +730,12 @@ var EpubView = GObject.registerClass({
         this._ready = false
         let viewer = this.settings.allow_unsafe ? unsafeViewerPath : viewerPath
 
+        const webViewSettings = this._webView.get_settings()
         if (['cbz', 'cbr', 'cb7', 'cbt'].includes(this._inputType)) {
             viewer = cbViewerPath
+            webViewSettings.enable_javascript_markup = true
+        } else {
+            webViewSettings.enable_javascript_markup = this.settings.allow_unsafe
         }
 
         this._webView.load_uri(GLib.filename_to_uri(viewer, null))
