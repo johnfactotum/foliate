@@ -553,7 +553,18 @@ var EpubView = GObject.registerClass({
         this._contextMenu = null
         this._webView = new WebKit2.WebView({
             visible: true,
+            is_ephemeral: true,
             settings: new WebKit2.Settings({
+                allow_top_navigation_to_data_urls: false,
+                allow_modal_dialogs: false,
+                enable_fullscreen: false,
+                enable_html5_database: false,
+                enable_html5_local_storage: false,
+                enable_hyperlink_auditing: false,
+                enable_offline_web_application_cache: false,
+                enable_java: false,
+                enable_plugins: false,
+                media_playback_requires_user_gesture: true,
                 enable_write_console_messages_to_stdout: true,
                 allow_file_access_from_file_urls: true
             })

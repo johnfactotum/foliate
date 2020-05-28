@@ -20,10 +20,13 @@ pkg.require({
     'Gtk': '3.0'
 })
 
-const { Gio, Gtk, Gdk, GLib } = imports.gi
+const { Gio, Gtk, Gdk, GLib, WebKit2 } = imports.gi
 const { ttsDialog } = imports.tts
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 if (Handy) Handy.init(null)
+
+const webContext = WebKit2.WebContext.get_default()
+webContext.set_sandbox_enabled(true)
 
 const { fileFilters } = imports.utils
 const { Window } = imports.window
