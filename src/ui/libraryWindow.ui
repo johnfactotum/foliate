@@ -4,11 +4,21 @@
     <section>
       <item>
         <attribute name="action">app.open</attribute>
-        <attribute name="label" translatable="yes">Open…</attribute>
+        <attribute name="label" translatable="yes">Open Book…</attribute>
       </item>
       <item>
         <attribute name="action">app.open-opds</attribute>
-        <attribute name="label" translatable="yes">Open a Catalog…</attribute>
+        <attribute name="label" translatable="yes">Open Catalog…</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">lib.add-files</attribute>
+        <attribute name="label" translatable="yes">Add Books…</attribute>
+      </item>
+      <item>
+        <attribute name="action">lib.add-catalog</attribute>
+        <attribute name="label" translatable="yes">Add Catalog…</attribute>
       </item>
     </section>
     <section>
@@ -58,7 +68,7 @@
             <child>
               <object class="GtkButton">
                 <property name="visible">True</property>
-                <property name="sensitive">False</property>
+                <property name="action-name">lib.add-catalog</property>
                 <property name="tooltip-text" translatable="yes">Add catalog</property>
                 <property name="valign">center</property>
                 <child>
@@ -446,10 +456,89 @@
                 <property name="visible">True</property>
                 <property name="expand">True</property>
                 <child>
-                  <object class="FoliateHdyColumn" id="catalogColumn">
+                  <object class="GtkStack" id="catalogStack">
                     <property name="visible">True</property>
-                    <property name="maximum-width">900</property>
-                    <property name="linear-growth-width">900</property>
+                    <property name="homogeneous">False</property>
+                    <child>
+                      <object class="FoliateHdyColumn" id="catalogColumn">
+                        <property name="visible">True</property>
+                        <property name="border-width">12</property>
+                        <property name="linear-growth-width">600</property>
+                        <property name="maximum-width">600</property>
+                      </object>
+                      <packing>
+                        <property name="name">catalogs</property>
+                      </packing>
+                    </child>
+
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="margin">18</property>
+                        <property name="spacing">9</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="pixel_size">96</property>
+                            <property name="margin-bottom">18</property>
+                            <property name="icon-name">application-rss+xml-symbolic</property>
+                            <style><class name="dim-label"/></style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">No catalogs</property>
+                            <style><class name="dim-label"/></style>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="1.36"/>
+                            </attributes>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">You can browse, search, and download content from OPDS catalogs.</property>
+                            <style><class name="dim-label"/></style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="halign">center</property>
+                            <property name="spacing">12</property>
+                            <property name="margin-top">18</property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="visible">True</property>
+                                <property name="action-name">lib.add-catalog</property>
+                                <property name="halign">center</property>
+                                <property name="label" translatable="yes">Add Catalog…</property>
+                                <style><class name="suggested-action"/></style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="visible">True</property>
+                                <property name="action-name">lib.learn-more-about-opds</property>
+                                <property name="halign">center</property>
+                                <property name="label" translatable="yes">Learn More</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="name">empty</property>
+                      </packing>
+                    </child>
+
                   </object>
                 </child>
               </object>

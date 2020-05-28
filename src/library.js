@@ -22,6 +22,7 @@ const { debug, locales, formatPercent,
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
 const { uriStore, library } = imports.uriStore
+const { catalogStore, CatalogRow, CatalogEditor } = imports.catalogs
 const { headlessViewer, EpubViewData } = imports.epubView
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 const { HdyColumn } = imports.handy
@@ -1205,7 +1206,8 @@ var LibraryWindow =  GObject.registerClass({
         'libraryStack', 'bookListBox', 'bookFlowBox', 'viewButton',
         'squeezer', 'squeezerLabel', 'switcherBar',
         'loadingBar', 'loadingProgressBar',
-        'actionBar', 'selectionLabel'
+        'actionBar', 'selectionLabel',
+        'catalogStack'
     ],
     Properties: {
         'active-view': GObject.ParamSpec.string('active-view', 'active-view', 'active-view',
@@ -1260,6 +1262,10 @@ var LibraryWindow =  GObject.registerClass({
             'list-view': () => this.set_property('active-view', 'list'),
             'search': () => this._searchButton.active = !this._searchButton.active,
             'catalog': () => this._stack.visible_child_name = 'catalog',
+            'add-catalog': () => this.addCatalog(),
+            'learn-more-about-opds': () => {
+                Gtk.show_uri_on_window(null, 'https://opds.io/', Gdk.CURRENT_TIME)
+            },
             'main-menu': () => this._mainMenuButton.active = !this._mainMenuButton.active,
             'close': () => this.close(),
         }
@@ -1447,102 +1453,70 @@ var LibraryWindow =  GObject.registerClass({
         window.loadOpds(uri)
         window.present()
     }
-    _makeSectionTitle(title, uri) {
-        const titlebox = new Gtk.Box({
-            visible: true,
-            spacing: 12,
-            margin: 12
-        })
-        titlebox.pack_start(new Gtk.Label({
-            visible: true,
-            xalign: 0,
-            wrap: true,
-            useMarkup: true,
-            label: `<b><big>${markupEscape(title)}</big></b>`,
-        }), false, true, 0)
-        titlebox.pack_start(new Gtk.Separator({
-            visible: true,
-            valign: Gtk.Align.CENTER
-        }), true, true, 0)
-        const button = new Gtk.Button({
-            visible: true,
-            label: _('See More'),
-            valign: Gtk.Align.CENTER
-        })
-        button.connect('clicked', () => this.openCatalog(uri))
-        titlebox.pack_end(button, false, true, 0)
-        return titlebox
+    addCatalog() {
+        const editor = new CatalogEditor()
+        const dialog = editor.widget
+        dialog.transient_for = this
+        if (dialog.run() === Gtk.ResponseType.OK) catalogStore.add(editor.catalog)
+        dialog.destroy()
     }
     _loadCatalogs() {
-        const box = new Gtk.Box({
+        const preview = preview => preview ? new LoadBox({
             visible: true,
-            orientation: Gtk.Orientation.VERTICAL,
-            margin_bottom: 18
-        })
-        const arr = [
-            {
-                title: 'Standard Ebooks',
-                uri: 'https://standardebooks.org/opds/all',
-                preview: 'https://standardebooks.org/opds/all',
-                previewShuffle: true
-            },
-            {
-                title: 'Feedbooks',
-                uri: 'https://catalog.feedbooks.com/catalog/index.atom',
-                preview: 'https://catalog.feedbooks.com/publicdomain/browse/en/homepage_selection.atom',
-                previewShuffle: true
-            },
-            {
-                title: 'Project Gutenberg',
-                uri: 'https://m.gutenberg.org/ebooks.opds/',
-                preview: 'http://www.gutenberg.org/ebooks/search.opds/?sort_order=random',
-                previewShuffle: true,
-                previewSlice: 3
-            }
-        ]
+            hexpand: true
+        }, () => {
+            const widget = new OpdsFeed({ visible: true, uri: preview })
 
-        for (const { title, uri, preview, previewShuffle, previewSlice } of arr) {
-            if (preview) {
-                const titlebox = this._makeSectionTitle(title, uri)
-                box.pack_start(titlebox, false, true, 0)
-                const loadbox = new LoadBox({ visible: true }, () => {
-                    const widget = new OpdsFeed({ visible: true, uri: preview })
+            widget.connect('loaded', () => {
+                const feed = widget.feed
+                let entries = feed.entries
 
-                    widget.connect('loaded', () => {
-                        const feed = widget.feed
-                        let entries = feed.entries
-                        if (previewSlice) entries = entries.slice(previewSlice)
+                if (preview.includes('gutenberg.org')) entries = entries.slice(3)
 
-                        const scrolled = new Gtk.ScrolledWindow({
-                            visible: true,
-                            propagate_natural_height: true
-                        })
-                        const max_entries = 5
-                        const opdsbox = new OpdsAcquisitionBox({
-                            visible: true,
-                            max_entries,
-                            max_children_per_line: max_entries,
-                            min_children_per_line: max_entries,
-                            margin_start: 12,
-                            margin_end: 12
-                        }, previewShuffle ? shuffle : null)
-                        opdsbox.connect('image-draw', () => {
-                            scrolled.min_content_height = opdsbox.get_allocation().height
-                        })
-                        opdsbox.connect('link-activated', (box, href, type) => {
-                            if (typeIsOpds(type)) this.openCatalog(href)
-                            else Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
-                        })
-                        opdsbox.load(entries)
-                        scrolled.add(opdsbox)
-                        widget.add(scrolled)
-                    })
-                    return widget
+                const scrolled = new Gtk.ScrolledWindow({
+                    visible: true,
+                    propagate_natural_height: true
                 })
-                box.pack_start(loadbox, false, true, 0)
-            }
+                const max_entries = 4
+                const opdsbox = new OpdsAcquisitionBox({
+                    visible: true,
+                    max_entries,
+                    max_children_per_line: max_entries,
+                    min_children_per_line: max_entries,
+                    margin_start: 12,
+                    margin_end: 12
+                }, shuffle)
+                opdsbox.connect('image-draw', () => {
+                    scrolled.min_content_height = opdsbox.get_allocation().height
+                })
+                opdsbox.connect('link-activated', (box, href, type) => {
+                    if (typeIsOpds(type)) this.openCatalog(href)
+                    else Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
+                })
+                opdsbox.load(entries)
+                scrolled.add(opdsbox)
+                widget.add(scrolled)
+            })
+            return widget
+        }) : null
+
+        const catalogs = catalogStore.catalogs
+        const listbox = new Gtk.ListBox({
+            visible: true,
+            valign: Gtk.Align.START
+        })
+        listbox.set_header_func(sepHeaderFunc)
+        listbox.bind_model(catalogs, catalog =>
+            new CatalogRow(catalog, preview, () => this.openCatalog(catalog.uri)))
+        listbox.get_style_context().add_class('frame')
+        this._catalogColumn.add(listbox)
+
+        const update = () => {
+            this._catalogStack.visible_child_name =
+                catalogs.get_n_items() ? 'catalogs' : 'empty'
         }
-        this._catalogColumn.add(box)
+        update()
+        catalogs.connect('items-changed', update)
     }
 })
 
@@ -1596,8 +1570,8 @@ var OpdsWindow =  GObject.registerClass({
                 active: true,
                 valign: Gtk.Align.CENTER,
                 halign: Gtk.Align.CENTER,
-                width_request: 64,
-                height_request: 64
+                width_request: 48,
+                height_request: 48
             })
             this._mainBox.pack_start(this._opdsWidget, true, true, 0)
 
@@ -1821,5 +1795,7 @@ var OpdsWindow =  GObject.registerClass({
                 this._searchButton.show()
             } else this._searchButton.hide()
         })
+
+        nb.show_tabs = nb.get_n_pages() > 1
     }
 })

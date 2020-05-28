@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkDialog" id="catalogDialog">
+    <property name="modal">True</property>
+    <property name="use-header-bar">1</property>
+    <property name="title" translatable="yes">OPDS Catalog</property>
+    <child type="action">
+      <object class="GtkButton" id="cancelButton">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Cancel</property>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkButton" id="okButton">
+        <property name="visible">True</property>
+        <property name="can-default">True</property>
+        <property name="label" translatable="yes">Save</property>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="cancel">cancelButton</action-widget>
+      <action-widget response="ok" default="true">okButton</action-widget>
+    </action-widgets>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="margin">18</property>
+            <property name="margin-top">12</property>
+            <property name="margin-bottom">12</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Title</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="title">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">OPDS URL</property>
+                <property name="margin-top">12</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="uri">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Preview URL</property>
+                <property name="margin-top">12</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Optional</property>
+                <style><class name="dim-label"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="preview">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="removeButton">
+            <property name="margin">18</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Remove Catalog</property>
+            <style><class name="destructive-action"/></style>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

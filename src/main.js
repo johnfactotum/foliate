@@ -124,7 +124,7 @@ const makeActions = app => ({
             ? clipboardText : ''
 
         const window = new Gtk.Dialog({
-            title: _('Open a Catalog'),
+            title: _('Open Catalog'),
             modal: true,
             use_header_bar: true,
             transient_for: app.active_window
@@ -377,7 +377,7 @@ function main(argv) {
             }
             .foliate-book-image-creator {
                 opacity: 0.7;
-                padding: 12px;
+                padding: 6px;
             }
 
             .foliate-emblem {

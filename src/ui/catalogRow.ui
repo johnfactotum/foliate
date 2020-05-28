@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateCatalogRow" parent="GtkListBoxRow">
+    <property name="visible">True</property>
+    <property name="selectable">False</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">3</property>
+        <property name="hexpand">True</property>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="margin">10</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">3</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkLabel" id="title">
+                    <property name="visible">True</property>
+                    <property name="halign">start</property>
+                    <property name="xalign">0</property>
+                    <property name="wrap">True</property>
+                    <property name="max-width-chars">70</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="uri">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="ellipsize">end</property>
+                    <property name="max-width-chars">70</property>
+                    <style><class name="dim-label"/></style>
+                    <attributes>
+                      <attribute name="scale" value="0.85"/>
+                    </attributes>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="open">
+                <property name="visible">True</property>
+                <property name="valign">center</property>
+                <property name="label" translatable="yes">Open</property>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button">
+                <property name="visible">True</property>
+                <property name="valign">center</property>
+                <property name="tooltip-text" translatable="yes">Edit</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">document-edit-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="preview">
+            <property name="visible">False</property>
+            <property name="margin-bottom">12</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
