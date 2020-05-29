@@ -210,18 +210,19 @@ pre {
                 <li>Auto-hyphenation</li>
                 <li>Skeuomorphic mode</li>
                 <li>Auto-hide cursor and window controls</li>
+                <li>Supports right-to-left and vertical text</li>
             </ul>
         </div>
         <div>
             <h3>Navigate with Ease</h3>
             <ul>
-                <li>Progress slider, with chapter marks</li>
-                <li>Reading time estimates</li>
                 <li>Table of contents menu or sidebar</li>
                 <li>Find in book</li>
+                <li>Progress slider, with chapter marks</li>
+                <li>Reading time estimates</li>
                 <li>Zoom in on and rotate images</li>
-                <li>Trackpad gestures—use two-finger swipe to turn the page</li>
                 <li>Open footnotes in popovers</li>
+                <li>Trackpad gestures—use two-finger swipe to turn the page</li>
                 <li>Open multiple books at the same time, or open the same file in multiple windows</li>
             </ul>
         </div>
@@ -229,7 +230,7 @@ pre {
             <img src="annotation.png" alt="Screenshot" class="screenshot">
             <h3>Bookmarks & Annotations</h3>
             <ul>
-                <li>Reading progress, bookmarks, and annotations stored in your XDG data directory as plain JSON files, so you can backup or sync them easily</li>
+                <li>Reading progress, bookmarks, and annotations stored in your XDG data directory as plain JSON files, so you can backup or sync them easily<br><a href="https://github.com/johnfactotum/foliate/wiki#how-are-notes-and-bookmarks-stored">Learn More</a></li>
                 <li>Search annotations</li>
                 <li>Export annotations to plain text, HTML, Markdown, and more</li>
             </ul>
@@ -238,10 +239,10 @@ pre {
             <img src="lookup.png" alt="Screenshot" class="screenshot">
             <h3>Nifty Tools</h3>
             <ul>
-                <li>Look up words in Wiktionary, Wikipedia, or offline dictionaries</li>
+                <li>Look up words in Wiktionary, Wikipedia, or offline DICT and StarDict dictionaries</li>
                 <li>Translate passages with Google Translate</li>
-                <li>Text-to-speech with eSpeak NG, Festival, or other engines</li>
-                <li>Get books online with OPDS</li>
+                <li>Text-to-speech with eSpeak NG, Festival, or other engines<br><a href="https://github.com/johnfactotum/foliate/wiki#how-to-use-text-to-speech">Learn More</a></li>
+                <li>Get books online from OPDS feeds</li>
             </ul>
         </div>
     </div>
@@ -373,10 +374,10 @@ sudo ninja -C build install
         <div>
             <h3>Optional dependencies</h3>
             <ul>
-                <li><code>libhandy</code> is recommended to make the interface work better on larger as well as smaller screens</li>
-                <li>Spellchecking notes requires <code>gspell</code></li>
-                <li>If <code>tracker</code> is installed, it can be used to track the locations of files</li>
-                <li><code>libsoup</code> may be required for opening remote files</li>
+                <li><code>libhandy</code> (<code>gir1.2-tracker-2.0</code>) is recommended to make the interface work better on larger as well as smaller screens</li>
+                <li>Spellchecking notes requires <code>gspell</code> (<code>gir1.2-gspell-1</code>)</li>
+                <li>If <code>tracker</code> (<code>gir1.2-tracker-2.0</code>) is installed, it can be used to track the locations of files</li>
+                <li><code>libsoup</code> (<code>gir1.2-soup-2.4</code>) is required for opening remote files</li>
                 <li><code>python</code> (2.7 or >= 3.4) is required for Mobipocket (.mobi) and Kindle (.azw, .azw3) books</li>
                 <li>To enable auto-hyphenation, you will need to install the hyphenation rules, e.g., <code>hyphen-en</code> for English, <code>hyphen-fr</code> for French, etc.</li>
             </ul>
