@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-29 02:33+0800\n"
-"PO-Revision-Date: 2020-05-19 17:25+0200\n"
+"PO-Revision-Date: 2020-05-29 13:14+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
@@ -142,14 +142,12 @@ msgid "All Files"
 msgstr "Alle bestanden"
 
 #: src/export.js:157
-#, fuzzy
 msgid "JSON Files"
-msgstr "Alle bestanden"
+msgstr "JSON-bestanden"
 
 #: src/export.js:160 src/ui/importWindow.ui:6
-#, fuzzy
 msgid "Import Annotations"
-msgstr "Aantekeningen exporteren"
+msgstr "Aantekeningen importeren"
 
 #: src/export.js:173 src/window.js:662 src/ui/contentsStack.ui:80
 msgid "No annotations"
@@ -157,18 +155,19 @@ msgstr "Geen aantekeningen"
 
 #: src/export.js:174
 msgid "There’s nothing to import."
-msgstr ""
+msgstr "Er is niks te importeren."
 
 #: src/export.js:215
-#, fuzzy
 msgid "Identifier mismatch"
-msgstr "Identificatie"
+msgstr "Identificatie komt niet overeen"
 
 #: src/export.js:216
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
 msgstr ""
+"De identificatie van het geïmporteerde bestand komt niet overeen met die van "
+"het boek. Dit kan er op wijzen dat de aantekeningen niet bij dit boek horen."
 
 #: src/export.js:221 src/library.js:486 src/main.js:132 src/window.js:563
 #: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
@@ -178,18 +177,16 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: src/export.js:222
-#, fuzzy
 msgid "Import Anyway"
-msgstr "Tóch doorgaan"
+msgstr "Tóch importeren"
 
 #: src/export.js:232 src/library.js:1732 src/window.js:1019
 msgid "Error"
 msgstr "Fout"
 
 #: src/export.js:233
-#, fuzzy
 msgid "Could not import annotations."
-msgstr "Aantekeningen exporteren"
+msgstr "De aantekeningen kunnen niet worden geïmporteerd."
 
 #: src/library.js:139 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
@@ -197,9 +194,8 @@ msgid "About This Book"
 msgstr "Over dit boek"
 
 #: src/library.js:163
-#, fuzzy
 msgid "Choose File"
-msgstr "E-boekbestanden"
+msgstr "Bestand kiezen"
 
 #: src/library.js:296 src/library.js:314
 msgid "Load more"
@@ -267,11 +263,11 @@ msgstr "Abonneren"
 
 #: src/library.js:726
 msgid "Protected by DRM"
-msgstr ""
+msgstr "DRM-beveiligd"
 
 #: src/library.js:744
 msgid " (DRM)"
-msgstr ""
+msgstr " (DRM)"
 
 #: src/library.js:1242
 #, javascript-format
@@ -281,18 +277,16 @@ msgstr[0] "%d geselecteerd"
 msgstr[1] "%d geselecteerd"
 
 #: src/library.js:1324
-#, fuzzy
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
-msgstr[0] "Kan extern bestand niet laden."
-msgstr[1] "Kan extern bestand niet laden."
+msgstr[0] "Kan boek niet toevoegen"
+msgstr[1] "Kan boeken niet toevoegen"
 
 #: src/library.js:1326
-#, fuzzy
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
-msgstr[0] "Kan bestand niet openen"
-msgstr[1] "Kan bestand niet openen"
+msgstr[0] "Kan het volgende bestand niet toevoegen:"
+msgstr[1] "Kan de volgende bestanden niet toevoegen:"
 
 #: src/library.js:1388
 msgid "All"
@@ -407,7 +401,6 @@ msgid "Open File"
 msgstr "Bestand openen"
 
 #: src/main.js:127
-#, fuzzy
 msgid "Open Catalog"
 msgstr "Catalogus openen"
 
@@ -430,23 +423,20 @@ msgid "A simple and modern eBook viewer"
 msgstr "Een eenvoudige, moderne e-boeklezer"
 
 #: src/main.js:198
-#, fuzzy
 msgid "Open library window"
-msgstr "Open Library"
+msgstr "Bibliotheekvenster openen"
 
 #: src/main.js:202
-#, fuzzy
 msgid "Add files to the library"
-msgstr "Hoe de bibliotheek moet worden getoond"
+msgstr "Bestanden toevoegen aan bibliotheek"
 
 #: src/main.js:206
-#, fuzzy
 msgid "Show version"
-msgstr "Menu tonen"
+msgstr "Versie tonen"
 
 #: src/main.js:210
 msgid "Show verbose debugging information"
-msgstr ""
+msgstr "Foutopsporingsinformatie tonen"
 
 #: src/properties.js:73
 msgid " • "
@@ -601,9 +591,9 @@ msgid "of %d"
 msgstr "van %d"
 
 #: src/window.js:337
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "%d of %d"
-msgstr "van %d"
+msgstr "%d van %d"
 
 #: src/window.js:557
 msgid "This file or format does not work well with annotations"
@@ -669,57 +659,48 @@ msgstr "Bewerken"
 
 #: src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
-#, fuzzy
 msgid "Save"
-msgstr "Opslaan als"
+msgstr "Opslaan"
 
 #: src/ui/bookEditDialog.ui:46
-#, fuzzy
 msgid "File URL:"
-msgstr "Bestand"
+msgstr "Bestandsurl:"
 
 #: src/ui/bookEditDialog.ui:62
 msgid "Browse…"
-msgstr ""
+msgstr "Bladeren…"
 
 #: src/ui/bookEditDialog.ui:72
-#, fuzzy
 msgid "Remove Book"
-msgstr "Verwijderen"
+msgstr "Boek verwijderen"
 
 #: src/ui/catalogWindow.ui:6
-#, fuzzy
 msgid "OPDS Catalog"
-msgstr "OPDS-catalogus-url:"
+msgstr "OPDS-catalogus"
 
 #: src/ui/catalogWindow.ui:53
-#, fuzzy
 msgid "OPDS URL"
-msgstr "OPDS-catalogus-url:"
+msgstr "OPDS-url:"
 
 #: src/ui/catalogWindow.ui:68
-#, fuzzy
 msgid "Preview URL"
-msgstr "Bestand"
+msgstr "Voorvertoningsurl"
 
 #: src/ui/catalogWindow.ui:77
-#, fuzzy
 msgid "Optional"
-msgstr "Opties"
+msgstr "Optioneel"
 
 #: src/ui/catalogWindow.ui:93
-#, fuzzy
 msgid "Remove Catalog"
-msgstr "Bladeren door catalogi"
+msgstr "Catalogus verwijderen"
 
 #: src/ui/contentsStack.ui:39
 msgid "Table of Contents"
 msgstr "Inhoudsopgave"
 
 #: src/ui/contentsStack.ui:51
-#, fuzzy
 msgid "Search annotations"
-msgstr "Aantekeningen tonen"
+msgstr "Aantekeningen doorzoeken"
 
 #: src/ui/contentsStack.ui:92
 msgid "Select some text to add annotations."
@@ -780,6 +761,8 @@ msgstr "Kies een bestandsindeling:"
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
 msgstr ""
+"Kies 'JSON' als je van plan bent later aantekeningen te importeren in "
+"Foliate."
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
@@ -834,39 +817,36 @@ msgid "Rotate 90° clockwise"
 msgstr "90° naar rechts draaien"
 
 #: src/ui/importWindow.ui:17
-#, fuzzy
 msgid "Import"
-msgstr "Exporteren"
+msgstr "Importeren"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr ""
+msgstr "Deze aantekeningen worden toegevoegd:"
 
 #: src/ui/importWindow.ui:64
 msgid ""
 "The imported annotations will NOT overwrite the existing ones when they "
 "highlight the same passages."
 msgstr ""
+"De geïmporteerde aantekeningen overschrijven NIET de reeds aanwezige, ook "
+"niet als ze dezelfde passages bevatten."
 
 #: src/ui/libraryWindow.ui:7
-#, fuzzy
 msgid "Open Book…"
-msgstr "Openen…"
+msgstr "Boek openen…"
 
 #: src/ui/libraryWindow.ui:11
-#, fuzzy
 msgid "Open Catalog…"
 msgstr "Catalogus openen…"
 
 #: src/ui/libraryWindow.ui:17
-#, fuzzy
 msgid "Add Books…"
-msgstr "Boeken toevoegen"
+msgstr "Boeken toevoegen…"
 
 #: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:522
-#, fuzzy
 msgid "Add Catalog…"
-msgstr "Catalogus toevoegen"
+msgstr "Catalogus toevoegen…"
 
 #: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
 #: src/ui/opdsWindow.ui:22 src/ui/preferenceWindow.ui:118
@@ -928,18 +908,17 @@ msgid "Try a different search."
 msgstr "Probeer een andere zoekopdracht."
 
 #: src/ui/libraryWindow.ui:495
-#, fuzzy
 msgid "No catalogs"
-msgstr "Catalogi"
+msgstr "Geen catalogi"
 
 #: src/ui/libraryWindow.ui:507
 msgid "You can browse, search, and download content from OPDS catalogs."
 msgstr ""
+"Je kunt OPDS-catalogi doorzoeken, doorbladeren of de inhoud downloaden."
 
 #: src/ui/libraryWindow.ui:531
-#, fuzzy
 msgid "Learn More"
-msgstr "Meer tonen"
+msgstr "Meer informatie"
 
 #: src/ui/libraryWindow.ui:547
 msgid "Catalogs"
@@ -1042,7 +1021,7 @@ msgstr "Realistische schaduw"
 
 #: src/ui/mainMenu.ui:579
 msgid "Allow JavaScript"
-msgstr ""
+msgstr "JavaScript toestaan"
 
 #: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
 msgid "Allow Unsafe Content"
@@ -1069,9 +1048,8 @@ msgid "Export Annotations…"
 msgstr "Aantekeningen exporteren…"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
-#, fuzzy
 msgid "Import Annotations…"
-msgstr "Aantekeningen exporteren…"
+msgstr "Aantekeningen importeren…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
@@ -1378,37 +1356,30 @@ msgid "Use sidebar"
 msgstr "Zijbalk tonen"
 
 #: src/ui/preferenceWindow.ui:490
-#, fuzzy
 msgid "Use traditional titlebar (experimental)"
-msgstr ""
-"Traditionele titelbalk gebruiken (experimenteel)\n"
-"(herstart vereist)"
+msgstr "Traditionele titelbalk gebruiken (experimenteel)"
 
 #: src/ui/preferenceWindow.ui:498 src/ui/preferenceWindow.ui:553
 #: src/ui/preferenceWindow.ui:595
 msgid "Requires restart"
-msgstr ""
+msgstr "Herstart vereist"
 
 #: src/ui/preferenceWindow.ui:545
-#, fuzzy
 msgid "Use Tracker to track file locations"
-msgstr "Ga terug naar de vorige locatie"
+msgstr "Tracker gebruiken om bestandslocaties bij te houden"
 
 #: src/ui/preferenceWindow.ui:587
-#, fuzzy
 msgid "Save file locations"
-msgstr "Ga naar locatie"
+msgstr "Bestandslocaties opslaan"
 
 #: src/ui/preferenceWindow.ui:625
 #: data/com.github.johnfactotum.Foliate.gschema.xml:24
-#, fuzzy
 msgid "Cache locations"
-msgstr "Locatiecache wissen"
+msgstr "Locaties opslaan in cache"
 
 #: src/ui/preferenceWindow.ui:649
-#, fuzzy
 msgid "Cache book covers"
-msgstr "Locatiecache wissen"
+msgstr "Boekomslagen opslaan in cache"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
@@ -1460,7 +1431,6 @@ msgid "Open a copy"
 msgstr "Kopie openen"
 
 #: src/ui/shortcutsWindow.ui:100
-#, fuzzy
 msgid "Clear cache"
 msgstr "Cache wissen"
 
@@ -2511,26 +2481,27 @@ msgstr "Initiële uitgave"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:19
 msgid "Store URIs"
-msgstr ""
+msgstr "URI's opslaan"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:20
-#, fuzzy
 msgid "Whether to save file URIs"
-msgstr "Of de zijbalk moet worden getoond"
+msgstr "Of bestandsuri's moeten worden opgeslagen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:25
 msgid ""
 "Whether to save generated locations to cache (the locations are needed for "
 "calculating percentages of locations in book)"
 msgstr ""
+"Of gegenereerde posities moeten worden opgeslagen in de cache (deze zijn "
+"nodig voor het berekenen van percentages)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
 msgid "Cache covers"
-msgstr ""
+msgstr "Omslagen opslaan in cache"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:30
 msgid "Whether to save book covers to cache"
-msgstr ""
+msgstr "Of boekomslagen moeten worden opgeslagen in de cache"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
 msgid "Restore last file opened"
@@ -2746,7 +2717,7 @@ msgstr "Onveilige inhoud toestaan"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:183
 msgid "If true, allow JavaScript"
-msgstr ""
+msgstr "Schakel in om JavaScript toe te staan"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:187
 msgid "Enable developer tools"
@@ -2846,12 +2817,14 @@ msgstr "Hoe de bibliotheek moet worden getoond"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:268
 msgid "Use Tracker"
-msgstr ""
+msgstr "Tracker gebruiken"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:269
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
+"Schakel in om Tracker (de bestandsindexeerder) te gebruiken om "
+"bestandslocaties op te halen"
 
 #~ msgid "Allow JavaScript and external resources"
 #~ msgstr "JavaScript en externe bronnen toestaan"
