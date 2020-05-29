@@ -20,8 +20,9 @@
         </ul>
     </description>
     <developer_name>John Factotum</developer_name>
-    <url type="bugtracker">https://github.com/johnfactotum/foliate/issues</url>
     <url type="homepage">https://johnfactotum.github.io/foliate/</url>
+    <url type="bugtracker">https://github.com/johnfactotum/foliate/issues</url>
+    <url type="faq">https://github.com/johnfactotum/foliate/wiki</url>
     <screenshots>
         <screenshot type="default">
             <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/master/data/screenshots/view.png</image>
@@ -43,6 +44,59 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="2.2.0" date="2020-05-29">
+            <description>
+                <p>Library:</p>
+                <ul>
+                    <li>A library view showing recent books and reading progress</li>
+                    <li>Search books by metadata</li>
+                    <li>E-book discovery with OPDS</li>
+                </ul>
+                <p>New supported formats:</p>
+                <ul>
+                    <li>FictionBook (.fb2, .fb2.zip)</li>
+                    <li>Comic book archive (.cbr, .cbz, .cbt, .cb7)</li>
+                    <li>Plain text (.txt)</li>
+                    <li>Unpacked EPUB files</li>
+                </ul>
+                <p>Layout:</p>
+                <ul>
+                    <li>Option to set maximum page width</li>
+                    <li>The "Automatic" layout will now show four columns when the page width is wide</li>
+                </ul>
+                <p>Image viewer:</p>
+                <ul>
+                    <li>Improved image viewer, with new shortcuts and the ability to rotate and invert images</li>
+                    <li>Option to disable image viewer, or to open images on double, middle, or right click</li>
+                </ul>
+                <p>Text-to-speech:</p>
+                <ul>
+                    <li>Improved text-to-speech configuration UI</li>
+                    <li>Ability to set text-to-speech voice based on book language</li>
+                </ul>
+                <p>Annotations</p>
+                <ul>
+                    <li>Import annotations from JSON</li>
+                    <li>Search in annotations</li>
+                    <li>Annotations are now sorted in the same order as they appear in the book</li>
+                </ul>
+                <p>Security:</p>
+                <ul>
+                    <li>"Allow Unsafe Content" now only enables JavaScript; external content will no longer be loaded</li>
+                    <li>WebKit processes are now sandboxed</li>
+                </ul>
+                <p>Other featues and fixes:</p>
+                <ul>
+                    <li>Improved support for vertical and right-to-left books</li>
+                    <li>Support for StarDict dictionaries</li>
+                    <li>Fixed current location not preserved when resizing</li>
+                    <li>Fixed auto-hiding header bar under some themes</li>
+                    <li>Command-line options for showing version and adding books to library</li>
+                    <li>Option to clear or disable cache</li>
+                    <li>When an HTML page contains invalid self-closing anchor tags, it is now parsed as XHTML</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.1.1" date="2020-04-09">
             <description>
                 <p>Fixes:</p>
