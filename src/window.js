@@ -15,7 +15,7 @@
 
 const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
 
-const { locales, formatPercent, formatMinutes,
+const { locales, formatPercent, formatMinutes, fileFilters,
     setPopoverPosition, doubleInvert, brightenColor } = imports.utils
 const { EpubView, EpubViewAnnotation, enableAnnotations } = imports.epubView
 const { ContentsStack, FindBox,
@@ -651,6 +651,18 @@ const makeActions = self => ({
             file: self.file
         })
         window.present()
+    },
+    'open': () => {
+        const dialog = Gtk.FileChooserNative.new(
+            _('Open File'),
+            self,
+            Gtk.FileChooserAction.OPEN,
+            null, null)
+        dialog.add_filter(fileFilters.all)
+        dialog.add_filter(fileFilters.ebook)
+        dialog.set_filter(fileFilters.ebook)
+
+        if (dialog.run() === Gtk.ResponseType.ACCEPT) self.open(dialog.get_file())
     },
     'reload': () => {
         self.open(self.file)
