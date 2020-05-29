@@ -1284,9 +1284,13 @@ var LibraryWindow =  GObject.registerClass({
         const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
         ;[this._startButtonStack, this._endButtonStack].forEach(stack =>
             this._stack.bind_property('visible-child-name', stack, 'visible-child-name', flag))
-        this.connect('notify::active-view', () => {
+
+        const updateViewButton = () =>
             this._viewButton.get_child().icon_name = this.active_view === 'grid'
                 ? 'view-list-symbolic' : 'view-grid-symbolic'
+        updateViewButton()
+        this.connect('notify::active-view', () => {
+            updateViewButton()
             this._updateLibraryStack()
         })
 
