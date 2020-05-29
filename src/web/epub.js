@@ -4335,6 +4335,10 @@ var Contents = function () {
 				height += border.height;
 			}
 
+			if (height && rect.top) {
+				height += rect.top;
+			}
+
 			return Math.round(height);
 		}
 
