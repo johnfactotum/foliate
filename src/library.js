@@ -1794,8 +1794,8 @@ var OpdsWindow =  GObject.registerClass({
                 this._searchLink = search
                 this._searchButton.show()
             } else this._searchButton.hide()
-        })
 
-        nb.show_tabs = nb.get_n_pages() > 1
+            nb.show_tabs = nb.get_n_pages() > 1
+        })
     }
 })
