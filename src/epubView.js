@@ -1012,40 +1012,43 @@ var EpubView = GObject.registerClass({
         if (!this._fileInfo) return this.emit('book-error', _('File not found.'))
 
         const contentType = this._fileInfo.get_content_type()
-        const uri = this._file.get_uri()
+        let uri = this._file.get_uri()
+        let path = this._file.get_path()
+
+        // if path is null, we download the file with libsoup first
+        if (!path) {
+            const dir = GLib.dir_make_tmp(null)
+            this._tmpdir = dir
+
+            const msg = _('Failed to load remote file.')
+            if (!Soup) return this.emit('book-error', msg)
+            const session = new Soup.SessionAsync()
+            const request = Soup.Message.new('GET', uri)
+            try {
+                await new Promise((resolve, reject) => {
+                    session.queue_message(request, (session, message) => {
+                        if (message.status_code !== 200) reject()
+                        else {
+                            path = GLib.build_filenamev([dir, this._file.get_basename()])
+                            const file = Gio.File.new_for_path(path)
+                            uri = file.get_uri()
+                            const outstream = file.replace(
+                                null, false, Gio.FileCreateFlags.NONE, null)
+                            outstream.write_bytes(
+                                message.response_body.flatten().get_as_bytes(), null)
+                            resolve()
+                        }
+                    })
+                })
+            } catch (e) {
+                return this.emit('book-error', msg)
+            }
+        }
         switch (contentType) {
             case mimetypes.mobi:
             case mimetypes.kindle:
             case mimetypes.kindleAlias: {
-                let path = this._file.get_path()
-                const dir = GLib.dir_make_tmp(null)
-                this._tmpdir = dir
-                if (!path) {
-                    const msg = _('Failed to load remote file.')
-                    if (!Soup) return this.emit('book-error', msg)
-                    // if path is null, we download the file with libsoup first
-                    // then feed it to KindleUnpack
-                    const session = new Soup.SessionAsync()
-                    const request = Soup.Message.new('GET', uri)
-                    try {
-                        await new Promise((resolve, reject) => {
-                            session.queue_message(request, (session, message) => {
-                                if (message.status_code !== 200) reject()
-                                else {
-                                    path = GLib.build_filenamev([dir, this._file.get_basename()])
-                                    const file = Gio.File.new_for_path(path)
-                                    const outstream = file.replace(
-                                        null, false, Gio.FileCreateFlags.NONE, null)
-                                    outstream.write_bytes(
-                                        message.response_body.flatten().get_as_bytes(), null)
-                                    resolve()
-                                }
-                            })
-                        })
-                    } catch (e) {
-                        return this.emit('book-error', msg)
-                    }
-                }
+                const dir = this._tmpdir || GLib.dir_make_tmp(null)
                 const command = [python, kindleUnpack, '--epub_version=3', path, dir]
                 execCommand(command, null, false, null, true).then(() => {
                     const mobi8 = dir + '/mobi8/'
