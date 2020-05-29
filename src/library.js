@@ -18,7 +18,8 @@ const ngettext = imports.gettext.ngettext
 const { debug, locales, formatPercent,
     Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight, fileFilters,
-    linkIsRel, makeLinksButton, sepHeaderFunc } = imports.utils
+    linkIsRel, makeLinksButton, sepHeaderFunc,
+    user_agent } = imports.utils
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { Window } = imports.window
 const { uriStore, library } = imports.uriStore
@@ -524,9 +525,8 @@ class OpdsClient {
         this._webView = new WebKit2.WebView({
             settings: new WebKit2.Settings({
                 enable_write_console_messages_to_stdout: true,
-                allow_file_access_from_file_urls: true,
                 allow_universal_access_from_file_urls: true,
-                enable_developer_extras: true
+                user_agent
             })
         })
         const runResource = resource => new Promise((resolve) =>

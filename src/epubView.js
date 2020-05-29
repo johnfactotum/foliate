@@ -15,7 +15,7 @@
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
 let Soup; try { Soup = imports.gi.Soup } catch (e) {}
-const { invertRotate, scalePixbuf } = imports.utils
+const { invertRotate, scalePixbuf, user_agent } = imports.utils
 const { uriStore, library } = imports.uriStore
 const { EpubCFI } = imports.epubcfi
 
@@ -551,24 +551,26 @@ var EpubView = GObject.registerClass({
         this._history = []
 
         this._contextMenu = null
+        const webKitSettings = new WebKit2.Settings({
+            allow_top_navigation_to_data_urls: false,
+            allow_modal_dialogs: false,
+            enable_fullscreen: false,
+            enable_html5_database: false,
+            enable_html5_local_storage: false,
+            enable_hyperlink_auditing: false,
+            enable_offline_web_application_cache: false,
+            enable_java: false,
+            enable_plugins: false,
+            media_playback_requires_user_gesture: true,
+            enable_write_console_messages_to_stdout: true,
+            allow_file_access_from_file_urls: true,
+            enable_javascript_markup: false
+        })
+        webKitSettings.set_user_agent_with_application_details('Foliate', pkg.version)
         this._webView = new WebKit2.WebView({
             visible: true,
             is_ephemeral: true,
-            settings: new WebKit2.Settings({
-                allow_top_navigation_to_data_urls: false,
-                allow_modal_dialogs: false,
-                enable_fullscreen: false,
-                enable_html5_database: false,
-                enable_html5_local_storage: false,
-                enable_hyperlink_auditing: false,
-                enable_offline_web_application_cache: false,
-                enable_java: false,
-                enable_plugins: false,
-                media_playback_requires_user_gesture: true,
-                enable_write_console_messages_to_stdout: true,
-                allow_file_access_from_file_urls: true,
-                enable_javascript_markup: false
-            })
+            settings: webKitSettings
         })
         this._webView.connect('context-menu', () =>
             this._contextMenu ? this._contextMenu() : true)
@@ -1022,7 +1024,7 @@ var EpubView = GObject.registerClass({
 
             const msg = _('Failed to load remote file.')
             if (!Soup) return this.emit('book-error', msg)
-            const session = new Soup.SessionAsync()
+            const session = new Soup.SessionAsync({ user_agent })
             const request = Soup.Message.new('GET', uri)
             try {
                 await new Promise((resolve, reject) => {

@@ -14,14 +14,14 @@
  */
 
 const { GObject, GLib, Gtk, Gdk, WebKit2 } = imports.gi
-const { execCommand } = imports.utils
+const { execCommand, user_agent } = imports.utils
 
 const lookup = (script, againScript) => new Promise((resolve, reject) => {
     const webView = new WebKit2.WebView({
-        visible: true,
         settings: new WebKit2.Settings({
             enable_write_console_messages_to_stdout: true,
-            allow_universal_access_from_file_urls: true
+            allow_universal_access_from_file_urls: true,
+            user_agent
         })
     })
     const runResource = resource => new Promise((resolve) =>

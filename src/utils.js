@@ -13,6 +13,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var user_agent = `Foliate/${pkg.version}`
+
 // timers polyfill
 const Mainloop = imports.mainloop
 var setTimeout = (func, delay, ...args) =>
