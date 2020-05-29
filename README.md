@@ -8,20 +8,27 @@ A simple and modern GTK eBook viewer, built with [GJS](https://gitlab.gnome.org/
 
 Website: https://johnfactotum.github.io/foliate/
 
-Documentation: https://github.com/johnfactotum/foliate/wiki
+FAQ: https://github.com/johnfactotum/foliate/wiki
 
 <a href="https://flathub.org/apps/details/com.github.johnfactotum.Foliate"><img height="50" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a> <a href="https://snapcraft.io/foliate"><img height="50" alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" /></a>
 
 ## Features
 
-- View .epub, .mobi, .azw, and .azw3 files in two-page view or scrolled view
-- Customize font, line-spacing, margins, and brightness
-- Light, sepia, dark, and invert mode, or add your own custom themes
+- Supported formats:
+    - EPUB (.epub, .epub3)
+    - Kindle (.azw, .azw3) and Mobipocket (.mobi)
+    - FictionBook (.fb2, .fb2.zip)
+    - Comic book archive (.cbr, .cbz, .cbt, .cb7)
+    - Plain text (.txt)
+- Single-column, two-column, or continuous scrolling layouts
+- Adjust font, line-spacing, and margins
+- Customize colors and brightness
 - Reading progress slider with chapter marks
 - Bookmarks and annotations
 - Find in book
-- Quick dictionary lookup with [Wiktionary](https://en.wiktionary.org/), [Wikipedia](https://en.wikipedia.org/), and `dictd`, or translate text with Google Translate
+- Open footnotes in popovers
 - Touchpad gestures—use two-finger swipe to turn the page
+- Quick dictionary lookup with [Wiktionary](https://en.wiktionary.org/), [Wikipedia](https://en.wikipedia.org/), `dictd`, and `sdcv`, or translate text with Google Translate
 - Basic text-to-speech support with [eSpeak NG](https://github.com/espeak-ng/espeak-ng) and [Festival](http://www.cstr.ed.ac.uk/projects/festival/)
 
 ## Installation
@@ -47,11 +54,17 @@ For Mobipocket (.mobi) and Kindle File Format (.azw, .azw3) support, you would n
 
 Auto-hyphenation is done using CSS hyphenation. To enable CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
 
-For offline dictionary support, install `dictd`.
+For offline dictionary support, install `dictd` or `sdcv`.
 
 For text-to-speech support, install `espeak-ng`, or `festival`, and packages for the individual voices.
 
 To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based distributions) is requried.
+
+`libhandy` (`gir1.2-tracker-2.0`) is recommended to make the interface work better on larger as well as smaller screens.
+
+If `tracker` (`gir1.2-tracker-2.0`) is installed, it can be used to track the locations of files.
+
+`libsoup` (`gir1.2-soup-2.4`) is required for opening remote files.
 
 ### Building manually from source
 
