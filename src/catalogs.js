@@ -19,7 +19,7 @@ const { Storage } = imports.utils
 const defaultCatalogs = [
     {
         title: 'Standard Ebooks',
-        uri: 'https://standardebooks.org/opds/all',
+        uri: 'https://standardebooks.org/opds',
         preview: 'https://standardebooks.org/opds/all',
     },
     {
