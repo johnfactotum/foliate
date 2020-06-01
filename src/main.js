@@ -22,8 +22,17 @@ pkg.require({
 
 const { Gio, Gtk, Gdk, GLib, WebKit2 } = imports.gi
 const { ttsDialog } = imports.tts
-let Handy; try { Handy = imports.gi.Handy } catch (e) {}
-if (Handy) Handy.init(null)
+let Handy
+try {
+    imports.gi.versions.Handy = '0.0'
+    Handy = imports.gi.Handy
+    Handy.init(null)
+} catch (e) {
+    try {
+        imports.gi.versions.Handy = '1'
+        Handy = imports.gi.Handy
+    } catch (e) {}
+}
 
 const webContext = WebKit2.WebContext.get_default()
 webContext.set_sandbox_enabled(true)
