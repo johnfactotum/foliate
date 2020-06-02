@@ -80,7 +80,12 @@ const BookImage =  GObject.registerClass({
         // might as well just show generated cover
         // TODO: a slightly better way is to pack the tiny thumbnail inside the generated cover
         if (pixbuf.get_width() < 48) throw new Error('thumbnail too small')
-        this._image.set_from_pixbuf(scalePixbuf(pixbuf))
+
+        const factor = this.get_scale_factor()
+        const surface = Gdk.cairo_surface_create_from_pixbuf(
+            scalePixbuf(pixbuf, factor), factor, null)
+
+        this._image.set_from_surface(surface)
         this._image.get_style_context().add_class('foliate-book-image')
     }
 })

@@ -48,7 +48,10 @@ var PropertiesBox = GObject.registerClass({
     _init(params, metadata, cover) {
         super._init(params)
         if (cover) {
-            this._cover.set_from_pixbuf(scalePixbuf(cover))
+            const factor = this.get_scale_factor()
+            const surface = Gdk.cairo_surface_create_from_pixbuf(
+                scalePixbuf(cover, factor), factor, null)
+            this._cover.set_from_surface(surface)
             this._cover.get_style_context().add_class('foliate-book-image')
         } else this._cover.hide()
 
