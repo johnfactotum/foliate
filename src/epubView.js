@@ -328,7 +328,8 @@ var EpubViewData = GObject.registerClass({
         if (!generalSettings.get_boolean('cache-covers')) return
         // TODO: maybe don't save cover if one already exists
         debug(`saving cover to ${this._coverPath}`)
-        const pixbuf = scalePixbuf(cover, 1, 256)
+        const width = generalSettings.get_int('cache-covers-size')
+        const pixbuf = scalePixbuf(cover, 1, width, false)
         pixbuf.savev(this._coverPath, 'png', [], [])
     }
     static dataPath(identifier) {

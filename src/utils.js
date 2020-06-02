@@ -376,11 +376,11 @@ var base64ToPixbuf = base64 => {
     }
 }
 
-var scalePixbuf = (pixbuf, factor = 1, width = 120) => {
+var scalePixbuf = (pixbuf, factor = 1, width = 120, scaleUp = true) => {
     width = width * factor
     // TODO: maybe just use gdkpixbuf's "[...]_at_sacale" functions instead of this?
     const ratio = width / pixbuf.get_width()
-    if (ratio === 1) return pixbuf
+    if (ratio === 1 || (!scaleUp && ratio > 1)) return pixbuf
     const height = parseInt(pixbuf.get_height() * ratio, 10)
     return pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
 }
