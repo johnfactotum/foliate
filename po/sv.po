@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-30 01:52+0800\n"
-"PO-Revision-Date: 2020-05-23 23:04+0200\n"
+"PO-Revision-Date: 2020-06-03 19:39+0200\n"
 "Last-Translator: Jonatan Nyberg <jonatan.nyberg.karl@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -194,9 +194,8 @@ msgid "About This Book"
 msgstr "Om denna bok"
 
 #: src/library.js:164
-#, fuzzy
 msgid "Choose File"
-msgstr "E-bokfiler"
+msgstr "Välj fil"
 
 #: src/library.js:297 src/library.js:315
 msgid "Load more"
@@ -264,11 +263,11 @@ msgstr "Prenumerera"
 
 #: src/library.js:726
 msgid "Protected by DRM"
-msgstr ""
+msgstr "Skyddad av DRM"
 
 #: src/library.js:744
 msgid " (DRM)"
-msgstr ""
+msgstr " (DRM)"
 
 #: src/library.js:1242
 #, javascript-format
@@ -278,18 +277,16 @@ msgstr[0] "%d vald"
 msgstr[1] "%d valda"
 
 #: src/library.js:1328
-#, fuzzy
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
-msgstr[0] "Det gick inte att läsa in fjärrfil."
-msgstr[1] "Det gick inte att läsa in fjärrfil."
+msgstr[0] "Det gick inte att lägga till bok"
+msgstr[1] "Det gick inte att lägga till böcker"
 
 #: src/library.js:1330
-#, fuzzy
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
-msgstr[0] "Det gick inte att öppna filen"
-msgstr[1] "Det gick inte att öppna filen"
+msgstr[0] "Det gick inte att lägga till följande fil:"
+msgstr[1] "Det gick inte att lägga till följande filer:"
 
 #: src/library.js:1392
 msgid "All"
@@ -404,9 +401,8 @@ msgid "Open File"
 msgstr "Öppna fil"
 
 #: src/main.js:127
-#, fuzzy
 msgid "Open Catalog"
-msgstr "Öppna en katalog"
+msgstr "Öppna katalog"
 
 #: src/main.js:133 src/ui/catalogRow.ui:50
 msgid "Open"
@@ -595,9 +591,9 @@ msgid "of %d"
 msgstr "av %d"
 
 #: src/window.js:337
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "%d of %d"
-msgstr "av %d"
+msgstr "%d av %d"
 
 #: src/window.js:557
 msgid "This file or format does not work well with annotations"
@@ -663,47 +659,40 @@ msgstr "Redigera"
 
 #: src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
-#, fuzzy
 msgid "Save"
-msgstr "Spara som"
+msgstr "Spara"
 
 #: src/ui/bookEditDialog.ui:46
-#, fuzzy
 msgid "File URL:"
-msgstr "Fil"
+msgstr "Filwebbadress:"
 
 #: src/ui/bookEditDialog.ui:62
 msgid "Browse…"
-msgstr ""
+msgstr "Bläddra…"
 
 #: src/ui/bookEditDialog.ui:72
-#, fuzzy
 msgid "Remove Book"
-msgstr "Ta bort"
+msgstr "Ta bort bok"
 
 #: src/ui/catalogWindow.ui:6
-#, fuzzy
 msgid "OPDS Catalog"
-msgstr "OPDS katalogwebbadress:"
+msgstr "OPDS-katalog"
 
 #: src/ui/catalogWindow.ui:53
-#, fuzzy
 msgid "OPDS URL"
-msgstr "OPDS katalogwebbadress:"
+msgstr "OPDS-webbadress"
 
 #: src/ui/catalogWindow.ui:68
-#, fuzzy
 msgid "Preview URL"
-msgstr "Fil"
+msgstr "Förhandsgranska webbadress"
 
 #: src/ui/catalogWindow.ui:77
 msgid "Optional"
-msgstr ""
+msgstr "Valfri"
 
 #: src/ui/catalogWindow.ui:93
-#, fuzzy
 msgid "Remove Catalog"
-msgstr "Bläddra i kataloger"
+msgstr "Ta bort katalog"
 
 #: src/ui/contentsStack.ui:39
 msgid "Table of Contents"
@@ -828,39 +817,36 @@ msgid "Rotate 90° clockwise"
 msgstr "Rotera 90° medurs"
 
 #: src/ui/importWindow.ui:17
-#, fuzzy
 msgid "Import"
-msgstr "Exportera"
+msgstr "Importera"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr ""
+msgstr "Dessa kommentarer läggs till:"
 
 #: src/ui/importWindow.ui:64
 msgid ""
 "The imported annotations will NOT overwrite the existing ones when they "
 "highlight the same passages."
 msgstr ""
+"De importerade kommentarerna kommer INTE att skriva över de befintliga när "
+"de markerar samma passager."
 
 #: src/ui/libraryWindow.ui:7
-#, fuzzy
 msgid "Open Book…"
-msgstr "Öppna…"
+msgstr "Öppna bok…"
 
 #: src/ui/libraryWindow.ui:11
-#, fuzzy
 msgid "Open Catalog…"
-msgstr "Öppna en katalog…"
+msgstr "Öppna katalog…"
 
 #: src/ui/libraryWindow.ui:17
-#, fuzzy
 msgid "Add Books…"
-msgstr "Lägg till böcker"
+msgstr "Lägg till böcker…"
 
 #: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:522
-#, fuzzy
 msgid "Add Catalog…"
-msgstr "Lägg till katalog"
+msgstr "Lägg till katalog…"
 
 #: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
 #: src/ui/opdsWindow.ui:22 src/ui/preferenceWindow.ui:118
@@ -922,18 +908,16 @@ msgid "Try a different search."
 msgstr "Prova en annan sökning."
 
 #: src/ui/libraryWindow.ui:495
-#, fuzzy
 msgid "No catalogs"
-msgstr "Kataloger"
+msgstr "Inga kataloger"
 
 #: src/ui/libraryWindow.ui:507
 msgid "You can browse, search, and download content from OPDS catalogs."
-msgstr ""
+msgstr "Du kan bläddra, söka och hämta innehåll från OPDS-kataloger."
 
 #: src/ui/libraryWindow.ui:531
-#, fuzzy
 msgid "Learn More"
-msgstr "Se mer"
+msgstr "Läs mer"
 
 #: src/ui/libraryWindow.ui:547
 msgid "Catalogs"
@@ -1036,7 +1020,7 @@ msgstr "Realistiska skuggor"
 
 #: src/ui/mainMenu.ui:579
 msgid "Allow JavaScript"
-msgstr ""
+msgstr "Tillåt JavaScript"
 
 #: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
 msgid "Allow Unsafe Content"
@@ -2040,153 +2024,151 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
 msgid "Library:"
-msgstr "Bibliotek"
+msgstr "Bibliotek:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "A library view showing recent books and reading progress"
-msgstr ""
+msgstr "En biblioteksvy som visar senaste böcker och läsningens framsteg"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
 msgid "Search books by metadata"
-msgstr ""
+msgstr "Sök i böcker efter metadata"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
 msgid "E-book discovery with OPDS"
-msgstr ""
+msgstr "E-bokupptäckt med OPDS"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
-#, fuzzy
 msgid "New supported formats:"
-msgstr "Välj exportformat:"
+msgstr "Nya format som stöds:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
 msgid "FictionBook (.fb2, .fb2.zip)"
-msgstr ""
+msgstr "FictionBook (.fb2, .fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
-msgstr ""
+msgstr "Serietidningsarkiv (.cbr, .cbz, .cbt, .cb7)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
-#, fuzzy
 msgid "Plain text (.txt)"
-msgstr "Klartext"
+msgstr "Klartext (.txt)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid "Unpacked EPUB files"
-msgstr ""
+msgstr "Uppackade EPUB-filer"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
-#, fuzzy
 msgid "Layout:"
-msgstr "Layout"
+msgstr "Layout:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
-#, fuzzy
 msgid "Option to set maximum page width"
-msgstr "Maximal sidbredd"
+msgstr "Alternativ för att ställa in maximal sidbredd"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid ""
 "The \"Automatic\" layout will now show four columns when the page width is "
 "wide"
-msgstr ""
+msgstr "Layouten \"Automatisk\" visar nu fyra kolumner när sidbredden är bred"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
-#, fuzzy
 msgid "Image viewer:"
-msgstr "Kortkommandon för bildvisaren"
+msgstr "Bildvisare:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
 msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
 msgstr ""
+"Förbättrad bildvisare, med nya kortkommandon och förmågan att rotera och "
+"invertera bilder"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
 msgid ""
 "Option to disable image viewer, or to open images on double, middle, or "
 "right click"
 msgstr ""
+"Alternativ för att inaktivera bildvisaren eller att öppna bilder med "
+"dubbel-, mitten- eller högerklick"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
-#, fuzzy
 msgid "Text-to-speech:"
-msgstr "Text-till-tal"
+msgstr "Text-till-tal:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
 msgid "Improved text-to-speech configuration UI"
-msgstr ""
+msgstr "Förbättrat användargränssnitt för konfiguration av text till tal"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
 msgid "Ability to set text-to-speech voice based on book language"
-msgstr ""
+msgstr "Möjlighet att ställa in text-till-tal-röst baserat på bokspråk"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
-#, fuzzy
 msgid "Import annotations from JSON"
-msgstr "Importera kommentarer"
+msgstr "Importera kommentarer från JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
-#, fuzzy
 msgid "Search in annotations"
-msgstr "Sök kommentarer"
+msgstr "Sök i kommentarer"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
-#, fuzzy
 msgid "Annotations are now sorted in the same order as they appear in the book"
-msgstr "Genererade platser lagras nu i cachekatalogen snarare än localStorage"
+msgstr "Kommentarer sorteras nu i samma ordning som de visas i boken"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
 msgid "Security:"
-msgstr ""
+msgstr "Säkerhet:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
 msgid ""
 "\"Allow Unsafe Content\" now only enables JavaScript; external content will "
 "no longer be loaded"
 msgstr ""
+"\"Tillåt osäkert innehåll\" aktiverar nu bara JavaScript; externt innehåll "
+"kommer inte längre att läsas in"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
 msgid "WebKit processes are now sandboxed"
-msgstr ""
+msgstr "WebKit-processer är nu satta i sandlådaläge"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
 msgid "Other featues and fixes:"
-msgstr ""
+msgstr "Andra funktioner och korrigeringar:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
 msgid "Improved support for vertical and right-to-left books"
-msgstr ""
+msgstr "Förbättrat stöd för vertikala och höger till vänster böcker"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
 msgid "Support for StarDict dictionaries"
-msgstr ""
+msgstr "Stöd för StarDict-ordböcker"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
 msgid "Fixed current location not preserved when resizing"
-msgstr ""
+msgstr "Åtgärdade att aktuell plats inte bevaras vid storleksändring"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
 msgid "Fixed auto-hiding header bar under some themes"
-msgstr ""
+msgstr "Åtgärdade automatisk döljande av rubrikfält under vissa teman"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
 msgid "Command-line options for showing version and adding books to library"
 msgstr ""
+"Kommandoradsflaggor för att visa version och lägga till böcker i biblioteket"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
-#, fuzzy
 msgid "Option to clear or disable cache"
-msgstr "Alternativ att inaktivera ordbok"
+msgstr "Alternativ för att rensa eller inaktivera cache"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
 msgid ""
 "When an HTML page contains invalid self-closing anchor tags, it is now "
 "parsed as XHTML"
 msgstr ""
+"När en HTML-sida innehåller ogiltiga självstängande ankartaggar, har den nu "
+"analyserats som XHTML"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:102
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:118
@@ -2869,7 +2851,7 @@ msgstr "Tillåt osäkert innehåll"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:183
 msgid "If true, allow JavaScript"
-msgstr ""
+msgstr "Om sant, tillåt JavaScript"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:187
 msgid "Enable developer tools"
