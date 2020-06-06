@@ -29,7 +29,7 @@ const defaultCatalogs = [
     },
     {
         title: 'Project Gutenberg',
-        uri: 'https://m.gutenberg.org/ebooks.opds/',
+        uri: 'http://m.gutenberg.org/ebooks.opds/',
         preview: 'http://www.gutenberg.org/ebooks/search.opds/?sort_order=random',
     }
 ]
