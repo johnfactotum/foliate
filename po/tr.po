@@ -1,0 +1,2929 @@
+# Turkish translation of Foliate.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.johnfactotum.Foliate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-07 18:58+0800\n"
+"PO-Revision-Date: 2020-06-10 16:27+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"Language-Team: <gnome-turk@gnome.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.3.1\n"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1225
+#: src/library.js:1543 src/main.js:181 src/window.js:1003
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
+msgid "Foliate"
+msgstr "Foliate"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:4
+msgid "eBook Viewer"
+msgstr "e-Kitap Görüntüleyici"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:5
+msgid "View eBooks"
+msgstr "E-Kitap Görüntüle"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.github.johnfactotum.Foliate.desktop.in:13
+msgid "Ebook;Book;EPUB;Viewer;Reader;"
+msgstr "Ekitap;Kitap;EPUB;Görüntüleyici;Okuyucu;E-kitap;"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:17
+#: src/ui/libraryWindow.ui:451 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
+msgid "Library"
+msgstr "Kitaplık"
+
+#: src/contents.js:222
+msgid "Remove current location"
+msgstr "Geçerli konumu kaldır"
+
+#: src/contents.js:225 src/ui/contentsStack.ui:204
+#: src/ui/shortcutsWindow.ui:128
+msgid "Bookmark current location"
+msgstr "Geçerli konumu yer imine ekle"
+
+#: src/contents.js:268
+msgid "No results"
+msgstr "Sonuç yok"
+
+#: src/contents.js:269
+#, javascript-format
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] "%d sonuç"
+
+#: src/contents.js:280
+msgid "Searching…"
+msgstr "Aranıyor…"
+
+#: src/epubView.js:1015
+msgid "File not found."
+msgstr "Dosya bulunamadı."
+
+#: src/epubView.js:1026
+msgid "Failed to load remote file."
+msgstr "Uzak mdosya yüklenemedi."
+
+#: src/epubView.js:1062
+msgid "Could not unpack Kindle file."
+msgstr "Kindle dosyası paketten çıkarılamadı."
+
+#: src/epubView.js:1078
+msgid "File type not supported."
+msgstr "Dosya türü desteklenmiyor."
+
+#: src/export.js:35
+#, javascript-format
+msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
+msgstr "<h1>%s</h1><h2>%s</h2><p>için açıklamalar</p>"
+
+#: src/export.js:37 src/export.js:51 src/export.js:63
+#, javascript-format
+msgid "%d Annotation"
+msgid_plural "%d Annotations"
+msgstr[0] "%d Not"
+
+#: src/export.js:50
+#, javascript-format
+msgid "Annotations for “%s” by %s"
+msgstr "“%s” için %s açıklamaları"
+
+#: src/export.js:54
+msgid "Section: "
+msgstr "Bölüm: "
+
+#: src/export.js:55
+msgid "Highlight: "
+msgstr "Vurgu: "
+
+#: src/export.js:56
+msgid "Text:"
+msgstr "Metin:"
+
+#: src/export.js:57
+msgid "Note:"
+msgstr "Not:"
+
+#: src/export.js:62
+#, javascript-format
+msgid "Annotations for *%s* by %s"
+msgstr "*%s* %s için açıklamalar"
+
+#: src/export.js:96
+msgid "Quote: "
+msgstr "Alıntı: "
+
+#: src/export.js:96
+msgid " Note: "
+msgstr " Not: "
+
+#: src/export.js:113
+msgid "Save File"
+msgstr "Dosyayı Kaydet"
+
+#: src/export.js:120
+#, javascript-format
+msgid "Annotations for “%s”"
+msgstr "“%s” için notlar"
+
+#: src/export.js:153 src/utils.js:123
+msgid "All Files"
+msgstr "Tüm Dosyalar"
+
+#: src/export.js:157
+msgid "JSON Files"
+msgstr "JSON Dosyaları"
+
+#: src/export.js:160 src/ui/importWindow.ui:6
+msgid "Import Annotations"
+msgstr "Notları İçe Aktar"
+
+#: src/export.js:173 src/window.js:674 src/ui/contentsStack.ui:80
+msgid "No annotations"
+msgstr "Açıklama yok"
+
+#: src/export.js:174
+msgid "There’s nothing to import."
+msgstr "İçe aktarılacak bir şey yok."
+
+#: src/export.js:215
+msgid "Identifier mismatch"
+msgstr "Tanımlayıcı eksik"
+
+#: src/export.js:216
+msgid ""
+"The identifier of the imported file does not match the book’s. This might "
+"indicate that the annotations do not belong to this book."
+msgstr ""
+"İçe aktarın dosyanın tanımlayıcısı, kitabınkiyle uyuşmuyor. Bu, notların bu "
+"kitaba ait olmadığı anlamına gelebilir."
+
+#: src/export.js:221 src/library.js:492 src/main.js:141 src/window.js:563
+#: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
+#: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
+#: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
+msgid "Cancel"
+msgstr "Vazgeç"
+
+#: src/export.js:222
+msgid "Import Anyway"
+msgstr "Yine De İçe Aktar"
+
+#: src/export.js:232 src/library.js:1741 src/window.js:1031
+msgid "Error"
+msgstr "Hata"
+
+#: src/export.js:233
+msgid "Could not import annotations."
+msgstr "Notlar içe aktarılamadı."
+
+#: src/library.js:145 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/ui/mainMenu.ui:613
+msgid "About This Book"
+msgstr "Bu Kitap Hakkında"
+
+#: src/library.js:169
+msgid "Choose File"
+msgstr "Dosya Seç"
+
+#: src/library.js:302 src/library.js:320
+msgid "Load more"
+msgstr "Daha çok yükle"
+
+#: src/library.js:464
+msgid "File location unkown"
+msgstr "Dosya konumu bilinmiyor"
+
+#: src/library.js:465
+msgid "Choose the location of this file to open it."
+msgstr "Bu dosyayı açmak için konum seç."
+
+#: src/library.js:485
+#, javascript-format
+msgid "Are you sure you want to remove this book?"
+msgid_plural "Are you sure you want to remove the %d selected books?"
+msgstr[0] "Bu %d kitabı kaldırmak istediğine emin misiniz?"
+
+#: src/library.js:487
+msgid "Reading progress, annotations, and bookmarks will be permanently lost."
+msgstr "Okuma ilerlemesi, notlar ve yer imleri tümüyle kaybedilecek."
+
+#: src/library.js:493 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
+#: src/ui/libraryWindow.ui:420
+msgid "Remove"
+msgstr "Kaldır"
+
+#. Translators: this is the punctuation used to join together a list of
+#. authors or categories
+#: src/library.js:638
+msgid ", "
+msgstr ", "
+
+#: src/library.js:663
+msgid "Unable to load OPDS feed"
+msgstr "OPDS beslemesi yüklenemedi"
+
+#: src/library.js:708
+msgid "Download"
+msgstr "İndir"
+
+#: src/library.js:710
+msgid "Buy"
+msgstr "Satın Al"
+
+#: src/library.js:711
+msgid "Free"
+msgstr "Ücretsiz"
+
+#: src/library.js:712
+msgid "Sample"
+msgstr "Örnek"
+
+#: src/library.js:713
+msgid "Borrow"
+msgstr "Ödünç Al"
+
+#: src/library.js:714
+msgid "Subscribe"
+msgstr "Abone Ol"
+
+#: src/library.js:731
+msgid "Protected by DRM"
+msgstr "DRM ile korunuyor"
+
+#: src/library.js:749
+msgid " (DRM)"
+msgstr "(DRM)"
+
+#: src/library.js:1247
+#, javascript-format
+msgid "%d selected"
+msgid_plural "%d selected"
+msgstr[0] "%d seçildi"
+
+#: src/library.js:1333
+msgid "Failed to add book"
+msgid_plural "Failed to add books"
+msgstr[0] "Kitap eklenemedi"
+
+#: src/library.js:1335
+msgid "Could not add the following file:"
+msgid_plural "Could not add the following files:"
+msgstr[0] "Şu dosya(lar) eklenemedi:"
+
+#: src/library.js:1397
+msgid "All"
+msgstr "Tümü"
+
+#: src/library.js:1400 src/ui/catalogWindow.ui:39
+msgid "Title"
+msgstr "Başlık"
+
+#: src/library.js:1401
+msgid "Author"
+msgstr "Yazar"
+
+#: src/library.js:1402 src/properties.js:75
+msgid "Tags"
+msgstr "Etiketler"
+
+#: src/library.js:1403
+msgid "Description"
+msgstr "Açıklama"
+
+#: src/library.js:1404 src/properties.js:79
+msgid "Publisher"
+msgstr "Yayımcı"
+
+#: src/library.js:1405 src/properties.js:91 src/ui/ttsDialog.ui:284
+msgid "Language"
+msgstr "Dil"
+
+#: src/library.js:1442
+msgid "Add Files"
+msgstr "Dosya Ekle"
+
+#: src/library.js:1662 src/window.js:1308 src/ui/libraryWindow.ui:191
+msgid "Loading…"
+msgstr "Yükleniyor…"
+
+#: src/library.js:1703
+msgid "First"
+msgstr "İlk"
+
+#: src/library.js:1704
+msgid "Previous"
+msgstr "Önceki"
+
+#: src/library.js:1705
+msgid "Next"
+msgstr "Sonraki"
+
+#: src/library.js:1706
+msgid "Last"
+msgstr "Son"
+
+#: src/library.js:1755
+msgid "Related"
+msgstr "İlgili"
+
+#: src/library.js:1756
+msgid "Section"
+msgstr "Bölüm"
+
+#: src/library.js:1757
+msgid "Subsection"
+msgstr "Alt Bölüm"
+
+#: src/library.js:1758
+msgid "New"
+msgstr "Yeni"
+
+#: src/library.js:1759
+msgid "Popular"
+msgstr "Gözde"
+
+#: src/library.js:1760
+msgid "Featured"
+msgstr ""
+
+#: src/library.js:1761
+msgid "Recommended"
+msgstr "Önerilen"
+
+#: src/library.js:1792
+msgid "Filter"
+msgstr "Süzgeç"
+
+#: src/lookup.js:106
+msgid "Search on Wikipedia"
+msgstr "Wikipediaʼda Ara"
+
+#: src/lookup.js:228
+msgid "Source: "
+msgstr "Kaynak: "
+
+#: src/lookup.js:230
+msgid "Wiktionary"
+msgstr "Wiktionary"
+
+#: src/lookup.js:313
+msgid "Wiktionary (English)"
+msgstr "Wiktionary (İngilizce)"
+
+#: src/lookup.js:385
+msgid "Search on Wiktionary"
+msgstr "Wiktionaryʼde Ara"
+
+#: src/lookup.js:408
+msgid "Translation by Google Translate"
+msgstr "Google Çeviri ile çevrildi"
+
+#: src/main.js:115 src/window.js:657
+msgid "Open File"
+msgstr "Dosya Aç"
+
+#: src/main.js:136
+msgid "Open Catalog"
+msgstr "Katalog Aç"
+
+#: src/main.js:142 src/ui/catalogRow.ui:50
+msgid "Open"
+msgstr "Aç"
+
+#: src/main.js:146
+msgid "OPDS Catalog URL:"
+msgstr "OPDS Katalog URLʼsi:"
+
+#. Translators: put your names here, one name per line
+#. they will be shown in the "About" dialog
+#: src/main.js:180
+msgid "translator-credits"
+msgstr "Emin Tufan Çetin <etcetin@gmail.com>"
+
+#: src/main.js:182 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+msgid "A simple and modern eBook viewer"
+msgstr "Basit ve çağdaş e-kitap görüntüleyici"
+
+#: src/main.js:207
+msgid "Open library window"
+msgstr "Kitaplık penceresini aç"
+
+#: src/main.js:211
+msgid "Add files to the library"
+msgstr "Kitaplığa dosya ekle"
+
+#: src/main.js:215
+msgid "Show version"
+msgstr "Sürümü göster"
+
+#: src/main.js:219
+msgid "Show verbose debugging information"
+msgstr "Ayrıntılı hata ayıklama bilgisini göster"
+
+#: src/properties.js:76
+msgid " • "
+msgstr " • "
+
+#: src/properties.js:83
+msgid "Publication Date"
+msgstr "Yayım Tarihi"
+
+#: src/properties.js:87
+msgid "Modified Date"
+msgstr "Değişim Tarihi"
+
+#: src/properties.js:95
+msgid "File Size"
+msgstr "Dosya Boyutu"
+
+#: src/properties.js:99
+msgid "Format"
+msgstr "Biçim"
+
+#: src/properties.js:105
+msgid "Identifier"
+msgstr "Tanımlayıcı"
+
+#: src/properties.js:119
+msgid ""
+"This book has no identifier. This is the MD5 hash generated from the file."
+msgstr ""
+"Bu kitabın tanımlayıcısı yok. Bu, dosyadan oluşturulan MD5 özet bilgisidir."
+
+#: src/properties.js:130
+msgid "Copyright"
+msgstr "Telif Hakkı"
+
+#: src/properties.js:144
+msgid "Amazon"
+msgstr "Amazon"
+
+#: src/properties.js:148
+msgid "Goodreads"
+msgstr "Goodreads"
+
+#: src/properties.js:152
+msgid "Google Books"
+msgstr "Google Kitaplar"
+
+#: src/properties.js:156
+msgid "LibraryThing"
+msgstr "LibraryThing"
+
+#: src/properties.js:160
+msgid "Open Library"
+msgstr "Kitaplık Aç"
+
+#: src/properties.js:164
+msgid "WorldCat"
+msgstr "WorldCat"
+
+#: src/properties.js:203
+msgid "Find on…"
+msgstr "Şurada bul…"
+
+#: src/theme.js:23
+msgid "Light"
+msgstr "Aydınlık"
+
+#: src/theme.js:27
+msgid "Sepia"
+msgstr "Sepya"
+
+#: src/theme.js:31
+msgid "Gray"
+msgstr "Gri"
+
+#: src/theme.js:35
+msgid "Dark"
+msgstr "Karanlık"
+
+#: src/theme.js:39 src/ui/imageViewer.ui:56 src/ui/shortcutsWindow.ui:382
+#: src/ui/themeWindow.ui:145
+#: data/com.github.johnfactotum.Foliate.gschema.xml:172
+msgid "Invert"
+msgstr "Evirt"
+
+#: src/theme.js:43
+msgid "Solarized Light"
+msgstr "Soluk Işık"
+
+#: src/theme.js:47
+msgid "Solarized Dark"
+msgstr "Soluk Koyu"
+
+#: src/theme.js:51
+msgid "Gruvbox Light"
+msgstr "Gruvbox Aydınlık"
+
+#: src/theme.js:55
+msgid "Gruvbox Dark"
+msgstr "Gruvbox Karanlık"
+
+#: src/theme.js:59
+msgid "Nord"
+msgstr "Kuzey"
+
+#. Translatros: these are sentences from "The North Wind and the Sun",
+#. used for testing text-to-speech
+#: src/tts.js:225
+msgid "The North Wind and the Sun were disputing which was the stronger,"
+msgstr ""
+
+#: src/tts.js:226
+msgid "when a traveler came along wrapped in a warm cloak."
+msgstr ""
+
+#. Translators: this is the language code of the test sentences
+#: src/tts.js:228
+msgid "en"
+msgstr ""
+
+#: src/utils.js:87
+#, javascript-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d dakika"
+
+#: src/utils.js:90
+#, javascript-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d saat"
+
+#: src/utils.js:125
+msgid "E-book Files"
+msgstr "E-kitap Dosyaları"
+
+#: src/window.js:123 src/window.js:821
+msgid "Leave fullscreen"
+msgstr "Tam ekrandan çık"
+
+#: src/window.js:126 src/ui/mainMenu.ui:91
+#: data/com.github.johnfactotum.Foliate.gschema.xml:230
+msgid "Fullscreen"
+msgstr "Tam ekran"
+
+#: src/window.js:216 src/window.js:217
+#, javascript-format
+msgid "of %d"
+msgstr ""
+
+#: src/window.js:337
+#, javascript-format
+msgid "%d of %d"
+msgstr ""
+
+#: src/window.js:557
+msgid "This file or format does not work well with annotations"
+msgstr ""
+
+#: src/window.js:558
+msgid "Your annotations might stop working properly at any time."
+msgstr ""
+
+#: src/window.js:564
+msgid "Continue Anyway"
+msgstr ""
+
+#: src/window.js:675
+msgid "You don't have any annotations for this book."
+msgstr ""
+
+#: src/window.js:676
+msgid "Highlight some text to add annotations."
+msgstr "Açıklama eklemek için metin vurgulayın."
+
+#: src/window.js:800
+msgid "Contents"
+msgstr "İçerikler"
+
+#: src/window.js:804 data/com.github.johnfactotum.Foliate.gschema.xml:240
+msgid "Show sidebar"
+msgstr "Kenar çubuğunu göster"
+
+#: src/window.js:815 src/ui/selectionPopover.ui:47
+msgid "Find"
+msgstr "Bul"
+
+#: src/window.js:816 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
+msgid "Menu"
+msgstr ""
+
+#: src/window.js:1095
+#, javascript-format
+msgid "Image from “%s”"
+msgstr ""
+
+#: src/window.js:1095
+msgid "Image"
+msgstr ""
+
+#: src/ui/annotationBox.ui:35
+msgid "Change highlight color"
+msgstr "Vurgu rengini değiştir"
+
+#: src/ui/annotationBox.ui:98
+msgid "Choose custom color"
+msgstr "Özel renk seç"
+
+#: src/ui/bookBoxChild.ui:29 src/ui/bookBoxRow.ui:76
+msgid "Remote file"
+msgstr "Uzak dosya"
+
+#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
+#: src/ui/themeRow.ui:26
+msgid "Edit"
+msgstr "Düzenle"
+
+#: src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
+#: src/ui/themeWindow.ui:17
+msgid "Save"
+msgstr "Kaydet"
+
+#: src/ui/bookEditDialog.ui:46
+msgid "File URL:"
+msgstr "Dosya URLʼsi:"
+
+#: src/ui/bookEditDialog.ui:62
+msgid "Browse…"
+msgstr ""
+
+#: src/ui/bookEditDialog.ui:72
+msgid "Remove Book"
+msgstr "Kitabı Kaldır"
+
+#: src/ui/catalogWindow.ui:6
+msgid "OPDS Catalog"
+msgstr ""
+
+#: src/ui/catalogWindow.ui:53
+msgid "OPDS URL"
+msgstr ""
+
+#: src/ui/catalogWindow.ui:68
+msgid "Preview URL"
+msgstr ""
+
+#: src/ui/catalogWindow.ui:77
+msgid "Optional"
+msgstr ""
+
+#: src/ui/catalogWindow.ui:93
+msgid "Remove Catalog"
+msgstr "Kataloğu Kaldır"
+
+#: src/ui/contentsStack.ui:39
+msgid "Table of Contents"
+msgstr "İçindekiler"
+
+#: src/ui/contentsStack.ui:51
+msgid "Search annotations"
+msgstr "Not ara"
+
+#: src/ui/contentsStack.ui:92
+msgid "Select some text to add annotations."
+msgstr "Açıklama eklemek için metin seçin."
+
+#: src/ui/contentsStack.ui:124
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
+msgid "Annotations"
+msgstr "Açıklamalar"
+
+#: src/ui/contentsStack.ui:159
+msgid "No bookmarks"
+msgstr "Yer imi yok"
+
+#: src/ui/contentsStack.ui:171
+msgid "Add some bookmarks to see them here."
+msgstr "Burada görmek için yer imi ekleyin."
+
+#: src/ui/contentsStack.ui:216
+msgid "Bookmarks"
+msgstr "Yer İmleri"
+
+#: src/ui/dictionaryBox.ui:64
+msgid "No definitions found"
+msgstr "Tanım bulunamadı"
+
+#: src/ui/exportWindow.ui:11
+msgid "HTML"
+msgstr "HTML"
+
+#: src/ui/exportWindow.ui:15
+msgid "Markdown"
+msgstr "Markdown"
+
+#: src/ui/exportWindow.ui:19
+msgid "Plain Text"
+msgstr "Düz Metin"
+
+#: src/ui/exportWindow.ui:23
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: src/ui/exportWindow.ui:27
+msgid "JSON"
+msgstr "JSON"
+
+#: src/ui/exportWindow.ui:34
+msgid "Export Annotations"
+msgstr "Açıklamaları Dışa Aktar"
+
+#: src/ui/exportWindow.ui:45
+msgid "Export"
+msgstr "Dışa Aktar"
+
+#: src/ui/exportWindow.ui:67
+msgid "Choose export format:"
+msgstr "Dışa aktarım biçimi:"
+
+#: src/ui/exportWindow.ui:104
+msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
+msgstr ""
+
+#: src/ui/findBox.ui:16
+msgid "All chapters"
+msgstr "Tüm bölümler"
+
+#: src/ui/findBox.ui:22
+msgid "Current chapter"
+msgstr "Geçerli bölüm"
+
+#: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
+msgid "Footnote Preview"
+msgstr "Dipnot Önizleme"
+
+#: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
+#: src/ui/shortcutsWindow.ui:159 src/ui/shortcutsWindow.ui:342
+#: src/ui/wikipediaBox.ui:107
+#: data/com.github.johnfactotum.Foliate.gschema.xml:268
+msgid "View"
+msgstr "Görüntüle"
+
+#: src/ui/imageViewer.ui:31 src/ui/menuBar.ui:60 src/ui/preferenceWindow.ui:59
+#: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:311
+msgid "Copy"
+msgstr "Kopyala"
+
+#: src/ui/imageViewer.ui:44 src/ui/shortcutsWindow.ui:318
+msgid "Save as"
+msgstr "Farklı kaydet"
+
+#: src/ui/imageViewer.ui:126 src/ui/mainMenu.ui:50
+#: src/ui/shortcutsWindow.ui:171 src/ui/shortcutsWindow.ui:291
+#: src/ui/shortcutsWindow.ui:354
+msgid "Zoom out"
+msgstr "Uzaklaş"
+
+#: src/ui/imageViewer.ui:139 src/ui/mainMenu.ui:64
+msgid "Restore zoom"
+msgstr "Yakınlaşmayı düzelt"
+
+#: src/ui/imageViewer.ui:152 src/ui/mainMenu.ui:73
+#: src/ui/shortcutsWindow.ui:163 src/ui/shortcutsWindow.ui:284
+#: src/ui/shortcutsWindow.ui:346
+msgid "Zoom in"
+msgstr "Yakınlaş"
+
+#: src/ui/imageViewer.ui:184 src/ui/shortcutsWindow.ui:368
+msgid "Rotate 90° counter-clockwise"
+msgstr ""
+
+#: src/ui/imageViewer.ui:197 src/ui/shortcutsWindow.ui:375
+msgid "Rotate 90° clockwise"
+msgstr ""
+
+#: src/ui/importWindow.ui:17
+msgid "Import"
+msgstr "İçe Aktar"
+
+#: src/ui/importWindow.ui:34
+msgid "These annotations will be added:"
+msgstr ""
+
+#: src/ui/importWindow.ui:64
+msgid ""
+"The imported annotations will NOT overwrite the existing ones when they "
+"highlight the same passages."
+msgstr ""
+
+#: src/ui/libraryWindow.ui:7
+msgid "Open Book…"
+msgstr "Kitap Aç…"
+
+#: src/ui/libraryWindow.ui:11
+msgid "Open Catalog…"
+msgstr "Katalog Aç…"
+
+#: src/ui/libraryWindow.ui:17
+msgid "Add Books…"
+msgstr "Kitapları Ekle…"
+
+#: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:522
+msgid "Add Catalog…"
+msgstr "Katalog Ekle…"
+
+#: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
+#: src/ui/opdsWindow.ui:22 src/ui/preferenceWindow.ui:118
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: src/ui/libraryWindow.ui:30 src/ui/mainMenu.ui:323 src/ui/menuBar.ui:223
+msgid "Keyboard Shortcuts"
+msgstr "Klavye Kısayolları"
+
+#: src/ui/libraryWindow.ui:34 src/ui/mainMenu.ui:330 src/ui/menuBar.ui:227
+#: src/ui/opdsWindow.ui:26
+msgid "About Foliate"
+msgstr "Foliate Hakkında"
+
+#: src/ui/libraryWindow.ui:55
+msgid "Add books"
+msgstr "Kitapları ekle"
+
+#: src/ui/libraryWindow.ui:72
+msgid "Add catalog"
+msgstr "Katalog ekle"
+
+#: src/ui/libraryWindow.ui:135 src/ui/opdsWindow.ui:84
+#: src/ui/shortcutsWindow.ui:17
+msgid "Search"
+msgstr "Ara"
+
+#: src/ui/libraryWindow.ui:149
+msgid "Toggle view"
+msgstr "Görünümü değiştir"
+
+#: src/ui/libraryWindow.ui:210
+msgid "Stop"
+msgstr "Durdur"
+
+#: src/ui/libraryWindow.ui:320
+msgid "No books yet"
+msgstr "Henüz kitap yok"
+
+#: src/ui/libraryWindow.ui:332 src/ui/mainOverlay.ui:60
+msgid "Open a book to start reading."
+msgstr "Okumak için kitap açın."
+
+#: src/ui/libraryWindow.ui:346 src/ui/mainOverlay.ui:73
+msgid "Open File…"
+msgstr "Dosya Aç…"
+
+#: src/ui/libraryWindow.ui:354
+msgid "Browse Catalogs"
+msgstr "Kataloglara Göz At"
+
+#: src/ui/libraryWindow.ui:386
+msgid "No results found"
+msgstr "Sonuç bulunamadı"
+
+#: src/ui/libraryWindow.ui:398
+msgid "Try a different search."
+msgstr "Başka arama dene."
+
+#: src/ui/libraryWindow.ui:495
+msgid "No catalogs"
+msgstr "Katalog yok"
+
+#: src/ui/libraryWindow.ui:507
+msgid "You can browse, search, and download content from OPDS catalogs."
+msgstr ""
+"OPDS kataloglarına göz atabilir, arayabilir, içerikler indirebilirsiniz."
+
+#: src/ui/libraryWindow.ui:531
+msgid "Learn More"
+msgstr "Daha Çoğunu Öğren"
+
+#: src/ui/libraryWindow.ui:547
+msgid "Catalogs"
+msgstr "Kataloglar"
+
+#: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:177
+msgid "Brightness"
+msgstr "Parlaklık"
+
+#: src/ui/mainMenu.ui:148 data/com.github.johnfactotum.Foliate.gschema.xml:122
+#: data/com.github.johnfactotum.Foliate.gschema.xml:123
+msgid "Font"
+msgstr "Yazı Tipi"
+
+#: src/ui/mainMenu.ui:162 data/com.github.johnfactotum.Foliate.gschema.xml:127
+msgid "Spacing"
+msgstr "Aralık"
+
+#: src/ui/mainMenu.ui:176
+msgid "Margins"
+msgstr "Kenar Boşlukları"
+
+#: src/ui/mainMenu.ui:231
+msgid "Width"
+msgstr "Genişlik"
+
+#: src/ui/mainMenu.ui:232 data/com.github.johnfactotum.Foliate.gschema.xml:138
+msgid "Maximum page width"
+msgstr "Azami sayfa genişliği"
+
+#: src/ui/mainMenu.ui:266 src/ui/mainMenu.ui:343
+msgid "Theme"
+msgstr "Gövde"
+
+#: src/ui/mainMenu.ui:273 src/ui/mainMenu.ui:409 src/ui/preferenceWindow.ui:525
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+#: src/ui/mainMenu.ui:285 src/ui/mainMenu.ui:603 src/ui/shortcutsWindow.ui:124
+msgid "Book"
+msgstr "Kitap"
+
+#: src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8 src/ui/opdsWindow.ui:13
+msgid "Open…"
+msgstr "Aç…"
+
+#: src/ui/mainMenu.ui:383
+msgid "Add Custom Theme…"
+msgstr "Özel Gövde Ekle…"
+
+#: src/ui/mainMenu.ui:429 src/ui/menuBar.ui:108
+#: data/com.github.johnfactotum.Foliate.gschema.xml:197
+msgid "Layout"
+msgstr "Yerleşim"
+
+#: src/ui/mainMenu.ui:447 src/ui/menuBar.ui:111
+msgid "Automatic"
+msgstr "Kendiliğinden"
+
+#: src/ui/mainMenu.ui:455 src/ui/menuBar.ui:116
+msgid "Single Column"
+msgstr "Tek Sütun"
+
+#: src/ui/mainMenu.ui:463 src/ui/menuBar.ui:121
+msgid "Scrolled"
+msgstr "Kaydırılan"
+
+#: src/ui/mainMenu.ui:471 src/ui/menuBar.ui:126
+msgid "Continuous"
+msgstr "Sürekli"
+
+#: src/ui/mainMenu.ui:488
+msgid "Text"
+msgstr "Metin"
+
+#: src/ui/mainMenu.ui:505 src/ui/menuBar.ui:135
+msgid "Use Publisher Font"
+msgstr "Yayımcı Yazı Tipini Kullan"
+
+#: src/ui/mainMenu.ui:512 src/ui/menuBar.ui:139
+msgid "Full Justification"
+msgstr "İki Yana Yasla"
+
+#: src/ui/mainMenu.ui:519 src/ui/menuBar.ui:143
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:284
+msgid "Auto-hyphenation"
+msgstr "Kendiliğinden Tireleme"
+
+#: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114
+msgid "Other"
+msgstr "Diğer"
+
+#: src/ui/mainMenu.ui:560 src/ui/menuBar.ui:153
+msgid "Auto-hide Cursor"
+msgstr "İmleci Kendiliğinden Gizle"
+
+#: src/ui/mainMenu.ui:567 src/ui/menuBar.ui:157
+msgid "Realistic Shadows"
+msgstr "Gerçekçi Gölgeler"
+
+#: src/ui/mainMenu.ui:579
+msgid "Allow JavaScript"
+msgstr "JavaScriptʼe İzin ver"
+
+#: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
+msgid "Allow Unsafe Content"
+msgstr "Güvensiz İçeriklere İzin ver"
+
+#: src/ui/mainMenu.ui:587 src/ui/menuBar.ui:167
+msgid "Enable Developer Tools"
+msgstr "Geliştirici Araçlarını Etkinleştir"
+
+#: src/ui/mainMenu.ui:625 src/ui/menuBar.ui:14
+msgid "Open a Copy"
+msgstr "Kopya Aç"
+
+#: src/ui/mainMenu.ui:632 src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:93
+msgid "Reload"
+msgstr "Yeniden yükle"
+
+#: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
+msgid "Clear Cache"
+msgstr "Önbelleği Temizle"
+
+#: src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
+msgid "Export Annotations…"
+msgstr "Notları Dışa Aktar…"
+
+#: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
+msgid "Import Annotations…"
+msgstr "Notları İçe Aktar…"
+
+#: src/ui/mainOverlay.ui:48
+msgid "No books open"
+msgstr "Açık kitap yok"
+
+#: src/ui/mainOverlay.ui:88
+msgid "Recent Files"
+msgstr "Son Dosyalar"
+
+#: src/ui/mainOverlay.ui:129
+msgid "Could not open file"
+msgstr "Dosya açılamadı"
+
+#: src/ui/mainOverlay.ui:150
+msgid "Open Another File…"
+msgstr "Başka Dosya Aç…"
+
+#: src/ui/menuBar.ui:5
+msgid "_File"
+msgstr "_Dosya"
+
+#: src/ui/menuBar.ui:28
+msgid "Properties"
+msgstr "Özellikler"
+
+#: src/ui/menuBar.ui:46
+msgid "Close Window"
+msgstr "Pencereyi Kapat"
+
+#: src/ui/menuBar.ui:50 src/ui/shortcutsWindow.ui:31
+#: src/ui/shortcutsWindow.ui:114 src/ui/shortcutsWindow.ui:332
+msgid "Quit"
+msgstr "Çık"
+
+#: src/ui/menuBar.ui:57
+msgid "_Edit"
+msgstr "_Düzenle"
+
+#: src/ui/menuBar.ui:66
+msgid "Bookmark Current Location"
+msgstr "Geçerli Konumu Yer İmlerine Ekle"
+
+#: src/ui/menuBar.ui:72 src/ui/ttsDialog.ui:6
+msgid "Text-to-Speech"
+msgstr "Metinden Sese"
+
+#: src/ui/menuBar.ui:85
+msgid "_View"
+msgstr "_Görünüm"
+
+#: src/ui/menuBar.ui:88
+msgid "Toggle Fullscreen"
+msgstr "Tam Ekranı Aç/Kapat"
+
+#: src/ui/menuBar.ui:94
+msgid "Zoom In"
+msgstr "Yakınlaş"
+
+#: src/ui/menuBar.ui:98
+msgid "Restore Zoom"
+msgstr "Yakınlaşmayı Düzelt"
+
+#: src/ui/menuBar.ui:102
+msgid "Zoom Out"
+msgstr "Uzaklaş"
+
+#: src/ui/menuBar.ui:174
+msgid "_Go"
+msgstr "_Git"
+
+#: src/ui/menuBar.ui:177
+msgid "Go Back"
+msgstr "Geri Git"
+
+#: src/ui/menuBar.ui:183
+msgid "Next Page"
+msgstr "Sonraki Sayfa"
+
+#: src/ui/menuBar.ui:187
+msgid "Previous Page"
+msgstr "Önceki Sayfa"
+
+#: src/ui/menuBar.ui:193
+msgid "Next Chapter"
+msgstr "Sonraki Bölüm"
+
+#: src/ui/menuBar.ui:197
+msgid "Previous Chapter"
+msgstr "Önceki Bölüm"
+
+#: src/ui/menuBar.ui:203
+msgid "Beginning"
+msgstr "Başlangıç"
+
+#: src/ui/menuBar.ui:207
+msgid "End"
+msgstr "Bitiş"
+
+#: src/ui/menuBar.ui:213 src/ui/navBar.ui:134 src/ui/navBar.ui:313
+#: src/ui/preferenceWindow.ui:19
+msgid "Location"
+msgstr "Konum"
+
+#: src/ui/menuBar.ui:220
+msgid "_Help"
+msgstr "_Yardım"
+
+#: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
+msgid "Time left in book"
+msgstr "Kitapta kalan zaman"
+
+#: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
+msgid "Time left in chapter"
+msgstr "Bölümde kalan zaman"
+
+#: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
+msgid "Chapter"
+msgstr "Bölüm"
+
+#: src/ui/navBar.ui:173
+msgid "CFI"
+msgstr "CFI"
+
+#: src/ui/navBar.ui:174
+msgid "EPUB Canonical Fragment Identifier"
+msgstr "EPUB Canonical Fragment Identifier"
+
+#: src/ui/navBar.ui:213
+msgid "Go to beginning of book"
+msgstr "Kitabın başına git"
+
+#: src/ui/navBar.ui:227
+msgid "Go to previous chapter"
+msgstr "Önceki bölüme git"
+
+#: src/ui/navBar.ui:241
+msgid "Go to next chapter"
+msgstr "Sonraki bölüme git"
+
+#: src/ui/navBar.ui:255
+msgid "Go to end of book"
+msgstr "Kitabın sonuna git"
+
+#: src/ui/navBar.ui:284 src/ui/shortcutsWindow.ui:241
+#: src/ui/shortcutsWindow.ui:277
+msgid "Go to previous page"
+msgstr "Önceki sayfaya git"
+
+#: src/ui/navBar.ui:298 src/ui/shortcutsWindow.ui:248
+msgid "Go back to previous location"
+msgstr "Önceki konuma git"
+
+#: src/ui/navBar.ui:387 src/ui/shortcutsWindow.ui:234
+#: src/ui/shortcutsWindow.ui:270
+msgid "Go to next page"
+msgstr "Sonraki sayfaya git"
+
+#: src/ui/navBar.ui:402
+msgid "Text-to-speech"
+msgstr "Metinden sese"
+
+#: src/ui/opdsWindow.ui:17
+msgid "Open a Catalog…"
+msgstr "Katalog Aç…"
+
+#: src/ui/opdsWindow.ui:43
+msgid "Go back"
+msgstr "Geri git"
+
+#: src/ui/opdsWindow.ui:56
+msgid "Go to start"
+msgstr "Başlangıca git"
+
+#: src/ui/preferenceWindow.ui:11
+msgid "Nothing"
+msgstr "Hiçbir şey"
+
+#: src/ui/preferenceWindow.ui:15
+msgid "Percentage"
+msgstr "Yüzde"
+
+#: src/ui/preferenceWindow.ui:27
+msgid "Chapter name"
+msgstr "Bölüm adı"
+
+#: src/ui/preferenceWindow.ui:39
+msgid "Clock"
+msgstr "Saat"
+
+#: src/ui/preferenceWindow.ui:51
+msgid "Do nothing"
+msgstr "Bir şey yapma"
+
+#: src/ui/preferenceWindow.ui:55
+msgid "Show menu"
+msgstr "Menüyü göster"
+
+#: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:33
+msgid "Highlight"
+msgstr "Vurgula"
+
+#: src/ui/preferenceWindow.ui:67
+msgid "Look up in dictionary"
+msgstr "Sözlükte bak"
+
+#: src/ui/preferenceWindow.ui:71
+msgid "Look up in Wikipedia"
+msgstr "Wikipediaʼda bak"
+
+#: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:93
+msgid "Translate"
+msgstr "Çevir"
+
+#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:135
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
+msgid "Find in book"
+msgstr "Kitapta bul"
+
+#: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:59
+#: src/ui/ttsDialog.ui:165
+msgid "Speak"
+msgstr "Seslendir"
+
+#: src/ui/preferenceWindow.ui:95
+msgid "Disabled"
+msgstr "Devre dışı"
+
+#: src/ui/preferenceWindow.ui:99
+msgid "Single click"
+msgstr "Tek tık"
+
+#: src/ui/preferenceWindow.ui:103
+msgid "Double click"
+msgstr "Çift tık"
+
+#: src/ui/preferenceWindow.ui:107
+msgid "Middle click"
+msgstr "Orta tık"
+
+#: src/ui/preferenceWindow.ui:111
+msgid "Right click"
+msgstr "Sağ tık"
+
+#: src/ui/preferenceWindow.ui:142 src/ui/shortcutsWindow.ui:13
+#: src/ui/shortcutsWindow.ui:307
+msgid "General"
+msgstr "Genel"
+
+#: src/ui/preferenceWindow.ui:157
+msgid "Open last opened file on startup"
+msgstr "Son açılan dosyayı başlangıçta aç"
+
+#: src/ui/preferenceWindow.ui:176
+msgid "Reading"
+msgstr "Okuma"
+
+#: src/ui/preferenceWindow.ui:191
+#: data/com.github.johnfactotum.Foliate.gschema.xml:104
+msgid "Turn page on tap"
+msgstr "Dokununca sayfayı değiştir"
+
+#: src/ui/preferenceWindow.ui:214
+#: data/com.github.johnfactotum.Foliate.gschema.xml:94
+msgid "Left footer"
+msgstr "Sol alt"
+
+#: src/ui/preferenceWindow.ui:248
+#: data/com.github.johnfactotum.Foliate.gschema.xml:99
+msgid "Right footer"
+msgstr "Sağ alt"
+
+#: src/ui/preferenceWindow.ui:282
+msgid "When a word is selected"
+msgstr "Sözcük seçildiğinde"
+
+#: src/ui/preferenceWindow.ui:316
+msgid "When multiple words are selected"
+msgstr "Çoklu sözlük seçildiğinde"
+
+#: src/ui/preferenceWindow.ui:350
+msgid "Open images on"
+msgstr "Resimleri şunda aç"
+
+#: src/ui/preferenceWindow.ui:385
+#: data/com.github.johnfactotum.Foliate.gschema.xml:74
+msgid "Text-to-speech command"
+msgstr "Metinden sese komutu"
+
+#: src/ui/preferenceWindow.ui:401
+msgid "Configure…"
+msgstr "Yapılandır…"
+
+#: src/ui/preferenceWindow.ui:413
+msgid "Interface"
+msgstr "Arayüz"
+
+#: src/ui/preferenceWindow.ui:428
+msgid "Auto-hide header bar"
+msgstr "Başlık çubuğunu kendiliğinden gizle"
+
+#: src/ui/preferenceWindow.ui:462
+#: data/com.github.johnfactotum.Foliate.gschema.xml:79
+msgid "Use sidebar"
+msgstr "Kenar çubuğu kullan"
+
+#: src/ui/preferenceWindow.ui:490
+msgid "Use traditional titlebar (experimental)"
+msgstr "Geleneksel başlık çubuğu kullan (deneysel)"
+
+#: src/ui/preferenceWindow.ui:498 src/ui/preferenceWindow.ui:553
+#: src/ui/preferenceWindow.ui:595
+msgid "Requires restart"
+msgstr "Yeniden başlatma gerektirir"
+
+#: src/ui/preferenceWindow.ui:545
+msgid "Use Tracker to track file locations"
+msgstr "Dosya konumlarını takip etmek için Tracker kullan"
+
+#: src/ui/preferenceWindow.ui:587
+msgid "Save file locations"
+msgstr "Dosya konumlarını kaydet"
+
+#: src/ui/preferenceWindow.ui:625
+#: data/com.github.johnfactotum.Foliate.gschema.xml:24
+msgid "Cache locations"
+msgstr "Önbellek konumları"
+
+#: src/ui/preferenceWindow.ui:649
+msgid "Cache book covers"
+msgstr "Kitap kapaklarını önbellekle"
+
+#: src/ui/selectionPopover.ui:79
+msgid "Look Up in Dictionary"
+msgstr "Sözlükte Bak"
+
+#: src/ui/selectionPopover.ui:86
+msgid "Look Up in Wikipedia"
+msgstr "Wikipediaʼda Bak"
+
+#: src/ui/selectionPopover.ui:105
+msgid "Speak from Here"
+msgstr "Buradan Konuş"
+
+#: src/ui/shortcutsWindow.ui:9
+msgid "Library Shortcuts"
+msgstr "Kitaplık Kısayolları"
+
+#: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:107
+#: src/ui/shortcutsWindow.ui:325
+msgid "Close current window"
+msgstr "Geçerli pencereyi kapat"
+
+#: src/ui/shortcutsWindow.ui:44 src/ui/shortcutsWindow.ui:220
+msgid "Show primary menu"
+msgstr "Ana menüyü göster"
+
+#: src/ui/shortcutsWindow.ui:51
+msgid "List view"
+msgstr "Liste görünümü"
+
+#: src/ui/shortcutsWindow.ui:58
+msgid "Grid view"
+msgstr "Izgara görünümü"
+
+#: src/ui/shortcutsWindow.ui:71
+msgid "E-book Viewer Shortcuts"
+msgstr "E-Kitap Görüntüleyici Kısayolları"
+
+#: src/ui/shortcutsWindow.ui:75
+msgid "File"
+msgstr "Dosya"
+
+#: src/ui/shortcutsWindow.ui:79
+msgid "Open file"
+msgstr "Dosya aç"
+
+#: src/ui/shortcutsWindow.ui:86
+msgid "Open a copy"
+msgstr "Kopya aç"
+
+#: src/ui/shortcutsWindow.ui:100
+msgid "Clear cache"
+msgstr "Önbelleği temizle"
+
+#: src/ui/shortcutsWindow.ui:142
+msgid "View book info"
+msgstr "Kitap bilgisini göster"
+
+#: src/ui/shortcutsWindow.ui:149
+msgid "Start/stop text-to-speech"
+msgstr "Metinden sese başlat/durdur"
+
+#: src/ui/shortcutsWindow.ui:178 src/ui/shortcutsWindow.ui:361
+msgid "Restore zoom level"
+msgstr "Yaklaşma düzeyini düzelt"
+
+#: src/ui/shortcutsWindow.ui:185
+msgid "Toggle fullscreen"
+msgstr "Tam ekranı aç/kapat"
+
+#: src/ui/shortcutsWindow.ui:192
+msgid "Show contents"
+msgstr "İçerikleri göster"
+
+#: src/ui/shortcutsWindow.ui:199
+msgid "Show table of contents"
+msgstr "İçindekiler tablosunu göster"
+
+#: src/ui/shortcutsWindow.ui:206
+msgid "Show annotations"
+msgstr "Notları göster"
+
+#: src/ui/shortcutsWindow.ui:213
+msgid "Show bookmarks"
+msgstr "Yer imlerini göster"
+
+#: src/ui/shortcutsWindow.ui:230
+msgid "Navigation"
+msgstr "Gezinme"
+
+#: src/ui/shortcutsWindow.ui:256
+msgid "Go to location"
+msgstr "Konuma git"
+
+#: src/ui/shortcutsWindow.ui:266
+msgid "Touchpad Gestures"
+msgstr "Dokunmatik Yüzey Hareketleri"
+
+#: src/ui/shortcutsWindow.ui:303
+msgid "Image Viewer Shortcuts"
+msgstr "Resim Görüntüleyici Kısayolları"
+
+#: src/ui/themeWindow.ui:6
+msgid "Custom Theme"
+msgstr "Özel Tema"
+
+#: src/ui/themeWindow.ui:39
+msgid "Theme Name"
+msgstr "Tema Adı"
+
+#: src/ui/themeWindow.ui:64
+msgid "Background"
+msgstr "Arka Plan"
+
+#: src/ui/themeWindow.ui:78
+msgid "Text Color"
+msgstr "Metin Rengi"
+
+#: src/ui/themeWindow.ui:92
+msgid "Link Color"
+msgstr "Bağlantı Rengi"
+
+#: src/ui/themeWindow.ui:159
+msgid "Dark Mode"
+msgstr "Karanlık Kip"
+
+#: src/ui/themeWindow.ui:200
+msgid "Remove Theme"
+msgstr "Temayı Kaldır"
+
+#: src/ui/translationBox.ui:53
+msgid "Cannot retrieve translation"
+msgstr "Çeviri alınamıyor"
+
+#: src/ui/translationBox.ui:127
+msgid "Afrikaans"
+msgstr "Afrikaanca"
+
+#: src/ui/translationBox.ui:131
+msgid "Albanian"
+msgstr "Arnavutça"
+
+#: src/ui/translationBox.ui:135
+msgid "Amharic"
+msgstr "Amharca"
+
+#: src/ui/translationBox.ui:139
+msgid "Arabic"
+msgstr "Arapça"
+
+#: src/ui/translationBox.ui:143
+msgid "Armenian"
+msgstr "Ermenice"
+
+#: src/ui/translationBox.ui:147
+msgid "Azerbaijani"
+msgstr "Azerbaycanca"
+
+#: src/ui/translationBox.ui:151
+msgid "Basque"
+msgstr "Baskça"
+
+#: src/ui/translationBox.ui:155
+msgid "Belarusian"
+msgstr "Beyaz Rusça"
+
+#: src/ui/translationBox.ui:159
+msgid "Bengali"
+msgstr "Bengalce"
+
+#: src/ui/translationBox.ui:163
+msgid "Bosnian"
+msgstr "Boşnakça"
+
+#: src/ui/translationBox.ui:167
+msgid "Bulgarian"
+msgstr "Bulgarca"
+
+#: src/ui/translationBox.ui:171
+msgid "Catalan"
+msgstr "Katalanca"
+
+#: src/ui/translationBox.ui:175
+msgid "Cebuano"
+msgstr "Sebuanca"
+
+#: src/ui/translationBox.ui:179
+msgid "Chinese (Simplified)"
+msgstr "Çince (Basitleştirilmiş)"
+
+#: src/ui/translationBox.ui:183
+msgid "Chinese (Traditional)"
+msgstr "Çince (Geleneksel)"
+
+#: src/ui/translationBox.ui:187
+msgid "Corsican"
+msgstr "Korsikaca"
+
+#: src/ui/translationBox.ui:191
+msgid "Croatian"
+msgstr "Hırvatça"
+
+#: src/ui/translationBox.ui:195
+msgid "Czech"
+msgstr "Çekçe"
+
+#: src/ui/translationBox.ui:199
+msgid "Danish"
+msgstr "Danca"
+
+#: src/ui/translationBox.ui:203
+msgid "Dutch"
+msgstr "Felemenkçe"
+
+#: src/ui/translationBox.ui:207
+msgid "English"
+msgstr "İngilizce"
+
+#: src/ui/translationBox.ui:211
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#: src/ui/translationBox.ui:215
+msgid "Estonian"
+msgstr "Estonca"
+
+#: src/ui/translationBox.ui:219
+msgid "Finnish"
+msgstr "Fince"
+
+#: src/ui/translationBox.ui:223
+msgid "French"
+msgstr "Fransızca"
+
+#: src/ui/translationBox.ui:227
+msgid "Frisian"
+msgstr "Frizce"
+
+#: src/ui/translationBox.ui:231
+msgid "Galician"
+msgstr "Galiçyaca"
+
+#: src/ui/translationBox.ui:235
+msgid "Georgian"
+msgstr "Gürcüce"
+
+#: src/ui/translationBox.ui:239
+msgid "German"
+msgstr "Almanca"
+
+#: src/ui/translationBox.ui:243
+msgid "Greek"
+msgstr "Yunanca"
+
+#: src/ui/translationBox.ui:247
+msgid "Gujarati"
+msgstr "Guceratça"
+
+#: src/ui/translationBox.ui:251
+msgid "Haitian Creole"
+msgstr "Haiti Kreyolcesi"
+
+#: src/ui/translationBox.ui:255
+msgid "Hausa"
+msgstr "Hausa"
+
+#: src/ui/translationBox.ui:259
+msgid "Hawaiian"
+msgstr "Hawaiice"
+
+#: src/ui/translationBox.ui:263
+msgid "Hebrew"
+msgstr "İbranice"
+
+#: src/ui/translationBox.ui:267
+msgid "Hindi"
+msgstr "Hintçe"
+
+#: src/ui/translationBox.ui:271
+msgid "Hmong"
+msgstr "Mongca"
+
+#: src/ui/translationBox.ui:275
+msgid "Hungarian"
+msgstr "Macarca"
+
+#: src/ui/translationBox.ui:279
+msgid "Icelandic"
+msgstr "İzlandaca"
+
+#: src/ui/translationBox.ui:283
+msgid "Igbo"
+msgstr "İgboca"
+
+#: src/ui/translationBox.ui:287
+msgid "Indonesian"
+msgstr "Endonezyaca"
+
+#: src/ui/translationBox.ui:291
+msgid "Irish"
+msgstr "İrlandaca"
+
+#: src/ui/translationBox.ui:295
+msgid "Italian"
+msgstr "İtalyanca"
+
+#: src/ui/translationBox.ui:299
+msgid "Japanese"
+msgstr "Japonca"
+
+#: src/ui/translationBox.ui:303
+msgid "Javanese"
+msgstr "Cava Dili"
+
+#: src/ui/translationBox.ui:307
+msgid "Kannada"
+msgstr "Kannada Dili"
+
+#: src/ui/translationBox.ui:311
+msgid "Kazakh"
+msgstr "Kazakça"
+
+#: src/ui/translationBox.ui:315
+msgid "Khmer"
+msgstr "Kmer"
+
+#: src/ui/translationBox.ui:319
+msgid "Korean"
+msgstr "Korece"
+
+#: src/ui/translationBox.ui:323
+msgid "Kurdish"
+msgstr "Kürtçe"
+
+#: src/ui/translationBox.ui:327
+msgid "Kyrgyz"
+msgstr "Kırgızca"
+
+#: src/ui/translationBox.ui:331
+msgid "Lao"
+msgstr "Laoca"
+
+#: src/ui/translationBox.ui:335
+msgid "Latin"
+msgstr "Latince"
+
+#: src/ui/translationBox.ui:339
+msgid "Latvian"
+msgstr "Letonca"
+
+#: src/ui/translationBox.ui:343
+msgid "Lithuanian"
+msgstr "Litvanca"
+
+#: src/ui/translationBox.ui:347
+msgid "Luxembourgish"
+msgstr "Lüksemburgca"
+
+#: src/ui/translationBox.ui:351
+msgid "Macedonian"
+msgstr "Makedonca"
+
+#: src/ui/translationBox.ui:355
+msgid "Malagasy"
+msgstr "Madagaskar Dili"
+
+#: src/ui/translationBox.ui:359
+msgid "Malay"
+msgstr "Malaya Dili"
+
+#: src/ui/translationBox.ui:363
+msgid "Malayalam"
+msgstr "Malayalamca"
+
+#: src/ui/translationBox.ui:367
+msgid "Maltese"
+msgstr "Maltaca"
+
+#: src/ui/translationBox.ui:371
+msgid "Maori"
+msgstr "Yeni Zelanda yerli dili"
+
+#: src/ui/translationBox.ui:375
+msgid "Marathi"
+msgstr "Marathi Dili"
+
+#: src/ui/translationBox.ui:379
+msgid "Mongolian"
+msgstr "Moğolca"
+
+#: src/ui/translationBox.ui:383
+msgid "Myanmar (Burmese)"
+msgstr "Miyanmar (Burmaca)"
+
+#: src/ui/translationBox.ui:387
+msgid "Nepali"
+msgstr "Nepalce"
+
+#: src/ui/translationBox.ui:391
+msgid "Norwegian"
+msgstr "Norveççe"
+
+#: src/ui/translationBox.ui:395
+msgid "Nyanja (Chichewa)"
+msgstr "Nyanja (Çevaca)"
+
+#: src/ui/translationBox.ui:399
+msgid "Pashto"
+msgstr "Peştuca"
+
+#: src/ui/translationBox.ui:403
+msgid "Persian"
+msgstr "Farsça"
+
+#: src/ui/translationBox.ui:407
+msgid "Polish"
+msgstr "Lehçe"
+
+#: src/ui/translationBox.ui:411
+msgid "Portuguese (Portugal, Brazil)"
+msgstr "Portekizce (Portekiz, Brezilya)"
+
+#: src/ui/translationBox.ui:415
+msgid "Punjabi"
+msgstr "Pencap Dili"
+
+#: src/ui/translationBox.ui:419
+msgid "Romanian"
+msgstr "Rumence"
+
+#: src/ui/translationBox.ui:423
+msgid "Russian"
+msgstr "Rusça"
+
+#: src/ui/translationBox.ui:427
+msgid "Samoan"
+msgstr "Samoaca"
+
+#: src/ui/translationBox.ui:431
+msgid "Scots Gaelic"
+msgstr "İskoç Galcesi"
+
+#: src/ui/translationBox.ui:435
+msgid "Serbian"
+msgstr "Sırpça"
+
+#: src/ui/translationBox.ui:439
+msgid "Sesotho"
+msgstr "Sothoca"
+
+#: src/ui/translationBox.ui:443
+msgid "Shona"
+msgstr "Shona"
+
+#: src/ui/translationBox.ui:447
+msgid "Sindhi"
+msgstr "Sintçe"
+
+#: src/ui/translationBox.ui:451
+msgid "Sinhala (Sinhalese)"
+msgstr "Sinhala (Sinhalaca)"
+
+#: src/ui/translationBox.ui:455
+msgid "Slovak"
+msgstr "Slovakça"
+
+#: src/ui/translationBox.ui:459
+msgid "Slovenian"
+msgstr "Slovence"
+
+#: src/ui/translationBox.ui:463
+msgid "Somali"
+msgstr "Somali"
+
+#: src/ui/translationBox.ui:467
+msgid "Spanish"
+msgstr "İspanyolca"
+
+#: src/ui/translationBox.ui:471
+msgid "Sundanese"
+msgstr "Sundanez"
+
+#: src/ui/translationBox.ui:475
+msgid "Swahili"
+msgstr "Savahilice"
+
+#: src/ui/translationBox.ui:479
+msgid "Swedish"
+msgstr "İsveççe"
+
+#: src/ui/translationBox.ui:483
+msgid "Tagalog (Filipino)"
+msgstr "Tagalog (Filipince)"
+
+#: src/ui/translationBox.ui:487
+msgid "Tajik"
+msgstr "Tacikçe"
+
+#: src/ui/translationBox.ui:491
+msgid "Tamil"
+msgstr "Tamil Dili"
+
+#: src/ui/translationBox.ui:495
+msgid "Telugu"
+msgstr "Teluguca"
+
+#: src/ui/translationBox.ui:499
+msgid "Thai"
+msgstr "Tayca"
+
+#: src/ui/translationBox.ui:503
+msgid "Turkish"
+msgstr "Türkçe"
+
+#: src/ui/translationBox.ui:507
+msgid "Ukrainian"
+msgstr "Ukraynaca"
+
+#: src/ui/translationBox.ui:511
+msgid "Urdu"
+msgstr "Urduca"
+
+#: src/ui/translationBox.ui:515
+msgid "Uzbek"
+msgstr "Özbekçe"
+
+#: src/ui/translationBox.ui:519
+msgid "Vietnamese"
+msgstr "Vietnamca"
+
+#: src/ui/translationBox.ui:523
+msgid "Welsh"
+msgstr "Galce"
+
+#: src/ui/translationBox.ui:527
+msgid "Xhosa"
+msgstr "Xhosa Dili"
+
+#: src/ui/translationBox.ui:531
+msgid "Yiddish"
+msgstr "Yidiş"
+
+#: src/ui/translationBox.ui:535
+msgid "Yoruba"
+msgstr "Yorubaca"
+
+#: src/ui/translationBox.ui:539
+msgid "Zulu"
+msgstr "Zulu Dili"
+
+#: src/ui/ttsDialog.ui:17
+msgid "OK"
+msgstr "Tamam"
+
+#: src/ui/ttsDialog.ui:46
+msgid "Text-to-Speech Command"
+msgstr "Metinden Sese Komutu"
+
+#: src/ui/ttsDialog.ui:57
+msgid "Make sure the selected text-to-speech program is correctly installed."
+msgstr ""
+
+#: src/ui/ttsDialog.ui:63
+msgid "eSpeak NG"
+msgstr "eSpeak NG"
+
+#: src/ui/ttsDialog.ui:80 src/ui/ttsDialog.ui:106 src/ui/ttsDialog.ui:269
+msgid "Reset"
+msgstr ""
+
+#: src/ui/ttsDialog.ui:88
+msgid "Festival"
+msgstr ""
+
+#: src/ui/ttsDialog.ui:137
+msgid ""
+"<small>The environment variable <tt>$FOLIATE_TTS_LANG</tt> is available for "
+"the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for "
+"the all lower case code.</small>"
+msgstr ""
+
+#: src/ui/ttsDialog.ui:156
+msgid "Test Your Configuration"
+msgstr ""
+
+#: src/ui/ttsDialog.ui:178
+msgid "The program should speak the following test sentences in order:"
+msgstr ""
+
+#: src/ui/ttsDialog.ui:191
+msgid "1"
+msgstr ""
+
+#: src/ui/ttsDialog.ui:228
+msgid "2"
+msgstr ""
+
+#: src/ui/wikipediaBox.ui:53
+msgid "No entry found"
+msgstr "Girdi bulunamadı"
+
+#: src/ui/wikipediaBox.ui:80
+msgid "Wikipedia"
+msgstr "Vikipedi"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
+msgid "Foliate is a simple and modern GTK eBook viewer."
+msgstr "Foliate, basit ve çağdaş GTK eKitap görüntüleyicidir."
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:11
+msgid "Features include:"
+msgstr "Şu özellikleri vardır:"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:13
+msgid "Two-page view and scrolled view"
+msgstr "İki sayfalı görünüm ve kaydırmalı görünüm"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:14
+msgid "Customize font and line-spacing"
+msgstr "Özelleştirilebilir yazı tipi ve satır boşluklama"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
+msgid "Light, sepia, dark, and invert mode"
+msgstr "Aydınlık, sepya, karanlık ve ters çevirme kipi"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
+msgid "Reading progress slider with chapter marks"
+msgstr "Bölüm imleriyle okuma süreci kaydırıcı"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
+msgid "Bookmarks and annotations"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
+msgid "Quick dictionary lookup"
+msgstr "Hızlı sözlük göz atma"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:22
+msgid "John Factotum"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:195
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:226
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:237
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:252
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:261
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:296
+msgid "Changes:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
+msgid "Fixed blurry book covers on HiDPI"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
+msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
+msgid "Fixed wrong view icon on startup"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
+msgid "Library:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
+msgid "A library view showing recent books and reading progress"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
+msgid "Search books by metadata"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
+msgid "E-book discovery with OPDS"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
+msgid "New supported formats:"
+msgstr "Yeni desteklenen biçimler:"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
+msgid "FictionBook (.fb2, .fb2.zip)"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
+msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
+msgid "Plain text (.txt)"
+msgstr "Düz metin (.txt)"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
+msgid "Unpacked EPUB files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
+msgid "Layout:"
+msgstr "Yerleşim:"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
+msgid "Option to set maximum page width"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
+msgid ""
+"The \"Automatic\" layout will now show four columns when the page width is "
+"wide"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
+msgid "Image viewer:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
+msgid ""
+"Improved image viewer, with new shortcuts and the ability to rotate and "
+"invert images"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
+msgid ""
+"Option to disable image viewer, or to open images on double, middle, or "
+"right click"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
+msgid "Text-to-speech:"
+msgstr "Metinden sese:"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:84
+msgid "Improved text-to-speech configuration UI"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
+msgid "Ability to set text-to-speech voice based on book language"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+msgid "Import annotations from JSON"
+msgstr "JSONʼdan notları içe aktar"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
+msgid "Search in annotations"
+msgstr "Notlarda ara"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+msgid "Annotations are now sorted in the same order as they appear in the book"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
+msgid "Security:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
+msgid ""
+"\"Allow Unsafe Content\" now only enables JavaScript; external content will "
+"no longer be loaded"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
+msgid "WebKit processes are now sandboxed"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
+msgid "Other featues and fixes:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:100
+msgid "Improved support for vertical and right-to-left books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
+msgid "Support for StarDict dictionaries"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:102
+msgid "Fixed current location not preserved when resizing"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:103
+msgid "Fixed auto-hiding header bar under some themes"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
+msgid "Command-line options for showing version and adding books to library"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:105
+msgid "Option to clear or disable cache"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
+msgid ""
+"When an HTML page contains invalid self-closing anchor tags, it is now "
+"parsed as XHTML"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:128
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:206
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:273
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:313
+msgid "Fixes:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:114
+msgid "Fixed wrong version number"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
+msgid ""
+"Fixed dictionary, translation, and Wikipedia not working in the Snap package"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:282
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:305
+msgid "New features:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:123
+msgid "New and improved icon"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:124
+msgid "Option to disable turn page on tap"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:125
+msgid "A menu on the welcome screen for opening recent files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
+msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:130
+msgid "Fixed application not translated"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
+msgid "Interface:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:138
+msgid "A redesigned interface that works better for smaller screens"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:139
+msgid "Improved fullscreen mode with an overlaid headerbar"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:140
+msgid ""
+"The headerbar and the progress bar now auto-hide, for a distraction-free "
+"reading experience"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:141
+msgid ""
+"Various location information, as well as a clock, can now be displayed in "
+"the footer"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
+msgid ""
+"A new location popover (Ctrl + L) that shows reading time estimates and "
+"allows skipping to locations"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
+msgid ""
+"E-reader style navigation: go to the previous or next page by tapping on the "
+"left or right part of the view; tap on the middle to toggle header bar and "
+"progress bar"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:144
+msgid "Annotations, bookmarks, and find results now show chapter titles"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:145
+msgid "When looking up words in dictionaries, the query can now be edited"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:146
+msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:147
+msgid ""
+"A new traditional menubar, which may be displayed depending on the desktop "
+"environment"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
+msgid ""
+"Option to use a traditional titlebar and menubar instead of a headerbar "
+"(experimental)"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:150
+msgid "Reading:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
+msgid "Continuous scrolling layout"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
+msgid ""
+"Option to show decorative shadows that mimic the appearance of a real book"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:154
+msgid "Ability to zoom in and zoom out"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:155
+msgid "Improved image viewer with \"save as\" option"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:156
+msgid "Open copies of a book in new windows (Ctrl + N)"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:157
+msgid "Reload book (Ctrl + R)"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:158
+msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:160
+msgid "Text selection:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:162
+msgid "Ability to select text across pages"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:163
+msgid "Find selected text in book"
+msgstr "Seçili metni kitapta bul"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:164
+msgid "Speak selected text or from the selected locatio"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
+msgid "Annotations:"
+msgstr "Notlar:"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:168
+msgid "Spellcheck notes"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
+msgid "Export annotations to Markdown"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
+msgid "Options to use custom colors for highlights"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
+msgid "For publishers and developers:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:174
+msgid ""
+"Support for Apple Books theme attribute, which allows books to detect themes "
+"without JavaScript"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
+msgid "WebKit's developer tools can be enabled"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:177
+msgid "Breaking changes:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:179
+msgid "The settings schemas has been reorganized"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
+msgid "The format for custom themes has changed"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:181
+msgid "Locations are now 1024 characters in size"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:183
+msgid "Bug fixes:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:185
+msgid "Fixed not restoring exact last location"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:186
+msgid "Fixed navigation not working with scrolled layout"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:187
+msgid "Fixed font size not changing when the book uses absolute-size keywords"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
+msgid "Fixed text cut off at margin edge"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
+msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
+msgid ""
+"Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:198
+msgid "Improved Wiktionary lookup, now with links and example sentences"
+msgstr ""
+"İyileştirilmiş Vikisözlük göz atma, şimdi bağlantılar ve örnek tümcelerle "
+"birlikte"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
+msgid "Improved popover footnote extraction and formatting"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
+msgid "Added option to export annotations to BibTeX"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:208
+msgid "Fixed table of contents navigation not working with some books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
+msgid "Fixed not being able to zoom images with Kindle books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
+msgid "Fixed not being able to open books with .epub3 filename extension"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
+msgid "Fixed temporary directory not being cleaned after closing"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
+msgid "Fixed F9 shortcut not working"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:220
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:255
+msgid "Updated translations"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:228
+msgid "External resources and JavaScript are now blocked by default"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:229
+msgid "Basic text-to-speech support"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
+msgid "Export annotations to HTML, plain text, or JSON"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:231
+msgid "Support for viewing .mobi, .azw, and .azw3 files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:239
+msgid "New alternative sidebar UI"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:240
+msgid "Lookup words in Wikipedia and offline dictionaries"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:241
+msgid "Translate passages with Google Translate"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
+msgid "Configure default action when words are selected"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:243
+msgid "Experimental popup footnote support"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:244
+msgid "Ability to find within only the current chapter"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:245
+msgid "Fixed CPU spikes when left open"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:246
+msgid "Fixed highlights not rendering at the correct positions"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:254
+msgid "Fixed crashing when opening files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:263
+msgid "Customize page margins and brightness"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:264
+msgid "Tweak the theme colors, or add your own custom themes"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:265
+msgid "Ability to zoom and copy images"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:266
+msgid "Option to auto-hide cursor"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:267
+msgid "See reading time left by hovering over the reading progress slider"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:275
+msgid "Fixed some books not rendering sometimes"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:276
+msgid "Fixed images being too wide in some cases"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:285
+msgid "Option to switch between left and full justification"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:286
+msgid "New layout option: single-column paginated view"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:288
+msgid "Fixed:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:290
+msgid ""
+"Generated locations are now stored in the cache directory rather than "
+"localStorage"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:298
+msgid "Allow font size adjustment when using publisher fonts"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:299
+msgid ""
+"Fixed reading progress slider not appearing after localStorage quota is "
+"exceeded"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:307
+msgid "Touchpad gestures and ability to scroll through pages"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:308
+msgid "Fullscreen mode"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:309
+msgid "Option to hide reading progress bar"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:310
+msgid "Option to disable dictionary"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:311
+msgid "Option to use publisher font"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:315
+msgid "Restoring reading progress is now smooth and jank-free"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:316
+msgid "Fixed custom styles not applying in some cases"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:322
+msgid "Fixed invalid AppData file"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:327
+msgid "Initial release"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:19
+msgid "Store URIs"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:20
+msgid "Whether to save file URIs"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:25
+msgid ""
+"Whether to save generated locations to cache (the locations are needed for "
+"calculating percentages of locations in book)"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:29
+msgid "Cache covers"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:30
+msgid "Whether to save book covers to cache"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:34
+msgid "Cover size"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:35
+msgid "Width of cached book cover images"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:39
+msgid "Restore last file opened"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:40
+msgid "Whether to automatically restore the last file"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:44
+msgid "Default highlight color"
+msgstr "Öntanımlı vurgu rengi"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:45
+msgid "Default highlight color for annotations"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:49
+msgid "Dictionary"
+msgstr "Sözlük"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:50
+msgid ""
+"Identifier of the default dictionary. Dictionaries from dictd and stardict, "
+"if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
+"the database ID"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:54
+msgid "Target language of translation"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:55
+msgid "Target language for translations"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:59
+msgid "Default action when selecting a word"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:60
+msgid "Default action to perform when selecting a single word"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:64
+msgid "Default action when selecting multiple words"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:65
+msgid "Default action to perform when selecting multiple words"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:69
+msgid "Event for opening image viewer"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:70
+msgid ""
+"DOM event type for viewing images; the special value \"middleclick\" is "
+"available for the middle click event"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:75
+msgid "Command to execute for text-to-speech"
+msgstr "Metinden sese için çalıştırılacak komut"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:80
+msgid "If true, a side pane will be used instead of popovers"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:84
+msgid "Use menubar"
+msgstr "Menü çubuğunu kullan"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:85
+msgid "If true, use traditional titlebars and menubars"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:89
+msgid "Auto-hide headerbar"
+msgstr "Başlık çubuğunu kendiliğinden gizle"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:90
+msgid ""
+"Whether to hide the headerbar automatically (this is setting has no effect "
+"if skeuomorphism or sidebar is enabled)"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:95
+msgid "Information to be displayed on the left footer"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:100
+msgid "Information to be displayed on the right footer"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:105
+msgid ""
+"If true, you can go to the previous or next page by tapping on the left or "
+"right part of the view; tap on the middle to toggle header bar and progress "
+"bar"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:112
+msgid "Prefer dark GTK theme"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:113
+msgid "If true, the dark variant of a GTK theme, if available, will be used"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:117
+#: data/com.github.johnfactotum.Foliate.gschema.xml:118
+msgid "Zoom level"
+msgstr "Yaklaşma düzeyi"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:128
+msgid "Line-height"
+msgstr "Satır yüksekliği"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:132
+msgid "Margin"
+msgstr "Kenar boşluğu"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:133
+msgid "Page margin in percentage"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:137
+msgid "Max width"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:142
+msgid "Use publisher font"
+msgstr "Yayımcı yazı tipini kullan"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:143
+msgid "If true, custom font is disabled"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:147
+msgid "Justify text"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:148
+msgid "If true, text will be justified"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:152
+msgid "Hyphenation"
+msgstr "Tireleme"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:153
+msgid "If true, auto-hyphenation is enabled"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:157
+msgid "Foreground color"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:158
+msgid "Text color"
+msgstr "Metin rengi"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:162
+#: data/com.github.johnfactotum.Foliate.gschema.xml:163
+msgid "Background color"
+msgstr "Arka plan rengi"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:167
+#: data/com.github.johnfactotum.Foliate.gschema.xml:168
+msgid "Link color"
+msgstr "Bağlantı rengi"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:173
+msgid "Invert page"
+msgstr "Sayfayı evirt"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:178
+msgid ""
+"A value under 1 darkens the page, while a value over 1 brightens it. A value "
+"of 0 will make the page completely black, while a value of 1 leaves the "
+"brightness unchanged"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:182
+msgid "Footnote preview"
+msgstr "Dipnot önizleme"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:183
+msgid "If true, will attempt to display footnotes in a popover"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:187
+msgid "Allow unsafe content"
+msgstr "Güvensiz içeriklere izin ver"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:188
+msgid "If true, allow JavaScript"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:192
+msgid "Enable developer tools"
+msgstr "Geliştirici araçlarını etkinleştir"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:193
+msgid "If true, developer tools are enabled"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:198
+msgid "Page layout"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:202
+msgid "Skeuomorphism"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:203
+msgid ""
+"If true, the book is decoratively presented in a way that resembles physical "
+"books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:207
+msgid "Auto-hide cursor"
+msgstr "İmleci kendiliğinden gizle"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:208
+msgid "Whether to hide the cursor automatically"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:215
+#: data/com.github.johnfactotum.Foliate.gschema.xml:253
+msgid "Window width"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:216
+msgid "Width of the window"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:220
+#: data/com.github.johnfactotum.Foliate.gschema.xml:258
+msgid "Window height"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:221
+msgid "Height of the window"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:225
+#: data/com.github.johnfactotum.Foliate.gschema.xml:263
+msgid "Maximized"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:226
+msgid "Whether the window is maximized"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:231
+msgid "Whether the window is fullscreen"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:235
+#: data/com.github.johnfactotum.Foliate.gschema.xml:236
+msgid "Last file opened"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:241
+msgid "Whether the sidebar is shown"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:245
+msgid "Sidebar size"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:246
+msgid "Sidebar width"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:254
+msgid "Width of the library window"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:259
+msgid "Height of the library window"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:264
+msgid "Whether the library window is maximized"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:269
+msgid "How to view the library"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:273
+msgid "Use Tracker"
+msgstr "Tracker kullan"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:274
+msgid ""
+"If true, will try to use Tracker (the file indexer) to get file locations"
+msgstr ""
+"Eğer doğruysa, dosya konumlarını almak için Tracker (dosya indeksleyici) "
+"kullanımı denenecek"
+
+#~ msgid "com.github.johnfactotum.Foliate"
+#~ msgstr "com.github.johnfactotum.Foliate"
+
+#~ msgid "Allow JavaScript and external resources"
+#~ msgstr "JavaScriptʼe ve dış kaynaklara izin ver"
+
+#~ msgid "Something's wrong"
+#~ msgstr "Bir şeyler yanlış"
+
+#~ msgid "The file cannot be opened."
+#~ msgstr "Dosya açılamadı."
