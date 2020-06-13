@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-07 18:58+0800\n"
-"PO-Revision-Date: 2020-05-02 23:12+0200\n"
+"PO-Revision-Date: 2020-06-13 11:47+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -39,12 +39,11 @@ msgstr "Elektronická kniha;Kniha;EPUB;Prohlížeč;Čtečka;"
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
 #: src/ui/libraryWindow.ui:451 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
 msgid "Library"
-msgstr ""
+msgstr "Knihovna"
 
 #: src/contents.js:222
-#, fuzzy
 msgid "Remove current location"
-msgstr "Přidat nynější polohu do záložek"
+msgstr "Odstranit nynější polohu"
 
 #: src/contents.js:225 src/ui/contentsStack.ui:204
 #: src/ui/shortcutsWindow.ui:128
@@ -53,55 +52,53 @@ msgstr "Přidat nynější polohu do záložek"
 
 #: src/contents.js:268
 msgid "No results"
-msgstr ""
+msgstr "Žádné výsledky"
 
 #: src/contents.js:269
 #, javascript-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d výsledek"
+msgstr[1] "%d výsledky"
+msgstr[2] "%d výsledků"
 
 #: src/contents.js:280
-#, fuzzy
 msgid "Searching…"
-msgstr "Nahrává se..."
+msgstr "Hledá se..."
 
 #: src/epubView.js:1015
-#, fuzzy
 msgid "File not found."
-msgstr "Nenalezen žádný záznam"
+msgstr "Soubor nenalezen."
 
 #: src/epubView.js:1026
 msgid "Failed to load remote file."
-msgstr ""
+msgstr "Nepodařilo se nahrát vzdálený soubor."
 
 #: src/epubView.js:1062
 msgid "Could not unpack Kindle file."
-msgstr ""
+msgstr "Nepodařilo se rozbalit soubor Kindle."
 
 #: src/epubView.js:1078
 msgid "File type not supported."
-msgstr ""
+msgstr "Typ souboru nepodporován."
 
 #: src/export.js:35
 #, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr "<p>Vysvětlivky pro</p><h1>%s</h1><h2>Od %s</h2>"
+msgstr "<p>Poznámky pro</p><h1>%s</h1><h2>Od %s</h2>"
 
 #: src/export.js:37 src/export.js:51 src/export.js:63
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "%d vysvětlivka"
-msgstr[1] "%d vysvětlivky"
-msgstr[2] "%d vysvětlivek"
+msgstr[0] "%d poznámka"
+msgstr[1] "%d poznámky"
+msgstr[2] "%d poznámek"
 
 #: src/export.js:50
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "Vysvětlivky pro “%s” od %s"
+msgstr "Poznámky pro “%s” od %s"
 
 #: src/export.js:54
 msgid "Section: "
@@ -122,7 +119,7 @@ msgstr "Poznámka:"
 #: src/export.js:62
 #, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr "Vysvětlivky pro *%s* od %s"
+msgstr "Poznámky pro *%s* od %s"
 
 #: src/export.js:96
 msgid "Quote: "
@@ -133,47 +130,45 @@ msgid " Note: "
 msgstr " Poznámka: "
 
 #: src/export.js:113
-#, fuzzy
 msgid "Save File"
-msgstr "Otevřít soubor"
+msgstr "Uložit soubor"
 
 #: src/export.js:120
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Annotations for “%s”"
-msgstr "Vysvětlivky pro “%s” od %s"
+msgstr "Poznámky pro “%s”"
 
 #: src/export.js:153 src/utils.js:123
 msgid "All Files"
 msgstr "Všechny soubory"
 
 #: src/export.js:157
-#, fuzzy
 msgid "JSON Files"
-msgstr "Všechny soubory"
+msgstr "Soubory JSON"
 
 #: src/export.js:160 src/ui/importWindow.ui:6
-#, fuzzy
 msgid "Import Annotations"
-msgstr "Vyvést vysvětlivky"
+msgstr "Zavést poznámky"
 
 #: src/export.js:173 src/window.js:674 src/ui/contentsStack.ui:80
 msgid "No annotations"
-msgstr "Žádné vysvětlivky"
+msgstr "Žádné poznámky"
 
 #: src/export.js:174
 msgid "There’s nothing to import."
-msgstr ""
+msgstr "Není co zavádět."
 
 #: src/export.js:215
-#, fuzzy
 msgid "Identifier mismatch"
-msgstr "Identifikátor"
+msgstr "Záměna identifikátoru"
 
 #: src/export.js:216
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
 msgstr ""
+"Identifikátor zavedeného souboru neodpovídá identifikátoru knihy. To může "
+"znamenat, že poznámky nepatří k této knize."
 
 #: src/export.js:221 src/library.js:492 src/main.js:141 src/window.js:563
 #: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
@@ -184,16 +179,15 @@ msgstr "Zrušit"
 
 #: src/export.js:222
 msgid "Import Anyway"
-msgstr ""
+msgstr "Přesto zavést"
 
 #: src/export.js:232 src/library.js:1741 src/window.js:1031
 msgid "Error"
-msgstr ""
+msgstr "Chyba"
 
 #: src/export.js:233
-#, fuzzy
 msgid "Could not import annotations."
-msgstr "Vyvést vysvětlivky"
+msgstr "Nepodařilo se zavést poznámky"
 
 #: src/library.js:145 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
@@ -201,33 +195,32 @@ msgid "About This Book"
 msgstr "O této knize"
 
 #: src/library.js:169
-#, fuzzy
 msgid "Choose File"
-msgstr "Soubory elektronických knih"
+msgstr "Vybrat soubor"
 
 #: src/library.js:302 src/library.js:320
 msgid "Load more"
-msgstr ""
+msgstr "Nahrát více"
 
 #: src/library.js:464
 msgid "File location unkown"
-msgstr ""
+msgstr "Umístění souboru neznámé"
 
 #: src/library.js:465
 msgid "Choose the location of this file to open it."
-msgstr ""
+msgstr "Vyberte umístění tohoto souboru pro jeho otevření."
 
 #: src/library.js:485
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Opravdu chcete odstranit tuto knihu?"
+msgstr[1] "Opravdu chcete odstranit %d vybrané knihy?"
+msgstr[2] "Opravdu chcete odstranit %d vybraných knih?"
 
 #: src/library.js:487
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
-msgstr ""
+msgstr "Postup čtení, poznámky a záložky budou trvale ztraceny."
 
 #: src/library.js:493 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
@@ -239,87 +232,85 @@ msgstr "Odstranit"
 #. authors or categories
 #: src/library.js:638
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/library.js:663
 msgid "Unable to load OPDS feed"
-msgstr ""
+msgstr "Nelze nahrát kanál OPDS"
 
 #: src/library.js:708
 msgid "Download"
-msgstr ""
+msgstr "Stáhnout"
 
 #: src/library.js:710
 msgid "Buy"
-msgstr ""
+msgstr "Koupit"
 
 #: src/library.js:711
 msgid "Free"
-msgstr ""
+msgstr "Zdarma"
 
 #: src/library.js:712
 msgid "Sample"
-msgstr ""
+msgstr "Ukázka"
 
 #: src/library.js:713
 msgid "Borrow"
-msgstr ""
+msgstr "Půjčit"
 
 #: src/library.js:714
 msgid "Subscribe"
-msgstr ""
+msgstr "Odebírat"
 
 #: src/library.js:731
 msgid "Protected by DRM"
-msgstr ""
+msgstr "Chráněno DRM"
 
 #: src/library.js:749
 msgid " (DRM)"
-msgstr ""
+msgstr " (DRM)"
 
 #: src/library.js:1247
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d vybrána"
+msgstr[1] "%d vybrány"
+msgstr[2] "%d vybráno"
 
 #: src/library.js:1333
-#, fuzzy
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
-msgstr[0] "Najít v knize"
-msgstr[1] "Najít v knize"
-msgstr[2] "Najít v knize"
+msgstr[0] "Nepodařilo se přidat knihu"
+msgstr[1] "Nepodařilo se přidat knihy"
+msgstr[2] "Nepodařilo se přidat knihy"
 
 #: src/library.js:1335
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Nepodařilo se přidat následující soubor:"
+msgstr[1] "Nepodařilo se přidat následující soubory:"
+msgstr[2] "Nepodařilo se přidat následující soubory:"
 
 #: src/library.js:1397
 msgid "All"
-msgstr ""
+msgstr "Vše"
 
 #: src/library.js:1400 src/ui/catalogWindow.ui:39
 msgid "Title"
-msgstr ""
+msgstr "Název"
 
 #: src/library.js:1401
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: src/library.js:1402 src/properties.js:75
 msgid "Tags"
-msgstr ""
+msgstr "Značky"
 
 #: src/library.js:1403
-#, fuzzy
 msgid "Description"
-msgstr "Oddíl: "
+msgstr "Popis"
 
 #: src/library.js:1404 src/properties.js:79
 msgid "Publisher"
@@ -330,9 +321,8 @@ msgid "Language"
 msgstr "Jazyk"
 
 #: src/library.js:1442
-#, fuzzy
 msgid "Add Files"
-msgstr "Všechny soubory"
+msgstr "Přidat soubory"
 
 #: src/library.js:1662 src/window.js:1308 src/ui/libraryWindow.ui:191
 msgid "Loading…"
@@ -340,56 +330,51 @@ msgstr "Nahrává se..."
 
 #: src/library.js:1703
 msgid "First"
-msgstr ""
+msgstr "První"
 
 #: src/library.js:1704
-#, fuzzy
 msgid "Previous"
-msgstr "Předchozí strana"
+msgstr "Předchozí"
 
 #: src/library.js:1705
-#, fuzzy
 msgid "Next"
-msgstr "Další strana"
+msgstr "Další"
 
 #: src/library.js:1706
 msgid "Last"
-msgstr ""
+msgstr "Poslední"
 
 #: src/library.js:1755
 msgid "Related"
-msgstr ""
+msgstr "Související"
 
 #: src/library.js:1756
-#, fuzzy
 msgid "Section"
-msgstr "Oddíl: "
+msgstr "Část"
 
 #: src/library.js:1757
-#, fuzzy
 msgid "Subsection"
-msgstr "Oddíl: "
+msgstr "Podčást"
 
 #: src/library.js:1758
 msgid "New"
-msgstr ""
+msgstr "Nové"
 
 #: src/library.js:1759
 msgid "Popular"
-msgstr ""
+msgstr "Oblíbené"
 
 #: src/library.js:1760
-#, fuzzy
 msgid "Featured"
-msgstr "Funkce zahrnují:"
+msgstr "Mimořádné přitažlivé"
 
 #: src/library.js:1761
 msgid "Recommended"
-msgstr ""
+msgstr "Doporučeno"
 
 #: src/library.js:1792
 msgid "Filter"
-msgstr ""
+msgstr "Filtr"
 
 #: src/lookup.js:106
 msgid "Search on Wikipedia"
@@ -400,9 +385,8 @@ msgid "Source: "
 msgstr "Zdroj: "
 
 #: src/lookup.js:230
-#, fuzzy
 msgid "Wiktionary"
-msgstr "Slovník"
+msgstr "Wikislovník"
 
 #: src/lookup.js:313
 msgid "Wiktionary (English)"
@@ -410,7 +394,7 @@ msgstr "Wiktionary (angličtina)"
 
 #: src/lookup.js:385
 msgid "Search on Wiktionary"
-msgstr "Hledat na Wiktionary"
+msgstr "Hledat ve Wikislovníku"
 
 #: src/lookup.js:408
 msgid "Translation by Google Translate"
@@ -421,18 +405,16 @@ msgid "Open File"
 msgstr "Otevřít soubor"
 
 #: src/main.js:136
-#, fuzzy
 msgid "Open Catalog"
-msgstr "Otevřít kopii"
+msgstr "Otevřít soupis"
 
 #: src/main.js:142 src/ui/catalogRow.ui:50
-#, fuzzy
 msgid "Open"
-msgstr "Otevřít..."
+msgstr "Otevřít"
 
 #: src/main.js:146
 msgid "OPDS Catalog URL:"
-msgstr ""
+msgstr "Adresa (URL) soupisu OPDS:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
@@ -442,29 +424,27 @@ msgstr "Pavel Fric"
 
 #: src/main.js:182 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
-msgstr "Jednoduchý a moderní prohlížeč elektronických knih"
+msgstr "Jednoduchý a současný prohlížeč elektronických knih"
 
 #: src/main.js:207
-#, fuzzy
 msgid "Open library window"
-msgstr "Otevřít kopii"
+msgstr "Otevřít okno s knihovnou"
 
 #: src/main.js:211
 msgid "Add files to the library"
-msgstr ""
+msgstr "Přidat soubory do knihovny"
 
 #: src/main.js:215
-#, fuzzy
 msgid "Show version"
-msgstr "Ukázat nabídku"
+msgstr "Ukázat verzi"
 
 #: src/main.js:219
 msgid "Show verbose debugging information"
-msgstr ""
+msgstr "Ukázat podrobné ladicí informace"
 
 #: src/properties.js:76
 msgid " • "
-msgstr ""
+msgstr " • "
 
 #: src/properties.js:83
 msgid "Publication Date"
@@ -475,13 +455,12 @@ msgid "Modified Date"
 msgstr "Datum změny"
 
 #: src/properties.js:95
-#, fuzzy
 msgid "File Size"
-msgstr "Soubor"
+msgstr "Velikost souboru"
 
 #: src/properties.js:99
 msgid "Format"
-msgstr ""
+msgstr "Formát"
 
 #: src/properties.js:105
 msgid "Identifier"
@@ -491,6 +470,8 @@ msgstr "Identifikátor"
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr ""
+"Tato kniha nemá identifikátor. Toto je MD5 hash (suma identifikující data)"
+" vytvořený ze souboru."
 
 #: src/properties.js:130
 msgid "Copyright"
@@ -498,33 +479,31 @@ msgstr "Právo ke kopírování"
 
 #: src/properties.js:144
 msgid "Amazon"
-msgstr ""
+msgstr "Amazon"
 
 #: src/properties.js:148
 msgid "Goodreads"
-msgstr ""
+msgstr "Goodreads"
 
 #: src/properties.js:152
-#, fuzzy
 msgid "Google Books"
-msgstr "Prohlížet elektronické knihy"
+msgstr "Google Books"
 
 #: src/properties.js:156
 msgid "LibraryThing"
-msgstr ""
+msgstr "LibraryThing"
 
 #: src/properties.js:160
-#, fuzzy
 msgid "Open Library"
-msgstr "Otevřít kopii"
+msgstr "Open Library"
 
 #: src/properties.js:164
 msgid "WorldCat"
-msgstr ""
+msgstr "WorldCat"
 
 #: src/properties.js:203
 msgid "Find on…"
-msgstr ""
+msgstr "Najít v..."
 
 #: src/theme.js:23
 msgid "Light"
@@ -572,32 +551,32 @@ msgstr "Nord"
 #. used for testing text-to-speech
 #: src/tts.js:225
 msgid "The North Wind and the Sun were disputing which was the stronger,"
-msgstr ""
+msgstr "Severní vítr se přel se sluncem o tom, který z nich je silnější,"
 
 #: src/tts.js:226
 msgid "when a traveler came along wrapped in a warm cloak."
-msgstr ""
+msgstr "když kolem šel cestovatel zahalený v teplém plášti."
 
 #. Translators: this is the language code of the test sentences
 #: src/tts.js:228
 msgid "en"
-msgstr ""
+msgstr "en"
 
 #: src/utils.js:87
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d minuta"
+msgstr[1] "%d minuty"
+msgstr[2] "%d minut"
 
 #: src/utils.js:90
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d hodina"
+msgstr[1] "%d hodiny"
+msgstr[2] "%d hodin"
 
 #: src/utils.js:125
 msgid "E-book Files"
@@ -618,35 +597,33 @@ msgid "of %d"
 msgstr "z %d"
 
 #: src/window.js:337
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "%d of %d"
-msgstr "z %d"
+msgstr "%d z %d"
 
 #: src/window.js:557
 msgid "This file or format does not work well with annotations"
-msgstr ""
+msgstr "Tento soubor nebo formát nepracuje dobře s poznámkami"
 
 #: src/window.js:558
 msgid "Your annotations might stop working properly at any time."
-msgstr ""
+msgstr "Vaše poznámky mohou kdykoli přestat pracovat."
 
 #: src/window.js:564
 msgid "Continue Anyway"
-msgstr ""
+msgstr "Přesto pokračovat"
 
 #: src/window.js:675
 msgid "You don't have any annotations for this book."
-msgstr ""
+msgstr "Pro tuto knihu nemáte žádné poznámky."
 
 #: src/window.js:676
-#, fuzzy
 msgid "Highlight some text to add annotations."
-msgstr "Vyberte text pro přidání vysvětlivek."
+msgstr "Zvýrazněte text pro přidání poznámek."
 
 #: src/window.js:800
-#, fuzzy
 msgid "Contents"
-msgstr "Ukázat obsah"
+msgstr "Obsah"
 
 #: src/window.js:804 data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Show sidebar"
@@ -658,16 +635,16 @@ msgstr "Najít"
 
 #: src/window.js:816 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
 msgid "Menu"
-msgstr ""
+msgstr "Nabídka"
 
 #: src/window.js:1095
 #, javascript-format
 msgid "Image from “%s”"
-msgstr ""
+msgstr "Obrázek z “%s”"
 
 #: src/window.js:1095
 msgid "Image"
-msgstr ""
+msgstr "Obrázek"
 
 #: src/ui/annotationBox.ui:35
 msgid "Change highlight color"
@@ -678,9 +655,8 @@ msgid "Choose custom color"
 msgstr "Vybrat vlastní barvu"
 
 #: src/ui/bookBoxChild.ui:29 src/ui/bookBoxRow.ui:76
-#, fuzzy
 msgid "Remote file"
-msgstr "Odstranit vzhled"
+msgstr "Vzdálený soubor"
 
 #: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
@@ -689,64 +665,57 @@ msgstr "Upravit"
 
 #: src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
-#, fuzzy
 msgid "Save"
-msgstr "Uložit jako"
+msgstr "Uložit"
 
 #: src/ui/bookEditDialog.ui:46
-#, fuzzy
 msgid "File URL:"
-msgstr "Soubor"
+msgstr "Adresa (URL) souboru:"
 
 #: src/ui/bookEditDialog.ui:62
 msgid "Browse…"
-msgstr ""
+msgstr "Procházet..."
 
 #: src/ui/bookEditDialog.ui:72
-#, fuzzy
 msgid "Remove Book"
-msgstr "Odstranit"
+msgstr "Odstranit knihu"
 
 #: src/ui/catalogWindow.ui:6
-#, fuzzy
 msgid "OPDS Catalog"
-msgstr "Katalánština"
+msgstr "Soupis OPDS"
 
 #: src/ui/catalogWindow.ui:53
 msgid "OPDS URL"
-msgstr ""
+msgstr "Adresa (URL) OPDS"
 
 #: src/ui/catalogWindow.ui:68
-#, fuzzy
 msgid "Preview URL"
-msgstr "Soubor"
+msgstr "Adresa (URL) náhledu"
 
 #: src/ui/catalogWindow.ui:77
 msgid "Optional"
-msgstr ""
+msgstr "Volitelné"
 
 #: src/ui/catalogWindow.ui:93
-#, fuzzy
 msgid "Remove Catalog"
-msgstr "Otevřít kopii"
+msgstr "Odstranit soupis"
 
 #: src/ui/contentsStack.ui:39
 msgid "Table of Contents"
 msgstr "Obsah"
 
 #: src/ui/contentsStack.ui:51
-#, fuzzy
 msgid "Search annotations"
-msgstr "Ukázat vysvětlivky"
+msgstr "Hledat poznámky"
 
 #: src/ui/contentsStack.ui:92
 msgid "Select some text to add annotations."
-msgstr "Vyberte text pro přidání vysvětlivek."
+msgstr "Vyberte text pro přidání poznámek."
 
 #: src/ui/contentsStack.ui:124
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
 msgid "Annotations"
-msgstr "Vysvětlivky"
+msgstr "Poznámky"
 
 #: src/ui/contentsStack.ui:159
 msgid "No bookmarks"
@@ -786,7 +755,7 @@ msgstr "JSON"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
-msgstr "Vyvést vysvětlivky"
+msgstr "Vyvést poznámky"
 
 #: src/ui/exportWindow.ui:45
 msgid "Export"
@@ -798,7 +767,7 @@ msgstr "Vybrat ukládací formát:"
 
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
-msgstr ""
+msgstr "Zvolte “JSON”, pokud máte v úmyslu zavedení poznámek zpět do Foliate."
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
@@ -853,38 +822,34 @@ msgid "Rotate 90° clockwise"
 msgstr "Otočit o 90° vpravo"
 
 #: src/ui/importWindow.ui:17
-#, fuzzy
 msgid "Import"
-msgstr "Vyvést"
+msgstr "Zavést"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr ""
+msgstr "Budou přidány tyto poznámky:"
 
 #: src/ui/importWindow.ui:64
 msgid ""
 "The imported annotations will NOT overwrite the existing ones when they "
 "highlight the same passages."
-msgstr ""
+msgstr "Zavedené poznámky NEPŘEPÍŠÍ stávající, když zvýrazní stejné úseky."
 
 #: src/ui/libraryWindow.ui:7
-#, fuzzy
 msgid "Open Book…"
-msgstr "Otevřít..."
+msgstr "Otevřít knihu..."
 
 #: src/ui/libraryWindow.ui:11
-#, fuzzy
 msgid "Open Catalog…"
-msgstr "Otevřít kopii"
+msgstr "Otevřít soupis..."
 
 #: src/ui/libraryWindow.ui:17
 msgid "Add Books…"
-msgstr ""
+msgstr "Přidat knihy..."
 
 #: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:522
-#, fuzzy
 msgid "Add Catalog…"
-msgstr "Otevřít kopii"
+msgstr "Přidat soupis..."
 
 #: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
 #: src/ui/opdsWindow.ui:22 src/ui/preferenceWindow.ui:118
@@ -902,30 +867,28 @@ msgstr "O programu Foliate"
 
 #: src/ui/libraryWindow.ui:55
 msgid "Add books"
-msgstr ""
+msgstr "Přidat knihy"
 
 #: src/ui/libraryWindow.ui:72
 msgid "Add catalog"
-msgstr ""
+msgstr "Přidat soupis"
 
 #: src/ui/libraryWindow.ui:135 src/ui/opdsWindow.ui:84
 #: src/ui/shortcutsWindow.ui:17
-#, fuzzy
 msgid "Search"
-msgstr "Nahrává se..."
+msgstr "Hledat"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Toggle view"
-msgstr ""
+msgstr "Přepnout zobrazení"
 
 #: src/ui/libraryWindow.ui:210
 msgid "Stop"
-msgstr ""
+msgstr "Zastavit"
 
 #: src/ui/libraryWindow.ui:320
-#, fuzzy
 msgid "No books yet"
-msgstr "Neotevřeny žádné knihy"
+msgstr "Dosud žádné knihy"
 
 #: src/ui/libraryWindow.ui:332 src/ui/mainOverlay.ui:60
 msgid "Open a book to start reading."
@@ -937,34 +900,31 @@ msgstr "Otevřít soubor..."
 
 #: src/ui/libraryWindow.ui:354
 msgid "Browse Catalogs"
-msgstr ""
+msgstr "Procházet soupisy"
 
 #: src/ui/libraryWindow.ui:386
-#, fuzzy
 msgid "No results found"
-msgstr "Nenalezen žádný záznam"
+msgstr "Nenalezeny žádné výsledky"
 
 #: src/ui/libraryWindow.ui:398
 msgid "Try a different search."
-msgstr ""
+msgstr "Vyzkoušejte různé hledání."
 
 #: src/ui/libraryWindow.ui:495
-#, fuzzy
 msgid "No catalogs"
-msgstr "Katalánština"
+msgstr "Žádné soupisy"
 
 #: src/ui/libraryWindow.ui:507
 msgid "You can browse, search, and download content from OPDS catalogs."
-msgstr ""
+msgstr "Můžete procházet, vyhledávat a stahovat obsah ze soupisů OPDS."
 
 #: src/ui/libraryWindow.ui:531
 msgid "Learn More"
-msgstr ""
+msgstr "Dozvědět se více"
 
 #: src/ui/libraryWindow.ui:547
-#, fuzzy
 msgid "Catalogs"
-msgstr "Katalánština"
+msgstr "Soupisy"
 
 #: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:177
 msgid "Brightness"
@@ -1059,11 +1019,11 @@ msgstr "Automaticky skrývat ukazatel"
 
 #: src/ui/mainMenu.ui:567 src/ui/menuBar.ui:157
 msgid "Realistic Shadows"
-msgstr "Realistické stíny"
+msgstr "Opravdové stíny"
 
 #: src/ui/mainMenu.ui:579
 msgid "Allow JavaScript"
-msgstr ""
+msgstr "Povolit JavaScript"
 
 #: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
 msgid "Allow Unsafe Content"
@@ -1083,17 +1043,15 @@ msgstr "Nahrát znovu"
 
 #: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
 msgid "Clear Cache"
-msgstr ""
+msgstr "Vyprázdnit vyrovnávací paměť"
 
 #: src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
-#, fuzzy
 msgid "Export Annotations…"
-msgstr "Vyvést vysvětlivky…"
+msgstr "Vyvést poznámky…"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
-#, fuzzy
 msgid "Import Annotations…"
-msgstr "Vyvést vysvětlivky…"
+msgstr "Zavést poznámky…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
@@ -1105,25 +1063,23 @@ msgstr "Nedávné soubory"
 
 #: src/ui/mainOverlay.ui:129
 msgid "Could not open file"
-msgstr ""
+msgstr "Nepodařilo se otevřít soubor"
 
 #: src/ui/mainOverlay.ui:150
 msgid "Open Another File…"
 msgstr "Otevřít další soubor..."
 
 #: src/ui/menuBar.ui:5
-#, fuzzy
 msgid "_File"
-msgstr "Soubor"
+msgstr "_Soubor"
 
 #: src/ui/menuBar.ui:28
 msgid "Properties"
-msgstr ""
+msgstr "Vlastnosti"
 
 #: src/ui/menuBar.ui:46
-#, fuzzy
 msgid "Close Window"
-msgstr "Zavřít nynější okno"
+msgstr "Zavřít okno"
 
 #: src/ui/menuBar.ui:50 src/ui/shortcutsWindow.ui:31
 #: src/ui/shortcutsWindow.ui:114 src/ui/shortcutsWindow.ui:332
@@ -1131,80 +1087,68 @@ msgid "Quit"
 msgstr "Ukončit"
 
 #: src/ui/menuBar.ui:57
-#, fuzzy
 msgid "_Edit"
-msgstr "Upravit"
+msgstr "_Upravit"
 
 #: src/ui/menuBar.ui:66
-#, fuzzy
 msgid "Bookmark Current Location"
 msgstr "Přidat nynější polohu do záložek"
 
 #: src/ui/menuBar.ui:72 src/ui/ttsDialog.ui:6
-#, fuzzy
 msgid "Text-to-Speech"
 msgstr "Text na řeč"
 
 #: src/ui/menuBar.ui:85
-#, fuzzy
 msgid "_View"
-msgstr "Pohled"
+msgstr "_Zobrazit"
 
 #: src/ui/menuBar.ui:88
-#, fuzzy
 msgid "Toggle Fullscreen"
 msgstr "Přepnout na celou obrazovku"
 
 #: src/ui/menuBar.ui:94
-#, fuzzy
 msgid "Zoom In"
 msgstr "Přiblížit"
 
 #: src/ui/menuBar.ui:98
-#, fuzzy
 msgid "Restore Zoom"
-msgstr "Obnovit zvětšení"
+msgstr "Obnovit výchozí zvětšení"
 
 #: src/ui/menuBar.ui:102
-#, fuzzy
 msgid "Zoom Out"
 msgstr "Oddálit"
 
 #: src/ui/menuBar.ui:174
 msgid "_Go"
-msgstr ""
+msgstr "_Jít"
 
 #: src/ui/menuBar.ui:177
 msgid "Go Back"
-msgstr ""
+msgstr "Jít zpět"
 
 #: src/ui/menuBar.ui:183
-#, fuzzy
 msgid "Next Page"
 msgstr "Další strana"
 
 #: src/ui/menuBar.ui:187
-#, fuzzy
 msgid "Previous Page"
 msgstr "Předchozí strana"
 
 #: src/ui/menuBar.ui:193
-#, fuzzy
 msgid "Next Chapter"
-msgstr "Kapitola"
+msgstr "Další kapitola"
 
 #: src/ui/menuBar.ui:197
-#, fuzzy
 msgid "Previous Chapter"
-msgstr "Předchozí strana"
+msgstr "Předchozí kapitola"
 
 #: src/ui/menuBar.ui:203
 msgid "Beginning"
-msgstr ""
+msgstr "Na začátek"
 
 #: src/ui/menuBar.ui:207
 msgid "End"
-msgstr ""
+msgstr "Na konec"
 
 #: src/ui/menuBar.ui:213 src/ui/navBar.ui:134 src/ui/navBar.ui:313
 #: src/ui/preferenceWindow.ui:19
@@ -1213,7 +1157,7 @@ msgstr "Poloha"
 
 #: src/ui/menuBar.ui:220
 msgid "_Help"
-msgstr ""
+msgstr "_Nápověda"
 
 #: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 msgid "Time left in book"
@@ -1270,18 +1214,16 @@ msgid "Text-to-speech"
 msgstr "Text na řeč"
 
 #: src/ui/opdsWindow.ui:17
-#, fuzzy
 msgid "Open a Catalog…"
-msgstr "Otevřít kopii"
+msgstr "Otevřít soupis…"
 
 #: src/ui/opdsWindow.ui:43
 msgid "Go back"
 msgstr "Jít zpět"
 
 #: src/ui/opdsWindow.ui:56
-#, fuzzy
 msgid "Go to start"
-msgstr "Jít na polohu"
+msgstr "Jít na začátek"
 
 #: src/ui/preferenceWindow.ui:11
 msgid "Nothing"
@@ -1335,24 +1277,23 @@ msgstr "Mluvit"
 
 #: src/ui/preferenceWindow.ui:95
 msgid "Disabled"
-msgstr ""
+msgstr "Zakázáno"
 
 #: src/ui/preferenceWindow.ui:99
-#, fuzzy
 msgid "Single click"
-msgstr "Jeden sloupec"
+msgstr "Jedno klepnutí"
 
 #: src/ui/preferenceWindow.ui:103
 msgid "Double click"
-msgstr ""
+msgstr "Dvojité klepnutí"
 
 #: src/ui/preferenceWindow.ui:107
 msgid "Middle click"
-msgstr ""
+msgstr "Klepnutí prostředním tlačítkem myši"
 
 #: src/ui/preferenceWindow.ui:111
 msgid "Right click"
-msgstr ""
+msgstr "Klepnutí pravým tlačítkem myši"
 
 #: src/ui/preferenceWindow.ui:142 src/ui/shortcutsWindow.ui:13
 #: src/ui/shortcutsWindow.ui:307
@@ -1391,9 +1332,8 @@ msgid "When multiple words are selected"
 msgstr "Když je vybráno více slov"
 
 #: src/ui/preferenceWindow.ui:350
-#, fuzzy
 msgid "Open images on"
-msgstr "Otevřít kopii"
+msgstr "Otevřít obrázky"
 
 #: src/ui/preferenceWindow.ui:385
 #: data/com.github.johnfactotum.Foliate.gschema.xml:74
@@ -1402,7 +1342,7 @@ msgstr "Příkaz pro text na řeč"
 
 #: src/ui/preferenceWindow.ui:401
 msgid "Configure…"
-msgstr ""
+msgstr "Nastavit..."
 
 #: src/ui/preferenceWindow.ui:413
 msgid "Interface"
@@ -1418,37 +1358,30 @@ msgid "Use sidebar"
 msgstr "Použít postranní pruh"
 
 #: src/ui/preferenceWindow.ui:490
-#, fuzzy
 msgid "Use traditional titlebar (experimental)"
-msgstr ""
-"Použít tradiční titulkový pruh (pokusné)\n"
-"(vyžaduje opětovné spuštění)"
+msgstr "Použít tradiční titulkový pruh (pokusné)"
 
 #: src/ui/preferenceWindow.ui:498 src/ui/preferenceWindow.ui:553
 #: src/ui/preferenceWindow.ui:595
 msgid "Requires restart"
-msgstr ""
+msgstr "Vyžaduje opětovné spuštění"
 
 #: src/ui/preferenceWindow.ui:545
-#, fuzzy
 msgid "Use Tracker to track file locations"
-msgstr "Jít zpět na předchozí polohu"
+msgstr "Použít vyznačovač na vyznačení umístění souborů"
 
 #: src/ui/preferenceWindow.ui:587
-#, fuzzy
 msgid "Save file locations"
-msgstr "Jít na polohu"
+msgstr "Uložit umístění souborů"
 
 #: src/ui/preferenceWindow.ui:625
 #: data/com.github.johnfactotum.Foliate.gschema.xml:24
-#, fuzzy
 msgid "Cache locations"
-msgstr "Jít na polohu"
+msgstr "Uložit umístění do vyrovnávací paměti"
 
 #: src/ui/preferenceWindow.ui:649
-#, fuzzy
 msgid "Cache book covers"
-msgstr "Jít na polohu"
+msgstr "Uložit obaly knih do vyrovnávací paměti"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
@@ -1463,9 +1396,8 @@ msgid "Speak from Here"
 msgstr "Mluvit odtud"
 
 #: src/ui/shortcutsWindow.ui:9
-#, fuzzy
 msgid "Library Shortcuts"
-msgstr "Klávesové zkratky"
+msgstr "Klávesové zkratky pro knihovnu"
 
 #: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:107
 #: src/ui/shortcutsWindow.ui:325
@@ -1478,15 +1410,15 @@ msgstr "Ukázat základní nabídku"
 
 #: src/ui/shortcutsWindow.ui:51
 msgid "List view"
-msgstr ""
+msgstr "Zobrazení seznamu"
 
 #: src/ui/shortcutsWindow.ui:58
 msgid "Grid view"
-msgstr ""
+msgstr "Zobrazení mřížky"
 
 #: src/ui/shortcutsWindow.ui:71
 msgid "E-book Viewer Shortcuts"
-msgstr "Klávesové zkratky čtečky knih"
+msgstr "Klávesové zkratky pro prohlížeč elektronických knih"
 
 #: src/ui/shortcutsWindow.ui:75
 msgid "File"
@@ -1502,7 +1434,7 @@ msgstr "Otevřít kopii"
 
 #: src/ui/shortcutsWindow.ui:100
 msgid "Clear cache"
-msgstr ""
+msgstr "Vyprázdnit vyrovnávací paměť"
 
 #: src/ui/shortcutsWindow.ui:142
 msgid "View book info"
@@ -1530,7 +1462,7 @@ msgstr "Ukázat obsah"
 
 #: src/ui/shortcutsWindow.ui:206
 msgid "Show annotations"
-msgstr "Ukázat vysvětlivky"
+msgstr "Ukázat poznámky"
 
 #: src/ui/shortcutsWindow.ui:213
 msgid "Show bookmarks"
@@ -2005,26 +1937,24 @@ msgid "OK"
 msgstr "OK"
 
 #: src/ui/ttsDialog.ui:46
-#, fuzzy
 msgid "Text-to-Speech Command"
 msgstr "Příkaz pro text na řeč"
 
 #: src/ui/ttsDialog.ui:57
 msgid "Make sure the selected text-to-speech program is correctly installed."
-msgstr ""
+msgstr "Ujistěte se, že je program pro Text na řeč správně nainstalován."
 
 #: src/ui/ttsDialog.ui:63
-#, fuzzy
 msgid "eSpeak NG"
-msgstr "Mluvit"
+msgstr "eSpeak NG"
 
 #: src/ui/ttsDialog.ui:80 src/ui/ttsDialog.ui:106 src/ui/ttsDialog.ui:269
 msgid "Reset"
-msgstr ""
+msgstr "Obnovit výchozí"
 
 #: src/ui/ttsDialog.ui:88
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: src/ui/ttsDialog.ui:137
 msgid ""
@@ -2032,22 +1962,25 @@ msgid ""
 "the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for "
 "the all lower case code.</small>"
 msgstr ""
+"<small>Proměnná prostředí <tt>$FOLIATE_TTS_LANG</tt> je dostupná pro "
+"jazykový kód knihy, nebo použijte <tt>$FOLIATE_TTS_LANG_LOWER</tt> na "
+"všechen kód s malými písmeny.</small>"
 
 #: src/ui/ttsDialog.ui:156
 msgid "Test Your Configuration"
-msgstr ""
+msgstr "Vyzkoušejte své nastavení"
 
 #: src/ui/ttsDialog.ui:178
 msgid "The program should speak the following test sentences in order:"
-msgstr ""
+msgstr "Program má vyslovit následující zkušební věty v pořadí:"
 
 #: src/ui/ttsDialog.ui:191
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: src/ui/ttsDialog.ui:228
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: src/ui/wikipediaBox.ui:53
 msgid "No entry found"
@@ -2084,7 +2017,7 @@ msgstr "Posuvník s postupem čtení se značkami kapitol"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
-msgstr "Záložky a vysvětlivky"
+msgstr "Záložky a poznámky"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
@@ -2103,25 +2036,24 @@ msgstr "John Factotum"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:261
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:296
 msgid "Changes:"
-msgstr ""
+msgstr "Změny:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Fixed blurry book covers on HiDPI"
-msgstr ""
+msgstr "Opraveny rozmazané obaly knih na HiDPI"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
 msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
 msgstr ""
+"Opraveny odkazy OPDS na standardní elektronické knihy a Projekt Gutenberg"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-#, fuzzy
 msgid "Fixed wrong view icon on startup"
-msgstr "Opraveno nesprávné číslo verze"
+msgstr "Opraveno nesprávné zobrazení ikony při spuštění"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
-#, fuzzy
 msgid "Library:"
-msgstr "Otevřít kopii"
+msgstr "Knihovna:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "A library view showing recent books and reading progress"
@@ -2129,43 +2061,39 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "Search books by metadata"
-msgstr ""
+msgstr "Prohledávat knihy podle popisných dat"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "E-book discovery with OPDS"
-msgstr ""
+msgstr "Zpřístupnění elektronických knih s OPDS"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
-#, fuzzy
 msgid "New supported formats:"
-msgstr "Vybrat ukládací formát:"
+msgstr "Nově podporované formáty:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
 msgid "FictionBook (.fb2, .fb2.zip)"
-msgstr ""
+msgstr "FictionBook (.fb2, .fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
-msgstr ""
+msgstr "Archiv knihy komiksů (.cbr, .cbz, .cbt, .cb7)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
-#, fuzzy
 msgid "Plain text (.txt)"
-msgstr "Prostý text"
+msgstr "Prostý text (.txt)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
 msgid "Unpacked EPUB files"
-msgstr ""
+msgstr "Nezabalené soubory EPUB"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
-#, fuzzy
 msgid "Layout:"
-msgstr "Rozvržení"
+msgstr "Rozvržení:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
-#, fuzzy
 msgid "Option to set maximum page width"
-msgstr "Největší šířka strany"
+msgstr "Volba pro nastavení největší šířky strany"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
 msgid ""
@@ -2174,15 +2102,16 @@ msgid ""
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
-#, fuzzy
 msgid "Image viewer:"
-msgstr "Klávesové zkratky prohlížeče obrázků"
+msgstr "Prohlížeč obrázků:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
 msgstr ""
+"Vylepšený prohlížeč obrázků, nové klávesové zkratky a schopnost otáčet a"
+" obrátit barvu obrázků"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
 msgid ""
@@ -2191,35 +2120,32 @@ msgid ""
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
-#, fuzzy
 msgid "Text-to-speech:"
-msgstr "Text na řeč"
+msgstr "Text na řeč:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:84
 msgid "Improved text-to-speech configuration UI"
-msgstr ""
+msgstr "Vylepšené nastavení rozhraní textu na řeč"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
 msgid "Ability to set text-to-speech voice based on book language"
-msgstr ""
+msgstr "Schopnost nastavení hlasu textu na řeč podle jazyka knihy"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
-#, fuzzy
 msgid "Import annotations from JSON"
-msgstr "Vyvést vysvětlivky"
+msgstr "Zavést poznámky z JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
-#, fuzzy
 msgid "Search in annotations"
-msgstr "Ukázat vysvětlivky"
+msgstr "Hledat v poznámkách"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
 msgid "Annotations are now sorted in the same order as they appear in the book"
-msgstr ""
+msgstr "Poznámky jsou nyní řazeny ve stejném pořadí, jak se objevují v knize"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
 msgid "Security:"
-msgstr ""
+msgstr "Bezpečnost:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
 msgid ""
@@ -2303,7 +2229,7 @@ msgstr "Nabídka na uvítací obrazovce pro otevření nedávných souborů"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
-msgstr "Obnoveny zkratky pro ukázání obsahu, vysvětlivek a záložek"
+msgstr "Obnoveny zkratky pro ukázání obsahu, poznámek a záložek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:130
 msgid "Fixed application not translated"
@@ -2339,7 +2265,7 @@ msgid ""
 "allows skipping to locations"
 msgstr ""
 "Nový vysunovací panel s polohami (Ctrl+L), který ukáže odhad pro dobu čtení "
-"a umožní přeskočit na umístění"
+"a umožní přeskočit na polohu"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
 msgid ""
@@ -2350,7 +2276,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:144
 msgid "Annotations, bookmarks, and find results now show chapter titles"
-msgstr ""
+msgstr "Poznámky, záložky a výsledky hledání nyní ukazují názvy kapitol"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:145
 msgid "When looking up words in dictionaries, the query can now be edited"
@@ -2423,7 +2349,7 @@ msgstr "Říct vybraný text nebo od vybrané polohy"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
 msgid "Annotations:"
-msgstr "Vysvětlivky:"
+msgstr "Poznámky:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:168
 msgid "Spellcheck notes"
@@ -2431,7 +2357,7 @@ msgstr "Zkontrolovat pravopis poznámek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
 msgid "Export annotations to Markdown"
-msgstr "Vyvést vysvětlivky do Markdown"
+msgstr "Vyvést poznámky do Markdown"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
 msgid "Options to use custom colors for highlights"
@@ -2465,7 +2391,7 @@ msgstr "Formát pro vlastní vzhled byl změněn"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:181
 msgid "Locations are now 1024 characters in size"
-msgstr "Umístění nyní mají velikost 1024 znaků"
+msgstr "Polohy nyní mají velikost 1024 znaků"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:183
 msgid "Bug fixes:"
@@ -2509,7 +2435,7 @@ msgstr "Vylepšené získávání a formátování poznámek pod čarou"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
 msgid "Added option to export annotations to BibTeX"
-msgstr "Přidána volba vyvádění vysvětlivek do BibTeX"
+msgstr "Přidána volba vyvádění poznámek do BibTeX"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:208
 msgid "Fixed table of contents navigation not working with some books"
@@ -2547,7 +2473,7 @@ msgstr "Základní podpora pro text na řeč"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr "Vyvést vysvětlivky do HTML, prostého textu nebo JSON"
+msgstr "Vyvést poznámky do HTML, prostého textu nebo JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:231
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
@@ -2683,36 +2609,36 @@ msgstr "Počáteční vydání"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:19
 msgid "Store URIs"
-msgstr ""
+msgstr "Uložit URI"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:20
-#, fuzzy
 msgid "Whether to save file URIs"
-msgstr "Zda je ukázán postranní pruh"
+msgstr "Zda uložit URI souboru"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:25
 msgid ""
 "Whether to save generated locations to cache (the locations are needed for "
 "calculating percentages of locations in book)"
 msgstr ""
+"Zda uložit vytvořené polohy do vyrovnávací paměti (k vypočítání procenta"
+" poloh "
+"v knize jsou potřeba polohy)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
 msgid "Cache covers"
-msgstr ""
+msgstr "Ukládání obalů knih do vyrovnávací paměti"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:30
 msgid "Whether to save book covers to cache"
-msgstr ""
+msgstr "Zda uložit obaly knih do vyrovnávací paměti"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
-#, fuzzy
 msgid "Cover size"
-msgstr "Velikost postranního pruhu"
+msgstr "Velikost obalu knihy"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:35
-#, fuzzy
 msgid "Width of cached book cover images"
-msgstr "Jít na polohu"
+msgstr "Šířka obrázků obalů knih uložených do vyrovnávací paměti"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Restore last file opened"
@@ -2728,21 +2654,21 @@ msgstr "Výchozí barva zvýraznění"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:45
 msgid "Default highlight color for annotations"
-msgstr "Výchozí barva zvýraznění pro vysvětlivky"
+msgstr "Výchozí barva zvýraznění pro poznámky"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Dictionary"
 msgstr "Slovník"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:50
-#, fuzzy
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd and stardict, "
 "if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
 "the database ID"
 msgstr ""
-"Identifikátor výchozího slovníku. Slovníky z dictd, jsou-li jaké, jsou "
-"dostupné s předponou \"dcitd_\" přidanou k ID databáze"
+"Identifikátor výchozího slovníku. Slovníky z dictd a stardict, jsou-li jaké,"
+" jsou "
+"dostupné s předponou \"dcitd_\" a \"stardict_\" přidanou k ID databáze"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
 msgid "Target language of translation"
@@ -2770,13 +2696,15 @@ msgstr "Výchozí činnost k provedení při vybrání více slov"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:69
 msgid "Event for opening image viewer"
-msgstr ""
+msgstr "Událost pro otevření prohlížeče obrázků"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:70
 msgid ""
 "DOM event type for viewing images; the special value \"middleclick\" is "
 "available for the middle click event"
 msgstr ""
+"Typ události DOM pro prohlížení obrázků; zvláštní hodnota \"middleclick\" "
+"je dostupná pro událost klepnutí prostředním tlačítkem myši"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:75
 msgid "Command to execute for text-to-speech"
@@ -2924,7 +2852,7 @@ msgstr "Povolit nezabezpečený obsah"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:188
 msgid "If true, allow JavaScript"
-msgstr ""
+msgstr "Je-li to pravda, povolit JavaScript"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:192
 msgid "Enable developer tools"
@@ -3007,32 +2935,31 @@ msgid "Sidebar width"
 msgstr "Šířka postranního pruhu"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:254
-#, fuzzy
 msgid "Width of the library window"
-msgstr "Šířka okna"
+msgstr "Šířka okna knihovny"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:259
-#, fuzzy
 msgid "Height of the library window"
-msgstr "Výška okna"
+msgstr "Výška okna knihovny"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:264
-#, fuzzy
 msgid "Whether the library window is maximized"
-msgstr "Zda je okno zvětšeno"
+msgstr "Zda je okno knihovny zvětšeno na nejvyšší možnou míru"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:269
 msgid "How to view the library"
-msgstr ""
+msgstr "Jak zobrazit knihovnu"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:273
 msgid "Use Tracker"
-msgstr ""
+msgstr "Použít vyznačovač"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:274
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
+"Je-li pravda, pokusí se použít vyznačovač (souborový rejstříkovač) k získání"
+" poloh v souboru"
 
 #~ msgid "Allow JavaScript and external resources"
 #~ msgstr "Povolit JavaScript a vnější zdroje"
