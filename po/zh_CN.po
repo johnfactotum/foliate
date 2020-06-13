@@ -2,21 +2,22 @@
 # Copyright (C) 2019 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 # Blanc Chan cdh4227@qq.com, 2020.
+# 王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-07 18:58+0800\n"
-"PO-Revision-Date: 2020-06-07 19:00+0800\n"
-"Last-Translator: Blan Chan cdh4227@qq.com\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-06-13 14:28+0800\n"
+"Last-Translator: 王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>\n"
+"Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 3.36.0\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1225
 #: src/library.js:1543 src/main.js:181 src/window.js:1003
@@ -999,9 +1000,8 @@ msgid "Auto-hide Cursor"
 msgstr "自动隐藏鼠标"
 
 #: src/ui/mainMenu.ui:567 src/ui/menuBar.ui:157
-#, fuzzy
 msgid "Realistic Shadows"
-msgstr "仿真阴影效果"
+msgstr "真实感阴影"
 
 #: src/ui/mainMenu.ui:579
 msgid "Allow JavaScript"
@@ -1939,14 +1939,13 @@ msgid "Festival"
 msgstr "Festival"
 
 #: src/ui/ttsDialog.ui:137
-#, fuzzy
 msgid ""
 "<small>The environment variable <tt>$FOLIATE_TTS_LANG</tt> is available for "
 "the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for "
 "the all lower case code.</small>"
 msgstr ""
-"<small>可以用环境变量 <tt>$FOLIATE_TTS_LANG</tt> 来设置朗读图书的语言，或使用"
-"<tt>$FOLIATE_TTS_LANG_LOWER</tt> 来设置小写字母。</small>"
+"<small>环境变量 <tt>$FOLIATE_TTS_LANG</tt> 可以用来设置图书的语言编码，也可使"
+"用<tt>$FOLIATE_TTS_LANG_LOWER</tt> 设置小写编码。</small>"
 
 #: src/ui/ttsDialog.ui:156
 msgid "Test Your Configuration"
@@ -1990,7 +1989,7 @@ msgstr "自定义字体和行距"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
 msgid "Light, sepia, dark, and invert mode"
-msgstr "亮色，棕色，暗色和反转色模式"
+msgstr "亮色、棕色、暗色和反转色模式"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
 msgid "Reading progress slider with chapter marks"
@@ -2021,16 +2020,15 @@ msgstr "更新："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Fixed blurry book covers on HiDPI"
-msgstr ""
+msgstr "修复了 HiDPI 上书本模糊的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
 msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
-msgstr ""
+msgstr "修复了 Standard Ebooks 和古腾堡计划的 OPDS 链接"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-#, fuzzy
 msgid "Fixed wrong view icon on startup"
-msgstr "修正了错误的版本号"
+msgstr "修复了启动时错误的视图图标"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 msgid "Library:"
@@ -2165,11 +2163,10 @@ msgid "Option to clear or disable cache"
 msgstr "支持清除和禁用缓存"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
-#, fuzzy
 msgid ""
 "When an HTML page contains invalid self-closing anchor tags, it is now "
 "parsed as XHTML"
-msgstr "当HTML页面包含错误的自关闭锚标记时，它现在被解析为XHTML"
+msgstr "当一个 HTML 页面包含无效的自关闭锚标记时，它现在被解析为 XHTML"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:128
@@ -2605,14 +2602,12 @@ msgid "Whether to save book covers to cache"
 msgstr "是/否缓存图书封面"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
-#, fuzzy
 msgid "Cover size"
-msgstr "侧边栏大小"
+msgstr "封面尺寸"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:35
-#, fuzzy
 msgid "Width of cached book cover images"
-msgstr "缓存图书封面"
+msgstr "缓存书皮图像的宽度"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Restore last file opened"
@@ -2635,12 +2630,13 @@ msgid "Dictionary"
 msgstr "词典"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:50
-#, fuzzy
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd and stardict, "
 "if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
 "the database ID"
-msgstr "默认词典的标识符，来自 dictd 的词典在数据库前加上 \"dcitd_\" 就可使用"
+msgstr ""
+"默认字典的标识符。dictd 和 stardict 中的字典（如果有的话）可以使用添加到数据"
+"库ID的“dcitd_”和“stardict_”前缀"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
 msgid "Target language of translation"
