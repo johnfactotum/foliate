@@ -121,8 +121,8 @@ const makeActions = app => ({
         dialog.set_filter(fileFilters.ebook)
 
         if (dialog.run() === Gtk.ResponseType.ACCEPT) {
-            // const activeWindow = app.active_window
-            // if (activeWindow instanceof LibraryWindow) activeWindow.close()
+            const activeWindow = app.active_window
+            if (activeWindow instanceof LibraryWindow) activeWindow.close()
             new Window({ application: app, file: dialog.get_file() }).present()
         }
     },
@@ -167,6 +167,8 @@ const makeActions = app => ({
         window.close()
     },
     'library': () => {
+        const activeWindow = app.active_window
+        if (!(activeWindow instanceof LibraryWindow)) activeWindow.close()
         const windows = app.get_windows()
         ;(windows.find(window => window instanceof LibraryWindow)
             || new LibraryWindow({ application: app })).present()

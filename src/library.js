@@ -1469,7 +1469,7 @@ var LibraryWindow =  GObject.registerClass({
     }
     open(file) {
         new Window({ application: this.application, file }).present()
-        // this.close()
+        this.close()
     }
     openCatalog(uri) {
         const window = new OpdsWindow({ application: this.application })
