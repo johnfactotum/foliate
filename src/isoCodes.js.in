@@ -1,0 +1,12 @@
+const { GLib } = imports.gi
+const isoCodesPrefix = '@ISO_CODES_PREFIX@'
+
+var iso_639_2_path = GLib.build_filenamev([
+    isoCodesPrefix,
+    '/share/iso-codes/json/iso_639-2.json'
+])
+
+var iso_3166_1_path = GLib.build_filenamev([
+    isoCodesPrefix,
+    '/share/iso-codes/json/iso_3166-1.json'
+])

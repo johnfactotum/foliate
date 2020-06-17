@@ -14,7 +14,6 @@
  */
 
 const wiktionary = (word, language = 'en') => {
-    language = language.slice(0, 2).toLowerCase()
     const baseURL = 'https://en.wiktionary.org/'
     fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${word}`)
         .then(res => res.ok ? res.json() : Promise.reject(new Error()))
