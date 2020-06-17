@@ -15,7 +15,7 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
 const ngettext = imports.gettext.ngettext
-const { debug, locales, formatPercent,
+const { debug, readJSON, locales, formatPercent,
     Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight, fileFilters,
     linkIsRel, makeLinksButton, sepHeaderFunc,
@@ -25,6 +25,7 @@ const { Window } = imports.window
 const { uriStore, library } = imports.uriStore
 const { catalogStore, CatalogRow, CatalogEditor } = imports.catalogs
 const { headlessViewer, EpubViewData } = imports.epubView
+const { exportAnnotations } = imports.export
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
 const { HdyColumn } = imports.handy
 
@@ -112,6 +113,7 @@ const makeLibraryChild = (params, widget) => {
             const actions = {
                 'properties': () => this.showProperties(),
                 'edit': () => this.editBook(),
+                'export': () => this.exportAnnotations(),
                 'remove': () => this.removeBook(),
             }
             Object.keys(actions).forEach(name => {
@@ -120,6 +122,9 @@ const makeLibraryChild = (params, widget) => {
                 this.actionGroup.add_action(action)
             })
             this.insert_action_group('lib-book', this.actionGroup)
+
+            const { hasAnnotations } = this.book.value
+            this.actionGroup.lookup_action('export').enabled = hasAnnotations
         }
         getMenu() {
             return new BookBoxMenu()
@@ -147,6 +152,15 @@ const makeLibraryChild = (params, widget) => {
                 use_header_bar: true
             }, metadata, cover)
             window.show()
+        }
+        exportAnnotations() {
+            const win = this.get_toplevel()
+            const { metadata } = this.book.value
+            const { identifier } = metadata
+            const dataPath = EpubViewData.dataPath(identifier)
+            const dataFile = Gio.File.new_for_path(dataPath)
+            const data = readJSON(dataFile)
+            exportAnnotations(win, data, metadata)
         }
         removeBook(window) {
             const id = this.book.value.identifier

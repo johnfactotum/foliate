@@ -669,20 +669,6 @@ const makeActions = self => ({
     },
     'export-annotations': () => {
         const data = self._epub.data
-        if (!data.annotations || !data.annotations.length) {
-            const msg = new Gtk.MessageDialog({
-                text: _('No annotations'),
-                secondary_text: _("You don't have any annotations for this book.")
-                    + '\n' + _('Highlight some text to add annotations.'),
-                message_type: Gtk.MessageType.INFO,
-                buttons: [Gtk.ButtonsType.OK],
-                modal: true,
-                transient_for: self
-            })
-            msg.run()
-            msg.destroy()
-            return
-        }
         exportAnnotations(self, data, self._epub.metadata, cfi =>
             self._epub.getSectionFromCfi(cfi).then(x => x.label))
             .catch(e => logError(e))
@@ -1036,6 +1022,7 @@ var Window = GObject.registerClass({
         })
         this._epub.connect('data-ready', () => {
             this.lookup_action('export-annotations').enabled = true
+            this.lookup_action('import-annotations').enabled = true
             this.lookup_action('selection-highlight').enabled = true
         })
         this._epub.connect('should-reload', () => {
@@ -1304,6 +1291,7 @@ var Window = GObject.registerClass({
         if (state) {
             this.lookup_action('properties').enabled = false
             this.lookup_action('export-annotations').enabled = false
+            this.lookup_action('import-annotations').enabled = false
             this.lookup_action('selection-highlight').enabled = false
             this._setTitle(_('Loading…'))
         }

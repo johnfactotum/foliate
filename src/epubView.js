@@ -149,6 +149,7 @@ var EpubViewData = GObject.registerClass({
             library.update(identifier, {
                 identifier,
                 metadata: this._storage.get('metadata', {}),
+                hasAnnotations: this._annotationsMap.size > 0,
                 progress: this._storage.get('progress', []),
                 modified: new Date()
             })

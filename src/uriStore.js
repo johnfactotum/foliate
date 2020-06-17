@@ -98,6 +98,7 @@ class BookList {
         const result = {
             identifier,
             metadata: json.metadata,
+            hasAnnotations: json.annotations && json.annotations.length > 0,
             progress: json.progress,
             modified
         }

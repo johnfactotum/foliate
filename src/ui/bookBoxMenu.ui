@@ -14,6 +14,23 @@
           </object>
         </child>
         <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action-name">lib-book.export</property>
+            <property name="text" translatable="yes">Export Annotations…</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
           <object class="GtkModelButton">
             <property name="visible">True</property>
             <property name="action-name">lib-book.edit</property>

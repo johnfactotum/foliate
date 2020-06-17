@@ -7,8 +7,16 @@
     </columns>
     <data>
       <row>
+        <col id="0">bib</col>
+        <col id="1" translatable="yes">BibTeX</col>
+      </row>
+      <row>
         <col id="0">html</col>
         <col id="1" translatable="yes">HTML</col>
+      </row>
+      <row>
+        <col id="0">json</col>
+        <col id="1" translatable="yes">JSON</col>
       </row>
       <row>
         <col id="0">md</col>
@@ -17,14 +25,6 @@
       <row>
         <col id="0">txt</col>
         <col id="1" translatable="yes">Plain Text</col>
-      </row>
-      <row>
-        <col id="0">bib</col>
-        <col id="1" translatable="yes">BibTeX</col>
-      </row>
-      <row>
-        <col id="0">json</col>
-        <col id="1" translatable="yes">JSON</col>
       </row>
     </data>
   </object>
@@ -72,7 +72,7 @@
                 <property name="visible">True</property>
                 <property name="model">formats</property>
                 <property name="id-column">0</property>
-                <property name="active-id">html</property>
+                <property name="active-id">json</property>
                 <child>
                   <object class="GtkCellRendererText">
                     <property name="ellipsize">end</property>
