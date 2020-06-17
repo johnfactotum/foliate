@@ -165,10 +165,22 @@ const getImage = async (src, token) => {
     }
 }
 
+const fetchWithAuth = (resource, init) => {
+    if (typeof resource !== 'string') return fetch(resource, init)
+    const url = new URL(resource)
+    const { username, password } = url
+    if (!username) return fetch(resource, init)
+    dispatch({ type: 'auth', payload: { username, password } })
+    url.username = ''
+    url.password = ''
+    const req = new Request(url.toString(), init)
+    return fetch(req)
+}
+
 const getFeed = (uri, token) => {
     baseURI = uri
     const parser = new DOMParser()
-    fetch(uri)
+    fetchWithAuth(uri)
         .then(res => res.text())
         .then(text => parser.parseFromString(text, 'text/xml'))
         .then(doc => {
