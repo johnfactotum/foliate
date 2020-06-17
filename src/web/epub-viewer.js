@@ -659,7 +659,7 @@ const setupRendition = () => {
         }
 
         // handle selection and clicks
-        let timer = 0
+        let clickTimeout
         const dispatchClick = e => {
             const clientX = (e.changedTouches ? e.changedTouches[0] : e).clientX
             const left = e.target === document.documentElement ? 0 : frame
@@ -671,7 +671,7 @@ const setupRendition = () => {
                     position: clientX + left
                 }
             })
-            timer = setTimeout(f, doubleClickTime)
+            clickTimeout = setTimeout(f, doubleClickTime)
         }
 
         document.onclick = dispatchClick
@@ -686,7 +686,7 @@ const setupRendition = () => {
             const range = selection.getRangeAt(0)
             if (range.collapsed) return dispatchClick(e)
 
-            clearTimeout(timer)
+            clearTimeout(clickTimeout)
             dispatch({
                 type: 'selection',
                 payload: {
@@ -699,7 +699,7 @@ const setupRendition = () => {
         }
 
         // auto-hide cursor
-        let timeout
+        let cursorTimeout
         const hideCursor = () => {
             contents.document.documentElement.style.cursor = 'none'
             cursorHidden = true
@@ -715,8 +715,8 @@ const setupRendition = () => {
             if (e.screenX === myScreenX && e.screenY === myScreenY) return
             myScreenX = e.screenX, myScreenY = e.screenY
             showCursor()
-            if (timeout) clearTimeout(timeout)
-            if (autohideCursor) timeout = setTimeout(hideCursor, 1000)
+            if (cursorTimeout) clearTimeout(cursorTimeout)
+            if (autohideCursor) cursorTimeout = setTimeout(hideCursor, 1000)
         }, false)
     })
 
