@@ -147,8 +147,6 @@ var exportAnnotations = async (window, data, metadata, getSection) => {
 }
 
 var importAnnotations = (window, epub) => {
-    let annotations
-
     const allFiles = new Gtk.FileFilter()
     allFiles.set_name(_('All Files'))
     allFiles.add_pattern('*')
