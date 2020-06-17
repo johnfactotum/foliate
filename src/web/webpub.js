@@ -151,7 +151,7 @@ const processFB2 = async (doc, blob, filename) => {
         return el ? el.textContent : ''
     }
     const title = getTextContent('title-info book-title') || filename
-    const identifier = getTextContent('title-info id') || await generateIdentifier(blob)
+    const identifier = getTextContent('document-info id') || await generateIdentifier(blob)
     const annotation = $('title-info annotation')
     const description = annotation ? fb2ToHtml(annotation, h).innerHTML : undefined
     const language = getTextContent('title-info lang')
