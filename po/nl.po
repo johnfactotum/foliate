@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-07 18:58+0800\n"
+"POT-Creation-Date: 2020-06-17 20:15+0800\n"
 "PO-Revision-Date: 2020-05-29 13:14+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -137,31 +137,31 @@ msgstr "Bestand opslaan"
 msgid "Annotations for “%s”"
 msgstr "Aantekeningen bij '%s'"
 
-#: src/export.js:153 src/utils.js:123
+#: src/export.js:151 src/utils.js:203
 msgid "All Files"
 msgstr "Alle bestanden"
 
-#: src/export.js:157
+#: src/export.js:155
 msgid "JSON Files"
 msgstr "JSON-bestanden"
 
-#: src/export.js:160 src/ui/importWindow.ui:6
+#: src/export.js:158 src/ui/importWindow.ui:6
 msgid "Import Annotations"
 msgstr "Aantekeningen importeren"
 
-#: src/export.js:173 src/window.js:674 src/ui/contentsStack.ui:80
+#: src/export.js:171 src/window.js:674 src/ui/contentsStack.ui:80
 msgid "No annotations"
 msgstr "Geen aantekeningen"
 
-#: src/export.js:174
+#: src/export.js:172
 msgid "There’s nothing to import."
 msgstr "Er is niks te importeren."
 
-#: src/export.js:215
+#: src/export.js:213
 msgid "Identifier mismatch"
 msgstr "Identificatie komt niet overeen"
 
-#: src/export.js:216
+#: src/export.js:214
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
@@ -169,22 +169,22 @@ msgstr ""
 "De identificatie van het geïmporteerde bestand komt niet overeen met die van "
 "het boek. Dit kan er op wijzen dat de aantekeningen niet bij dit boek horen."
 
-#: src/export.js:221 src/library.js:492 src/main.js:141 src/window.js:563
+#: src/export.js:219 src/library.js:492 src/main.js:141 src/window.js:563
 #: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/export.js:222
+#: src/export.js:220
 msgid "Import Anyway"
 msgstr "Tóch importeren"
 
-#: src/export.js:232 src/library.js:1741 src/window.js:1031
+#: src/export.js:230 src/library.js:1741 src/window.js:1031
 msgid "Error"
 msgstr "Fout"
 
-#: src/export.js:233
+#: src/export.js:231
 msgid "Could not import annotations."
 msgstr "De aantekeningen kunnen niet worden geïmporteerd."
 
@@ -312,7 +312,7 @@ msgstr "Beschrijving"
 msgid "Publisher"
 msgstr "Uitgever"
 
-#: src/library.js:1405 src/properties.js:91 src/ui/ttsDialog.ui:284
+#: src/library.js:1405 src/properties.js:93 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Taal"
 
@@ -388,11 +388,11 @@ msgstr "Wiktionary"
 msgid "Wiktionary (English)"
 msgstr "Wiktionary (Engels)"
 
-#: src/lookup.js:385
+#: src/lookup.js:386
 msgid "Search on Wiktionary"
 msgstr "Zoeken op Wiktionary"
 
-#: src/lookup.js:408
+#: src/lookup.js:409
 msgid "Translation by Google Translate"
 msgstr "Vertaling door Google Translate"
 
@@ -450,54 +450,54 @@ msgstr "Verschenen op"
 msgid "Modified Date"
 msgstr "Bewerkt op"
 
-#: src/properties.js:95
+#: src/properties.js:98
 msgid "File Size"
 msgstr "Bestandsgrootte"
 
-#: src/properties.js:99
+#: src/properties.js:102
 msgid "Format"
 msgstr "Formaat"
 
-#: src/properties.js:105
+#: src/properties.js:108
 msgid "Identifier"
 msgstr "Identificatie"
 
-#: src/properties.js:119
+#: src/properties.js:122
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr ""
 "Dit boek bevat geen identificatie. Dit is de door het bestand gegenereerde "
 "md5-controlesom."
 
-#: src/properties.js:130
+#: src/properties.js:133
 msgid "Copyright"
 msgstr "Copyright"
 
-#: src/properties.js:144
+#: src/properties.js:147
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/properties.js:148
+#: src/properties.js:151
 msgid "Goodreads"
 msgstr "Goodreads"
 
-#: src/properties.js:152
+#: src/properties.js:155
 msgid "Google Books"
 msgstr "Google Books"
 
-#: src/properties.js:156
+#: src/properties.js:159
 msgid "LibraryThing"
 msgstr "LibraryThing"
 
-#: src/properties.js:160
+#: src/properties.js:163
 msgid "Open Library"
 msgstr "Open Library"
 
-#: src/properties.js:164
+#: src/properties.js:167
 msgid "WorldCat"
 msgstr "WorldCat"
 
-#: src/properties.js:203
+#: src/properties.js:206
 msgid "Find on…"
 msgstr "Opzoeken op…"
 
@@ -558,21 +558,26 @@ msgstr "toen een reiziger in een warm gewaad voorbijliep."
 msgid "en"
 msgstr "nl"
 
-#: src/utils.js:87
+#: src/utils.js:150
+#, javascript-format
+msgid "%s (%s)"
+msgstr ""
+
+#: src/utils.js:167
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minuut"
 msgstr[1] "%d minuten"
 
-#: src/utils.js:90
+#: src/utils.js:170
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d uur"
 msgstr[1] "%d uur"
 
-#: src/utils.js:125
+#: src/utils.js:205
 msgid "E-book Files"
 msgstr "E-boekbestanden"
 
@@ -1514,422 +1519,6 @@ msgstr "Thema verwijderen"
 #: src/ui/translationBox.ui:53
 msgid "Cannot retrieve translation"
 msgstr "Kan vertaling niet ophalen"
-
-#: src/ui/translationBox.ui:127
-msgid "Afrikaans"
-msgstr "Afrikaans"
-
-#: src/ui/translationBox.ui:131
-msgid "Albanian"
-msgstr "Albanees"
-
-#: src/ui/translationBox.ui:135
-msgid "Amharic"
-msgstr "Amhaars"
-
-#: src/ui/translationBox.ui:139
-msgid "Arabic"
-msgstr "Arabisch"
-
-#: src/ui/translationBox.ui:143
-msgid "Armenian"
-msgstr "Armeens"
-
-#: src/ui/translationBox.ui:147
-msgid "Azerbaijani"
-msgstr "Azerbeidzjaans"
-
-#: src/ui/translationBox.ui:151
-msgid "Basque"
-msgstr "Basks"
-
-#: src/ui/translationBox.ui:155
-msgid "Belarusian"
-msgstr "Wit-Russisch"
-
-#: src/ui/translationBox.ui:159
-msgid "Bengali"
-msgstr "Bengaals"
-
-#: src/ui/translationBox.ui:163
-msgid "Bosnian"
-msgstr "Bosnisch"
-
-#: src/ui/translationBox.ui:167
-msgid "Bulgarian"
-msgstr "Bulgaars"
-
-#: src/ui/translationBox.ui:171
-msgid "Catalan"
-msgstr "Catalaans"
-
-#: src/ui/translationBox.ui:175
-msgid "Cebuano"
-msgstr "Cebuano"
-
-#: src/ui/translationBox.ui:179
-msgid "Chinese (Simplified)"
-msgstr "Chinees (Vereenvoudigd)"
-
-#: src/ui/translationBox.ui:183
-msgid "Chinese (Traditional)"
-msgstr "Chinees (Traditioneel)"
-
-#: src/ui/translationBox.ui:187
-msgid "Corsican"
-msgstr "Corsicaans"
-
-#: src/ui/translationBox.ui:191
-msgid "Croatian"
-msgstr "Kroatisch"
-
-#: src/ui/translationBox.ui:195
-msgid "Czech"
-msgstr "Tsjechisch"
-
-#: src/ui/translationBox.ui:199
-msgid "Danish"
-msgstr "Deens"
-
-#: src/ui/translationBox.ui:203
-msgid "Dutch"
-msgstr "Nederlands"
-
-#: src/ui/translationBox.ui:207
-msgid "English"
-msgstr "Engels"
-
-#: src/ui/translationBox.ui:211
-msgid "Esperanto"
-msgstr "Esperanto"
-
-#: src/ui/translationBox.ui:215
-msgid "Estonian"
-msgstr "Ests"
-
-#: src/ui/translationBox.ui:219
-msgid "Finnish"
-msgstr "Fins"
-
-#: src/ui/translationBox.ui:223
-msgid "French"
-msgstr "Frans"
-
-#: src/ui/translationBox.ui:227
-msgid "Frisian"
-msgstr "Fries"
-
-#: src/ui/translationBox.ui:231
-msgid "Galician"
-msgstr "Galicisch"
-
-#: src/ui/translationBox.ui:235
-msgid "Georgian"
-msgstr "Georgisch"
-
-#: src/ui/translationBox.ui:239
-msgid "German"
-msgstr "Duits"
-
-#: src/ui/translationBox.ui:243
-msgid "Greek"
-msgstr "Grieks"
-
-#: src/ui/translationBox.ui:247
-msgid "Gujarati"
-msgstr "Gujarati"
-
-#: src/ui/translationBox.ui:251
-msgid "Haitian Creole"
-msgstr "Initiële uitgave"
-
-#: src/ui/translationBox.ui:255
-msgid "Hausa"
-msgstr "Hausa"
-
-#: src/ui/translationBox.ui:259
-msgid "Hawaiian"
-msgstr "Hawaïaans"
-
-#: src/ui/translationBox.ui:263
-msgid "Hebrew"
-msgstr "Hebreeuws"
-
-#: src/ui/translationBox.ui:267
-msgid "Hindi"
-msgstr "Hindi"
-
-#: src/ui/translationBox.ui:271
-msgid "Hmong"
-msgstr "Hmong"
-
-#: src/ui/translationBox.ui:275
-msgid "Hungarian"
-msgstr "Hongaars"
-
-#: src/ui/translationBox.ui:279
-msgid "Icelandic"
-msgstr "IJslands"
-
-#: src/ui/translationBox.ui:283
-msgid "Igbo"
-msgstr "Igbo"
-
-#: src/ui/translationBox.ui:287
-msgid "Indonesian"
-msgstr "Indonesisch"
-
-#: src/ui/translationBox.ui:291
-msgid "Irish"
-msgstr "Iers"
-
-#: src/ui/translationBox.ui:295
-msgid "Italian"
-msgstr "Italiaans"
-
-#: src/ui/translationBox.ui:299
-msgid "Japanese"
-msgstr "Japans"
-
-#: src/ui/translationBox.ui:303
-msgid "Javanese"
-msgstr "Javaans"
-
-#: src/ui/translationBox.ui:307
-msgid "Kannada"
-msgstr "Kannada"
-
-#: src/ui/translationBox.ui:311
-msgid "Kazakh"
-msgstr "Kazachs"
-
-#: src/ui/translationBox.ui:315
-msgid "Khmer"
-msgstr "Khmer"
-
-#: src/ui/translationBox.ui:319
-msgid "Korean"
-msgstr "Koreaans"
-
-#: src/ui/translationBox.ui:323
-msgid "Kurdish"
-msgstr "Koerdisch"
-
-#: src/ui/translationBox.ui:327
-msgid "Kyrgyz"
-msgstr "Kirgizisch"
-
-#: src/ui/translationBox.ui:331
-msgid "Lao"
-msgstr "Laotiaans"
-
-#: src/ui/translationBox.ui:335
-msgid "Latin"
-msgstr "Latijns"
-
-#: src/ui/translationBox.ui:339
-msgid "Latvian"
-msgstr "Lets"
-
-#: src/ui/translationBox.ui:343
-msgid "Lithuanian"
-msgstr "Litouws"
-
-#: src/ui/translationBox.ui:347
-msgid "Luxembourgish"
-msgstr "Luxemburgs"
-
-#: src/ui/translationBox.ui:351
-msgid "Macedonian"
-msgstr "Macedonisch"
-
-#: src/ui/translationBox.ui:355
-msgid "Malagasy"
-msgstr "Malagassisch"
-
-#: src/ui/translationBox.ui:359
-msgid "Malay"
-msgstr "Maleis"
-
-#: src/ui/translationBox.ui:363
-msgid "Malayalam"
-msgstr "Malayalam"
-
-#: src/ui/translationBox.ui:367
-msgid "Maltese"
-msgstr "Maltees"
-
-#: src/ui/translationBox.ui:371
-msgid "Maori"
-msgstr "Maori"
-
-#: src/ui/translationBox.ui:375
-msgid "Marathi"
-msgstr "Marathi"
-
-#: src/ui/translationBox.ui:379
-msgid "Mongolian"
-msgstr "Mongools"
-
-#: src/ui/translationBox.ui:383
-msgid "Myanmar (Burmese)"
-msgstr "Myanmar (Boermees)"
-
-#: src/ui/translationBox.ui:387
-msgid "Nepali"
-msgstr "Nepalees"
-
-#: src/ui/translationBox.ui:391
-msgid "Norwegian"
-msgstr "Noors"
-
-#: src/ui/translationBox.ui:395
-msgid "Nyanja (Chichewa)"
-msgstr "Nyanja"
-
-#: src/ui/translationBox.ui:399
-msgid "Pashto"
-msgstr "Pasjtoe"
-
-#: src/ui/translationBox.ui:403
-msgid "Persian"
-msgstr "Perzisch"
-
-#: src/ui/translationBox.ui:407
-msgid "Polish"
-msgstr "Pools"
-
-#: src/ui/translationBox.ui:411
-msgid "Portuguese (Portugal, Brazil)"
-msgstr "Portugees (Portugal, Brazilië)"
-
-#: src/ui/translationBox.ui:415
-msgid "Punjabi"
-msgstr "Punjabi"
-
-#: src/ui/translationBox.ui:419
-msgid "Romanian"
-msgstr "Romaans"
-
-#: src/ui/translationBox.ui:423
-msgid "Russian"
-msgstr "Russisch"
-
-#: src/ui/translationBox.ui:427
-msgid "Samoan"
-msgstr "Samoaans"
-
-#: src/ui/translationBox.ui:431
-msgid "Scots Gaelic"
-msgstr "Schots-Gaelisch"
-
-#: src/ui/translationBox.ui:435
-msgid "Serbian"
-msgstr "Servisch"
-
-#: src/ui/translationBox.ui:439
-msgid "Sesotho"
-msgstr "Zuid-Sotho"
-
-#: src/ui/translationBox.ui:443
-msgid "Shona"
-msgstr "Shona"
-
-#: src/ui/translationBox.ui:447
-msgid "Sindhi"
-msgstr "Sindhi"
-
-#: src/ui/translationBox.ui:451
-msgid "Sinhala (Sinhalese)"
-msgstr "Sinhala (Sinhalees)"
-
-#: src/ui/translationBox.ui:455
-msgid "Slovak"
-msgstr "Slowaaks"
-
-#: src/ui/translationBox.ui:459
-msgid "Slovenian"
-msgstr "Sloveens"
-
-#: src/ui/translationBox.ui:463
-msgid "Somali"
-msgstr "Somalisch"
-
-#: src/ui/translationBox.ui:467
-msgid "Spanish"
-msgstr "Spaans"
-
-#: src/ui/translationBox.ui:471
-msgid "Sundanese"
-msgstr "Soedanees"
-
-#: src/ui/translationBox.ui:475
-msgid "Swahili"
-msgstr "Swahili"
-
-#: src/ui/translationBox.ui:479
-msgid "Swedish"
-msgstr "Zweeds"
-
-#: src/ui/translationBox.ui:483
-msgid "Tagalog (Filipino)"
-msgstr "Tagalog (Filipijns)"
-
-#: src/ui/translationBox.ui:487
-msgid "Tajik"
-msgstr "Tadzjieks"
-
-#: src/ui/translationBox.ui:491
-msgid "Tamil"
-msgstr "Tamil"
-
-#: src/ui/translationBox.ui:495
-msgid "Telugu"
-msgstr "Telugu"
-
-#: src/ui/translationBox.ui:499
-msgid "Thai"
-msgstr "Thais"
-
-#: src/ui/translationBox.ui:503
-msgid "Turkish"
-msgstr "Turks"
-
-#: src/ui/translationBox.ui:507
-msgid "Ukrainian"
-msgstr "Oekraïens"
-
-#: src/ui/translationBox.ui:511
-msgid "Urdu"
-msgstr "Urdu"
-
-#: src/ui/translationBox.ui:515
-msgid "Uzbek"
-msgstr "Oezbeeks"
-
-#: src/ui/translationBox.ui:519
-msgid "Vietnamese"
-msgstr "Vietnamees"
-
-#: src/ui/translationBox.ui:523
-msgid "Welsh"
-msgstr "Wels"
-
-#: src/ui/translationBox.ui:527
-msgid "Xhosa"
-msgstr "Xhosa"
-
-#: src/ui/translationBox.ui:531
-msgid "Yiddish"
-msgstr "Joods"
-
-#: src/ui/translationBox.ui:535
-msgid "Yoruba"
-msgstr "Yoruba"
-
-#: src/ui/translationBox.ui:539
-msgid "Zulu"
-msgstr "Zulu"
 
 #: src/ui/ttsDialog.ui:17
 msgid "OK"
@@ -3000,6 +2589,318 @@ msgid ""
 msgstr ""
 "Schakel in om Tracker (de bestandsindexeerder) te gebruiken om "
 "bestandslocaties op te halen"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaans"
+
+#~ msgid "Albanian"
+#~ msgstr "Albanees"
+
+#~ msgid "Amharic"
+#~ msgstr "Amhaars"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabisch"
+
+#~ msgid "Armenian"
+#~ msgstr "Armeens"
+
+#~ msgid "Azerbaijani"
+#~ msgstr "Azerbeidzjaans"
+
+#~ msgid "Basque"
+#~ msgstr "Basks"
+
+#~ msgid "Belarusian"
+#~ msgstr "Wit-Russisch"
+
+#~ msgid "Bengali"
+#~ msgstr "Bengaals"
+
+#~ msgid "Bosnian"
+#~ msgstr "Bosnisch"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgaars"
+
+#~ msgid "Catalan"
+#~ msgstr "Catalaans"
+
+#~ msgid "Cebuano"
+#~ msgstr "Cebuano"
+
+#~ msgid "Chinese (Simplified)"
+#~ msgstr "Chinees (Vereenvoudigd)"
+
+#~ msgid "Chinese (Traditional)"
+#~ msgstr "Chinees (Traditioneel)"
+
+#~ msgid "Corsican"
+#~ msgstr "Corsicaans"
+
+#~ msgid "Croatian"
+#~ msgstr "Kroatisch"
+
+#~ msgid "Czech"
+#~ msgstr "Tsjechisch"
+
+#~ msgid "Danish"
+#~ msgstr "Deens"
+
+#~ msgid "Dutch"
+#~ msgstr "Nederlands"
+
+#~ msgid "English"
+#~ msgstr "Engels"
+
+#~ msgid "Esperanto"
+#~ msgstr "Esperanto"
+
+#~ msgid "Estonian"
+#~ msgstr "Ests"
+
+#~ msgid "Finnish"
+#~ msgstr "Fins"
+
+#~ msgid "French"
+#~ msgstr "Frans"
+
+#~ msgid "Frisian"
+#~ msgstr "Fries"
+
+#~ msgid "Galician"
+#~ msgstr "Galicisch"
+
+#~ msgid "Georgian"
+#~ msgstr "Georgisch"
+
+#~ msgid "German"
+#~ msgstr "Duits"
+
+#~ msgid "Greek"
+#~ msgstr "Grieks"
+
+#~ msgid "Gujarati"
+#~ msgstr "Gujarati"
+
+#~ msgid "Haitian Creole"
+#~ msgstr "Initiële uitgave"
+
+#~ msgid "Hausa"
+#~ msgstr "Hausa"
+
+#~ msgid "Hawaiian"
+#~ msgstr "Hawaïaans"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebreeuws"
+
+#~ msgid "Hindi"
+#~ msgstr "Hindi"
+
+#~ msgid "Hmong"
+#~ msgstr "Hmong"
+
+#~ msgid "Hungarian"
+#~ msgstr "Hongaars"
+
+#~ msgid "Icelandic"
+#~ msgstr "IJslands"
+
+#~ msgid "Igbo"
+#~ msgstr "Igbo"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonesisch"
+
+#~ msgid "Irish"
+#~ msgstr "Iers"
+
+#~ msgid "Italian"
+#~ msgstr "Italiaans"
+
+#~ msgid "Japanese"
+#~ msgstr "Japans"
+
+#~ msgid "Javanese"
+#~ msgstr "Javaans"
+
+#~ msgid "Kannada"
+#~ msgstr "Kannada"
+
+#~ msgid "Kazakh"
+#~ msgstr "Kazachs"
+
+#~ msgid "Khmer"
+#~ msgstr "Khmer"
+
+#~ msgid "Korean"
+#~ msgstr "Koreaans"
+
+#~ msgid "Kurdish"
+#~ msgstr "Koerdisch"
+
+#~ msgid "Kyrgyz"
+#~ msgstr "Kirgizisch"
+
+#~ msgid "Lao"
+#~ msgstr "Laotiaans"
+
+#~ msgid "Latin"
+#~ msgstr "Latijns"
+
+#~ msgid "Latvian"
+#~ msgstr "Lets"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Litouws"
+
+#~ msgid "Luxembourgish"
+#~ msgstr "Luxemburgs"
+
+#~ msgid "Macedonian"
+#~ msgstr "Macedonisch"
+
+#~ msgid "Malagasy"
+#~ msgstr "Malagassisch"
+
+#~ msgid "Malay"
+#~ msgstr "Maleis"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malayalam"
+
+#~ msgid "Maltese"
+#~ msgstr "Maltees"
+
+#~ msgid "Maori"
+#~ msgstr "Maori"
+
+#~ msgid "Marathi"
+#~ msgstr "Marathi"
+
+#~ msgid "Mongolian"
+#~ msgstr "Mongools"
+
+#~ msgid "Myanmar (Burmese)"
+#~ msgstr "Myanmar (Boermees)"
+
+#~ msgid "Nepali"
+#~ msgstr "Nepalees"
+
+#~ msgid "Norwegian"
+#~ msgstr "Noors"
+
+#~ msgid "Nyanja (Chichewa)"
+#~ msgstr "Nyanja"
+
+#~ msgid "Pashto"
+#~ msgstr "Pasjtoe"
+
+#~ msgid "Persian"
+#~ msgstr "Perzisch"
+
+#~ msgid "Polish"
+#~ msgstr "Pools"
+
+#~ msgid "Portuguese (Portugal, Brazil)"
+#~ msgstr "Portugees (Portugal, Brazilië)"
+
+#~ msgid "Punjabi"
+#~ msgstr "Punjabi"
+
+#~ msgid "Romanian"
+#~ msgstr "Romaans"
+
+#~ msgid "Russian"
+#~ msgstr "Russisch"
+
+#~ msgid "Samoan"
+#~ msgstr "Samoaans"
+
+#~ msgid "Scots Gaelic"
+#~ msgstr "Schots-Gaelisch"
+
+#~ msgid "Serbian"
+#~ msgstr "Servisch"
+
+#~ msgid "Sesotho"
+#~ msgstr "Zuid-Sotho"
+
+#~ msgid "Shona"
+#~ msgstr "Shona"
+
+#~ msgid "Sindhi"
+#~ msgstr "Sindhi"
+
+#~ msgid "Sinhala (Sinhalese)"
+#~ msgstr "Sinhala (Sinhalees)"
+
+#~ msgid "Slovak"
+#~ msgstr "Slowaaks"
+
+#~ msgid "Slovenian"
+#~ msgstr "Sloveens"
+
+#~ msgid "Somali"
+#~ msgstr "Somalisch"
+
+#~ msgid "Spanish"
+#~ msgstr "Spaans"
+
+#~ msgid "Sundanese"
+#~ msgstr "Soedanees"
+
+#~ msgid "Swahili"
+#~ msgstr "Swahili"
+
+#~ msgid "Swedish"
+#~ msgstr "Zweeds"
+
+#~ msgid "Tagalog (Filipino)"
+#~ msgstr "Tagalog (Filipijns)"
+
+#~ msgid "Tajik"
+#~ msgstr "Tadzjieks"
+
+#~ msgid "Tamil"
+#~ msgstr "Tamil"
+
+#~ msgid "Telugu"
+#~ msgstr "Telugu"
+
+#~ msgid "Thai"
+#~ msgstr "Thais"
+
+#~ msgid "Turkish"
+#~ msgstr "Turks"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Oekraïens"
+
+#~ msgid "Urdu"
+#~ msgstr "Urdu"
+
+#~ msgid "Uzbek"
+#~ msgstr "Oezbeeks"
+
+#~ msgid "Vietnamese"
+#~ msgstr "Vietnamees"
+
+#~ msgid "Welsh"
+#~ msgstr "Wels"
+
+#~ msgid "Xhosa"
+#~ msgstr "Xhosa"
+
+#~ msgid "Yiddish"
+#~ msgstr "Joods"
+
+#~ msgid "Yoruba"
+#~ msgstr "Yoruba"
+
+#~ msgid "Zulu"
+#~ msgstr "Zulu"
 
 #~ msgid "Allow JavaScript and external resources"
 #~ msgstr "JavaScript en externe bronnen toestaan"

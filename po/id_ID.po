@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-07 18:58+0800\n"
+"POT-Creation-Date: 2020-06-17 20:15+0800\n"
 "PO-Revision-Date: 2019-06-14 21:02+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -155,56 +155,56 @@ msgstr ""
 "%s\n"
 "Oleh %s"
 
-#: src/export.js:153 src/utils.js:123
+#: src/export.js:151 src/utils.js:203
 #, fuzzy
 msgid "All Files"
 msgstr "Semua berkas"
 
-#: src/export.js:157
+#: src/export.js:155
 #, fuzzy
 msgid "JSON Files"
 msgstr "Semua berkas"
 
-#: src/export.js:160 src/ui/importWindow.ui:6
+#: src/export.js:158 src/ui/importWindow.ui:6
 #, fuzzy
 msgid "Import Annotations"
 msgstr "Anotasi"
 
-#: src/export.js:173 src/window.js:674 src/ui/contentsStack.ui:80
+#: src/export.js:171 src/window.js:674 src/ui/contentsStack.ui:80
 msgid "No annotations"
 msgstr "Tidak ada anotasi"
 
-#: src/export.js:174
+#: src/export.js:172
 msgid "There’s nothing to import."
 msgstr ""
 
-#: src/export.js:215
+#: src/export.js:213
 #, fuzzy
 msgid "Identifier mismatch"
 msgstr "Pengidentifikasi"
 
-#: src/export.js:216
+#: src/export.js:214
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
 msgstr ""
 
-#: src/export.js:221 src/library.js:492 src/main.js:141 src/window.js:563
+#: src/export.js:219 src/library.js:492 src/main.js:141 src/window.js:563
 #: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Batalkan"
 
-#: src/export.js:222
+#: src/export.js:220
 msgid "Import Anyway"
 msgstr ""
 
-#: src/export.js:232 src/library.js:1741 src/window.js:1031
+#: src/export.js:230 src/library.js:1741 src/window.js:1031
 msgid "Error"
 msgstr ""
 
-#: src/export.js:233
+#: src/export.js:231
 #, fuzzy
 msgid "Could not import annotations."
 msgstr "Anotasi"
@@ -331,7 +331,7 @@ msgstr "Seleksi"
 msgid "Publisher"
 msgstr "Penerbit"
 
-#: src/library.js:1405 src/properties.js:91 src/ui/ttsDialog.ui:284
+#: src/library.js:1405 src/properties.js:93 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Bahasa"
 
@@ -414,11 +414,11 @@ msgstr "Izinkan Kamus"
 msgid "Wiktionary (English)"
 msgstr "Wikitionary (Inggris)"
 
-#: src/lookup.js:385
+#: src/lookup.js:386
 msgid "Search on Wiktionary"
 msgstr "Cari di Wikitionary"
 
-#: src/lookup.js:408
+#: src/lookup.js:409
 msgid "Translation by Google Translate"
 msgstr "Terjemahan oleh Google Terjemahan"
 
@@ -479,54 +479,54 @@ msgstr "Tanggal Publikasi"
 msgid "Modified Date"
 msgstr "Tanggal Modifikasi"
 
-#: src/properties.js:95
+#: src/properties.js:98
 #, fuzzy
 msgid "File Size"
 msgstr "Semua berkas"
 
-#: src/properties.js:99
+#: src/properties.js:102
 msgid "Format"
 msgstr ""
 
-#: src/properties.js:105
+#: src/properties.js:108
 msgid "Identifier"
 msgstr "Pengidentifikasi"
 
-#: src/properties.js:119
+#: src/properties.js:122
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr ""
 
-#: src/properties.js:130
+#: src/properties.js:133
 msgid "Copyright"
 msgstr "Hak cipta"
 
-#: src/properties.js:144
+#: src/properties.js:147
 msgid "Amazon"
 msgstr ""
 
-#: src/properties.js:148
+#: src/properties.js:151
 msgid "Goodreads"
 msgstr ""
 
-#: src/properties.js:152
+#: src/properties.js:155
 #, fuzzy
 msgid "Google Books"
 msgstr "Lihat eBook"
 
-#: src/properties.js:156
+#: src/properties.js:159
 msgid "LibraryThing"
 msgstr ""
 
-#: src/properties.js:160
+#: src/properties.js:163
 msgid "Open Library"
 msgstr ""
 
-#: src/properties.js:164
+#: src/properties.js:167
 msgid "WorldCat"
 msgstr ""
 
-#: src/properties.js:203
+#: src/properties.js:206
 msgid "Find on…"
 msgstr ""
 
@@ -587,19 +587,24 @@ msgstr ""
 msgid "en"
 msgstr ""
 
-#: src/utils.js:87
+#: src/utils.js:150
+#, javascript-format
+msgid "%s (%s)"
+msgstr ""
+
+#: src/utils.js:167
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
 
-#: src/utils.js:90
+#: src/utils.js:170
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] ""
 
-#: src/utils.js:125
+#: src/utils.js:205
 msgid "E-book Files"
 msgstr "Berkas E-book"
 
@@ -1629,425 +1634,6 @@ msgstr "Hapus tema terpilih"
 #, fuzzy
 msgid "Cannot retrieve translation"
 msgstr "Tidak dapat mengambil terjemahan"
-
-#: src/ui/translationBox.ui:127
-msgid "Afrikaans"
-msgstr "Bahasa Afrika"
-
-#: src/ui/translationBox.ui:131
-msgid "Albanian"
-msgstr "Bahasa Albania"
-
-#: src/ui/translationBox.ui:135
-msgid "Amharic"
-msgstr "Bahasa Amharik"
-
-#: src/ui/translationBox.ui:139
-msgid "Arabic"
-msgstr "Bahasa Arab"
-
-#: src/ui/translationBox.ui:143
-msgid "Armenian"
-msgstr "Bahasa Armenia"
-
-#: src/ui/translationBox.ui:147
-msgid "Azerbaijani"
-msgstr "Bahasa Azerbaijan"
-
-#: src/ui/translationBox.ui:151
-msgid "Basque"
-msgstr "Bahasa Basque"
-
-#: src/ui/translationBox.ui:155
-msgid "Belarusian"
-msgstr "Bahasa Belarusia"
-
-#: src/ui/translationBox.ui:159
-msgid "Bengali"
-msgstr "Bahasa Bengali"
-
-#: src/ui/translationBox.ui:163
-msgid "Bosnian"
-msgstr "Bahasa Bosnia"
-
-#: src/ui/translationBox.ui:167
-msgid "Bulgarian"
-msgstr "Bahasa Bulgaria"
-
-#: src/ui/translationBox.ui:171
-msgid "Catalan"
-msgstr "Bahasa Katala"
-
-#: src/ui/translationBox.ui:175
-msgid "Cebuano"
-msgstr "Bahasa Cebú"
-
-#: src/ui/translationBox.ui:179
-msgid "Chinese (Simplified)"
-msgstr "Bahasa China (Disederhanakan)"
-
-#: src/ui/translationBox.ui:183
-msgid "Chinese (Traditional)"
-msgstr "Bahasa China (Tradisional)"
-
-#: src/ui/translationBox.ui:187
-msgid "Corsican"
-msgstr "Bahasa Korsika"
-
-#: src/ui/translationBox.ui:191
-msgid "Croatian"
-msgstr "Bahasa Kroasia"
-
-#: src/ui/translationBox.ui:195
-msgid "Czech"
-msgstr "Bahasa Ceska"
-
-#: src/ui/translationBox.ui:199
-msgid "Danish"
-msgstr "Bahasa Denmark"
-
-#: src/ui/translationBox.ui:203
-msgid "Dutch"
-msgstr "Bahasa Belanda"
-
-#: src/ui/translationBox.ui:207
-msgid "English"
-msgstr "Bahasa Inggris"
-
-#: src/ui/translationBox.ui:211
-msgid "Esperanto"
-msgstr "Bahasa Esperanto"
-
-#: src/ui/translationBox.ui:215
-msgid "Estonian"
-msgstr "Bahasa Estonia"
-
-#: src/ui/translationBox.ui:219
-msgid "Finnish"
-msgstr "Bahasa Finlandia"
-
-#: src/ui/translationBox.ui:223
-msgid "French"
-msgstr "Bahasa Perancis"
-
-#: src/ui/translationBox.ui:227
-msgid "Frisian"
-msgstr "Bahasa Frisia"
-
-#: src/ui/translationBox.ui:231
-msgid "Galician"
-msgstr "Bahasa Galisia"
-
-#: src/ui/translationBox.ui:235
-msgid "Georgian"
-msgstr "Bahasa Georgia"
-
-#: src/ui/translationBox.ui:239
-msgid "German"
-msgstr "Bahasa Jerman"
-
-#: src/ui/translationBox.ui:243
-msgid "Greek"
-msgstr "Bahasa Yunani"
-
-#: src/ui/translationBox.ui:247
-msgid "Gujarati"
-msgstr "Bahasa Gujarat"
-
-#: src/ui/translationBox.ui:251
-#, fuzzy
-msgid "Haitian Creole"
-msgstr "Bahasa Kreol Haiti"
-
-#: src/ui/translationBox.ui:255
-msgid "Hausa"
-msgstr "Bahasa Hausa"
-
-#: src/ui/translationBox.ui:259
-msgid "Hawaiian"
-msgstr "Bahasa Hawaii"
-
-#: src/ui/translationBox.ui:263
-msgid "Hebrew"
-msgstr "Bahasa Ibrani"
-
-#: src/ui/translationBox.ui:267
-msgid "Hindi"
-msgstr "Bahasa Hindi"
-
-#: src/ui/translationBox.ui:271
-msgid "Hmong"
-msgstr "Bahasa Hmong"
-
-#: src/ui/translationBox.ui:275
-msgid "Hungarian"
-msgstr "Bahasa Hungaria"
-
-#: src/ui/translationBox.ui:279
-msgid "Icelandic"
-msgstr "Bahasa Islandia"
-
-#: src/ui/translationBox.ui:283
-msgid "Igbo"
-msgstr "Bahasa Igbo"
-
-#: src/ui/translationBox.ui:287
-msgid "Indonesian"
-msgstr "Bahasa Indonesia"
-
-#: src/ui/translationBox.ui:291
-msgid "Irish"
-msgstr "Bahasa Irlandia"
-
-#: src/ui/translationBox.ui:295
-msgid "Italian"
-msgstr "Bahasa Italia"
-
-#: src/ui/translationBox.ui:299
-msgid "Japanese"
-msgstr "Bahasa Jepang"
-
-#: src/ui/translationBox.ui:303
-msgid "Javanese"
-msgstr "Bahasa Jawa"
-
-#: src/ui/translationBox.ui:307
-msgid "Kannada"
-msgstr "Bahasa Kannada"
-
-#: src/ui/translationBox.ui:311
-msgid "Kazakh"
-msgstr "Bahasa Kazakh"
-
-#: src/ui/translationBox.ui:315
-msgid "Khmer"
-msgstr "Bahasa Khmer"
-
-#: src/ui/translationBox.ui:319
-msgid "Korean"
-msgstr "Bahasa Korea"
-
-#: src/ui/translationBox.ui:323
-msgid "Kurdish"
-msgstr "Bahasa Kurdi"
-
-#: src/ui/translationBox.ui:327
-msgid "Kyrgyz"
-msgstr "Bahasa Kirgizstan"
-
-#: src/ui/translationBox.ui:331
-#, fuzzy
-msgid "Lao"
-msgstr "Bahasa Laos"
-
-#: src/ui/translationBox.ui:335
-msgid "Latin"
-msgstr "Bahasa Latin"
-
-#: src/ui/translationBox.ui:339
-msgid "Latvian"
-msgstr "Bahasa Latvia"
-
-#: src/ui/translationBox.ui:343
-msgid "Lithuanian"
-msgstr "Bahasa Lithuania"
-
-#: src/ui/translationBox.ui:347
-msgid "Luxembourgish"
-msgstr "Bahasa Luxembourg"
-
-#: src/ui/translationBox.ui:351
-msgid "Macedonian"
-msgstr "Bahasa Makedonia"
-
-#: src/ui/translationBox.ui:355
-msgid "Malagasy"
-msgstr "Bahasa Malagasi"
-
-#: src/ui/translationBox.ui:359
-msgid "Malay"
-msgstr "Bahasa Malaysia"
-
-#: src/ui/translationBox.ui:363
-msgid "Malayalam"
-msgstr "Bahasa Malayalam"
-
-#: src/ui/translationBox.ui:367
-msgid "Maltese"
-msgstr "Bahasa Malta"
-
-#: src/ui/translationBox.ui:371
-msgid "Maori"
-msgstr "Bahasa Maori"
-
-#: src/ui/translationBox.ui:375
-msgid "Marathi"
-msgstr "Bahasa Marathi"
-
-#: src/ui/translationBox.ui:379
-msgid "Mongolian"
-msgstr "Bahasa Mongol"
-
-#: src/ui/translationBox.ui:383
-msgid "Myanmar (Burmese)"
-msgstr "Bahasa Myanmar"
-
-#: src/ui/translationBox.ui:387
-msgid "Nepali"
-msgstr "Bahasa Nepali"
-
-#: src/ui/translationBox.ui:391
-msgid "Norwegian"
-msgstr "Bahasa Norwegia"
-
-#: src/ui/translationBox.ui:395
-msgid "Nyanja (Chichewa)"
-msgstr "Bahasa Chichewa"
-
-#: src/ui/translationBox.ui:399
-msgid "Pashto"
-msgstr "Bahasa Pashtun"
-
-#: src/ui/translationBox.ui:403
-msgid "Persian"
-msgstr "Bahasa Persia"
-
-#: src/ui/translationBox.ui:407
-#, fuzzy
-msgid "Polish"
-msgstr "Bahasa Polandia"
-
-#: src/ui/translationBox.ui:411
-msgid "Portuguese (Portugal, Brazil)"
-msgstr "Bahasa Portugis"
-
-#: src/ui/translationBox.ui:415
-msgid "Punjabi"
-msgstr "Bahasa Punjab"
-
-#: src/ui/translationBox.ui:419
-msgid "Romanian"
-msgstr "Bahasa Rumania"
-
-#: src/ui/translationBox.ui:423
-msgid "Russian"
-msgstr "Bahasa Rusia"
-
-#: src/ui/translationBox.ui:427
-msgid "Samoan"
-msgstr "Bahasa Samoa"
-
-#: src/ui/translationBox.ui:431
-msgid "Scots Gaelic"
-msgstr "Bahasa Gaelik Skotlandia"
-
-#: src/ui/translationBox.ui:435
-msgid "Serbian"
-msgstr "Bahasa Serbia"
-
-#: src/ui/translationBox.ui:439
-msgid "Sesotho"
-msgstr "Bahasa Sesotho"
-
-#: src/ui/translationBox.ui:443
-msgid "Shona"
-msgstr "Bahasa Shona"
-
-#: src/ui/translationBox.ui:447
-msgid "Sindhi"
-msgstr "Bahasa Shindi"
-
-#: src/ui/translationBox.ui:451
-msgid "Sinhala (Sinhalese)"
-msgstr "Bahasa Sinhala"
-
-#: src/ui/translationBox.ui:455
-msgid "Slovak"
-msgstr "Bahasa Slowakia"
-
-#: src/ui/translationBox.ui:459
-msgid "Slovenian"
-msgstr "Bahasa Slovenia"
-
-#: src/ui/translationBox.ui:463
-msgid "Somali"
-msgstr "Bahasa Somali"
-
-#: src/ui/translationBox.ui:467
-msgid "Spanish"
-msgstr "Bahasa Spanyol"
-
-#: src/ui/translationBox.ui:471
-msgid "Sundanese"
-msgstr "Bahasa Sunda"
-
-#: src/ui/translationBox.ui:475
-msgid "Swahili"
-msgstr "Bahasa Swahili"
-
-#: src/ui/translationBox.ui:479
-msgid "Swedish"
-msgstr "Bahasa Swedia"
-
-#: src/ui/translationBox.ui:483
-msgid "Tagalog (Filipino)"
-msgstr "Bahasa Tagalog"
-
-#: src/ui/translationBox.ui:487
-msgid "Tajik"
-msgstr "Bahasa Tajik"
-
-#: src/ui/translationBox.ui:491
-msgid "Tamil"
-msgstr "Bahasa Tamil"
-
-#: src/ui/translationBox.ui:495
-msgid "Telugu"
-msgstr "Bahasa Telugu"
-
-#: src/ui/translationBox.ui:499
-msgid "Thai"
-msgstr "Bahasa Thai"
-
-#: src/ui/translationBox.ui:503
-msgid "Turkish"
-msgstr "Bahasa Turki"
-
-#: src/ui/translationBox.ui:507
-msgid "Ukrainian"
-msgstr "Bahasa Ukraina"
-
-#: src/ui/translationBox.ui:511
-msgid "Urdu"
-msgstr "Bahasa Urdu"
-
-#: src/ui/translationBox.ui:515
-msgid "Uzbek"
-msgstr "Bahasa Uzbek"
-
-#: src/ui/translationBox.ui:519
-msgid "Vietnamese"
-msgstr "Bahasa Vietnam"
-
-#: src/ui/translationBox.ui:523
-msgid "Welsh"
-msgstr "Bahasa Welsh"
-
-#: src/ui/translationBox.ui:527
-msgid "Xhosa"
-msgstr "Bahasa Xhosa"
-
-#: src/ui/translationBox.ui:531
-msgid "Yiddish"
-msgstr "Bahasa Yiddi"
-
-#: src/ui/translationBox.ui:535
-msgid "Yoruba"
-msgstr "Bahasa Yoruba"
-
-#: src/ui/translationBox.ui:539
-msgid "Zulu"
-msgstr "Bahasa Zulu"
 
 #: src/ui/ttsDialog.ui:17
 msgid "OK"
@@ -3092,6 +2678,321 @@ msgstr ""
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
+
+#~ msgid "Afrikaans"
+#~ msgstr "Bahasa Afrika"
+
+#~ msgid "Albanian"
+#~ msgstr "Bahasa Albania"
+
+#~ msgid "Amharic"
+#~ msgstr "Bahasa Amharik"
+
+#~ msgid "Arabic"
+#~ msgstr "Bahasa Arab"
+
+#~ msgid "Armenian"
+#~ msgstr "Bahasa Armenia"
+
+#~ msgid "Azerbaijani"
+#~ msgstr "Bahasa Azerbaijan"
+
+#~ msgid "Basque"
+#~ msgstr "Bahasa Basque"
+
+#~ msgid "Belarusian"
+#~ msgstr "Bahasa Belarusia"
+
+#~ msgid "Bengali"
+#~ msgstr "Bahasa Bengali"
+
+#~ msgid "Bosnian"
+#~ msgstr "Bahasa Bosnia"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bahasa Bulgaria"
+
+#~ msgid "Catalan"
+#~ msgstr "Bahasa Katala"
+
+#~ msgid "Cebuano"
+#~ msgstr "Bahasa Cebú"
+
+#~ msgid "Chinese (Simplified)"
+#~ msgstr "Bahasa China (Disederhanakan)"
+
+#~ msgid "Chinese (Traditional)"
+#~ msgstr "Bahasa China (Tradisional)"
+
+#~ msgid "Corsican"
+#~ msgstr "Bahasa Korsika"
+
+#~ msgid "Croatian"
+#~ msgstr "Bahasa Kroasia"
+
+#~ msgid "Czech"
+#~ msgstr "Bahasa Ceska"
+
+#~ msgid "Danish"
+#~ msgstr "Bahasa Denmark"
+
+#~ msgid "Dutch"
+#~ msgstr "Bahasa Belanda"
+
+#~ msgid "English"
+#~ msgstr "Bahasa Inggris"
+
+#~ msgid "Esperanto"
+#~ msgstr "Bahasa Esperanto"
+
+#~ msgid "Estonian"
+#~ msgstr "Bahasa Estonia"
+
+#~ msgid "Finnish"
+#~ msgstr "Bahasa Finlandia"
+
+#~ msgid "French"
+#~ msgstr "Bahasa Perancis"
+
+#~ msgid "Frisian"
+#~ msgstr "Bahasa Frisia"
+
+#~ msgid "Galician"
+#~ msgstr "Bahasa Galisia"
+
+#~ msgid "Georgian"
+#~ msgstr "Bahasa Georgia"
+
+#~ msgid "German"
+#~ msgstr "Bahasa Jerman"
+
+#~ msgid "Greek"
+#~ msgstr "Bahasa Yunani"
+
+#~ msgid "Gujarati"
+#~ msgstr "Bahasa Gujarat"
+
+#, fuzzy
+#~ msgid "Haitian Creole"
+#~ msgstr "Bahasa Kreol Haiti"
+
+#~ msgid "Hausa"
+#~ msgstr "Bahasa Hausa"
+
+#~ msgid "Hawaiian"
+#~ msgstr "Bahasa Hawaii"
+
+#~ msgid "Hebrew"
+#~ msgstr "Bahasa Ibrani"
+
+#~ msgid "Hindi"
+#~ msgstr "Bahasa Hindi"
+
+#~ msgid "Hmong"
+#~ msgstr "Bahasa Hmong"
+
+#~ msgid "Hungarian"
+#~ msgstr "Bahasa Hungaria"
+
+#~ msgid "Icelandic"
+#~ msgstr "Bahasa Islandia"
+
+#~ msgid "Igbo"
+#~ msgstr "Bahasa Igbo"
+
+#~ msgid "Indonesian"
+#~ msgstr "Bahasa Indonesia"
+
+#~ msgid "Irish"
+#~ msgstr "Bahasa Irlandia"
+
+#~ msgid "Italian"
+#~ msgstr "Bahasa Italia"
+
+#~ msgid "Japanese"
+#~ msgstr "Bahasa Jepang"
+
+#~ msgid "Javanese"
+#~ msgstr "Bahasa Jawa"
+
+#~ msgid "Kannada"
+#~ msgstr "Bahasa Kannada"
+
+#~ msgid "Kazakh"
+#~ msgstr "Bahasa Kazakh"
+
+#~ msgid "Khmer"
+#~ msgstr "Bahasa Khmer"
+
+#~ msgid "Korean"
+#~ msgstr "Bahasa Korea"
+
+#~ msgid "Kurdish"
+#~ msgstr "Bahasa Kurdi"
+
+#~ msgid "Kyrgyz"
+#~ msgstr "Bahasa Kirgizstan"
+
+#, fuzzy
+#~ msgid "Lao"
+#~ msgstr "Bahasa Laos"
+
+#~ msgid "Latin"
+#~ msgstr "Bahasa Latin"
+
+#~ msgid "Latvian"
+#~ msgstr "Bahasa Latvia"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Bahasa Lithuania"
+
+#~ msgid "Luxembourgish"
+#~ msgstr "Bahasa Luxembourg"
+
+#~ msgid "Macedonian"
+#~ msgstr "Bahasa Makedonia"
+
+#~ msgid "Malagasy"
+#~ msgstr "Bahasa Malagasi"
+
+#~ msgid "Malay"
+#~ msgstr "Bahasa Malaysia"
+
+#~ msgid "Malayalam"
+#~ msgstr "Bahasa Malayalam"
+
+#~ msgid "Maltese"
+#~ msgstr "Bahasa Malta"
+
+#~ msgid "Maori"
+#~ msgstr "Bahasa Maori"
+
+#~ msgid "Marathi"
+#~ msgstr "Bahasa Marathi"
+
+#~ msgid "Mongolian"
+#~ msgstr "Bahasa Mongol"
+
+#~ msgid "Myanmar (Burmese)"
+#~ msgstr "Bahasa Myanmar"
+
+#~ msgid "Nepali"
+#~ msgstr "Bahasa Nepali"
+
+#~ msgid "Norwegian"
+#~ msgstr "Bahasa Norwegia"
+
+#~ msgid "Nyanja (Chichewa)"
+#~ msgstr "Bahasa Chichewa"
+
+#~ msgid "Pashto"
+#~ msgstr "Bahasa Pashtun"
+
+#~ msgid "Persian"
+#~ msgstr "Bahasa Persia"
+
+#, fuzzy
+#~ msgid "Polish"
+#~ msgstr "Bahasa Polandia"
+
+#~ msgid "Portuguese (Portugal, Brazil)"
+#~ msgstr "Bahasa Portugis"
+
+#~ msgid "Punjabi"
+#~ msgstr "Bahasa Punjab"
+
+#~ msgid "Romanian"
+#~ msgstr "Bahasa Rumania"
+
+#~ msgid "Russian"
+#~ msgstr "Bahasa Rusia"
+
+#~ msgid "Samoan"
+#~ msgstr "Bahasa Samoa"
+
+#~ msgid "Scots Gaelic"
+#~ msgstr "Bahasa Gaelik Skotlandia"
+
+#~ msgid "Serbian"
+#~ msgstr "Bahasa Serbia"
+
+#~ msgid "Sesotho"
+#~ msgstr "Bahasa Sesotho"
+
+#~ msgid "Shona"
+#~ msgstr "Bahasa Shona"
+
+#~ msgid "Sindhi"
+#~ msgstr "Bahasa Shindi"
+
+#~ msgid "Sinhala (Sinhalese)"
+#~ msgstr "Bahasa Sinhala"
+
+#~ msgid "Slovak"
+#~ msgstr "Bahasa Slowakia"
+
+#~ msgid "Slovenian"
+#~ msgstr "Bahasa Slovenia"
+
+#~ msgid "Somali"
+#~ msgstr "Bahasa Somali"
+
+#~ msgid "Spanish"
+#~ msgstr "Bahasa Spanyol"
+
+#~ msgid "Sundanese"
+#~ msgstr "Bahasa Sunda"
+
+#~ msgid "Swahili"
+#~ msgstr "Bahasa Swahili"
+
+#~ msgid "Swedish"
+#~ msgstr "Bahasa Swedia"
+
+#~ msgid "Tagalog (Filipino)"
+#~ msgstr "Bahasa Tagalog"
+
+#~ msgid "Tajik"
+#~ msgstr "Bahasa Tajik"
+
+#~ msgid "Tamil"
+#~ msgstr "Bahasa Tamil"
+
+#~ msgid "Telugu"
+#~ msgstr "Bahasa Telugu"
+
+#~ msgid "Thai"
+#~ msgstr "Bahasa Thai"
+
+#~ msgid "Turkish"
+#~ msgstr "Bahasa Turki"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Bahasa Ukraina"
+
+#~ msgid "Urdu"
+#~ msgstr "Bahasa Urdu"
+
+#~ msgid "Uzbek"
+#~ msgstr "Bahasa Uzbek"
+
+#~ msgid "Vietnamese"
+#~ msgstr "Bahasa Vietnam"
+
+#~ msgid "Welsh"
+#~ msgstr "Bahasa Welsh"
+
+#~ msgid "Xhosa"
+#~ msgstr "Bahasa Xhosa"
+
+#~ msgid "Yiddish"
+#~ msgstr "Bahasa Yiddi"
+
+#~ msgid "Yoruba"
+#~ msgstr "Bahasa Yoruba"
+
+#~ msgid "Zulu"
+#~ msgstr "Bahasa Zulu"
 
 #, fuzzy
 #~ msgid "Allow JavaScript and external resources"

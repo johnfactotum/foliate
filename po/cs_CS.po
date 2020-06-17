@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-07 18:58+0800\n"
+"POT-Creation-Date: 2020-06-17 20:15+0800\n"
 "PO-Revision-Date: 2020-06-13 11:47+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -138,31 +138,31 @@ msgstr "Uložit soubor"
 msgid "Annotations for “%s”"
 msgstr "Poznámky pro “%s”"
 
-#: src/export.js:153 src/utils.js:123
+#: src/export.js:151 src/utils.js:203
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: src/export.js:157
+#: src/export.js:155
 msgid "JSON Files"
 msgstr "Soubory JSON"
 
-#: src/export.js:160 src/ui/importWindow.ui:6
+#: src/export.js:158 src/ui/importWindow.ui:6
 msgid "Import Annotations"
 msgstr "Zavést poznámky"
 
-#: src/export.js:173 src/window.js:674 src/ui/contentsStack.ui:80
+#: src/export.js:171 src/window.js:674 src/ui/contentsStack.ui:80
 msgid "No annotations"
 msgstr "Žádné poznámky"
 
-#: src/export.js:174
+#: src/export.js:172
 msgid "There’s nothing to import."
 msgstr "Není co zavádět."
 
-#: src/export.js:215
+#: src/export.js:213
 msgid "Identifier mismatch"
 msgstr "Záměna identifikátoru"
 
-#: src/export.js:216
+#: src/export.js:214
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
@@ -170,22 +170,22 @@ msgstr ""
 "Identifikátor zavedeného souboru neodpovídá identifikátoru knihy. To může "
 "znamenat, že poznámky nepatří k této knize."
 
-#: src/export.js:221 src/library.js:492 src/main.js:141 src/window.js:563
+#: src/export.js:219 src/library.js:492 src/main.js:141 src/window.js:563
 #: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: src/export.js:222
+#: src/export.js:220
 msgid "Import Anyway"
 msgstr "Přesto zavést"
 
-#: src/export.js:232 src/library.js:1741 src/window.js:1031
+#: src/export.js:230 src/library.js:1741 src/window.js:1031
 msgid "Error"
 msgstr "Chyba"
 
-#: src/export.js:233
+#: src/export.js:231
 msgid "Could not import annotations."
 msgstr "Nepodařilo se zavést poznámky"
 
@@ -316,7 +316,7 @@ msgstr "Popis"
 msgid "Publisher"
 msgstr "Vydavatel"
 
-#: src/library.js:1405 src/properties.js:91 src/ui/ttsDialog.ui:284
+#: src/library.js:1405 src/properties.js:93 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Jazyk"
 
@@ -392,11 +392,11 @@ msgstr "Wikislovník"
 msgid "Wiktionary (English)"
 msgstr "Wiktionary (angličtina)"
 
-#: src/lookup.js:385
+#: src/lookup.js:386
 msgid "Search on Wiktionary"
 msgstr "Hledat ve Wikislovníku"
 
-#: src/lookup.js:408
+#: src/lookup.js:409
 msgid "Translation by Google Translate"
 msgstr "Překlad pomocí Google Translate"
 
@@ -454,54 +454,54 @@ msgstr "Datum vydání"
 msgid "Modified Date"
 msgstr "Datum změny"
 
-#: src/properties.js:95
+#: src/properties.js:98
 msgid "File Size"
 msgstr "Velikost souboru"
 
-#: src/properties.js:99
+#: src/properties.js:102
 msgid "Format"
 msgstr "Formát"
 
-#: src/properties.js:105
+#: src/properties.js:108
 msgid "Identifier"
 msgstr "Identifikátor"
 
-#: src/properties.js:119
+#: src/properties.js:122
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr ""
-"Tato kniha nemá identifikátor. Toto je MD5 hash (suma identifikující data)"
-" vytvořený ze souboru."
+"Tato kniha nemá identifikátor. Toto je MD5 hash (suma identifikující data) "
+"vytvořený ze souboru."
 
-#: src/properties.js:130
+#: src/properties.js:133
 msgid "Copyright"
 msgstr "Právo ke kopírování"
 
-#: src/properties.js:144
+#: src/properties.js:147
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/properties.js:148
+#: src/properties.js:151
 msgid "Goodreads"
 msgstr "Goodreads"
 
-#: src/properties.js:152
+#: src/properties.js:155
 msgid "Google Books"
 msgstr "Google Books"
 
-#: src/properties.js:156
+#: src/properties.js:159
 msgid "LibraryThing"
 msgstr "LibraryThing"
 
-#: src/properties.js:160
+#: src/properties.js:163
 msgid "Open Library"
 msgstr "Open Library"
 
-#: src/properties.js:164
+#: src/properties.js:167
 msgid "WorldCat"
 msgstr "WorldCat"
 
-#: src/properties.js:203
+#: src/properties.js:206
 msgid "Find on…"
 msgstr "Najít v..."
 
@@ -560,9 +560,14 @@ msgstr "když kolem šel cestovatel zahalený v teplém plášti."
 #. Translators: this is the language code of the test sentences
 #: src/tts.js:228
 msgid "en"
-msgstr "en"
+msgstr "cs"
 
-#: src/utils.js:87
+#: src/utils.js:150
+#, javascript-format
+msgid "%s (%s)"
+msgstr ""
+
+#: src/utils.js:167
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -570,7 +575,7 @@ msgstr[0] "%d minuta"
 msgstr[1] "%d minuty"
 msgstr[2] "%d minut"
 
-#: src/utils.js:90
+#: src/utils.js:170
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
@@ -578,7 +583,7 @@ msgstr[0] "%d hodina"
 msgstr[1] "%d hodiny"
 msgstr[2] "%d hodin"
 
-#: src/utils.js:125
+#: src/utils.js:205
 msgid "E-book Files"
 msgstr "Soubory elektronických knih"
 
@@ -1516,422 +1521,6 @@ msgstr "Odstranit vzhled"
 msgid "Cannot retrieve translation"
 msgstr "Nelze získat překlad"
 
-#: src/ui/translationBox.ui:127
-msgid "Afrikaans"
-msgstr "Afrikánština"
-
-#: src/ui/translationBox.ui:131
-msgid "Albanian"
-msgstr "Albánština"
-
-#: src/ui/translationBox.ui:135
-msgid "Amharic"
-msgstr "Amharština"
-
-#: src/ui/translationBox.ui:139
-msgid "Arabic"
-msgstr "Arabština"
-
-#: src/ui/translationBox.ui:143
-msgid "Armenian"
-msgstr "Arménština"
-
-#: src/ui/translationBox.ui:147
-msgid "Azerbaijani"
-msgstr "Ázerbájdžánština"
-
-#: src/ui/translationBox.ui:151
-msgid "Basque"
-msgstr "Baskičtina"
-
-#: src/ui/translationBox.ui:155
-msgid "Belarusian"
-msgstr "Běloruština"
-
-#: src/ui/translationBox.ui:159
-msgid "Bengali"
-msgstr "Bengálština"
-
-#: src/ui/translationBox.ui:163
-msgid "Bosnian"
-msgstr "Bosenština"
-
-#: src/ui/translationBox.ui:167
-msgid "Bulgarian"
-msgstr "Bulharština"
-
-#: src/ui/translationBox.ui:171
-msgid "Catalan"
-msgstr "Katalánština"
-
-#: src/ui/translationBox.ui:175
-msgid "Cebuano"
-msgstr "Cebuánština"
-
-#: src/ui/translationBox.ui:179
-msgid "Chinese (Simplified)"
-msgstr "Čínština (zjednodušená)"
-
-#: src/ui/translationBox.ui:183
-msgid "Chinese (Traditional)"
-msgstr "Čínština (tradiční)"
-
-#: src/ui/translationBox.ui:187
-msgid "Corsican"
-msgstr "Korsičtina"
-
-#: src/ui/translationBox.ui:191
-msgid "Croatian"
-msgstr "Chorvatština"
-
-#: src/ui/translationBox.ui:195
-msgid "Czech"
-msgstr "Čeština"
-
-#: src/ui/translationBox.ui:199
-msgid "Danish"
-msgstr "Dánština"
-
-#: src/ui/translationBox.ui:203
-msgid "Dutch"
-msgstr "Nizozemština"
-
-#: src/ui/translationBox.ui:207
-msgid "English"
-msgstr "Angličtina"
-
-#: src/ui/translationBox.ui:211
-msgid "Esperanto"
-msgstr "Esperantština"
-
-#: src/ui/translationBox.ui:215
-msgid "Estonian"
-msgstr "Estonština"
-
-#: src/ui/translationBox.ui:219
-msgid "Finnish"
-msgstr "Finština"
-
-#: src/ui/translationBox.ui:223
-msgid "French"
-msgstr "Francouzština"
-
-#: src/ui/translationBox.ui:227
-msgid "Frisian"
-msgstr "Frísština"
-
-#: src/ui/translationBox.ui:231
-msgid "Galician"
-msgstr "Galicijština"
-
-#: src/ui/translationBox.ui:235
-msgid "Georgian"
-msgstr "Grizínština"
-
-#: src/ui/translationBox.ui:239
-msgid "German"
-msgstr "Němčina"
-
-#: src/ui/translationBox.ui:243
-msgid "Greek"
-msgstr "Řečtina"
-
-#: src/ui/translationBox.ui:247
-msgid "Gujarati"
-msgstr "Gujarátština"
-
-#: src/ui/translationBox.ui:251
-msgid "Haitian Creole"
-msgstr "Hajtská kreolština"
-
-#: src/ui/translationBox.ui:255
-msgid "Hausa"
-msgstr "Hausština"
-
-#: src/ui/translationBox.ui:259
-msgid "Hawaiian"
-msgstr "Havajština"
-
-#: src/ui/translationBox.ui:263
-msgid "Hebrew"
-msgstr "Hebrejština"
-
-#: src/ui/translationBox.ui:267
-msgid "Hindi"
-msgstr "Hindština"
-
-#: src/ui/translationBox.ui:271
-msgid "Hmong"
-msgstr "Hmongština"
-
-#: src/ui/translationBox.ui:275
-msgid "Hungarian"
-msgstr "Maďarština"
-
-#: src/ui/translationBox.ui:279
-msgid "Icelandic"
-msgstr "Islandština"
-
-#: src/ui/translationBox.ui:283
-msgid "Igbo"
-msgstr "Igboština"
-
-#: src/ui/translationBox.ui:287
-msgid "Indonesian"
-msgstr "Indonésština"
-
-#: src/ui/translationBox.ui:291
-msgid "Irish"
-msgstr "Irština"
-
-#: src/ui/translationBox.ui:295
-msgid "Italian"
-msgstr "Italština"
-
-#: src/ui/translationBox.ui:299
-msgid "Japanese"
-msgstr "Japonština"
-
-#: src/ui/translationBox.ui:303
-msgid "Javanese"
-msgstr "Jávanština"
-
-#: src/ui/translationBox.ui:307
-msgid "Kannada"
-msgstr "Kannadština"
-
-#: src/ui/translationBox.ui:311
-msgid "Kazakh"
-msgstr "Kazaština"
-
-#: src/ui/translationBox.ui:315
-msgid "Khmer"
-msgstr "Khmérština"
-
-#: src/ui/translationBox.ui:319
-msgid "Korean"
-msgstr "Korejština"
-
-#: src/ui/translationBox.ui:323
-msgid "Kurdish"
-msgstr "Kurdština"
-
-#: src/ui/translationBox.ui:327
-msgid "Kyrgyz"
-msgstr "Kyrgyzština"
-
-#: src/ui/translationBox.ui:331
-msgid "Lao"
-msgstr "Laosština"
-
-#: src/ui/translationBox.ui:335
-msgid "Latin"
-msgstr "Latina"
-
-#: src/ui/translationBox.ui:339
-msgid "Latvian"
-msgstr "Lotyština"
-
-#: src/ui/translationBox.ui:343
-msgid "Lithuanian"
-msgstr "Litevština"
-
-#: src/ui/translationBox.ui:347
-msgid "Luxembourgish"
-msgstr "Lucemburština"
-
-#: src/ui/translationBox.ui:351
-msgid "Macedonian"
-msgstr "Makedonština"
-
-#: src/ui/translationBox.ui:355
-msgid "Malagasy"
-msgstr "Malgaština"
-
-#: src/ui/translationBox.ui:359
-msgid "Malay"
-msgstr "Malajština"
-
-#: src/ui/translationBox.ui:363
-msgid "Malayalam"
-msgstr "Malajlamština"
-
-#: src/ui/translationBox.ui:367
-msgid "Maltese"
-msgstr "Maltština"
-
-#: src/ui/translationBox.ui:371
-msgid "Maori"
-msgstr "Maorština"
-
-#: src/ui/translationBox.ui:375
-msgid "Marathi"
-msgstr "Maráthština"
-
-#: src/ui/translationBox.ui:379
-msgid "Mongolian"
-msgstr "Mongolština"
-
-#: src/ui/translationBox.ui:383
-msgid "Myanmar (Burmese)"
-msgstr "Barmština"
-
-#: src/ui/translationBox.ui:387
-msgid "Nepali"
-msgstr "Nepálština"
-
-#: src/ui/translationBox.ui:391
-msgid "Norwegian"
-msgstr "Norština"
-
-#: src/ui/translationBox.ui:395
-msgid "Nyanja (Chichewa)"
-msgstr "Nyanjaština (Chichewa)"
-
-#: src/ui/translationBox.ui:399
-msgid "Pashto"
-msgstr "Paštština (paštunština)"
-
-#: src/ui/translationBox.ui:403
-msgid "Persian"
-msgstr "Perština"
-
-#: src/ui/translationBox.ui:407
-msgid "Polish"
-msgstr "Polština"
-
-#: src/ui/translationBox.ui:411
-msgid "Portuguese (Portugal, Brazil)"
-msgstr "Portugalština (Portugalsko, Brazílie)"
-
-#: src/ui/translationBox.ui:415
-msgid "Punjabi"
-msgstr "Pandžábština"
-
-#: src/ui/translationBox.ui:419
-msgid "Romanian"
-msgstr "Rumunština"
-
-#: src/ui/translationBox.ui:423
-msgid "Russian"
-msgstr "Ruština"
-
-#: src/ui/translationBox.ui:427
-msgid "Samoan"
-msgstr "Samojština"
-
-#: src/ui/translationBox.ui:431
-msgid "Scots Gaelic"
-msgstr "Skotská gaelština"
-
-#: src/ui/translationBox.ui:435
-msgid "Serbian"
-msgstr "Srbština"
-
-#: src/ui/translationBox.ui:439
-msgid "Sesotho"
-msgstr "Sesothština"
-
-#: src/ui/translationBox.ui:443
-msgid "Shona"
-msgstr "Šonština"
-
-#: src/ui/translationBox.ui:447
-msgid "Sindhi"
-msgstr "Sindhština"
-
-#: src/ui/translationBox.ui:451
-msgid "Sinhala (Sinhalese)"
-msgstr "Sinhálština"
-
-#: src/ui/translationBox.ui:455
-msgid "Slovak"
-msgstr "Slovenština"
-
-#: src/ui/translationBox.ui:459
-msgid "Slovenian"
-msgstr "Slovinština"
-
-#: src/ui/translationBox.ui:463
-msgid "Somali"
-msgstr "Somálština"
-
-#: src/ui/translationBox.ui:467
-msgid "Spanish"
-msgstr "Španělština"
-
-#: src/ui/translationBox.ui:471
-msgid "Sundanese"
-msgstr "Sundština"
-
-#: src/ui/translationBox.ui:475
-msgid "Swahili"
-msgstr "Svahilština"
-
-#: src/ui/translationBox.ui:479
-msgid "Swedish"
-msgstr "Švédština"
-
-#: src/ui/translationBox.ui:483
-msgid "Tagalog (Filipino)"
-msgstr "Tagalština"
-
-#: src/ui/translationBox.ui:487
-msgid "Tajik"
-msgstr "Tádžičtina"
-
-#: src/ui/translationBox.ui:491
-msgid "Tamil"
-msgstr "Tamilština"
-
-#: src/ui/translationBox.ui:495
-msgid "Telugu"
-msgstr "Telugština"
-
-#: src/ui/translationBox.ui:499
-msgid "Thai"
-msgstr "Thajština"
-
-#: src/ui/translationBox.ui:503
-msgid "Turkish"
-msgstr "Turečtina"
-
-#: src/ui/translationBox.ui:507
-msgid "Ukrainian"
-msgstr "Ukrajinština"
-
-#: src/ui/translationBox.ui:511
-msgid "Urdu"
-msgstr "Urdština"
-
-#: src/ui/translationBox.ui:515
-msgid "Uzbek"
-msgstr "Uzbečtina"
-
-#: src/ui/translationBox.ui:519
-msgid "Vietnamese"
-msgstr "Větnamština"
-
-#: src/ui/translationBox.ui:523
-msgid "Welsh"
-msgstr "Velština"
-
-#: src/ui/translationBox.ui:527
-msgid "Xhosa"
-msgstr "Xhoština"
-
-#: src/ui/translationBox.ui:531
-msgid "Yiddish"
-msgstr "Jidiš"
-
-#: src/ui/translationBox.ui:535
-msgid "Yoruba"
-msgstr "Jorubština"
-
-#: src/ui/translationBox.ui:539
-msgid "Zulu"
-msgstr "Zulština"
-
 #: src/ui/ttsDialog.ui:17
 msgid "OK"
 msgstr "OK"
@@ -2110,8 +1699,8 @@ msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
 msgstr ""
-"Vylepšený prohlížeč obrázků, nové klávesové zkratky a schopnost otáčet a"
-" obrátit barvu obrázků"
+"Vylepšený prohlížeč obrázků, nové klávesové zkratky a schopnost otáčet a "
+"obrátit barvu obrázků"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
 msgid ""
@@ -2620,9 +2209,8 @@ msgid ""
 "Whether to save generated locations to cache (the locations are needed for "
 "calculating percentages of locations in book)"
 msgstr ""
-"Zda uložit vytvořené polohy do vyrovnávací paměti (k vypočítání procenta"
-" poloh "
-"v knize jsou potřeba polohy)"
+"Zda uložit vytvořené polohy do vyrovnávací paměti (k vypočítání procenta "
+"poloh v knize jsou potřeba polohy)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
 msgid "Cache covers"
@@ -2666,9 +2254,8 @@ msgid ""
 "if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
 "the database ID"
 msgstr ""
-"Identifikátor výchozího slovníku. Slovníky z dictd a stardict, jsou-li jaké,"
-" jsou "
-"dostupné s předponou \"dcitd_\" a \"stardict_\" přidanou k ID databáze"
+"Identifikátor výchozího slovníku. Slovníky z dictd a stardict, jsou-li jaké, "
+"jsou dostupné s předponou \"dcitd_\" a \"stardict_\" přidanou k ID databáze"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
 msgid "Target language of translation"
@@ -2703,8 +2290,8 @@ msgid ""
 "DOM event type for viewing images; the special value \"middleclick\" is "
 "available for the middle click event"
 msgstr ""
-"Typ události DOM pro prohlížení obrázků; zvláštní hodnota \"middleclick\" "
-"je dostupná pro událost klepnutí prostředním tlačítkem myši"
+"Typ události DOM pro prohlížení obrázků; zvláštní hodnota \"middleclick\" je "
+"dostupná pro událost klepnutí prostředním tlačítkem myši"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:75
 msgid "Command to execute for text-to-speech"
@@ -2958,8 +2545,320 @@ msgstr "Použít vyznačovač"
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
-"Je-li pravda, pokusí se použít vyznačovač (souborový rejstříkovač) k získání"
-" poloh v souboru"
+"Je-li pravda, pokusí se použít vyznačovač (souborový rejstříkovač) k získání "
+"poloh v souboru"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikánština"
+
+#~ msgid "Albanian"
+#~ msgstr "Albánština"
+
+#~ msgid "Amharic"
+#~ msgstr "Amharština"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabština"
+
+#~ msgid "Armenian"
+#~ msgstr "Arménština"
+
+#~ msgid "Azerbaijani"
+#~ msgstr "Ázerbájdžánština"
+
+#~ msgid "Basque"
+#~ msgstr "Baskičtina"
+
+#~ msgid "Belarusian"
+#~ msgstr "Běloruština"
+
+#~ msgid "Bengali"
+#~ msgstr "Bengálština"
+
+#~ msgid "Bosnian"
+#~ msgstr "Bosenština"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulharština"
+
+#~ msgid "Catalan"
+#~ msgstr "Katalánština"
+
+#~ msgid "Cebuano"
+#~ msgstr "Cebuánština"
+
+#~ msgid "Chinese (Simplified)"
+#~ msgstr "Čínština (zjednodušená)"
+
+#~ msgid "Chinese (Traditional)"
+#~ msgstr "Čínština (tradiční)"
+
+#~ msgid "Corsican"
+#~ msgstr "Korsičtina"
+
+#~ msgid "Croatian"
+#~ msgstr "Chorvatština"
+
+#~ msgid "Czech"
+#~ msgstr "Čeština"
+
+#~ msgid "Danish"
+#~ msgstr "Dánština"
+
+#~ msgid "Dutch"
+#~ msgstr "Nizozemština"
+
+#~ msgid "English"
+#~ msgstr "Angličtina"
+
+#~ msgid "Esperanto"
+#~ msgstr "Esperantština"
+
+#~ msgid "Estonian"
+#~ msgstr "Estonština"
+
+#~ msgid "Finnish"
+#~ msgstr "Finština"
+
+#~ msgid "French"
+#~ msgstr "Francouzština"
+
+#~ msgid "Frisian"
+#~ msgstr "Frísština"
+
+#~ msgid "Galician"
+#~ msgstr "Galicijština"
+
+#~ msgid "Georgian"
+#~ msgstr "Grizínština"
+
+#~ msgid "German"
+#~ msgstr "Němčina"
+
+#~ msgid "Greek"
+#~ msgstr "Řečtina"
+
+#~ msgid "Gujarati"
+#~ msgstr "Gujarátština"
+
+#~ msgid "Haitian Creole"
+#~ msgstr "Hajtská kreolština"
+
+#~ msgid "Hausa"
+#~ msgstr "Hausština"
+
+#~ msgid "Hawaiian"
+#~ msgstr "Havajština"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebrejština"
+
+#~ msgid "Hindi"
+#~ msgstr "Hindština"
+
+#~ msgid "Hmong"
+#~ msgstr "Hmongština"
+
+#~ msgid "Hungarian"
+#~ msgstr "Maďarština"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islandština"
+
+#~ msgid "Igbo"
+#~ msgstr "Igboština"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonésština"
+
+#~ msgid "Irish"
+#~ msgstr "Irština"
+
+#~ msgid "Italian"
+#~ msgstr "Italština"
+
+#~ msgid "Japanese"
+#~ msgstr "Japonština"
+
+#~ msgid "Javanese"
+#~ msgstr "Jávanština"
+
+#~ msgid "Kannada"
+#~ msgstr "Kannadština"
+
+#~ msgid "Kazakh"
+#~ msgstr "Kazaština"
+
+#~ msgid "Khmer"
+#~ msgstr "Khmérština"
+
+#~ msgid "Korean"
+#~ msgstr "Korejština"
+
+#~ msgid "Kurdish"
+#~ msgstr "Kurdština"
+
+#~ msgid "Kyrgyz"
+#~ msgstr "Kyrgyzština"
+
+#~ msgid "Lao"
+#~ msgstr "Laosština"
+
+#~ msgid "Latin"
+#~ msgstr "Latina"
+
+#~ msgid "Latvian"
+#~ msgstr "Lotyština"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Litevština"
+
+#~ msgid "Luxembourgish"
+#~ msgstr "Lucemburština"
+
+#~ msgid "Macedonian"
+#~ msgstr "Makedonština"
+
+#~ msgid "Malagasy"
+#~ msgstr "Malgaština"
+
+#~ msgid "Malay"
+#~ msgstr "Malajština"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malajlamština"
+
+#~ msgid "Maltese"
+#~ msgstr "Maltština"
+
+#~ msgid "Maori"
+#~ msgstr "Maorština"
+
+#~ msgid "Marathi"
+#~ msgstr "Maráthština"
+
+#~ msgid "Mongolian"
+#~ msgstr "Mongolština"
+
+#~ msgid "Myanmar (Burmese)"
+#~ msgstr "Barmština"
+
+#~ msgid "Nepali"
+#~ msgstr "Nepálština"
+
+#~ msgid "Norwegian"
+#~ msgstr "Norština"
+
+#~ msgid "Nyanja (Chichewa)"
+#~ msgstr "Nyanjaština (Chichewa)"
+
+#~ msgid "Pashto"
+#~ msgstr "Paštština (paštunština)"
+
+#~ msgid "Persian"
+#~ msgstr "Perština"
+
+#~ msgid "Polish"
+#~ msgstr "Polština"
+
+#~ msgid "Portuguese (Portugal, Brazil)"
+#~ msgstr "Portugalština (Portugalsko, Brazílie)"
+
+#~ msgid "Punjabi"
+#~ msgstr "Pandžábština"
+
+#~ msgid "Romanian"
+#~ msgstr "Rumunština"
+
+#~ msgid "Russian"
+#~ msgstr "Ruština"
+
+#~ msgid "Samoan"
+#~ msgstr "Samojština"
+
+#~ msgid "Scots Gaelic"
+#~ msgstr "Skotská gaelština"
+
+#~ msgid "Serbian"
+#~ msgstr "Srbština"
+
+#~ msgid "Sesotho"
+#~ msgstr "Sesothština"
+
+#~ msgid "Shona"
+#~ msgstr "Šonština"
+
+#~ msgid "Sindhi"
+#~ msgstr "Sindhština"
+
+#~ msgid "Sinhala (Sinhalese)"
+#~ msgstr "Sinhálština"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovenština"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovinština"
+
+#~ msgid "Somali"
+#~ msgstr "Somálština"
+
+#~ msgid "Spanish"
+#~ msgstr "Španělština"
+
+#~ msgid "Sundanese"
+#~ msgstr "Sundština"
+
+#~ msgid "Swahili"
+#~ msgstr "Svahilština"
+
+#~ msgid "Swedish"
+#~ msgstr "Švédština"
+
+#~ msgid "Tagalog (Filipino)"
+#~ msgstr "Tagalština"
+
+#~ msgid "Tajik"
+#~ msgstr "Tádžičtina"
+
+#~ msgid "Tamil"
+#~ msgstr "Tamilština"
+
+#~ msgid "Telugu"
+#~ msgstr "Telugština"
+
+#~ msgid "Thai"
+#~ msgstr "Thajština"
+
+#~ msgid "Turkish"
+#~ msgstr "Turečtina"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrajinština"
+
+#~ msgid "Urdu"
+#~ msgstr "Urdština"
+
+#~ msgid "Uzbek"
+#~ msgstr "Uzbečtina"
+
+#~ msgid "Vietnamese"
+#~ msgstr "Větnamština"
+
+#~ msgid "Welsh"
+#~ msgstr "Velština"
+
+#~ msgid "Xhosa"
+#~ msgstr "Xhoština"
+
+#~ msgid "Yiddish"
+#~ msgstr "Jidiš"
+
+#~ msgid "Yoruba"
+#~ msgstr "Jorubština"
+
+#~ msgid "Zulu"
+#~ msgstr "Zulština"
 
 #~ msgid "Allow JavaScript and external resources"
 #~ msgstr "Povolit JavaScript a vnější zdroje"

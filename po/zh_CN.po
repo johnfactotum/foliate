@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-07 18:58+0800\n"
+"POT-Creation-Date: 2020-06-17 20:15+0800\n"
 "PO-Revision-Date: 2020-06-13 14:28+0800\n"
 "Last-Translator: 王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
@@ -136,52 +136,52 @@ msgstr "保存文件"
 msgid "Annotations for “%s”"
 msgstr "《%s》的注释"
 
-#: src/export.js:153 src/utils.js:123
+#: src/export.js:151 src/utils.js:203
 msgid "All Files"
 msgstr "所有文件"
 
-#: src/export.js:157
+#: src/export.js:155
 msgid "JSON Files"
 msgstr "JSON 文件"
 
-#: src/export.js:160 src/ui/importWindow.ui:6
+#: src/export.js:158 src/ui/importWindow.ui:6
 msgid "Import Annotations"
 msgstr "导入书签"
 
-#: src/export.js:173 src/window.js:674 src/ui/contentsStack.ui:80
+#: src/export.js:171 src/window.js:674 src/ui/contentsStack.ui:80
 msgid "No annotations"
 msgstr "无注释"
 
-#: src/export.js:174
+#: src/export.js:172
 msgid "There’s nothing to import."
 msgstr "无可导入的文件。"
 
-#: src/export.js:215
+#: src/export.js:213
 msgid "Identifier mismatch"
 msgstr "标识符错误"
 
-#: src/export.js:216
+#: src/export.js:214
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
 msgstr "导入文件的标识符与图书不符。可能是因为注释不是这本书的。"
 
-#: src/export.js:221 src/library.js:492 src/main.js:141 src/window.js:563
+#: src/export.js:219 src/library.js:492 src/main.js:141 src/window.js:563
 #: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "取消"
 
-#: src/export.js:222
+#: src/export.js:220
 msgid "Import Anyway"
 msgstr "仍要导入"
 
-#: src/export.js:232 src/library.js:1741 src/window.js:1031
+#: src/export.js:230 src/library.js:1741 src/window.js:1031
 msgid "Error"
 msgstr "错误"
 
-#: src/export.js:233
+#: src/export.js:231
 msgid "Could not import annotations."
 msgstr "导入书签失败。"
 
@@ -304,7 +304,7 @@ msgstr "描述"
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/library.js:1405 src/properties.js:91 src/ui/ttsDialog.ui:284
+#: src/library.js:1405 src/properties.js:93 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "语言"
 
@@ -380,11 +380,11 @@ msgstr "维基词典"
 msgid "Wiktionary (English)"
 msgstr "维基词典（英文）"
 
-#: src/lookup.js:385
+#: src/lookup.js:386
 msgid "Search on Wiktionary"
 msgstr "在维基词典上搜索"
 
-#: src/lookup.js:408
+#: src/lookup.js:409
 msgid "Translation by Google Translate"
 msgstr "由 Google Translate 翻译"
 
@@ -442,52 +442,52 @@ msgstr "出版日期"
 msgid "Modified Date"
 msgstr "更改日期"
 
-#: src/properties.js:95
+#: src/properties.js:98
 msgid "File Size"
 msgstr "文件大小"
 
-#: src/properties.js:99
+#: src/properties.js:102
 msgid "Format"
 msgstr "格式"
 
-#: src/properties.js:105
+#: src/properties.js:108
 msgid "Identifier"
 msgstr "标识符"
 
-#: src/properties.js:119
+#: src/properties.js:122
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr "此书没有标识符。这是从该文件生成的 MD5 哈希值。"
 
-#: src/properties.js:130
+#: src/properties.js:133
 msgid "Copyright"
 msgstr "版权"
 
-#: src/properties.js:144
+#: src/properties.js:147
 msgid "Amazon"
 msgstr "亚马逊"
 
-#: src/properties.js:148
+#: src/properties.js:151
 msgid "Goodreads"
 msgstr "Goodreads"
 
-#: src/properties.js:152
+#: src/properties.js:155
 msgid "Google Books"
 msgstr "谷歌图书"
 
-#: src/properties.js:156
+#: src/properties.js:159
 msgid "LibraryThing"
 msgstr "LibraryThing"
 
-#: src/properties.js:160
+#: src/properties.js:163
 msgid "Open Library"
 msgstr "Open Library"
 
-#: src/properties.js:164
+#: src/properties.js:167
 msgid "WorldCat"
 msgstr "WorldCat"
 
-#: src/properties.js:203
+#: src/properties.js:206
 msgid "Find on…"
 msgstr "在…上寻找"
 
@@ -548,19 +548,24 @@ msgstr "此时一个穿厚大衣的行人走过来。"
 msgid "en"
 msgstr "zh-CN"
 
-#: src/utils.js:87
+#: src/utils.js:150
+#, javascript-format
+msgid "%s (%s)"
+msgstr ""
+
+#: src/utils.js:167
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d 分钟"
 
-#: src/utils.js:90
+#: src/utils.js:170
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d 小时"
 
-#: src/utils.js:125
+#: src/utils.js:205
 msgid "E-book Files"
 msgstr "电子书文件"
 
@@ -1497,422 +1502,6 @@ msgstr "删除主题"
 #: src/ui/translationBox.ui:53
 msgid "Cannot retrieve translation"
 msgstr "无法加载翻译"
-
-#: src/ui/translationBox.ui:127
-msgid "Afrikaans"
-msgstr "南非荷兰文"
-
-#: src/ui/translationBox.ui:131
-msgid "Albanian"
-msgstr "阿尔巴尼亚文"
-
-#: src/ui/translationBox.ui:135
-msgid "Amharic"
-msgstr "阿姆哈拉文"
-
-#: src/ui/translationBox.ui:139
-msgid "Arabic"
-msgstr "阿拉伯文"
-
-#: src/ui/translationBox.ui:143
-msgid "Armenian"
-msgstr "亚美尼亚文"
-
-#: src/ui/translationBox.ui:147
-msgid "Azerbaijani"
-msgstr "阿塞拜疆文"
-
-#: src/ui/translationBox.ui:151
-msgid "Basque"
-msgstr "巴斯克文"
-
-#: src/ui/translationBox.ui:155
-msgid "Belarusian"
-msgstr "白俄罗斯文"
-
-#: src/ui/translationBox.ui:159
-msgid "Bengali"
-msgstr "孟加拉文"
-
-#: src/ui/translationBox.ui:163
-msgid "Bosnian"
-msgstr "波斯尼亚文"
-
-#: src/ui/translationBox.ui:167
-msgid "Bulgarian"
-msgstr "保加利亚文"
-
-#: src/ui/translationBox.ui:171
-msgid "Catalan"
-msgstr "加泰罗尼亚文"
-
-#: src/ui/translationBox.ui:175
-msgid "Cebuano"
-msgstr "宿务文"
-
-#: src/ui/translationBox.ui:179
-msgid "Chinese (Simplified)"
-msgstr "中文（简体）"
-
-#: src/ui/translationBox.ui:183
-msgid "Chinese (Traditional)"
-msgstr "中文（繁体）"
-
-#: src/ui/translationBox.ui:187
-msgid "Corsican"
-msgstr "柯西嘉文"
-
-#: src/ui/translationBox.ui:191
-msgid "Croatian"
-msgstr "克罗地亚文"
-
-#: src/ui/translationBox.ui:195
-msgid "Czech"
-msgstr "捷克文"
-
-#: src/ui/translationBox.ui:199
-msgid "Danish"
-msgstr "丹麦文"
-
-#: src/ui/translationBox.ui:203
-msgid "Dutch"
-msgstr "荷兰文"
-
-#: src/ui/translationBox.ui:207
-msgid "English"
-msgstr "英文"
-
-#: src/ui/translationBox.ui:211
-msgid "Esperanto"
-msgstr "世界文"
-
-#: src/ui/translationBox.ui:215
-msgid "Estonian"
-msgstr "爱沙尼亚文"
-
-#: src/ui/translationBox.ui:219
-msgid "Finnish"
-msgstr "芬兰文"
-
-#: src/ui/translationBox.ui:223
-msgid "French"
-msgstr "法文"
-
-#: src/ui/translationBox.ui:227
-msgid "Frisian"
-msgstr "弗里斯兰文"
-
-#: src/ui/translationBox.ui:231
-msgid "Galician"
-msgstr "加利西亚文"
-
-#: src/ui/translationBox.ui:235
-msgid "Georgian"
-msgstr "格鲁吉亚文"
-
-#: src/ui/translationBox.ui:239
-msgid "German"
-msgstr "德文"
-
-#: src/ui/translationBox.ui:243
-msgid "Greek"
-msgstr "希腊文"
-
-#: src/ui/translationBox.ui:247
-msgid "Gujarati"
-msgstr "古吉拉特文"
-
-#: src/ui/translationBox.ui:251
-msgid "Haitian Creole"
-msgstr "海地克里奥尔文"
-
-#: src/ui/translationBox.ui:255
-msgid "Hausa"
-msgstr "豪萨文"
-
-#: src/ui/translationBox.ui:259
-msgid "Hawaiian"
-msgstr "夏威夷文"
-
-#: src/ui/translationBox.ui:263
-msgid "Hebrew"
-msgstr "希伯来文"
-
-#: src/ui/translationBox.ui:267
-msgid "Hindi"
-msgstr "印地文"
-
-#: src/ui/translationBox.ui:271
-msgid "Hmong"
-msgstr "苗文"
-
-#: src/ui/translationBox.ui:275
-msgid "Hungarian"
-msgstr "匈牙利文"
-
-#: src/ui/translationBox.ui:279
-msgid "Icelandic"
-msgstr "冰岛文"
-
-#: src/ui/translationBox.ui:283
-msgid "Igbo"
-msgstr "伊博文"
-
-#: src/ui/translationBox.ui:287
-msgid "Indonesian"
-msgstr "印度尼西亚文"
-
-#: src/ui/translationBox.ui:291
-msgid "Irish"
-msgstr "爱尔兰文"
-
-#: src/ui/translationBox.ui:295
-msgid "Italian"
-msgstr "意大利文"
-
-#: src/ui/translationBox.ui:299
-msgid "Japanese"
-msgstr "日文"
-
-#: src/ui/translationBox.ui:303
-msgid "Javanese"
-msgstr "爪哇文"
-
-#: src/ui/translationBox.ui:307
-msgid "Kannada"
-msgstr "坎纳达文"
-
-#: src/ui/translationBox.ui:311
-msgid "Kazakh"
-msgstr "哈萨克文"
-
-#: src/ui/translationBox.ui:315
-msgid "Khmer"
-msgstr "高棉文"
-
-#: src/ui/translationBox.ui:319
-msgid "Korean"
-msgstr "韩文"
-
-#: src/ui/translationBox.ui:323
-msgid "Kurdish"
-msgstr "库尔德文"
-
-#: src/ui/translationBox.ui:327
-msgid "Kyrgyz"
-msgstr "吉尔吉斯文"
-
-#: src/ui/translationBox.ui:331
-msgid "Lao"
-msgstr "老挝文"
-
-#: src/ui/translationBox.ui:335
-msgid "Latin"
-msgstr "拉丁文"
-
-#: src/ui/translationBox.ui:339
-msgid "Latvian"
-msgstr "拉脱维亚文"
-
-#: src/ui/translationBox.ui:343
-msgid "Lithuanian"
-msgstr "立陶宛文"
-
-#: src/ui/translationBox.ui:347
-msgid "Luxembourgish"
-msgstr "卢森堡文"
-
-#: src/ui/translationBox.ui:351
-msgid "Macedonian"
-msgstr "马其顿文"
-
-#: src/ui/translationBox.ui:355
-msgid "Malagasy"
-msgstr "马达加斯加文"
-
-#: src/ui/translationBox.ui:359
-msgid "Malay"
-msgstr "马来文"
-
-#: src/ui/translationBox.ui:363
-msgid "Malayalam"
-msgstr "马拉亚兰文"
-
-#: src/ui/translationBox.ui:367
-msgid "Maltese"
-msgstr "马耳他文"
-
-#: src/ui/translationBox.ui:371
-msgid "Maori"
-msgstr "毛利文"
-
-#: src/ui/translationBox.ui:375
-msgid "Marathi"
-msgstr "马拉塔文"
-
-#: src/ui/translationBox.ui:379
-msgid "Mongolian"
-msgstr "蒙古文"
-
-#: src/ui/translationBox.ui:383
-msgid "Myanmar (Burmese)"
-msgstr "缅甸文（缅甸）"
-
-#: src/ui/translationBox.ui:387
-msgid "Nepali"
-msgstr "尼泊尔文"
-
-#: src/ui/translationBox.ui:391
-msgid "Norwegian"
-msgstr "挪威文"
-
-#: src/ui/translationBox.ui:395
-msgid "Nyanja (Chichewa)"
-msgstr "尼扬贾文（齐切瓦）"
-
-#: src/ui/translationBox.ui:399
-msgid "Pashto"
-msgstr "普什图文"
-
-#: src/ui/translationBox.ui:403
-msgid "Persian"
-msgstr "波斯文"
-
-#: src/ui/translationBox.ui:407
-msgid "Polish"
-msgstr "波兰文"
-
-#: src/ui/translationBox.ui:411
-msgid "Portuguese (Portugal, Brazil)"
-msgstr "葡萄牙文（葡萄牙，巴西）"
-
-#: src/ui/translationBox.ui:415
-msgid "Punjabi"
-msgstr "旁遮普文"
-
-#: src/ui/translationBox.ui:419
-msgid "Romanian"
-msgstr "罗马尼亚文"
-
-#: src/ui/translationBox.ui:423
-msgid "Russian"
-msgstr "俄文"
-
-#: src/ui/translationBox.ui:427
-msgid "Samoan"
-msgstr "萨摩亚文"
-
-#: src/ui/translationBox.ui:431
-msgid "Scots Gaelic"
-msgstr "苏格兰盖尔文"
-
-#: src/ui/translationBox.ui:435
-msgid "Serbian"
-msgstr "塞尔维亚文"
-
-#: src/ui/translationBox.ui:439
-msgid "Sesotho"
-msgstr "塞索托文"
-
-#: src/ui/translationBox.ui:443
-msgid "Shona"
-msgstr "绍纳文"
-
-#: src/ui/translationBox.ui:447
-msgid "Sindhi"
-msgstr "信德文"
-
-#: src/ui/translationBox.ui:451
-msgid "Sinhala (Sinhalese)"
-msgstr "僧伽罗文"
-
-#: src/ui/translationBox.ui:455
-msgid "Slovak"
-msgstr "斯洛伐克文"
-
-#: src/ui/translationBox.ui:459
-msgid "Slovenian"
-msgstr "斯洛文尼亚文"
-
-#: src/ui/translationBox.ui:463
-msgid "Somali"
-msgstr "索马里文"
-
-#: src/ui/translationBox.ui:467
-msgid "Spanish"
-msgstr "西班牙文"
-
-#: src/ui/translationBox.ui:471
-msgid "Sundanese"
-msgstr "巽他文"
-
-#: src/ui/translationBox.ui:475
-msgid "Swahili"
-msgstr "斯瓦希里文"
-
-#: src/ui/translationBox.ui:479
-msgid "Swedish"
-msgstr "瑞典文"
-
-#: src/ui/translationBox.ui:483
-msgid "Tagalog (Filipino)"
-msgstr "他加禄文（菲律宾）"
-
-#: src/ui/translationBox.ui:487
-msgid "Tajik"
-msgstr "塔吉克文"
-
-#: src/ui/translationBox.ui:491
-msgid "Tamil"
-msgstr "泰米尔文"
-
-#: src/ui/translationBox.ui:495
-msgid "Telugu"
-msgstr "泰卢固文"
-
-#: src/ui/translationBox.ui:499
-msgid "Thai"
-msgstr "泰文"
-
-#: src/ui/translationBox.ui:503
-msgid "Turkish"
-msgstr "土耳其文"
-
-#: src/ui/translationBox.ui:507
-msgid "Ukrainian"
-msgstr "乌克兰文"
-
-#: src/ui/translationBox.ui:511
-msgid "Urdu"
-msgstr "乌尔都文"
-
-#: src/ui/translationBox.ui:515
-msgid "Uzbek"
-msgstr "乌兹别克文"
-
-#: src/ui/translationBox.ui:519
-msgid "Vietnamese"
-msgstr "越南文"
-
-#: src/ui/translationBox.ui:523
-msgid "Welsh"
-msgstr "威尔士文"
-
-#: src/ui/translationBox.ui:527
-msgid "Xhosa"
-msgstr "科萨文"
-
-#: src/ui/translationBox.ui:531
-msgid "Yiddish"
-msgstr "意第绪文"
-
-#: src/ui/translationBox.ui:535
-msgid "Yoruba"
-msgstr "约鲁巴文"
-
-#: src/ui/translationBox.ui:539
-msgid "Zulu"
-msgstr "祖鲁文"
 
 #: src/ui/ttsDialog.ui:17
 msgid "OK"
@@ -2915,6 +2504,318 @@ msgstr "使用 Tracker"
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr "如果此值为真，则使用 Tracker（文件索引器）获得文件路径"
+
+#~ msgid "Afrikaans"
+#~ msgstr "南非荷兰文"
+
+#~ msgid "Albanian"
+#~ msgstr "阿尔巴尼亚文"
+
+#~ msgid "Amharic"
+#~ msgstr "阿姆哈拉文"
+
+#~ msgid "Arabic"
+#~ msgstr "阿拉伯文"
+
+#~ msgid "Armenian"
+#~ msgstr "亚美尼亚文"
+
+#~ msgid "Azerbaijani"
+#~ msgstr "阿塞拜疆文"
+
+#~ msgid "Basque"
+#~ msgstr "巴斯克文"
+
+#~ msgid "Belarusian"
+#~ msgstr "白俄罗斯文"
+
+#~ msgid "Bengali"
+#~ msgstr "孟加拉文"
+
+#~ msgid "Bosnian"
+#~ msgstr "波斯尼亚文"
+
+#~ msgid "Bulgarian"
+#~ msgstr "保加利亚文"
+
+#~ msgid "Catalan"
+#~ msgstr "加泰罗尼亚文"
+
+#~ msgid "Cebuano"
+#~ msgstr "宿务文"
+
+#~ msgid "Chinese (Simplified)"
+#~ msgstr "中文（简体）"
+
+#~ msgid "Chinese (Traditional)"
+#~ msgstr "中文（繁体）"
+
+#~ msgid "Corsican"
+#~ msgstr "柯西嘉文"
+
+#~ msgid "Croatian"
+#~ msgstr "克罗地亚文"
+
+#~ msgid "Czech"
+#~ msgstr "捷克文"
+
+#~ msgid "Danish"
+#~ msgstr "丹麦文"
+
+#~ msgid "Dutch"
+#~ msgstr "荷兰文"
+
+#~ msgid "English"
+#~ msgstr "英文"
+
+#~ msgid "Esperanto"
+#~ msgstr "世界文"
+
+#~ msgid "Estonian"
+#~ msgstr "爱沙尼亚文"
+
+#~ msgid "Finnish"
+#~ msgstr "芬兰文"
+
+#~ msgid "French"
+#~ msgstr "法文"
+
+#~ msgid "Frisian"
+#~ msgstr "弗里斯兰文"
+
+#~ msgid "Galician"
+#~ msgstr "加利西亚文"
+
+#~ msgid "Georgian"
+#~ msgstr "格鲁吉亚文"
+
+#~ msgid "German"
+#~ msgstr "德文"
+
+#~ msgid "Greek"
+#~ msgstr "希腊文"
+
+#~ msgid "Gujarati"
+#~ msgstr "古吉拉特文"
+
+#~ msgid "Haitian Creole"
+#~ msgstr "海地克里奥尔文"
+
+#~ msgid "Hausa"
+#~ msgstr "豪萨文"
+
+#~ msgid "Hawaiian"
+#~ msgstr "夏威夷文"
+
+#~ msgid "Hebrew"
+#~ msgstr "希伯来文"
+
+#~ msgid "Hindi"
+#~ msgstr "印地文"
+
+#~ msgid "Hmong"
+#~ msgstr "苗文"
+
+#~ msgid "Hungarian"
+#~ msgstr "匈牙利文"
+
+#~ msgid "Icelandic"
+#~ msgstr "冰岛文"
+
+#~ msgid "Igbo"
+#~ msgstr "伊博文"
+
+#~ msgid "Indonesian"
+#~ msgstr "印度尼西亚文"
+
+#~ msgid "Irish"
+#~ msgstr "爱尔兰文"
+
+#~ msgid "Italian"
+#~ msgstr "意大利文"
+
+#~ msgid "Japanese"
+#~ msgstr "日文"
+
+#~ msgid "Javanese"
+#~ msgstr "爪哇文"
+
+#~ msgid "Kannada"
+#~ msgstr "坎纳达文"
+
+#~ msgid "Kazakh"
+#~ msgstr "哈萨克文"
+
+#~ msgid "Khmer"
+#~ msgstr "高棉文"
+
+#~ msgid "Korean"
+#~ msgstr "韩文"
+
+#~ msgid "Kurdish"
+#~ msgstr "库尔德文"
+
+#~ msgid "Kyrgyz"
+#~ msgstr "吉尔吉斯文"
+
+#~ msgid "Lao"
+#~ msgstr "老挝文"
+
+#~ msgid "Latin"
+#~ msgstr "拉丁文"
+
+#~ msgid "Latvian"
+#~ msgstr "拉脱维亚文"
+
+#~ msgid "Lithuanian"
+#~ msgstr "立陶宛文"
+
+#~ msgid "Luxembourgish"
+#~ msgstr "卢森堡文"
+
+#~ msgid "Macedonian"
+#~ msgstr "马其顿文"
+
+#~ msgid "Malagasy"
+#~ msgstr "马达加斯加文"
+
+#~ msgid "Malay"
+#~ msgstr "马来文"
+
+#~ msgid "Malayalam"
+#~ msgstr "马拉亚兰文"
+
+#~ msgid "Maltese"
+#~ msgstr "马耳他文"
+
+#~ msgid "Maori"
+#~ msgstr "毛利文"
+
+#~ msgid "Marathi"
+#~ msgstr "马拉塔文"
+
+#~ msgid "Mongolian"
+#~ msgstr "蒙古文"
+
+#~ msgid "Myanmar (Burmese)"
+#~ msgstr "缅甸文（缅甸）"
+
+#~ msgid "Nepali"
+#~ msgstr "尼泊尔文"
+
+#~ msgid "Norwegian"
+#~ msgstr "挪威文"
+
+#~ msgid "Nyanja (Chichewa)"
+#~ msgstr "尼扬贾文（齐切瓦）"
+
+#~ msgid "Pashto"
+#~ msgstr "普什图文"
+
+#~ msgid "Persian"
+#~ msgstr "波斯文"
+
+#~ msgid "Polish"
+#~ msgstr "波兰文"
+
+#~ msgid "Portuguese (Portugal, Brazil)"
+#~ msgstr "葡萄牙文（葡萄牙，巴西）"
+
+#~ msgid "Punjabi"
+#~ msgstr "旁遮普文"
+
+#~ msgid "Romanian"
+#~ msgstr "罗马尼亚文"
+
+#~ msgid "Russian"
+#~ msgstr "俄文"
+
+#~ msgid "Samoan"
+#~ msgstr "萨摩亚文"
+
+#~ msgid "Scots Gaelic"
+#~ msgstr "苏格兰盖尔文"
+
+#~ msgid "Serbian"
+#~ msgstr "塞尔维亚文"
+
+#~ msgid "Sesotho"
+#~ msgstr "塞索托文"
+
+#~ msgid "Shona"
+#~ msgstr "绍纳文"
+
+#~ msgid "Sindhi"
+#~ msgstr "信德文"
+
+#~ msgid "Sinhala (Sinhalese)"
+#~ msgstr "僧伽罗文"
+
+#~ msgid "Slovak"
+#~ msgstr "斯洛伐克文"
+
+#~ msgid "Slovenian"
+#~ msgstr "斯洛文尼亚文"
+
+#~ msgid "Somali"
+#~ msgstr "索马里文"
+
+#~ msgid "Spanish"
+#~ msgstr "西班牙文"
+
+#~ msgid "Sundanese"
+#~ msgstr "巽他文"
+
+#~ msgid "Swahili"
+#~ msgstr "斯瓦希里文"
+
+#~ msgid "Swedish"
+#~ msgstr "瑞典文"
+
+#~ msgid "Tagalog (Filipino)"
+#~ msgstr "他加禄文（菲律宾）"
+
+#~ msgid "Tajik"
+#~ msgstr "塔吉克文"
+
+#~ msgid "Tamil"
+#~ msgstr "泰米尔文"
+
+#~ msgid "Telugu"
+#~ msgstr "泰卢固文"
+
+#~ msgid "Thai"
+#~ msgstr "泰文"
+
+#~ msgid "Turkish"
+#~ msgstr "土耳其文"
+
+#~ msgid "Ukrainian"
+#~ msgstr "乌克兰文"
+
+#~ msgid "Urdu"
+#~ msgstr "乌尔都文"
+
+#~ msgid "Uzbek"
+#~ msgstr "乌兹别克文"
+
+#~ msgid "Vietnamese"
+#~ msgstr "越南文"
+
+#~ msgid "Welsh"
+#~ msgstr "威尔士文"
+
+#~ msgid "Xhosa"
+#~ msgstr "科萨文"
+
+#~ msgid "Yiddish"
+#~ msgstr "意第绪文"
+
+#~ msgid "Yoruba"
+#~ msgstr "约鲁巴文"
+
+#~ msgid "Zulu"
+#~ msgstr "祖鲁文"
 
 #~ msgid "Allow JavaScript and external resources"
 #~ msgstr "允许 JavaScript 和外部内容"
