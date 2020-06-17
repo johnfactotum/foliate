@@ -7,19 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-16 23:49+0700\n"
+"POT-Creation-Date: 2020-06-18 01:29+0800\n"
 "PO-Revision-Date: 2020-06-17 19:00+0700\n"
+"Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: \n"
+"Language: ie\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.12\n"
-"Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
-"Language: ie\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1225
-#: src/library.js:1543 src/main.js:181 src/window.js:1003
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1312
+#: src/library.js:1630 src/main.js:183 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -66,21 +66,21 @@ msgstr[1] "%d resultates"
 msgid "Searching…"
 msgstr "Sercha..."
 
-#: src/epubView.js:1015
+#: src/epubView.js:1016
 msgid "File not found."
 msgstr "File ne esset trovat."
 
-#: src/epubView.js:1026
+#: src/epubView.js:1027
 #, fuzzy
 msgid "Failed to load remote file."
 msgstr "Ne successat cargar un lontan file."
 
-#: src/epubView.js:1062
+#: src/epubView.js:1063
 #, fuzzy
 msgid "Could not unpack Kindle file."
 msgstr "Li file ne posset esser renominat"
 
-#: src/epubView.js:1078
+#: src/epubView.js:1079
 #, fuzzy
 msgid "File type not supported."
 msgstr "Tip de file ne es suportat."
@@ -132,248 +132,284 @@ msgstr "Citation: "
 msgid " Note: "
 msgstr " Note: "
 
-#: src/export.js:113
+#: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
+msgid "No annotations"
+msgstr "Null anotationes"
+
+#: src/export.js:105
+msgid "You don't have any annotations for this book."
+msgstr "Vu ne have anotationes por ti-ci libre."
+
+#: src/export.js:106
+#, fuzzy
+msgid "Highlight some text to add annotations."
+msgstr "Selecte alcun textu por adjunter anotation."
+
+#: src/export.js:128
 msgid "Save File"
 msgstr "Gardar li file"
 
-#: src/export.js:120
+#: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
 msgstr "Anotationes por «%s»"
 
-#: src/export.js:153 src/utils.js:123
+#: src/export.js:166 src/utils.js:203
 msgid "All Files"
 msgstr "Omni files"
 
-#: src/export.js:157
+#: src/export.js:170
 msgid "JSON Files"
 msgstr "Files JSON"
 
-#: src/export.js:160 src/ui/importWindow.ui:6
+#: src/export.js:173 src/ui/importWindow.ui:6
 msgid "Import Annotations"
 msgstr "Importar anotationes"
 
-#: src/export.js:173 src/window.js:674 src/ui/contentsStack.ui:80
-msgid "No annotations"
-msgstr "Null anotationes"
-
-#: src/export.js:174
+#: src/export.js:187
 #, fuzzy
 msgid "There’s nothing to import."
 msgstr "Importar ex %s"
 
-#: src/export.js:215
+#: src/export.js:228
 #, fuzzy
 msgid "Identifier mismatch"
 msgstr "%A{ identificator }"
 
-#: src/export.js:216
+#: src/export.js:229
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
 msgstr ""
 
-#: src/export.js:221 src/library.js:492 src/main.js:141 src/window.js:563
-#: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
+#: src/export.js:234 src/library.js:506 src/library.js:582 src/main.js:141
+#: src/window.js:563 src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Anullar"
 
-#: src/export.js:222
+#: src/export.js:235
 msgid "Import Anyway"
 msgstr "Importar sin egard"
 
-#: src/export.js:232 src/library.js:1741 src/window.js:1031
+#: src/export.js:245 src/library.js:1828 src/window.js:1017
 msgid "Error"
 msgstr "Errore"
 
-#: src/export.js:233
+#: src/export.js:246
 msgid "Could not import annotations."
 msgstr "Ne successat importar anotationes."
 
-#: src/library.js:145 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/library.js:150 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "Pri ti-ci libre"
 
-#: src/library.js:169
+#: src/library.js:183
 msgid "Choose File"
 msgstr "Selecter un file"
 
-#: src/library.js:302 src/library.js:320
+#: src/library.js:316 src/library.js:334
 msgid "Load more"
 msgstr "Cargar plu"
 
-#: src/library.js:464
+#: src/library.js:478
 msgid "File location unkown"
 msgstr "Localisation del file es ínconosset"
 
-#: src/library.js:465
+#: src/library.js:479
 #, fuzzy
 msgid "Choose the location of this file to open it."
 msgstr "Selecte un localisation"
 
-#: src/library.js:485
+#: src/library.js:499
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] "Esque vu vole remover ti-ci libre?"
 msgstr[1] "Esque vu vole remover li %d selectet libres?"
 
-#: src/library.js:487
+#: src/library.js:501
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
 
-#: src/library.js:493 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
-#: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
+#: src/library.js:507 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:420
 msgid "Remove"
 msgstr "Remover"
 
+#: src/library.js:568
+msgid "Authentication Required"
+msgstr ""
+
+#: src/library.js:570
+#, javascript-format
+msgid "Authentication required by %s"
+msgstr ""
+
+#: src/library.js:573
+#, javascript-format
+msgid "The site says: “%s”"
+msgstr ""
+
+#: src/library.js:583
+msgid "Authenticate"
+msgstr ""
+
+#: src/library.js:594
+#, fuzzy
+msgid "Username"
+msgstr "Nómine de capitul"
+
+#: src/library.js:598
+msgid "Password"
+msgstr ""
+
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/library.js:638
+#: src/library.js:725
 msgid ", "
 msgstr ", "
 
-#: src/library.js:663
+#: src/library.js:750
 #, fuzzy
 msgid "Unable to load OPDS feed"
 msgstr "Ne posset cargar li localisation"
 
-#: src/library.js:708
+#: src/library.js:795
 msgid "Download"
 msgstr "Descargar"
 
-#: src/library.js:710
+#: src/library.js:797
 msgid "Buy"
 msgstr "Comprar"
 
-#: src/library.js:711
+#: src/library.js:798
 msgid "Free"
 msgstr "Gratuit"
 
-#: src/library.js:712
+#: src/library.js:799
 msgid "Sample"
 msgstr "Exemplar"
 
-#: src/library.js:713
+#: src/library.js:800
 msgid "Borrow"
 msgstr "Pruntar"
 
-#: src/library.js:714
+#: src/library.js:801
 msgid "Subscribe"
 msgstr "Abonnar"
 
-#: src/library.js:731
+#: src/library.js:818
 msgid "Protected by DRM"
 msgstr "Protectet med DRM"
 
-#: src/library.js:749
+#: src/library.js:836
 msgid " (DRM)"
 msgstr " (DRM)"
 
-#: src/library.js:1247
+#: src/library.js:1334
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d selectet"
 msgstr[1] "%d selectet"
 
-#: src/library.js:1333
+#: src/library.js:1420
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Ne successat adjunter un libre"
 msgstr[1] "Ne successat adjunter libres"
 
-#: src/library.js:1335
+#: src/library.js:1422
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Ne successat adjunter li sequent file:"
 msgstr[1] "Ne successat adjunter li sequent files:"
 
-#: src/library.js:1397
+#: src/library.js:1484
 msgid "All"
 msgstr "Omni"
 
-#: src/library.js:1400 src/ui/catalogWindow.ui:39
+#: src/library.js:1487 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Titul"
 
-#: src/library.js:1401
+#: src/library.js:1488
 msgid "Author"
 msgstr "Autor"
 
-#: src/library.js:1402 src/properties.js:75
+#: src/library.js:1489 src/properties.js:75
 msgid "Tags"
 msgstr "Tags"
 
-#: src/library.js:1403
+#: src/library.js:1490
 msgid "Description"
 msgstr "Descrition"
 
-#: src/library.js:1404 src/properties.js:79
+#: src/library.js:1491 src/properties.js:79
 msgid "Publisher"
 msgstr "Publicator"
 
-#: src/library.js:1405 src/properties.js:91 src/ui/ttsDialog.ui:284
+#: src/library.js:1492 src/properties.js:93 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Lingue"
 
-#: src/library.js:1442
+#: src/library.js:1529
 msgid "Add Files"
 msgstr "Adjunter files"
 
-#: src/library.js:1662 src/window.js:1308 src/ui/libraryWindow.ui:191
+#: src/library.js:1749 src/window.js:1296 src/ui/libraryWindow.ui:191
 msgid "Loading…"
 msgstr "Carga..."
 
-#: src/library.js:1703
+#: src/library.js:1790
 msgid "First"
 msgstr "Prim"
 
-#: src/library.js:1704
+#: src/library.js:1791
 msgid "Previous"
 msgstr "Precedent"
 
-#: src/library.js:1705
+#: src/library.js:1792
 msgid "Next"
 msgstr "Sequent"
 
-#: src/library.js:1706
+#: src/library.js:1793
 msgid "Last"
 msgstr "Ultim"
 
-#: src/library.js:1755
+#: src/library.js:1842
 msgid "Related"
 msgstr "Relatent"
 
-#: src/library.js:1756
+#: src/library.js:1843
 msgid "Section"
 msgstr "Section"
 
-#: src/library.js:1757
+#: src/library.js:1844
 msgid "Subsection"
 msgstr "Subsection"
 
-#: src/library.js:1758
+#: src/library.js:1845
 msgid "New"
 msgstr "Nov"
 
-#: src/library.js:1759
+#: src/library.js:1846
 msgid "Popular"
 msgstr "Populari"
 
-#: src/library.js:1760
+#: src/library.js:1847
 msgid "Featured"
 msgstr "Promoet"
 
-#: src/library.js:1761
+#: src/library.js:1848
 msgid "Recommended"
 msgstr "Recomandat"
 
-#: src/library.js:1792
+#: src/library.js:1879
 msgid "Filter"
 msgstr "Filtre"
 
@@ -393,11 +429,11 @@ msgstr "Wiktionarium"
 msgid "Wiktionary (English)"
 msgstr "Wiktionary (anglese)"
 
-#: src/lookup.js:385
+#: src/lookup.js:386
 msgid "Search on Wiktionary"
 msgstr "Serchar in Wiktionarium"
 
-#: src/lookup.js:408
+#: src/lookup.js:409
 msgid "Translation by Google Translate"
 msgstr "Traductet med Google Translate"
 
@@ -419,27 +455,27 @@ msgstr "URL de catalog OPDS:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:180
+#: src/main.js:182
 msgid "translator-credits"
 msgstr "OIS <mistresssilvara@hotmail.com>, 2020"
 
-#: src/main.js:182 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:184 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Un simplic e modern visor de eLibres"
 
-#: src/main.js:207
+#: src/main.js:209
 msgid "Open library window"
 msgstr "Aperter li fenestre del biblioteca"
 
-#: src/main.js:211
+#: src/main.js:213
 msgid "Add files to the library"
 msgstr "Adjunter files al biblioteca"
 
-#: src/main.js:215
+#: src/main.js:217
 msgid "Show version"
 msgstr "Monstrar li version"
 
-#: src/main.js:219
+#: src/main.js:221
 #, fuzzy
 msgid "Show verbose debugging information"
 msgstr "Monstrar li information del version"
@@ -456,53 +492,53 @@ msgstr "Date de publication"
 msgid "Modified Date"
 msgstr "Date de modification"
 
-#: src/properties.js:95
+#: src/properties.js:98
 msgid "File Size"
 msgstr "Grandore de file"
 
-#: src/properties.js:99
+#: src/properties.js:102
 msgid "Format"
 msgstr "Formate"
 
-#: src/properties.js:105
+#: src/properties.js:108
 msgid "Identifier"
 msgstr "Identificator"
 
-#: src/properties.js:119
+#: src/properties.js:122
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr ""
 "Li libre ne have un identificator. Ti-ci es li hash MD5 generat ex li file."
 
-#: src/properties.js:130
+#: src/properties.js:133
 msgid "Copyright"
 msgstr "Jure editorial"
 
-#: src/properties.js:144
+#: src/properties.js:147
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/properties.js:148
+#: src/properties.js:151
 msgid "Goodreads"
 msgstr "Goodreads"
 
-#: src/properties.js:152
+#: src/properties.js:155
 msgid "Google Books"
 msgstr "Google Books"
 
-#: src/properties.js:156
+#: src/properties.js:159
 msgid "LibraryThing"
 msgstr "LibraryThing"
 
-#: src/properties.js:160
+#: src/properties.js:163
 msgid "Open Library"
 msgstr "Open Library"
 
-#: src/properties.js:164
+#: src/properties.js:167
 msgid "WorldCat"
 msgstr "WorldCat"
 
-#: src/properties.js:203
+#: src/properties.js:206
 msgid "Find on…"
 msgstr "Trovar sur..."
 
@@ -564,25 +600,30 @@ msgstr ""
 msgid "en"
 msgstr "en"
 
-#: src/utils.js:87
+#: src/utils.js:150
+#, javascript-format
+msgid "%s (%s)"
+msgstr ""
+
+#: src/utils.js:167
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minute"
 msgstr[1] "%d minutes"
 
-#: src/utils.js:90
+#: src/utils.js:170
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d hor"
 msgstr[1] "%d hores"
 
-#: src/utils.js:125
+#: src/utils.js:205
 msgid "E-book Files"
 msgstr "Files de e-libres"
 
-#: src/window.js:123 src/window.js:821
+#: src/window.js:123 src/window.js:807
 #, fuzzy
 msgid "Leave fullscreen"
 msgstr "Surtir plen-ecran"
@@ -614,37 +655,28 @@ msgstr ""
 msgid "Continue Anyway"
 msgstr "Continuar sin egard"
 
-#: src/window.js:675
-msgid "You don't have any annotations for this book."
-msgstr "Vu ne have anotationes por ti-ci libre."
-
-#: src/window.js:676
-#, fuzzy
-msgid "Highlight some text to add annotations."
-msgstr "Selecte alcun textu por adjunter anotation."
-
-#: src/window.js:800
+#: src/window.js:786
 msgid "Contents"
 msgstr "Contenete"
 
-#: src/window.js:804 data/com.github.johnfactotum.Foliate.gschema.xml:240
+#: src/window.js:790 data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Show sidebar"
 msgstr "Monstrar li panel láteral"
 
-#: src/window.js:815 src/ui/selectionPopover.ui:47
+#: src/window.js:801 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr "Trovar"
 
-#: src/window.js:816 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
+#: src/window.js:802 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
 msgid "Menu"
 msgstr "Menú"
 
-#: src/window.js:1095
+#: src/window.js:1082
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Image ex «%s»"
 
-#: src/window.js:1095
+#: src/window.js:1082
 msgid "Image"
 msgstr "Image"
 
@@ -662,7 +694,11 @@ msgstr "Selecter un color personalisat"
 msgid "Remote file"
 msgstr "Ne successat cargar un lontan file."
 
-#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
+#: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
+msgid "Export Annotations…"
+msgstr "Exportar anotationes..."
+
+#: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
 msgid "Edit"
 msgstr "Modificar"
@@ -740,24 +776,24 @@ msgid "No definitions found"
 msgstr "Null definitiones trovat"
 
 #: src/ui/exportWindow.ui:11
-msgid "HTML"
-msgstr "HTML"
-
-#: src/ui/exportWindow.ui:15
-msgid "Markdown"
-msgstr "Markdown"
-
-#: src/ui/exportWindow.ui:19
-msgid "Plain Text"
-msgstr "Simplic textu"
-
-#: src/ui/exportWindow.ui:23
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: src/ui/exportWindow.ui:27
+#: src/ui/exportWindow.ui:15
+msgid "HTML"
+msgstr "HTML"
+
+#: src/ui/exportWindow.ui:19
 msgid "JSON"
 msgstr "JSON"
+
+#: src/ui/exportWindow.ui:23
+msgid "Markdown"
+msgstr "Markdown"
+
+#: src/ui/exportWindow.ui:27
+msgid "Plain Text"
+msgstr "Simplic textu"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
@@ -1058,10 +1094,6 @@ msgstr "Recargar"
 #: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
 msgid "Clear Cache"
 msgstr "Vacuar li cache"
-
-#: src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
-msgid "Export Annotations…"
-msgstr "Exportar anotationes..."
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
 msgid "Import Annotations…"
@@ -1548,457 +1580,6 @@ msgstr "Remover li tema"
 #: src/ui/translationBox.ui:53
 msgid "Cannot retrieve translation"
 msgstr "Ne successat obtener un traduction"
-
-#: src/ui/translationBox.ui:127
-#, fuzzy
-msgid "Afrikaans"
-msgstr "Afrikaans"
-
-#: src/ui/translationBox.ui:131
-msgid "Albanian"
-msgstr "Albanian"
-
-#: src/ui/translationBox.ui:135
-msgid "Amharic"
-msgstr "Amharic"
-
-#: src/ui/translationBox.ui:139
-msgid "Arabic"
-msgstr "Arabic"
-
-#: src/ui/translationBox.ui:143
-msgid "Armenian"
-msgstr "Armenian"
-
-#: src/ui/translationBox.ui:147
-msgid "Azerbaijani"
-msgstr ""
-
-#: src/ui/translationBox.ui:151
-msgid "Basque"
-msgstr ""
-
-#: src/ui/translationBox.ui:155
-msgid "Belarusian"
-msgstr ""
-
-#: src/ui/translationBox.ui:159
-#, fuzzy
-msgid "Bengali"
-msgstr "Bengali"
-
-#: src/ui/translationBox.ui:163
-msgid "Bosnian"
-msgstr ""
-
-#: src/ui/translationBox.ui:167
-msgid "Bulgarian"
-msgstr "Bulgarian"
-
-#: src/ui/translationBox.ui:171
-msgid "Catalan"
-msgstr "Catalonian"
-
-#: src/ui/translationBox.ui:175
-msgid "Cebuano"
-msgstr ""
-
-#: src/ui/translationBox.ui:179
-msgid "Chinese (Simplified)"
-msgstr "Chinesi (simplificat)"
-
-#: src/ui/translationBox.ui:183
-msgid "Chinese (Traditional)"
-msgstr "Chinesi (traditional)"
-
-#: src/ui/translationBox.ui:187
-#, fuzzy
-msgid "Corsican"
-msgstr "Corsican"
-
-#: src/ui/translationBox.ui:191
-#, fuzzy
-msgid "Croatian"
-msgstr "Croatian"
-
-#: src/ui/translationBox.ui:195
-msgid "Czech"
-msgstr "Tchec"
-
-#: src/ui/translationBox.ui:199
-msgid "Danish"
-msgstr "Danese"
-
-#: src/ui/translationBox.ui:203
-msgid "Dutch"
-msgstr "Hollandese"
-
-#: src/ui/translationBox.ui:207
-msgid "English"
-msgstr "Anglese"
-
-#: src/ui/translationBox.ui:211
-msgid "Esperanto"
-msgstr "Esperanto"
-
-#: src/ui/translationBox.ui:215
-msgid "Estonian"
-msgstr "Estonian"
-
-#: src/ui/translationBox.ui:219
-#, fuzzy
-msgid "Finnish"
-msgstr "Finlandese"
-
-#: src/ui/translationBox.ui:223
-#, fuzzy
-msgid "French"
-msgstr "Francese"
-
-#: src/ui/translationBox.ui:227
-#, fuzzy
-msgid "Frisian"
-msgstr "Frisian"
-
-#: src/ui/translationBox.ui:231
-msgid "Galician"
-msgstr ""
-
-#: src/ui/translationBox.ui:235
-#, fuzzy
-msgid "Georgian"
-msgstr "Georgian"
-
-#: src/ui/translationBox.ui:239
-msgid "German"
-msgstr "German"
-
-#: src/ui/translationBox.ui:243
-msgid "Greek"
-msgstr "Grec"
-
-#: src/ui/translationBox.ui:247
-#, fuzzy
-msgid "Gujarati"
-msgstr "Gujarati"
-
-#: src/ui/translationBox.ui:251
-msgid "Haitian Creole"
-msgstr ""
-
-#: src/ui/translationBox.ui:255
-msgid "Hausa"
-msgstr ""
-
-#: src/ui/translationBox.ui:259
-msgid "Hawaiian"
-msgstr ""
-
-#: src/ui/translationBox.ui:263
-msgid "Hebrew"
-msgstr "Hebreic"
-
-#: src/ui/translationBox.ui:267
-#, fuzzy
-msgid "Hindi"
-msgstr "Hindi"
-
-#: src/ui/translationBox.ui:271
-msgid "Hmong"
-msgstr ""
-
-#: src/ui/translationBox.ui:275
-#, fuzzy
-msgid "Hungarian"
-msgstr "Hungarian"
-
-#: src/ui/translationBox.ui:279
-msgid "Icelandic"
-msgstr "Islandese"
-
-#: src/ui/translationBox.ui:283
-msgid "Igbo"
-msgstr ""
-
-#: src/ui/translationBox.ui:287
-#, fuzzy
-msgid "Indonesian"
-msgstr "Indonesian"
-
-#: src/ui/translationBox.ui:291
-msgid "Irish"
-msgstr "Irlandese"
-
-#: src/ui/translationBox.ui:295
-msgid "Italian"
-msgstr "Italian"
-
-#: src/ui/translationBox.ui:299
-msgid "Japanese"
-msgstr "Japanese"
-
-#: src/ui/translationBox.ui:303
-#, fuzzy
-msgid "Javanese"
-msgstr "Javanese"
-
-#: src/ui/translationBox.ui:307
-#, fuzzy
-msgid "Kannada"
-msgstr "Kannada"
-
-#: src/ui/translationBox.ui:311
-#, fuzzy
-msgid "Kazakh"
-msgstr "Kazakh"
-
-#: src/ui/translationBox.ui:315
-#, fuzzy
-msgid "Khmer"
-msgstr "Khmer"
-
-#: src/ui/translationBox.ui:319
-msgid "Korean"
-msgstr "Korean"
-
-#: src/ui/translationBox.ui:323
-msgid "Kurdish"
-msgstr "Kurdic"
-
-#: src/ui/translationBox.ui:327
-msgid "Kyrgyz"
-msgstr ""
-
-#: src/ui/translationBox.ui:331
-msgid "Lao"
-msgstr "Lao"
-
-#: src/ui/translationBox.ui:335
-#, fuzzy
-msgid "Latin"
-msgstr "Latin"
-
-#: src/ui/translationBox.ui:339
-msgid "Latvian"
-msgstr "Latvian"
-
-#: src/ui/translationBox.ui:343
-msgid "Lithuanian"
-msgstr "Lituanian"
-
-#: src/ui/translationBox.ui:347
-msgid "Luxembourgish"
-msgstr ""
-
-#: src/ui/translationBox.ui:351
-#, fuzzy
-msgid "Macedonian"
-msgstr "Macedonian"
-
-#: src/ui/translationBox.ui:355
-msgid "Malagasy"
-msgstr ""
-
-#: src/ui/translationBox.ui:359
-#, fuzzy
-msgid "Malay"
-msgstr "Malay"
-
-#: src/ui/translationBox.ui:363
-msgid "Malayalam"
-msgstr ""
-
-#: src/ui/translationBox.ui:367
-#, fuzzy
-msgid "Maltese"
-msgstr "Maltese"
-
-#: src/ui/translationBox.ui:371
-msgid "Maori"
-msgstr "Maori"
-
-#: src/ui/translationBox.ui:375
-msgid "Marathi"
-msgstr ""
-
-#: src/ui/translationBox.ui:379
-msgid "Mongolian"
-msgstr "Mongolian"
-
-#: src/ui/translationBox.ui:383
-#, fuzzy
-msgid "Myanmar (Burmese)"
-msgstr "Burmese"
-
-#: src/ui/translationBox.ui:387
-msgid "Nepali"
-msgstr ""
-
-#: src/ui/translationBox.ui:391
-msgid "Norwegian"
-msgstr ""
-
-#: src/ui/translationBox.ui:395
-msgid "Nyanja (Chichewa)"
-msgstr ""
-
-#: src/ui/translationBox.ui:399
-msgid "Pashto"
-msgstr ""
-
-#: src/ui/translationBox.ui:403
-#, fuzzy
-msgid "Persian"
-msgstr "Persian"
-
-#: src/ui/translationBox.ui:407
-msgid "Polish"
-msgstr "Polonese"
-
-#: src/ui/translationBox.ui:411
-msgid "Portuguese (Portugal, Brazil)"
-msgstr "Portugues (Brasil)"
-
-#: src/ui/translationBox.ui:415
-msgid "Punjabi"
-msgstr ""
-
-#: src/ui/translationBox.ui:419
-msgid "Romanian"
-msgstr "Rumanian"
-
-#: src/ui/translationBox.ui:423
-msgid "Russian"
-msgstr "Russ"
-
-#: src/ui/translationBox.ui:427
-msgid "Samoan"
-msgstr "Samoan"
-
-#: src/ui/translationBox.ui:431
-msgid "Scots Gaelic"
-msgstr ""
-
-#: src/ui/translationBox.ui:435
-msgid "Serbian"
-msgstr "Serbian"
-
-#: src/ui/translationBox.ui:439
-msgid "Sesotho"
-msgstr ""
-
-#: src/ui/translationBox.ui:443
-msgid "Shona"
-msgstr ""
-
-#: src/ui/translationBox.ui:447
-msgid "Sindhi"
-msgstr ""
-
-#: src/ui/translationBox.ui:451
-#, fuzzy
-msgid "Sinhala (Sinhalese)"
-msgstr "Sinhalese"
-
-#: src/ui/translationBox.ui:455
-msgid "Slovak"
-msgstr "Slovac"
-
-#: src/ui/translationBox.ui:459
-msgid "Slovenian"
-msgstr "Slovenian"
-
-#: src/ui/translationBox.ui:463
-msgid "Somali"
-msgstr ""
-
-#: src/ui/translationBox.ui:467
-msgid "Spanish"
-msgstr "Hispan"
-
-#: src/ui/translationBox.ui:471
-msgid "Sundanese"
-msgstr "Sundanese"
-
-#: src/ui/translationBox.ui:475
-#, fuzzy
-msgid "Swahili"
-msgstr "Swahili"
-
-#: src/ui/translationBox.ui:479
-msgid "Swedish"
-msgstr "Svedese"
-
-#: src/ui/translationBox.ui:483
-#, fuzzy
-msgid "Tagalog (Filipino)"
-msgstr "Tagalog"
-
-#: src/ui/translationBox.ui:487
-#, fuzzy
-msgid "Tajik"
-msgstr "Tajikan"
-
-#: src/ui/translationBox.ui:491
-#, fuzzy
-msgid "Tamil"
-msgstr "Tamil"
-
-#: src/ui/translationBox.ui:495
-#, fuzzy
-msgid "Telugu"
-msgstr "Telugu"
-
-#: src/ui/translationBox.ui:499
-#, fuzzy
-msgid "Thai"
-msgstr "Thai"
-
-#: src/ui/translationBox.ui:503
-#, fuzzy
-msgid "Turkish"
-msgstr "Turcian"
-
-#: src/ui/translationBox.ui:507
-#, fuzzy
-msgid "Ukrainian"
-msgstr "Ucrainan"
-
-#: src/ui/translationBox.ui:511
-#, fuzzy
-msgid "Urdu"
-msgstr "Urdu"
-
-#: src/ui/translationBox.ui:515
-#, fuzzy
-msgid "Uzbek"
-msgstr "Uzbec"
-
-#: src/ui/translationBox.ui:519
-msgid "Vietnamese"
-msgstr "Vietnamese"
-
-#: src/ui/translationBox.ui:523
-msgid "Welsh"
-msgstr ""
-
-#: src/ui/translationBox.ui:527
-#, fuzzy
-msgid "Xhosa"
-msgstr "Xhosa"
-
-#: src/ui/translationBox.ui:531
-msgid "Yiddish"
-msgstr "Judeic"
-
-#: src/ui/translationBox.ui:535
-#, fuzzy
-msgid "Yoruba"
-msgstr "Yoruba"
-
-#: src/ui/translationBox.ui:539
-msgid "Zulu"
-msgstr "Zulu"
 
 #: src/ui/ttsDialog.ui:17
 msgid "OK"
@@ -3069,3 +2650,269 @@ msgstr "Usar Tracker"
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaans"
+
+#~ msgid "Albanian"
+#~ msgstr "Albanian"
+
+#~ msgid "Amharic"
+#~ msgstr "Amharic"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabic"
+
+#~ msgid "Armenian"
+#~ msgstr "Armenian"
+
+#, fuzzy
+#~ msgid "Bengali"
+#~ msgstr "Bengali"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgarian"
+
+#~ msgid "Catalan"
+#~ msgstr "Catalonian"
+
+#~ msgid "Chinese (Simplified)"
+#~ msgstr "Chinesi (simplificat)"
+
+#~ msgid "Chinese (Traditional)"
+#~ msgstr "Chinesi (traditional)"
+
+#, fuzzy
+#~ msgid "Corsican"
+#~ msgstr "Corsican"
+
+#, fuzzy
+#~ msgid "Croatian"
+#~ msgstr "Croatian"
+
+#~ msgid "Czech"
+#~ msgstr "Tchec"
+
+#~ msgid "Danish"
+#~ msgstr "Danese"
+
+#~ msgid "Dutch"
+#~ msgstr "Hollandese"
+
+#~ msgid "English"
+#~ msgstr "Anglese"
+
+#~ msgid "Esperanto"
+#~ msgstr "Esperanto"
+
+#~ msgid "Estonian"
+#~ msgstr "Estonian"
+
+#, fuzzy
+#~ msgid "Finnish"
+#~ msgstr "Finlandese"
+
+#, fuzzy
+#~ msgid "French"
+#~ msgstr "Francese"
+
+#, fuzzy
+#~ msgid "Frisian"
+#~ msgstr "Frisian"
+
+#, fuzzy
+#~ msgid "Georgian"
+#~ msgstr "Georgian"
+
+#~ msgid "German"
+#~ msgstr "German"
+
+#~ msgid "Greek"
+#~ msgstr "Grec"
+
+#, fuzzy
+#~ msgid "Gujarati"
+#~ msgstr "Gujarati"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebreic"
+
+#, fuzzy
+#~ msgid "Hindi"
+#~ msgstr "Hindi"
+
+#, fuzzy
+#~ msgid "Hungarian"
+#~ msgstr "Hungarian"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islandese"
+
+#, fuzzy
+#~ msgid "Indonesian"
+#~ msgstr "Indonesian"
+
+#~ msgid "Irish"
+#~ msgstr "Irlandese"
+
+#~ msgid "Italian"
+#~ msgstr "Italian"
+
+#~ msgid "Japanese"
+#~ msgstr "Japanese"
+
+#, fuzzy
+#~ msgid "Javanese"
+#~ msgstr "Javanese"
+
+#, fuzzy
+#~ msgid "Kannada"
+#~ msgstr "Kannada"
+
+#, fuzzy
+#~ msgid "Kazakh"
+#~ msgstr "Kazakh"
+
+#, fuzzy
+#~ msgid "Khmer"
+#~ msgstr "Khmer"
+
+#~ msgid "Korean"
+#~ msgstr "Korean"
+
+#~ msgid "Kurdish"
+#~ msgstr "Kurdic"
+
+#~ msgid "Lao"
+#~ msgstr "Lao"
+
+#, fuzzy
+#~ msgid "Latin"
+#~ msgstr "Latin"
+
+#~ msgid "Latvian"
+#~ msgstr "Latvian"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Lituanian"
+
+#, fuzzy
+#~ msgid "Macedonian"
+#~ msgstr "Macedonian"
+
+#, fuzzy
+#~ msgid "Malay"
+#~ msgstr "Malay"
+
+#, fuzzy
+#~ msgid "Maltese"
+#~ msgstr "Maltese"
+
+#~ msgid "Maori"
+#~ msgstr "Maori"
+
+#~ msgid "Mongolian"
+#~ msgstr "Mongolian"
+
+#, fuzzy
+#~ msgid "Myanmar (Burmese)"
+#~ msgstr "Burmese"
+
+#, fuzzy
+#~ msgid "Persian"
+#~ msgstr "Persian"
+
+#~ msgid "Polish"
+#~ msgstr "Polonese"
+
+#~ msgid "Portuguese (Portugal, Brazil)"
+#~ msgstr "Portugues (Brasil)"
+
+#~ msgid "Romanian"
+#~ msgstr "Rumanian"
+
+#~ msgid "Russian"
+#~ msgstr "Russ"
+
+#~ msgid "Samoan"
+#~ msgstr "Samoan"
+
+#~ msgid "Serbian"
+#~ msgstr "Serbian"
+
+#, fuzzy
+#~ msgid "Sinhala (Sinhalese)"
+#~ msgstr "Sinhalese"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovac"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovenian"
+
+#~ msgid "Spanish"
+#~ msgstr "Hispan"
+
+#~ msgid "Sundanese"
+#~ msgstr "Sundanese"
+
+#, fuzzy
+#~ msgid "Swahili"
+#~ msgstr "Swahili"
+
+#~ msgid "Swedish"
+#~ msgstr "Svedese"
+
+#, fuzzy
+#~ msgid "Tagalog (Filipino)"
+#~ msgstr "Tagalog"
+
+#, fuzzy
+#~ msgid "Tajik"
+#~ msgstr "Tajikan"
+
+#, fuzzy
+#~ msgid "Tamil"
+#~ msgstr "Tamil"
+
+#, fuzzy
+#~ msgid "Telugu"
+#~ msgstr "Telugu"
+
+#, fuzzy
+#~ msgid "Thai"
+#~ msgstr "Thai"
+
+#, fuzzy
+#~ msgid "Turkish"
+#~ msgstr "Turcian"
+
+#, fuzzy
+#~ msgid "Ukrainian"
+#~ msgstr "Ucrainan"
+
+#, fuzzy
+#~ msgid "Urdu"
+#~ msgstr "Urdu"
+
+#, fuzzy
+#~ msgid "Uzbek"
+#~ msgstr "Uzbec"
+
+#~ msgid "Vietnamese"
+#~ msgstr "Vietnamese"
+
+#, fuzzy
+#~ msgid "Xhosa"
+#~ msgstr "Xhosa"
+
+#~ msgid "Yiddish"
+#~ msgstr "Judeic"
+
+#, fuzzy
+#~ msgid "Yoruba"
+#~ msgstr "Yoruba"
+
+#~ msgid "Zulu"
+#~ msgstr "Zulu"

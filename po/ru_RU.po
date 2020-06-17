@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-17 20:15+0800\n"
+"POT-Creation-Date: 2020-06-18 01:29+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Artemii Sudakov <finziyr@yandex.ru>\n"
 "Language-Team: \n"
@@ -21,8 +21,8 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1225
-#: src/library.js:1543 src/main.js:181 src/window.js:1003
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1312
+#: src/library.js:1630 src/main.js:183 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
@@ -70,19 +70,19 @@ msgstr[2] "%d совпадений"
 msgid "Searching…"
 msgstr "Поиск…"
 
-#: src/epubView.js:1015
+#: src/epubView.js:1016
 msgid "File not found."
 msgstr "Файл не найден."
 
-#: src/epubView.js:1026
+#: src/epubView.js:1027
 msgid "Failed to load remote file."
 msgstr "Не удалось загрузить удаленный файл."
 
-#: src/epubView.js:1062
+#: src/epubView.js:1063
 msgid "Could not unpack Kindle file."
 msgstr "Не удалось распаковать файл Kindle."
 
-#: src/epubView.js:1078
+#: src/epubView.js:1079
 msgid "File type not supported."
 msgstr "Тип файла не поддерживается."
 
@@ -133,40 +133,48 @@ msgstr "Цитата: "
 msgid " Note: "
 msgstr " Заметка: "
 
-#: src/export.js:113
+#: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
+msgid "No annotations"
+msgstr "Нет примечаний"
+
+#: src/export.js:105
+msgid "You don't have any annotations for this book."
+msgstr "В этой книге нет примечаний."
+
+#: src/export.js:106
+msgid "Highlight some text to add annotations."
+msgstr "Выделите текст, чтобы добавить примечание."
+
+#: src/export.js:128
 msgid "Save File"
 msgstr "Сохранить файл"
 
-#: src/export.js:120
+#: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
 msgstr "Примечания для “%s”"
 
-#: src/export.js:151 src/utils.js:203
+#: src/export.js:166 src/utils.js:203
 msgid "All Files"
 msgstr "Все файлы"
 
-#: src/export.js:155
+#: src/export.js:170
 msgid "JSON Files"
 msgstr "JSON файлы"
 
-#: src/export.js:158 src/ui/importWindow.ui:6
+#: src/export.js:173 src/ui/importWindow.ui:6
 msgid "Import Annotations"
 msgstr "Импортировать примечания"
 
-#: src/export.js:171 src/window.js:674 src/ui/contentsStack.ui:80
-msgid "No annotations"
-msgstr "Нет примечаний"
-
-#: src/export.js:172
+#: src/export.js:187
 msgid "There’s nothing to import."
 msgstr "Нечего импортировать."
 
-#: src/export.js:213
+#: src/export.js:228
 msgid "Identifier mismatch"
 msgstr "Несоответствие идентификатора"
 
-#: src/export.js:214
+#: src/export.js:229
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
@@ -174,47 +182,47 @@ msgstr ""
 "Идентификатор импортированного файла не совпадает с идентификатором книги. "
 "Это может указывать на то, что аннотации не относятся к этой книге."
 
-#: src/export.js:219 src/library.js:492 src/main.js:141 src/window.js:563
-#: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
+#: src/export.js:234 src/library.js:506 src/library.js:582 src/main.js:141
+#: src/window.js:563 src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Отменить"
 
-#: src/export.js:220
+#: src/export.js:235
 msgid "Import Anyway"
 msgstr "Всё равно иммпортировать"
 
-#: src/export.js:230 src/library.js:1741 src/window.js:1031
+#: src/export.js:245 src/library.js:1828 src/window.js:1017
 msgid "Error"
 msgstr "Ошибка"
 
-#: src/export.js:231
+#: src/export.js:246
 msgid "Could not import annotations."
 msgstr "Не удается импортировать примечания."
 
-#: src/library.js:145 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/library.js:150 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "Об этой книге"
 
-#: src/library.js:169
+#: src/library.js:183
 msgid "Choose File"
 msgstr "Выберите файл"
 
-#: src/library.js:302 src/library.js:320
+#: src/library.js:316 src/library.js:334
 msgid "Load more"
 msgstr "Загрузить ещё"
 
-#: src/library.js:464
+#: src/library.js:478
 msgid "File location unkown"
 msgstr "Расположение файла неизвестно"
 
-#: src/library.js:465
+#: src/library.js:479
 msgid "Choose the location of this file to open it."
 msgstr "Выберите расположение этого файла для открытия."
 
-#: src/library.js:485
+#: src/library.js:499
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
@@ -222,61 +230,88 @@ msgstr[0] "Вы уверены что хотите удалить %d книгу?
 msgstr[1] "Вы уверены что хотите удалить %d книги?"
 msgstr[2] "Вы уверены что хотите удалить %d книг?"
 
-#: src/library.js:487
+#: src/library.js:501
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
 "Прогресс прочтения глав, примечания и закладки будут удалены без возможности "
 "восстановления."
 
-#: src/library.js:493 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
-#: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
+#: src/library.js:507 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:420
 msgid "Remove"
 msgstr "Удалить"
 
+#: src/library.js:568
+msgid "Authentication Required"
+msgstr ""
+
+#: src/library.js:570
+#, javascript-format
+msgid "Authentication required by %s"
+msgstr ""
+
+#: src/library.js:573
+#, javascript-format
+msgid "The site says: “%s”"
+msgstr ""
+
+#: src/library.js:583
+msgid "Authenticate"
+msgstr ""
+
+#: src/library.js:594
+#, fuzzy
+msgid "Username"
+msgstr "Название главы"
+
+#: src/library.js:598
+msgid "Password"
+msgstr ""
+
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/library.js:638
+#: src/library.js:725
 msgid ", "
 msgstr ", "
 
-#: src/library.js:663
+#: src/library.js:750
 msgid "Unable to load OPDS feed"
 msgstr "Не удается загрузить OPDS ленту"
 
-#: src/library.js:708
+#: src/library.js:795
 msgid "Download"
 msgstr "Скачать"
 
-#: src/library.js:710
+#: src/library.js:797
 msgid "Buy"
 msgstr "Купить"
 
-#: src/library.js:711
+#: src/library.js:798
 msgid "Free"
 msgstr "Бесплатно"
 
-#: src/library.js:712
+#: src/library.js:799
 msgid "Sample"
 msgstr "Отрывок"
 
-#: src/library.js:713
+#: src/library.js:800
 msgid "Borrow"
 msgstr "Взять на прокат"
 
-#: src/library.js:714
+#: src/library.js:801
 msgid "Subscribe"
 msgstr "Подписаться"
 
-#: src/library.js:731
+#: src/library.js:818
 msgid "Protected by DRM"
 msgstr "Защищено DRM"
 
-#: src/library.js:749
+#: src/library.js:836
 msgid " (DRM)"
 msgstr " (DRM)"
 
-#: src/library.js:1247
+#: src/library.js:1334
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -284,101 +319,101 @@ msgstr[0] "%d выбрана"
 msgstr[1] "%d выбраны"
 msgstr[2] "%d выбрано"
 
-#: src/library.js:1333
+#: src/library.js:1420
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Не удалось добавить %d книгу"
 msgstr[1] "Не удалось добавить %d книги"
 msgstr[2] "Не удалось добавить %d книг"
 
-#: src/library.js:1335
+#: src/library.js:1422
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Не удалось добавить %d файл:"
 msgstr[1] "Не удалось добавить %d файла:"
 msgstr[2] "Не удалось добавить %d файлов:"
 
-#: src/library.js:1397
+#: src/library.js:1484
 msgid "All"
 msgstr "Все"
 
-#: src/library.js:1400 src/ui/catalogWindow.ui:39
+#: src/library.js:1487 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Заголовок"
 
-#: src/library.js:1401
+#: src/library.js:1488
 msgid "Author"
 msgstr "Автор"
 
-#: src/library.js:1402 src/properties.js:75
+#: src/library.js:1489 src/properties.js:75
 msgid "Tags"
 msgstr "Тэги"
 
-#: src/library.js:1403
+#: src/library.js:1490
 msgid "Description"
 msgstr "Описание"
 
-#: src/library.js:1404 src/properties.js:79
+#: src/library.js:1491 src/properties.js:79
 msgid "Publisher"
 msgstr "Издатель"
 
-#: src/library.js:1405 src/properties.js:93 src/ui/ttsDialog.ui:284
+#: src/library.js:1492 src/properties.js:93 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Язык"
 
-#: src/library.js:1442
+#: src/library.js:1529
 msgid "Add Files"
 msgstr "Добавить файлы"
 
-#: src/library.js:1662 src/window.js:1308 src/ui/libraryWindow.ui:191
+#: src/library.js:1749 src/window.js:1296 src/ui/libraryWindow.ui:191
 msgid "Loading…"
 msgstr "Загрузка…"
 
-#: src/library.js:1703
+#: src/library.js:1790
 msgid "First"
 msgstr "Первая"
 
-#: src/library.js:1704
+#: src/library.js:1791
 msgid "Previous"
 msgstr "Предыдущая"
 
-#: src/library.js:1705
+#: src/library.js:1792
 msgid "Next"
 msgstr "Следующая"
 
-#: src/library.js:1706
+#: src/library.js:1793
 msgid "Last"
 msgstr "Последняя"
 
-#: src/library.js:1755
+#: src/library.js:1842
 msgid "Related"
 msgstr "Связанная"
 
-#: src/library.js:1756
+#: src/library.js:1843
 msgid "Section"
 msgstr "Раздел"
 
-#: src/library.js:1757
+#: src/library.js:1844
 msgid "Subsection"
 msgstr "Подраздел"
 
-#: src/library.js:1758
+#: src/library.js:1845
 msgid "New"
 msgstr "Новая"
 
-#: src/library.js:1759
+#: src/library.js:1846
 msgid "Popular"
 msgstr "Популярная"
 
-#: src/library.js:1760
+#: src/library.js:1847
 msgid "Featured"
 msgstr "Совместно с"
 
-#: src/library.js:1761
+#: src/library.js:1848
 msgid "Recommended"
 msgstr "Рекомендаванное"
 
-#: src/library.js:1792
+#: src/library.js:1879
 msgid "Filter"
 msgstr "Фильтры"
 
@@ -424,30 +459,30 @@ msgstr "URL адрес OPDS каталога:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:180
+#: src/main.js:182
 msgid "translator-credits"
 msgstr ""
 "Schwonder Reismus, 2019\n"
 "Artem Polishchuk, 2019\n"
 "Artemii Sudakov, 2020"
 
-#: src/main.js:182 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:184 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Простая и современная программа для чтения электронных книг"
 
-#: src/main.js:207
+#: src/main.js:209
 msgid "Open library window"
 msgstr "Открыть окно библиотеки"
 
-#: src/main.js:211
+#: src/main.js:213
 msgid "Add files to the library"
 msgstr "Добавить файлы в библиотеку"
 
-#: src/main.js:215
+#: src/main.js:217
 msgid "Show version"
 msgstr "Показать версию"
 
-#: src/main.js:219
+#: src/main.js:221
 msgid "Show verbose debugging information"
 msgstr "Показать дополненную информацию отладки"
 
@@ -596,7 +631,7 @@ msgstr[2] "%d часов"
 msgid "E-book Files"
 msgstr "Файлы электронных книг"
 
-#: src/window.js:123 src/window.js:821
+#: src/window.js:123 src/window.js:807
 msgid "Leave fullscreen"
 msgstr "Выйти из полноэкранного режима"
 
@@ -627,36 +662,28 @@ msgstr "Ваши примечания могут перестать работа
 msgid "Continue Anyway"
 msgstr "Всё равно продолжить"
 
-#: src/window.js:675
-msgid "You don't have any annotations for this book."
-msgstr "В этой книге нет примечаний."
-
-#: src/window.js:676
-msgid "Highlight some text to add annotations."
-msgstr "Выделите текст, чтобы добавить примечание."
-
-#: src/window.js:800
+#: src/window.js:786
 msgid "Contents"
 msgstr "Оглавление"
 
-#: src/window.js:804 data/com.github.johnfactotum.Foliate.gschema.xml:240
+#: src/window.js:790 data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Show sidebar"
 msgstr "Показать боковую панель"
 
-#: src/window.js:815 src/ui/selectionPopover.ui:47
+#: src/window.js:801 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr "Искать"
 
-#: src/window.js:816 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
+#: src/window.js:802 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
 msgid "Menu"
 msgstr "Меню"
 
-#: src/window.js:1095
+#: src/window.js:1082
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Изображение с “%s”"
 
-#: src/window.js:1095
+#: src/window.js:1082
 msgid "Image"
 msgstr "Изображение"
 
@@ -672,7 +699,11 @@ msgstr "Выбрать свой цвет"
 msgid "Remote file"
 msgstr "Удалённый файл"
 
-#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
+#: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
+msgid "Export Annotations…"
+msgstr "Экспортировать примечания…"
+
+#: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
 msgid "Edit"
 msgstr "Редактировать"
@@ -748,24 +779,24 @@ msgid "No definitions found"
 msgstr "Значений не найдено"
 
 #: src/ui/exportWindow.ui:11
-msgid "HTML"
-msgstr ""
-
-#: src/ui/exportWindow.ui:15
-msgid "Markdown"
-msgstr "Разметка"
-
-#: src/ui/exportWindow.ui:19
-msgid "Plain Text"
-msgstr "Текст"
-
-#: src/ui/exportWindow.ui:23
 msgid "BibTeX"
 msgstr ""
 
-#: src/ui/exportWindow.ui:27
+#: src/ui/exportWindow.ui:15
+msgid "HTML"
+msgstr ""
+
+#: src/ui/exportWindow.ui:19
 msgid "JSON"
 msgstr ""
+
+#: src/ui/exportWindow.ui:23
+msgid "Markdown"
+msgstr "Разметка"
+
+#: src/ui/exportWindow.ui:27
+msgid "Plain Text"
+msgstr "Текст"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
@@ -1061,10 +1092,6 @@ msgstr "Перезагрузить"
 #: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
 msgid "Clear Cache"
 msgstr "Почистить кеш"
-
-#: src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
-msgid "Export Annotations…"
-msgstr "Экспортировать примечания…"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
 msgid "Import Annotations…"

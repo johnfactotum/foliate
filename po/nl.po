@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-17 20:15+0800\n"
+"POT-Creation-Date: 2020-06-18 01:29+0800\n"
 "PO-Revision-Date: 2020-05-29 13:14+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1225
-#: src/library.js:1543 src/main.js:181 src/window.js:1003
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1312
+#: src/library.js:1630 src/main.js:183 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -66,19 +66,19 @@ msgstr[1] "%d resultaten"
 msgid "Searching…"
 msgstr "Bezig met zoeken…"
 
-#: src/epubView.js:1015
+#: src/epubView.js:1016
 msgid "File not found."
 msgstr "Bestand niet aangetroffen."
 
-#: src/epubView.js:1026
+#: src/epubView.js:1027
 msgid "Failed to load remote file."
 msgstr "Kan extern bestand niet laden."
 
-#: src/epubView.js:1062
+#: src/epubView.js:1063
 msgid "Could not unpack Kindle file."
 msgstr "Kan Kindle-bestand niet uitpakken."
 
-#: src/epubView.js:1078
+#: src/epubView.js:1079
 msgid "File type not supported."
 msgstr "Dit bestandstype wordt niet ondersteund."
 
@@ -128,40 +128,48 @@ msgstr "Citaat: "
 msgid " Note: "
 msgstr " Notitie: "
 
-#: src/export.js:113
+#: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
+msgid "No annotations"
+msgstr "Geen aantekeningen"
+
+#: src/export.js:105
+msgid "You don't have any annotations for this book."
+msgstr "Je hebt geen aantekeningen gemaakt bij dit boek."
+
+#: src/export.js:106
+msgid "Highlight some text to add annotations."
+msgstr "Maak aantekeningen door tekst te markeren."
+
+#: src/export.js:128
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: src/export.js:120
+#: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
 msgstr "Aantekeningen bij '%s'"
 
-#: src/export.js:151 src/utils.js:203
+#: src/export.js:166 src/utils.js:203
 msgid "All Files"
 msgstr "Alle bestanden"
 
-#: src/export.js:155
+#: src/export.js:170
 msgid "JSON Files"
 msgstr "JSON-bestanden"
 
-#: src/export.js:158 src/ui/importWindow.ui:6
+#: src/export.js:173 src/ui/importWindow.ui:6
 msgid "Import Annotations"
 msgstr "Aantekeningen importeren"
 
-#: src/export.js:171 src/window.js:674 src/ui/contentsStack.ui:80
-msgid "No annotations"
-msgstr "Geen aantekeningen"
-
-#: src/export.js:172
+#: src/export.js:187
 msgid "There’s nothing to import."
 msgstr "Er is niks te importeren."
 
-#: src/export.js:213
+#: src/export.js:228
 msgid "Identifier mismatch"
 msgstr "Identificatie komt niet overeen"
 
-#: src/export.js:214
+#: src/export.js:229
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
@@ -169,206 +177,233 @@ msgstr ""
 "De identificatie van het geïmporteerde bestand komt niet overeen met die van "
 "het boek. Dit kan er op wijzen dat de aantekeningen niet bij dit boek horen."
 
-#: src/export.js:219 src/library.js:492 src/main.js:141 src/window.js:563
-#: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
+#: src/export.js:234 src/library.js:506 src/library.js:582 src/main.js:141
+#: src/window.js:563 src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/export.js:220
+#: src/export.js:235
 msgid "Import Anyway"
 msgstr "Tóch importeren"
 
-#: src/export.js:230 src/library.js:1741 src/window.js:1031
+#: src/export.js:245 src/library.js:1828 src/window.js:1017
 msgid "Error"
 msgstr "Fout"
 
-#: src/export.js:231
+#: src/export.js:246
 msgid "Could not import annotations."
 msgstr "De aantekeningen kunnen niet worden geïmporteerd."
 
-#: src/library.js:145 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/library.js:150 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "Over dit boek"
 
-#: src/library.js:169
+#: src/library.js:183
 msgid "Choose File"
 msgstr "Bestand kiezen"
 
-#: src/library.js:302 src/library.js:320
+#: src/library.js:316 src/library.js:334
 msgid "Load more"
 msgstr "Meer laden"
 
-#: src/library.js:464
+#: src/library.js:478
 msgid "File location unkown"
 msgstr "Onbekende bestandslocatie"
 
-#: src/library.js:465
+#: src/library.js:479
 msgid "Choose the location of this file to open it."
 msgstr "Geef de locatie op van het te openen bestand."
 
-#: src/library.js:485
+#: src/library.js:499
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] "Weet je zeker dat je dit boek wilt verwijderen?"
 msgstr[1] "Weet je zeker dat je de %d geselecteerde boeken wilt verwijderen?"
 
-#: src/library.js:487
+#: src/library.js:501
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
 "De leesvoortgang, aantekeningen en bladwijzers worden permanent gewist."
 
-#: src/library.js:493 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
-#: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
+#: src/library.js:507 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:420
 msgid "Remove"
 msgstr "Verwijderen"
 
+#: src/library.js:568
+msgid "Authentication Required"
+msgstr ""
+
+#: src/library.js:570
+#, javascript-format
+msgid "Authentication required by %s"
+msgstr ""
+
+#: src/library.js:573
+#, javascript-format
+msgid "The site says: “%s”"
+msgstr ""
+
+#: src/library.js:583
+msgid "Authenticate"
+msgstr ""
+
+#: src/library.js:594
+#, fuzzy
+msgid "Username"
+msgstr "Hoofdstuknaam"
+
+#: src/library.js:598
+msgid "Password"
+msgstr ""
+
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/library.js:638
+#: src/library.js:725
 msgid ", "
 msgstr ", "
 
-#: src/library.js:663
+#: src/library.js:750
 msgid "Unable to load OPDS feed"
 msgstr "Kan OPDS-feed niet laden"
 
-#: src/library.js:708
+#: src/library.js:795
 msgid "Download"
 msgstr "Downloaden"
 
-#: src/library.js:710
+#: src/library.js:797
 msgid "Buy"
 msgstr "Kopen"
 
-#: src/library.js:711
+#: src/library.js:798
 msgid "Free"
 msgstr "Gratis"
 
-#: src/library.js:712
+#: src/library.js:799
 msgid "Sample"
 msgstr "Voorbeeld"
 
-#: src/library.js:713
+#: src/library.js:800
 msgid "Borrow"
 msgstr "Lenen"
 
-#: src/library.js:714
+#: src/library.js:801
 msgid "Subscribe"
 msgstr "Abonneren"
 
-#: src/library.js:731
+#: src/library.js:818
 msgid "Protected by DRM"
 msgstr "DRM-beveiligd"
 
-#: src/library.js:749
+#: src/library.js:836
 msgid " (DRM)"
 msgstr " (DRM)"
 
-#: src/library.js:1247
+#: src/library.js:1334
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d geselecteerd"
 msgstr[1] "%d geselecteerd"
 
-#: src/library.js:1333
+#: src/library.js:1420
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Kan boek niet toevoegen"
 msgstr[1] "Kan boeken niet toevoegen"
 
-#: src/library.js:1335
+#: src/library.js:1422
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Kan het volgende bestand niet toevoegen:"
 msgstr[1] "Kan de volgende bestanden niet toevoegen:"
 
-#: src/library.js:1397
+#: src/library.js:1484
 msgid "All"
 msgstr "Alle"
 
-#: src/library.js:1400 src/ui/catalogWindow.ui:39
+#: src/library.js:1487 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Titel"
 
-#: src/library.js:1401
+#: src/library.js:1488
 msgid "Author"
 msgstr "Auteur"
 
-#: src/library.js:1402 src/properties.js:75
+#: src/library.js:1489 src/properties.js:75
 msgid "Tags"
 msgstr "Labels"
 
-#: src/library.js:1403
+#: src/library.js:1490
 msgid "Description"
 msgstr "Beschrijving"
 
-#: src/library.js:1404 src/properties.js:79
+#: src/library.js:1491 src/properties.js:79
 msgid "Publisher"
 msgstr "Uitgever"
 
-#: src/library.js:1405 src/properties.js:93 src/ui/ttsDialog.ui:284
+#: src/library.js:1492 src/properties.js:93 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Taal"
 
-#: src/library.js:1442
+#: src/library.js:1529
 msgid "Add Files"
 msgstr "Bestanden toevoegen"
 
-#: src/library.js:1662 src/window.js:1308 src/ui/libraryWindow.ui:191
+#: src/library.js:1749 src/window.js:1296 src/ui/libraryWindow.ui:191
 msgid "Loading…"
 msgstr "Bezig met laden…"
 
-#: src/library.js:1703
+#: src/library.js:1790
 msgid "First"
 msgstr "Eerste"
 
-#: src/library.js:1704
+#: src/library.js:1791
 msgid "Previous"
 msgstr "Vorige"
 
-#: src/library.js:1705
+#: src/library.js:1792
 msgid "Next"
 msgstr "Volgende"
 
-#: src/library.js:1706
+#: src/library.js:1793
 msgid "Last"
 msgstr "Laatste"
 
-#: src/library.js:1755
+#: src/library.js:1842
 msgid "Related"
 msgstr "Verwant"
 
-#: src/library.js:1756
+#: src/library.js:1843
 msgid "Section"
 msgstr "Sectie"
 
-#: src/library.js:1757
+#: src/library.js:1844
 msgid "Subsection"
 msgstr "Subsectie"
 
-#: src/library.js:1758
+#: src/library.js:1845
 msgid "New"
 msgstr "Nieuw"
 
-#: src/library.js:1759
+#: src/library.js:1846
 msgid "Popular"
 msgstr "Populair"
 
-#: src/library.js:1760
+#: src/library.js:1847
 msgid "Featured"
 msgstr "Uitgelicht"
 
-#: src/library.js:1761
+#: src/library.js:1848
 msgid "Recommended"
 msgstr "Aanbevolen"
 
-#: src/library.js:1792
+#: src/library.js:1879
 msgid "Filter"
 msgstr "Filter"
 
@@ -414,27 +449,27 @@ msgstr "OPDS-catalogus-url:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:180
+#: src/main.js:182
 msgid "translator-credits"
 msgstr "Heimen Stoffels"
 
-#: src/main.js:182 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:184 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Een eenvoudige, moderne e-boeklezer"
 
-#: src/main.js:207
+#: src/main.js:209
 msgid "Open library window"
 msgstr "Bibliotheekvenster openen"
 
-#: src/main.js:211
+#: src/main.js:213
 msgid "Add files to the library"
 msgstr "Bestanden toevoegen aan bibliotheek"
 
-#: src/main.js:215
+#: src/main.js:217
 msgid "Show version"
 msgstr "Versie tonen"
 
-#: src/main.js:219
+#: src/main.js:221
 msgid "Show verbose debugging information"
 msgstr "Foutopsporingsinformatie tonen"
 
@@ -581,7 +616,7 @@ msgstr[1] "%d uur"
 msgid "E-book Files"
 msgstr "E-boekbestanden"
 
-#: src/window.js:123 src/window.js:821
+#: src/window.js:123 src/window.js:807
 msgid "Leave fullscreen"
 msgstr "Beeldvullende modus verlaten"
 
@@ -612,36 +647,28 @@ msgstr "Mogelijk werken je aantekeningen binnenkort niet goed meer."
 msgid "Continue Anyway"
 msgstr "Tóch doorgaan"
 
-#: src/window.js:675
-msgid "You don't have any annotations for this book."
-msgstr "Je hebt geen aantekeningen gemaakt bij dit boek."
-
-#: src/window.js:676
-msgid "Highlight some text to add annotations."
-msgstr "Maak aantekeningen door tekst te markeren."
-
-#: src/window.js:800
+#: src/window.js:786
 msgid "Contents"
 msgstr "Inhoud"
 
-#: src/window.js:804 data/com.github.johnfactotum.Foliate.gschema.xml:240
+#: src/window.js:790 data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Show sidebar"
 msgstr "Zijbalk tonen"
 
-#: src/window.js:815 src/ui/selectionPopover.ui:47
+#: src/window.js:801 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr "Zoeken"
 
-#: src/window.js:816 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
+#: src/window.js:802 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
 msgid "Menu"
 msgstr "Menu"
 
-#: src/window.js:1095
+#: src/window.js:1082
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Afbeelding van '%s'"
 
-#: src/window.js:1095
+#: src/window.js:1082
 msgid "Image"
 msgstr "Afbeelding"
 
@@ -657,7 +684,11 @@ msgstr "Aangepaste kleur kiezen"
 msgid "Remote file"
 msgstr "Extern bestand"
 
-#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
+#: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
+msgid "Export Annotations…"
+msgstr "Aantekeningen exporteren…"
+
+#: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
 msgid "Edit"
 msgstr "Bewerken"
@@ -733,24 +764,24 @@ msgid "No definitions found"
 msgstr "Geen definities gevonden"
 
 #: src/ui/exportWindow.ui:11
-msgid "HTML"
-msgstr "HTML"
-
-#: src/ui/exportWindow.ui:15
-msgid "Markdown"
-msgstr "Markdown"
-
-#: src/ui/exportWindow.ui:19
-msgid "Plain Text"
-msgstr "Platte tekst"
-
-#: src/ui/exportWindow.ui:23
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: src/ui/exportWindow.ui:27
+#: src/ui/exportWindow.ui:15
+msgid "HTML"
+msgstr "HTML"
+
+#: src/ui/exportWindow.ui:19
 msgid "JSON"
 msgstr "JSON"
+
+#: src/ui/exportWindow.ui:23
+msgid "Markdown"
+msgstr "Markdown"
+
+#: src/ui/exportWindow.ui:27
+msgid "Plain Text"
+msgstr "Platte tekst"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
@@ -1048,10 +1079,6 @@ msgstr "Herladen"
 #: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
 msgid "Clear Cache"
 msgstr "Cache wissen"
-
-#: src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
-msgid "Export Annotations…"
-msgstr "Aantekeningen exporteren…"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
 msgid "Import Annotations…"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-17 20:15+0800\n"
+"POT-Creation-Date: 2020-06-18 01:29+0800\n"
 "PO-Revision-Date: 2020-06-13 14:28+0800\n"
 "Last-Translator: 王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Gtranslator 3.36.0\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1225
-#: src/library.js:1543 src/main.js:181 src/window.js:1003
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1312
+#: src/library.js:1630 src/main.js:183 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -66,19 +66,19 @@ msgstr[0] "%d 条结果"
 msgid "Searching…"
 msgstr "正在搜索…"
 
-#: src/epubView.js:1015
+#: src/epubView.js:1016
 msgid "File not found."
 msgstr "找不到该文件。"
 
-#: src/epubView.js:1026
+#: src/epubView.js:1027
 msgid "Failed to load remote file."
 msgstr "无法加载远程文件。"
 
-#: src/epubView.js:1062
+#: src/epubView.js:1063
 msgid "Could not unpack Kindle file."
 msgstr "无法解压Kindle格式的文件。"
 
-#: src/epubView.js:1078
+#: src/epubView.js:1079
 msgid "File type not supported."
 msgstr "不支持的文件类型。"
 
@@ -127,240 +127,275 @@ msgstr "引用: "
 msgid " Note: "
 msgstr " 笔记: "
 
-#: src/export.js:113
+#: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
+msgid "No annotations"
+msgstr "无注释"
+
+#: src/export.js:105
+msgid "You don't have any annotations for this book."
+msgstr "你没有为本书添加任何注释。"
+
+#: src/export.js:106
+msgid "Highlight some text to add annotations."
+msgstr "高亮文本以添加注释。"
+
+#: src/export.js:128
 msgid "Save File"
 msgstr "保存文件"
 
-#: src/export.js:120
+#: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
 msgstr "《%s》的注释"
 
-#: src/export.js:151 src/utils.js:203
+#: src/export.js:166 src/utils.js:203
 msgid "All Files"
 msgstr "所有文件"
 
-#: src/export.js:155
+#: src/export.js:170
 msgid "JSON Files"
 msgstr "JSON 文件"
 
-#: src/export.js:158 src/ui/importWindow.ui:6
+#: src/export.js:173 src/ui/importWindow.ui:6
 msgid "Import Annotations"
 msgstr "导入书签"
 
-#: src/export.js:171 src/window.js:674 src/ui/contentsStack.ui:80
-msgid "No annotations"
-msgstr "无注释"
-
-#: src/export.js:172
+#: src/export.js:187
 msgid "There’s nothing to import."
 msgstr "无可导入的文件。"
 
-#: src/export.js:213
+#: src/export.js:228
 msgid "Identifier mismatch"
 msgstr "标识符错误"
 
-#: src/export.js:214
+#: src/export.js:229
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
 msgstr "导入文件的标识符与图书不符。可能是因为注释不是这本书的。"
 
-#: src/export.js:219 src/library.js:492 src/main.js:141 src/window.js:563
-#: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
+#: src/export.js:234 src/library.js:506 src/library.js:582 src/main.js:141
+#: src/window.js:563 src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "取消"
 
-#: src/export.js:220
+#: src/export.js:235
 msgid "Import Anyway"
 msgstr "仍要导入"
 
-#: src/export.js:230 src/library.js:1741 src/window.js:1031
+#: src/export.js:245 src/library.js:1828 src/window.js:1017
 msgid "Error"
 msgstr "错误"
 
-#: src/export.js:231
+#: src/export.js:246
 msgid "Could not import annotations."
 msgstr "导入书签失败。"
 
-#: src/library.js:145 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/library.js:150 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "关于此书"
 
-#: src/library.js:169
+#: src/library.js:183
 msgid "Choose File"
 msgstr "选取文件"
 
-#: src/library.js:302 src/library.js:320
+#: src/library.js:316 src/library.js:334
 msgid "Load more"
 msgstr "加载更多"
 
-#: src/library.js:464
+#: src/library.js:478
 msgid "File location unkown"
 msgstr "未知的文件位置"
 
-#: src/library.js:465
+#: src/library.js:479
 msgid "Choose the location of this file to open it."
 msgstr "选择文件的位置以打开它。"
 
-#: src/library.js:485
+#: src/library.js:499
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] "你确定要删除这 %d 本书吗？"
 
-#: src/library.js:487
+#: src/library.js:501
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr "阅读进度、注释和书签都将永远丢失。"
 
-#: src/library.js:493 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
-#: src/ui/bookBoxMenu.ui:27 src/ui/bookmarkRow.ui:44
+#: src/library.js:507 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:420
 msgid "Remove"
 msgstr "删除"
 
+#: src/library.js:568
+msgid "Authentication Required"
+msgstr ""
+
+#: src/library.js:570
+#, javascript-format
+msgid "Authentication required by %s"
+msgstr ""
+
+#: src/library.js:573
+#, javascript-format
+msgid "The site says: “%s”"
+msgstr ""
+
+#: src/library.js:583
+msgid "Authenticate"
+msgstr ""
+
+#: src/library.js:594
+#, fuzzy
+msgid "Username"
+msgstr "章节标题"
+
+#: src/library.js:598
+msgid "Password"
+msgstr ""
+
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/library.js:638
+#: src/library.js:725
 msgid ", "
 msgstr "、 "
 
-#: src/library.js:663
+#: src/library.js:750
 msgid "Unable to load OPDS feed"
 msgstr "无法加载 OPDS 源"
 
-#: src/library.js:708
+#: src/library.js:795
 msgid "Download"
 msgstr "下载"
 
-#: src/library.js:710
+#: src/library.js:797
 msgid "Buy"
 msgstr "购买"
 
-#: src/library.js:711
+#: src/library.js:798
 msgid "Free"
 msgstr "免费"
 
-#: src/library.js:712
+#: src/library.js:799
 msgid "Sample"
 msgstr "样章"
 
-#: src/library.js:713
+#: src/library.js:800
 msgid "Borrow"
 msgstr "借阅"
 
-#: src/library.js:714
+#: src/library.js:801
 msgid "Subscribe"
 msgstr "订阅"
 
-#: src/library.js:731
+#: src/library.js:818
 msgid "Protected by DRM"
 msgstr "受数字版权保护"
 
-#: src/library.js:749
+#: src/library.js:836
 msgid " (DRM)"
 msgstr " (DRM)"
 
-#: src/library.js:1247
+#: src/library.js:1334
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "选中了 %d 项"
 
-#: src/library.js:1333
+#: src/library.js:1420
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "无法添加图书"
 
-#: src/library.js:1335
+#: src/library.js:1422
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "无法添加以下文件："
 
-#: src/library.js:1397
+#: src/library.js:1484
 msgid "All"
 msgstr "全部"
 
-#: src/library.js:1400 src/ui/catalogWindow.ui:39
+#: src/library.js:1487 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "标题"
 
-#: src/library.js:1401
+#: src/library.js:1488
 msgid "Author"
 msgstr "作者"
 
-#: src/library.js:1402 src/properties.js:75
+#: src/library.js:1489 src/properties.js:75
 msgid "Tags"
 msgstr "标签"
 
-#: src/library.js:1403
+#: src/library.js:1490
 msgid "Description"
 msgstr "描述"
 
-#: src/library.js:1404 src/properties.js:79
+#: src/library.js:1491 src/properties.js:79
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/library.js:1405 src/properties.js:93 src/ui/ttsDialog.ui:284
+#: src/library.js:1492 src/properties.js:93 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "语言"
 
-#: src/library.js:1442
+#: src/library.js:1529
 msgid "Add Files"
 msgstr "添加文件"
 
-#: src/library.js:1662 src/window.js:1308 src/ui/libraryWindow.ui:191
+#: src/library.js:1749 src/window.js:1296 src/ui/libraryWindow.ui:191
 msgid "Loading…"
 msgstr "加载中"
 
-#: src/library.js:1703
+#: src/library.js:1790
 msgid "First"
 msgstr "第一项"
 
-#: src/library.js:1704
+#: src/library.js:1791
 msgid "Previous"
 msgstr "前一项"
 
-#: src/library.js:1705
+#: src/library.js:1792
 msgid "Next"
 msgstr "后一项"
 
-#: src/library.js:1706
+#: src/library.js:1793
 msgid "Last"
 msgstr "最后一项"
 
-#: src/library.js:1755
+#: src/library.js:1842
 msgid "Related"
 msgstr "相关"
 
-#: src/library.js:1756
+#: src/library.js:1843
 msgid "Section"
 msgstr "章节"
 
-#: src/library.js:1757
+#: src/library.js:1844
 msgid "Subsection"
 msgstr "分章节"
 
-#: src/library.js:1758
+#: src/library.js:1845
 msgid "New"
 msgstr "新增"
 
-#: src/library.js:1759
+#: src/library.js:1846
 msgid "Popular"
 msgstr "流行"
 
-#: src/library.js:1760
+#: src/library.js:1847
 msgid "Featured"
 msgstr "特色"
 
-#: src/library.js:1761
+#: src/library.js:1848
 msgid "Recommended"
 msgstr "推荐"
 
-#: src/library.js:1792
+#: src/library.js:1879
 msgid "Filter"
 msgstr "筛选"
 
@@ -406,27 +441,27 @@ msgstr "OPDS 图书列表链接："
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:180
+#: src/main.js:182
 msgid "translator-credits"
 msgstr "Blanc Chan"
 
-#: src/main.js:182 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:184 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "简洁现代的电子书查看器"
 
-#: src/main.js:207
+#: src/main.js:209
 msgid "Open library window"
 msgstr "打开书库窗口"
 
-#: src/main.js:211
+#: src/main.js:213
 msgid "Add files to the library"
 msgstr "添加文件到书库"
 
-#: src/main.js:215
+#: src/main.js:217
 msgid "Show version"
 msgstr "显示版本"
 
-#: src/main.js:219
+#: src/main.js:221
 msgid "Show verbose debugging information"
 msgstr "显示详细的调试信息"
 
@@ -569,7 +604,7 @@ msgstr[0] "%d 小时"
 msgid "E-book Files"
 msgstr "电子书文件"
 
-#: src/window.js:123 src/window.js:821
+#: src/window.js:123 src/window.js:807
 msgid "Leave fullscreen"
 msgstr "退出全屏"
 
@@ -600,36 +635,28 @@ msgstr "你的注释随时有可能出错。"
 msgid "Continue Anyway"
 msgstr "仍要继续"
 
-#: src/window.js:675
-msgid "You don't have any annotations for this book."
-msgstr "你没有为本书添加任何注释。"
-
-#: src/window.js:676
-msgid "Highlight some text to add annotations."
-msgstr "高亮文本以添加注释。"
-
-#: src/window.js:800
+#: src/window.js:786
 msgid "Contents"
 msgstr "显示内容"
 
-#: src/window.js:804 data/com.github.johnfactotum.Foliate.gschema.xml:240
+#: src/window.js:790 data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Show sidebar"
 msgstr "显示侧边栏"
 
-#: src/window.js:815 src/ui/selectionPopover.ui:47
+#: src/window.js:801 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr "搜索"
 
-#: src/window.js:816 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
+#: src/window.js:802 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
 msgid "Menu"
 msgstr "菜单"
 
-#: src/window.js:1095
+#: src/window.js:1082
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "图片来自 “%s”"
 
-#: src/window.js:1095
+#: src/window.js:1082
 msgid "Image"
 msgstr "图片"
 
@@ -645,7 +672,11 @@ msgstr "自定义颜色"
 msgid "Remote file"
 msgstr "远程文件"
 
-#: src/ui/bookBoxMenu.ui:20 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
+#: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
+msgid "Export Annotations…"
+msgstr "导出注释…"
+
+#: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
 msgid "Edit"
 msgstr "编辑"
@@ -721,24 +752,24 @@ msgid "No definitions found"
 msgstr "找不到该定义"
 
 #: src/ui/exportWindow.ui:11
-msgid "HTML"
-msgstr "HTML"
-
-#: src/ui/exportWindow.ui:15
-msgid "Markdown"
-msgstr "Markdown"
-
-#: src/ui/exportWindow.ui:19
-msgid "Plain Text"
-msgstr "纯文本"
-
-#: src/ui/exportWindow.ui:23
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: src/ui/exportWindow.ui:27
+#: src/ui/exportWindow.ui:15
+msgid "HTML"
+msgstr "HTML"
+
+#: src/ui/exportWindow.ui:19
 msgid "JSON"
 msgstr "JSON"
+
+#: src/ui/exportWindow.ui:23
+msgid "Markdown"
+msgstr "Markdown"
+
+#: src/ui/exportWindow.ui:27
+msgid "Plain Text"
+msgstr "纯文本"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
@@ -1031,10 +1062,6 @@ msgstr "刷新"
 #: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
 msgid "Clear Cache"
 msgstr "清除缓存"
-
-#: src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
-msgid "Export Annotations…"
-msgstr "导出注释…"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
 msgid "Import Annotations…"
