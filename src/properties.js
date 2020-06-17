@@ -88,7 +88,7 @@ var PropertiesBox = GObject.registerClass({
             property_value: modified_date
         }), false, true, 0)
         if (language) {
-            const name = getLanguageDisplayName(language)
+            const name = getLanguageDisplayName(language, true)
             if (name) this._propertiesBox.pack_start(new PropertyBox({
                 property_name: _('Language'),
                 property_value: name

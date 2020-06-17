@@ -116,9 +116,15 @@ if (hasIso_3166_1) for (const obj of iso_3166_1['3166-1']) {
     if (alpha_3) regionNames.set(alpha_3, n)
 }
 var isRegionCode = str => str === str.toUpperCase()
+const regionEmojiOffset = 127397
+var getRegionEmoji = code => {
+    if (!code || code.length !== 2) return
+    return String.fromCodePoint(...Array.from(code.toUpperCase())
+        .map(x => regionEmojiOffset + x.charCodeAt()))
+}
 // get langauge names
 // should perhaps use `Intl.DisplayNames()` instead once it becomes available
-var getLanguageDisplayName = code => {
+var getLanguageDisplayName = (code, showEmoji) => {
     try {
         code = Intl.getCanonicalLocales(code)[0]
     } catch (e) {
@@ -137,8 +143,11 @@ var getLanguageDisplayName = code => {
         ? GLib.dgettext('iso_3166-1', regionName)
         : region
 
+    const emoji = showEmoji ? getRegionEmoji(region) : ''
+
     return regionDisplayName
-        ? _('%s (%s)').format(languageDisplayName, regionDisplayName)
+        ? (emoji ? emoji + ' ' : '')
+            + _('%s (%s)').format(languageDisplayName, regionDisplayName)
         : languageDisplayName
 }
 // convert alpha-3 to alpha-2 if possible
