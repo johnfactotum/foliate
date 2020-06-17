@@ -736,6 +736,19 @@ const LoadBox = GObject.registerClass({
 }, class LoadBox extends Gtk.Stack {
     _init(params, load) {
         super._init(params)
+        this._load = load
+
+        this._buildLoading()
+        this._buildError()
+
+        let loaded
+        this.connect('realize', () => {
+            if (loaded) return
+            loaded = true
+            this._loadWidget()
+        })
+    }
+    _buildLoading() {
         const spinner = new Gtk.Spinner({
             visible: true,
             active: true,
@@ -745,23 +758,39 @@ const LoadBox = GObject.registerClass({
             height_request: 64
         })
         this.add_named(spinner, 'loading')
+    }
+    _buildError() {
         const error = new Gtk.Label({
             visible: true,
+            wrap: true,
             label: _('Unable to load OPDS feed')
         })
-        this.add_named(error, 'error')
-        let loaded
-        this.connect('realize', () => {
-            if (loaded) return
-            const widget = load()
-            this.add_named(widget, 'loaded')
-            widget.connect('loaded', () => {
-                this.visible_child_name = 'loaded'
-            })
-            widget.connect('error', () => {
-                this.visible_child_name = 'error'
-            })
-            loaded = true
+        error.get_style_context().add_class('dim-label')
+        const reload = new Gtk.Button({
+            visible: true,
+            label: _('Reload'),
+            halign: Gtk.Align.CENTER
+        })
+        reload.connect('clicked', () => this._loadWidget())
+        const errorBox = new Gtk.Box({
+            visible: true,
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 12,
+            valign: Gtk.Align.CENTER
+        })
+        errorBox.pack_start(error, false, true, 0)
+        errorBox.pack_start(reload, false, true, 0)
+        this.add_named(errorBox, 'error')
+    }
+    _loadWidget() {
+        this.visible_child_name = 'loading'
+        const widget = this._load()
+        this.add_named(widget, 'loaded')
+        widget.connect('loaded', () => {
+            this.visible_child_name = 'loaded'
+        })
+        widget.connect('error', () => {
+            this.visible_child_name = 'error'
         })
     }
 })
