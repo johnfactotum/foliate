@@ -15,7 +15,7 @@
 
 const { GObject, Gio, GLib, Gtk, Gdk, GdkPixbuf, WebKit2, Pango, cairo } = imports.gi
 const ngettext = imports.gettext.ngettext
-const { debug, readJSON, locales, formatPercent,
+const { debug, readJSON, formatPrice, formatPercent,
     Obj, base64ToPixbuf, scalePixbuf, markupEscape,
     shuffle, hslToRgb, colorFromString, isLight, fileFilters,
     linkIsRel, makeLinksButton, sepHeaderFunc,
@@ -802,15 +802,6 @@ const LoadBox = GObject.registerClass({
         })
     }
 })
-
-const formatPrice = ({ currencycode, value }) => {
-    try {
-        return new Intl.NumberFormat(locales,
-            { style: 'currency', currency: currencycode }).format(value)
-    } catch (e) {
-        return (currencycode ? currencycode + ' ' : '') + value
-    }
-}
 
 const getIndirectAcquisition = link => {
     const types = [link.type]

@@ -162,6 +162,15 @@ var getAlpha2 = code => {
     return alpha_3_to_alpha_2.get(lang) || lang
 }
 
+const formatPrice = ({ currencycode, value }) => {
+    try {
+        return new Intl.NumberFormat(locales,
+            { style: 'currency', currency: currencycode }).format(value)
+    } catch (e) {
+        return (currencycode ? currencycode + ' ' : '') + value
+    }
+}
+
 var formatMinutes = n => {
     n = Math.round(n)
     if (n < 60) return ngettext('%d minute', '%d minutes', n).format(n)
