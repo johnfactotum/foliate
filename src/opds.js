@@ -786,7 +786,7 @@ var OpdsBrowser = GObject.registerClass({
         const actions = {
             'back': () => this._goBack(),
             'home': () => this._goHome(),
-            'reload': () => this.loadOpds(this._uri),
+            'reload': () => this._loadOpds(this._uri),
             'location': () => this.showLocationDialog()
         }
         Object.keys(actions).forEach(name => {
