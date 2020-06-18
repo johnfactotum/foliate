@@ -39,7 +39,7 @@ webContext.set_sandbox_enabled(true)
 
 const { fileFilters } = imports.utils
 const { Window } = imports.window
-const { LibraryWindow, OpdsWindow } = imports.library
+const { LibraryWindow } = imports.library
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
 const { setVerbose, setTimeout } = imports.utils
 const { headlessViewer } = imports.epubView
@@ -48,6 +48,10 @@ const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 const librarySettings = new Gio.Settings({ schema_id: pkg.name + '.library' })
+
+const getLibraryWindow = app =>
+    app.get_windows().find(window => window instanceof LibraryWindow)
+    || new LibraryWindow({ application: app })
 
 const makeActions = app => ({
     'new-theme': () => {
@@ -158,10 +162,10 @@ const makeActions = app => ({
         window.show_all()
         const response = window.run()
         if (response === Gtk.ResponseType.OK && entry.text) {
-            const window = new OpdsWindow({ application: app })
+            const window = getLibraryWindow(app)
             let uri = entry.text.trim().replace(/^opds:\/\//, 'http://')
             if (!uri.includes(':')) uri = 'http://' + uri
-            window.loadOpds(uri)
+            window.openCatalog(uri)
             window.present()
         }
         window.close()
@@ -169,9 +173,7 @@ const makeActions = app => ({
     'library': () => {
         const activeWindow = app.active_window
         if (!(activeWindow instanceof LibraryWindow)) activeWindow.close()
-        const windows = app.get_windows()
-        ;(windows.find(window => window instanceof LibraryWindow)
-            || new LibraryWindow({ application: app })).present()
+        getLibraryWindow(app).present()
     },
     'about': () => {
         const aboutDialog = new Gtk.AboutDialog({
@@ -230,10 +232,9 @@ function main(argv) {
                 file: Gio.File.new_for_path(lastFile)
             })
         else {
-            window = windows.find(window => window instanceof LibraryWindow)
-                || new LibraryWindow({ application })
+            window = getLibraryWindow(application)
         }
-        window.present_with_time(Gdk.CURRENT_TIME)
+        window.present()
     })
 
     application.connect('handle-local-options', (application, options) => {
@@ -279,9 +280,9 @@ function main(argv) {
         } else files.forEach(file => {
             let window
             if (file.get_uri_scheme() === 'opds') {
-                window = new OpdsWindow({ application })
+                window = getLibraryWindow(application)
                 const uri = file.get_uri().replace(/^opds:\/\//, 'http://')
-                window.loadOpds(uri)
+                window.openCatalog(uri)
             } else window = new Window({ application, file })
             window.present()
         })

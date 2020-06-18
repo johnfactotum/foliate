@@ -13,12 +13,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gio, GLib, Gtk, WebKit2, Pango } = imports.gi
+const { GObject, Gio, GLib, Gtk, Gdk, WebKit2, Pango } = imports.gi
 const {
     debug, Obj, formatPrice, base64ToPixbuf, markupEscape,
     linkIsRel, makeLinksButton, sepHeaderFunc, user_agent
 } = imports.utils
 const { PropertiesBox } = imports.properties
+const { HdyColumn } = imports.handy
 
 const htmlPath = pkg.pkgdatadir + '/assets/client.html'
 class OpdsClient {
@@ -330,6 +331,7 @@ var LoadBox = GObject.registerClass({
 }, class LoadBox extends Gtk.Stack {
     _init(params, load) {
         super._init(params)
+        this.transition_type = Gtk.StackTransitionType.CROSSFADE
         this._load = load
 
         this._buildLoading()
@@ -763,5 +765,300 @@ var OpdsBox = GObject.registerClass({
     error(e) {
         logError(e)
         this.emit('error')
+    }
+})
+
+const defaultTitle = _('OPDS Catalog')
+
+var OpdsBrowser = GObject.registerClass({
+    GTypeName: 'FoliateOpdsBrowser',
+    Properties: {
+        title: GObject.ParamSpec.string('title', 'title', 'title',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, defaultTitle),
+        searchable: GObject.ParamSpec.boolean('searchable', 'searchable', 'searchable',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
+    }
+}, class OpdsBrowser extends Gtk.Box {
+    _init(params) {
+        super._init(params)
+
+        this.actionGroup = new Gio.SimpleActionGroup()
+        const actions = {
+            'back': () => this._goBack(),
+            'home': () => this._goHome(),
+            'reload': () => this.loadOpds(this._uri),
+            'location': () => this.showLocationDialog()
+        }
+        Object.keys(actions).forEach(name => {
+            const action = new Gio.SimpleAction({ name })
+            action.connect('activate', actions[name])
+            this.actionGroup.add_action(action)
+        })
+        this.reset()
+    }
+    reset() {
+        if (this._opdsWidget) this._opdsWidget.destroy()
+        this._uri = null
+        this._history = []
+        this._searchLink = null
+        this._updateBack()
+        this._home = null
+    }
+    search(text) {
+        if (!this._searchLink) return
+        const query = text.trim()
+        if (!query) return
+
+        this._opdsWidget.destroy()
+        this._opdsWidget = new Gtk.Spinner({
+            visible: true,
+            active: true,
+            valign: Gtk.Align.CENTER,
+            halign: Gtk.Align.CENTER,
+            width_request: 48,
+            height_request: 48
+        })
+        this.pack_start(this._opdsWidget, true, true, 0)
+
+        const client = new OpdsClient(this)
+        client.init()
+            .then(() => client.getOpenSearch(query, this._searchLink.href))
+            .then(uri => this.loadOpds(uri))
+            .catch(e => logError(e))
+            .then(() => client.close())
+    }
+    _updateBack() {
+        this.actionGroup.lookup_action('back').enabled = this._history.length
+    }
+    _goBack() {
+        if (!this._history.length) return
+        this._loadOpds(this._history.pop())
+        this._updateBack()
+    }
+    _pushHistory(x) {
+        if (!x) return
+        this._history.push(x)
+        this._updateBack()
+    }
+    _clearHistory() {
+        this._history = []
+        this._updateBack()
+    }
+    get _home() {
+        return this.__home
+    }
+    set _home(home) {
+        this.__home = home
+        this.actionGroup.lookup_action('home').enabled = home && home !== this._uri
+    }
+    _goHome() {
+        if (!this._home) return
+        this.loadOpds(this._home)
+    }
+    showLocationDialog() {
+        const top = this.get_toplevel()
+        const width = top.get_size()[0]
+        const window = new Gtk.Dialog({
+            title: _('OPDS URL'),
+            modal: true,
+            use_header_bar: true,
+            transient_for: top,
+            default_width: Math.min(500, width * 0.95)
+        })
+        window.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+        window.add_button(_('Go'), Gtk.ResponseType.ACCEPT)
+        window.set_default_response(Gtk.ResponseType.ACCEPT)
+
+        const entry =  new Gtk.Entry({ text: this._uri })
+        entry.connect('activate', () =>
+            window.response(Gtk.ResponseType.ACCEPT))
+
+        const container = window.get_content_area()
+        container.border_width = 18
+        container.pack_start(entry, false, true, 0)
+        window.show_all()
+        const response = window.run()
+        if (response === Gtk.ResponseType.ACCEPT) this.loadOpds(entry.text)
+        window.close()
+    }
+    loadOpds(uri) {
+        this._pushHistory(this._uri)
+        this._loadOpds(uri).catch(e => logError(e))
+    }
+    async _loadOpds(uri) {
+        this.set_property('title', _('Loading…'))
+
+        this._uri = uri
+        if (this._opdsWidget) this._opdsWidget.destroy()
+
+        const handleLink = (href, type) => {
+            if (OpdsClient.typeIsOpds(type)) this.loadOpds(href)
+            else Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
+        }
+
+        const nb = new Gtk.Notebook({
+            visible: true,
+            scrollable: true,
+            show_border: false
+        })
+        const updateShowTabs = () => nb.show_tabs = nb.get_n_pages() > 1
+        nb.connect('page-added', updateShowTabs)
+        nb.connect('page-removed', updateShowTabs)
+        this._opdsWidget = nb
+        this.pack_start(nb, true, true, 0)
+
+        const makePage = (uri, title) => new Promise((resolve, reject) => {
+            const label = new Gtk.Label({
+                visible: true,
+                ellipsize: Pango.EllipsizeMode.END,
+                label: title || _('Loading…'),
+                tooltip_text: title || null,
+                width_chars: 10,
+            })
+
+            const column = new HdyColumn({
+                visible: true,
+                maximum_width: 2000,
+                linear_growth_width: 2000
+            })
+            const box = new Gtk.Box({
+                visible: true,
+                orientation: Gtk.Orientation.VERTICAL
+            })
+
+            const loadbox = new LoadBox({
+                visible: true,
+                expand: true
+            }, () => {
+                const widget = new OpdsBox({
+                    visible: true,
+                    valign: Gtk.Align.START,
+                    uri
+                })
+                widget.connect('loaded', () => {
+                    if (this._uri !== uri) return reject()
+
+                    const feed = widget.feed
+                    if (!title) {
+                        const title = feed.title || ''
+                        label.label = title
+                        label.tooltip_text = title
+                    }
+
+                    const buttonBox = new Gtk.Box({
+                        visible: true,
+                        margin: 18,
+                        halign: Gtk.Align.CENTER
+                    })
+                    buttonBox.get_style_context().add_class('linked')
+                    box.pack_end(buttonBox, false, true, 0)
+
+                    const paginationRels = {
+                        fisrt: { icon: 'go-first-symbolic', label: _('First') },
+                        previous: { icon: 'go-previous-symbolic', label: _('Previous') },
+                        next: { icon: 'go-next-symbolic', label: _('Next') },
+                        last: { icon: 'go-last-symbolic', label: _('Last') }
+                    }
+                    Object.keys(paginationRels).forEach(rel => {
+                        const link = feed.links.find(link => 'href' in link && linkIsRel(link, rel))
+                        if (!link) return
+                        const icon_name = paginationRels[rel].icon
+                        const label = paginationRels[rel].label
+                        const paginationBtton = new Gtk.Button({
+                            visible: true,
+                            hexpand: true,
+                            image: new Gtk.Image({ visible: true, icon_name }),
+                            tooltip_text: label
+                        })
+                        paginationBtton.connect('clicked', () => this.loadOpds(link.href))
+                        buttonBox.pack_start(paginationBtton, false, true, 0)
+                    })
+
+                    const opdsbox = widget.get_child()
+                    if (opdsbox instanceof OpdsFullEntryBox) {
+                        column.maximum_width = 600
+                    } else {
+                        opdsbox.connect('link-activated', (_, href, type) => {
+                            handleLink(href, type)
+                        })
+                    }
+                    if (opdsbox instanceof OpdsNavigationBox) {
+                        column.maximum_width = 600
+                    }
+
+                    resolve(feed)
+                })
+                widget.connect('error', () => {
+                    if (this._uri !== uri) return reject()
+                    if (!title) label.label = _('Error')
+                    reject(new Error())
+                })
+                return widget
+            })
+            box.pack_start(loadbox, false, true, 0)
+            column.add(box)
+
+            const scrolled = new Gtk.ScrolledWindow({ visible: true })
+            scrolled.add(column)
+            nb.append_page(scrolled, label)
+            nb.child_set_property(scrolled, 'tab-expand', true)
+        })
+
+        const related = {
+            'related': _('Related'),
+            'section': _('Section'),
+            'subsection': _('Subsection'),
+            'http://opds-spec.org/sort/new': _('New'),
+            'http://opds-spec.org/sort/popular': _('Popular'),
+            'http://opds-spec.org/featured': _('Featured'),
+            'http://opds-spec.org/recommended': _('Recommended')
+        }
+
+        makePage(uri, null).then(feed => {
+            this.set_property('title', feed.title || defaultTitle)
+            const tabs = [].concat(feed.links).filter(link => 'href' in link
+                && 'rel' in link
+                && Object.keys(related).some(rel => linkIsRel(link, rel)))
+
+            tabs.forEach(({ title, href, rel }) => {
+                makePage(href, title || related[rel])
+            })
+
+            const home = feed.links.find(link => linkIsRel(link, 'start'))
+            if (home) this._home = home.href
+
+            const facets = feed.links.filter(link => linkIsRel(link, 'http://opds-spec.org/facet'))
+            if (facets.length) {
+                const opdsbox = new OpdsNavigationBox({
+                    visible: true,
+                    facet: true,
+                    margin: 18,
+                    valign: Gtk.Align.START
+                })
+                opdsbox.load(facets.map(facet => ({
+                    title: facet.title,
+                    links: [facet]
+                })))
+                opdsbox.connect('link-activated', (_, href, type) => {
+                    handleLink(href, type)
+                })
+
+                const label = new Gtk.Label({
+                    visible: true,
+                    label: _('Filter'),
+                })
+                const box = new HdyColumn({ visible: true, maximum_width: 700 })
+                box.add(opdsbox)
+                const scrolled = new Gtk.ScrolledWindow({ visible: true })
+                scrolled.add(box)
+                nb.insert_page(scrolled, label, 0)
+            }
+
+            const search = feed.links.find(link => linkIsRel(link, 'search'))
+            this._searchLink = search
+            this.set_property('searchable', Boolean(search))
+        }).catch(e => {
+            if (e) this.set_property('title', _('Error'))
+        })
     }
 })

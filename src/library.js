@@ -13,11 +13,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gio, Gtk, Gdk, GdkPixbuf, Pango, cairo } = imports.gi
+const { GObject, Gio, Gtk, Gdk, GdkPixbuf, cairo } = imports.gi
 const ngettext = imports.gettext.ngettext
 const {
     Obj, readJSON, fileFilters, sepHeaderFunc, formatPercent, markupEscape,
-    scalePixbuf, shuffle, hslToRgb, colorFromString, isLight, linkIsRel
+    scalePixbuf, shuffle, hslToRgb, colorFromString, isLight
 } = imports.utils
 const { PropertiesWindow } = imports.properties
 const { Window } = imports.window
@@ -26,13 +26,9 @@ const { headlessViewer, EpubViewData } = imports.epubView
 const { exportAnnotations } = imports.export
 
 const { catalogStore, CatalogRow, CatalogEditor } = imports.catalogs
-const {
-    OpdsClient, LoadBox,
-    OpdsFeed, OpdsBox, OpdsNavigationBox, OpdsAcquisitionBox, OpdsFullEntryBox
-} = imports.opds
+const { OpdsClient, LoadBox, OpdsFeed, OpdsAcquisitionBox } = imports.opds
 
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
-const { HdyColumn } = imports.handy
 
 const settings = new Gio.Settings({ schema_id: pkg.name + '.library' })
 
@@ -561,6 +557,7 @@ var LibraryWindow =  GObject.registerClass({
     GTypeName: 'FoliateLibraryWindow',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/libraryWindow.ui',
     InternalChildren: [
+        'mainStack', 'titlebarStack',
         'stack', 'library', 'catalog', 'catalogColumn',
         'startButtonStack', 'endButtonStack', 'mainMenuButton',
         'searchButton', 'searchBar', 'searchEntry', 'searchMenuButton',
@@ -568,7 +565,9 @@ var LibraryWindow =  GObject.registerClass({
         'squeezer', 'squeezerLabel', 'switcherBar',
         'loadingBar', 'loadingProgressBar',
         'actionBar', 'selectionLabel',
-        'catalogStack'
+        'catalogStack',
+        'opdsHeaderBar', 'opdsBrowser', 'opdsMenuButton',
+        'opdsSearchButton', 'opdsSearchBar', 'opdsSearchEntry'
     ],
     Properties: {
         'active-view': GObject.ParamSpec.string('active-view', 'active-view', 'active-view',
@@ -578,10 +577,30 @@ var LibraryWindow =  GObject.registerClass({
     _init(params) {
         super._init(params)
         this.show_menubar = false
-        this.title = _('Foliate')
 
         setWindowSize(this)
         settings.bind('view-mode', this, 'active-view', Gio.SettingsBindFlags.DEFAULT)
+
+        const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
+        this._mainStack.bind_property('visible-child-name', this._titlebarStack, 'visible-child-name', flag)
+        ;[this._startButtonStack, this._endButtonStack].forEach(stack =>
+            this._stack.bind_property('visible-child-name', stack, 'visible-child-name', flag))
+
+        this._opdsBrowser.bind_property('title', this._opdsHeaderBar, 'title', flag)
+        this._mainStack.connect('notify::visible-child', stack => {
+            if (stack.visible_child_name === 'library') this._opdsBrowser.reset()
+            this._updateTitle()
+        })
+        this._opdsBrowser.connect('notify::title', () => this._updateTitle())
+        this._updateTitle()
+
+        this._opdsBrowser.connect('notify::searchable', () => this._updateOpdsSearch())
+        this._opdsSearchBar.connect_entry(this._opdsSearchEntry)
+        this._opdsSearchButton.bind_property('active', this._opdsSearchBar, 'search-mode-enabled', flag)
+        this._opdsSearchEntry.connect('activate', entry =>
+            this._opdsBrowser.search(entry.text))
+        this._opdsSearchEntry.connect('stop-search', () =>
+            this._opdsSearchBar.search_mode_enabled = false)
 
         if (Handy) {
             this._stack.child_set_property(this._library, 'icon-name', 'system-file-manager-symbolic')
@@ -621,13 +640,37 @@ var LibraryWindow =  GObject.registerClass({
             },
             'grid-view': () => this.set_property('active-view', 'grid'),
             'list-view': () => this.set_property('active-view', 'list'),
-            'search': () => this._searchButton.active = !this._searchButton.active,
-            'catalog': () => this._stack.visible_child_name = 'catalog',
+            'search': () => {
+                const button = this._mainStack.visible_child_name === 'opds'
+                    ? this._opdsSearchButton
+                    : this._stack.visible_child_name === 'library'
+                        ? this._searchButton
+                        : null
+                if (button) button.active = !button.active
+            },
+            'catalog': () => {
+                this._stack.visible_child_name = 'catalog'
+                this._mainStack.visible_child_name = 'library'
+            },
+            'library': () => {
+                this._stack.visible_child_name = 'library'
+                this._mainStack.visible_child_name = 'library'
+            },
             'add-catalog': () => this.addCatalog(),
             'learn-more-about-opds': () => {
                 Gtk.show_uri_on_window(null, 'https://opds.io/', Gdk.CURRENT_TIME)
             },
-            'main-menu': () => this._mainMenuButton.active = !this._mainMenuButton.active,
+            'opds-back': () => {
+                const back = this._opdsBrowser.actionGroup.lookup_action('back')
+                if (back.enabled) back.activate(null)
+                else this._mainStack.visible_child_name = 'library'
+            },
+            'main-menu': () => {
+                const button = this._mainStack.visible_child_name === 'opds'
+                    ? this._opdsMenuButton
+                    : this._mainMenuButton
+                button.active = !button.active
+            },
             'close': () => this.close(),
         }
         Object.keys(actions).forEach(name => {
@@ -642,9 +685,7 @@ var LibraryWindow =  GObject.registerClass({
         overlay.section_name = 'library-shortcuts'
         this.set_help_overlay(overlay)
 
-        const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
-        ;[this._startButtonStack, this._endButtonStack].forEach(stack =>
-            this._stack.bind_property('visible-child-name', stack, 'visible-child-name', flag))
+        this.insert_action_group('opds', this._opdsBrowser.actionGroup)
 
         const updateViewButton = () =>
             this._viewButton.get_child().icon_name = this.active_view === 'grid'
@@ -658,13 +699,19 @@ var LibraryWindow =  GObject.registerClass({
         this._buildSearchOptions()
 
         this._searchButton.bind_property('active', this._searchBar, 'search-mode-enabled', flag)
-        this.connect('key-press-event', (__, event) => this._searchBar.handle_event(event))
         this._searchBar.connect_entry(this._searchEntry)
         this._searchBar.connect('notify::search-mode-enabled', () => this._updateLibraryStack())
         this._searchEntry.connect('search-changed', () => this._doSearch())
         this._searchEntry.connect('activate', () => this._doSearch())
         this._searchEntry.connect('stop-search', () =>
             this._searchBar.search_mode_enabled = false)
+
+        this.connect('key-press-event', (__, event) => {
+            if (this._mainStack.visible_child_name === 'opds')
+                return this._opdsSearchBar.handle_event(event)
+            else if (this._stack.visible_child_name === 'library')
+                return this._searchBar.handle_event(event)
+        })
 
         // if there's only one item (likely the 'load-more' item), load some books
         // otherwise there's already some books loaded and no need to do that
@@ -725,6 +772,17 @@ var LibraryWindow =  GObject.registerClass({
         })
 
         this._loadCatalogs()
+    }
+    _updateTitle() {
+        if (this._mainStack.visible_child_name === 'library')
+            this.title = _('Foliate')
+        else this.title = this._opdsBrowser.title
+    }
+    _updateOpdsSearch() {
+        const searchable = this._opdsBrowser.searchable
+        if (!searchable) this._opdsSearchButton.active = false
+        this._opdsSearchButton.sensitive = searchable
+        this._opdsSearchButton.visible = searchable
     }
     _buildDragDrop(widget) {
         widget.drag_dest_set(Gtk.DestDefaults.ALL, [], Gdk.DragAction.COPY)
@@ -814,9 +872,8 @@ var LibraryWindow =  GObject.registerClass({
         this.close()
     }
     openCatalog(uri) {
-        const window = new OpdsWindow({ application: this.application })
-        window.loadOpds(uri)
-        window.present()
+        this._opdsBrowser.loadOpds(uri)
+        this._mainStack.visible_child_name = 'opds'
     }
     addCatalog() {
         const editor = new CatalogEditor()
@@ -882,285 +939,5 @@ var LibraryWindow =  GObject.registerClass({
         }
         update()
         catalogs.connect('items-changed', update)
-    }
-})
-
-var OpdsWindow =  GObject.registerClass({
-    GTypeName: 'FoliateOpdsWindow',
-    Template: 'resource:///com/github/johnfactotum/Foliate/ui/opdsWindow.ui',
-    InternalChildren: [
-        'mainBox', 'backButton', 'homeButton',
-        'searchButton', 'searchBar', 'searchEntry'
-    ],
-}, class OpdsWindow extends Gtk.ApplicationWindow {
-    _init(params) {
-        super._init(params)
-        this.show_menubar = false
-        this.title = _('Foliate')
-        setWindowSize(this)
-
-        this._history = []
-        this._searchLink = null
-
-        this.actionGroup = new Gio.SimpleActionGroup()
-        const actions = {
-            'back': () => this._goBack(),
-            'home': () => this._goHome()
-        }
-        Object.keys(actions).forEach(name => {
-            const action = new Gio.SimpleAction({ name })
-            action.connect('activate', actions[name])
-            this.actionGroup.add_action(action)
-        })
-        this.insert_action_group('opds', this.actionGroup)
-        const overlay = Gtk.Builder.new_from_resource(
-            '/com/github/johnfactotum/Foliate/ui/shortcutsWindow.ui')
-            .get_object('shortcutsWindow')
-        this.set_help_overlay(overlay)
-
-        const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
-        this._searchButton.bind_property('active', this._searchBar, 'search-mode-enabled', flag)
-        this._searchBar.connect('notify::search-mode-enabled', ({ search_mode_enabled }) => {
-            if (search_mode_enabled) this._searchEntry.grab_focus()
-        })
-
-        const handleSearchEntry = ({ text }) => {
-            if (!this._searchLink) return
-            const query = text.trim()
-            if (!query) return
-
-            this._opdsWidget.destroy()
-            this._opdsWidget = new Gtk.Spinner({
-                visible: true,
-                active: true,
-                valign: Gtk.Align.CENTER,
-                halign: Gtk.Align.CENTER,
-                width_request: 48,
-                height_request: 48
-            })
-            this._mainBox.pack_start(this._opdsWidget, true, true, 0)
-
-            const client = new OpdsClient(this)
-            client.init()
-                .then(() => client.getOpenSearch(query, this._searchLink.href))
-                .then(uri => {
-                    this._pushHistory(this._uri)
-                    this._loadOpds(uri)
-                })
-                .catch(e => logError(e))
-                .then(() => client.close())
-        }
-        this._searchEntry.connect('activate', handleSearchEntry)
-        this._searchEntry.connect('stop-search', () =>
-            this._searchBar.search_mode_enabled = false)
-
-        this.actionGroup.lookup_action('back').bind_property('enabled',
-            this._backButton, 'visible', GObject.BindingFlags.DEFAULT)
-        this.actionGroup.lookup_action('home').bind_property('enabled',
-            this._homeButton, 'visible', GObject.BindingFlags.DEFAULT)
-        this._updateBack()
-        this._home = null
-    }
-    _updateBack() {
-        this.actionGroup.lookup_action('back').enabled = this._history.length
-    }
-    _goBack() {
-        if (!this._history.length) return
-        this._loadOpds(this._history.pop())
-        this._updateBack()
-    }
-    _pushHistory(x) {
-        this._history.push(x)
-        this._updateBack()
-    }
-    _clearHistory() {
-        this._history = []
-        this._updateBack()
-    }
-    get _home() {
-        return this.__home
-    }
-    set _home(home) {
-        this.__home = home
-        this.actionGroup.lookup_action('home').enabled = home && home !== this._uri
-    }
-    _goHome() {
-        if (!this._home) return
-        this._pushHistory(this._uri)
-        this._loadOpds(this._home)
-    }
-    loadOpds(uri) {
-        this._loadOpds(uri).catch(e => logError(e))
-    }
-    async _loadOpds(uri) {
-        this._uri = uri
-        if (this._opdsWidget) this._opdsWidget.destroy()
-
-        const handleLink = (href, type) => {
-            if (OpdsClient.typeIsOpds(type)) {
-                this._pushHistory(uri)
-                this._loadOpds(href)
-            } else Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
-        }
-
-        const nb = new Gtk.Notebook({
-            visible: true,
-            scrollable: true,
-            show_border: false
-        })
-        this._opdsWidget = nb
-        this._mainBox.pack_start(nb, true, true, 0)
-
-        const makePage = (uri, title, callback) => {
-            const label = new Gtk.Label({
-                visible: true,
-                ellipsize: Pango.EllipsizeMode.END,
-                label: title || _('Loading…'),
-                tooltip_text: title || null,
-                width_chars: 10,
-            })
-
-            const column = new HdyColumn({
-                visible: true,
-                maximum_width: 2000,
-                linear_growth_width: 2000
-            })
-            const box = new Gtk.Box({
-                visible: true,
-                orientation: Gtk.Orientation.VERTICAL
-            })
-
-            const loadbox = new LoadBox({
-                visible: true,
-                expand: true
-            }, () => {
-                const widget = new OpdsBox({
-                    visible: true,
-                    valign: Gtk.Align.START,
-                    uri
-                })
-                widget.connect('loaded', () => {
-                    const feed = widget.feed
-                    if (!title) {
-                        const title = feed.title || ''
-                        label.label = title
-                        label.tooltip_text = title
-                    }
-
-                    const buttonBox = new Gtk.Box({
-                        visible: true,
-                        margin: 18,
-                        halign: Gtk.Align.CENTER
-                    })
-                    buttonBox.get_style_context().add_class('linked')
-                    box.pack_end(buttonBox, false, true, 0)
-
-                    const paginationRels = {
-                        fisrt: { icon: 'go-first-symbolic', label: _('First') },
-                        previous: { icon: 'go-previous-symbolic', label: _('Previous') },
-                        next: { icon: 'go-next-symbolic', label: _('Next') },
-                        last: { icon: 'go-last-symbolic', label: _('Last') }
-                    }
-                    Object.keys(paginationRels).forEach(rel => {
-                        const link = feed.links.find(link => 'href' in link && linkIsRel(link, rel))
-                        if (!link) return
-                        const icon_name = paginationRels[rel].icon
-                        const label = paginationRels[rel].label
-                        const paginationBtton = new Gtk.Button({
-                            visible: true,
-                            hexpand: true,
-                            image: new Gtk.Image({ visible: true, icon_name }),
-                            tooltip_text: label
-                        })
-                        paginationBtton.connect('clicked', () => {
-                            this._pushHistory(uri)
-                            this._loadOpds(link.href)
-                        })
-                        buttonBox.pack_start(paginationBtton, false, true, 0)
-                    })
-
-                    if (callback) callback(feed)
-
-                    const opdsbox = widget.get_child()
-                    if (opdsbox instanceof OpdsFullEntryBox) {
-                        column.maximum_width = 600
-                    } else {
-                        opdsbox.connect('link-activated', (_, href, type) => {
-                            handleLink(href, type)
-                        })
-                    }
-                    if (opdsbox instanceof OpdsNavigationBox) {
-                        column.maximum_width = 600
-                    }
-                })
-                widget.connect('error', () => {
-                    if (!title) label.label = _('Error')
-                })
-                return widget
-            })
-            box.pack_start(loadbox, false, true, 0)
-            column.add(box)
-
-            const scrolled = new Gtk.ScrolledWindow({ visible: true })
-            scrolled.add(column)
-            nb.append_page(scrolled, label)
-            nb.child_set_property(scrolled, 'tab-expand', true)
-        }
-
-        const related = {
-            'related': _('Related'),
-            'section': _('Section'),
-            'subsection': _('Subsection'),
-            'http://opds-spec.org/sort/new': _('New'),
-            'http://opds-spec.org/sort/popular': _('Popular'),
-            'http://opds-spec.org/featured': _('Featured'),
-            'http://opds-spec.org/recommended': _('Recommended')
-        }
-
-        makePage(uri, null, feed => {
-            if (feed.title) this.title = feed.title
-            const tabs = [].concat(feed.links).filter(link => 'href' in link
-                && 'rel' in link
-                && Object.keys(related).some(rel => linkIsRel(link, rel)))
-
-            tabs.forEach(({ title, href, rel }) => {
-                makePage(href, title || related[rel])
-            })
-
-            const facets = feed.links.filter(link => linkIsRel(link, 'http://opds-spec.org/facet'))
-            if (facets.length) {
-                const opdsbox = new OpdsNavigationBox({
-                    visible: true,
-                    facet: true,
-                    margin: 18,
-                    valign: Gtk.Align.START
-                })
-                opdsbox.load(facets.map(facet => ({
-                    title: facet.title,
-                    links: [facet]
-                })))
-                opdsbox.connect('link-activated', (_, href, type) => {
-                    handleLink(href, type)
-                })
-
-                const label = new Gtk.Label({
-                    visible: true,
-                    label: _('Filter'),
-                })
-                const box = new HdyColumn({ visible: true, maximum_width: 700 })
-                box.add(opdsbox)
-                const scrolled = new Gtk.ScrolledWindow({ visible: true })
-                scrolled.add(box)
-                nb.insert_page(scrolled, label, 0)
-            }
-
-            const search = feed.links.find(link => linkIsRel(link, 'search'))
-            if (search) {
-                this._searchLink = search
-                this._searchButton.show()
-            } else this._searchButton.hide()
-
-            nb.show_tabs = nb.get_n_pages() > 1
-        })
     }
 })
