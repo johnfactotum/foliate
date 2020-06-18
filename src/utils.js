@@ -162,7 +162,7 @@ var getAlpha2 = code => {
     return alpha_3_to_alpha_2.get(lang) || lang
 }
 
-const formatPrice = ({ currencycode, value }) => {
+var formatPrice = ({ currencycode, value }) => {
     try {
         return new Intl.NumberFormat(locales,
             { style: 'currency', currency: currencycode }).format(value)

@@ -22,7 +22,7 @@ const { PropertiesBox } = imports.properties
 const { HdyColumn } = imports.handy
 
 const htmlPath = pkg.pkgdatadir + '/assets/client.html'
-class OpdsClient {
+var OpdsClient = class OpdsClient {
     constructor(widget) {
         this._widget = widget
         this._promises = new Map()
