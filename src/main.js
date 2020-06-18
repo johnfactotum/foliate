@@ -171,9 +171,14 @@ const makeActions = app => ({
         window.close()
     },
     'library': () => {
-        const activeWindow = app.active_window
-        if (!(activeWindow instanceof LibraryWindow)) activeWindow.close()
-        getLibraryWindow(app).present()
+        const existingLibraryWindow =
+            app.get_windows().find(window => window instanceof LibraryWindow)
+
+        if (existingLibraryWindow) existingLibraryWindow.present()
+        else {
+            app.active_window.close()
+            new LibraryWindow({ application: app }).present()
+        }
     },
     'about': () => {
         const aboutDialog = new Gtk.AboutDialog({
