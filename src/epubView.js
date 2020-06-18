@@ -1177,6 +1177,9 @@ var EpubView = GObject.registerClass({
     speakNext() {
         this._run(`rendition.next().then(() => speak())`)
     }
+    get isPaginated() {
+        return layouts[this.settings.layout].options.flow === 'paginated'
+    }
     get widget() {
         return this._webView
     }
