@@ -50,6 +50,8 @@ Debian packages can be downloaded from the [releases](https://github.com/johnfac
 
 #### Optional dependencies
 
+`iso-codes (>= 3.67)` is needed for displaying langauge and region names.
+
 For Mobipocket (.mobi) and Kindle File Format (.azw, .azw3) support, you would need Python (2.7 or >= 3.4).
 
 Auto-hyphenation is done using CSS hyphenation. To enable CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
