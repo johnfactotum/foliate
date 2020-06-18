@@ -86,11 +86,11 @@ var readJSON = file => {
     }
 }
 
-var glibcLocaleToJsLocale = x => x === 'C' ? 'en' : x.split('.')[0].replace('_', '-')
-var locales = GLib.get_language_names().map(glibcLocaleToJsLocale)
+var glibcLocaleToBCP47 = x => x === 'C' ? 'en' : x.split('.')[0].replace('_', '-')
+var locales = GLib.get_language_names().map(glibcLocaleToBCP47)
 try {
     const settings = new Gio.Settings({ schema_id: 'org.gnome.system.locale' })
-    const locale = glibcLocaleToJsLocale(settings.get_string('region'))
+    const locale = glibcLocaleToBCP47(settings.get_string('region'))
     if (locale) locales = locale
 } catch (e) {}
 
@@ -162,12 +162,52 @@ var getAlpha2 = code => {
     return alpha_3_to_alpha_2.get(lang) || lang
 }
 
-const formatPrice = ({ currencycode, value }) => {
+var formatPrice = ({ currencycode, value }) => {
     try {
         return new Intl.NumberFormat(locales,
             { style: 'currency', currency: currencycode }).format(value)
     } catch (e) {
         return (currencycode ? currencycode + ' ' : '') + value
+    }
+}
+
+// Translators: here "BCE" is for "before common era"
+const formatBCE = (str, isBCE) => isBCE ? _('%s BCE').format(str) : str
+
+var formatDate = (string, showTime) => {
+    let isBCE = false
+    if (string.startsWith('-')) {
+        // Intl does not format BCE dates
+        // so we treat it as a CE date and add "BCE" ourselves later
+        isBCE = true
+        string = string.split('-')[1]
+    }
+
+    const split = string.split('-').filter(x => x)
+    const yearOnly = split.length === 1
+    const yearMonthOnly = split.length === 2
+
+    const date = yearOnly
+        // this is needed because dates like `new Date("100")` is invalid
+        ? new Date(Date.UTC(split[0]))
+        : new Date(string)
+
+    if (isNaN(date)) return formatBCE(string, isBCE)
+
+    const options = yearOnly
+        ? { year: 'numeric' }
+        : yearMonthOnly
+            ? { year: 'numeric', month: 'long' }
+            : showTime
+                ? { year: 'numeric', month: 'long', day: 'numeric',
+                    hour: 'numeric', minute: 'numeric' }
+                : { year: 'numeric', month: 'long', day: 'numeric' }
+
+    try {
+        const dateString = new Intl.DateTimeFormat(locales, options).format(date)
+        return formatBCE(dateString, isBCE)
+    } catch (e) {
+        return formatBCE(string, isBCE)
     }
 }
 

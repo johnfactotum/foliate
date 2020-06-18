@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-18 01:29+0800\n"
+"POT-Creation-Date: 2020-06-19 00:53+0800\n"
 "PO-Revision-Date: 2019-06-14 21:02+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:1312
-#: src/library.js:1630 src/main.js:183 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
+#: src/main.js:190 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -38,7 +38,7 @@ msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook,Buku,EPUB,Pemirsa,Pembaca;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
-#: src/ui/libraryWindow.ui:451 src/ui/mainMenu.ui:304 src/ui/opdsWindow.ui:7
+#: src/ui/libraryWindow.ui:612 src/ui/mainMenu.ui:304
 msgid "Library"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 "%s\n"
 "Oleh %s"
 
-#: src/export.js:166 src/utils.js:203
+#: src/export.js:166 src/utils.js:252
 #, fuzzy
 msgid "All Files"
 msgstr "Semua berkas"
@@ -198,10 +198,11 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr ""
 
-#: src/export.js:234 src/library.js:506 src/library.js:582 src/main.js:141
-#: src/window.js:563 src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
-#: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
-#: src/ui/libraryWindow.ui:440 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
+#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
+#: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
+#: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
+#: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Batalkan"
 
@@ -209,7 +210,7 @@ msgstr "Batalkan"
 msgid "Import Anyway"
 msgstr ""
 
-#: src/export.js:245 src/library.js:1828 src/window.js:1017
+#: src/export.js:245 src/opds.js:1000 src/opds.js:1068 src/window.js:1024
 msgid "Error"
 msgstr ""
 
@@ -218,219 +219,94 @@ msgstr ""
 msgid "Could not import annotations."
 msgstr "Anotasi"
 
-#: src/library.js:150 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/library.js:151 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "Tentang Buku Ini"
 
-#: src/library.js:183
+#: src/library.js:184
 #, fuzzy
 msgid "Choose File"
 msgstr "Berkas E-book"
 
-#: src/library.js:316 src/library.js:334
+#: src/library.js:317 src/library.js:335
 msgid "Load more"
 msgstr ""
 
-#: src/library.js:478
+#: src/library.js:479
 msgid "File location unkown"
 msgstr ""
 
-#: src/library.js:479
+#: src/library.js:480
 msgid "Choose the location of this file to open it."
 msgstr ""
 
-#: src/library.js:499
+#: src/library.js:500
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] ""
 
-#: src/library.js:501
+#: src/library.js:502
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
 
-#: src/library.js:507 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/library.js:508 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
-#: src/ui/libraryWindow.ui:420
+#: src/ui/libraryWindow.ui:581
 msgid "Remove"
 msgstr "Hapus"
 
-#: src/library.js:568
-msgid "Authentication Required"
-msgstr ""
-
-#: src/library.js:570
-#, javascript-format
-msgid "Authentication required by %s"
-msgstr ""
-
-#: src/library.js:573
-#, javascript-format
-msgid "The site says: “%s”"
-msgstr ""
-
-#: src/library.js:583
-msgid "Authenticate"
-msgstr ""
-
-#: src/library.js:594
-msgid "Username"
-msgstr ""
-
-#: src/library.js:598
-msgid "Password"
-msgstr ""
-
-#. Translators: this is the punctuation used to join together a list of
-#. authors or categories
-#: src/library.js:725
-msgid ", "
-msgstr ""
-
-#: src/library.js:750
-msgid "Unable to load OPDS feed"
-msgstr ""
-
-#: src/library.js:795
-msgid "Download"
-msgstr ""
-
-#: src/library.js:797
-msgid "Buy"
-msgstr ""
-
-#: src/library.js:798
-msgid "Free"
-msgstr ""
-
-#: src/library.js:799
-msgid "Sample"
-msgstr ""
-
-#: src/library.js:800
-msgid "Borrow"
-msgstr ""
-
-#: src/library.js:801
-msgid "Subscribe"
-msgstr ""
-
-#: src/library.js:818
-msgid "Protected by DRM"
-msgstr ""
-
-#: src/library.js:836
-msgid " (DRM)"
-msgstr ""
-
-#: src/library.js:1334
+#: src/library.js:626
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] ""
 
-#: src/library.js:1420
+#: src/library.js:744
 #, fuzzy
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Temukan dalam buku"
 
-#: src/library.js:1422
+#: src/library.js:746
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] ""
 
-#: src/library.js:1484
+#: src/library.js:819
 msgid "All"
 msgstr ""
 
-#: src/library.js:1487 src/ui/catalogWindow.ui:39
+#: src/library.js:822 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr ""
 
-#: src/library.js:1488
+#: src/library.js:823
 msgid "Author"
 msgstr ""
 
-#: src/library.js:1489 src/properties.js:75
+#: src/library.js:824 src/properties.js:77
 msgid "Tags"
 msgstr ""
 
-#: src/library.js:1490
+#: src/library.js:825
 #, fuzzy
 msgid "Description"
 msgstr "Seleksi"
 
-#: src/library.js:1491 src/properties.js:79
+#: src/library.js:826 src/properties.js:81
 msgid "Publisher"
 msgstr "Penerbit"
 
-#: src/library.js:1492 src/properties.js:93 src/ui/ttsDialog.ui:284
+#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Bahasa"
 
-#: src/library.js:1529
+#: src/library.js:864
 #, fuzzy
 msgid "Add Files"
 msgstr "Semua berkas"
-
-#: src/library.js:1749 src/window.js:1296 src/ui/libraryWindow.ui:191
-msgid "Loading…"
-msgstr "Memuat…"
-
-#: src/library.js:1790
-msgid "First"
-msgstr ""
-
-#: src/library.js:1791
-#, fuzzy
-msgid "Previous"
-msgstr "Halaman sebelumnya"
-
-#: src/library.js:1792
-#, fuzzy
-msgid "Next"
-msgstr "Halaman berikutnya"
-
-#: src/library.js:1793
-msgid "Last"
-msgstr ""
-
-#: src/library.js:1842
-msgid "Related"
-msgstr ""
-
-#: src/library.js:1843
-#, fuzzy
-msgid "Section"
-msgstr "Seleksi"
-
-#: src/library.js:1844
-#, fuzzy
-msgid "Subsection"
-msgstr "Seleksi"
-
-#: src/library.js:1845
-msgid "New"
-msgstr ""
-
-#: src/library.js:1846
-msgid "Popular"
-msgstr ""
-
-#: src/library.js:1847
-#, fuzzy
-msgid "Featured"
-msgstr "Fitur termasuk:"
-
-#: src/library.js:1848
-msgid "Recommended"
-msgstr ""
-
-#: src/library.js:1879
-msgid "Filter"
-msgstr ""
 
 #: src/lookup.js:106
 msgid "Search on Wikipedia"
@@ -457,111 +333,256 @@ msgstr "Cari di Wikitionary"
 msgid "Translation by Google Translate"
 msgstr "Terjemahan oleh Google Terjemahan"
 
-#: src/main.js:115 src/window.js:657
+#: src/main.js:119 src/window.js:657
 msgid "Open File"
 msgstr "Buka berkas"
 
-#: src/main.js:136
+#: src/main.js:140
 #, fuzzy
 msgid "Open Catalog"
 msgstr "Buka Berkas…"
 
-#: src/main.js:142 src/ui/catalogRow.ui:50
+#: src/main.js:146 src/ui/catalogRow.ui:50
 #, fuzzy
 msgid "Open"
 msgstr "Buka…"
 
-#: src/main.js:146
+#: src/main.js:150
 msgid "OPDS Catalog URL:"
 msgstr ""
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:182
+#: src/main.js:189
 msgid "translator-credits"
 msgstr ""
 
-#: src/main.js:184 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Pembaca eBook yang sederhana dan modern"
 
-#: src/main.js:209
+#: src/main.js:216
 msgid "Open library window"
 msgstr ""
 
-#: src/main.js:213
+#: src/main.js:220
 msgid "Add files to the library"
 msgstr ""
 
-#: src/main.js:217
+#: src/main.js:224
 #, fuzzy
 msgid "Show version"
 msgstr "Tampilkan menu"
 
-#: src/main.js:221
+#: src/main.js:228
 msgid "Show verbose debugging information"
 msgstr ""
 
-#: src/properties.js:76
+#: src/opds.js:144
+msgid "Authentication Required"
+msgstr ""
+
+#: src/opds.js:146
+#, javascript-format
+msgid "Authentication required by %s"
+msgstr ""
+
+#: src/opds.js:149
+#, javascript-format
+msgid "The site says: “%s”"
+msgstr ""
+
+#: src/opds.js:160
+msgid "Authenticate"
+msgstr ""
+
+#: src/opds.js:171
+msgid "Username"
+msgstr ""
+
+#: src/opds.js:175
+msgid "Password"
+msgstr ""
+
+#. Translators: this is the punctuation used to join together a list of
+#. authors or categories
+#: src/opds.js:216
+msgid ", "
+msgstr ""
+
+#: src/opds.js:255
+msgid "Download"
+msgstr ""
+
+#: src/opds.js:257
+msgid "Buy"
+msgstr ""
+
+#: src/opds.js:258
+msgid "Free"
+msgstr ""
+
+#: src/opds.js:259
+msgid "Sample"
+msgstr ""
+
+#: src/opds.js:260
+msgid "Borrow"
+msgstr ""
+
+#: src/opds.js:261
+msgid "Subscribe"
+msgstr ""
+
+#: src/opds.js:278
+msgid "Protected by DRM"
+msgstr ""
+
+#: src/opds.js:296
+msgid " (DRM)"
+msgstr ""
+
+#: src/opds.js:362
+msgid "Unable to load OPDS feed"
+msgstr ""
+
+#: src/opds.js:367 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
+#: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:93
+msgid "Reload"
+msgstr ""
+
+#: src/opds.js:771 src/ui/catalogWindow.ui:6
+#, fuzzy
+msgid "OPDS Catalog"
+msgstr "Bahasa Katala"
+
+#: src/opds.js:869 src/ui/catalogWindow.ui:53
+msgid "OPDS URL"
+msgstr ""
+
+#: src/opds.js:876
+#, fuzzy
+msgid "Go"
+msgstr "Pergi"
+
+#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/ui/libraryWindow.ui:359
+msgid "Loading…"
+msgstr "Memuat…"
+
+#: src/opds.js:964
+msgid "First"
+msgstr ""
+
+#: src/opds.js:965
+#, fuzzy
+msgid "Previous"
+msgstr "Halaman sebelumnya"
+
+#: src/opds.js:966
+#, fuzzy
+msgid "Next"
+msgstr "Halaman berikutnya"
+
+#: src/opds.js:967
+msgid "Last"
+msgstr ""
+
+#: src/opds.js:1015
+msgid "Related"
+msgstr ""
+
+#: src/opds.js:1016
+#, fuzzy
+msgid "Section"
+msgstr "Seleksi"
+
+#: src/opds.js:1017
+#, fuzzy
+msgid "Subsection"
+msgstr "Seleksi"
+
+#: src/opds.js:1018
+msgid "New"
+msgstr ""
+
+#: src/opds.js:1019
+msgid "Popular"
+msgstr ""
+
+#: src/opds.js:1020
+#, fuzzy
+msgid "Featured"
+msgstr "Fitur termasuk:"
+
+#: src/opds.js:1021
+msgid "Recommended"
+msgstr ""
+
+#: src/opds.js:1055
+msgid "Filter"
+msgstr ""
+
+#: src/properties.js:78
 msgid " • "
 msgstr ""
 
-#: src/properties.js:83
+#: src/properties.js:87
 msgid "Publication Date"
 msgstr "Tanggal Publikasi"
 
-#: src/properties.js:87
+#: src/properties.js:94
 msgid "Modified Date"
 msgstr "Tanggal Modifikasi"
 
-#: src/properties.js:98
+#: src/properties.js:106
 #, fuzzy
 msgid "File Size"
 msgstr "Semua berkas"
 
-#: src/properties.js:102
+#: src/properties.js:110
 msgid "Format"
 msgstr ""
 
-#: src/properties.js:108
+#: src/properties.js:116
 msgid "Identifier"
 msgstr "Pengidentifikasi"
 
-#: src/properties.js:122
+#: src/properties.js:130
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr ""
 
-#: src/properties.js:133
+#: src/properties.js:141
 msgid "Copyright"
 msgstr "Hak cipta"
 
-#: src/properties.js:147
+#: src/properties.js:155
 msgid "Amazon"
 msgstr ""
 
-#: src/properties.js:151
+#: src/properties.js:159
 msgid "Goodreads"
 msgstr ""
 
-#: src/properties.js:155
+#: src/properties.js:163
 #, fuzzy
 msgid "Google Books"
 msgstr "Lihat eBook"
 
-#: src/properties.js:159
+#: src/properties.js:167
 msgid "LibraryThing"
 msgstr ""
 
-#: src/properties.js:163
+#: src/properties.js:171
 msgid "Open Library"
 msgstr ""
 
-#: src/properties.js:167
+#: src/properties.js:175
 msgid "WorldCat"
 msgstr ""
 
-#: src/properties.js:206
+#: src/properties.js:214
 msgid "Find on…"
 msgstr ""
 
@@ -627,19 +648,25 @@ msgstr ""
 msgid "%s (%s)"
 msgstr ""
 
-#: src/utils.js:167
+#. Translators: here "BCE" is for "before common era"
+#: src/utils.js:175
+#, javascript-format
+msgid "%s BCE"
+msgstr ""
+
+#: src/utils.js:216
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
 
-#: src/utils.js:170
+#: src/utils.js:219
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] ""
 
-#: src/utils.js:205
+#: src/utils.js:254
 msgid "E-book Files"
 msgstr "Berkas E-book"
 
@@ -689,16 +716,16 @@ msgstr "Tampilkan penanda buku"
 msgid "Find"
 msgstr ""
 
-#: src/window.js:802 src/ui/libraryWindow.ui:111 src/ui/opdsWindow.ui:69
+#: src/window.js:802 src/ui/libraryWindow.ui:205 src/ui/libraryWindow.ui:300
 msgid "Menu"
 msgstr ""
 
-#: src/window.js:1082
+#: src/window.js:1089
 #, javascript-format
 msgid "Image from “%s”"
 msgstr ""
 
-#: src/window.js:1082
+#: src/window.js:1089
 msgid "Image"
 msgstr ""
 
@@ -744,15 +771,6 @@ msgstr ""
 #, fuzzy
 msgid "Remove Book"
 msgstr "Hapus"
-
-#: src/ui/catalogWindow.ui:6
-#, fuzzy
-msgid "OPDS Catalog"
-msgstr "Bahasa Katala"
-
-#: src/ui/catalogWindow.ui:53
-msgid "OPDS URL"
-msgstr ""
 
 #: src/ui/catalogWindow.ui:68
 #, fuzzy
@@ -926,13 +944,13 @@ msgstr "Buka Berkas…"
 msgid "Add Books…"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:522
+#: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:683
 #, fuzzy
 msgid "Add Catalog…"
 msgstr "Buka Berkas…"
 
 #: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
-#: src/ui/opdsWindow.ui:22 src/ui/preferenceWindow.ui:118
+#: src/ui/preferenceWindow.ui:118
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -941,73 +959,99 @@ msgid "Keyboard Shortcuts"
 msgstr "Pintasan Keyboard"
 
 #: src/ui/libraryWindow.ui:34 src/ui/mainMenu.ui:330 src/ui/menuBar.ui:227
-#: src/ui/opdsWindow.ui:26
 msgid "About Foliate"
 msgstr "Tentang Foliate"
 
 #: src/ui/libraryWindow.ui:55
+#, fuzzy
+msgid "Go to start page"
+msgstr "Kembali ke lokasi sebelumnya"
+
+#: src/ui/libraryWindow.ui:83
+msgid "Add this feed to catalogs"
+msgstr ""
+
+#: src/ui/libraryWindow.ui:104
+#, fuzzy
+msgid "Location…"
+msgstr "Kembali ke lokasi sebelumnya"
+
+#: src/ui/libraryWindow.ui:116
+msgid "Go Back to Library"
+msgstr ""
+
+#: src/ui/libraryWindow.ui:123
+#, fuzzy
+msgid "Go Back to Catalog"
+msgstr "Bahasa Katala"
+
+#: src/ui/libraryWindow.ui:149
 msgid "Add books"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:72
+#: src/ui/libraryWindow.ui:166
 msgid "Add catalog"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:135 src/ui/opdsWindow.ui:84
+#: src/ui/libraryWindow.ui:229 src/ui/libraryWindow.ui:316
 #: src/ui/shortcutsWindow.ui:17
 #, fuzzy
 msgid "Search"
 msgstr "Mencari…"
 
-#: src/ui/libraryWindow.ui:149
+#: src/ui/libraryWindow.ui:243
 msgid "Toggle view"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:210
+#: src/ui/libraryWindow.ui:286
+msgid "Go back"
+msgstr "Kembali"
+
+#: src/ui/libraryWindow.ui:378
 msgid "Stop"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:320
+#: src/ui/libraryWindow.ui:481
 #, fuzzy
 msgid "No books yet"
 msgstr "Tidak ada penanda buku"
 
-#: src/ui/libraryWindow.ui:332 src/ui/mainOverlay.ui:60
+#: src/ui/libraryWindow.ui:493 src/ui/mainOverlay.ui:60
 #, fuzzy
 msgid "Open a book to start reading."
 msgstr "Buka buku untuk memulai membaca"
 
-#: src/ui/libraryWindow.ui:346 src/ui/mainOverlay.ui:73
+#: src/ui/libraryWindow.ui:507 src/ui/mainOverlay.ui:73
 msgid "Open File…"
 msgstr "Buka Berkas…"
 
-#: src/ui/libraryWindow.ui:354
+#: src/ui/libraryWindow.ui:515
 msgid "Browse Catalogs"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:386
+#: src/ui/libraryWindow.ui:547
 #, fuzzy
 msgid "No results found"
 msgstr "Tidak ada hasil"
 
-#: src/ui/libraryWindow.ui:398
+#: src/ui/libraryWindow.ui:559
 msgid "Try a different search."
 msgstr ""
 
-#: src/ui/libraryWindow.ui:495
+#: src/ui/libraryWindow.ui:656
 #, fuzzy
 msgid "No catalogs"
 msgstr "Bahasa Katala"
 
-#: src/ui/libraryWindow.ui:507
+#: src/ui/libraryWindow.ui:668
 msgid "You can browse, search, and download content from OPDS catalogs."
 msgstr ""
 
-#: src/ui/libraryWindow.ui:531
+#: src/ui/libraryWindow.ui:692
 msgid "Learn More"
 msgstr ""
 
-#: src/ui/libraryWindow.ui:547
+#: src/ui/libraryWindow.ui:708
 #, fuzzy
 msgid "Catalogs"
 msgstr "Bahasa Katala"
@@ -1050,7 +1094,7 @@ msgstr ""
 msgid "Book"
 msgstr "Penanda buku"
 
-#: src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8 src/ui/opdsWindow.ui:13
+#: src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8
 msgid "Open…"
 msgstr "Buka…"
 
@@ -1126,10 +1170,6 @@ msgstr ""
 
 #: src/ui/mainMenu.ui:625 src/ui/menuBar.ui:14
 msgid "Open a Copy"
-msgstr ""
-
-#: src/ui/mainMenu.ui:632 src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:93
-msgid "Reload"
 msgstr ""
 
 #: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
@@ -1324,20 +1364,6 @@ msgstr "Pergi ke halaman berikutnya"
 #: src/ui/navBar.ui:402
 msgid "Text-to-speech"
 msgstr "Text-to-speech"
-
-#: src/ui/opdsWindow.ui:17
-#, fuzzy
-msgid "Open a Catalog…"
-msgstr "Buka Berkas…"
-
-#: src/ui/opdsWindow.ui:43
-msgid "Go back"
-msgstr "Kembali"
-
-#: src/ui/opdsWindow.ui:56
-#, fuzzy
-msgid "Go to start"
-msgstr "Kembali ke lokasi sebelumnya"
 
 #: src/ui/preferenceWindow.ui:11
 #, fuzzy
@@ -2697,13 +2723,25 @@ msgid "How to view the library"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:273
-msgid "Use Tracker"
+msgid "Library page"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:274
+msgid "Current library page (“library” or “catalog”)"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:278
+msgid "Use Tracker"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:279
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Open a Catalog…"
+#~ msgstr "Buka Berkas…"
 
 #~ msgid "Afrikaans"
 #~ msgstr "Bahasa Afrika"

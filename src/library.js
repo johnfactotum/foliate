@@ -581,6 +581,7 @@ var LibraryWindow =  GObject.registerClass({
 
         setWindowSize(this)
         settings.bind('view-mode', this, 'active-view', Gio.SettingsBindFlags.DEFAULT)
+        settings.bind('page', this._stack, 'visible-child-name', Gio.SettingsBindFlags.DEFAULT)
 
         this._opdsMenuButtonsBox.foreach(child => child.connect('clicked', () => this._opdsMenu.popdown()))
 
