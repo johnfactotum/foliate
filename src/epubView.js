@@ -897,7 +897,7 @@ var EpubView = GObject.registerClass({
             }
             case 'selection': {
                 this.selection = payload
-                this.selection.text = this.selection.text.trim().replace(/\n/g, ' ')
+                this.selection.text = this.selection.text.trim()
                 const position = this.selection.position
 
                 // position needs to be adjusted for zoom level

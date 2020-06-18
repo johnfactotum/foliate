@@ -37,7 +37,7 @@ var AnnotationRow = GObject.registerClass({
         this.annotation = annotation
         this._epub = epubView
 
-        this._annotationText.label = annotation.text
+        this._annotationText.label = annotation.text.replace(/\n/g, ' ')
         epubView.getSectionFromCfi(annotation.cfi).then(section =>
             this._annotationSection.label = section.label)
 
