@@ -44,6 +44,28 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="2.3.0" date="2020-06-18">
+            <description>
+                <p>OPDS catalogs:</p>
+                <ul>
+                    <li>Catalogs are now opened in the main library window</li>
+                    <li>View current location</li>
+                    <li>Go to catalog start page</li>
+                    <li>Reload catalog</li>
+                    <li>Add current feed to catalogs</li>
+                    <li>HTTP authentication support</li>
+                </ul>
+                <p>Other changes:</p>
+                <ul>
+                    <li>Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files</li>
+                    <li>Fixed newlines being ignored when copying text</li>
+                    <li>“Turn page on tap” is now disabled in non-paginated layouts</li>
+                    <li>Opening a book from the library view now closes the library window</li>
+                    <li>Language and publication dates in metadata are now parsed and formatted</li>
+                    <li>Export annotations from the library view</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.2.1" date="2020-06-07">
             <description>
                 <p>Changes:</p>
