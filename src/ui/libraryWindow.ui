@@ -36,34 +36,96 @@
       </item>
     </section>
   </menu>
-  <menu id="opdsMenu">
-    <section>
-      <item>
-        <attribute name="action">opds.reload</attribute>
-        <attribute name="label" translatable="yes">Reload</attribute>
-      </item>
-      <item>
-        <attribute name="action">opds.location</attribute>
-        <attribute name="label" translatable="yes">Location…</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">opds.home</attribute>
-        <attribute name="label" translatable="yes">Go to Start Page</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">lib.library</attribute>
-        <attribute name="label" translatable="yes">Go Back to Library</attribute>
-      </item>
-      <item>
-        <attribute name="action">lib.catalog</attribute>
-        <attribute name="label" translatable="yes">Go Back to Catalogs</attribute>
-      </item>
-    </section>
-  </menu>
+  <object class="GtkPopover" id="opdsMenu">
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="margin">10</property>
+        <child>
+          <object class="GtkBox" id="opdsMenuButtonsBox">
+            <property name="visible">True</property>
+            <property name="margin-bottom">6</property>
+            <property name="spacing">6</property>
+            <property name="hexpand">True</property>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action-name">opds.home</property>
+                <property name="tooltip-text" translatable="yes">Go to start page</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">go-home-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action-name">opds.reload</property>
+                <property name="tooltip-text" translatable="yes">Reload</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">view-refresh-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="action-name">lib.opds-add-catalog</property>
+                <property name="tooltip-text" translatable="yes">Add this feed to catalogs</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">list-add-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action_name">opds.location</property>
+            <property name="text" translatable="yes">Location…</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action_name">lib.library</property>
+            <property name="text" translatable="yes">Go Back to Library</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action_name">lib.catalog</property>
+            <property name="text" translatable="yes">Go Back to Catalog</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
   <template class="FoliateLibraryWindow" parent="GtkApplicationWindow">
     <property name="default-width">800</property>
     <property name="default-height">600</property>
@@ -233,7 +295,7 @@
             <child>
               <object class="GtkMenuButton" id="opdsMenuButton">
                 <property name="visible">True</property>
-                <property name="menu-model">opdsMenu</property>
+                <property name="popover">opdsMenu</property>
                 <property name="valign">center</property>
                 <property name="tooltip-text" translatable="yes">Menu</property>
                 <child>

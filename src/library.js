@@ -25,7 +25,7 @@ const { uriStore, library } = imports.uriStore
 const { headlessViewer, EpubViewData } = imports.epubView
 const { exportAnnotations } = imports.export
 
-const { catalogStore, CatalogRow, CatalogEditor } = imports.catalogs
+const { Catalog, catalogStore, CatalogRow, CatalogEditor } = imports.catalogs
 const { OpdsClient, LoadBox, OpdsFeed, OpdsAcquisitionBox } = imports.opds
 
 let Handy; try { Handy = imports.gi.Handy } catch (e) {}
@@ -567,7 +567,8 @@ var LibraryWindow =  GObject.registerClass({
         'actionBar', 'selectionLabel',
         'catalogStack',
         'opdsHeaderBar', 'opdsBrowser', 'opdsMenuButton',
-        'opdsSearchButton', 'opdsSearchBar', 'opdsSearchEntry'
+        'opdsSearchButton', 'opdsSearchBar', 'opdsSearchEntry',
+        'opdsMenu', 'opdsMenuButtonsBox'
     ],
     Properties: {
         'active-view': GObject.ParamSpec.string('active-view', 'active-view', 'active-view',
@@ -580,6 +581,8 @@ var LibraryWindow =  GObject.registerClass({
 
         setWindowSize(this)
         settings.bind('view-mode', this, 'active-view', Gio.SettingsBindFlags.DEFAULT)
+
+        this._opdsMenuButtonsBox.foreach(child => child.connect('clicked', () => this._opdsMenu.popdown()))
 
         const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
         this._mainStack.bind_property('visible-child-name', this._titlebarStack, 'visible-child-name', flag)
@@ -664,6 +667,10 @@ var LibraryWindow =  GObject.registerClass({
                 const back = this._opdsBrowser.actionGroup.lookup_action('back')
                 if (back.enabled) back.activate(null)
                 else this._mainStack.visible_child_name = 'library'
+            },
+            'opds-add-catalog': () => {
+                const catalog = new Catalog(this._opdsBrowser.getCatalog())
+                this.addCatalog(catalog)
             },
             'main-menu': () => {
                 const button = this._mainStack.visible_child_name === 'opds'
@@ -875,8 +882,8 @@ var LibraryWindow =  GObject.registerClass({
         this._opdsBrowser.loadOpds(uri)
         this._mainStack.visible_child_name = 'opds'
     }
-    addCatalog() {
-        const editor = new CatalogEditor()
+    addCatalog(catalog) {
+        const editor = new CatalogEditor(catalog)
         const dialog = editor.widget
         dialog.transient_for = this
         if (dialog.run() === Gtk.ResponseType.OK) catalogStore.add(editor.catalog)

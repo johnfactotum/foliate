@@ -796,6 +796,13 @@ var OpdsBrowser = GObject.registerClass({
         })
         this.reset()
     }
+    getCatalog() {
+        return {
+            title: this.title,
+            uri: this._home || this._uri,
+            preview: this._uri
+        }
+    }
     reset() {
         if (this._opdsWidget) this._opdsWidget.destroy()
         this._uri = null
