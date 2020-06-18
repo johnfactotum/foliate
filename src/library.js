@@ -539,6 +539,7 @@ const BookFlowBox = makeLibraryWidget({ GTypeName: 'FoliateBookFlowBox' }, Gtk.F
 const htmlPath = pkg.pkgdatadir + '/assets/client.html'
 class OpdsClient {
     constructor(widget) {
+        this._widget = widget
         this._promises = new Map()
 
         this._webView = new WebKit2.WebView({
@@ -548,6 +549,8 @@ class OpdsClient {
                 user_agent
             })
         })
+        this._webView.connect('authenticate', this._handleAuth.bind(this))
+
         const runResource = resource => new Promise((resolve) =>
             this._webView.run_javascript_from_gresource(resource, null, () => resolve()))
         const loadScripts = async () => {
@@ -557,102 +560,12 @@ class OpdsClient {
         this._webView.connect('load-changed', (webView, event) => {
             if (event == WebKit2.LoadEvent.FINISHED) loadScripts()
         })
-        this._webView.connect('authenticate', (webView, req) => {
-            if (this.username) {
-                const cred = new WebKit2.Credential(this.username, this.password,
-                    WebKit2.CredentialPersistence.FOR_SESSION)
-                req.authenticate(cred)
-                return true
-            }
-            const msg = new Gtk.MessageDialog({
-                text: _('Authentication Required'),
-                secondary_text:
-                    _('Authentication required by %s')
-                        .format(req.get_host())
-                    + '\n'
-                    + _('The site says: “%s”').format(req.get_realm()),
-                message_type: Gtk.MessageType.ERROR,
-                modal: true,
-            })
-            if (widget instanceof Gtk.Widget) {
-                const toplevel = widget.get_toplevel()
-                if (toplevel instanceof Gtk.Window)
-                    msg.transient_for = toplevel
-            }
-            msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
-            msg.add_button(_('Authenticate'), Gtk.ResponseType.OK)
-            msg.set_default_response(Gtk.ResponseType.OK)
-            msg.get_widget_for_response(Gtk.ResponseType.OK)
-                .get_style_context().add_class('suggested-action')
 
-            const grid = new Gtk.Grid({
-                row_spacing: 6,
-                column_spacing: 6
-            })
-            const uLabel = new Gtk.Label({
-                xalign: 1,
-                label: _('Username')
-            })
-            const pLabel = new Gtk.Label({
-                xalign: 1,
-                label: _('Password')
-            })
-            uLabel.get_style_context().add_class('dim-label')
-            pLabel.get_style_context().add_class('dim-label')
-            const uEntry = new Gtk.Entry()
-            const pEntry = new Gtk.Entry({
-                visibility: false,
-                input_purpose: Gtk.InputPurpose.PASSWORD
-            })
-            grid.attach(uLabel, 0, 0, 1, 1)
-            grid.attach(uEntry, 1, 0, 1, 1)
-            grid.attach(pLabel, 0, 1, 1, 1)
-            grid.attach(pEntry, 1, 1, 1, 1)
-            grid.show_all()
-            msg.message_area.pack_start(grid, false, true, 0)
-
-            const ok = () =>
-                msg.get_widget_for_response(Gtk.ResponseType.OK).activate()
-            pEntry.connect('activate', ok)
-            uEntry.connect('activate', ok)
-
-            if (msg.run() === Gtk.ResponseType.OK) {
-                const cred = new WebKit2.Credential(uEntry.text, pEntry.text,
-                    WebKit2.CredentialPersistence.FOR_SESSION)
-                req.authenticate(cred)
-            } else req.cancel()
-
-            msg.destroy()
-            return true
-        })
         const contentManager = this._webView.get_user_content_manager()
         contentManager.connect('script-message-received::action', (_, jsResult) => {
             const data = jsResult.get_js_value().to_string()
             const { type, payload, token } = JSON.parse(data)
-            switch (type) {
-                case 'ready':
-                    this._promises.get('ready').resolve()
-                    break
-                case 'error':
-                    this._promises.get(token).reject(new Error(payload))
-                    break
-                case 'opensearch':
-                case 'entry':
-                case 'feed': {
-                    this._promises.get(token).resolve(payload)
-                    break
-                }
-                case 'image': {
-                    const pixbuf = base64ToPixbuf(payload)
-                    this._promises.get(token).resolve(pixbuf)
-                    break
-                }
-                case 'auth': {
-                    const { username, password } = payload
-                    this.username = username
-                    this.password = password
-                }
-            }
+            this._handleAction(type, payload, token)
         })
         contentManager.register_script_message_handler('action')
         this._webView.load_uri(GLib.filename_to_uri(htmlPath, null))
@@ -660,6 +573,32 @@ class OpdsClient {
             Array.from(this._promises.values()).forEach(({ reject }) =>
                 reject(new Error('OPDS: WebView destroyed')))
         })
+    }
+    _handleAction(type, payload, token) {
+        switch (type) {
+            case 'ready':
+                this._promises.get('ready').resolve()
+                break
+            case 'error':
+                this._promises.get(token).reject(new Error(payload))
+                break
+            case 'opensearch':
+            case 'entry':
+            case 'feed': {
+                this._promises.get(token).resolve(payload)
+                break
+            }
+            case 'image': {
+                const pixbuf = base64ToPixbuf(payload)
+                this._promises.get(token).resolve(pixbuf)
+                break
+            }
+            case 'auth': {
+                const { username, password } = payload
+                this.username = username
+                this.password = password
+            }
+        }
     }
     _run(script) {
         this._webView.run_javascript(script, null, () => {})
@@ -708,6 +647,75 @@ class OpdsClient {
     }
     close() {
         this._webView.destroy()
+    }
+    _handleAuth(webView, req) {
+        if (this.username) {
+            const cred = new WebKit2.Credential(this.username, this.password,
+                WebKit2.CredentialPersistence.FOR_SESSION)
+            req.authenticate(cred)
+            return true
+        }
+        const msg = new Gtk.MessageDialog({
+            text: _('Authentication Required'),
+            secondary_text:
+                _('Authentication required by %s')
+                    .format(req.get_host())
+                + '\n'
+                + _('The site says: “%s”').format(req.get_realm()),
+            message_type: Gtk.MessageType.ERROR,
+            modal: true,
+        })
+        const widget = this._widget
+        if (widget instanceof Gtk.Widget) {
+            const toplevel = widget.get_toplevel()
+            if (toplevel instanceof Gtk.Window)
+                msg.transient_for = toplevel
+        }
+        msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+        msg.add_button(_('Authenticate'), Gtk.ResponseType.OK)
+        msg.set_default_response(Gtk.ResponseType.OK)
+        msg.get_widget_for_response(Gtk.ResponseType.OK)
+            .get_style_context().add_class('suggested-action')
+
+        const grid = new Gtk.Grid({
+            row_spacing: 6,
+            column_spacing: 6
+        })
+        const uLabel = new Gtk.Label({
+            xalign: 1,
+            label: _('Username')
+        })
+        const pLabel = new Gtk.Label({
+            xalign: 1,
+            label: _('Password')
+        })
+        uLabel.get_style_context().add_class('dim-label')
+        pLabel.get_style_context().add_class('dim-label')
+        const uEntry = new Gtk.Entry()
+        const pEntry = new Gtk.Entry({
+            visibility: false,
+            input_purpose: Gtk.InputPurpose.PASSWORD
+        })
+        grid.attach(uLabel, 0, 0, 1, 1)
+        grid.attach(uEntry, 1, 0, 1, 1)
+        grid.attach(pLabel, 0, 1, 1, 1)
+        grid.attach(pEntry, 1, 1, 1, 1)
+        grid.show_all()
+        msg.message_area.pack_start(grid, false, true, 0)
+
+        const ok = () =>
+            msg.get_widget_for_response(Gtk.ResponseType.OK).activate()
+        pEntry.connect('activate', ok)
+        uEntry.connect('activate', ok)
+
+        if (msg.run() === Gtk.ResponseType.OK) {
+            const cred = new WebKit2.Credential(uEntry.text, pEntry.text,
+                WebKit2.CredentialPersistence.FOR_SESSION)
+            req.authenticate(cred)
+        } else req.cancel()
+
+        msg.destroy()
+        return true
     }
 }
 
