@@ -172,6 +172,9 @@ var formatPrice = ({ currencycode, value }) => {
 }
 
 // Translators: here "BCE" is for "before common era"
+// "%s" is usually already a fully formatted date string,
+// and can even include month and day, not just year;
+// so make sure NOT to translate it to something like "The year %s before Christ"
 const formatBCE = (str, isBCE) => isBCE ? _('%s BCE').format(str) : str
 
 var formatDate = (string, showTime) => {

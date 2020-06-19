@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 01:42+0800\n"
+"POT-Creation-Date: 2020-06-19 22:16+0800\n"
 "PO-Revision-Date: 2020-06-19 01:53+0800\n"
 "Last-Translator: Blanc Chan\n"
 "Language-Team: none\n"
@@ -147,7 +147,7 @@ msgstr "儲存檔案"
 msgid "Annotations for “%s”"
 msgstr "《%s》的註解"
 
-#: src/export.js:166 src/utils.js:252
+#: src/export.js:166 src/utils.js:255
 msgid "All Files"
 msgstr "所有檔案"
 
@@ -608,24 +608,27 @@ msgid "%s (%s)"
 msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
-#: src/utils.js:175
+#. "%s" is usually already a fully formatted date string,
+#. and can even include month and day, not just year;
+#. so make sure NOT to translate it to something like "The year %s before Christ"
+#: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
 msgstr "西元前%s"
 
-#: src/utils.js:216
+#: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d 分"
 
-#: src/utils.js:219
+#: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d 時"
 
-#: src/utils.js:254
+#: src/utils.js:257
 msgid "E-book Files"
 msgstr "電子書檔案"
 

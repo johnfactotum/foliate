@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 01:42+0800\n"
-"PO-Revision-Date: 2020-06-19 17:22+0800\n"
+"POT-Creation-Date: 2020-06-19 22:16+0800\n"
+"PO-Revision-Date: 2020-06-19 19:11+0800\n"
 "Last-Translator: Blanc Chan <cdh4227@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -148,7 +148,7 @@ msgstr "保存文件"
 msgid "Annotations for “%s”"
 msgstr "《%s》的注释"
 
-#: src/export.js:166 src/utils.js:252
+#: src/export.js:166 src/utils.js:255
 msgid "All Files"
 msgstr "所有文件"
 
@@ -169,7 +169,9 @@ msgid "Identifier mismatch"
 msgstr "标识符错误"
 
 #: src/export.js:229
-msgid "The identifier of the imported file does not match the book’s. This might indicate that the annotations do not belong to this book."
+msgid ""
+"The identifier of the imported file does not match the book’s. This might "
+"indicate that the annotations do not belong to this book."
 msgstr "导入文件的标识符与图书不符。可能是因为注释不是这本书的。"
 
 #: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
@@ -321,7 +323,8 @@ msgstr "OPDS 图书列表链接："
 #. they will be shown in the "About" dialog
 #: src/main.js:189
 msgid "translator-credits"
-msgstr "Blanc Chan\n"
+msgstr ""
+"Blanc Chan\n"
 "王滋涵"
 
 #: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
@@ -508,7 +511,8 @@ msgid "Identifier"
 msgstr "标识符"
 
 #: src/properties.js:130
-msgid "This book has no identifier. This is the MD5 hash generated from the file."
+msgid ""
+"This book has no identifier. This is the MD5 hash generated from the file."
 msgstr "此书没有标识符。这是从该文件生成的 MD5 哈希值。"
 
 #: src/properties.js:141
@@ -606,24 +610,27 @@ msgid "%s (%s)"
 msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
-#: src/utils.js:175
+#. "%s" is usually already a fully formatted date string,
+#. and can even include month and day, not just year;
+#. so make sure NOT to translate it to something like "The year %s before Christ"
+#: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
-msgstr "公元前 %s 年"
+msgstr "公元前%s"
 
-#: src/utils.js:216
+#: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d 分钟"
 
-#: src/utils.js:219
+#: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d 小时"
 
-#: src/utils.js:254
+#: src/utils.js:257
 msgid "E-book Files"
 msgstr "电子书文件"
 
@@ -863,7 +870,9 @@ msgid "These annotations will be added:"
 msgstr "将会添加以下注释："
 
 #: src/ui/importWindow.ui:64
-msgid "The imported annotations will NOT overwrite the existing ones when they highlight the same passages."
+msgid ""
+"The imported annotations will NOT overwrite the existing ones when they "
+"highlight the same passages."
 msgstr "高亮同一页时，导入的注释不会覆盖现有注释。"
 
 #: src/ui/libraryWindow.ui:7
@@ -1575,8 +1584,13 @@ msgid "Festival"
 msgstr "Festival"
 
 #: src/ui/ttsDialog.ui:137
-msgid "<small>The environment variable <tt>$FOLIATE_TTS_LANG</tt> is available for the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for the all lower case code.</small>"
-msgstr "<small>环境变量 <tt>$FOLIATE_TTS_LANG</tt> 可以用来设置图书的语言编码，也可使用<tt>$FOLIATE_TTS_LANG_LOWER</tt> 设置小写编码。</small>"
+msgid ""
+"<small>The environment variable <tt>$FOLIATE_TTS_LANG</tt> is available for "
+"the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for "
+"the all lower case code.</small>"
+msgstr ""
+"<small>环境变量 <tt>$FOLIATE_TTS_LANG</tt> 可以用来设置图书的语言编码，也可使"
+"用<tt>$FOLIATE_TTS_LANG_LOWER</tt> 设置小写编码。</small>"
 
 #: src/ui/ttsDialog.ui:156
 msgid "Test Your Configuration"
@@ -1671,7 +1685,8 @@ msgid "Other changes:"
 msgstr "其它改进："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
-msgid "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
+msgid ""
+"Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr "修复了FB格式(.fb2, .fb2.zip)标识符提取的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
@@ -1762,7 +1777,9 @@ msgid "Option to set maximum page width"
 msgstr "支持设置页面最大宽度"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:97
-msgid "The \"Automatic\" layout will now show four columns when the page width is wide"
+msgid ""
+"The \"Automatic\" layout will now show four columns when the page width is "
+"wide"
 msgstr "页面宽度为宽时，\"自动\"布局将显示四栏"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
@@ -1770,11 +1787,15 @@ msgid "Image viewer:"
 msgstr "图像查看器："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
-msgid "Improved image viewer, with new shortcuts and the ability to rotate and invert images"
+msgid ""
+"Improved image viewer, with new shortcuts and the ability to rotate and "
+"invert images"
 msgstr "改进的图片查看器，支持快捷键旋转图片和反转颜色"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:102
-msgid "Option to disable image viewer, or to open images on double, middle, or right click"
+msgid ""
+"Option to disable image viewer, or to open images on double, middle, or "
+"right click"
 msgstr "支持禁用图片查看器，支持使用鼠标双击、中键或右键来打开图片"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
@@ -1806,7 +1827,9 @@ msgid "Security:"
 msgstr "安全："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
-msgid "\"Allow Unsafe Content\" now only enables JavaScript; external content will no longer be loaded"
+msgid ""
+"\"Allow Unsafe Content\" now only enables JavaScript; external content will "
+"no longer be loaded"
 msgstr "“允许不安全内容”现在只允许 JavaScipt，外部内容将不再会被加载"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:118
@@ -1842,7 +1865,9 @@ msgid "Option to clear or disable cache"
 msgstr "支持清除和禁用缓存"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:128
-msgid "When an HTML page contains invalid self-closing anchor tags, it is now parsed as XHTML"
+msgid ""
+"When an HTML page contains invalid self-closing anchor tags, it is now "
+"parsed as XHTML"
 msgstr "当一个 HTML 页面包含无效的自关闭锚标记时，它现在被解析为 XHTML"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
@@ -1858,7 +1883,8 @@ msgid "Fixed wrong version number"
 msgstr "修正了错误的版本号"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
-msgid "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
+msgid ""
+"Fixed dictionary, translation, and Wikipedia not working in the Snap package"
 msgstr "修复了 snap 包中词典、翻译和维基百科不能使用的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
@@ -1900,20 +1926,31 @@ msgid "Improved fullscreen mode with an overlaid headerbar"
 msgstr "改进了全屏模式，加入了悬浮标题栏"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:162
-msgid "The headerbar and the progress bar now auto-hide, for a distraction-free reading experience"
+msgid ""
+"The headerbar and the progress bar now auto-hide, for a distraction-free "
+"reading experience"
 msgstr "自动隐藏标题栏和进度条，以免打扰阅读"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:163
-msgid "Various location information, as well as a clock, can now be displayed in the footer"
+msgid ""
+"Various location information, as well as a clock, can now be displayed in "
+"the footer"
 msgstr "底栏可显示更多的位置信息和时钟"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:164
-msgid "A new location popover (Ctrl + L) that shows reading time estimates and allows skipping to locations"
+msgid ""
+"A new location popover (Ctrl + L) that shows reading time estimates and "
+"allows skipping to locations"
 msgstr "新的弹窗(Ctrl + L)显示预计阅读时间，可以跳转到书中位置"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:165
-msgid "E-reader style navigation: go to the previous or next page by tapping on the left or right part of the view; tap on the middle to toggle header bar and progress bar"
-msgstr "电子阅读器风格的导航：点击页面左侧向上翻页，点击页面右侧向下翻页；点击页面中间显示标题栏和进度栏"
+msgid ""
+"E-reader style navigation: go to the previous or next page by tapping on the "
+"left or right part of the view; tap on the middle to toggle header bar and "
+"progress bar"
+msgstr ""
+"电子阅读器风格的导航：点击页面左侧向上翻页，点击页面右侧向下翻页；点击页面中"
+"间显示标题栏和进度栏"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
 msgid "Annotations, bookmarks, and find results now show chapter titles"
@@ -1928,11 +1965,15 @@ msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr "新的快捷键：查看元数据(Ctrl + I)、查看偏好(Ctrl + ,)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
-msgid "A new traditional menubar, which may be displayed depending on the desktop environment"
+msgid ""
+"A new traditional menubar, which may be displayed depending on the desktop "
+"environment"
 msgstr "新的旧式菜单栏，依桌面环境而显示"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
-msgid "Option to use a traditional titlebar and menubar instead of a headerbar (experimental)"
+msgid ""
+"Option to use a traditional titlebar and menubar instead of a headerbar "
+"(experimental)"
 msgstr "支持使用旧的标题栏和菜单栏（实验性）"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
@@ -1944,7 +1985,8 @@ msgid "Continuous scrolling layout"
 msgstr "连续滑动功能"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
-msgid "Option to show decorative shadows that mimic the appearance of a real book"
+msgid ""
+"Option to show decorative shadows that mimic the appearance of a real book"
 msgstr "支持界面模仿纸质书"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:176
@@ -2004,7 +2046,9 @@ msgid "For publishers and developers:"
 msgstr "对于出版社和开发者："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:196
-msgid "Support for Apple Books theme attribute, which allows books to detect themes without JavaScript"
+msgid ""
+"Support for Apple Books theme attribute, which allows books to detect themes "
+"without JavaScript"
 msgstr "支持 Apple Books 的主题标签，即可以不使用 JavaScript 检测主题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
@@ -2052,7 +2096,8 @@ msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
 msgstr "修复了无法打开文件名中含 \"#\" 或 \"?\"的图书"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
-msgid "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
+msgid ""
+"Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr "修复了 Flatpak 版不能打开 mobi、azw 和 azw3 文件的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:220
@@ -2185,7 +2230,9 @@ msgid "Fixed:"
 msgstr "修复了："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:312
-msgid "Generated locations are now stored in the cache directory rather than localStorage"
+msgid ""
+"Generated locations are now stored in the cache directory rather than "
+"localStorage"
 msgstr "生成的“位置”现在存储在缓存目录中"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
@@ -2193,7 +2240,9 @@ msgid "Allow font size adjustment when using publisher fonts"
 msgstr "使用出版社字体时，允许调整字体大小"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:321
-msgid "Fixed reading progress slider not appearing after localStorage quota is exceeded"
+msgid ""
+"Fixed reading progress slider not appearing after localStorage quota is "
+"exceeded"
 msgstr "修复阅读进度条在超出存储份额后无法显示的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:329
@@ -2241,7 +2290,9 @@ msgid "Whether to save file URIs"
 msgstr "是/否保存文件 URI"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:25
-msgid "Whether to save generated locations to cache (the locations are needed for calculating percentages of locations in book)"
+msgid ""
+"Whether to save generated locations to cache (the locations are needed for "
+"calculating percentages of locations in book)"
 msgstr "是/否缓存生成的位置（“计算位置在书中的百分比”需要使用位置）"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
@@ -2281,8 +2332,13 @@ msgid "Dictionary"
 msgstr "词典"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:50
-msgid "Identifier of the default dictionary. Dictionaries from dictd and stardict, if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to the database ID"
-msgstr "默认字典的标识符。dictd 和 stardict 中的字典（如果有的话）可以使用添加到数据库ID的“dcitd_”和“stardict_”前缀"
+msgid ""
+"Identifier of the default dictionary. Dictionaries from dictd and stardict, "
+"if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
+"the database ID"
+msgstr ""
+"默认字典的标识符。dictd 和 stardict 中的字典（如果有的话）可以使用添加到数据"
+"库ID的“dcitd_”和“stardict_”前缀"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
 msgid "Target language of translation"
@@ -2313,7 +2369,9 @@ msgid "Event for opening image viewer"
 msgstr "打开图像查看器的事件"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:70
-msgid "DOM event type for viewing images; the special value \"middleclick\" is available for the middle click event"
+msgid ""
+"DOM event type for viewing images; the special value \"middleclick\" is "
+"available for the middle click event"
 msgstr "用于查看图像的DOM事件类型；特殊值 \"middleclick\" 可用于鼠标中击事件"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:75
@@ -2337,7 +2395,9 @@ msgid "Auto-hide headerbar"
 msgstr "标题栏自动隐藏"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:90
-msgid "Whether to hide the headerbar automatically (this is setting has no effect if skeuomorphism or sidebar is enabled)"
+msgid ""
+"Whether to hide the headerbar automatically (this is setting has no effect "
+"if skeuomorphism or sidebar is enabled)"
 msgstr "是/否自动隐藏标题栏（如果开启了仿真或侧边栏，此设置无效）"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:95
@@ -2349,8 +2409,13 @@ msgid "Information to be displayed on the right footer"
 msgstr "底栏右部要显示的信息"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:105
-msgid "If true, you can go to the previous or next page by tapping on the left or right part of the view; tap on the middle to toggle header bar and progress bar"
-msgstr "如果此值为真，则点击页面左侧向上翻页，点击页面右侧向下翻页；点击页面中间则会显示标题栏和进度栏"
+msgid ""
+"If true, you can go to the previous or next page by tapping on the left or "
+"right part of the view; tap on the middle to toggle header bar and progress "
+"bar"
+msgstr ""
+"如果此值为真，则点击页面左侧向上翻页，点击页面右侧向下翻页；点击页面中间则会"
+"显示标题栏和进度栏"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:112
 msgid "Prefer dark GTK theme"
@@ -2428,7 +2493,10 @@ msgid "Invert page"
 msgstr "颜色反转"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:178
-msgid "A value under 1 darkens the page, while a value over 1 brightens it. A value of 0 will make the page completely black, while a value of 1 leaves the brightness unchanged"
+msgid ""
+"A value under 1 darkens the page, while a value over 1 brightens it. A value "
+"of 0 will make the page completely black, while a value of 1 leaves the "
+"brightness unchanged"
 msgstr "小于1的值使页面变暗，大于1的值使页面变亮0值使页面全黑，1值则不改变亮度"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:182
@@ -2464,7 +2532,9 @@ msgid "Skeuomorphism"
 msgstr "仿真"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:203
-msgid "If true, the book is decoratively presented in a way that resembles physical books"
+msgid ""
+"If true, the book is decoratively presented in a way that resembles physical "
+"books"
 msgstr "如果此值为真，则图书将模仿实体书显示"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:207
@@ -2552,7 +2622,8 @@ msgid "Use Tracker"
 msgstr "使用 Tracker"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:279
-msgid "If true, will try to use Tracker (the file indexer) to get file locations"
+msgid ""
+"If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr "如果此值为真，则使用 Tracker (文件索引器)获得文件路径"
 
 #~ msgid "Open a Catalog…"
@@ -2889,4 +2960,4 @@ msgstr "如果此值为真，则使用 Tracker (文件索引器)获得文件路�
 #~ msgstr "出错了"
 
 #~ msgid "The file cannot be opened."
-#~ msgstr "无法打开文件。
+#~ msgstr "无法打开文件。"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 01:42+0800\n"
+"POT-Creation-Date: 2020-06-19 22:16+0800\n"
 "PO-Revision-Date: 2020-06-14 15:03+0300\n"
 "Last-Translator: Danylo Korostil <ted.korostiled@gmail.com>\n"
 "Language-Team:  <trans-uk@lists.fedoraproject.org>\n"
@@ -157,7 +157,7 @@ msgstr "Зберегти файл"
 msgid "Annotations for “%s”"
 msgstr "Анотація для «%s»"
 
-#: src/export.js:166 src/utils.js:252
+#: src/export.js:166 src/utils.js:255
 msgid "All Files"
 msgstr "Всі файли"
 
@@ -633,12 +633,15 @@ msgid "%s (%s)"
 msgstr ""
 
 #. Translators: here "BCE" is for "before common era"
-#: src/utils.js:175
+#. "%s" is usually already a fully formatted date string,
+#. and can even include month and day, not just year;
+#. so make sure NOT to translate it to something like "The year %s before Christ"
+#: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
 msgstr ""
 
-#: src/utils.js:216
+#: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -647,7 +650,7 @@ msgstr[1] "%d хвилини"
 msgstr[2] "%d хвилин"
 msgstr[3] "%d хвилина"
 
-#: src/utils.js:219
+#: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
@@ -656,7 +659,7 @@ msgstr[1] "%d години"
 msgstr[2] "%d годин"
 msgstr[3] "%d година"
 
-#: src/utils.js:254
+#: src/utils.js:257
 msgid "E-book Files"
 msgstr "Файли електронної книги"
 

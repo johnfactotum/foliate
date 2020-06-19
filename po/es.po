@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 01:42+0800\n"
+"POT-Creation-Date: 2020-06-19 22:16+0800\n"
 "PO-Revision-Date: 2020-06-18 21:37+0200\n"
 "Last-Translator: micrococo\n"
 "Language-Team: \n"
@@ -149,7 +149,7 @@ msgstr "Guardar archivo"
 msgid "Annotations for “%s”"
 msgstr "Notas para «%s»"
 
-#: src/export.js:166 src/utils.js:252
+#: src/export.js:166 src/utils.js:255
 msgid "All Files"
 msgstr "Todos los archivos"
 
@@ -621,26 +621,29 @@ msgid "%s (%s)"
 msgstr ""
 
 #. Translators: here "BCE" is for "before common era"
-#: src/utils.js:175
+#. "%s" is usually already a fully formatted date string,
+#. and can even include month and day, not just year;
+#. so make sure NOT to translate it to something like "The year %s before Christ"
+#: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
 msgstr ""
 
-#: src/utils.js:216
+#: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minuto"
 msgstr[1] "%d minutos"
 
-#: src/utils.js:219
+#: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d hora"
 msgstr[1] "%d horas"
 
-#: src/utils.js:254
+#: src/utils.js:257
 msgid "E-book Files"
 msgstr "Archivos de libros electrónicos"
 
@@ -1706,8 +1709,8 @@ msgstr "Otros cambios:"
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr ""
-"Corregida la extracción del identificador único de archivos FictionBook"
-" (.fb2, .fb2.zip)"
+"Corregida la extracción del identificador único de archivos FictionBook (."
+"fb2, .fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed newlines being ignored when copying text"
@@ -1721,14 +1724,14 @@ msgstr ""
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Opening a book from the library view now closes the library window"
 msgstr ""
-"Abrir un libro desde la vista de la biblioteca cierra ahora la ventana de la"
-" biblioteca"
+"Abrir un libro desde la vista de la biblioteca cierra ahora la ventana de la "
+"biblioteca"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr ""
-"El idioma y las fechas de publicación en los metadatos son procesados y"
-" formateados ahora"
+"El idioma y las fechas de publicación en los metadatos son procesados y "
+"formateados ahora"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Export annotations from the library view"
@@ -2120,9 +2123,8 @@ msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
 msgstr ""
-"Soporte para el atributo de tema de «Apple Books», que permite que los libros"
-" detecten temas "
-"sin JavaScript"
+"Soporte para el atributo de tema de «Apple Books», que permite que los "
+"libros detecten temas sin JavaScript"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
 msgid "WebKit's developer tools can be enabled"
@@ -2160,8 +2162,8 @@ msgstr ""
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
 msgstr ""
-"Corregido el que no cambiase el tamaño de la fuente cuando el libro usa"
-" palabras clave de tamaños absolutos"
+"Corregido el que no cambiase el tamaño de la fuente cuando el libro usa "
+"palabras clave de tamaños absolutos"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
 msgid "Fixed text cut off at margin edge"
@@ -2176,8 +2178,8 @@ msgstr ""
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr ""
-"Corregido el que la versión Flatpak no pudiera abrir archivos .mobi, .azw y"
-" .azw3"
+"Corregido el que la versión Flatpak no pudiera abrir archivos .mobi, .azw y ."
+"azw3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:220
 msgid "Improved Wiktionary lookup, now with links and example sentences"
@@ -2255,8 +2257,8 @@ msgstr "Configurar la acción por defecto al seleccionar palabras"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:265
 msgid "Experimental popup footnote support"
 msgstr ""
-"Soporte experimental para elemento gráfico emergente para notas a pie de"
-" página"
+"Soporte experimental para elemento gráfico emergente para notas a pie de "
+"página"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:266
 msgid "Ability to find within only the current chapter"
@@ -2294,8 +2296,8 @@ msgstr "Opción para ocultar el cursor automáticamente"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:289
 msgid "See reading time left by hovering over the reading progress slider"
 msgstr ""
-"Ver el tiempo de lectura restante al pasar sobre el deslizador de progreso de"
-" lectura"
+"Ver el tiempo de lectura restante al pasar sobre el deslizador de progreso "
+"de lectura"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:297
 msgid "Fixed some books not rendering sometimes"
