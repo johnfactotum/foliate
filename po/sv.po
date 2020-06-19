@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-19 01:42+0800\n"
-"PO-Revision-Date: 2020-06-03 19:39+0200\n"
+"PO-Revision-Date: 2020-06-19 13:34+0200\n"
 "Last-Translator: Jonatan Nyberg <jonatan.nyberg.karl@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -355,30 +355,29 @@ msgstr "Visa felsökningsinformation"
 
 #: src/opds.js:144
 msgid "Authentication Required"
-msgstr ""
+msgstr "Autentisering krävs"
 
 #: src/opds.js:146
 #, javascript-format
 msgid "Authentication required by %s"
-msgstr ""
+msgstr "Autentisering krävs av %s"
 
 #: src/opds.js:149
 #, javascript-format
 msgid "The site says: “%s”"
-msgstr ""
+msgstr "Webbplatsen säger: \"%s\""
 
 #: src/opds.js:160
 msgid "Authenticate"
-msgstr ""
+msgstr "Autentisera"
 
 #: src/opds.js:171
-#, fuzzy
 msgid "Username"
-msgstr "Kapitelnamn"
+msgstr "Användarnamn"
 
 #: src/opds.js:175
 msgid "Password"
-msgstr ""
+msgstr "Lösenord"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
@@ -436,9 +435,8 @@ msgid "OPDS URL"
 msgstr "OPDS-webbadress"
 
 #: src/opds.js:876
-#, fuzzy
 msgid "Go"
-msgstr "_Gå"
+msgstr "Gå"
 
 #: src/opds.js:896 src/opds.js:921 src/window.js:1303
 #: src/ui/libraryWindow.ui:359
@@ -616,13 +614,13 @@ msgstr "sv"
 #: src/utils.js:150
 #, javascript-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
 #: src/utils.js:175
 #, javascript-format
 msgid "%s BCE"
-msgstr ""
+msgstr "%s f.v.t."
 
 #: src/utils.js:216
 #, javascript-format
@@ -916,28 +914,24 @@ msgid "About Foliate"
 msgstr "Om Foliate"
 
 #: src/ui/libraryWindow.ui:55
-#, fuzzy
 msgid "Go to start page"
-msgstr "Gå till början"
+msgstr "Gå till startsidan"
 
 #: src/ui/libraryWindow.ui:83
-#, fuzzy
 msgid "Add this feed to catalogs"
-msgstr "Lägg till katalog"
+msgstr "Lägg till detta flöde i kataloger"
 
 #: src/ui/libraryWindow.ui:104
-#, fuzzy
 msgid "Location…"
-msgstr "Plats"
+msgstr "Plats…"
 
 #: src/ui/libraryWindow.ui:116
 msgid "Go Back to Library"
-msgstr ""
+msgstr "Gå tillbaka till biblioteket"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalog"
-msgstr "Inga kataloger"
+msgstr "Gå tillbaka till katalogen"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -1669,68 +1663,63 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
 msgid "OPDS catalogs:"
-msgstr "OPDS-katalog"
+msgstr "OPDS-kataloger:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Catalogs are now opened in the main library window"
-msgstr ""
+msgstr "Kataloger öppnas nu i huvudbibliotekets fönster"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
-#, fuzzy
 msgid "View current location"
-msgstr "Ta bort den aktuella platsen"
+msgstr "Visa aktuell plats"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-#, fuzzy
 msgid "Go to catalog start page"
-msgstr "Gå till början"
+msgstr "Gå till katalogens startsida"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#, fuzzy
 msgid "Reload catalog"
-msgstr "Lägg till katalog"
+msgstr "Uppdatera katalogen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
-#, fuzzy
 msgid "Add current feed to catalogs"
-msgstr "Lägg till katalog"
+msgstr "Lägg till aktuellt flöde i katalogerna"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
 msgid "HTTP authentication support"
-msgstr ""
+msgstr "HTTP-autentiseringsstöd"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
-#, fuzzy
 msgid "Other changes:"
-msgstr "Stora förändringar:"
+msgstr "Andra ändringar:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr ""
+"Åtgärdat unika identifierarextraktion för FictionBook (.fb2, .fb2.zip)-filer"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed newlines being ignored when copying text"
-msgstr ""
+msgstr "Åtgärdat att nya rader ignoreras vid kopiering av text"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
-msgstr ""
+msgstr "\"Vänd sida vid tryck\" är nu inaktiverat i icke-sidnumrerade layouter"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Opening a book from the library view now closes the library window"
-msgstr ""
+msgstr "Öppnande av en bok från biblioteksvyn stängs nu biblioteksfönstret"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr ""
+"Språk och publiceringsdatum i metadata är nu analyserade och formaterade"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
-#, fuzzy
 msgid "Export annotations from the library view"
-msgstr "Exportera kommentarer till Markdown"
+msgstr "Exportera kommentarer från biblioteksvyn"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
@@ -1745,16 +1734,15 @@ msgstr "Ändringar:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
 msgid "Fixed blurry book covers on HiDPI"
-msgstr ""
+msgstr "Åtgärdat oskarpa bokomslag på HiDPI"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
 msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
-msgstr ""
+msgstr "Åtgärdat OPDS-länkar till standardböcker och Project Gutenberg"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
-#, fuzzy
 msgid "Fixed wrong view icon on startup"
-msgstr "Åtgärdat felversionsnummer"
+msgstr "Åtdärdat felvyikon vid uppstart"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "Library:"
@@ -2362,14 +2350,12 @@ msgid "Whether to save book covers to cache"
 msgstr "Huruvida man ska spara bokomslag i cache"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
-#, fuzzy
 msgid "Cover size"
-msgstr "Sidfältets storlek"
+msgstr "Omslagsstorlek"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:35
-#, fuzzy
 msgid "Width of cached book cover images"
-msgstr "Spara bokomslag"
+msgstr "Bredd på cachelagrade bilder på bokomslag"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Restore last file opened"
@@ -2683,13 +2669,12 @@ msgid "How to view the library"
 msgstr "Hur du vill se biblioteket"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:273
-#, fuzzy
 msgid "Library page"
-msgstr "Bibliotek"
+msgstr "Bibliotekssida"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:274
 msgid "Current library page (“library” or “catalog”)"
-msgstr ""
+msgstr "Nuvarande biblioteksida (\"bibliotek\" eller \"katalog\")"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:278
 msgid "Use Tracker"
