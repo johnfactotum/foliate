@@ -907,7 +907,7 @@ var LibraryWindow =  GObject.registerClass({
                     visible: true,
                     propagate_natural_height: true
                 })
-                const max_entries = 4
+                const max_entries = Math.min(12, entries.length)
                 const opdsbox = new OpdsAcquisitionBox({
                     visible: true,
                     max_entries,
