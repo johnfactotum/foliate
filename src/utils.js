@@ -268,7 +268,12 @@ fileFilters.ebook.add_mime_type(mimetypes.cbt)
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
 var execCommand = (argv, input = null, waitCheck, token, inFlatpak, envs) =>
     new Promise((resolve, reject) => {
-        if (flatpakSpawn && !inFlatpak) argv = [flatpakSpawn, '--host', ...argv]
+        const useFlatpakSpawn = flatpakSpawn && !inFlatpak
+        if (useFlatpakSpawn) {
+            const envArgs = (envs || [])
+                .map(([variable, value]) => `--env=${variable}=${value}`)
+            argv = [flatpakSpawn, ...envArgs, '--host', ...argv]
+        }
         const flags = input
             ? Gio.SubprocessFlags.STDIN_PIPE | Gio.SubprocessFlags.STDOUT_PIPE
             : Gio.SubprocessFlags.STDOUT_PIPE
@@ -276,7 +281,7 @@ var execCommand = (argv, input = null, waitCheck, token, inFlatpak, envs) =>
         try {
             const launcher = new Gio.SubprocessLauncher({ flags })
             launcher.setenv('G_MESSAGES_DEBUG', '', true)
-            if (envs) envs.forEach(([variable, value]) =>
+            if (envs && !useFlatpakSpawn) envs.forEach(([variable, value]) =>
                 launcher.setenv(variable, value, true))
 
             const proc = launcher.spawnv(argv)
