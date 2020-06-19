@@ -716,7 +716,7 @@ var LibraryWindow =  GObject.registerClass({
             this._searchBar.search_mode_enabled = false)
 
         this.connect('key-press-event', (__, event) => {
-            if (this._mainStack.visible_child_name === 'opds')
+            if (this._mainStack.visible_child_name === 'opds' && this._opdsBrowser.searchable)
                 return this._opdsSearchBar.handle_event(event)
             else if (this._stack.visible_child_name === 'library')
                 return this._searchBar.handle_event(event)
