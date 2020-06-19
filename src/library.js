@@ -646,6 +646,7 @@ var LibraryWindow =  GObject.registerClass({
             'list-view': () => this.set_property('active-view', 'list'),
             'search': () => {
                 const button = this._mainStack.visible_child_name === 'opds'
+                    && this._opdsBrowser.searchable
                     ? this._opdsSearchButton
                     : this._stack.visible_child_name === 'library'
                         ? this._searchButton
@@ -789,7 +790,6 @@ var LibraryWindow =  GObject.registerClass({
     _updateOpdsSearch() {
         const searchable = this._opdsBrowser.searchable
         if (!searchable) this._opdsSearchButton.active = false
-        this._opdsSearchButton.sensitive = searchable
         this._opdsSearchButton.visible = searchable
     }
     _buildDragDrop(widget) {
