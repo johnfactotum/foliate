@@ -37,6 +37,8 @@ try {
 const webContext = WebKit2.WebContext.get_default()
 webContext.set_sandbox_enabled(true)
 
+Gtk.Window.set_default_icon_name(pkg.name)
+
 const { fileFilters } = imports.utils
 const { Window } = imports.window
 const { LibraryWindow } = imports.library
