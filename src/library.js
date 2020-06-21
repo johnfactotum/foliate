@@ -90,6 +90,9 @@ const BookImage =  GObject.registerClass({
         this._image.set_from_surface(surface)
         this._image.get_style_context().add_class('foliate-book-image')
     }
+    get surface() {
+        return this._image.surface
+    }
 })
 
 const BookBoxMenu =  GObject.registerClass({

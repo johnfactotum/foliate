@@ -18,7 +18,7 @@ const {
     debug, Obj, formatPrice, base64ToPixbuf, markupEscape,
     linkIsRel, makeLinksButton, sepHeaderFunc, user_agent
 } = imports.utils
-const { PropertiesBox } = imports.properties
+const { PropertiesBox, PropertiesWindow } = imports.properties
 const { HdyColumn } = imports.handy
 
 const htmlPath = pkg.pkgdatadir + '/assets/client.html'
@@ -391,48 +391,6 @@ var LoadBox = GObject.registerClass({
     }
 })
 
-const OpdsEntryBox =  GObject.registerClass({
-    GTypeName: 'FoliateOpdsEntryBox',
-    Properties: {
-        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
-    }
-}, class OpdsEntryBox extends Gtk.Box {
-    _init(params) {
-        super._init(params)
-        this.orientation = Gtk.Orientation.VERTICAL
-
-        const scrolled = new Gtk.ScrolledWindow({
-            visible: true
-        })
-        const propertiesBox = new PropertiesBox({
-            visible: true,
-            border_width: 12
-        }, OpdsClient.opdsEntryToMetadata(this.entry.value), null)
-        scrolled.add(propertiesBox)
-        this.pack_start(scrolled, true, true, 0)
-
-        const acquisitionBox = new Gtk.Box({
-            visible: true,
-            spacing: 6,
-            border_width: 12,
-            orientation: Gtk.Orientation.VERTICAL
-        })
-        this.pack_end(acquisitionBox, false, true, 0)
-
-        const { links } = this.entry.value
-        const acquisitionButtons = makeAcquisitionButtons(links)
-        acquisitionButtons.forEach(button =>
-            acquisitionBox.pack_start(button, false, true, 0))
-        if (acquisitionButtons.length < 3) {
-            acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
-            acquisitionBox.homogeneous = true
-        }
-        if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
-    }
-})
-
-
 var OpdsFullEntryBox =  GObject.registerClass({
     GTypeName: 'FoliateOpdsFullEntryBox',
 }, class OpdsFullEntryBox extends Gtk.Box {
@@ -523,9 +481,11 @@ const OpdsBoxChild =  GObject.registerClass({
         super._init(params)
         const { title } = this.entry.value
         this._title.label = title
+        this._coverLoaded = false
     }
     loadCover(pixbuf) {
         this._image.load(pixbuf)
+        this._coverLoaded = true
     }
     generateCover() {
         const entry = this.entry.value
@@ -537,6 +497,9 @@ const OpdsBoxChild =  GObject.registerClass({
     }
     get image() {
         return this._image
+    }
+    get surface() {
+        return this._coverLoaded ? this._image.surface : null
     }
 })
 
@@ -576,17 +539,35 @@ var OpdsAcquisitionBox = GObject.registerClass({
                 this.emit('link-activated', href, type)
                 return
             }
-            const popover = new Gtk.Popover({
-                relative_to: child.image,
-                width_request: 320,
-                height_request: 320
-            })
-            const entryBox = new OpdsEntryBox({
+
+            const surface = child.surface
+            const dialog = new PropertiesWindow({
+                modal: true,
+                title: entry.title,
+                use_header_bar: true,
+                transient_for: this.get_toplevel()
+            }, OpdsClient.opdsEntryToMetadata(entry), surface)
+
+            const acquisitionBox = new Gtk.Box({
                 visible: true,
-                entry: child.entry,
+                spacing: 6,
+                margin_top: 12,
+                orientation: Gtk.Orientation.VERTICAL
             })
-            popover.add(entryBox)
-            popover.popup()
+            dialog.propertiesBox.actionArea.pack_start(acquisitionBox, false, true, 0)
+
+            const { links } = entry
+            const acquisitionButtons = makeAcquisitionButtons(links)
+            acquisitionButtons.forEach(button =>
+                acquisitionBox.pack_start(button, false, true, 0))
+            if (acquisitionButtons.length < 3) {
+                acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
+                acquisitionBox.homogeneous = true
+            }
+            if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
+
+            dialog.run()
+            dialog.close()
         })
     }
     async load(entries) {

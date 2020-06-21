@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gtk, Gio, Gdk } = imports.gi
+const { GObject, Gtk, Gio, Gdk, GdkPixbuf } = imports.gi
 const {
     scalePixbuf, makeLinksButton, getLanguageDisplayName, formatDate
 } = imports.utils
@@ -43,19 +43,23 @@ var PropertiesBox = GObject.registerClass({
     GTypeName: 'FoliatePropertiesBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertiesBox.ui',
     InternalChildren: [
-        'cover', 'title', 'creator', 'description', 'propertiesBox',
+        'cover', 'title', 'creator', 'description', 'descriptionSep',
+        'propertiesBox',
         'actionArea'
     ]
 }, class PropertiesBox extends Gtk.Box {
     _init(params, metadata, cover) {
         super._init(params)
         if (cover) {
-            const factor = this.get_scale_factor()
-            const surface = Gdk.cairo_surface_create_from_pixbuf(
-                scalePixbuf(cover, factor), factor, null)
+            let surface = cover
+            if (cover instanceof GdkPixbuf.Pixbuf) {
+                const factor = this.get_scale_factor()
+                surface = Gdk.cairo_surface_create_from_pixbuf(
+                    scalePixbuf(cover, factor), factor, null)
+            }
             this._cover.set_from_surface(surface)
             this._cover.get_style_context().add_class('foliate-book-image')
-        } else this._cover.hide()
+        }// else this._cover.hide()
 
         let {
             title, creator, description,
@@ -71,7 +75,10 @@ var PropertiesBox = GObject.registerClass({
         else this._creator.hide()
 
         if (description) this._description.label = description
-        else this._description.hide()
+        else {
+            this._description.hide()
+            this._descriptionSep.hide()
+        }
 
         if (categories && categories.length) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Tags'),
@@ -180,24 +187,28 @@ const findBookOn = [
 var PropertiesWindow = GObject.registerClass({
     GTypeName: 'FoliatePropertiesWindow',
 }, class PropertiesWindow extends Gtk.Dialog {
-    _init(params, metadata, cover) {
+    _init(params, metadata, cover, showActionBar) {
         super._init(params)
 
+        if (this.transient_for) {
+            const [width, height] = this.transient_for.get_size()
+            this.default_width = Math.min(500, width)
+            this.default_height = Math.min(500, height)
+        }
+
         const scrolled = new Gtk.ScrolledWindow({
-            visible: true,
-            min_content_width: 360,
-            min_content_height: 480,
+            visible: true
         })
-        const propertiesBox = new PropertiesBox({
+        this.propertiesBox = new PropertiesBox({
             visible: true,
             border_width: 18
         }, metadata, cover)
-        scrolled.add(propertiesBox)
+        scrolled.add(this.propertiesBox)
 
         const box = this.get_content_area()
         box.pack_start(scrolled, true, true, 0)
 
-        if (metadata.title) {
+        if (metadata.title && showActionBar) {
             const actionBar = new Gtk.ActionBar({
                 visible: true
             })
