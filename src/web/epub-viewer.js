@@ -19,6 +19,8 @@ const CHARACTERS_PER_WORD = lang =>
     lang === 'zh' || lang === 'ja' || lang === 'ko' ? 2.5 : 6
 const WORDS_PER_MINUTE = 200
 
+const EPUB_NS = 'http://www.idpf.org/2007/ops'
+
 let book = ePub()
 let rendition
 let cfiToc
@@ -569,7 +571,7 @@ const setupRendition = () => {
         // hide EPUB 3 aside footnotes
         const asides = contents.document.querySelectorAll('aside')
         Array.from(asides).forEach(aside => {
-            const type = aside.getAttribute('epub:type')
+            const type = aside.getAttributeNS(EPUB_NS, 'type')
             if (type === 'footnote') aside.style.display = 'none'
         })
 
@@ -578,7 +580,7 @@ const setupRendition = () => {
             e.stopPropagation()
             e.preventDefault()
 
-            const type = link.getAttribute('epub:type')
+            const type = link.getAttributeNS(EPUB_NS, 'type')
             const href = link.getAttribute('href')
             const id = href.split('#')[1]
             const pageHref = resolveURL(href,
@@ -629,7 +631,7 @@ const setupRendition = () => {
                         // footnotes matching this would be hidden (see above)
                         // and so one cannot navigate to them
                         link: (el.nodeName === 'aside'
-                            && el.getAttribute('epub:type') === 'footnote')
+                            && el.getAttributeNS(EPUB_NS, 'type') === 'footnote')
                             ? null : pageHref,
                         position: getRect(e.target, frame)
                     }
