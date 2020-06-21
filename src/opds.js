@@ -249,16 +249,19 @@ var OpdsClient = class OpdsClient {
 }
 
 const makeAcquisitionButton = (links, onActivate) => {
-    links = links
-        .filter(x => x.type !== 'application/atom+xml;type=entry;profile=opds-catalog')
     const rel = links[0].rel.split('/').pop()
     let label = _('Download')
+    let icon
     switch (rel) {
         case 'buy': label = _('Buy'); break
         case 'open-access': label = _('Free'); break
         case 'sample': label = _('Sample'); break
         case 'borrow': label = _('Borrow'); break
         case 'subscribe': label = _('Subscribe'); break
+        case 'related alternate':
+            label = _('More')
+            icon = 'view-more-symbolic'
+            break
     }
     if (links.length === 1) {
         const link = links[0]
@@ -271,7 +274,12 @@ const makeAcquisitionButton = (links, onActivate) => {
         let button = new Gtk.Button({
             tooltip_text: title || Gio.content_type_get_description(type)
         })
-        if (drm) {
+        if (icon) {
+            button.tooltip_text = label
+            button.image = new Gtk.Image({
+                icon_name: icon
+            })
+        } else if (drm) {
             const buttonBox = new Gtk.Box({ spacing: 3 })
             const icon = new Gtk.Image({
                 icon_name: 'emblem-drm-symbolic',
@@ -299,20 +307,35 @@ const makeAcquisitionButton = (links, onActivate) => {
                 tooltip: type
             }
         })
-        const button = makeLinksButton({ visible: true, label }, buttonLinks, onActivate)
+        const params = { visible: true, label }
+        if (icon) {
+            params.tooltip_text = label
+            params.image = new Gtk.Image({
+                icon_name: icon
+            })
+        }
+        const button = makeLinksButton(params, buttonLinks, onActivate)
         return button
     }
 }
 
-const makeAcquisitionButtons = (links = []) => {
+const makeAcquisitionButtons = (links = [], callback) => {
     const map = new Map()
     links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
+        .concat(links
+            .filter(x => x.rel === 'alternate' || x.rel === 'related')
+            .map(x => Object.assign({}, x, { rel: 'related alternate' })))
         .forEach(x => {
             if (!map.has(x.rel)) map.set(x.rel, [x])
             else map.get(x.rel).push(x)
         })
-    return Array.from(map.values()).map((links, i) => {
+
+        return Array.from(map.values()).map((links, i) => {
         const button = makeAcquisitionButton(links, ({ type, href }) => {
+            if (callback) callback(type, href)
+            if (OpdsClient.typeIsOpds(type))
+                return window.getLibraryWindow().openCatalog(href)
+
             // open in a browser
             Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
             //Gio.AppInfo.launch_default_for_uri(href, null)
@@ -420,7 +443,7 @@ var OpdsFullEntryBox =  GObject.registerClass({
             visible: true,
             spacing: 6,
             margin_top: 12,
-            orientation: Gtk.Orientation.VERTICAL
+            orientation: Gtk.Orientation.HORIZONTAL
         })
         propertiesBox.actionArea.pack_start(acquisitionBox, false, true, 0)
 
@@ -428,10 +451,7 @@ var OpdsFullEntryBox =  GObject.registerClass({
         const acquisitionButtons = makeAcquisitionButtons(links)
         acquisitionButtons.forEach(button =>
             acquisitionBox.pack_start(button, false, true, 0))
-        if (acquisitionButtons.length < 3) {
-            acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
-            acquisitionBox.homogeneous = true
-        }
+
         if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
     }
 })
@@ -548,22 +568,19 @@ var OpdsAcquisitionBox = GObject.registerClass({
                 transient_for: this.get_toplevel()
             }, OpdsClient.opdsEntryToMetadata(entry), surface)
 
-            const acquisitionBox = new Gtk.Box({
+            const acquisitionBox = new Gtk.FlowBox({
                 visible: true,
-                spacing: 6,
-                margin_top: 12,
-                orientation: Gtk.Orientation.VERTICAL
+                hexpand: true,
+                selection_mode: Gtk.SelectionMode.NONE
             })
             dialog.propertiesBox.actionArea.pack_start(acquisitionBox, false, true, 0)
 
             const { links } = entry
-            const acquisitionButtons = makeAcquisitionButtons(links)
+            const acquisitionButtons = makeAcquisitionButtons(links, type => {
+                if (OpdsClient.typeIsOpds(type)) dialog.close()
+            })
             acquisitionButtons.forEach(button =>
-                acquisitionBox.pack_start(button, false, true, 0))
-            if (acquisitionButtons.length < 3) {
-                acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
-                acquisitionBox.homogeneous = true
-            }
+                acquisitionBox.add(button))
             if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
 
             dialog.run()

@@ -51,9 +51,11 @@ const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 const librarySettings = new Gio.Settings({ schema_id: pkg.name + '.library' })
 
-const getLibraryWindow = app =>
+const getLibraryWindow = (app = Gio.Application.get_default()) =>
     app.get_windows().find(window => window instanceof LibraryWindow)
     || new LibraryWindow({ application: app })
+
+window.getLibraryWindow = getLibraryWindow
 
 const makeActions = app => ({
     'new-theme': () => {
