@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 22:16+0800\n"
+"POT-Creation-Date: 2020-06-21 22:21+0800\n"
 "PO-Revision-Date: 2020-06-13 11:47+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Lokalize 19.04.0\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
-#: src/main.js:190 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
+#: src/main.js:192 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -65,6 +65,34 @@ msgstr[2] "%d výsledků"
 #: src/contents.js:280
 msgid "Searching…"
 msgstr "Hledá se..."
+
+#: src/contents.js:303
+msgid "Bibliography"
+msgstr ""
+
+#: src/contents.js:304
+msgid "Glossary"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:306 src/contents.js:313
+#, fuzzy
+msgid "Annotation"
+msgstr "Poznámky"
+
+#: src/contents.js:309
+#, fuzzy
+msgid "Footnote"
+msgstr "Náhled poznámky pod čarou"
+
+#: src/contents.js:310 src/contents.js:311
+msgid "Endnote"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:312 src/contents.js:339
+msgid "Note"
+msgstr "Poznámka"
 
 #: src/epubView.js:1016
 msgid "File not found."
@@ -178,7 +206,7 @@ msgstr ""
 "Identifikátor zavedeného souboru neodpovídá identifikátoru knihy. To může "
 "znamenat, že poznámky nepatří k této knize."
 
-#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
@@ -237,7 +265,7 @@ msgstr "Postup čtení, poznámky a záložky budou trvale ztraceny."
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/library.js:626
+#: src/library.js:629
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -245,49 +273,49 @@ msgstr[0] "%d vybrána"
 msgstr[1] "%d vybrány"
 msgstr[2] "%d vybráno"
 
-#: src/library.js:744
+#: src/library.js:748
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Nepodařilo se přidat knihu"
 msgstr[1] "Nepodařilo se přidat knihy"
 msgstr[2] "Nepodařilo se přidat knihy"
 
-#: src/library.js:746
+#: src/library.js:750
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Nepodařilo se přidat následující soubor:"
 msgstr[1] "Nepodařilo se přidat následující soubory:"
 msgstr[2] "Nepodařilo se přidat následující soubory:"
 
-#: src/library.js:819
+#: src/library.js:822
 msgid "All"
 msgstr "Vše"
 
-#: src/library.js:822 src/ui/catalogWindow.ui:39
+#: src/library.js:825 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Název"
 
-#: src/library.js:823
+#: src/library.js:826
 msgid "Author"
 msgstr "Autor"
 
-#: src/library.js:824 src/properties.js:77
+#: src/library.js:827 src/properties.js:77
 msgid "Tags"
 msgstr "Značky"
 
-#: src/library.js:825
+#: src/library.js:828
 msgid "Description"
 msgstr "Popis"
 
-#: src/library.js:826 src/properties.js:81
+#: src/library.js:829 src/properties.js:81
 msgid "Publisher"
 msgstr "Vydavatel"
 
-#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Jazyk"
 
-#: src/library.js:864
+#: src/library.js:867
 msgid "Add Files"
 msgstr "Přidat soubory"
 
@@ -315,45 +343,45 @@ msgstr "Hledat ve Wikislovníku"
 msgid "Translation by Google Translate"
 msgstr "Překlad pomocí Google Translate"
 
-#: src/main.js:119 src/window.js:657
+#: src/main.js:121 src/window.js:657
 msgid "Open File"
 msgstr "Otevřít soubor"
 
-#: src/main.js:140
+#: src/main.js:142
 msgid "Open Catalog"
 msgstr "Otevřít soupis"
 
-#: src/main.js:146 src/ui/catalogRow.ui:50
+#: src/main.js:148 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "Otevřít"
 
-#: src/main.js:150
+#: src/main.js:152
 msgid "OPDS Catalog URL:"
 msgstr "Adresa (URL) soupisu OPDS:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:189
+#: src/main.js:191
 msgid "translator-credits"
 msgstr "Pavel Fric"
 
-#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Jednoduchý a současný prohlížeč elektronických knih"
 
-#: src/main.js:216
+#: src/main.js:218
 msgid "Open library window"
 msgstr "Otevřít okno s knihovnou"
 
-#: src/main.js:220
+#: src/main.js:222
 msgid "Add files to the library"
 msgstr "Přidat soubory do knihovny"
 
-#: src/main.js:224
+#: src/main.js:226
 msgid "Show version"
 msgstr "Ukázat verzi"
 
-#: src/main.js:228
+#: src/main.js:230
 msgid "Show verbose debugging information"
 msgstr "Ukázat podrobné ladicí informace"
 
@@ -444,7 +472,7 @@ msgstr "Adresa (URL) OPDS"
 msgid "Go"
 msgstr "_Jít"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Nahrává se..."
@@ -698,12 +726,12 @@ msgstr "Najít"
 msgid "Menu"
 msgstr "Nabídka"
 
-#: src/window.js:1089
+#: src/window.js:1090
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Obrázek z “%s”"
 
-#: src/window.js:1089
+#: src/window.js:1090
 msgid "Image"
 msgstr "Obrázek"
 
@@ -835,7 +863,8 @@ msgid "Current chapter"
 msgstr "Nynější kapitolu"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-msgid "Footnote Preview"
+#, fuzzy
+msgid "Reference Preview"
 msgstr "Náhled poznámky pod čarou"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
@@ -3046,9 +3075,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "From Wikipedia, the free encyclopedia"
 #~ msgstr "Ze svobodného slovníku Wiktionary"
-
-#~ msgid "Note"
-#~ msgstr "Poznámka"
 
 #, fuzzy
 #~ msgid "Go to Linked Location"

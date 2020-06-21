@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 22:16+0800\n"
+"POT-Creation-Date: 2020-06-21 22:21+0800\n"
 "PO-Revision-Date: 2020-06-19 19:11+0800\n"
 "Last-Translator: Blanc Chan <cdh4227@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
-#: src/main.js:190 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
+#: src/main.js:192 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -65,6 +65,35 @@ msgstr[0] "%d 条结果"
 #: src/contents.js:280
 msgid "Searching…"
 msgstr "正在搜索…"
+
+#: src/contents.js:303
+msgid "Bibliography"
+msgstr ""
+
+#: src/contents.js:304
+msgid "Glossary"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:306 src/contents.js:313
+#, fuzzy
+msgid "Annotation"
+msgstr "注释"
+
+#: src/contents.js:309
+#, fuzzy
+msgid "Footnote"
+msgstr "脚注预览"
+
+#: src/contents.js:310 src/contents.js:311
+msgid "Endnote"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:312 src/contents.js:339
+#, fuzzy
+msgid "Note"
+msgstr "笔记:"
 
 #: src/epubView.js:1016
 msgid "File not found."
@@ -174,7 +203,7 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr "导入文件的标识符与图书不符。可能是因为注释不是这本书的。"
 
-#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
@@ -231,51 +260,51 @@ msgstr "阅读进度、注释和书签都将永远丢失。"
 msgid "Remove"
 msgstr "删除"
 
-#: src/library.js:626
+#: src/library.js:629
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "选中了 %d 项"
 
-#: src/library.js:744
+#: src/library.js:748
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "无法添加图书"
 
-#: src/library.js:746
+#: src/library.js:750
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "无法添加以下文件："
 
-#: src/library.js:819
+#: src/library.js:822
 msgid "All"
 msgstr "全部"
 
-#: src/library.js:822 src/ui/catalogWindow.ui:39
+#: src/library.js:825 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "标题"
 
-#: src/library.js:823
+#: src/library.js:826
 msgid "Author"
 msgstr "作者"
 
-#: src/library.js:824 src/properties.js:77
+#: src/library.js:827 src/properties.js:77
 msgid "Tags"
 msgstr "标签"
 
-#: src/library.js:825
+#: src/library.js:828
 msgid "Description"
 msgstr "描述"
 
-#: src/library.js:826 src/properties.js:81
+#: src/library.js:829 src/properties.js:81
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "语言"
 
-#: src/library.js:864
+#: src/library.js:867
 msgid "Add Files"
 msgstr "添加文件"
 
@@ -303,47 +332,47 @@ msgstr "在维基词典上搜索"
 msgid "Translation by Google Translate"
 msgstr "由 Google Translate 翻译"
 
-#: src/main.js:119 src/window.js:657
+#: src/main.js:121 src/window.js:657
 msgid "Open File"
 msgstr "打开文件"
 
-#: src/main.js:140
+#: src/main.js:142
 msgid "Open Catalog"
 msgstr "打开图书列表"
 
-#: src/main.js:146 src/ui/catalogRow.ui:50
+#: src/main.js:148 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "打开"
 
-#: src/main.js:150
+#: src/main.js:152
 msgid "OPDS Catalog URL:"
 msgstr "OPDS 图书列表链接："
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:189
+#: src/main.js:191
 msgid "translator-credits"
 msgstr ""
 "Blanc Chan\n"
 "王滋涵"
 
-#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "简洁现代的电子书查看器"
 
-#: src/main.js:216
+#: src/main.js:218
 msgid "Open library window"
 msgstr "打开书库窗口"
 
-#: src/main.js:220
+#: src/main.js:222
 msgid "Add files to the library"
 msgstr "添加文件到书库"
 
-#: src/main.js:224
+#: src/main.js:226
 msgid "Show version"
 msgstr "显示版本"
 
-#: src/main.js:228
+#: src/main.js:230
 msgid "Show verbose debugging information"
 msgstr "显示详细的调试信息"
 
@@ -433,7 +462,7 @@ msgstr "OPDS 链接"
 msgid "Go"
 msgstr "转到(_G)"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "加载中"
@@ -681,12 +710,12 @@ msgstr "搜索"
 msgid "Menu"
 msgstr "菜单"
 
-#: src/window.js:1089
+#: src/window.js:1090
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "图片来自 “%s”"
 
-#: src/window.js:1089
+#: src/window.js:1090
 msgid "Image"
 msgstr "图片"
 
@@ -818,7 +847,8 @@ msgid "Current chapter"
 msgstr "当前章节"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-msgid "Footnote Preview"
+#, fuzzy
+msgid "Reference Preview"
 msgstr "脚注预览"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40

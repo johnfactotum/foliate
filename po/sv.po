@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 22:16+0800\n"
+"POT-Creation-Date: 2020-06-21 22:21+0800\n"
 "PO-Revision-Date: 2020-06-19 13:34+0200\n"
 "Last-Translator: Jonatan Nyberg <jonatan.nyberg.karl@gmail.com>\n"
 "Language-Team: \n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
-#: src/main.js:190 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
+#: src/main.js:192 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -65,6 +65,35 @@ msgstr[1] "%d resultat"
 #: src/contents.js:280
 msgid "Searching…"
 msgstr "Söker…"
+
+#: src/contents.js:303
+msgid "Bibliography"
+msgstr ""
+
+#: src/contents.js:304
+msgid "Glossary"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:306 src/contents.js:313
+#, fuzzy
+msgid "Annotation"
+msgstr "Kommentarer"
+
+#: src/contents.js:309
+#, fuzzy
+msgid "Footnote"
+msgstr "Förhandsvisning av fotnot"
+
+#: src/contents.js:310 src/contents.js:311
+msgid "Endnote"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:312 src/contents.js:339
+#, fuzzy
+msgid "Note"
+msgstr "Anteckning:"
 
 #: src/epubView.js:1016
 msgid "File not found."
@@ -177,7 +206,7 @@ msgstr ""
 "Identifieraren för den importerade filen stämmer inte överens med bokens. "
 "Detta kan indikera att kommerntarerna inte tillhör den här boken."
 
-#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
@@ -236,54 +265,54 @@ msgstr ""
 msgid "Remove"
 msgstr "Ta bort"
 
-#: src/library.js:626
+#: src/library.js:629
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d vald"
 msgstr[1] "%d valda"
 
-#: src/library.js:744
+#: src/library.js:748
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Det gick inte att lägga till bok"
 msgstr[1] "Det gick inte att lägga till böcker"
 
-#: src/library.js:746
+#: src/library.js:750
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Det gick inte att lägga till följande fil:"
 msgstr[1] "Det gick inte att lägga till följande filer:"
 
-#: src/library.js:819
+#: src/library.js:822
 msgid "All"
 msgstr "Alla"
 
-#: src/library.js:822 src/ui/catalogWindow.ui:39
+#: src/library.js:825 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Titel"
 
-#: src/library.js:823
+#: src/library.js:826
 msgid "Author"
 msgstr "Författare"
 
-#: src/library.js:824 src/properties.js:77
+#: src/library.js:827 src/properties.js:77
 msgid "Tags"
 msgstr "Taggar"
 
-#: src/library.js:825
+#: src/library.js:828
 msgid "Description"
 msgstr "Beskrivning"
 
-#: src/library.js:826 src/properties.js:81
+#: src/library.js:829 src/properties.js:81
 msgid "Publisher"
 msgstr "Förlag"
 
-#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Språk"
 
-#: src/library.js:864
+#: src/library.js:867
 msgid "Add Files"
 msgstr "Lägga till filer"
 
@@ -311,45 +340,45 @@ msgstr "Sök i Wiktionary"
 msgid "Translation by Google Translate"
 msgstr "Översättning av Google Translate"
 
-#: src/main.js:119 src/window.js:657
+#: src/main.js:121 src/window.js:657
 msgid "Open File"
 msgstr "Öppna fil"
 
-#: src/main.js:140
+#: src/main.js:142
 msgid "Open Catalog"
 msgstr "Öppna katalog"
 
-#: src/main.js:146 src/ui/catalogRow.ui:50
+#: src/main.js:148 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "Öppna"
 
-#: src/main.js:150
+#: src/main.js:152
 msgid "OPDS Catalog URL:"
 msgstr "OPDS katalogwebbadress:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:189
+#: src/main.js:191
 msgid "translator-credits"
 msgstr "Jonatan Nyberg"
 
-#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "En enkel och modern e-bokvisare"
 
-#: src/main.js:216
+#: src/main.js:218
 msgid "Open library window"
 msgstr "Öppna biblioteksfönstret"
 
-#: src/main.js:220
+#: src/main.js:222
 msgid "Add files to the library"
 msgstr "Lägg till filer i biblioteket"
 
-#: src/main.js:224
+#: src/main.js:226
 msgid "Show version"
 msgstr "Visa version"
 
-#: src/main.js:228
+#: src/main.js:230
 msgid "Show verbose debugging information"
 msgstr "Visa felsökningsinformation"
 
@@ -438,7 +467,7 @@ msgstr "OPDS-webbadress"
 msgid "Go"
 msgstr "Gå"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Läser in…"
@@ -690,12 +719,12 @@ msgstr "Hitta"
 msgid "Menu"
 msgstr "Meny"
 
-#: src/window.js:1089
+#: src/window.js:1090
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Bild från \"%s\""
 
-#: src/window.js:1089
+#: src/window.js:1090
 msgid "Image"
 msgstr "Bild"
 
@@ -828,7 +857,8 @@ msgid "Current chapter"
 msgstr "Aktuellt kapitel"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-msgid "Footnote Preview"
+#, fuzzy
+msgid "Reference Preview"
 msgstr "Förhandsvisning av fotnot"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 22:16+0800\n"
+"POT-Creation-Date: 2020-06-21 22:21+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: zluka <https://github.com/zluca>\n"
 "Language-Team: \n"
@@ -21,8 +21,8 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
-#: src/main.js:190 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
+#: src/main.js:192 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
@@ -69,6 +69,34 @@ msgstr[2] "%d совпадений"
 #: src/contents.js:280
 msgid "Searching…"
 msgstr "Поиск…"
+
+#: src/contents.js:303
+msgid "Bibliography"
+msgstr ""
+
+#: src/contents.js:304
+msgid "Glossary"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:306 src/contents.js:313
+#, fuzzy
+msgid "Annotation"
+msgstr "Примечания"
+
+#: src/contents.js:309
+#, fuzzy
+msgid "Footnote"
+msgstr "Предпросмотр сноски"
+
+#: src/contents.js:310 src/contents.js:311
+msgid "Endnote"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:312 src/contents.js:339
+msgid "Note"
+msgstr "Заметка"
 
 #: src/epubView.js:1016
 msgid "File not found."
@@ -182,7 +210,7 @@ msgstr ""
 "Идентификатор импортированного файла не совпадает с идентификатором книги. "
 "Это может указывать на то, что аннотации не относятся к этой книге."
 
-#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
@@ -243,7 +271,7 @@ msgstr ""
 msgid "Remove"
 msgstr "Удалить"
 
-#: src/library.js:626
+#: src/library.js:629
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -251,49 +279,49 @@ msgstr[0] "%d выбрана"
 msgstr[1] "%d выбраны"
 msgstr[2] "%d выбрано"
 
-#: src/library.js:744
+#: src/library.js:748
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Не удалось добавить %d книгу"
 msgstr[1] "Не удалось добавить %d книги"
 msgstr[2] "Не удалось добавить %d книг"
 
-#: src/library.js:746
+#: src/library.js:750
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Не удалось добавить %d файл:"
 msgstr[1] "Не удалось добавить %d файла:"
 msgstr[2] "Не удалось добавить %d файлов:"
 
-#: src/library.js:819
+#: src/library.js:822
 msgid "All"
 msgstr "Все"
 
-#: src/library.js:822 src/ui/catalogWindow.ui:39
+#: src/library.js:825 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Заголовок"
 
-#: src/library.js:823
+#: src/library.js:826
 msgid "Author"
 msgstr "Автор"
 
-#: src/library.js:824 src/properties.js:77
+#: src/library.js:827 src/properties.js:77
 msgid "Tags"
 msgstr "Тэги"
 
-#: src/library.js:825
+#: src/library.js:828
 msgid "Description"
 msgstr "Описание"
 
-#: src/library.js:826 src/properties.js:81
+#: src/library.js:829 src/properties.js:81
 msgid "Publisher"
 msgstr "Издатель"
 
-#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Язык"
 
-#: src/library.js:864
+#: src/library.js:867
 msgid "Add Files"
 msgstr "Добавить файлы"
 
@@ -321,48 +349,48 @@ msgstr "Смотреть на Викисловаре"
 msgid "Translation by Google Translate"
 msgstr "Переведено через Google Translate"
 
-#: src/main.js:119 src/window.js:657
+#: src/main.js:121 src/window.js:657
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: src/main.js:140
+#: src/main.js:142
 msgid "Open Catalog"
 msgstr "Открыть каталог"
 
-#: src/main.js:146 src/ui/catalogRow.ui:50
+#: src/main.js:148 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "Открыть"
 
-#: src/main.js:150
+#: src/main.js:152
 msgid "OPDS Catalog URL:"
 msgstr "URL адрес OPDS каталога:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:189
+#: src/main.js:191
 msgid "translator-credits"
 msgstr ""
 "Schwonder Reismus, 2019\n"
 "Artem Polishchuk, 2019\n"
 "Artemii Sudakov, 2020"
 
-#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Простая и современная программа для чтения электронных книг"
 
-#: src/main.js:216
+#: src/main.js:218
 msgid "Open library window"
 msgstr "Открыть окно библиотеки"
 
-#: src/main.js:220
+#: src/main.js:222
 msgid "Add files to the library"
 msgstr "Добавить файлы в библиотеку"
 
-#: src/main.js:224
+#: src/main.js:226
 msgid "Show version"
 msgstr "Показать версию"
 
-#: src/main.js:228
+#: src/main.js:230
 msgid "Show verbose debugging information"
 msgstr "Показать дополненную информацию отладки"
 
@@ -452,7 +480,7 @@ msgstr "URL адрес OPDS"
 msgid "Go"
 msgstr "_Перейти"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Загрузка…"
@@ -706,12 +734,12 @@ msgstr "Искать"
 msgid "Menu"
 msgstr "Меню"
 
-#: src/window.js:1089
+#: src/window.js:1090
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Изображение с “%s”"
 
-#: src/window.js:1089
+#: src/window.js:1090
 msgid "Image"
 msgstr "Изображение"
 
@@ -844,7 +872,8 @@ msgid "Current chapter"
 msgstr "Текущая глава"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-msgid "Footnote Preview"
+#, fuzzy
+msgid "Reference Preview"
 msgstr "Предпросмотр сноски"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
@@ -3118,9 +3147,6 @@ msgstr ""
 
 #~ msgid "View on Wikipedia"
 #~ msgstr "Смотреть в Википедии"
-
-#~ msgid "Note"
-#~ msgstr "Заметка"
 
 #~ msgid "Go to Linked Location"
 #~ msgstr "Перейти по ссылке"
