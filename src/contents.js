@@ -299,21 +299,45 @@ var FindBox = GObject.registerClass({
     }
 })
 
+const refLabels = {
+    'biblioref': _('Bibliography'),
+    'glossref': _('Glossary'),
+    'noteref': null,
+    'annoref': _('Annotation'), // deprecated
+}
+const noteLabels = {
+    'footnote': _('Footnote'),
+    'endnote': _('Endnote'),
+    'rearnote': _('Endnote'), // deprecated
+    'note': _('Note'), // deprecated
+    'annotation': _('Annotation'), // deprecated
+}
+
 var FootnotePopover = GObject.registerClass({
     GTypeName: 'FoliateFootnotePopover',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/footnotePopover.ui',
     InternalChildren: [
-        'footnoteLabel', 'controls', 'button'
+        'footnoteLabel', 'label', 'button', 'label'
     ]
 }, class FootnotePopover extends Gtk.Popover {
-    _init(footnote, link, epubView) {
+    _init({ footnote, link, refTypes, noteTypes }, epubView) {
         super._init()
         this._link = link
         this._epub = epubView
         this._footnoteLabel.label = footnote
         this._footnoteLabel.connect('activate-link', this._activateLink.bind(this))
         this._button.connect('clicked', () => this._goToLinkedLocation())
-        if (!link) this._controls.hide()
+        if (!link) this._button.hide()
+
+        const refLabelKey = Object.keys(refLabels).find(x => refTypes.includes(x))
+        const refLabel = refLabels[refLabelKey]
+        if (refLabel) this._label.label = refLabel
+        else {
+            const noteLabelKey = Object.keys(noteLabels).find(x => noteTypes.includes(x))
+            const noteLabel = noteLabels[noteLabelKey]
+            if (noteLabel) this._label.label = noteLabel
+            else if (refLabelKey === 'noteRef') this._label.label = _('Note')
+        }
     }
     popup() {
         super.popup()
