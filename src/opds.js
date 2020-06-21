@@ -914,7 +914,7 @@ var OpdsBrowser = GObject.registerClass({
         this._opdsWidget = nb
         this.pack_start(nb, true, true, 0)
 
-        const makePage = (uri, title) => new Promise((resolve, reject) => {
+        const makePage = (uri, title, top) => new Promise((resolve, reject) => {
             const label = new Gtk.Label({
                 visible: true,
                 ellipsize: Pango.EllipsizeMode.END,
@@ -943,7 +943,7 @@ var OpdsBrowser = GObject.registerClass({
                     uri
                 })
                 widget.connect('loaded', () => {
-                    if (this._uri !== uri) return reject()
+                    if (top && this._uri !== uri) return reject()
 
                     const feed = widget.feed
                     if (!title) {
@@ -996,7 +996,7 @@ var OpdsBrowser = GObject.registerClass({
                     resolve(feed)
                 })
                 widget.connect('error', () => {
-                    if (this._uri !== uri) return reject()
+                    if (top && this._uri !== uri) return reject()
                     if (!title) label.label = _('Error')
                     reject(new Error())
                 })
@@ -1021,7 +1021,7 @@ var OpdsBrowser = GObject.registerClass({
             'http://opds-spec.org/recommended': _('Recommended')
         }
 
-        makePage(uri, null).then(feed => {
+        makePage(uri, null, true).then(feed => {
             this.set_property('title', feed.title || defaultTitle)
             const tabs = [].concat(feed.links).filter(link => 'href' in link
                 && 'rel' in link
