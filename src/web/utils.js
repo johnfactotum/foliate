@@ -46,7 +46,7 @@ const resolveURL = (url, relativeTo) => {
 
 // Remove whitespace like CSS `white-space: normal`
 const whitespaceNormal = str =>
-    str.replace(/\r?\n/g, ' ').replace(/(\s){2,}/g, ' ')
+    str ? str.replace(/\r?\n/g, ' ').replace(/(\s){2,}/g, ' ') : 0
 
 // from https://stackoverflow.com/a/11892228
 const usurp = p => {

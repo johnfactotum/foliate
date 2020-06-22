@@ -67,7 +67,7 @@ var PropertiesBox = GObject.registerClass({
         }// else this._cover.hide()
 
         let {
-            title, creator, description,
+            title, creator, description, longDescription,
             publisher, pubdate, modified_date, language, identifier, rights,
             extent, format, categories, subjects
         } = metadata
@@ -79,9 +79,13 @@ var PropertiesBox = GObject.registerClass({
         if (creator) this._creator.label = creator
         else this._creator.hide()
 
-        if (description) this._description.label = description
-        else {
+        if (description) {
+            this._description.label = description
+            if (longDescription) this._descriptionLong.label = longDescription
+            else this._descriptionExpander.hide()
+        } else {
             this._description.hide()
+            this._descriptionExpander.hide()
             this._descriptionSep.hide()
         }
 

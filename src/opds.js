@@ -204,7 +204,7 @@ var OpdsClient = class OpdsClient {
     }
     static opdsEntryToMetadata(entry) {
         const {
-            title, summary, publisher, language, identifier, rights,
+            title, summary, content, publisher, language, identifier, rights,
             published, updated, issued, extent,
             authors = [],
             categories = []
@@ -216,6 +216,7 @@ var OpdsClient = class OpdsClient {
             creator: authors.map(x => x.name).join(_(', ')),
             categories: categories.map(x => x.label || x.term),
             description: summary,
+            longDescription: content,
             pubdate: issued || published,
             modified_date: updated,
             extent

@@ -13,6 +13,13 @@ const DC_NS = [DC_TERMS_NS, DC_ELS_NS]
 
 const trim = x => x ? x.trim() : x
 
+const getContent = el => {
+    const type = el.getAttribute('type')
+    if (type === 'html' || type === 'text/html')
+        return toPangoMarkup(el.innerHTML)
+    else return trim(el.innerText)
+}
+
 const link = {
     tag: 'link',
     array: true,
@@ -69,7 +76,10 @@ const entry = {
         issued: { ns: DC_TERMS_NS },
         extent: { ns: DC_TERMS_NS },
         rights: {},
-        content: {},
+        content: {
+            manual: true,
+            transform: getContent
+        },
     }
 }
 const feed = {
@@ -90,6 +100,7 @@ const parse = (el, schema) => {
     const fields = schema.fields || {}
     const attrList = Object.keys(attrs)
     const fieldList = Object.keys(fields)
+    if (schema.manual) return schema.transform(el)
     if (!attrList.length && !fieldList.length) {
         const transform = schema.transform || trim
         return transform(el.textContent)
