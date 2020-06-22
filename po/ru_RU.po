@@ -72,26 +72,24 @@ msgstr "Поиск…"
 
 #: src/contents.js:303
 msgid "Bibliography"
-msgstr ""
+msgstr "Библиография"
 
 #: src/contents.js:304
 msgid "Glossary"
-msgstr ""
+msgstr "Глоссарий"
 
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
-#, fuzzy
 msgid "Annotation"
-msgstr "Примечания"
+msgstr "Примечание"
 
 #: src/contents.js:309
-#, fuzzy
 msgid "Footnote"
-msgstr "Предпросмотр сноски"
+msgstr "Сноска"
 
 #: src/contents.js:310 src/contents.js:311
 msgid "Endnote"
-msgstr ""
+msgstr "Концевая сноска"
 
 #. deprecated
 #: src/contents.js:312 src/contents.js:339
@@ -396,12 +394,12 @@ msgstr "Показать дополненную информацию отлад�
 
 #: src/opds.js:144
 msgid "Authentication Required"
-msgstr "Требуется аутенфикация"
+msgstr "Требуется аутентификация"
 
 #: src/opds.js:146
 #, javascript-format
 msgid "Authentication required by %s"
-msgstr "%s требует аутенфикации"
+msgstr "%s требует аутентификации"
 
 #: src/opds.js:149
 #, javascript-format
@@ -410,7 +408,7 @@ msgstr "Сообщение сайта: “%s”"
 
 #: src/opds.js:160
 msgid "Authenticate"
-msgstr "Аутенфикация"
+msgstr "Аутентификация"
 
 #: src/opds.js:171
 msgid "Username"
@@ -476,9 +474,8 @@ msgid "OPDS URL"
 msgstr "URL адрес OPDS"
 
 #: src/opds.js:876
-#, fuzzy
 msgid "Go"
-msgstr "_Перейти"
+msgstr "Перейти"
 
 #: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
@@ -872,9 +869,8 @@ msgid "Current chapter"
 msgstr "Текущая глава"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-#, fuzzy
 msgid "Reference Preview"
-msgstr "Предпросмотр сноски"
+msgstr "Предпросмотр ссылки"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
 #: src/ui/shortcutsWindow.ui:159 src/ui/shortcutsWindow.ui:342
@@ -962,28 +958,24 @@ msgid "About Foliate"
 msgstr "О Foliate"
 
 #: src/ui/libraryWindow.ui:55
-#, fuzzy
 msgid "Go to start page"
-msgstr "Перейти в начало"
+msgstr "Перейти на начальную страницу"
 
 #: src/ui/libraryWindow.ui:83
-#, fuzzy
 msgid "Add this feed to catalogs"
-msgstr "Добавить каталог"
+msgstr "Добавить этот канал к каталогам"
 
 #: src/ui/libraryWindow.ui:104
-#, fuzzy
 msgid "Location…"
-msgstr "Расположение"
+msgstr "Расположение..."
 
 #: src/ui/libraryWindow.ui:116
 msgid "Go Back to Library"
-msgstr ""
+msgstr "Вернуться к библиотеке"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalog"
-msgstr "Здесь пустовато"
+msgstr "Вернуться к каталогу"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -1718,69 +1710,66 @@ msgid "John Factotum"
 msgstr "Джон Фактотум"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
 msgid "OPDS catalogs:"
-msgstr "Каталог OPDS"
+msgstr "Каталоги OPDS:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Catalogs are now opened in the main library window"
-msgstr ""
+msgstr "Теперь каталоги открываются в основном окне библиотеки"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
-#, fuzzy
 msgid "View current location"
-msgstr "Удалить закладку"
+msgstr "Показать текущее расположение"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-#, fuzzy
 msgid "Go to catalog start page"
-msgstr "Перейти в начало"
+msgstr "Перейти к начальному каталогу"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#, fuzzy
 msgid "Reload catalog"
-msgstr "Добавить каталог"
+msgstr "Перезагрузить каталог"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
-#, fuzzy
 msgid "Add current feed to catalogs"
-msgstr "Добавить каталог"
+msgstr "Добавить текущий канал к каталогам"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
-#, fuzzy
 msgid "HTTP authentication support"
-msgstr "Требуется аутенфикация"
+msgstr "Поддержка аутентификации HTTP"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
-#, fuzzy
 msgid "Other changes:"
-msgstr "Ломающие изменения:"
+msgstr "Прочие изменения:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr ""
+"Исправлен уникальный идентификатор для файлов FictionBook (.fb2, .fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed newlines being ignored when copying text"
 msgstr ""
+"Исправлена ошибка при которой игнорировались переносы строки при копировании "
+"текста"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
 msgstr ""
+"Опция \"Перелистывать страницы по нажатию\" теперь отключена для неразрывных "
+"представлений"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Opening a book from the library view now closes the library window"
-msgstr ""
+msgstr "Открытие книги из библиотеки теперь закрывает окно библиотеки"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 msgid "Language and publication dates in metadata are now parsed and formatted"
-msgstr ""
+msgstr "Язык и дата публикации теперь парсятся и форматируются"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
-#, fuzzy
 msgid "Export annotations from the library view"
-msgstr "Экспортировать примечания в Markdown"
+msgstr "Экспортировать примечания из библиотеки"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
@@ -2733,13 +2722,12 @@ msgid "How to view the library"
 msgstr "Режим просмотра библиотеки"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:273
-#, fuzzy
 msgid "Library page"
-msgstr "Библиотека"
+msgstr "Страница библиотеки"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:274
 msgid "Current library page (“library” or “catalog”)"
-msgstr ""
+msgstr "Текущая страница библиотеки (\"библиотека\" или \"каталог\")"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:278
 msgid "Use Tracker"
