@@ -41,8 +41,12 @@
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="actionArea">
+              <object class="GtkFlowBox" id="actionArea">
                 <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="selection-mode">none</property>
+                <property name="row-spacing">6</property>
+                <property name="column-spacing">6</property>
               </object>
               <packing>
                 <property name="pack-type">end</property>
@@ -81,9 +85,6 @@
         <property name="orientation">vertical</property>
         <property name="spacing">18</property>
       </object>
-      <packing>
-        <property name="pack_type">end</property>
-      </packing>
     </child>
   </template>
 </interface>

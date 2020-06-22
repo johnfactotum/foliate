@@ -155,6 +155,7 @@ const makeLibraryChild = (params, widget) => {
                 transient_for: this.get_toplevel(),
                 use_header_bar: true
             }, metadata, cover)
+            window.packFindBookOnButton()
             window.show()
         }
         exportAnnotations() {

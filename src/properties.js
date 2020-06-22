@@ -80,43 +80,62 @@ var PropertiesBox = GObject.registerClass({
             this._descriptionSep.hide()
         }
 
-        if (categories && categories.length) this._propertiesBox.pack_start(new PropertyBox({
-            property_name: _('Tags'),
-            property_value: categories.join(_(' • '))
-        }), false, true, 0)
-        if (publisher) this._propertiesBox.pack_start(new PropertyBox({
-            property_name: _('Publisher'),
-            property_value: publisher
-        }), false, true, 0)
-        if (pubdate) {
-            const dateString = formatDate(pubdate)
+        if (categories && categories.length) {
             this._propertiesBox.pack_start(new PropertyBox({
-                property_name: _('Publication Date'),
-                property_value: dateString
+                property_name: _('Tags'),
+                property_value: categories.join(_(' • ')),
+                orientation: Gtk.Orientation.HORIZONTAL,
+                spacing: 18
+            }), false, true, 0)
+            this._propertiesBox.pack_start(new Gtk.Separator({
+                visible: true
             }), false, true, 0)
         }
-        if (modified_date) {
-            const dateString = formatDate(modified_date, true)
-            this._propertiesBox.pack_start(new PropertyBox({
-                property_name: _('Modified Date'),
-                property_value: dateString
-            }), false, true, 0)
+
+        if (publisher || pubdate || modified_date || language || extent || format) {
+            const flowBox = new Gtk.FlowBox({
+                visible: true,
+                hexpand: true,
+                selection_mode: Gtk.SelectionMode.NONE,
+                row_spacing: 18,
+                column_spacing: 24
+            })
+            this._propertiesBox.pack_start(flowBox, false, true, 0)
+            if (publisher) flowBox.add(new PropertyBox({
+                property_name: _('Publisher'),
+                property_value: publisher
+            }))
+            if (pubdate) {
+                const dateString = formatDate(pubdate)
+                flowBox.add(new PropertyBox({
+                    property_name: _('Publication Date'),
+                    property_value: dateString
+                }))
+            }
+            if (modified_date) {
+                const dateString = formatDate(modified_date, true)
+                flowBox.add(new PropertyBox({
+                    property_name: _('Modified Date'),
+                    property_value: dateString
+                }))
+            }
+            if (language) {
+                const name = getLanguageDisplayName(language, true)
+                if (name) flowBox.add(new PropertyBox({
+                    property_name: _('Language'),
+                    property_value: name
+                }))
+            }
+            if (extent) flowBox.add(new PropertyBox({
+                property_name: _('File Size'),
+                property_value: extent
+            }))
+            if (format) flowBox.add(new PropertyBox({
+                property_name: _('Format'),
+                property_value: Gio.content_type_get_description(format)
+            }))
         }
-        if (language) {
-            const name = getLanguageDisplayName(language, true)
-            if (name) this._propertiesBox.pack_start(new PropertyBox({
-                property_name: _('Language'),
-                property_value: name
-            }), false, true, 0)
-        }
-        if (extent) this._propertiesBox.pack_start(new PropertyBox({
-            property_name: _('File Size'),
-            property_value: extent
-        }), false, true, 0)
-        if (format) this._propertiesBox.pack_start(new PropertyBox({
-            property_name: _('Format'),
-            property_value: Gio.content_type_get_description(format)
-        }), false, true, 0)
+
         if (identifier) {
             const isHash = identifier.startsWith('foliate-md5sum-')
             this._propertiesBox.pack_start(new PropertyBox({
@@ -148,16 +167,13 @@ var PropertiesBox = GObject.registerClass({
             property_name: _('Copyright'),
             property_value: rights
         }), false, true, 0)
-        if (!(title || creator || description ||
-            publisher || pubdate || modified_date || language || identifier || rights))
-            this.visible_child_name = 'nothing'
     }
     get actionArea() {
         return this._actionArea
     }
 })
 
-const findBookOn = [
+var findBookOn = [
     {
         title: _('Amazon'),
         href: 'https://www.amazon.com/s?k=%s'
@@ -187,8 +203,9 @@ const findBookOn = [
 var PropertiesWindow = GObject.registerClass({
     GTypeName: 'FoliatePropertiesWindow',
 }, class PropertiesWindow extends Gtk.Dialog {
-    _init(params, metadata, cover, showActionBar) {
+    _init(params, metadata, cover) {
         super._init(params)
+        this.metadata = metadata
 
         if (this.transient_for) {
             const [width, height] = this.transient_for.get_size()
@@ -207,27 +224,26 @@ var PropertiesWindow = GObject.registerClass({
 
         const box = this.get_content_area()
         box.pack_start(scrolled, true, true, 0)
+    }
+    packFindBookOnButton() {
+        const title = this.metadata.title
+        if (!title) return
 
-        if (metadata.title && showActionBar) {
-            const actionBar = new Gtk.ActionBar({
-                visible: true
-            })
-            const buttonLinks = findBookOn.map(link => {
-                const { href, title } = link
-                const uri = href.replace(/%s/g, encodeURIComponent(metadata.title))
-                return {
-                    href: uri, title
-                }
-            })
-            const button = makeLinksButton(
-                {
-                    visible: true,
-                    label: _('Find on…')
-                },
-                buttonLinks,
-                ({ href }) => Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME))
-            actionBar.pack_end(button)
-            box.pack_end(actionBar, false, true, 0)
-        }
+        const buttonLinks = findBookOn.map(link => {
+            const { href, title } = link
+            const uri = href.replace(/%s/g, encodeURIComponent(title))
+            return {
+                href: uri, title
+            }
+        })
+        const button = makeLinksButton(
+            {
+                visible: true,
+                label: _('Find on…')
+            },
+            buttonLinks,
+            ({ href }) => Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME))
+
+        this.propertiesBox.actionArea.add(button)
     }
 })

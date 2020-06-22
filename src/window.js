@@ -642,7 +642,8 @@ const makeActions = self => ({
             title: _('About This Book'),
             transient_for: self,
             use_header_bar: true
-        }, self._epub.metadata, self._epub.cover, true)
+        }, self._epub.metadata, self._epub.cover)
+        window.packFindBookOnButton()
         window.show()
     },
     'open-copy': () => {

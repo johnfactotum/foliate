@@ -363,6 +363,14 @@ function main(argv) {
 
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
+            /* remove flowboxchild padding so things align better
+               when mixing flowbox and other widgets;
+               why does Adwaita has flowboxchild padding, anyway?
+               there's already row-/column-spacing, plus you can set margin */
+            flowboxchild {
+                padding: 0;
+            }
+
             /* set min-width to 1px,
                so we can have variable width progress bars a la Kindle */
             progress, trough {

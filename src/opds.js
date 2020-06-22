@@ -439,18 +439,11 @@ var OpdsFullEntryBox =  GObject.registerClass({
         }, OpdsClient.opdsEntryToMetadata(entry), pixbuf)
         this.pack_start(propertiesBox, true, true, 0)
 
-        const acquisitionBox = new Gtk.Box({
-            visible: true,
-            spacing: 6,
-            margin_top: 12,
-            orientation: Gtk.Orientation.HORIZONTAL
-        })
-        propertiesBox.actionArea.pack_start(acquisitionBox, false, true, 0)
+        const actionArea = propertiesBox.actionArea
 
         const { links } = entry
         const acquisitionButtons = makeAcquisitionButtons(links)
-        acquisitionButtons.forEach(button =>
-            acquisitionBox.pack_start(button, false, true, 0))
+        acquisitionButtons.forEach(button => actionArea.add(button))
 
         if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
     }
@@ -568,19 +561,13 @@ var OpdsAcquisitionBox = GObject.registerClass({
                 transient_for: this.get_toplevel()
             }, OpdsClient.opdsEntryToMetadata(entry), surface)
 
-            const acquisitionBox = new Gtk.FlowBox({
-                visible: true,
-                hexpand: true,
-                selection_mode: Gtk.SelectionMode.NONE
-            })
-            dialog.propertiesBox.actionArea.pack_start(acquisitionBox, false, true, 0)
+            const actionArea = dialog.propertiesBox.actionArea
 
             const { links } = entry
             const acquisitionButtons = makeAcquisitionButtons(links, type => {
                 if (OpdsClient.typeIsOpds(type)) dialog.close()
             })
-            acquisitionButtons.forEach(button =>
-                acquisitionBox.add(button))
+            acquisitionButtons.forEach(button => actionArea.add(button))
             if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
 
             dialog.run()
