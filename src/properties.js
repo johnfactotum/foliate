@@ -15,7 +15,7 @@
 
 const { GObject, Gtk, Gio, Gdk, GdkPixbuf } = imports.gi
 const {
-    scalePixbuf, makeLinksButton, getLanguageDisplayName, formatDate
+    scalePixbuf, makeLinksButton, getLanguageDisplayName, formatDate, markupEscape
 } = imports.utils
 
 const PropertyBox = GObject.registerClass({
@@ -28,7 +28,10 @@ const PropertyBox = GObject.registerClass({
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, ''),
         'property-value':
             GObject.ParamSpec.string('property-value', 'property-value', 'property-value',
-                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, '')
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, ''),
+        'use-markup':
+            GObject.ParamSpec.boolean('use-markup', 'use-markup', 'use-markup',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false)
     }
 }, class PropertyBox extends Gtk.Box {
     _init(params) {
@@ -36,6 +39,7 @@ const PropertyBox = GObject.registerClass({
         const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
         this.bind_property('property-name', this._name, 'label', flag)
         this.bind_property('property-value', this._value, 'label', flag)
+        this.bind_property('use-markup', this._value, 'use-markup', flag)
     }
 })
 
@@ -43,7 +47,8 @@ var PropertiesBox = GObject.registerClass({
     GTypeName: 'FoliatePropertiesBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertiesBox.ui',
     InternalChildren: [
-        'cover', 'title', 'creator', 'description', 'descriptionSep',
+        'cover', 'title', 'creator',
+        'description', 'descriptionSep', 'descriptionLong', 'descriptionExpander',
         'propertiesBox',
         'actionArea'
     ]
@@ -81,11 +86,27 @@ var PropertiesBox = GObject.registerClass({
         }
 
         if (categories && categories.length) {
+            const length = Math.max(...categories
+                .map(x => x.length))
+            const isLong = length > 35 && categories.length > 1
+                || length > 20 && categories.length > 4
+
             this._propertiesBox.pack_start(new PropertyBox({
                 property_name: _('Tags'),
-                property_value: categories.join(_(' • ')),
-                orientation: Gtk.Orientation.HORIZONTAL,
-                spacing: 18
+                property_value: isLong
+                    ? categories
+                        .map(markupEscape)
+                        .map(x => `<span alpha="50%"> •  </span>${x}`)
+                        .join('\n')
+                    : categories
+                        .map(markupEscape)
+                        .join('<span alpha="50%">  •  </span>'),
+                use_markup: true,
+                orientation:
+                    isLong
+                        ? Gtk.Orientation.VERTICAL
+                        : Gtk.Orientation.HORIZONTAL,
+                spacing: isLong ? 6 : 18
             }), false, true, 0)
             this._propertiesBox.pack_start(new Gtk.Separator({
                 visible: true
