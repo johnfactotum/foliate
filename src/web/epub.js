@@ -10298,6 +10298,7 @@ var IframeView = function () {
 			}
 
 			var m = new _marksPane.Highlight(range, className, data, attributes);
+			try {
 			var h = this.pane.addMark(m);
 
 			this.highlights[cfiRange] = { "mark": h, "element": h.element, "listeners": [emitter, cb] };
@@ -10311,6 +10312,7 @@ var IframeView = function () {
 				h.element.addEventListener("touchstart", cb);
 			}
 			return h;
+			} catch (e) {}
 		}
 	}, {
 		key: "underline",
