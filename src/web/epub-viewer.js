@@ -19,8 +19,6 @@ const CHARACTERS_PER_WORD = lang =>
     lang === 'zh' || lang === 'ja' || lang === 'ko' ? 2.5 : 6
 const WORDS_PER_MINUTE = 200
 
-const EPUB_NS = 'http://www.idpf.org/2007/ops'
-
 let book = ePub()
 let rendition
 let cfiToc

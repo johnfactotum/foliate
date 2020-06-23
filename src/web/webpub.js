@@ -19,9 +19,6 @@
 // but without noticeable performance impact
 let hashByteLimit =  10 * 1000 * 1000
 
-const XHTML_NS = 'http://www.w3.org/1999/xhtml'
-const XLINK_NS = 'http://www.w3.org/1999/xlink'
-
 const readAsArrayBuffer = blob => new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsBinaryString(blob)
@@ -99,7 +96,7 @@ const webpubFromFB2 = async (uri, filename) => {
     return fb2FromBlob(blob, filename)
 }
 
-const fb2Notes = new Map()
+const fb2Sections = new Map()
 
 const fb2ToHtml = (fb2, node, itemFromElement, isSection) => {
     const walk = (fb2, node, f) => {
@@ -127,22 +124,26 @@ const fb2ToHtml = (fb2, node, itemFromElement, isSection) => {
     const doc = document.implementation
         .createDocument(XHTML_NS, 'html')
 
+    const transform = (node, tagName, ...attrs) => {
+        const el = doc.createElement(tagName)
+        attrs.forEach(transferAttribute.bind(null, node, el))
+        return el
+    }
+
     const text = (fb2, node) => [doc.createTextNode(node.textContent)]
     const image = (fb2, node) => {
         const href = node.getAttributeNS(XLINK_NS, 'href')
 
+        const el = transform(node, 'img', 'alt', 'title')
+
         const id = getIdFromHref(href)
         const bin = fb2.getElementById(id)
-        if (!bin) return
-
-        const type = bin.getAttribute('content-type')
-        const content = bin.textContent
-        const data = `data:${type};base64,${content}`
-
-        const el = doc.createElement('img')
-        transferAttribute(node, el, 'alt')
-        transferAttribute(node, el, 'title')
-        el.setAttribute('src', data)
+        if (bin) {
+            const type = bin.getAttribute('content-type')
+            const content = bin.textContent
+            const data = `data:${type};base64,${content}`
+            el.setAttribute('src', data)
+        }
         return [el]
     }
     const style = (fb2, node) => {
@@ -158,6 +159,8 @@ const fb2ToHtml = (fb2, node, itemFromElement, isSection) => {
                 return [doc.createElement(node.nodeName)]
             case 'a': {
                 const el = doc.createElement('a')
+                if (node.getAttribute('type') === 'note')
+                    el.setAttributeNS(EPUB_NS, 'epub:type', 'noteref')
 
                 const href = node.getAttributeNS(XLINK_NS, 'href')
                 const id = getIdFromHref(href)
@@ -167,11 +170,8 @@ const fb2ToHtml = (fb2, node, itemFromElement, isSection) => {
                 } else {
                     let note = fb2.getElementById(id)
                     while (!note.matches('body > *')) note = note.parentElement
-                    let item = fb2Notes.get(note)
-                    if (!item && itemFromElement) {
-                        item = itemFromElement(note)
-                        fb2Notes.set(note, item)
-                    }
+                    let item = fb2Sections.get(note)
+                    if (!item && itemFromElement) item = itemFromElement(note)
                     if (item) el.setAttribute('href', item.href + '#' + id)
                 }
                 return [el]
@@ -238,7 +238,7 @@ const fb2ToHtml = (fb2, node, itemFromElement, isSection) => {
     const title = (fb2, node) => {
         switch (node.nodeName) {
             case 'p':
-                return [doc.createElement('h2'), style]
+                return [doc.createElement('h1'), style]
             case 'empty-line':
                 return [doc.createElement('br')]
         }
@@ -258,43 +258,46 @@ const fb2ToHtml = (fb2, node, itemFromElement, isSection) => {
             case 'title':
                 return [doc.createElement('header'), title]
             case 'section':
+                return [transform(node, 'section', 'id')]
             case 'epigraph':
-                return [doc.createElement('section')]
+                return [transform(node, 'blockquote', 'id')]
             case 'annotation':
                 return [doc.createElement('aside')]
             case 'subtitle':
-                return [doc.createElement('h3'), style]
+                return [doc.createElement('h2'), style]
             case 'p':
-                return [doc.createElement('p'), style]
+                return [transform(node, 'p', 'id'), style]
             case 'cite':
-                return [doc.createElement('blockquote'), style]
+                return [transform(node, 'blockquote', 'id'), section]
             case 'image':
                 return image(fb2, node)
             case 'poem':
-                return [doc.createElement('blockquote'), poem]
+                return [transform(node, 'blockquote', 'id'), poem]
             case 'table':
                 return [doc.createElement('table'), table]
             case 'empty-line':
                 return [doc.createElement('br')]
+            case 'text-author': {
+                const el = doc.createElement('p')
+                el.classList.add('text-author')
+                return [el, style]
+            }
         }
         return text(fb2, node)
     }
     const body = (fb2, node) => {
         switch (node.nodeName) {
-            case 'section':
-            case 'epigraph':
-                return [doc.createElement('section'), section]
-            case 'title': {
-                const el = doc.createElement('section')
-                return [el, titleSection]
-            }
             case 'image':
                 return image(fb2, node)
+            case 'title': {
+                return [transform(node, 'header', 'id'), titleSection]
+            }
+            default:
+                return [transform(node, 'section', 'id'), section]
         }
-        return text(fb2, node)
     }
 
-    return walk(fb2, node, isSection ? section : body).outerHTML
+    return walk(fb2, node, isSection ? section : body)
 }
 
 const processFB2 = async (fb2, blob, filename) => {
@@ -308,7 +311,8 @@ const processFB2 = async (fb2, blob, filename) => {
     const title = getTextContent('title-info book-title') || filename
     const identifier = getTextContent('document-info id') || await generateIdentifier(blob)
     const annotation = $('title-info annotation')
-    const description = annotation ? fb2ToHtml(fb2, annotation, null, true) : undefined
+    const description = annotation
+        ? fb2ToHtml(fb2, annotation, null, true).innerHTML : undefined
     const language = getTextContent('title-info lang')
     const pubdate = getTextContent('title-info date')
     const publisher = getTextContent('publish-info publisher')
@@ -345,11 +349,23 @@ const processFB2 = async (fb2, blob, filename) => {
     } catch (e) {}
 
     const stylesheet = `
+        @namespace epub "${EPUB_NS}";
+        :root {
+            --border-color: rgba(0, 0, 0, 0.15);
+            --th-bg-color: rgba(0, 0, 0, 0.075);
+            --td-bg-color: rgba(0, 0, 0, 0.025);
+        }
+        :root[__ibooks_internal_theme*="Gray"],
+        :root[__ibooks_internal_theme*="Night"] {
+            --border-color: rgba(255, 255, 255, 0.15);
+            --th-bg-color: rgba(255, 255, 255, 0.075);
+            --td-bg-color: rgba(255, 255, 255, 0.025);
+        }
         body > img, section > img {
             display: block;
             margin: auto;
         }
-        h1 {
+        body > header > h1 {
             text-align: center;
         }
         .text-author, .date {
@@ -358,13 +374,34 @@ const processFB2 = async (fb2, blob, filename) => {
         .text-author:before {
             content: "—";
         }
+        table {
+            border-collapse: collapse;
+        }
+        td, th {
+            background: var(--td-bg-color);
+            padding: 3px 9px;
+            border: 1px solid var(--border-color);
+        }
+        th {
+            background: var(--th-bg-color);
+        }
+        a[epub|type~="noteref"] {
+            font-size: .75em;
+            vertical-align: super;
+        }
     `
     const styleBlob = new Blob([stylesheet], { type: 'text/css' })
     const styleUrl = URL.createObjectURL(styleBlob)
 
+    let i = 0
     const itemFromElement = x => {
-        if (fb2Notes.has(x)) return fb2Notes.get(x)
-        const sectionHTML = fb2ToHtml(fb2, x, itemFromElement)
+        if (fb2Sections.has(x)) return fb2Sections.get(x)
+        const section = fb2ToHtml(fb2, x, itemFromElement)
+
+        const titles = [
+            ...section.querySelectorAll(':scope > section > header') || []]
+        titles.forEach(title => title.setAttribute('id', `__folaite_id_${i++}`))
+
         const sectionTitle = x.tagName === 'title'
             ? x
             : x.querySelector('title')
@@ -381,23 +418,48 @@ const processFB2 = async (fb2, blob, filename) => {
                     <link href="${styleUrl}" rel="stylesheet" type="text/css" />
                 </head>
                 <body>
-                    ${sectionHTML}
+                    ${section.outerHTML}
                 </body>
             </html>
         `
-        console.log(sectionHTML)
         const blob = new Blob([html], { type: 'text/xhtml' })
         const url = URL.createObjectURL(blob)
 
-        return {
+        const item = {
             href: url,
             type: 'text/xhtml',
-            title
+            title,
+            children: titles.map(title => {
+                const id = title.getAttribute('id')
+                return {
+                    href: url + '#' + id,
+                    title: title.textContent
+                }
+            })
         }
+        fb2Sections.set(x, item)
+        return item
     }
 
-    const sections = $$('body > image, body > title, body > epigraph, body > section')
-        .map(itemFromElement)
+    const readingOrder = []
+    const bodies = $$('body')
+    const toc = []
+    bodies.forEach((body, i) => {
+        const name = body.getAttribute('name')
+        const sections = [...body.children].map(itemFromElement)
+        readingOrder.push(...sections)
+
+        const titledSections = sections.filter(x => x.title)
+
+        if (i === 0) return toc.push(...titledSections)
+
+        const first = sections[0]
+        toc.push({
+            href: first ? first.href : '',
+            title: (first ? first.title : '') || name || title,
+            children: titledSections
+        })
+    })
 
     return {
         metadata: {
@@ -411,8 +473,8 @@ const processFB2 = async (fb2, blob, filename) => {
             subjects
         },
         links: [],
-        readingOrder: sections,
-        toc: sections,
+        readingOrder,
+        toc,
         resources: [
             { rel: ['cover'], href: cover, type: coverType },
         ]

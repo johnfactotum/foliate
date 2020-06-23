@@ -13,6 +13,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const XMLNS_NS = 'http://www.w3.org/2000/xmlns/'
+const XLINK_NS = 'http://www.w3.org/1999/xlink'
+const XHTML_NS = 'http://www.w3.org/1999/xhtml'
+
+const EPUB_NS = 'http://www.idpf.org/2007/ops'
+
+const OPDS_CAT_NS = 'http://opds-spec.org/2010/catalog'
+const OPDS_ROOT_NS = 'http://opds-spec.org/'
+const OPDS_NS = [OPDS_CAT_NS, OPDS_ROOT_NS]
+const THR_NS = 'http://purl.org/syndication/thread/1.0'
+
+const DC_ELS_NS = 'http://purl.org/dc/elements/1.1/'
+const DC_TERMS_NS = 'http://purl.org/dc/terms/'
+const DC_NS = [DC_TERMS_NS, DC_ELS_NS]
+
 const debounce = (f, wait, immediate) => {
     let timeout
     return (...args) => {

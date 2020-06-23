@@ -3,14 +3,6 @@ let baseURI
 // very simple OPDS parser
 // the basic idea is derived from https://github.com/SamyPesse/xml-schema
 
-const OPDS_CAT_NS = 'http://opds-spec.org/2010/catalog'
-const OPDS_ROOT_NS = 'http://opds-spec.org/'
-const OPDS_NS = [OPDS_CAT_NS, OPDS_ROOT_NS]
-const THR_NS = 'http://purl.org/syndication/thread/1.0'
-const DC_ELS_NS = 'http://purl.org/dc/elements/1.1/'
-const DC_TERMS_NS = 'http://purl.org/dc/terms/'
-const DC_NS = [DC_TERMS_NS, DC_ELS_NS]
-
 const trim = x => x ? x.trim() : x
 
 const getContent = el => {
