@@ -1161,8 +1161,12 @@ var Window = GObject.registerClass({
         //     Gio.SettingsBindFlags.DEFAULT)
         this._sidebar.visible = windowState.get_boolean('show-sidebar')
         windowState.connect('changed::show-sidebar', () => {
+            const gtkSettings = Gtk.Settings.get_default()
+            const enableAnimation =
+                gtkSettings && gtkSettings.gtk_enable_animations
             const show = windowState.get_boolean('show-sidebar')
             const paned = this._paned
+            if (!enableAnimation) return this._sidebar.visible = show
             if (!show) {
                 Tweener.addTween(paned, {
                     position: 0,
