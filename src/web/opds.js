@@ -9,7 +9,7 @@ const getContent = el => {
     const type = el.getAttribute('type')
     if (type === 'html' || type === 'text/html')
         return toPangoMarkup(el.innerHTML)
-    else return trim(el.innerText)
+    else return trim(el.textContent)
 }
 
 const link = {
