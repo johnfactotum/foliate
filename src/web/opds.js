@@ -67,6 +67,11 @@ const entry = {
         language: { ns: DC_NS },
         issued: { ns: DC_TERMS_NS },
         extent: { ns: DC_TERMS_NS },
+        sources: {
+            tag: 'source',
+            array: true,
+            ns: DC_NS
+        },
         rights: {},
         content: {
             manual: true,
@@ -181,6 +186,7 @@ const fetchWithAuth = (resource, init) => {
     return fetch(req)
 }
 
+let myfeed
 const getFeed = (uri, token) => {
     baseURI = uri
     const parser = new DOMParser()
@@ -195,6 +201,7 @@ const getFeed = (uri, token) => {
                 dispatch({ type: 'entry', payload, token })
             } else if (tagName === 'feed') {
                 const payload = parse(doc.documentElement, feed)
+                myfeed = payload
                 payload.isEntry = false
                 dispatch({ type: 'feed', payload, token })
             } else

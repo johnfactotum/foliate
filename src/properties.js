@@ -69,7 +69,7 @@ var PropertiesBox = GObject.registerClass({
         let {
             title, creator, description, longDescription,
             publisher, pubdate, modified_date, language, identifier, rights,
-            extent, format, categories, subjects
+            extent, format, categories, subjects, sources
         } = metadata
         if (!categories) categories = subjects
 
@@ -188,6 +188,17 @@ var PropertiesBox = GObject.registerClass({
                 this._propertiesBox.pack_start(box, false, true, 0)
             }
         }
+        if (sources && sources.length) this._propertiesBox.pack_start(new PropertyBox({
+            property_name: _('Sources'),
+            use_markup: true,
+            property_value: sources
+                .map(markupEscape)
+                .map(x => x.startsWith('http://') || x.startsWith('https://')
+                    ? `<a href="${x}">${x}</a>`
+                    : x)
+                .map(x => sources.length > 1 ? `<span alpha="50%"> •  </span>${x}` : x)
+                .join('\n')
+        }), false, true, 0)
         if (rights) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Copyright'),
             property_value: rights

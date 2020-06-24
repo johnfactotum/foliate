@@ -207,7 +207,8 @@ var OpdsClient = class OpdsClient {
             title, summary, content, publisher, language, identifier, rights,
             published, updated, issued, extent,
             authors = [],
-            categories = []
+            categories = [],
+            sources = [],
         } = entry
         return {
             title, publisher, language, identifier, rights,
@@ -215,6 +216,7 @@ var OpdsClient = class OpdsClient {
             // authors or categories
             creator: authors.map(x => x.name).join(_(', ')),
             categories: categories.map(x => x.label || x.term),
+            sources,
             description: summary,
             longDescription: content,
             pubdate: issued || published,
