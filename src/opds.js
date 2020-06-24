@@ -548,22 +548,22 @@ var OpdsAcquisitionBox = GObject.registerClass({
         }, params))
         this.sort = sort
 
-        this.connect('child-activated', (flowbox, child) => {
-            const entry = child.entry.value
-            if (!OpdsClient.isCatalogEntry(entry)) {
-                const { href, type } = entry.links[0]
-                this.emit('link-activated', href, type)
-                return
-            }
+        this.connect('child-activated', this._onChildActivated.bind(this))
+    }
+    _onChildActivated(flowbox, child) {
+        const entry = child.entry.value
+        if (!OpdsClient.isCatalogEntry(entry)) {
+            const { href, type } = entry.links[0]
+            this.emit('link-activated', href, type)
+            return
+        }
 
-            const surface = child.surface
-            const dialog = new PropertiesWindow({
-                modal: true,
-                title: entry.title,
-                use_header_bar: true,
-                transient_for: this.get_toplevel()
-            }, OpdsClient.opdsEntryToMetadata(entry), surface)
-
+        const getTitle = child => {
+            const index = child.get_index()
+            const total = flowbox.get_children().length
+            return `${index + 1} of ${total}`
+        }
+        const packAcquisitionButtons = entry => {
             const actionArea = dialog.propertiesBox.actionArea
 
             const { links } = entry
@@ -572,10 +572,47 @@ var OpdsAcquisitionBox = GObject.registerClass({
             })
             acquisitionButtons.forEach(button => actionArea.add(button))
             if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
+        }
+        const getPrevNext = child => {
+            const index = child.get_index()
+            const prev = flowbox.get_child_at_index(index - 1)
+            const next = flowbox.get_child_at_index(index + 1)
+            return [prev, next]
+        }
 
-            dialog.run()
-            dialog.close()
-        })
+        const surface = child.surface
+        const dialog = new PropertiesWindow({
+            modal: true,
+            use_header_bar: true,
+            transient_for: this.get_toplevel()
+        }, OpdsClient.opdsEntryToMetadata(entry), surface)
+
+        dialog.title = getTitle(child)
+        packAcquisitionButtons(entry)
+
+        const buildButton = (child, i) => {
+            if (!child) return
+
+            const entry = child.entry.value
+            if (!OpdsClient.isCatalogEntry(entry)) return
+
+            const isPrev = i === 0
+            const callback = isPrev => {
+                dialog.clearButtons()
+                const name = dialog.updateProperties(
+                    OpdsClient.opdsEntryToMetadata(entry),
+                    child.surface)
+                dialog.title = getTitle(child)
+                packAcquisitionButtons(entry)
+                getPrevNext(child).forEach(buildButton)
+                dialog.setVisible(name, isPrev)
+            }
+            dialog.packButton(isPrev, callback)
+        }
+        getPrevNext(child).forEach(buildButton)
+
+        dialog.run()
+        dialog.close()
     }
     async load(entries) {
         this.emit('loaded')
