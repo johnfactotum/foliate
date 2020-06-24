@@ -317,12 +317,12 @@ var PropertiesWindow = GObject.registerClass({
         this._buttons.add(button)
     }
     packFindBookOnButton() {
-        const title = this.metadata.title
-        if (!title) return
+        const bookTitle = this.metadata.title
+        if (!bookTitle) return
 
         const buttonLinks = findBookOn.map(link => {
             const { href, title } = link
-            const uri = href.replace(/%s/g, encodeURIComponent(title))
+            const uri = href.replace(/%s/g, encodeURIComponent(bookTitle))
             return {
                 href: uri, title
             }
