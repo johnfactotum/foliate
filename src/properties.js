@@ -277,7 +277,6 @@ var PropertiesWindow = GObject.registerClass({
         }, duration)
     }
     updateProperties(metadata, cover) {
-        const oldScrolled = this._scrolled
         this._scrolled = new Gtk.ScrolledWindow({
             visible: true
         })

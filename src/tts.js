@@ -37,7 +37,7 @@ const espeakGetVoice = (espeakVoices, language) => {
         .filter(x => x)         // and empty lines
         .map(x => {
             // I think "Pty" means "priority"
-            const [pty, lang, ageGender, voiceName, file, ...otherLangs] = x.split(/\s+/)
+            const [pty, lang, /*ageGender*/, /*voiceName*/, file, ...otherLangs] = x.split(/\s+/)
 
             const otherLanguages = otherLangs
                 // reverse the earlier split...
