@@ -79,6 +79,7 @@ const feed = {
     fields: {
         id: {},
         title: {},
+        subtitle: {},
         icon: {},
         updated: {},
         links: link,

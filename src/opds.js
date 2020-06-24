@@ -761,6 +761,8 @@ var OpdsBrowser = GObject.registerClass({
     Properties: {
         title: GObject.ParamSpec.string('title', 'title', 'title',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, defaultTitle),
+        subtitle: GObject.ParamSpec.string('subtitle', 'subtitle', 'subtitle',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, ''),
         searchable: GObject.ParamSpec.boolean('searchable', 'searchable', 'searchable',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
     }
@@ -880,6 +882,7 @@ var OpdsBrowser = GObject.registerClass({
     }
     async _loadOpds(uri) {
         this.set_property('title', _('Loading…'))
+        this.set_property('subtitle', '')
 
         this._uri = uri
         if (this._opdsWidget) this._opdsWidget.destroy()
@@ -1008,7 +1011,8 @@ var OpdsBrowser = GObject.registerClass({
         }
 
         makePage(uri, null, true).then(feed => {
-            this.set_property('title', feed.title || defaultTitle)
+            if (feed.title) this.set_property('title', feed.title)
+            if (feed.subtitle) this.set_property('subtitle', feed.subtitle)
             const tabs = [].concat(feed.links).filter(link => 'href' in link
                 && 'rel' in link
                 && Object.keys(related).some(rel => linkIsRel(link, rel)))

@@ -595,6 +595,7 @@ var LibraryWindow =  GObject.registerClass({
             this._stack.bind_property('visible-child-name', stack, 'visible-child-name', flag))
 
         this._opdsBrowser.bind_property('title', this._opdsHeaderBar, 'title', flag)
+        this._opdsBrowser.bind_property('subtitle', this._opdsHeaderBar, 'subtitle', flag)
         this._mainStack.connect('notify::visible-child', stack => {
             if (stack.visible_child_name === 'library') {
                 this._opdsBrowser.reset()
