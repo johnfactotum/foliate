@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-21 22:21+0800\n"
-"PO-Revision-Date: 2020-06-04 14:28-0300\n"
+"PO-Revision-Date: 2020-06-24 11:41-0300\n"
 "Last-Translator: Fúlvio Alves <fga.fulvio@gmail.com>\n"
 "Language-Team: Fábio Nogueira <fnogueira@gnome.org>; Marcelo dos Santos "
 "Mafra <msmafra@gmail.com>\n"
@@ -71,26 +71,24 @@ msgstr "Pesquisando…"
 
 #: src/contents.js:303
 msgid "Bibliography"
-msgstr ""
+msgstr "Bibliografia"
 
 #: src/contents.js:304
 msgid "Glossary"
-msgstr ""
+msgstr "Glossário"
 
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
-#, fuzzy
 msgid "Annotation"
-msgstr "Anotações"
+msgstr "Anotação"
 
 #: src/contents.js:309
-#, fuzzy
 msgid "Footnote"
-msgstr "Visualização de Nota de Rodapé"
+msgstr "Nota de rodapé"
 
 #: src/contents.js:310 src/contents.js:311
 msgid "Endnote"
-msgstr ""
+msgstr "Nota de fim"
 
 #. deprecated
 #: src/contents.js:312 src/contents.js:339
@@ -333,7 +331,7 @@ msgstr "Wikcionário"
 
 #: src/lookup.js:313
 msgid "Wiktionary (English)"
-msgstr "Wiktionary (Inglês)"
+msgstr "Wikcionário (Inglês)"
 
 #: src/lookup.js:386
 msgid "Search on Wiktionary"
@@ -390,30 +388,29 @@ msgstr "Mostrar informação detalhada da depuração"
 
 #: src/opds.js:144
 msgid "Authentication Required"
-msgstr ""
+msgstr "Requer Autenticação"
 
 #: src/opds.js:146
 #, javascript-format
 msgid "Authentication required by %s"
-msgstr ""
+msgstr "Autenticação requerida por %s"
 
 #: src/opds.js:149
 #, javascript-format
 msgid "The site says: “%s”"
-msgstr ""
+msgstr "O website diz: “%s”"
 
 #: src/opds.js:160
 msgid "Authenticate"
-msgstr ""
+msgstr "Autenticar"
 
 #: src/opds.js:171
-#, fuzzy
 msgid "Username"
-msgstr "Nome do capítulo"
+msgstr "Nome do usuário"
 
 #: src/opds.js:175
 msgid "Password"
-msgstr ""
+msgstr "Senha"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
@@ -471,9 +468,8 @@ msgid "OPDS URL"
 msgstr "URL OPDS"
 
 #: src/opds.js:876
-#, fuzzy
 msgid "Go"
-msgstr "_Ir"
+msgstr "Ir"
 
 #: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
@@ -651,7 +647,7 @@ msgstr "pt-BR"
 #: src/utils.js:150
 #, javascript-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
 #. "%s" is usually already a fully formatted date string,
@@ -660,7 +656,7 @@ msgstr ""
 #: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
-msgstr ""
+msgstr "%s AEC"
 
 #: src/utils.js:219
 #, javascript-format
@@ -866,9 +862,8 @@ msgid "Current chapter"
 msgstr "Capítulo atual"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-#, fuzzy
 msgid "Reference Preview"
-msgstr "Visualização de Nota de Rodapé"
+msgstr "Visualização da Referência"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
 #: src/ui/shortcutsWindow.ui:159 src/ui/shortcutsWindow.ui:342
@@ -956,28 +951,24 @@ msgid "About Foliate"
 msgstr "Sobre o Foliate"
 
 #: src/ui/libraryWindow.ui:55
-#, fuzzy
 msgid "Go to start page"
-msgstr "Ir para o início"
+msgstr "Ir para a página inicial"
 
 #: src/ui/libraryWindow.ui:83
-#, fuzzy
 msgid "Add this feed to catalogs"
-msgstr "Adicionar catálogo"
+msgstr "Adicionar este feed aos catálogos"
 
 #: src/ui/libraryWindow.ui:104
-#, fuzzy
 msgid "Location…"
-msgstr "Localização"
+msgstr "Localização…"
 
 #: src/ui/libraryWindow.ui:116
 msgid "Go Back to Library"
-msgstr ""
+msgstr "Voltar à Biblioteca"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalog"
-msgstr "Sem catálogos"
+msgstr "Voltar ao Catálogo"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -1287,7 +1278,7 @@ msgstr "IFC"
 
 #: src/ui/navBar.ui:174
 msgid "EPUB Canonical Fragment Identifier"
-msgstr "EPUB Identificador de Fragmento Canônico (IFC)"
+msgstr "Identificador de Fragmento Canônico EPUB"
 
 #: src/ui/navBar.ui:213
 msgid "Go to beginning of book"
@@ -1491,7 +1482,7 @@ msgstr "Procurar na Wikipédia"
 
 #: src/ui/selectionPopover.ui:105
 msgid "Speak from Here"
-msgstr "Falar à partir Daqui"
+msgstr "Falar à partir daqui"
 
 #: src/ui/shortcutsWindow.ui:9
 msgid "Library Shortcuts"
@@ -1711,68 +1702,66 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
 msgid "OPDS catalogs:"
-msgstr "Catálogo OPDS"
+msgstr "Catálogos OPDS:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Catalogs are now opened in the main library window"
-msgstr ""
+msgstr "Os catálogos agora são abertos na janela principal da biblioteca"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
-#, fuzzy
 msgid "View current location"
-msgstr "Remover a localização atual"
+msgstr "Ver localização atual"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-#, fuzzy
 msgid "Go to catalog start page"
-msgstr "Ir para o início"
+msgstr "Ir para a página inicial do catálogo"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#, fuzzy
 msgid "Reload catalog"
-msgstr "Adicionar catálogo"
+msgstr "Recarregar catálogo"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
-#, fuzzy
 msgid "Add current feed to catalogs"
-msgstr "Adicionar catálogo"
+msgstr "Adicionar feed atual aos catálogos"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
 msgid "HTTP authentication support"
-msgstr ""
+msgstr "Suporte a autenticação HTTP"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
-#, fuzzy
 msgid "Other changes:"
-msgstr "Alterações recentes:"
+msgstr "Outras alterações:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr ""
+"Corrigida extração de identificador único para arquivos FictionBook (.fb2, ."
+"fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed newlines being ignored when copying text"
-msgstr ""
+msgstr "Corrigido problema em que novas linhas são ignoradas ao copiar texto"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
-msgstr ""
+msgstr "“Virar página ao tocar” agora é desativado em layouts não paginados"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Opening a book from the library view now closes the library window"
 msgstr ""
+"Abrir um livro a partir da visualização da biblioteca agora fecha a janela "
+"da biblioteca"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr ""
+"Idioma de datas de publicação nos metadados agora são analisadas e formatadas"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
-#, fuzzy
 msgid "Export annotations from the library view"
-msgstr "Exportar anotações para Markdown"
+msgstr "Exportar anotações da visualização da biblioteca"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
@@ -1787,16 +1776,15 @@ msgstr "Alterações:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
 msgid "Fixed blurry book covers on HiDPI"
-msgstr ""
+msgstr "Corrigidas capas de livros embaçadas ao usar HiDPI"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
 msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
-msgstr ""
+msgstr "Corrigidos links para Standard Ebooks e Project Gutenberg"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
-#, fuzzy
 msgid "Fixed wrong view icon on startup"
-msgstr "Corrigido número incorreto da versão"
+msgstr "Corrigido ícone de visualização incorreto ao inicializar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "Library:"
@@ -2423,14 +2411,12 @@ msgid "Whether to save book covers to cache"
 msgstr "Salvar capas de livros na cache"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
-#, fuzzy
 msgid "Cover size"
-msgstr "Tamanho da barra lateral"
+msgstr "Tamanho da capa"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:35
-#, fuzzy
 msgid "Width of cached book cover images"
-msgstr "Cache de capas de livros"
+msgstr "Largura das imagens de capas de livros em cache"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Restore last file opened"
@@ -2744,13 +2730,12 @@ msgid "How to view the library"
 msgstr "Como visualizar a biblioteca"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:273
-#, fuzzy
 msgid "Library page"
-msgstr "Biblioteca"
+msgstr "Página da biblioteca"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:274
 msgid "Current library page (“library” or “catalog”)"
-msgstr ""
+msgstr "Página atual da biblioteca (“biblioteca” ou “catálogo”)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:278
 msgid "Use Tracker"
