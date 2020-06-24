@@ -14,8 +14,9 @@
  */
 
 const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
+const Tweener = imports.tweener.tweener
 
-const { locales, formatPercent, formatMinutes, fileFilters,
+const { debounce, locales, formatPercent, formatMinutes, fileFilters,
     setPopoverPosition, doubleInvert, brightenColor } = imports.utils
 const { EpubView, EpubViewAnnotation, enableAnnotations } = imports.epubView
 const { ContentsStack, FindBox,
@@ -1116,10 +1117,16 @@ var Window = GObject.registerClass({
         if (useSidebar) {
             this._buildSidebar()
             this._paned = new Gtk.Paned({ visible: true })
-            this._paned.pack1(this._sidebar, false, false)
+            this._paned.pack1(this._sidebar, false, true)
             this._paned.pack2(this._mainOverlay, true, false)
-            windowState.bind('sidebar-size', this._paned, 'position',
-                Gio.SettingsBindFlags.DEFAULT)
+            this._paned.position = windowState.get_int('sidebar-size')
+            // windowState.bind('sidebar-size', this._paned, 'position',
+            //     Gio.SettingsBindFlags.DEFAULT)
+            this._paned.connect('notify::position', debounce(() => {
+                const pos = this._paned.position
+                if (pos && pos !== windowState.get_int('sidebar-size'))
+                    windowState.set_int('sidebar-size', pos)
+            }, 500))
             this._fullscreenOverlay.add(this._paned)
         } else {
             if (this._paned) this._paned.remove(this._mainOverlay)
@@ -1150,8 +1157,29 @@ var Window = GObject.registerClass({
         box.pack_start(this._contentsStack, true, true, 0)
         box.pack_start(stackSwitcher, false, true, 0)
         this._sidebar = box
-        windowState.bind('show-sidebar', this._sidebar, 'visible',
-            Gio.SettingsBindFlags.DEFAULT)
+        // windowState.bind('show-sidebar', this._sidebar, 'visible',
+        //     Gio.SettingsBindFlags.DEFAULT)
+        this._sidebar.visible = windowState.get_boolean('show-sidebar')
+        windowState.connect('changed::show-sidebar', () => {
+            const show = windowState.get_boolean('show-sidebar')
+            const paned = this._paned
+            if (!show) {
+                Tweener.addTween(paned, {
+                    position: 0,
+                    time: 0.1,
+                    transition: 'easeOutQuad',
+                    onComplete: () => this._sidebar.hide()
+                })
+            } else {
+                this._paned.position = 0
+                this._sidebar.show()
+                Tweener.addTween(paned, {
+                    position: windowState.get_int('sidebar-size'),
+                    time: 0.1,
+                    transition: 'easeOutQuad',
+                })
+            }
+        })
     }
     _buildPopovers() {
         this._sidePopover = new Gtk.Popover()
