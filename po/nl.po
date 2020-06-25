@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 01:42+0800\n"
-"PO-Revision-Date: 2020-05-29 13:14+0200\n"
+"POT-Creation-Date: 2020-06-21 22:21+0800\n"
+"PO-Revision-Date: 2020-06-19 13:16+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
-#: src/main.js:190 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
+#: src/main.js:192 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -65,6 +65,34 @@ msgstr[1] "%d resultaten"
 #: src/contents.js:280
 msgid "Searching…"
 msgstr "Bezig met zoeken…"
+
+#: src/contents.js:303
+msgid "Bibliography"
+msgstr ""
+
+#: src/contents.js:304
+msgid "Glossary"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:306 src/contents.js:313
+#, fuzzy
+msgid "Annotation"
+msgstr "Aantekeningen"
+
+#: src/contents.js:309
+#, fuzzy
+msgid "Footnote"
+msgstr "Voorvertoning van voetnoot"
+
+#: src/contents.js:310 src/contents.js:311
+msgid "Endnote"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:312 src/contents.js:339
+msgid "Note"
+msgstr "Notitie"
 
 #: src/epubView.js:1016
 msgid "File not found."
@@ -149,7 +177,7 @@ msgstr "Bestand opslaan"
 msgid "Annotations for “%s”"
 msgstr "Aantekeningen bij '%s'"
 
-#: src/export.js:166 src/utils.js:252
+#: src/export.js:166 src/utils.js:255
 msgid "All Files"
 msgstr "Alle bestanden"
 
@@ -177,7 +205,7 @@ msgstr ""
 "De identificatie van het geïmporteerde bestand komt niet overeen met die van "
 "het boek. Dit kan er op wijzen dat de aantekeningen niet bij dit boek horen."
 
-#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
@@ -236,54 +264,54 @@ msgstr ""
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: src/library.js:626
+#: src/library.js:629
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d geselecteerd"
 msgstr[1] "%d geselecteerd"
 
-#: src/library.js:744
+#: src/library.js:748
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Kan boek niet toevoegen"
 msgstr[1] "Kan boeken niet toevoegen"
 
-#: src/library.js:746
+#: src/library.js:750
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Kan het volgende bestand niet toevoegen:"
 msgstr[1] "Kan de volgende bestanden niet toevoegen:"
 
-#: src/library.js:819
+#: src/library.js:822
 msgid "All"
 msgstr "Alle"
 
-#: src/library.js:822 src/ui/catalogWindow.ui:39
+#: src/library.js:825 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Titel"
 
-#: src/library.js:823
+#: src/library.js:826
 msgid "Author"
 msgstr "Auteur"
 
-#: src/library.js:824 src/properties.js:77
+#: src/library.js:827 src/properties.js:77
 msgid "Tags"
 msgstr "Labels"
 
-#: src/library.js:825
+#: src/library.js:828
 msgid "Description"
 msgstr "Beschrijving"
 
-#: src/library.js:826 src/properties.js:81
+#: src/library.js:829 src/properties.js:81
 msgid "Publisher"
 msgstr "Uitgever"
 
-#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Taal"
 
-#: src/library.js:864
+#: src/library.js:867
 msgid "Add Files"
 msgstr "Bestanden toevoegen"
 
@@ -311,74 +339,73 @@ msgstr "Zoeken op Wiktionary"
 msgid "Translation by Google Translate"
 msgstr "Vertaling door Google Translate"
 
-#: src/main.js:119 src/window.js:657
+#: src/main.js:121 src/window.js:657
 msgid "Open File"
 msgstr "Bestand openen"
 
-#: src/main.js:140
+#: src/main.js:142
 msgid "Open Catalog"
 msgstr "Catalogus openen"
 
-#: src/main.js:146 src/ui/catalogRow.ui:50
+#: src/main.js:148 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "Openen"
 
-#: src/main.js:150
+#: src/main.js:152
 msgid "OPDS Catalog URL:"
 msgstr "OPDS-catalogus-url:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:189
+#: src/main.js:191
 msgid "translator-credits"
 msgstr "Heimen Stoffels"
 
-#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Een eenvoudige, moderne e-boeklezer"
 
-#: src/main.js:216
+#: src/main.js:218
 msgid "Open library window"
 msgstr "Bibliotheekvenster openen"
 
-#: src/main.js:220
+#: src/main.js:222
 msgid "Add files to the library"
 msgstr "Bestanden toevoegen aan bibliotheek"
 
-#: src/main.js:224
+#: src/main.js:226
 msgid "Show version"
 msgstr "Versie tonen"
 
-#: src/main.js:228
+#: src/main.js:230
 msgid "Show verbose debugging information"
 msgstr "Foutopsporingsinformatie tonen"
 
 #: src/opds.js:144
 msgid "Authentication Required"
-msgstr ""
+msgstr "Authenticatie vereist"
 
 #: src/opds.js:146
 #, javascript-format
 msgid "Authentication required by %s"
-msgstr ""
+msgstr "Authenticatie vereist door %s"
 
 #: src/opds.js:149
 #, javascript-format
 msgid "The site says: “%s”"
-msgstr ""
+msgstr "De website meldt: “%s”"
 
 #: src/opds.js:160
 msgid "Authenticate"
-msgstr ""
+msgstr "Authenticeren"
 
 #: src/opds.js:171
-#, fuzzy
 msgid "Username"
-msgstr "Hoofdstuknaam"
+msgstr "Gebruikersnaam"
 
 #: src/opds.js:175
 msgid "Password"
-msgstr ""
+msgstr "Wachtwoord"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
@@ -433,14 +460,13 @@ msgstr "OPDS-catalogus"
 
 #: src/opds.js:869 src/ui/catalogWindow.ui:53
 msgid "OPDS URL"
-msgstr "OPDS-url:"
+msgstr "OPDS-url"
 
 #: src/opds.js:876
-#, fuzzy
 msgid "Go"
-msgstr "Navi_gatie"
+msgstr "Navigatie"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Bezig met laden…"
@@ -616,29 +642,32 @@ msgstr "nl"
 #: src/utils.js:150
 #, javascript-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
-#: src/utils.js:175
+#. "%s" is usually already a fully formatted date string,
+#. and can even include month and day, not just year;
+#. so make sure NOT to translate it to something like "The year %s before Christ"
+#: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
-msgstr ""
+msgstr "%s VC"
 
-#: src/utils.js:216
+#: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minuut"
 msgstr[1] "%d minuten"
 
-#: src/utils.js:219
+#: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d uur"
 msgstr[1] "%d uur"
 
-#: src/utils.js:254
+#: src/utils.js:257
 msgid "E-book Files"
 msgstr "E-boekbestanden"
 
@@ -689,12 +718,12 @@ msgstr "Zoeken"
 msgid "Menu"
 msgstr "Menu"
 
-#: src/window.js:1089
+#: src/window.js:1090
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Afbeelding van '%s'"
 
-#: src/window.js:1089
+#: src/window.js:1090
 msgid "Image"
 msgstr "Afbeelding"
 
@@ -828,7 +857,8 @@ msgid "Current chapter"
 msgstr "Huidige hoofdstuk"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-msgid "Footnote Preview"
+#, fuzzy
+msgid "Reference Preview"
 msgstr "Voorvertoning van voetnoot"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
@@ -917,28 +947,24 @@ msgid "About Foliate"
 msgstr "Over Foliate"
 
 #: src/ui/libraryWindow.ui:55
-#, fuzzy
 msgid "Go to start page"
-msgstr "Ga naar begin"
+msgstr "Ga naar beginpagina"
 
 #: src/ui/libraryWindow.ui:83
-#, fuzzy
 msgid "Add this feed to catalogs"
-msgstr "Catalogus toevoegen"
+msgstr "Feed toevoegen aan catalogi"
 
 #: src/ui/libraryWindow.ui:104
-#, fuzzy
 msgid "Location…"
-msgstr "Locatie"
+msgstr "Locatie…"
 
 #: src/ui/libraryWindow.ui:116
 msgid "Go Back to Library"
-msgstr ""
+msgstr "Ga terug naar bibliotheek"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalog"
-msgstr "Geen catalogi"
+msgstr "Ga terug naar catalogus"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -1675,51 +1701,47 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
 msgid "OPDS catalogs:"
-msgstr "OPDS-catalogus"
+msgstr "OPDS-catalogi:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Catalogs are now opened in the main library window"
-msgstr ""
+msgstr "Catalogi worden voortaan geopend in het hoofdvenster"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
-#, fuzzy
 msgid "View current location"
-msgstr "Huidige locatie verwijderen"
+msgstr "Huidige locatie tonen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-#, fuzzy
 msgid "Go to catalog start page"
-msgstr "Ga naar begin"
+msgstr "Ga naar catalogusindex"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#, fuzzy
 msgid "Reload catalog"
-msgstr "Catalogus toevoegen"
+msgstr "Catalogus herladen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
-#, fuzzy
 msgid "Add current feed to catalogs"
-msgstr "Catalogus toevoegen"
+msgstr "Feed toevoegen aan catalogi"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
 msgid "HTTP authentication support"
-msgstr ""
+msgstr "HTTP-authenticatie-ondersteuning"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
-#, fuzzy
 msgid "Other changes:"
-msgstr "Grootschalige aanpassingen:"
+msgstr "Andere aanpassingen:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr ""
+"Unieke identificatie-extrahering van FictionBook (.fb2, .fb2.zip)-bestanden "
+"gerepareerd"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed newlines being ignored when copying text"
-msgstr ""
+msgstr "Regeleindes worden niet meer genegeerd tijdens het kopiëren van tekst"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
@@ -1734,9 +1756,8 @@ msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
-#, fuzzy
 msgid "Export annotations from the library view"
-msgstr "Aantekeningen exporteren naar Markdown"
+msgstr "Aantekeningen exporteren in het bibliotheekvenster"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
@@ -1758,58 +1779,52 @@ msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
-#, fuzzy
 msgid "Fixed wrong view icon on startup"
 msgstr "Onjuist versienummer gerepareerd"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
-#, fuzzy
 msgid "Library:"
-msgstr "Bibliotheek"
+msgstr "Bibliotheek:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
 msgid "A library view showing recent books and reading progress"
-msgstr ""
+msgstr "Een bibliotheekweergave die recente boeken en leesvoortgang toont"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:84
 msgid "Search books by metadata"
-msgstr ""
+msgstr "Boeken zoeken op metagegevens"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
 msgid "E-book discovery with OPDS"
-msgstr ""
+msgstr "E-boekverkenning met OPDS"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
-#, fuzzy
 msgid "New supported formats:"
-msgstr "Kies een bestandsindeling:"
+msgstr "Nieuwe ondersteunde formaten:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
 msgid "FictionBook (.fb2, .fb2.zip)"
-msgstr ""
+msgstr "FictionBook (.fb2, .fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
-msgstr ""
+msgstr "Stripboekarchief (.cbr, .cbz, .cbt, .cb7)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
-#, fuzzy
 msgid "Plain text (.txt)"
-msgstr "Platte tekst"
+msgstr "Platte tekst (.txt)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
 msgid "Unpacked EPUB files"
-msgstr ""
+msgstr "Onuitgepakte EPUB-bestanden"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
-#, fuzzy
 msgid "Layout:"
-msgstr "Indeling"
+msgstr "Indeling:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
-#, fuzzy
 msgid "Option to set maximum page width"
-msgstr "Maximale paginabreedte"
+msgstr "Optie om de maximale paginabreedte in te stellen"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:97
 msgid ""
@@ -1818,9 +1833,8 @@ msgid ""
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
-#, fuzzy
 msgid "Image viewer:"
-msgstr "Sneltoetsen in afbeeldingsweergave"
+msgstr "Afbeeldingsweergave:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
 msgid ""
@@ -1835,9 +1849,8 @@ msgid ""
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
-#, fuzzy
 msgid "Text-to-speech:"
-msgstr "Tekst-naar-spraak"
+msgstr "Tekst-naar-spraak:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
 msgid "Improved text-to-speech configuration UI"
@@ -1848,24 +1861,20 @@ msgid "Ability to set text-to-speech voice based on book language"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
-#, fuzzy
 msgid "Import annotations from JSON"
-msgstr "Aantekeningen importeren"
+msgstr "Aantekeningen importeren uit JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
-#, fuzzy
 msgid "Search in annotations"
 msgstr "Aantekeningen doorzoeken"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
-#, fuzzy
 msgid "Annotations are now sorted in the same order as they appear in the book"
-msgstr ""
-"Gegenereerde locaties worden nu opgeslagen in de cachemap i.p.v. localStorage"
+msgstr "Gegenereerde locaties worden nu gesorteerd in de boekvolgorde"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
 msgid "Security:"
-msgstr ""
+msgstr "Beveiliging:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
 msgid ""
@@ -1902,7 +1911,6 @@ msgid "Command-line options for showing version and adding books to library"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
-#, fuzzy
 msgid "Option to clear or disable cache"
 msgstr "Optie om het woordenboek uit te schakelen"
 
@@ -2378,14 +2386,12 @@ msgid "Whether to save book covers to cache"
 msgstr "Of boekomslagen moeten worden opgeslagen in de cache"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
-#, fuzzy
 msgid "Cover size"
-msgstr "Zijbalkgrootte"
+msgstr "Omslaggrootte"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:35
-#, fuzzy
 msgid "Width of cached book cover images"
-msgstr "Boekomslagen opslaan in cache"
+msgstr "Breedte van gecachete omslagafbeeldingen"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Restore last file opened"
@@ -2700,13 +2706,12 @@ msgid "How to view the library"
 msgstr "Hoe de bibliotheek moet worden getoond"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:273
-#, fuzzy
 msgid "Library page"
-msgstr "Bibliotheek"
+msgstr "Bibliotheekpagina"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:274
 msgid "Current library page (“library” or “catalog”)"
-msgstr ""
+msgstr "Huidige bibliotheekpagina (“bibliotheek” of “catalogus”)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:278
 msgid "Use Tracker"
@@ -3116,9 +3121,6 @@ msgstr ""
 
 #~ msgid "View on Wikipedia"
 #~ msgstr "Bekijken op Wikipedia"
-
-#~ msgid "Note"
-#~ msgstr "Notitie"
 
 #~ msgid "Go to Linked Location"
 #~ msgstr "Ga naar gelinkte locatie"

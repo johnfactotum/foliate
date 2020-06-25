@@ -338,6 +338,11 @@ open() -> 'book-ready' -> loadLocations()
 */
 
 const open = async (uri, filename, inputType, renderTo, options) => {
+
+    // force rendering as XHTML
+    // if method is 'srcdoc' (default) or `write`, it will be rendered as HTML
+    options.method = 'blobUrl'
+
     try {
         switch (inputType) {
             case 'text': {
@@ -423,10 +428,11 @@ book.ready.then(async () => {
     }))
     cfiToc.sort((a, b) => CFI.compare(a.cfi, b.cfi))
 
-    const metadata = book.package.metadata
+    const metadata = book.packaging.metadata
+    if (book.packaging.uniqueIdentifier)
+        metadata.identifier = book.packaging.uniqueIdentifier
     if (metadata.description)
         metadata.description = toPangoMarkup(metadata.description)
-    if (!metadata.language) metadata.language = 'en'
     dispatch({ type: 'book-ready' })
 })
 
@@ -561,11 +567,30 @@ const setupRendition = () => {
 
         html.setAttribute('__ibooks_internal_theme', ibooksInternalTheme)
 
-        // hide EPUB 3 aside footnotes
+        const refTypes = [
+            'annoref', // deprecated
+            'biblioref',
+            'glossref',
+            'noteref',
+        ]
+        const forbidRefTypes = [
+            'backlink',
+            'referrer'
+        ]
+        const noteTypes = [
+            'annotation', // deprecated
+            'note', // deprecated
+            'footnote',
+            'endnote',
+            'rearnote' // deprecated
+        ]
+        // hide EPUB 3 aside notes
         const asides = contents.document.querySelectorAll('aside')
         Array.from(asides).forEach(aside => {
-            const type = aside.getAttribute('epub:type')
-            if (type === 'footnote') aside.style.display = 'none'
+            const type = aside.getAttributeNS(EPUB_NS, 'type')
+            const types = type ? type.split(' ') : []
+            if (noteTypes.some(x => types.includes(x)))
+                aside.style.display = 'none'
         })
 
         const links = contents.document.querySelectorAll('a:link')
@@ -573,7 +598,10 @@ const setupRendition = () => {
             e.stopPropagation()
             e.preventDefault()
 
-            const type = link.getAttribute('epub:type')
+            const type = link.getAttributeNS(EPUB_NS, 'type')
+            const types = type ? type.split(' ') : []
+            const isRefLink = refTypes.some(x => types.includes(x))
+
             const href = link.getAttribute('href')
             const id = href.split('#')[1]
             const pageHref = resolveURL(href,
@@ -586,7 +614,9 @@ const setupRendition = () => {
 
             if (isExternalURL(href))
                 dispatch({ type: 'link-external', payload: href })
-            else if (type !== 'noteref' && !enableFootnote) followLink()
+            else if (!isRefLink && !enableFootnote
+                || forbidRefTypes.some(x => types.includes(x)))
+                followLink()
             else {
                 const item = book.spine.get(pageHref)
                 if (item) await item.load(book.load.bind(book))
@@ -594,6 +624,14 @@ const setupRendition = () => {
                 let el = (item && item.document ? item.document : contents.document)
                     .getElementById(id)
                 if (!el) return followLink()
+
+                let dt
+                if (el.nodeName.toLowerCase() === 'dt') {
+                    const dfn = el.querySelector('dfn')
+                    if (dfn) dt = dfn
+                    else dt = el
+                    el = el.nextElementSibling
+                }
 
                 // this bit deals with situations like
                 //     <p><sup><a id="note1" href="link1">1</a></sup> My footnote</p>
@@ -617,19 +655,29 @@ const setupRendition = () => {
                 }
 
                 if (item) item.unload()
-                if (el.innerText.trim()) dispatch({
-                    type: 'footnote',
-                    payload: {
-                        footnote: toPangoMarkup(el.innerHTML, pageHref),
-                        // footnotes matching this would be hidden (see above)
-                        // and so one cannot navigate to them
-                        link: (el.nodeName === 'aside'
-                            && el.getAttribute('epub:type') === 'footnote')
-                            ? null : pageHref,
-                        position: getRect(e.target, frame)
-                    }
-                })
-                else followLink()
+                if (el.innerText.trim()) {
+                    const elType = el.getAttributeNS(EPUB_NS, 'type')
+                    const elTypes = elType ? elType.split(' ') : []
+
+                    // footnotes not matching this would be hidden (see above)
+                    // and so one cannot navigate to them
+                    const canLink = !(el.nodeName === 'aside'
+                        && noteTypes.some(x => elTypes.includes(x)))
+
+                    dispatch({
+                        type: 'footnote',
+                        payload: {
+                            footnote: toPangoMarkup(
+                                (dt ? `<strong>${dt.innerHTML}</strong><br/>` : '') + el.innerHTML,
+                                pageHref
+                            ),
+                            link: canLink ? pageHref : null,
+                            position: getRect(e.target, frame),
+                            refTypes: types,
+                            noteTypes: elTypes
+                        }
+                    })
+                } else followLink()
             }
         }, true))
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 01:42+0800\n"
+"POT-Creation-Date: 2020-06-21 22:21+0800\n"
 "PO-Revision-Date: 2020-06-18 21:37+0200\n"
 "Last-Translator: micrococo\n"
 "Language-Team: \n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
-#: src/main.js:190 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
+#: src/main.js:192 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -65,6 +65,34 @@ msgstr[1] "%d resultados"
 #: src/contents.js:280
 msgid "Searching…"
 msgstr "Buscando…"
+
+#: src/contents.js:303
+msgid "Bibliography"
+msgstr ""
+
+#: src/contents.js:304
+msgid "Glossary"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:306 src/contents.js:313
+#, fuzzy
+msgid "Annotation"
+msgstr "Notas"
+
+#: src/contents.js:309
+#, fuzzy
+msgid "Footnote"
+msgstr "Vista preliminar de nota a pie de página"
+
+#: src/contents.js:310 src/contents.js:311
+msgid "Endnote"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:312 src/contents.js:339
+msgid "Note"
+msgstr "Nota"
 
 #: src/epubView.js:1016
 msgid "File not found."
@@ -149,7 +177,7 @@ msgstr "Guardar archivo"
 msgid "Annotations for “%s”"
 msgstr "Notas para «%s»"
 
-#: src/export.js:166 src/utils.js:252
+#: src/export.js:166 src/utils.js:255
 msgid "All Files"
 msgstr "Todos los archivos"
 
@@ -177,7 +205,7 @@ msgstr ""
 "El identificador del archivo importado no coincide con el del libro. Esto "
 "puede indicar que las notas no pertenecen a este libro."
 
-#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
@@ -237,54 +265,54 @@ msgstr ""
 msgid "Remove"
 msgstr "Eliminar"
 
-#: src/library.js:626
+#: src/library.js:629
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d seleccionado"
 msgstr[1] "%d seleccionados"
 
-#: src/library.js:744
+#: src/library.js:748
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Error al añadir un libro"
 msgstr[1] "Error al añadir libros"
 
-#: src/library.js:746
+#: src/library.js:750
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "No se ha podido añadir el siguiente archivo:"
 msgstr[1] "No se han podido añadir los siguientes archivos:"
 
-#: src/library.js:819
+#: src/library.js:822
 msgid "All"
 msgstr "Todos"
 
-#: src/library.js:822 src/ui/catalogWindow.ui:39
+#: src/library.js:825 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Título"
 
-#: src/library.js:823
+#: src/library.js:826
 msgid "Author"
 msgstr "Autor"
 
-#: src/library.js:824 src/properties.js:77
+#: src/library.js:827 src/properties.js:77
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: src/library.js:825
+#: src/library.js:828
 msgid "Description"
 msgstr "Descripción"
 
-#: src/library.js:826 src/properties.js:81
+#: src/library.js:829 src/properties.js:81
 msgid "Publisher"
 msgstr "Editor"
 
-#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Idioma"
 
-#: src/library.js:864
+#: src/library.js:867
 msgid "Add Files"
 msgstr "Todos los archivos"
 
@@ -312,48 +340,48 @@ msgstr "Buscar en Wikcionario"
 msgid "Translation by Google Translate"
 msgstr "Traducción de Google Translate"
 
-#: src/main.js:119 src/window.js:657
+#: src/main.js:121 src/window.js:657
 msgid "Open File"
 msgstr "Abrir un archivo"
 
-#: src/main.js:140
+#: src/main.js:142
 msgid "Open Catalog"
 msgstr "Abrir un catálogo"
 
-#: src/main.js:146 src/ui/catalogRow.ui:50
+#: src/main.js:148 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "Abrir"
 
-#: src/main.js:150
+#: src/main.js:152
 msgid "OPDS Catalog URL:"
 msgstr "URL del catálogo del OPDS:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:189
+#: src/main.js:191
 msgid "translator-credits"
 msgstr ""
 "Juan Campos\n"
 "Blanc Chan\n"
 "micrococo"
 
-#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Un visor sencillo y moderno de libros electrónicos"
 
-#: src/main.js:216
+#: src/main.js:218
 msgid "Open library window"
 msgstr "Abrir la ventana de la biblioteca"
 
-#: src/main.js:220
+#: src/main.js:222
 msgid "Add files to the library"
 msgstr "Añadir archivos a la biblioteca"
 
-#: src/main.js:224
+#: src/main.js:226
 msgid "Show version"
 msgstr "Mostrar la versión"
 
-#: src/main.js:228
+#: src/main.js:230
 msgid "Show verbose debugging information"
 msgstr "Mostrar información de depuración detallada"
 
@@ -442,7 +470,7 @@ msgstr "URL del OPDS"
 msgid "Go"
 msgstr "Ir"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Cargando…"
@@ -621,26 +649,29 @@ msgid "%s (%s)"
 msgstr ""
 
 #. Translators: here "BCE" is for "before common era"
-#: src/utils.js:175
+#. "%s" is usually already a fully formatted date string,
+#. and can even include month and day, not just year;
+#. so make sure NOT to translate it to something like "The year %s before Christ"
+#: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
 msgstr ""
 
-#: src/utils.js:216
+#: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minuto"
 msgstr[1] "%d minutos"
 
-#: src/utils.js:219
+#: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d hora"
 msgstr[1] "%d horas"
 
-#: src/utils.js:254
+#: src/utils.js:257
 msgid "E-book Files"
 msgstr "Archivos de libros electrónicos"
 
@@ -692,12 +723,12 @@ msgstr "Buscar"
 msgid "Menu"
 msgstr "Menú"
 
-#: src/window.js:1089
+#: src/window.js:1090
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Imagen de «%s»"
 
-#: src/window.js:1089
+#: src/window.js:1090
 msgid "Image"
 msgstr "Imagen"
 
@@ -829,7 +860,8 @@ msgid "Current chapter"
 msgstr "Capítulo actual"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-msgid "Footnote Preview"
+#, fuzzy
+msgid "Reference Preview"
 msgstr "Vista preliminar de nota a pie de página"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
@@ -1706,8 +1738,8 @@ msgstr "Otros cambios:"
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr ""
-"Corregida la extracción del identificador único de archivos FictionBook"
-" (.fb2, .fb2.zip)"
+"Corregida la extracción del identificador único de archivos FictionBook (."
+"fb2, .fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed newlines being ignored when copying text"
@@ -1721,14 +1753,14 @@ msgstr ""
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Opening a book from the library view now closes the library window"
 msgstr ""
-"Abrir un libro desde la vista de la biblioteca cierra ahora la ventana de la"
-" biblioteca"
+"Abrir un libro desde la vista de la biblioteca cierra ahora la ventana de la "
+"biblioteca"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr ""
-"El idioma y las fechas de publicación en los metadatos son procesados y"
-" formateados ahora"
+"El idioma y las fechas de publicación en los metadatos son procesados y "
+"formateados ahora"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Export annotations from the library view"
@@ -2120,9 +2152,8 @@ msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
 msgstr ""
-"Soporte para el atributo de tema de «Apple Books», que permite que los libros"
-" detecten temas "
-"sin JavaScript"
+"Soporte para el atributo de tema de «Apple Books», que permite que los "
+"libros detecten temas sin JavaScript"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
 msgid "WebKit's developer tools can be enabled"
@@ -2160,8 +2191,8 @@ msgstr ""
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
 msgstr ""
-"Corregido el que no cambiase el tamaño de la fuente cuando el libro usa"
-" palabras clave de tamaños absolutos"
+"Corregido el que no cambiase el tamaño de la fuente cuando el libro usa "
+"palabras clave de tamaños absolutos"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
 msgid "Fixed text cut off at margin edge"
@@ -2176,8 +2207,8 @@ msgstr ""
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr ""
-"Corregido el que la versión Flatpak no pudiera abrir archivos .mobi, .azw y"
-" .azw3"
+"Corregido el que la versión Flatpak no pudiera abrir archivos .mobi, .azw y ."
+"azw3"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:220
 msgid "Improved Wiktionary lookup, now with links and example sentences"
@@ -2255,8 +2286,8 @@ msgstr "Configurar la acción por defecto al seleccionar palabras"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:265
 msgid "Experimental popup footnote support"
 msgstr ""
-"Soporte experimental para elemento gráfico emergente para notas a pie de"
-" página"
+"Soporte experimental para elemento gráfico emergente para notas a pie de "
+"página"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:266
 msgid "Ability to find within only the current chapter"
@@ -2294,8 +2325,8 @@ msgstr "Opción para ocultar el cursor automáticamente"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:289
 msgid "See reading time left by hovering over the reading progress slider"
 msgstr ""
-"Ver el tiempo de lectura restante al pasar sobre el deslizador de progreso de"
-" lectura"
+"Ver el tiempo de lectura restante al pasar sobre el deslizador de progreso "
+"de lectura"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:297
 msgid "Fixed some books not rendering sometimes"
@@ -2858,9 +2889,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "From Wikipedia, the free encyclopedia"
 #~ msgstr "Desde Wiktionary, el diccionario libre"
-
-#~ msgid "Note"
-#~ msgstr "Nota"
 
 #, fuzzy
 #~ msgid "Go to Linked Location"

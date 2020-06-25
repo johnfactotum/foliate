@@ -3,15 +3,14 @@ let baseURI
 // very simple OPDS parser
 // the basic idea is derived from https://github.com/SamyPesse/xml-schema
 
-const OPDS_CAT_NS = 'http://opds-spec.org/2010/catalog'
-const OPDS_ROOT_NS = 'http://opds-spec.org/'
-const OPDS_NS = [OPDS_CAT_NS, OPDS_ROOT_NS]
-const THR_NS = 'http://purl.org/syndication/thread/1.0'
-const DC_ELS_NS = 'http://purl.org/dc/elements/1.1/'
-const DC_TERMS_NS = 'http://purl.org/dc/terms/'
-const DC_NS = [DC_TERMS_NS, DC_ELS_NS]
-
 const trim = x => x ? x.trim() : x
+
+const getContent = el => {
+    const type = el.getAttribute('type')
+    if (type === 'html' || type === 'text/html')
+        return toPangoMarkup(el.innerHTML)
+    else return trim(el.textContent)
+}
 
 const link = {
     tag: 'link',
@@ -68,8 +67,16 @@ const entry = {
         language: { ns: DC_NS },
         issued: { ns: DC_TERMS_NS },
         extent: { ns: DC_TERMS_NS },
+        sources: {
+            tag: 'source',
+            array: true,
+            ns: DC_NS
+        },
         rights: {},
-        content: {},
+        content: {
+            manual: true,
+            transform: getContent
+        },
     }
 }
 const feed = {
@@ -77,6 +84,7 @@ const feed = {
     fields: {
         id: {},
         title: {},
+        subtitle: {},
         icon: {},
         updated: {},
         links: link,
@@ -90,6 +98,7 @@ const parse = (el, schema) => {
     const fields = schema.fields || {}
     const attrList = Object.keys(attrs)
     const fieldList = Object.keys(fields)
+    if (schema.manual) return schema.transform(el)
     if (!attrList.length && !fieldList.length) {
         const transform = schema.transform || trim
         return transform(el.textContent)
@@ -177,6 +186,7 @@ const fetchWithAuth = (resource, init) => {
     return fetch(req)
 }
 
+let myfeed
 const getFeed = (uri, token) => {
     baseURI = uri
     const parser = new DOMParser()
@@ -191,6 +201,7 @@ const getFeed = (uri, token) => {
                 dispatch({ type: 'entry', payload, token })
             } else if (tagName === 'feed') {
                 const payload = parse(doc.documentElement, feed)
+                myfeed = payload
                 payload.isEntry = false
                 dispatch({ type: 'feed', payload, token })
             } else

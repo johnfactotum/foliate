@@ -18,7 +18,7 @@ const {
     debug, Obj, formatPrice, base64ToPixbuf, markupEscape,
     linkIsRel, makeLinksButton, sepHeaderFunc, user_agent
 } = imports.utils
-const { PropertiesBox } = imports.properties
+const { PropertiesBox, PropertiesWindow, getSubjectAuthority } = imports.properties
 const { HdyColumn } = imports.handy
 
 const htmlPath = pkg.pkgdatadir + '/assets/client.html'
@@ -204,18 +204,25 @@ var OpdsClient = class OpdsClient {
     }
     static opdsEntryToMetadata(entry) {
         const {
-            title, summary, publisher, language, identifier, rights,
+            title, summary, content, publisher, language, identifier, rights,
             published, updated, issued, extent,
             authors = [],
-            categories = []
+            categories = [],
+            sources = [],
         } = entry
         return {
             title, publisher, language, identifier, rights,
             // Translators: this is the punctuation used to join together a list of
             // authors or categories
             creator: authors.map(x => x.name).join(_(', ')),
-            categories: categories.map(x => x.label || x.term),
+            categories: categories.map(x => {
+                const authority = getSubjectAuthority(x.scheme)
+                if (authority) x.authority = authority.key
+                return x
+            }),
+            sources,
             description: summary,
+            longDescription: content,
             pubdate: issued || published,
             modified_date: updated,
             extent
@@ -249,16 +256,19 @@ var OpdsClient = class OpdsClient {
 }
 
 const makeAcquisitionButton = (links, onActivate) => {
-    links = links
-        .filter(x => x.type !== 'application/atom+xml;type=entry;profile=opds-catalog')
     const rel = links[0].rel.split('/').pop()
     let label = _('Download')
+    let icon
     switch (rel) {
         case 'buy': label = _('Buy'); break
         case 'open-access': label = _('Free'); break
         case 'sample': label = _('Sample'); break
         case 'borrow': label = _('Borrow'); break
         case 'subscribe': label = _('Subscribe'); break
+        case 'related alternate':
+            label = _('More')
+            icon = 'view-more-symbolic'
+            break
     }
     if (links.length === 1) {
         const link = links[0]
@@ -271,7 +281,12 @@ const makeAcquisitionButton = (links, onActivate) => {
         let button = new Gtk.Button({
             tooltip_text: title || Gio.content_type_get_description(type)
         })
-        if (drm) {
+        if (icon) {
+            button.tooltip_text = label
+            button.image = new Gtk.Image({
+                icon_name: icon
+            })
+        } else if (drm) {
             const buttonBox = new Gtk.Box({ spacing: 3 })
             const icon = new Gtk.Image({
                 icon_name: 'emblem-drm-symbolic',
@@ -299,20 +314,35 @@ const makeAcquisitionButton = (links, onActivate) => {
                 tooltip: type
             }
         })
-        const button = makeLinksButton({ visible: true, label }, buttonLinks, onActivate)
+        const params = { visible: true, label }
+        if (icon) {
+            params.tooltip_text = label
+            params.image = new Gtk.Image({
+                icon_name: icon
+            })
+        }
+        const button = makeLinksButton(params, buttonLinks, onActivate)
         return button
     }
 }
 
-const makeAcquisitionButtons = (links = []) => {
+const makeAcquisitionButtons = (links = [], callback) => {
     const map = new Map()
     links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
+        .concat(links
+            .filter(x => x.rel === 'alternate' || x.rel === 'related')
+            .map(x => Object.assign({}, x, { rel: 'related alternate' })))
         .forEach(x => {
             if (!map.has(x.rel)) map.set(x.rel, [x])
             else map.get(x.rel).push(x)
         })
-    return Array.from(map.values()).map((links, i) => {
+
+        return Array.from(map.values()).map((links, i) => {
         const button = makeAcquisitionButton(links, ({ type, href }) => {
+            if (callback) callback(type, href)
+            if (OpdsClient.typeIsOpds(type))
+                return window.getLibraryWindow().openCatalog(href)
+
             // open in a browser
             Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
             //Gio.AppInfo.launch_default_for_uri(href, null)
@@ -391,48 +421,6 @@ var LoadBox = GObject.registerClass({
     }
 })
 
-const OpdsEntryBox =  GObject.registerClass({
-    GTypeName: 'FoliateOpdsEntryBox',
-    Properties: {
-        entry: GObject.ParamSpec.object('entry', 'entry', 'entry',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Obj.$gtype),
-    }
-}, class OpdsEntryBox extends Gtk.Box {
-    _init(params) {
-        super._init(params)
-        this.orientation = Gtk.Orientation.VERTICAL
-
-        const scrolled = new Gtk.ScrolledWindow({
-            visible: true
-        })
-        const propertiesBox = new PropertiesBox({
-            visible: true,
-            border_width: 12
-        }, OpdsClient.opdsEntryToMetadata(this.entry.value), null)
-        scrolled.add(propertiesBox)
-        this.pack_start(scrolled, true, true, 0)
-
-        const acquisitionBox = new Gtk.Box({
-            visible: true,
-            spacing: 6,
-            border_width: 12,
-            orientation: Gtk.Orientation.VERTICAL
-        })
-        this.pack_end(acquisitionBox, false, true, 0)
-
-        const { links } = this.entry.value
-        const acquisitionButtons = makeAcquisitionButtons(links)
-        acquisitionButtons.forEach(button =>
-            acquisitionBox.pack_start(button, false, true, 0))
-        if (acquisitionButtons.length < 3) {
-            acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
-            acquisitionBox.homogeneous = true
-        }
-        if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
-    }
-})
-
-
 var OpdsFullEntryBox =  GObject.registerClass({
     GTypeName: 'FoliateOpdsFullEntryBox',
 }, class OpdsFullEntryBox extends Gtk.Box {
@@ -458,22 +446,12 @@ var OpdsFullEntryBox =  GObject.registerClass({
         }, OpdsClient.opdsEntryToMetadata(entry), pixbuf)
         this.pack_start(propertiesBox, true, true, 0)
 
-        const acquisitionBox = new Gtk.Box({
-            visible: true,
-            spacing: 6,
-            margin_top: 12,
-            orientation: Gtk.Orientation.VERTICAL
-        })
-        propertiesBox.actionArea.pack_start(acquisitionBox, false, true, 0)
+        const actionArea = propertiesBox.actionArea
 
         const { links } = entry
         const acquisitionButtons = makeAcquisitionButtons(links)
-        acquisitionButtons.forEach(button =>
-            acquisitionBox.pack_start(button, false, true, 0))
-        if (acquisitionButtons.length < 3) {
-            acquisitionBox.orientation = Gtk.Orientation.HORIZONTAL
-            acquisitionBox.homogeneous = true
-        }
+        acquisitionButtons.forEach(button => actionArea.add(button))
+
         if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
     }
 })
@@ -523,9 +501,11 @@ const OpdsBoxChild =  GObject.registerClass({
         super._init(params)
         const { title } = this.entry.value
         this._title.label = title
+        this._coverLoaded = false
     }
     loadCover(pixbuf) {
         this._image.load(pixbuf)
+        this._coverLoaded = true
     }
     generateCover() {
         const entry = this.entry.value
@@ -537,6 +517,9 @@ const OpdsBoxChild =  GObject.registerClass({
     }
     get image() {
         return this._image
+    }
+    get surface() {
+        return this._coverLoaded ? this._image.surface : null
     }
 })
 
@@ -569,25 +552,71 @@ var OpdsAcquisitionBox = GObject.registerClass({
         }, params))
         this.sort = sort
 
-        this.connect('child-activated', (flowbox, child) => {
+        this.connect('child-activated', this._onChildActivated.bind(this))
+    }
+    _onChildActivated(flowbox, child) {
+        const entry = child.entry.value
+        if (!OpdsClient.isCatalogEntry(entry)) {
+            const { href, type } = entry.links[0]
+            this.emit('link-activated', href, type)
+            return
+        }
+
+        const getTitle = child => {
+            const index = child.get_index()
+            const total = flowbox.get_children().length
+            return `${index + 1} of ${total}`
+        }
+        const packAcquisitionButtons = entry => {
+            const actionArea = dialog.propertiesBox.actionArea
+
+            const { links } = entry
+            const acquisitionButtons = makeAcquisitionButtons(links, type => {
+                if (OpdsClient.typeIsOpds(type)) dialog.close()
+            })
+            acquisitionButtons.forEach(button => actionArea.add(button))
+            if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
+        }
+        const getPrevNext = child => {
+            const index = child.get_index()
+            const prev = flowbox.get_child_at_index(index - 1)
+            const next = flowbox.get_child_at_index(index + 1)
+            return [prev, next]
+        }
+
+        const surface = child.surface
+        const dialog = new PropertiesWindow({
+            modal: true,
+            use_header_bar: true,
+            transient_for: this.get_toplevel()
+        }, OpdsClient.opdsEntryToMetadata(entry), surface)
+
+        dialog.title = getTitle(child)
+        packAcquisitionButtons(entry)
+
+        const buildButton = (child, i) => {
+            if (!child) return
+
             const entry = child.entry.value
-            if (!OpdsClient.isCatalogEntry(entry)) {
-                const { href, type } = entry.links[0]
-                this.emit('link-activated', href, type)
-                return
+            if (!OpdsClient.isCatalogEntry(entry)) return
+
+            const isPrev = i === 0
+            const callback = isPrev => {
+                dialog.clearButtons()
+                const name = dialog.updateProperties(
+                    OpdsClient.opdsEntryToMetadata(entry),
+                    child.surface)
+                dialog.title = getTitle(child)
+                packAcquisitionButtons(entry)
+                getPrevNext(child).forEach(buildButton)
+                dialog.setVisible(name, isPrev)
             }
-            const popover = new Gtk.Popover({
-                relative_to: child.image,
-                width_request: 320,
-                height_request: 320
-            })
-            const entryBox = new OpdsEntryBox({
-                visible: true,
-                entry: child.entry,
-            })
-            popover.add(entryBox)
-            popover.popup()
-        })
+            dialog.packButton(isPrev, callback)
+        }
+        getPrevNext(child).forEach(buildButton)
+
+        dialog.run()
+        dialog.close()
     }
     async load(entries) {
         this.emit('loaded')
@@ -775,6 +804,8 @@ var OpdsBrowser = GObject.registerClass({
     Properties: {
         title: GObject.ParamSpec.string('title', 'title', 'title',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, defaultTitle),
+        subtitle: GObject.ParamSpec.string('subtitle', 'subtitle', 'subtitle',
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, ''),
         searchable: GObject.ParamSpec.boolean('searchable', 'searchable', 'searchable',
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
     }
@@ -894,6 +925,7 @@ var OpdsBrowser = GObject.registerClass({
     }
     async _loadOpds(uri) {
         this.set_property('title', _('Loading…'))
+        this.set_property('subtitle', '')
 
         this._uri = uri
         if (this._opdsWidget) this._opdsWidget.destroy()
@@ -914,7 +946,7 @@ var OpdsBrowser = GObject.registerClass({
         this._opdsWidget = nb
         this.pack_start(nb, true, true, 0)
 
-        const makePage = (uri, title) => new Promise((resolve, reject) => {
+        const makePage = (uri, title, top) => new Promise((resolve, reject) => {
             const label = new Gtk.Label({
                 visible: true,
                 ellipsize: Pango.EllipsizeMode.END,
@@ -943,7 +975,7 @@ var OpdsBrowser = GObject.registerClass({
                     uri
                 })
                 widget.connect('loaded', () => {
-                    if (this._uri !== uri) return reject()
+                    if (top && this._uri !== uri) return reject()
 
                     const feed = widget.feed
                     if (!title) {
@@ -996,7 +1028,7 @@ var OpdsBrowser = GObject.registerClass({
                     resolve(feed)
                 })
                 widget.connect('error', () => {
-                    if (this._uri !== uri) return reject()
+                    if (top && this._uri !== uri) return reject()
                     if (!title) label.label = _('Error')
                     reject(new Error())
                 })
@@ -1021,8 +1053,9 @@ var OpdsBrowser = GObject.registerClass({
             'http://opds-spec.org/recommended': _('Recommended')
         }
 
-        makePage(uri, null).then(feed => {
-            this.set_property('title', feed.title || defaultTitle)
+        makePage(uri, null, true).then(feed => {
+            if (feed.title) this.set_property('title', feed.title)
+            if (feed.subtitle) this.set_property('subtitle', feed.subtitle)
             const tabs = [].concat(feed.links).filter(link => 'href' in link
                 && 'rel' in link
                 && Object.keys(related).some(rel => linkIsRel(link, rel)))

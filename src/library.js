@@ -90,6 +90,9 @@ const BookImage =  GObject.registerClass({
         this._image.set_from_surface(surface)
         this._image.get_style_context().add_class('foliate-book-image')
     }
+    get surface() {
+        return this._image.surface
+    }
 })
 
 const BookBoxMenu =  GObject.registerClass({
@@ -152,6 +155,7 @@ const makeLibraryChild = (params, widget) => {
                 transient_for: this.get_toplevel(),
                 use_header_bar: true
             }, metadata, cover)
+            window.packFindBookOnButton()
             window.show()
         }
         exportAnnotations() {
@@ -591,8 +595,12 @@ var LibraryWindow =  GObject.registerClass({
             this._stack.bind_property('visible-child-name', stack, 'visible-child-name', flag))
 
         this._opdsBrowser.bind_property('title', this._opdsHeaderBar, 'title', flag)
+        this._opdsBrowser.bind_property('subtitle', this._opdsHeaderBar, 'subtitle', flag)
         this._mainStack.connect('notify::visible-child', stack => {
-            if (stack.visible_child_name === 'library') this._opdsBrowser.reset()
+            if (stack.visible_child_name === 'library') {
+                this._opdsBrowser.reset()
+                this._opdsSearchBar.search_mode_enabled = false
+            }
             this._updateTitle()
         })
         this._opdsBrowser.connect('notify::title', () => this._updateTitle())
@@ -646,6 +654,7 @@ var LibraryWindow =  GObject.registerClass({
             'list-view': () => this.set_property('active-view', 'list'),
             'search': () => {
                 const button = this._mainStack.visible_child_name === 'opds'
+                    && this._opdsBrowser.searchable
                     ? this._opdsSearchButton
                     : this._stack.visible_child_name === 'library'
                         ? this._searchButton
@@ -715,7 +724,7 @@ var LibraryWindow =  GObject.registerClass({
             this._searchBar.search_mode_enabled = false)
 
         this.connect('key-press-event', (__, event) => {
-            if (this._mainStack.visible_child_name === 'opds')
+            if (this._mainStack.visible_child_name === 'opds' && this._opdsBrowser.searchable)
                 return this._opdsSearchBar.handle_event(event)
             else if (this._stack.visible_child_name === 'library')
                 return this._searchBar.handle_event(event)
@@ -789,7 +798,6 @@ var LibraryWindow =  GObject.registerClass({
     _updateOpdsSearch() {
         const searchable = this._opdsBrowser.searchable
         if (!searchable) this._opdsSearchButton.active = false
-        this._opdsSearchButton.sensitive = searchable
         this._opdsSearchButton.visible = searchable
     }
     _buildDragDrop(widget) {
@@ -907,7 +915,7 @@ var LibraryWindow =  GObject.registerClass({
                     visible: true,
                     propagate_natural_height: true
                 })
-                const max_entries = 4
+                const max_entries = Math.min(12, entries.length)
                 const opdsbox = new OpdsAcquisitionBox({
                     visible: true,
                     max_entries,

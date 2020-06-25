@@ -643,6 +643,7 @@ const makeActions = self => ({
             transient_for: self,
             use_header_bar: true
         }, self._epub.metadata, self._epub.cover)
+        window.packFindBookOnButton()
         window.show()
     },
     'open-copy': () => {
@@ -1076,8 +1077,9 @@ var Window = GObject.registerClass({
             this._showPopover(this._highlightMenu, false)
         })
         this._epub.connect('footnote', () => {
-            const { footnote, link, position } = this._epub.footnote
-            const popover = new FootnotePopover(footnote, link, this._epub)
+            const footnote = this._epub.footnote
+            const { position } = footnote
+            const popover = new FootnotePopover(footnote, this._epub)
             popover.relative_to = this._epub.widget
             setPopoverPosition(popover, position, this, 200)
             popover.popup()

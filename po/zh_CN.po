@@ -8,19 +8,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 01:42+0800\n"
-"PO-Revision-Date: 2020-06-13 14:28+0800\n"
-"Last-Translator: 王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>\n"
+"POT-Creation-Date: 2020-06-21 22:21+0800\n"
+"PO-Revision-Date: 2020-06-19 19:11+0800\n"
+"Last-Translator: Blanc Chan <cdh4227@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
-#: src/main.js:190 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
+#: src/main.js:192 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -65,6 +65,35 @@ msgstr[0] "%d 条结果"
 #: src/contents.js:280
 msgid "Searching…"
 msgstr "正在搜索…"
+
+#: src/contents.js:303
+msgid "Bibliography"
+msgstr ""
+
+#: src/contents.js:304
+msgid "Glossary"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:306 src/contents.js:313
+#, fuzzy
+msgid "Annotation"
+msgstr "注释"
+
+#: src/contents.js:309
+#, fuzzy
+msgid "Footnote"
+msgstr "脚注预览"
+
+#: src/contents.js:310 src/contents.js:311
+msgid "Endnote"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:312 src/contents.js:339
+#, fuzzy
+msgid "Note"
+msgstr "笔记:"
 
 #: src/epubView.js:1016
 msgid "File not found."
@@ -148,7 +177,7 @@ msgstr "保存文件"
 msgid "Annotations for “%s”"
 msgstr "《%s》的注释"
 
-#: src/export.js:166 src/utils.js:252
+#: src/export.js:166 src/utils.js:255
 msgid "All Files"
 msgstr "所有文件"
 
@@ -174,7 +203,7 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr "导入文件的标识符与图书不符。可能是因为注释不是这本书的。"
 
-#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
@@ -231,51 +260,51 @@ msgstr "阅读进度、注释和书签都将永远丢失。"
 msgid "Remove"
 msgstr "删除"
 
-#: src/library.js:626
+#: src/library.js:629
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "选中了 %d 项"
 
-#: src/library.js:744
+#: src/library.js:748
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "无法添加图书"
 
-#: src/library.js:746
+#: src/library.js:750
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "无法添加以下文件："
 
-#: src/library.js:819
+#: src/library.js:822
 msgid "All"
 msgstr "全部"
 
-#: src/library.js:822 src/ui/catalogWindow.ui:39
+#: src/library.js:825 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "标题"
 
-#: src/library.js:823
+#: src/library.js:826
 msgid "Author"
 msgstr "作者"
 
-#: src/library.js:824 src/properties.js:77
+#: src/library.js:827 src/properties.js:77
 msgid "Tags"
 msgstr "标签"
 
-#: src/library.js:825
+#: src/library.js:828
 msgid "Description"
 msgstr "描述"
 
-#: src/library.js:826 src/properties.js:81
+#: src/library.js:829 src/properties.js:81
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "语言"
 
-#: src/library.js:864
+#: src/library.js:867
 msgid "Add Files"
 msgstr "添加文件"
 
@@ -303,74 +332,75 @@ msgstr "在维基词典上搜索"
 msgid "Translation by Google Translate"
 msgstr "由 Google Translate 翻译"
 
-#: src/main.js:119 src/window.js:657
+#: src/main.js:121 src/window.js:657
 msgid "Open File"
 msgstr "打开文件"
 
-#: src/main.js:140
+#: src/main.js:142
 msgid "Open Catalog"
 msgstr "打开图书列表"
 
-#: src/main.js:146 src/ui/catalogRow.ui:50
+#: src/main.js:148 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "打开"
 
-#: src/main.js:150
+#: src/main.js:152
 msgid "OPDS Catalog URL:"
 msgstr "OPDS 图书列表链接："
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:189
+#: src/main.js:191
 msgid "translator-credits"
-msgstr "Blanc Chan"
+msgstr ""
+"Blanc Chan\n"
+"王滋涵"
 
-#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "简洁现代的电子书查看器"
 
-#: src/main.js:216
+#: src/main.js:218
 msgid "Open library window"
 msgstr "打开书库窗口"
 
-#: src/main.js:220
+#: src/main.js:222
 msgid "Add files to the library"
 msgstr "添加文件到书库"
 
-#: src/main.js:224
+#: src/main.js:226
 msgid "Show version"
 msgstr "显示版本"
 
-#: src/main.js:228
+#: src/main.js:230
 msgid "Show verbose debugging information"
 msgstr "显示详细的调试信息"
 
 #: src/opds.js:144
 msgid "Authentication Required"
-msgstr ""
+msgstr "需要认证"
 
 #: src/opds.js:146
 #, javascript-format
 msgid "Authentication required by %s"
-msgstr ""
+msgstr "%s 需要认证"
 
 #: src/opds.js:149
 #, javascript-format
 msgid "The site says: “%s”"
-msgstr ""
+msgstr "网页提示：%s"
 
 #: src/opds.js:160
 msgid "Authenticate"
-msgstr ""
+msgstr "认证"
 
 #: src/opds.js:171
-#, fuzzy
 msgid "Username"
-msgstr "章节标题"
+msgstr "用户名"
 
 #: src/opds.js:175
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
@@ -432,7 +462,7 @@ msgstr "OPDS 链接"
 msgid "Go"
 msgstr "转到(_G)"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "加载中"
@@ -606,27 +636,30 @@ msgstr "zh-CN"
 #: src/utils.js:150
 #, javascript-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
-#: src/utils.js:175
+#. "%s" is usually already a fully formatted date string,
+#. and can even include month and day, not just year;
+#. so make sure NOT to translate it to something like "The year %s before Christ"
+#: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
-msgstr ""
+msgstr "公元前%s"
 
-#: src/utils.js:216
+#: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d 分钟"
 
-#: src/utils.js:219
+#: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d 小时"
 
-#: src/utils.js:254
+#: src/utils.js:257
 msgid "E-book Files"
 msgstr "电子书文件"
 
@@ -677,12 +710,12 @@ msgstr "搜索"
 msgid "Menu"
 msgstr "菜单"
 
-#: src/window.js:1089
+#: src/window.js:1090
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "图片来自 “%s”"
 
-#: src/window.js:1089
+#: src/window.js:1090
 msgid "Image"
 msgstr "图片"
 
@@ -814,7 +847,8 @@ msgid "Current chapter"
 msgstr "当前章节"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-msgid "Footnote Preview"
+#, fuzzy
+msgid "Reference Preview"
 msgstr "脚注预览"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
@@ -901,28 +935,24 @@ msgid "About Foliate"
 msgstr "关于 Foliate"
 
 #: src/ui/libraryWindow.ui:55
-#, fuzzy
 msgid "Go to start page"
-msgstr "转到开始"
+msgstr "转到首页"
 
 #: src/ui/libraryWindow.ui:83
-#, fuzzy
 msgid "Add this feed to catalogs"
-msgstr "添加图书列表"
+msgstr "将此图书源添加到列表"
 
 #: src/ui/libraryWindow.ui:104
-#, fuzzy
 msgid "Location…"
-msgstr "位置"
+msgstr "位置…"
 
 #: src/ui/libraryWindow.ui:116
 msgid "Go Back to Library"
-msgstr ""
+msgstr "返回书库"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalog"
-msgstr "无图书列表"
+msgstr "返回图书列表"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -1653,68 +1683,61 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
 msgid "OPDS catalogs:"
-msgstr "OPDS 图书列表"
+msgstr "OPDS 图书列表："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
 msgid "Catalogs are now opened in the main library window"
-msgstr ""
+msgstr "图书列表现在在书库主窗口打开"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
-#, fuzzy
 msgid "View current location"
-msgstr "将当前位置移出书签"
+msgstr "查看当前位置"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-#, fuzzy
 msgid "Go to catalog start page"
-msgstr "转到开始"
+msgstr "转到图书列表开始"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#, fuzzy
 msgid "Reload catalog"
-msgstr "添加图书列表"
+msgstr "刷新图书列表"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
-#, fuzzy
 msgid "Add current feed to catalogs"
-msgstr "添加图书列表"
+msgstr "添加图书源到列表"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
 msgid "HTTP authentication support"
-msgstr ""
+msgstr "支持 HTTP 认证"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
-#, fuzzy
 msgid "Other changes:"
-msgstr "重大改变："
+msgstr "其它改进："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
-msgstr ""
+msgstr "修复了FB格式(.fb2, .fb2.zip)标识符提取的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Fixed newlines being ignored when copying text"
-msgstr ""
+msgstr "修复了复制文本时忽略换行符的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
-msgstr ""
+msgstr "“点击翻页”现在在非分页布局下禁用"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Opening a book from the library view now closes the library window"
-msgstr ""
+msgstr "从书库视图打开图书现在会关闭书库窗口"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 msgid "Language and publication dates in metadata are now parsed and formatted"
-msgstr ""
+msgstr "元数据中的语言和出版日期现在将被解析和格式化"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
-#, fuzzy
 msgid "Export annotations from the library view"
-msgstr "以 Markdown 格式导出注释"
+msgstr "从书库视图导出注释"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
@@ -1725,7 +1748,7 @@ msgstr "以 Markdown 格式导出注释"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:283
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:318
 msgid "Changes:"
-msgstr "更新："
+msgstr "改进："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
 msgid "Fixed blurry book covers on HiDPI"
@@ -1761,7 +1784,7 @@ msgstr "新增支持格式："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
 msgid "FictionBook (.fb2, .fb2.zip)"
-msgstr "小说 (.fb2, .fb2.zip)"
+msgstr "FB格式 (.fb2, .fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
@@ -2014,7 +2037,7 @@ msgstr "刷新图书 (Ctrl + R)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
-msgstr "新的预置主题：灰色，日光，护眼和深蓝色"
+msgstr "新的预置主题：灰色，日光，Gruvbox 和深蓝色"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:182
 msgid "Text selection:"
@@ -2064,7 +2087,7 @@ msgstr "WebKit 开发者工具可用"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
 msgid "Breaking changes:"
-msgstr "重大改变："
+msgstr "重大改进："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:201
 msgid "The settings schemas has been reorganized"
@@ -2186,7 +2209,7 @@ msgstr "支持只在本章内搜索"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:267
 msgid "Fixed CPU spikes when left open"
-msgstr "修复了打开时吃CPU的问题"
+msgstr "修复了打开时占用CPU的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:268
 msgid "Fixed highlights not rendering at the correct positions"
@@ -2617,13 +2640,12 @@ msgid "How to view the library"
 msgstr "如何显示书库"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:273
-#, fuzzy
 msgid "Library page"
-msgstr "书库"
+msgstr "书库页面"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:274
 msgid "Current library page (“library” or “catalog”)"
-msgstr ""
+msgstr "当前书库页面 (“书库”或“列表”)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:278
 msgid "Use Tracker"
@@ -2632,7 +2654,7 @@ msgstr "使用 Tracker"
 #: data/com.github.johnfactotum.Foliate.gschema.xml:279
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
-msgstr "如果此值为真，则使用 Tracker（文件索引器）获得文件路径"
+msgstr "如果此值为真，则使用 Tracker (文件索引器)获得文件路径"
 
 #~ msgid "Open a Catalog…"
 #~ msgstr "打开图书列表…"

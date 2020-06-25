@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 01:42+0800\n"
-"PO-Revision-Date: 2020-06-19 01:53+0800\n"
+"POT-Creation-Date: 2020-06-21 22:21+0800\n"
+"PO-Revision-Date: 2020-06-21 22:25+0800\n"
 "Last-Translator: Blanc Chan\n"
 "Language-Team: none\n"
 "Language: zh_TW\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
-#: src/main.js:190 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
+#: src/main.js:192 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -64,6 +64,32 @@ msgstr[0] "%d 項結果"
 #: src/contents.js:280
 msgid "Searching…"
 msgstr "搜尋中…"
+
+#: src/contents.js:303
+msgid "Bibliography"
+msgstr "參考書目"
+
+#: src/contents.js:304
+msgid "Glossary"
+msgstr "注釋"
+
+#. deprecated
+#: src/contents.js:306 src/contents.js:313
+msgid "Annotation"
+msgstr "註解"
+
+#: src/contents.js:309
+msgid "Footnote"
+msgstr "腳註"
+
+#: src/contents.js:310 src/contents.js:311
+msgid "Endnote"
+msgstr "尾註"
+
+#. deprecated
+#: src/contents.js:312 src/contents.js:339
+msgid "Note"
+msgstr "筆記"
 
 #: src/epubView.js:1016
 msgid "File not found."
@@ -147,7 +173,7 @@ msgstr "儲存檔案"
 msgid "Annotations for “%s”"
 msgstr "《%s》的註解"
 
-#: src/export.js:166 src/utils.js:252
+#: src/export.js:166 src/utils.js:255
 msgid "All Files"
 msgstr "所有檔案"
 
@@ -173,7 +199,7 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr "匯入檔案識別碼與書籍識別碼不符。這可能表示這些註解不屬於此書籍。"
 
-#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
@@ -230,51 +256,51 @@ msgstr "閱讀進度、註解與書籤會被永久刪除。"
 msgid "Remove"
 msgstr "移除"
 
-#: src/library.js:626
+#: src/library.js:629
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "選取了 %d 個項目"
 
-#: src/library.js:744
+#: src/library.js:748
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "無法新增書籍"
 
-#: src/library.js:746
+#: src/library.js:750
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "無法新增以下書籍："
 
-#: src/library.js:819
+#: src/library.js:822
 msgid "All"
 msgstr "全部"
 
-#: src/library.js:822 src/ui/catalogWindow.ui:39
+#: src/library.js:825 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "標題"
 
-#: src/library.js:823
+#: src/library.js:826
 msgid "Author"
 msgstr "作者"
 
-#: src/library.js:824 src/properties.js:77
+#: src/library.js:827 src/properties.js:77
 msgid "Tags"
 msgstr "標籤"
 
-#: src/library.js:825
+#: src/library.js:828
 msgid "Description"
 msgstr "描述"
 
-#: src/library.js:826 src/properties.js:81
+#: src/library.js:829 src/properties.js:81
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "語言"
 
-#: src/library.js:864
+#: src/library.js:867
 msgid "Add Files"
 msgstr "新增檔案"
 
@@ -302,47 +328,47 @@ msgstr "在維基詞典上搜尋"
 msgid "Translation by Google Translate"
 msgstr "翻譯來自 Google 翻譯"
 
-#: src/main.js:119 src/window.js:657
+#: src/main.js:121 src/window.js:657
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: src/main.js:140
+#: src/main.js:142
 msgid "Open Catalog"
 msgstr "開啟目錄"
 
-#: src/main.js:146 src/ui/catalogRow.ui:50
+#: src/main.js:148 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "開啟"
 
-#: src/main.js:150
+#: src/main.js:152
 msgid "OPDS Catalog URL:"
 msgstr "OPDS 目錄 URL："
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:189
+#: src/main.js:191
 msgid "translator-credits"
 msgstr ""
 "Blan Chan\n"
 "John Factotum"
 
-#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "簡潔現代的電子書檢視器"
 
-#: src/main.js:216
+#: src/main.js:218
 msgid "Open library window"
 msgstr "開啟書庫視窗"
 
-#: src/main.js:220
+#: src/main.js:222
 msgid "Add files to the library"
 msgstr "新增書籍至書庫"
 
-#: src/main.js:224
+#: src/main.js:226
 msgid "Show version"
 msgstr "顯示版本"
 
-#: src/main.js:228
+#: src/main.js:230
 msgid "Show verbose debugging information"
 msgstr "顯示除錯訊息"
 
@@ -431,7 +457,7 @@ msgstr "OPDS 目錄 URL"
 msgid "Go"
 msgstr "前往"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "載入中…"
@@ -608,24 +634,27 @@ msgid "%s (%s)"
 msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
-#: src/utils.js:175
+#. "%s" is usually already a fully formatted date string,
+#. and can even include month and day, not just year;
+#. so make sure NOT to translate it to something like "The year %s before Christ"
+#: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
 msgstr "西元前%s"
 
-#: src/utils.js:216
+#: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d 分"
 
-#: src/utils.js:219
+#: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d 時"
 
-#: src/utils.js:254
+#: src/utils.js:257
 msgid "E-book Files"
 msgstr "電子書檔案"
 
@@ -676,12 +705,12 @@ msgstr "搜尋"
 msgid "Menu"
 msgstr "選單"
 
-#: src/window.js:1089
+#: src/window.js:1090
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "來自《%s》的影像"
 
-#: src/window.js:1089
+#: src/window.js:1090
 msgid "Image"
 msgstr "影像"
 
@@ -813,8 +842,8 @@ msgid "Current chapter"
 msgstr "目前章節"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-msgid "Footnote Preview"
-msgstr "腳註預覽"
+msgid "Reference Preview"
+msgstr "參照預覽"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
 #: src/ui/shortcutsWindow.ui:159 src/ui/shortcutsWindow.ui:342
@@ -3015,9 +3044,6 @@ msgstr "如果此值為真，將試著使用 Tracker 來取得檔案位置"
 
 #~ msgid "View on Wikipedia"
 #~ msgstr "在維基百科上檢視"
-
-#~ msgid "Note"
-#~ msgstr "筆記"
 
 #~ msgid "Go to Linked Location"
 #~ msgstr "前往連結位置"

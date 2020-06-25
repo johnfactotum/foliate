@@ -965,7 +965,7 @@ var EpubView = GObject.registerClass({
             linkColor: invert(this.settings.link_color),
             invert: this.settings.invert,
             brightness: this.settings.brightness,
-            ibooksInternalTheme: getIbooksInternalTheme(this.settings.bg_color)
+            ibooksInternalTheme: getIbooksInternalTheme(invert(this.settings.bg_color))
         }
         return this._run(`setStyle(${JSON.stringify(style)})`)
     }

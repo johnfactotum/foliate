@@ -10298,6 +10298,7 @@ var IframeView = function () {
 			}
 
 			var m = new _marksPane.Highlight(range, className, data, attributes);
+			try {
 			var h = this.pane.addMark(m);
 
 			this.highlights[cfiRange] = { "mark": h, "element": h.element, "listeners": [emitter, cb] };
@@ -10311,6 +10312,7 @@ var IframeView = function () {
 				h.element.addEventListener("touchstart", cb);
 			}
 			return h;
+			} catch (e) {}
 		}
 	}, {
 		key: "underline",
@@ -15100,14 +15102,45 @@ var Packaging = function () {
 		value: function parseMetadata(xml) {
 			var metadata = {};
 
+			const DC_NS = "http://purl.org/dc/elements/1.1/"
+			const OPF_NS = "http://www.idpf.org/2007/opf"
+			const getElementText = node => node ? node.childNodes[0].nodeValue : null
+			const getElementsNS = (ns, tagName) =>
+				[...xml.getElementsByTagNameNS(ns, tagName)]
+					.filter(node => node.childNodes.length)
+			const metas = [...xml.getElementsByTagName('meta')]
+			const getRefiningMetas = id => metas.filter(meta =>
+				meta.getAttribute('refines') === '#' + id)
+
 			metadata.title = this.getElementText(xml, "title");
 			metadata.creator = this.getElementText(xml, "creator");
 			metadata.description = this.getElementText(xml, "description");
 
-			metadata.subjects = Array.from(xml.getElementsByTagNameNS(
-				"http://purl.org/dc/elements/1.1/", "subject"))
-					.filter(node => node.childNodes.length)
-					.map(node => node.childNodes[0].nodeValue)
+			metadata.subjects = getElementsNS(DC_NS, "subject")
+				.map(x => {
+					let authority = x.getAttributeNS(OPF_NS, 'authority')
+					let term = x.getAttributeNS(OPF_NS, 'term')
+
+					const id = x.getAttribute('id')
+					const metas = getRefiningMetas(id)
+					if (metas) {
+						const refinedAuthority = getElementText(
+							metas.find(meta => meta.getAttribute('property') === 'authority'))
+						const refinedTerm = getElementText(
+							metas.find(meta => meta.getAttribute('property') === 'term'))
+						if (refinedAuthority) authority = refinedAuthority
+						if (refinedTerm) term = refinedTerm
+					}
+
+					return {
+						authority,
+						term,
+						label: getElementText(x)
+					}
+				})
+
+			metadata.sources = getElementsNS(DC_NS, "source")
+			    .map(getElementText)
 
 			metadata.pubdate = this.getElementText(xml, "date");
 

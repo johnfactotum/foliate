@@ -37,6 +37,8 @@ try {
 const webContext = WebKit2.WebContext.get_default()
 webContext.set_sandbox_enabled(true)
 
+Gtk.Window.set_default_icon_name(pkg.name)
+
 const { fileFilters } = imports.utils
 const { Window } = imports.window
 const { LibraryWindow } = imports.library
@@ -49,9 +51,11 @@ const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 const librarySettings = new Gio.Settings({ schema_id: pkg.name + '.library' })
 
-const getLibraryWindow = app =>
+const getLibraryWindow = (app = Gio.Application.get_default()) =>
     app.get_windows().find(window => window instanceof LibraryWindow)
     || new LibraryWindow({ application: app })
+
+window.getLibraryWindow = getLibraryWindow
 
 const makeActions = app => ({
     'new-theme': () => {
@@ -359,6 +363,14 @@ function main(argv) {
 
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
+            /* remove flowboxchild padding so things align better
+               when mixing flowbox and other widgets;
+               why does Adwaita has flowboxchild padding, anyway?
+               there's already row-/column-spacing, plus you can set margin */
+            flowboxchild {
+                padding: 0;
+            }
+
             /* set min-width to 1px,
                so we can have variable width progress bars a la Kindle */
             progress, trough {
@@ -398,8 +410,8 @@ function main(argv) {
             }
 
             .foliate-emblem {
-                color: white;
-                background: gray;
+                background: @theme_fg_color;
+                color: @theme_bg_color;
                 border-radius: 100%;
                 padding: 6px;
                 opacity: 0.9;
@@ -414,6 +426,17 @@ function main(argv) {
             .foliate-select {
                 color: #fff;
                 background: rgba(0, 0, 0, 0.4);
+            }
+
+            .foliate-authority-label {
+                font-size: smaller;
+                font-weight: bold;
+                background: @theme_bg_color;
+                color: @theme_fg_color;
+                border: 1px solid;
+                border-radius: 5px;
+                padding: 0 5px;
+                opacity: 0.5;
             }
         `)
         Gtk.StyleContext.add_provider_for_screen(

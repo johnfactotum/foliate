@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 01:42+0800\n"
+"POT-Creation-Date: 2020-06-21 22:21+0800\n"
 "PO-Revision-Date: 2020-05-09 19:00+0900\n"
 "Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
 "Language-Team: français <gnomefr@traduc.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:786
-#: src/main.js:190 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
+#: src/main.js:192 src/window.js:989
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -65,6 +65,34 @@ msgstr[1] "%d résultats"
 #: src/contents.js:280
 msgid "Searching…"
 msgstr "Recherche…"
+
+#: src/contents.js:303
+msgid "Bibliography"
+msgstr ""
+
+#: src/contents.js:304
+msgid "Glossary"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:306 src/contents.js:313
+#, fuzzy
+msgid "Annotation"
+msgstr "Annotations"
+
+#: src/contents.js:309
+#, fuzzy
+msgid "Footnote"
+msgstr "Prévisualisation des notes de bas de page"
+
+#: src/contents.js:310 src/contents.js:311
+msgid "Endnote"
+msgstr ""
+
+#. deprecated
+#: src/contents.js:312 src/contents.js:339
+msgid "Note"
+msgstr "Note"
 
 #: src/epubView.js:1016
 #, fuzzy
@@ -152,7 +180,7 @@ msgstr "Ouvrir un fichier"
 msgid "Annotations for “%s”"
 msgstr "Annotations pour « %s » par %s"
 
-#: src/export.js:166 src/utils.js:252
+#: src/export.js:166 src/utils.js:255
 msgid "All Files"
 msgstr "Tous les fichiers"
 
@@ -181,7 +209,7 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr ""
 
-#: src/export.js:234 src/library.js:507 src/main.js:145 src/opds.js:159
+#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
@@ -241,56 +269,56 @@ msgstr ""
 msgid "Remove"
 msgstr "Supprimer"
 
-#: src/library.js:626
+#: src/library.js:629
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/library.js:744
+#: src/library.js:748
 #, fuzzy
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Rechercher dans le livre"
 msgstr[1] "Rechercher dans le livre"
 
-#: src/library.js:746
+#: src/library.js:750
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/library.js:819
+#: src/library.js:822
 msgid "All"
 msgstr ""
 
-#: src/library.js:822 src/ui/catalogWindow.ui:39
+#: src/library.js:825 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr ""
 
-#: src/library.js:823
+#: src/library.js:826
 msgid "Author"
 msgstr ""
 
-#: src/library.js:824 src/properties.js:77
+#: src/library.js:827 src/properties.js:77
 msgid "Tags"
 msgstr ""
 
-#: src/library.js:825
+#: src/library.js:828
 #, fuzzy
 msgid "Description"
 msgstr "Section : "
 
-#: src/library.js:826 src/properties.js:81
+#: src/library.js:829 src/properties.js:81
 msgid "Publisher"
 msgstr "Éditeur"
 
-#: src/library.js:827 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Langue"
 
-#: src/library.js:864
+#: src/library.js:867
 #, fuzzy
 msgid "Add Files"
 msgstr "Tous les fichiers"
@@ -320,49 +348,49 @@ msgstr "Rechercher sur le Wiktionnaire"
 msgid "Translation by Google Translate"
 msgstr "Traduction par Google Traduction"
 
-#: src/main.js:119 src/window.js:657
+#: src/main.js:121 src/window.js:657
 msgid "Open File"
 msgstr "Ouvrir un fichier"
 
-#: src/main.js:140
+#: src/main.js:142
 #, fuzzy
 msgid "Open Catalog"
 msgstr "Ouvrir une copie"
 
-#: src/main.js:146 src/ui/catalogRow.ui:50
+#: src/main.js:148 src/ui/catalogRow.ui:50
 #, fuzzy
 msgid "Open"
 msgstr "Ouvrir…"
 
-#: src/main.js:150
+#: src/main.js:152
 msgid "OPDS Catalog URL:"
 msgstr ""
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:189
+#: src/main.js:191
 msgid "translator-credits"
 msgstr "Julien Humbert <julroy67@gmail.com>"
 
-#: src/main.js:191 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Un lecteur de livres électroniques simple et moderne"
 
-#: src/main.js:216
+#: src/main.js:218
 #, fuzzy
 msgid "Open library window"
 msgstr "Ouvrir une copie"
 
-#: src/main.js:220
+#: src/main.js:222
 msgid "Add files to the library"
 msgstr ""
 
-#: src/main.js:224
+#: src/main.js:226
 #, fuzzy
 msgid "Show version"
 msgstr "Afficher le menu"
 
-#: src/main.js:228
+#: src/main.js:230
 msgid "Show verbose debugging information"
 msgstr ""
 
@@ -454,7 +482,7 @@ msgstr ""
 msgid "Go"
 msgstr "Aller à"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1303
+#: src/opds.js:896 src/opds.js:921 src/window.js:1304
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Chargement…"
@@ -639,26 +667,29 @@ msgid "%s (%s)"
 msgstr ""
 
 #. Translators: here "BCE" is for "before common era"
-#: src/utils.js:175
+#. "%s" is usually already a fully formatted date string,
+#. and can even include month and day, not just year;
+#. so make sure NOT to translate it to something like "The year %s before Christ"
+#: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
 msgstr ""
 
-#: src/utils.js:216
+#: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minute"
 msgstr[1] "%d minutes"
 
-#: src/utils.js:219
+#: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d heure"
 msgstr[1] "%d heures"
 
-#: src/utils.js:254
+#: src/utils.js:257
 msgid "E-book Files"
 msgstr "Livres électroniques"
 
@@ -710,12 +741,12 @@ msgstr "Rechercher"
 msgid "Menu"
 msgstr ""
 
-#: src/window.js:1089
+#: src/window.js:1090
 #, javascript-format
 msgid "Image from “%s”"
 msgstr ""
 
-#: src/window.js:1089
+#: src/window.js:1090
 msgid "Image"
 msgstr ""
 
@@ -856,7 +887,8 @@ msgid "Current chapter"
 msgstr "Chapitre courant"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-msgid "Footnote Preview"
+#, fuzzy
+msgid "Reference Preview"
 msgstr "Prévisualisation des notes de bas de page"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
@@ -3198,9 +3230,6 @@ msgstr ""
 
 #~ msgid "View on Wikipedia"
 #~ msgstr "Voir sur Wikipédia"
-
-#~ msgid "Note"
-#~ msgstr "Note"
 
 #~ msgid "Go to Linked Location"
 #~ msgstr "Aller à la position liée"

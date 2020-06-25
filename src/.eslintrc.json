@@ -15,6 +15,7 @@
         "no-empty": ["error", { "allowEmptyCatch": true }]
     },
     "globals": {
+        "window": "readonly",
         "pkg": "readonly",
         "imports": "readonly",
         "log": "readonly",
