@@ -59,9 +59,17 @@ const resolveURL = (url, relativeTo) => {
     return new URL(url, base + relativeTo).href.replace(base, '')
 }
 
+const trim = x => x ? x.trim() : x
+
+const unescapeHTML = str => {
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(str, 'text/html')
+    return doc.documentElement.textContent
+}
+
 // Remove whitespace like CSS `white-space: normal`
 const whitespaceNormal = str =>
-    str ? str.replace(/\r?\n/g, ' ').replace(/(\s){2,}/g, ' ') : 0
+    str ? str.replace(/\r?\n/g, ' ').replace(/(\s){2,}/g, ' ') : ''
 
 // from https://stackoverflow.com/a/11892228
 const usurp = p => {

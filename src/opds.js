@@ -202,7 +202,7 @@ var OpdsClient = class OpdsClient {
         msg.destroy()
         return true
     }
-    static opdsEntryToMetadata(entry) {
+    static opdsEntryToMetadata(entry, showSummary = true) {
         const {
             title, summary, content, publisher, language, identifier, rights,
             published, updated, issued, extent,
@@ -221,8 +221,8 @@ var OpdsClient = class OpdsClient {
                 return x
             }),
             sources,
-            description: summary,
-            longDescription: content,
+            description: showSummary ? summary : content || summary,
+            longDescription: showSummary ? content : '',
             pubdate: issued || published,
             modified_date: updated,
             extent
@@ -443,7 +443,7 @@ var OpdsFullEntryBox =  GObject.registerClass({
         const propertiesBox = new PropertiesBox({
             visible: true,
             border_width: 12
-        }, OpdsClient.opdsEntryToMetadata(entry), pixbuf)
+        }, OpdsClient.opdsEntryToMetadata(entry, false), pixbuf)
         this.pack_start(propertiesBox, true, true, 0)
 
         const actionArea = propertiesBox.actionArea

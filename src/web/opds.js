@@ -3,13 +3,13 @@ let baseURI
 // very simple OPDS parser
 // the basic idea is derived from https://github.com/SamyPesse/xml-schema
 
-const trim = x => x ? x.trim() : x
-
 const getContent = el => {
     const type = el.getAttribute('type')
-    if (type === 'html' || type === 'text/html')
-        return toPangoMarkup(el.innerHTML)
-    else return trim(el.textContent)
+    if (['html', 'xhtml', 'text/html', 'application/xhtml+xml'].includes(type)) {
+        const str = el.innerHTML
+        if (str.includes('<')) return toPangoMarkup(str)
+        else return toPangoMarkup(unescapeHTML(str))
+    } else return trim(el.textContent)
 }
 
 const link = {
