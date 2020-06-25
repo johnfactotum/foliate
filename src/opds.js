@@ -18,7 +18,7 @@ const {
     debug, Obj, formatPrice, base64ToPixbuf, markupEscape,
     linkIsRel, makeLinksButton, sepHeaderFunc, user_agent
 } = imports.utils
-const { PropertiesBox, PropertiesWindow } = imports.properties
+const { PropertiesBox, PropertiesWindow, getSubjectAuthority } = imports.properties
 const { HdyColumn } = imports.handy
 
 const htmlPath = pkg.pkgdatadir + '/assets/client.html'
@@ -215,7 +215,11 @@ var OpdsClient = class OpdsClient {
             // Translators: this is the punctuation used to join together a list of
             // authors or categories
             creator: authors.map(x => x.name).join(_(', ')),
-            categories: categories.map(x => x.label || x.term),
+            categories: categories.map(x => {
+                const authority = getSubjectAuthority(x.scheme)
+                if (authority) x.authority = authority.key
+                return x
+            }),
             sources,
             description: summary,
             longDescription: content,

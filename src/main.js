@@ -410,8 +410,8 @@ function main(argv) {
             }
 
             .foliate-emblem {
-                color: white;
-                background: gray;
+                background: @theme_fg_color;
+                color: @theme_bg_color;
                 border-radius: 100%;
                 padding: 6px;
                 opacity: 0.9;
@@ -426,6 +426,17 @@ function main(argv) {
             .foliate-select {
                 color: #fff;
                 background: rgba(0, 0, 0, 0.4);
+            }
+
+            .foliate-authority-label {
+                font-size: smaller;
+                font-weight: bold;
+                background: @theme_bg_color;
+                color: @theme_fg_color;
+                border: 1px solid;
+                border-radius: 5px;
+                padding: 0 5px;
+                opacity: 0.5;
             }
         `)
         Gtk.StyleContext.add_provider_for_screen(

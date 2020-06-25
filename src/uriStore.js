@@ -197,16 +197,21 @@ class Library {
         const books = this._list.getArray()
 
         const results = []
+        const matchString = (x, q) => typeof x === 'string'
+            ? x.toLowerCase().includes(q) : false
         for (const item of books) {
             if (!item) continue
             const data = this._searchList.getItem(item)
             if (!data) continue
 
             const match = fields.some(field => {
-                if (field === 'subjects') return (data.metadata.subjects || [])
-                    .map(x => x.toLowerCase())
-                    .some(subject => subject.includes(q))
-                else return (data.metadata[field] || '').toLowerCase().includes(q)
+                if (field === 'subjects') {
+                    const subjects = data.metadata.subjects
+                    if (subjects) return subjects.some(subject =>
+                        matchString(subject, q)
+                        || matchString(subject.label, q)
+                        || matchString(subject.term, q))
+                } else return matchString(data.metadata[field], q)
             })
 
             if (match) results.push(item)

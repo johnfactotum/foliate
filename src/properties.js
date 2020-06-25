@@ -19,6 +19,115 @@ const {
     scalePixbuf, makeLinksButton, getLanguageDisplayName, formatDate, markupEscape
 } = imports.utils
 
+// see https://idpf.github.io/epub-registries/authorities/
+// NOTE: the keys are only for the reserved authority values (which is case
+// insensitive); for other authorities the URI should be used
+var subjectAuthorities = {
+    aat: {
+        label: _('AAT'),
+        name: _('The Getty Art and Architecture Taxonomy')
+    },
+    bic: {
+        label: _('BIC'),
+        name: _('Book Industry Communication')
+    },
+    bisac: {
+        label: _('BISAC'),
+        name: _('Book Industry Study Group'),
+        uri: 'http://www.bisg.org/standards/bisac_subject/index.html'
+    },
+    clc: {
+        label: _('CLC'),
+        name: _('Chinese Library Classification')
+    },
+    ddc: {
+        label: _('DDC'),
+        name: _('Dewey Decimal Classification'),
+        uri: 'http://purl.org/dc/terms/DDC'
+    },
+    clil: {
+        label: _('CLIL'),
+        name: _('Commission de Liaison Interprofessionnelle du Livre')
+    },
+    eurovoc: {
+        label: _('EuroVoc'),
+        name: _('EuroVoc')
+    },
+    medtop: {
+        label: _('MEDTOP'),
+        name: _('IPTC Media Topics')
+    },
+    lcc: {
+        label: _('LCC'),
+        name: _('Library of Congress Classification'),
+        uri: 'http://purl.org/dc/terms/LCC'
+    },
+    lcsh: {
+        label: _('LCSH'),
+        name: _('Library of Congress Subject Headings'),
+        uri: 'http://purl.org/dc/terms/LCSH'
+    },
+    ndc: {
+        label: _('NDC'),
+        name: _('Nippon Decimal Classification')
+    },
+    thema: {
+        label: _('Thema'),
+        name: _('Thema')
+    },
+    udc: {
+        label: _('UDC'),
+        name: _('Universal Decimal Classification')
+    },
+    wgs: {
+        label: _('WGS'),
+        name: _('Warengruppen-Systematik')
+    },
+    audience: {
+        label: _('Audience'),
+        name: _('Intended Audience'),
+        uri: 'http://schema.org/audience'
+    }
+}
+const subjectAuthorityByURIMap = new Map()
+Object.keys(subjectAuthorities).forEach(key => {
+    const x = subjectAuthorities[key]
+    subjectAuthorities[key].key = key
+    subjectAuthorityByURIMap.set(key, x)
+    if (x.uri) subjectAuthorityByURIMap.set(x.uri, x)
+})
+var getSubjectAuthority = x => x
+    ? subjectAuthorityByURIMap.get(x)
+    || subjectAuthorityByURIMap.get(x.toLowerCase())
+    : null
+
+var findBookOn = [
+    {
+        title: _('Amazon'),
+        href: 'https://www.amazon.com/s?k=%s'
+    },
+    {
+        title: _('Goodreads'),
+        href: 'http://www.goodreads.com/search/search?search_type=books&search%5Bquery%5D=%s'
+    },
+    {
+        title: _('Google Books'),
+        href: 'https://www.google.com/search?tbm=bks&q=%s'
+    },
+    {
+        title: _('LibraryThing'),
+        href: 'https://www.librarything.com/search.php?searchtype=work&search=%s'
+    },
+    {
+        title: _('Open Library'),
+        href: 'https://openlibrary.org/search?q=%s'
+    },
+    {
+        title: _('WorldCat'),
+        href: 'https://www.worldcat.org/search?q==%s'
+    },
+]
+
 const PropertyBox = GObject.registerClass({
     GTypeName: 'FoliatePropertyBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertyBox.ui',
@@ -50,6 +159,7 @@ var PropertiesBox = GObject.registerClass({
     InternalChildren: [
         'cover', 'title', 'creator',
         'description', 'descriptionSep', 'descriptionLong', 'descriptionExpander',
+        'categoriesBox', 'categoriesSep',
         'propertiesBox',
         'actionArea'
     ]
@@ -91,31 +201,60 @@ var PropertiesBox = GObject.registerClass({
         }
 
         if (categories && categories.length) {
-            const length = Math.max(...categories
-                .map(x => x.length))
-            const isLong = length > 35 && categories.length > 1
-                || length > 20 && categories.length > 4
+            const subjects = categories.map(x => {
+                if (typeof x === 'string') return { label: x }
+                else {
+                    let { label, authority, term } = x
+                    if (!label) label = term
+                    if (!authority) return { label }
+                    const auth = getSubjectAuthority(authority)
+                    if (!auth) return { label }
+                    return {
+                        label,
+                        authority: auth,
+                        term
+                    }
+                }
+            })
 
-            this._propertiesBox.pack_start(new PropertyBox({
-                property_name: _('Tags'),
-                property_value: isLong
-                    ? categories
-                        .map(markupEscape)
-                        .map(x => `<span alpha="50%"> •  </span>${x}`)
-                        .join('\n')
-                    : categories
-                        .map(markupEscape)
-                        .join('<span alpha="50%">  •  </span>'),
-                use_markup: true,
-                orientation:
-                    isLong
-                        ? Gtk.Orientation.VERTICAL
-                        : Gtk.Orientation.HORIZONTAL,
-                spacing: isLong ? 6 : 18
-            }), false, true, 0)
-            this._propertiesBox.pack_start(new Gtk.Separator({
-                visible: true
-            }), false, true, 0)
+            const grid = new Gtk.Grid({
+                column_spacing: 6
+            })
+            subjects.forEach(({ label, authority, term }, i) => {
+                const authLabel = authority ? new Gtk.Label({
+                    label: authority.label,
+                    wrap: true,
+                    tooltip_text: authority.name,
+                    valign: Gtk.Align.CENTER
+                }) : null
+                const labelLabel = new Gtk.Label({
+                    selectable: true,
+                    xalign: 0,
+                    wrap: true,
+                    label: label || '',
+                    tooltip_text: term || ''
+                })
+                const labelBox = new Gtk.Box({ spacing: 6 })
+                if (authLabel) {
+                    authLabel.get_style_context()
+                        .add_class('foliate-authority-label')
+                    labelBox.pack_start(authLabel, false, true, 0)
+                }
+                labelBox.pack_start(labelLabel, false, true, 0)
+                const dot = new Gtk.Label({
+                    label: '•',
+                    xalign: 1
+                })
+                dot.get_style_context().add_class('dim-label')
+                grid.attach(dot, 0, i, 1, 1)
+                grid.attach(labelBox, 1, i, 1, 1)
+            })
+            grid.show_all()
+
+            this._categoriesBox.pack_start(grid, false, true, 0)
+        } else {
+            this._categoriesSep.hide()
+            this._categoriesBox.hide()
         }
 
         if (publisher || pubdate || modified_date || language || extent || format) {
@@ -210,33 +349,6 @@ var PropertiesBox = GObject.registerClass({
     }
 })
 
-var findBookOn = [
-    {
-        title: _('Amazon'),
-        href: 'https://www.amazon.com/s?k=%s'
-    },
-    {
-        title: _('Goodreads'),
-        href: 'http://www.goodreads.com/search/search?search_type=books&search%5Bquery%5D=%s'
-    },
-    {
-        title: _('Google Books'),
-        href: 'https://www.google.com/search?tbm=bks&q=%s'
-    },
-    {
-        title: _('LibraryThing'),
-        href: 'https://www.librarything.com/search.php?searchtype=work&search=%s'
-    },
-    {
-        title: _('Open Library'),
-        href: 'https://openlibrary.org/search?q=%s'
-    },
-    {
-        title: _('WorldCat'),
-        href: 'https://www.worldcat.org/search?q==%s'
-    },
-]
-
 var PropertiesWindow = GObject.registerClass({
     GTypeName: 'FoliatePropertiesWindow',
 }, class PropertiesWindow extends Gtk.Dialog {
@@ -247,8 +359,8 @@ var PropertiesWindow = GObject.registerClass({
 
         if (this.transient_for) {
             const [width, height] = this.transient_for.get_size()
-            this.default_width = Math.min(500, width)
-            this.default_height = Math.min(500, height)
+            this.default_width = Math.min(500, width * 0.95)
+            this.default_height = Math.min(600, height * 0.95)
         }
 
         this._stack = new Gtk.Stack({
