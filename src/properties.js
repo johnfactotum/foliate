@@ -13,11 +13,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { GObject, Gtk, Gio, Gdk, GdkPixbuf } = imports.gi
+const { GObject, Gtk, Gio, Gdk, GdkPixbuf, cairo } = imports.gi
 const {
     setTimeout,
-    scalePixbuf, makeLinksButton, getLanguageDisplayName, formatDate, markupEscape
+    scalePixbuf, makeLinksButton, getLanguageDisplayName, formatDate, markupEscape,
+    hslToRgb, colorFromString, isLight
 } = imports.utils
+const { EpubViewData } = imports.epubView
 
 // see https://idpf.github.io/epub-registries/authorities/
 // NOTE: the keys are only for the reserved authority values (which is case
@@ -128,6 +130,65 @@ var findBookOn = [
     },
 ]
 
+var BookImage =  GObject.registerClass({
+    GTypeName: 'FoliateBookImage',
+    Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookImage.ui',
+    InternalChildren: [
+        'image', 'imageTitle', 'imageCreator', 'imageBox',
+    ]
+}, class BookImage extends Gtk.Overlay {
+    loadCover(metadata) {
+        const { identifier } = metadata
+        const coverPath = EpubViewData.coverPath(identifier)
+        try {
+            // TODO: loading the file synchronously is probably bad
+            const pixbuf = GdkPixbuf.Pixbuf.new_from_file(coverPath)
+            this.load(pixbuf)
+        } catch (e) {
+            this.generate(metadata)
+        }
+    }
+    generate(metadata) {
+        const { title, creator, publisher } = metadata
+        this._imageTitle.label = title || ''
+        this._imageCreator.label = creator || ''
+        const width = 120
+        const height = 180
+        const surface = new cairo.ImageSurface(cairo.Format.ARGB32, width, height)
+        const context = new cairo.Context(surface)
+        const bg = colorFromString(title + creator + publisher)
+        const [r, g, b] = hslToRgb(...bg)
+        context.setSourceRGBA(r, g, b, 1)
+        context.paint()
+        const pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, width, height)
+        this.load(pixbuf)
+        const className = isLight(r, g, b)
+            ? 'foliate-book-image-light' : 'foliate-book-image-dark'
+        this._imageBox.get_style_context().add_class(className)
+        this._imageBox.show()
+    }
+    load(pixbuf) {
+        // if thumbnail is too small,the experience is going to be bad
+        // might as well just show generated cover
+        // TODO: a slightly better way is to pack the tiny thumbnail inside the generated cover
+        if (pixbuf.get_width() < 48) throw new Error('thumbnail too small')
+
+        const factor = this.get_scale_factor()
+        const surface = Gdk.cairo_surface_create_from_pixbuf(
+            scalePixbuf(pixbuf, factor), factor, null)
+
+        this._image.set_from_surface(surface)
+        this._image.get_style_context().add_class('foliate-book-image')
+    }
+    get surface() {
+        return this._image.surface
+    }
+    set surface(surface) {
+        this._image.set_from_surface(surface)
+        this._image.get_style_context().add_class('foliate-book-image')
+    }
+})
+
 const PropertyBox = GObject.registerClass({
     GTypeName: 'FoliatePropertyBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertyBox.ui',
@@ -173,9 +234,8 @@ var PropertiesBox = GObject.registerClass({
                 surface = Gdk.cairo_surface_create_from_pixbuf(
                     scalePixbuf(cover, factor), factor, null)
             }
-            this._cover.set_from_surface(surface)
-            this._cover.get_style_context().add_class('foliate-book-image')
-        }// else this._cover.hide()
+            this._cover.surface = surface
+        } else this._cover.generate(metadata)
 
         let {
             title, creator, description, longDescription,
