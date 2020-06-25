@@ -428,10 +428,11 @@ book.ready.then(async () => {
     }))
     cfiToc.sort((a, b) => CFI.compare(a.cfi, b.cfi))
 
-    const metadata = book.package.metadata
+    const metadata = book.packaging.metadata
+    if (book.packaging.uniqueIdentifier)
+        metadata.identifier = book.packaging.uniqueIdentifier
     if (metadata.description)
         metadata.description = toPangoMarkup(metadata.description)
-    if (!metadata.language) metadata.language = 'en'
     dispatch({ type: 'book-ready' })
 })
 
