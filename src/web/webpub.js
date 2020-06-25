@@ -74,7 +74,7 @@ const fb2FromBlob = async (blob, filename) => {
     const decoder = new TextDecoder('utf-8')
     const data = decoder.decode(buffer)
     let doc = new DOMParser().parseFromString(data, 'text/xml')
-    if (doc.xmlEncoding !== 'utf-8') {
+    if (doc.xmlEncoding && doc.xmlEncoding !== 'utf-8') {
         const decoder = new TextDecoder(doc.xmlEncoding)
         const data = decoder.decode(buffer)
         doc = new DOMParser().parseFromString(data, 'text/xml')
