@@ -253,6 +253,18 @@ var OpdsClient = class OpdsClient {
             drm: types.includes('application/vnd.adobe.adept+xml')
         }
     }
+    static getImageLink(entry) {
+        const rels = [
+            'http://opds-spec.org/image/thumbnail',
+            'http://opds-spec.org/thumbnail',
+            'http://opds-spec.org/image',
+            'http://opds-spec.org/cover'
+        ]
+        for (const rel of rels) {
+            const link = entry.links.find(x => linkIsRel(x, rel))
+            if (link) return link
+        }
+    }
 }
 
 const makeAcquisitionButton = (links, onActivate) => {
@@ -433,8 +445,7 @@ var OpdsFullEntryBox =  GObject.registerClass({
         const client = new OpdsClient(this)
         await client.init()
         try {
-            const thumbnail = entry.links
-                .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
+            const thumbnail = OpdsClient.getImageLink(entry)
             if (thumbnail) pixbuf = await client.getImage(thumbnail.href)
         } finally {
             client.close()
@@ -630,8 +641,7 @@ var OpdsAcquisitionBox = GObject.registerClass({
         entries.forEach(entry => list.append(new Obj(entry)))
         this.bind_model(list, entry => {
             const child = new OpdsBoxChild({ entry })
-            const thumbnail = entry.value.links
-                .find(x => x.rel === 'http://opds-spec.org/image/thumbnail')
+            const thumbnail = OpdsClient.getImageLink(entry.value)
             child.image.connect('draw', () => this.emit('image-draw'))
             child.image.connect('realize', () => {
                 if (thumbnail)
