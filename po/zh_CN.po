@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-21 22:21+0800\n"
-"PO-Revision-Date: 2020-06-19 19:11+0800\n"
+"PO-Revision-Date: 2020-06-25 23:17+0800\n"
 "Last-Translator: Blanc Chan <cdh4227@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -68,32 +68,29 @@ msgstr "正在搜索…"
 
 #: src/contents.js:303
 msgid "Bibliography"
-msgstr ""
+msgstr "参考书目"
 
 #: src/contents.js:304
 msgid "Glossary"
-msgstr ""
+msgstr "注释"
 
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
-#, fuzzy
 msgid "Annotation"
-msgstr "注释"
+msgstr "注解"
 
 #: src/contents.js:309
-#, fuzzy
 msgid "Footnote"
-msgstr "脚注预览"
+msgstr "脚注"
 
 #: src/contents.js:310 src/contents.js:311
 msgid "Endnote"
-msgstr ""
+msgstr "尾注"
 
 #. deprecated
 #: src/contents.js:312 src/contents.js:339
-#, fuzzy
 msgid "Note"
-msgstr "笔记:"
+msgstr "笔记"
 
 #: src/epubView.js:1016
 msgid "File not found."
@@ -114,18 +111,18 @@ msgstr "不支持的文件类型。"
 #: src/export.js:35
 #, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr "<p>注释关于</p><h1>《%s》</h1><h2>（%s 著）</h2>"
+msgstr "<p>注解关于</p><h1>《%s》</h1><h2>（%s 著）</h2>"
 
 #: src/export.js:37 src/export.js:51 src/export.js:63
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "%d 条注释"
+msgstr[0] "%d 条注解"
 
 #: src/export.js:50
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "注释关于《%s》（%s 著）"
+msgstr "注解关于《%s》（%s 著）"
 
 #: src/export.js:54
 msgid "Section: "
@@ -146,7 +143,7 @@ msgstr "笔记:"
 #: src/export.js:62
 #, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr "注释关于《%s》（%s 著）"
+msgstr "注解关于《%s》（%s 著）"
 
 #: src/export.js:96
 msgid "Quote: "
@@ -158,15 +155,15 @@ msgstr " 笔记: "
 
 #: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
 msgid "No annotations"
-msgstr "无注释"
+msgstr "无注解"
 
 #: src/export.js:105
 msgid "You don't have any annotations for this book."
-msgstr "你没有为本书添加任何注释。"
+msgstr "你没有为本书添加任何注解。"
 
 #: src/export.js:106
 msgid "Highlight some text to add annotations."
-msgstr "高亮文本以添加注释。"
+msgstr "高亮文本以添加注解。"
 
 #: src/export.js:128
 msgid "Save File"
@@ -175,7 +172,7 @@ msgstr "保存文件"
 #: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
-msgstr "《%s》的注释"
+msgstr "《%s》的注解"
 
 #: src/export.js:166 src/utils.js:255
 msgid "All Files"
@@ -195,13 +192,13 @@ msgstr "无可导入的文件。"
 
 #: src/export.js:228
 msgid "Identifier mismatch"
-msgstr "标识符错误"
+msgstr "标识符不符"
 
 #: src/export.js:229
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
-msgstr "导入文件的标识符与图书不符。可能是因为注释不是这本书的。"
+msgstr "导入文件的标识符与图书不符。可能是因为注解不是这本书的。"
 
 #: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
 #: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
@@ -252,7 +249,7 @@ msgstr[0] "你确定要删除这 %d 本书吗？"
 
 #: src/library.js:502
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
-msgstr "阅读进度、注释和书签都将永远丢失。"
+msgstr "阅读进度、注解和书签都将永远丢失。"
 
 #: src/library.js:508 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
@@ -684,11 +681,11 @@ msgstr "%d 在 %d 中"
 
 #: src/window.js:557
 msgid "This file or format does not work well with annotations"
-msgstr "注释在此文件或格式下有问题"
+msgstr "注解在此文件或格式下有问题"
 
 #: src/window.js:558
 msgid "Your annotations might stop working properly at any time."
-msgstr "你的注释随时有可能出错。"
+msgstr "你的注解随时有可能出错。"
 
 #: src/window.js:564
 msgid "Continue Anyway"
@@ -733,7 +730,7 @@ msgstr "远程文件"
 
 #: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
 msgid "Export Annotations…"
-msgstr "导出注释…"
+msgstr "导出注解…"
 
 #: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
@@ -775,16 +772,16 @@ msgstr "目录"
 
 #: src/ui/contentsStack.ui:51
 msgid "Search annotations"
-msgstr "搜索注释"
+msgstr "搜索注解"
 
 #: src/ui/contentsStack.ui:92
 msgid "Select some text to add annotations."
-msgstr "选中文本以添加注释。"
+msgstr "选中文本以添加注解。"
 
 #: src/ui/contentsStack.ui:124
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
 msgid "Annotations"
-msgstr "注释"
+msgstr "注解"
 
 #: src/ui/contentsStack.ui:159
 msgid "No bookmarks"
@@ -836,7 +833,7 @@ msgstr "选择导出格式："
 
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
-msgstr "如果你想将注释重新导入 Foliate 则选择 “JSON” 格式。"
+msgstr "如果你想将注解重新导入 Foliate 则选择 “JSON” 格式。"
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
@@ -847,9 +844,8 @@ msgid "Current chapter"
 msgstr "当前章节"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-#, fuzzy
 msgid "Reference Preview"
-msgstr "脚注预览"
+msgstr "参考资料预览"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
 #: src/ui/shortcutsWindow.ui:159 src/ui/shortcutsWindow.ui:342
@@ -897,13 +893,13 @@ msgstr "导入"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr "将会添加以下注释："
+msgstr "将会添加以下注解："
 
 #: src/ui/importWindow.ui:64
 msgid ""
 "The imported annotations will NOT overwrite the existing ones when they "
 "highlight the same passages."
-msgstr "高亮同一页时，导入的注释不会覆盖现有注释。"
+msgstr "高亮同一页时，导入的注解不会覆盖现有注解。"
 
 #: src/ui/libraryWindow.ui:7
 msgid "Open Book…"
@@ -1136,7 +1132,7 @@ msgstr "清除缓存"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
 msgid "Import Annotations…"
-msgstr "导入注释…"
+msgstr "导入注解…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
@@ -1535,7 +1531,7 @@ msgstr "显示目录"
 
 #: src/ui/shortcutsWindow.ui:206
 msgid "Show annotations"
-msgstr "显示注释"
+msgstr "显示注解"
 
 #: src/ui/shortcutsWindow.ui:213
 msgid "Show bookmarks"
@@ -1672,7 +1668,7 @@ msgstr "带章节标签的阅读进度条"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
-msgstr "书签和注释"
+msgstr "书签和注解"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
@@ -1737,7 +1733,7 @@ msgstr "元数据中的语言和出版日期现在将被解析和格式化"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Export annotations from the library view"
-msgstr "从书库视图导出注释"
+msgstr "从书库视图导出注解"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
@@ -1846,11 +1842,11 @@ msgstr "从 JSON 导入书签"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
 msgid "Search in annotations"
-msgstr "注释中搜索"
+msgstr "注解中搜索"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
 msgid "Annotations are now sorted in the same order as they appear in the book"
-msgstr "注释现在以它们在书中出现的顺序存储"
+msgstr "注解现在以它们在书中出现的顺序存储"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
 msgid "Security:"
@@ -1937,7 +1933,7 @@ msgstr "欢迎屏幕添加打开最近文件的菜单"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
-msgstr "还原了用于显示目录、注释和书签的快捷方式"
+msgstr "还原了用于显示目录、注解和书签的快捷方式"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
 msgid "Fixed application not translated"
@@ -1984,7 +1980,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
 msgid "Annotations, bookmarks, and find results now show chapter titles"
-msgstr "注释、书签和搜索结果现在显示章节标题"
+msgstr "注解、书签和搜索结果现在显示章节标题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:167
 msgid "When looking up words in dictionaries, the query can now be edited"
@@ -2057,7 +2053,7 @@ msgstr "朗读选定文本"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
 msgid "Annotations:"
-msgstr "注释："
+msgstr "注解："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:190
 msgid "Spellcheck notes"
@@ -2065,7 +2061,7 @@ msgstr "拼写检查记录"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
 msgid "Export annotations to Markdown"
-msgstr "以 Markdown 格式导出注释"
+msgstr "以 Markdown 格式导出注解"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
 msgid "Options to use custom colors for highlights"
@@ -2140,7 +2136,7 @@ msgstr "改进的脚注解压和格式弹窗"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
 msgid "Added option to export annotations to BibTeX"
-msgstr "支持导出注释为 BibTeX"
+msgstr "支持导出注解为 BibTeX"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
 msgid "Fixed table of contents navigation not working with some books"
@@ -2177,7 +2173,7 @@ msgstr "基本的文字转语音支持"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:252
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr "导出注释到 HTML、纯文本或JSON"
+msgstr "导出注解到 HTML、纯文本或JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
@@ -2355,7 +2351,7 @@ msgstr "默认高亮颜色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:45
 msgid "Default highlight color for annotations"
-msgstr "默认的注释和高亮颜色"
+msgstr "默认的注解和高亮颜色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Dictionary"
