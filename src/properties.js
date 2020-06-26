@@ -17,7 +17,8 @@ const { GObject, Gtk, Gio, Gdk, GdkPixbuf, cairo } = imports.gi
 const {
     setTimeout,
     scalePixbuf, makeLinksButton, getLanguageDisplayName, formatDate, markupEscape,
-    hslToRgb, colorFromString, isLight
+    hslToRgb, colorFromString, isLight,
+    makeList
 } = imports.utils
 const { EpubViewData } = imports.epubView
 
@@ -192,7 +193,7 @@ var BookImage =  GObject.registerClass({
 const PropertyBox = GObject.registerClass({
     GTypeName: 'FoliatePropertyBox',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/propertyBox.ui',
-    InternalChildren: ['name', 'value'],
+    InternalChildren: ['name', 'sep', 'value'],
     Properties: {
         'property-name':
             GObject.ParamSpec.string('property-name', 'property-name', 'property-name',
@@ -202,15 +203,24 @@ const PropertyBox = GObject.registerClass({
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, ''),
         'use-markup':
             GObject.ParamSpec.boolean('use-markup', 'use-markup', 'use-markup',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
+        'show-separator':
+            GObject.ParamSpec.boolean('show-separator', 'show-separator', 'show-separator',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false)
     }
 }, class PropertyBox extends Gtk.Box {
-    _init(params) {
+    _init(params, customWidget) {
         super._init(params)
         const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
         this.bind_property('property-name', this._name, 'label', flag)
-        this.bind_property('property-value', this._value, 'label', flag)
-        this.bind_property('use-markup', this._value, 'use-markup', flag)
+        this.bind_property('show-separator', this._sep, 'visible', flag)
+        if (!customWidget) {
+            this.bind_property('property-value', this._value, 'label', flag)
+            this.bind_property('use-markup', this._value, 'use-markup', flag)
+        } else {
+            this.remove(this._value)
+            this.pack_start(customWidget, false, true, 0)
+        }
     }
 })
 
@@ -220,7 +230,7 @@ var PropertiesBox = GObject.registerClass({
     InternalChildren: [
         'cover', 'title', 'creator',
         'description', 'descriptionSep', 'descriptionLong', 'descriptionExpander',
-        'categoriesBox', 'categoriesSep',
+        'categoriesBox',
         'propertiesBox',
         'actionArea'
     ]
@@ -240,7 +250,7 @@ var PropertiesBox = GObject.registerClass({
         let {
             title, creator, description, longDescription,
             publisher, pubdate, modified_date, language, identifier, rights,
-            extent, format, categories, subjects, sources
+            extent, format, categories, subjects, collections, sources
         } = metadata
         if (!categories) categories = subjects
 
@@ -260,7 +270,9 @@ var PropertiesBox = GObject.registerClass({
             this._descriptionSep.hide()
         }
 
-        if (categories && categories.length) {
+        const hasCategories = categories && categories.length
+        const hasCollections = collections && collections.length
+        if (hasCategories) {
             const subjects = categories.map(x => {
                 if (typeof x === 'string') return { label: x }
                 else {
@@ -277,10 +289,7 @@ var PropertiesBox = GObject.registerClass({
                 }
             })
 
-            const grid = new Gtk.Grid({
-                column_spacing: 6
-            })
-            subjects.forEach(({ label, authority, term }, i) => {
+            const listWidgets = subjects.map(({ label, authority, term }) => {
                 const authLabel = authority ? new Gtk.Label({
                     label: authority.label,
                     wrap: true,
@@ -301,21 +310,26 @@ var PropertiesBox = GObject.registerClass({
                     labelBox.pack_start(authLabel, false, true, 0)
                 }
                 labelBox.pack_start(labelLabel, false, true, 0)
-                const dot = new Gtk.Label({
-                    label: '•',
-                    xalign: 1
-                })
-                dot.get_style_context().add_class('dim-label')
-                grid.attach(dot, 0, i, 1, 1)
-                grid.attach(labelBox, 1, i, 1, 1)
+                labelBox.show_all()
+                return labelBox
             })
-            grid.show_all()
-
-            this._categoriesBox.pack_start(grid, false, true, 0)
-        } else {
-            this._categoriesSep.hide()
-            this._categoriesBox.hide()
+            const list = makeList(listWidgets)
+            this._categoriesBox.pack_start(new PropertyBox({
+                property_name: _('Tags'),
+                show_separator: true
+            }, list), false, true, 0)
         }
+        if (hasCollections) {
+            const listWidgets = collections.map(x => ({
+                label: typeof x === 'string' ? x : x.label
+            }))
+            const list = makeList(listWidgets)
+            this._categoriesBox.pack_start(new PropertyBox({
+                property_name: _('Collections'),
+                show_separator: true
+            }, list), false, true, 0)
+        }
+        if (!hasCategories && !hasCollections) this._categoriesBox.hide()
 
         if (publisher || pubdate || modified_date || language || extent || format) {
             const flowBox = new Gtk.FlowBox({
@@ -388,17 +402,20 @@ var PropertiesBox = GObject.registerClass({
                 this._propertiesBox.pack_start(box, false, true, 0)
             }
         }
-        if (sources && sources.length) this._propertiesBox.pack_start(new PropertyBox({
-            property_name: _('Sources'),
-            use_markup: true,
-            property_value: sources
-                .map(markupEscape)
-                .map(x => x.startsWith('http://') || x.startsWith('https://')
-                    ? `<a href="${x}">${x}</a>`
-                    : x)
-                .map(x => sources.length > 1 ? `<span alpha="50%"> •  </span>${x}` : x)
-                .join('\n')
-        }), false, true, 0)
+        if (sources && sources.length) {
+            const listWidgets = sources.map(source => {
+                source = markupEscape(source)
+                const label =
+                    source.startsWith('http://') || source.startsWith('https://')
+                        ? `<a href="${source}">${source}</a>`
+                        : source
+                return { label, use_markup: true }
+            })
+            const list = makeList(listWidgets)
+            this._propertiesBox.pack_start(new PropertyBox({
+                property_name: _('Sources'),
+            }, list), false, true, 0)
+        }
         if (rights) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Copyright'),
             property_value: rights

@@ -645,6 +645,36 @@ var makeLinksButton = (params, links, onActivate) => {
     return button
 }
 
+var unorderedListStyleFunc = () => {
+    const dot = new Gtk.Label({
+        visible: true,
+        label: '•',
+        xalign: 1
+    })
+    dot.get_style_context().add_class('dim-label')
+    return dot
+}
+var makeList = (widgets, listStyleFunc = unorderedListStyleFunc) => {
+    const grid = new Gtk.Grid({
+        visible: true,
+        column_spacing: 6
+    })
+    widgets.forEach((widget, i) => {
+        if (!(widget instanceof Gtk.Widget)) {
+            widget = new Gtk.Label(Object.assign({
+                visible: true,
+                selectable: true,
+                xalign: 0,
+                wrap: true,
+            }, widget))
+        }
+        const marker = listStyleFunc(i)
+        grid.attach(marker, 0, i, 1, 1)
+        grid.attach(widget, 1, i, 1, 1)
+    })
+    return grid
+}
+
 var sepHeaderFunc = row => {
     if (row.get_index()) row.set_header(new Gtk.Separator())
 }

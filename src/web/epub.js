@@ -15140,7 +15140,19 @@ var Packaging = function () {
 				})
 
 			metadata.sources = getElementsNS(DC_NS, "source")
-			    .map(getElementText)
+				.map(getElementText)
+
+			metadata.collections = metas
+			    .filter(meta => meta.getAttribute('property') === 'belongs-to-collection')
+			 	.map(meta => {
+			 		const id = meta.getAttribute('id')
+			 		const metas = getRefiningMetas(id)
+			 		const typeMeta = metas && metas[0] ? metas[0] : null
+			 		return {
+			 			type: typeMeta ? getElementText(typeMeta) : null,
+			 			label: getElementText(meta)
+			 		}
+			 	})
 
 			metadata.pubdate = this.getElementText(xml, "date");
 
