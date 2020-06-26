@@ -18,7 +18,8 @@ const {
     debug, Obj, formatPrice, base64ToPixbuf, markupEscape,
     linkIsRel, makeLinksButton, sepHeaderFunc, user_agent
 } = imports.utils
-const { PropertiesBox, PropertiesWindow, getSubjectAuthority } = imports.properties
+const { getSubjectAuthority } = imports.schemes
+const { PropertiesBox, PropertiesWindow } = imports.properties
 const { HdyColumn } = imports.handy
 
 const htmlPath = pkg.pkgdatadir + '/assets/client.html'
@@ -576,7 +577,7 @@ var OpdsAcquisitionBox = GObject.registerClass({
         const getTitle = child => {
             const index = child.get_index()
             const total = flowbox.get_children().length
-            return `${index + 1} of ${total}`
+            return _('%d of %d').format(index + 1, total)
         }
         const packAcquisitionButtons = entry => {
             const actionArea = dialog.propertiesBox.actionArea
