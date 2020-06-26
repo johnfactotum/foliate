@@ -305,8 +305,9 @@ var PropertiesBox = GObject.registerClass({
                 })
                 const labelBox = new Gtk.Box({ spacing: 6 })
                 if (authLabel) {
-                    authLabel.get_style_context()
-                        .add_class('foliate-authority-label')
+                    const ctx = authLabel.get_style_context()
+                    ctx.add_class('dim-label')
+                    ctx.add_class('foliate-authority-label')
                     labelBox.pack_start(authLabel, false, true, 0)
                 }
                 labelBox.pack_start(labelLabel, false, true, 0)
