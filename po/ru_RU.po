@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-21 22:21+0800\n"
+"POT-Creation-Date: 2020-06-26 17:16+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: zluka <https://github.com/zluca>\n"
 "Language-Team: \n"
@@ -21,8 +21,8 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
-#: src/main.js:192 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
+#: src/main.js:194 src/window.js:990
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr ""
@@ -208,8 +208,8 @@ msgstr ""
 "Идентификатор импортированного файла не совпадает с идентификатором книги. "
 "Это может указывать на то, что аннотации не относятся к этой книге."
 
-#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
-#: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
+#: src/export.js:234 src/library.js:455 src/main.js:149 src/opds.js:159
+#: src/opds.js:916 src/window.js:563 src/ui/bookEditDialog.ui:10
 #: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
 #: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
 #: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
@@ -220,7 +220,7 @@ msgstr "Отменить"
 msgid "Import Anyway"
 msgstr "Всё равно иммпортировать"
 
-#: src/export.js:245 src/opds.js:1000 src/opds.js:1068 src/window.js:1024
+#: src/export.js:245 src/opds.js:1042 src/opds.js:1111 src/window.js:1025
 msgid "Error"
 msgstr "Ошибка"
 
@@ -228,28 +228,28 @@ msgstr "Ошибка"
 msgid "Could not import annotations."
 msgstr "Не удается импортировать примечания."
 
-#: src/library.js:151 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/library.js:98 src/window.js:642 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "Об этой книге"
 
-#: src/library.js:184
+#: src/library.js:132
 msgid "Choose File"
 msgstr "Выберите файл"
 
-#: src/library.js:317 src/library.js:335
+#: src/library.js:265 src/library.js:283
 msgid "Load more"
 msgstr "Загрузить ещё"
 
-#: src/library.js:479
+#: src/library.js:427
 msgid "File location unkown"
 msgstr "Расположение файла неизвестно"
 
-#: src/library.js:480
+#: src/library.js:428
 msgid "Choose the location of this file to open it."
 msgstr "Выберите расположение этого файла для открытия."
 
-#: src/library.js:500
+#: src/library.js:448
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
@@ -257,19 +257,19 @@ msgstr[0] "Вы уверены что хотите удалить %d книгу?
 msgstr[1] "Вы уверены что хотите удалить %d книги?"
 msgstr[2] "Вы уверены что хотите удалить %d книг?"
 
-#: src/library.js:502
+#: src/library.js:450
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
 "Прогресс прочтения глав, примечания и закладки будут удалены без возможности "
 "восстановления."
 
-#: src/library.js:508 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/library.js:456 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:581
 msgid "Remove"
 msgstr "Удалить"
 
-#: src/library.js:629
+#: src/library.js:578
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
@@ -277,49 +277,49 @@ msgstr[0] "%d выбрана"
 msgstr[1] "%d выбраны"
 msgstr[2] "%d выбрано"
 
-#: src/library.js:748
+#: src/library.js:697
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Не удалось добавить %d книгу"
 msgstr[1] "Не удалось добавить %d книги"
 msgstr[2] "Не удалось добавить %d книг"
 
-#: src/library.js:750
+#: src/library.js:699
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Не удалось добавить %d файл:"
 msgstr[1] "Не удалось добавить %d файла:"
 msgstr[2] "Не удалось добавить %d файлов:"
 
-#: src/library.js:822
+#: src/library.js:771
 msgid "All"
 msgstr "Все"
 
-#: src/library.js:825 src/ui/catalogWindow.ui:39
+#: src/library.js:774 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Заголовок"
 
-#: src/library.js:826
+#: src/library.js:775 src/schemes.js:135
 msgid "Author"
 msgstr "Автор"
 
-#: src/library.js:827 src/properties.js:77
+#: src/library.js:776 src/properties.js:239 src/ui/propertyBox.ui:16
 msgid "Tags"
 msgstr "Тэги"
 
-#: src/library.js:828
+#: src/library.js:777 src/ui/propertiesBox.ui:69
 msgid "Description"
 msgstr "Описание"
 
-#: src/library.js:829 src/properties.js:81
+#: src/library.js:778 src/properties.js:265 src/schemes.js:285
 msgid "Publisher"
 msgstr "Издатель"
 
-#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:779 src/properties.js:285 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Язык"
 
-#: src/library.js:867
+#: src/library.js:816
 msgid "Add Files"
 msgstr "Добавить файлы"
 
@@ -347,48 +347,48 @@ msgstr "Смотреть на Викисловаре"
 msgid "Translation by Google Translate"
 msgstr "Переведено через Google Translate"
 
-#: src/main.js:121 src/window.js:657
+#: src/main.js:123 src/window.js:658
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: src/main.js:142
+#: src/main.js:144
 msgid "Open Catalog"
 msgstr "Открыть каталог"
 
-#: src/main.js:148 src/ui/catalogRow.ui:50
+#: src/main.js:150 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "Открыть"
 
-#: src/main.js:152
+#: src/main.js:154
 msgid "OPDS Catalog URL:"
 msgstr "URL адрес OPDS каталога:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:191
+#: src/main.js:193
 msgid "translator-credits"
 msgstr ""
 "Schwonder Reismus, 2019\n"
 "Artem Polishchuk, 2019\n"
 "Artemii Sudakov, 2020"
 
-#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:195 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Простая и современная программа для чтения электронных книг"
 
-#: src/main.js:218
+#: src/main.js:220
 msgid "Open library window"
 msgstr "Открыть окно библиотеки"
 
-#: src/main.js:222
+#: src/main.js:224
 msgid "Add files to the library"
 msgstr "Добавить файлы в библиотеку"
 
-#: src/main.js:226
+#: src/main.js:228
 msgid "Show version"
 msgstr "Показать версию"
 
-#: src/main.js:230
+#: src/main.js:232
 msgid "Show verbose debugging information"
 msgstr "Показать дополненную информацию отладки"
 
@@ -420,176 +420,196 @@ msgstr "Пароль"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/opds.js:216
+#: src/opds.js:217
 msgid ", "
 msgstr ", "
 
-#: src/opds.js:255
+#: src/opds.js:272
 msgid "Download"
 msgstr "Скачать"
 
-#: src/opds.js:257
+#: src/opds.js:275
 msgid "Buy"
 msgstr "Купить"
 
-#: src/opds.js:258
+#: src/opds.js:276
 msgid "Free"
 msgstr "Бесплатно"
 
-#: src/opds.js:259
+#: src/opds.js:277
 msgid "Sample"
 msgstr "Отрывок"
 
-#: src/opds.js:260
+#: src/opds.js:278
 msgid "Borrow"
 msgstr "Взять на прокат"
 
-#: src/opds.js:261
+#: src/opds.js:279
 msgid "Subscribe"
 msgstr "Подписаться"
 
-#: src/opds.js:278
+#: src/opds.js:281
+msgid "More"
+msgstr ""
+
+#: src/opds.js:305
 msgid "Protected by DRM"
 msgstr "Защищено DRM"
 
-#: src/opds.js:296
+#: src/opds.js:323
 msgid " (DRM)"
 msgstr " (DRM)"
 
-#: src/opds.js:362
+#: src/opds.js:404
 msgid "Unable to load OPDS feed"
 msgstr "Не удается загрузить OPDS ленту"
 
-#: src/opds.js:367 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
+#: src/opds.js:409 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
 #: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:93
 msgid "Reload"
 msgstr "Перезагрузить"
 
-#: src/opds.js:771 src/ui/catalogWindow.ui:6
+#: src/opds.js:579 src/window.js:337
+#, javascript-format
+msgid "%d of %d"
+msgstr "%d из %d"
+
+#: src/opds.js:810 src/ui/catalogWindow.ui:6
 msgid "OPDS Catalog"
 msgstr "Каталог OPDS"
 
-#: src/opds.js:869 src/ui/catalogWindow.ui:53
+#: src/opds.js:910 src/ui/catalogWindow.ui:53
 msgid "OPDS URL"
 msgstr "URL адрес OPDS"
 
-#: src/opds.js:876
+#: src/opds.js:917
 msgid "Go"
 msgstr "Перейти"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1304
+#: src/opds.js:937 src/opds.js:963 src/window.js:1305
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Загрузка…"
 
-#: src/opds.js:964
+#: src/opds.js:1006
 msgid "First"
 msgstr "Первая"
 
-#: src/opds.js:965
+#: src/opds.js:1007 src/properties.js:474
 msgid "Previous"
 msgstr "Предыдущая"
 
-#: src/opds.js:966
+#: src/opds.js:1008 src/properties.js:474
 msgid "Next"
 msgstr "Следующая"
 
-#: src/opds.js:967
+#: src/opds.js:1009
 msgid "Last"
 msgstr "Последняя"
 
-#: src/opds.js:1015
+#: src/opds.js:1057
 msgid "Related"
 msgstr "Связанная"
 
-#: src/opds.js:1016
+#: src/opds.js:1058
 msgid "Section"
 msgstr "Раздел"
 
-#: src/opds.js:1017
+#: src/opds.js:1059
 msgid "Subsection"
 msgstr "Подраздел"
 
-#: src/opds.js:1018
+#: src/opds.js:1060
 msgid "New"
 msgstr "Новая"
 
-#: src/opds.js:1019
+#: src/opds.js:1061
 msgid "Popular"
 msgstr "Популярная"
 
-#: src/opds.js:1020
+#: src/opds.js:1062
 msgid "Featured"
 msgstr "Совместно с"
 
-#: src/opds.js:1021
+#: src/opds.js:1063
 msgid "Recommended"
 msgstr "Рекомендаванное"
 
-#: src/opds.js:1055
+#: src/opds.js:1098
 msgid "Filter"
 msgstr "Фильтры"
 
-#: src/properties.js:78
-msgid " • "
-msgstr " • "
+#: src/properties.js:28
+msgid "Amazon"
+msgstr ""
 
-#: src/properties.js:87
+#: src/properties.js:32
+msgid "Goodreads"
+msgstr ""
+
+#: src/properties.js:36
+msgid "Google Books"
+msgstr "Google Книги"
+
+#: src/properties.js:40
+msgid "LibraryThing"
+msgstr ""
+
+#: src/properties.js:44
+msgid "Open Library"
+msgstr ""
+
+#: src/properties.js:48
+msgid "WorldCat"
+msgstr ""
+
+#: src/properties.js:249
+#, fuzzy
+msgid "Collections"
+msgstr "Все главы"
+
+#: src/properties.js:271
 msgid "Publication Date"
 msgstr "Дата публикации"
 
-#: src/properties.js:94
+#: src/properties.js:278
 msgid "Modified Date"
 msgstr "Дата изменения"
 
-#: src/properties.js:106
+#: src/properties.js:290
 msgid "File Size"
 msgstr "Размер файла"
 
-#: src/properties.js:110
+#: src/properties.js:294
 msgid "Format"
 msgstr "Формат"
 
-#: src/properties.js:116
+#: src/properties.js:302
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: src/properties.js:130
+#: src/properties.js:316
 msgid ""
 "This book has no identifier. This is the MD5 hash generated from the file."
 msgstr ""
 "У этой книги нет идентификатора. Это хеш-сумма MD% которая была создана на "
 "основе файла."
 
-#: src/properties.js:141
+#: src/properties.js:337
+#, fuzzy
+msgid "Sources"
+msgstr "Источник: "
+
+#: src/properties.js:392
+#, fuzzy
+msgid "Contributors"
+msgstr "Непрерывный"
+
+#: src/properties.js:396
 msgid "Copyright"
 msgstr "Авторские права"
 
-#: src/properties.js:155
-msgid "Amazon"
-msgstr ""
-
-#: src/properties.js:159
-msgid "Goodreads"
-msgstr ""
-
-#: src/properties.js:163
-msgid "Google Books"
-msgstr "Google Книги"
-
-#: src/properties.js:167
-msgid "LibraryThing"
-msgstr ""
-
-#: src/properties.js:171
-msgid "Open Library"
-msgstr ""
-
-#: src/properties.js:175
-msgid "WorldCat"
-msgstr ""
-
-#: src/properties.js:214
+#: src/properties.js:497
 msgid "Find on…"
 msgstr "Найти в…"
 
@@ -637,16 +657,16 @@ msgstr "Северная"
 
 #. Translatros: these are sentences from "The North Wind and the Sun",
 #. used for testing text-to-speech
-#: src/tts.js:225
+#: src/tts.js:226
 msgid "The North Wind and the Sun were disputing which was the stronger,"
 msgstr "Северный Ветер и Солнце спорили, кто был сильнее,"
 
-#: src/tts.js:226
+#: src/tts.js:227
 msgid "when a traveler came along wrapped in a warm cloak."
 msgstr "когда пришел путешественник, одетый в теплый плащ."
 
 #. Translators: this is the language code of the test sentences
-#: src/tts.js:228
+#: src/tts.js:229
 msgid "en"
 msgstr "ru"
 
@@ -684,7 +704,7 @@ msgstr[2] "%d часов"
 msgid "E-book Files"
 msgstr "Файлы электронных книг"
 
-#: src/window.js:123 src/window.js:807
+#: src/window.js:123 src/window.js:808
 msgid "Leave fullscreen"
 msgstr "Выйти из полноэкранного режима"
 
@@ -698,11 +718,6 @@ msgstr "Полноэкранный режим"
 msgid "of %d"
 msgstr "из %d"
 
-#: src/window.js:337
-#, javascript-format
-msgid "%d of %d"
-msgstr "%d из %d"
-
 #: src/window.js:557
 msgid "This file or format does not work well with annotations"
 msgstr "Формат этого файла плохо работает с примечаниями"
@@ -715,28 +730,28 @@ msgstr "Ваши примечания могут перестать работа
 msgid "Continue Anyway"
 msgstr "Всё равно продолжить"
 
-#: src/window.js:786
+#: src/window.js:787
 msgid "Contents"
 msgstr "Оглавление"
 
-#: src/window.js:790 data/com.github.johnfactotum.Foliate.gschema.xml:240
+#: src/window.js:791 data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Show sidebar"
 msgstr "Показать боковую панель"
 
-#: src/window.js:801 src/ui/selectionPopover.ui:47
+#: src/window.js:802 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr "Искать"
 
-#: src/window.js:802 src/ui/libraryWindow.ui:205 src/ui/libraryWindow.ui:300
+#: src/window.js:803 src/ui/libraryWindow.ui:205 src/ui/libraryWindow.ui:300
 msgid "Menu"
 msgstr "Меню"
 
-#: src/window.js:1090
+#: src/window.js:1091
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Изображение с “%s”"
 
-#: src/window.js:1090
+#: src/window.js:1091
 msgid "Image"
 msgstr "Изображение"
 
@@ -1125,7 +1140,7 @@ msgstr "Выравнивание по ширине"
 msgid "Auto-hyphenation"
 msgstr "Автоперенос"
 
-#: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114
+#: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114 src/schemes.js:280
 msgid "Other"
 msgstr "Другие"
 
@@ -1479,6 +1494,10 @@ msgstr "Кешировать месторасположения файлов"
 msgid "Cache book covers"
 msgstr "Кешировать обложки книг"
 
+#: src/ui/propertiesBox.ui:97
+msgid "Detail"
+msgstr ""
+
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
 msgstr "Искать в словаре"
@@ -1671,6 +1690,1215 @@ msgstr "Статья не найдена"
 #: src/ui/wikipediaBox.ui:80
 msgid "Wikipedia"
 msgstr "Википедия"
+
+#: src/schemes.js:6
+msgid "AAT"
+msgstr ""
+
+#: src/schemes.js:7
+msgid "The Getty Art and Architecture Taxonomy"
+msgstr ""
+
+#: src/schemes.js:10
+msgid "BIC"
+msgstr ""
+
+#: src/schemes.js:11
+msgid "Book Industry Communication"
+msgstr ""
+
+#: src/schemes.js:14
+msgid "BISAC"
+msgstr ""
+
+#: src/schemes.js:15
+msgid "Book Industry Study Group"
+msgstr ""
+
+#: src/schemes.js:19
+msgid "CLC"
+msgstr ""
+
+#: src/schemes.js:20
+msgid "Chinese Library Classification"
+msgstr ""
+
+#: src/schemes.js:23
+msgid "DDC"
+msgstr ""
+
+#: src/schemes.js:24
+msgid "Dewey Decimal Classification"
+msgstr ""
+
+#: src/schemes.js:28
+msgid "CLIL"
+msgstr ""
+
+#: src/schemes.js:29
+msgid "Commission de Liaison Interprofessionnelle du Livre"
+msgstr ""
+
+#: src/schemes.js:32 src/schemes.js:33
+msgid "EuroVoc"
+msgstr ""
+
+#: src/schemes.js:36
+msgid "MEDTOP"
+msgstr ""
+
+#: src/schemes.js:37
+msgid "IPTC Media Topics"
+msgstr ""
+
+#: src/schemes.js:40
+msgid "LCC"
+msgstr ""
+
+#: src/schemes.js:41
+msgid "Library of Congress Classification"
+msgstr ""
+
+#: src/schemes.js:45
+msgid "LCSH"
+msgstr ""
+
+#: src/schemes.js:46
+msgid "Library of Congress Subject Headings"
+msgstr ""
+
+#: src/schemes.js:50
+msgid "NDC"
+msgstr ""
+
+#: src/schemes.js:51
+msgid "Nippon Decimal Classification"
+msgstr ""
+
+#: src/schemes.js:54 src/schemes.js:55
+#, fuzzy
+msgid "Thema"
+msgstr "Тема"
+
+#: src/schemes.js:58
+msgid "UDC"
+msgstr ""
+
+#: src/schemes.js:59
+msgid "Universal Decimal Classification"
+msgstr ""
+
+#: src/schemes.js:62
+msgid "WGS"
+msgstr ""
+
+#: src/schemes.js:63
+msgid "Warengruppen-Systematik"
+msgstr ""
+
+#: src/schemes.js:66
+msgid "Audience"
+msgstr ""
+
+#: src/schemes.js:67
+msgid "Intended Audience"
+msgstr ""
+
+#. Translators: see https://www.loc.gov/marc/relators/relaterm.html
+#. for detailed descriptions
+#: src/schemes.js:109
+msgid "Abridger"
+msgstr ""
+
+#: src/schemes.js:110
+msgid "Art copyist"
+msgstr ""
+
+#: src/schemes.js:111
+msgid "Actor"
+msgstr ""
+
+#: src/schemes.js:112
+msgid "Art director"
+msgstr ""
+
+#: src/schemes.js:113
+#, fuzzy
+msgid "Adapter"
+msgstr "Глава"
+
+#: src/schemes.js:114
+msgid "Author of afterword, colophon, etc."
+msgstr ""
+
+#: src/schemes.js:115
+msgid "Analyst"
+msgstr ""
+
+#: src/schemes.js:116
+msgid "Animator"
+msgstr ""
+
+#: src/schemes.js:117
+#, fuzzy
+msgid "Annotator"
+msgstr "Примечание"
+
+#: src/schemes.js:118
+#, fuzzy
+msgid "Bibliographic antecedent"
+msgstr "Библиография"
+
+#: src/schemes.js:119
+msgid "Appellee"
+msgstr ""
+
+#: src/schemes.js:120
+msgid "Appellant"
+msgstr ""
+
+#: src/schemes.js:121
+msgid "Applicant"
+msgstr ""
+
+#: src/schemes.js:122
+msgid "Author in quotations or text abstracts"
+msgstr ""
+
+#: src/schemes.js:123
+msgid "Architect"
+msgstr ""
+
+#: src/schemes.js:124
+msgid "Artistic director"
+msgstr ""
+
+#: src/schemes.js:125
+#, fuzzy
+msgid "Arranger"
+msgstr "Оранжевый"
+
+#: src/schemes.js:126
+msgid "Artist"
+msgstr ""
+
+#: src/schemes.js:127
+msgid "Assignee"
+msgstr ""
+
+#: src/schemes.js:128
+msgid "Associated name"
+msgstr ""
+
+#: src/schemes.js:129
+msgid "Autographer"
+msgstr ""
+
+#: src/schemes.js:130
+msgid "Attributed name"
+msgstr ""
+
+#: src/schemes.js:131
+#, fuzzy
+msgid "Auctioneer"
+msgstr "Подраздел"
+
+#: src/schemes.js:132
+msgid "Author of dialog"
+msgstr ""
+
+#: src/schemes.js:133
+msgid "Author of introduction, etc."
+msgstr ""
+
+#: src/schemes.js:134
+msgid "Screenwriter"
+msgstr ""
+
+#: src/schemes.js:136
+msgid "Binding designer"
+msgstr ""
+
+#: src/schemes.js:137
+msgid "Bookjacket designer"
+msgstr ""
+
+#: src/schemes.js:138
+#, fuzzy
+msgid "Book designer"
+msgstr "Читалка электронных книг"
+
+#: src/schemes.js:139
+msgid "Book producer"
+msgstr ""
+
+#: src/schemes.js:140
+msgid "Blurb writer"
+msgstr ""
+
+#: src/schemes.js:141
+msgid "Binder"
+msgstr ""
+
+#: src/schemes.js:142
+msgid "Bookplate designer"
+msgstr ""
+
+#: src/schemes.js:143
+msgid "Broadcaster"
+msgstr ""
+
+#: src/schemes.js:144
+msgid "Braille embosser"
+msgstr ""
+
+#: src/schemes.js:145
+#, fuzzy
+msgid "Bookseller"
+msgstr "Читалка электронных книг"
+
+#: src/schemes.js:146
+msgid "Caster"
+msgstr ""
+
+#: src/schemes.js:147
+msgid "Conceptor"
+msgstr ""
+
+#: src/schemes.js:148
+msgid "Choreographer"
+msgstr ""
+
+#: src/schemes.js:149
+msgid "Client"
+msgstr ""
+
+#: src/schemes.js:150
+msgid "Calligrapher"
+msgstr ""
+
+#: src/schemes.js:151
+msgid "Colorist"
+msgstr ""
+
+#: src/schemes.js:152
+msgid "Collotyper"
+msgstr ""
+
+#: src/schemes.js:153
+msgid "Commentator"
+msgstr ""
+
+#: src/schemes.js:154
+msgid "Composer"
+msgstr ""
+
+#: src/schemes.js:155
+msgid "Compositor"
+msgstr ""
+
+#: src/schemes.js:156
+msgid "Conductor"
+msgstr ""
+
+#: src/schemes.js:157
+msgid "Cinematographer"
+msgstr ""
+
+#: src/schemes.js:158
+msgid "Censor"
+msgstr ""
+
+#: src/schemes.js:159
+msgid "Contestant-appellee"
+msgstr ""
+
+#: src/schemes.js:160
+msgid "Collector"
+msgstr ""
+
+#: src/schemes.js:161
+msgid "Compiler"
+msgstr ""
+
+#: src/schemes.js:162
+msgid "Conservator"
+msgstr ""
+
+#: src/schemes.js:163
+msgid "Collection registrar"
+msgstr ""
+
+#: src/schemes.js:164
+#, fuzzy
+msgid "Contestant"
+msgstr "Оглавление"
+
+#: src/schemes.js:165
+msgid "Contestant-appellant"
+msgstr ""
+
+#: src/schemes.js:166
+msgid "Court governed"
+msgstr ""
+
+#: src/schemes.js:167
+#, fuzzy
+msgid "Cover designer"
+msgstr "Размер обложки"
+
+#: src/schemes.js:168
+#, fuzzy
+msgid "Copyright claimant"
+msgstr "Авторские права"
+
+#: src/schemes.js:169
+msgid "Complainant-appellee"
+msgstr ""
+
+#: src/schemes.js:170
+#, fuzzy
+msgid "Copyright holder"
+msgstr "Авторские права"
+
+#: src/schemes.js:171
+msgid "Complainant"
+msgstr ""
+
+#: src/schemes.js:172
+msgid "Complainant-appellant"
+msgstr ""
+
+#: src/schemes.js:173
+msgid "Creator"
+msgstr ""
+
+#: src/schemes.js:174
+msgid "Correspondent"
+msgstr ""
+
+#: src/schemes.js:175
+msgid "Corrector"
+msgstr ""
+
+#: src/schemes.js:176
+msgid "Court reporter"
+msgstr ""
+
+#: src/schemes.js:177
+msgid "Consultant"
+msgstr ""
+
+#: src/schemes.js:178
+msgid "Consultant to a project"
+msgstr ""
+
+#: src/schemes.js:179
+msgid "Costume designer"
+msgstr ""
+
+#: src/schemes.js:180
+#, fuzzy
+msgid "Contributor"
+msgstr "Непрерывный"
+
+#: src/schemes.js:181
+msgid "Contestee-appellee"
+msgstr ""
+
+#: src/schemes.js:182
+msgid "Cartographer"
+msgstr ""
+
+#: src/schemes.js:183
+msgid "Contractor"
+msgstr ""
+
+#: src/schemes.js:184
+#, fuzzy
+msgid "Contestee"
+msgstr "Оглавление"
+
+#: src/schemes.js:185
+msgid "Contestee-appellant"
+msgstr ""
+
+#: src/schemes.js:186
+msgid "Curator"
+msgstr ""
+
+#: src/schemes.js:187
+msgid "Commentator for written text"
+msgstr ""
+
+#: src/schemes.js:188
+msgid "Distribution place"
+msgstr ""
+
+#: src/schemes.js:189
+msgid "Defendant"
+msgstr ""
+
+#: src/schemes.js:190
+msgid "Defendant-appellee"
+msgstr ""
+
+#: src/schemes.js:191
+msgid "Defendant-appellant"
+msgstr ""
+
+#: src/schemes.js:192
+msgid "Degree granting institution"
+msgstr ""
+
+#: src/schemes.js:193
+msgid "Degree supervisor"
+msgstr ""
+
+#: src/schemes.js:194
+msgid "Dissertant"
+msgstr ""
+
+#: src/schemes.js:195
+msgid "Delineator"
+msgstr ""
+
+#: src/schemes.js:196
+#, fuzzy
+msgid "Dancer"
+msgstr "Отменить"
+
+#: src/schemes.js:197
+msgid "Donor"
+msgstr ""
+
+#: src/schemes.js:198
+msgid "Depicted"
+msgstr ""
+
+#: src/schemes.js:199
+msgid "Depositor"
+msgstr ""
+
+#: src/schemes.js:200
+msgid "Draftsman"
+msgstr ""
+
+#: src/schemes.js:201
+msgid "Director"
+msgstr ""
+
+#: src/schemes.js:202
+msgid "Designer"
+msgstr ""
+
+#: src/schemes.js:203
+msgid "Distributor"
+msgstr ""
+
+#: src/schemes.js:204
+msgid "Data contributor"
+msgstr ""
+
+#: src/schemes.js:205
+msgid "Dedicatee"
+msgstr ""
+
+#: src/schemes.js:206
+msgid "Data manager"
+msgstr ""
+
+#: src/schemes.js:207
+msgid "Dedicator"
+msgstr ""
+
+#: src/schemes.js:208
+msgid "Dubious author"
+msgstr ""
+
+#: src/schemes.js:209
+msgid "Editor of compilation"
+msgstr ""
+
+#: src/schemes.js:210
+#, fuzzy
+msgid "Editor of moving image work"
+msgstr "Событие для открытия программы просмотра изображений"
+
+#: src/schemes.js:211
+#, fuzzy
+msgid "Editor"
+msgstr "Редактировать"
+
+#: src/schemes.js:212
+msgid "Engraver"
+msgstr ""
+
+#: src/schemes.js:213
+#, fuzzy
+msgid "Electrician"
+msgstr "Галисийский"
+
+#: src/schemes.js:214
+msgid "Electrotyper"
+msgstr ""
+
+#: src/schemes.js:215
+msgid "Engineer"
+msgstr ""
+
+#: src/schemes.js:216
+msgid "Enacting jurisdiction"
+msgstr ""
+
+#: src/schemes.js:217
+msgid "Etcher"
+msgstr ""
+
+#: src/schemes.js:218
+msgid "Event place"
+msgstr ""
+
+#: src/schemes.js:219
+msgid "Expert"
+msgstr ""
+
+#: src/schemes.js:220
+msgid "Facsimilist"
+msgstr ""
+
+#: src/schemes.js:221
+msgid "Film distributor"
+msgstr ""
+
+#: src/schemes.js:222
+msgid "Field director"
+msgstr ""
+
+#: src/schemes.js:223
+msgid "Film editor"
+msgstr ""
+
+#: src/schemes.js:224
+msgid "Film director"
+msgstr ""
+
+#: src/schemes.js:225
+msgid "Filmmaker"
+msgstr ""
+
+#: src/schemes.js:226
+msgid "Former owner"
+msgstr ""
+
+#: src/schemes.js:227
+msgid "Film producer"
+msgstr ""
+
+#: src/schemes.js:228
+msgid "Funder"
+msgstr ""
+
+#: src/schemes.js:229
+#, fuzzy
+msgid "First party"
+msgstr "Первая"
+
+#: src/schemes.js:230
+msgid "Forger"
+msgstr ""
+
+#: src/schemes.js:231
+msgid "Geographic information specialist"
+msgstr ""
+
+#: src/schemes.js:232
+msgid "Host institution"
+msgstr ""
+
+#: src/schemes.js:233
+msgid "Honoree"
+msgstr ""
+
+#: src/schemes.js:234
+msgid "Host"
+msgstr ""
+
+#: src/schemes.js:235
+msgid "Illustrator"
+msgstr ""
+
+#: src/schemes.js:236
+msgid "Illuminator"
+msgstr ""
+
+#: src/schemes.js:237
+#, fuzzy
+msgid "Inscriber"
+msgstr "Подписаться"
+
+#: src/schemes.js:238
+#, fuzzy
+msgid "Inventor"
+msgstr "Негатив"
+
+#: src/schemes.js:239
+msgid "Issuing body"
+msgstr ""
+
+#: src/schemes.js:240
+msgid "Instrumentalist"
+msgstr ""
+
+#: src/schemes.js:241
+#, fuzzy
+msgid "Interviewee"
+msgstr "Интерфейс"
+
+#: src/schemes.js:242
+#, fuzzy
+msgid "Interviewer"
+msgstr "Просмоторщик изображений:"
+
+#: src/schemes.js:243
+msgid "Judge"
+msgstr ""
+
+#: src/schemes.js:244
+msgid "Jurisdiction governed"
+msgstr ""
+
+#: src/schemes.js:245
+msgid "Laboratory"
+msgstr ""
+
+#: src/schemes.js:246
+msgid "Librettist"
+msgstr ""
+
+#: src/schemes.js:247
+msgid "Laboratory director"
+msgstr ""
+
+#: src/schemes.js:248
+msgid "Lead"
+msgstr ""
+
+#: src/schemes.js:249
+msgid "Libelee-appellee"
+msgstr ""
+
+#: src/schemes.js:250
+msgid "Libelee"
+msgstr ""
+
+#: src/schemes.js:251
+msgid "Lender"
+msgstr ""
+
+#: src/schemes.js:252
+msgid "Libelee-appellant"
+msgstr ""
+
+#: src/schemes.js:253
+msgid "Lighting designer"
+msgstr ""
+
+#: src/schemes.js:254
+msgid "Libelant-appellee"
+msgstr ""
+
+#: src/schemes.js:255
+msgid "Libelant"
+msgstr ""
+
+#: src/schemes.js:256
+msgid "Libelant-appellant"
+msgstr ""
+
+#: src/schemes.js:257
+msgid "Landscape architect"
+msgstr ""
+
+#: src/schemes.js:258
+msgid "Licensee"
+msgstr ""
+
+#: src/schemes.js:259
+msgid "Licensor"
+msgstr ""
+
+#: src/schemes.js:260
+msgid "Lithographer"
+msgstr ""
+
+#: src/schemes.js:261
+msgid "Lyricist"
+msgstr ""
+
+#: src/schemes.js:262
+msgid "Music copyist"
+msgstr ""
+
+#: src/schemes.js:263
+msgid "Metadata contact"
+msgstr ""
+
+#: src/schemes.js:264
+msgid "Medium"
+msgstr ""
+
+#: src/schemes.js:265
+msgid "Manufacture place"
+msgstr ""
+
+#: src/schemes.js:266
+msgid "Manufacturer"
+msgstr ""
+
+#: src/schemes.js:267
+msgid "Moderator"
+msgstr ""
+
+#: src/schemes.js:268
+msgid "Monitor"
+msgstr ""
+
+#: src/schemes.js:269
+msgid "Marbler"
+msgstr ""
+
+#: src/schemes.js:270
+msgid "Markup editor"
+msgstr ""
+
+#: src/schemes.js:271
+msgid "Musical director"
+msgstr ""
+
+#: src/schemes.js:272
+msgid "Metal-engraver"
+msgstr ""
+
+#: src/schemes.js:273
+msgid "Minute taker"
+msgstr ""
+
+#: src/schemes.js:274
+#, fuzzy
+msgid "Musician"
+msgstr "Галисийский"
+
+#: src/schemes.js:275
+msgid "Narrator"
+msgstr ""
+
+#: src/schemes.js:276
+msgid "Opponent"
+msgstr ""
+
+#: src/schemes.js:277
+msgid "Originator"
+msgstr ""
+
+#: src/schemes.js:278
+msgid "Organizer"
+msgstr ""
+
+#: src/schemes.js:279
+msgid "Onscreen presenter"
+msgstr ""
+
+#: src/schemes.js:281
+msgid "Owner"
+msgstr ""
+
+#: src/schemes.js:282
+msgid "Panelist"
+msgstr ""
+
+#: src/schemes.js:283
+msgid "Patron"
+msgstr ""
+
+#: src/schemes.js:284
+#, fuzzy
+msgid "Publishing director"
+msgstr "Издатель"
+
+#: src/schemes.js:286
+msgid "Project director"
+msgstr ""
+
+#: src/schemes.js:287
+msgid "Proofreader"
+msgstr ""
+
+#: src/schemes.js:288
+msgid "Photographer"
+msgstr ""
+
+#: src/schemes.js:289
+msgid "Platemaker"
+msgstr ""
+
+#: src/schemes.js:290
+msgid "Permitting agency"
+msgstr ""
+
+#: src/schemes.js:291
+msgid "Production manager"
+msgstr ""
+
+#: src/schemes.js:292
+msgid "Printer of plates"
+msgstr ""
+
+#: src/schemes.js:293
+msgid "Papermaker"
+msgstr ""
+
+#: src/schemes.js:294
+msgid "Puppeteer"
+msgstr ""
+
+#: src/schemes.js:295
+msgid "Praeses"
+msgstr ""
+
+#: src/schemes.js:296
+msgid "Process contact"
+msgstr ""
+
+#: src/schemes.js:297
+msgid "Production personnel"
+msgstr ""
+
+#: src/schemes.js:298
+msgid "Presenter"
+msgstr ""
+
+#: src/schemes.js:299
+msgid "Performer"
+msgstr ""
+
+#: src/schemes.js:300
+msgid "Programmer"
+msgstr ""
+
+#: src/schemes.js:301
+msgid "Printmaker"
+msgstr ""
+
+#: src/schemes.js:302
+msgid "Production company"
+msgstr ""
+
+#: src/schemes.js:303
+msgid "Producer"
+msgstr ""
+
+#: src/schemes.js:304
+#, fuzzy
+msgid "Production place"
+msgstr "Дата публикации"
+
+#: src/schemes.js:305
+msgid "Production designer"
+msgstr ""
+
+#: src/schemes.js:306
+msgid "Printer"
+msgstr ""
+
+#: src/schemes.js:307
+msgid "Provider"
+msgstr ""
+
+#: src/schemes.js:308
+msgid "Patent applicant"
+msgstr ""
+
+#: src/schemes.js:309
+msgid "Plaintiff-appellee"
+msgstr ""
+
+#: src/schemes.js:310
+#, fuzzy
+msgid "Plaintiff"
+msgstr "Текст"
+
+#: src/schemes.js:311
+msgid "Patent holder"
+msgstr ""
+
+#: src/schemes.js:312
+msgid "Plaintiff-appellant"
+msgstr ""
+
+#: src/schemes.js:313
+#, fuzzy
+msgid "Publication place"
+msgstr "Дата публикации"
+
+#: src/schemes.js:314
+msgid "Rubricator"
+msgstr ""
+
+#: src/schemes.js:315
+msgid "Recordist"
+msgstr ""
+
+#: src/schemes.js:316
+msgid "Recording engineer"
+msgstr ""
+
+#: src/schemes.js:317
+msgid "Addressee"
+msgstr ""
+
+#: src/schemes.js:318
+msgid "Radio director"
+msgstr ""
+
+#: src/schemes.js:319
+msgid "Redaktor"
+msgstr ""
+
+#: src/schemes.js:320
+msgid "Renderer"
+msgstr ""
+
+#: src/schemes.js:321
+#, fuzzy
+msgid "Researcher"
+msgstr "Поиск"
+
+#: src/schemes.js:322
+#, fuzzy
+msgid "Reviewer"
+msgstr "Просмоторщик изображений:"
+
+#: src/schemes.js:323
+msgid "Radio producer"
+msgstr ""
+
+#: src/schemes.js:324
+msgid "Repository"
+msgstr ""
+
+#: src/schemes.js:325
+msgid "Reporter"
+msgstr ""
+
+#: src/schemes.js:326
+msgid "Responsible party"
+msgstr ""
+
+#: src/schemes.js:327
+msgid "Respondent-appellee"
+msgstr ""
+
+#: src/schemes.js:328
+msgid "Restager"
+msgstr ""
+
+#: src/schemes.js:329
+msgid "Respondent"
+msgstr ""
+
+#: src/schemes.js:330
+msgid "Restorationist"
+msgstr ""
+
+#: src/schemes.js:331
+msgid "Respondent-appellant"
+msgstr ""
+
+#: src/schemes.js:332
+msgid "Research team head"
+msgstr ""
+
+#: src/schemes.js:333
+msgid "Research team member"
+msgstr ""
+
+#: src/schemes.js:334
+msgid "Scientific advisor"
+msgstr ""
+
+#: src/schemes.js:335
+msgid "Scenarist"
+msgstr ""
+
+#: src/schemes.js:336
+msgid "Sculptor"
+msgstr ""
+
+#: src/schemes.js:337
+#, fuzzy
+msgid "Scribe"
+msgstr "Подписаться"
+
+#: src/schemes.js:338
+msgid "Sound designer"
+msgstr ""
+
+#: src/schemes.js:339
+msgid "Secretary"
+msgstr ""
+
+#: src/schemes.js:340
+msgid "Stage director"
+msgstr ""
+
+#: src/schemes.js:341
+msgid "Signer"
+msgstr ""
+
+#: src/schemes.js:342
+msgid "Supporting host"
+msgstr ""
+
+#: src/schemes.js:343
+msgid "Seller"
+msgstr ""
+
+#: src/schemes.js:344
+msgid "Singer"
+msgstr ""
+
+#: src/schemes.js:345
+#, fuzzy
+msgid "Speaker"
+msgstr "Произнести"
+
+#: src/schemes.js:346
+msgid "Sponsor"
+msgstr ""
+
+#: src/schemes.js:347
+msgid "Second party"
+msgstr ""
+
+#: src/schemes.js:348
+msgid "Surveyor"
+msgstr ""
+
+#: src/schemes.js:349
+msgid "Set designer"
+msgstr ""
+
+#: src/schemes.js:350
+msgid "Setting"
+msgstr ""
+
+#: src/schemes.js:351
+msgid "Storyteller"
+msgstr ""
+
+#: src/schemes.js:352
+msgid "Stage manager"
+msgstr ""
+
+#: src/schemes.js:353
+msgid "Standards body"
+msgstr ""
+
+#: src/schemes.js:354
+msgid "Stereotyper"
+msgstr ""
+
+#: src/schemes.js:355
+msgid "Technical director"
+msgstr ""
+
+#: src/schemes.js:356
+msgid "Teacher"
+msgstr ""
+
+#: src/schemes.js:357
+msgid "Thesis advisor"
+msgstr ""
+
+#: src/schemes.js:358
+msgid "Television director"
+msgstr ""
+
+#: src/schemes.js:359
+msgid "Television producer"
+msgstr ""
+
+#: src/schemes.js:360
+#, fuzzy
+msgid "Transcriber"
+msgstr "Подписаться"
+
+#: src/schemes.js:361
+#, fuzzy
+msgid "Translator"
+msgstr "Перевести"
+
+#: src/schemes.js:362
+msgid "Type designer"
+msgstr ""
+
+#: src/schemes.js:363
+msgid "Typographer"
+msgstr ""
+
+#: src/schemes.js:364
+msgid "University place"
+msgstr ""
+
+#: src/schemes.js:365
+msgid "Voice actor"
+msgstr ""
+
+#: src/schemes.js:366
+msgid "Videographer"
+msgstr ""
+
+#: src/schemes.js:367
+msgid "Writer of added commentary"
+msgstr ""
+
+#: src/schemes.js:368
+msgid "Writer of added lyrics"
+msgstr ""
+
+#: src/schemes.js:369
+msgid "Writer of accompanying material"
+msgstr ""
+
+#: src/schemes.js:370
+msgid "Writer of added text"
+msgstr ""
+
+#: src/schemes.js:371
+msgid "Woodcutter"
+msgstr ""
+
+#: src/schemes.js:372
+msgid "Wood engraver"
+msgstr ""
+
+#: src/schemes.js:373
+msgid "Writer of introduction"
+msgstr ""
+
+#: src/schemes.js:374
+#, fuzzy
+msgid "Witness"
+msgstr "Яркость"
+
+#: src/schemes.js:375
+msgid "Writer of preface"
+msgstr ""
+
+#: src/schemes.js:376
+msgid "Writer of supplementary textual content"
+msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
@@ -2740,6 +3968,9 @@ msgstr ""
 "Если true, попытается использовать Tracker (индексатор файлов) для "
 "определения местоположения файлов"
 
+#~ msgid " • "
+#~ msgstr " • "
+
 #~ msgid "Open a Catalog…"
 #~ msgstr "Открыть каталог…"
 
@@ -2820,9 +4051,6 @@ msgstr ""
 
 #~ msgid "Frisian"
 #~ msgstr "Фризский"
-
-#~ msgid "Galician"
-#~ msgstr "Галисийский"
 
 #~ msgid "Georgian"
 #~ msgstr "Грузинский"
@@ -3079,9 +4307,6 @@ msgstr ""
 #~ msgid "Yellow"
 #~ msgstr "Жёлтый"
 
-#~ msgid "Orange"
-#~ msgstr "Оранжевый"
-
 #~ msgid "Red"
 #~ msgstr "Красный"
 
@@ -3123,9 +4348,6 @@ msgstr ""
 
 #~ msgid "Find in Book"
 #~ msgstr "Найти в книге"
-
-#~ msgid "All sections"
-#~ msgstr "Все главы"
 
 #~ msgid "Lookup"
 #~ msgstr "Поиск"
