@@ -50,6 +50,16 @@ var findBookOn = [
     },
 ]
 
+const defaultTitleSeq = type => {
+    switch (type) {
+        case 'collection': return 1
+        case 'main': return 2
+        case 'subtitle': return 3
+        case 'edition': return 4
+    }
+    return 0
+}
+
 var BookImage =  GObject.registerClass({
     GTypeName: 'FoliateBookImage',
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/bookImage.ui',
@@ -154,6 +164,19 @@ var PropertiesBox = GObject.registerClass({
         'actionArea'
     ]
 }, class PropertiesBox extends Gtk.Box {
+    _makeTitle(label, type = 'main') {
+        const title =  new Gtk.Label({
+            visible: true,
+            selectable: true,
+            xalign: 0,
+            wrap: true,
+            label,
+        })
+        const ctx = title.get_style_context()
+        ctx.add_class(`foliate-title-${type}`)
+        if (type !== 'main' && type !== 'subtitle') ctx.add_class('dim-label')
+        return title
+    }
     _init(params, metadata, cover) {
         super._init(params)
         if (cover) {
@@ -167,15 +190,38 @@ var PropertiesBox = GObject.registerClass({
         } else this._cover.generate(metadata)
 
         let {
-            title, creator, description, longDescription,
+            title, titles, creator, description, longDescription,
             publisher, pubdate, modified_date, language, identifier, rights,
             extent, format, categories, subjects, collections, sources,
             contributors
         } = metadata
         if (!categories) categories = subjects
 
-        if (title) this._title.label = title
-        else this._title.hide()
+        const packTitle = () => title
+            ? this._title.pack_start(this._makeTitle(title), false, true, 0)
+            : this._title.hide()
+        if (titles && titles.length) {
+            const processedTitles = titles
+                .map(x => Object.assign({}, x, { type: x.type.toLowerCase() }))
+                .filter(x => defaultTitleSeq(x.type))
+
+            const sequencedTitles = processedTitles
+                .filter(({ seq }) => seq > 0)
+
+            const labels = sequencedTitles.length
+                ? sequencedTitles
+                : processedTitles.map(x => {
+                    x.seq = defaultTitleSeq(x.type)
+                    return x
+                }).filter(({ seq }) => seq > 0)
+
+            if (labels.length) labels
+                .sort((a, b) => a.seq - b.seq)
+                .map(({ label, type }) => this._makeTitle(label, type))
+                .forEach(label =>
+                    this._title.pack_start(label, false, true, 0))
+            else packTitle()
+        } else packTitle()
 
         if (creator) this._creator.label = creator
         else this._creator.hide()

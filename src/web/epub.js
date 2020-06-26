@@ -15129,7 +15129,19 @@ var Packaging = function () {
 					: attribute
 			}
 
-			metadata.title = this.getElementText(xml, "title");
+			const titles = getElementsNS(DC_NS, "title")
+				.map(x => {
+					return {
+						type: getProperty(x, OPF_NS, 'title-type'),
+						seq: getProperty(x, OPF_NS, 'display-seq'),
+						label: getElementText(x)
+					}
+				})
+			metadata.titles = titles
+			const mainTitle = titles.find(x => x.type === 'main')
+			if (mainTitle) metadata.title = mainTitle.label
+			else metadata.title = this.getElementText(xml, "title");
+
 			metadata.creator = this.getElementText(xml, "creator");
 			metadata.description = this.getElementText(xml, "description");
 

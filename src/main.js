@@ -428,6 +428,17 @@ function main(argv) {
                 background: rgba(0, 0, 0, 0.4);
             }
 
+            .foliate-title-main {
+                font-size: larger;
+                font-weight: bold;
+            }
+            .foliate-title-subtitle {
+                font-size: larger;
+                font-weight: 300;
+            }
+            .foliate-title-collection {
+                font-size: smaller;
+            }
             .foliate-authority-label {
                 font-size: smaller;
                 font-weight: bold;

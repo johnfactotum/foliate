@@ -12,7 +12,7 @@
           <object class="FoliateBookImage" id="cover">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="valign">center</property>
+            <property name="valign">start</property>
           </object>
         </child>
         <child>
@@ -21,15 +21,10 @@
             <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <child>
-              <object class="GtkLabel" id="title">
+              <object class="GtkBox" id="title">
                 <property name="visible">True</property>
-                <property name="wrap">True</property>
-                <property name="selectable">True</property>
-                <property name="xalign">0</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                  <attribute name="scale" value="1.18"/>
-                </attributes>
+                <property name="orientation">vertical</property>
+                <property name="spacing">3</property>
               </object>
             </child>
             <child>
@@ -47,6 +42,7 @@
                 <property name="selection-mode">none</property>
                 <property name="row-spacing">6</property>
                 <property name="column-spacing">6</property>
+                <property name="margin-top">12</property>
               </object>
               <packing>
                 <property name="pack-type">end</property>
