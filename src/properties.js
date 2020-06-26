@@ -21,88 +21,7 @@ const {
     makeList
 } = imports.utils
 const { EpubViewData } = imports.epubView
-
-// see https://idpf.github.io/epub-registries/authorities/
-// NOTE: the keys are only for the reserved authority values (which is case
-// insensitive); for other authorities the URI should be used
-var subjectAuthorities = {
-    aat: {
-        label: _('AAT'),
-        name: _('The Getty Art and Architecture Taxonomy')
-    },
-    bic: {
-        label: _('BIC'),
-        name: _('Book Industry Communication')
-    },
-    bisac: {
-        label: _('BISAC'),
-        name: _('Book Industry Study Group'),
-        uri: 'http://www.bisg.org/standards/bisac_subject/index.html'
-    },
-    clc: {
-        label: _('CLC'),
-        name: _('Chinese Library Classification')
-    },
-    ddc: {
-        label: _('DDC'),
-        name: _('Dewey Decimal Classification'),
-        uri: 'http://purl.org/dc/terms/DDC'
-    },
-    clil: {
-        label: _('CLIL'),
-        name: _('Commission de Liaison Interprofessionnelle du Livre')
-    },
-    eurovoc: {
-        label: _('EuroVoc'),
-        name: _('EuroVoc')
-    },
-    medtop: {
-        label: _('MEDTOP'),
-        name: _('IPTC Media Topics')
-    },
-    lcc: {
-        label: _('LCC'),
-        name: _('Library of Congress Classification'),
-        uri: 'http://purl.org/dc/terms/LCC'
-    },
-    lcsh: {
-        label: _('LCSH'),
-        name: _('Library of Congress Subject Headings'),
-        uri: 'http://purl.org/dc/terms/LCSH'
-    },
-    ndc: {
-        label: _('NDC'),
-        name: _('Nippon Decimal Classification')
-    },
-    thema: {
-        label: _('Thema'),
-        name: _('Thema')
-    },
-    udc: {
-        label: _('UDC'),
-        name: _('Universal Decimal Classification')
-    },
-    wgs: {
-        label: _('WGS'),
-        name: _('Warengruppen-Systematik')
-    },
-    audience: {
-        label: _('Audience'),
-        name: _('Intended Audience'),
-        uri: 'http://schema.org/audience'
-    }
-}
-const subjectAuthorityByURIMap = new Map()
-Object.keys(subjectAuthorities).forEach(key => {
-    const x = subjectAuthorities[key]
-    subjectAuthorities[key].key = key
-    subjectAuthorityByURIMap.set(key, x)
-    if (x.uri) subjectAuthorityByURIMap.set(x.uri, x)
-})
-var getSubjectAuthority = x => x
-    ? subjectAuthorityByURIMap.get(x)
-    || subjectAuthorityByURIMap.get(x.toLowerCase())
-    : null
+const { getSubjectAuthority, getMarcRelator } = imports.schemes
 
 var findBookOn = [
     {
@@ -250,7 +169,8 @@ var PropertiesBox = GObject.registerClass({
         let {
             title, creator, description, longDescription,
             publisher, pubdate, modified_date, language, identifier, rights,
-            extent, format, categories, subjects, collections, sources
+            extent, format, categories, subjects, collections, sources,
+            contributors
         } = metadata
         if (!categories) categories = subjects
 
@@ -416,6 +336,46 @@ var PropertiesBox = GObject.registerClass({
             this._propertiesBox.pack_start(new PropertyBox({
                 property_name: _('Sources'),
             }, list), false, true, 0)
+        }
+        if (contributors && contributors.length) {
+            const grid = new Gtk.Grid({
+                visible: true,
+                column_spacing: 12,
+                row_spacing: 3
+            })
+            contributors.forEach((contributor, i) => {
+                if (typeof contributor === 'string')
+                    contributor = {
+                        label: contributor,
+                        role: 'ctb'
+                    }
+                const { label, role, /*scheme*/ } = contributor
+                const roleName = getMarcRelator(role)
+                const roleLabel = new Gtk.Label({
+                    visible: true,
+                    xalign: 1,
+                    justify: Gtk.Justification.RIGHT,
+                    halign: Gtk.Align.END,
+                    valign: Gtk.Align.CENTER,
+                    wrap: true,
+                    label: roleName ? roleName : role || ''
+                })
+                const ctx = roleLabel.get_style_context()
+                ctx.add_class('dim-label')
+                //ctx.add_class('foliate-role-label')
+                const labelLabel = new Gtk.Label({
+                    visible: true,
+                    selectable: true,
+                    xalign: 0,
+                    wrap: true,
+                    label: label
+                })
+                grid.attach(roleLabel, 0, i, 1, 1)
+                grid.attach(labelLabel, 1, i, 1, 1)
+            })
+            this._propertiesBox.pack_start(new PropertyBox({
+                property_name: _('Contributors'),
+            }, grid), false, true, 0)
         }
         if (rights) this._propertiesBox.pack_start(new PropertyBox({
             property_name: _('Copyright'),

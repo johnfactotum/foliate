@@ -15112,29 +15112,29 @@ var Packaging = function () {
 			const getRefiningMetas = id => metas.filter(meta =>
 				meta.getAttribute('refines') === '#' + id)
 
+			const getPropertyMeta = (el, prop) => {
+				const id = el.getAttribute('id')
+				const metas = getRefiningMetas(id)
+				if (metas) {
+					const refined = metas.find(meta => meta.getAttribute('property') === prop)
+					if (refined) return refined
+				}
+			}
+			const getProperty = (el, ns, prop) => {
+				const attribute = el.getAttributeNS(ns, prop)
+				const meta = getPropertyMeta(el, prop)
+				return meta ? getElementText(meta) : attribute
+			}
+
 			metadata.title = this.getElementText(xml, "title");
 			metadata.creator = this.getElementText(xml, "creator");
 			metadata.description = this.getElementText(xml, "description");
 
 			metadata.subjects = getElementsNS(DC_NS, "subject")
 				.map(x => {
-					let authority = x.getAttributeNS(OPF_NS, 'authority')
-					let term = x.getAttributeNS(OPF_NS, 'term')
-
-					const id = x.getAttribute('id')
-					const metas = getRefiningMetas(id)
-					if (metas) {
-						const refinedAuthority = getElementText(
-							metas.find(meta => meta.getAttribute('property') === 'authority'))
-						const refinedTerm = getElementText(
-							metas.find(meta => meta.getAttribute('property') === 'term'))
-						if (refinedAuthority) authority = refinedAuthority
-						if (refinedTerm) term = refinedTerm
-					}
-
 					return {
-						authority,
-						term,
+						authority: getProperty(x, OPF_NS, 'authority'),
+						term: getProperty(x, OPF_NS, 'term'),
 						label: getElementText(x)
 					}
 				})
@@ -15145,14 +15145,20 @@ var Packaging = function () {
 			metadata.collections = metas
 			    .filter(meta => meta.getAttribute('property') === 'belongs-to-collection')
 			 	.map(meta => {
-			 		const id = meta.getAttribute('id')
-			 		const metas = getRefiningMetas(id)
-			 		const typeMeta = metas && metas[0] ? metas[0] : null
 			 		return {
-			 			type: typeMeta ? getElementText(typeMeta) : null,
+			 			type: getProperty(meta, OPF_NS, 'collection-type'),
 			 			label: getElementText(meta)
 			 		}
 			 	})
+
+			metadata.contributors = getElementsNS(DC_NS, "contributor")
+				.map(x => {
+					return {
+						role: getProperty(x, OPF_NS, 'role'),
+						scheme: getProperty(x, OPF_NS, 'scheme'),
+						label: getElementText(x)
+					}
+				})
 
 			metadata.pubdate = this.getElementText(xml, "date");
 
