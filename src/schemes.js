@@ -75,7 +75,7 @@ Object.keys(subjectAuthorities).forEach(key => {
     subjectAuthorityByURIMap.set(key, x)
     if (x.uri) subjectAuthorityByURIMap.set(x.uri, x)
 })
-var getSubjectAuthority = x => x
+var getSubjectAuthority = x => typeof x === 'string'
     ? subjectAuthorityByURIMap.get(x)
     || subjectAuthorityByURIMap.get(x.toLowerCase())
     : null
@@ -100,7 +100,7 @@ var getSubjectAuthority = x => x
     }).filter(x => x).join(',\n')
     ```
 */
-var getMarcRelator = code => code
+var getMarcRelator = code => typeof code === 'string'
     ? marcRelators[code] || marcRelators[code.toLowerCase()]
     : null
 var marcRelators = {

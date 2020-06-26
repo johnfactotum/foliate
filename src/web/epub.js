@@ -15112,18 +15112,21 @@ var Packaging = function () {
 			const getRefiningMetas = id => metas.filter(meta =>
 				meta.getAttribute('refines') === '#' + id)
 
-			const getPropertyMeta = (el, prop) => {
+			const getPropertyMetas = (el, prop) => {
 				const id = el.getAttribute('id')
 				const metas = getRefiningMetas(id)
 				if (metas) {
-					const refined = metas.find(meta => meta.getAttribute('property') === prop)
+					const refined = metas
+						.filter(meta => meta.getAttribute('property') === prop)
 					if (refined) return refined
 				}
 			}
-			const getProperty = (el, ns, prop) => {
+			const getProperty = (el, ns, prop, one = true) => {
 				const attribute = el.getAttributeNS(ns, prop)
-				const meta = getPropertyMeta(el, prop)
-				return meta ? getElementText(meta) : attribute
+				const metas = getPropertyMetas(el, prop)
+				return metas && metas.length
+					? (one ? getElementText(metas[0]) : metas.map(getElementText))
+					: attribute
 			}
 
 			metadata.title = this.getElementText(xml, "title");
@@ -15154,8 +15157,8 @@ var Packaging = function () {
 			metadata.contributors = getElementsNS(DC_NS, "contributor")
 				.map(x => {
 					return {
-						role: getProperty(x, OPF_NS, 'role'),
-						scheme: getProperty(x, OPF_NS, 'scheme'),
+						role: getProperty(x, OPF_NS, 'role', false),
+						scheme: getProperty(x, OPF_NS, 'scheme', false),
 						label: getElementText(x)
 					}
 				})

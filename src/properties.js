@@ -343,35 +343,50 @@ var PropertiesBox = GObject.registerClass({
                 column_spacing: 12,
                 row_spacing: 3
             })
-            contributors.forEach((contributor, i) => {
-                if (typeof contributor === 'string')
-                    contributor = {
-                        label: contributor,
-                        role: 'ctb'
-                    }
-                const { label, role, /*scheme*/ } = contributor
-                const roleName = getMarcRelator(role)
-                const roleLabel = new Gtk.Label({
-                    visible: true,
-                    xalign: 1,
-                    justify: Gtk.Justification.RIGHT,
-                    halign: Gtk.Align.END,
-                    valign: Gtk.Align.CENTER,
-                    wrap: true,
-                    label: roleName ? roleName : role || ''
+            const list = contributors
+                .map(contributor => {
+                    if (typeof contributor === 'string')
+                        contributor = {
+                            label: contributor,
+                            role: 'ctb'
+                        }
+                    let { label, role, /*scheme*/ } = contributor
+                    if (!Array.isArray(role)) role = [role]
+
+                    return role
+                        .map(getMarcRelator)
+                        .filter(x => x)
+                        .map(roleLabel => ({
+                            roleLabel,
+                            nameLabel: label
+                        }))
                 })
-                const ctx = roleLabel.get_style_context()
-                ctx.add_class('dim-label')
-                //ctx.add_class('foliate-role-label')
-                const labelLabel = new Gtk.Label({
+                .reduce((a, b) => a.concat(b), [])
+                .sort((a, b) => a.roleLabel.localeCompare(b.roleLabel))
+
+            list.forEach(({ roleLabel, nameLabel }, i) => {
+                const prev = list[i - 1]
+                if (!prev || prev.roleLabel !== roleLabel) {
+                    const role = new Gtk.Label({
+                        visible: true,
+                        xalign: 1,
+                        justify: Gtk.Justification.RIGHT,
+                        halign: Gtk.Align.END,
+                        valign: Gtk.Align.CENTER,
+                        wrap: true,
+                        label: roleLabel
+                    })
+                    role.get_style_context().add_class('dim-label')
+                    grid.attach(role, 0, i, 1, 1)
+                }
+                const name = new Gtk.Label({
                     visible: true,
                     selectable: true,
                     xalign: 0,
                     wrap: true,
-                    label: label
+                    label: nameLabel
                 })
-                grid.attach(roleLabel, 0, i, 1, 1)
-                grid.attach(labelLabel, 1, i, 1, 1)
+                grid.attach(name, 1, i, 1, 1)
             })
             this._propertiesBox.pack_start(new PropertyBox({
                 property_name: _('Contributors'),
