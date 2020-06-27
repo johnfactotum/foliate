@@ -550,7 +550,7 @@ const makeActions = self => ({
     },
     'selection-highlight': () => {
         const { identifier } = self._epub.metadata
-        const warn = identifier.startsWith('foliate-md5sum-')
+        const warn = identifier.startsWith('foliate:')
             || enableAnnotations.every(x => self._epub.contentType !== x)
         if (warn) {
             const msg = new Gtk.MessageDialog({

@@ -25,7 +25,7 @@ const readAsArrayBuffer = blob => new Promise((resolve, reject) => {
     reader.onloadend = () => resolve(reader.result)
 })
 
-const generateIdentifier = async blob => 'foliate-md5sum-'
+const generateIdentifier = async blob => 'foliate:'
     + CryptoJS.MD5(CryptoJS.enc.Latin1.parse(
         await readAsArrayBuffer(blob.slice(0, hashByteLimit)))).toString()
 
