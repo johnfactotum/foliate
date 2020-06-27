@@ -1,3 +1,84 @@
+var identifierSchemes = {
+    doi: {
+        label: _('DOI'),
+        name: _('Digital Object Identifier'),
+        onix: '06'
+    },
+    isbn: {
+        label: _('ISBN'),
+        name: _('International Standard Book Number')
+    },
+    isbn_10: {
+        label: _('ISBN-10'),
+        name: _('International Standard Book Number'),
+        onix: '02'
+    },
+    isbn_13: {
+        label: _('ISBN-13'),
+        name: _('International Standard Book Number'),
+        onix: '15'
+    },
+    isbn_a: {
+        label: _('ISBN-A'),
+        name: _('International Standard Book Number'),
+        onix: '26'
+    },
+    jdcn: {
+        label: _('JDCN'),
+        name: _('Japan Digital Comic Number')
+    },
+    uuid: {
+        label: _('UUID'),
+        name: _('Universally-Unique Identifier')
+    },
+    url: {
+        label: _('URL'),
+        name: _('Uniform Resource Locator')
+    },
+    uri: {
+        label: _('URI'),
+        name: _('Uniform Resource Identifier')
+    },
+    issn: {
+        label: _('ISSN'),
+        name: _('International Standard Serial Number')
+    },
+    asin: {
+        label: _('Amazon'),
+        name: _('Amazon Standard Identification Number'),
+        alias: ['amazon', 'mobi-asin']
+    },
+    oclc: {
+        label: _('OCLC'),
+        name: _('Online Computer Library Center'),
+        alias: ['ocn']
+    },
+    arxiv: {
+        label: _('arXiv'),
+        name: _('arXiv')
+    },
+    calibre: {
+        label: _('calibre'),
+        name: _('calibre'),
+    },
+    foliate: {
+        label: _('Foliate'),
+        name: _('Foliate generated identifier'),
+    },
+}
+const identifierSchemesMap = new Map()
+Object.keys(identifierSchemes).forEach(key => {
+    const x = identifierSchemes[key]
+    identifierSchemes[key].key = key
+    identifierSchemesMap.set(key, x)
+    if (x.onix) identifierSchemesMap.set(x.onix, x)
+    if (x.alias) x.alias.forEach(a => identifierSchemesMap.set(a, x))
+})
+var getIdentifierScheme = x => typeof x === 'string'
+    ? identifierSchemesMap.get(x)
+    || identifierSchemesMap.get(x.toLowerCase())
+    : null
+
 // see https://idpf.github.io/epub-registries/authorities/
 // NOTE: the keys are only for the reserved authority values (which is case
 // insensitive); for other authorities the URI should be used

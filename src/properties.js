@@ -21,7 +21,7 @@ const {
     makeList
 } = imports.utils
 const { EpubViewData } = imports.epubView
-const { getSubjectAuthority, getMarcRelator } = imports.schemes
+const { getIdentifierScheme, getSubjectAuthority, getMarcRelator } = imports.schemes
 
 var findBookOn = [
     {
@@ -49,6 +49,27 @@ var findBookOn = [
         href: 'https://www.worldcat.org/search?q==%s'
     },
 ]
+
+const parseIdentifier = ({ scheme, type, identifier }) => {
+    let [ns, ...id] = identifier.split(':')
+
+    if (!id.length) {
+        id = ns
+        ns = type || scheme
+    } else id = id.join(':')
+
+    if (ns === 'urn')
+        return parseIdentifier({ identifier: id })
+    else {
+        const scm = getIdentifierScheme(ns)
+        if (scm) return { scheme: scm, id }
+        else {
+            const scm = getIdentifierScheme(type || scheme)
+            if (scm) return { scheme: scm, id: identifier }
+            return { id: identifier }
+        }
+    }
+}
 
 const defaultTitleSeq = type => {
     switch (type) {
@@ -177,6 +198,41 @@ var PropertiesBox = GObject.registerClass({
         if (type !== 'main' && type !== 'subtitle') ctx.add_class('dim-label')
         return title
     }
+    _makeIdList(identifiers) {
+        const listWidgets = identifiers.map(x => {
+            if (typeof x === 'string') x = { identifier: x }
+            const { scheme, id } = parseIdentifier(x)
+
+            const scmLabel = scheme ? new Gtk.Label({
+                label: scheme.label,
+                wrap: true,
+                tooltip_text: scheme.name,
+                valign: Gtk.Align.CENTER
+            }) : null
+            const isUrl = id.startsWith('http://') || id.startsWith('https://')
+
+            const labelLabel = new Gtk.Label({
+                selectable: true,
+                xalign: 0,
+                wrap: true,
+                use_markup: isUrl,
+                label: isUrl
+                    ? `<a href="${markupEscape(id)}">${markupEscape(id)}</a>`
+                    : id || '',
+            })
+            const labelBox = new Gtk.Box({ spacing: 6 })
+            if (scmLabel) {
+                const ctx = scmLabel.get_style_context()
+                ctx.add_class('dim-label')
+                ctx.add_class('foliate-authority-label')
+                labelBox.pack_start(scmLabel, false, true, 0)
+            }
+            labelBox.pack_start(labelLabel, false, true, 0)
+            labelBox.show_all()
+            return labelBox
+        })
+        return makeList(listWidgets)
+    }
     _init(params, metadata, cover) {
         super._init(params)
         if (cover) {
@@ -190,10 +246,16 @@ var PropertiesBox = GObject.registerClass({
         } else this._cover.generate(metadata)
 
         let {
-            title, titles, creator, description, longDescription,
-            publisher, pubdate, modified_date, language, identifier, rights,
-            extent, format, categories, subjects, collections, sources,
-            contributors
+            title, titles,
+            creator,
+            description, longDescription,
+            categories, subjects, collections,
+            publisher, pubdate, modified_date, language,
+            extent, format,
+            identifier, identifiers,
+            sources,
+            contributors,
+            rights
         } = metadata
         if (!categories) categories = subjects
 
@@ -341,45 +403,18 @@ var PropertiesBox = GObject.registerClass({
             }))
         }
 
-        if (identifier) {
-            const isHash = identifier.startsWith('foliate-md5sum-')
+        if ((!identifiers || !identifiers.length) && identifier)
+            identifiers = [{ identifier }]
+        if (identifiers && identifiers.length) {
+            const list = this._makeIdList(identifiers)
             this._propertiesBox.pack_start(new PropertyBox({
                 property_name: _('Identifier'),
-                property_value: isHash
-                    ? identifier.replace('foliate-md5sum-', '')
-                    : identifier
-            }), false, true, 0)
-            if (isHash) {
-                const image = new Gtk.Image({
-                    visible: true,
-                    icon_name: 'dialog-warning-symbolic'
-                })
-                const note = new Gtk.Label({
-                    visible: true,
-                    wrap: true,
-                    xalign: 0,
-                    label: _('This book has no identifier. This is the MD5 hash generated from the file.')
-                })
-                image.get_style_context().add_class('dim-label')
-                note.get_style_context().add_class('dim-label')
-                const box = new Gtk.Box({ visible: true, spacing: 12 })
-                box.pack_start(image, false, true, 0)
-                box.pack_start(note, false, true, 0)
-                this._propertiesBox.pack_start(box, false, true, 0)
-            }
+            }, list), false, true, 0)
         }
         if (sources && sources.length) {
-            const listWidgets = sources.map(source => {
-                source = markupEscape(source)
-                const label =
-                    source.startsWith('http://') || source.startsWith('https://')
-                        ? `<a href="${source}">${source}</a>`
-                        : source
-                return { label, use_markup: true }
-            })
-            const list = makeList(listWidgets)
+            const list = this._makeIdList(sources)
             this._propertiesBox.pack_start(new PropertyBox({
-                property_name: _('Sources'),
+                property_name: _('Source'),
             }, list), false, true, 0)
         }
         if (contributors && contributors.length) {

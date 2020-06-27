@@ -15179,6 +15179,15 @@ var Packaging = function () {
 
 			metadata.publisher = this.getElementText(xml, "publisher");
 
+			const identifiers = getElementsNS(DC_NS, "identifier")
+				.map(x => {
+					return {
+						type: getProperty(x, OPF_NS, 'identifier-type'),
+						scheme: getProperty(x, OPF_NS, 'scheme'),
+						identifier: getElementText(x)
+					}
+				})
+			metadata.identifiers = identifiers
 			metadata.identifier = this.getElementText(xml, "identifier");
 			metadata.language = this.getElementText(xml, "language");
 			metadata.rights = this.getElementText(xml, "rights");
