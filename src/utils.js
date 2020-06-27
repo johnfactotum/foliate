@@ -747,3 +747,46 @@ var promptAuthenticate = (req, username, password, toplevel) => {
     msg.destroy()
     return true
 }
+
+var downloadWithWebKit = (uri, decideDestination, onProgress, token, toplevel) =>
+    new Promise((resolve, reject) => {
+        const webView = new WebKit2.WebView({
+            settings: new WebKit2.Settings({
+                enable_write_console_messages_to_stdout: true,
+                user_agent
+            })
+        })
+        webView.connect('authenticate', (webview, req) =>
+            promptAuthenticate(req, null, null, toplevel))
+
+        const webContext = WebKit2.WebContext.get_default()
+        webContext.connect('download-started', (ctx, download) => {
+            debug('download-started')
+
+            if (token) token.cancel = () => download.cancel()
+
+            download.connect('decide-destination', (download, suggestedName) => {
+                debug('decide-destination')
+                const destination = typeof decideDestination === 'string'
+                    ? decideDestination
+                    : decideDestination(suggestedName)
+                if (destination) download.set_destination(destination)
+            })
+            download.connect('failed', (download, err) => {
+                logError(err)
+                reject(err)
+            })
+            download.connect('notify::estimated-progress', download => {
+                const progress = download.estimated_progress
+                debug(`progress: ${progress}`)
+                if (onProgress) onProgress(progress)
+            })
+            download.connect('finished', () => {
+                debug('finished')
+                if (token) token.cacel = null
+                resolve()
+            })
+        })
+
+        webView.download_uri(uri)
+    })

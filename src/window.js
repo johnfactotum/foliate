@@ -383,7 +383,8 @@ const MainOverlay = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainOverlay.ui',
     InternalChildren: [
         'overlayStack', 'mainBox', 'bookBox', 'contentBox', 'divider',
-        'recentMenu', 'msg'
+        'recentMenu', 'msg',
+        'downloadProgressBar'
     ]
 }, class MainOverlay extends Gtk.Overlay {
     _init(params) {
@@ -431,6 +432,10 @@ const MainOverlay = GObject.registerClass({
 
         this._epub.connect('book-displayed', () => this._setStatus('loaded'))
         this._epub.connect('book-loading', () => this._setStatus('loading'))
+        this._epub.connect('book-downloading', (epub, progress) => {
+            this._setStatus('downloading')
+            this._downloadProgressBar.fraction = progress
+        })
         this._epub.connect('book-error', (_, msg) => {
             this._msg.label = msg
             this._setStatus('error')

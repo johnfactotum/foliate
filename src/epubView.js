@@ -14,8 +14,7 @@
  */
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
-let Soup; try { Soup = imports.gi.Soup } catch (e) {}
-const { invertRotate, scalePixbuf, user_agent } = imports.utils
+const { invertRotate, scalePixbuf, downloadWithWebKit } = imports.utils
 const { uriStore, library } = imports.uriStore
 const { EpubCFI } = imports.epubcfi
 
@@ -445,6 +444,10 @@ var EpubView = GObject.registerClass({
         'rendition-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-displayed': { flags: GObject.SignalFlags.RUN_FIRST },
         'book-loading': { flags: GObject.SignalFlags.RUN_FIRST },
+        'book-downloading': {
+            flags: GObject.SignalFlags.RUN_FIRST,
+            param_types: [GObject.TYPE_DOUBLE]
+        },
         'book-error': {
             flags: GObject.SignalFlags.RUN_FIRST,
             param_types: [GObject.TYPE_STRING]
@@ -1023,29 +1026,20 @@ var EpubView = GObject.registerClass({
         if (!path) {
             const dir = GLib.dir_make_tmp(null)
             this._tmpdir = dir
-
-            const msg = _('Failed to load remote file.')
-            if (!Soup) return this.emit('book-error', msg)
-            const session = new Soup.SessionAsync({ user_agent })
-            const request = Soup.Message.new('GET', uri)
             try {
-                await new Promise((resolve, reject) => {
-                    session.queue_message(request, (session, message) => {
-                        if (message.status_code !== 200) reject()
-                        else {
-                            path = GLib.build_filenamev([dir, this._file.get_basename()])
-                            const file = Gio.File.new_for_path(path)
-                            uri = file.get_uri()
-                            const outstream = file.replace(
-                                null, false, Gio.FileCreateFlags.NONE, null)
-                            outstream.write_bytes(
-                                message.response_body.flatten().get_as_bytes(), null)
-                            resolve()
-                        }
-                    })
-                })
+                path = GLib.build_filenamev([dir, this._file.get_basename()])
+                const file = Gio.File.new_for_path(path)
+                const localUri = file.get_uri()
+                const onProgress = progress =>
+                    this.emit('book-downloading', progress)
+                onProgress(0)
+                this._downloadToken = {}
+                await downloadWithWebKit(
+                    uri, localUri, onProgress, this._downloadToken)
+                uri = localUri
             } catch (e) {
-                return this.emit('book-error', msg)
+                logError(e)
+                return this.emit('book-error', _('Failed to load remote file.'))
             }
         }
         switch (contentType) {
@@ -1088,6 +1082,9 @@ var EpubView = GObject.registerClass({
         if (this._tmpdir) {
             recursivelyDeleteDir(Gio.File.new_for_path(this._tmpdir))
             this._tmpdir = null
+        }
+        if (this._downloadToken && this._downloadToken.cancel) {
+            this._downloadToken.cancel()
         }
     }
     prev() {
