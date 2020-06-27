@@ -1102,7 +1102,8 @@ var Window = GObject.registerClass({
                 title: title ? _('Image from “%s”').format(title) : _('Image'),
                 transient_for: this,
                 application: this.application,
-                invert: viewSettings.get_boolean('invert')
+                invert: viewSettings.get_boolean('invert'),
+                modal: this.modal
             })
             window.show()
         })
