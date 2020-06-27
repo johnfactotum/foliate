@@ -38,7 +38,7 @@ var debounce = (f, wait, immediate) => {
     }
 }
 
-const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf } = imports.gi
+const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf, WebKit2 } = imports.gi
 const ByteArray = imports.byteArray
 const ngettext = imports.gettext.ngettext
 const { iso_639_2_path, iso_3166_1_path } = imports.isoCodes
@@ -679,4 +679,71 @@ var makeList = (widgets, listStyleFunc = unorderedListStyleFunc) => {
 
 var sepHeaderFunc = row => {
     if (row.get_index()) row.set_header(new Gtk.Separator())
+}
+
+var promptAuthenticate = (req, username, password, toplevel) => {
+    if (username) {
+        const cred = new WebKit2.Credential(username, password,
+            WebKit2.CredentialPersistence.FOR_SESSION)
+        req.authenticate(cred)
+        return true
+    }
+    const msg = new Gtk.MessageDialog({
+        text: _('Authentication Required'),
+        secondary_text:
+            _('Authentication required by %s')
+                .format(req.get_host())
+            + '\n'
+            + _('The site says: “%s”').format(req.get_realm()),
+        message_type: Gtk.MessageType.ERROR,
+        modal: true,
+    })
+    msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+    msg.add_button(_('Authenticate'), Gtk.ResponseType.OK)
+    msg.set_default_response(Gtk.ResponseType.OK)
+    msg.get_widget_for_response(Gtk.ResponseType.OK)
+        .get_style_context().add_class('suggested-action')
+
+    if (toplevel instanceof Gtk.Window)
+        msg.transient_for = toplevel
+
+    const grid = new Gtk.Grid({
+        row_spacing: 6,
+        column_spacing: 6
+    })
+    const uLabel = new Gtk.Label({
+        xalign: 1,
+        label: _('Username')
+    })
+    const pLabel = new Gtk.Label({
+        xalign: 1,
+        label: _('Password')
+    })
+    uLabel.get_style_context().add_class('dim-label')
+    pLabel.get_style_context().add_class('dim-label')
+    const uEntry = new Gtk.Entry()
+    const pEntry = new Gtk.Entry({
+        visibility: false,
+        input_purpose: Gtk.InputPurpose.PASSWORD
+    })
+    grid.attach(uLabel, 0, 0, 1, 1)
+    grid.attach(uEntry, 1, 0, 1, 1)
+    grid.attach(pLabel, 0, 1, 1, 1)
+    grid.attach(pEntry, 1, 1, 1, 1)
+    grid.show_all()
+    msg.message_area.pack_start(grid, false, true, 0)
+
+    const ok = () =>
+        msg.get_widget_for_response(Gtk.ResponseType.OK).activate()
+    pEntry.connect('activate', ok)
+    uEntry.connect('activate', ok)
+
+    if (msg.run() === Gtk.ResponseType.OK) {
+        const cred = new WebKit2.Credential(uEntry.text, pEntry.text,
+            WebKit2.CredentialPersistence.FOR_SESSION)
+        req.authenticate(cred)
+    } else req.cancel()
+
+    msg.destroy()
+    return true
 }
