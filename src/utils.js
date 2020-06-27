@@ -248,6 +248,27 @@ var mimetypes = {
     cbt: 'application/x-cbt',
 }
 
+var getMimetype = key => mimetypes[key]
+var mimetypesThatWeCan = {
+    // all supported files
+    open: Object.keys(mimetypes).map(getMimetype),
+    // show in file choosers
+    choose: [
+        'epub', 'mobi', 'kindle', 'kindleAlias', 'fb2', 'fb2zip',
+        'cbz', 'cbr', 'cb7', 'cbt'
+    ].map(getMimetype),
+    // formats where we let the user add annotations without warning
+    annotate: [
+        'directory', 'json', 'xml', 'epub', 'mobi', 'kindle', 'kindleAlias'
+    ].map(getMimetype)
+}
+
+var mimetypeCan = {
+    open: type => mimetypesThatWeCan.open.includes(type),
+    choose: type => mimetypesThatWeCan.choose.includes(type),
+    annotate: type => mimetypesThatWeCan.annotate.includes(type),
+}
+
 var fileFilters = {
     all: new Gtk.FileFilter(),
     ebook: new Gtk.FileFilter()
@@ -255,15 +276,8 @@ var fileFilters = {
 fileFilters.all.set_name(_('All Files'))
 fileFilters.all.add_pattern('*')
 fileFilters.ebook.set_name(_('E-book Files'))
-fileFilters.ebook.add_mime_type(mimetypes.epub)
-fileFilters.ebook.add_mime_type(mimetypes.mobi)
-fileFilters.ebook.add_mime_type(mimetypes.kindle)
-fileFilters.ebook.add_mime_type(mimetypes.fb2)
-fileFilters.ebook.add_mime_type(mimetypes.fb2zip)
-fileFilters.ebook.add_mime_type(mimetypes.cbz)
-fileFilters.ebook.add_mime_type(mimetypes.cbr)
-fileFilters.ebook.add_mime_type(mimetypes.cb7)
-fileFilters.ebook.add_mime_type(mimetypes.cbt)
+mimetypesThatWeCan.choose
+    .forEach(type => fileFilters.ebook.add_mime_type(type))
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
 var execCommand = (argv, input = null, waitCheck, token, inFlatpak, envs) =>

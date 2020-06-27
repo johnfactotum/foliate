@@ -17,11 +17,12 @@ const { GObject, Gio, GLib, Gtk, Gdk, WebKit2, Pango } = imports.gi
 const {
     debug, Obj, formatPrice, base64ToPixbuf, markupEscape,
     linkIsRel, makeLinksButton, sepHeaderFunc, user_agent,
-    promptAuthenticate
+    promptAuthenticate, mimetypeCan
 } = imports.utils
 const { getSubjectAuthority } = imports.schemes
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { HdyColumn } = imports.handy
+const { Window } = imports.window
 
 const htmlPath = pkg.pkgdatadir + '/assets/client.html'
 var OpdsClient = class OpdsClient {
@@ -213,6 +214,7 @@ const makeAcquisitionButton = (links, onActivate) => {
     switch (rel) {
         case 'buy': label = _('Buy'); break
         case 'open-access': label = _('Free'); break
+        case 'preview': label = _('Preview'); break
         case 'sample': label = _('Sample'); break
         case 'borrow': label = _('Borrow'); break
         case 'subscribe': label = _('Subscribe'); break
@@ -288,8 +290,22 @@ const makeAcquisitionButtons = (links = [], callback) => {
             else map.get(x.rel).push(x)
         })
 
-        return Array.from(map.values()).map((links, i) => {
-        const button = makeAcquisitionButton(links, ({ type, href }) => {
+    return Array.from(map.values()).map((links, i) => {
+        const button = makeAcquisitionButton(links, ({ type, href, rel }) => {
+            if ((rel.endsWith('sample') || rel.endsWith('preview'))
+            && mimetypeCan.open(type)) {
+                const application = Gio.Application.get_default()
+                const file = Gio.File.new_for_uri(href)
+                new Window({
+                    application,
+                    file,
+                    ephemeral: true,
+                    modal: true,
+                    transient_for: application.active_window
+                }).present()
+                return
+            }
+
             if (callback) callback(type, href)
             if (OpdsClient.typeIsOpds(type))
                 return window.getLibraryWindow().openCatalog(href)
