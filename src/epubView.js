@@ -1010,8 +1010,17 @@ var EpubView = GObject.registerClass({
         this.close()
         this._file = file
         try {
-            this._fileInfo = this._file.query_info('standard::content-type',
-                Gio.FileQueryInfoFlags.NONE, null)
+            this._fileInfo = await new Promise((resolve, reject) => {
+                this._file.query_info_async(
+                    'standard::content-type',
+                    Gio.FileQueryInfoFlags.NONE,
+                    GLib.PRIORITY_DEFAULT, null,
+                    (file, res) => {
+                        const info = file.query_info_finish(res)
+                        if (info) resolve(info)
+                        else reject(new Error('could not get file info'))
+                    })
+            })
         } catch (e) {
             logError(e)
             this._fileInfo = null
