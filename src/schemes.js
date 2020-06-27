@@ -102,7 +102,7 @@ var getSubjectAuthority = x => typeof x === 'string'
 */
 var getMarcRelator = code => typeof code === 'string'
     ? marcRelators[code] || marcRelators[code.toLowerCase()]
-    : null
+    : marcRelators.ctb
 var marcRelators = {
     // Translators: see https://www.loc.gov/marc/relators/relaterm.html
     // for detailed descriptions

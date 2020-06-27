@@ -202,7 +202,6 @@ var PropertiesBox = GObject.registerClass({
             : this._title.hide()
         if (titles && titles.length) {
             const processedTitles = titles
-                .map(x => Object.assign({}, x, { type: x.type.toLowerCase() }))
                 .filter(x => defaultTitleSeq(x.type))
 
             const sequencedTitles = processedTitles

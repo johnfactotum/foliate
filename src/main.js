@@ -429,11 +429,11 @@ function main(argv) {
             }
 
             .foliate-title-main {
-                font-size: larger;
+                font-size: 1.18em;
                 font-weight: bold;
             }
             .foliate-title-subtitle {
-                font-size: larger;
+                font-size: 1.13em;
                 font-weight: 300;
             }
             .foliate-title-collection {
