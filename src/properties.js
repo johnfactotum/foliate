@@ -21,7 +21,10 @@ const {
     makeList
 } = imports.utils
 const { EpubViewData } = imports.epubView
-const { getIdentifierScheme, getSubjectAuthority, getMarcRelator } = imports.schemes
+const {
+    getIdentifierScheme, guessIdentifierScheme,
+    getSubjectAuthority, getMarcRelator
+} = imports.schemes
 
 var findBookOn = [
     {
@@ -201,7 +204,9 @@ var PropertiesBox = GObject.registerClass({
     _makeIdList(identifiers) {
         const listWidgets = identifiers.map(x => {
             if (typeof x === 'string') x = { identifier: x }
-            const { scheme, id } = parseIdentifier(x)
+            let { scheme, id } = parseIdentifier(x)
+
+            if (!scheme) scheme = guessIdentifierScheme(id)
 
             const scmLabel = scheme ? new Gtk.Label({
                 label: scheme.label,

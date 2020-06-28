@@ -1,3 +1,38 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+const { GLib } = imports.gi
+
+var guessIdentifierScheme = str => {
+    if (GLib.uuid_string_is_valid(str)) return getIdentifierScheme('uuid')
+
+    const digits = str.replace(/-/g, '').split('')
+        .map(x => x.toLowerCase() === 'x' ? 10 : parseInt(x))
+
+    if (digits.length === 13 && digits
+        .map((x, i) => i % 2 ? 3 * x : x)
+        .reduce((a, b) => a + b) % 10 === 0) return getIdentifierScheme('isbn_13')
+
+    if (digits.length === 10 && digits
+        .map((x, i) => (digits.length - i) * x)
+        .reduce((a, b) => a + b) % 11 === 0) return getIdentifierScheme('isbn_10')
+
+    if (/^B[\dA-Z]{9}$/.test(str))
+        return getIdentifierScheme('asin')
+}
+
 var identifierSchemes = {
     doi: {
         label: _('DOI'),
