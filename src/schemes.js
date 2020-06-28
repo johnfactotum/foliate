@@ -93,7 +93,7 @@ var subjectAuthorities = {
     },
     bisac: {
         label: _('BISAC'),
-        name: _('Book Industry Study Group'),
+        name: _('Book Industry Standards and Communications'),
         uri: 'http://www.bisg.org/standards/bisac_subject/index.html'
     },
     clc: {
@@ -137,11 +137,17 @@ var subjectAuthorities = {
     },
     udc: {
         label: _('UDC'),
-        name: _('Universal Decimal Classification')
+        name: _('Universal Decimal Classification'),
+        uri: 'http://purl.org/dc/terms/UDC'
     },
     wgs: {
         label: _('WGS'),
         name: _('Warengruppen-Systematik')
+    },
+    dcmitype: {
+        label: _('DCMIType'),
+        name: _('DCMI Type Vocabulary'),
+        uri: 'http://purl.org/dc/terms/DCMIType'
     },
     audience: {
         label: _('Audience'),
