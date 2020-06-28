@@ -17,7 +17,8 @@ const { GObject, Gio, GLib, Gtk, Gdk, WebKit2, Pango } = imports.gi
 const {
     debug, Obj, formatPrice, base64ToPixbuf, markupEscape,
     linkIsRel, makeLinksButton, sepHeaderFunc, user_agent,
-    promptAuthenticate, mimetypeCan
+    promptAuthenticate, mimetypeCan,
+    downloadWithWebKit, listDir
 } = imports.utils
 const { getSubjectAuthority } = imports.schemes
 const { PropertiesBox, PropertiesWindow } = imports.properties
@@ -292,7 +293,7 @@ const makeAcquisitionButtons = (links = [], callback) => {
 
     return Array.from(map.values()).map((links, i) => {
         const button = makeAcquisitionButton(links, ({ type, href, rel }) => {
-            if ((rel.endsWith('sample') || rel.endsWith('preview'))
+            if (rel && (rel.endsWith('sample') || rel.endsWith('preview'))
             && mimetypeCan.open(type)) {
                 const application = Gio.Application.get_default()
                 const file = Gio.File.new_for_uri(href)
@@ -306,7 +307,10 @@ const makeAcquisitionButtons = (links = [], callback) => {
                 return
             }
 
-            if (callback) callback(type, href)
+            if (callback) {
+                const handled = callback({ type, href, rel })
+                if (handled) return
+            }
             if (OpdsClient.typeIsOpds(type))
                 return window.getLibraryWindow().openCatalog(href)
 
@@ -489,6 +493,29 @@ const OpdsBoxChild =  GObject.registerClass({
     }
 })
 
+// TODO: make this configurable
+const bookDir = [GLib.get_user_data_dir(), pkg.name, 'books']
+
+const getFileForId = id => {
+    const path = GLib.build_filenamev(bookDir)
+    const dir = Gio.File.new_for_path(path)
+    for (const name of listDir(dir)) {
+        let [fileId, lastUpdated] = name.split('@')
+        fileId = decodeURIComponent(fileId)
+        lastUpdated = decodeURIComponent(lastUpdated)
+        if (fileId === id) return {
+            file: dir.get_child(name),
+            lastUpdated
+        }
+    }
+}
+const makeFileForId = (id, updated, suggestedName) => {
+    const encodedId = [id, updated, suggestedName]
+        .map(encodeURIComponent)
+        .join('@')
+    const path = GLib.build_filenamev(bookDir.concat(encodedId))
+    return Gio.File.new_for_path(path)
+}
 
 var OpdsAcquisitionBox = GObject.registerClass({
     GTypeName: 'FoliateOpdsAcquisitionBox',
@@ -521,6 +548,8 @@ var OpdsAcquisitionBox = GObject.registerClass({
         this.connect('child-activated', this._onChildActivated.bind(this))
     }
     _onChildActivated(flowbox, child) {
+        const toplevel = this.get_toplevel()
+
         const entry = child.entry.value
         if (!OpdsClient.isCatalogEntry(entry)) {
             const { href, type } = entry.links[0]
@@ -533,13 +562,159 @@ var OpdsAcquisitionBox = GObject.registerClass({
             const total = flowbox.get_children().length
             return _('%d of %d').format(index + 1, total)
         }
-        const packAcquisitionButtons = entry => {
-            const actionArea = dialog.propertiesBox.actionArea
 
-            const { links } = entry
-            const acquisitionButtons = makeAcquisitionButtons(links, type => {
-                if (OpdsClient.typeIsOpds(type)) dialog.close()
+        const surface = child.surface
+        const dialog = new PropertiesWindow({
+            modal: true,
+            use_header_bar: true,
+            transient_for: toplevel
+        }, OpdsClient.opdsEntryToMetadata(entry), surface)
+
+        dialog.title = getTitle(child)
+
+        let downloadToken = {}
+
+        const clearActionArea = () => {
+            const actionArea = dialog.propertiesBox.actionArea
+            const children = actionArea.get_children()
+            children.forEach(child => actionArea.remove(child))
+            return actionArea
+        }
+        const packOpenButtons = (entry, file, canUpdate) => {
+            const actionArea = clearActionArea()
+            const open = new Gtk.Button({
+                visible: true,
+                label: _('Open')
             })
+            open.connect('clicked', () => {
+                const application = Gio.Application.get_default()
+                new Window({
+                    application,
+                    file,
+                    modal: true,
+                    transient_for: application.active_window
+                }).present()
+            })
+            actionArea.add(open)
+            const acquire = new Gtk.Button({
+                visible: true,
+                tooltip_text: canUpdate ? _('Update available') : '',
+                image: new Gtk.Image({
+                    visible: true,
+                    icon_name: canUpdate
+                        ? 'software-update-available-symbolic'
+                        : 'view-more-symbolic'
+                })
+            })
+            acquire.connect('clicked', () =>
+                packAcquisitionButtons(entry, file))
+            actionArea.add(acquire)
+            open.grab_focus()
+        }
+        const packDownloading = () => {
+            const actionArea = clearActionArea()
+            const downloading = new Gtk.ProgressBar({
+                visible: true,
+                width_request: 100,
+            })
+            actionArea.add(downloading)
+            return downloading
+        }
+        const packError = entry => {
+            const actionArea = clearActionArea()
+            const icon = new Gtk.Image({
+                visible: true,
+                icon_name: 'dialog-error-symbolic'
+            })
+            const label = new Gtk.Label({
+                visible: true,
+                wrap: true,
+                xalign: 0,
+                label: _('An error occurred.')
+            })
+            const button = new Gtk.Button({
+                visible: true,
+                label: _('OK')
+            })
+            button.connect('clicked', () => {
+                packAcquisitionButtons(entry)
+            })
+            icon.get_style_context().add_class('dim-label')
+            label.get_style_context().add_class('dim-label')
+            actionArea.add(icon)
+            actionArea.add(label)
+            actionArea.add(button)
+        }
+        const packAcquisitionButtons = (entry, existingFile) => {
+            const { links, id, updated } = entry
+
+            let canUpdate = false
+
+            if (!existingFile && id) {
+                const result = getFileForId(id)
+                if (result) {
+                    const { file, lastUpdated } = result
+                    canUpdate = new Date(updated) > new Date(lastUpdated)
+                    packOpenButtons(entry, file, canUpdate)
+                    return
+                }
+            }
+
+            const actionArea = clearActionArea()
+            const acquisitionButtons = makeAcquisitionButtons(links, link => {
+                const { type, href } = link
+                if (OpdsClient.typeIsOpds(type)) {
+                    dialog.close()
+                    return false
+                }
+                if (!id || !updated) return false
+
+                let file
+                if (mimetypeCan.open(type)) {
+                    const downloading = packDownloading()
+                    downloadWithWebKit(href, (download, suggestedName) => {
+                        if (!suggestedName) suggestedName = ''
+
+                        file = makeFileForId(id, updated, suggestedName)
+
+                        const mkdirp = GLib.mkdir_with_parents(
+                            file.get_parent().get_path(), parseInt('0755', 8))
+
+                        if (mkdirp !== 0) {
+                            download.cancel()
+                            return
+                        }
+                        return file.get_uri()
+                    },
+                    progress => downloading.fraction = progress,
+                    downloadToken,
+                    toplevel)
+                        .then(() => {
+                            if (existingFile) existingFile.delete(null)
+                            packOpenButtons(entry, file)
+                        })
+                        .catch(err => {
+                            const code = WebKit2.DownloadError.CANCELLED_BY_USER
+                            if (err.code !== code) packError(entry)
+                        })
+                    return true
+                }
+            })
+
+            if (existingFile) {
+                const back = new Gtk.Button({
+                    visible: true,
+                    tooltip_text: _('Go back'),
+                    image: new Gtk.Image({
+                        visible: true,
+                        icon_name: 'go-previous-symbolic'
+                    })
+                })
+                back.connect('clicked', () =>
+                    packOpenButtons(entry, existingFile, canUpdate))
+                actionArea.add(back)
+            }
+
             acquisitionButtons.forEach(button => actionArea.add(button))
             if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
         }
@@ -550,14 +725,6 @@ var OpdsAcquisitionBox = GObject.registerClass({
             return [prev, next]
         }
 
-        const surface = child.surface
-        const dialog = new PropertiesWindow({
-            modal: true,
-            use_header_bar: true,
-            transient_for: this.get_toplevel()
-        }, OpdsClient.opdsEntryToMetadata(entry), surface)
-
-        dialog.title = getTitle(child)
         packAcquisitionButtons(entry)
 
         const buildButton = (child, i) => {
@@ -576,11 +743,15 @@ var OpdsAcquisitionBox = GObject.registerClass({
                 packAcquisitionButtons(entry)
                 getPrevNext(child).forEach(buildButton)
                 dialog.setVisible(name, isPrev)
+                if (downloadToken.cancel) downloadToken.cancel()
             }
             dialog.packButton(isPrev, callback)
         }
         getPrevNext(child).forEach(buildButton)
 
+        dialog.connect('destroy', () => {
+            if (downloadToken.cancel) downloadToken.cancel()
+        })
         dialog.run()
         dialog.close()
     }

@@ -335,6 +335,26 @@ var recursivelyDeleteDir = dir => {
     dir.delete(null)
 }
 
+var listDir = function* (file) {
+    const path = file.get_path()
+    if (!GLib.file_test(path, GLib.FileTest.IS_DIR)) {
+        debug(`"${path}" is not a directory`)
+        return
+    }
+    const children = file.enumerate_children('standard::name',
+        Gio.FileQueryInfoFlags.NONE, null)
+
+    let info
+    while ((info = children.next_file(null)) != null) {
+        try {
+            const name = info.get_name()
+            yield name
+        } catch (e) {
+            continue
+        }
+    }
+}
+
 var Storage = GObject.registerClass({
     GTypeName: 'FoliateStorage',
     Signals: {
@@ -775,14 +795,19 @@ var downloadWithWebKit = (uri, decideDestination, onProgress, token, toplevel) =
         const connection = webContext.connect('download-started', (ctx, download) => {
             debug('download-started')
 
+            download.set_allow_overwrite(true)
+
             if (token) token.cancel = () => download.cancel()
 
             download.connect('decide-destination', (download, suggestedName) => {
                 debug('decide-destination')
                 const destination = typeof decideDestination === 'string'
                     ? decideDestination
-                    : decideDestination(suggestedName)
-                if (destination) download.set_destination(destination)
+                    : decideDestination(download, suggestedName)
+                if (destination) {
+                    debug(`destination: ${destination}`)
+                    download.set_destination(destination)
+                }
             })
             download.connect('failed', (download, err) => {
                 logError(err)
