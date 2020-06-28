@@ -682,10 +682,8 @@ var makeList = (widgets, listStyleFunc = unorderedListStyleFunc) => {
                 wrap: true,
             }, widget))
         }
-        if (widgets.length > 1) {
-            const marker = listStyleFunc(i)
-            if (marker) grid.attach(marker, 0, i, 1, 1)
-        }
+        const marker = listStyleFunc(i)
+        if (marker) grid.attach(marker, 0, i, 1, 1)
         grid.attach(widget, 1, i, 1, 1)
     })
     return grid

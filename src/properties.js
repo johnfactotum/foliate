@@ -348,9 +348,42 @@ var PropertiesBox = GObject.registerClass({
             }, list), false, true, 0)
         }
         if (hasCollections) {
-            const listWidgets = collections.map(x => ({
-                label: typeof x === 'string' ? x : x.label
-            }))
+            const listWidgets = collections.map(x => {
+                if (typeof x === 'string') return { label: x }
+
+                const { type, position, label } = x
+
+                const typeLabel = type === 'series' ? new Gtk.Label({
+                    label: _('Series'),
+                    wrap: true,
+                    valign: Gtk.Align.CENTER
+                }) : null
+                const posLabel = position ? new Gtk.Label({
+                    label: _('#%s').format(position),
+                    wrap: true,
+                    valign: Gtk.Align.CENTER
+                }) : null
+                const labelLabel = new Gtk.Label({
+                    selectable: true,
+                    xalign: 0,
+                    wrap: true,
+                    label: label || '',
+                })
+                const labelBox = new Gtk.Box({ spacing: 6 })
+                if (typeLabel) {
+                    const ctx = typeLabel.get_style_context()
+                    ctx.add_class('dim-label')
+                    ctx.add_class('foliate-authority-label')
+                    labelBox.pack_start(typeLabel, false, true, 0)
+                }
+                labelBox.pack_start(labelLabel, false, true, 0)
+                if (posLabel) {
+                    posLabel.get_style_context().add_class('dim-label')
+                    labelBox.pack_start(posLabel, false, true, 0)
+                }
+                labelBox.show_all()
+                return labelBox
+            })
             const list = makeList(listWidgets)
             this._categoriesBox.pack_start(new PropertyBox({
                 property_name: _('Collections'),

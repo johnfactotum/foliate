@@ -15162,6 +15162,7 @@ var Packaging = function () {
 			 	.map(meta => {
 			 		return {
 			 			type: getProperty(meta, OPF_NS, 'collection-type'),
+			 			position: getProperty(meta, OPF_NS, 'group-position'),
 			 			label: getElementText(meta)
 			 		}
 			 	})
