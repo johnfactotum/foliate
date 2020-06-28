@@ -169,6 +169,7 @@ const fb2ToHtml = (fb2, node, itemFromElement, isSection) => {
                     return [el]
                 } else {
                     let note = fb2.getElementById(id)
+                    if (!note) return [el]
                     while (!note.matches('body > *')) note = note.parentElement
                     let item = fb2Sections.get(note)
                     if (!item && itemFromElement) item = itemFromElement(note)
