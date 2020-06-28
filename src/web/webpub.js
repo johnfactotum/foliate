@@ -306,23 +306,57 @@ const processFB2 = async (fb2, blob, filename) => {
     const $$ = x => [...fb2.querySelectorAll(x)]
 
     const getTextContent = x => {
-        const el = $(x)
-        return el ? el.textContent : ''
+        const el = typeof x === 'string' ? $(x) : x
+        return el ? trim(el.textContent) : ''
+    }
+    const getAuthor = author => {
+        const nick = getTextContent(author.querySelector('nickname'))
+        if (nick) return nick
+        else return [
+            author.querySelector('first-name'),
+            author.querySelector('middle-name'),
+            author.querySelector('last-name')
+        ].filter(x => x).map(getTextContent).join(' ')
+    }
+    const getDate = x => {
+        const date = typeof x === 'string' ? $(x) : x
+        const value = date.getAttribute('value')
+        if (value) return value
+        else return getTextContent(date)
     }
     const title = getTextContent('title-info book-title') || filename
-    const identifier = getTextContent('document-info id') || await generateIdentifier(blob)
+    const identifier = getTextContent('document-info id')
+        || await generateIdentifier(blob)
+    const isbn = getTextContent('publish-info isbn')
     const annotation = $('title-info annotation')
     const description = annotation
         ? fb2ToHtml(fb2, annotation, null, true).innerHTML : undefined
     const language = getTextContent('title-info lang')
-    const pubdate = getTextContent('title-info date')
+    const pubdate = getDate('title-info date')
+    const modified_date = getDate('document-info date')
     const publisher = getTextContent('publish-info publisher')
-    const creator = Array.from($$('title-info author')).map(x => [
-        x.querySelector('first-name'),
-        x.querySelector('middle-name'),
-        x.querySelector('last-name')
-    ].filter(x => x).map(x => x.textContent).join(' ')).join(', ')
-    const subjects = Array.from($$('title-info genre')).map(x => x.textContent)
+    const creator = $$('title-info author').map(getAuthor).join(', ')
+    const subjects = $$('title-info genre').map(x => x.textContent)
+    const sources = $$('document-info src-url').map(x => x.textContent)
+    const collections = $$('title-info sequence').map(x => ({
+        type: 'series',
+        label: x.getAttribute('name'),
+        position: x.getAttribute('number'),
+    }))
+    const contributors = [
+        ...$$('title-info translator').map(x => ({
+            label: getAuthor(x),
+            role: 'trl',
+        })),
+        ...$$('document-info author').map(x => ({
+            label: getAuthor(x),
+            role: 'bkp',
+        })),
+        ...$$('document-info program-used').map(x => ({
+            label: getTextContent(x),
+            role: 'bkp',
+        }))
+    ]
 
     const getIdFromHref = href => {
         const [a, b] = href.split('#')
@@ -467,11 +501,18 @@ const processFB2 = async (fb2, blob, filename) => {
             title,
             creator,
             identifier,
+            identifiers: isbn
+                ? [identifier, { scheme: 'isbn', identifier: isbn }]
+                : [],
             description,
             language,
             pubdate,
+            modified_date,
             publisher,
-            subjects
+            subjects,
+            sources,
+            collections,
+            contributors
         },
         links: [],
         readingOrder,

@@ -413,7 +413,7 @@ var PropertiesBox = GObject.registerClass({
                 }))
             }
             if (modified_date) {
-                const dateString = formatDate(modified_date, true)
+                const dateString = formatDate(modified_date)
                 flowBox.add(new PropertyBox({
                     property_name: _('Modified Date'),
                     property_value: dateString
@@ -497,7 +497,7 @@ var PropertiesBox = GObject.registerClass({
                     selectable: true,
                     xalign: 0,
                     wrap: true,
-                    label: nameLabel
+                    label: nameLabel || ''
                 })
                 grid.attach(name, 1, i, 1, 1)
             })
