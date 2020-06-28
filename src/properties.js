@@ -26,30 +26,37 @@ const {
     getSubjectAuthority, getMarcRelator
 } = imports.schemes
 
+const supports = ['isbn', 'title']
 var findBookOn = [
     {
-        title: _('Amazon'),
-        href: 'https://www.amazon.com/s?k=%s'
+        name: _('Amazon'),
+        href: 'https://www.amazon.com/s?k=%s',
+        supports: ['isbn', 'asin', 'title']
     },
     {
-        title: _('Goodreads'),
-        href: 'http://www.goodreads.com/search/search?search_type=books&search%5Bquery%5D=%s'
+        name: _('Goodreads'),
+        href: 'http://www.goodreads.com/search/search?search_type=books&search%5Bquery%5D=%s',
+        supports: ['isbn', 'asin', 'title']
     },
     {
-        title: _('Google Books'),
-        href: 'https://www.google.com/search?tbm=bks&q=%s'
+        name: _('Google Books'),
+        href: 'https://www.google.com/search?tbm=bks&q=%s',
+        supports
     },
     {
-        title: _('LibraryThing'),
-        href: 'https://www.librarything.com/search.php?searchtype=work&search=%s'
+        name: _('LibraryThing'),
+        href: 'https://www.librarything.com/search.php?searchtype=work&search=%s',
+        supports
     },
     {
-        title: _('Open Library'),
-        href: 'https://openlibrary.org/search?q=%s'
+        name: _('Open Library'),
+        href: 'https://openlibrary.org/search?q=%s',
+        supports
     },
     {
-        title: _('WorldCat'),
-        href: 'https://www.worldcat.org/search?q==%s'
+        name: _('WorldCat'),
+        href: 'https://www.worldcat.org/search?q=%s',
+        supports
     },
 ]
 
@@ -69,7 +76,10 @@ const parseIdentifier = ({ scheme, type, identifier }) => {
         else {
             const scm = getIdentifierScheme(type || scheme)
             if (scm) return { scheme: scm, id: identifier }
-            return { id: identifier }
+            return {
+                scheme: guessIdentifierScheme(identifier),
+                id: identifier
+            }
         }
     }
 }
@@ -205,8 +215,6 @@ var PropertiesBox = GObject.registerClass({
         const listWidgets = identifiers.map(x => {
             if (typeof x === 'string') x = { identifier: x }
             let { scheme, id } = parseIdentifier(x)
-
-            if (!scheme) scheme = guessIdentifierScheme(id)
 
             const scmLabel = scheme ? new Gtk.Label({
                 label: scheme.label,
@@ -599,16 +607,31 @@ var PropertiesWindow = GObject.registerClass({
         this._buttons.add(button)
     }
     packFindBookOnButton() {
-        const bookTitle = this.metadata.title
-        if (!bookTitle) return
-
-        const buttonLinks = findBookOn.map(link => {
-            const { href, title } = link
-            const uri = href.replace(/%s/g, encodeURIComponent(bookTitle))
-            return {
-                href: uri, title
-            }
+        const { identifier, identifiers = [], title } = this.metadata
+        const ids = [identifier, ...identifiers].map(x => {
+            if (typeof x === 'string') x = { identifier: x }
+            return parseIdentifier(x)
         })
+        const isbnObj = ids.find(({ scheme }) => scheme
+            && ['isbn', 'isbn_10', 'isbn_13'].includes(scheme.key))
+        const asinObj = ids.find(({ scheme }) => scheme && scheme.key === 'asin')
+        const isbn = isbnObj ? isbnObj.id : ''
+        const asin = asinObj ? asinObj.id : ''
+
+        const data = { title, isbn, asin }
+
+        const buttonLinks = findBookOn.map(item => {
+            const { href, name, supports } = item
+            const query = supports.map(x => data[x]).find(x => x)
+            if (!query) return null
+            const uri = href.replace(/%s/g, encodeURIComponent(query))
+            return {
+                title: name,
+                href: uri
+            }
+        }).filter(x => x)
+        if (!buttonLinks.length) return
+
         const button = makeLinksButton(
             {
                 visible: true,
