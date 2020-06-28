@@ -774,7 +774,7 @@ var downloadWithWebKit = (uri, decideDestination, onProgress, token, toplevel) =
             promptAuthenticate(req, null, null, toplevel))
 
         const webContext = WebKit2.WebContext.get_default()
-        webContext.connect('download-started', (ctx, download) => {
+        const connection = webContext.connect('download-started', (ctx, download) => {
             debug('download-started')
 
             if (token) token.cancel = () => download.cancel()
@@ -798,6 +798,8 @@ var downloadWithWebKit = (uri, decideDestination, onProgress, token, toplevel) =
             download.connect('finished', () => {
                 debug('finished')
                 if (token) token.cacel = null
+                ctx.disconnect(connection)
+                webView.destroy()
                 resolve()
             })
         })
