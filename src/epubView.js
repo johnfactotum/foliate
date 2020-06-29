@@ -14,7 +14,8 @@
  */
 
 const { GObject, GLib, Gio, Gtk, Gdk, Pango, GdkPixbuf, WebKit2 } = imports.gi
-const { invertRotate, scalePixbuf, downloadWithWebKit } = imports.utils
+const { invertRotate, scalePixbuf, downloadWithWebKit, getFileInfoAsync }
+    = imports.utils
 const { uriStore, library } = imports.uriStore
 const { EpubCFI } = imports.epubcfi
 
@@ -1002,17 +1003,7 @@ var EpubView = GObject.registerClass({
         this.close()
         this._file = file
         try {
-            this._fileInfo = await new Promise((resolve, reject) => {
-                this._file.query_info_async(
-                    'standard::content-type',
-                    Gio.FileQueryInfoFlags.NONE,
-                    GLib.PRIORITY_DEFAULT, null,
-                    (file, res) => {
-                        const info = file.query_info_finish(res)
-                        if (info) resolve(info)
-                        else reject(new Error('could not get file info'))
-                    })
-            })
+            this._fileInfo = await getFileInfoAsync(this._file)
         } catch (e) {
             logError(e)
             this._fileInfo = null

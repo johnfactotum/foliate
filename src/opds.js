@@ -18,12 +18,38 @@ const {
     debug, Obj, formatPrice, base64ToPixbuf, markupEscape,
     linkIsRel, makeLinksButton, sepHeaderFunc, user_agent,
     promptAuthenticate, mimetypeCan,
-    downloadWithWebKit, listDir
+    downloadWithWebKit, listDir, getFileInfoAsync
 } = imports.utils
 const { getSubjectAuthority } = imports.schemes
 const { PropertiesBox, PropertiesWindow } = imports.properties
 const { HdyColumn } = imports.handy
 const { Window } = imports.window
+
+const librarySettings = new Gio.Settings({ schema_id: pkg.name + '.library' })
+
+const launchURI = async x => {
+    let type
+    const isFile = x instanceof Gio.File
+    if (isFile) {
+        const info = await getFileInfoAsync(x)
+        type = info.get_content_type()
+    } else type = x.type
+
+    if (mimetypeCan.open(type)) {
+        const application = Gio.Application.get_default()
+        const file = isFile ? x : Gio.File.new_for_uri(x.href)
+        new Window({
+            application,
+            file,
+            modal: true,
+            transient_for: application.active_window
+        }).present()
+    } else {
+        const uri = isFile ? x.get_uri() : x.href
+        const appInfo = Gio.AppInfo.get_default_for_type(type, true)
+        appInfo.launch_uris([uri], null)
+    }
+}
 
 const htmlPath = pkg.pkgdatadir + '/assets/client.html'
 var OpdsClient = class OpdsClient {
@@ -493,7 +519,6 @@ const OpdsBoxChild =  GObject.registerClass({
     }
 })
 
-// TODO: make this configurable
 const bookDir = [GLib.get_user_data_dir(), pkg.name, 'books']
 
 const getFileForId = id => {
@@ -548,6 +573,8 @@ var OpdsAcquisitionBox = GObject.registerClass({
         this.connect('child-activated', this._onChildActivated.bind(this))
     }
     _onChildActivated(flowbox, child) {
+        // TODO: this function has obviously gotten way too long
+        // also most of these should be reused by the full entry box
         const toplevel = this.get_toplevel()
 
         const entry = child.entry.value
@@ -586,15 +613,7 @@ var OpdsAcquisitionBox = GObject.registerClass({
                 visible: true,
                 label: _('Open')
             })
-            open.connect('clicked', () => {
-                const application = Gio.Application.get_default()
-                new Window({
-                    application,
-                    file,
-                    modal: true,
-                    transient_for: application.active_window
-                }).present()
-            })
+            open.connect('clicked', () => launchURI(file))
             actionArea.add(open)
             if (canUpdate) {
                 const update = new Gtk.Button({
@@ -707,36 +726,81 @@ var OpdsAcquisitionBox = GObject.registerClass({
                 }
                 if (!id || !updated) return false
 
+                // always open web pages in browser
+                if (type === 'text/html' || type === 'application/xml+xhtml')
+                    return false
+
+                const action = librarySettings.get_string('opds-action')
+                if (action === 'ask') {
+                    const OPEN = 1
+                    const SAVE = 2
+                    const msg = new Gtk.MessageDialog({
+                        text: _('What would you like to do with this file?'),
+                        secondary_text: _('Format: %s')
+                            .format(Gio.content_type_get_description(type)),
+                        message_type: Gtk.MessageType.QUESTION,
+                        modal: true,
+                        transient_for: dialog
+                    })
+                    msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+                    msg.add_button(_('Open'), OPEN)
+                    msg.add_button(_('Save'), SAVE)
+                    msg.set_default_response(SAVE)
+                    const res = msg.run()
+                    msg.destroy()
+
+                    if (res === OPEN) {
+                        launchURI({ type, href })
+                        return true
+                    } else if (res !== SAVE) return true
+                }
+
                 let file
-                if (mimetypeCan.open(type)) {
-                    const downloading = packDownloading()
-                    downloadWithWebKit(href, (download, suggestedName) => {
-                        if (!suggestedName) suggestedName = ''
+                const downloading = packDownloading()
+                downloadWithWebKit(href, (download, suggestedName) => {
+                    if (!suggestedName) suggestedName = ''
 
+                    if (action === 'auto') {
                         file = makeFileForId(id, updated, suggestedName)
-
-                        const mkdirp = GLib.mkdir_with_parents(
-                            file.get_parent().get_path(), parseInt('0755', 8))
-
-                        if (mkdirp !== 0) {
+                    } else {
+                        const chooser = new Gtk.FileChooserNative({
+                            action: Gtk.FileChooserAction.SAVE,
+                            transient_for: dialog,
+                            do_overwrite_confirmation: true,
+                            create_folders: true,
+                        })
+                        chooser.set_current_name(suggestedName)
+                        if (chooser.run() !== Gtk.ResponseType.ACCEPT) {
                             download.cancel()
+                            chooser.destroy()
                             return
                         }
-                        return file.get_uri()
-                    },
-                    progress => downloading.fraction = progress,
-                    downloadToken,
-                    toplevel)
-                        .then(() => {
-                            if (existingFile) existingFile.delete(null)
-                            packOpenButtons(entry, file)
-                        })
-                        .catch(err => {
-                            const code = WebKit2.DownloadError.CANCELLED_BY_USER
-                            if (err.code !== code) packError(entry)
-                        })
-                    return true
-                }
+                        file = chooser.get_file()
+                        chooser.destroy()
+                    }
+
+                    const mkdirp = GLib.mkdir_with_parents(
+                        file.get_parent().get_path(), parseInt('0755', 8))
+
+                    if (mkdirp !== 0) {
+                        download.cancel()
+                        return
+                    }
+                    return file.get_uri()
+                },
+                progress => downloading.fraction = progress,
+                downloadToken,
+                toplevel)
+                    .then(() => {
+                        if (existingFile) existingFile.delete(null)
+                        packOpenButtons(entry, file)
+                    })
+                    .catch(err => {
+                        const code = WebKit2.DownloadError.CANCELLED_BY_USER
+                        if (err.code === code) packAcquisitionButtons(entry, existingFile, canUpdate)
+                        else packError(entry)
+                    })
+                return true
             })
 
             if (existingFile) {

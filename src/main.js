@@ -92,6 +92,18 @@ const makeActions = app => ({
         settings.bind('cache-locations', $('cacheLocations'), 'state', flag)
         settings.bind('cache-covers', $('cacheCovers'), 'state', flag)
 
+        const opdsAction = librarySettings.get_string('opds-action')
+        const $opdsAction = str => $('opds_' + str)
+        $opdsAction(opdsAction).active = true
+        ;['auto', 'ask'].forEach(x => {
+            const button = $opdsAction(x)
+            button.connect('toggled', () => {
+                if (button.active) librarySettings.set_string('opds-action', x)
+            })
+        })
+        $('opdsAutoDir').label = GLib.build_filenamev(
+            [GLib.get_user_data_dir(), pkg.name, 'books'])
+
         const updateAHBox = () => {
             const available =
                 !viewSettings.get_boolean('skeuomorphism')

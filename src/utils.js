@@ -829,3 +829,16 @@ var downloadWithWebKit = (uri, decideDestination, onProgress, token, toplevel) =
 
         webView.download_uri(uri)
     })
+
+var getFileInfoAsync = (file, attributes = 'standard::content-type') =>
+    new Promise((resolve, reject) => file.query_info_async(
+        attributes,
+        Gio.FileQueryInfoFlags.NONE,
+        GLib.PRIORITY_DEFAULT, null,
+        (file, res) => {
+            try {
+                resolve(file.query_info_finish(res))
+            } catch (e) {
+                reject(e)
+            }
+        }))
