@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-28 01:00+0800\n"
+"POT-Creation-Date: 2020-06-29 22:25+0800\n"
 "PO-Revision-Date: 2020-06-18 21:37+0200\n"
 "Last-Translator: micrococo\n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
-#: src/main.js:194 src/window.js:1001 src/schemes.js:65
+#: src/main.js:206 src/window.js:1001 src/schemes.js:100
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -94,19 +94,19 @@ msgstr ""
 msgid "Note"
 msgstr "Nota"
 
-#: src/epubView.js:1020
+#: src/epubView.js:1011
 msgid "File not found."
 msgstr "Archivo no encontrado."
 
-#: src/epubView.js:1043
+#: src/epubView.js:1034
 msgid "Failed to load remote file."
 msgstr "Error al cargar el archivo remoto."
 
-#: src/epubView.js:1058
+#: src/epubView.js:1049
 msgid "Could not unpack Kindle file."
 msgstr "No se puede descomprimir el archivo Kindle."
 
-#: src/epubView.js:1074
+#: src/epubView.js:1065
 msgid "File type not supported."
 msgstr "Tipo de archivo sin soporte."
 
@@ -205,11 +205,11 @@ msgstr ""
 "El identificador del archivo importado no coincide con el del libro. Esto "
 "puede indicar que las notas no pertenecen a este libro."
 
-#: src/export.js:234 src/library.js:455 src/main.js:149 src/opds.js:871
-#: src/utils.js:715 src/window.js:571 src/ui/bookEditDialog.ui:10
-#: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
-#: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
-#: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
+#: src/export.js:234 src/library.js:455 src/main.js:161 src/opds.js:656
+#: src/opds.js:745 src/opds.js:1144 src/utils.js:733 src/window.js:571
+#: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
+#: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
+#: src/ui/libraryWindow.ui:601 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -217,7 +217,7 @@ msgstr "Cancelar"
 msgid "Import Anyway"
 msgstr "Importar de todas formas"
 
-#: src/export.js:245 src/opds.js:997 src/opds.js:1066 src/window.js:1036
+#: src/export.js:245 src/opds.js:1270 src/opds.js:1339 src/window.js:1036
 msgid "Error"
 msgstr "Error"
 
@@ -292,11 +292,11 @@ msgstr "Todos"
 msgid "Title"
 msgstr "Título"
 
-#: src/library.js:775 src/schemes.js:216
+#: src/library.js:775 src/schemes.js:257
 msgid "Author"
 msgstr "Autor"
 
-#: src/library.js:776 src/properties.js:346 src/ui/propertyBox.ui:16
+#: src/library.js:776 src/properties.js:359 src/ui/propertyBox.ui:16
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -304,11 +304,11 @@ msgstr "Etiquetas"
 msgid "Description"
 msgstr "Descripción"
 
-#: src/library.js:778 src/properties.js:372 src/schemes.js:366
+#: src/library.js:778 src/properties.js:418 src/schemes.js:407
 msgid "Publisher"
 msgstr "Editor"
 
-#: src/library.js:779 src/properties.js:392 src/ui/ttsDialog.ui:284
+#: src/library.js:779 src/properties.js:438 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Idioma"
 
@@ -340,241 +340,296 @@ msgstr "Buscar en Wikcionario"
 msgid "Translation by Google Translate"
 msgstr "Traducción de Google Translate"
 
-#: src/main.js:123 src/window.js:666
+#: src/main.js:135 src/window.js:666
 msgid "Open File"
 msgstr "Abrir un archivo"
 
-#: src/main.js:144
+#: src/main.js:156
 msgid "Open Catalog"
 msgstr "Abrir un catálogo"
 
-#: src/main.js:150 src/ui/catalogRow.ui:50
+#: src/main.js:162 src/opds.js:614 src/opds.js:746 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "Abrir"
 
-#: src/main.js:154
+#: src/main.js:166
 msgid "OPDS Catalog URL:"
 msgstr "URL del catálogo del OPDS:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:193
+#: src/main.js:205
 msgid "translator-credits"
 msgstr ""
 "Juan Campos\n"
 "Blanc Chan\n"
 "micrococo"
 
-#: src/main.js:195 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:207 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Un visor sencillo y moderno de libros electrónicos"
 
-#: src/main.js:220
+#: src/main.js:232
 msgid "Open library window"
 msgstr "Abrir la ventana de la biblioteca"
 
-#: src/main.js:224
+#: src/main.js:236
 msgid "Add files to the library"
 msgstr "Añadir archivos a la biblioteca"
 
-#: src/main.js:228
+#: src/main.js:240
 msgid "Show version"
 msgstr "Mostrar la versión"
 
-#: src/main.js:232
+#: src/main.js:244
 msgid "Show verbose debugging information"
 msgstr "Mostrar información de depuración detallada"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
-#: src/opds.js:157
+#: src/opds.js:184
 msgid ", "
 msgstr ", "
 
-#: src/opds.js:212
+#: src/opds.js:239
 msgid "Download"
 msgstr "Descargar"
 
-#: src/opds.js:215
+#: src/opds.js:242
 msgid "Buy"
 msgstr "Comprar"
 
-#: src/opds.js:216
+#: src/opds.js:243
 msgid "Free"
 msgstr "Gratis"
 
-#: src/opds.js:217
+#: src/opds.js:244
 #, fuzzy
 msgid "Preview"
 msgstr "URL de la vista preliminar"
 
-#: src/opds.js:218
+#: src/opds.js:245
 msgid "Sample"
 msgstr "Muestra"
 
-#: src/opds.js:219
+#: src/opds.js:246
 msgid "Borrow"
 msgstr "Pedir prestado"
 
-#: src/opds.js:220
+#: src/opds.js:247
 msgid "Subscribe"
 msgstr "Subscribir"
 
-#: src/opds.js:222
+#: src/opds.js:249
 msgid "More"
 msgstr ""
 
-#: src/opds.js:246
+#: src/opds.js:273
 msgid "Protected by DRM"
 msgstr "Protegido con DRM"
 
-#: src/opds.js:264
+#: src/opds.js:291
 msgid " (DRM)"
 msgstr " (DRM)"
 
-#: src/opds.js:359
+#: src/opds.js:389
 msgid "Unable to load OPDS feed"
 msgstr "No se puede cargar la fuente OPDS"
 
-#: src/opds.js:364 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
+#: src/opds.js:394 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
 #: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:93
 msgid "Reload"
 msgstr "Recargar"
 
-#: src/opds.js:534 src/window.js:340
+#: src/opds.js:590 src/window.js:340
 #, javascript-format
 msgid "%d of %d"
 msgstr "%d de %d"
 
-#: src/opds.js:765 src/ui/catalogWindow.ui:6
+#: src/opds.js:621
+msgid "Update available"
+msgstr ""
+
+#: src/opds.js:622
+msgid "Update"
+msgstr ""
+
+#: src/opds.js:649
+msgid "Delete this item?"
+msgstr ""
+
+#: src/opds.js:651
+msgid "If you delete this item, it will be permanently lost."
+msgstr ""
+
+#: src/opds.js:657
+msgid "Delete"
+msgstr ""
+
+#: src/opds.js:692
+msgid "An error occurred."
+msgstr ""
+
+#: src/opds.js:696 src/ui/ttsDialog.ui:17
+msgid "OK"
+msgstr "Aceptar"
+
+#: src/opds.js:738
+msgid "What would you like to do with this file?"
+msgstr ""
+
+#: src/opds.js:739
+#, fuzzy, javascript-format
+msgid "Format: %s"
+msgstr "Formato"
+
+#: src/opds.js:747 src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
+#: src/ui/themeWindow.ui:17
+msgid "Save"
+msgstr "Guardar"
+
+#: src/opds.js:809 src/ui/libraryWindow.ui:286
+msgid "Go back"
+msgstr "Volver"
+
+#: src/opds.js:1038 src/ui/catalogWindow.ui:6
 msgid "OPDS Catalog"
 msgstr "Catálogo del OPDS"
 
-#: src/opds.js:865 src/ui/catalogWindow.ui:53
+#: src/opds.js:1138 src/ui/catalogWindow.ui:53
 msgid "OPDS URL"
 msgstr "URL del OPDS"
 
-#: src/opds.js:872
+#: src/opds.js:1145
 msgid "Go"
 msgstr "Ir"
 
-#: src/opds.js:892 src/opds.js:918 src/window.js:1317
+#: src/opds.js:1165 src/opds.js:1191 src/window.js:1317
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Cargando…"
 
-#: src/opds.js:961
+#: src/opds.js:1234
 msgid "First"
 msgstr "Primera página"
 
-#: src/opds.js:962 src/properties.js:554
+#: src/opds.js:1235 src/properties.js:600
 msgid "Previous"
 msgstr "Anterior"
 
-#: src/opds.js:963 src/properties.js:554
+#: src/opds.js:1236 src/properties.js:600
 msgid "Next"
 msgstr "Siguiente"
 
-#: src/opds.js:964
+#: src/opds.js:1237
 msgid "Last"
 msgstr "Última página"
 
-#: src/opds.js:1012
+#: src/opds.js:1285
 msgid "Related"
 msgstr "Relacionado"
 
-#: src/opds.js:1013
+#: src/opds.js:1286
 msgid "Section"
 msgstr "Sección"
 
-#: src/opds.js:1014
+#: src/opds.js:1287
 msgid "Subsection"
 msgstr "Subsección"
 
-#: src/opds.js:1015
+#: src/opds.js:1288
 msgid "New"
 msgstr "Novedades"
 
-#: src/opds.js:1016
+#: src/opds.js:1289
 msgid "Popular"
 msgstr "Popular"
 
-#: src/opds.js:1017
+#: src/opds.js:1290
 msgid "Featured"
 msgstr "Destacado"
 
-#: src/opds.js:1018
+#: src/opds.js:1291
 msgid "Recommended"
 msgstr "Recomendado"
 
-#: src/opds.js:1053
+#: src/opds.js:1326
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/properties.js:28 src/schemes.js:47
+#: src/properties.js:32 src/schemes.js:82
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/properties.js:32
+#: src/properties.js:37
 msgid "Goodreads"
 msgstr "Goodreads"
 
-#: src/properties.js:36
+#: src/properties.js:42
 msgid "Google Books"
 msgstr "Google Libros"
 
-#: src/properties.js:40
+#: src/properties.js:47
 msgid "LibraryThing"
 msgstr "LibraryThing"
 
-#: src/properties.js:44
+#: src/properties.js:52
 msgid "Open Library"
 msgstr "Open Library"
 
-#: src/properties.js:48
+#: src/properties.js:57
 msgid "WorldCat"
 msgstr "WorldCat"
 
-#: src/properties.js:356
+#: src/properties.js:370
+msgid "Series"
+msgstr ""
+
+#: src/properties.js:375
+#, javascript-format
+msgid "#%s"
+msgstr ""
+
+#: src/properties.js:402
 #, fuzzy
 msgid "Collections"
 msgstr "Justificación completa"
 
-#: src/properties.js:378
+#: src/properties.js:424
 msgid "Publication Date"
 msgstr "Fecha de publicación"
 
-#: src/properties.js:385
+#: src/properties.js:431
 msgid "Modified Date"
 msgstr "Fecha de modificación"
 
-#: src/properties.js:397
+#: src/properties.js:443
 msgid "File Size"
 msgstr "Tamaño del archivo"
 
-#: src/properties.js:401
+#: src/properties.js:447
 msgid "Format"
 msgstr "Formato"
 
-#: src/properties.js:411
+#: src/properties.js:457
 msgid "Identifier"
 msgstr "Identificador"
 
-#: src/properties.js:417
+#: src/properties.js:463
 #, fuzzy
 msgid "Source"
 msgstr "Origen: "
 
-#: src/properties.js:472
+#: src/properties.js:518
 #, fuzzy
 msgid "Contributors"
 msgstr "Continuo"
 
-#: src/properties.js:476
+#: src/properties.js:522
 msgid "Copyright"
 msgstr "Derechos de autor"
 
-#: src/properties.js:577
+#: src/properties.js:638
 msgid "Find on…"
 msgstr "Buscar en…"
 
@@ -596,7 +651,7 @@ msgstr "Oscuro"
 
 #: src/theme.js:39 src/ui/imageViewer.ui:56 src/ui/shortcutsWindow.ui:382
 #: src/ui/themeWindow.ui:145
-#: data/com.github.johnfactotum.Foliate.gschema.xml:172
+#: data/com.github.johnfactotum.Foliate.gschema.xml:176
 msgid "Invert"
 msgstr "Negativo"
 
@@ -667,29 +722,29 @@ msgstr[1] "%d horas"
 msgid "E-book Files"
 msgstr "Archivos de libros electrónicos"
 
-#: src/utils.js:706
+#: src/utils.js:724
 msgid "Authentication Required"
 msgstr "Autenticación requerida"
 
-#: src/utils.js:708
+#: src/utils.js:726
 #, javascript-format
 msgid "Authentication required by %s"
 msgstr "Autenticación requerida por %s"
 
-#: src/utils.js:711
+#: src/utils.js:729
 #, javascript-format
 msgid "The site says: “%s”"
 msgstr "El sitio dice: «%s»"
 
-#: src/utils.js:716
+#: src/utils.js:734
 msgid "Authenticate"
 msgstr "Autenticar"
 
-#: src/utils.js:730
+#: src/utils.js:748
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: src/utils.js:734
+#: src/utils.js:752
 msgid "Password"
 msgstr "Contraseña"
 
@@ -698,7 +753,7 @@ msgid "Leave fullscreen"
 msgstr "Salir de pantalla completa"
 
 #: src/window.js:129 src/ui/mainMenu.ui:91
-#: data/com.github.johnfactotum.Foliate.gschema.xml:230
+#: data/com.github.johnfactotum.Foliate.gschema.xml:234
 msgid "Fullscreen"
 msgstr "Pantalla completa"
 
@@ -724,7 +779,7 @@ msgstr "Seguir de todas formas"
 msgid "Contents"
 msgstr "Contenidos"
 
-#: src/window.js:799 data/com.github.johnfactotum.Foliate.gschema.xml:240
+#: src/window.js:799 data/com.github.johnfactotum.Foliate.gschema.xml:244
 msgid "Show sidebar"
 msgstr "Mostrar el panel lateral"
 
@@ -765,11 +820,6 @@ msgstr "Exportar notas…"
 #: src/ui/themeRow.ui:26
 msgid "Edit"
 msgstr "Editar"
-
-#: src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
-#: src/ui/themeWindow.ui:17
-msgid "Save"
-msgstr "Guardar"
 
 #: src/ui/bookEditDialog.ui:46
 msgid "File URL:"
@@ -880,7 +930,7 @@ msgstr "Vista preliminar de nota a pie de página"
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
 #: src/ui/shortcutsWindow.ui:159 src/ui/shortcutsWindow.ui:342
 #: src/ui/wikipediaBox.ui:107
-#: data/com.github.johnfactotum.Foliate.gschema.xml:268
+#: data/com.github.johnfactotum.Foliate.gschema.xml:272
 msgid "View"
 msgstr "Ver"
 
@@ -999,10 +1049,6 @@ msgstr "Buscar"
 msgid "Toggle view"
 msgstr "Alternar la vista"
 
-#: src/ui/libraryWindow.ui:286
-msgid "Go back"
-msgstr "Volver"
-
 #: src/ui/libraryWindow.ui:378
 msgid "Stop"
 msgstr "Detener"
@@ -1047,16 +1093,16 @@ msgstr "Aprender más"
 msgid "Catalogs"
 msgstr "Catálogos"
 
-#: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:177
+#: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:181
 msgid "Brightness"
 msgstr "Brillo"
 
-#: src/ui/mainMenu.ui:148 data/com.github.johnfactotum.Foliate.gschema.xml:122
-#: data/com.github.johnfactotum.Foliate.gschema.xml:123
+#: src/ui/mainMenu.ui:148 data/com.github.johnfactotum.Foliate.gschema.xml:126
+#: data/com.github.johnfactotum.Foliate.gschema.xml:127
 msgid "Font"
 msgstr "Fuente"
 
-#: src/ui/mainMenu.ui:162 data/com.github.johnfactotum.Foliate.gschema.xml:127
+#: src/ui/mainMenu.ui:162 data/com.github.johnfactotum.Foliate.gschema.xml:131
 msgid "Spacing"
 msgstr "Espaciado"
 
@@ -1068,7 +1114,7 @@ msgstr "Márgenes"
 msgid "Width"
 msgstr "Ancho"
 
-#: src/ui/mainMenu.ui:232 data/com.github.johnfactotum.Foliate.gschema.xml:138
+#: src/ui/mainMenu.ui:232 data/com.github.johnfactotum.Foliate.gschema.xml:142
 msgid "Maximum page width"
 msgstr "Ancho máximo de página"
 
@@ -1076,7 +1122,7 @@ msgstr "Ancho máximo de página"
 msgid "Theme"
 msgstr "Tema"
 
-#: src/ui/mainMenu.ui:273 src/ui/mainMenu.ui:409 src/ui/preferenceWindow.ui:525
+#: src/ui/mainMenu.ui:273 src/ui/mainMenu.ui:409 src/ui/preferenceWindow.ui:600
 msgid "Advanced"
 msgstr "Avanzado"
 
@@ -1093,7 +1139,7 @@ msgid "Add Custom Theme…"
 msgstr "Añadir un tema personalizado…"
 
 #: src/ui/mainMenu.ui:429 src/ui/menuBar.ui:108
-#: data/com.github.johnfactotum.Foliate.gschema.xml:197
+#: data/com.github.johnfactotum.Foliate.gschema.xml:201
 msgid "Layout"
 msgstr "Diseño"
 
@@ -1130,7 +1176,7 @@ msgstr "Justificación completa"
 msgid "Auto-hyphenation"
 msgstr "División silábica automática"
 
-#: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114 src/schemes.js:361
+#: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114 src/schemes.js:402
 msgid "Other"
 msgstr "Otro"
 
@@ -1410,82 +1456,99 @@ msgstr "General"
 msgid "Open last opened file on startup"
 msgstr "Abrir el último archivo abierto al iniciar"
 
-#: src/ui/preferenceWindow.ui:176
+#: src/ui/preferenceWindow.ui:182
 msgid "Reading"
 msgstr "Lectura"
 
-#: src/ui/preferenceWindow.ui:191
-#: data/com.github.johnfactotum.Foliate.gschema.xml:104
+#: src/ui/preferenceWindow.ui:197
+#: data/com.github.johnfactotum.Foliate.gschema.xml:108
 msgid "Turn page on tap"
 msgstr "Pasar página dando un toque"
 
-#: src/ui/preferenceWindow.ui:214
-#: data/com.github.johnfactotum.Foliate.gschema.xml:94
+#: src/ui/preferenceWindow.ui:220
+#: data/com.github.johnfactotum.Foliate.gschema.xml:98
 msgid "Left footer"
 msgstr "Pie de página izquierdo"
 
-#: src/ui/preferenceWindow.ui:248
-#: data/com.github.johnfactotum.Foliate.gschema.xml:99
+#: src/ui/preferenceWindow.ui:254
+#: data/com.github.johnfactotum.Foliate.gschema.xml:103
 msgid "Right footer"
 msgstr "Pie de página derecho"
 
-#: src/ui/preferenceWindow.ui:282
+#: src/ui/preferenceWindow.ui:288
 msgid "When a word is selected"
 msgstr "Al seleccionar una palabra"
 
-#: src/ui/preferenceWindow.ui:316
+#: src/ui/preferenceWindow.ui:322
 msgid "When multiple words are selected"
 msgstr "Al seleccionar varias palabras"
 
-#: src/ui/preferenceWindow.ui:350
+#: src/ui/preferenceWindow.ui:356
 msgid "Open images on"
 msgstr "Abrir imágenes al hacer"
 
-#: src/ui/preferenceWindow.ui:385
-#: data/com.github.johnfactotum.Foliate.gschema.xml:74
+#: src/ui/preferenceWindow.ui:391
+#: data/com.github.johnfactotum.Foliate.gschema.xml:78
 msgid "Text-to-speech command"
 msgstr "Comando de texto a voz"
 
-#: src/ui/preferenceWindow.ui:401
+#: src/ui/preferenceWindow.ui:407
 msgid "Configure…"
 msgstr "Configurar…"
 
-#: src/ui/preferenceWindow.ui:413
+#: src/ui/preferenceWindow.ui:425
 msgid "Interface"
 msgstr "Interfaz"
 
-#: src/ui/preferenceWindow.ui:428
+#: src/ui/preferenceWindow.ui:440
 msgid "Auto-hide header bar"
 msgstr "Ocultar la barra de cabecera automáticamente"
 
-#: src/ui/preferenceWindow.ui:462
-#: data/com.github.johnfactotum.Foliate.gschema.xml:79
+#: src/ui/preferenceWindow.ui:474
+#: data/com.github.johnfactotum.Foliate.gschema.xml:83
 msgid "Use sidebar"
 msgstr "Usar el panel lateral"
 
-#: src/ui/preferenceWindow.ui:490
+#: src/ui/preferenceWindow.ui:502
 msgid "Use traditional titlebar (experimental)"
 msgstr "Usar la barra de títulos tradicional (experimental)"
 
-#: src/ui/preferenceWindow.ui:498 src/ui/preferenceWindow.ui:553
-#: src/ui/preferenceWindow.ui:595
+#: src/ui/preferenceWindow.ui:510 src/ui/preferenceWindow.ui:628
+#: src/ui/preferenceWindow.ui:670
 msgid "Requires restart"
 msgstr "Requiere reiniciar"
 
-#: src/ui/preferenceWindow.ui:545
+#: src/ui/preferenceWindow.ui:542
+#, fuzzy
+msgid "OPDS"
+msgstr "URL del OPDS"
+
+#: src/ui/preferenceWindow.ui:552
+msgid "When downloading books"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:563
+msgid "Save to default directory"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:583
+msgid "Ask what to do"
+msgstr ""
+
+#: src/ui/preferenceWindow.ui:620
 msgid "Use Tracker to track file locations"
 msgstr "Usar «Tracker» para rastrear las ubicaciones de archivos"
 
-#: src/ui/preferenceWindow.ui:587
+#: src/ui/preferenceWindow.ui:662
 msgid "Save file locations"
 msgstr "Guardar ubicaciones de archivos"
 
-#: src/ui/preferenceWindow.ui:625
-#: data/com.github.johnfactotum.Foliate.gschema.xml:24
+#: src/ui/preferenceWindow.ui:700
+#: data/com.github.johnfactotum.Foliate.gschema.xml:28
 msgid "Cache locations"
 msgstr "Guardar ubicaciones en la caché"
 
-#: src/ui/preferenceWindow.ui:649
+#: src/ui/preferenceWindow.ui:724
 msgid "Cache book covers"
 msgstr "Guardar las portadas de libros en la caché"
 
@@ -1626,10 +1689,6 @@ msgstr "Borrar el tema"
 msgid "Cannot retrieve translation"
 msgstr "No se puede obtener la traducción"
 
-#: src/ui/ttsDialog.ui:17
-msgid "OK"
-msgstr "Aceptar"
-
 #: src/ui/ttsDialog.ui:46
 msgid "Text-to-Speech Command"
 msgstr "Comando de texto a voz"
@@ -1688,1304 +1747,1312 @@ msgstr "No se ha encontrado ninguna entrada"
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: src/schemes.js:3
+#: src/schemes.js:38
 msgid "DOI"
 msgstr ""
 
-#: src/schemes.js:4
+#: src/schemes.js:39
 msgid "Digital Object Identifier"
 msgstr ""
 
-#: src/schemes.js:8
+#: src/schemes.js:43
 msgid "ISBN"
 msgstr ""
 
-#: src/schemes.js:9 src/schemes.js:13 src/schemes.js:18 src/schemes.js:23
+#: src/schemes.js:44 src/schemes.js:48 src/schemes.js:53 src/schemes.js:58
 msgid "International Standard Book Number"
 msgstr ""
 
-#: src/schemes.js:12
+#: src/schemes.js:47
 msgid "ISBN-10"
 msgstr ""
 
-#: src/schemes.js:17
+#: src/schemes.js:52
 msgid "ISBN-13"
 msgstr ""
 
-#: src/schemes.js:22
+#: src/schemes.js:57
 msgid "ISBN-A"
 msgstr ""
 
-#: src/schemes.js:27
+#: src/schemes.js:62
 msgid "JDCN"
 msgstr ""
 
-#: src/schemes.js:28
+#: src/schemes.js:63
 msgid "Japan Digital Comic Number"
 msgstr ""
 
-#: src/schemes.js:31
+#: src/schemes.js:66
 msgid "UUID"
 msgstr ""
 
-#: src/schemes.js:32
+#: src/schemes.js:67
 msgid "Universally-Unique Identifier"
 msgstr ""
 
-#: src/schemes.js:35
+#: src/schemes.js:70
 msgid "URL"
 msgstr ""
 
-#: src/schemes.js:36
+#: src/schemes.js:71
 msgid "Uniform Resource Locator"
 msgstr ""
 
-#: src/schemes.js:39
+#: src/schemes.js:74
 msgid "URI"
 msgstr ""
 
-#: src/schemes.js:40
+#: src/schemes.js:75
 msgid "Uniform Resource Identifier"
 msgstr ""
 
-#: src/schemes.js:43
+#: src/schemes.js:78
 msgid "ISSN"
 msgstr ""
 
-#: src/schemes.js:44
+#: src/schemes.js:79
 msgid "International Standard Serial Number"
 msgstr ""
 
-#: src/schemes.js:48
+#: src/schemes.js:83
 msgid "Amazon Standard Identification Number"
 msgstr ""
 
-#: src/schemes.js:52
+#: src/schemes.js:87
 msgid "OCLC"
 msgstr ""
 
-#: src/schemes.js:53
+#: src/schemes.js:88
 msgid "Online Computer Library Center"
 msgstr ""
 
-#: src/schemes.js:57 src/schemes.js:58
+#: src/schemes.js:92 src/schemes.js:93
 msgid "arXiv"
 msgstr ""
 
-#: src/schemes.js:61 src/schemes.js:62
+#: src/schemes.js:96 src/schemes.js:97
 msgid "calibre"
 msgstr ""
 
-#: src/schemes.js:66
+#: src/schemes.js:101
 msgid "Foliate generated identifier"
 msgstr ""
 
-#: src/schemes.js:87
+#: src/schemes.js:122
 msgid "AAT"
 msgstr ""
 
-#: src/schemes.js:88
+#: src/schemes.js:123
 msgid "The Getty Art and Architecture Taxonomy"
 msgstr ""
 
-#: src/schemes.js:91
+#: src/schemes.js:126
 msgid "BIC"
 msgstr ""
 
-#: src/schemes.js:92
+#: src/schemes.js:127
 msgid "Book Industry Communication"
 msgstr ""
 
-#: src/schemes.js:95
+#: src/schemes.js:130
 msgid "BISAC"
 msgstr ""
 
-#: src/schemes.js:96
-msgid "Book Industry Study Group"
+#: src/schemes.js:131
+msgid "Book Industry Standards and Communications"
 msgstr ""
 
-#: src/schemes.js:100
+#: src/schemes.js:135
 msgid "CLC"
 msgstr ""
 
-#: src/schemes.js:101
+#: src/schemes.js:136
 msgid "Chinese Library Classification"
 msgstr ""
 
-#: src/schemes.js:104
+#: src/schemes.js:139
 msgid "DDC"
 msgstr ""
 
-#: src/schemes.js:105
+#: src/schemes.js:140
 msgid "Dewey Decimal Classification"
 msgstr ""
 
-#: src/schemes.js:109
+#: src/schemes.js:144
 msgid "CLIL"
 msgstr ""
 
-#: src/schemes.js:110
+#: src/schemes.js:145
 msgid "Commission de Liaison Interprofessionnelle du Livre"
 msgstr ""
 
-#: src/schemes.js:113 src/schemes.js:114
+#: src/schemes.js:148 src/schemes.js:149
 msgid "EuroVoc"
 msgstr ""
 
-#: src/schemes.js:117
+#: src/schemes.js:152
 msgid "MEDTOP"
 msgstr ""
 
-#: src/schemes.js:118
+#: src/schemes.js:153
 msgid "IPTC Media Topics"
 msgstr ""
 
-#: src/schemes.js:121
+#: src/schemes.js:156
 msgid "LCC"
 msgstr ""
 
-#: src/schemes.js:122
+#: src/schemes.js:157
 msgid "Library of Congress Classification"
 msgstr ""
 
-#: src/schemes.js:126
+#: src/schemes.js:161
 msgid "LCSH"
 msgstr ""
 
-#: src/schemes.js:127
+#: src/schemes.js:162
 msgid "Library of Congress Subject Headings"
 msgstr ""
 
-#: src/schemes.js:131
+#: src/schemes.js:166
 msgid "NDC"
 msgstr ""
 
-#: src/schemes.js:132
+#: src/schemes.js:167
 msgid "Nippon Decimal Classification"
 msgstr ""
 
-#: src/schemes.js:135 src/schemes.js:136
+#: src/schemes.js:170 src/schemes.js:171
 #, fuzzy
 msgid "Thema"
 msgstr "Tema"
 
-#: src/schemes.js:139
+#: src/schemes.js:174
 msgid "UDC"
 msgstr ""
 
-#: src/schemes.js:140
+#: src/schemes.js:175
 msgid "Universal Decimal Classification"
 msgstr ""
 
-#: src/schemes.js:143
+#: src/schemes.js:179
 msgid "WGS"
 msgstr ""
 
-#: src/schemes.js:144
+#: src/schemes.js:180
 msgid "Warengruppen-Systematik"
 msgstr ""
 
-#: src/schemes.js:147
+#: src/schemes.js:183
+msgid "DCMIType"
+msgstr ""
+
+#: src/schemes.js:184
+msgid "DCMI Type Vocabulary"
+msgstr ""
+
+#: src/schemes.js:188
 msgid "Audience"
 msgstr ""
 
-#: src/schemes.js:148
+#: src/schemes.js:189
 msgid "Intended Audience"
 msgstr ""
 
 #. Translators: see https://www.loc.gov/marc/relators/relaterm.html
 #. for detailed descriptions
-#: src/schemes.js:190
+#: src/schemes.js:231
 msgid "Abridger"
 msgstr ""
 
-#: src/schemes.js:191
+#: src/schemes.js:232
 msgid "Art copyist"
 msgstr ""
 
-#: src/schemes.js:192
+#: src/schemes.js:233
 msgid "Actor"
 msgstr ""
 
-#: src/schemes.js:193
+#: src/schemes.js:234
 msgid "Art director"
 msgstr ""
 
-#: src/schemes.js:194
+#: src/schemes.js:235
 #, fuzzy
 msgid "Adapter"
 msgstr "Capítulo"
 
-#: src/schemes.js:195
+#: src/schemes.js:236
 msgid "Author of afterword, colophon, etc."
 msgstr ""
 
-#: src/schemes.js:196
+#: src/schemes.js:237
 msgid "Analyst"
 msgstr ""
 
-#: src/schemes.js:197
+#: src/schemes.js:238
 msgid "Animator"
 msgstr ""
 
-#: src/schemes.js:198
+#: src/schemes.js:239
 #, fuzzy
 msgid "Annotator"
 msgstr "Notas"
 
-#: src/schemes.js:199
+#: src/schemes.js:240
 msgid "Bibliographic antecedent"
 msgstr ""
 
-#: src/schemes.js:200
+#: src/schemes.js:241
 msgid "Appellee"
 msgstr ""
 
-#: src/schemes.js:201
+#: src/schemes.js:242
 msgid "Appellant"
 msgstr ""
 
-#: src/schemes.js:202
+#: src/schemes.js:243
 msgid "Applicant"
 msgstr ""
 
-#: src/schemes.js:203
+#: src/schemes.js:244
 msgid "Author in quotations or text abstracts"
 msgstr ""
 
-#: src/schemes.js:204
+#: src/schemes.js:245
 msgid "Architect"
 msgstr ""
 
-#: src/schemes.js:205
+#: src/schemes.js:246
 msgid "Artistic director"
 msgstr ""
 
-#: src/schemes.js:206
+#: src/schemes.js:247
 #, fuzzy
 msgid "Arranger"
 msgstr "Naranja"
 
-#: src/schemes.js:207
+#: src/schemes.js:248
 msgid "Artist"
 msgstr ""
 
-#: src/schemes.js:208
+#: src/schemes.js:249
 msgid "Assignee"
 msgstr ""
 
-#: src/schemes.js:209
+#: src/schemes.js:250
 msgid "Associated name"
 msgstr ""
 
-#: src/schemes.js:210
+#: src/schemes.js:251
 msgid "Autographer"
 msgstr ""
 
-#: src/schemes.js:211
+#: src/schemes.js:252
 msgid "Attributed name"
 msgstr ""
 
-#: src/schemes.js:212
+#: src/schemes.js:253
 #, fuzzy
 msgid "Auctioneer"
 msgstr "Subsección"
 
-#: src/schemes.js:213
+#: src/schemes.js:254
 msgid "Author of dialog"
 msgstr ""
 
-#: src/schemes.js:214
+#: src/schemes.js:255
 msgid "Author of introduction, etc."
 msgstr ""
 
-#: src/schemes.js:215
+#: src/schemes.js:256
 msgid "Screenwriter"
 msgstr ""
 
-#: src/schemes.js:217
+#: src/schemes.js:258
 msgid "Binding designer"
 msgstr ""
 
-#: src/schemes.js:218
+#: src/schemes.js:259
 msgid "Bookjacket designer"
 msgstr ""
 
-#: src/schemes.js:219
+#: src/schemes.js:260
 #, fuzzy
 msgid "Book designer"
 msgstr "Visor de libros electrónicos"
 
-#: src/schemes.js:220
+#: src/schemes.js:261
 msgid "Book producer"
 msgstr ""
 
-#: src/schemes.js:221
+#: src/schemes.js:262
 msgid "Blurb writer"
 msgstr ""
 
-#: src/schemes.js:222
+#: src/schemes.js:263
 msgid "Binder"
 msgstr ""
 
-#: src/schemes.js:223
+#: src/schemes.js:264
 msgid "Bookplate designer"
 msgstr ""
 
-#: src/schemes.js:224
+#: src/schemes.js:265
 msgid "Broadcaster"
 msgstr ""
 
-#: src/schemes.js:225
+#: src/schemes.js:266
 msgid "Braille embosser"
 msgstr ""
 
-#: src/schemes.js:226
+#: src/schemes.js:267
 #, fuzzy
 msgid "Bookseller"
 msgstr "Visor de libros electrónicos"
 
-#: src/schemes.js:227
+#: src/schemes.js:268
 msgid "Caster"
 msgstr ""
 
-#: src/schemes.js:228
+#: src/schemes.js:269
 msgid "Conceptor"
 msgstr ""
 
-#: src/schemes.js:229
+#: src/schemes.js:270
 msgid "Choreographer"
 msgstr ""
 
-#: src/schemes.js:230
+#: src/schemes.js:271
 msgid "Client"
 msgstr ""
 
-#: src/schemes.js:231
+#: src/schemes.js:272
 msgid "Calligrapher"
 msgstr ""
 
-#: src/schemes.js:232
+#: src/schemes.js:273
 msgid "Colorist"
 msgstr ""
 
-#: src/schemes.js:233
+#: src/schemes.js:274
 msgid "Collotyper"
 msgstr ""
 
-#: src/schemes.js:234
+#: src/schemes.js:275
 msgid "Commentator"
 msgstr ""
 
-#: src/schemes.js:235
+#: src/schemes.js:276
 msgid "Composer"
 msgstr ""
 
-#: src/schemes.js:236
+#: src/schemes.js:277
 msgid "Compositor"
 msgstr ""
 
-#: src/schemes.js:237
+#: src/schemes.js:278
 msgid "Conductor"
 msgstr ""
 
-#: src/schemes.js:238
+#: src/schemes.js:279
 msgid "Cinematographer"
 msgstr ""
 
-#: src/schemes.js:239
+#: src/schemes.js:280
 msgid "Censor"
 msgstr ""
 
-#: src/schemes.js:240
+#: src/schemes.js:281
 msgid "Contestant-appellee"
 msgstr ""
 
-#: src/schemes.js:241
+#: src/schemes.js:282
 msgid "Collector"
 msgstr ""
 
-#: src/schemes.js:242
+#: src/schemes.js:283
 msgid "Compiler"
 msgstr ""
 
-#: src/schemes.js:243
+#: src/schemes.js:284
 msgid "Conservator"
 msgstr ""
 
-#: src/schemes.js:244
+#: src/schemes.js:285
 msgid "Collection registrar"
 msgstr ""
 
-#: src/schemes.js:245
+#: src/schemes.js:286
 #, fuzzy
 msgid "Contestant"
 msgstr "Contenidos"
 
-#: src/schemes.js:246
+#: src/schemes.js:287
 msgid "Contestant-appellant"
 msgstr ""
 
-#: src/schemes.js:247
+#: src/schemes.js:288
 msgid "Court governed"
 msgstr ""
 
-#: src/schemes.js:248
+#: src/schemes.js:289
 #, fuzzy
 msgid "Cover designer"
 msgstr "Tamaño de la portada"
 
-#: src/schemes.js:249
+#: src/schemes.js:290
 #, fuzzy
 msgid "Copyright claimant"
 msgstr "Derechos de autor"
 
-#: src/schemes.js:250
+#: src/schemes.js:291
 msgid "Complainant-appellee"
 msgstr ""
 
-#: src/schemes.js:251
+#: src/schemes.js:292
 #, fuzzy
 msgid "Copyright holder"
 msgstr "Derechos de autor"
 
-#: src/schemes.js:252
+#: src/schemes.js:293
 msgid "Complainant"
 msgstr ""
 
-#: src/schemes.js:253
+#: src/schemes.js:294
 msgid "Complainant-appellant"
 msgstr ""
 
-#: src/schemes.js:254
+#: src/schemes.js:295
 msgid "Creator"
 msgstr ""
 
-#: src/schemes.js:255
+#: src/schemes.js:296
 msgid "Correspondent"
 msgstr ""
 
-#: src/schemes.js:256
+#: src/schemes.js:297
 msgid "Corrector"
 msgstr ""
 
-#: src/schemes.js:257
+#: src/schemes.js:298
 msgid "Court reporter"
 msgstr ""
 
-#: src/schemes.js:258
+#: src/schemes.js:299
 msgid "Consultant"
 msgstr ""
 
-#: src/schemes.js:259
+#: src/schemes.js:300
 msgid "Consultant to a project"
 msgstr ""
 
-#: src/schemes.js:260
+#: src/schemes.js:301
 msgid "Costume designer"
 msgstr ""
 
-#: src/schemes.js:261
+#: src/schemes.js:302
 #, fuzzy
 msgid "Contributor"
 msgstr "Continuo"
 
-#: src/schemes.js:262
+#: src/schemes.js:303
 msgid "Contestee-appellee"
 msgstr ""
 
-#: src/schemes.js:263
+#: src/schemes.js:304
 msgid "Cartographer"
 msgstr ""
 
-#: src/schemes.js:264
+#: src/schemes.js:305
 msgid "Contractor"
 msgstr ""
 
-#: src/schemes.js:265
+#: src/schemes.js:306
 #, fuzzy
 msgid "Contestee"
 msgstr "Contenidos"
 
-#: src/schemes.js:266
+#: src/schemes.js:307
 msgid "Contestee-appellant"
 msgstr ""
 
-#: src/schemes.js:267
+#: src/schemes.js:308
 msgid "Curator"
 msgstr ""
 
-#: src/schemes.js:268
+#: src/schemes.js:309
 msgid "Commentator for written text"
 msgstr ""
 
-#: src/schemes.js:269
+#: src/schemes.js:310
 msgid "Distribution place"
 msgstr ""
 
-#: src/schemes.js:270
+#: src/schemes.js:311
 msgid "Defendant"
 msgstr ""
 
-#: src/schemes.js:271
+#: src/schemes.js:312
 msgid "Defendant-appellee"
 msgstr ""
 
-#: src/schemes.js:272
+#: src/schemes.js:313
 msgid "Defendant-appellant"
 msgstr ""
 
-#: src/schemes.js:273
+#: src/schemes.js:314
 msgid "Degree granting institution"
 msgstr ""
 
-#: src/schemes.js:274
+#: src/schemes.js:315
 msgid "Degree supervisor"
 msgstr ""
 
-#: src/schemes.js:275
+#: src/schemes.js:316
 msgid "Dissertant"
 msgstr ""
 
-#: src/schemes.js:276
-msgid "Delineator"
-msgstr ""
-
-#: src/schemes.js:277
-#, fuzzy
-msgid "Dancer"
-msgstr "Cancelar"
-
-#: src/schemes.js:278
-msgid "Donor"
-msgstr ""
-
-#: src/schemes.js:279
-msgid "Depicted"
-msgstr ""
-
-#: src/schemes.js:280
-msgid "Depositor"
-msgstr ""
-
-#: src/schemes.js:281
-msgid "Draftsman"
-msgstr ""
-
-#: src/schemes.js:282
-msgid "Director"
-msgstr ""
-
-#: src/schemes.js:283
-msgid "Designer"
-msgstr ""
-
-#: src/schemes.js:284
-msgid "Distributor"
-msgstr ""
-
-#: src/schemes.js:285
-msgid "Data contributor"
-msgstr ""
-
-#: src/schemes.js:286
-msgid "Dedicatee"
-msgstr ""
-
-#: src/schemes.js:287
-msgid "Data manager"
-msgstr ""
-
-#: src/schemes.js:288
-msgid "Dedicator"
-msgstr ""
-
-#: src/schemes.js:289
-msgid "Dubious author"
-msgstr ""
-
-#: src/schemes.js:290
-msgid "Editor of compilation"
-msgstr ""
-
-#: src/schemes.js:291
-#, fuzzy
-msgid "Editor of moving image work"
-msgstr "Evento para abrir el visor de imágenes"
-
-#: src/schemes.js:292
-#, fuzzy
-msgid "Editor"
-msgstr "Editar"
-
-#: src/schemes.js:293
-msgid "Engraver"
-msgstr ""
-
-#: src/schemes.js:294
-#, fuzzy
-msgid "Electrician"
-msgstr "gallego"
-
-#: src/schemes.js:295
-msgid "Electrotyper"
-msgstr ""
-
-#: src/schemes.js:296
-msgid "Engineer"
-msgstr ""
-
-#: src/schemes.js:297
-msgid "Enacting jurisdiction"
-msgstr ""
-
-#: src/schemes.js:298
-msgid "Etcher"
-msgstr ""
-
-#: src/schemes.js:299
-msgid "Event place"
-msgstr ""
-
-#: src/schemes.js:300
-msgid "Expert"
-msgstr ""
-
-#: src/schemes.js:301
-msgid "Facsimilist"
-msgstr ""
-
-#: src/schemes.js:302
-msgid "Film distributor"
-msgstr ""
-
-#: src/schemes.js:303
-msgid "Field director"
-msgstr ""
-
-#: src/schemes.js:304
-msgid "Film editor"
-msgstr ""
-
-#: src/schemes.js:305
-msgid "Film director"
-msgstr ""
-
-#: src/schemes.js:306
-msgid "Filmmaker"
-msgstr ""
-
-#: src/schemes.js:307
-msgid "Former owner"
-msgstr ""
-
-#: src/schemes.js:308
-msgid "Film producer"
-msgstr ""
-
-#: src/schemes.js:309
-msgid "Funder"
-msgstr ""
-
-#: src/schemes.js:310
-#, fuzzy
-msgid "First party"
-msgstr "Primera página"
-
-#: src/schemes.js:311
-msgid "Forger"
-msgstr ""
-
-#: src/schemes.js:312
-msgid "Geographic information specialist"
-msgstr ""
-
-#: src/schemes.js:313
-msgid "Host institution"
-msgstr ""
-
-#: src/schemes.js:314
-msgid "Honoree"
-msgstr ""
-
-#: src/schemes.js:315
-msgid "Host"
-msgstr ""
-
-#: src/schemes.js:316
-msgid "Illustrator"
-msgstr ""
-
 #: src/schemes.js:317
-msgid "Illuminator"
+msgid "Delineator"
 msgstr ""
 
 #: src/schemes.js:318
 #, fuzzy
+msgid "Dancer"
+msgstr "Cancelar"
+
+#: src/schemes.js:319
+msgid "Donor"
+msgstr ""
+
+#: src/schemes.js:320
+msgid "Depicted"
+msgstr ""
+
+#: src/schemes.js:321
+msgid "Depositor"
+msgstr ""
+
+#: src/schemes.js:322
+msgid "Draftsman"
+msgstr ""
+
+#: src/schemes.js:323
+msgid "Director"
+msgstr ""
+
+#: src/schemes.js:324
+msgid "Designer"
+msgstr ""
+
+#: src/schemes.js:325
+msgid "Distributor"
+msgstr ""
+
+#: src/schemes.js:326
+msgid "Data contributor"
+msgstr ""
+
+#: src/schemes.js:327
+msgid "Dedicatee"
+msgstr ""
+
+#: src/schemes.js:328
+msgid "Data manager"
+msgstr ""
+
+#: src/schemes.js:329
+msgid "Dedicator"
+msgstr ""
+
+#: src/schemes.js:330
+msgid "Dubious author"
+msgstr ""
+
+#: src/schemes.js:331
+msgid "Editor of compilation"
+msgstr ""
+
+#: src/schemes.js:332
+#, fuzzy
+msgid "Editor of moving image work"
+msgstr "Evento para abrir el visor de imágenes"
+
+#: src/schemes.js:333
+#, fuzzy
+msgid "Editor"
+msgstr "Editar"
+
+#: src/schemes.js:334
+msgid "Engraver"
+msgstr ""
+
+#: src/schemes.js:335
+#, fuzzy
+msgid "Electrician"
+msgstr "gallego"
+
+#: src/schemes.js:336
+msgid "Electrotyper"
+msgstr ""
+
+#: src/schemes.js:337
+msgid "Engineer"
+msgstr ""
+
+#: src/schemes.js:338
+msgid "Enacting jurisdiction"
+msgstr ""
+
+#: src/schemes.js:339
+msgid "Etcher"
+msgstr ""
+
+#: src/schemes.js:340
+msgid "Event place"
+msgstr ""
+
+#: src/schemes.js:341
+msgid "Expert"
+msgstr ""
+
+#: src/schemes.js:342
+msgid "Facsimilist"
+msgstr ""
+
+#: src/schemes.js:343
+msgid "Film distributor"
+msgstr ""
+
+#: src/schemes.js:344
+msgid "Field director"
+msgstr ""
+
+#: src/schemes.js:345
+msgid "Film editor"
+msgstr ""
+
+#: src/schemes.js:346
+msgid "Film director"
+msgstr ""
+
+#: src/schemes.js:347
+msgid "Filmmaker"
+msgstr ""
+
+#: src/schemes.js:348
+msgid "Former owner"
+msgstr ""
+
+#: src/schemes.js:349
+msgid "Film producer"
+msgstr ""
+
+#: src/schemes.js:350
+msgid "Funder"
+msgstr ""
+
+#: src/schemes.js:351
+#, fuzzy
+msgid "First party"
+msgstr "Primera página"
+
+#: src/schemes.js:352
+msgid "Forger"
+msgstr ""
+
+#: src/schemes.js:353
+msgid "Geographic information specialist"
+msgstr ""
+
+#: src/schemes.js:354
+msgid "Host institution"
+msgstr ""
+
+#: src/schemes.js:355
+msgid "Honoree"
+msgstr ""
+
+#: src/schemes.js:356
+msgid "Host"
+msgstr ""
+
+#: src/schemes.js:357
+msgid "Illustrator"
+msgstr ""
+
+#: src/schemes.js:358
+msgid "Illuminator"
+msgstr ""
+
+#: src/schemes.js:359
+#, fuzzy
 msgid "Inscriber"
 msgstr "Subscribir"
 
-#: src/schemes.js:319
+#: src/schemes.js:360
 #, fuzzy
 msgid "Inventor"
 msgstr "Negativo"
 
-#: src/schemes.js:320
+#: src/schemes.js:361
 msgid "Issuing body"
 msgstr ""
 
-#: src/schemes.js:321
+#: src/schemes.js:362
 msgid "Instrumentalist"
 msgstr ""
 
-#: src/schemes.js:322
+#: src/schemes.js:363
 #, fuzzy
 msgid "Interviewee"
 msgstr "Interfaz"
 
-#: src/schemes.js:323
+#: src/schemes.js:364
 #, fuzzy
 msgid "Interviewer"
 msgstr "Visor de imágenes:"
 
-#: src/schemes.js:324
+#: src/schemes.js:365
 msgid "Judge"
 msgstr ""
 
-#: src/schemes.js:325
+#: src/schemes.js:366
 msgid "Jurisdiction governed"
 msgstr ""
 
-#: src/schemes.js:326
+#: src/schemes.js:367
 msgid "Laboratory"
 msgstr ""
 
-#: src/schemes.js:327
+#: src/schemes.js:368
 msgid "Librettist"
 msgstr ""
 
-#: src/schemes.js:328
+#: src/schemes.js:369
 msgid "Laboratory director"
 msgstr ""
 
-#: src/schemes.js:329
+#: src/schemes.js:370
 msgid "Lead"
 msgstr ""
 
-#: src/schemes.js:330
+#: src/schemes.js:371
 msgid "Libelee-appellee"
 msgstr ""
 
-#: src/schemes.js:331
+#: src/schemes.js:372
 msgid "Libelee"
 msgstr ""
 
-#: src/schemes.js:332
+#: src/schemes.js:373
 msgid "Lender"
 msgstr ""
 
-#: src/schemes.js:333
+#: src/schemes.js:374
 msgid "Libelee-appellant"
 msgstr ""
 
-#: src/schemes.js:334
+#: src/schemes.js:375
 msgid "Lighting designer"
 msgstr ""
 
-#: src/schemes.js:335
+#: src/schemes.js:376
 msgid "Libelant-appellee"
 msgstr ""
 
-#: src/schemes.js:336
+#: src/schemes.js:377
 msgid "Libelant"
 msgstr ""
 
-#: src/schemes.js:337
+#: src/schemes.js:378
 msgid "Libelant-appellant"
 msgstr ""
 
-#: src/schemes.js:338
+#: src/schemes.js:379
 msgid "Landscape architect"
 msgstr ""
 
-#: src/schemes.js:339
+#: src/schemes.js:380
 msgid "Licensee"
 msgstr ""
 
-#: src/schemes.js:340
+#: src/schemes.js:381
 msgid "Licensor"
 msgstr ""
 
-#: src/schemes.js:341
+#: src/schemes.js:382
 msgid "Lithographer"
 msgstr ""
 
-#: src/schemes.js:342
+#: src/schemes.js:383
 msgid "Lyricist"
 msgstr ""
 
-#: src/schemes.js:343
+#: src/schemes.js:384
 msgid "Music copyist"
 msgstr ""
 
-#: src/schemes.js:344
+#: src/schemes.js:385
 msgid "Metadata contact"
 msgstr ""
 
-#: src/schemes.js:345
+#: src/schemes.js:386
 msgid "Medium"
 msgstr ""
 
-#: src/schemes.js:346
+#: src/schemes.js:387
 msgid "Manufacture place"
 msgstr ""
 
-#: src/schemes.js:347
+#: src/schemes.js:388
 msgid "Manufacturer"
 msgstr ""
 
-#: src/schemes.js:348
+#: src/schemes.js:389
 msgid "Moderator"
 msgstr ""
 
-#: src/schemes.js:349
+#: src/schemes.js:390
 msgid "Monitor"
 msgstr ""
 
-#: src/schemes.js:350
+#: src/schemes.js:391
 msgid "Marbler"
 msgstr ""
 
-#: src/schemes.js:351
+#: src/schemes.js:392
 msgid "Markup editor"
 msgstr ""
 
-#: src/schemes.js:352
+#: src/schemes.js:393
 msgid "Musical director"
 msgstr ""
 
-#: src/schemes.js:353
+#: src/schemes.js:394
 msgid "Metal-engraver"
 msgstr ""
 
-#: src/schemes.js:354
+#: src/schemes.js:395
 msgid "Minute taker"
 msgstr ""
 
-#: src/schemes.js:355
+#: src/schemes.js:396
 #, fuzzy
 msgid "Musician"
 msgstr "gallego"
 
-#: src/schemes.js:356
+#: src/schemes.js:397
 msgid "Narrator"
 msgstr ""
 
-#: src/schemes.js:357
+#: src/schemes.js:398
 msgid "Opponent"
 msgstr ""
 
-#: src/schemes.js:358
+#: src/schemes.js:399
 msgid "Originator"
 msgstr ""
 
-#: src/schemes.js:359
+#: src/schemes.js:400
 msgid "Organizer"
 msgstr ""
 
-#: src/schemes.js:360
+#: src/schemes.js:401
 msgid "Onscreen presenter"
 msgstr ""
 
-#: src/schemes.js:362
+#: src/schemes.js:403
 msgid "Owner"
 msgstr ""
 
-#: src/schemes.js:363
+#: src/schemes.js:404
 msgid "Panelist"
 msgstr ""
 
-#: src/schemes.js:364
+#: src/schemes.js:405
 msgid "Patron"
 msgstr ""
 
-#: src/schemes.js:365
+#: src/schemes.js:406
 #, fuzzy
 msgid "Publishing director"
 msgstr "Editor"
 
-#: src/schemes.js:367
+#: src/schemes.js:408
 msgid "Project director"
 msgstr ""
 
-#: src/schemes.js:368
+#: src/schemes.js:409
 #, fuzzy
 msgid "Proofreader"
 msgstr "Goodreads"
 
-#: src/schemes.js:369
+#: src/schemes.js:410
 msgid "Photographer"
 msgstr ""
 
-#: src/schemes.js:370
+#: src/schemes.js:411
 msgid "Platemaker"
 msgstr ""
 
-#: src/schemes.js:371
+#: src/schemes.js:412
 msgid "Permitting agency"
 msgstr ""
 
-#: src/schemes.js:372
+#: src/schemes.js:413
 msgid "Production manager"
 msgstr ""
 
-#: src/schemes.js:373
+#: src/schemes.js:414
 msgid "Printer of plates"
 msgstr ""
 
-#: src/schemes.js:374
+#: src/schemes.js:415
 msgid "Papermaker"
 msgstr ""
 
-#: src/schemes.js:375
+#: src/schemes.js:416
 msgid "Puppeteer"
 msgstr ""
 
-#: src/schemes.js:376
+#: src/schemes.js:417
 msgid "Praeses"
 msgstr ""
 
-#: src/schemes.js:377
+#: src/schemes.js:418
 msgid "Process contact"
 msgstr ""
 
-#: src/schemes.js:378
+#: src/schemes.js:419
 msgid "Production personnel"
 msgstr ""
 
-#: src/schemes.js:379
+#: src/schemes.js:420
 msgid "Presenter"
 msgstr ""
 
-#: src/schemes.js:380
+#: src/schemes.js:421
 msgid "Performer"
 msgstr ""
 
-#: src/schemes.js:381
+#: src/schemes.js:422
 msgid "Programmer"
 msgstr ""
 
-#: src/schemes.js:382
+#: src/schemes.js:423
 msgid "Printmaker"
 msgstr ""
 
-#: src/schemes.js:383
+#: src/schemes.js:424
 msgid "Production company"
 msgstr ""
 
-#: src/schemes.js:384
-msgid "Producer"
-msgstr ""
-
-#: src/schemes.js:385
-#, fuzzy
-msgid "Production place"
-msgstr "Fecha de publicación"
-
-#: src/schemes.js:386
-msgid "Production designer"
-msgstr ""
-
-#: src/schemes.js:387
-msgid "Printer"
-msgstr ""
-
-#: src/schemes.js:388
-msgid "Provider"
-msgstr ""
-
-#: src/schemes.js:389
-msgid "Patent applicant"
-msgstr ""
-
-#: src/schemes.js:390
-msgid "Plaintiff-appellee"
-msgstr ""
-
-#: src/schemes.js:391
-#, fuzzy
-msgid "Plaintiff"
-msgstr "Texto sin formato"
-
-#: src/schemes.js:392
-msgid "Patent holder"
-msgstr ""
-
-#: src/schemes.js:393
-msgid "Plaintiff-appellant"
-msgstr ""
-
-#: src/schemes.js:394
-#, fuzzy
-msgid "Publication place"
-msgstr "Fecha de publicación"
-
-#: src/schemes.js:395
-msgid "Rubricator"
-msgstr ""
-
-#: src/schemes.js:396
-msgid "Recordist"
-msgstr ""
-
-#: src/schemes.js:397
-msgid "Recording engineer"
-msgstr ""
-
-#: src/schemes.js:398
-msgid "Addressee"
-msgstr ""
-
-#: src/schemes.js:399
-msgid "Radio director"
-msgstr ""
-
-#: src/schemes.js:400
-msgid "Redaktor"
-msgstr ""
-
-#: src/schemes.js:401
-msgid "Renderer"
-msgstr ""
-
-#: src/schemes.js:402
-#, fuzzy
-msgid "Researcher"
-msgstr "Buscar"
-
-#: src/schemes.js:403
-#, fuzzy
-msgid "Reviewer"
-msgstr "Visor de imágenes:"
-
-#: src/schemes.js:404
-msgid "Radio producer"
-msgstr ""
-
-#: src/schemes.js:405
-msgid "Repository"
-msgstr ""
-
-#: src/schemes.js:406
-msgid "Reporter"
-msgstr ""
-
-#: src/schemes.js:407
-msgid "Responsible party"
-msgstr ""
-
-#: src/schemes.js:408
-msgid "Respondent-appellee"
-msgstr ""
-
-#: src/schemes.js:409
-msgid "Restager"
-msgstr ""
-
-#: src/schemes.js:410
-msgid "Respondent"
-msgstr ""
-
-#: src/schemes.js:411
-msgid "Restorationist"
-msgstr ""
-
-#: src/schemes.js:412
-msgid "Respondent-appellant"
-msgstr ""
-
-#: src/schemes.js:413
-msgid "Research team head"
-msgstr ""
-
-#: src/schemes.js:414
-msgid "Research team member"
-msgstr ""
-
-#: src/schemes.js:415
-msgid "Scientific advisor"
-msgstr ""
-
-#: src/schemes.js:416
-msgid "Scenarist"
-msgstr ""
-
-#: src/schemes.js:417
-msgid "Sculptor"
-msgstr ""
-
-#: src/schemes.js:418
-#, fuzzy
-msgid "Scribe"
-msgstr "Subscribir"
-
-#: src/schemes.js:419
-msgid "Sound designer"
-msgstr ""
-
-#: src/schemes.js:420
-msgid "Secretary"
-msgstr ""
-
-#: src/schemes.js:421
-msgid "Stage director"
-msgstr ""
-
-#: src/schemes.js:422
-msgid "Signer"
-msgstr ""
-
-#: src/schemes.js:423
-msgid "Supporting host"
-msgstr ""
-
-#: src/schemes.js:424
-msgid "Seller"
-msgstr ""
-
 #: src/schemes.js:425
-msgid "Singer"
+msgid "Producer"
 msgstr ""
 
 #: src/schemes.js:426
 #, fuzzy
-msgid "Speaker"
-msgstr "Leer en voz alta"
+msgid "Production place"
+msgstr "Fecha de publicación"
 
 #: src/schemes.js:427
-msgid "Sponsor"
+msgid "Production designer"
 msgstr ""
 
 #: src/schemes.js:428
-msgid "Second party"
+msgid "Printer"
 msgstr ""
 
 #: src/schemes.js:429
-msgid "Surveyor"
+msgid "Provider"
 msgstr ""
 
 #: src/schemes.js:430
-msgid "Set designer"
+msgid "Patent applicant"
 msgstr ""
 
 #: src/schemes.js:431
-msgid "Setting"
+msgid "Plaintiff-appellee"
 msgstr ""
 
 #: src/schemes.js:432
-msgid "Storyteller"
-msgstr ""
+#, fuzzy
+msgid "Plaintiff"
+msgstr "Texto sin formato"
 
 #: src/schemes.js:433
-msgid "Stage manager"
+msgid "Patent holder"
 msgstr ""
 
 #: src/schemes.js:434
-msgid "Standards body"
+msgid "Plaintiff-appellant"
 msgstr ""
 
 #: src/schemes.js:435
-msgid "Stereotyper"
-msgstr ""
+#, fuzzy
+msgid "Publication place"
+msgstr "Fecha de publicación"
 
 #: src/schemes.js:436
-msgid "Technical director"
+msgid "Rubricator"
 msgstr ""
 
 #: src/schemes.js:437
-msgid "Teacher"
+msgid "Recordist"
 msgstr ""
 
 #: src/schemes.js:438
-msgid "Thesis advisor"
+msgid "Recording engineer"
 msgstr ""
 
 #: src/schemes.js:439
-msgid "Television director"
+msgid "Addressee"
 msgstr ""
 
 #: src/schemes.js:440
-msgid "Television producer"
+msgid "Radio director"
 msgstr ""
 
 #: src/schemes.js:441
+msgid "Redaktor"
+msgstr ""
+
+#: src/schemes.js:442
+msgid "Renderer"
+msgstr ""
+
+#: src/schemes.js:443
+#, fuzzy
+msgid "Researcher"
+msgstr "Buscar"
+
+#: src/schemes.js:444
+#, fuzzy
+msgid "Reviewer"
+msgstr "Visor de imágenes:"
+
+#: src/schemes.js:445
+msgid "Radio producer"
+msgstr ""
+
+#: src/schemes.js:446
+msgid "Repository"
+msgstr ""
+
+#: src/schemes.js:447
+msgid "Reporter"
+msgstr ""
+
+#: src/schemes.js:448
+msgid "Responsible party"
+msgstr ""
+
+#: src/schemes.js:449
+msgid "Respondent-appellee"
+msgstr ""
+
+#: src/schemes.js:450
+msgid "Restager"
+msgstr ""
+
+#: src/schemes.js:451
+msgid "Respondent"
+msgstr ""
+
+#: src/schemes.js:452
+msgid "Restorationist"
+msgstr ""
+
+#: src/schemes.js:453
+msgid "Respondent-appellant"
+msgstr ""
+
+#: src/schemes.js:454
+msgid "Research team head"
+msgstr ""
+
+#: src/schemes.js:455
+msgid "Research team member"
+msgstr ""
+
+#: src/schemes.js:456
+msgid "Scientific advisor"
+msgstr ""
+
+#: src/schemes.js:457
+msgid "Scenarist"
+msgstr ""
+
+#: src/schemes.js:458
+msgid "Sculptor"
+msgstr ""
+
+#: src/schemes.js:459
+#, fuzzy
+msgid "Scribe"
+msgstr "Subscribir"
+
+#: src/schemes.js:460
+msgid "Sound designer"
+msgstr ""
+
+#: src/schemes.js:461
+msgid "Secretary"
+msgstr ""
+
+#: src/schemes.js:462
+msgid "Stage director"
+msgstr ""
+
+#: src/schemes.js:463
+msgid "Signer"
+msgstr ""
+
+#: src/schemes.js:464
+msgid "Supporting host"
+msgstr ""
+
+#: src/schemes.js:465
+msgid "Seller"
+msgstr ""
+
+#: src/schemes.js:466
+msgid "Singer"
+msgstr ""
+
+#: src/schemes.js:467
+#, fuzzy
+msgid "Speaker"
+msgstr "Leer en voz alta"
+
+#: src/schemes.js:468
+msgid "Sponsor"
+msgstr ""
+
+#: src/schemes.js:469
+msgid "Second party"
+msgstr ""
+
+#: src/schemes.js:470
+msgid "Surveyor"
+msgstr ""
+
+#: src/schemes.js:471
+msgid "Set designer"
+msgstr ""
+
+#: src/schemes.js:472
+msgid "Setting"
+msgstr ""
+
+#: src/schemes.js:473
+msgid "Storyteller"
+msgstr ""
+
+#: src/schemes.js:474
+msgid "Stage manager"
+msgstr ""
+
+#: src/schemes.js:475
+msgid "Standards body"
+msgstr ""
+
+#: src/schemes.js:476
+msgid "Stereotyper"
+msgstr ""
+
+#: src/schemes.js:477
+msgid "Technical director"
+msgstr ""
+
+#: src/schemes.js:478
+msgid "Teacher"
+msgstr ""
+
+#: src/schemes.js:479
+msgid "Thesis advisor"
+msgstr ""
+
+#: src/schemes.js:480
+msgid "Television director"
+msgstr ""
+
+#: src/schemes.js:481
+msgid "Television producer"
+msgstr ""
+
+#: src/schemes.js:482
 #, fuzzy
 msgid "Transcriber"
 msgstr "Subscribir"
 
-#: src/schemes.js:442
+#: src/schemes.js:483
 #, fuzzy
 msgid "Translator"
 msgstr "Traducir"
 
-#: src/schemes.js:443
+#: src/schemes.js:484
 msgid "Type designer"
 msgstr ""
 
-#: src/schemes.js:444
+#: src/schemes.js:485
 msgid "Typographer"
 msgstr ""
 
-#: src/schemes.js:445
+#: src/schemes.js:486
 msgid "University place"
 msgstr ""
 
-#: src/schemes.js:446
+#: src/schemes.js:487
 msgid "Voice actor"
 msgstr ""
 
-#: src/schemes.js:447
+#: src/schemes.js:488
 msgid "Videographer"
 msgstr ""
 
-#: src/schemes.js:448
+#: src/schemes.js:489
 msgid "Writer of added commentary"
 msgstr ""
 
-#: src/schemes.js:449
+#: src/schemes.js:490
 msgid "Writer of added lyrics"
 msgstr ""
 
-#: src/schemes.js:450
+#: src/schemes.js:491
 msgid "Writer of accompanying material"
 msgstr ""
 
-#: src/schemes.js:451
+#: src/schemes.js:492
 msgid "Writer of added text"
 msgstr ""
 
-#: src/schemes.js:452
+#: src/schemes.js:493
 msgid "Woodcutter"
 msgstr ""
 
-#: src/schemes.js:453
+#: src/schemes.js:494
 msgid "Wood engraver"
 msgstr ""
 
-#: src/schemes.js:454
+#: src/schemes.js:495
 msgid "Writer of introduction"
 msgstr ""
 
-#: src/schemes.js:455
+#: src/schemes.js:496
 #, fuzzy
 msgid "Witness"
 msgstr "Brillo"
 
-#: src/schemes.js:456
+#: src/schemes.js:497
 msgid "Writer of preface"
 msgstr ""
 
-#: src/schemes.js:457
+#: src/schemes.js:498
 msgid "Writer of supplementary textual content"
 msgstr ""
 
@@ -3728,15 +3795,15 @@ msgstr "Corregido fichero AppData inválido"
 msgid "Initial release"
 msgstr "Versión inicial"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:19
+#: data/com.github.johnfactotum.Foliate.gschema.xml:23
 msgid "Store URIs"
 msgstr "Guardar los URI"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:20
+#: data/com.github.johnfactotum.Foliate.gschema.xml:24
 msgid "Whether to save file URIs"
 msgstr "Si se guardan los URI de archivos o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:25
+#: data/com.github.johnfactotum.Foliate.gschema.xml:29
 msgid ""
 "Whether to save generated locations to cache (the locations are needed for "
 "calculating percentages of locations in book)"
@@ -3744,43 +3811,43 @@ msgstr ""
 "Si se guardan las posiciones generadas en la caché (las posiciones son "
 "necesarias para calcular porcentajes de posiciones en el libro) o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:29
+#: data/com.github.johnfactotum.Foliate.gschema.xml:33
 msgid "Cache covers"
 msgstr "Guardar las portadas en la caché"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:30
+#: data/com.github.johnfactotum.Foliate.gschema.xml:34
 msgid "Whether to save book covers to cache"
 msgstr "Si se guardan las portadas de los libros en la caché o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:34
+#: data/com.github.johnfactotum.Foliate.gschema.xml:38
 msgid "Cover size"
 msgstr "Tamaño de la portada"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:35
+#: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Width of cached book cover images"
 msgstr "Ancho de las imágenes de portadas de libros en la caché"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:39
+#: data/com.github.johnfactotum.Foliate.gschema.xml:43
 msgid "Restore last file opened"
 msgstr "Restaurar el último archivo abierto"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:40
+#: data/com.github.johnfactotum.Foliate.gschema.xml:44
 msgid "Whether to automatically restore the last file"
 msgstr "Si se restaura el último archivo abierto o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:44
+#: data/com.github.johnfactotum.Foliate.gschema.xml:48
 msgid "Default highlight color"
 msgstr "Color predeterminado de los resaltes"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:45
+#: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Default highlight color for annotations"
 msgstr "Color de resaltado predeterminado para las notas"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:49
+#: data/com.github.johnfactotum.Foliate.gschema.xml:53
 msgid "Dictionary"
 msgstr "Diccionario"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:50
+#: data/com.github.johnfactotum.Foliate.gschema.xml:54
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd and stardict, "
 "if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
@@ -3790,35 +3857,35 @@ msgstr ""
 "«stardict», si hay alguno, están disponibles con los prefijos «dictd_» y "
 "«stardict_», respectivamente, añadidos al ID de la base de datos"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:54
+#: data/com.github.johnfactotum.Foliate.gschema.xml:58
 msgid "Target language of translation"
 msgstr "Idioma de destino de la traducción"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:55
+#: data/com.github.johnfactotum.Foliate.gschema.xml:59
 msgid "Target language for translations"
 msgstr "Idioma de destino para las traducciones"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:59
+#: data/com.github.johnfactotum.Foliate.gschema.xml:63
 msgid "Default action when selecting a word"
 msgstr "Acción predeterminada al seleccionar una palabra"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:60
+#: data/com.github.johnfactotum.Foliate.gschema.xml:64
 msgid "Default action to perform when selecting a single word"
 msgstr "Acción predeterminada a realizar al seleccionar una sola palabra"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:64
+#: data/com.github.johnfactotum.Foliate.gschema.xml:68
 msgid "Default action when selecting multiple words"
 msgstr "Acción predeterminada al seleccionar varias palabras"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:65
+#: data/com.github.johnfactotum.Foliate.gschema.xml:69
 msgid "Default action to perform when selecting multiple words"
 msgstr "Acción predeterminada a realizar al seleccionar varias palabras"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:69
+#: data/com.github.johnfactotum.Foliate.gschema.xml:73
 msgid "Event for opening image viewer"
 msgstr "Evento para abrir el visor de imágenes"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:70
+#: data/com.github.johnfactotum.Foliate.gschema.xml:74
 msgid ""
 "DOM event type for viewing images; the special value \"middleclick\" is "
 "available for the middle click event"
@@ -3826,28 +3893,28 @@ msgstr ""
 "Tipo de evento DOM para ver imágenes; el valor especial «middleclick» está "
 "disponible para el clic con el botón central"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:75
+#: data/com.github.johnfactotum.Foliate.gschema.xml:79
 msgid "Command to execute for text-to-speech"
 msgstr "Comando a ejecutar para el texto a voz"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:80
+#: data/com.github.johnfactotum.Foliate.gschema.xml:84
 msgid "If true, a side pane will be used instead of popovers"
 msgstr ""
 "Si se activa, se usa un panel lateral en vez de elementos gráficos emergentes"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:84
+#: data/com.github.johnfactotum.Foliate.gschema.xml:88
 msgid "Use menubar"
 msgstr "Usar la barra de menús"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:85
+#: data/com.github.johnfactotum.Foliate.gschema.xml:89
 msgid "If true, use traditional titlebars and menubars"
 msgstr "Si se activa, se usan las barras de títulos y de menús tradicionales"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:89
+#: data/com.github.johnfactotum.Foliate.gschema.xml:93
 msgid "Auto-hide headerbar"
 msgstr "Ocultar la barra de cabecera automáticamente"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:90
+#: data/com.github.johnfactotum.Foliate.gschema.xml:94
 msgid ""
 "Whether to hide the headerbar automatically (this is setting has no effect "
 "if skeuomorphism or sidebar is enabled)"
@@ -3855,15 +3922,15 @@ msgstr ""
 "Si se oculta la barra de cabecera automáticamente (esta opción no tiene "
 "efecto si esqueumorfismo o el panel lateral están habilitados) o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:95
+#: data/com.github.johnfactotum.Foliate.gschema.xml:99
 msgid "Information to be displayed on the left footer"
 msgstr "Información a mostrar en el pie de página izquierdo"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:100
+#: data/com.github.johnfactotum.Foliate.gschema.xml:104
 msgid "Information to be displayed on the right footer"
 msgstr "Información a mostrar en el pie de página derecho"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:105
+#: data/com.github.johnfactotum.Foliate.gschema.xml:109
 msgid ""
 "If true, you can go to the previous or next page by tapping on the left or "
 "right part of the view; tap on the middle to toggle header bar and progress "
@@ -3873,84 +3940,84 @@ msgstr ""
 "parte a la izquierda o derecha de la vista; dé toques en el medio para "
 "conmutar la barra de cabecera y la de progreso"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:112
+#: data/com.github.johnfactotum.Foliate.gschema.xml:116
 msgid "Prefer dark GTK theme"
 msgstr "Preferir los temas GTK oscuros"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:113
+#: data/com.github.johnfactotum.Foliate.gschema.xml:117
 msgid "If true, the dark variant of a GTK theme, if available, will be used"
 msgstr ""
 "Si se activa, se usa la variante oscura de los temas GTK, si están "
 "disponibles"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:117
-#: data/com.github.johnfactotum.Foliate.gschema.xml:118
+#: data/com.github.johnfactotum.Foliate.gschema.xml:121
+#: data/com.github.johnfactotum.Foliate.gschema.xml:122
 msgid "Zoom level"
 msgstr "Nivel de zum"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:128
+#: data/com.github.johnfactotum.Foliate.gschema.xml:132
 msgid "Line-height"
 msgstr "Altura de línea"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:132
+#: data/com.github.johnfactotum.Foliate.gschema.xml:136
 msgid "Margin"
 msgstr "Margen"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:133
+#: data/com.github.johnfactotum.Foliate.gschema.xml:137
 msgid "Page margin in percentage"
 msgstr "Margen de la página en porcentaje"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:137
+#: data/com.github.johnfactotum.Foliate.gschema.xml:141
 msgid "Max width"
 msgstr "Ancho máximo"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:142
+#: data/com.github.johnfactotum.Foliate.gschema.xml:146
 msgid "Use publisher font"
 msgstr "Usar la fuente del editor"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:143
+#: data/com.github.johnfactotum.Foliate.gschema.xml:147
 msgid "If true, custom font is disabled"
 msgstr "Si se activa, se deshabilita la fuente personalizada"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:147
+#: data/com.github.johnfactotum.Foliate.gschema.xml:151
 msgid "Justify text"
 msgstr "Justificar el texto"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:148
+#: data/com.github.johnfactotum.Foliate.gschema.xml:152
 msgid "If true, text will be justified"
 msgstr "Si se activa, el texto se justifica"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:152
+#: data/com.github.johnfactotum.Foliate.gschema.xml:156
 msgid "Hyphenation"
 msgstr "División silábica"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:153
+#: data/com.github.johnfactotum.Foliate.gschema.xml:157
 msgid "If true, auto-hyphenation is enabled"
 msgstr "Si se activa, se habilita la división silábica automática"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:157
+#: data/com.github.johnfactotum.Foliate.gschema.xml:161
 msgid "Foreground color"
 msgstr "Color del texto"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:158
+#: data/com.github.johnfactotum.Foliate.gschema.xml:162
 msgid "Text color"
 msgstr "Color del texto"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:162
-#: data/com.github.johnfactotum.Foliate.gschema.xml:163
+#: data/com.github.johnfactotum.Foliate.gschema.xml:166
+#: data/com.github.johnfactotum.Foliate.gschema.xml:167
 msgid "Background color"
 msgstr "Color de fondo"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:167
-#: data/com.github.johnfactotum.Foliate.gschema.xml:168
+#: data/com.github.johnfactotum.Foliate.gschema.xml:171
+#: data/com.github.johnfactotum.Foliate.gschema.xml:172
 msgid "Link color"
 msgstr "Color de los enlaces"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:173
+#: data/com.github.johnfactotum.Foliate.gschema.xml:177
 msgid "Invert page"
 msgstr "Página en negativo"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:178
+#: data/com.github.johnfactotum.Foliate.gschema.xml:182
 msgid ""
 "A value under 1 darkens the page, while a value over 1 brightens it. A value "
 "of 0 will make the page completely black, while a value of 1 leaves the "
@@ -3960,41 +4027,41 @@ msgstr ""
 "1 la aclaran. El valor 0 pone la página en negro por completo, mientras que "
 "el valor 1 deja el brillo sin cambios."
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:182
+#: data/com.github.johnfactotum.Foliate.gschema.xml:186
 msgid "Footnote preview"
 msgstr "Vista preliminar de nota a pie de página"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:183
+#: data/com.github.johnfactotum.Foliate.gschema.xml:187
 msgid "If true, will attempt to display footnotes in a popover"
 msgstr ""
 "Si se activa, se intenta mostrar las notas a pie de página en un elemento "
 "gráfico emergente"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:187
+#: data/com.github.johnfactotum.Foliate.gschema.xml:191
 msgid "Allow unsafe content"
 msgstr "Permitir contenido inseguro"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:188
+#: data/com.github.johnfactotum.Foliate.gschema.xml:192
 msgid "If true, allow JavaScript"
 msgstr "Si se activa, permite JavaScript"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:192
+#: data/com.github.johnfactotum.Foliate.gschema.xml:196
 msgid "Enable developer tools"
 msgstr "Habilitar las herramientas de desarrollador"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:193
+#: data/com.github.johnfactotum.Foliate.gschema.xml:197
 msgid "If true, developer tools are enabled"
 msgstr "Si se activa, se habilitan las herramientas de desarrollador"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:198
+#: data/com.github.johnfactotum.Foliate.gschema.xml:202
 msgid "Page layout"
 msgstr "Diseño de página"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:202
+#: data/com.github.johnfactotum.Foliate.gschema.xml:206
 msgid "Skeuomorphism"
 msgstr "Esqueumorfismo"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:203
+#: data/com.github.johnfactotum.Foliate.gschema.xml:207
 msgid ""
 "If true, the book is decoratively presented in a way that resembles physical "
 "books"
@@ -4002,96 +4069,104 @@ msgstr ""
 "Si se activa, el libro se presenta decorado de forma que se asemeja a los "
 "libros físicos"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:207
+#: data/com.github.johnfactotum.Foliate.gschema.xml:211
 msgid "Auto-hide cursor"
 msgstr "Ocultar el cursor automáticamente"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:208
+#: data/com.github.johnfactotum.Foliate.gschema.xml:212
 msgid "Whether to hide the cursor automatically"
 msgstr "Si se oculta el cursor automáticamente o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:215
-#: data/com.github.johnfactotum.Foliate.gschema.xml:253
+#: data/com.github.johnfactotum.Foliate.gschema.xml:219
+#: data/com.github.johnfactotum.Foliate.gschema.xml:257
 msgid "Window width"
 msgstr "Ancho de la ventana"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:216
+#: data/com.github.johnfactotum.Foliate.gschema.xml:220
 msgid "Width of the window"
 msgstr "Ancho de la ventana"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:220
-#: data/com.github.johnfactotum.Foliate.gschema.xml:258
+#: data/com.github.johnfactotum.Foliate.gschema.xml:224
+#: data/com.github.johnfactotum.Foliate.gschema.xml:262
 msgid "Window height"
 msgstr "Altura de la ventana"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:221
+#: data/com.github.johnfactotum.Foliate.gschema.xml:225
 msgid "Height of the window"
 msgstr "Altura de la ventana"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:225
-#: data/com.github.johnfactotum.Foliate.gschema.xml:263
+#: data/com.github.johnfactotum.Foliate.gschema.xml:229
+#: data/com.github.johnfactotum.Foliate.gschema.xml:267
 msgid "Maximized"
 msgstr "Maximizada"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:226
+#: data/com.github.johnfactotum.Foliate.gschema.xml:230
 msgid "Whether the window is maximized"
 msgstr "Si se maximiza la ventana o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:231
+#: data/com.github.johnfactotum.Foliate.gschema.xml:235
 msgid "Whether the window is fullscreen"
 msgstr "Si se pone la ventana en modo pantalla completa o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:235
-#: data/com.github.johnfactotum.Foliate.gschema.xml:236
+#: data/com.github.johnfactotum.Foliate.gschema.xml:239
+#: data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Last file opened"
 msgstr "Último archivo abierto"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:241
+#: data/com.github.johnfactotum.Foliate.gschema.xml:245
 msgid "Whether the sidebar is shown"
 msgstr "Si se muestra el panel lateral o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:245
+#: data/com.github.johnfactotum.Foliate.gschema.xml:249
 msgid "Sidebar size"
 msgstr "Tamaño del panel lateral"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:246
+#: data/com.github.johnfactotum.Foliate.gschema.xml:250
 msgid "Sidebar width"
 msgstr "Ancho del panel lateral"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:254
+#: data/com.github.johnfactotum.Foliate.gschema.xml:258
 msgid "Width of the library window"
 msgstr "Ancho de la ventana de la biblioteca"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:259
+#: data/com.github.johnfactotum.Foliate.gschema.xml:263
 msgid "Height of the library window"
 msgstr "Altura de la ventana de la biblioteca"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:264
+#: data/com.github.johnfactotum.Foliate.gschema.xml:268
 msgid "Whether the library window is maximized"
 msgstr "Si se maximiza la ventana de la biblioteca o no"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:269
+#: data/com.github.johnfactotum.Foliate.gschema.xml:273
 msgid "How to view the library"
 msgstr "Cómo ver la biblioteca"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:273
+#: data/com.github.johnfactotum.Foliate.gschema.xml:277
 msgid "Library page"
 msgstr "Página de la biblioteca"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:274
+#: data/com.github.johnfactotum.Foliate.gschema.xml:278
 msgid "Current library page (“library” or “catalog”)"
 msgstr "Página actual de la biblioteca («biblioteca» o «catálogo»)"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:278
+#: data/com.github.johnfactotum.Foliate.gschema.xml:282
 msgid "Use Tracker"
 msgstr "Usar «Tracker»"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:279
+#: data/com.github.johnfactotum.Foliate.gschema.xml:283
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
 "Si se activa, se intenta usar «Tracker» (el indexador de archivos) para "
 "obtener las ubicaciones de archivos"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:287
+msgid "OPDS download action"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:288
+msgid "What to do when downloading a file from an OPDS feed"
+msgstr ""
 
 #~ msgid ""
 #~ "This book has no identifier. This is the MD5 hash generated from the file."
