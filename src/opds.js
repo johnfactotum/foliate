@@ -596,19 +596,59 @@ var OpdsAcquisitionBox = GObject.registerClass({
                 }).present()
             })
             actionArea.add(open)
-            const acquire = new Gtk.Button({
+            if (canUpdate) {
+                const update = new Gtk.Button({
+                    visible: true,
+                    tooltip_text: _('Update available'),
+                    label: _('Update')
+                })
+                update.connect('clicked', () =>
+                    packAcquisitionButtons(entry, file, true))
+                actionArea.add(update)
+            }
+            const popover = new Gtk.PopoverMenu()
+            const box = new Gtk.Box({
                 visible: true,
-                tooltip_text: canUpdate ? _('Update available') : '',
+                orientation: Gtk.Orientation.VERTICAL,
+                margin: 10
+            })
+            popover.add(box)
+            const more = new Gtk.MenuButton({
+                visible: true,
+                popover,
                 image: new Gtk.Image({
                     visible: true,
-                    icon_name: canUpdate
-                        ? 'software-update-available-symbolic'
-                        : 'view-more-symbolic'
+                    icon_name: 'view-more-symbolic'
                 })
             })
-            acquire.connect('clicked', () =>
-                packAcquisitionButtons(entry, file))
-            actionArea.add(acquire)
+            const trash = new Gtk.ModelButton({
+                visible: true,
+                text: 'Delete',
+            })
+            trash.connect('clicked', () => {
+                const msg = new Gtk.MessageDialog({
+                    text: _('Delete this item?'),
+                    secondary_text:
+                        _('If you delete this item, it will be permanently lost.'),
+                    message_type: Gtk.MessageType.QUESTION,
+                    modal: true,
+                    transient_for: dialog
+                })
+                msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+                msg.add_button(_('Delete'), Gtk.ResponseType.ACCEPT)
+                msg.set_default_response(Gtk.ResponseType.CANCEL)
+                msg.get_widget_for_response(Gtk.ResponseType.ACCEPT)
+                    .get_style_context().add_class('destructive-action')
+                const res = msg.run()
+                msg.destroy()
+                const accept = res === Gtk.ResponseType.ACCEPT
+                if (accept) {
+                    file.delete(null)
+                    packAcquisitionButtons(entry)
+                }
+            })
+            box.pack_start(trash, false, true, 0)
+            actionArea.add(more)
             open.grab_focus()
         }
         const packDownloading = () => {
@@ -645,10 +685,8 @@ var OpdsAcquisitionBox = GObject.registerClass({
             actionArea.add(label)
             actionArea.add(button)
         }
-        const packAcquisitionButtons = (entry, existingFile) => {
+        const packAcquisitionButtons = (entry, existingFile, canUpdate) => {
             const { links, id, updated } = entry
-
-            let canUpdate = false
 
             if (!existingFile && id) {
                 const result = getFileForId(id)
