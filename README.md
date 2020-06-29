@@ -66,8 +66,6 @@ To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based 
 
 If `tracker` (`gir1.2-tracker-2.0`) is installed, it can be used to track the locations of files.
 
-`libsoup` (`gir1.2-soup-2.4`) is required for opening remote files.
-
 ### Building manually from source
 
 The following dependencies are required for building:
