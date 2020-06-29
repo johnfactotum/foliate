@@ -341,7 +341,7 @@ const open = async (uri, filename, inputType, renderTo, options) => {
 
     // force rendering as XHTML
     // if method is 'srcdoc' (default) or `write`, it will be rendered as HTML
-    options.method = 'blobUrl'
+    if (!['directory', 'opf', 'json'].includes(inputType)) options.method = 'blobUrl'
 
     try {
         switch (inputType) {
