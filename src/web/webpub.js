@@ -320,6 +320,7 @@ const processFB2 = async (fb2, blob, filename) => {
     }
     const getDate = x => {
         const date = typeof x === 'string' ? $(x) : x
+        if (!date) return ''
         const value = date.getAttribute('value')
         if (value) return value
         else return getTextContent(date)
