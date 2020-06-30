@@ -667,7 +667,12 @@ var makeLinksButton = (params, links, onActivate) => {
     buttonBox.pack_end(icon, false, true, 0)
     button.add(buttonBox)
     button.show_all()
-    links.forEach(({ href, type, title, tooltip }) => {
+    links.forEach(link => {
+        if (link instanceof Gtk.Widget) {
+            box.pack_start(link, false, true, 0)
+            return
+        }
+        const { href, type, title, tooltip } = link
         const menuItem = new Gtk.ModelButton({
             visible: true,
             text: title,

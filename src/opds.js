@@ -27,27 +27,399 @@ const { Window } = imports.window
 
 const librarySettings = new Gio.Settings({ schema_id: pkg.name + '.library' })
 
-const launchURI = async x => {
-    let type
-    const isFile = x instanceof Gio.File
-    if (isFile) {
-        const info = await getFileInfoAsync(x)
-        type = info.get_content_type()
-    } else type = x.type
+const bookDir = [GLib.get_user_data_dir(), pkg.name, 'books']
 
-    if (mimetypeCan.open(type)) {
-        const application = Gio.Application.get_default()
-        const file = isFile ? x : Gio.File.new_for_uri(x.href)
-        new Window({
-            application,
-            file,
-            modal: true,
-            transient_for: application.active_window
-        }).present()
-    } else {
-        const uri = isFile ? x.get_uri() : x.href
-        const appInfo = Gio.AppInfo.get_default_for_type(type, true)
-        appInfo.launch_uris([uri], null)
+class AcquisitionArea {
+    constructor(options) {
+        this.init(options)
+    }
+    init(options) {
+        const { actionArea, entry, file, canUpdate, dialog, toplevel } = options
+        this.actionArea = actionArea
+        this.entry = entry
+        this.file = file
+        this.canUpdate = canUpdate
+        this.dialog = dialog
+        this.toplevel = toplevel || dialog
+        this.downloadToken = {}
+    }
+    static async launchURI(x) {
+        let type
+        const isFile = x instanceof Gio.File
+        if (isFile) {
+            const info = await getFileInfoAsync(x)
+            type = info.get_content_type()
+        } else type = x.type
+
+        if (mimetypeCan.open(type)) {
+            const application = Gio.Application.get_default()
+            const file = isFile ? x : Gio.File.new_for_uri(x.href)
+            new Window({
+                application,
+                file,
+                modal: true,
+                transient_for: application.active_window
+            }).present()
+        } else {
+            const uri = isFile ? x.get_uri() : x.href
+            const appInfo = Gio.AppInfo.get_default_for_type(type, true)
+            appInfo.launch_uris([uri], null)
+        }
+    }
+    static getFileForId(id) {
+        const path = GLib.build_filenamev(bookDir)
+        const dir = Gio.File.new_for_path(path)
+        for (const name of listDir(dir)) {
+            let [fileId, lastUpdated] = name.split('@')
+            fileId = decodeURIComponent(fileId)
+            lastUpdated = decodeURIComponent(lastUpdated)
+            if (fileId === id) return {
+                file: dir.get_child(name),
+                lastUpdated
+            }
+        }
+    }
+    static makeFileForId(id, updated, suggestedName) {
+        const encodedId = [id, updated, suggestedName]
+            .map(encodeURIComponent)
+            .join('@')
+        const path = GLib.build_filenamev(bookDir.concat(encodedId))
+        return Gio.File.new_for_path(path)
+    }
+    static makeAcquisitionButton(links, onActivate, rel) {
+        if (!rel) rel = links[0].rel.split('/').pop()
+        let label = _('Download')
+        let icon
+        switch (rel) {
+            case 'buy': label = _('Buy'); break
+            case 'open-access': label = _('Free'); break
+            case 'preview': label = _('Preview'); break
+            case 'sample': label = _('Sample'); break
+            case 'borrow': label = _('Borrow'); break
+            case 'subscribe': label = _('Subscribe'); break
+            case 'related alternate':
+                label = _('More')
+                icon = 'view-more-symbolic'
+                break
+        }
+        if (rel !== 'related alternate' && links.length === 1) {
+            const link = links[0]
+
+            if (link.price) label = formatPrice(link.price)
+
+            const { title } = link
+            const { type, drm } = OpdsClient.getIndirectAcquisition(link)
+
+            let button = new Gtk.Button({
+                tooltip_text: title || Gio.content_type_get_description(type)
+            })
+            if (icon) {
+                button.tooltip_text = label
+                button.image = new Gtk.Image({
+                    icon_name: icon
+                })
+            } else if (drm) {
+                const buttonBox = new Gtk.Box({ spacing: 3 })
+                const icon = new Gtk.Image({
+                    icon_name: 'emblem-drm-symbolic',
+                    tooltip_text: _('Protected by DRM')
+                })
+                buttonBox.pack_start(new Gtk.Label({ label }), true, true, 0)
+                buttonBox.pack_end(icon, false, true, 0)
+                button.add(buttonBox)
+            } else {
+                button.label = label
+            }
+            button.show_all()
+            button.connect('clicked', () => onActivate(link))
+            return button
+        } else {
+            const buttonLinks = links.map(link => {
+                if (link instanceof Gtk.Widget) return link
+                const { href } = link
+                const { type, drm } = OpdsClient.getIndirectAcquisition(link)
+                const price = link.price ? ' ' + formatPrice(link.price) : ''
+                let title = (link.title || Gio.content_type_get_description(type))
+                if (price) title += price
+                if (drm) title += _(' (DRM)')
+                return {
+                    href, type, title,
+                    tooltip: type
+                }
+            })
+            const params = { visible: true, label }
+            if (icon) {
+                params.tooltip_text = label
+                params.image = new Gtk.Image({
+                    icon_name: icon
+                })
+            }
+            const button = makeLinksButton(params, buttonLinks, onActivate)
+            return button
+        }
+    }
+    getRelatedLinks() {
+        const { links = [] } = this.entry
+        return links
+            .filter(x => x.rel === 'alternate' || x.rel === 'related')
+            .map(x => Object.assign({}, x, { rel: 'related alternate' }))
+    }
+    makeAcquisitionButtons() {
+        const { links = [] } = this.entry
+        const map = new Map()
+
+        links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
+            .concat(this.getRelatedLinks())
+            .forEach(x => {
+                if (!map.has(x.rel)) map.set(x.rel, [x])
+                else map.get(x.rel).push(x)
+            })
+
+        return Array.from(map.values()).map((links, i) => {
+            const button = AcquisitionArea
+                .makeAcquisitionButton(links, link => this.handleLink(link))
+
+            if (i === 0) button.get_style_context().add_class('suggested-action')
+            return button
+        })
+    }
+    clearActionArea() {
+        const actionArea = this.actionArea
+        const children = actionArea.get_children()
+        children.forEach(child => actionArea.remove(child))
+        return actionArea
+    }
+    packOpenButtons() {
+        const actionArea = this.clearActionArea()
+        const open = new Gtk.Button({
+            visible: true,
+            label: _('Open')
+        })
+        open.connect('clicked', () => AcquisitionArea.launchURI(this.file))
+        actionArea.add(open)
+        if (this.canUpdate) {
+            const update = new Gtk.Button({
+                visible: true,
+                tooltip_text: _('Update available'),
+                label: _('Update')
+            })
+            update.connect('clicked', () => this.packAcquisitionButtons())
+            actionArea.add(update)
+        }
+
+        const del = new Gtk.ModelButton({
+            visible: true,
+            text: 'Delete',
+        })
+        del.connect('clicked', () => {
+            const msg = new Gtk.MessageDialog({
+                text: _('Delete this item?'),
+                secondary_text:
+                    _('If you delete this item, it will be permanently lost.'),
+                message_type: Gtk.MessageType.QUESTION,
+                modal: true,
+                transient_for: this.toplevel
+            })
+            msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+            msg.add_button(_('Delete'), Gtk.ResponseType.ACCEPT)
+            msg.set_default_response(Gtk.ResponseType.CANCEL)
+            msg.get_widget_for_response(Gtk.ResponseType.ACCEPT)
+                .get_style_context().add_class('destructive-action')
+            const res = msg.run()
+            msg.destroy()
+            const accept = res === Gtk.ResponseType.ACCEPT
+            if (accept) {
+                this.file.delete(null)
+                this.file = null
+                this.packAcquisitionButtons()
+            }
+        })
+
+        const relatedLinks = this.getRelatedLinks()
+        const moreLinks = relatedLinks.length
+            ? [del, new Gtk.Separator({ visible: true }), ...relatedLinks]
+            : [del]
+
+        const more = AcquisitionArea.makeAcquisitionButton(
+            moreLinks,
+            link => this.handleLink(link),
+            'related alternate')
+        actionArea.add(more)
+
+        open.grab_focus()
+    }
+    packDownloading() {
+        const actionArea = this.clearActionArea()
+        const downloading = new Gtk.ProgressBar({
+            visible: true,
+            width_request: 100,
+        })
+        actionArea.add(downloading)
+        return downloading
+    }
+    packError() {
+        const actionArea = this.clearActionArea()
+        const icon = new Gtk.Image({
+            visible: true,
+            icon_name: 'dialog-error-symbolic'
+        })
+        const label = new Gtk.Label({
+            visible: true,
+            wrap: true,
+            xalign: 0,
+            label: _('An error occurred.')
+        })
+        const button = new Gtk.Button({
+            visible: true,
+            label: _('OK')
+        })
+        button.connect('clicked', () => this.packAcquisitionButtons())
+        icon.get_style_context().add_class('dim-label')
+        label.get_style_context().add_class('dim-label')
+        actionArea.add(icon)
+        actionArea.add(label)
+        actionArea.add(button)
+    }
+    packAcquisitionButtons() {
+        const { id, updated } = this.entry
+
+        if (!this.file && id) {
+            const result = AcquisitionArea.getFileForId(id)
+            if (result) {
+                const { file, lastUpdated } = result
+                this.file = file
+                this.canUpdate = new Date(updated) > new Date(lastUpdated)
+                this.packOpenButtons()
+                return
+            }
+        }
+
+        const actionArea = this.clearActionArea()
+        const acquisitionButtons = this.makeAcquisitionButtons()
+
+        if (this.file) {
+            const back = new Gtk.Button({
+                visible: true,
+                tooltip_text: _('Go back'),
+                image: new Gtk.Image({
+                    visible: true,
+                    icon_name: 'go-previous-symbolic'
+                })
+            })
+            back.connect('clicked', () => this.packOpenButtons())
+            actionArea.add(back)
+        }
+
+        acquisitionButtons.forEach(button => actionArea.add(button))
+        if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
+    }
+    handleLink({ type, href, rel }) {
+        const canOpen = mimetypeCan.open(type)
+
+        // open samples directly, in "ephemeral" mode
+        if (canOpen && rel
+        && (rel.endsWith('/sample') || rel.endsWith('/preview'))) {
+            const application = Gio.Application.get_default()
+            const file = Gio.File.new_for_uri(href)
+            new Window({
+                application,
+                file,
+                ephemeral: true,
+                modal: true,
+                transient_for: application.active_window
+            }).present()
+            return
+        }
+
+        // open OPDS feeds and entries in library window
+        if (OpdsClient.typeIsOpds(type)) {
+            if (this.dialog) this.dialog.close()
+            window.getLibraryWindow().openCatalog(href)
+            return
+        }
+
+        // open web pages in browser
+        if (type === 'text/html' || type === 'application/xml+xhtml') {
+            Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
+            return
+        }
+
+        const { id, updated } = this.entry
+
+        const action = id && updated
+            ? librarySettings.get_string('opds-action') : 'ask'
+
+        if (action === 'ask') {
+            const OPEN = 1
+            const SAVE = 2
+            const msg = new Gtk.MessageDialog({
+                text: _('What would you like to do with this file?'),
+                secondary_text: _('Format: %s')
+                    .format(Gio.content_type_get_description(type)),
+                message_type: Gtk.MessageType.QUESTION,
+                modal: true,
+                transient_for: this.toplevel
+            })
+            msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+            msg.add_button(_('Open'), OPEN)
+            msg.add_button(_('Save'), SAVE)
+            msg.set_default_response(SAVE)
+            const res = msg.run()
+            msg.destroy()
+
+            if (res === OPEN) {
+                AcquisitionArea.launchURI({ type, href })
+                return true
+            } else if (res !== SAVE) return true
+        }
+
+        let file
+        const downloading = this.packDownloading()
+
+        downloadWithWebKit(href, (download, suggestedName) => {
+            if (!suggestedName) suggestedName = ''
+
+            if (action === 'auto') {
+                file = AcquisitionArea.makeFileForId(id, updated, suggestedName)
+            } else {
+                const chooser = new Gtk.FileChooserNative({
+                    action: Gtk.FileChooserAction.SAVE,
+                    transient_for: this.toplevel,
+                    do_overwrite_confirmation: true,
+                    create_folders: true,
+                })
+                chooser.set_current_name(suggestedName)
+                if (chooser.run() !== Gtk.ResponseType.ACCEPT) {
+                    download.cancel()
+                    chooser.destroy()
+                    return
+                }
+                file = chooser.get_file()
+                chooser.destroy()
+            }
+
+            const mkdirp = GLib.mkdir_with_parents(
+                file.get_parent().get_path(), parseInt('0755', 8))
+
+            if (mkdirp !== 0) {
+                download.cancel()
+                return
+            }
+            return file.get_uri()
+        },
+        progress => downloading.fraction = progress,
+        this.downloadToken,
+        this.toplevel)
+            .then(() => {
+                if (this.file) this.file.delete(null)
+                this.file = file
+                this.packOpenButtons()
+            })
+            .catch(err => {
+                const code = WebKit2.DownloadError.CANCELLED_BY_USER
+                if (err.code === code) this.packAcquisitionButtons()
+                else this.packError()
+            })
     }
 }
 
@@ -234,125 +606,6 @@ var OpdsClient = class OpdsClient {
     }
 }
 
-const makeAcquisitionButton = (links, onActivate) => {
-    const rel = links[0].rel.split('/').pop()
-    let label = _('Download')
-    let icon
-    switch (rel) {
-        case 'buy': label = _('Buy'); break
-        case 'open-access': label = _('Free'); break
-        case 'preview': label = _('Preview'); break
-        case 'sample': label = _('Sample'); break
-        case 'borrow': label = _('Borrow'); break
-        case 'subscribe': label = _('Subscribe'); break
-        case 'related alternate':
-            label = _('More')
-            icon = 'view-more-symbolic'
-            break
-    }
-    if (links.length === 1) {
-        const link = links[0]
-
-        if (link.price) label = formatPrice(link.price)
-
-        const { title } = link
-        const { type, drm } = OpdsClient.getIndirectAcquisition(link)
-
-        let button = new Gtk.Button({
-            tooltip_text: title || Gio.content_type_get_description(type)
-        })
-        if (icon) {
-            button.tooltip_text = label
-            button.image = new Gtk.Image({
-                icon_name: icon
-            })
-        } else if (drm) {
-            const buttonBox = new Gtk.Box({ spacing: 3 })
-            const icon = new Gtk.Image({
-                icon_name: 'emblem-drm-symbolic',
-                tooltip_text: _('Protected by DRM')
-            })
-            buttonBox.pack_start(new Gtk.Label({ label }), true, true, 0)
-            buttonBox.pack_end(icon, false, true, 0)
-            button.add(buttonBox)
-        } else {
-            button.label = label
-        }
-        button.show_all()
-        button.connect('clicked', () => onActivate(link))
-        return button
-    } else {
-        const buttonLinks = links.map(link => {
-            const { href } = link
-            const { type, drm } = OpdsClient.getIndirectAcquisition(link)
-            const price = link.price ? ' ' + formatPrice(link.price) : ''
-            let title = (link.title || Gio.content_type_get_description(type))
-            if (price) title += price
-            if (drm) title += _(' (DRM)')
-            return {
-                href, type, title,
-                tooltip: type
-            }
-        })
-        const params = { visible: true, label }
-        if (icon) {
-            params.tooltip_text = label
-            params.image = new Gtk.Image({
-                icon_name: icon
-            })
-        }
-        const button = makeLinksButton(params, buttonLinks, onActivate)
-        return button
-    }
-}
-
-const makeAcquisitionButtons = (links = [], callback) => {
-    const map = new Map()
-    links.filter(x => x.rel.startsWith('http://opds-spec.org/acquisition'))
-        .concat(links
-            .filter(x => x.rel === 'alternate' || x.rel === 'related')
-            .map(x => Object.assign({}, x, { rel: 'related alternate' })))
-        .forEach(x => {
-            if (!map.has(x.rel)) map.set(x.rel, [x])
-            else map.get(x.rel).push(x)
-        })
-
-    return Array.from(map.values()).map((links, i) => {
-        const button = makeAcquisitionButton(links, ({ type, href, rel }) => {
-            if (rel && (rel.endsWith('sample') || rel.endsWith('preview'))
-            && mimetypeCan.open(type)) {
-                const application = Gio.Application.get_default()
-                const file = Gio.File.new_for_uri(href)
-                new Window({
-                    application,
-                    file,
-                    ephemeral: true,
-                    modal: true,
-                    transient_for: application.active_window
-                }).present()
-                return
-            }
-
-            if (callback) {
-                const handled = callback({ type, href, rel })
-                if (handled) return
-            }
-            if (OpdsClient.typeIsOpds(type))
-                return window.getLibraryWindow().openCatalog(href)
-
-            // open in a browser
-            Gtk.show_uri_on_window(null, href, Gdk.CURRENT_TIME)
-            //Gio.AppInfo.launch_default_for_uri(href, null)
-
-            // or, open with app directly
-            // const appInfo = Gio.AppInfo.get_default_for_type(type, true)
-            // appInfo.launch_uris([href], null)
-        })
-        if (i === 0) button.get_style_context().add_class('suggested-action')
-        return button
-    })
-}
-
 var LoadBox = GObject.registerClass({
     GTypeName: 'FoliateLoadBox'
 }, class LoadBox extends Gtk.Stack {
@@ -443,12 +696,9 @@ var OpdsFullEntryBox =  GObject.registerClass({
         this.pack_start(propertiesBox, true, true, 0)
 
         const actionArea = propertiesBox.actionArea
-
-        const { links } = entry
-        const acquisitionButtons = makeAcquisitionButtons(links)
-        acquisitionButtons.forEach(button => actionArea.add(button))
-
-        if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
+        const toplevel = this.get_toplevel()
+        const aa = new AcquisitionArea({ entry, actionArea, toplevel })
+        aa.packAcquisitionButtons()
     }
 })
 
@@ -519,29 +769,6 @@ const OpdsBoxChild =  GObject.registerClass({
     }
 })
 
-const bookDir = [GLib.get_user_data_dir(), pkg.name, 'books']
-
-const getFileForId = id => {
-    const path = GLib.build_filenamev(bookDir)
-    const dir = Gio.File.new_for_path(path)
-    for (const name of listDir(dir)) {
-        let [fileId, lastUpdated] = name.split('@')
-        fileId = decodeURIComponent(fileId)
-        lastUpdated = decodeURIComponent(lastUpdated)
-        if (fileId === id) return {
-            file: dir.get_child(name),
-            lastUpdated
-        }
-    }
-}
-const makeFileForId = (id, updated, suggestedName) => {
-    const encodedId = [id, updated, suggestedName]
-        .map(encodeURIComponent)
-        .join('@')
-    const path = GLib.build_filenamev(bookDir.concat(encodedId))
-    return Gio.File.new_for_path(path)
-}
-
 var OpdsAcquisitionBox = GObject.registerClass({
     GTypeName: 'FoliateOpdsAcquisitionBox',
     Properties: {
@@ -573,8 +800,6 @@ var OpdsAcquisitionBox = GObject.registerClass({
         this.connect('child-activated', this._onChildActivated.bind(this))
     }
     _onChildActivated(flowbox, child) {
-        // TODO: this function has obviously gotten way too long
-        // also most of these should be reused by the full entry box
         const toplevel = this.get_toplevel()
 
         const entry = child.entry.value
@@ -599,235 +824,16 @@ var OpdsAcquisitionBox = GObject.registerClass({
 
         dialog.title = getTitle(child)
 
-        let downloadToken = {}
+        const actionArea = dialog.propertiesBox.actionArea
+        const aa = new AcquisitionArea({ dialog, entry, actionArea })
+        aa.packAcquisitionButtons()
 
-        const clearActionArea = () => {
-            const actionArea = dialog.propertiesBox.actionArea
-            const children = actionArea.get_children()
-            children.forEach(child => actionArea.remove(child))
-            return actionArea
-        }
-        const packOpenButtons = (entry, file, canUpdate) => {
-            const actionArea = clearActionArea()
-            const open = new Gtk.Button({
-                visible: true,
-                label: _('Open')
-            })
-            open.connect('clicked', () => launchURI(file))
-            actionArea.add(open)
-            if (canUpdate) {
-                const update = new Gtk.Button({
-                    visible: true,
-                    tooltip_text: _('Update available'),
-                    label: _('Update')
-                })
-                update.connect('clicked', () =>
-                    packAcquisitionButtons(entry, file, true))
-                actionArea.add(update)
-            }
-            const popover = new Gtk.PopoverMenu()
-            const box = new Gtk.Box({
-                visible: true,
-                orientation: Gtk.Orientation.VERTICAL,
-                margin: 10
-            })
-            popover.add(box)
-            const more = new Gtk.MenuButton({
-                visible: true,
-                popover,
-                image: new Gtk.Image({
-                    visible: true,
-                    icon_name: 'view-more-symbolic'
-                })
-            })
-            const trash = new Gtk.ModelButton({
-                visible: true,
-                text: 'Delete',
-            })
-            trash.connect('clicked', () => {
-                const msg = new Gtk.MessageDialog({
-                    text: _('Delete this item?'),
-                    secondary_text:
-                        _('If you delete this item, it will be permanently lost.'),
-                    message_type: Gtk.MessageType.QUESTION,
-                    modal: true,
-                    transient_for: dialog
-                })
-                msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
-                msg.add_button(_('Delete'), Gtk.ResponseType.ACCEPT)
-                msg.set_default_response(Gtk.ResponseType.CANCEL)
-                msg.get_widget_for_response(Gtk.ResponseType.ACCEPT)
-                    .get_style_context().add_class('destructive-action')
-                const res = msg.run()
-                msg.destroy()
-                const accept = res === Gtk.ResponseType.ACCEPT
-                if (accept) {
-                    file.delete(null)
-                    packAcquisitionButtons(entry)
-                }
-            })
-            box.pack_start(trash, false, true, 0)
-            actionArea.add(more)
-            open.grab_focus()
-        }
-        const packDownloading = () => {
-            const actionArea = clearActionArea()
-            const downloading = new Gtk.ProgressBar({
-                visible: true,
-                width_request: 100,
-            })
-            actionArea.add(downloading)
-            return downloading
-        }
-        const packError = entry => {
-            const actionArea = clearActionArea()
-            const icon = new Gtk.Image({
-                visible: true,
-                icon_name: 'dialog-error-symbolic'
-            })
-            const label = new Gtk.Label({
-                visible: true,
-                wrap: true,
-                xalign: 0,
-                label: _('An error occurred.')
-            })
-            const button = new Gtk.Button({
-                visible: true,
-                label: _('OK')
-            })
-            button.connect('clicked', () => {
-                packAcquisitionButtons(entry)
-            })
-            icon.get_style_context().add_class('dim-label')
-            label.get_style_context().add_class('dim-label')
-            actionArea.add(icon)
-            actionArea.add(label)
-            actionArea.add(button)
-        }
-        const packAcquisitionButtons = (entry, existingFile, canUpdate) => {
-            const { links, id, updated } = entry
-
-            if (!existingFile && id) {
-                const result = getFileForId(id)
-                if (result) {
-                    const { file, lastUpdated } = result
-                    canUpdate = new Date(updated) > new Date(lastUpdated)
-                    packOpenButtons(entry, file, canUpdate)
-                    return
-                }
-            }
-
-            const actionArea = clearActionArea()
-            const acquisitionButtons = makeAcquisitionButtons(links, link => {
-                const { type, href } = link
-                if (OpdsClient.typeIsOpds(type)) {
-                    dialog.close()
-                    return false
-                }
-                if (!id || !updated) return false
-
-                // always open web pages in browser
-                if (type === 'text/html' || type === 'application/xml+xhtml')
-                    return false
-
-                const action = librarySettings.get_string('opds-action')
-                if (action === 'ask') {
-                    const OPEN = 1
-                    const SAVE = 2
-                    const msg = new Gtk.MessageDialog({
-                        text: _('What would you like to do with this file?'),
-                        secondary_text: _('Format: %s')
-                            .format(Gio.content_type_get_description(type)),
-                        message_type: Gtk.MessageType.QUESTION,
-                        modal: true,
-                        transient_for: dialog
-                    })
-                    msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
-                    msg.add_button(_('Open'), OPEN)
-                    msg.add_button(_('Save'), SAVE)
-                    msg.set_default_response(SAVE)
-                    const res = msg.run()
-                    msg.destroy()
-
-                    if (res === OPEN) {
-                        launchURI({ type, href })
-                        return true
-                    } else if (res !== SAVE) return true
-                }
-
-                let file
-                const downloading = packDownloading()
-                downloadWithWebKit(href, (download, suggestedName) => {
-                    if (!suggestedName) suggestedName = ''
-
-                    if (action === 'auto') {
-                        file = makeFileForId(id, updated, suggestedName)
-                    } else {
-                        const chooser = new Gtk.FileChooserNative({
-                            action: Gtk.FileChooserAction.SAVE,
-                            transient_for: dialog,
-                            do_overwrite_confirmation: true,
-                            create_folders: true,
-                        })
-                        chooser.set_current_name(suggestedName)
-                        if (chooser.run() !== Gtk.ResponseType.ACCEPT) {
-                            download.cancel()
-                            chooser.destroy()
-                            return
-                        }
-                        file = chooser.get_file()
-                        chooser.destroy()
-                    }
-
-                    const mkdirp = GLib.mkdir_with_parents(
-                        file.get_parent().get_path(), parseInt('0755', 8))
-
-                    if (mkdirp !== 0) {
-                        download.cancel()
-                        return
-                    }
-                    return file.get_uri()
-                },
-                progress => downloading.fraction = progress,
-                downloadToken,
-                toplevel)
-                    .then(() => {
-                        if (existingFile) existingFile.delete(null)
-                        packOpenButtons(entry, file)
-                    })
-                    .catch(err => {
-                        const code = WebKit2.DownloadError.CANCELLED_BY_USER
-                        if (err.code === code) packAcquisitionButtons(entry, existingFile, canUpdate)
-                        else packError(entry)
-                    })
-                return true
-            })
-
-            if (existingFile) {
-                const back = new Gtk.Button({
-                    visible: true,
-                    tooltip_text: _('Go back'),
-                    image: new Gtk.Image({
-                        visible: true,
-                        icon_name: 'go-previous-symbolic'
-                    })
-                })
-                back.connect('clicked', () =>
-                    packOpenButtons(entry, existingFile, canUpdate))
-                actionArea.add(back)
-            }
-
-            acquisitionButtons.forEach(button => actionArea.add(button))
-            if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
-        }
         const getPrevNext = child => {
             const index = child.get_index()
             const prev = flowbox.get_child_at_index(index - 1)
             const next = flowbox.get_child_at_index(index + 1)
             return [prev, next]
         }
-
-        packAcquisitionButtons(entry)
 
         const buildButton = (child, i) => {
             if (!child) return
@@ -842,17 +848,21 @@ var OpdsAcquisitionBox = GObject.registerClass({
                     OpdsClient.opdsEntryToMetadata(entry),
                     child.surface)
                 dialog.title = getTitle(child)
-                packAcquisitionButtons(entry)
+
+                if (aa.downloadToken.cancel) aa.downloadToken.cancel()
+                const actionArea = dialog.propertiesBox.actionArea
+                aa.init({ dialog, entry, actionArea })
+                aa.packAcquisitionButtons()
+
                 getPrevNext(child).forEach(buildButton)
                 dialog.setVisible(name, isPrev)
-                if (downloadToken.cancel) downloadToken.cancel()
             }
             dialog.packButton(isPrev, callback)
         }
         getPrevNext(child).forEach(buildButton)
 
         dialog.connect('destroy', () => {
-            if (downloadToken.cancel) downloadToken.cancel()
+            if (aa.downloadToken.cancel) aa.downloadToken.cancel()
         })
         dialog.run()
         dialog.close()
