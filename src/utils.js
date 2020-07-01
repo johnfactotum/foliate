@@ -652,7 +652,7 @@ var linkIsRel = (link, rel) => {
         : rels.some(x => x === rel)
 }
 
-var makeLinksButton = (params, links, onActivate) => {
+var makeLinksButton = (params, links, onActivate, defaultLink) => {
     const popover = new Gtk.PopoverMenu()
     const box = new Gtk.Box({
         visible: true,
@@ -660,13 +660,7 @@ var makeLinksButton = (params, links, onActivate) => {
         margin: 10
     })
     popover.add(box)
-    const button = new Gtk.MenuButton(Object.assign({ popover }, params, { label: null }))
-    const buttonBox =  new Gtk.Box({ spacing: 3 })
-    const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
-    buttonBox.pack_start(new Gtk.Label({ label: params.label }), true, true, 0)
-    buttonBox.pack_end(icon, false, true, 0)
-    button.add(buttonBox)
-    button.show_all()
+
     links.forEach(link => {
         if (link instanceof Gtk.Widget) {
             box.pack_start(link, false, true, 0)
@@ -681,6 +675,29 @@ var makeLinksButton = (params, links, onActivate) => {
         menuItem.connect('clicked', () => onActivate({ href, type }))
         box.pack_start(menuItem, false, true, 0)
     })
+
+    if (defaultLink) {
+        const button = new Gtk.Button(params)
+        button.connect('clicked', () => onActivate(defaultLink))
+        const down = new Gtk.MenuButton({
+            popover,
+            image: new Gtk.Image({ icon_name: 'pan-down-symbolic' })
+        })
+        const box = new Gtk.Box()
+        box.pack_start(button, true, true, 0)
+        box.pack_start(down, false, true, 0)
+        box.get_style_context().add_class('linked')
+        box.show_all()
+        return box
+    }
+
+    const button = new Gtk.MenuButton(Object.assign({ popover }, params, { label: null }))
+    const buttonBox =  new Gtk.Box({ spacing: 3 })
+    const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
+    buttonBox.pack_start(new Gtk.Label({ label: params.label }), true, true, 0)
+    buttonBox.pack_end(icon, false, true, 0)
+    button.add(buttonBox)
+    button.show_all()
     return button
 }
 

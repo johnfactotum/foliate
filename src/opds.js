@@ -154,7 +154,8 @@ class AcquisitionArea {
                     icon_name: icon
                 })
             }
-            const button = makeLinksButton(params, buttonLinks, onActivate)
+            const defaultLink = rel === 'related alternate' ? null : buttonLinks[0]
+            const button = makeLinksButton(params, buttonLinks, onActivate, defaultLink)
             return button
         }
     }
@@ -179,7 +180,12 @@ class AcquisitionArea {
             const button = AcquisitionArea
                 .makeAcquisitionButton(links, link => this.handleLink(link))
 
-            if (i === 0) button.get_style_context().add_class('suggested-action')
+            if (i === 0) {
+                if (button instanceof Gtk.Button)
+                    button.get_style_context().add_class('suggested-action')
+                else if (button.foreach) button.foreach(child =>
+                    child.get_style_context().add_class('suggested-action'))
+            }
             return button
         })
     }
@@ -311,7 +317,14 @@ class AcquisitionArea {
         }
 
         acquisitionButtons.forEach(button => actionArea.add(button))
-        if (acquisitionButtons.length) acquisitionButtons[0].grab_focus()
+        if (acquisitionButtons.length) {
+            const first =  acquisitionButtons[0]
+            if (first instanceof Gtk.Button) first.grab_focus()
+            else if (first.get_children) {
+                const children = first.get_children()
+                if (children.length) children[0].grab_focus()
+            }
+        }
     }
     handleLink({ type, href, rel }) {
         const canOpen = mimetypeCan.open(type)
