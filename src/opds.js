@@ -427,6 +427,7 @@ class AcquisitionArea {
                 if (this.file) this.file.delete(null)
                 this.file = file
                 this.packOpenButtons()
+                AcquisitionArea.launchURI(this.file)
             })
             .catch(err => {
                 const code = WebKit2.DownloadError.CANCELLED_BY_USER
