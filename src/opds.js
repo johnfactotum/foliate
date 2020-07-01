@@ -593,11 +593,13 @@ var OpdsClient = class OpdsClient {
         }
     }
     static getImageLink(entry) {
+        // many feeds provide very tiny thumbnails so we have to prefer non-
+        // thumbnails otherwise things are just too small/blurry
         const rels = [
+            'http://opds-spec.org/image',
+            'http://opds-spec.org/cover',
             'http://opds-spec.org/image/thumbnail',
             'http://opds-spec.org/thumbnail',
-            'http://opds-spec.org/image',
-            'http://opds-spec.org/cover'
         ]
         for (const rel of rels) {
             const link = entry.links.find(x => linkIsRel(x, rel))
