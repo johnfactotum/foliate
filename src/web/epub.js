@@ -8941,7 +8941,11 @@ class layout_Layout {
     var pageWidth;
     var delta;
 
-    if (this._spread && width >= this._minSpreadWidth) {
+    if (this._spread && width >= this._minSpreadWidth * 2
+    && this.name === "reflowable" && this._flow === "paginated") {
+      divisor = 4;
+      section = section / 2
+    } else if (this._spread && width >= this._minSpreadWidth) {
       divisor = 2;
     } else {
       divisor = 1;
@@ -11700,6 +11704,7 @@ class IframeView {
     }
 
     let m = new marks_pane__WEBPACK_IMPORTED_MODULE_5__["Highlight"](range, className, data, attributes);
+    try {
     let h = this.pane.addMark(m);
     this.highlights[cfiRange] = {
       "mark": h,
@@ -11716,6 +11721,7 @@ class IframeView {
     }
 
     return h;
+    } catch (e) {}
   }
 
   underline(cfiRange, data = {}, cb, className = "epubjs-ul", styles = {}) {
@@ -15955,7 +15961,7 @@ function request_request(url, type, withCredentials, headers) {
         } else if (type == "xhtml") {
           r = Object(core["parse"])(this.response, "application/xhtml+xml");
         } else if (type == "html" || type == "htm") {
-          r = Object(core["parse"])(this.response, "text/html");
+          r = Object(core["parse"])(this.response, /<\s*a[^>]*\/>/gi.test(this.response) ? "application/xhtml+xml" : "text/html");
         } else if (type == "json") {
           r = JSON.parse(this.response);
         } else if (type == "blob") {
@@ -16045,6 +16051,12 @@ class section_Section {
       loading.resolve(this.contents);
     } else {
       request(this.url).then(function (xml) {
+        // when the url has no extension, `request` won't parse it,
+        // so we'll just have to parse it ourselves
+        if (typeof xml === 'string') {
+          const parser = new DOMParser();
+          xml = parser.parseFromString(xml, 'text/html');
+        }
         // var directory = new Url(this.url).directory;
         this.document = xml;
         this.contents = xml.documentElement;
@@ -17240,11 +17252,92 @@ class packaging_Packaging {
 
   parseMetadata(xml) {
     var metadata = {};
-    metadata.title = this.getElementText(xml, "title");
+    const DC_NS = "http://purl.org/dc/elements/1.1/"
+    const OPF_NS = "http://www.idpf.org/2007/opf"
+    const getElementText = node => node ? node.childNodes[0].nodeValue : null
+    const getElementsNS = (ns, tagName) =>
+      [...xml.getElementsByTagNameNS(ns, tagName)]
+        .filter(node => node.childNodes.length)
+    const metas = [...xml.getElementsByTagName('meta')]
+    const getRefiningMetas = id => metas.filter(meta =>
+      meta.getAttribute('refines') === '#' + id)
+
+    const getPropertyMetas = (el, prop) => {
+      const id = el.getAttribute('id')
+      const metas = getRefiningMetas(id)
+      if (metas) {
+        const refined = metas
+          .filter(meta => meta.getAttribute('property') === prop)
+        if (refined) return refined
+      }
+    }
+    const getProperty = (el, ns, prop, one = true) => {
+      const attribute = el.getAttributeNS(ns, prop)
+      const metas = getPropertyMetas(el, prop)
+      return metas && metas.length
+        ? (one ? getElementText(metas[0]) : metas.map(getElementText))
+        : attribute
+    }
+
+    const titles = getElementsNS(DC_NS, "title")
+      .map(x => {
+        return {
+          type: getProperty(x, OPF_NS, 'title-type'),
+          seq: getProperty(x, OPF_NS, 'display-seq'),
+          label: getElementText(x)
+        }
+      })
+    metadata.titles = titles
+    const mainTitle = titles.find(x => x.type === 'main')
+    if (mainTitle) metadata.title = mainTitle.label
+    else metadata.title = this.getElementText(xml, "title");
     metadata.creator = this.getElementText(xml, "creator");
     metadata.description = this.getElementText(xml, "description");
+
+    metadata.subjects = getElementsNS(DC_NS, "subject")
+      .map(x => {
+        return {
+          authority: getProperty(x, OPF_NS, 'authority'),
+          term: getProperty(x, OPF_NS, 'term'),
+          label: getElementText(x)
+        }
+      })
+
+    metadata.sources = getElementsNS(DC_NS, "source")
+      .map(getElementText)
+
+    metadata.collections = metas
+      .filter(meta => meta.getAttribute('property') === 'belongs-to-collection')
+      .map(meta => {
+        return {
+          type: getProperty(meta, OPF_NS, 'collection-type'),
+          position: getProperty(meta, OPF_NS, 'group-position'),
+          label: getElementText(meta)
+        }
+      })
+
+    metadata.contributors = getElementsNS(DC_NS, "contributor")
+      .map(x => {
+      return {
+        role: getProperty(x, OPF_NS, 'role', false),
+        scheme: getProperty(x, OPF_NS, 'scheme', false),
+        label: getElementText(x)
+      }
+    })
+
     metadata.pubdate = this.getElementText(xml, "date");
     metadata.publisher = this.getElementText(xml, "publisher");
+
+    const identifiers = getElementsNS(DC_NS, "identifier")
+      .map(x => {
+        return {
+          type: getProperty(x, OPF_NS, 'identifier-type'),
+          scheme: getProperty(x, OPF_NS, 'scheme'),
+          identifier: getElementText(x)
+        }
+      })
+    metadata.identifiers = identifiers
+
     metadata.identifier = this.getElementText(xml, "identifier");
     metadata.language = this.getElementText(xml, "language");
     metadata.rights = this.getElementText(xml, "rights");
@@ -19709,6 +19802,16 @@ class book_Book {
     });
   }
   /**
+   * Add a method to load a JSON manifest directly
+   */
+
+
+  openJSON(json) {
+    this.packaging = new src_packaging();
+    this.packaging.load(json);
+    return this.unpack(this.packaging);
+  }
+  /**
    * Load a resource from the Book
    * @param  {string} path path to the resource to load
    * @return {Promise}     returns a promise with the requested resource
@@ -19902,7 +20005,7 @@ class book_Book {
 
         if (packaging.pageList) {
           this.pageList = new pagelist(packaging.pageList); // TODO: handle page lists from Manifest
-        }
+        } else this.pageList = new pagelist() // Fix pageList undefined when loading from manifest
 
         resolve(this.navigation);
       });
