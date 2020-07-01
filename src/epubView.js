@@ -22,7 +22,7 @@ const { EpubCFI } = imports.epubcfi
 const {
     debug, error, markupEscape, regexEscape,
     Storage, disconnectAllHandlers, base64ToPixbuf,
-    mimetypes, execCommand, recursivelyDeleteDir
+    mimetypes, mimetypeIs, execCommand, recursivelyDeleteDir
 } = imports.utils
 
 const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
@@ -31,8 +31,13 @@ const kindleUnpack = pkg.pkgdatadir + '/assets/KindleUnpack/kindleunpack.py'
 const settings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 const generalSettings = new Gio.Settings({ schema_id: pkg.name })
 
-// must be the same as `CHARACTERS_PER_PAGE` in assets/epub-viewer.js
+// must be the same as `CHARACTERS_PER_PAGE` in web/epub-viewer.js
+// in 1.x this was 1600, so this was needed to automatically clear the cache
 const CHARACTERS_PER_PAGE = 1024
+
+// this should be bumped whenever FB2 rendering (see web/webpub.js) is changed
+// that way we can clear the cache
+const FB2_CONVERTER_VERSION = '2.4.0'
 
 // the `__ibooks_internal_theme` attribute is set on `:root` in Apple Books
 // can be used by books to detect dark theme without JavaScript
@@ -93,10 +98,10 @@ const EpubViewBookmark = GObject.registerClass({
 }, class EpubViewBookmark extends GObject.Object {})
 
 const dataMap = new Map()
-const getData = identifier => {
+const getData = (identifier, type) => {
     if (dataMap.has(identifier)) return dataMap.get(identifier)
     else {
-        const data = new EpubViewData(identifier)
+        const data = new EpubViewData(identifier, type)
         dataMap.set(identifier, data)
         return data
     }
@@ -117,10 +122,11 @@ var EpubViewData = GObject.registerClass({
         'cache-modified': { flags: GObject.SignalFlags.RUN_FIRST }
     }
 }, class EpubViewData extends GObject.Object {
-    _init(identifier) {
+    _init(identifier, type) {
         super._init()
 
         this._identifier = identifier
+        this._type = type
         this._viewSet = new Set()
 
         this._storage = new Storage(EpubViewData.dataPath(identifier))
@@ -197,12 +203,22 @@ var EpubViewData = GObject.registerClass({
         this._storage.set('metadata', metadata)
     }
     get locations() {
+        if (mimetypeIs.fb2(this._type)) {
+            const converterVersion = this._cache.get('converterVersion')
+            if (converterVersion === FB2_CONVERTER_VERSION)
+                return this._cache.get('locations')
+            else return null
+        }
+
         const locationsChars = this._cache.get('locationsChars')
         if (locationsChars === CHARACTERS_PER_PAGE)
             return this._cache.get('locations')
         else return null
     }
     set locations(locations) {
+        if (mimetypeIs.fb2(this._type)) {
+            this._cache.set('converterVersion', FB2_CONVERTER_VERSION)
+        }
         this._cache.set('locationsChars', CHARACTERS_PER_PAGE)
         this._cache.set('locations', locations)
     }
@@ -655,7 +671,7 @@ var EpubView = GObject.registerClass({
             const { identifier } = this.metadata
             let locations
             if (identifier && !this.ephemeral) {
-                this._data = getData(identifier)
+                this._data = getData(identifier, type)
                 this._data.addView(this)
                 this.emit('data-ready', this._data.annotationsList, this._data.bookmarksList)
                 locations = this._data.locations

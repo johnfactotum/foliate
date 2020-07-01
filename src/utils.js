@@ -268,6 +268,9 @@ var mimetypeCan = {
     choose: type => mimetypesThatWeCan.choose.includes(type),
     annotate: type => mimetypesThatWeCan.annotate.includes(type),
 }
+var mimetypeIs = {
+    fb2: type => [mimetypes.fb2, mimetypes.fb2zip].includes(type)
+}
 
 var fileFilters = {
     all: new Gtk.FileFilter(),
