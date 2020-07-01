@@ -1002,15 +1002,8 @@ var EpubView = GObject.registerClass({
         this.emit('book-loading')
         this.close()
         this._file = file
-        try {
-            this._fileInfo = await getFileInfoAsync(this._file)
-        } catch (e) {
-            logError(e)
-            this._fileInfo = null
-        }
-        if (!this._fileInfo) return this.emit('book-error', _('File not found.'))
+        this._fileInfo = null
 
-        const contentType = this._fileInfo.get_content_type()
         let uri = this._file.get_uri()
         let path = this._file.get_path()
 
@@ -1027,14 +1020,28 @@ var EpubView = GObject.registerClass({
                 onProgress(0)
                 this._downloadToken = {}
                 await downloadWithWebKit(
-                    uri, localUri, onProgress, this._downloadToken)
+                    uri, localUri, onProgress, this._downloadToken, this._webView.get_toplevel())
                 uri = localUri
+
+                try {
+                    this._fileInfo = await getFileInfoAsync(file)
+                } catch (e) {
+                    logError(e)
+                }
             } catch (e) {
                 logError(e)
                 return this.emit('book-error', _('Failed to load remote file.'))
             }
+        } else {
+            try {
+                this._fileInfo = await getFileInfoAsync(this._file)
+            } catch (e) {
+                logError(e)
+            }
         }
-        switch (contentType) {
+        if (!this._fileInfo) return this.emit('book-error', _('File not found.'))
+
+        switch (this._fileInfo.get_content_type()) {
             case mimetypes.mobi:
             case mimetypes.kindle:
             case mimetypes.kindleAlias: {
