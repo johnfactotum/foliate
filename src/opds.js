@@ -1305,6 +1305,8 @@ var OpdsBrowser = GObject.registerClass({
             if (feed.title) this.set_property('title', feed.title)
             if (feed.subtitle) this.set_property('subtitle', feed.subtitle)
             const tabs = [].concat(feed.links).filter(link => 'href' in link
+                && 'type' in link
+                && OpdsClient.typeIsOpds(link.type)
                 && 'rel' in link
                 && Object.keys(related).some(rel => linkIsRel(link, rel)))
 
