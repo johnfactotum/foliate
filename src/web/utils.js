@@ -62,9 +62,9 @@ const resolveURL = (url, relativeTo) => {
 const trim = x => x ? x.trim() : x
 
 const unescapeHTML = str => {
-    const parser = new DOMParser()
-    const doc = parser.parseFromString(str, 'text/html')
-    return doc.documentElement.textContent
+    const textarea = document.createElement('textarea')
+    textarea.innerHTML = str
+    return textarea.value
 }
 
 // Remove whitespace like CSS `white-space: normal`
@@ -118,5 +118,5 @@ const toPangoMarkup = (html, baseURL = '') => {
         })
         if (nodeName === 'a' && !el.hasAttribute('href')) usurp(el)
     })
-    return doc.body.innerHTML.trim()
+    return unescapeHTML(doc.body.innerHTML.trim()).replace(/&/g, '&amp;')
 }
