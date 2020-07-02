@@ -333,6 +333,9 @@ function main(argv) {
             ['lib.main-menu', ['F10']],
             ['lib.search', ['<ctrl>f']],
             ['lib.close', ['<ctrl>w']],
+            ['lib.opds-back', ['<alt>Left']],
+            ['opds.reload', ['<ctrl>r']],
+            ['opds.location', ['<ctrl>l']],
 
             ['win.close', ['<ctrl>w']],
             ['win.reload', ['<ctrl>r']],
