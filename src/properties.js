@@ -15,7 +15,7 @@
 
 const { GObject, Gtk, Gio, Gdk, GdkPixbuf, cairo } = imports.gi
 const {
-    setTimeout,
+    debounce,
     scalePixbuf, makeLinksButton, getLanguageDisplayName, formatDate, markupEscape,
     hslToRgb, colorFromString, isLight,
     makeList
@@ -550,22 +550,27 @@ var PropertiesWindow = GObject.registerClass({
         box.pack_start(this._stack, true, true, 0)
 
         this.updateProperties(metadata, cover)
+
+        this._debouncedRemoveInvisible = debounce(
+            this._removeInvisible.bind(this),
+            this._stack.transition_duration + 100)
+    }
+    _removeInvisible() {
+        const stack = this._stack
+        const visible = stack.visible_child
+        const children = stack.get_children()
+        children
+            .filter(x => x !== visible)
+            .forEach(x => x.destroy())
     }
     setVisible(name, isPrev) {
-        const stack = this._stack
         const transition = isPrev
             ? Gtk.StackTransitionType.SLIDE_RIGHT
             : Gtk.StackTransitionType.SLIDE_LEFT
         this._stack.set_visible_child_full(name, transition)
 
         // remove other children after the transition is completed
-        const duration = stack.transition_duration
-        setTimeout(() => {
-            const children = stack.get_children()
-            children
-                .filter(x => x !== stack.visible_child)
-                .forEach(x => stack.remove(x))
-        }, duration)
+        this._debouncedRemoveInvisible()
     }
     updateProperties(metadata, cover) {
         this._scrolled = new Gtk.ScrolledWindow({
