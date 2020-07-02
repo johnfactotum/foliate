@@ -215,7 +215,7 @@ class AcquisitionArea {
 
         const del = new Gtk.ModelButton({
             visible: true,
-            text: 'Delete',
+            text: _('Delete'),
         })
         del.connect('clicked', () => {
             const msg = new Gtk.MessageDialog({
