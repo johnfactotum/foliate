@@ -189,10 +189,13 @@ const makeActions = app => ({
     'library': () => {
         const existingLibraryWindow =
             app.get_windows().find(window => window instanceof LibraryWindow)
+        const activeWindow = app.active_window
 
-        if (existingLibraryWindow) existingLibraryWindow.present()
-        else {
-            app.active_window.close()
+        if (existingLibraryWindow) {
+            if (activeWindow.modal) activeWindow.close()
+            existingLibraryWindow.present()
+        } else {
+            activeWindow.close()
             new LibraryWindow({ application: app }).present()
         }
     },

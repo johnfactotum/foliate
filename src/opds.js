@@ -426,6 +426,7 @@ class AcquisitionArea {
             .then(() => {
                 if (this.file) this.file.delete(null)
                 this.file = file
+                this.canUpdate = false
                 this.packOpenButtons()
                 AcquisitionArea.launchURI(this.file)
             })
@@ -557,14 +558,14 @@ var OpdsClient = class OpdsClient {
     }
     static opdsEntryToMetadata(entry, showSummary = true) {
         const {
-            title, summary, content, publisher, language, identifier, rights,
+            title, summary, content, publisher, language, identifiers, rights,
             published, updated, issued, extent,
             authors = [],
             categories = [],
             sources = [],
         } = entry
         return {
-            title, publisher, language, identifier, rights,
+            title, publisher, language, identifiers, rights,
             // Translators: this is the punctuation used to join together a list of
             // authors or categories
             creator: authors.map(x => x.name).join(_(', ')),

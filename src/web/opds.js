@@ -62,7 +62,11 @@ const entry = {
             array: true,
             attrs: { term: {}, label: {}, scheme: {} }
         },
-        identifier: { ns: DC_NS },
+        identifiers: {
+            tag: 'identifier',
+            array: true,
+            ns: DC_NS
+        },
         publisher: { ns: DC_NS },
         language: { ns: DC_NS },
         issued: { ns: DC_TERMS_NS },
