@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 13:15+0800\n"
+"POT-Creation-Date: 2020-07-06 15:35+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: zluka <https://github.com/zluca>\n"
 "Language-Team: \n"
@@ -868,7 +868,7 @@ msgid "Select some text to add annotations."
 msgstr "Выделите текст, чтобы добавить примечание."
 
 #: src/ui/contentsStack.ui:124
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
 msgid "Annotations"
 msgstr "Примечания"
 
@@ -1182,7 +1182,7 @@ msgid "Full Justification"
 msgstr "Выравнивание по ширине"
 
 #: src/ui/mainMenu.ui:519 src/ui/menuBar.ui:143
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:326
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:331
 msgid "Auto-hyphenation"
 msgstr "Автоперенос"
 
@@ -3103,177 +3103,183 @@ msgstr "Джон Фактотум"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 #, fuzzy
-msgid "Fixed unable to open Mobipocket files"
+msgid "Fixed unable to open some EPUB files"
 msgstr ""
 "Исправлена невозможность открытия книг у которых имя содержит \"#\" или \"?\""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:237
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:259
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:268
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:279
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:294
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:303
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:338
+#, fuzzy
+msgid "Fixed unable to open Mobipocket files"
+msgstr ""
+"Исправлена невозможность открытия книг у которых имя содержит \"#\" или \"?\""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:264
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:273
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:284
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:299
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:308
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:343
 msgid "Changes:"
 msgstr "Изменения:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Improved metadata display"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "Improved FictionBook rendering"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Improved UI for acquiring books from OPDS"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 #, fuzzy
 msgid "Fixed unique identifier extraction for EPUB files"
 msgstr ""
 "Исправлен уникальный идентификатор для файлов FictionBook (.fb2, .fb2.zip)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Fixed missing window icon"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
 msgid "Fixed TTS environment variables not set when using Flatpak"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
 msgid "Fixed eSpeak NG voice not selected when testing TTS configuration"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid ""
 "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
 msgid "OPDS catalogs:"
 msgstr "Каталоги OPDS:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
 msgid "Catalogs are now opened in the main library window"
 msgstr "Теперь каталоги открываются в основном окне библиотеки"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
 msgid "View current location"
 msgstr "Показать текущее расположение"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
 msgid "Go to catalog start page"
 msgstr "Перейти к начальному каталогу"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
 msgid "Reload catalog"
 msgstr "Перезагрузить каталог"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
 msgid "Add current feed to catalogs"
 msgstr "Добавить текущий канал к каталогам"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "HTTP authentication support"
 msgstr "Поддержка аутентификации HTTP"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
 msgid "Other changes:"
 msgstr "Прочие изменения:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr ""
 "Исправлен уникальный идентификатор для файлов FictionBook (.fb2, .fb2.zip)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
 msgid "Fixed newlines being ignored when copying text"
 msgstr ""
 "Исправлена ошибка при которой игнорировались переносы строки при копировании "
 "текста"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
 msgstr ""
 "Опция \"Перелистывать страницы по нажатию\" теперь отключена для неразрывных "
 "представлений"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
 msgid "Opening a book from the library view now closes the library window"
 msgstr "Открытие книги из библиотеки теперь закрывает окно библиотеки"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:84
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
 msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr "Язык и дата публикации теперь парсятся и форматируются"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
 msgid "Export annotations from the library view"
 msgstr "Экспортировать примечания из библиотеки"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
 msgid "Fixed blurry book covers on HiDPI"
 msgstr "Исправлены размытые обложки книг на HiDPI"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
 msgstr ""
 "Исправлены ссылки OPDS на стандартные электронные книги и Проект Гутенберга"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:100
 msgid "Fixed wrong view icon on startup"
 msgstr "Исправлена неправильная иконка при запуске"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
 msgid "Library:"
 msgstr "Библиотека:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:103
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
 msgid "A library view showing recent books and reading progress"
 msgstr "Вид библиотеки, показывающее последние книги и прогресс чтения"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
 msgid "Search books by metadata"
 msgstr "Поиск книг по их метаданным"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:105
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
 msgid "E-book discovery with OPDS"
 msgstr "Электронная книга с OPDS"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:107
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
 msgid "New supported formats:"
 msgstr "Новые поддерживаемые форматы:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:114
 msgid "FictionBook (.fb2, .fb2.zip)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
 msgstr "Архив comic book (.cbr, .cbz, .cbt, .cb7)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
 msgid "Plain text (.txt)"
 msgstr "Текст (.txt)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
 msgid "Unpacked EPUB files"
 msgstr "Распакованные файлы EPUB"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:114
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:119
 msgid "Layout:"
 msgstr "Расположение:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
 msgid "Option to set maximum page width"
 msgstr "Параметр для изменения максимальной ширины страницы"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:122
 msgid ""
 "The \"Automatic\" layout will now show four columns when the page width is "
 "wide"
@@ -3281,11 +3287,11 @@ msgstr ""
 "\"Автоматическое\" расположение теперь будет отображать четыре столбца при "
 "широкой ширине страницы"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:119
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:124
 msgid "Image viewer:"
 msgstr "Просмоторщик изображений:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
 msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
@@ -3293,7 +3299,7 @@ msgstr ""
 "Улучшенный просмотрщик изображений с новыми сочетаниями клавиш и "
 "возможностью поворачивать и инвертировать изображения"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:122
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
 msgid ""
 "Option to disable image viewer, or to open images on double, middle, or "
 "right click"
@@ -3301,37 +3307,37 @@ msgstr ""
 "Возможность для отключения просмотрщика изображений или открытия изображения "
 "по двойному, среднему или правому щелчку"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:124
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
 msgid "Text-to-speech:"
 msgstr "Озвучка текста:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
 msgid "Improved text-to-speech configuration UI"
 msgstr "Улучшенный пользовательский интерфейс для настройки озвучки текста"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:132
 msgid "Ability to set text-to-speech voice based on book language"
 msgstr ""
 "Возможность установить голос для озвучки текста основываясь на языке книги"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
 msgid "Import annotations from JSON"
 msgstr "Импортировать примечания из JSON"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:132
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
 msgid "Search in annotations"
 msgstr "Поиск по примечания"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:138
 msgid "Annotations are now sorted in the same order as they appear in the book"
 msgstr ""
 "Примечания теперь отсортированы в том же порядке что появляются в книге"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:135
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:140
 msgid "Security:"
 msgstr "Безопасность:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
 msgid ""
 "\"Allow Unsafe Content\" now only enables JavaScript; external content will "
 "no longer be loaded"
@@ -3339,44 +3345,44 @@ msgstr ""
 "\"Разрешить небезопасный контент\" теперь только включает JavaScript; "
 "внешние данные не будут загруженны"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:138
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
 msgid "WebKit processes are now sandboxed"
 msgstr "Процессы WebKit теперь изолированны в песочнице"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:140
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:145
 msgid "Other featues and fixes:"
 msgstr "Другие улучшения и исправления:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:147
 msgid "Improved support for vertical and right-to-left books"
 msgstr "Улучшена поддержка вертикальных книг и книг справа-налево"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
 msgid "Support for StarDict dictionaries"
 msgstr "Поддержка словарей StarDict"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:144
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
 msgid "Fixed current location not preserved when resizing"
 msgstr ""
 "Исправлена ошибка с не сохранением текущего местоположения при изменении "
 "размера"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:145
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:150
 msgid "Fixed auto-hiding header bar under some themes"
 msgstr ""
 "Исправлено автоматическое скрытие панели заголовка под некоторыми темами"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:146
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
 msgid "Command-line options for showing version and adding books to library"
 msgstr ""
 "Параметры командной строки для отображения версии и добавления книг в "
 "библиотеку"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:147
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
 msgid "Option to clear or disable cache"
 msgstr "Параметр для очистки или выключения кеширования"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
 msgid ""
 "When an HTML page contains invalid self-closing anchor tags, it is now "
 "parsed as XHTML"
@@ -3384,63 +3390,63 @@ msgstr ""
 "Когда HTML-страница содержит недопустимые самозакрывающиеся теги привязки, "
 "теперь анализируется как XHTML"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:154
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:248
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:315
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:355
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:360
 msgid "Fixes:"
 msgstr "Исправления:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:156
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
 msgid "Fixed wrong version number"
 msgstr "Исправлен неправильный номер версии"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:157
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:162
 msgid ""
 "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
 msgstr ""
 "Исправлена ошибка: словарь, перевод и Википедия не работали в Snap пакете"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:163
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:324
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:347
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:168
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:329
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:352
 msgid "New features:"
 msgstr "Новые функции:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:165
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
 msgid "New and improved icon"
 msgstr "Новая улучшенная иконка"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
 msgid "Option to disable turn page on tap"
 msgstr "Возможность отключить перелистывание по нажатию"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:167
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
 msgid "A menu on the welcome screen for opening recent files"
 msgstr "Меню для открытия недавних файлов на экране приветствия"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:168
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:173
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
 msgstr "Восстановлены ярлыки для отображения примечаний, закладок"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:177
 msgid "Fixed application not translated"
 msgstr "Исправления перевода"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:178
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:183
 msgid "Interface:"
 msgstr "Интерфейс:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:185
 msgid "A redesigned interface that works better for smaller screens"
 msgstr "Редизайн интерфейса для лучшей работы на маленьких экранах"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:181
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:186
 msgid "Improved fullscreen mode with an overlaid headerbar"
 msgstr "Улучшен полноэкранный режим"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:182
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:187
 msgid ""
 "The headerbar and the progress bar now auto-hide, for a distraction-free "
 "reading experience"
@@ -3448,7 +3454,7 @@ msgstr ""
 "Заголовок и полоска прогресса автоматически скрываются что не отвлекать от "
 "чтения"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:183
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
 msgid ""
 "Various location information, as well as a clock, can now be displayed in "
 "the footer"
@@ -3456,7 +3462,7 @@ msgstr ""
 "Различная дополнительная информация, например часы, может отображаться в "
 "футере"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:184
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
 msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
@@ -3464,7 +3470,7 @@ msgstr ""
 "Новая всплывашка (Ctrl + L) которая показывает ожидаемое время прочтения и "
 "позволяет перемещаться между расположениями"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:185
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:190
 msgid ""
 "E-reader style navigation: go to the previous or next page by tapping on the "
 "left or right part of the view; tap on the middle to toggle header bar and "
@@ -3474,22 +3480,22 @@ msgstr ""
 "страницу нажмите на левую или правую часть экрана; нажатие на центральную "
 "часть переключает отображение заголовка и полоски прогресса"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:186
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
 msgid "Annotations, bookmarks, and find results now show chapter titles"
 msgstr ""
 "Примечания, закладки и результаты поиска теперь отображают название главы"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:187
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
 msgid "When looking up words in dictionaries, the query can now be edited"
 msgstr "При поиске слова в словаре запрос может быть отредактирован"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:193
 msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr ""
 "Новые горячие клавиши для показа метаинформации (Ctrl + I) и настроек (Ctrl "
 "+ ,)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:194
 msgid ""
 "A new traditional menubar, which may be displayed depending on the desktop "
 "environment"
@@ -3497,82 +3503,82 @@ msgstr ""
 "Новая дополнительная панель меню, которая может отображаться в зависимости "
 "от окружения рабочего стола"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:190
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:195
 msgid ""
 "Option to use a traditional titlebar and menubar instead of a headerbar "
 "(experimental)"
 msgstr "Возможность использования традиционного заголовка и меню вместо шапки"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
 msgid "Reading:"
 msgstr "Чтение:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:194
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
 msgid "Continuous scrolling layout"
 msgstr "Непрерывный вид отображения"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:195
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
 msgid ""
 "Option to show decorative shadows that mimic the appearance of a real book"
 msgstr "Декоративные тени для схожести с реальной книгой"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:196
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:201
 msgid "Ability to zoom in and zoom out"
 msgstr "Возможность менять масштаб"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
 msgid "Improved image viewer with \"save as\" option"
 msgstr "Улучшено отображение картинок с возможностью сохранения"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:198
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:203
 msgid "Open copies of a book in new windows (Ctrl + N)"
 msgstr "Открыть копию книги в новом окне (Ctrl + N)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:204
 msgid "Reload book (Ctrl + R)"
 msgstr "Перезагрузить книгу (Ctrl + R)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:205
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
 msgstr "Новые встроенные темы: Серая, Solarized, Gruvbox, Северная"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:207
 msgid "Text selection:"
 msgstr "Выделение текста:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:204
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
 msgid "Ability to select text across pages"
 msgstr "Возможность выделять текст между страницами"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:205
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
 msgid "Find selected text in book"
 msgstr "Поиск по книге"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:206
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
 msgid "Speak selected text or from the selected locatio"
 msgstr "Произнести выделенный текст или текст из выделенного расположения"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:208
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
 msgid "Annotations:"
 msgstr "Примечания:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
 msgid "Spellcheck notes"
 msgstr "Проверка орфографии в заметках"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
 msgid "Export annotations to Markdown"
 msgstr "Экспортировать примечания в Markdown"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:212
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
 msgid "Options to use custom colors for highlights"
 msgstr "Возможность использовать свои цвета для выделения"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:214
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
 msgid "For publishers and developers:"
 msgstr "Для издателей и разработчиков:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
 msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
@@ -3580,188 +3586,188 @@ msgstr ""
 "Поддержка атрибута тем Apple Books, что позволяет книгам распознавать темы "
 "без JavaScript"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
 msgid "WebKit's developer tools can be enabled"
 msgstr "Стали доступны средства разработчика WebKit"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:224
 msgid "Breaking changes:"
 msgstr "Ломающие изменения:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:226
 msgid "The settings schemas has been reorganized"
 msgstr "Реорганизована схема настроек"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:227
 msgid "The format for custom themes has changed"
 msgstr "Формат пользовательских тем был изменён"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:223
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:228
 msgid "Locations are now 1024 characters in size"
 msgstr "Расположения теперь имеют размер 1024 символов"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:225
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
 msgid "Bug fixes:"
 msgstr "Исправления ошибок:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:227
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:232
 msgid "Fixed not restoring exact last location"
 msgstr "Исправлено неправильное восстановление последней позиции"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:228
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:233
 msgid "Fixed navigation not working with scrolled layout"
 msgstr "Исправлена навигация не работавшая в виде с прокруткой"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:229
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
 msgstr ""
 "Исправлено масштабирование шрифта в книгах использующих абсолютные размеры"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:235
 msgid "Fixed text cut off at margin edge"
 msgstr "Исправлена обрезка текста на границе отступа"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:231
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:236
 msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
 msgstr ""
 "Исправлена невозможность открытия книг у которых имя содержит \"#\" или \"?\""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:239
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:244
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr "Flatpack версия не может открыть .mobi, .azw, и .azw3 файлы"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:240
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:245
 msgid "Improved Wiktionary lookup, now with links and example sentences"
 msgstr "Улучшенный вики-поиск, теперь со ссылками и примерами"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:241
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:246
 msgid "Improved popover footnote extraction and formatting"
 msgstr "Улучшенное форматирование и извлечение сносок"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:247
 msgid "Added option to export annotations to BibTeX"
 msgstr "Добавлена опция для экспорта примечаний в BibTeX"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:250
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:255
 msgid "Fixed table of contents navigation not working with some books"
 msgstr "Исправлена навигация по оглавлению не работавшая в некоторых книгах"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:251
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:256
 msgid "Fixed not being able to zoom images with Kindle books"
 msgstr "Исправлено масштабирование картинок в Kindle книгах"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:252
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:257
 msgid "Fixed not being able to open books with .epub3 filename extension"
 msgstr "Исправлена невозможность открытия книг с расширением .epub3"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:258
 msgid "Fixed temporary directory not being cleaned after closing"
 msgstr "Исправлена очистка временной директории после закрытия"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:261
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:266
 msgid "Fixed F9 shortcut not working"
 msgstr "Исправлена неработающая клавиша F9"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:262
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:297
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:267
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:302
 msgid "Updated translations"
 msgstr "Обновлены переводы"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:270
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:275
 msgid "External resources and JavaScript are now blocked by default"
 msgstr "Внешние ресурсы и Javascript теперь заблокированы по умолчанию"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:271
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:276
 msgid "Basic text-to-speech support"
 msgstr "Базовая поддержка озвучки текста"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:272
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:277
 msgid "Export annotations to HTML, plain text, or JSON"
 msgstr "Экспорт примечаний в HTML, текстовый формат или JSON"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:273
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:278
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
 msgstr "Поддержка .mobi, .azw, и .azw3 форматов"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:281
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:286
 msgid "New alternative sidebar UI"
 msgstr "Новый альтернативный интерфейс боковой панели"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:282
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:287
 msgid "Lookup words in Wikipedia and offline dictionaries"
 msgstr "Ищите слова в Википедии и оффлайн-словарях"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:283
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:288
 msgid "Translate passages with Google Translate"
 msgstr "Переводите предложения с Google Translate"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:284
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:289
 msgid "Configure default action when words are selected"
 msgstr "Настроить действие по умолчанию когда выбрано несколько слов"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:285
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:290
 msgid "Experimental popup footnote support"
 msgstr "Экспериментальная поддержка всплывающих сносок"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:286
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:291
 msgid "Ability to find within only the current chapter"
 msgstr "Возможность искать только в текущей главе"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:287
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:292
 msgid "Fixed CPU spikes when left open"
 msgstr "Исправлено потребление CPU"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:288
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:293
 msgid "Fixed highlights not rendering at the correct positions"
 msgstr "Исправлен рендеринг выделений"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:296
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:301
 msgid "Fixed crashing when opening files"
 msgstr "Исправлено падение при открытии файлов"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:305
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:310
 msgid "Customize page margins and brightness"
 msgstr "Изменены отступы и яркость страницы"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:306
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:311
 msgid "Tweak the theme colors, or add your own custom themes"
 msgstr "Настройте цветовую тему, или создайте свою собственную"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:307
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:312
 msgid "Ability to zoom and copy images"
 msgstr "Возможность увеличивать и копировать изображения"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:308
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:313
 msgid "Option to auto-hide cursor"
 msgstr "Возможность скрывать курсор"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:309
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:314
 msgid "See reading time left by hovering over the reading progress slider"
 msgstr ""
 "Показать оставшееся время чтения при наведении курсора на строку прогресса"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:317
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:322
 msgid "Fixed some books not rendering sometimes"
 msgstr "Исправлен рендеринг некоторых книг"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:318
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:323
 msgid "Fixed images being too wide in some cases"
 msgstr "Исправлены слишком широкие изорбражения"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:327
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:332
 msgid "Option to switch between left and full justification"
 msgstr "Возможность выравнивания слева или по ширине"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:328
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:333
 msgid "New layout option: single-column paginated view"
 msgstr "Новый способ отображения: возможность просмотра по одной странице"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:330
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:335
 msgid "Fixed:"
 msgstr "Исправления:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:332
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:337
 msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
@@ -3769,49 +3775,49 @@ msgstr ""
 "Сгенерированные местоположения теперь хранятся в кеше директории а не в "
 "localStorage"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:340
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:345
 msgid "Allow font size adjustment when using publisher fonts"
 msgstr "Возможность менять размер шрифта издателя"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:341
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:346
 msgid ""
 "Fixed reading progress slider not appearing after localStorage quota is "
 "exceeded"
 msgstr "Исправлено исчезновение строки прогресса при переполнении localStorage"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:349
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:354
 msgid "Touchpad gestures and ability to scroll through pages"
 msgstr "Жесты тачпада и возможность скроллить постранично"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:350
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:355
 msgid "Fullscreen mode"
 msgstr "На весь экран"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:351
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:356
 msgid "Option to hide reading progress bar"
 msgstr "Возможность скрыть ползунок навигации"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:352
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:357
 msgid "Option to disable dictionary"
 msgstr "Возможность отключить словарь"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:353
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:358
 msgid "Option to use publisher font"
 msgstr "Возможность использовать шрифт издателя"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:357
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:362
 msgid "Restoring reading progress is now smooth and jank-free"
 msgstr "Переход к месту, где вы остановились в прошлый раз, стал более плавным"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:358
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:363
 msgid "Fixed custom styles not applying in some cases"
 msgstr "Исправлена возможность добавлять свои стили"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:364
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:369
 msgid "Fixed invalid AppData file"
 msgstr "Исправлен некорректный файл AppData"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:369
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:374
 msgid "Initial release"
 msgstr "Начальный релиз"
 
