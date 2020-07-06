@@ -15961,7 +15961,7 @@ function request_request(url, type, withCredentials, headers) {
         } else if (type == "xhtml") {
           r = Object(core["parse"])(this.response, "application/xhtml+xml");
         } else if (type == "html" || type == "htm") {
-          r = Object(core["parse"])(this.response, /<\s*a[^>]*\/>/gi.test(this.response) ? "application/xhtml+xml" : "text/html");
+          r = Object(core["parse"])(this.response, "text/html");
         } else if (type == "json") {
           r = JSON.parse(this.response);
         } else if (type == "blob") {
@@ -18879,7 +18879,7 @@ class archive_Archive {
     } else if (type == "xhtml") {
       r = Object(core["parse"])(response, "application/xhtml+xml");
     } else if (type == "html" || type == "htm") {
-      r = Object(core["parse"])(response, "text/html");
+      r = Object(core["parse"])(this.response, /<\s*a[^>]*\/>/gi.test(this.response) ? "application/xhtml+xml" : "text/html");
     } else {
       r = response;
     }
