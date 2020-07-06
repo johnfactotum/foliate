@@ -18879,7 +18879,7 @@ class archive_Archive {
     } else if (type == "xhtml") {
       r = Object(core["parse"])(response, "application/xhtml+xml");
     } else if (type == "html" || type == "htm") {
-      r = Object(core["parse"])(this.response, /<\s*a[^>]*\/>/gi.test(this.response) ? "application/xhtml+xml" : "text/html");
+      r = Object(core["parse"])(response, /<\s*a[^>]*\/>/gi.test(response) ? "application/xhtml+xml" : "text/html");
     } else {
       r = response;
     }
