@@ -92,6 +92,18 @@ const makeActions = app => ({
         settings.bind('cache-locations', $('cacheLocations'), 'state', flag)
         settings.bind('cache-covers', $('cacheCovers'), 'state', flag)
 
+        const opdsAction = librarySettings.get_string('opds-action')
+        const $opdsAction = str => $('opds_' + str)
+        $opdsAction(opdsAction).active = true
+        ;['auto', 'ask'].forEach(x => {
+            const button = $opdsAction(x)
+            button.connect('toggled', () => {
+                if (button.active) librarySettings.set_string('opds-action', x)
+            })
+        })
+        $('opdsAutoDir').label = GLib.build_filenamev(
+            [GLib.get_user_data_dir(), pkg.name, 'books'])
+
         const updateAHBox = () => {
             const available =
                 !viewSettings.get_boolean('skeuomorphism')
@@ -177,10 +189,13 @@ const makeActions = app => ({
     'library': () => {
         const existingLibraryWindow =
             app.get_windows().find(window => window instanceof LibraryWindow)
+        const activeWindow = app.active_window
 
-        if (existingLibraryWindow) existingLibraryWindow.present()
-        else {
-            app.active_window.close()
+        if (existingLibraryWindow) {
+            if (activeWindow.modal) activeWindow.close()
+            existingLibraryWindow.present()
+        } else {
+            activeWindow.close()
             new LibraryWindow({ application: app }).present()
         }
     },
@@ -318,6 +333,9 @@ function main(argv) {
             ['lib.main-menu', ['F10']],
             ['lib.search', ['<ctrl>f']],
             ['lib.close', ['<ctrl>w']],
+            ['lib.opds-back', ['<alt>Left']],
+            ['opds.reload', ['<ctrl>r']],
+            ['opds.location', ['<ctrl>l']],
 
             ['win.close', ['<ctrl>w']],
             ['win.reload', ['<ctrl>r']],
@@ -410,8 +428,8 @@ function main(argv) {
             }
 
             .foliate-emblem {
-                color: white;
-                background: gray;
+                background: @theme_fg_color;
+                color: @theme_bg_color;
                 border-radius: 100%;
                 padding: 6px;
                 opacity: 0.9;
@@ -426,6 +444,25 @@ function main(argv) {
             .foliate-select {
                 color: #fff;
                 background: rgba(0, 0, 0, 0.4);
+            }
+
+            .foliate-title-main {
+                font-size: 1.18em;
+                font-weight: bold;
+            }
+            .foliate-title-subtitle {
+                font-size: 1.13em;
+                font-weight: 300;
+            }
+            .foliate-title-collection {
+                font-size: smaller;
+            }
+            .foliate-authority-label {
+                font-size: smaller;
+                font-weight: bold;
+                border: 1px solid;
+                border-radius: 5px;
+                padding: 0 5px;
             }
         `)
         Gtk.StyleContext.add_provider_for_screen(

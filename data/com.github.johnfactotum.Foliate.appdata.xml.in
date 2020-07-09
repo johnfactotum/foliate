@@ -44,6 +44,31 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="2.4.2" date="2020-07-06">
+            <description>
+                <p>Fixed unable to open some EPUB files</p>
+            </description>
+        </release>
+        <release version="2.4.1" date="2020-07-06">
+            <description>
+                <p>Fixed unable to open Mobipocket files</p>
+            </description>
+        </release>
+        <release version="2.4.0" date="2020-07-02">
+            <description>
+                <p>Changes:</p>
+                <ul>
+                    <li>Improved metadata display</li>
+                    <li>Improved FictionBook rendering</li>
+                    <li>Improved UI for acquiring books from OPDS</li>
+                    <li>Fixed unique identifier extraction for EPUB files</li>
+                    <li>Fixed missing window icon</li>
+                    <li>Fixed TTS environment variables not set when using Flatpak</li>
+                    <li>Fixed eSpeak NG voice not selected when testing TTS configuration</li>
+                    <li>Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.3.0" date="2020-06-18">
             <description>
                 <p>OPDS catalogs:</p>

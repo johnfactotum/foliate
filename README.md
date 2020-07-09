@@ -50,7 +50,7 @@ Debian packages can be downloaded from the [releases](https://github.com/johnfac
 
 #### Optional dependencies
 
-`iso-codes (>= 3.67)` is needed for displaying langauge and region names.
+`iso-codes (>= 3.67)` is needed for displaying language and region names.
 
 For Mobipocket (.mobi) and Kindle File Format (.azw, .azw3) support, you would need Python (2.7 or >= 3.4).
 
@@ -65,8 +65,6 @@ To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based 
 `libhandy` (`gir1.2-tracker-2.0`) is recommended to make the interface work better on larger as well as smaller screens.
 
 If `tracker` (`gir1.2-tracker-2.0`) is installed, it can be used to track the locations of files.
-
-`libsoup` (`gir1.2-soup-2.4`) is required for opening remote files.
 
 ### Building manually from source
 

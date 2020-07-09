@@ -38,7 +38,7 @@ var debounce = (f, wait, immediate) => {
     }
 }
 
-const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf } = imports.gi
+const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf, WebKit2 } = imports.gi
 const ByteArray = imports.byteArray
 const ngettext = imports.gettext.ngettext
 const { iso_639_2_path, iso_3166_1_path } = imports.isoCodes
@@ -248,6 +248,30 @@ var mimetypes = {
     cbt: 'application/x-cbt',
 }
 
+var getMimetype = key => mimetypes[key]
+var mimetypesThatWeCan = {
+    // all supported files
+    open: Object.keys(mimetypes).map(getMimetype),
+    // show in file choosers
+    choose: [
+        'epub', 'mobi', 'kindle', 'kindleAlias', 'fb2', 'fb2zip',
+        'cbz', 'cbr', 'cb7', 'cbt'
+    ].map(getMimetype),
+    // formats where we let the user add annotations without warning
+    annotate: [
+        'directory', 'json', 'xml', 'epub', 'mobi', 'kindle', 'kindleAlias'
+    ].map(getMimetype)
+}
+
+var mimetypeCan = {
+    open: type => mimetypesThatWeCan.open.includes(type),
+    choose: type => mimetypesThatWeCan.choose.includes(type),
+    annotate: type => mimetypesThatWeCan.annotate.includes(type),
+}
+var mimetypeIs = {
+    fb2: type => [mimetypes.fb2, mimetypes.fb2zip].includes(type)
+}
+
 var fileFilters = {
     all: new Gtk.FileFilter(),
     ebook: new Gtk.FileFilter()
@@ -255,15 +279,8 @@ var fileFilters = {
 fileFilters.all.set_name(_('All Files'))
 fileFilters.all.add_pattern('*')
 fileFilters.ebook.set_name(_('E-book Files'))
-fileFilters.ebook.add_mime_type(mimetypes.epub)
-fileFilters.ebook.add_mime_type(mimetypes.mobi)
-fileFilters.ebook.add_mime_type(mimetypes.kindle)
-fileFilters.ebook.add_mime_type(mimetypes.fb2)
-fileFilters.ebook.add_mime_type(mimetypes.fb2zip)
-fileFilters.ebook.add_mime_type(mimetypes.cbz)
-fileFilters.ebook.add_mime_type(mimetypes.cbr)
-fileFilters.ebook.add_mime_type(mimetypes.cb7)
-fileFilters.ebook.add_mime_type(mimetypes.cbt)
+mimetypesThatWeCan.choose
+    .forEach(type => fileFilters.ebook.add_mime_type(type))
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
 var execCommand = (argv, input = null, waitCheck, token, inFlatpak, envs) =>
@@ -319,6 +336,26 @@ var recursivelyDeleteDir = dir => {
         else if (type == Gio.FileType.DIRECTORY) recursivelyDeleteDir(child)
     }
     dir.delete(null)
+}
+
+var listDir = function* (file) {
+    const path = file.get_path()
+    if (!GLib.file_test(path, GLib.FileTest.IS_DIR)) {
+        debug(`"${path}" is not a directory`)
+        return
+    }
+    const children = file.enumerate_children('standard::name',
+        Gio.FileQueryInfoFlags.NONE, null)
+
+    let info
+    while ((info = children.next_file(null)) != null) {
+        try {
+            const name = info.get_name()
+            yield name
+        } catch (e) {
+            continue
+        }
+    }
 }
 
 var Storage = GObject.registerClass({
@@ -618,7 +655,7 @@ var linkIsRel = (link, rel) => {
         : rels.some(x => x === rel)
 }
 
-var makeLinksButton = (params, links, onActivate) => {
+var makeLinksButton = (params, links, onActivate, defaultLink) => {
     const popover = new Gtk.PopoverMenu()
     const box = new Gtk.Box({
         visible: true,
@@ -626,14 +663,13 @@ var makeLinksButton = (params, links, onActivate) => {
         margin: 10
     })
     popover.add(box)
-    const button = new Gtk.MenuButton(Object.assign({ popover }, params, { label: null }))
-    const buttonBox =  new Gtk.Box({ spacing: 3 })
-    const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
-    buttonBox.pack_start(new Gtk.Label({ label: params.label }), true, true, 0)
-    buttonBox.pack_end(icon, false, true, 0)
-    button.add(buttonBox)
-    button.show_all()
-    links.forEach(({ href, type, title, tooltip }) => {
+
+    links.forEach(link => {
+        if (link instanceof Gtk.Widget) {
+            box.pack_start(link, false, true, 0)
+            return
+        }
+        const { href, type, title, tooltip } = link
         const menuItem = new Gtk.ModelButton({
             visible: true,
             text: title,
@@ -642,9 +678,192 @@ var makeLinksButton = (params, links, onActivate) => {
         menuItem.connect('clicked', () => onActivate({ href, type }))
         box.pack_start(menuItem, false, true, 0)
     })
+
+    if (defaultLink) {
+        const button = new Gtk.Button(params)
+        button.connect('clicked', () => onActivate(defaultLink))
+        const down = new Gtk.MenuButton({
+            popover,
+            image: new Gtk.Image({ icon_name: 'pan-down-symbolic' })
+        })
+        const box = new Gtk.Box()
+        box.pack_start(button, true, true, 0)
+        box.pack_start(down, false, true, 0)
+        box.get_style_context().add_class('linked')
+        box.show_all()
+        return box
+    }
+
+    const button = new Gtk.MenuButton(Object.assign({ popover }, params, { label: null }))
+    const buttonBox =  new Gtk.Box({ spacing: 3 })
+    const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
+    buttonBox.pack_start(new Gtk.Label({ label: params.label }), true, true, 0)
+    buttonBox.pack_end(icon, false, true, 0)
+    button.add(buttonBox)
+    button.show_all()
     return button
+}
+
+var unorderedListStyleFunc = () => {
+    const dot = new Gtk.Label({
+        visible: true,
+        label: '•',
+        xalign: 1
+    })
+    dot.get_style_context().add_class('dim-label')
+    return dot
+}
+var makeList = (widgets, listStyleFunc = unorderedListStyleFunc) => {
+    const grid = new Gtk.Grid({
+        visible: true,
+        column_spacing: 6
+    })
+    widgets.forEach((widget, i) => {
+        if (!(widget instanceof Gtk.Widget)) {
+            widget = new Gtk.Label(Object.assign({
+                visible: true,
+                selectable: true,
+                xalign: 0,
+                wrap: true,
+            }, widget))
+        }
+        const marker = listStyleFunc(i)
+        if (marker) grid.attach(marker, 0, i, 1, 1)
+        grid.attach(widget, 1, i, 1, 1)
+    })
+    return grid
 }
 
 var sepHeaderFunc = row => {
     if (row.get_index()) row.set_header(new Gtk.Separator())
 }
+
+var promptAuthenticate = (req, username, password, toplevel) => {
+    if (username) {
+        const cred = new WebKit2.Credential(username, password,
+            WebKit2.CredentialPersistence.FOR_SESSION)
+        req.authenticate(cred)
+        return true
+    }
+    const msg = new Gtk.MessageDialog({
+        text: _('Authentication Required'),
+        secondary_text:
+            _('Authentication required by %s')
+                .format(req.get_host())
+            + '\n'
+            + _('The site says: “%s”').format(req.get_realm()),
+        message_type: Gtk.MessageType.ERROR,
+        modal: true,
+    })
+    msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+    msg.add_button(_('Authenticate'), Gtk.ResponseType.OK)
+    msg.set_default_response(Gtk.ResponseType.OK)
+    msg.get_widget_for_response(Gtk.ResponseType.OK)
+        .get_style_context().add_class('suggested-action')
+
+    if (toplevel instanceof Gtk.Window)
+        msg.transient_for = toplevel
+
+    const grid = new Gtk.Grid({
+        row_spacing: 6,
+        column_spacing: 6
+    })
+    const uLabel = new Gtk.Label({
+        xalign: 1,
+        label: _('Username')
+    })
+    const pLabel = new Gtk.Label({
+        xalign: 1,
+        label: _('Password')
+    })
+    uLabel.get_style_context().add_class('dim-label')
+    pLabel.get_style_context().add_class('dim-label')
+    const uEntry = new Gtk.Entry()
+    const pEntry = new Gtk.Entry({
+        visibility: false,
+        input_purpose: Gtk.InputPurpose.PASSWORD
+    })
+    grid.attach(uLabel, 0, 0, 1, 1)
+    grid.attach(uEntry, 1, 0, 1, 1)
+    grid.attach(pLabel, 0, 1, 1, 1)
+    grid.attach(pEntry, 1, 1, 1, 1)
+    grid.show_all()
+    msg.message_area.pack_start(grid, false, true, 0)
+
+    const ok = () =>
+        msg.get_widget_for_response(Gtk.ResponseType.OK).activate()
+    pEntry.connect('activate', ok)
+    uEntry.connect('activate', ok)
+
+    if (msg.run() === Gtk.ResponseType.OK) {
+        const cred = new WebKit2.Credential(uEntry.text, pEntry.text,
+            WebKit2.CredentialPersistence.FOR_SESSION)
+        req.authenticate(cred)
+    } else req.cancel()
+
+    msg.destroy()
+    return true
+}
+
+var downloadWithWebKit = (uri, decideDestination, onProgress, token, toplevel) =>
+    new Promise((resolve, reject) => {
+        const webView = new WebKit2.WebView({
+            settings: new WebKit2.Settings({
+                enable_write_console_messages_to_stdout: true,
+                user_agent
+            })
+        })
+        webView.connect('authenticate', (webview, req) =>
+            promptAuthenticate(req, null, null, toplevel))
+
+        const webContext = WebKit2.WebContext.get_default()
+        const connection = webContext.connect('download-started', (ctx, download) => {
+            debug('download-started')
+
+            download.set_allow_overwrite(true)
+
+            if (token) token.cancel = () => download.cancel()
+
+            download.connect('decide-destination', (download, suggestedName) => {
+                debug('decide-destination')
+                const destination = typeof decideDestination === 'string'
+                    ? decideDestination
+                    : decideDestination(download, suggestedName)
+                if (destination) {
+                    debug(`destination: ${destination}`)
+                    download.set_destination(destination)
+                }
+            })
+            download.connect('failed', (download, err) => {
+                logError(err)
+                reject(err)
+            })
+            download.connect('notify::estimated-progress', download => {
+                const progress = download.estimated_progress
+                debug(`progress: ${progress}`)
+                if (onProgress) onProgress(progress)
+            })
+            download.connect('finished', () => {
+                debug('finished')
+                if (token) token.cacel = null
+                ctx.disconnect(connection)
+                webView.destroy()
+                resolve()
+            })
+        })
+
+        webView.download_uri(uri)
+    })
+
+var getFileInfoAsync = (file, attributes = 'standard::content-type') =>
+    new Promise((resolve, reject) => file.query_info_async(
+        attributes,
+        Gio.FileQueryInfoFlags.NONE,
+        GLib.PRIORITY_DEFAULT, null,
+        (file, res) => {
+            try {
+                resolve(file.query_info_finish(res))
+            } catch (e) {
+                reject(e)
+            }
+        }))

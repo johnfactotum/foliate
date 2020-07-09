@@ -37,7 +37,7 @@ const espeakGetVoice = (espeakVoices, language) => {
         .filter(x => x)         // and empty lines
         .map(x => {
             // I think "Pty" means "priority"
-            const [pty, lang, ageGender, voiceName, file, ...otherLangs] = x.split(/\s+/)
+            const [pty, lang, /*ageGender*/, /*voiceName*/, file, ...otherLangs] = x.split(/\s+/)
 
             const otherLanguages = otherLangs
                 // reverse the earlier split...
@@ -66,6 +66,15 @@ const espeakGetVoice = (espeakVoices, language) => {
     return result.file
 }
 
+const getEseapkVoice = async language => {
+    try {
+        const espeakVoices = await execCommand(['espeak-ng', '--voices'])
+        return espeakGetVoice(espeakVoices, language)
+    } catch (e) {
+        logError(e)
+    }
+}
+
 const TTS = GObject.registerClass({
     GTypeName: 'FoliateTTS',
     Properties: {
@@ -81,14 +90,6 @@ const TTS = GObject.registerClass({
         this._epub = null
         this._shouldGetEspeakVoice = false
         this._espeakVoice = null
-    }
-    async _getEseapkVoice(language) {
-        try {
-            const espeakVoices = await execCommand(['espeak-ng', '--voices'])
-            return espeakGetVoice(espeakVoices, language)
-        } catch (e) {
-            logError(e)
-        }
     }
     get epub() {
         return this._epub
@@ -110,7 +111,7 @@ const TTS = GObject.registerClass({
 
             const lang = epub.metadata.language
             const getCommand = this._shouldGetEspeakVoice
-                ? this._getEseapkVoice(lang)
+                ? getEseapkVoice(lang)
                     .then(voice => this._command.concat(['-v', voice]))
                     .catch(() => this._command)
                 : Promise.resolve(replaceVars(this._command, lang))
@@ -241,17 +242,31 @@ var ttsDialog = (window) => {
         if (button.active === speaking) return
         if (button.active) {
             const testLang = $('testLang').text
-            const command = getCommand()
-            const argv = command
-                ? replaceVars(GLib.shell_parse_argv(command)[1], testLang)
-                : null
-            speaking = true
+            const command = GLib.shell_parse_argv(getCommand())[1]
 
+            const shouldGetEspeakVoice =  command
+                && command[0] === 'espeak-ng'
+                && command.every(a => a !== '-v')
+
+            const getArgv = shouldGetEspeakVoice
+                ? getEseapkVoice(testLang)
+                    .then(voice => command.concat(['-v', voice]))
+                    .catch(() => command)
+                : Promise.resolve(replaceVars(command, testLang))
+
+            let argv
             const opts = id =>
                 [argv, $(id).buffer.text, true, token, false, makeEnv(testLang)]
 
-            execCommand(...opts('test1'))
-                .then(() => { if (speaking) return execCommand(...opts('test2')) })
+            getArgv
+                .then(x => {
+                    argv = x
+                    speaking = true
+                    return execCommand(...opts('test1'))
+                })
+                .then(() => {
+                    if (speaking) return execCommand(...opts('test2'))
+                })
                 .catch(e => logError(e))
                 .then(() => button.active = false)
         } else if (token.interrupt) {
@@ -262,6 +277,10 @@ var ttsDialog = (window) => {
 
     const dialog = $('ttsDialog')
     if (window) dialog.transient_for = window
+
+    dialog.connect('destroy', () => {
+        if (token.interrupt) token.interrupt()
+    })
 
     const res = dialog.run()
     if (res === Gtk.ResponseType.OK)

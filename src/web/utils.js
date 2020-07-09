@@ -59,9 +59,17 @@ const resolveURL = (url, relativeTo) => {
     return new URL(url, base + relativeTo).href.replace(base, '')
 }
 
+const trim = x => x ? x.trim() : x
+
+const unescapeHTML = str => {
+    const textarea = document.createElement('textarea')
+    textarea.innerHTML = str
+    return textarea.value
+}
+
 // Remove whitespace like CSS `white-space: normal`
 const whitespaceNormal = str =>
-    str ? str.replace(/\r?\n/g, ' ').replace(/(\s){2,}/g, ' ') : 0
+    str ? str.replace(/\r?\n/g, ' ').replace(/(\s){2,}/g, ' ') : ''
 
 // from https://stackoverflow.com/a/11892228
 const usurp = p => {
@@ -110,6 +118,5 @@ const toPangoMarkup = (html, baseURL = '') => {
         })
         if (nodeName === 'a' && !el.hasAttribute('href')) usurp(el)
     })
-    return doc.body.innerHTML.trim().replace(/&nbsp;/g, ' ')
-        .replace(/&amp;/g, '&').replace(/&/g, '&amp;')
+    return unescapeHTML(doc.body.innerHTML.trim()).replace(/&/g, '&amp;')
 }
