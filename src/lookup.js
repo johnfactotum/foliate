@@ -317,7 +317,7 @@ const dictionaries = {
 }
 execCommand(['dict', '--dbs', '--formatted'])
     .then(stdout => parseDictDbs(stdout).forEach(db =>
-        dictionaries['dcitd_' + db.id] =
+        dictionaries['dictd_' + db.id] =
             makeDictdDict(db.id, db.name)))
     .catch(() => {})
 
