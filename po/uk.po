@@ -8,37 +8,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 15:35+0800\n"
-"PO-Revision-Date: 2020-06-14 15:03+0300\n"
+"POT-Creation-Date: 2020-07-12 18:44+0800\n"
+"PO-Revision-Date: 2020-07-08 15:09+0300\n"
 "Last-Translator: Anton Isachenko <antonyua23@gmail.com>\n"
-"Language-Team:  <trans-uk@lists.fedoraproject.org>\n"
+"Language-Team: <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
 #: src/main.js:209 src/window.js:1001 src/schemes.js:100
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
-msgstr ""
+msgstr "Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "eBook Viewer"
-msgstr ""
+msgstr "Переглядач електронних книг"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
-#, fuzzy
 msgid "View eBooks"
-msgstr "Google Books"
+msgstr "Переглянути електронні книги"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:13
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr ""
+msgstr "Е-книга;Книга;EPUB;Переглядач;Читач;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
 #: src/ui/libraryWindow.ui:612 src/ui/mainMenu.ui:304
@@ -57,7 +56,7 @@ msgstr "Зберегти поточну позицію"
 
 #: src/contents.js:268
 msgid "No results"
-msgstr "Нічого не знайдено"
+msgstr "Немає результатів"
 
 #: src/contents.js:269
 #, javascript-format
@@ -70,7 +69,7 @@ msgstr[3] "%d результат"
 
 #: src/contents.js:280
 msgid "Searching…"
-msgstr "Пошук триває…"
+msgstr "Пошук…"
 
 #: src/contents.js:303
 msgid "Bibliography"
@@ -78,20 +77,20 @@ msgstr "Бібліографія"
 
 #: src/contents.js:304
 msgid "Glossary"
-msgstr "Глосарій"
+msgstr "Словник"
 
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
 msgid "Annotation"
-msgstr "Анотація"
+msgstr "Примітка"
 
 #: src/contents.js:309
 msgid "Footnote"
-msgstr "Виноска"
+msgstr "Зноска"
 
 #: src/contents.js:310 src/contents.js:311
 msgid "Endnote"
-msgstr ""
+msgstr "Кінцева примітка"
 
 #. deprecated
 #: src/contents.js:312 src/contents.js:339
@@ -108,30 +107,30 @@ msgstr "Файл не знайдено."
 
 #: src/epubView.js:1072
 msgid "Could not unpack Kindle file."
-msgstr "Неможливо розпакувати файл Kindle."
+msgstr "Не вдалося розпакувати файл Kindle."
 
 #: src/epubView.js:1088
 msgid "File type not supported."
-msgstr "Цей тип файла не підтримується."
+msgstr "Цей тип файлу не підтримується."
 
 #: src/export.js:35
 #, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr "<p>Анотації для</p><h1>%s</h1><h2>від %s</h2>"
+msgstr "<p>Примітка для</p><h1>%s</h1><h2>від %s</h2>"
 
 #: src/export.js:37 src/export.js:51 src/export.js:63
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "%d анотація"
-msgstr[1] "%d анотації"
-msgstr[2] "%d анотацій"
+msgstr[0] "%d примітка"
+msgstr[1] "%d примітки"
+msgstr[2] "%d приміток"
 msgstr[3] "%d анотація"
 
 #: src/export.js:50
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "Анотації для «%s» від %s"
+msgstr "Примітка для «%s» від %s"
 
 #: src/export.js:54
 msgid "Section: "
@@ -139,7 +138,7 @@ msgstr "Розділ: "
 
 #: src/export.js:55
 msgid "Highlight: "
-msgstr "Висвітлювання: "
+msgstr "Виділення: "
 
 #: src/export.js:56
 msgid "Text:"
@@ -152,7 +151,7 @@ msgstr "Примітка:"
 #: src/export.js:62
 #, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr "Анотація для *%s* від %s"
+msgstr "Примітка для *%s* від %s"
 
 #: src/export.js:96
 msgid "Quote: "
@@ -164,15 +163,15 @@ msgstr " Примітка: "
 
 #: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
 msgid "No annotations"
-msgstr "Без анотації"
+msgstr "Приміток немає"
 
 #: src/export.js:105
 msgid "You don't have any annotations for this book."
-msgstr "Ви не маєте жодної анотації до цієї книги."
+msgstr "У вас немає жодних приміток до цієї книги."
 
 #: src/export.js:106
 msgid "Highlight some text to add annotations."
-msgstr "Підкреслити деякий текст для анотації."
+msgstr "Виділіть трохи тексту, щоб додати примітки."
 
 #: src/export.js:128
 msgid "Save File"
@@ -181,11 +180,11 @@ msgstr "Зберегти файл"
 #: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
-msgstr "Анотація для «%s»"
+msgstr "Примітка для «%s»"
 
 #: src/export.js:166 src/utils.js:279
 msgid "All Files"
-msgstr "Всі файли"
+msgstr "Усі файли"
 
 #: src/export.js:170
 msgid "JSON Files"
@@ -193,23 +192,23 @@ msgstr "Файли JSON"
 
 #: src/export.js:173 src/ui/importWindow.ui:6
 msgid "Import Annotations"
-msgstr "Імпортувати анотації"
+msgstr "Імпортувати примітки"
 
 #: src/export.js:187
 msgid "There’s nothing to import."
-msgstr "Немає що імпортувати"
+msgstr "Нічого імпортувати."
 
 #: src/export.js:228
 msgid "Identifier mismatch"
-msgstr "Розбіжність ідентифікаторів"
+msgstr "Невідповідність ідентифікатора"
 
 #: src/export.js:229
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
 msgstr ""
-"Ідентифікатор імпортованого файла і книжки не збігаються. Це може означати, "
-"що анотації не належить до цієї книги."
+"Ідентифікатор імпортованого файлу не відповідає ідентифікатору книжки. Це "
+"може вказувати на те, що примітки не належать до цієї книги."
 
 #: src/export.js:234 src/library.js:455 src/main.js:161 src/opds.js:229
 #: src/opds.js:376 src/opds.js:1171 src/utils.js:758 src/window.js:571
@@ -221,7 +220,7 @@ msgstr "Скасувати"
 
 #: src/export.js:235
 msgid "Import Anyway"
-msgstr "Імпортувати попри це"
+msgstr "Імпортувати все одно"
 
 #: src/export.js:245 src/opds.js:1297 src/opds.js:1368 src/window.js:1036
 msgid "Error"
@@ -229,7 +228,7 @@ msgstr "Помилка"
 
 #: src/export.js:246
 msgid "Could not import annotations."
-msgstr "Неможливо імпортувати анотації."
+msgstr "Не вдалося імпортувати примітки."
 
 #: src/library.js:98 src/window.js:650 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
@@ -246,11 +245,11 @@ msgstr "Завантажити ще"
 
 #: src/library.js:427
 msgid "File location unkown"
-msgstr "Невідома адреса файла"
+msgstr "Невідоме розташування файлу"
 
 #: src/library.js:428
 msgid "Choose the location of this file to open it."
-msgstr "Виберіть адресу до цього файла, щоб його відкрити."
+msgstr "Виберіть розташування цього файлу, щоб відкрити його."
 
 #: src/library.js:448
 #, javascript-format
@@ -291,9 +290,9 @@ msgstr[3] "Не вдалося додати книги"
 #: src/library.js:699
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
-msgstr[0] "Неможливо додати такий файл:"
-msgstr[1] "Неможливо додати такі файли:"
-msgstr[2] "Неможливо додати такі файли:"
+msgstr[0] "Неможливо додати наступний файл:"
+msgstr[1] "Неможливо додати наступні файли:"
+msgstr[2] "Неможливо додати наступні файли:"
 msgstr[3] "Неможливо додати такі файли:"
 
 #: src/library.js:771
@@ -330,7 +329,7 @@ msgstr "Додати файли"
 
 #: src/lookup.js:106
 msgid "Search on Wikipedia"
-msgstr "Пошук у Вікіпедії"
+msgstr "Шукати у Вікіпедії"
 
 #: src/lookup.js:228
 msgid "Source: "
@@ -338,19 +337,19 @@ msgstr "Джерело: "
 
 #: src/lookup.js:230
 msgid "Wiktionary"
-msgstr "Wiktionary"
+msgstr "Вікісловник"
 
 #: src/lookup.js:313
 msgid "Wiktionary (English)"
-msgstr "Wiktionary (Англійською)"
+msgstr "Вікісловник (Англійською)"
 
-#: src/lookup.js:386
+#: src/lookup.js:387
 msgid "Search on Wiktionary"
-msgstr "Пошук на Wiktionary"
+msgstr "Шукати у Вікісловнику"
 
-#: src/lookup.js:409
+#: src/lookup.js:410
 msgid "Translation by Google Translate"
-msgstr "Переклад через Google Translate"
+msgstr "Перекласти через Google Перекладач"
 
 #: src/main.js:135 src/window.js:666
 msgid "Open File"
@@ -372,7 +371,9 @@ msgstr "Посилання на каталог OPDS:"
 #. they will be shown in the "About" dialog
 #: src/main.js:208
 msgid "translator-credits"
-msgstr "Danylo Korostil <ted.korostiled@gmail.com>"
+msgstr ""
+"Danylo Korostil <ted.korostiled@gmail.com>\n"
+"Юрій Яновський <lytvyn349@ukr.net>"
 
 #: src/main.js:210 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
@@ -380,7 +381,7 @@ msgstr "Простий і сучасний переглядач електрон
 
 #: src/main.js:235
 msgid "Open library window"
-msgstr "Відкрити бібліотеку"
+msgstr "Відкрити вікно бібліотеки"
 
 #: src/main.js:239
 msgid "Add files to the library"
@@ -407,9 +408,8 @@ msgid "Free"
 msgstr "Безкоштовно"
 
 #: src/opds.js:96
-#, fuzzy
 msgid "Preview"
-msgstr "Назад"
+msgstr "Попередній перегляд"
 
 #: src/opds.js:97
 msgid "Sample"
@@ -417,7 +417,7 @@ msgstr "Зразок"
 
 #: src/opds.js:98
 msgid "Borrow"
-msgstr "Запозичити"
+msgstr "Позичити"
 
 #: src/opds.js:99
 msgid "Subscribe"
@@ -425,11 +425,11 @@ msgstr "Підписатися"
 
 #: src/opds.js:101
 msgid "More"
-msgstr ""
+msgstr "Більше"
 
 #: src/opds.js:125
 msgid "Protected by DRM"
-msgstr "Захищено за допомогою DRM"
+msgstr "Захищено DRM"
 
 #: src/opds.js:144
 msgid " (DRM)"
@@ -437,31 +437,31 @@ msgstr " (DRM)"
 
 #: src/opds.js:209
 msgid "Update available"
-msgstr ""
+msgstr "Доступне оновлення"
 
 #: src/opds.js:210
 msgid "Update"
-msgstr ""
+msgstr "Оновити"
 
 #: src/opds.js:218 src/opds.js:230
 msgid "Delete"
-msgstr ""
+msgstr "Вилучити"
 
 #: src/opds.js:222
 msgid "Delete this item?"
-msgstr ""
+msgstr "Видалити цей елемент?"
 
 #: src/opds.js:224
 msgid "If you delete this item, it will be permanently lost."
-msgstr ""
+msgstr "Якщо ви видалите цей елемент, він буде назавжди втрачений."
 
 #: src/opds.js:276
 msgid "An error occurred."
-msgstr ""
+msgstr "Сталася помилка."
 
 #: src/opds.js:280 src/ui/ttsDialog.ui:17
 msgid "OK"
-msgstr ""
+msgstr "Гаразд"
 
 #: src/opds.js:309 src/ui/libraryWindow.ui:286 src/ui/shortcutsWindow.ui:71
 msgid "Go back"
@@ -469,12 +469,12 @@ msgstr "Назад"
 
 #: src/opds.js:369
 msgid "What would you like to do with this file?"
-msgstr ""
+msgstr "Що ви хочете зробити з цим файлом?"
 
 #: src/opds.js:370
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Format: %s"
-msgstr "Формат"
+msgstr "Формат: %s"
 
 #: src/opds.js:378 src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
@@ -489,13 +489,13 @@ msgstr ", "
 
 #: src/opds.js:659
 msgid "Unable to load OPDS feed"
-msgstr "Неможливо завантажити подачу OPDS"
+msgstr "Неможливо завантажити канал OPDS"
 
 #: src/opds.js:664 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
 #: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:78
 #: src/ui/shortcutsWindow.ui:120
 msgid "Reload"
-msgstr ""
+msgstr "Перезавантажити"
 
 #: src/opds.js:832 src/window.js:340
 #, javascript-format
@@ -504,16 +504,15 @@ msgstr "%d з %d"
 
 #: src/opds.js:1065 src/ui/catalogWindow.ui:6
 msgid "OPDS Catalog"
-msgstr "OPDS Каталог "
+msgstr "OPDS Каталог"
 
 #: src/opds.js:1165 src/ui/catalogWindow.ui:53
-#, fuzzy
 msgid "OPDS URL"
-msgstr "Посилання на каталог OPDS:"
+msgstr "Посилання на каталог OPDS"
 
 #: src/opds.js:1172
 msgid "Go"
-msgstr ""
+msgstr "Вперед"
 
 #: src/opds.js:1192 src/opds.js:1218 src/window.js:1317
 #: src/ui/libraryWindow.ui:359
@@ -522,19 +521,19 @@ msgstr "Завантаження…"
 
 #: src/opds.js:1261
 msgid "First"
-msgstr "Початок"
+msgstr "Перший"
 
 #: src/opds.js:1262 src/properties.js:605
 msgid "Previous"
-msgstr "Назад"
+msgstr "Попередній"
 
 #: src/opds.js:1263 src/properties.js:605
 msgid "Next"
-msgstr "Далі"
+msgstr "Наступний"
 
 #: src/opds.js:1264
 msgid "Last"
-msgstr "Кінець"
+msgstr "Останній"
 
 #: src/opds.js:1312
 msgid "Related"
@@ -550,7 +549,7 @@ msgstr "Підрозділ"
 
 #: src/opds.js:1315
 msgid "New"
-msgstr "Новинки"
+msgstr "Нове"
 
 #: src/opds.js:1316
 msgid "Popular"
@@ -558,7 +557,7 @@ msgstr "Популярне"
 
 #: src/opds.js:1317
 msgid "Featured"
-msgstr "Спеціальне"
+msgstr "Рекомендоване"
 
 #: src/opds.js:1318
 msgid "Recommended"
@@ -594,17 +593,16 @@ msgstr "WorldCat"
 
 #: src/properties.js:370
 msgid "Series"
-msgstr ""
+msgstr "Серія"
 
 #: src/properties.js:375
 #, javascript-format
 msgid "#%s"
-msgstr ""
+msgstr "#%s"
 
 #: src/properties.js:402
-#, fuzzy
 msgid "Collections"
-msgstr "Розділ"
+msgstr "Колекції"
 
 #: src/properties.js:424
 msgid "Publication Date"
@@ -612,11 +610,11 @@ msgstr "Дата видання"
 
 #: src/properties.js:431
 msgid "Modified Date"
-msgstr "Дата модифікації"
+msgstr "Дата зміни"
 
 #: src/properties.js:443
 msgid "File Size"
-msgstr "Розмір файла"
+msgstr "Розмір файлу"
 
 #: src/properties.js:447
 msgid "Format"
@@ -627,14 +625,12 @@ msgid "Identifier"
 msgstr "Ідентифікатор"
 
 #: src/properties.js:463
-#, fuzzy
 msgid "Source"
-msgstr "Джерело: "
+msgstr "Джерело"
 
 #: src/properties.js:518
-#, fuzzy
 msgid "Contributors"
-msgstr "Безперервний"
+msgstr "Учасники"
 
 #: src/properties.js:522
 msgid "Copyright"
@@ -664,27 +660,27 @@ msgstr "Темнота"
 #: src/ui/themeWindow.ui:145
 #: data/com.github.johnfactotum.Foliate.gschema.xml:176
 msgid "Invert"
-msgstr "Обернуто"
+msgstr "Навпаки"
 
 #: src/theme.js:43
 msgid "Solarized Light"
-msgstr "Засвічена світлість"
+msgstr "Світла Solarized"
 
 #: src/theme.js:47
 msgid "Solarized Dark"
-msgstr "Засвічена темнота"
+msgstr "Темна Solarized"
 
 #: src/theme.js:51
 msgid "Gruvbox Light"
-msgstr "Виїмкова світлість"
+msgstr "Світла Gruvbox"
 
 #: src/theme.js:55
 msgid "Gruvbox Dark"
-msgstr "Виїмкова темнота"
+msgstr "Темна Gruvbox"
 
 #: src/theme.js:59
 msgid "Nord"
-msgstr "Північ"
+msgstr "Норд"
 
 #. Translatros: these are sentences from "The North Wind and the Sun",
 #. used for testing text-to-speech
@@ -704,7 +700,7 @@ msgstr "uk"
 #: src/utils.js:150
 #, javascript-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
 #. "%s" is usually already a fully formatted date string,
@@ -713,7 +709,7 @@ msgstr ""
 #: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
-msgstr ""
+msgstr "%s BCE"
 
 #: src/utils.js:219
 #, javascript-format
@@ -735,7 +731,7 @@ msgstr[3] "%d година"
 
 #: src/utils.js:281
 msgid "E-book Files"
-msgstr "Файли електронної книги"
+msgstr "Файли електронних книг"
 
 #: src/utils.js:749
 msgid "Authentication Required"
@@ -749,11 +745,11 @@ msgstr "%s потребує автентифікації"
 #: src/utils.js:754
 #, javascript-format
 msgid "The site says: “%s”"
-msgstr "Повідомлення сайту: “%s”"
+msgstr "Повідомлення від сайту: “%s”"
 
 #: src/utils.js:759
 msgid "Authenticate"
-msgstr "Автентифікація"
+msgstr "Автентифікуватися"
 
 #: src/utils.js:773
 msgid "Username"
@@ -779,15 +775,15 @@ msgstr "з %d"
 
 #: src/window.js:565
 msgid "This file or format does not work well with annotations"
-msgstr "Цей файл або формат належно не підтримує анотації"
+msgstr "Цей файл або формат не має належної підтримки приміток"
 
 #: src/window.js:566
 msgid "Your annotations might stop working properly at any time."
-msgstr "Ваші анотації можуть перестати належно працювати в будь-яку мить."
+msgstr "Ваші примітки можуть перестати працювати належним чином у будь-коли."
 
 #: src/window.js:572
 msgid "Continue Anyway"
-msgstr "Продовжити попри це"
+msgstr "Продовжити все одно"
 
 #: src/window.js:795
 msgid "Contents"
@@ -795,7 +791,7 @@ msgstr "Вміст"
 
 #: src/window.js:799 data/com.github.johnfactotum.Foliate.gschema.xml:244
 msgid "Show sidebar"
-msgstr "Показати бічну панель"
+msgstr "Показувати бічну панель"
 
 #: src/window.js:810 src/ui/selectionPopover.ui:47
 msgid "Find"
@@ -820,15 +816,15 @@ msgstr "Змінити колір виділення"
 
 #: src/ui/annotationBox.ui:98
 msgid "Choose custom color"
-msgstr "Вибрати користувацький колір"
+msgstr "Вибрати власний колір"
 
 #: src/ui/bookBoxChild.ui:29 src/ui/bookBoxRow.ui:76
 msgid "Remote file"
-msgstr "Видалений файл"
+msgstr "Віддалений файл"
 
 #: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
 msgid "Export Annotations…"
-msgstr "Експортувати анотації…"
+msgstr "Експортувати примітки…"
 
 #: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
@@ -837,7 +833,7 @@ msgstr "Редагувати"
 
 #: src/ui/bookEditDialog.ui:46
 msgid "File URL:"
-msgstr "Файл URL:"
+msgstr "URL-адреса файлу:"
 
 #: src/ui/bookEditDialog.ui:62
 msgid "Browse…"
@@ -849,11 +845,11 @@ msgstr "Вилучити Книгу"
 
 #: src/ui/catalogWindow.ui:68
 msgid "Preview URL"
-msgstr ""
+msgstr "Попередній перегляд URL-адреси"
 
 #: src/ui/catalogWindow.ui:77
 msgid "Optional"
-msgstr ""
+msgstr "Опціональне"
 
 #: src/ui/catalogWindow.ui:93
 msgid "Remove Catalog"
@@ -865,16 +861,16 @@ msgstr "Зміст"
 
 #: src/ui/contentsStack.ui:51
 msgid "Search annotations"
-msgstr "Пошук анотацій"
+msgstr "Пошук приміток"
 
 #: src/ui/contentsStack.ui:92
 msgid "Select some text to add annotations."
-msgstr "Виділити текст, щоб додати анотацію."
+msgstr "Виберіть текст, щоб додати примітки."
 
 #: src/ui/contentsStack.ui:124
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
 msgid "Annotations"
-msgstr "Анотаціі"
+msgstr "Примітки"
 
 #: src/ui/contentsStack.ui:159
 msgid "No bookmarks"
@@ -882,51 +878,51 @@ msgstr "Немає закладок"
 
 #: src/ui/contentsStack.ui:171
 msgid "Add some bookmarks to see them here."
-msgstr "Додайте закладки, щоб бачити їх тут"
+msgstr "Додайте кілька закладок, щоб побачити їх тут."
 
 #: src/ui/contentsStack.ui:216
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: src/ui/dictionaryBox.ui:64
+#: src/ui/dictionaryBox.ui:75
 msgid "No definitions found"
-msgstr ""
+msgstr "Визначень не знайдено"
 
 #: src/ui/exportWindow.ui:11
 msgid "BibTeX"
-msgstr ""
+msgstr "BibTeX"
 
 #: src/ui/exportWindow.ui:15
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: src/ui/exportWindow.ui:19
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: src/ui/exportWindow.ui:23
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #: src/ui/exportWindow.ui:27
 msgid "Plain Text"
-msgstr ""
+msgstr "Простий текст"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
-msgstr "Експорт Анотацій"
+msgstr "Експортувати примітки"
 
 #: src/ui/exportWindow.ui:45
 msgid "Export"
-msgstr "Експорт"
+msgstr "Експортувати"
 
 #: src/ui/exportWindow.ui:67
 msgid "Choose export format:"
-msgstr "Вибрати формат для експорту:"
+msgstr "Виберіть формат для експорту:"
 
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
-msgstr "Виберіть “JSON”, якщо збираєтесь імпортувати анотації назад в Foliate."
+msgstr "Виберіть “JSON”, якщо збираєтесь імпортувати примітки назад в Foliate."
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
@@ -938,7 +934,7 @@ msgstr "Поточний розділ"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
 msgid "Reference Preview"
-msgstr "Попередній перегляд посилання"
+msgstr "Попередній перегляд"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:186
 #: src/ui/shortcutsWindow.ui:369 src/ui/wikipediaBox.ui:107
@@ -948,9 +944,8 @@ msgstr "Вигляд"
 
 #: src/ui/imageViewer.ui:31 src/ui/menuBar.ui:60 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:338
-#, fuzzy
 msgid "Copy"
-msgstr "Авторські права"
+msgstr "Скопіювати"
 
 #: src/ui/imageViewer.ui:44 src/ui/shortcutsWindow.ui:345
 msgid "Save as"
@@ -982,17 +977,19 @@ msgstr "Повернути на 90° за годинниковою стрілк�
 
 #: src/ui/importWindow.ui:17
 msgid "Import"
-msgstr "Імпорт"
+msgstr "Імпортувати"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr "Ці анотації були додані:"
+msgstr "Ці примітки будуть додані:"
 
 #: src/ui/importWindow.ui:64
 msgid ""
 "The imported annotations will NOT overwrite the existing ones when they "
 "highlight the same passages."
 msgstr ""
+"Імпортовані примітки НЕ перезаписують існуючі, якщо вони виділяють ті самі "
+"уривки."
 
 #: src/ui/libraryWindow.ui:7
 msgid "Open Book…"
@@ -1008,7 +1005,7 @@ msgstr "Додати Книги…"
 
 #: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:683
 msgid "Add Catalog…"
-msgstr "Додати каталог…"
+msgstr "Додати Каталог…"
 
 #: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
 #: src/ui/preferenceWindow.ui:118
@@ -1028,9 +1025,8 @@ msgid "Go to start page"
 msgstr "Перейти до початкової сторінки"
 
 #: src/ui/libraryWindow.ui:83
-#, fuzzy
 msgid "Add this feed to catalogs"
-msgstr "Відкрити каталог"
+msgstr "Додайти цей канал у каталоги"
 
 #: src/ui/libraryWindow.ui:104
 msgid "Location…"
@@ -1038,12 +1034,11 @@ msgstr "Розташування…"
 
 #: src/ui/libraryWindow.ui:116
 msgid "Go Back to Library"
-msgstr "Повернутися до бібліотеки"
+msgstr "Повернутися до Бібліотеки"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalogs"
-msgstr "Повернутися до каталогу"
+msgstr "Повернутися до Каталогів"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -1080,7 +1075,7 @@ msgstr "Відкрити Файл…"
 
 #: src/ui/libraryWindow.ui:515
 msgid "Browse Catalogs"
-msgstr "Огляд Каталогів"
+msgstr "Оглянути Каталоги"
 
 #: src/ui/libraryWindow.ui:547
 msgid "No results found"
@@ -1088,19 +1083,20 @@ msgstr "Нічого не знайдено"
 
 #: src/ui/libraryWindow.ui:559
 msgid "Try a different search."
-msgstr "Спробуйте інший пошук."
+msgstr "Спробуйте інший запит."
 
 #: src/ui/libraryWindow.ui:656
 msgid "No catalogs"
-msgstr "Не має каталогів"
+msgstr "Немає каталогів"
 
 #: src/ui/libraryWindow.ui:668
 msgid "You can browse, search, and download content from OPDS catalogs."
 msgstr ""
+"Ви можете переглядати, шукати та завантажувати вміст із каталогів OPDS."
 
 #: src/ui/libraryWindow.ui:692
 msgid "Learn More"
-msgstr ""
+msgstr "Дізнатися більше"
 
 #: src/ui/libraryWindow.ui:708 src/ui/shortcutsWindow.ui:67
 msgid "Catalogs"
@@ -1154,7 +1150,7 @@ msgstr "Додати власну тему…"
 #: src/ui/mainMenu.ui:429 src/ui/menuBar.ui:108
 #: data/com.github.johnfactotum.Foliate.gschema.xml:201
 msgid "Layout"
-msgstr "Формат"
+msgstr "Макет"
 
 #: src/ui/mainMenu.ui:447 src/ui/menuBar.ui:111
 msgid "Automatic"
@@ -1178,16 +1174,16 @@ msgstr "Текст"
 
 #: src/ui/mainMenu.ui:505 src/ui/menuBar.ui:135
 msgid "Use Publisher Font"
-msgstr "Встановити Шрифт Видавця"
+msgstr "Використовувати Шрифт Видавця"
 
 #: src/ui/mainMenu.ui:512 src/ui/menuBar.ui:139
 msgid "Full Justification"
-msgstr ""
+msgstr "Повне вирівнювання"
 
 #: src/ui/mainMenu.ui:519 src/ui/menuBar.ui:143
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:331
 msgid "Auto-hyphenation"
-msgstr "Авто-переноси"
+msgstr "Автоматичне перенесення слів"
 
 #: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114 src/schemes.js:402
 msgid "Other"
@@ -1195,7 +1191,7 @@ msgstr "Інше"
 
 #: src/ui/mainMenu.ui:560 src/ui/menuBar.ui:153
 msgid "Auto-hide Cursor"
-msgstr "Приховувати Вказівник"
+msgstr "Приховувати вказівник автоматично"
 
 #: src/ui/mainMenu.ui:567 src/ui/menuBar.ui:157
 msgid "Realistic Shadows"
@@ -1203,7 +1199,7 @@ msgstr "Реалістичні Тіні"
 
 #: src/ui/mainMenu.ui:579
 msgid "Allow JavaScript"
-msgstr "Дозвилити JavaScript"
+msgstr "Дозволити JavaScript"
 
 #: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
 msgid "Allow Unsafe Content"
@@ -1211,7 +1207,7 @@ msgstr "Дозволити Небезпечний Вміст"
 
 #: src/ui/mainMenu.ui:587 src/ui/menuBar.ui:167
 msgid "Enable Developer Tools"
-msgstr "Інструменти Розробника"
+msgstr "Увімкнути Знаряддя Розробника"
 
 #: src/ui/mainMenu.ui:625 src/ui/menuBar.ui:14
 msgid "Open a Copy"
@@ -1223,26 +1219,25 @@ msgstr "Очистити Кеш"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
 msgid "Import Annotations…"
-msgstr "Імпортувати Анотації…"
+msgstr "Імпортувати примітки…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
-msgstr "Не відкрита жодна книга"
+msgstr "Жодної книги не відкрито"
 
 #: src/ui/mainOverlay.ui:88
 msgid "Recent Files"
-msgstr "Недавні файли"
+msgstr "Останні файли"
 
 #: src/ui/mainOverlay.ui:129
 msgid "Could not open file"
-msgstr "Неможу відкрити файл"
+msgstr "Не вдалося відкрити файл"
 
 #: src/ui/mainOverlay.ui:150
 msgid "Open Another File…"
-msgstr "Відкрити інший файл…"
+msgstr "Відкрити ще один файл…"
 
 #: src/ui/mainOverlay.ui:183
-#, fuzzy
 msgid "Downloading…"
 msgstr "Завантаження…"
 
@@ -1252,7 +1247,7 @@ msgstr "_Файл"
 
 #: src/ui/menuBar.ui:28
 msgid "Properties"
-msgstr "Налаштування"
+msgstr "Властивості"
 
 #: src/ui/menuBar.ui:46
 msgid "Close Window"
@@ -1268,21 +1263,18 @@ msgid "_Edit"
 msgstr "_Редагувати"
 
 #: src/ui/menuBar.ui:66
-#, fuzzy
 msgid "Bookmark Current Location"
-msgstr "Зберегти поточну позицію"
+msgstr "Закласти поточну позицію"
 
 #: src/ui/menuBar.ui:72 src/ui/ttsDialog.ui:6
-#, fuzzy
 msgid "Text-to-Speech"
-msgstr "Команда для синтезу мовлення"
+msgstr "Синтез мовлення"
 
 #: src/ui/menuBar.ui:85
 msgid "_View"
 msgstr "_Вигляд"
 
 #: src/ui/menuBar.ui:88
-#, fuzzy
 msgid "Toggle Fullscreen"
 msgstr "Повноекранний режим"
 
@@ -1304,7 +1296,7 @@ msgstr "_Перейти"
 
 #: src/ui/menuBar.ui:177
 msgid "Go Back"
-msgstr "Повернутися назад"
+msgstr "Назад"
 
 #: src/ui/menuBar.ui:183
 msgid "Next Page"
@@ -1333,7 +1325,7 @@ msgstr "Кінець"
 #: src/ui/menuBar.ui:213 src/ui/navBar.ui:134 src/ui/navBar.ui:313
 #: src/ui/preferenceWindow.ui:19
 msgid "Location"
-msgstr "Розташування"
+msgstr "Позиція"
 
 #: src/ui/menuBar.ui:220
 msgid "_Help"
@@ -1353,11 +1345,11 @@ msgstr "Розділ"
 
 #: src/ui/navBar.ui:173
 msgid "CFI"
-msgstr ""
+msgstr "CFI"
 
 #: src/ui/navBar.ui:174
 msgid "EPUB Canonical Fragment Identifier"
-msgstr ""
+msgstr "Канонічний ідентифікатор фрагмента EPUB"
 
 #: src/ui/navBar.ui:213
 msgid "Go to beginning of book"
@@ -1390,9 +1382,8 @@ msgid "Go to next page"
 msgstr "Наступна сторінка"
 
 #: src/ui/navBar.ui:402
-#, fuzzy
 msgid "Text-to-speech"
-msgstr "Команда для синтезу мовлення"
+msgstr "Синтез мовлення"
 
 #: src/ui/preferenceWindow.ui:11
 msgid "Nothing"
@@ -3848,11 +3839,11 @@ msgstr "Словник"
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd and stardict, "
-"if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
+"if any, are available with the \"dictd_\" and \"stardict_\" prefix added to "
 "the database ID"
 msgstr ""
 "Ідентифікатор типового словника. Словники dictd і stardict, якщо такі є, "
-"доступні з префіксом «dcitd_» і «stardict_» у базі даних"
+"доступні з префіксом «dictd_» і «stardict_» у базі даних"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:58
 msgid "Target language of translation"

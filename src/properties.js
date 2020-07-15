@@ -68,7 +68,7 @@ const parseIdentifier = ({ scheme, type, identifier }) => {
         ns = type || scheme
     } else id = id.join(':')
 
-    if (ns === 'urn')
+    if (typeof ns === 'string' && ns.toLowerCase() === 'urn')
         return parseIdentifier({ identifier: id })
     else {
         const scm = getIdentifierScheme(ns)

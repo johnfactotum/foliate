@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 15:35+0800\n"
-"PO-Revision-Date: 2020-07-06 13:18+0800\n"
+"POT-Creation-Date: 2020-07-12 18:44+0800\n"
+"PO-Revision-Date: 2020-07-08 06:54+0200\n"
 "Last-Translator: Jonatan Nyberg <jonatan.nyberg.karl@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
@@ -330,11 +330,11 @@ msgstr "Wiktionary"
 msgid "Wiktionary (English)"
 msgstr "Wiktionary (engelska)"
 
-#: src/lookup.js:386
+#: src/lookup.js:387
 msgid "Search on Wiktionary"
 msgstr "Sök i Wiktionary"
 
-#: src/lookup.js:409
+#: src/lookup.js:410
 msgid "Translation by Google Translate"
 msgstr "Översättning av Google Translate"
 
@@ -422,27 +422,27 @@ msgstr " (DRM)"
 
 #: src/opds.js:209
 msgid "Update available"
-msgstr ""
+msgstr "Uppdatering tillgänglig"
 
 #: src/opds.js:210
 msgid "Update"
-msgstr ""
+msgstr "Uppdatera"
 
 #: src/opds.js:218 src/opds.js:230
 msgid "Delete"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/opds.js:222
 msgid "Delete this item?"
-msgstr ""
+msgstr "Vill du ta bort denna post?"
 
 #: src/opds.js:224
 msgid "If you delete this item, it will be permanently lost."
-msgstr ""
+msgstr "Om du tar bort denna post kommer den att förloras permanent."
 
 #: src/opds.js:276
 msgid "An error occurred."
-msgstr ""
+msgstr "Ett fel uppstod."
 
 #: src/opds.js:280 src/ui/ttsDialog.ui:17
 msgid "OK"
@@ -454,12 +454,12 @@ msgstr "Gå tillbaka"
 
 #: src/opds.js:369
 msgid "What would you like to do with this file?"
-msgstr ""
+msgstr "Vad vill du göra med den här filen?"
 
 #: src/opds.js:370
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Format: %s"
-msgstr "Format"
+msgstr "Format: %s"
 
 #: src/opds.js:378 src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
@@ -578,12 +578,12 @@ msgstr "WorldCat"
 
 #: src/properties.js:370
 msgid "Series"
-msgstr ""
+msgstr "Serier"
 
 #: src/properties.js:375
 #, javascript-format
 msgid "#%s"
-msgstr ""
+msgstr "#%s"
 
 #: src/properties.js:402
 msgid "Collections"
@@ -865,7 +865,7 @@ msgstr "Lägg till några bokmärken för att se dem här."
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
-#: src/ui/dictionaryBox.ui:64
+#: src/ui/dictionaryBox.ui:75
 msgid "No definitions found"
 msgstr "Inga definitioner hittades"
 
@@ -1019,9 +1019,8 @@ msgid "Go Back to Library"
 msgstr "Gå tillbaka till biblioteket"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalogs"
-msgstr "Gå tillbaka till katalogen"
+msgstr "Gå tillbaka till kataloger"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -1173,7 +1172,7 @@ msgstr "Andra"
 
 #: src/ui/mainMenu.ui:560 src/ui/menuBar.ui:153
 msgid "Auto-hide Cursor"
-msgstr "Dölj automatiskt markör"
+msgstr "Dölj markör automatiskt"
 
 #: src/ui/mainMenu.ui:567 src/ui/menuBar.ui:157
 msgid "Realistic Shadows"
@@ -1509,22 +1508,20 @@ msgid "Requires restart"
 msgstr "Kräver omstart"
 
 #: src/ui/preferenceWindow.ui:542
-#, fuzzy
 msgid "OPDS"
-msgstr "OPDS-webbadress"
+msgstr "OPDS"
 
 #: src/ui/preferenceWindow.ui:552
 msgid "When downloading books"
-msgstr ""
+msgstr "Vid hämtning av böcker"
 
 #: src/ui/preferenceWindow.ui:563
-#, fuzzy
 msgid "Save to default directory"
-msgstr "Scenregissör"
+msgstr "Spara i standardkatalogen"
 
 #: src/ui/preferenceWindow.ui:583
 msgid "Ask what to do"
-msgstr ""
+msgstr "Fråga vad som ska göras"
 
 #: src/ui/preferenceWindow.ui:620
 msgid "Use Tracker to track file locations"
@@ -1570,7 +1567,7 @@ msgstr "Öppna fil"
 #: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:134
 #: src/ui/shortcutsWindow.ui:352
 msgid "Close current window"
-msgstr "Stäng det aktuella fönstret"
+msgstr "Stäng aktuellt fönster"
 
 #: src/ui/shortcutsWindow.ui:51
 msgid "List view"
@@ -1847,9 +1844,8 @@ msgid "BISAC"
 msgstr "BISAC"
 
 #: src/schemes.js:131
-#, fuzzy
 msgid "Book Industry Standards and Communications"
-msgstr "Book Industry Communication"
+msgstr "Book Industry Standards and Communications"
 
 #: src/schemes.js:135
 msgid "CLC"
@@ -1933,11 +1929,11 @@ msgstr "Warengruppen-Systematik"
 
 #: src/schemes.js:183
 msgid "DCMIType"
-msgstr ""
+msgstr "DCMIType"
 
 #: src/schemes.js:184
 msgid "DCMI Type Vocabulary"
-msgstr ""
+msgstr "DCMI Type Vocabulary"
 
 #: src/schemes.js:188
 msgid "Audience"
@@ -3046,14 +3042,12 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
 msgid "Fixed unable to open some EPUB files"
-msgstr "Åtgärdat att inte kunna öppna böcker med \"#\" eller \"?\" i filnamnet"
+msgstr "Åtgärdat att inte kunna öppna vissa EPUB-filer"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#, fuzzy
 msgid "Fixed unable to open Mobipocket files"
-msgstr "Åtgärdat att inte kunna öppna böcker med \"#\" eller \"?\" i filnamnet"
+msgstr "Åtgärdat att inte kunna öppna Mobipocket-filer"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
@@ -3069,38 +3063,39 @@ msgstr "Ändringar:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Improved metadata display"
-msgstr ""
+msgstr "Förbättrad visning av metadata"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "Improved FictionBook rendering"
-msgstr ""
+msgstr "Förbättrad rendering av FictionBook"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Improved UI for acquiring books from OPDS"
-msgstr ""
+msgstr "Förbättrad användargränssnitt för att skaffa böcker från OPDS"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
-#, fuzzy
 msgid "Fixed unique identifier extraction for EPUB files"
-msgstr ""
-"Åtgärdat unika identifierarextraktion för FictionBook (.fb2, .fb2.zip)-filer"
+msgstr "Åtgärdat unika identifierarextraktion för EBUP-filer"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Fixed missing window icon"
-msgstr ""
+msgstr "Åtgärdat saknad fönsterikon"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
 msgid "Fixed TTS environment variables not set when using Flatpak"
 msgstr ""
+"Åtgärdat TTS-miljövariabler som inte ställs in vid användning av Flatpak"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
 msgid "Fixed eSpeak NG voice not selected when testing TTS configuration"
 msgstr ""
+"Åtgärdat att eSpeak NG-röst inte är vald vid testning av TTS-konfiguration"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid ""
 "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
 msgstr ""
+"Åtgärdat fel \"__ibooks_internal_theme\" attribut när \"Invert\" är aktiverat"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
 msgid "OPDS catalogs:"
@@ -3809,11 +3804,11 @@ msgstr "Ordbok"
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd and stardict, "
-"if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
+"if any, are available with the \"dictd_\" and \"stardict_\" prefix added to "
 "the database ID"
 msgstr ""
 "Identifierare för standardordboken. Ordböcker från dictd och stardict, om "
-"några, finns tillgängliga med prefixet \"dcitd_\" och \"stardict_\" som "
+"några, finns tillgängliga med prefixet \"dictd_\" och \"stardict_\" som "
 "läggs till i databas-ID:t"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:58
@@ -4117,11 +4112,11 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:287
 msgid "OPDS download action"
-msgstr ""
+msgstr "OPDS-hämtningsåtgärd"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:288
 msgid "What to do when downloading a file from an OPDS feed"
-msgstr ""
+msgstr "Vad ska göras vid hämtning av en fil från ett OPDS-flöde"
 
 #~ msgid "Book Industry Study Group"
 #~ msgstr "BISAC"
