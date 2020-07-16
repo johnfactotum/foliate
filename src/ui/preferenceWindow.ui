@@ -168,10 +168,16 @@
                     </child>
                   </object>
                 </child>
+
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="margin-top">12</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">Reading</property>
                     <attributes>
@@ -405,10 +411,16 @@
                     </child>
                   </object>
                 </child>
+
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="margin-top">12</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">Interface</property>
                     <attributes>
@@ -516,11 +528,74 @@
                   </object>
                 </child>
 
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+
 
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="margin-top">12</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">OPDS</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">When downloading books</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="spacing">3</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkRadioButton" id="opds_auto">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Save to default directory</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="opdsAutoDir">
+                        <property name="visible">True</property>
+                        <property name="selectable">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="margin-start">24</property>
+                        <property name="margin-bottom">6</property>
+                        <style><class name="dim-label"/></style>
+                        <attributes>
+                          <attribute name="scale" value="0.85"/>
+                        </attributes>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="opds_ask">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Ask what to do</property>
+                        <property name="group">opds_auto</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">Advanced</property>
                     <attributes>

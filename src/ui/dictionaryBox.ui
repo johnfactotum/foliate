@@ -20,6 +20,17 @@
         <property name="visible">True</property>
         <!-- <style><class name="frame"/></style> -->
         <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="pixel-size">48</property>
+            <property name="icon-name">accessories-dictionary-symbolic</property>
+            <style><class name="dim-label"/></style>
+          </object>
+          <packing>
+            <property name="name">pending</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkSpinner">
             <property name="visible">True</property>
             <property name="active">True</property>

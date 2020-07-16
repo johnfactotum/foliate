@@ -14,8 +14,8 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
-                <property name="title" translatable="yes">Search</property>
-                <property name="action-name">lib.search</property>
+                <property name="title" translatable="yes">Open file</property>
+                <property name="action-name">app.open</property>
               </object>
             </child>
             <child>
@@ -37,12 +37,12 @@
         <child>
           <object class="GtkShortcutsGroup">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">View</property>
+            <property name="title" translatable="yes">Library</property>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
-                <property name="title" translatable="yes">Show primary menu</property>
-                <property name="action-name">lib.main-menu</property>
+                <property name="title" translatable="yes">Search</property>
+                <property name="action-name">lib.search</property>
               </object>
             </child>
             <child>
@@ -57,6 +57,33 @@
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Grid view</property>
                 <property name="action-name">lib.grid-view</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="visible">True</property>
+            <property name="title" translatable="yes">Catalogs</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Go back</property>
+                <property name="action-name">lib.opds-back</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Reload</property>
+                <property name="action-name">opds.reload</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Go to location</property>
+                <property name="action-name">opds.location</property>
               </object>
             </child>
           </object>

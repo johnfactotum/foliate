@@ -10,6 +10,10 @@
       <value nick="scrolled" value="2"/>
       <value nick="continuous" value="3"/>
   </enum>
+  <enum id="com.github.johnfactotum.Foliate.OpdsAction">
+      <value nick="auto" value="0"/>
+      <value nick="ask" value="1"/>
+  </enum>
   <schema id="com.github.johnfactotum.Foliate" path="/com/github/johnfactotum/Foliate/">
     <child schema="com.github.johnfactotum.Foliate.library" name="library"/>
     <child schema="com.github.johnfactotum.Foliate.window-state" name="window-state"/>
@@ -47,7 +51,7 @@
     <key name="dictionary" type="s">
         <default>'wiktionary'</default>
         <summary>Dictionary</summary>
-        <description>Identifier of the default dictionary. Dictionaries from dictd and stardict, if any, are available with the "dcitd_" and "stardict_" prefix added to the database ID</description>
+        <description>Identifier of the default dictionary. Dictionaries from dictd and stardict, if any, are available with the "dictd_" and "stardict_" prefix added to the database ID</description>
     </key>
     <key name="translate-target-language" type="s">
         <default>'en'</default>
@@ -277,6 +281,11 @@
       <default>true</default>
       <summary>Use Tracker</summary>
       <description>If true, will try to use Tracker (the file indexer) to get file locations</description>
+    </key>
+    <key name="opds-action" enum="com.github.johnfactotum.Foliate.OpdsAction">
+      <default>'auto'</default>
+      <summary>OPDS download action</summary>
+      <description>What to do when downloading a file from an OPDS feed</description>
     </key>
   </schema>
 </schemalist>

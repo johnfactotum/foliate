@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-21 22:21+0800\n"
-"PO-Revision-Date: 2020-06-17 19:00+0700\n"
+"POT-Creation-Date: 2020-07-12 18:44+0800\n"
+"PO-Revision-Date: 2020-07-06 13:17+0800\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ie\n"
@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:790
-#: src/main.js:192 src/window.js:989
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
+#: src/main.js:209 src/window.js:1001 src/schemes.js:100
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -39,6 +39,7 @@ msgstr "Ebook;Elibre;Libre;EPUB;Visor;Letor;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
 #: src/ui/libraryWindow.ui:612 src/ui/mainMenu.ui:304
+#: src/ui/shortcutsWindow.ui:40
 msgid "Library"
 msgstr "Biblioteca"
 
@@ -47,7 +48,7 @@ msgid "Remove current location"
 msgstr "Remover li actual localisation"
 
 #: src/contents.js:225 src/ui/contentsStack.ui:204
-#: src/ui/shortcutsWindow.ui:128
+#: src/ui/shortcutsWindow.ui:155
 msgid "Bookmark current location"
 msgstr "Marcar li actual localisation"
 
@@ -68,49 +69,43 @@ msgstr "Sercha..."
 
 #: src/contents.js:303
 msgid "Bibliography"
-msgstr ""
+msgstr "Bibliografie"
 
 #: src/contents.js:304
 msgid "Glossary"
-msgstr ""
+msgstr "Glossarium"
 
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
-#, fuzzy
 msgid "Annotation"
-msgstr "Anotationes"
+msgstr "Anotation"
 
 #: src/contents.js:309
-#, fuzzy
 msgid "Footnote"
-msgstr "Prevision de ped-notes"
+msgstr "Ped-note"
 
 #: src/contents.js:310 src/contents.js:311
 msgid "Endnote"
-msgstr ""
+msgstr "Note final"
 
 #. deprecated
 #: src/contents.js:312 src/contents.js:339
-#, fuzzy
 msgid "Note"
-msgstr "Note:"
+msgstr "Note"
 
-#: src/epubView.js:1016
-msgid "File not found."
-msgstr "File ne esset trovat."
-
-#: src/epubView.js:1027
-#, fuzzy
+#: src/epubView.js:1049
 msgid "Failed to load remote file."
 msgstr "Ne successat cargar un lontan file."
 
-#: src/epubView.js:1063
-#, fuzzy
-msgid "Could not unpack Kindle file."
-msgstr "Li file ne posset esser renominat"
+#: src/epubView.js:1058
+msgid "File not found."
+msgstr "File ne esset trovat."
 
-#: src/epubView.js:1079
-#, fuzzy
+#: src/epubView.js:1072
+msgid "Could not unpack Kindle file."
+msgstr "Ne successat depaccar un file Kindle."
+
+#: src/epubView.js:1088
 msgid "File type not supported."
 msgstr "Tip de file ne es suportat."
 
@@ -136,9 +131,8 @@ msgid "Section: "
 msgstr "Section: "
 
 #: src/export.js:55
-#, fuzzy
 msgid "Highlight: "
-msgstr "Marcar"
+msgstr "Marcar: "
 
 #: src/export.js:56
 msgid "Text:"
@@ -170,9 +164,8 @@ msgid "You don't have any annotations for this book."
 msgstr "Vu ne have anotationes por ti-ci libre."
 
 #: src/export.js:106
-#, fuzzy
 msgid "Highlight some text to add annotations."
-msgstr "Selecte alcun textu por adjunter anotation."
+msgstr "Marca alcun textu por adjunter anotation."
 
 #: src/export.js:128
 msgid "Save File"
@@ -183,7 +176,7 @@ msgstr "Gardar li file"
 msgid "Annotations for “%s”"
 msgstr "Anotationes por «%s»"
 
-#: src/export.js:166 src/utils.js:255
+#: src/export.js:166 src/utils.js:279
 msgid "All Files"
 msgstr "Omni files"
 
@@ -196,14 +189,12 @@ msgid "Import Annotations"
 msgstr "Importar anotationes"
 
 #: src/export.js:187
-#, fuzzy
 msgid "There’s nothing to import."
-msgstr "Importar ex %s"
+msgstr "Necós a importar."
 
 #: src/export.js:228
-#, fuzzy
 msgid "Identifier mismatch"
-msgstr "%A{ identificator }"
+msgstr "Identificator ne es egal"
 
 #: src/export.js:229
 msgid ""
@@ -211,11 +202,11 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr ""
 
-#: src/export.js:234 src/library.js:507 src/main.js:147 src/opds.js:159
-#: src/opds.js:875 src/window.js:563 src/ui/bookEditDialog.ui:10
-#: src/ui/catalogWindow.ui:10 src/ui/exportWindow.ui:38
-#: src/ui/importWindow.ui:10 src/ui/libraryWindow.ui:601
-#: src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
+#: src/export.js:234 src/library.js:455 src/main.js:161 src/opds.js:229
+#: src/opds.js:376 src/opds.js:1171 src/utils.js:758 src/window.js:571
+#: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
+#: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
+#: src/ui/libraryWindow.ui:601 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
 msgstr "Anullar"
 
@@ -223,7 +214,7 @@ msgstr "Anullar"
 msgid "Import Anyway"
 msgstr "Importar sin egard"
 
-#: src/export.js:245 src/opds.js:1000 src/opds.js:1068 src/window.js:1024
+#: src/export.js:245 src/opds.js:1297 src/opds.js:1368 src/window.js:1036
 msgid "Error"
 msgstr "Errore"
 
@@ -231,93 +222,94 @@ msgstr "Errore"
 msgid "Could not import annotations."
 msgstr "Ne successat importar anotationes."
 
-#: src/library.js:151 src/window.js:642 src/ui/bookBoxMenu.ui:13
+#: src/library.js:98 src/window.js:650 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
 msgstr "Pri ti-ci libre"
 
-#: src/library.js:184
+#: src/library.js:132
 msgid "Choose File"
 msgstr "Selecter un file"
 
-#: src/library.js:317 src/library.js:335
+#: src/library.js:265 src/library.js:283
 msgid "Load more"
 msgstr "Cargar plu"
 
-#: src/library.js:479
+#: src/library.js:427
 msgid "File location unkown"
 msgstr "Localisation del file es ínconosset"
 
-#: src/library.js:480
-#, fuzzy
+#: src/library.js:428
 msgid "Choose the location of this file to open it."
-msgstr "Selecte un localisation"
+msgstr "Selecte li localisation de ti-ci file por aperter it."
 
-#: src/library.js:500
+#: src/library.js:448
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] "Esque vu vole remover ti-ci libre?"
 msgstr[1] "Esque vu vole remover li %d selectet libres?"
 
-#: src/library.js:502
+#: src/library.js:450
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr ""
+"Li progresse de letion, anotationes e marca-págines va esser perdit "
+"irrevocabilmen."
 
-#: src/library.js:508 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/library.js:456 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:581
 msgid "Remove"
 msgstr "Remover"
 
-#: src/library.js:629
+#: src/library.js:578
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "%d selectet"
 msgstr[1] "%d selectet"
 
-#: src/library.js:748
+#: src/library.js:697
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "Ne successat adjunter un libre"
 msgstr[1] "Ne successat adjunter libres"
 
-#: src/library.js:750
+#: src/library.js:699
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "Ne successat adjunter li sequent file:"
 msgstr[1] "Ne successat adjunter li sequent files:"
 
-#: src/library.js:822
+#: src/library.js:771
 msgid "All"
 msgstr "Omni"
 
-#: src/library.js:825 src/ui/catalogWindow.ui:39
+#: src/library.js:774 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "Titul"
 
-#: src/library.js:826
+#: src/library.js:775 src/schemes.js:257
 msgid "Author"
 msgstr "Autor"
 
-#: src/library.js:827 src/properties.js:77
+#: src/library.js:776 src/properties.js:359 src/ui/propertyBox.ui:16
 msgid "Tags"
 msgstr "Tags"
 
-#: src/library.js:828
+#: src/library.js:777 src/ui/propertiesBox.ui:65
 msgid "Description"
 msgstr "Descrition"
 
-#: src/library.js:829 src/properties.js:81
+#: src/library.js:778 src/properties.js:418 src/schemes.js:407
 msgid "Publisher"
 msgstr "Publicator"
 
-#: src/library.js:830 src/properties.js:101 src/ui/ttsDialog.ui:284
+#: src/library.js:779 src/properties.js:438 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "Lingue"
 
-#: src/library.js:867
+#: src/library.js:816
 msgid "Add Files"
 msgstr "Adjunter files"
 
@@ -337,257 +329,301 @@ msgstr "Wiktionarium"
 msgid "Wiktionary (English)"
 msgstr "Wiktionary (anglese)"
 
-#: src/lookup.js:386
+#: src/lookup.js:387
 msgid "Search on Wiktionary"
 msgstr "Serchar in Wiktionarium"
 
-#: src/lookup.js:409
+#: src/lookup.js:410
 msgid "Translation by Google Translate"
 msgstr "Traductet med Google Translate"
 
-#: src/main.js:121 src/window.js:657
+#: src/main.js:135 src/window.js:666
 msgid "Open File"
 msgstr "Aperter un file"
 
-#: src/main.js:142
+#: src/main.js:156
 msgid "Open Catalog"
 msgstr "Aperter un catalog"
 
-#: src/main.js:148 src/ui/catalogRow.ui:50
+#: src/main.js:162 src/opds.js:202 src/opds.js:377 src/ui/catalogRow.ui:50
 msgid "Open"
 msgstr "Aperter"
 
-#: src/main.js:152
+#: src/main.js:166
 msgid "OPDS Catalog URL:"
 msgstr "URL de catalog OPDS:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/main.js:191
+#: src/main.js:208
 msgid "translator-credits"
 msgstr "OIS <mistresssilvara@hotmail.com>, 2020"
 
-#: src/main.js:193 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
+#: src/main.js:210 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
 msgstr "Un simplic e modern visor de eLibres"
 
-#: src/main.js:218
+#: src/main.js:235
 msgid "Open library window"
 msgstr "Aperter li fenestre del biblioteca"
 
-#: src/main.js:222
+#: src/main.js:239
 msgid "Add files to the library"
 msgstr "Adjunter files al biblioteca"
 
-#: src/main.js:226
+#: src/main.js:243
 msgid "Show version"
 msgstr "Monstrar li version"
 
-#: src/main.js:230
+#: src/main.js:247
 #, fuzzy
 msgid "Show verbose debugging information"
 msgstr "Monstrar li information del version"
 
-#: src/opds.js:144
-msgid "Authentication Required"
-msgstr ""
-
-#: src/opds.js:146
-#, javascript-format
-msgid "Authentication required by %s"
-msgstr ""
-
-#: src/opds.js:149
-#, javascript-format
-msgid "The site says: “%s”"
-msgstr ""
-
-#: src/opds.js:160
-msgid "Authenticate"
-msgstr ""
-
-#: src/opds.js:171
-#, fuzzy
-msgid "Username"
-msgstr "Nómine de capitul"
-
-#: src/opds.js:175
-msgid "Password"
-msgstr ""
-
-#. Translators: this is the punctuation used to join together a list of
-#. authors or categories
-#: src/opds.js:216
-msgid ", "
-msgstr ", "
-
-#: src/opds.js:255
+#: src/opds.js:91
 msgid "Download"
 msgstr "Descargar"
 
-#: src/opds.js:257
+#: src/opds.js:94
 msgid "Buy"
 msgstr "Comprar"
 
-#: src/opds.js:258
+#: src/opds.js:95
 msgid "Free"
 msgstr "Gratuit"
 
-#: src/opds.js:259
+#: src/opds.js:96
+msgid "Preview"
+msgstr "Previder"
+
+#: src/opds.js:97
 msgid "Sample"
 msgstr "Exemplar"
 
-#: src/opds.js:260
+#: src/opds.js:98
 msgid "Borrow"
 msgstr "Pruntar"
 
-#: src/opds.js:261
+#: src/opds.js:99
 msgid "Subscribe"
 msgstr "Abonnar"
 
-#: src/opds.js:278
+#: src/opds.js:101
+msgid "More"
+msgstr "Plu"
+
+#: src/opds.js:125
 msgid "Protected by DRM"
 msgstr "Protectet med DRM"
 
-#: src/opds.js:296
+#: src/opds.js:144
 msgid " (DRM)"
 msgstr " (DRM)"
 
-#: src/opds.js:362
-#, fuzzy
-msgid "Unable to load OPDS feed"
-msgstr "Ne posset cargar li localisation"
+#: src/opds.js:209
+msgid "Update available"
+msgstr "Actualisament es disponibil"
 
-#: src/opds.js:367 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
-#: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:93
+#: src/opds.js:210
+msgid "Update"
+msgstr "Actualisar"
+
+#: src/opds.js:218 src/opds.js:230
+msgid "Delete"
+msgstr "Remover"
+
+#: src/opds.js:222
+msgid "Delete this item?"
+msgstr "Remover ti-ci element?"
+
+#: src/opds.js:224
+msgid "If you delete this item, it will be permanently lost."
+msgstr "Si vu remove un element, it va esser perdit irrevocabilmen."
+
+#: src/opds.js:276
+#, fuzzy
+msgid "An error occurred."
+msgstr "Un errore evenit."
+
+#: src/opds.js:280 src/ui/ttsDialog.ui:17
+msgid "OK"
+msgstr "OK"
+
+#: src/opds.js:309 src/ui/libraryWindow.ui:286 src/ui/shortcutsWindow.ui:71
+msgid "Go back"
+msgstr "Ear retro"
+
+#: src/opds.js:369
+#, fuzzy
+msgid "What would you like to do with this file?"
+msgstr "Que vu vole far?"
+
+#: src/opds.js:370
+#, javascript-format
+msgid "Format: %s"
+msgstr "Formate: %s"
+
+#: src/opds.js:378 src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
+#: src/ui/themeWindow.ui:17
+msgid "Save"
+msgstr "Gardar"
+
+#. Translators: this is the punctuation used to join together a list of
+#. authors or categories
+#: src/opds.js:571
+msgid ", "
+msgstr ", "
+
+#: src/opds.js:659
+msgid "Unable to load OPDS feed"
+msgstr "Ne posset cargar un feed OPDS"
+
+#: src/opds.js:664 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
+#: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:78
+#: src/ui/shortcutsWindow.ui:120
 msgid "Reload"
 msgstr "Recargar"
 
-#: src/opds.js:771 src/ui/catalogWindow.ui:6
+#: src/opds.js:832 src/window.js:340
+#, javascript-format
+msgid "%d of %d"
+msgstr "%d ex %d"
+
+#: src/opds.js:1065 src/ui/catalogWindow.ui:6
 msgid "OPDS Catalog"
 msgstr "Catalog OPDS"
 
-#: src/opds.js:869 src/ui/catalogWindow.ui:53
+#: src/opds.js:1165 src/ui/catalogWindow.ui:53
 msgid "OPDS URL"
 msgstr "URL de OPDS"
 
-#: src/opds.js:876
-#, fuzzy
+#: src/opds.js:1172
 msgid "Go"
-msgstr "_Ear"
+msgstr "Ear"
 
-#: src/opds.js:896 src/opds.js:921 src/window.js:1304
+#: src/opds.js:1192 src/opds.js:1218 src/window.js:1317
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Carga..."
 
-#: src/opds.js:964
+#: src/opds.js:1261
 msgid "First"
 msgstr "Prim"
 
-#: src/opds.js:965
+#: src/opds.js:1262 src/properties.js:605
 msgid "Previous"
 msgstr "Precedent"
 
-#: src/opds.js:966
+#: src/opds.js:1263 src/properties.js:605
 msgid "Next"
 msgstr "Sequent"
 
-#: src/opds.js:967
+#: src/opds.js:1264
 msgid "Last"
 msgstr "Ultim"
 
-#: src/opds.js:1015
+#: src/opds.js:1312
 msgid "Related"
 msgstr "Relatent"
 
-#: src/opds.js:1016
+#: src/opds.js:1313
 msgid "Section"
 msgstr "Section"
 
-#: src/opds.js:1017
+#: src/opds.js:1314
 msgid "Subsection"
 msgstr "Subsection"
 
-#: src/opds.js:1018
+#: src/opds.js:1315
 msgid "New"
 msgstr "Nov"
 
-#: src/opds.js:1019
+#: src/opds.js:1316
 msgid "Popular"
 msgstr "Populari"
 
-#: src/opds.js:1020
+#: src/opds.js:1317
 msgid "Featured"
 msgstr "Promoet"
 
-#: src/opds.js:1021
+#: src/opds.js:1318
 msgid "Recommended"
 msgstr "Recomandat"
 
-#: src/opds.js:1055
+#: src/opds.js:1355
 msgid "Filter"
 msgstr "Filtre"
 
-#: src/properties.js:78
-msgid " • "
-msgstr " • "
-
-#: src/properties.js:87
-msgid "Publication Date"
-msgstr "Date de publication"
-
-#: src/properties.js:94
-msgid "Modified Date"
-msgstr "Date de modification"
-
-#: src/properties.js:106
-msgid "File Size"
-msgstr "Grandore de file"
-
-#: src/properties.js:110
-msgid "Format"
-msgstr "Formate"
-
-#: src/properties.js:116
-msgid "Identifier"
-msgstr "Identificator"
-
-#: src/properties.js:130
-msgid ""
-"This book has no identifier. This is the MD5 hash generated from the file."
-msgstr ""
-"Li libre ne have un identificator. Ti-ci es li hash MD5 generat ex li file."
-
-#: src/properties.js:141
-msgid "Copyright"
-msgstr "Jure editorial"
-
-#: src/properties.js:155
+#: src/properties.js:32 src/schemes.js:82
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/properties.js:159
+#: src/properties.js:37
 msgid "Goodreads"
 msgstr "Goodreads"
 
-#: src/properties.js:163
+#: src/properties.js:42
 msgid "Google Books"
 msgstr "Google Books"
 
-#: src/properties.js:167
+#: src/properties.js:47
 msgid "LibraryThing"
 msgstr "LibraryThing"
 
-#: src/properties.js:171
+#: src/properties.js:52
 msgid "Open Library"
 msgstr "Open Library"
 
-#: src/properties.js:175
+#: src/properties.js:57
 msgid "WorldCat"
 msgstr "WorldCat"
 
-#: src/properties.js:214
+#: src/properties.js:370
+msgid "Series"
+msgstr "Serie"
+
+#: src/properties.js:375
+#, javascript-format
+msgid "#%s"
+msgstr "Nró %s"
+
+#: src/properties.js:402
+msgid "Collections"
+msgstr "Collectiones"
+
+#: src/properties.js:424
+msgid "Publication Date"
+msgstr "Date de publication"
+
+#: src/properties.js:431
+msgid "Modified Date"
+msgstr "Date de modification"
+
+#: src/properties.js:443
+msgid "File Size"
+msgstr "Grandore de file"
+
+#: src/properties.js:447
+msgid "Format"
+msgstr "Formate"
+
+#: src/properties.js:457
+msgid "Identifier"
+msgstr "Identificator"
+
+#: src/properties.js:463
+msgid "Source"
+msgstr "Orígine"
+
+#: src/properties.js:518
+msgid "Contributors"
+msgstr "Contributores"
+
+#: src/properties.js:522
+msgid "Copyright"
+msgstr "Jure editorial"
+
+#: src/properties.js:643
 msgid "Find on…"
 msgstr "Trovar sur..."
 
@@ -607,9 +643,9 @@ msgstr "Gris"
 msgid "Dark"
 msgstr "Obscur"
 
-#: src/theme.js:39 src/ui/imageViewer.ui:56 src/ui/shortcutsWindow.ui:382
+#: src/theme.js:39 src/ui/imageViewer.ui:56 src/ui/shortcutsWindow.ui:409
 #: src/ui/themeWindow.ui:145
-#: data/com.github.johnfactotum.Foliate.gschema.xml:172
+#: data/com.github.johnfactotum.Foliate.gschema.xml:176
 msgid "Invert"
 msgstr "Inverter"
 
@@ -635,16 +671,16 @@ msgstr "Nordic"
 
 #. Translatros: these are sentences from "The North Wind and the Sun",
 #. used for testing text-to-speech
-#: src/tts.js:225
+#: src/tts.js:226
 msgid "The North Wind and the Sun were disputing which was the stronger,"
 msgstr ""
 
-#: src/tts.js:226
+#: src/tts.js:227
 msgid "when a traveler came along wrapped in a warm cloak."
 msgstr ""
 
 #. Translators: this is the language code of the test sentences
-#: src/tts.js:228
+#: src/tts.js:229
 #, fuzzy
 msgid "en"
 msgstr "en"
@@ -652,7 +688,7 @@ msgstr "en"
 #: src/utils.js:150
 #, javascript-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
 #. "%s" is usually already a fully formatted date string,
@@ -661,7 +697,7 @@ msgstr ""
 #: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
-msgstr ""
+msgstr "%s a. C."
 
 #: src/utils.js:219
 #, javascript-format
@@ -677,80 +713,98 @@ msgid_plural "%d hours"
 msgstr[0] "%d hor"
 msgstr[1] "%d hores"
 
-#: src/utils.js:257
+#: src/utils.js:281
 msgid "E-book Files"
 msgstr "Files de e-libres"
 
-#: src/window.js:123 src/window.js:807
-#, fuzzy
+#: src/utils.js:749
+msgid "Authentication Required"
+msgstr "Autentication es besonat"
+
+#: src/utils.js:751
+#, javascript-format
+msgid "Authentication required by %s"
+msgstr "Autentication es besonat de %s"
+
+#: src/utils.js:754
+#, javascript-format
+msgid "The site says: “%s”"
+msgstr "Li site dit: «%s»"
+
+#: src/utils.js:759
+msgid "Authenticate"
+msgstr "Autenticar"
+
+#: src/utils.js:773
+msgid "Username"
+msgstr "Nómine de usator"
+
+#: src/utils.js:777
+msgid "Password"
+msgstr "Contrasigne"
+
+#: src/window.js:126 src/window.js:816
 msgid "Leave fullscreen"
 msgstr "Surtir plen-ecran"
 
-#: src/window.js:126 src/ui/mainMenu.ui:91
-#: data/com.github.johnfactotum.Foliate.gschema.xml:230
+#: src/window.js:129 src/ui/mainMenu.ui:91
+#: data/com.github.johnfactotum.Foliate.gschema.xml:234
 msgid "Fullscreen"
 msgstr "Plen-ecran"
 
-#: src/window.js:216 src/window.js:217
+#: src/window.js:219 src/window.js:220
 #, javascript-format
 msgid "of %d"
 msgstr "ex %d"
 
-#: src/window.js:337
-#, javascript-format
-msgid "%d of %d"
-msgstr "%d ex %d"
-
-#: src/window.js:557
+#: src/window.js:565
 msgid "This file or format does not work well with annotations"
 msgstr "Ti file o formate ne es completmen compatibil con anotationes"
 
-#: src/window.js:558
+#: src/window.js:566
 msgid "Your annotations might stop working properly at any time."
 msgstr ""
 
-#: src/window.js:564
+#: src/window.js:572
 msgid "Continue Anyway"
 msgstr "Continuar sin egard"
 
-#: src/window.js:786
+#: src/window.js:795
 msgid "Contents"
 msgstr "Contenete"
 
-#: src/window.js:790 data/com.github.johnfactotum.Foliate.gschema.xml:240
+#: src/window.js:799 data/com.github.johnfactotum.Foliate.gschema.xml:244
 msgid "Show sidebar"
 msgstr "Monstrar li panel láteral"
 
-#: src/window.js:801 src/ui/selectionPopover.ui:47
+#: src/window.js:810 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr "Trovar"
 
-#: src/window.js:802 src/ui/libraryWindow.ui:205 src/ui/libraryWindow.ui:300
+#: src/window.js:811 src/ui/libraryWindow.ui:205 src/ui/libraryWindow.ui:300
 msgid "Menu"
 msgstr "Menú"
 
-#: src/window.js:1090
+#: src/window.js:1102
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Image ex «%s»"
 
-#: src/window.js:1090
+#: src/window.js:1102
 msgid "Image"
 msgstr "Image"
 
 #: src/ui/annotationBox.ui:35
-#, fuzzy
 msgid "Change highlight color"
-msgstr "Tira un color sur un objecte por applicar it"
+msgstr "Color de marca"
 
 #: src/ui/annotationBox.ui:98
 msgid "Choose custom color"
 msgstr "Selecter un color personalisat"
 
 #: src/ui/bookBoxChild.ui:29 src/ui/bookBoxRow.ui:76
-#, fuzzy
 msgid "Remote file"
-msgstr "Ne successat cargar un lontan file."
+msgstr "Lontan file"
 
 #: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
 msgid "Export Annotations…"
@@ -760,11 +814,6 @@ msgstr "Exportar anotationes..."
 #: src/ui/themeRow.ui:26
 msgid "Edit"
 msgstr "Modificar"
-
-#: src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
-#: src/ui/themeWindow.ui:17
-msgid "Save"
-msgstr "Gardar"
 
 #: src/ui/bookEditDialog.ui:46
 msgid "File URL:"
@@ -779,14 +828,12 @@ msgid "Remove Book"
 msgstr "Remover li libre"
 
 #: src/ui/catalogWindow.ui:68
-#, fuzzy
 msgid "Preview URL"
-msgstr "_URL"
+msgstr "Adresse de prevision"
 
 #: src/ui/catalogWindow.ui:77
-#, fuzzy
 msgid "Optional"
-msgstr "optional"
+msgstr "Facultativ"
 
 #: src/ui/catalogWindow.ui:93
 msgid "Remove Catalog"
@@ -805,7 +852,7 @@ msgid "Select some text to add annotations."
 msgstr "Selecte alcun textu por adjunter anotation."
 
 #: src/ui/contentsStack.ui:124
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
 msgid "Annotations"
 msgstr "Anotationes"
 
@@ -821,7 +868,7 @@ msgstr "In prim adjunte alcun marca-págines."
 msgid "Bookmarks"
 msgstr "Marca-págines"
 
-#: src/ui/dictionaryBox.ui:64
+#: src/ui/dictionaryBox.ui:75
 msgid "No definitions found"
 msgstr "Null definitiones trovat"
 
@@ -870,48 +917,45 @@ msgid "Current chapter"
 msgstr "Li actual capitul"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-#, fuzzy
 msgid "Reference Preview"
-msgstr "Prevision de ped-notes"
+msgstr "Prevision de referentie"
 
-#: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:40
-#: src/ui/shortcutsWindow.ui:159 src/ui/shortcutsWindow.ui:342
-#: src/ui/wikipediaBox.ui:107
-#: data/com.github.johnfactotum.Foliate.gschema.xml:268
+#: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:186
+#: src/ui/shortcutsWindow.ui:369 src/ui/wikipediaBox.ui:107
+#: data/com.github.johnfactotum.Foliate.gschema.xml:272
 msgid "View"
 msgstr "Vise"
 
 #: src/ui/imageViewer.ui:31 src/ui/menuBar.ui:60 src/ui/preferenceWindow.ui:59
-#: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:311
+#: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:338
 msgid "Copy"
 msgstr "Copiar"
 
-#: src/ui/imageViewer.ui:44 src/ui/shortcutsWindow.ui:318
+#: src/ui/imageViewer.ui:44 src/ui/shortcutsWindow.ui:345
 msgid "Save as"
 msgstr "Gardar quam"
 
 #: src/ui/imageViewer.ui:126 src/ui/mainMenu.ui:50
-#: src/ui/shortcutsWindow.ui:171 src/ui/shortcutsWindow.ui:291
-#: src/ui/shortcutsWindow.ui:354
+#: src/ui/shortcutsWindow.ui:198 src/ui/shortcutsWindow.ui:318
+#: src/ui/shortcutsWindow.ui:381
 msgid "Zoom out"
 msgstr "Diminuer"
 
 #: src/ui/imageViewer.ui:139 src/ui/mainMenu.ui:64
-#, fuzzy
 msgid "Restore zoom"
 msgstr "Scale predefinit"
 
 #: src/ui/imageViewer.ui:152 src/ui/mainMenu.ui:73
-#: src/ui/shortcutsWindow.ui:163 src/ui/shortcutsWindow.ui:284
-#: src/ui/shortcutsWindow.ui:346
+#: src/ui/shortcutsWindow.ui:190 src/ui/shortcutsWindow.ui:311
+#: src/ui/shortcutsWindow.ui:373
 msgid "Zoom in"
 msgstr "Agrandar"
 
-#: src/ui/imageViewer.ui:184 src/ui/shortcutsWindow.ui:368
+#: src/ui/imageViewer.ui:184 src/ui/shortcutsWindow.ui:395
 msgid "Rotate 90° counter-clockwise"
 msgstr "Rotar a levul por 90°"
 
-#: src/ui/imageViewer.ui:197 src/ui/shortcutsWindow.ui:375
+#: src/ui/imageViewer.ui:197 src/ui/shortcutsWindow.ui:402
 msgid "Rotate 90° clockwise"
 msgstr "Rotar a dextri por 90°"
 
@@ -920,9 +964,8 @@ msgid "Import"
 msgstr "Importar"
 
 #: src/ui/importWindow.ui:34
-#, fuzzy
 msgid "These annotations will be added:"
-msgstr "Adjuntet"
+msgstr "Ti anotationes va esser adjuntet:"
 
 #: src/ui/importWindow.ui:64
 msgid ""
@@ -960,28 +1003,25 @@ msgid "About Foliate"
 msgstr "Pri Foliate"
 
 #: src/ui/libraryWindow.ui:55
-#, fuzzy
 msgid "Go to start page"
-msgstr "Ear al inicie"
+msgstr "Ear al inicial págine"
 
 #: src/ui/libraryWindow.ui:83
-#, fuzzy
 msgid "Add this feed to catalogs"
-msgstr "Adjunter un catalog"
+msgstr "Adjunter ti-ci feed a catalogs"
 
 #: src/ui/libraryWindow.ui:104
-#, fuzzy
 msgid "Location…"
-msgstr "Localisation"
+msgstr "Localisation..."
 
 #: src/ui/libraryWindow.ui:116
 msgid "Go Back to Library"
-msgstr ""
+msgstr "Retornar al biblioteca"
 
 #: src/ui/libraryWindow.ui:123
 #, fuzzy
-msgid "Go Back to Catalog"
-msgstr "Null catalogs"
+msgid "Go Back to Catalogs"
+msgstr "Retornar al biblioteca"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -992,7 +1032,7 @@ msgid "Add catalog"
 msgstr "Adjunter un catalog"
 
 #: src/ui/libraryWindow.ui:229 src/ui/libraryWindow.ui:316
-#: src/ui/shortcutsWindow.ui:17
+#: src/ui/shortcutsWindow.ui:44
 msgid "Search"
 msgstr "Serchar"
 
@@ -1000,23 +1040,17 @@ msgstr "Serchar"
 msgid "Toggle view"
 msgstr "Alterar li vise"
 
-#: src/ui/libraryWindow.ui:286
-msgid "Go back"
-msgstr "Ear retro"
-
 #: src/ui/libraryWindow.ui:378
-#, fuzzy
 msgid "Stop"
-msgstr "Stoppar"
+msgstr "Haltar"
 
 #: src/ui/libraryWindow.ui:481
 msgid "No books yet"
 msgstr "Hay ancor null libres"
 
 #: src/ui/libraryWindow.ui:493 src/ui/mainOverlay.ui:60
-#, fuzzy
 msgid "Open a book to start reading."
-msgstr "Ne successat aperter %s por letion"
+msgstr "Aperte un libre por comensar letion."
 
 #: src/ui/libraryWindow.ui:507 src/ui/mainOverlay.ui:73
 msgid "Open File…"
@@ -1040,26 +1074,26 @@ msgstr "Null catalogs"
 
 #: src/ui/libraryWindow.ui:668
 msgid "You can browse, search, and download content from OPDS catalogs."
-msgstr ""
+msgstr "Vu posse navigar, serchar e descargar li contenete de catalogs OPDS."
 
 #: src/ui/libraryWindow.ui:692
 msgid "Learn More"
 msgstr "Plu information"
 
-#: src/ui/libraryWindow.ui:708
+#: src/ui/libraryWindow.ui:708 src/ui/shortcutsWindow.ui:67
 msgid "Catalogs"
 msgstr "Catalogs"
 
-#: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:177
+#: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:181
 msgid "Brightness"
 msgstr "Luciditá"
 
-#: src/ui/mainMenu.ui:148 data/com.github.johnfactotum.Foliate.gschema.xml:122
-#: data/com.github.johnfactotum.Foliate.gschema.xml:123
+#: src/ui/mainMenu.ui:148 data/com.github.johnfactotum.Foliate.gschema.xml:126
+#: data/com.github.johnfactotum.Foliate.gschema.xml:127
 msgid "Font"
 msgstr "Fonde"
 
-#: src/ui/mainMenu.ui:162 data/com.github.johnfactotum.Foliate.gschema.xml:127
+#: src/ui/mainMenu.ui:162 data/com.github.johnfactotum.Foliate.gschema.xml:131
 msgid "Spacing"
 msgstr "Interspacie"
 
@@ -1071,7 +1105,7 @@ msgstr "Márgines"
 msgid "Width"
 msgstr "Largore"
 
-#: src/ui/mainMenu.ui:232 data/com.github.johnfactotum.Foliate.gschema.xml:138
+#: src/ui/mainMenu.ui:232 data/com.github.johnfactotum.Foliate.gschema.xml:142
 msgid "Maximum page width"
 msgstr "Max largore de págine"
 
@@ -1079,11 +1113,11 @@ msgstr "Max largore de págine"
 msgid "Theme"
 msgstr "Tema"
 
-#: src/ui/mainMenu.ui:273 src/ui/mainMenu.ui:409 src/ui/preferenceWindow.ui:525
+#: src/ui/mainMenu.ui:273 src/ui/mainMenu.ui:409 src/ui/preferenceWindow.ui:600
 msgid "Advanced"
 msgstr "Avansat"
 
-#: src/ui/mainMenu.ui:285 src/ui/mainMenu.ui:603 src/ui/shortcutsWindow.ui:124
+#: src/ui/mainMenu.ui:285 src/ui/mainMenu.ui:603 src/ui/shortcutsWindow.ui:151
 msgid "Book"
 msgstr "Libre"
 
@@ -1096,7 +1130,7 @@ msgid "Add Custom Theme…"
 msgstr "Adjuncter un personal tema..."
 
 #: src/ui/mainMenu.ui:429 src/ui/menuBar.ui:108
-#: data/com.github.johnfactotum.Foliate.gschema.xml:197
+#: data/com.github.johnfactotum.Foliate.gschema.xml:201
 msgid "Layout"
 msgstr "Arangeament"
 
@@ -1130,11 +1164,11 @@ msgid "Full Justification"
 msgstr "Alineament de subtitules"
 
 #: src/ui/mainMenu.ui:519 src/ui/menuBar.ui:143
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:306
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:331
 msgid "Auto-hyphenation"
 msgstr "Separation síllabic"
 
-#: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114
+#: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114 src/schemes.js:402
 msgid "Other"
 msgstr "Altri"
 
@@ -1147,9 +1181,8 @@ msgid "Realistic Shadows"
 msgstr "Ombres realistic"
 
 #: src/ui/mainMenu.ui:579
-#, fuzzy
 msgid "Allow JavaScript"
-msgstr "JavaScript"
+msgstr "Permisser JavaScript"
 
 #: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
 #, fuzzy
@@ -1189,6 +1222,10 @@ msgstr "Ne successat aperter li file"
 msgid "Open Another File…"
 msgstr "Aperter un altri file..."
 
+#: src/ui/mainOverlay.ui:183
+msgid "Downloading…"
+msgstr "Descarga..."
+
 #: src/ui/menuBar.ui:5
 msgid "_File"
 msgstr "_File"
@@ -1202,7 +1239,7 @@ msgid "Close Window"
 msgstr "Cluder li fenestre"
 
 #: src/ui/menuBar.ui:50 src/ui/shortcutsWindow.ui:31
-#: src/ui/shortcutsWindow.ui:114 src/ui/shortcutsWindow.ui:332
+#: src/ui/shortcutsWindow.ui:141 src/ui/shortcutsWindow.ui:359
 msgid "Quit"
 msgstr "Surtir"
 
@@ -1223,7 +1260,6 @@ msgid "_View"
 msgstr "_Vise"
 
 #: src/ui/menuBar.ui:88
-#, fuzzy
 msgid "Toggle Fullscreen"
 msgstr "Plen-ecran"
 
@@ -1316,17 +1352,17 @@ msgstr "Ear al sequent capitul"
 msgid "Go to end of book"
 msgstr "Ear al fin del libre"
 
-#: src/ui/navBar.ui:284 src/ui/shortcutsWindow.ui:241
-#: src/ui/shortcutsWindow.ui:277
+#: src/ui/navBar.ui:284 src/ui/shortcutsWindow.ui:268
+#: src/ui/shortcutsWindow.ui:304
 msgid "Go to previous page"
 msgstr "Ear al precedent págine"
 
-#: src/ui/navBar.ui:298 src/ui/shortcutsWindow.ui:248
+#: src/ui/navBar.ui:298 src/ui/shortcutsWindow.ui:275
 msgid "Go back to previous location"
 msgstr "Retornar al precedent localisation"
 
-#: src/ui/navBar.ui:387 src/ui/shortcutsWindow.ui:234
-#: src/ui/shortcutsWindow.ui:270
+#: src/ui/navBar.ui:387 src/ui/shortcutsWindow.ui:261
+#: src/ui/shortcutsWindow.ui:297
 msgid "Go to next page"
 msgstr "Ear al sequent págine"
 
@@ -1374,7 +1410,7 @@ msgstr "Serchar in Wikipedia"
 msgid "Translate"
 msgstr "Traducter"
 
-#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:135
+#: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:162
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
 msgstr "Trovar in li libre"
@@ -1405,7 +1441,7 @@ msgid "Right click"
 msgstr "Dextri clic"
 
 #: src/ui/preferenceWindow.ui:142 src/ui/shortcutsWindow.ui:13
-#: src/ui/shortcutsWindow.ui:307
+#: src/ui/shortcutsWindow.ui:334
 msgid "General"
 msgstr "General"
 
@@ -1413,100 +1449,114 @@ msgstr "General"
 msgid "Open last opened file on startup"
 msgstr "Aperter li ultim file al inicie"
 
-#: src/ui/preferenceWindow.ui:176
+#: src/ui/preferenceWindow.ui:182
 msgid "Reading"
 msgstr "Letion"
 
-#: src/ui/preferenceWindow.ui:191
-#: data/com.github.johnfactotum.Foliate.gschema.xml:104
+#: src/ui/preferenceWindow.ui:197
+#: data/com.github.johnfactotum.Foliate.gschema.xml:108
 #, fuzzy
 msgid "Turn page on tap"
 msgstr "_Activar"
 
-#: src/ui/preferenceWindow.ui:214
-#: data/com.github.johnfactotum.Foliate.gschema.xml:94
+#: src/ui/preferenceWindow.ui:220
+#: data/com.github.johnfactotum.Foliate.gschema.xml:98
 #, fuzzy
 msgid "Left footer"
 msgstr "A levul de A"
 
-#: src/ui/preferenceWindow.ui:248
-#: data/com.github.johnfactotum.Foliate.gschema.xml:99
+#: src/ui/preferenceWindow.ui:254
+#: data/com.github.johnfactotum.Foliate.gschema.xml:103
 #, fuzzy
 msgid "Right footer"
 msgstr "A _dextri"
 
-#: src/ui/preferenceWindow.ui:282
+#: src/ui/preferenceWindow.ui:288
 msgid "When a word is selected"
 msgstr "Si un parol es selectet"
 
-#: src/ui/preferenceWindow.ui:316
+#: src/ui/preferenceWindow.ui:322
 msgid "When multiple words are selected"
 msgstr "Si multiplic paroles es selectet"
 
-#: src/ui/preferenceWindow.ui:350
+#: src/ui/preferenceWindow.ui:356
 msgid "Open images on"
 msgstr "Aperter images pos un"
 
-#: src/ui/preferenceWindow.ui:385
-#: data/com.github.johnfactotum.Foliate.gschema.xml:74
+#: src/ui/preferenceWindow.ui:391
+#: data/com.github.johnfactotum.Foliate.gschema.xml:78
 msgid "Text-to-speech command"
 msgstr "Comande de parlation"
 
-#: src/ui/preferenceWindow.ui:401
+#: src/ui/preferenceWindow.ui:407
 msgid "Configure…"
 msgstr "Configurar..."
 
-#: src/ui/preferenceWindow.ui:413
+#: src/ui/preferenceWindow.ui:425
 msgid "Interface"
 msgstr "Interfacie"
 
-#: src/ui/preferenceWindow.ui:428
+#: src/ui/preferenceWindow.ui:440
 msgid "Auto-hide header bar"
 msgstr "Autocelar li barra de titul"
 
-#: src/ui/preferenceWindow.ui:462
-#: data/com.github.johnfactotum.Foliate.gschema.xml:79
+#: src/ui/preferenceWindow.ui:474
+#: data/com.github.johnfactotum.Foliate.gschema.xml:83
 msgid "Use sidebar"
 msgstr "Usar li panel láteral"
 
-#: src/ui/preferenceWindow.ui:490
+#: src/ui/preferenceWindow.ui:502
 #, fuzzy
 msgid "Use traditional titlebar (experimental)"
 msgstr "Usar superposition (EXPERIMENTAL)"
 
-#: src/ui/preferenceWindow.ui:498 src/ui/preferenceWindow.ui:553
-#: src/ui/preferenceWindow.ui:595
-#, fuzzy
+#: src/ui/preferenceWindow.ui:510 src/ui/preferenceWindow.ui:628
+#: src/ui/preferenceWindow.ui:670
 msgid "Requires restart"
-msgstr "Grandores de files de SI (1K = 1000, besona relansa)"
+msgstr "Besona relansa"
 
-#: src/ui/preferenceWindow.ui:545
+#: src/ui/preferenceWindow.ui:542
+msgid "OPDS"
+msgstr "OPDS"
+
+#: src/ui/preferenceWindow.ui:552
+msgid "When downloading books"
+msgstr "Quande on descarga libres"
+
+#: src/ui/preferenceWindow.ui:563
+msgid "Save to default directory"
+msgstr "Gardar in li fólder predefinit"
+
+#: src/ui/preferenceWindow.ui:583
+msgid "Ask what to do"
+msgstr "Questionar quo far"
+
+#: src/ui/preferenceWindow.ui:620
 msgid "Use Tracker to track file locations"
 msgstr "Usar Tracker por controlar localisationes de files"
 
-#: src/ui/preferenceWindow.ui:587
-#, fuzzy
+#: src/ui/preferenceWindow.ui:662
 msgid "Save file locations"
-msgstr "_Salvar ad-in file..."
+msgstr "Gardar positiones de files"
 
-#: src/ui/preferenceWindow.ui:625
-#: data/com.github.johnfactotum.Foliate.gschema.xml:24
-#, fuzzy
+#: src/ui/preferenceWindow.ui:700
+#: data/com.github.johnfactotum.Foliate.gschema.xml:28
 msgid "Cache locations"
-msgstr "Cache"
+msgstr "Cachear localisationes"
 
-#: src/ui/preferenceWindow.ui:649
-#, fuzzy
+#: src/ui/preferenceWindow.ui:724
 msgid "Cache book covers"
 msgstr "Cachear covrimentes"
 
+#: src/ui/propertiesBox.ui:93
+msgid "Details"
+msgstr "Detallies"
+
 #: src/ui/selectionPopover.ui:79
-#, fuzzy
 msgid "Look Up in Dictionary"
 msgstr "Serchar in li dictionarium"
 
 #: src/ui/selectionPopover.ui:86
-#, fuzzy
 msgid "Look Up in Wikipedia"
 msgstr "Serchar in Wikipedia"
 
@@ -1518,15 +1568,14 @@ msgstr "Dir de ci"
 msgid "Library Shortcuts"
 msgstr "Rapid-tastes de biblioteca"
 
-#: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:107
-#: src/ui/shortcutsWindow.ui:325
+#: src/ui/shortcutsWindow.ui:17 src/ui/shortcutsWindow.ui:106
+msgid "Open file"
+msgstr "Aperter un file"
+
+#: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:134
+#: src/ui/shortcutsWindow.ui:352
 msgid "Close current window"
 msgstr "Cluder li actual fenestre"
-
-#: src/ui/shortcutsWindow.ui:44 src/ui/shortcutsWindow.ui:220
-#, fuzzy
-msgid "Show primary menu"
-msgstr "Monstrar icones sur li primari monitor"
 
 #: src/ui/shortcutsWindow.ui:51
 msgid "List view"
@@ -1536,78 +1585,71 @@ msgstr "Vise de liste"
 msgid "Grid view"
 msgstr "Vise de grille"
 
-#: src/ui/shortcutsWindow.ui:71
+#: src/ui/shortcutsWindow.ui:85 src/ui/shortcutsWindow.ui:283
+msgid "Go to location"
+msgstr "Ear a localisation"
+
+#: src/ui/shortcutsWindow.ui:98
 msgid "E-book Viewer Shortcuts"
 msgstr "Rapid-tastes del letor"
 
-#: src/ui/shortcutsWindow.ui:75
+#: src/ui/shortcutsWindow.ui:102
 msgid "File"
 msgstr "File"
 
-#: src/ui/shortcutsWindow.ui:79
-msgid "Open file"
-msgstr "Aperter un file"
-
-#: src/ui/shortcutsWindow.ui:86
+#: src/ui/shortcutsWindow.ui:113
 msgid "Open a copy"
 msgstr "Aperter un copie"
 
-#: src/ui/shortcutsWindow.ui:100
+#: src/ui/shortcutsWindow.ui:127
 msgid "Clear cache"
 msgstr "Vacuar li cache"
 
-#: src/ui/shortcutsWindow.ui:142
+#: src/ui/shortcutsWindow.ui:169
 msgid "View book info"
 msgstr "Vider information pri li libre"
 
-#: src/ui/shortcutsWindow.ui:149
-#, fuzzy
+#: src/ui/shortcutsWindow.ui:176
 msgid "Start/stop text-to-speech"
-msgstr "Comande de parlation"
+msgstr "(Des)activar parlation"
 
-#: src/ui/shortcutsWindow.ui:178 src/ui/shortcutsWindow.ui:361
-#, fuzzy
+#: src/ui/shortcutsWindow.ui:205 src/ui/shortcutsWindow.ui:388
 msgid "Restore zoom level"
 msgstr "Scale predefinit"
 
-#: src/ui/shortcutsWindow.ui:185
-#, fuzzy
+#: src/ui/shortcutsWindow.ui:212
 msgid "Toggle fullscreen"
 msgstr "(Des)activar mode plen-ecran"
 
-#: src/ui/shortcutsWindow.ui:192
-#, fuzzy
+#: src/ui/shortcutsWindow.ui:219
 msgid "Show contents"
-msgstr "Monstrar li contenete de págine in colores invertet"
+msgstr "Monstrar li contenete"
 
-#: src/ui/shortcutsWindow.ui:199
-#, fuzzy
+#: src/ui/shortcutsWindow.ui:226
 msgid "Show table of contents"
-msgstr "Contenete"
+msgstr "Monstrar li Contenete"
 
-#: src/ui/shortcutsWindow.ui:206
-#, fuzzy
+#: src/ui/shortcutsWindow.ui:233
 msgid "Show annotations"
-msgstr "Null anotationes"
+msgstr "Monstrar anotationes"
 
-#: src/ui/shortcutsWindow.ui:213
-#, fuzzy
+#: src/ui/shortcutsWindow.ui:240
 msgid "Show bookmarks"
 msgstr "Monstrar marca-págines"
 
-#: src/ui/shortcutsWindow.ui:230
+#: src/ui/shortcutsWindow.ui:247
+msgid "Show primary menu"
+msgstr "Monstrar li primari menú"
+
+#: src/ui/shortcutsWindow.ui:257
 msgid "Navigation"
 msgstr "Navigation"
 
-#: src/ui/shortcutsWindow.ui:256
-msgid "Go to location"
-msgstr "Ear a location"
-
-#: src/ui/shortcutsWindow.ui:266
+#: src/ui/shortcutsWindow.ui:293
 msgid "Touchpad Gestures"
 msgstr "Gestes de panel tactil"
 
-#: src/ui/shortcutsWindow.ui:303
+#: src/ui/shortcutsWindow.ui:330
 msgid "Image Viewer Shortcuts"
 msgstr "Rapid-tastes del visor de images"
 
@@ -1643,10 +1685,6 @@ msgstr "Remover li tema"
 msgid "Cannot retrieve translation"
 msgstr "Ne successat obtener un traduction"
 
-#: src/ui/ttsDialog.ui:17
-msgid "OK"
-msgstr "OK"
-
 #: src/ui/ttsDialog.ui:46
 msgid "Text-to-Speech Command"
 msgstr "Comande de parlation"
@@ -1654,6 +1692,7 @@ msgstr "Comande de parlation"
 #: src/ui/ttsDialog.ui:57
 msgid "Make sure the selected text-to-speech program is correctly installed."
 msgstr ""
+"Controla que li selectet programma de parlation es installat corectmen."
 
 #: src/ui/ttsDialog.ui:63
 msgid "eSpeak NG"
@@ -1675,13 +1714,12 @@ msgid ""
 msgstr ""
 
 #: src/ui/ttsDialog.ui:156
-#, fuzzy
 msgid "Test Your Configuration"
-msgstr "Provar"
+msgstr "Provar li configuration"
 
 #: src/ui/ttsDialog.ui:178
 msgid "The program should speak the following test sentences in order:"
-msgstr ""
+msgstr "Li programma va pronunciar li sequent frases in órdine:"
 
 #: src/ui/ttsDialog.ui:191
 msgid "1"
@@ -1692,13 +1730,1385 @@ msgid "2"
 msgstr "2"
 
 #: src/ui/wikipediaBox.ui:53
-#, fuzzy
 msgid "No entry found"
-msgstr "Ne esset trovat"
+msgstr "Null articul trovat"
 
 #: src/ui/wikipediaBox.ui:80
 msgid "Wikipedia"
 msgstr "Wikipedia"
+
+#: src/schemes.js:38
+msgid "DOI"
+msgstr "DOI"
+
+#: src/schemes.js:39
+msgid "Digital Object Identifier"
+msgstr "Identificator de digital object (DOI)"
+
+#: src/schemes.js:43
+msgid "ISBN"
+msgstr "ISBN"
+
+#: src/schemes.js:44 src/schemes.js:48 src/schemes.js:53 src/schemes.js:58
+msgid "International Standard Book Number"
+msgstr "International standard numeró de libre (ISBN)"
+
+#: src/schemes.js:47
+msgid "ISBN-10"
+msgstr "ISBN-10"
+
+#: src/schemes.js:52
+msgid "ISBN-13"
+msgstr "ISBN-13"
+
+#: src/schemes.js:57
+msgid "ISBN-A"
+msgstr "ISBN-A"
+
+#: src/schemes.js:62
+msgid "JDCN"
+msgstr "JDCN"
+
+#: src/schemes.js:63
+msgid "Japan Digital Comic Number"
+msgstr ""
+
+#: src/schemes.js:66
+msgid "UUID"
+msgstr "UUID"
+
+#: src/schemes.js:67
+#, fuzzy
+msgid "Universally-Unique Identifier"
+msgstr "Identificator"
+
+#: src/schemes.js:70
+msgid "URL"
+msgstr "URL"
+
+#: src/schemes.js:71
+msgid "Uniform Resource Locator"
+msgstr "Uniformi locator de ressurse (URL)"
+
+#: src/schemes.js:74
+msgid "URI"
+msgstr "URI"
+
+#: src/schemes.js:75
+msgid "Uniform Resource Identifier"
+msgstr "Uniformi identificator de ressurse (URI)"
+
+#: src/schemes.js:78
+msgid "ISSN"
+msgstr "ISSN"
+
+#: src/schemes.js:79
+msgid "International Standard Serial Number"
+msgstr "International standard serial numeró (ISSN)"
+
+#: src/schemes.js:83
+#, fuzzy
+msgid "Amazon Standard Identification Number"
+msgstr "International standard serial numeró (ISSN)"
+
+#: src/schemes.js:87
+msgid "OCLC"
+msgstr "OCLC"
+
+#: src/schemes.js:88
+msgid "Online Computer Library Center"
+msgstr ""
+
+#: src/schemes.js:92 src/schemes.js:93
+msgid "arXiv"
+msgstr "arXiv"
+
+#: src/schemes.js:96 src/schemes.js:97
+msgid "calibre"
+msgstr "calibre"
+
+#: src/schemes.js:101
+msgid "Foliate generated identifier"
+msgstr "Identificator generat de Foliate"
+
+#: src/schemes.js:122
+msgid "AAT"
+msgstr "AAT"
+
+#: src/schemes.js:123
+msgid "The Getty Art and Architecture Taxonomy"
+msgstr ""
+
+#: src/schemes.js:126
+msgid "BIC"
+msgstr "BIC"
+
+#: src/schemes.js:127
+msgid "Book Industry Communication"
+msgstr "Book Industry Communication"
+
+#: src/schemes.js:130
+msgid "BISAC"
+msgstr "BISAC"
+
+#: src/schemes.js:131
+#, fuzzy
+msgid "Book Industry Standards and Communications"
+msgstr "Book Industry Communication"
+
+#: src/schemes.js:135
+msgid "CLC"
+msgstr "CLC"
+
+#: src/schemes.js:136
+msgid "Chinese Library Classification"
+msgstr "Classification del Biblioteca de China"
+
+#: src/schemes.js:139
+msgid "DDC"
+msgstr "DDC"
+
+#: src/schemes.js:140
+msgid "Dewey Decimal Classification"
+msgstr "Decimal classification de Dewey"
+
+#: src/schemes.js:144
+msgid "CLIL"
+msgstr "CLIL"
+
+#: src/schemes.js:145
+msgid "Commission de Liaison Interprofessionnelle du Livre"
+msgstr "Commission de Liaison Interprofessionnelle du Livre"
+
+#: src/schemes.js:148 src/schemes.js:149
+msgid "EuroVoc"
+msgstr "EuroVoc"
+
+#: src/schemes.js:152
+msgid "MEDTOP"
+msgstr "MEDTOP"
+
+#: src/schemes.js:153
+#, fuzzy
+msgid "IPTC Media Topics"
+msgstr "IPTC"
+
+#: src/schemes.js:156
+msgid "LCC"
+msgstr "LCC"
+
+#: src/schemes.js:157
+msgid "Library of Congress Classification"
+msgstr "Classification del Biblioteca del Congress"
+
+#: src/schemes.js:161
+msgid "LCSH"
+msgstr "LCSH"
+
+#: src/schemes.js:162
+#, fuzzy
+msgid "Library of Congress Subject Headings"
+msgstr "Classification del Biblioteca del Congress"
+
+#: src/schemes.js:166
+msgid "NDC"
+msgstr "NDC"
+
+#: src/schemes.js:167
+msgid "Nippon Decimal Classification"
+msgstr "Decimal classification Nippon"
+
+#: src/schemes.js:170 src/schemes.js:171
+msgid "Thema"
+msgstr "Tema"
+
+#: src/schemes.js:174
+msgid "UDC"
+msgstr "UDC"
+
+#: src/schemes.js:175
+msgid "Universal Decimal Classification"
+msgstr "Universal decimal classification"
+
+#: src/schemes.js:179
+msgid "WGS"
+msgstr "WGS"
+
+#: src/schemes.js:180
+msgid "Warengruppen-Systematik"
+msgstr "Warengruppen-Systematik"
+
+#: src/schemes.js:183
+msgid "DCMIType"
+msgstr ""
+
+#: src/schemes.js:184
+#, fuzzy
+msgid "DCMI Type Vocabulary"
+msgstr "Secun _tip"
+
+#: src/schemes.js:188
+msgid "Audience"
+msgstr "Auditorie"
+
+#: src/schemes.js:189
+msgid "Intended Audience"
+msgstr "Intentet auditorie"
+
+#. Translators: see https://www.loc.gov/marc/relators/relaterm.html
+#. for detailed descriptions
+#: src/schemes.js:231
+msgid "Abridger"
+msgstr "Acurtator"
+
+#: src/schemes.js:232
+#, fuzzy
+msgid "Art copyist"
+msgstr "Arte"
+
+#: src/schemes.js:233
+msgid "Actor"
+msgstr "Actor"
+
+#: src/schemes.js:234
+#, fuzzy
+msgid "Art director"
+msgstr "Director"
+
+#: src/schemes.js:235
+msgid "Adapter"
+msgstr "Adaptator"
+
+#: src/schemes.js:236
+msgid "Author of afterword, colophon, etc."
+msgstr ""
+
+#: src/schemes.js:237
+msgid "Analyst"
+msgstr ""
+
+#: src/schemes.js:238
+msgid "Animator"
+msgstr ""
+
+#: src/schemes.js:239
+msgid "Annotator"
+msgstr "Anotator"
+
+#: src/schemes.js:240
+msgid "Bibliographic antecedent"
+msgstr ""
+
+#: src/schemes.js:241
+msgid "Appellee"
+msgstr ""
+
+#: src/schemes.js:242
+msgid "Appellant"
+msgstr "Apellante"
+
+#: src/schemes.js:243
+msgid "Applicant"
+msgstr "Aplicante"
+
+#: src/schemes.js:244
+msgid "Author in quotations or text abstracts"
+msgstr ""
+
+#: src/schemes.js:245
+msgid "Architect"
+msgstr "Architecte"
+
+#: src/schemes.js:246
+#, fuzzy
+msgid "Artistic director"
+msgstr "Artistic"
+
+#: src/schemes.js:247
+msgid "Arranger"
+msgstr "Arangeator"
+
+#: src/schemes.js:248
+msgid "Artist"
+msgstr "Artist"
+
+#: src/schemes.js:249
+msgid "Assignee"
+msgstr ""
+
+#: src/schemes.js:250
+#, fuzzy
+msgid "Associated name"
+msgstr "_Associat apps"
+
+#: src/schemes.js:251
+msgid "Autographer"
+msgstr ""
+
+#: src/schemes.js:252
+#, fuzzy
+msgid "Attributed name"
+msgstr "Nómine"
+
+#: src/schemes.js:253
+msgid "Auctioneer"
+msgstr "Auctionator"
+
+#: src/schemes.js:254
+msgid "Author of dialog"
+msgstr "Autor de dialogs"
+
+#: src/schemes.js:255
+#, fuzzy
+msgid "Author of introduction, etc."
+msgstr "Autor"
+
+#: src/schemes.js:256
+msgid "Screenwriter"
+msgstr ""
+
+#: src/schemes.js:258
+#, fuzzy
+msgid "Binding designer"
+msgstr "Banda:"
+
+#: src/schemes.js:259
+#, fuzzy
+msgid "Bookjacket designer"
+msgstr "Dessinator"
+
+#: src/schemes.js:260
+msgid "Book designer"
+msgstr "Dessinator de libre"
+
+#: src/schemes.js:261
+#, fuzzy
+msgid "Book producer"
+msgstr "Productor:"
+
+#: src/schemes.js:262
+#, fuzzy
+msgid "Blurb writer"
+msgstr "Autor de prefacie"
+
+#: src/schemes.js:263
+msgid "Binder"
+msgstr "Incadernator"
+
+#: src/schemes.js:264
+#, fuzzy
+msgid "Bookplate designer"
+msgstr "Dessinator"
+
+#: src/schemes.js:265
+msgid "Broadcaster"
+msgstr ""
+
+#: src/schemes.js:266
+msgid "Braille embosser"
+msgstr ""
+
+#: src/schemes.js:267
+#, fuzzy
+msgid "Bookseller"
+msgstr "Visor de eLibres"
+
+#: src/schemes.js:268
+msgid "Caster"
+msgstr "Fonditor"
+
+#: src/schemes.js:269
+msgid "Conceptor"
+msgstr ""
+
+#: src/schemes.js:270
+msgid "Choreographer"
+msgstr ""
+
+#: src/schemes.js:271
+msgid "Client"
+msgstr "Cliente"
+
+#: src/schemes.js:272
+msgid "Calligrapher"
+msgstr "Calligraf"
+
+#: src/schemes.js:273
+msgid "Colorist"
+msgstr ""
+
+#: src/schemes.js:274
+msgid "Collotyper"
+msgstr ""
+
+#: src/schemes.js:275
+msgid "Commentator"
+msgstr "Comentator"
+
+#: src/schemes.js:276
+msgid "Composer"
+msgstr "Compositor"
+
+#: src/schemes.js:277
+msgid "Compositor"
+msgstr "Compostor"
+
+#: src/schemes.js:278
+msgid "Conductor"
+msgstr "Dirigente"
+
+#: src/schemes.js:279
+msgid "Cinematographer"
+msgstr ""
+
+#: src/schemes.js:280
+msgid "Censor"
+msgstr "Censor"
+
+#: src/schemes.js:281
+#, fuzzy
+msgid "Contestant-appellee"
+msgstr "Contestant"
+
+#: src/schemes.js:282
+msgid "Collector"
+msgstr "Colector"
+
+#: src/schemes.js:283
+msgid "Compiler"
+msgstr "Compilator"
+
+#: src/schemes.js:284
+msgid "Conservator"
+msgstr ""
+
+#: src/schemes.js:285
+#, fuzzy
+msgid "Collection registrar"
+msgstr "Collection: "
+
+#: src/schemes.js:286
+msgid "Contestant"
+msgstr "Contestant"
+
+#: src/schemes.js:287
+#, fuzzy
+msgid "Contestant-appellant"
+msgstr "Contestant"
+
+#: src/schemes.js:288
+msgid "Court governed"
+msgstr ""
+
+#: src/schemes.js:289
+msgid "Cover designer"
+msgstr "Dessine del covriment"
+
+#: src/schemes.js:290
+#, fuzzy
+msgid "Copyright claimant"
+msgstr "Jure editorial:"
+
+#: src/schemes.js:291
+msgid "Complainant-appellee"
+msgstr ""
+
+#: src/schemes.js:292
+#, fuzzy
+msgid "Copyright holder"
+msgstr "Jure editorial:"
+
+#: src/schemes.js:293
+msgid "Complainant"
+msgstr ""
+
+#: src/schemes.js:294
+#, fuzzy
+msgid "Complainant-appellant"
+msgstr "Apellante"
+
+#: src/schemes.js:295
+msgid "Creator"
+msgstr "Creator"
+
+#: src/schemes.js:296
+msgid "Correspondent"
+msgstr "Correspondent"
+
+#: src/schemes.js:297
+msgid "Corrector"
+msgstr ""
+
+#: src/schemes.js:298
+msgid "Court reporter"
+msgstr ""
+
+#: src/schemes.js:299
+msgid "Consultant"
+msgstr "Consultator"
+
+#: src/schemes.js:300
+#, fuzzy
+msgid "Consultant to a project"
+msgstr "Consultator"
+
+#: src/schemes.js:301
+#, fuzzy
+msgid "Costume designer"
+msgstr "Dessinator"
+
+#: src/schemes.js:302
+msgid "Contributor"
+msgstr "Contributor"
+
+#: src/schemes.js:303
+#, fuzzy
+msgid "Contestee-appellee"
+msgstr "Contestate"
+
+#: src/schemes.js:304
+msgid "Cartographer"
+msgstr "Cartograf"
+
+#: src/schemes.js:305
+msgid "Contractor"
+msgstr "Contractor"
+
+#: src/schemes.js:306
+msgid "Contestee"
+msgstr "Contestate"
+
+#: src/schemes.js:307
+#, fuzzy
+msgid "Contestee-appellant"
+msgstr "Apellante"
+
+#: src/schemes.js:308
+msgid "Curator"
+msgstr "Curator"
+
+#: src/schemes.js:309
+#, fuzzy
+msgid "Commentator for written text"
+msgstr "Comentator"
+
+#: src/schemes.js:310
+#, fuzzy
+msgid "Distribution place"
+msgstr "Loco"
+
+#: src/schemes.js:311
+msgid "Defendant"
+msgstr ""
+
+#: src/schemes.js:312
+msgid "Defendant-appellee"
+msgstr ""
+
+#: src/schemes.js:313
+#, fuzzy
+msgid "Defendant-appellant"
+msgstr "Apellante"
+
+#: src/schemes.js:314
+#, fuzzy
+msgid "Degree granting institution"
+msgstr "Extension de dar privilegies"
+
+#: src/schemes.js:315
+msgid "Degree supervisor"
+msgstr ""
+
+#: src/schemes.js:316
+msgid "Dissertant"
+msgstr ""
+
+#: src/schemes.js:317
+msgid "Delineator"
+msgstr ""
+
+#: src/schemes.js:318
+msgid "Dancer"
+msgstr "Dansero"
+
+#: src/schemes.js:319
+msgid "Donor"
+msgstr "Donator"
+
+#: src/schemes.js:320
+msgid "Depicted"
+msgstr "Pictet"
+
+#: src/schemes.js:321
+msgid "Depositor"
+msgstr ""
+
+#: src/schemes.js:322
+msgid "Draftsman"
+msgstr ""
+
+#: src/schemes.js:323
+msgid "Director"
+msgstr "Director"
+
+#: src/schemes.js:324
+msgid "Designer"
+msgstr "Dessinator"
+
+#: src/schemes.js:325
+msgid "Distributor"
+msgstr "Distributor"
+
+#: src/schemes.js:326
+#, fuzzy
+msgid "Data contributor"
+msgstr "Contributor"
+
+#: src/schemes.js:327
+msgid "Dedicatee"
+msgstr "Dedicate"
+
+#: src/schemes.js:328
+#, fuzzy
+msgid "Data manager"
+msgstr "Null data"
+
+#: src/schemes.js:329
+msgid "Dedicator"
+msgstr "Dedicator"
+
+#: src/schemes.js:330
+msgid "Dubious author"
+msgstr "Autor dubitosi"
+
+#: src/schemes.js:331
+msgid "Editor of compilation"
+msgstr "Redactor de compilation"
+
+#: src/schemes.js:332
+#, fuzzy
+msgid "Editor of moving image work"
+msgstr "Redactor de images Pinta"
+
+#: src/schemes.js:333
+msgid "Editor"
+msgstr "Redactor"
+
+#: src/schemes.js:334
+msgid "Engraver"
+msgstr ""
+
+#: src/schemes.js:335
+msgid "Electrician"
+msgstr "Electrico"
+
+#: src/schemes.js:336
+msgid "Electrotyper"
+msgstr ""
+
+#: src/schemes.js:337
+msgid "Engineer"
+msgstr ""
+
+#: src/schemes.js:338
+msgid "Enacting jurisdiction"
+msgstr ""
+
+#: src/schemes.js:339
+msgid "Etcher"
+msgstr ""
+
+#: src/schemes.js:340
+#, fuzzy
+msgid "Event place"
+msgstr "_Loco:"
+
+#: src/schemes.js:341
+msgid "Expert"
+msgstr "Expert"
+
+#: src/schemes.js:342
+msgid "Facsimilist"
+msgstr ""
+
+#: src/schemes.js:343
+#, fuzzy
+msgid "Film distributor"
+msgstr "Film"
+
+#: src/schemes.js:344
+#, fuzzy
+msgid "Field director"
+msgstr "Director"
+
+#: src/schemes.js:345
+#, fuzzy
+msgid "Film editor"
+msgstr "Film"
+
+#: src/schemes.js:346
+#, fuzzy
+msgid "Film director"
+msgstr "Film"
+
+#: src/schemes.js:347
+msgid "Filmmaker"
+msgstr ""
+
+#: src/schemes.js:348
+msgid "Former owner"
+msgstr "Precedent possessor"
+
+#: src/schemes.js:349
+#, fuzzy
+msgid "Film producer"
+msgstr "Film"
+
+#: src/schemes.js:350
+msgid "Funder"
+msgstr ""
+
+#: src/schemes.js:351
+msgid "First party"
+msgstr "Prim partise"
+
+#: src/schemes.js:352
+msgid "Forger"
+msgstr ""
+
+#: src/schemes.js:353
+#, fuzzy
+msgid "Geographic information specialist"
+msgstr "Information..."
+
+#: src/schemes.js:354
+#, fuzzy
+msgid "Host institution"
+msgstr "Host: "
+
+#: src/schemes.js:355
+msgid "Honoree"
+msgstr ""
+
+#: src/schemes.js:356
+#, fuzzy
+msgid "Host"
+msgstr "Host"
+
+#: src/schemes.js:357
+msgid "Illustrator"
+msgstr "Ilustrator"
+
+#: src/schemes.js:358
+msgid "Illuminator"
+msgstr "Iluminator"
+
+#: src/schemes.js:359
+#, fuzzy
+msgid "Inscriber"
+msgstr "Abonnar"
+
+#: src/schemes.js:360
+msgid "Inventor"
+msgstr "Inventor"
+
+#: src/schemes.js:361
+#, fuzzy
+msgid "Issuing body"
+msgstr "_Córpor:"
+
+#: src/schemes.js:362
+msgid "Instrumentalist"
+msgstr ""
+
+#: src/schemes.js:363
+msgid "Interviewee"
+msgstr "Interviewate"
+
+#: src/schemes.js:364
+msgid "Interviewer"
+msgstr "Interviewator"
+
+#: src/schemes.js:365
+msgid "Judge"
+msgstr "Judico"
+
+#: src/schemes.js:366
+msgid "Jurisdiction governed"
+msgstr ""
+
+#: src/schemes.js:367
+msgid "Laboratory"
+msgstr "Laboratoria"
+
+#: src/schemes.js:368
+msgid "Librettist"
+msgstr ""
+
+#: src/schemes.js:369
+#, fuzzy
+msgid "Laboratory director"
+msgstr "Laboratoria"
+
+#: src/schemes.js:370
+msgid "Lead"
+msgstr "Ductor"
+
+#: src/schemes.js:371
+msgid "Libelee-appellee"
+msgstr ""
+
+#: src/schemes.js:372
+msgid "Libelee"
+msgstr ""
+
+#: src/schemes.js:373
+msgid "Lender"
+msgstr ""
+
+#: src/schemes.js:374
+#, fuzzy
+msgid "Libelee-appellant"
+msgstr "Apellante"
+
+#: src/schemes.js:375
+#, fuzzy
+msgid "Lighting designer"
+msgstr "Dessinator"
+
+#: src/schemes.js:376
+msgid "Libelant-appellee"
+msgstr ""
+
+#: src/schemes.js:377
+msgid "Libelant"
+msgstr ""
+
+#: src/schemes.js:378
+#, fuzzy
+msgid "Libelant-appellant"
+msgstr "Apellante"
+
+#: src/schemes.js:379
+#, fuzzy
+msgid "Landscape architect"
+msgstr "Architecte"
+
+#: src/schemes.js:380
+msgid "Licensee"
+msgstr ""
+
+#: src/schemes.js:381
+msgid "Licensor"
+msgstr ""
+
+#: src/schemes.js:382
+msgid "Lithographer"
+msgstr ""
+
+#: src/schemes.js:383
+#, fuzzy
+msgid "Lyricist"
+msgstr "Autor del textu"
+
+#: src/schemes.js:384
+#, fuzzy
+msgid "Music copyist"
+msgstr "Musica"
+
+#: src/schemes.js:385
+#, fuzzy
+msgid "Metadata contact"
+msgstr "contacte"
+
+#: src/schemes.js:386
+msgid "Medium"
+msgstr "Medie"
+
+#: src/schemes.js:387
+#, fuzzy
+msgid "Manufacture place"
+msgstr "_Loco:"
+
+#: src/schemes.js:388
+msgid "Manufacturer"
+msgstr "Fabricator"
+
+#: src/schemes.js:389
+msgid "Moderator"
+msgstr ""
+
+#: src/schemes.js:390
+#, fuzzy
+msgid "Monitor"
+msgstr "Monitor"
+
+#: src/schemes.js:391
+msgid "Marbler"
+msgstr ""
+
+#: src/schemes.js:392
+#, fuzzy
+msgid "Markup editor"
+msgstr "Tip del marca:"
+
+#: src/schemes.js:393
+#, fuzzy
+msgid "Musical director"
+msgstr "Director"
+
+#: src/schemes.js:394
+#, fuzzy
+msgid "Metal-engraver"
+msgstr "Metall brossat"
+
+#: src/schemes.js:395
+#, fuzzy
+msgid "Minute taker"
+msgstr "Minute"
+
+#: src/schemes.js:396
+msgid "Musician"
+msgstr ""
+
+#: src/schemes.js:397
+msgid "Narrator"
+msgstr "Narrator"
+
+#: src/schemes.js:398
+msgid "Opponent"
+msgstr ""
+
+#: src/schemes.js:399
+msgid "Originator"
+msgstr ""
+
+#: src/schemes.js:400
+msgid "Organizer"
+msgstr "Organisator"
+
+#: src/schemes.js:401
+#, fuzzy
+msgid "Onscreen presenter"
+msgstr "Presentator"
+
+#: src/schemes.js:403
+msgid "Owner"
+msgstr "Proprietario"
+
+#: src/schemes.js:404
+msgid "Panelist"
+msgstr ""
+
+#: src/schemes.js:405
+msgid "Patron"
+msgstr ""
+
+#: src/schemes.js:406
+#, fuzzy
+msgid "Publishing director"
+msgstr "Publication"
+
+#: src/schemes.js:408
+#, fuzzy
+msgid "Project director"
+msgstr "Director"
+
+#: src/schemes.js:409
+msgid "Proofreader"
+msgstr "Provator"
+
+#: src/schemes.js:410
+msgid "Photographer"
+msgstr "Fotograf"
+
+#: src/schemes.js:411
+msgid "Platemaker"
+msgstr ""
+
+#: src/schemes.js:412
+msgid "Permitting agency"
+msgstr ""
+
+#: src/schemes.js:413
+#, fuzzy
+msgid "Production manager"
+msgstr "Loco de production"
+
+#: src/schemes.js:414
+#, fuzzy
+msgid "Printer of plates"
+msgstr "Printator"
+
+#: src/schemes.js:415
+msgid "Papermaker"
+msgstr ""
+
+#: src/schemes.js:416
+msgid "Puppeteer"
+msgstr ""
+
+#: src/schemes.js:417
+msgid "Praeses"
+msgstr ""
+
+#: src/schemes.js:418
+#, fuzzy
+msgid "Process contact"
+msgstr "Processu"
+
+#: src/schemes.js:419
+#, fuzzy
+msgid "Production personnel"
+msgstr "Loco de production"
+
+#: src/schemes.js:420
+msgid "Presenter"
+msgstr "Presentator"
+
+#: src/schemes.js:421
+msgid "Performer"
+msgstr "Performant"
+
+#: src/schemes.js:422
+msgid "Programmer"
+msgstr "Programmator"
+
+#: src/schemes.js:423
+msgid "Printmaker"
+msgstr ""
+
+#: src/schemes.js:424
+#, fuzzy
+msgid "Production company"
+msgstr "Loco de production"
+
+#: src/schemes.js:425
+msgid "Producer"
+msgstr "Productor"
+
+#: src/schemes.js:426
+msgid "Production place"
+msgstr "Loco de production"
+
+#: src/schemes.js:427
+#, fuzzy
+msgid "Production designer"
+msgstr "Dessinator"
+
+#: src/schemes.js:428
+msgid "Printer"
+msgstr "Printator"
+
+#: src/schemes.js:429
+msgid "Provider"
+msgstr "Provisor"
+
+#: src/schemes.js:430
+#, fuzzy
+msgid "Patent applicant"
+msgstr "Aplicante"
+
+#: src/schemes.js:431
+#, fuzzy
+msgid "Plaintiff-appellee"
+msgstr "Plenditor"
+
+#: src/schemes.js:432
+msgid "Plaintiff"
+msgstr "Plenditor"
+
+#: src/schemes.js:433
+msgid "Patent holder"
+msgstr ""
+
+#: src/schemes.js:434
+#, fuzzy
+msgid "Plaintiff-appellant"
+msgstr "Apellante"
+
+#: src/schemes.js:435
+msgid "Publication place"
+msgstr "Loco de publication"
+
+#: src/schemes.js:436
+msgid "Rubricator"
+msgstr ""
+
+#: src/schemes.js:437
+msgid "Recordist"
+msgstr ""
+
+#: src/schemes.js:438
+#, fuzzy
+msgid "Recording engineer"
+msgstr "Registration"
+
+#: src/schemes.js:439
+msgid "Addressee"
+msgstr ""
+
+#: src/schemes.js:440
+#, fuzzy
+msgid "Radio director"
+msgstr "Director"
+
+#: src/schemes.js:441
+msgid "Redaktor"
+msgstr ""
+
+#: src/schemes.js:442
+#, fuzzy
+msgid "Renderer"
+msgstr "Decovrition del rete Avahi"
+
+#: src/schemes.js:443
+msgid "Researcher"
+msgstr "Reserchator"
+
+#: src/schemes.js:444
+msgid "Reviewer"
+msgstr "Recensor"
+
+#: src/schemes.js:445
+#, fuzzy
+msgid "Radio producer"
+msgstr "Productor:"
+
+#: src/schemes.js:446
+msgid "Repository"
+msgstr "Repositoria"
+
+#: src/schemes.js:447
+msgid "Reporter"
+msgstr ""
+
+#: src/schemes.js:448
+#, fuzzy
+msgid "Responsible party"
+msgstr "Festa"
+
+#: src/schemes.js:449
+msgid "Respondent-appellee"
+msgstr ""
+
+#: src/schemes.js:450
+msgid "Restager"
+msgstr ""
+
+#: src/schemes.js:451
+msgid "Respondent"
+msgstr ""
+
+#: src/schemes.js:452
+msgid "Restorationist"
+msgstr ""
+
+#: src/schemes.js:453
+#, fuzzy
+msgid "Respondent-appellant"
+msgstr "Apellante"
+
+#: src/schemes.js:454
+#, fuzzy
+msgid "Research team head"
+msgstr "[ 'Labor', 'Resercha', 'Ludes' ]"
+
+#: src/schemes.js:455
+#, fuzzy
+msgid "Research team member"
+msgstr "[ 'Labor', 'Resercha', 'Ludes' ]"
+
+#: src/schemes.js:456
+#, fuzzy
+msgid "Scientific advisor"
+msgstr "Scientific"
+
+#: src/schemes.js:457
+msgid "Scenarist"
+msgstr "Scenarist"
+
+#: src/schemes.js:458
+msgid "Sculptor"
+msgstr "Sculptor"
+
+#: src/schemes.js:459
+msgid "Scribe"
+msgstr "Scritor"
+
+#: src/schemes.js:460
+#, fuzzy
+msgid "Sound designer"
+msgstr "Dessinator"
+
+#: src/schemes.js:461
+msgid "Secretary"
+msgstr "Secretario"
+
+#: src/schemes.js:462
+#, fuzzy
+msgid "Stage director"
+msgstr "Director"
+
+#: src/schemes.js:463
+msgid "Signer"
+msgstr "Signator"
+
+#: src/schemes.js:464
+#, fuzzy
+msgid "Supporting host"
+msgstr "Host: "
+
+#: src/schemes.js:465
+msgid "Seller"
+msgstr "Venditor"
+
+#: src/schemes.js:466
+msgid "Singer"
+msgstr "Cantator"
+
+#: src/schemes.js:467
+#, fuzzy
+msgid "Speaker"
+msgstr "Alt-parlator"
+
+#: src/schemes.js:468
+msgid "Sponsor"
+msgstr "Garante"
+
+#: src/schemes.js:469
+msgid "Second party"
+msgstr "Duesim partise"
+
+#: src/schemes.js:470
+msgid "Surveyor"
+msgstr "Agremesurator"
+
+#: src/schemes.js:471
+#, fuzzy
+msgid "Set designer"
+msgstr "Dessinator"
+
+#: src/schemes.js:472
+#, fuzzy
+msgid "Setting"
+msgstr "Un errore evenit assignante li configuration"
+
+#: src/schemes.js:473
+msgid "Storyteller"
+msgstr ""
+
+#: src/schemes.js:474
+#, fuzzy
+msgid "Stage manager"
+msgstr "Gerentiator de fenestres"
+
+#: src/schemes.js:475
+msgid "Standards body"
+msgstr "Organisation del normes"
+
+#: src/schemes.js:476
+msgid "Stereotyper"
+msgstr ""
+
+#: src/schemes.js:477
+#, fuzzy
+msgid "Technical director"
+msgstr "Director"
+
+#: src/schemes.js:478
+msgid "Teacher"
+msgstr "Instructor"
+
+#: src/schemes.js:479
+msgid "Thesis advisor"
+msgstr ""
+
+#: src/schemes.js:480
+#, fuzzy
+msgid "Television director"
+msgstr "Televisor"
+
+#: src/schemes.js:481
+#, fuzzy
+msgid "Television producer"
+msgstr "Productor"
+
+#: src/schemes.js:482
+msgid "Transcriber"
+msgstr "Transcriptor"
+
+#: src/schemes.js:483
+msgid "Translator"
+msgstr "Traductor"
+
+#: src/schemes.js:484
+#, fuzzy
+msgid "Type designer"
+msgstr "Dessinator"
+
+#: src/schemes.js:485
+msgid "Typographer"
+msgstr "Tipograf"
+
+#: src/schemes.js:486
+#, fuzzy
+msgid "University place"
+msgstr "_Loco:"
+
+#: src/schemes.js:487
+#, fuzzy
+msgid "Voice actor"
+msgstr "Actor"
+
+#: src/schemes.js:488
+msgid "Videographer"
+msgstr ""
+
+#: src/schemes.js:489
+#, fuzzy
+msgid "Writer of added commentary"
+msgstr "Autor de prefacie"
+
+#: src/schemes.js:490
+#, fuzzy
+msgid "Writer of added lyrics"
+msgstr "Adjuntet"
+
+#: src/schemes.js:491
+#, fuzzy
+msgid "Writer of accompanying material"
+msgstr "OpenOffice.org Writer"
+
+#: src/schemes.js:492
+#, fuzzy
+msgid "Writer of added text"
+msgstr "Autor del textu"
+
+#: src/schemes.js:493
+msgid "Woodcutter"
+msgstr "Lignograver"
+
+#: src/schemes.js:494
+msgid "Wood engraver"
+msgstr ""
+
+#: src/schemes.js:495
+#, fuzzy
+msgid "Writer of introduction"
+msgstr "Introduction"
+
+#: src/schemes.js:496
+msgid "Witness"
+msgstr "Testimon"
+
+#: src/schemes.js:497
+msgid "Writer of preface"
+msgstr "Autor de prefacie"
+
+#: src/schemes.js:498
+msgid "Writer of supplementary textual content"
+msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
@@ -1740,1317 +3150,1096 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
-msgid "OPDS catalogs:"
-msgstr "Catalog OPDS"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
-msgid "Catalogs are now opened in the main library window"
+msgid "Fixed unable to open some EPUB files"
 msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
-#, fuzzy
-msgid "View current location"
-msgstr "Remover li actual localisation"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-#, fuzzy
-msgid "Go to catalog start page"
-msgstr "Ear al inicie"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#, fuzzy
-msgid "Reload catalog"
-msgstr "Adjunter un catalog"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
-#, fuzzy
-msgid "Add current feed to catalogs"
-msgstr "Adjunter un catalog"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
-msgid "HTTP authentication support"
+msgid "Fixed unable to open Mobipocket files"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
-#, fuzzy
-msgid "Other changes:"
-msgstr "Ruption de lineas"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
-msgid ""
-"Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
-msgstr ""
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:264
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:273
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:284
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:299
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:308
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:343
+msgid "Changes:"
+msgstr "Modificationes:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
-msgid "Fixed newlines being ignored when copying text"
-msgstr ""
+#, fuzzy
+msgid "Improved metadata display"
+msgstr "Lansante li redactor VI Improvat"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
-msgid "“Turn page on tap” is now disabled in non-paginated layouts"
-msgstr ""
+#, fuzzy
+msgid "Improved FictionBook rendering"
+msgstr "Presentation"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
-msgid "Opening a book from the library view now closes the library window"
+msgid "Improved UI for acquiring books from OPDS"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
-msgid "Language and publication dates in metadata are now parsed and formatted"
+msgid "Fixed unique identifier extraction for EPUB files"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 #, fuzzy
-msgid "Export annotations from the library view"
-msgstr "Exportar anotationes..."
+msgid "Fixed missing window icon"
+msgstr "Dimen_sion de icone (px):"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:239
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:248
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:259
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:274
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:283
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:318
-msgid "Changes:"
-msgstr "Modificationes:"
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
+msgid "Fixed TTS environment variables not set when using Flatpak"
+msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
-msgid "Fixed blurry book covers on HiDPI"
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
+msgid "Fixed eSpeak NG voice not selected when testing TTS configuration"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
+msgid ""
+"Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
+msgid "OPDS catalogs:"
+msgstr "Catalogs OPDS:"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
+msgid "Catalogs are now opened in the main library window"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
+#, fuzzy
+msgid "View current location"
+msgstr "Actual localisation"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
+msgid "Go to catalog start page"
+msgstr "Ear al inicial págine del catalog"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
+msgid "Reload catalog"
+msgstr "Recargar li catalog"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
+#, fuzzy
+msgid "Add current feed to catalogs"
+msgstr "Adjunter ti-ci feed a catalogs"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
+#, fuzzy
+msgid "HTTP authentication support"
+msgstr "Autentication HTTP"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
+msgid "Other changes:"
+msgstr "Altri modificationes:"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
+msgid ""
+"Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
+msgid "Fixed newlines being ignored when copying text"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
+msgid "“Turn page on tap” is now disabled in non-paginated layouts"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
+msgid "Opening a book from the library view now closes the library window"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+msgid "Language and publication dates in metadata are now parsed and formatted"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
+#, fuzzy
+msgid "Export annotations from the library view"
+msgstr "Exportar anotationes..."
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
+msgid "Fixed blurry book covers on HiDPI"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:100
 msgid "Fixed wrong view icon on startup"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
 msgid "Library:"
 msgstr "Biblioteca:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
 msgid "A library view showing recent books and reading progress"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:84
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
 #, fuzzy
 msgid "Search books by metadata"
 msgstr "Metadata"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
 #, fuzzy
 msgid "E-book discovery with OPDS"
 msgstr "Files de e-libres"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
 msgid "New supported formats:"
-msgstr "Suportat formates"
+msgstr "Nov suportat formates:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:114
 msgid "FictionBook (.fb2, .fb2.zip)"
 msgstr "FictionBook (.fb2, .fb2.zip)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
 msgid "Plain text (.txt)"
 msgstr "Simplic textu (.txt)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
 #, fuzzy
 msgid "Unpacked EPUB files"
 msgstr "Ne es un document ePub"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:119
 msgid "Layout:"
-msgstr "_Arangeament"
+msgstr "Arangeament:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
 #, fuzzy
 msgid "Option to set maximum page width"
 msgstr "Max largore de págine"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:97
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:122
 msgid ""
 "The \"Automatic\" layout will now show four columns when the page width is "
 "wide"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:124
 msgid "Image viewer:"
-msgstr "image;visor;vider;"
+msgstr "Visor de images:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
 msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:102
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
 msgid ""
 "Option to disable image viewer, or to open images on double, middle, or "
 "right click"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
 msgid "Text-to-speech:"
-msgstr "Parlation"
+msgstr "Parlation:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
 msgid "Improved text-to-speech configuration UI"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:107
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:132
 msgid "Ability to set text-to-speech voice based on book language"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
 #, fuzzy
 msgid "Import annotations from JSON"
 msgstr "Selecter un file JSON por importation"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
 #, fuzzy
 msgid "Search in annotations"
 msgstr "Serchar anotationes"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:138
 msgid "Annotations are now sorted in the same order as they appear in the book"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:140
 msgid "Security:"
 msgstr "Securitá:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
 msgid ""
 "\"Allow Unsafe Content\" now only enables JavaScript; external content will "
 "no longer be loaded"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:118
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
 msgid "WebKit processes are now sandboxed"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:145
 #, fuzzy
 msgid "Other featues and fixes:"
 msgstr "Correctiones:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:122
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:147
 msgid "Improved support for vertical and right-to-left books"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:123
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
 msgid "Support for StarDict dictionaries"
-msgstr "Dictionariums"
+msgstr "Supporte de dictionariums Stardict"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:124
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
 msgid "Fixed current location not preserved when resizing"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:125
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:150
 msgid "Fixed auto-hiding header bar under some themes"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
 msgid "Command-line options for showing version and adding books to library"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
 #, fuzzy
 msgid "Option to clear or disable cache"
 msgstr "Vacuar li cache"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:128
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
 msgid ""
 "When an HTML page contains invalid self-closing anchor tags, it is now "
 "parsed as XHTML"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:150
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:228
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:295
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:335
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:360
 msgid "Fixes:"
 msgstr "Correctiones:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
 #, fuzzy
 msgid "Fixed wrong version number"
 msgstr "  -v, --version\tmonstra li numeró del version\n"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:162
 msgid ""
 "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:304
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:327
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:168
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:329
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:352
 msgid "New features:"
 msgstr "Nov caracteristicas:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:145
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
 #, fuzzy
 msgid "New and improved icon"
 msgstr "Lansante li redactor VI Improvat"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:146
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
 msgid "Option to disable turn page on tap"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:147
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
 msgid "A menu on the welcome screen for opening recent files"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:173
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:177
 #, fuzzy
 msgid "Fixed application not translated"
 msgstr "Traductet de:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:158
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:183
 msgid "Interface:"
 msgstr "Interfacie:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:160
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:185
 msgid "A redesigned interface that works better for smaller screens"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:186
 msgid "Improved fullscreen mode with an overlaid headerbar"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:162
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:187
 msgid ""
 "The headerbar and the progress bar now auto-hide, for a distraction-free "
 "reading experience"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:163
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
 msgid ""
 "Various location information, as well as a clock, can now be displayed in "
 "the footer"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:164
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
 msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:165
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:190
 msgid ""
 "E-reader style navigation: go to the previous or next page by tapping on the "
 "left or right part of the view; tap on the middle to toggle header bar and "
 "progress bar"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
 msgid "Annotations, bookmarks, and find results now show chapter titles"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:167
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
 msgid "When looking up words in dictionaries, the query can now be edited"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:168
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:193
 msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:194
 msgid ""
 "A new traditional menubar, which may be displayed depending on the desktop "
 "environment"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:195
 msgid ""
 "Option to use a traditional titlebar and menubar instead of a headerbar "
 "(experimental)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
 msgid "Reading:"
 msgstr "Letion:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:174
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
 #, fuzzy
 msgid "Continuous scrolling layout"
 msgstr "Rulament"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
 msgid ""
 "Option to show decorative shadows that mimic the appearance of a real book"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:176
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:201
 #, fuzzy
 msgid "Ability to zoom in and zoom out"
 msgstr "Diminuer li págine"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:177
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
 msgid "Improved image viewer with \"save as\" option"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:178
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:203
 msgid "Open copies of a book in new windows (Ctrl + N)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:179
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:204
 msgid "Reload book (Ctrl + R)"
-msgstr "Radica [Ctrl+R]"
+msgstr "Recargar li libre (Ctrl+R)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:205
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:182
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:207
 msgid "Text selection:"
 msgstr "Selection de textu:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:184
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
 msgid "Ability to select text across pages"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:185
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
 #, fuzzy
 msgid "Find selected text in book"
 msgstr "Trovar in li libre"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:186
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
 msgid "Speak selected text or from the selected locatio"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
 msgid "Annotations:"
 msgstr "Anotationes:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:190
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
 #, fuzzy
 msgid "Spellcheck notes"
 msgstr "Ortografie"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
 #, fuzzy
 msgid "Export annotations to Markdown"
 msgstr "Exportar anotationes..."
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
 #, fuzzy
 msgid "Options to use custom colors for highlights"
 msgstr "Usar colores personalisat"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:194
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
 msgid "For publishers and developers:"
-msgstr "Developatores"
+msgstr "Por publicatores e developatores:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:196
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
 msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
 msgid "WebKit's developer tools can be enabled"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:224
 #, fuzzy
 msgid "Breaking changes:"
 msgstr "Ruption de lineas"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:201
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:226
 msgid "The settings schemas has been reorganized"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:227
 msgid "The format for custom themes has changed"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:203
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:228
 msgid "Locations are now 1024 characters in size"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:205
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
 msgid "Bug fixes:"
 msgstr "Correctiones:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:207
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:232
 msgid "Fixed not restoring exact last location"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:208
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:233
 msgid "Fixed navigation not working with scrolled layout"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:235
 msgid "Fixed text cut off at margin edge"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:236
 msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:244
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:220
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:245
 msgid "Improved Wiktionary lookup, now with links and example sentences"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:246
 msgid "Improved popover footnote extraction and formatting"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:247
 msgid "Added option to export annotations to BibTeX"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:255
 msgid "Fixed table of contents navigation not working with some books"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:231
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:256
 msgid "Fixed not being able to zoom images with Kindle books"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:232
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:257
 msgid "Fixed not being able to open books with .epub3 filename extension"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:233
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:258
 msgid "Fixed temporary directory not being cleaned after closing"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:241
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:266
 msgid "Fixed F9 shortcut not working"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:277
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:267
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:302
 msgid "Updated translations"
 msgstr "Actualisat traductiones"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:250
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:275
 msgid "External resources and JavaScript are now blocked by default"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:251
-#, fuzzy
-msgid "Basic text-to-speech support"
-msgstr "Comande de parlation"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:252
-msgid "Export annotations to HTML, plain text, or JSON"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
-msgid "Support for viewing .mobi, .azw, and .azw3 files"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:261
-msgid "New alternative sidebar UI"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:262
-msgid "Lookup words in Wikipedia and offline dictionaries"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:263
-#, fuzzy
-msgid "Translate passages with Google Translate"
-msgstr "Traductet med Google Translate"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:264
-msgid "Configure default action when words are selected"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:265
-msgid "Experimental popup footnote support"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:266
-msgid "Ability to find within only the current chapter"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:267
-msgid "Fixed CPU spikes when left open"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:268
-msgid "Fixed highlights not rendering at the correct positions"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:276
 #, fuzzy
-msgid "Fixed crashing when opening files"
-msgstr "Substituer li playlist per apertet files"
+msgid "Basic text-to-speech support"
+msgstr "Comande de parlation"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:285
-msgid "Customize page margins and brightness"
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:277
+msgid "Export annotations to HTML, plain text, or JSON"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:278
+msgid "Support for viewing .mobi, .azw, and .azw3 files"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:286
-msgid "Tweak the theme colors, or add your own custom themes"
+msgid "New alternative sidebar UI"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:287
-msgid "Ability to zoom and copy images"
+msgid "Lookup words in Wikipedia and offline dictionaries"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:288
 #, fuzzy
+msgid "Translate passages with Google Translate"
+msgstr "Traductet med Google Translate"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:289
+msgid "Configure default action when words are selected"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:290
+msgid "Experimental popup footnote support"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:291
+msgid "Ability to find within only the current chapter"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:292
+msgid "Fixed CPU spikes when left open"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:293
+msgid "Fixed highlights not rendering at the correct positions"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:301
+#, fuzzy
+msgid "Fixed crashing when opening files"
+msgstr "Substituer li playlist per apertet files"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:310
+msgid "Customize page margins and brightness"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:311
+msgid "Tweak the theme colors, or add your own custom themes"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:312
+msgid "Ability to zoom and copy images"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:313
+#, fuzzy
 msgid "Option to auto-hide cursor"
 msgstr "Auto-celar li apuntator"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:289
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:314
 msgid "See reading time left by hovering over the reading progress slider"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:297
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:322
 msgid "Fixed some books not rendering sometimes"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:298
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:323
 msgid "Fixed images being too wide in some cases"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:307
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:332
 msgid "Option to switch between left and full justification"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:308
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:333
 msgid "New layout option: single-column paginated view"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:310
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:335
 msgid "Fixed:"
-msgstr "_Fixed"
+msgstr "Correctet:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:312
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:337
 msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:345
 msgid "Allow font size adjustment when using publisher fonts"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:321
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:346
 msgid ""
 "Fixed reading progress slider not appearing after localStorage quota is "
 "exceeded"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:329
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:354
 msgid "Touchpad gestures and ability to scroll through pages"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:330
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:355
 msgid "Fullscreen mode"
-msgstr "Activar li mode plen-ecran per un duplic clic"
+msgstr "Mode plen-ecran"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:331
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:356
 msgid "Option to hide reading progress bar"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:332
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:357
 #, fuzzy
 msgid "Option to disable dictionary"
 msgstr "Depermisser"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:333
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:358
 #, fuzzy
 msgid "Option to use publisher font"
 msgstr "Usar li fonde del publicator"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:337
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:362
 msgid "Restoring reading progress is now smooth and jank-free"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:338
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:363
 msgid "Fixed custom styles not applying in some cases"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:344
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:369
 #, fuzzy
 msgid "Fixed invalid AppData file"
 msgstr "Li nómine de file es ínvalid"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:349
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:374
 msgid "Initial release"
-msgstr "Inicial publication."
+msgstr "Inicial publication"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:19
+#: data/com.github.johnfactotum.Foliate.gschema.xml:23
 #, fuzzy
 msgid "Store URIs"
 msgstr "URIs total"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:20
+#: data/com.github.johnfactotum.Foliate.gschema.xml:24
 #, fuzzy
 msgid "Whether to save file URIs"
 msgstr "Salvar _quam..."
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:25
+#: data/com.github.johnfactotum.Foliate.gschema.xml:29
 msgid ""
 "Whether to save generated locations to cache (the locations are needed for "
 "calculating percentages of locations in book)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:29
+#: data/com.github.johnfactotum.Foliate.gschema.xml:33
 msgid "Cache covers"
 msgstr "Cachear covrimentes"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:30
-msgid "Whether to save book covers to cache"
-msgstr ""
-
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
+#, fuzzy
+msgid "Whether to save book covers to cache"
+msgstr "Cachear covrimentes"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:38
 msgid "Cover size"
 msgstr "Dimension del covriment"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:35
+#: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Width of cached book cover images"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:39
+#: data/com.github.johnfactotum.Foliate.gschema.xml:43
 #, fuzzy
 msgid "Restore last file opened"
 msgstr "Aperter li ultim file al inicie"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:40
+#: data/com.github.johnfactotum.Foliate.gschema.xml:44
 #, fuzzy
 msgid "Whether to automatically restore the last file"
 msgstr "Automaticmen recargar li document si li file es modificat."
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:44
+#: data/com.github.johnfactotum.Foliate.gschema.xml:48
 #, fuzzy
 msgid "Default highlight color"
-msgstr "Color de fonde predefinit"
-
-#: data/com.github.johnfactotum.Foliate.gschema.xml:45
-#, fuzzy
-msgid "Default highlight color for annotations"
-msgstr "Usar li predefinit color del sistema"
+msgstr "Color de marca"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
+#, fuzzy
+msgid "Default highlight color for annotations"
+msgstr "Marca alcun textu por adjunter anotation."
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:53
 msgid "Dictionary"
 msgstr "Dictionarium"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:50
+#: data/com.github.johnfactotum.Foliate.gschema.xml:54
 msgid ""
 "Identifier of the default dictionary. Dictionaries from dictd and stardict, "
-"if any, are available with the \"dcitd_\" and \"stardict_\" prefix added to "
+"if any, are available with the \"dictd_\" and \"stardict_\" prefix added to "
 "the database ID"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:54
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.gschema.xml:58
 msgid "Target language of translation"
-msgstr "Li lingue del traduction:"
-
-#: data/com.github.johnfactotum.Foliate.gschema.xml:55
-#, fuzzy
-msgid "Target language for translations"
-msgstr "Destination"
+msgstr "Li lingue del destination de traduction"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:59
+#, fuzzy
+msgid "Target language for translations"
+msgstr "Li lingue del destination de traduction"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:63
 msgid "Default action when selecting a word"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:60
+#: data/com.github.johnfactotum.Foliate.gschema.xml:64
 msgid "Default action to perform when selecting a single word"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:64
+#: data/com.github.johnfactotum.Foliate.gschema.xml:68
 msgid "Default action when selecting multiple words"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:65
+#: data/com.github.johnfactotum.Foliate.gschema.xml:69
 msgid "Default action to perform when selecting multiple words"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:69
+#: data/com.github.johnfactotum.Foliate.gschema.xml:73
 #, fuzzy
 msgid "Event for opening image viewer"
 msgstr "Apertente li image «%s»"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:70
+#: data/com.github.johnfactotum.Foliate.gschema.xml:74
 msgid ""
 "DOM event type for viewing images; the special value \"middleclick\" is "
 "available for the middle click event"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:75
+#: data/com.github.johnfactotum.Foliate.gschema.xml:79
 #, fuzzy
 msgid "Command to execute for text-to-speech"
 msgstr "Comande de parlation"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:80
+#: data/com.github.johnfactotum.Foliate.gschema.xml:84
 msgid "If true, a side pane will be used instead of popovers"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:84
+#: data/com.github.johnfactotum.Foliate.gschema.xml:88
 msgid "Use menubar"
 msgstr "Usar li panel de menú"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:85
+#: data/com.github.johnfactotum.Foliate.gschema.xml:89
 msgid "If true, use traditional titlebars and menubars"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:89
+#: data/com.github.johnfactotum.Foliate.gschema.xml:93
 #, fuzzy
 msgid "Auto-hide headerbar"
 msgstr "Autocelar li barra de titul"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:90
+#: data/com.github.johnfactotum.Foliate.gschema.xml:94
 msgid ""
 "Whether to hide the headerbar automatically (this is setting has no effect "
 "if skeuomorphism or sidebar is enabled)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:95
+#: data/com.github.johnfactotum.Foliate.gschema.xml:99
 msgid "Information to be displayed on the left footer"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:100
+#: data/com.github.johnfactotum.Foliate.gschema.xml:104
 msgid "Information to be displayed on the right footer"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:105
+#: data/com.github.johnfactotum.Foliate.gschema.xml:109
 msgid ""
 "If true, you can go to the previous or next page by tapping on the left or "
 "right part of the view; tap on the middle to toggle header bar and progress "
 "bar"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:112
+#: data/com.github.johnfactotum.Foliate.gschema.xml:116
 msgid "Prefer dark GTK theme"
 msgstr "Preferer li tema GTK obscur"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:113
+#: data/com.github.johnfactotum.Foliate.gschema.xml:117
 msgid "If true, the dark variant of a GTK theme, if available, will be used"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:117
-#: data/com.github.johnfactotum.Foliate.gschema.xml:118
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.gschema.xml:121
+#: data/com.github.johnfactotum.Foliate.gschema.xml:122
 msgid "Zoom level"
-msgstr "Adjustar li scale del actual vise"
+msgstr "Scale"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:128
+#: data/com.github.johnfactotum.Foliate.gschema.xml:132
 msgid "Line-height"
 msgstr "Altore de lineas"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:132
+#: data/com.github.johnfactotum.Foliate.gschema.xml:136
 msgid "Margin"
 msgstr "Márgine"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:133
+#: data/com.github.johnfactotum.Foliate.gschema.xml:137
 #, fuzzy
 msgid "Page margin in percentage"
 msgstr "Márgine"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:137
+#: data/com.github.johnfactotum.Foliate.gschema.xml:141
 msgid "Max width"
 msgstr "Max largore"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:142
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.gschema.xml:146
 msgid "Use publisher font"
 msgstr "Usar li fonde del publicator"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:143
+#: data/com.github.johnfactotum.Foliate.gschema.xml:147
 #, fuzzy
 msgid "If true, custom font is disabled"
 msgstr "Personalisat dimension de _fonde:"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:147
+#: data/com.github.johnfactotum.Foliate.gschema.xml:151
 #, fuzzy
 msgid "Justify text"
 msgstr "_Textu:"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:148
+#: data/com.github.johnfactotum.Foliate.gschema.xml:152
 #, fuzzy
 msgid "If true, text will be justified"
 msgstr "True Type"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:152
+#: data/com.github.johnfactotum.Foliate.gschema.xml:156
 msgid "Hyphenation"
 msgstr "Separation síllabic"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:153
+#: data/com.github.johnfactotum.Foliate.gschema.xml:157
 #, fuzzy
 msgid "If true, auto-hyphenation is enabled"
 msgstr "Separation síllabic"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:157
+#: data/com.github.johnfactotum.Foliate.gschema.xml:161
 msgid "Foreground color"
 msgstr "Color del avanplan"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:158
+#: data/com.github.johnfactotum.Foliate.gschema.xml:162
 msgid "Text color"
 msgstr "Color del textu"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:162
-#: data/com.github.johnfactotum.Foliate.gschema.xml:163
+#: data/com.github.johnfactotum.Foliate.gschema.xml:166
+#: data/com.github.johnfactotum.Foliate.gschema.xml:167
 msgid "Background color"
 msgstr "Color del funde"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:167
-#: data/com.github.johnfactotum.Foliate.gschema.xml:168
+#: data/com.github.johnfactotum.Foliate.gschema.xml:171
+#: data/com.github.johnfactotum.Foliate.gschema.xml:172
 msgid "Link color"
 msgstr "Color de ligament"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:173
+#: data/com.github.johnfactotum.Foliate.gschema.xml:177
 msgid "Invert page"
 msgstr "Inverter li págine"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:178
+#: data/com.github.johnfactotum.Foliate.gschema.xml:182
 msgid ""
 "A value under 1 darkens the page, while a value over 1 brightens it. A value "
 "of 0 will make the page completely black, while a value of 1 leaves the "
 "brightness unchanged"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:182
+#: data/com.github.johnfactotum.Foliate.gschema.xml:186
 msgid "Footnote preview"
 msgstr "Prevision de ped-notes"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:183
+#: data/com.github.johnfactotum.Foliate.gschema.xml:187
 msgid "If true, will attempt to display footnotes in a popover"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:187
+#: data/com.github.johnfactotum.Foliate.gschema.xml:191
 #, fuzzy
 msgid "Allow unsafe content"
 msgstr "Permisser:"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:188
+#: data/com.github.johnfactotum.Foliate.gschema.xml:192
 #, fuzzy
 msgid "If true, allow JavaScript"
-msgstr "JavaScript"
+msgstr "Permisser JavaScript"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:192
+#: data/com.github.johnfactotum.Foliate.gschema.xml:196
 #, fuzzy
 msgid "Enable developer tools"
 msgstr "Instrumentarium de developator"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:193
+#: data/com.github.johnfactotum.Foliate.gschema.xml:197
 #, fuzzy
 msgid "If true, developer tools are enabled"
 msgstr "Instrumentarium de developator"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:198
+#: data/com.github.johnfactotum.Foliate.gschema.xml:202
 msgid "Page layout"
 msgstr "Formate de págine"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:202
+#: data/com.github.johnfactotum.Foliate.gschema.xml:206
 msgid "Skeuomorphism"
 msgstr "Skeuomorfisme"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:203
+#: data/com.github.johnfactotum.Foliate.gschema.xml:207
 msgid ""
 "If true, the book is decoratively presented in a way that resembles physical "
 "books"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:207
+#: data/com.github.johnfactotum.Foliate.gschema.xml:211
 #, fuzzy
 msgid "Auto-hide cursor"
 msgstr "Auto-celar li apuntator"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:208
+#: data/com.github.johnfactotum.Foliate.gschema.xml:212
 #, fuzzy
 msgid "Whether to hide the cursor automatically"
 msgstr "Automaticmen celar li panel:"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:215
-#: data/com.github.johnfactotum.Foliate.gschema.xml:253
+#: data/com.github.johnfactotum.Foliate.gschema.xml:219
+#: data/com.github.johnfactotum.Foliate.gschema.xml:257
 msgid "Window width"
 msgstr "Largore del fenestre"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:216
+#: data/com.github.johnfactotum.Foliate.gschema.xml:220
 #, fuzzy
 msgid "Width of the window"
 msgstr "Largore del fenestre"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:220
-#: data/com.github.johnfactotum.Foliate.gschema.xml:258
+#: data/com.github.johnfactotum.Foliate.gschema.xml:224
+#: data/com.github.johnfactotum.Foliate.gschema.xml:262
 msgid "Window height"
 msgstr "Altore del fenestre"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:221
+#: data/com.github.johnfactotum.Foliate.gschema.xml:225
 msgid "Height of the window"
 msgstr "Altore del fenestre"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:225
-#: data/com.github.johnfactotum.Foliate.gschema.xml:263
+#: data/com.github.johnfactotum.Foliate.gschema.xml:229
+#: data/com.github.johnfactotum.Foliate.gschema.xml:267
 msgid "Maximized"
 msgstr "Maximisat"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:226
+#: data/com.github.johnfactotum.Foliate.gschema.xml:230
 #, fuzzy
 msgid "Whether the window is maximized"
 msgstr "Statu maximisat del fenestre"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:231
+#: data/com.github.johnfactotum.Foliate.gschema.xml:235
 #, fuzzy
 msgid "Whether the window is fullscreen"
 msgstr "Plen-&ecran"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:235
-#: data/com.github.johnfactotum.Foliate.gschema.xml:236
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.gschema.xml:239
+#: data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Last file opened"
-msgstr "Aperter li ultim file al inicie"
+msgstr "Li ultim file"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:241
+#: data/com.github.johnfactotum.Foliate.gschema.xml:245
 #, fuzzy
 msgid "Whether the sidebar is shown"
 msgstr "Monstrar li panel láteral."
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:245
+#: data/com.github.johnfactotum.Foliate.gschema.xml:249
 #, fuzzy
 msgid "Sidebar size"
 msgstr "Panel _láteral"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:246
+#: data/com.github.johnfactotum.Foliate.gschema.xml:250
 #, fuzzy
 msgid "Sidebar width"
 msgstr "Panel _láteral"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:254
+#: data/com.github.johnfactotum.Foliate.gschema.xml:258
 #, fuzzy
 msgid "Width of the library window"
 msgstr "Aperter li fenestre del biblioteca"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:259
+#: data/com.github.johnfactotum.Foliate.gschema.xml:263
 #, fuzzy
 msgid "Height of the library window"
 msgstr "Aperter li fenestre del biblioteca"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:264
+#: data/com.github.johnfactotum.Foliate.gschema.xml:268
 #, fuzzy
 msgid "Whether the library window is maximized"
 msgstr "Statu maximisat del fenestre"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:269
+#: data/com.github.johnfactotum.Foliate.gschema.xml:273
 #, fuzzy
 msgid "How to view the library"
 msgstr "&Vise"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:273
-#, fuzzy
+#: data/com.github.johnfactotum.Foliate.gschema.xml:277
 msgid "Library page"
-msgstr "Biblioteca"
+msgstr "Págine del biblioteca"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:274
+#: data/com.github.johnfactotum.Foliate.gschema.xml:278
 msgid "Current library page (“library” or “catalog”)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:278
+#: data/com.github.johnfactotum.Foliate.gschema.xml:282
 msgid "Use Tracker"
 msgstr "Usar Tracker"
 
-#: data/com.github.johnfactotum.Foliate.gschema.xml:279
+#: data/com.github.johnfactotum.Foliate.gschema.xml:283
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
 
-#~ msgid "Open a Catalog…"
-#~ msgstr "Aperter un catalog..."
-
+#: data/com.github.johnfactotum.Foliate.gschema.xml:287
 #, fuzzy
-#~ msgid "Afrikaans"
-#~ msgstr "Afrikaans"
-
-#~ msgid "Albanian"
-#~ msgstr "Albanian"
-
-#~ msgid "Amharic"
-#~ msgstr "Amharic"
-
-#~ msgid "Arabic"
-#~ msgstr "Arabic"
-
-#~ msgid "Armenian"
-#~ msgstr "Armenian"
-
-#, fuzzy
-#~ msgid "Bengali"
-#~ msgstr "Bengali"
-
-#~ msgid "Bulgarian"
-#~ msgstr "Bulgarian"
-
-#~ msgid "Catalan"
-#~ msgstr "Catalonian"
-
-#~ msgid "Chinese (Simplified)"
-#~ msgstr "Chinesi (simplificat)"
-
-#~ msgid "Chinese (Traditional)"
-#~ msgstr "Chinesi (traditional)"
-
-#, fuzzy
-#~ msgid "Corsican"
-#~ msgstr "Corsican"
-
-#, fuzzy
-#~ msgid "Croatian"
-#~ msgstr "Croatian"
-
-#~ msgid "Czech"
-#~ msgstr "Tchec"
-
-#~ msgid "Danish"
-#~ msgstr "Danese"
-
-#~ msgid "Dutch"
-#~ msgstr "Hollandese"
-
-#~ msgid "English"
-#~ msgstr "Anglese"
-
-#~ msgid "Esperanto"
-#~ msgstr "Esperanto"
-
-#~ msgid "Estonian"
-#~ msgstr "Estonian"
-
-#, fuzzy
-#~ msgid "Finnish"
-#~ msgstr "Finlandese"
-
-#, fuzzy
-#~ msgid "French"
-#~ msgstr "Francese"
-
-#, fuzzy
-#~ msgid "Frisian"
-#~ msgstr "Frisian"
-
-#, fuzzy
-#~ msgid "Georgian"
-#~ msgstr "Georgian"
-
-#~ msgid "German"
-#~ msgstr "German"
-
-#~ msgid "Greek"
-#~ msgstr "Grec"
-
-#, fuzzy
-#~ msgid "Gujarati"
-#~ msgstr "Gujarati"
-
-#~ msgid "Hebrew"
-#~ msgstr "Hebreic"
-
-#, fuzzy
-#~ msgid "Hindi"
-#~ msgstr "Hindi"
-
-#, fuzzy
-#~ msgid "Hungarian"
-#~ msgstr "Hungarian"
-
-#~ msgid "Icelandic"
-#~ msgstr "Islandese"
-
-#, fuzzy
-#~ msgid "Indonesian"
-#~ msgstr "Indonesian"
-
-#~ msgid "Irish"
-#~ msgstr "Irlandese"
-
-#~ msgid "Italian"
-#~ msgstr "Italian"
-
-#~ msgid "Japanese"
-#~ msgstr "Japanese"
-
-#, fuzzy
-#~ msgid "Javanese"
-#~ msgstr "Javanese"
-
-#, fuzzy
-#~ msgid "Kannada"
-#~ msgstr "Kannada"
-
-#, fuzzy
-#~ msgid "Kazakh"
-#~ msgstr "Kazakh"
-
-#, fuzzy
-#~ msgid "Khmer"
-#~ msgstr "Khmer"
-
-#~ msgid "Korean"
-#~ msgstr "Korean"
-
-#~ msgid "Kurdish"
-#~ msgstr "Kurdic"
-
-#~ msgid "Lao"
-#~ msgstr "Lao"
-
-#, fuzzy
-#~ msgid "Latin"
-#~ msgstr "Latin"
-
-#~ msgid "Latvian"
-#~ msgstr "Latvian"
-
-#~ msgid "Lithuanian"
-#~ msgstr "Lituanian"
-
-#, fuzzy
-#~ msgid "Macedonian"
-#~ msgstr "Macedonian"
-
-#, fuzzy
-#~ msgid "Malay"
-#~ msgstr "Malay"
-
-#, fuzzy
-#~ msgid "Maltese"
-#~ msgstr "Maltese"
-
-#~ msgid "Maori"
-#~ msgstr "Maori"
-
-#~ msgid "Mongolian"
-#~ msgstr "Mongolian"
-
-#, fuzzy
-#~ msgid "Myanmar (Burmese)"
-#~ msgstr "Burmese"
-
-#, fuzzy
-#~ msgid "Persian"
-#~ msgstr "Persian"
-
-#~ msgid "Polish"
-#~ msgstr "Polonese"
-
-#~ msgid "Portuguese (Portugal, Brazil)"
-#~ msgstr "Portugues (Brasil)"
-
-#~ msgid "Romanian"
-#~ msgstr "Rumanian"
-
-#~ msgid "Russian"
-#~ msgstr "Russ"
-
-#~ msgid "Samoan"
-#~ msgstr "Samoan"
-
-#~ msgid "Serbian"
-#~ msgstr "Serbian"
-
-#, fuzzy
-#~ msgid "Sinhala (Sinhalese)"
-#~ msgstr "Sinhalese"
-
-#~ msgid "Slovak"
-#~ msgstr "Slovac"
-
-#~ msgid "Slovenian"
-#~ msgstr "Slovenian"
-
-#~ msgid "Spanish"
-#~ msgstr "Hispan"
-
-#~ msgid "Sundanese"
-#~ msgstr "Sundanese"
-
-#, fuzzy
-#~ msgid "Swahili"
-#~ msgstr "Swahili"
-
-#~ msgid "Swedish"
-#~ msgstr "Svedese"
-
-#, fuzzy
-#~ msgid "Tagalog (Filipino)"
-#~ msgstr "Tagalog"
-
-#, fuzzy
-#~ msgid "Tajik"
-#~ msgstr "Tajikan"
-
-#, fuzzy
-#~ msgid "Tamil"
-#~ msgstr "Tamil"
-
-#, fuzzy
-#~ msgid "Telugu"
-#~ msgstr "Telugu"
-
-#, fuzzy
-#~ msgid "Thai"
-#~ msgstr "Thai"
-
-#, fuzzy
-#~ msgid "Turkish"
-#~ msgstr "Turcian"
-
-#, fuzzy
-#~ msgid "Ukrainian"
-#~ msgstr "Ucrainan"
-
-#, fuzzy
-#~ msgid "Urdu"
-#~ msgstr "Urdu"
-
-#, fuzzy
-#~ msgid "Uzbek"
-#~ msgstr "Uzbec"
-
-#~ msgid "Vietnamese"
-#~ msgstr "Vietnamese"
-
-#, fuzzy
-#~ msgid "Xhosa"
-#~ msgstr "Xhosa"
-
-#~ msgid "Yiddish"
-#~ msgstr "Judeic"
-
-#, fuzzy
-#~ msgid "Yoruba"
-#~ msgstr "Yoruba"
-
-#~ msgid "Zulu"
-#~ msgstr "Zulu"
+msgid "OPDS download action"
+msgstr "OPDS"
+
+#: data/com.github.johnfactotum.Foliate.gschema.xml:288
+msgid "What to do when downloading a file from an OPDS feed"
+msgstr ""
+
+#~ msgid ""
+#~ "This book has no identifier. This is the MD5 hash generated from the file."
+#~ msgstr ""
+#~ "Li libre ne have un identificator. Ti-ci es li hash MD5 generat ex li "
+#~ "file."
+
+#~ msgid "Book Industry Study Group"
+#~ msgstr "Book Industry Study Group"
+
+#~ msgid " • "
+#~ msgstr " • "

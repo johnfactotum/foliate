@@ -15,9 +15,12 @@
 
 const { GObject, Gtk, Gio, Gdk, Pango } = imports.gi
 
-const { locales, formatPercent, formatMinutes, fileFilters,
-    setPopoverPosition, doubleInvert, brightenColor } = imports.utils
-const { EpubView, EpubViewAnnotation, enableAnnotations } = imports.epubView
+const {
+    locales, formatPercent, formatMinutes, fileFilters,
+    setPopoverPosition, doubleInvert, brightenColor,
+    mimetypeCan
+} = imports.utils
+const { EpubView, EpubViewAnnotation } = imports.epubView
 const { ContentsStack, FindBox,
     FootnotePopover, AnnotationBox, ImageViewer } = imports.contents
 const { DictionaryBox, WikipediaBox, TranslationBox } = imports.lookup
@@ -383,7 +386,8 @@ const MainOverlay = GObject.registerClass({
     Template: 'resource:///com/github/johnfactotum/Foliate/ui/mainOverlay.ui',
     InternalChildren: [
         'overlayStack', 'mainBox', 'bookBox', 'contentBox', 'divider',
-        'recentMenu', 'msg'
+        'recentMenu', 'msg',
+        'downloadProgressBar'
     ]
 }, class MainOverlay extends Gtk.Overlay {
     _init(params) {
@@ -423,39 +427,43 @@ const MainOverlay = GObject.registerClass({
             this.get_toplevel().open(file)
         })
     }
+    _updateMarginSize() {
+        const width = this._autohide.get_allocation().width
+        const margin = this._epub.settings.margin
+        const maxWidth = this._epub.settings.max_width
+        const marginSize = Math.max(0,
+            width * margin / 100,
+            Math.max(width - maxWidth, 0) / 2)
+        this._footer.margin_end = marginSize
+        this._footer.margin_start = marginSize
+    }
     set epub(epub) {
         this._epub = epub
         this._footer.epub = this._epub
         this._navBar.epub = this._epub
         this._contentBox.add(this._epub.widget)
 
-        this._epub.connect('book-displayed', () => this._setStatus('loaded'))
-        this._epub.connect('book-loading', () => this._setStatus('loading'))
-        this._epub.connect('book-error', (_, msg) => {
-            this._msg.label = msg
-            this._setStatus('error')
-        })
-        this._epub.connect('spread', (_, spread) => {
-            this._spread = spread
-            this._showDivider()
-        })
-
-        const updateMarginSize = () => {
-            const width = this._autohide.get_allocation().width
-            const margin = this._epub.settings.margin
-            const maxWidth = this._epub.settings.max_width
-            const marginSize = Math.max(0,
-                width * margin / 100,
-                Math.max(width - maxWidth, 0) / 2)
-            this._footer.margin_end = marginSize
-            this._footer.margin_start = marginSize
-        }
-        this._autohide.connect('size-allocate', updateMarginSize)
-        const h1 = this._epub.connect('notify::margin', updateMarginSize)
-        const h2 = this._epub.connect('notify::max-width', updateMarginSize)
+        const connections = [
+            this._epub.connect('book-displayed', () => this._setStatus('loaded')),
+            this._epub.connect('book-loading', () => this._setStatus('loading')),
+            this._epub.connect('book-downloading', (epub, progress) => {
+                this._setStatus('downloading')
+                this._downloadProgressBar.fraction = progress
+            }),
+            this._epub.connect('book-error', (_, msg) => {
+                this._msg.label = msg
+                this._setStatus('error')
+            }),
+            this._epub.connect('spread', (_, spread) => {
+                this._spread = spread
+                this._showDivider()
+            }),
+            this._epub.connect('notify::margin', () => this._updateMarginSize()),
+            this._epub.connect('notify::max-width', () => this._updateMarginSize()),
+        ]
+        this._autohide.connect('size-allocate', () => this._updateMarginSize()),
         this.connect('destroy', () => {
-            this._epub.disconnect(h1)
-            this._epub.disconnect(h2)
+            connections.forEach(connection => this._epub.disconnect(connection))
         })
     }
     _setStatus(status) {
@@ -550,8 +558,8 @@ const makeActions = self => ({
     },
     'selection-highlight': () => {
         const { identifier } = self._epub.metadata
-        const warn = identifier.startsWith('foliate-md5sum-')
-            || enableAnnotations.every(x => self._epub.contentType !== x)
+        const warn = identifier.startsWith('foliate:')
+            || !mimetypeCan.annotate(self._epub.contentType)
         if (warn) {
             const msg = new Gtk.MessageDialog({
                 text: _('This file or format does not work well with annotations'),
@@ -868,14 +876,17 @@ var Window = GObject.registerClass({
     GTypeName: 'FoliateWindow',
     Properties: {
         file: GObject.ParamSpec.object('file', 'file', 'file',
-            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gio.File.$gtype)
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT_ONLY, Gio.File.$gtype),
+        ephemeral:
+            GObject.ParamSpec.boolean('ephemeral', 'ephemeral', 'ephemeral',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
     }
 }, class Window extends Gtk.ApplicationWindow {
     _init(params) {
         super._init(params)
         this._loading = false
 
-        this._epub = new EpubView()
+        this._epub = new EpubView({ ephemeral: this.ephemeral })
         settings.bind('img-event-type', this._epub, 'img-event-type',
             Gio.SettingsBindFlags.DEFAULT)
         this.insert_action_group('view', this._epub.actionGroup)
@@ -1091,7 +1102,8 @@ var Window = GObject.registerClass({
                 title: title ? _('Image from “%s”').format(title) : _('Image'),
                 transient_for: this,
                 application: this.application,
-                invert: viewSettings.get_boolean('invert')
+                invert: viewSettings.get_boolean('invert'),
+                modal: this.modal
             })
             window.show()
         })

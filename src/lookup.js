@@ -317,7 +317,7 @@ const dictionaries = {
 }
 execCommand(['dict', '--dbs', '--formatted'])
     .then(stdout => parseDictDbs(stdout).forEach(db =>
-        dictionaries['dcitd_' + db.id] =
+        dictionaries['dictd_' + db.id] =
             makeDictdDict(db.id, db.name)))
     .catch(() => {})
 
@@ -364,6 +364,7 @@ var DictionaryBox = GObject.registerClass({
         if (text) this._lookup(text, language, dict)
     }
     _lookup(text, language, dict) {
+        if (!(dict in dictionaries)) return
         text = text
             .replace(/\xa0/g, ' ')
             .replace(/\xad|\u2060/g, '')
