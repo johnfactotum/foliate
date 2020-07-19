@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-12 18:44+0800\n"
-"PO-Revision-Date: 2020-06-25 23:17+0800\n"
+"PO-Revision-Date: 2020-07-19 17:52+0800\n"
 "Last-Translator: Blanc Chan <cdh4227@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
 #: src/main.js:209 src/window.js:1001 src/schemes.js:100
@@ -78,7 +78,7 @@ msgstr "注释"
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
 msgid "Annotation"
-msgstr "注解"
+msgstr "笔记"
 
 #: src/contents.js:309
 msgid "Footnote"
@@ -103,7 +103,7 @@ msgstr "找不到该文件。"
 
 #: src/epubView.js:1072
 msgid "Could not unpack Kindle file."
-msgstr "无法解压Kindle格式的文件。"
+msgstr "无法解压 Kindle 格式的文件。"
 
 #: src/epubView.js:1088
 msgid "File type not supported."
@@ -112,18 +112,18 @@ msgstr "不支持的文件类型。"
 #: src/export.js:35
 #, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr "<p>注解关于</p><h1>《%s》</h1><h2>（%s 著）</h2>"
+msgstr "<h1>《%s》</h1><h2>（%s 著）</h2><p>的笔记</p>"
 
 #: src/export.js:37 src/export.js:51 src/export.js:63
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "%d 条注解"
+msgstr[0] "%d 条笔记"
 
 #: src/export.js:50
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "注解关于《%s》（%s 著）"
+msgstr "《%s》（%s 著）的笔记"
 
 #: src/export.js:54
 msgid "Section: "
@@ -144,7 +144,7 @@ msgstr "笔记:"
 #: src/export.js:62
 #, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr "注解关于《%s》（%s 著）"
+msgstr "《%s》（%s 著）的笔记"
 
 #: src/export.js:96
 msgid "Quote: "
@@ -156,15 +156,15 @@ msgstr " 笔记: "
 
 #: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
 msgid "No annotations"
-msgstr "无注解"
+msgstr "无笔记"
 
 #: src/export.js:105
 msgid "You don't have any annotations for this book."
-msgstr "你没有为本书添加任何注解。"
+msgstr "你没有为本书添加任何笔记。"
 
 #: src/export.js:106
 msgid "Highlight some text to add annotations."
-msgstr "高亮文本以添加注解。"
+msgstr "高亮文本以添加笔记。"
 
 #: src/export.js:128
 msgid "Save File"
@@ -173,7 +173,7 @@ msgstr "保存文件"
 #: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
-msgstr "《%s》的注解"
+msgstr "《%s》的笔记"
 
 #: src/export.js:166 src/utils.js:279
 msgid "All Files"
@@ -189,7 +189,7 @@ msgstr "导入书签"
 
 #: src/export.js:187
 msgid "There’s nothing to import."
-msgstr "无可导入的文件。"
+msgstr "没有可导入的文件。"
 
 #: src/export.js:228
 msgid "Identifier mismatch"
@@ -199,7 +199,7 @@ msgstr "标识符不符"
 msgid ""
 "The identifier of the imported file does not match the book’s. This might "
 "indicate that the annotations do not belong to this book."
-msgstr "导入文件的标识符与图书不符。可能是因为注解不是这本书的。"
+msgstr "导入文件的标识符与图书不符。可能是因为笔记不是这本书的。"
 
 #: src/export.js:234 src/library.js:455 src/main.js:161 src/opds.js:229
 #: src/opds.js:376 src/opds.js:1171 src/utils.js:758 src/window.js:571
@@ -250,7 +250,7 @@ msgstr[0] "你确定要删除这 %d 本书吗？"
 
 #: src/library.js:450
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
-msgstr "阅读进度、注解和书签都将永远丢失。"
+msgstr "阅读进度、笔记和书签都将永远丢失。"
 
 #: src/library.js:456 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
@@ -387,9 +387,8 @@ msgid "Free"
 msgstr "免费"
 
 #: src/opds.js:96
-#, fuzzy
 msgid "Preview"
-msgstr "预览此链接"
+msgstr "预览"
 
 #: src/opds.js:97
 msgid "Sample"
@@ -405,7 +404,7 @@ msgstr "订阅"
 
 #: src/opds.js:101
 msgid "More"
-msgstr ""
+msgstr "更多"
 
 #: src/opds.js:125
 msgid "Protected by DRM"
@@ -417,27 +416,27 @@ msgstr " (DRM)"
 
 #: src/opds.js:209
 msgid "Update available"
-msgstr ""
+msgstr "有可用的升级"
 
 #: src/opds.js:210
 msgid "Update"
-msgstr ""
+msgstr "升级"
 
 #: src/opds.js:218 src/opds.js:230
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: src/opds.js:222
 msgid "Delete this item?"
-msgstr ""
+msgstr "要删除此项吗？"
 
 #: src/opds.js:224
 msgid "If you delete this item, it will be permanently lost."
-msgstr ""
+msgstr "如果你删除此项，它将无法恢复。"
 
 #: src/opds.js:276
 msgid "An error occurred."
-msgstr ""
+msgstr "出错了。"
 
 #: src/opds.js:280 src/ui/ttsDialog.ui:17
 msgid "OK"
@@ -449,12 +448,12 @@ msgstr "返回"
 
 #: src/opds.js:369
 msgid "What would you like to do with this file?"
-msgstr ""
+msgstr "你想对此文件进行什么操作？"
 
 #: src/opds.js:370
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Format: %s"
-msgstr "格式"
+msgstr "格式：%s"
 
 #: src/opds.js:378 src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
@@ -491,9 +490,8 @@ msgid "OPDS URL"
 msgstr "OPDS 链接"
 
 #: src/opds.js:1172
-#, fuzzy
 msgid "Go"
-msgstr "转到(_G)"
+msgstr "转到"
 
 #: src/opds.js:1192 src/opds.js:1218 src/window.js:1317
 #: src/ui/libraryWindow.ui:359
@@ -574,17 +572,16 @@ msgstr "WorldCat"
 
 #: src/properties.js:370
 msgid "Series"
-msgstr ""
+msgstr "系列"
 
 #: src/properties.js:375
 #, javascript-format
 msgid "#%s"
-msgstr ""
+msgstr "#%s"
 
 #: src/properties.js:402
-#, fuzzy
 msgid "Collections"
-msgstr "章节"
+msgstr "合辑"
 
 #: src/properties.js:424
 msgid "Publication Date"
@@ -607,14 +604,12 @@ msgid "Identifier"
 msgstr "标识符"
 
 #: src/properties.js:463
-#, fuzzy
 msgid "Source"
-msgstr "来源: "
+msgstr "来源"
 
 #: src/properties.js:518
-#, fuzzy
 msgid "Contributors"
-msgstr "连续滑动"
+msgstr "贡献者"
 
 #: src/properties.js:522
 msgid "Copyright"
@@ -753,11 +748,11 @@ msgstr "共 %d"
 
 #: src/window.js:565
 msgid "This file or format does not work well with annotations"
-msgstr "注解在此文件或格式下有问题"
+msgstr "笔记在此文件或格式下有问题"
 
 #: src/window.js:566
 msgid "Your annotations might stop working properly at any time."
-msgstr "你的注解随时有可能出错。"
+msgstr "你的笔记随时有可能出错。"
 
 #: src/window.js:572
 msgid "Continue Anyway"
@@ -802,7 +797,7 @@ msgstr "远程文件"
 
 #: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
 msgid "Export Annotations…"
-msgstr "导出注解…"
+msgstr "导出笔记…"
 
 #: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
@@ -839,16 +834,16 @@ msgstr "目录"
 
 #: src/ui/contentsStack.ui:51
 msgid "Search annotations"
-msgstr "搜索注解"
+msgstr "搜索笔记"
 
 #: src/ui/contentsStack.ui:92
 msgid "Select some text to add annotations."
-msgstr "选中文本以添加注解。"
+msgstr "选中文本以添加笔记。"
 
 #: src/ui/contentsStack.ui:124
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
 msgid "Annotations"
-msgstr "注解"
+msgstr "笔记"
 
 #: src/ui/contentsStack.ui:159
 msgid "No bookmarks"
@@ -900,7 +895,7 @@ msgstr "选择导出格式："
 
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
-msgstr "如果你想将注解重新导入 Foliate 则选择 “JSON” 格式。"
+msgstr "如果你想将笔记重新导入 Foliate 则选择 “JSON” 格式。"
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
@@ -959,13 +954,13 @@ msgstr "导入"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr "将会添加以下注解："
+msgstr "将会添加以下笔记："
 
 #: src/ui/importWindow.ui:64
 msgid ""
 "The imported annotations will NOT overwrite the existing ones when they "
 "highlight the same passages."
-msgstr "高亮同一页时，导入的注解不会覆盖现有注解。"
+msgstr "高亮同一页时，导入的笔记不会覆盖现有笔记。"
 
 #: src/ui/libraryWindow.ui:7
 msgid "Open Book…"
@@ -1013,7 +1008,6 @@ msgid "Go Back to Library"
 msgstr "返回书库"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalogs"
 msgstr "返回图书列表"
 
@@ -1195,7 +1189,7 @@ msgstr "清除缓存"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
 msgid "Import Annotations…"
-msgstr "导入注解…"
+msgstr "导入笔记…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
@@ -1214,9 +1208,8 @@ msgid "Open Another File…"
 msgstr "打开其它文件"
 
 #: src/ui/mainOverlay.ui:183
-#, fuzzy
 msgid "Downloading…"
-msgstr "加载中"
+msgstr "下载中…"
 
 #: src/ui/menuBar.ui:5
 msgid "_File"
@@ -1504,21 +1497,20 @@ msgid "Requires restart"
 msgstr "需要重启"
 
 #: src/ui/preferenceWindow.ui:542
-#, fuzzy
 msgid "OPDS"
-msgstr "OPDS 链接"
+msgstr "OPDS"
 
 #: src/ui/preferenceWindow.ui:552
 msgid "When downloading books"
-msgstr ""
+msgstr "下载图书时"
 
 #: src/ui/preferenceWindow.ui:563
 msgid "Save to default directory"
-msgstr ""
+msgstr "保存到默认目录"
 
 #: src/ui/preferenceWindow.ui:583
 msgid "Ask what to do"
-msgstr ""
+msgstr "询问怎样操作"
 
 #: src/ui/preferenceWindow.ui:620
 msgid "Use Tracker to track file locations"
@@ -1539,7 +1531,7 @@ msgstr "缓存图书封面"
 
 #: src/ui/propertiesBox.ui:93
 msgid "Details"
-msgstr ""
+msgstr "详情"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
@@ -1620,7 +1612,7 @@ msgstr "显示目录"
 
 #: src/ui/shortcutsWindow.ui:233
 msgid "Show annotations"
-msgstr "显示注解"
+msgstr "显示笔记"
 
 #: src/ui/shortcutsWindow.ui:240
 msgid "Show bookmarks"
@@ -1729,99 +1721,99 @@ msgstr "维基百科"
 
 #: src/schemes.js:38
 msgid "DOI"
-msgstr ""
+msgstr "DOI"
 
 #: src/schemes.js:39
 msgid "Digital Object Identifier"
-msgstr ""
+msgstr "数字对象唯一标识符"
 
 #: src/schemes.js:43
 msgid "ISBN"
-msgstr ""
+msgstr "ISBN"
 
 #: src/schemes.js:44 src/schemes.js:48 src/schemes.js:53 src/schemes.js:58
 msgid "International Standard Book Number"
-msgstr ""
+msgstr "国际标准书号"
 
 #: src/schemes.js:47
 msgid "ISBN-10"
-msgstr ""
+msgstr "ISBN-10"
 
 #: src/schemes.js:52
 msgid "ISBN-13"
-msgstr ""
+msgstr "ISBN-13"
 
 #: src/schemes.js:57
 msgid "ISBN-A"
-msgstr ""
+msgstr "ISBN-A"
 
 #: src/schemes.js:62
 msgid "JDCN"
-msgstr ""
+msgstr "JDCN"
 
 #: src/schemes.js:63
 msgid "Japan Digital Comic Number"
-msgstr ""
+msgstr "日本数字漫画号"
 
 #: src/schemes.js:66
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 #: src/schemes.js:67
 msgid "Universally-Unique Identifier"
-msgstr ""
+msgstr "通用唯一标识符"
 
 #: src/schemes.js:70
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/schemes.js:71
 msgid "Uniform Resource Locator"
-msgstr ""
+msgstr "统一资源定位符"
 
 #: src/schemes.js:74
 msgid "URI"
-msgstr ""
+msgstr "URI"
 
 #: src/schemes.js:75
 msgid "Uniform Resource Identifier"
-msgstr ""
+msgstr "统一资源标识符"
 
 #: src/schemes.js:78
 msgid "ISSN"
-msgstr ""
+msgstr "ISSN"
 
 #: src/schemes.js:79
 msgid "International Standard Serial Number"
-msgstr ""
+msgstr "国际标准刊号"
 
 #: src/schemes.js:83
 msgid "Amazon Standard Identification Number"
-msgstr ""
+msgstr "亚马逊标准标识号"
 
 #: src/schemes.js:87
 msgid "OCLC"
-msgstr ""
+msgstr "OCLC"
 
 #: src/schemes.js:88
 msgid "Online Computer Library Center"
-msgstr ""
+msgstr "在线计算机图书馆中心"
 
 #: src/schemes.js:92 src/schemes.js:93
 msgid "arXiv"
-msgstr ""
+msgstr "arXiv"
 
 #: src/schemes.js:96 src/schemes.js:97
 msgid "calibre"
-msgstr ""
+msgstr "calibre"
 
 #: src/schemes.js:101
 msgid "Foliate generated identifier"
-msgstr ""
+msgstr "Foliate 生成的标识符"
 
 #: src/schemes.js:122
 msgid "AAT"
-msgstr ""
+msgstr "AAT"
 
 #: src/schemes.js:123
 msgid "The Getty Art and Architecture Taxonomy"
@@ -1829,39 +1821,39 @@ msgstr ""
 
 #: src/schemes.js:126
 msgid "BIC"
-msgstr ""
+msgstr "BIC"
 
 #: src/schemes.js:127
 msgid "Book Industry Communication"
-msgstr ""
+msgstr "书业交流会"
 
 #: src/schemes.js:130
 msgid "BISAC"
-msgstr ""
+msgstr "BISAC"
 
 #: src/schemes.js:131
 msgid "Book Industry Standards and Communications"
-msgstr ""
+msgstr "书业标准与通讯委员会"
 
 #: src/schemes.js:135
 msgid "CLC"
-msgstr ""
+msgstr "CLC"
 
 #: src/schemes.js:136
 msgid "Chinese Library Classification"
-msgstr ""
+msgstr "中国图书馆分类法"
 
 #: src/schemes.js:139
 msgid "DDC"
-msgstr ""
+msgstr "DDC"
 
 #: src/schemes.js:140
 msgid "Dewey Decimal Classification"
-msgstr ""
+msgstr "杜威十进制分类法"
 
 #: src/schemes.js:144
 msgid "CLIL"
-msgstr ""
+msgstr "CLIL"
 
 #: src/schemes.js:145
 msgid "Commission de Liaison Interprofessionnelle du Livre"
@@ -1869,11 +1861,11 @@ msgstr ""
 
 #: src/schemes.js:148 src/schemes.js:149
 msgid "EuroVoc"
-msgstr ""
+msgstr "EuroVoc"
 
 #: src/schemes.js:152
 msgid "MEDTOP"
-msgstr ""
+msgstr "MEDTOP"
 
 #: src/schemes.js:153
 msgid "IPTC Media Topics"
@@ -1881,28 +1873,29 @@ msgstr ""
 
 #: src/schemes.js:156
 msgid "LCC"
-msgstr ""
+msgstr "LCC"
 
 #: src/schemes.js:157
 msgid "Library of Congress Classification"
-msgstr ""
+msgstr "美国国会图书馆分类法"
 
 #: src/schemes.js:161
 msgid "LCSH"
-msgstr ""
+msgstr "LCSH"
 
 #: src/schemes.js:162
 msgid "Library of Congress Subject Headings"
-msgstr ""
+msgstr "美国国会图书馆标题表"
 
 #: src/schemes.js:166
 msgid "NDC"
-msgstr ""
+msgstr "NDC"
 
 #: src/schemes.js:167
 msgid "Nippon Decimal Classification"
-msgstr ""
+msgstr "日本十进制分类法"
 
+# Maybe "theme"? "thema" seems to be a German word with similar meaning.
 #: src/schemes.js:170 src/schemes.js:171
 #, fuzzy
 msgid "Thema"
@@ -1910,15 +1903,15 @@ msgstr "主题"
 
 #: src/schemes.js:174
 msgid "UDC"
-msgstr ""
+msgstr "UDC"
 
 #: src/schemes.js:175
 msgid "Universal Decimal Classification"
-msgstr ""
+msgstr "通用十进制图书分类法"
 
 #: src/schemes.js:179
 msgid "WGS"
-msgstr ""
+msgstr "WGS"
 
 #: src/schemes.js:180
 msgid "Warengruppen-Systematik"
@@ -1926,171 +1919,165 @@ msgstr ""
 
 #: src/schemes.js:183
 msgid "DCMIType"
-msgstr ""
+msgstr "DCMIType"
 
 #: src/schemes.js:184
 msgid "DCMI Type Vocabulary"
-msgstr ""
+msgstr "DCMI 类型属性"
 
 #: src/schemes.js:188
 msgid "Audience"
-msgstr ""
+msgstr "受众"
 
 #: src/schemes.js:189
 msgid "Intended Audience"
-msgstr ""
+msgstr "目标受众"
 
 #. Translators: see https://www.loc.gov/marc/relators/relaterm.html
 #. for detailed descriptions
 #: src/schemes.js:231
 msgid "Abridger"
-msgstr ""
+msgstr "删节者"
 
 #: src/schemes.js:232
 msgid "Art copyist"
-msgstr ""
+msgstr "美术描摹"
 
 #: src/schemes.js:233
 msgid "Actor"
-msgstr ""
+msgstr "演员"
 
 #: src/schemes.js:234
 msgid "Art director"
-msgstr ""
+msgstr "美术指导"
 
 #: src/schemes.js:235
-#, fuzzy
 msgid "Adapter"
-msgstr "章节"
+msgstr "改编"
 
 #: src/schemes.js:236
 msgid "Author of afterword, colophon, etc."
-msgstr ""
+msgstr "后记作者"
 
 #: src/schemes.js:237
 msgid "Analyst"
-msgstr ""
+msgstr "分析"
 
 #: src/schemes.js:238
 msgid "Animator"
-msgstr ""
+msgstr "动画"
 
 #: src/schemes.js:239
-#, fuzzy
 msgid "Annotator"
-msgstr "注解"
+msgstr "注释"
 
 #: src/schemes.js:240
-#, fuzzy
 msgid "Bibliographic antecedent"
-msgstr "参考书目"
+msgstr "书目先行词"
 
 #: src/schemes.js:241
 msgid "Appellee"
-msgstr ""
+msgstr "被上诉人"
 
 #: src/schemes.js:242
 msgid "Appellant"
-msgstr ""
+msgstr "上诉人"
 
 #: src/schemes.js:243
 msgid "Applicant"
-msgstr ""
+msgstr "申请人"
 
 #: src/schemes.js:244
 msgid "Author in quotations or text abstracts"
-msgstr ""
+msgstr "引文作者"
 
 #: src/schemes.js:245
 msgid "Architect"
-msgstr ""
+msgstr "建筑师"
 
 #: src/schemes.js:246
 msgid "Artistic director"
-msgstr ""
+msgstr "艺术指导"
 
 #: src/schemes.js:247
 msgid "Arranger"
-msgstr ""
+msgstr "编排"
 
 #: src/schemes.js:248
 msgid "Artist"
-msgstr ""
+msgstr "美工"
 
 #: src/schemes.js:249
 msgid "Assignee"
-msgstr ""
+msgstr "代理人"
 
 #: src/schemes.js:250
 msgid "Associated name"
-msgstr ""
+msgstr "关联名称"
 
 #: src/schemes.js:251
 msgid "Autographer"
-msgstr ""
+msgstr "签名"
 
 #: src/schemes.js:252
 msgid "Attributed name"
-msgstr ""
+msgstr "属性名称"
 
 #: src/schemes.js:253
-#, fuzzy
 msgid "Auctioneer"
-msgstr "分章节"
+msgstr "拍卖商"
 
 #: src/schemes.js:254
 msgid "Author of dialog"
-msgstr ""
+msgstr "对话"
 
 #: src/schemes.js:255
 msgid "Author of introduction, etc."
-msgstr ""
+msgstr "介绍作者"
 
 #: src/schemes.js:256
 msgid "Screenwriter"
-msgstr ""
+msgstr "编剧"
 
 #: src/schemes.js:258
 msgid "Binding designer"
-msgstr ""
+msgstr "装帧设计"
 
 #: src/schemes.js:259
 msgid "Bookjacket designer"
-msgstr ""
+msgstr "护封设计"
 
 #: src/schemes.js:260
-#, fuzzy
 msgid "Book designer"
-msgstr "电子书查看器"
+msgstr "图书设计"
 
 #: src/schemes.js:261
 msgid "Book producer"
-msgstr ""
+msgstr "图书制作"
 
 #: src/schemes.js:262
 msgid "Blurb writer"
-msgstr ""
+msgstr "简介作者"
 
 #: src/schemes.js:263
 msgid "Binder"
-msgstr ""
+msgstr "装帧"
 
 #: src/schemes.js:264
 msgid "Bookplate designer"
-msgstr ""
+msgstr "藏书票设计"
 
 #: src/schemes.js:265
 msgid "Broadcaster"
-msgstr ""
+msgstr "播音员"
 
 #: src/schemes.js:266
 msgid "Braille embosser"
-msgstr ""
+msgstr "盲文轧制"
 
 #: src/schemes.js:267
-#, fuzzy
 msgid "Bookseller"
-msgstr "电子书查看器"
+msgstr "图书销售"
 
 #: src/schemes.js:268
 msgid "Caster"
@@ -2098,123 +2085,120 @@ msgstr ""
 
 #: src/schemes.js:269
 msgid "Conceptor"
-msgstr ""
+msgstr "创意"
 
 #: src/schemes.js:270
 msgid "Choreographer"
-msgstr ""
+msgstr "编舞"
 
 #: src/schemes.js:271
 msgid "Client"
-msgstr ""
+msgstr "委托人"
 
 #: src/schemes.js:272
 msgid "Calligrapher"
-msgstr ""
+msgstr "书法"
 
 #: src/schemes.js:273
 msgid "Colorist"
-msgstr ""
+msgstr "上色"
 
 #: src/schemes.js:274
 msgid "Collotyper"
-msgstr ""
+msgstr "珂罗版印刷"
 
 #: src/schemes.js:275
 msgid "Commentator"
-msgstr ""
+msgstr "评论"
 
 #: src/schemes.js:276
 msgid "Composer"
-msgstr ""
+msgstr "作曲"
 
 #: src/schemes.js:277
 msgid "Compositor"
-msgstr ""
+msgstr "排字"
 
 #: src/schemes.js:278
 msgid "Conductor"
-msgstr ""
+msgstr "指挥"
 
 #: src/schemes.js:279
 msgid "Cinematographer"
-msgstr ""
+msgstr "电影摄影"
 
 #: src/schemes.js:280
 msgid "Censor"
-msgstr ""
+msgstr "审查"
 
 #: src/schemes.js:281
 msgid "Contestant-appellee"
-msgstr ""
+msgstr "当事人-被上诉人"
 
 #: src/schemes.js:282
 msgid "Collector"
-msgstr ""
+msgstr "收藏"
 
 #: src/schemes.js:283
 msgid "Compiler"
-msgstr ""
+msgstr "编纂"
 
 #: src/schemes.js:284
 msgid "Conservator"
-msgstr ""
+msgstr "保护员"
 
 #: src/schemes.js:285
+#, fuzzy
 msgid "Collection registrar"
-msgstr ""
+msgstr "合辑注册人"
 
 #: src/schemes.js:286
-#, fuzzy
 msgid "Contestant"
-msgstr "显示内容"
+msgstr "当事人"
 
 #: src/schemes.js:287
 msgid "Contestant-appellant"
-msgstr ""
+msgstr "当事人-上诉人"
 
 #: src/schemes.js:288
 msgid "Court governed"
 msgstr ""
 
 #: src/schemes.js:289
-#, fuzzy
 msgid "Cover designer"
-msgstr "封面尺寸"
+msgstr "封面设计"
 
 #: src/schemes.js:290
-#, fuzzy
 msgid "Copyright claimant"
-msgstr "版权"
+msgstr "版权申请人"
 
 #: src/schemes.js:291
 msgid "Complainant-appellee"
-msgstr ""
+msgstr "原告-被上诉人"
 
 #: src/schemes.js:292
-#, fuzzy
 msgid "Copyright holder"
-msgstr "版权"
+msgstr "版权所有人"
 
 #: src/schemes.js:293
 msgid "Complainant"
-msgstr ""
+msgstr "原告"
 
 #: src/schemes.js:294
 msgid "Complainant-appellant"
-msgstr ""
+msgstr "原告-上诉人"
 
 #: src/schemes.js:295
 msgid "Creator"
-msgstr ""
+msgstr "创作"
 
 #: src/schemes.js:296
 msgid "Correspondent"
-msgstr ""
+msgstr "通讯记者"
 
 #: src/schemes.js:297
 msgid "Corrector"
-msgstr ""
+msgstr "校对"
 
 #: src/schemes.js:298
 msgid "Court reporter"
@@ -2222,20 +2206,19 @@ msgstr ""
 
 #: src/schemes.js:299
 msgid "Consultant"
-msgstr ""
+msgstr "顾问"
 
 #: src/schemes.js:300
 msgid "Consultant to a project"
-msgstr ""
+msgstr "项目顾问"
 
 #: src/schemes.js:301
 msgid "Costume designer"
-msgstr ""
+msgstr "服装设计"
 
 #: src/schemes.js:302
-#, fuzzy
 msgid "Contributor"
-msgstr "连续滑动"
+msgstr "贡献者"
 
 #: src/schemes.js:303
 msgid "Contestee-appellee"
@@ -2243,16 +2226,15 @@ msgstr ""
 
 #: src/schemes.js:304
 msgid "Cartographer"
-msgstr ""
+msgstr "制图"
 
 #: src/schemes.js:305
 msgid "Contractor"
 msgstr ""
 
 #: src/schemes.js:306
-#, fuzzy
 msgid "Contestee"
-msgstr "显示内容"
+msgstr ""
 
 #: src/schemes.js:307
 msgid "Contestee-appellant"
@@ -2260,35 +2242,35 @@ msgstr ""
 
 #: src/schemes.js:308
 msgid "Curator"
-msgstr ""
+msgstr "馆长"
 
 #: src/schemes.js:309
 msgid "Commentator for written text"
-msgstr ""
+msgstr "文字评论员"
 
 #: src/schemes.js:310
 msgid "Distribution place"
-msgstr ""
+msgstr "发行地点"
 
 #: src/schemes.js:311
 msgid "Defendant"
-msgstr ""
+msgstr "被告"
 
 #: src/schemes.js:312
 msgid "Defendant-appellee"
-msgstr ""
+msgstr "被告-被上诉人"
 
 #: src/schemes.js:313
 msgid "Defendant-appellant"
-msgstr ""
+msgstr "被告-上诉人"
 
 #: src/schemes.js:314
 msgid "Degree granting institution"
-msgstr ""
+msgstr "学位授予机构"
 
 #: src/schemes.js:315
 msgid "Degree supervisor"
-msgstr ""
+msgstr "学位导师"
 
 #: src/schemes.js:316
 msgid "Dissertant"
@@ -2299,13 +2281,12 @@ msgid "Delineator"
 msgstr ""
 
 #: src/schemes.js:318
-#, fuzzy
 msgid "Dancer"
-msgstr "取消"
+msgstr "舞者"
 
 #: src/schemes.js:319
 msgid "Donor"
-msgstr ""
+msgstr "捐赠者"
 
 #: src/schemes.js:320
 msgid "Depicted"
@@ -2317,23 +2298,23 @@ msgstr ""
 
 #: src/schemes.js:322
 msgid "Draftsman"
-msgstr ""
+msgstr "起草人"
 
 #: src/schemes.js:323
 msgid "Director"
-msgstr ""
+msgstr "导演"
 
 #: src/schemes.js:324
 msgid "Designer"
-msgstr ""
+msgstr "设计"
 
 #: src/schemes.js:325
 msgid "Distributor"
-msgstr ""
+msgstr "发行"
 
 #: src/schemes.js:326
 msgid "Data contributor"
-msgstr ""
+msgstr "数据提供"
 
 #: src/schemes.js:327
 msgid "Dedicatee"
@@ -2341,7 +2322,7 @@ msgstr ""
 
 #: src/schemes.js:328
 msgid "Data manager"
-msgstr ""
+msgstr "资料管理"
 
 #: src/schemes.js:329
 msgid "Dedicator"
@@ -2353,34 +2334,31 @@ msgstr ""
 
 #: src/schemes.js:331
 msgid "Editor of compilation"
-msgstr ""
+msgstr "编纂编辑"
 
 #: src/schemes.js:332
-#, fuzzy
 msgid "Editor of moving image work"
-msgstr "打开图像查看器的事件"
+msgstr "动图编辑"
 
 #: src/schemes.js:333
-#, fuzzy
 msgid "Editor"
 msgstr "编辑"
 
 #: src/schemes.js:334
 msgid "Engraver"
-msgstr ""
+msgstr "版刻工"
 
 #: src/schemes.js:335
-#, fuzzy
 msgid "Electrician"
-msgstr "加利西亚文"
+msgstr "电工"
 
 #: src/schemes.js:336
 msgid "Electrotyper"
-msgstr ""
+msgstr "电版印刷"
 
 #: src/schemes.js:337
 msgid "Engineer"
-msgstr ""
+msgstr "工程"
 
 #: src/schemes.js:338
 msgid "Enacting jurisdiction"
@@ -2396,7 +2374,7 @@ msgstr ""
 
 #: src/schemes.js:341
 msgid "Expert"
-msgstr ""
+msgstr "专家"
 
 #: src/schemes.js:342
 msgid "Facsimilist"
@@ -2404,7 +2382,7 @@ msgstr ""
 
 #: src/schemes.js:343
 msgid "Film distributor"
-msgstr ""
+msgstr "电影发行"
 
 #: src/schemes.js:344
 msgid "Field director"
@@ -2412,32 +2390,31 @@ msgstr ""
 
 #: src/schemes.js:345
 msgid "Film editor"
-msgstr ""
+msgstr "电影剪辑"
 
 #: src/schemes.js:346
 msgid "Film director"
-msgstr ""
+msgstr "电影导演"
 
 #: src/schemes.js:347
 msgid "Filmmaker"
-msgstr ""
+msgstr "电影制作"
 
 #: src/schemes.js:348
 msgid "Former owner"
-msgstr ""
+msgstr "前物主"
 
 #: src/schemes.js:349
 msgid "Film producer"
-msgstr ""
+msgstr "电影制片人"
 
 #: src/schemes.js:350
 msgid "Funder"
 msgstr ""
 
 #: src/schemes.js:351
-#, fuzzy
 msgid "First party"
-msgstr "第一项"
+msgstr ""
 
 #: src/schemes.js:352
 msgid "Forger"
@@ -2445,7 +2422,7 @@ msgstr ""
 
 #: src/schemes.js:353
 msgid "Geographic information specialist"
-msgstr ""
+msgstr "地理信息专家"
 
 #: src/schemes.js:354
 msgid "Host institution"
@@ -2461,21 +2438,19 @@ msgstr ""
 
 #: src/schemes.js:357
 msgid "Illustrator"
-msgstr ""
+msgstr "插图"
 
 #: src/schemes.js:358
 msgid "Illuminator"
 msgstr ""
 
 #: src/schemes.js:359
-#, fuzzy
 msgid "Inscriber"
-msgstr "订阅"
+msgstr ""
 
 #: src/schemes.js:360
-#, fuzzy
 msgid "Inventor"
-msgstr "反转色"
+msgstr "发明者"
 
 #: src/schemes.js:361
 msgid "Issuing body"
@@ -2486,18 +2461,16 @@ msgid "Instrumentalist"
 msgstr ""
 
 #: src/schemes.js:363
-#, fuzzy
 msgid "Interviewee"
-msgstr "界面"
+msgstr "受访者"
 
 #: src/schemes.js:364
-#, fuzzy
 msgid "Interviewer"
-msgstr "图像查看器："
+msgstr "采访者"
 
 #: src/schemes.js:365
 msgid "Judge"
-msgstr ""
+msgstr "法官"
 
 #: src/schemes.js:366
 msgid "Jurisdiction governed"
@@ -2505,7 +2478,7 @@ msgstr ""
 
 #: src/schemes.js:367
 msgid "Laboratory"
-msgstr ""
+msgstr "实验室"
 
 #: src/schemes.js:368
 msgid "Librettist"
@@ -2513,7 +2486,7 @@ msgstr ""
 
 #: src/schemes.js:369
 msgid "Laboratory director"
-msgstr ""
+msgstr "实验指导"
 
 #: src/schemes.js:370
 msgid "Lead"
@@ -2521,11 +2494,11 @@ msgstr ""
 
 #: src/schemes.js:371
 msgid "Libelee-appellee"
-msgstr ""
+msgstr "被诽谤者-被上诉人"
 
 #: src/schemes.js:372
 msgid "Libelee"
-msgstr ""
+msgstr "被诽谤者"
 
 #: src/schemes.js:373
 msgid "Lender"
@@ -2533,23 +2506,23 @@ msgstr ""
 
 #: src/schemes.js:374
 msgid "Libelee-appellant"
-msgstr ""
+msgstr "被诽谤者-上诉人"
 
 #: src/schemes.js:375
 msgid "Lighting designer"
-msgstr ""
+msgstr "灯光设计"
 
 #: src/schemes.js:376
 msgid "Libelant-appellee"
-msgstr ""
+msgstr "诽谤者-被上诉人"
 
 #: src/schemes.js:377
 msgid "Libelant"
-msgstr ""
+msgstr "诽谤者"
 
 #: src/schemes.js:378
 msgid "Libelant-appellant"
-msgstr ""
+msgstr "诽谤者-上诉人"
 
 #: src/schemes.js:379
 msgid "Landscape architect"
@@ -2557,11 +2530,11 @@ msgstr ""
 
 #: src/schemes.js:380
 msgid "Licensee"
-msgstr ""
+msgstr "被授权人"
 
 #: src/schemes.js:381
 msgid "Licensor"
-msgstr ""
+msgstr "授权人"
 
 #: src/schemes.js:382
 msgid "Lithographer"
@@ -2569,11 +2542,11 @@ msgstr ""
 
 #: src/schemes.js:383
 msgid "Lyricist"
-msgstr ""
+msgstr "作词"
 
 #: src/schemes.js:384
 msgid "Music copyist"
-msgstr ""
+msgstr "音乐"
 
 #: src/schemes.js:385
 msgid "Metadata contact"
@@ -2581,15 +2554,15 @@ msgstr ""
 
 #: src/schemes.js:386
 msgid "Medium"
-msgstr ""
+msgstr "介质"
 
 #: src/schemes.js:387
 msgid "Manufacture place"
-msgstr ""
+msgstr "制造地点"
 
 #: src/schemes.js:388
 msgid "Manufacturer"
-msgstr ""
+msgstr "制造"
 
 #: src/schemes.js:389
 msgid "Moderator"
@@ -2609,24 +2582,23 @@ msgstr ""
 
 #: src/schemes.js:393
 msgid "Musical director"
-msgstr ""
+msgstr "音乐指导"
 
 #: src/schemes.js:394
 msgid "Metal-engraver"
-msgstr ""
+msgstr "金属版刻工"
 
 #: src/schemes.js:395
 msgid "Minute taker"
 msgstr ""
 
 #: src/schemes.js:396
-#, fuzzy
 msgid "Musician"
-msgstr "加利西亚文"
+msgstr "音乐"
 
 #: src/schemes.js:397
 msgid "Narrator"
-msgstr ""
+msgstr "旁白"
 
 #: src/schemes.js:398
 msgid "Opponent"
@@ -2646,7 +2618,7 @@ msgstr ""
 
 #: src/schemes.js:403
 msgid "Owner"
-msgstr ""
+msgstr "物主"
 
 #: src/schemes.js:404
 msgid "Panelist"
@@ -2654,25 +2626,23 @@ msgstr ""
 
 #: src/schemes.js:405
 msgid "Patron"
-msgstr ""
+msgstr "赞助者"
 
 #: src/schemes.js:406
-#, fuzzy
 msgid "Publishing director"
-msgstr "出版社"
+msgstr "出版指导"
 
 #: src/schemes.js:408
 msgid "Project director"
-msgstr ""
+msgstr "项目主管"
 
 #: src/schemes.js:409
-#, fuzzy
 msgid "Proofreader"
-msgstr "Goodreads"
+msgstr ""
 
 #: src/schemes.js:410
 msgid "Photographer"
-msgstr ""
+msgstr "摄像"
 
 #: src/schemes.js:411
 msgid "Platemaker"
@@ -2684,7 +2654,7 @@ msgstr ""
 
 #: src/schemes.js:413
 msgid "Production manager"
-msgstr ""
+msgstr "制作监督"
 
 #: src/schemes.js:414
 msgid "Printer of plates"
@@ -2692,7 +2662,7 @@ msgstr ""
 
 #: src/schemes.js:415
 msgid "Papermaker"
-msgstr ""
+msgstr "制纸"
 
 #: src/schemes.js:416
 msgid "Puppeteer"
@@ -2708,7 +2678,7 @@ msgstr ""
 
 #: src/schemes.js:419
 msgid "Production personnel"
-msgstr ""
+msgstr "制作人员"
 
 #: src/schemes.js:420
 msgid "Presenter"
@@ -2716,36 +2686,35 @@ msgstr ""
 
 #: src/schemes.js:421
 msgid "Performer"
-msgstr ""
+msgstr "表演者"
 
 #: src/schemes.js:422
 msgid "Programmer"
-msgstr ""
+msgstr "编程"
 
 #: src/schemes.js:423
 msgid "Printmaker"
-msgstr ""
+msgstr "版画"
 
 #: src/schemes.js:424
 msgid "Production company"
-msgstr ""
+msgstr "制作公司"
 
 #: src/schemes.js:425
 msgid "Producer"
-msgstr ""
+msgstr "制作"
 
 #: src/schemes.js:426
-#, fuzzy
 msgid "Production place"
-msgstr "出版日期"
+msgstr "制作地点"
 
 #: src/schemes.js:427
 msgid "Production designer"
-msgstr ""
+msgstr "制作设计"
 
 #: src/schemes.js:428
 msgid "Printer"
-msgstr ""
+msgstr "印刷"
 
 #: src/schemes.js:429
 msgid "Provider"
@@ -2753,29 +2722,27 @@ msgstr ""
 
 #: src/schemes.js:430
 msgid "Patent applicant"
-msgstr ""
+msgstr "专利申请人"
 
 #: src/schemes.js:431
 msgid "Plaintiff-appellee"
-msgstr ""
+msgstr "原告-被上诉人"
 
 #: src/schemes.js:432
-#, fuzzy
 msgid "Plaintiff"
-msgstr "纯文本"
+msgstr "原告"
 
 #: src/schemes.js:433
 msgid "Patent holder"
-msgstr ""
+msgstr "专利所有人"
 
 #: src/schemes.js:434
 msgid "Plaintiff-appellant"
-msgstr ""
+msgstr "原告-上诉人"
 
 #: src/schemes.js:435
-#, fuzzy
 msgid "Publication place"
-msgstr "出版日期"
+msgstr "出版地点"
 
 #: src/schemes.js:436
 msgid "Rubricator"
@@ -2795,7 +2762,7 @@ msgstr ""
 
 #: src/schemes.js:440
 msgid "Radio director"
-msgstr ""
+msgstr "广播导演"
 
 #: src/schemes.js:441
 msgid "Redaktor"
@@ -2806,18 +2773,16 @@ msgid "Renderer"
 msgstr ""
 
 #: src/schemes.js:443
-#, fuzzy
 msgid "Researcher"
-msgstr "搜索"
+msgstr "研究者"
 
 #: src/schemes.js:444
-#, fuzzy
 msgid "Reviewer"
-msgstr "图像查看器："
+msgstr ""
 
 #: src/schemes.js:445
 msgid "Radio producer"
-msgstr ""
+msgstr "广播制片人"
 
 #: src/schemes.js:446
 msgid "Repository"
@@ -2833,7 +2798,7 @@ msgstr ""
 
 #: src/schemes.js:449
 msgid "Respondent-appellee"
-msgstr ""
+msgstr "被告-被上诉人"
 
 #: src/schemes.js:450
 msgid "Restager"
@@ -2841,7 +2806,7 @@ msgstr ""
 
 #: src/schemes.js:451
 msgid "Respondent"
-msgstr ""
+msgstr "被告"
 
 #: src/schemes.js:452
 msgid "Restorationist"
@@ -2849,19 +2814,19 @@ msgstr ""
 
 #: src/schemes.js:453
 msgid "Respondent-appellant"
-msgstr ""
+msgstr "被告-上诉人"
 
 #: src/schemes.js:454
 msgid "Research team head"
-msgstr ""
+msgstr "研究小组组长"
 
 #: src/schemes.js:455
 msgid "Research team member"
-msgstr ""
+msgstr "研究小组成员"
 
 #: src/schemes.js:456
 msgid "Scientific advisor"
-msgstr ""
+msgstr "科学顾问"
 
 #: src/schemes.js:457
 msgid "Scenarist"
@@ -2869,16 +2834,15 @@ msgstr ""
 
 #: src/schemes.js:458
 msgid "Sculptor"
-msgstr ""
+msgstr "雕塑"
 
 #: src/schemes.js:459
-#, fuzzy
 msgid "Scribe"
-msgstr "订阅"
+msgstr ""
 
 #: src/schemes.js:460
 msgid "Sound designer"
-msgstr ""
+msgstr "音效设计"
 
 #: src/schemes.js:461
 msgid "Secretary"
@@ -2886,11 +2850,11 @@ msgstr ""
 
 #: src/schemes.js:462
 msgid "Stage director"
-msgstr ""
+msgstr "舞台监督"
 
 #: src/schemes.js:463
 msgid "Signer"
-msgstr ""
+msgstr "歌手"
 
 #: src/schemes.js:464
 msgid "Supporting host"
@@ -2898,20 +2862,19 @@ msgstr ""
 
 #: src/schemes.js:465
 msgid "Seller"
-msgstr ""
+msgstr "销售商"
 
 #: src/schemes.js:466
 msgid "Singer"
-msgstr ""
+msgstr "歌手"
 
 #: src/schemes.js:467
-#, fuzzy
 msgid "Speaker"
-msgstr "朗读"
+msgstr "发言人"
 
 #: src/schemes.js:468
 msgid "Sponsor"
-msgstr ""
+msgstr "赞助商"
 
 #: src/schemes.js:469
 msgid "Second party"
@@ -2923,65 +2886,63 @@ msgstr ""
 
 #: src/schemes.js:471
 msgid "Set designer"
-msgstr ""
+msgstr "布景设计"
 
 #: src/schemes.js:472
 msgid "Setting"
-msgstr ""
+msgstr "布景"
 
 #: src/schemes.js:473
 msgid "Storyteller"
-msgstr ""
+msgstr "说书人"
 
 #: src/schemes.js:474
 msgid "Stage manager"
-msgstr ""
+msgstr "舞台监督"
 
 #: src/schemes.js:475
 msgid "Standards body"
-msgstr ""
+msgstr "标准化组织"
 
 #: src/schemes.js:476
 msgid "Stereotyper"
-msgstr ""
+msgstr "铅版印刷"
 
 #: src/schemes.js:477
 msgid "Technical director"
-msgstr ""
+msgstr "技术指导"
 
 #: src/schemes.js:478
 msgid "Teacher"
-msgstr ""
+msgstr "教师"
 
 #: src/schemes.js:479
 msgid "Thesis advisor"
-msgstr ""
+msgstr "论文导师"
 
 #: src/schemes.js:480
 msgid "Television director"
-msgstr ""
+msgstr "电视指导"
 
 #: src/schemes.js:481
 msgid "Television producer"
-msgstr ""
+msgstr "电视制片人"
 
 #: src/schemes.js:482
-#, fuzzy
 msgid "Transcriber"
-msgstr "订阅"
+msgstr "转写"
 
 #: src/schemes.js:483
-#, fuzzy
 msgid "Translator"
 msgstr "翻译"
 
 #: src/schemes.js:484
 msgid "Type designer"
-msgstr ""
+msgstr "字体设计"
 
 #: src/schemes.js:485
 msgid "Typographer"
-msgstr ""
+msgstr "排印"
 
 #: src/schemes.js:486
 msgid "University place"
@@ -2989,52 +2950,51 @@ msgstr ""
 
 #: src/schemes.js:487
 msgid "Voice actor"
-msgstr ""
+msgstr "配音"
 
 #: src/schemes.js:488
 msgid "Videographer"
-msgstr ""
+msgstr "视频录像"
 
 #: src/schemes.js:489
 msgid "Writer of added commentary"
-msgstr ""
+msgstr "附加评论作者"
 
 #: src/schemes.js:490
 msgid "Writer of added lyrics"
-msgstr ""
+msgstr "附加歌词作者"
 
 #: src/schemes.js:491
 msgid "Writer of accompanying material"
-msgstr ""
+msgstr "附加材料作者"
 
 #: src/schemes.js:492
 msgid "Writer of added text"
-msgstr ""
+msgstr "附加文字作者"
 
 #: src/schemes.js:493
 msgid "Woodcutter"
-msgstr ""
+msgstr "木版画"
 
 #: src/schemes.js:494
 msgid "Wood engraver"
-msgstr ""
+msgstr "木版刻工"
 
 #: src/schemes.js:495
 msgid "Writer of introduction"
-msgstr ""
+msgstr "介绍作者"
 
 #: src/schemes.js:496
-#, fuzzy
 msgid "Witness"
-msgstr "亮度"
+msgstr "证人"
 
 #: src/schemes.js:497
 msgid "Writer of preface"
-msgstr ""
+msgstr "前言作者"
 
 #: src/schemes.js:498
 msgid "Writer of supplementary textual content"
-msgstr ""
+msgstr "补充文本内容作者"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
@@ -3062,7 +3022,7 @@ msgstr "带章节标签的阅读进度条"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
-msgstr "书签和注解"
+msgstr "书签和笔记"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
@@ -3073,14 +3033,12 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
 msgid "Fixed unable to open some EPUB files"
-msgstr "修复了无法打开文件名中含 \"#\" 或 \"?\"的图书"
+msgstr "修复了无法打开部分 EPUB 文件的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#, fuzzy
 msgid "Fixed unable to open Mobipocket files"
-msgstr "修复了无法打开文件名中含 \"#\" 或 \"?\"的图书"
+msgstr "修复了无法打开 Mobi 文件的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
@@ -3096,37 +3054,36 @@ msgstr "改进："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Improved metadata display"
-msgstr ""
+msgstr "改进的元数据展示"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "Improved FictionBook rendering"
-msgstr ""
+msgstr "改进的 FB 格式的渲染"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Improved UI for acquiring books from OPDS"
-msgstr ""
+msgstr "改进的用于 OPDS 下载图书的UI"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
-#, fuzzy
 msgid "Fixed unique identifier extraction for EPUB files"
-msgstr "修复了FB格式(.fb2, .fb2.zip)标识符提取的问题"
+msgstr "修复了 EPUB 格式唯一标识符提取的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Fixed missing window icon"
-msgstr ""
+msgstr "修复了错误的窗口图标"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
 msgid "Fixed TTS environment variables not set when using Flatpak"
-msgstr ""
+msgstr "修复了 Flatpak 下文字转语音的环境变量未设置的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
 msgid "Fixed eSpeak NG voice not selected when testing TTS configuration"
-msgstr ""
+msgstr "修复了测试文字转语音时， eSpeak NG 声音文件不被选中的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid ""
 "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
-msgstr ""
+msgstr "修复了“反转色“开启时 “__ibooks_internal_theme” 属性错误的问题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
 msgid "OPDS catalogs:"
@@ -3183,7 +3140,7 @@ msgstr "元数据中的语言和出版日期现在将被解析和格式化"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
 msgid "Export annotations from the library view"
-msgstr "从书库视图导出注解"
+msgstr "从书库视图导出笔记"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
 msgid "Fixed blurry book covers on HiDPI"
@@ -3281,11 +3238,11 @@ msgstr "从 JSON 导入书签"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
 msgid "Search in annotations"
-msgstr "注解中搜索"
+msgstr "笔记中搜索"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:138
 msgid "Annotations are now sorted in the same order as they appear in the book"
-msgstr "注解现在以它们在书中出现的顺序存储"
+msgstr "笔记现在以它们在书中出现的顺序存储"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:140
 msgid "Security:"
@@ -3372,7 +3329,7 @@ msgstr "欢迎屏幕添加打开最近文件的菜单"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:173
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
-msgstr "还原了用于显示目录、注解和书签的快捷方式"
+msgstr "还原了用于显示目录、笔记和书签的快捷方式"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:177
 msgid "Fixed application not translated"
@@ -3419,7 +3376,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
 msgid "Annotations, bookmarks, and find results now show chapter titles"
-msgstr "注解、书签和搜索结果现在显示章节标题"
+msgstr "笔记、书签和搜索结果现在显示章节标题"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
 msgid "When looking up words in dictionaries, the query can now be edited"
@@ -3492,7 +3449,7 @@ msgstr "朗读选定文本"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
 msgid "Annotations:"
-msgstr "注解："
+msgstr "笔记："
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
 msgid "Spellcheck notes"
@@ -3500,7 +3457,7 @@ msgstr "拼写检查记录"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
 msgid "Export annotations to Markdown"
-msgstr "以 Markdown 格式导出注解"
+msgstr "以 Markdown 格式导出笔记"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
 msgid "Options to use custom colors for highlights"
@@ -3571,11 +3528,11 @@ msgstr "改进的维基词典搜索，现在带有链接和例句"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:246
 msgid "Improved popover footnote extraction and formatting"
-msgstr "改进的脚注解压和格式弹窗"
+msgstr "改进的脚笔记压和格式弹窗"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:247
 msgid "Added option to export annotations to BibTeX"
-msgstr "支持导出注解为 BibTeX"
+msgstr "支持导出笔记为 BibTeX"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:255
 msgid "Fixed table of contents navigation not working with some books"
@@ -3612,7 +3569,7 @@ msgstr "基本的文字转语音支持"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:277
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr "导出注解到 HTML、纯文本或JSON"
+msgstr "导出笔记到 HTML、纯文本或JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:278
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
@@ -3790,7 +3747,7 @@ msgstr "默认高亮颜色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Default highlight color for annotations"
-msgstr "默认的注解和高亮颜色"
+msgstr "默认的笔记和高亮颜色"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:53
 msgid "Dictionary"
@@ -4093,11 +4050,11 @@ msgstr "如果此值为真，则使用 Tracker (文件索引器)获得文件路�
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:287
 msgid "OPDS download action"
-msgstr ""
+msgstr "OPDS 下载操作"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:288
 msgid "What to do when downloading a file from an OPDS feed"
-msgstr ""
+msgstr "从 OPDS 源下载文件时的操作"
 
 #~ msgid ""
 #~ "This book has no identifier. This is the MD5 hash generated from the file."
