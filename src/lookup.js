@@ -128,10 +128,10 @@ const wiktionary = (word, language, lookupFunc) => lookup(
             if (internalLink && wikiNamespaces.every(namespace =>
                 !internalLink.startsWith(namespace + ':')
                 && !internalLink.startsWith(namespace + '_talk:'))) {
-                const [title, lang] = internalLink.split('#')
+                const [title] = internalLink.split('#')
                 const word = decodeURIComponent(title)
                     .replace(/_/g, ' ')
-                lookupFunc(word, lang || 'en')
+                lookupFunc(word, language)
                 return true
             }
         }
