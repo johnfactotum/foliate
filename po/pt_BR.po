@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-12 18:44+0800\n"
-"PO-Revision-Date: 2020-06-24 11:41-0300\n"
+"PO-Revision-Date: 2020-08-12 11:00-0300\n"
 "Last-Translator: Fúlvio Alves <fga.fulvio@gmail.com>\n"
 "Language-Team: Fábio Nogueira <fnogueira@gnome.org>; Marcelo dos Santos "
 "Mafra <msmafra@gmail.com>\n"
@@ -400,9 +400,8 @@ msgid "Free"
 msgstr "Grátis"
 
 #: src/opds.js:96
-#, fuzzy
 msgid "Preview"
-msgstr "Visualizar URL"
+msgstr "Visualizar"
 
 #: src/opds.js:97
 msgid "Sample"
@@ -418,7 +417,7 @@ msgstr "Inscrever"
 
 #: src/opds.js:101
 msgid "More"
-msgstr ""
+msgstr "Mais"
 
 #: src/opds.js:125
 msgid "Protected by DRM"
@@ -430,27 +429,27 @@ msgstr " (DRM)"
 
 #: src/opds.js:209
 msgid "Update available"
-msgstr ""
+msgstr "Atualização disponível"
 
 #: src/opds.js:210
 msgid "Update"
-msgstr ""
+msgstr "Atualizar"
 
 #: src/opds.js:218 src/opds.js:230
 msgid "Delete"
-msgstr ""
+msgstr "Excluir"
 
 #: src/opds.js:222
 msgid "Delete this item?"
-msgstr ""
+msgstr "Excluir este item?"
 
 #: src/opds.js:224
 msgid "If you delete this item, it will be permanently lost."
-msgstr ""
+msgstr "Se você excluir este item, ele será permanentemente perdido."
 
 #: src/opds.js:276
 msgid "An error occurred."
-msgstr ""
+msgstr "Ocorreu um erro."
 
 #: src/opds.js:280 src/ui/ttsDialog.ui:17
 msgid "OK"
@@ -462,12 +461,12 @@ msgstr "Voltar"
 
 #: src/opds.js:369
 msgid "What would you like to do with this file?"
-msgstr ""
+msgstr "O que você gostaria de fazer com este arquivo?"
 
 #: src/opds.js:370
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Format: %s"
-msgstr "Formato"
+msgstr "Formato: %s"
 
 #: src/opds.js:378 src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
@@ -586,17 +585,16 @@ msgstr "WorldCat"
 
 #: src/properties.js:370
 msgid "Series"
-msgstr ""
+msgstr "Séries"
 
 #: src/properties.js:375
 #, javascript-format
 msgid "#%s"
-msgstr ""
+msgstr "#%s"
 
 #: src/properties.js:402
-#, fuzzy
 msgid "Collections"
-msgstr "Todas as seções"
+msgstr "Coleções"
 
 #: src/properties.js:424
 msgid "Publication Date"
@@ -619,14 +617,12 @@ msgid "Identifier"
 msgstr "Identificador"
 
 #: src/properties.js:463
-#, fuzzy
 msgid "Source"
-msgstr "Fonte: "
+msgstr "Fonte"
 
 #: src/properties.js:518
-#, fuzzy
 msgid "Contributors"
-msgstr "Contínuo"
+msgstr "Contribuidores"
 
 #: src/properties.js:522
 msgid "Copyright"
@@ -660,11 +656,11 @@ msgstr "Invertido"
 
 #: src/theme.js:43
 msgid "Solarized Light"
-msgstr "Solarized Claro"
+msgstr "Solarizado Claro"
 
 #: src/theme.js:47
 msgid "Solarized Dark"
-msgstr "Solarized Escuro"
+msgstr "Solarizado Escuro"
 
 #: src/theme.js:51
 msgid "Gruvbox Light"
@@ -1031,9 +1027,8 @@ msgid "Go Back to Library"
 msgstr "Voltar à Biblioteca"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalogs"
-msgstr "Voltar ao Catálogo"
+msgstr "Voltar aos Catálogos"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -1232,9 +1227,8 @@ msgid "Open Another File…"
 msgstr "Abrir Outro Arquivo…"
 
 #: src/ui/mainOverlay.ui:183
-#, fuzzy
 msgid "Downloading…"
-msgstr "Carregando…"
+msgstr "Baixando…"
 
 #: src/ui/menuBar.ui:5
 msgid "_File"
@@ -1522,17 +1516,16 @@ msgid "Requires restart"
 msgstr "Requer reinicialização"
 
 #: src/ui/preferenceWindow.ui:542
-#, fuzzy
 msgid "OPDS"
-msgstr "URL OPDS"
+msgstr "OPDS"
 
 #: src/ui/preferenceWindow.ui:552
 msgid "When downloading books"
-msgstr ""
+msgstr "Ao baixar livros"
 
 #: src/ui/preferenceWindow.ui:563
 msgid "Save to default directory"
-msgstr ""
+msgstr "Salvar no diretório padrão"
 
 #: src/ui/preferenceWindow.ui:583
 msgid "Ask what to do"
@@ -1557,7 +1550,7 @@ msgstr "Cache de capas de livros"
 
 #: src/ui/propertiesBox.ui:93
 msgid "Details"
-msgstr ""
+msgstr "Detalhes"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
@@ -1750,344 +1743,337 @@ msgstr "Wikipédia"
 
 #: src/schemes.js:38
 msgid "DOI"
-msgstr ""
+msgstr "DOI"
 
 #: src/schemes.js:39
 msgid "Digital Object Identifier"
-msgstr ""
+msgstr "Identificador de Objeto Digital"
 
 #: src/schemes.js:43
 msgid "ISBN"
-msgstr ""
+msgstr "ISBN"
 
 #: src/schemes.js:44 src/schemes.js:48 src/schemes.js:53 src/schemes.js:58
 msgid "International Standard Book Number"
-msgstr ""
+msgstr "Número Internacional Normalizado para Livros"
 
 #: src/schemes.js:47
 msgid "ISBN-10"
-msgstr ""
+msgstr "ISBN-10"
 
 #: src/schemes.js:52
 msgid "ISBN-13"
-msgstr ""
+msgstr "ISBN-13"
 
 #: src/schemes.js:57
 msgid "ISBN-A"
-msgstr ""
+msgstr "ISBN-A"
 
 #: src/schemes.js:62
 msgid "JDCN"
-msgstr ""
+msgstr "JDCN"
 
 #: src/schemes.js:63
 msgid "Japan Digital Comic Number"
-msgstr ""
+msgstr "Japan Digital Comic Number"
 
 #: src/schemes.js:66
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 #: src/schemes.js:67
 msgid "Universally-Unique Identifier"
-msgstr ""
+msgstr "Identificador Universal Único"
 
 #: src/schemes.js:70
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/schemes.js:71
 msgid "Uniform Resource Locator"
-msgstr ""
+msgstr "Uniform Resource Locator"
 
 #: src/schemes.js:74
 msgid "URI"
-msgstr ""
+msgstr "URI"
 
 #: src/schemes.js:75
 msgid "Uniform Resource Identifier"
-msgstr ""
+msgstr "Uniform Resource Identifier"
 
 #: src/schemes.js:78
 msgid "ISSN"
-msgstr ""
+msgstr "ISSN"
 
 #: src/schemes.js:79
 msgid "International Standard Serial Number"
-msgstr ""
+msgstr "Número Internacional Normalizado para Publicações Seriadas"
 
 #: src/schemes.js:83
 msgid "Amazon Standard Identification Number"
-msgstr ""
+msgstr "Número de Identificação Padrão da Amazon"
 
 #: src/schemes.js:87
 msgid "OCLC"
-msgstr ""
+msgstr "OCLC"
 
 #: src/schemes.js:88
 msgid "Online Computer Library Center"
-msgstr ""
+msgstr "Online Computer Library Center"
 
 #: src/schemes.js:92 src/schemes.js:93
 msgid "arXiv"
-msgstr ""
+msgstr "arXiv"
 
 #: src/schemes.js:96 src/schemes.js:97
 msgid "calibre"
-msgstr ""
+msgstr "calibre"
 
 #: src/schemes.js:101
 msgid "Foliate generated identifier"
-msgstr ""
+msgstr "Identificador gerado pelo Foliate"
 
 #: src/schemes.js:122
 msgid "AAT"
-msgstr ""
+msgstr "AAT"
 
 #: src/schemes.js:123
 msgid "The Getty Art and Architecture Taxonomy"
-msgstr ""
+msgstr "The Getty Art and Architecture Taxonomy"
 
 #: src/schemes.js:126
 msgid "BIC"
-msgstr ""
+msgstr "BIC"
 
 #: src/schemes.js:127
 msgid "Book Industry Communication"
-msgstr ""
+msgstr "Book Industry Communication"
 
 #: src/schemes.js:130
 msgid "BISAC"
-msgstr ""
+msgstr "BISAC"
 
 #: src/schemes.js:131
 msgid "Book Industry Standards and Communications"
-msgstr ""
+msgstr "Book Industry Standards and Communications"
 
 #: src/schemes.js:135
 msgid "CLC"
-msgstr ""
+msgstr "CLC"
 
 #: src/schemes.js:136
 msgid "Chinese Library Classification"
-msgstr ""
+msgstr "Classificação para Bibliotecas Chinesas"
 
 #: src/schemes.js:139
 msgid "DDC"
-msgstr ""
+msgstr "DDC"
 
 #: src/schemes.js:140
 msgid "Dewey Decimal Classification"
-msgstr ""
+msgstr "Classificação Decimal de Dewey"
 
 #: src/schemes.js:144
 msgid "CLIL"
-msgstr ""
+msgstr "CLIL"
 
 #: src/schemes.js:145
 msgid "Commission de Liaison Interprofessionnelle du Livre"
-msgstr ""
+msgstr "Commission de Liaison Interprofessionnelle du Livre"
 
 #: src/schemes.js:148 src/schemes.js:149
 msgid "EuroVoc"
-msgstr ""
+msgstr "EuroVoc"
 
 #: src/schemes.js:152
 msgid "MEDTOP"
-msgstr ""
+msgstr "MEDTOP"
 
 #: src/schemes.js:153
 msgid "IPTC Media Topics"
-msgstr ""
+msgstr "IPTC Media Topics"
 
 #: src/schemes.js:156
 msgid "LCC"
-msgstr ""
+msgstr "LCC"
 
 #: src/schemes.js:157
 msgid "Library of Congress Classification"
-msgstr ""
+msgstr "Classificação da Biblioteca do Congresso"
 
 #: src/schemes.js:161
 msgid "LCSH"
-msgstr ""
+msgstr "LCSH"
 
 #: src/schemes.js:162
 msgid "Library of Congress Subject Headings"
-msgstr ""
+msgstr "Cabeçalhos de Assunto da Biblioteca do Congresso"
 
 #: src/schemes.js:166
 msgid "NDC"
-msgstr ""
+msgstr "NDC"
 
 #: src/schemes.js:167
 msgid "Nippon Decimal Classification"
-msgstr ""
+msgstr "Classificação Decimal Nippon"
 
 #: src/schemes.js:170 src/schemes.js:171
-#, fuzzy
 msgid "Thema"
-msgstr "Tema"
+msgstr "Thema"
 
 #: src/schemes.js:174
 msgid "UDC"
-msgstr ""
+msgstr "UDC"
 
 #: src/schemes.js:175
 msgid "Universal Decimal Classification"
-msgstr ""
+msgstr "Classificação Decimal Universal"
 
 #: src/schemes.js:179
 msgid "WGS"
-msgstr ""
+msgstr "WGS"
 
 #: src/schemes.js:180
 msgid "Warengruppen-Systematik"
-msgstr ""
+msgstr "Warengruppen-Systematik"
 
 #: src/schemes.js:183
 msgid "DCMIType"
-msgstr ""
+msgstr "DCMIType"
 
 #: src/schemes.js:184
 msgid "DCMI Type Vocabulary"
-msgstr ""
+msgstr "DCMI Type Vocabulary"
 
 #: src/schemes.js:188
 msgid "Audience"
-msgstr ""
+msgstr "Audiência"
 
 #: src/schemes.js:189
 msgid "Intended Audience"
-msgstr ""
+msgstr "Audiência pretendida"
 
 #. Translators: see https://www.loc.gov/marc/relators/relaterm.html
 #. for detailed descriptions
 #: src/schemes.js:231
 msgid "Abridger"
-msgstr ""
+msgstr "Resumido"
 
 #: src/schemes.js:232
 msgid "Art copyist"
-msgstr ""
+msgstr "Copista de arte"
 
 #: src/schemes.js:233
 msgid "Actor"
-msgstr ""
+msgstr "Ator"
 
 #: src/schemes.js:234
 msgid "Art director"
-msgstr ""
+msgstr "Diretor de arte"
 
 #: src/schemes.js:235
-#, fuzzy
 msgid "Adapter"
-msgstr "Capítulo"
+msgstr "Adaptador"
 
 #: src/schemes.js:236
 msgid "Author of afterword, colophon, etc."
-msgstr ""
+msgstr "Autor do posfácio, colofão, etc."
 
 #: src/schemes.js:237
 msgid "Analyst"
-msgstr ""
+msgstr "Analista"
 
 #: src/schemes.js:238
 msgid "Animator"
-msgstr ""
+msgstr "Animador"
 
 #: src/schemes.js:239
-#, fuzzy
 msgid "Annotator"
-msgstr "Anotação"
+msgstr "Anotador"
 
 #: src/schemes.js:240
-#, fuzzy
 msgid "Bibliographic antecedent"
-msgstr "Bibliografia"
+msgstr "Antecedente bibliográfico"
 
 #: src/schemes.js:241
 msgid "Appellee"
-msgstr ""
+msgstr "Apelado"
 
 #: src/schemes.js:242
 msgid "Appellant"
-msgstr ""
+msgstr "Apelador"
 
 #: src/schemes.js:243
 msgid "Applicant"
-msgstr ""
+msgstr "Aspirante"
 
 #: src/schemes.js:244
 msgid "Author in quotations or text abstracts"
-msgstr ""
+msgstr "Autor em citações ou resumos de texto"
 
 #: src/schemes.js:245
 msgid "Architect"
-msgstr ""
+msgstr "Arquiteto"
 
 #: src/schemes.js:246
 msgid "Artistic director"
-msgstr ""
+msgstr "Diretor artístico"
 
 #: src/schemes.js:247
-#, fuzzy
 msgid "Arranger"
-msgstr "Laranja"
+msgstr "Arranjador"
 
 #: src/schemes.js:248
 msgid "Artist"
-msgstr ""
+msgstr "Artista"
 
 #: src/schemes.js:249
 msgid "Assignee"
-msgstr ""
+msgstr "Procurador"
 
 #: src/schemes.js:250
 msgid "Associated name"
-msgstr ""
+msgstr "Nome associado"
 
 #: src/schemes.js:251
 msgid "Autographer"
-msgstr ""
+msgstr "Autógrafo"
 
 #: src/schemes.js:252
 msgid "Attributed name"
-msgstr ""
+msgstr "Nome atribuído"
 
 #: src/schemes.js:253
-#, fuzzy
 msgid "Auctioneer"
-msgstr "Subseção"
+msgstr "Leiloeiro"
 
 #: src/schemes.js:254
 msgid "Author of dialog"
-msgstr ""
+msgstr "Autor do diálogo"
 
 #: src/schemes.js:255
 msgid "Author of introduction, etc."
-msgstr ""
+msgstr "Autor de introdução, etc."
 
 #: src/schemes.js:256
 msgid "Screenwriter"
-msgstr ""
+msgstr "Roteirista"
 
 #: src/schemes.js:258
 msgid "Binding designer"
-msgstr ""
+msgstr "Desenhista de encadernação"
 
 #: src/schemes.js:259
 msgid "Bookjacket designer"
-msgstr ""
+msgstr "Desenhista da capa do livro"
 
 #: src/schemes.js:260
-#, fuzzy
 msgid "Book designer"
-msgstr "Visualizador de e-Book"
+msgstr "Desehnista de livro"
 
 #: src/schemes.js:261
 msgid "Book producer"
-msgstr ""
+msgstr "Produtor de livro"
 
 #: src/schemes.js:262
 msgid "Blurb writer"
@@ -2095,531 +2081,515 @@ msgstr ""
 
 #: src/schemes.js:263
 msgid "Binder"
-msgstr ""
+msgstr "Encadernador"
 
 #: src/schemes.js:264
 msgid "Bookplate designer"
-msgstr ""
+msgstr "Desenhista do ex-libris"
 
 #: src/schemes.js:265
 msgid "Broadcaster"
-msgstr ""
+msgstr "Locutor"
 
 #: src/schemes.js:266
 msgid "Braille embosser"
 msgstr ""
 
 #: src/schemes.js:267
-#, fuzzy
 msgid "Bookseller"
-msgstr "Visualizador de e-Book"
+msgstr "Livreiro"
 
 #: src/schemes.js:268
 msgid "Caster"
-msgstr ""
+msgstr "Lançador"
 
 #: src/schemes.js:269
 msgid "Conceptor"
-msgstr ""
+msgstr "Autor intelectual"
 
 #: src/schemes.js:270
 msgid "Choreographer"
-msgstr ""
+msgstr "Coreógrafo"
 
 #: src/schemes.js:271
 msgid "Client"
-msgstr ""
+msgstr "Cliente"
 
 #: src/schemes.js:272
 msgid "Calligrapher"
-msgstr ""
+msgstr "Calígrafo"
 
 #: src/schemes.js:273
 msgid "Colorist"
-msgstr ""
+msgstr "Colorista"
 
 #: src/schemes.js:274
 msgid "Collotyper"
-msgstr ""
+msgstr "Colotipador"
 
 #: src/schemes.js:275
 msgid "Commentator"
-msgstr ""
+msgstr "Comentarista"
 
 #: src/schemes.js:276
 msgid "Composer"
-msgstr ""
+msgstr "Compositor"
 
 #: src/schemes.js:277
 msgid "Compositor"
-msgstr ""
+msgstr "Tipógrafo"
 
 #: src/schemes.js:278
 msgid "Conductor"
-msgstr ""
+msgstr "Condutor"
 
 #: src/schemes.js:279
 msgid "Cinematographer"
-msgstr ""
+msgstr "Cinematógrafo"
 
 #: src/schemes.js:280
 msgid "Censor"
-msgstr ""
+msgstr "Censor"
 
 #: src/schemes.js:281
 msgid "Contestant-appellee"
-msgstr ""
+msgstr "Demandante-apelado"
 
 #: src/schemes.js:282
 msgid "Collector"
-msgstr ""
+msgstr "Colecionador"
 
 #: src/schemes.js:283
 msgid "Compiler"
-msgstr ""
+msgstr "Compilador"
 
 #: src/schemes.js:284
 msgid "Conservator"
-msgstr ""
+msgstr "Conservador"
 
 #: src/schemes.js:285
 msgid "Collection registrar"
-msgstr ""
+msgstr "Registrador de coleção"
 
 #: src/schemes.js:286
-#, fuzzy
 msgid "Contestant"
-msgstr "Conteúdo"
+msgstr "Demandante"
 
 #: src/schemes.js:287
 msgid "Contestant-appellant"
-msgstr ""
+msgstr "Demandante-apelante"
 
 #: src/schemes.js:288
 msgid "Court governed"
-msgstr ""
+msgstr "Tribunal governado"
 
 #: src/schemes.js:289
-#, fuzzy
 msgid "Cover designer"
-msgstr "Tamanho da capa"
+msgstr "Desenhista de capa"
 
 #: src/schemes.js:290
-#, fuzzy
 msgid "Copyright claimant"
-msgstr "Direito autoral"
+msgstr "Requerente de copyright"
 
 #: src/schemes.js:291
 msgid "Complainant-appellee"
-msgstr ""
+msgstr "Querelante-apelado"
 
 #: src/schemes.js:292
-#, fuzzy
 msgid "Copyright holder"
-msgstr "Direito autoral"
+msgstr "Titular do copyright"
 
 #: src/schemes.js:293
 msgid "Complainant"
-msgstr ""
+msgstr "Querelante"
 
 #: src/schemes.js:294
 msgid "Complainant-appellant"
-msgstr ""
+msgstr "Querelante-apelante"
 
 #: src/schemes.js:295
 msgid "Creator"
-msgstr ""
+msgstr "Criador"
 
 #: src/schemes.js:296
 msgid "Correspondent"
-msgstr ""
+msgstr "Correspondente"
 
 #: src/schemes.js:297
 msgid "Corrector"
-msgstr ""
+msgstr "Corretor"
 
 #: src/schemes.js:298
 msgid "Court reporter"
-msgstr ""
+msgstr "Repórter do tribunal"
 
 #: src/schemes.js:299
 msgid "Consultant"
-msgstr ""
+msgstr "Consultor"
 
 #: src/schemes.js:300
 msgid "Consultant to a project"
-msgstr ""
+msgstr "Consultor de um projeto"
 
 #: src/schemes.js:301
 msgid "Costume designer"
-msgstr ""
+msgstr "Desenhista de trajes"
 
 #: src/schemes.js:302
-#, fuzzy
 msgid "Contributor"
-msgstr "Contínuo"
+msgstr "Contribuinte"
 
 #: src/schemes.js:303
 msgid "Contestee-appellee"
-msgstr ""
+msgstr "Contestado-apelado"
 
 #: src/schemes.js:304
 msgid "Cartographer"
-msgstr ""
+msgstr "Cartógrafo"
 
 #: src/schemes.js:305
 msgid "Contractor"
-msgstr ""
+msgstr "Contratante"
 
 #: src/schemes.js:306
-#, fuzzy
 msgid "Contestee"
-msgstr "Conteúdo"
+msgstr "Contestado"
 
 #: src/schemes.js:307
 msgid "Contestee-appellant"
-msgstr ""
+msgstr "Contestado-apelante"
 
 #: src/schemes.js:308
 msgid "Curator"
-msgstr ""
+msgstr "Curador"
 
 #: src/schemes.js:309
 msgid "Commentator for written text"
-msgstr ""
+msgstr "Comentarista de texto escrito"
 
 #: src/schemes.js:310
 msgid "Distribution place"
-msgstr ""
+msgstr "Local de distribuição"
 
 #: src/schemes.js:311
 msgid "Defendant"
-msgstr ""
+msgstr "Réu"
 
 #: src/schemes.js:312
 msgid "Defendant-appellee"
-msgstr ""
+msgstr "Réu-apelado"
 
 #: src/schemes.js:313
 msgid "Defendant-appellant"
-msgstr ""
+msgstr "Réu-apelante"
 
 #: src/schemes.js:314
 msgid "Degree granting institution"
-msgstr ""
+msgstr "Instituto concessor de grau"
 
 #: src/schemes.js:315
 msgid "Degree supervisor"
-msgstr ""
+msgstr "Supervisor de grau"
 
 #: src/schemes.js:316
 msgid "Dissertant"
-msgstr ""
+msgstr "Dissertante"
 
 #: src/schemes.js:317
 msgid "Delineator"
-msgstr ""
+msgstr "Delineador"
 
 #: src/schemes.js:318
-#, fuzzy
 msgid "Dancer"
-msgstr "Cancelar"
+msgstr "Bailarino"
 
 #: src/schemes.js:319
 msgid "Donor"
-msgstr ""
+msgstr "Doador"
 
 #: src/schemes.js:320
 msgid "Depicted"
-msgstr ""
+msgstr "Retratado"
 
 #: src/schemes.js:321
 msgid "Depositor"
-msgstr ""
+msgstr "Depositante"
 
 #: src/schemes.js:322
 msgid "Draftsman"
-msgstr ""
+msgstr "Desenhista de plantas e projetos"
 
 #: src/schemes.js:323
 msgid "Director"
-msgstr ""
+msgstr "Diretor"
 
 #: src/schemes.js:324
 msgid "Designer"
-msgstr ""
+msgstr "Desenhista"
 
 #: src/schemes.js:325
 msgid "Distributor"
-msgstr ""
+msgstr "Distribuidor"
 
 #: src/schemes.js:326
 msgid "Data contributor"
-msgstr ""
+msgstr "Contribuidor de dados"
 
 #: src/schemes.js:327
 msgid "Dedicatee"
-msgstr ""
+msgstr "Dedicado"
 
 #: src/schemes.js:328
 msgid "Data manager"
-msgstr ""
+msgstr "Gerenciador de dados"
 
 #: src/schemes.js:329
 msgid "Dedicator"
-msgstr ""
+msgstr "Dedicador"
 
 #: src/schemes.js:330
 msgid "Dubious author"
-msgstr ""
+msgstr "Autor duvidoso"
 
 #: src/schemes.js:331
 msgid "Editor of compilation"
-msgstr ""
+msgstr "Editor da compilação"
 
 #: src/schemes.js:332
-#, fuzzy
 msgid "Editor of moving image work"
-msgstr "Evento para abrir o visualizador de imagens"
+msgstr "Editor de trabalho de imagem em movimento"
 
 #: src/schemes.js:333
-#, fuzzy
 msgid "Editor"
-msgstr "Editar"
+msgstr "Editor"
 
 #: src/schemes.js:334
 msgid "Engraver"
-msgstr ""
+msgstr "Gravador"
 
 #: src/schemes.js:335
-#, fuzzy
 msgid "Electrician"
-msgstr "Galego"
+msgstr "Eletricista"
 
 #: src/schemes.js:336
 msgid "Electrotyper"
-msgstr ""
+msgstr "Eletrotipeador"
 
 #: src/schemes.js:337
 msgid "Engineer"
-msgstr ""
+msgstr "Engenheiro"
 
 #: src/schemes.js:338
 msgid "Enacting jurisdiction"
-msgstr ""
+msgstr "Jurisdição de promulgação"
 
 #: src/schemes.js:339
 msgid "Etcher"
-msgstr ""
+msgstr "Aquafortista"
 
 #: src/schemes.js:340
 msgid "Event place"
-msgstr ""
+msgstr "Local do evento"
 
 #: src/schemes.js:341
 msgid "Expert"
-msgstr ""
+msgstr "Experto"
 
 #: src/schemes.js:342
 msgid "Facsimilist"
-msgstr ""
+msgstr "Facsimilador"
 
 #: src/schemes.js:343
 msgid "Film distributor"
-msgstr ""
+msgstr "Distribuidor do filme"
 
 #: src/schemes.js:344
 msgid "Field director"
-msgstr ""
+msgstr "Diretor de campo"
 
 #: src/schemes.js:345
 msgid "Film editor"
-msgstr ""
+msgstr "Editor do filme"
 
 #: src/schemes.js:346
 msgid "Film director"
-msgstr ""
+msgstr "Diretor do filme"
 
 #: src/schemes.js:347
 msgid "Filmmaker"
-msgstr ""
+msgstr "Cineasta"
 
 #: src/schemes.js:348
 msgid "Former owner"
-msgstr ""
+msgstr "Proprietário anterior"
 
 #: src/schemes.js:349
 msgid "Film producer"
-msgstr ""
+msgstr "Produtor do filme"
 
 #: src/schemes.js:350
 msgid "Funder"
-msgstr ""
+msgstr "Fundador"
 
 #: src/schemes.js:351
-#, fuzzy
 msgid "First party"
-msgstr "Primeiro"
+msgstr "Demandante"
 
 #: src/schemes.js:352
 msgid "Forger"
-msgstr ""
+msgstr "Forjador"
 
 #: src/schemes.js:353
 msgid "Geographic information specialist"
-msgstr ""
+msgstr "Especialista em informação geográfica"
 
 #: src/schemes.js:354
 msgid "Host institution"
-msgstr ""
+msgstr "Instituição anfitriã"
 
 #: src/schemes.js:355
 msgid "Honoree"
-msgstr ""
+msgstr "Honrado"
 
 #: src/schemes.js:356
 msgid "Host"
-msgstr ""
+msgstr "Anfitrião"
 
 #: src/schemes.js:357
 msgid "Illustrator"
-msgstr ""
+msgstr "Ilustrador"
 
 #: src/schemes.js:358
 msgid "Illuminator"
-msgstr ""
+msgstr "Iluminador"
 
 #: src/schemes.js:359
-#, fuzzy
 msgid "Inscriber"
-msgstr "Inscrever"
+msgstr "Rotulador"
 
 #: src/schemes.js:360
-#, fuzzy
 msgid "Inventor"
-msgstr "Invertido"
+msgstr "Inventor"
 
 #: src/schemes.js:361
 msgid "Issuing body"
-msgstr ""
+msgstr "Organismo emissor"
 
 #: src/schemes.js:362
 msgid "Instrumentalist"
-msgstr ""
+msgstr "Instrumentalista"
 
 #: src/schemes.js:363
-#, fuzzy
 msgid "Interviewee"
-msgstr "Interface"
+msgstr "Entrevistado"
 
 #: src/schemes.js:364
-#, fuzzy
 msgid "Interviewer"
-msgstr "Visualizador de imagens:"
+msgstr "Entrevistador"
 
 #: src/schemes.js:365
 msgid "Judge"
-msgstr ""
+msgstr "Juiz"
 
 #: src/schemes.js:366
 msgid "Jurisdiction governed"
-msgstr ""
+msgstr "Jurisdição governada"
 
 #: src/schemes.js:367
 msgid "Laboratory"
-msgstr ""
+msgstr "Laboratório"
 
 #: src/schemes.js:368
 msgid "Librettist"
-msgstr ""
+msgstr "Libretista"
 
 #: src/schemes.js:369
 msgid "Laboratory director"
-msgstr ""
+msgstr "Diretor de laboratório"
 
 #: src/schemes.js:370
 msgid "Lead"
-msgstr ""
+msgstr "Condutor"
 
 #: src/schemes.js:371
 msgid "Libelee-appellee"
-msgstr ""
+msgstr "Difamado-apelado"
 
 #: src/schemes.js:372
 msgid "Libelee"
-msgstr ""
+msgstr "Difamado"
 
 #: src/schemes.js:373
 msgid "Lender"
-msgstr ""
+msgstr "Emprestador"
 
 #: src/schemes.js:374
 msgid "Libelee-appellant"
-msgstr ""
+msgstr "Difamado-apelante"
 
 #: src/schemes.js:375
 msgid "Lighting designer"
-msgstr ""
+msgstr "Desenhista de iluminação"
 
 #: src/schemes.js:376
 msgid "Libelant-appellee"
-msgstr ""
+msgstr "Difamador-apelado"
 
 #: src/schemes.js:377
 msgid "Libelant"
-msgstr ""
+msgstr "Difamador"
 
 #: src/schemes.js:378
 msgid "Libelant-appellant"
-msgstr ""
+msgstr "Difamador-apelante"
 
 #: src/schemes.js:379
 msgid "Landscape architect"
-msgstr ""
+msgstr "Paisagista"
 
 #: src/schemes.js:380
 msgid "Licensee"
-msgstr ""
+msgstr "Beneficiário da licença"
 
 #: src/schemes.js:381
 msgid "Licensor"
-msgstr ""
+msgstr "Outorgador da licença"
 
 #: src/schemes.js:382
 msgid "Lithographer"
-msgstr ""
+msgstr "Litógrafo"
 
 #: src/schemes.js:383
 msgid "Lyricist"
-msgstr ""
+msgstr "Autor da letra"
 
 #: src/schemes.js:384
 msgid "Music copyist"
-msgstr ""
+msgstr "Copista de música"
 
 #: src/schemes.js:385
 msgid "Metadata contact"
-msgstr ""
+msgstr "Contato de metadados"
 
 #: src/schemes.js:386
 msgid "Medium"
-msgstr ""
+msgstr "Médio"
 
 #: src/schemes.js:387
 msgid "Manufacture place"
-msgstr ""
+msgstr "Local de fabricação"
 
 #: src/schemes.js:388
 msgid "Manufacturer"
-msgstr ""
+msgstr "Fabricante"
 
 #: src/schemes.js:389
 msgid "Moderator"
-msgstr ""
+msgstr "Moderador"
 
 #: src/schemes.js:390
 msgid "Monitor"
-msgstr ""
+msgstr "Monitor"
 
 #: src/schemes.js:391
 msgid "Marbler"
@@ -2627,98 +2597,95 @@ msgstr ""
 
 #: src/schemes.js:392
 msgid "Markup editor"
-msgstr ""
+msgstr "Editor de marcação"
 
 #: src/schemes.js:393
 msgid "Musical director"
-msgstr ""
+msgstr "Diretor musical"
 
 #: src/schemes.js:394
 msgid "Metal-engraver"
-msgstr ""
+msgstr "Gravador de metais"
 
 #: src/schemes.js:395
 msgid "Minute taker"
 msgstr ""
 
 #: src/schemes.js:396
-#, fuzzy
 msgid "Musician"
-msgstr "Galego"
+msgstr "Músico"
 
 #: src/schemes.js:397
 msgid "Narrator"
-msgstr ""
+msgstr "Narrador"
 
 #: src/schemes.js:398
 msgid "Opponent"
-msgstr ""
+msgstr "Oponente"
 
 #: src/schemes.js:399
 msgid "Originator"
-msgstr ""
+msgstr "Criador"
 
 #: src/schemes.js:400
 msgid "Organizer"
-msgstr ""
+msgstr "Organizador"
 
 #: src/schemes.js:401
 msgid "Onscreen presenter"
-msgstr ""
+msgstr "Apresentador na tela"
 
 #: src/schemes.js:403
 msgid "Owner"
-msgstr ""
+msgstr "Proprietário"
 
 #: src/schemes.js:404
 msgid "Panelist"
-msgstr ""
+msgstr "Painelista"
 
 #: src/schemes.js:405
 msgid "Patron"
-msgstr ""
+msgstr "Patrono"
 
 #: src/schemes.js:406
-#, fuzzy
 msgid "Publishing director"
-msgstr "Editora"
+msgstr "Diretor de publicação"
 
 #: src/schemes.js:408
 msgid "Project director"
-msgstr ""
+msgstr "Diretor de projeto"
 
 #: src/schemes.js:409
-#, fuzzy
 msgid "Proofreader"
-msgstr "Goodreads"
+msgstr "Verificador"
 
 #: src/schemes.js:410
 msgid "Photographer"
-msgstr ""
+msgstr "Fotógrafo"
 
 #: src/schemes.js:411
 msgid "Platemaker"
-msgstr ""
+msgstr "Produtor de lâminas"
 
 #: src/schemes.js:412
 msgid "Permitting agency"
-msgstr ""
+msgstr "Agência de licenciamento"
 
 #: src/schemes.js:413
 msgid "Production manager"
-msgstr ""
+msgstr "Gerente de produção"
 
 #: src/schemes.js:414
 msgid "Printer of plates"
-msgstr ""
+msgstr "Impressor de lâminas"
 
 #: src/schemes.js:415
 msgid "Papermaker"
-msgstr ""
+msgstr "Fabricante de papel"
 
 #: src/schemes.js:416
 msgid "Puppeteer"
-msgstr ""
+msgstr "Marionetista"
 
 #: src/schemes.js:417
 msgid "Praeses"
@@ -2726,193 +2693,187 @@ msgstr ""
 
 #: src/schemes.js:418
 msgid "Process contact"
-msgstr ""
+msgstr "Contato de processo"
 
 #: src/schemes.js:419
 msgid "Production personnel"
-msgstr ""
+msgstr "Pessoal de produção"
 
 #: src/schemes.js:420
 msgid "Presenter"
-msgstr ""
+msgstr "Apresentador"
 
 #: src/schemes.js:421
 msgid "Performer"
-msgstr ""
+msgstr "Executante"
 
 #: src/schemes.js:422
 msgid "Programmer"
-msgstr ""
+msgstr "Programador"
 
 #: src/schemes.js:423
 msgid "Printmaker"
-msgstr ""
+msgstr "Gráfico"
 
 #: src/schemes.js:424
 msgid "Production company"
-msgstr ""
+msgstr "Companhia de produção"
 
 #: src/schemes.js:425
 msgid "Producer"
-msgstr ""
+msgstr "Produtor"
 
 #: src/schemes.js:426
-#, fuzzy
 msgid "Production place"
-msgstr "Data de publicação"
+msgstr "Local de produção"
 
 #: src/schemes.js:427
 msgid "Production designer"
-msgstr ""
+msgstr "Designer de produção"
 
 #: src/schemes.js:428
 msgid "Printer"
-msgstr ""
+msgstr "Impressor"
 
 #: src/schemes.js:429
 msgid "Provider"
-msgstr ""
+msgstr "Provedor"
 
 #: src/schemes.js:430
 msgid "Patent applicant"
-msgstr ""
+msgstr "Requerente de patente"
 
 #: src/schemes.js:431
 msgid "Plaintiff-appellee"
-msgstr ""
+msgstr "Demandante-apelado"
 
 #: src/schemes.js:432
-#, fuzzy
 msgid "Plaintiff"
-msgstr "Texto Puro"
+msgstr "Demandante"
 
 #: src/schemes.js:433
 msgid "Patent holder"
-msgstr ""
+msgstr "Titular da patente"
 
 #: src/schemes.js:434
 msgid "Plaintiff-appellant"
-msgstr ""
+msgstr "Demandante-apelante"
 
 #: src/schemes.js:435
-#, fuzzy
 msgid "Publication place"
-msgstr "Data de publicação"
+msgstr "Local de publicação"
 
 #: src/schemes.js:436
 msgid "Rubricator"
-msgstr ""
+msgstr "Rubricador"
 
 #: src/schemes.js:437
 msgid "Recordist"
-msgstr ""
+msgstr "Gravador"
 
 #: src/schemes.js:438
 msgid "Recording engineer"
-msgstr ""
+msgstr "Engenheiro de gravação"
 
 #: src/schemes.js:439
 msgid "Addressee"
-msgstr ""
+msgstr "Destinatário"
 
 #: src/schemes.js:440
 msgid "Radio director"
-msgstr ""
+msgstr "Diretor de rádio"
 
 #: src/schemes.js:441
 msgid "Redaktor"
-msgstr ""
+msgstr "Redator"
 
 #: src/schemes.js:442
 msgid "Renderer"
-msgstr ""
+msgstr "Desenhista de reprodução"
 
 #: src/schemes.js:443
-#, fuzzy
 msgid "Researcher"
-msgstr "Pesquisar"
+msgstr "Pesquisador"
 
 #: src/schemes.js:444
-#, fuzzy
 msgid "Reviewer"
-msgstr "Visualizador de imagens:"
+msgstr "Revisor"
 
 #: src/schemes.js:445
 msgid "Radio producer"
-msgstr ""
+msgstr "Produtor de rádio"
 
 #: src/schemes.js:446
 msgid "Repository"
-msgstr ""
+msgstr "Repositório"
 
 #: src/schemes.js:447
 msgid "Reporter"
-msgstr ""
+msgstr "Repórter"
 
 #: src/schemes.js:448
 msgid "Responsible party"
-msgstr ""
+msgstr "Responsável pelo conteúdo"
 
 #: src/schemes.js:449
 msgid "Respondent-appellee"
-msgstr ""
+msgstr "Demandado-apelado"
 
 #: src/schemes.js:450
 msgid "Restager"
-msgstr ""
+msgstr "Remontador de peça teatral"
 
 #: src/schemes.js:451
 msgid "Respondent"
-msgstr ""
+msgstr "Demandado"
 
 #: src/schemes.js:452
 msgid "Restorationist"
-msgstr ""
+msgstr "Restaurador"
 
 #: src/schemes.js:453
 msgid "Respondent-appellant"
-msgstr ""
+msgstr "Demandado-apelante"
 
 #: src/schemes.js:454
 msgid "Research team head"
-msgstr ""
+msgstr "Chefe da equipe de pesquisa"
 
 #: src/schemes.js:455
 msgid "Research team member"
-msgstr ""
+msgstr "Membro da equipe de pesquisa"
 
 #: src/schemes.js:456
 msgid "Scientific advisor"
-msgstr ""
+msgstr "Consultor científico"
 
 #: src/schemes.js:457
 msgid "Scenarist"
-msgstr ""
+msgstr "Animador de cenário"
 
 #: src/schemes.js:458
 msgid "Sculptor"
-msgstr ""
+msgstr "Escultor"
 
 #: src/schemes.js:459
-#, fuzzy
 msgid "Scribe"
-msgstr "Inscrever"
+msgstr "Escriba"
 
 #: src/schemes.js:460
 msgid "Sound designer"
-msgstr ""
+msgstr "Designer de som"
 
 #: src/schemes.js:461
 msgid "Secretary"
-msgstr ""
+msgstr "Secretário"
 
 #: src/schemes.js:462
 msgid "Stage director"
-msgstr ""
+msgstr "Diretor de palco"
 
 #: src/schemes.js:463
 msgid "Signer"
-msgstr ""
+msgstr "Signatário"
 
 #: src/schemes.js:464
 msgid "Supporting host"
@@ -2920,32 +2881,31 @@ msgstr ""
 
 #: src/schemes.js:465
 msgid "Seller"
-msgstr ""
+msgstr "Vendedor"
 
 #: src/schemes.js:466
 msgid "Singer"
-msgstr ""
+msgstr "Cantor"
 
 #: src/schemes.js:467
-#, fuzzy
 msgid "Speaker"
-msgstr "Falar"
+msgstr "Orador"
 
 #: src/schemes.js:468
 msgid "Sponsor"
-msgstr ""
+msgstr "Patrocinador"
 
 #: src/schemes.js:469
 msgid "Second party"
-msgstr ""
+msgstr "Demandado"
 
 #: src/schemes.js:470
 msgid "Surveyor"
-msgstr ""
+msgstr "Agrimensor"
 
 #: src/schemes.js:471
 msgid "Set designer"
-msgstr ""
+msgstr "Cenógrafo"
 
 #: src/schemes.js:472
 msgid "Setting"
@@ -2953,110 +2913,107 @@ msgstr ""
 
 #: src/schemes.js:473
 msgid "Storyteller"
-msgstr ""
+msgstr "Contador de histórias"
 
 #: src/schemes.js:474
 msgid "Stage manager"
-msgstr ""
+msgstr "Gerente de palco"
 
 #: src/schemes.js:475
 msgid "Standards body"
-msgstr ""
+msgstr "Comitê de Normalização"
 
 #: src/schemes.js:476
 msgid "Stereotyper"
-msgstr ""
+msgstr "Estereotipador"
 
 #: src/schemes.js:477
 msgid "Technical director"
-msgstr ""
+msgstr "Diretor técnico"
 
 #: src/schemes.js:478
 msgid "Teacher"
-msgstr ""
+msgstr "Professor"
 
 #: src/schemes.js:479
 msgid "Thesis advisor"
-msgstr ""
+msgstr "Orientador"
 
 #: src/schemes.js:480
 msgid "Television director"
-msgstr ""
+msgstr "Diretor de televisão"
 
 #: src/schemes.js:481
 msgid "Television producer"
-msgstr ""
+msgstr "Produtor de televisão"
 
 #: src/schemes.js:482
-#, fuzzy
 msgid "Transcriber"
-msgstr "Inscrever"
+msgstr "Transcritor"
 
 #: src/schemes.js:483
-#, fuzzy
 msgid "Translator"
-msgstr "Traduzir"
+msgstr "Tradutor"
 
 #: src/schemes.js:484
 msgid "Type designer"
-msgstr ""
+msgstr "Desenhista de tipos de letras"
 
 #: src/schemes.js:485
 msgid "Typographer"
-msgstr ""
+msgstr "Tipógrafo"
 
 #: src/schemes.js:486
 msgid "University place"
-msgstr ""
+msgstr "Local da universidade"
 
 #: src/schemes.js:487
 msgid "Voice actor"
-msgstr ""
+msgstr "Dublador"
 
 #: src/schemes.js:488
 msgid "Videographer"
-msgstr ""
+msgstr "Cinegrafista"
 
 #: src/schemes.js:489
 msgid "Writer of added commentary"
-msgstr ""
+msgstr "Escritor do comentário adicionado"
 
 #: src/schemes.js:490
 msgid "Writer of added lyrics"
-msgstr ""
+msgstr "Escritor das letras adicionadas"
 
 #: src/schemes.js:491
 msgid "Writer of accompanying material"
-msgstr ""
+msgstr "Escritor do material acompanhante"
 
 #: src/schemes.js:492
 msgid "Writer of added text"
-msgstr ""
+msgstr "Escritor do texto adicionado"
 
 #: src/schemes.js:493
 msgid "Woodcutter"
-msgstr ""
+msgstr "Xilógrafo"
 
 #: src/schemes.js:494
 msgid "Wood engraver"
-msgstr ""
+msgstr "Xilógrafo"
 
 #: src/schemes.js:495
 msgid "Writer of introduction"
-msgstr ""
+msgstr "Escritor da introdução"
 
 #: src/schemes.js:496
-#, fuzzy
 msgid "Witness"
-msgstr "Brilho"
+msgstr "Testemunha"
 
 #: src/schemes.js:497
 msgid "Writer of preface"
-msgstr ""
+msgstr "Escritor do prefácio"
 
 #: src/schemes.js:498
 msgid "Writer of supplementary textual content"
-msgstr ""
+msgstr "Escritor do conteúdo textual suplementar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
@@ -3095,18 +3052,12 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#, fuzzy
 msgid "Fixed unable to open some EPUB files"
-msgstr ""
-"Corrigida a incapacidade de abrir livros com \"#\" ou \"?\" no nome do "
-"arquivo"
+msgstr "Corrigida a impossibilidade de abrir alguns arquivos EPUB"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-#, fuzzy
 msgid "Fixed unable to open Mobipocket files"
-msgstr ""
-"Corrigida a incapacidade de abrir livros com \"#\" ou \"?\" no nome do "
-"arquivo"
+msgstr "Corrigida a impossibilidade de abrir arquivos Mobipocket"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
@@ -3122,39 +3073,40 @@ msgstr "Alterações:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 msgid "Improved metadata display"
-msgstr ""
+msgstr "Exibição de metadados aprimorada"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "Improved FictionBook rendering"
-msgstr ""
+msgstr "Renderização de FictionBook aprimorada"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 msgid "Improved UI for acquiring books from OPDS"
-msgstr ""
+msgstr "Interface aprimorada para obter livros do OPDS"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
-#, fuzzy
 msgid "Fixed unique identifier extraction for EPUB files"
-msgstr ""
-"Corrigida extração de identificador único para arquivos FictionBook (.fb2, ."
-"fb2.zip)"
+msgstr "Corrigida extração de identificador único para arquivos EPUB"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
 msgid "Fixed missing window icon"
-msgstr ""
+msgstr "Corrigido ícone de janela ausente"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
 msgid "Fixed TTS environment variables not set when using Flatpak"
-msgstr ""
+msgstr "Corrigidas variáveis de ambiente TTS não definidas ao usar Flatpak"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
 msgid "Fixed eSpeak NG voice not selected when testing TTS configuration"
 msgstr ""
+"Corrigida voz do eSpeak NG que não era selecionada ao testar a configuração "
+"TTS"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid ""
 "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
 msgstr ""
+"Corrigido o atributo errado “__ibooks_internal_theme” quando “Inverter” está "
+"ativado"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
 msgid "OPDS catalogs:"
@@ -4194,11 +4146,11 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:287
 msgid "OPDS download action"
-msgstr ""
+msgstr "Ação de download OPDS"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:288
 msgid "What to do when downloading a file from an OPDS feed"
-msgstr ""
+msgstr "O que fazer ao baixar um arquivo de um feed OPDS"
 
 #~ msgid ""
 #~ "This book has no identifier. This is the MD5 hash generated from the file."
