@@ -554,7 +554,7 @@ var OpdsClient = class OpdsClient {
         const widget = this._widget
         const toplevel = widget instanceof Gtk.Widget
             ? widget.get_toplevel() : null
-        return promptAuthenticate(req, this.username, this.password, toplevel)
+        return promptAuthenticate(req, toplevel)
     }
     static opdsEntryToMetadata(entry, showSummary = true) {
         const {
