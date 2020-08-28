@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-12 18:44+0800\n"
-"PO-Revision-Date: 2020-06-13 11:47+0200\n"
+"PO-Revision-Date: 2020-08-10 23:03+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -69,26 +69,24 @@ msgstr "Hledá se..."
 
 #: src/contents.js:303
 msgid "Bibliography"
-msgstr ""
+msgstr "Bibliografie"
 
 #: src/contents.js:304
 msgid "Glossary"
-msgstr ""
+msgstr "Slovníček"
 
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
-#, fuzzy
 msgid "Annotation"
-msgstr "Poznámky"
+msgstr "Knihopisná poznámka"
 
 #: src/contents.js:309
-#, fuzzy
 msgid "Footnote"
-msgstr "Náhled poznámky pod čarou"
+msgstr "Poznámka pod čarou"
 
 #: src/contents.js:310 src/contents.js:311
 msgid "Endnote"
-msgstr ""
+msgstr "Poznámka na konci"
 
 #. deprecated
 #: src/contents.js:312 src/contents.js:339
@@ -399,9 +397,8 @@ msgid "Free"
 msgstr "Zdarma"
 
 #: src/opds.js:96
-#, fuzzy
 msgid "Preview"
-msgstr "Adresa (URL) náhledu"
+msgstr "Náhled"
 
 #: src/opds.js:97
 msgid "Sample"
@@ -417,7 +414,7 @@ msgstr "Odebírat"
 
 #: src/opds.js:101
 msgid "More"
-msgstr ""
+msgstr "Více"
 
 #: src/opds.js:125
 msgid "Protected by DRM"
@@ -429,27 +426,27 @@ msgstr " (DRM)"
 
 #: src/opds.js:209
 msgid "Update available"
-msgstr ""
+msgstr "Aktualizace dostupná"
 
 #: src/opds.js:210
 msgid "Update"
-msgstr ""
+msgstr "Aktualizace"
 
 #: src/opds.js:218 src/opds.js:230
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 #: src/opds.js:222
 msgid "Delete this item?"
-msgstr ""
+msgstr "Smazat tuto položku?"
 
 #: src/opds.js:224
 msgid "If you delete this item, it will be permanently lost."
-msgstr ""
+msgstr "Pokud smažete tuto položku, bude trvale ztracena."
 
 #: src/opds.js:276
 msgid "An error occurred."
-msgstr ""
+msgstr "Vyskytla se chyba."
 
 #: src/opds.js:280 src/ui/ttsDialog.ui:17
 msgid "OK"
@@ -461,12 +458,12 @@ msgstr "Jít zpět"
 
 #: src/opds.js:369
 msgid "What would you like to do with this file?"
-msgstr ""
+msgstr "Co chcete dělat s tímto souborem?"
 
 #: src/opds.js:370
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Format: %s"
-msgstr "Formát"
+msgstr "Formát: %s"
 
 #: src/opds.js:378 src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
@@ -503,9 +500,8 @@ msgid "OPDS URL"
 msgstr "Adresa (URL) OPDS"
 
 #: src/opds.js:1172
-#, fuzzy
 msgid "Go"
-msgstr "_Jít"
+msgstr "Jít"
 
 #: src/opds.js:1192 src/opds.js:1218 src/window.js:1317
 #: src/ui/libraryWindow.ui:359
@@ -586,17 +582,16 @@ msgstr "WorldCat"
 
 #: src/properties.js:370
 msgid "Series"
-msgstr ""
+msgstr "Řada"
 
 #: src/properties.js:375
 #, javascript-format
 msgid "#%s"
-msgstr ""
+msgstr "#%s"
 
 #: src/properties.js:402
-#, fuzzy
 msgid "Collections"
-msgstr "Část"
+msgstr "Sbírky"
 
 #: src/properties.js:424
 msgid "Publication Date"
@@ -619,14 +614,12 @@ msgid "Identifier"
 msgstr "Identifikátor"
 
 #: src/properties.js:463
-#, fuzzy
 msgid "Source"
-msgstr "Zdroj: "
+msgstr "Zdroj"
 
 #: src/properties.js:518
-#, fuzzy
 msgid "Contributors"
-msgstr "Nepřetržité"
+msgstr "Přispěvatelé"
 
 #: src/properties.js:522
 msgid "Copyright"
@@ -696,7 +689,7 @@ msgstr "cs"
 #: src/utils.js:150
 #, javascript-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
 #. "%s" is usually already a fully formatted date string,
@@ -705,7 +698,7 @@ msgstr ""
 #: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
-msgstr ""
+msgstr "%s BCE"
 
 #: src/utils.js:219
 #, javascript-format
@@ -729,30 +722,29 @@ msgstr "Soubory elektronických knih"
 
 #: src/utils.js:749
 msgid "Authentication Required"
-msgstr ""
+msgstr "Požadováno ověření"
 
 #: src/utils.js:751
 #, javascript-format
 msgid "Authentication required by %s"
-msgstr ""
+msgstr "Ověření požadováno %s"
 
 #: src/utils.js:754
 #, javascript-format
 msgid "The site says: “%s”"
-msgstr ""
+msgstr "Stránka říká: “%s”"
 
 #: src/utils.js:759
 msgid "Authenticate"
-msgstr ""
+msgstr "Ověřit"
 
 #: src/utils.js:773
-#, fuzzy
 msgid "Username"
-msgstr "Název kapitoly"
+msgstr "Uživatelské jméno"
 
 #: src/utils.js:777
 msgid "Password"
-msgstr ""
+msgstr "Heslo"
 
 #: src/window.js:126 src/window.js:816
 msgid "Leave fullscreen"
@@ -928,9 +920,8 @@ msgid "Current chapter"
 msgstr "Nynější kapitolu"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
-#, fuzzy
 msgid "Reference Preview"
-msgstr "Náhled poznámky pod čarou"
+msgstr "Náhled odkazu"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:186
 #: src/ui/shortcutsWindow.ui:369 src/ui/wikipediaBox.ui:107
@@ -1015,28 +1006,24 @@ msgid "About Foliate"
 msgstr "O programu Foliate"
 
 #: src/ui/libraryWindow.ui:55
-#, fuzzy
 msgid "Go to start page"
-msgstr "Jít na začátek"
+msgstr "Jít na začáteční stranu"
 
 #: src/ui/libraryWindow.ui:83
-#, fuzzy
 msgid "Add this feed to catalogs"
-msgstr "Přidat soupis"
+msgstr "Přidat tento kanál do soupisů"
 
 #: src/ui/libraryWindow.ui:104
-#, fuzzy
 msgid "Location…"
-msgstr "Poloha"
+msgstr "Umístění…"
 
 #: src/ui/libraryWindow.ui:116
 msgid "Go Back to Library"
-msgstr ""
+msgstr "Jít zpět do knihovny"
 
 #: src/ui/libraryWindow.ui:123
-#, fuzzy
 msgid "Go Back to Catalogs"
-msgstr "Žádné soupisy"
+msgstr "Jít zpět do soupisů"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
@@ -1235,9 +1222,8 @@ msgid "Open Another File…"
 msgstr "Otevřít další soubor..."
 
 #: src/ui/mainOverlay.ui:183
-#, fuzzy
 msgid "Downloading…"
-msgstr "Nahrává se..."
+msgstr "Stahuje se..."
 
 #: src/ui/menuBar.ui:5
 msgid "_File"
@@ -1525,25 +1511,24 @@ msgid "Requires restart"
 msgstr "Vyžaduje opětovné spuštění"
 
 #: src/ui/preferenceWindow.ui:542
-#, fuzzy
 msgid "OPDS"
-msgstr "Adresa (URL) OPDS"
+msgstr "OPDS"
 
 #: src/ui/preferenceWindow.ui:552
 msgid "When downloading books"
-msgstr ""
+msgstr "Při stahování knih"
 
 #: src/ui/preferenceWindow.ui:563
 msgid "Save to default directory"
-msgstr ""
+msgstr "Uložit do výchozího adresáře"
 
 #: src/ui/preferenceWindow.ui:583
 msgid "Ask what to do"
-msgstr ""
+msgstr "Zeptat se, co dělat"
 
 #: src/ui/preferenceWindow.ui:620
 msgid "Use Tracker to track file locations"
-msgstr "Použít vyznačovač na vyznačení umístění souborů"
+msgstr "Použít stopaře na sledování umístění souborů"
 
 #: src/ui/preferenceWindow.ui:662
 msgid "Save file locations"
@@ -1560,7 +1545,7 @@ msgstr "Uložit obaly knih do vyrovnávací paměti"
 
 #: src/ui/propertiesBox.ui:93
 msgid "Details"
-msgstr ""
+msgstr "Podrobnosti"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
@@ -1751,1312 +1736,1277 @@ msgstr "Wikipedie"
 
 #: src/schemes.js:38
 msgid "DOI"
-msgstr ""
+msgstr "DOI"
 
 #: src/schemes.js:39
 msgid "Digital Object Identifier"
-msgstr ""
+msgstr "Digital Object Identifier"
 
 #: src/schemes.js:43
 msgid "ISBN"
-msgstr ""
+msgstr "ISBN"
 
 #: src/schemes.js:44 src/schemes.js:48 src/schemes.js:53 src/schemes.js:58
 msgid "International Standard Book Number"
-msgstr ""
+msgstr "International Standard Book Number"
 
 #: src/schemes.js:47
 msgid "ISBN-10"
-msgstr ""
+msgstr "ISBN-10"
 
 #: src/schemes.js:52
 msgid "ISBN-13"
-msgstr ""
+msgstr "ISBN-13"
 
 #: src/schemes.js:57
 msgid "ISBN-A"
-msgstr ""
+msgstr "ISBN-A"
 
 #: src/schemes.js:62
 msgid "JDCN"
-msgstr ""
+msgstr "JDCN"
 
 #: src/schemes.js:63
 msgid "Japan Digital Comic Number"
-msgstr ""
+msgstr "Japan Digital Comic Number"
 
 #: src/schemes.js:66
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 #: src/schemes.js:67
 msgid "Universally-Unique Identifier"
-msgstr ""
+msgstr "Universally-Unique Identifier"
 
 #: src/schemes.js:70
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/schemes.js:71
 msgid "Uniform Resource Locator"
-msgstr ""
+msgstr "Uniform Resource Locator"
 
 #: src/schemes.js:74
 msgid "URI"
-msgstr ""
+msgstr "URI"
 
 #: src/schemes.js:75
 msgid "Uniform Resource Identifier"
-msgstr ""
+msgstr "Uniform Resource Identifier"
 
 #: src/schemes.js:78
 msgid "ISSN"
-msgstr ""
+msgstr "ISSN"
 
 #: src/schemes.js:79
 msgid "International Standard Serial Number"
-msgstr ""
+msgstr "International Standard Serial Number"
 
 #: src/schemes.js:83
 msgid "Amazon Standard Identification Number"
-msgstr ""
+msgstr "Amazon Standard Identification Number"
 
 #: src/schemes.js:87
 msgid "OCLC"
-msgstr ""
+msgstr "OCLC"
 
 #: src/schemes.js:88
 msgid "Online Computer Library Center"
-msgstr ""
+msgstr "Online Computer Library Center"
 
 #: src/schemes.js:92 src/schemes.js:93
 msgid "arXiv"
-msgstr ""
+msgstr "arXiv"
 
 #: src/schemes.js:96 src/schemes.js:97
 msgid "calibre"
-msgstr ""
+msgstr "calibre"
 
 #: src/schemes.js:101
 msgid "Foliate generated identifier"
-msgstr ""
+msgstr "Identifikátor vytvořený Foliate"
 
 #: src/schemes.js:122
 msgid "AAT"
-msgstr ""
+msgstr "AAT"
 
 #: src/schemes.js:123
 msgid "The Getty Art and Architecture Taxonomy"
-msgstr ""
+msgstr "The Getty Art and Architecture Taxonomy"
 
 #: src/schemes.js:126
 msgid "BIC"
-msgstr ""
+msgstr "BIC"
 
 #: src/schemes.js:127
 msgid "Book Industry Communication"
-msgstr ""
+msgstr "Book Industry Communication"
 
 #: src/schemes.js:130
 msgid "BISAC"
-msgstr ""
+msgstr "BISAC"
 
 #: src/schemes.js:131
 msgid "Book Industry Standards and Communications"
-msgstr ""
+msgstr "Book Industry Standards and Communications"
 
 #: src/schemes.js:135
 msgid "CLC"
-msgstr ""
+msgstr "CLC"
 
 #: src/schemes.js:136
 msgid "Chinese Library Classification"
-msgstr ""
+msgstr "Chinese Library Classification"
 
 #: src/schemes.js:139
 msgid "DDC"
-msgstr ""
+msgstr "DDC"
 
 #: src/schemes.js:140
 msgid "Dewey Decimal Classification"
-msgstr ""
+msgstr "Dewey Decimal Classification"
 
 #: src/schemes.js:144
 msgid "CLIL"
-msgstr ""
+msgstr "CLIL"
 
 #: src/schemes.js:145
 msgid "Commission de Liaison Interprofessionnelle du Livre"
-msgstr ""
+msgstr "Commission de Liaison Interprofessionnelle du Livre"
 
 #: src/schemes.js:148 src/schemes.js:149
 msgid "EuroVoc"
-msgstr ""
+msgstr "EuroVoc"
 
 #: src/schemes.js:152
 msgid "MEDTOP"
-msgstr ""
+msgstr "MEDTOP"
 
 #: src/schemes.js:153
 msgid "IPTC Media Topics"
-msgstr ""
+msgstr "IPTC Media Topics"
 
 #: src/schemes.js:156
 msgid "LCC"
-msgstr ""
+msgstr "LCC"
 
 #: src/schemes.js:157
 msgid "Library of Congress Classification"
-msgstr ""
+msgstr "Library of Congress Classification"
 
 #: src/schemes.js:161
 msgid "LCSH"
-msgstr ""
+msgstr "LCSH"
 
 #: src/schemes.js:162
 msgid "Library of Congress Subject Headings"
-msgstr ""
+msgstr "Library of Congress Subject Headings"
 
 #: src/schemes.js:166
 msgid "NDC"
-msgstr ""
+msgstr "NDC"
 
 #: src/schemes.js:167
 msgid "Nippon Decimal Classification"
-msgstr ""
+msgstr "Nippon Decimal Classification"
 
 #: src/schemes.js:170 src/schemes.js:171
-#, fuzzy
 msgid "Thema"
-msgstr "Vzhled"
+msgstr "Téma"
 
 #: src/schemes.js:174
 msgid "UDC"
-msgstr ""
+msgstr "UDC"
 
 #: src/schemes.js:175
 msgid "Universal Decimal Classification"
-msgstr ""
+msgstr "Universal Decimal Classification"
 
 #: src/schemes.js:179
 msgid "WGS"
-msgstr ""
+msgstr "WGS"
 
 #: src/schemes.js:180
 msgid "Warengruppen-Systematik"
-msgstr ""
+msgstr "Warengruppen-Systematik"
 
 #: src/schemes.js:183
 msgid "DCMIType"
-msgstr ""
+msgstr "DCMIType"
 
 #: src/schemes.js:184
 msgid "DCMI Type Vocabulary"
-msgstr ""
+msgstr "DCMI Type Vocabulary"
 
 #: src/schemes.js:188
 msgid "Audience"
-msgstr ""
+msgstr "Obecenstvo"
 
 #: src/schemes.js:189
 msgid "Intended Audience"
-msgstr ""
+msgstr "Zamýšlené obecenstvo"
 
 #. Translators: see https://www.loc.gov/marc/relators/relaterm.html
 #. for detailed descriptions
 #: src/schemes.js:231
 msgid "Abridger"
-msgstr ""
+msgstr "Zkracovatel"
 
 #: src/schemes.js:232
 msgid "Art copyist"
-msgstr ""
+msgstr "Umělecký písař"
 
 #: src/schemes.js:233
 msgid "Actor"
-msgstr ""
+msgstr "Herec"
 
 #: src/schemes.js:234
 msgid "Art director"
-msgstr ""
+msgstr "Umělecký vedoucí"
 
 #: src/schemes.js:235
-#, fuzzy
 msgid "Adapter"
-msgstr "Kapitola"
+msgstr "Upravovatel"
 
 #: src/schemes.js:236
 msgid "Author of afterword, colophon, etc."
-msgstr ""
+msgstr "Autor doslovu, tiráže atd."
 
 #: src/schemes.js:237
 msgid "Analyst"
-msgstr ""
+msgstr "Analytik"
 
 #: src/schemes.js:238
 msgid "Animator"
-msgstr ""
+msgstr "Animátor"
 
 #: src/schemes.js:239
-#, fuzzy
 msgid "Annotator"
-msgstr "Poznámky"
+msgstr "Autor poznámky"
 
 #: src/schemes.js:240
 msgid "Bibliographic antecedent"
-msgstr ""
+msgstr "Bibliografický předchůdce"
 
 #: src/schemes.js:241
 msgid "Appellee"
-msgstr ""
+msgstr "Odpůrce stěžovatele"
 
 #: src/schemes.js:242
 msgid "Appellant"
-msgstr ""
+msgstr "Odvolatel"
 
 #: src/schemes.js:243
 msgid "Applicant"
-msgstr ""
+msgstr "Žadatel"
 
 #: src/schemes.js:244
 msgid "Author in quotations or text abstracts"
-msgstr ""
+msgstr "Autor v citátech nebo textových výtazích"
 
 #: src/schemes.js:245
 msgid "Architect"
-msgstr ""
+msgstr "Stavitel"
 
 #: src/schemes.js:246
 msgid "Artistic director"
-msgstr ""
+msgstr "Umělecký vedoucí"
 
 #: src/schemes.js:247
-#, fuzzy
 msgid "Arranger"
-msgstr "Oranžový"
+msgstr "Hudební aranžér"
 
 #: src/schemes.js:248
 msgid "Artist"
-msgstr ""
+msgstr "Výtvarník "
 
 #: src/schemes.js:249
 msgid "Assignee"
-msgstr ""
+msgstr "Nabyvatel"
 
 #: src/schemes.js:250
 msgid "Associated name"
-msgstr ""
+msgstr "Související jméno"
 
 #: src/schemes.js:251
 msgid "Autographer"
-msgstr ""
+msgstr "Podepisující se"
 
 #: src/schemes.js:252
 msgid "Attributed name"
-msgstr ""
+msgstr "Připisované jméno"
 
 #: src/schemes.js:253
-#, fuzzy
 msgid "Auctioneer"
-msgstr "Podčást"
+msgstr "Dražitel"
 
 #: src/schemes.js:254
 msgid "Author of dialog"
-msgstr ""
+msgstr "Autor rozhovoru"
 
 #: src/schemes.js:255
 msgid "Author of introduction, etc."
-msgstr ""
+msgstr "Autor úvodu, předmluvy atd."
 
 #: src/schemes.js:256
 msgid "Screenwriter"
-msgstr ""
+msgstr "Scénárista"
 
 #: src/schemes.js:258
 msgid "Binding designer"
-msgstr ""
+msgstr "Výtvarník vazby"
 
 #: src/schemes.js:259
 msgid "Bookjacket designer"
-msgstr ""
+msgstr "Výtvarník přebalu"
 
 #: src/schemes.js:260
-#, fuzzy
 msgid "Book designer"
-msgstr "Prohlížeč elektronických knih"
+msgstr "Výtvarník knihy"
 
 #: src/schemes.js:261
 msgid "Book producer"
-msgstr ""
+msgstr "Výrobce knihy"
 
 #: src/schemes.js:262
 msgid "Blurb writer"
-msgstr ""
+msgstr "Pisatel reklamy"
 
 #: src/schemes.js:263
 msgid "Binder"
-msgstr ""
+msgstr "Knihař"
 
 #: src/schemes.js:264
 msgid "Bookplate designer"
-msgstr ""
+msgstr "Výtvarník knižního štítku (exlibris)"
 
 #: src/schemes.js:265
 msgid "Broadcaster"
-msgstr ""
+msgstr "Účinkující"
 
 #: src/schemes.js:266
 msgid "Braille embosser"
-msgstr ""
+msgstr "Slepecký reliéfní tisk"
 
 #: src/schemes.js:267
-#, fuzzy
 msgid "Bookseller"
-msgstr "Prohlížeč elektronických knih"
+msgstr "Knihkupec"
 
 #: src/schemes.js:268
 msgid "Caster"
-msgstr ""
+msgstr "Písmolitecký stroj"
 
 #: src/schemes.js:269
 msgid "Conceptor"
-msgstr ""
+msgstr "Pojetí"
 
 #: src/schemes.js:270
 msgid "Choreographer"
-msgstr ""
+msgstr "Choreograf"
 
 #: src/schemes.js:271
 msgid "Client"
-msgstr ""
+msgstr "Zadavatel"
 
 #: src/schemes.js:272
 msgid "Calligrapher"
-msgstr ""
+msgstr "Krasopisec"
 
 #: src/schemes.js:273
 msgid "Colorist"
-msgstr ""
+msgstr "Kolorista"
 
 #: src/schemes.js:274
 msgid "Collotyper"
-msgstr ""
+msgstr "Pisatel slovního spojení"
 
 #: src/schemes.js:275
 msgid "Commentator"
-msgstr ""
+msgstr "Vykladatel"
 
 #: src/schemes.js:276
 msgid "Composer"
-msgstr ""
+msgstr "Skladatel"
 
 #: src/schemes.js:277
 msgid "Compositor"
-msgstr ""
+msgstr "Sazeč"
 
 #: src/schemes.js:278
 msgid "Conductor"
-msgstr ""
+msgstr "Sbormistr"
 
 #: src/schemes.js:279
 msgid "Cinematographer"
-msgstr ""
+msgstr "Kameraman"
 
 #: src/schemes.js:280
 msgid "Censor"
-msgstr ""
+msgstr "Cenzor"
 
 #: src/schemes.js:281
 msgid "Contestant-appellee"
-msgstr ""
+msgstr "Uchazeč-odpůrce stěžovatele"
 
 #: src/schemes.js:282
 msgid "Collector"
-msgstr ""
+msgstr "Sběratel"
 
 #: src/schemes.js:283
 msgid "Compiler"
-msgstr ""
+msgstr "Sestavovatel"
 
 #: src/schemes.js:284
 msgid "Conservator"
-msgstr ""
+msgstr "Restaurátor"
 
 #: src/schemes.js:285
 msgid "Collection registrar"
-msgstr ""
+msgstr "Zapisovatel sbírky"
 
 #: src/schemes.js:286
-#, fuzzy
 msgid "Contestant"
-msgstr "Obsah"
+msgstr "Uchazeč"
 
 #: src/schemes.js:287
 msgid "Contestant-appellant"
-msgstr ""
+msgstr "Odpůrce-odvolatel"
 
 #: src/schemes.js:288
 msgid "Court governed"
-msgstr ""
+msgstr "Ovládán soudem"
 
 #: src/schemes.js:289
-#, fuzzy
 msgid "Cover designer"
-msgstr "Velikost obalu knihy"
+msgstr "Výtvarník obalu knihy"
 
 #: src/schemes.js:290
-#, fuzzy
 msgid "Copyright claimant"
-msgstr "Právo ke kopírování"
+msgstr "Nárokovatel práva ke kopírování"
 
 #: src/schemes.js:291
 msgid "Complainant-appellee"
-msgstr ""
+msgstr "Žalobce-odpůrce odvolatele"
 
 #: src/schemes.js:292
-#, fuzzy
 msgid "Copyright holder"
-msgstr "Právo ke kopírování"
+msgstr "Držitel práva ke kopírování"
 
 #: src/schemes.js:293
 msgid "Complainant"
-msgstr ""
+msgstr "Žalobce"
 
 #: src/schemes.js:294
 msgid "Complainant-appellant"
-msgstr ""
+msgstr "Žalobce-odvolatel"
 
 #: src/schemes.js:295
 msgid "Creator"
-msgstr ""
+msgstr "Tvůrce"
 
 #: src/schemes.js:296
 msgid "Correspondent"
-msgstr ""
+msgstr "Dopisovatel"
 
 #: src/schemes.js:297
 msgid "Corrector"
-msgstr ""
+msgstr "Opravce"
 
 #: src/schemes.js:298
 msgid "Court reporter"
-msgstr ""
+msgstr "Soudní stenograf"
 
 #: src/schemes.js:299
 msgid "Consultant"
-msgstr ""
+msgstr "Poradce"
 
 #: src/schemes.js:300
 msgid "Consultant to a project"
-msgstr ""
+msgstr "Poradce projektu"
 
 #: src/schemes.js:301
 msgid "Costume designer"
-msgstr ""
+msgstr "Návrhář úboru"
 
 #: src/schemes.js:302
-#, fuzzy
 msgid "Contributor"
-msgstr "Nepřetržité"
+msgstr "Přispěvatel"
 
 #: src/schemes.js:303
 msgid "Contestee-appellee"
-msgstr ""
+msgstr "Odporovaný-odpůrce odvolatele"
 
 #: src/schemes.js:304
 msgid "Cartographer"
-msgstr ""
+msgstr "Kartograf"
 
 #: src/schemes.js:305
 msgid "Contractor"
-msgstr ""
+msgstr "Dodavatel"
 
 #: src/schemes.js:306
-#, fuzzy
 msgid "Contestee"
-msgstr "Obsah"
+msgstr "Odporovaný"
 
 #: src/schemes.js:307
 msgid "Contestee-appellant"
-msgstr ""
+msgstr "Odporovaný-odvolatel"
 
 #: src/schemes.js:308
 msgid "Curator"
-msgstr ""
+msgstr "Správce"
 
 #: src/schemes.js:309
 msgid "Commentator for written text"
-msgstr ""
+msgstr "Autor vysvětlujících poznámek k psanému textu"
 
 #: src/schemes.js:310
 msgid "Distribution place"
-msgstr ""
+msgstr "Místo rozesílání"
 
 #: src/schemes.js:311
 msgid "Defendant"
-msgstr ""
+msgstr "Obžalovaný"
 
 #: src/schemes.js:312
 msgid "Defendant-appellee"
-msgstr ""
+msgstr "Obžalovaný-odpůrce odvolatele"
 
 #: src/schemes.js:313
 msgid "Defendant-appellant"
-msgstr ""
+msgstr "Obžalovaný-odvolatel"
 
 #: src/schemes.js:314
 msgid "Degree granting institution"
-msgstr ""
+msgstr "Ústav poskytující hodnost"
 
 #: src/schemes.js:315
 msgid "Degree supervisor"
-msgstr ""
+msgstr "Odborný poradce pro hodnost"
 
 #: src/schemes.js:316
 msgid "Dissertant"
-msgstr ""
+msgstr "Autor pojednání"
 
 #: src/schemes.js:317
 msgid "Delineator"
-msgstr ""
+msgstr "Autor líčení"
 
 #: src/schemes.js:318
-#, fuzzy
 msgid "Dancer"
-msgstr "Zrušit"
+msgstr "Tanečník"
 
 #: src/schemes.js:319
 msgid "Donor"
-msgstr ""
+msgstr "Dárce"
 
 #: src/schemes.js:320
 msgid "Depicted"
-msgstr ""
+msgstr "Vyobrazený"
 
 #: src/schemes.js:321
 msgid "Depositor"
-msgstr ""
+msgstr "Vkladatel"
 
 #: src/schemes.js:322
 msgid "Draftsman"
-msgstr ""
+msgstr "Kreslič"
 
 #: src/schemes.js:323
 msgid "Director"
-msgstr ""
+msgstr "Režisér"
 
 #: src/schemes.js:324
 msgid "Designer"
-msgstr ""
+msgstr "Výtvarník"
 
 #: src/schemes.js:325
 msgid "Distributor"
-msgstr ""
+msgstr "Dodavatel"
 
 #: src/schemes.js:326
 msgid "Data contributor"
-msgstr ""
+msgstr "Přispěvatel daty"
 
 #: src/schemes.js:327
 msgid "Dedicatee"
-msgstr ""
+msgstr "Adresát věnování"
 
 #: src/schemes.js:328
 msgid "Data manager"
-msgstr ""
+msgstr "Správce dat"
 
 #: src/schemes.js:329
 msgid "Dedicator"
-msgstr ""
+msgstr "Věnovatel"
 
 #: src/schemes.js:330
 msgid "Dubious author"
-msgstr ""
+msgstr "Pochybný autor"
 
 #: src/schemes.js:331
 msgid "Editor of compilation"
-msgstr ""
+msgstr "Editor kompilace"
 
 #: src/schemes.js:332
-#, fuzzy
 msgid "Editor of moving image work"
-msgstr "Událost pro otevření prohlížeče obrázků"
+msgstr "Editor filmové práce"
 
 #: src/schemes.js:333
-#, fuzzy
 msgid "Editor"
-msgstr "Upravit"
+msgstr "Editor"
 
 #: src/schemes.js:334
 msgid "Engraver"
-msgstr ""
+msgstr "Rytec"
 
 #: src/schemes.js:335
-#, fuzzy
 msgid "Electrician"
-msgstr "Galicijština"
+msgstr "Elektrikář"
 
 #: src/schemes.js:336
 msgid "Electrotyper"
-msgstr ""
+msgstr "Galvanotypér"
 
 #: src/schemes.js:337
 msgid "Engineer"
-msgstr ""
+msgstr "Technik"
 
 #: src/schemes.js:338
 msgid "Enacting jurisdiction"
-msgstr ""
+msgstr "Uzákoňující soudní pravomoc"
 
 #: src/schemes.js:339
 msgid "Etcher"
-msgstr ""
+msgstr "Leptec"
 
 #: src/schemes.js:340
 msgid "Event place"
-msgstr ""
+msgstr "Místo události"
 
 #: src/schemes.js:341
 msgid "Expert"
-msgstr ""
+msgstr "Odborník"
 
 #: src/schemes.js:342
 msgid "Facsimilist"
-msgstr ""
+msgstr "Facsimilist"
 
 #: src/schemes.js:343
 msgid "Film distributor"
-msgstr ""
+msgstr "Filmový dodavatel"
 
 #: src/schemes.js:344
 msgid "Field director"
-msgstr ""
+msgstr "Polní režisér"
 
 #: src/schemes.js:345
 msgid "Film editor"
-msgstr ""
+msgstr "Filmový editor"
 
 #: src/schemes.js:346
 msgid "Film director"
-msgstr ""
+msgstr "Filmový režisér"
 
 #: src/schemes.js:347
 msgid "Filmmaker"
-msgstr ""
+msgstr "Filmař"
 
 #: src/schemes.js:348
 msgid "Former owner"
-msgstr ""
+msgstr "Bývalý vlastník"
 
 #: src/schemes.js:349
 msgid "Film producer"
-msgstr ""
+msgstr "Výrobce filmu"
 
 #: src/schemes.js:350
 msgid "Funder"
-msgstr ""
+msgstr "Poskytovatel peněz"
 
 #: src/schemes.js:351
-#, fuzzy
 msgid "First party"
-msgstr "První"
+msgstr "První strana"
 
 #: src/schemes.js:352
 msgid "Forger"
-msgstr ""
+msgstr "Padělatel"
 
 #: src/schemes.js:353
 msgid "Geographic information specialist"
-msgstr ""
+msgstr "Odborník na zeměpisné znalosti"
 
 #: src/schemes.js:354
 msgid "Host institution"
-msgstr ""
+msgstr "Hostitelská instituce"
 
 #: src/schemes.js:355
 msgid "Honoree"
-msgstr ""
+msgstr "Oslavenec"
 
 #: src/schemes.js:356
 msgid "Host"
-msgstr ""
+msgstr "Hostitel"
 
 #: src/schemes.js:357
 msgid "Illustrator"
-msgstr ""
+msgstr "Ilustrátor"
 
 #: src/schemes.js:358
 msgid "Illuminator"
-msgstr ""
+msgstr "Iluminátor"
 
 #: src/schemes.js:359
-#, fuzzy
 msgid "Inscriber"
-msgstr "Odebírat"
+msgstr "Vpisovatel věnování"
 
 #: src/schemes.js:360
-#, fuzzy
 msgid "Inventor"
-msgstr "Obrácený"
+msgstr "Pořizovatel seznamu"
 
 #: src/schemes.js:361
 msgid "Issuing body"
-msgstr ""
+msgstr "Vydávající osoba"
 
 #: src/schemes.js:362
 msgid "Instrumentalist"
-msgstr ""
+msgstr "Nástrojář"
 
 #: src/schemes.js:363
-#, fuzzy
 msgid "Interviewee"
-msgstr "Rozhraní"
+msgstr "Osoba poskytující rozhovor"
 
 #: src/schemes.js:364
-#, fuzzy
 msgid "Interviewer"
-msgstr "Prohlížeč obrázků:"
+msgstr "Tazatel u rozhovoru"
 
 #: src/schemes.js:365
 msgid "Judge"
-msgstr ""
+msgstr "Soudce"
 
 #: src/schemes.js:366
 msgid "Jurisdiction governed"
-msgstr ""
+msgstr "Soudní pravomoc řízena"
 
 #: src/schemes.js:367
 msgid "Laboratory"
-msgstr ""
+msgstr "Laboratoř"
 
 #: src/schemes.js:368
 msgid "Librettist"
-msgstr ""
+msgstr "Libretista"
 
 #: src/schemes.js:369
 msgid "Laboratory director"
-msgstr ""
+msgstr "Vedoucí laboratoře"
 
 #: src/schemes.js:370
 msgid "Lead"
-msgstr ""
+msgstr "Hlavní úloha"
 
 #: src/schemes.js:371
 msgid "Libelee-appellee"
-msgstr ""
+msgstr "Osoba obžalovaná za nactiutrhání-odpůrce odvolatele"
 
 #: src/schemes.js:372
 msgid "Libelee"
-msgstr ""
+msgstr "Osoba obžalovaná za nactiutrhání"
 
 #: src/schemes.js:373
 msgid "Lender"
-msgstr ""
+msgstr "Půjčovatel"
 
 #: src/schemes.js:374
 msgid "Libelee-appellant"
-msgstr ""
+msgstr "Osoba obžalovaná za nactiutrhání-odvolatel"
 
 #: src/schemes.js:375
 msgid "Lighting designer"
-msgstr ""
+msgstr "Návrhář osvětlení"
 
 #: src/schemes.js:376
 msgid "Libelant-appellee"
-msgstr ""
+msgstr "Žalobce-odpůrce odvolatele"
 
 #: src/schemes.js:377
 msgid "Libelant"
-msgstr ""
+msgstr "Žalobce"
 
 #: src/schemes.js:378
 msgid "Libelant-appellant"
-msgstr ""
+msgstr "Žalobce-odvolatel"
 
 #: src/schemes.js:379
 msgid "Landscape architect"
-msgstr ""
+msgstr "Zahradní architekt"
 
 #: src/schemes.js:380
 msgid "Licensee"
-msgstr ""
+msgstr "Držitel licence"
 
 #: src/schemes.js:381
 msgid "Licensor"
-msgstr ""
+msgstr "Poskytovatel licence"
 
 #: src/schemes.js:382
 msgid "Lithographer"
-msgstr ""
+msgstr "Kamenotiskař"
 
 #: src/schemes.js:383
 msgid "Lyricist"
-msgstr ""
+msgstr "Textař"
 
 #: src/schemes.js:384
 msgid "Music copyist"
-msgstr ""
+msgstr "Opisovač not"
 
 #: src/schemes.js:385
 msgid "Metadata contact"
-msgstr ""
+msgstr "Spojení na osobu popisující dokument"
 
 #: src/schemes.js:386
 msgid "Medium"
-msgstr ""
+msgstr "Nosič"
 
 #: src/schemes.js:387
 msgid "Manufacture place"
-msgstr ""
+msgstr "Místo výroby"
 
 #: src/schemes.js:388
 msgid "Manufacturer"
-msgstr ""
+msgstr "Výrobce"
 
 #: src/schemes.js:389
 msgid "Moderator"
-msgstr ""
+msgstr "Usměrňovatel diskuse"
 
 #: src/schemes.js:390
 msgid "Monitor"
-msgstr ""
+msgstr "Dohlížející organizace"
 
 #: src/schemes.js:391
 msgid "Marbler"
-msgstr ""
+msgstr "Mramorovač"
 
 #: src/schemes.js:392
 msgid "Markup editor"
-msgstr ""
+msgstr "Editor značek"
 
 #: src/schemes.js:393
 msgid "Musical director"
-msgstr ""
+msgstr "Hudební vedoucí"
 
 #: src/schemes.js:394
 msgid "Metal-engraver"
-msgstr ""
+msgstr "Kovorytec"
 
 #: src/schemes.js:395
 msgid "Minute taker"
-msgstr ""
+msgstr "Zapisovatel"
 
 #: src/schemes.js:396
-#, fuzzy
 msgid "Musician"
-msgstr "Galicijština"
+msgstr "Hudebník"
 
 #: src/schemes.js:397
 msgid "Narrator"
-msgstr ""
+msgstr "Vypravěč"
 
 #: src/schemes.js:398
 msgid "Opponent"
-msgstr ""
+msgstr "Odpůrce"
 
 #: src/schemes.js:399
 msgid "Originator"
-msgstr ""
+msgstr "Původce"
 
 #: src/schemes.js:400
 msgid "Organizer"
-msgstr ""
+msgstr "Pořadatel"
 
 #: src/schemes.js:401
 msgid "Onscreen presenter"
-msgstr ""
+msgstr "Televizní konferenciér"
 
 #: src/schemes.js:403
 msgid "Owner"
-msgstr ""
+msgstr "Vlastník"
 
 #: src/schemes.js:404
 msgid "Panelist"
-msgstr ""
+msgstr "Účastník diskuse"
 
 #: src/schemes.js:405
 msgid "Patron"
-msgstr ""
+msgstr "Ochránce"
 
 #: src/schemes.js:406
-#, fuzzy
 msgid "Publishing director"
-msgstr "Vydavatel"
+msgstr "Vedoucí vydávání"
 
 #: src/schemes.js:408
 msgid "Project director"
-msgstr ""
+msgstr "Vedoucí projektu"
 
 #: src/schemes.js:409
-#, fuzzy
 msgid "Proofreader"
-msgstr "Goodreads"
+msgstr "Tiskový korektor"
 
 #: src/schemes.js:410
 msgid "Photographer"
-msgstr ""
+msgstr "Fotograf"
 
 #: src/schemes.js:411
 msgid "Platemaker"
-msgstr ""
+msgstr "Výrobce tiskových desek"
 
 #: src/schemes.js:412
 msgid "Permitting agency"
-msgstr ""
+msgstr "Schvalovací orgán"
 
 #: src/schemes.js:413
 msgid "Production manager"
-msgstr ""
+msgstr "Vedoucí výroby"
 
 #: src/schemes.js:414
 msgid "Printer of plates"
-msgstr ""
+msgstr "Tiskař desek"
 
 #: src/schemes.js:415
 msgid "Papermaker"
-msgstr ""
+msgstr "Papírník"
 
 #: src/schemes.js:416
 msgid "Puppeteer"
-msgstr ""
+msgstr "Loutkář"
 
 #: src/schemes.js:417
 msgid "Praeses"
-msgstr ""
+msgstr "Vedoucí"
 
 #: src/schemes.js:418
 msgid "Process contact"
-msgstr ""
+msgstr "Spojení na osobu pro zpracování"
 
 #: src/schemes.js:419
 msgid "Production personnel"
-msgstr ""
+msgstr "Zaměstnanec výroby"
 
 #: src/schemes.js:420
 msgid "Presenter"
-msgstr ""
+msgstr "Hlasatel"
 
 #: src/schemes.js:421
 msgid "Performer"
-msgstr ""
+msgstr "Účinkující"
 
 #: src/schemes.js:422
 msgid "Programmer"
-msgstr ""
+msgstr "Programátor"
 
 #: src/schemes.js:423
 msgid "Printmaker"
-msgstr ""
+msgstr "Grafik"
 
 #: src/schemes.js:424
 msgid "Production company"
-msgstr ""
+msgstr "Výrobní společnost"
 
 #: src/schemes.js:425
 msgid "Producer"
-msgstr ""
+msgstr "Výrobce"
 
 #: src/schemes.js:426
-#, fuzzy
 msgid "Production place"
-msgstr "Datum vydání"
+msgstr "Místo výroby"
 
 #: src/schemes.js:427
 msgid "Production designer"
-msgstr ""
+msgstr "Návrhář výroby"
 
 #: src/schemes.js:428
 msgid "Printer"
-msgstr ""
+msgstr "Tiskař"
 
 #: src/schemes.js:429
 msgid "Provider"
-msgstr ""
+msgstr "Poskytovatel"
 
 #: src/schemes.js:430
 msgid "Patent applicant"
-msgstr ""
+msgstr "Patentový přihlašovatel"
 
 #: src/schemes.js:431
 msgid "Plaintiff-appellee"
-msgstr ""
+msgstr "Žalující strana-odpůrce odvolatele"
 
 #: src/schemes.js:432
-#, fuzzy
 msgid "Plaintiff"
-msgstr "Prostý text"
+msgstr "Žalující strana"
 
 #: src/schemes.js:433
 msgid "Patent holder"
-msgstr ""
+msgstr "Držitel patentu"
 
 #: src/schemes.js:434
 msgid "Plaintiff-appellant"
-msgstr ""
+msgstr "Žalující strana-odvolatel"
 
 #: src/schemes.js:435
-#, fuzzy
 msgid "Publication place"
-msgstr "Datum vydání"
+msgstr "Místo vydání"
 
 #: src/schemes.js:436
 msgid "Rubricator"
-msgstr ""
+msgstr "Rubrikátor"
 
 #: src/schemes.js:437
 msgid "Recordist"
-msgstr ""
+msgstr "Nahrávatel"
 
 #: src/schemes.js:438
 msgid "Recording engineer"
-msgstr ""
+msgstr "Nahrávací technik"
 
 #: src/schemes.js:439
 msgid "Addressee"
-msgstr ""
+msgstr "Adresát"
 
 #: src/schemes.js:440
 msgid "Radio director"
-msgstr ""
+msgstr "Rozhlasový vedoucí"
 
 #: src/schemes.js:441
 msgid "Redaktor"
-msgstr ""
+msgstr "Redaktor"
 
 #: src/schemes.js:442
 msgid "Renderer"
-msgstr ""
+msgstr "Kreslič architektonických návrhů"
 
 #: src/schemes.js:443
-#, fuzzy
 msgid "Researcher"
-msgstr "Hledat"
+msgstr "Výzkumník"
 
 #: src/schemes.js:444
-#, fuzzy
 msgid "Reviewer"
-msgstr "Prohlížeč obrázků:"
+msgstr "Kritik"
 
 #: src/schemes.js:445
 msgid "Radio producer"
-msgstr ""
+msgstr "Rozhlasový producent"
 
 #: src/schemes.js:446
 msgid "Repository"
-msgstr ""
+msgstr "Archiv"
 
 #: src/schemes.js:447
 msgid "Reporter"
-msgstr ""
+msgstr "Zpravodaj"
 
 #: src/schemes.js:448
 msgid "Responsible party"
-msgstr ""
+msgstr "Odpovídá podle zákona o tisku"
 
 #: src/schemes.js:449
 msgid "Respondent-appellee"
-msgstr ""
+msgstr "Odpůrce-odpůrce odvolatele"
 
 #: src/schemes.js:450
 msgid "Restager"
-msgstr ""
+msgstr "Režisér opětovného provedení"
 
 #: src/schemes.js:451
 msgid "Respondent"
-msgstr ""
+msgstr "Odpůrce"
 
 #: src/schemes.js:452
 msgid "Restorationist"
-msgstr ""
+msgstr "Restaurátor"
 
 #: src/schemes.js:453
 msgid "Respondent-appellant"
-msgstr ""
+msgstr "Odpůrce-odvolatel"
 
 #: src/schemes.js:454
 msgid "Research team head"
-msgstr ""
+msgstr "Hlava výzkumné skupiny"
 
 #: src/schemes.js:455
 msgid "Research team member"
-msgstr ""
+msgstr "Člen výzkumné skupiny"
 
 #: src/schemes.js:456
 msgid "Scientific advisor"
-msgstr ""
+msgstr "Vědecký poradce"
 
 #: src/schemes.js:457
 msgid "Scenarist"
-msgstr ""
+msgstr "Scénárista"
 
 #: src/schemes.js:458
 msgid "Sculptor"
-msgstr ""
+msgstr "Sochař"
 
 #: src/schemes.js:459
-#, fuzzy
 msgid "Scribe"
-msgstr "Odebírat"
+msgstr "Písař"
 
 #: src/schemes.js:460
 msgid "Sound designer"
-msgstr ""
+msgstr "Návrhář zvuku"
 
 #: src/schemes.js:461
 msgid "Secretary"
-msgstr ""
+msgstr "Tajemník"
 
 #: src/schemes.js:462
 msgid "Stage director"
-msgstr ""
+msgstr "Divadelní režisér"
 
 #: src/schemes.js:463
 msgid "Signer"
-msgstr ""
+msgstr "Podepsaný"
 
 #: src/schemes.js:464
 msgid "Supporting host"
-msgstr ""
+msgstr "Podporující hostitel"
 
 #: src/schemes.js:465
 msgid "Seller"
-msgstr ""
+msgstr "Prodejce"
 
 #: src/schemes.js:466
 msgid "Singer"
-msgstr ""
+msgstr "Zpěvák"
 
 #: src/schemes.js:467
-#, fuzzy
 msgid "Speaker"
-msgstr "Mluvit"
+msgstr "Řečník"
 
 #: src/schemes.js:468
 msgid "Sponsor"
-msgstr ""
+msgstr "Sponzor"
 
 #: src/schemes.js:469
 msgid "Second party"
-msgstr ""
+msgstr "Druhá strana"
 
 #: src/schemes.js:470
 msgid "Surveyor"
-msgstr ""
+msgstr "Zeměměřič"
 
 #: src/schemes.js:471
 msgid "Set designer"
-msgstr ""
+msgstr "Scénický výtvarník"
 
 #: src/schemes.js:472
 msgid "Setting"
-msgstr ""
+msgstr "Umístění"
 
 #: src/schemes.js:473
 msgid "Storyteller"
-msgstr ""
+msgstr "Vypravěč"
 
 #: src/schemes.js:474
 msgid "Stage manager"
-msgstr ""
+msgstr "Divadelní inspicient"
 
 #: src/schemes.js:475
 msgid "Standards body"
-msgstr ""
+msgstr "Standardizační organizace"
 
 #: src/schemes.js:476
 msgid "Stereotyper"
-msgstr ""
+msgstr "Výrobce stereotypních tiskových desek"
 
 #: src/schemes.js:477
 msgid "Technical director"
-msgstr ""
+msgstr "Technický vedoucí"
 
 #: src/schemes.js:478
 msgid "Teacher"
-msgstr ""
+msgstr "Učitel"
 
 #: src/schemes.js:479
 msgid "Thesis advisor"
-msgstr ""
+msgstr "Vedoucí práce"
 
 #: src/schemes.js:480
 msgid "Television director"
-msgstr ""
+msgstr "Televizní ředitel"
 
 #: src/schemes.js:481
 msgid "Television producer"
-msgstr ""
+msgstr "Televizní producent"
 
 #: src/schemes.js:482
-#, fuzzy
 msgid "Transcriber"
-msgstr "Odebírat"
+msgstr "Přepisovatel"
 
 #: src/schemes.js:483
-#, fuzzy
 msgid "Translator"
-msgstr "Přeložit"
+msgstr "Překladatel"
 
 #: src/schemes.js:484
 msgid "Type designer"
-msgstr ""
+msgstr "Návrhář písem"
 
 #: src/schemes.js:485
 msgid "Typographer"
-msgstr ""
+msgstr "Typograf"
 
 #: src/schemes.js:486
 msgid "University place"
-msgstr ""
+msgstr "Umístění univerzity"
 
 #: src/schemes.js:487
 msgid "Voice actor"
-msgstr ""
+msgstr "Hlasový herec"
 
 #: src/schemes.js:488
 msgid "Videographer"
-msgstr ""
+msgstr "Osoba natáčející video"
 
 #: src/schemes.js:489
 msgid "Writer of added commentary"
-msgstr ""
+msgstr "Autor dalších komentářů"
 
 #: src/schemes.js:490
 msgid "Writer of added lyrics"
-msgstr ""
+msgstr "Autor dalších textů"
 
 #: src/schemes.js:491
 msgid "Writer of accompanying material"
-msgstr ""
+msgstr "Autor doprovodných podkladů"
 
 #: src/schemes.js:492
 msgid "Writer of added text"
-msgstr ""
+msgstr "Autor dalších textových popisů"
 
 #: src/schemes.js:493
 msgid "Woodcutter"
-msgstr ""
+msgstr "Řezbář"
 
 #: src/schemes.js:494
 msgid "Wood engraver"
-msgstr ""
+msgstr "Dřevorytec"
 
 #: src/schemes.js:495
 msgid "Writer of introduction"
-msgstr ""
+msgstr "Autor úvodu"
 
 #: src/schemes.js:496
-#, fuzzy
 msgid "Witness"
-msgstr "Jas"
+msgstr "Svědek"
 
 #: src/schemes.js:497
 msgid "Writer of preface"
-msgstr ""
+msgstr "Autor předmluvy"
 
 #: src/schemes.js:498
 msgid "Writer of supplementary textual content"
-msgstr ""
+msgstr "Autor dalšího textového obsahu"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
@@ -3153,42 +3103,36 @@ msgid ""
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
-#, fuzzy
 msgid "OPDS catalogs:"
-msgstr "Soupis OPDS"
+msgstr "Soupisy OPDS:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
 msgid "Catalogs are now opened in the main library window"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
-#, fuzzy
 msgid "View current location"
-msgstr "Odstranit nynější polohu"
+msgstr "Zobrazit nynější polohu"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
-#, fuzzy
 msgid "Go to catalog start page"
-msgstr "Jít na začátek"
+msgstr "Jít na začáteční stranu soupisu"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
-#, fuzzy
 msgid "Reload catalog"
-msgstr "Přidat soupis"
+msgstr "Nahrát soupis znovu"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
-#, fuzzy
 msgid "Add current feed to catalogs"
-msgstr "Přidat soupis"
+msgstr "Přidat nynější kanál do soupisů"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "HTTP authentication support"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
-#, fuzzy
 msgid "Other changes:"
-msgstr "Kritické změny:"
+msgstr "Jiné změny:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
 msgid ""
@@ -3208,6 +3152,7 @@ msgid "Opening a book from the library view now closes the library window"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+#, fuzzy
 msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr ""
 
@@ -4137,14 +4082,14 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:282
 msgid "Use Tracker"
-msgstr "Použít vyznačovač"
+msgstr "Použít stopaře"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:283
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
 msgstr ""
-"Je-li pravda, pokusí se použít vyznačovač (souborový rejstříkovač) k získání "
-"poloh v souboru"
+"Je-li pravda, pokusí se použít stopaře (souborový rejstříkovač) k získání "
+"umístění souborů"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:287
 msgid "OPDS download action"
