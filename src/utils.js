@@ -738,13 +738,24 @@ var sepHeaderFunc = row => {
     if (row.get_index()) row.set_header(new Gtk.Separator())
 }
 
-var promptAuthenticate = (req, toplevel) => {
+var promptAuthenticate = (req, username, password, toplevel) => {
+    // Authenticate using username and password provided via URL in format of:
+    //   http://username:password@example.com/
+    if (username) {
+        const cred = new WebKit2.Credential(username, password,
+            WebKit2.CredentialPersistence.FOR_SESSION)
+        req.authenticate(cred)
+        return true
+    }
+
+    // Authenticate using username and password stored in Secret Service
     const storedCred = req.get_proposed_credential()
     if (storedCred && !req.is_retry()) {
         req.authenticate(storedCred)
         return true
     }
 
+    // Username and password not available, query them from user
     const msg = new Gtk.MessageDialog({
         text: _('Authentication Required'),
         secondary_text:
@@ -809,7 +820,7 @@ var promptAuthenticate = (req, toplevel) => {
     if (msg.run() === Gtk.ResponseType.OK) {
         const cred = new WebKit2.Credential(uEntry.text, pEntry.text,
             rCheckButton.get_active()
-                ? WebKit2.CredentialPersistence.PERMANENT
+                ? WebKit2.CredentialPersistence.PERMANENT // Stored to Secret Service
                 : WebKit2.CredentialPersistence.FOR_SESSION)
         req.authenticate(cred)
     } else req.cancel()
@@ -827,7 +838,7 @@ var downloadWithWebKit = (uri, decideDestination, onProgress, token, toplevel) =
             })
         })
         webView.connect('authenticate', (webview, req) =>
-            promptAuthenticate(req, toplevel))
+            promptAuthenticate(req, null, null, toplevel))
 
         const webContext = WebKit2.WebContext.get_default()
         const connection = webContext.connect('download-started', (ctx, download) => {
