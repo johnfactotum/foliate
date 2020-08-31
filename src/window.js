@@ -1018,14 +1018,9 @@ var Window = GObject.registerClass({
                     this._autoHideHeaderBar.alwaysReveal(visible)
             }
             if (!epub.isPaginated) return toggleControls()
-
-            const rtl = epub.metadata.direction === 'rtl'
-            const goRight = () => rtl ? epub.prev() : epub.next()
-            const goLeft = () => rtl ? epub.next() : epub.prev()
-
             const place = position / width
-            if (place > 2/3) goRight()
-            else if (place < 1/3) goLeft()
+            if (place > 2/3) epub.goRight()
+            else if (place < 1/3) epub.goLeft()
             else toggleControls()
         })
         this._epub.connect('book-displayed', () => this.loading = false)

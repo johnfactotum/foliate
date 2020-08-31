@@ -22,7 +22,8 @@ const { EpubCFI } = imports.epubcfi
 const {
     debug, error, markupEscape, regexEscape,
     Storage, disconnectAllHandlers, base64ToPixbuf,
-    mimetypes, mimetypeIs, execCommand, recursivelyDeleteDir
+    mimetypes, mimetypeIs, execCommand, recursivelyDeleteDir,
+    setTimeout
 } = imports.utils
 
 const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
@@ -38,6 +39,10 @@ const CHARACTERS_PER_PAGE = 1024
 // this should be bumped whenever FB2 rendering (see web/webpub.js) is changed
 // that way we can clear the cache
 const FB2_CONVERTER_VERSION = '2.4.0'
+
+// threshold for touchscreen swipe velocity, velocity higher than this is considered as a swipe
+// that will turn pages
+const SWIPE_SENSIVITY = 800
 
 // the `__ibooks_internal_theme` attribute is set on `:root` in Apple Books
 // can be used by books to detect dark theme without JavaScript
@@ -619,6 +624,52 @@ var EpubView = GObject.registerClass({
         this._connectSettings()
         this._connectData()
         this.connect('book-error', (_, msg) => logError(new Error(msg)))
+
+        this._swipeGesture = new Gtk.GestureSwipe({ widget: this._webView })
+        this._swipeGesture.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+        this._swipeGesture.set_touch_only(true)
+        this._swipeGesture.connect('swipe', (_, velocity_x, velocity_y) => {
+            if (Math.abs(velocity_y) < SWIPE_SENSIVITY) {
+                if (velocity_x > SWIPE_SENSIVITY) {
+                    this.goLeft()
+                } else if (velocity_x < -SWIPE_SENSIVITY) {
+                    this.goRight()
+                }
+            }
+        })
+
+        let scrollX = 0
+        let scrollY = 0
+        let scrollRunning = false
+        this._webView.connect('scroll-event', (_, event) => {
+            if (!this.isPaginated) return
+            if (this._webView.zoom_level !== 1) return
+
+            // ignore touchscreen scroll events as webkit already handles those
+            // by default to pan the page
+            const source = event.get_source_device().get_source()
+            if (source === Gdk.InputSource.TOUCHSCREEN) return
+
+            const [, deltaX, deltaY] = event.get_scroll_deltas()
+            scrollX += deltaX
+            scrollY += deltaY
+
+            if (!scrollRunning) {
+                scrollRunning = true
+                setTimeout(() => {
+                    if (Math.abs(scrollX) > Math.abs(scrollY)) {
+                        if (scrollX > 0) this.goRight()
+                        else if (scrollX < 0) this.goLeft()
+                    } else {
+                        if (scrollY > 0) this.next()
+                        else if (scrollY < 0) this.prev()
+                    }
+                    scrollRunning = false
+                    scrollX = 0
+                    scrollY = 0
+                }, 100)
+            }
+        })
     }
     _connectSettings() {
         this._zoomLevel = this.settings.zoom_level
@@ -1125,6 +1176,14 @@ var EpubView = GObject.registerClass({
     }
     async goToPercentage(x) {
         this.goTo(await this._get(`book.locations.cfiFromPercentage(${x})`))
+    }
+    goRight() {
+        const rtl = this.metadata.direction === 'rtl'
+        rtl ? this.prev() : this.next()
+    }
+    goLeft() {
+        const rtl = this.metadata.direction === 'rtl'
+        rtl ? this.next() : this.prev()
     }
     back() {
         if (!this._history.length) return
