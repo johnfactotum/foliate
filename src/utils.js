@@ -739,12 +739,23 @@ var sepHeaderFunc = row => {
 }
 
 var promptAuthenticate = (req, username, password, toplevel) => {
+    // Authenticate using username and password provided via URL in format of:
+    //   http://username:password@example.com/
     if (username) {
         const cred = new WebKit2.Credential(username, password,
             WebKit2.CredentialPersistence.FOR_SESSION)
         req.authenticate(cred)
         return true
     }
+
+    // Authenticate using username and password stored in Secret Service
+    const storedCred = req.get_proposed_credential()
+    if (storedCred && !req.is_retry()) {
+        req.authenticate(storedCred)
+        return true
+    }
+
+    // Username and password not available, query them from user
     const msg = new Gtk.MessageDialog({
         text: _('Authentication Required'),
         secondary_text:
@@ -776,6 +787,9 @@ var promptAuthenticate = (req, username, password, toplevel) => {
         xalign: 1,
         label: _('Password')
     })
+    const rCheckButton = new Gtk.CheckButton({
+        label: _('Remember my credentials')
+    })
     uLabel.get_style_context().add_class('dim-label')
     pLabel.get_style_context().add_class('dim-label')
     const uEntry = new Gtk.Entry()
@@ -783,10 +797,18 @@ var promptAuthenticate = (req, username, password, toplevel) => {
         visibility: false,
         input_purpose: Gtk.InputPurpose.PASSWORD
     })
+
+    if (storedCred) {
+        uEntry.text = storedCred.get_username()
+        pEntry.text = storedCred.get_password()
+        rCheckButton.set_active(true)
+    }
+
     grid.attach(uLabel, 0, 0, 1, 1)
     grid.attach(uEntry, 1, 0, 1, 1)
     grid.attach(pLabel, 0, 1, 1, 1)
     grid.attach(pEntry, 1, 1, 1, 1)
+    grid.attach(rCheckButton, 1, 2, 1, 1)
     grid.show_all()
     msg.message_area.pack_start(grid, false, true, 0)
 
@@ -797,7 +819,9 @@ var promptAuthenticate = (req, username, password, toplevel) => {
 
     if (msg.run() === Gtk.ResponseType.OK) {
         const cred = new WebKit2.Credential(uEntry.text, pEntry.text,
-            WebKit2.CredentialPersistence.FOR_SESSION)
+            rCheckButton.get_active()
+                ? WebKit2.CredentialPersistence.PERMANENT // Stored to Secret Service
+                : WebKit2.CredentialPersistence.FOR_SESSION)
         req.authenticate(cred)
     } else req.cancel()
 
