@@ -20,7 +20,7 @@ const wiktionary = (word, language = 'en') => {
         .then(json => {
             const results = language.length === 2
                 ? json[language]
-                : Object.values(json).find(x => x[0].language === language)
+                : Object.values(json).find(x => x[0].language.toLowerCase() === language)
             results.forEach(el => {
                 el.definitions.forEach(x => {
                     x.definition = toPangoMarkup(x.definition, baseURL)
