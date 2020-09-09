@@ -638,20 +638,26 @@ var EpubView = GObject.registerClass({
             }
         })
 
-        const scrollPage = debounce((deltaX, deltaY) => {
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                if (deltaX > 0) this.goRight()
-                else if (deltaX < 0) this.goLeft()
-            } else {
-                if (deltaY > 0) this.next()
-                else if (deltaY < 0) this.prev()
+        const scrollPage = debounce(async (deltaX, deltaY) => {
+            try {
+                // do not switch to another page if the page has been pinch zoomed,
+                // let the page contents scroll instead
+                if (await this.getWindowIsZoomed()) return
+                // switch to another page
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (deltaX > 0) this.goRight()
+                    else if (deltaX < 0) this.goLeft()
+                } else {
+                    if (deltaY > 0) this.next()
+                    else if (deltaY < 0) this.prev()
+                }
+            } catch (e) {
+                logError(e)
             }
         }, 100, true)
 
         this._webView.connect('scroll-event', (_, event) => {
             if (!this.isPaginated) return
-            if (this._webView.zoom_level !== 1) return
-
             // ignore touchscreen scroll events as webkit already handles those
             // by default to pan the page and page flipping is already
             // implemented by _swipeGesture above
@@ -1227,6 +1233,9 @@ var EpubView = GObject.registerClass({
     }
     getSectionFromCfi(cfi) {
         return this._get(`getSectionFromCfi('${cfi}')`)
+    }
+    getWindowIsZoomed() {
+        return this._eval('getWindowIsZoomed()')
     }
     get sectionMarks() {
         return this._get('sectionMarks')
