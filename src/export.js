@@ -14,13 +14,18 @@
  */
 
 const { Gtk, Gio } = imports.gi
+const GLib = imports.gi.GLib
 const ngettext = imports.gettext.ngettext
 const { mimetypes, readJSON, sepHeaderFunc } = imports.utils
 const { EpubViewAnnotation } = imports.epubView
 const { EpubCFI } = imports.epubcfi
 const { AnnotationRow } = imports.contents
 
-const exportToHTML = async ({ annotations }, metadata, getSection) => {
+const exportToHTML = async (jsonData, metadata, getSection, withJson) => {
+    const json_base64 = withJson ? 
+        `<img id="json-db" style="display: none;" src="data:text/plain;base64,${GLib.base64_encode(JSON.stringify(jsonData))}">` : ''      
+
+    const annotations = jsonData.annotations
     const head = `<!DOCTYPE html>
     <meta charset="utf-8">
     <style>
@@ -31,7 +36,9 @@ const exportToHTML = async ({ annotations }, metadata, getSection) => {
         .section { font-weight: bold; }
         blockquote { margin: 0; padding-left: 15px; border-left: 7px solid; }
     </style>
-    <header>`
+    <header>
+    ${json_base64}
+    `
     + _('<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>').format(metadata.title, metadata.creator)
     + '</header><p>'
     + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length) + '</p>'
@@ -140,8 +147,11 @@ var exportAnnotations = async (window, data, metadata, getSection) => {
                 case 'json':
                     contents = JSON.stringify(data, null, 2)
                     break
+                case 'json.html':
+                    contents = await exportToHTML(data, metadata, getSection, true)
+                    break
                 case 'html':
-                    contents = await exportToHTML(data, metadata, getSection)
+                    contents = await exportToHTML(data, metadata, getSection, false)
                     break
                 case 'md':
                     contents = await exportToMarkdown(data, metadata, getSection)
