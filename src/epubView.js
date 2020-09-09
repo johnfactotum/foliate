@@ -23,7 +23,7 @@ const {
     debug, error, markupEscape, regexEscape,
     Storage, disconnectAllHandlers, base64ToPixbuf,
     mimetypes, mimetypeIs, execCommand, recursivelyDeleteDir,
-    setTimeout
+    debounce
 } = imports.utils
 
 const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
@@ -638,37 +638,30 @@ var EpubView = GObject.registerClass({
             }
         })
 
-        let scrollX = 0
-        let scrollY = 0
-        let scrollRunning = false
+        const scrollPage = debounce((deltaX, deltaY) => {
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX > 0) this.goRight()
+                else if (deltaX < 0) this.goLeft()
+            } else {
+                if (deltaY > 0) this.next()
+                else if (deltaY < 0) this.prev()
+            }
+        }, 100, true)
+
         this._webView.connect('scroll-event', (_, event) => {
             if (!this.isPaginated) return
             if (this._webView.zoom_level !== 1) return
 
             // ignore touchscreen scroll events as webkit already handles those
-            // by default to pan the page
+            // by default to pan the page and page flipping is already
+            // implemented by _swipeGesture above
             const source = event.get_source_device().get_source()
             if (source === Gdk.InputSource.TOUCHSCREEN) return
 
             const [, deltaX, deltaY] = event.get_scroll_deltas()
-            scrollX += deltaX
-            scrollY += deltaY
-
-            if (!scrollRunning) {
-                scrollRunning = true
-                setTimeout(() => {
-                    if (Math.abs(scrollX) > Math.abs(scrollY)) {
-                        if (scrollX > 0) this.goRight()
-                        else if (scrollX < 0) this.goLeft()
-                    } else {
-                        if (scrollY > 0) this.next()
-                        else if (scrollY < 0) this.prev()
-                    }
-                    scrollRunning = false
-                    scrollX = 0
-                    scrollY = 0
-                }, 100)
-            }
+            // first mouse wheel scroll event starts with 0,0 delta, ignore them
+            // to avoid debounce from triggering on event that doesn't do anything
+            if (deltaX !== 0 || deltaY !== 0) scrollPage(deltaX, deltaY)
         })
     }
     _connectSettings() {
