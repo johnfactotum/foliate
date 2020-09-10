@@ -628,13 +628,22 @@ var EpubView = GObject.registerClass({
         this._swipeGesture = new Gtk.GestureSwipe({ widget: this._webView })
         this._swipeGesture.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
         this._swipeGesture.set_touch_only(true)
-        this._swipeGesture.connect('swipe', (_, velocity_x, velocity_y) => {
-            if (Math.abs(velocity_y) < SWIPE_SENSIVITY) {
-                if (velocity_x > SWIPE_SENSIVITY) {
-                    this.goLeft()
-                } else if (velocity_x < -SWIPE_SENSIVITY) {
-                    this.goRight()
+        this._swipeGesture.connect('swipe', async (_, velocityX, velocityY) => {
+            try {
+                // do not switch to another page if the page has been pinch zoomed,
+                // this protects against accidental switches if user pans the page
+                // too fast
+                if (await this.getWindowIsZoomed()) return
+                // switch to another page if swipe was fast enough
+                if (Math.abs(velocityY) < SWIPE_SENSIVITY) {
+                    if (velocityX > SWIPE_SENSIVITY) {
+                        this.goLeft()
+                    } else if (velocityX < -SWIPE_SENSIVITY) {
+                        this.goRight()
+                    }
                 }
+            } catch (e) {
+                logError(e)
             }
         })
 
