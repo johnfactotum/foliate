@@ -177,6 +177,7 @@ var importAnnotations = (window, epub) => {
     allFiles.add_pattern('*')
 
     const jsonFiles = new Gtk.FileFilter()
+    jsonFiles.add_pattern('*.json.html')
     jsonFiles.set_name(_('JSON Files'))
     jsonFiles.add_mime_type(mimetypes.json)
     const dialog = Gtk.FileChooserNative.new(
