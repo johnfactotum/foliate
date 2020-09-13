@@ -78,8 +78,16 @@ var regexEscape = str => str ? str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&') : ''
 var readJSON = file => {
     try {
         const [success, data, /*tag*/] = file.load_contents(null)
-        if (success) return JSON.parse(data instanceof Uint8Array
-            ? ByteArray.toString(data) : data.toString())
+        if (success) {
+            var raw = data instanceof Uint8Array ? ByteArray.toString(data) : data.toString()
+            if (raw.includes('json-db')) {
+                // Start of Base64 block
+                raw = raw.slice(raw.match(/plain;base64,/).index + 13)
+                // End of Base64 block
+                raw = raw.slice(0, raw.match(/>/).index -1)
+            }
+            return JSON.parse(raw)
+        }
         else throw new Error()
     } catch (e) {
         return {}
