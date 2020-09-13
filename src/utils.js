@@ -80,19 +80,22 @@ var readJSON = file => {
         const [success, data, /*tag*/] = file.load_contents(null)
         if (success) {
             var raw = data instanceof Uint8Array ? ByteArray.toString(data) : data.toString()
-            if (raw.includes('json-db')) {
-                // Start of Base64 block
-                raw = raw.slice(raw.match(/plain;base64,/).index + 13)
-                // End of Base64 block
-                raw = raw.slice(0, raw.match(/>/).index -1)
+            if (raw.includes('json-db')) {// quick check
+                try {
+                    var found = raw.match(/<img id="json-db" style="display: none;" src="data:text\/plain;base64,(.*)">/)[1]
+                    raw = GLib.base64_decode(found)
+                } catch (e) {
+                    // No JSON data found
+                }
             }
-            return JSON.parse(raw)
+            return JSON.parse(ByteArray.toString(raw))
         }
         else throw new Error()
     } catch (e) {
         return {}
     }
 }
+
 
 var glibcLocaleToBCP47 = x => x === 'C' ? 'en' : x.split('.')[0].replace('_', '-')
 var locales = GLib.get_language_names().map(glibcLocaleToBCP47)
