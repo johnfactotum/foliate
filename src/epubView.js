@@ -641,6 +641,17 @@ var EpubView = GObject.registerClass({
                     } else if (velocityX < -SWIPE_SENSIVITY) {
                         this.goRight()
                     }
+                } else {
+                    // disable swipe up/down with non-paginated layouts (scrolled,
+                    // continuous), this protects against accidental switches if
+                    // user pans the page too fast
+                    if (!this.isPaginated) return
+
+                    if (velocityY > SWIPE_SENSIVITY) {
+                        this.prev()
+                    } else if (velocityY < -SWIPE_SENSIVITY) {
+                        this.next()
+                    }
                 }
             } catch (e) {
                 logError(e)
