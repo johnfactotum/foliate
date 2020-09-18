@@ -23,7 +23,7 @@ const { AnnotationRow } = imports.contents
 
 const exportToHTML = async (jsonData, metadata, getSection, withJson) => {
     const json_base64 = withJson ? 
-        `<p id="json-db" style="display: none;">${GLib.base64_encode(JSON.stringify(jsonData))}</p>` : ''      
+        `<script id="json-db" type="application/json">${GLib.base64_encode(JSON.stringify(jsonData))}</script>` : ''      
 
     const annotations = jsonData.annotations
     const head = `<!DOCTYPE html>
