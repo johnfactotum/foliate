@@ -82,15 +82,14 @@ var readJSON = file => {
             var raw = data instanceof Uint8Array ? ByteArray.toString(data) : data.toString()
             if (raw.includes('json-db')) {// quick check
                 try {
-                    var found = raw.match(/<p id="json-db" style="display: none;">(.*)<\/p>/)[1]
+                    var found = raw.match(/<script id="json-db" type="application\/json">(.*)<\/script>/)[1]
                     raw = GLib.base64_decode(found)
                 } catch (e) {
                     // No JSON data found
                 }
             }
             return JSON.parse(raw)
-        }
-        else throw new Error()
+        } else throw new Error()
     } catch (e) {
         return {}
     }
