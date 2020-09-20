@@ -78,19 +78,58 @@ var regexEscape = str => str ? str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&') : ''
 var readJSON = file => {
     try {
         const [success, data, /*tag*/] = file.load_contents(null)
-        if (success) {
-            var raw = data instanceof Uint8Array ? ByteArray.toString(data) : data.toString()
-            if (raw.includes('json-db')) {// quick check
-                try {
-                    var found = raw.match(/<script id="json-db" type="application\/json">(.*)<\/script>/)[1]
-                    raw = GLib.base64_decode(found)
-                } catch (e) {
-                    // No JSON data found
-                }
-            }
-            return JSON.parse(raw)
-        } else throw new Error()
+        if (success) return JSON.parse(data instanceof Uint8Array
+            ? ByteArray.toString(data) : data.toString())
+        else throw new Error()
     } catch (e) {
+        return {}
+    }
+}
+
+// FROM stackoverflow.com/questions/4253367/how-to-escape-a-json-string-containing-newline-characters-using-javascript
+var escapeJSON = str => {
+  return str
+    .replace(/[\\]/g, '\\\\')
+    .replace(/[\"]/g, '\\\"')
+    .replace(/[\/]/g, '\\/')
+    .replace(/[\b]/g, '\\b')
+    .replace(/[\f]/g, '\\f')
+    .replace(/[\n]/g, '\\n')
+    .replace(/[\r]/g, '\\r')
+    .replace(/[\t]/g, '\\t');
+};
+
+var parseHTML = file => {
+    try {
+        const [success, data, /*tag*/] = file.load_contents(null)
+        if (success) {
+            var raw = data instanceof Uint8Array
+                ? ByteArray.toString(data) : data.toString()
+
+            var found = raw.replace(/\n|\r/g, '').split(/<hr>/)
+
+            var note_cache = ''
+
+            for (let i = 1; i < found.length; i++) {
+                var note = found[i].match(/<p class="cfi">(.*?)<\/p>.*?<blockquote style="border-color: (.*?);">(.*?)<\/blockquote>/)
+                var note_text = null
+
+                try {
+                    note_text = found[i].match(/<p>(.*?)<\/p>/)[1]
+                    note_text = note_text.replace(/<br>/g, '\n')
+                } catch (e) {}
+
+                if (note_cache.length != 0)
+                    note_cache += ','
+
+                note_cache += `{"value":"${escapeJSON(note[1])}","color":"${note[2]}","text":"${escapeJSON(note[3])}","note":"${note_text == null ? '' : escapeJSON(note_text)}"}`
+            }
+
+            return JSON.parse("{\"annotations\":[%s]}".format(note_cache))
+        }
+        else throw new Error()
+    } catch (e) {
+        log('EEE:' + e)
         return {}
     }
 }
