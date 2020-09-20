@@ -14,18 +14,13 @@
  */
 
 const { Gtk, Gio } = imports.gi
-const GLib = imports.gi.GLib
 const ngettext = imports.gettext.ngettext
-const { mimetypes, readJSON, sepHeaderFunc } = imports.utils
+const { mimetypes, readJSON, parseHTML, sepHeaderFunc } = imports.utils
 const { EpubViewAnnotation } = imports.epubView
 const { EpubCFI } = imports.epubcfi
 const { AnnotationRow } = imports.contents
 
-const exportToHTML = async (jsonData, metadata, getSection, withJson) => {
-    const json_base64 = withJson ? 
-        `<script id="json-db" type="application/json">${GLib.base64_encode(JSON.stringify(jsonData))}</script>` : ''      
-
-    const annotations = jsonData.annotations
+const exportToHTML = async ({ annotations }, metadata, getSection) => {
     const head = `<!DOCTYPE html>
     <meta charset="utf-8">
     <style>
@@ -36,9 +31,7 @@ const exportToHTML = async (jsonData, metadata, getSection, withJson) => {
         .section { font-weight: bold; }
         blockquote { margin: 0; padding-left: 15px; border-left: 7px solid; }
     </style>
-    <header>
-    ${json_base64}
-    `
+    <header>`
     + _('<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>').format(metadata.title, metadata.creator)
     + '</header><p>'
     + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length) + '</p>'
@@ -147,11 +140,8 @@ var exportAnnotations = async (window, data, metadata, getSection) => {
                 case 'json':
                     contents = JSON.stringify(data, null, 2)
                     break
-                case 'json.html':
-                    contents = await exportToHTML(data, metadata, getSection, true)
-                    break
                 case 'html':
-                    contents = await exportToHTML(data, metadata, getSection, false)
+                    contents = await exportToHTML(data, metadata, getSection)
                     break
                 case 'md':
                     contents = await exportToMarkdown(data, metadata, getSection)
@@ -177,21 +167,36 @@ var importAnnotations = (window, epub) => {
     allFiles.add_pattern('*')
 
     const jsonFiles = new Gtk.FileFilter()
-    jsonFiles.add_pattern('*.json.html')
     jsonFiles.set_name(_('JSON Files'))
     jsonFiles.add_mime_type(mimetypes.json)
+
+    const htmlFiles = new Gtk.FileFilter()
+    htmlFiles.set_name(_('HTML Files'))
+    htmlFiles.add_mime_type('text/html')
+
     const dialog = Gtk.FileChooserNative.new(
         _('Import Annotations'),
         window,
         Gtk.FileChooserAction.OPEN,
         null, null)
+    dialog.add_filter(htmlFiles)
     dialog.add_filter(jsonFiles)
     dialog.add_filter(allFiles)
 
     if (dialog.run() === Gtk.ResponseType.ACCEPT) {
         const file = dialog.get_file()
-        const json = readJSON(file)
+
+        var json = null
+        const isJSON = dialog.get_filename().endsWith(".json")
+        const isHTML = dialog.get_filename().endsWith(".html")
+
         try {
+            if (isJSON) {
+                json = readJSON(file)
+            } else if (isHTML) {
+                json = parseHTML(file)
+            } else throw new Error()
+
             if (!json.annotations.length) {
                 const msg = new Gtk.MessageDialog({
                     text: _('No annotations'),
