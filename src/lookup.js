@@ -308,7 +308,7 @@ const parseStarDictDbs = d => d.split('\n').filter(d => d).map(row => {
     return { name: cols[0] }
 })
 
-const dictionaries = {
+dictionaries = {
     wiktionary: {
         name: _('Wiktionary (English)'),
         noWrap: false,
