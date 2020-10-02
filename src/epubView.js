@@ -636,21 +636,29 @@ var EpubView = GObject.registerClass({
                 if (await this.getWindowIsZoomed()) return
                 // switch to another page if swipe was fast enough
                 if (Math.abs(velocityY) < SWIPE_SENSIVITY) {
-                    if (velocityX > SWIPE_SENSIVITY) {
-                        this.goLeft()
-                    } else if (velocityX < -SWIPE_SENSIVITY) {
-                        this.goRight()
+                    // allow swipe to left/right with paginated and scrolled
+                    // layouts but not with continuous layout, as changing page
+                    // within continuous layout would just scroll the page by
+                    // the height of the screen and that is not very intuitive
+                    // to use
+                    if (this.isPaginated || this.isScrolled) {
+                        if (velocityX > SWIPE_SENSIVITY) {
+                            this.goLeft()
+                        } else if (velocityX < -SWIPE_SENSIVITY) {
+                            this.goRight()
+                        }
                     }
                 } else {
-                    // disable swipe up/down with non-paginated layouts (scrolled,
-                    // continuous), this protects against accidental switches if
-                    // user pans the page too fast
-                    if (!this.isPaginated) return
-
-                    if (velocityY > SWIPE_SENSIVITY) {
-                        this.prev()
-                    } else if (velocityY < -SWIPE_SENSIVITY) {
-                        this.next()
+                    // allow swipe up/down with paginated layouts, and disable
+                    // for non-paginated layouts (scrolled, continuous), this
+                    // protects against accidental switches if user pans the
+                    // page too fast
+                    if (this.isPaginated) {
+                        if (velocityY > SWIPE_SENSIVITY) {
+                            this.prev()
+                        } else if (velocityY < -SWIPE_SENSIVITY) {
+                            this.next()
+                        }
                     }
                 }
             } catch (e) {
@@ -1272,6 +1280,9 @@ var EpubView = GObject.registerClass({
     }
     get isPaginated() {
         return layouts[this.settings.layout].options.flow === 'paginated'
+    }
+    get isScrolled() {
+        return layouts[this.settings.layout].options.flow === 'scrolled-doc'
     }
     get widget() {
         return this._webView
