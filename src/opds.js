@@ -621,6 +621,9 @@ var OpdsClient = class OpdsClient {
             if (link) return link
         }
     }
+    static getOpdsLink(entry) {
+        return entry.links.find(link => OpdsClient.typeIsOpds(link.type)) || entry.links[0]
+    }
 }
 
 var LoadBox = GObject.registerClass({
@@ -821,7 +824,7 @@ var OpdsAcquisitionBox = GObject.registerClass({
 
         const entry = child.entry.value
         if (!OpdsClient.isCatalogEntry(entry)) {
-            const { href, type } = entry.links[0]
+            const { href, type } = OpdsClient.getOpdsLink(entry)
             this.emit('link-activated', href, type)
             return
         }
@@ -970,7 +973,7 @@ var OpdsNavigationBox = GObject.registerClass({
 
         this.connect('row-activated', (listbox, row) => {
             const entry = this._map.get(row).value
-            const { href, type } = entry.links[0]
+            const { href, type } = OpdsClient.getOpdsLink(entry)
             this.emit('link-activated', href, type)
         })
 
