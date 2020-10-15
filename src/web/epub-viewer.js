@@ -797,21 +797,6 @@ const setupRendition = () => {
     document.addEventListener('keydown', handleKeydown, false)
 
     if (paginated) {
-        // scroll through pages
-        const onwheel = debounce(event => {
-            if (getWindowIsZoomed()) return
-            const { deltaX, deltaY } = event
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                if (deltaX > 0) goRight()
-                else if (deltaX < 0) goLeft()
-            } else {
-                if (deltaY > 0) rendition.next()
-                else if (deltaY < 0) rendition.prev()
-            }
-            event.preventDefault()
-        }, 100, true)
-        document.documentElement.onwheel = onwheel
-
         // go to the next page when selecting to the end of a page
         // this makes it possible to select across pages
         rendition.on('selected', debounce(cfiRange => {
