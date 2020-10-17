@@ -62,7 +62,7 @@ For text-to-speech support, install `espeak-ng`, or `festival`, and packages for
 
 To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based distributions) is requried.
 
-`libhandy` (`gir1.2-tracker-2.0`) is recommended to make the interface work better on larger as well as smaller screens.
+`libhandy` (`gir1.2-handy-0.0`) is recommended to make the interface work better on larger as well as smaller screens.
 
 If `tracker` (`gir1.2-tracker-2.0`) is installed, it can be used to track the locations of files.
 
