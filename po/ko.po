@@ -1,14 +1,15 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+
 # JungHee Lee <daemul72@gmail.com>, 2020
+
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-05 18:08+0900\n"
-"PO-Revision-Date: 2020-10-06 23:22+0900\n"
+"POT-Creation-Date: 2020-10-15 08:52+0800\n"
+"PO-Revision-Date: 2020-11-06 18:16+0900\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +36,7 @@ msgstr "eBooks 보기"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:13
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "Ebook;Book;EPUB;Viewer;Reader;이북;도서;EPUB;뷰어;리더;책;"
+msgstr "Ebook;Book;EPUB;Viewer;Reader;이북;도서;뷰어;리더;책;전자책;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
 #: src/ui/libraryWindow.ui:612 src/ui/mainMenu.ui:304
@@ -93,19 +94,19 @@ msgstr "미주"
 msgid "Note"
 msgstr "메모"
 
-#: src/epubView.js:1049
+#: src/epubView.js:1127
 msgid "Failed to load remote file."
 msgstr "원격 파일을 불러오지 못했습니다."
 
-#: src/epubView.js:1058
+#: src/epubView.js:1136
 msgid "File not found."
 msgstr "파일 찾을 할 수 없습니다."
 
-#: src/epubView.js:1072
+#: src/epubView.js:1150
 msgid "Could not unpack Kindle file."
 msgstr "Kindle 파일의 압축풀기를 할 수 없습니다."
 
-#: src/epubView.js:1088
+#: src/epubView.js:1166
 msgid "File type not supported."
 msgstr "파일 유형이 지원되지 않습니다."
 
@@ -201,7 +202,7 @@ msgid "The identifier of the imported file does not match the book’s. This mig
 msgstr "가져온 파일의 식별자가 책의 식별자와 일치하지 않습니다. 이는 주석이 이 책에 속하지 않음을 나타낼 수 있습니다."
 
 #: src/export.js:234 src/library.js:455 src/main.js:161 src/opds.js:229
-#: src/opds.js:376 src/opds.js:1171 src/utils.js:758 src/window.js:571
+#: src/opds.js:376 src/opds.js:1174 src/utils.js:770 src/window.js:571
 #: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:601 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
@@ -212,7 +213,7 @@ msgstr "취소"
 msgid "Import Anyway"
 msgstr "어떻게 해서든지 가져오기"
 
-#: src/export.js:245 src/opds.js:1297 src/opds.js:1368 src/window.js:1036
+#: src/export.js:245 src/opds.js:1300 src/opds.js:1371 src/window.js:1031
 msgid "Error"
 msgstr "오류"
 
@@ -467,83 +468,83 @@ msgstr "저장"
 msgid ", "
 msgstr ", "
 
-#: src/opds.js:659
+#: src/opds.js:662
 msgid "Unable to load OPDS feed"
 msgstr "OPDS 피드를 불러올 수 없음"
 
-#: src/opds.js:664 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
+#: src/opds.js:667 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
 #: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:78
 #: src/ui/shortcutsWindow.ui:120
 msgid "Reload"
 msgstr "다시 불러오기"
 
-#: src/opds.js:832 src/window.js:340
+#: src/opds.js:835 src/window.js:340
 #, javascript-format
 msgid "%d of %d"
 msgstr "%d / %d"
 
-#: src/opds.js:1065 src/ui/catalogWindow.ui:6
+#: src/opds.js:1068 src/ui/catalogWindow.ui:6
 msgid "OPDS Catalog"
 msgstr "OPDS 카탈로그"
 
-#: src/opds.js:1165 src/ui/catalogWindow.ui:53
+#: src/opds.js:1168 src/ui/catalogWindow.ui:53
 msgid "OPDS URL"
 msgstr "OPDS URL"
 
-#: src/opds.js:1172
+#: src/opds.js:1175
 msgid "Go"
 msgstr "가기"
 
-#: src/opds.js:1192 src/opds.js:1218 src/window.js:1317
+#: src/opds.js:1195 src/opds.js:1221 src/window.js:1312
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "불러오는 중…"
 
-#: src/opds.js:1261
+#: src/opds.js:1264
 msgid "First"
 msgstr "처음"
 
-#: src/opds.js:1262 src/properties.js:605
+#: src/opds.js:1265 src/properties.js:605
 msgid "Previous"
 msgstr "이전"
 
-#: src/opds.js:1263 src/properties.js:605
+#: src/opds.js:1266 src/properties.js:605
 msgid "Next"
 msgstr "다음"
 
-#: src/opds.js:1264
+#: src/opds.js:1267
 msgid "Last"
 msgstr "마지막"
 
-#: src/opds.js:1312
+#: src/opds.js:1315
 msgid "Related"
 msgstr "관련됨"
 
-#: src/opds.js:1313
+#: src/opds.js:1316
 msgid "Section"
 msgstr "섹션"
 
-#: src/opds.js:1314
+#: src/opds.js:1317
 msgid "Subsection"
 msgstr "하위섹션"
 
-#: src/opds.js:1315
+#: src/opds.js:1318
 msgid "New"
 msgstr "신간"
 
-#: src/opds.js:1316
+#: src/opds.js:1319
 msgid "Popular"
 msgstr "인기"
 
-#: src/opds.js:1317
+#: src/opds.js:1320
 msgid "Featured"
 msgstr "특집"
 
-#: src/opds.js:1318
+#: src/opds.js:1321
 msgid "Recommended"
 msgstr "추천"
 
-#: src/opds.js:1355
+#: src/opds.js:1358
 msgid "Filter"
 msgstr "필터"
 
@@ -644,19 +645,19 @@ msgstr "반전"
 
 #: src/theme.js:43
 msgid "Solarized Light"
-msgstr "솔라라이즈드 밝게"
+msgstr "Solarized 밝게"
 
 #: src/theme.js:47
 msgid "Solarized Dark"
-msgstr "솔라라이즈드 어둡게"
+msgstr "Solarized 어둡게"
 
 #: src/theme.js:51
 msgid "Gruvbox Light"
-msgstr "그루브박스 밝게"
+msgstr "Gruvbox 밝게"
 
 #: src/theme.js:55
 msgid "Gruvbox Dark"
-msgstr "그루브박스 어둡게"
+msgstr "Gruvbox 어둡게"
 
 #: src/theme.js:59
 msgid "Nord"
@@ -709,31 +710,35 @@ msgstr[1] "%d시간"
 msgid "E-book Files"
 msgstr "E book 파일"
 
-#: src/utils.js:749
+#: src/utils.js:761
 msgid "Authentication Required"
 msgstr "인증 요구됨"
 
-#: src/utils.js:751
+#: src/utils.js:763
 #, javascript-format
 msgid "Authentication required by %s"
 msgstr "%s에 인증 요구됨"
 
-#: src/utils.js:754
+#: src/utils.js:766
 #, javascript-format
 msgid "The site says: “%s”"
 msgstr "사이트 내용: \"%s\""
 
-#: src/utils.js:759
+#: src/utils.js:771
 msgid "Authenticate"
 msgstr "인증하기"
 
-#: src/utils.js:773
+#: src/utils.js:785
 msgid "Username"
 msgstr "사용자이름"
 
-#: src/utils.js:777
+#: src/utils.js:789
 msgid "Password"
 msgstr "비밀번호"
+
+#: src/utils.js:792
+msgid "Remember my credentials"
+msgstr "내 자격 증명 기억하기"
 
 #: src/window.js:126 src/window.js:816
 msgid "Leave fullscreen"
@@ -747,7 +752,7 @@ msgstr "전체화면"
 #: src/window.js:219 src/window.js:220
 #, javascript-format
 msgid "of %d"
-msgstr "(%d)"
+msgstr "/ %d"
 
 #: src/window.js:565
 msgid "This file or format does not work well with annotations"
@@ -777,12 +782,12 @@ msgstr "찾기"
 msgid "Menu"
 msgstr "메뉴"
 
-#: src/window.js:1102
+#: src/window.js:1097
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "\"%s\"의 이미지"
 
-#: src/window.js:1102
+#: src/window.js:1097
 msgid "Image"
 msgstr "이미지"
 
@@ -844,7 +849,6 @@ msgid "Select some text to add annotations."
 msgstr "주석을 추가하려면 텍스트를 선택합니다."
 
 #: src/ui/contentsStack.ui:124
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
 msgid "Annotations"
 msgstr "주석"
 
@@ -1145,16 +1149,15 @@ msgstr "텍스트"
 
 #: src/ui/mainMenu.ui:505 src/ui/menuBar.ui:135
 msgid "Use Publisher Font"
-msgstr "게시자 글꼴 사용"
+msgstr "출판사 글꼴 사용"
 
 #: src/ui/mainMenu.ui:512 src/ui/menuBar.ui:139
 msgid "Full Justification"
 msgstr "전체 맞춤"
 
 #: src/ui/mainMenu.ui:519 src/ui/menuBar.ui:143
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:331
 msgid "Auto-hyphenation"
-msgstr "하이픈으로 자동 연결"
+msgstr "하이픈 자동넣기"
 
 #: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114 src/schemes.js:402
 msgid "Other"
@@ -1166,7 +1169,7 @@ msgstr "커서 자동 숨김"
 
 #: src/ui/mainMenu.ui:567 src/ui/menuBar.ui:157
 msgid "Realistic Shadows"
-msgstr "사실적인 그림자"
+msgstr "책처럼 보기"
 
 #: src/ui/mainMenu.ui:579
 msgid "Allow JavaScript"
@@ -1194,7 +1197,7 @@ msgstr "주석 가져오기…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
-msgstr "열려있는 책 없음"
+msgstr "열려있는 도서 없음"
 
 #: src/ui/mainOverlay.ui:88
 msgid "Recent Files"
@@ -1263,11 +1266,11 @@ msgstr "축소"
 
 #: src/ui/menuBar.ui:174
 msgid "_Go"
-msgstr "가기(_G)"
+msgstr "넘기기(_G)"
 
 #: src/ui/menuBar.ui:177
 msgid "Go Back"
-msgstr "돌아 가기"
+msgstr "돌아가기"
 
 #: src/ui/menuBar.ui:183
 msgid "Next Page"
@@ -1296,7 +1299,7 @@ msgstr "마지막장"
 #: src/ui/menuBar.ui:213 src/ui/navBar.ui:134 src/ui/navBar.ui:313
 #: src/ui/preferenceWindow.ui:19
 msgid "Location"
-msgstr "위치"
+msgstr "위치 찾기"
 
 #: src/ui/menuBar.ui:220
 msgid "_Help"
@@ -1304,11 +1307,11 @@ msgstr "도움말(_H)"
 
 #: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 msgid "Time left in book"
-msgstr "책에서 남은 시간"
+msgstr "책에 남은 시간"
 
 #: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
 msgid "Time left in chapter"
-msgstr "챕터에서 남은 시간"
+msgstr "챕터에 남은 시간"
 
 #: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
 msgid "Chapter"
@@ -1442,7 +1445,7 @@ msgstr "읽기"
 #: src/ui/preferenceWindow.ui:197
 #: data/com.github.johnfactotum.Foliate.gschema.xml:108
 msgid "Turn page on tap"
-msgstr "스페이스바나 마우스 클릭시 페이지 넘기기"
+msgstr "화면터치 또는 클릭시 페이지 넘기기"
 
 #: src/ui/preferenceWindow.ui:220
 #: data/com.github.johnfactotum.Foliate.gschema.xml:98
@@ -1511,7 +1514,7 @@ msgstr "기본 디렉터리에 저장"
 
 #: src/ui/preferenceWindow.ui:583
 msgid "Ask what to do"
-msgstr "어떻게 해야 할지 묻습니다"
+msgstr "어떻게 할지 묻기"
 
 #: src/ui/preferenceWindow.ui:620
 msgid "Use Tracker to track file locations"
@@ -2327,7 +2330,7 @@ msgstr "모호한 저자"
 
 #: src/schemes.js:331
 msgid "Editor of compilation"
-msgstr "모음집 편찬자"
+msgstr "편수 편집자"
 
 #: src/schemes.js:332
 msgid "Editor of moving image work"
@@ -2343,7 +2346,7 @@ msgstr "판화가"
 
 #: src/schemes.js:335
 msgid "Electrician"
-msgstr "전기 기사"
+msgstr "전기 기술자"
 
 #: src/schemes.js:336
 msgid "Electrotyper"
@@ -2355,7 +2358,7 @@ msgstr "기술자"
 
 #: src/schemes.js:338
 msgid "Enacting jurisdiction"
-msgstr "관할권 제정"
+msgstr "사법권 제정"
 
 #: src/schemes.js:339
 msgid "Etcher"
@@ -2399,7 +2402,7 @@ msgstr "전 소유자"
 
 #: src/schemes.js:349
 msgid "Film producer"
-msgstr "영화 제작자"
+msgstr "영화 연출가"
 
 #: src/schemes.js:350
 msgid "Funder"
@@ -2451,7 +2454,7 @@ msgstr "발급 기관"
 
 #: src/schemes.js:362
 msgid "Instrumentalist"
-msgstr "기악가"
+msgstr "악기 연주자"
 
 #: src/schemes.js:363
 msgid "Interviewee"
@@ -2459,7 +2462,7 @@ msgstr "인터뷰 대상자"
 
 #: src/schemes.js:364
 msgid "Interviewer"
-msgstr "면접관"
+msgstr "인터뷰 진행자"
 
 #: src/schemes.js:365
 msgid "Judge"
@@ -2467,7 +2470,7 @@ msgstr "판사"
 
 #: src/schemes.js:366
 msgid "Jurisdiction governed"
-msgstr "관할권"
+msgstr "사법권 적용"
 
 #: src/schemes.js:367
 msgid "Laboratory"
@@ -2479,7 +2482,7 @@ msgstr "오페라 대본 작가"
 
 #: src/schemes.js:369
 msgid "Laboratory director"
-msgstr "연구 소장"
+msgstr "실험실 감독"
 
 #: src/schemes.js:370
 msgid "Lead"
@@ -2559,7 +2562,7 @@ msgstr "제조자"
 
 #: src/schemes.js:389
 msgid "Moderator"
-msgstr "중재자"
+msgstr "사회자"
 
 #: src/schemes.js:390
 msgid "Monitor"
@@ -2595,7 +2598,7 @@ msgstr "해설자"
 
 #: src/schemes.js:398
 msgid "Opponent"
-msgstr "적대자"
+msgstr "상대편"
 
 #: src/schemes.js:399
 msgid "Originator"
@@ -2663,7 +2666,7 @@ msgstr "인형사"
 
 #: src/schemes.js:417
 msgid "Praeses"
-msgstr "총독"
+msgstr "주재자"
 
 #: src/schemes.js:418
 msgid "Process contact"
@@ -2695,7 +2698,7 @@ msgstr "제작사"
 
 #: src/schemes.js:425
 msgid "Producer"
-msgstr "제작자"
+msgstr "연출가"
 
 #: src/schemes.js:426
 msgid "Production place"
@@ -2775,7 +2778,7 @@ msgstr "비평가"
 
 #: src/schemes.js:445
 msgid "Radio producer"
-msgstr "라디오 프로그램 제작자"
+msgstr "라디오 연출가"
 
 #: src/schemes.js:446
 msgid "Repository"
@@ -2919,7 +2922,7 @@ msgstr "텔레비전 감독"
 
 #: src/schemes.js:481
 msgid "Television producer"
-msgstr "텔레비전 프로듀서"
+msgstr "텔레비전 연출가"
 
 #: src/schemes.js:482
 msgid "Transcriber"
@@ -3024,641 +3027,6 @@ msgstr "빠른 사전 조회"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:22
 msgid "John Factotum"
 msgstr "John Factotum"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-msgid "Fixed unable to open some EPUB files"
-msgstr "수정하여 일부 EPUB 파일을 열 수 없습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-msgid "Fixed unable to open Mobipocket files"
-msgstr "수정하여 Mobipocket 파일을 열 수 없습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:264
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:273
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:284
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:299
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:308
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:343
-msgid "Changes:"
-msgstr "변경사항:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
-msgid "Improved metadata display"
-msgstr "개선된 메타데이터 디스플레이"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
-msgid "Improved FictionBook rendering"
-msgstr "개선된 FictionBook 렌더링"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
-msgid "Improved UI for acquiring books from OPDS"
-msgstr "OPDS에서 책을 가져오기 위해 개선된 UI"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
-msgid "Fixed unique identifier extraction for EPUB files"
-msgstr "EPUB 파일의 고유 식별자 추출 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:65
-msgid "Fixed missing window icon"
-msgstr "누락된 창 아이콘 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
-msgid "Fixed TTS environment variables not set when using Flatpak"
-msgstr "Flatpak을 사용할 때 설정되지 않은 TTS 환경 변수 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
-msgid "Fixed eSpeak NG voice not selected when testing TTS configuration"
-msgstr "TTS 구성을 테스트할 때 선택되지 않은 eSpeak NG 음성 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
-msgid "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
-msgstr "\"반전\"이 활성화된 경우 잘못된 “__ibooks_internal_theme” 특성 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
-msgid "OPDS catalogs:"
-msgstr "OPDS 카탈로그:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
-msgid "Catalogs are now opened in the main library window"
-msgstr "이제 카탈로그가 기본 라이브러리 창에서 열립니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
-msgid "View current location"
-msgstr "현재 위치 보기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
-msgid "Go to catalog start page"
-msgstr "카탈로그 시작 페이지로 가기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
-msgid "Reload catalog"
-msgstr "카탈로그 다시 불러오기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
-msgid "Add current feed to catalogs"
-msgstr "카탈로그에 현재 피드 추가"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
-msgid "HTTP authentication support"
-msgstr "HTTP 인증 지원"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
-msgid "Other changes:"
-msgstr "기타 변경사항:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
-msgid "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
-msgstr "FictionBook(.fb2, .fb2.zip) 파일에 대한 고유 식별자 추출 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
-msgid "Fixed newlines being ignored when copying text"
-msgstr "텍스트를 복사 할 때 줄 바꿈이 무시되는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:87
-msgid "“Turn page on tap” is now disabled in non-paginated layouts"
-msgstr "페이지가 매겨지지 않은 레이아웃에서 \"스페이스바나 마우스 클릭시 페이지 넘기기\"가 비활성화되었습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
-msgid "Opening a book from the library view now closes the library window"
-msgstr "이제 라이브러리보기에서 책을 열면 라이브러리 창이 닫힙니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
-msgid "Language and publication dates in metadata are now parsed and formatted"
-msgstr "이제 메타데이터의 언어 및 게시 날짜가 구문 분석되고 형식이 지정됩니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
-msgid "Export annotations from the library view"
-msgstr "라이브러리 보기에서 주석 내보내기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
-msgid "Fixed blurry book covers on HiDPI"
-msgstr "HiDPI의 흐릿한 책 표지 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
-msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
-msgstr "표준 Ebooks 및 프로젝트 구텐베르크에 대한 OPDS 링크 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:100
-msgid "Fixed wrong view icon on startup"
-msgstr "시작 시 잘못된 보기 아이콘 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
-msgid "Library:"
-msgstr "라이브러리:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
-msgid "A library view showing recent books and reading progress"
-msgstr "최근 책과 읽기 진행률 상황을 보여주는 라이브러리 보기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
-msgid "Search books by metadata"
-msgstr "메타데이터로 도서 검색"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
-msgid "E-book discovery with OPDS"
-msgstr "OPDS로 E-book 검색"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
-msgid "New supported formats:"
-msgstr "새로 지원되는 형식 :"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:114
-msgid "FictionBook (.fb2, .fb2.zip)"
-msgstr "FictionBook (.fb2, .fb2.zip)"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
-msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
-msgstr "만화책 아카이브 (.cbr, .cbz, .cbt, .cb7)"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
-msgid "Plain text (.txt)"
-msgstr "일반 텍스트 (.txt)"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
-msgid "Unpacked EPUB files"
-msgstr "EPUB 파일 압축해제됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:119
-msgid "Layout:"
-msgstr "레이아웃:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
-msgid "Option to set maximum page width"
-msgstr "최대 페이지 너비를 설정하는 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:122
-msgid "The \"Automatic\" layout will now show four columns when the page width is wide"
-msgstr "페이지 너비가 넓을 때 \"자동\" 레이아웃에 네 개의 열이 표시됩니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:124
-msgid "Image viewer:"
-msgstr "이미지 뷰어:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
-msgid "Improved image viewer, with new shortcuts and the ability to rotate and invert images"
-msgstr "새로운 단축키와 이미지 회전 및 반전 기능을 통해 이미지 뷰어가 개선되었습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
-msgid "Option to disable image viewer, or to open images on double, middle, or right click"
-msgstr "이미지 뷰어를 비활성화하거나 이미지를 두 번, 가운데 또는 마우스 오른쪽 버튼으로 여는 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
-msgid "Text-to-speech:"
-msgstr "텍스트 음성 변환:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
-msgid "Improved text-to-speech configuration UI"
-msgstr "텍스트 음성 변환 구성 UI 개선됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:132
-msgid "Ability to set text-to-speech voice based on book language"
-msgstr "책 언어에 따라 텍스트 음성 변환 음성을 지정하는 기능"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
-msgid "Import annotations from JSON"
-msgstr "JSON에서 주석 가져오기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
-msgid "Search in annotations"
-msgstr "주석에서 검색"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:138
-msgid "Annotations are now sorted in the same order as they appear in the book"
-msgstr "주석은 이제 책에 나타나는 것과 동일한 순서로 정렬됩니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:140
-msgid "Security:"
-msgstr "보안:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
-msgid "\"Allow Unsafe Content\" now only enables JavaScript; external content will no longer be loaded"
-msgstr "\"안전하지 않은 콘텐츠 허용\"은 이제 JavaScript만 활성화되며, 외부 콘텐츠는 더 이상 불러오기 되지 않습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
-msgid "WebKit processes are now sandboxed"
-msgstr "이제 WebKit 프로세스가 샌드박스로 처리됩니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:145
-msgid "Other featues and fixes:"
-msgstr "기타 기능 및 수정하기:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:147
-msgid "Improved support for vertical and right-to-left books"
-msgstr "세로 및 오른쪽에서 왼쪽으로 읽는 책에 대한 지원 개선됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
-msgid "Support for StarDict dictionaries"
-msgstr "StarDict 사전에 대한 지원"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
-msgid "Fixed current location not preserved when resizing"
-msgstr "크기를 조정할 때 현재 위치가 유지되지 않는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:150
-msgid "Fixed auto-hiding header bar under some themes"
-msgstr "일부 테마에서 자동 숨김 헤더 표시줄 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
-msgid "Command-line options for showing version and adding books to library"
-msgstr "버전을 표시하고 라이브러리에 책을 추가하는 명령줄 옵션입니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
-msgid "Option to clear or disable cache"
-msgstr "캐시를 지우거나 비활성화하는 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
-msgid "When an HTML page contains invalid self-closing anchor tags, it is now parsed as XHTML"
-msgstr "HTML 페이지에 잘못된 자체 닫기 앵커 태그가 포함되어 있는 경우 이제 XHTML로 구문 분석됩니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:360
-msgid "Fixes:"
-msgstr "수정하기:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
-msgid "Fixed wrong version number"
-msgstr "잘못된 버전 번호 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:162
-msgid "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
-msgstr "Snap 패키지에서 작동하지 않는 사전, 번역 및 Wikipedia 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:168
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:329
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:352
-msgid "New features:"
-msgstr "새로운 기능:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
-msgid "New and improved icon"
-msgstr "새 아이콘 및 개선된 아이콘"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
-msgid "Option to disable turn page on tap"
-msgstr "스페이스바나 마우스 클릭시 페이지 넘기기를 비활성화하는 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
-msgid "A menu on the welcome screen for opening recent files"
-msgstr "최근 파일을 열기 위한 시작 화면의 메뉴"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:173
-msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
-msgstr "ToC, 주석 및 책갈피를 표시하기 위한 단축키 복원됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:177
-msgid "Fixed application not translated"
-msgstr "수정된 응용 프로그램이 번역되지 않음"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:183
-msgid "Interface:"
-msgstr "인터페이스:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:185
-msgid "A redesigned interface that works better for smaller screens"
-msgstr "작은 화면에서 더 잘 작동하는 새롭게 디자인된 인터페이스"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:186
-msgid "Improved fullscreen mode with an overlaid headerbar"
-msgstr "오버레이 헤더표시줄로 향상된 풀스크린 모드"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:187
-msgid "The headerbar and the progress bar now auto-hide, for a distraction-free reading experience"
-msgstr "머리글 표시줄과 진행률 표시줄이 자동 숨김으로 전환되어 산만하지 않은 읽기 환경 제공"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
-msgid "Various location information, as well as a clock, can now be displayed in the footer"
-msgstr "이제 시계뿐만 아니라 다양한 위치 정보를 바닥글에 표시할 수 있습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
-msgid "A new location popover (Ctrl + L) that shows reading time estimates and allows skipping to locations"
-msgstr "읽기 시간 추정치를 표시하고 위치로 건너뛰기를 허용하는 새 위치 팝업(Ctrl + L) 입니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:190
-msgid "E-reader style navigation: go to the previous or next page by tapping on the left or right part of the view; tap on the middle to toggle header bar and progress bar"
-msgstr "E-reader 스타일 탐색: 보기의 왼쪽 또는 오른쪽 부분을 눌러 이전 또는 다음 페이지로 이동합니다; 헤더 표시줄과 진행률 표시줄을 전환하려면 가운데를 누르십시오"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
-msgid "Annotations, bookmarks, and find results now show chapter titles"
-msgstr "이제 주석, 책갈피 및 찾기 결과가 장 제목을 표시합니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
-msgid "When looking up words in dictionaries, the query can now be edited"
-msgstr "이제 사전에서 단어를 검색할 때, 쿼리를 편집할 수 있습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:193
-msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
-msgstr "메타데이터(Ctrl + I) 및 기본 설정(Ctrl + ,)을 볼 수 있는 새로운 단축키입니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:194
-msgid "A new traditional menubar, which may be displayed depending on the desktop environment"
-msgstr "데스크톱 환경에 따라 표시되는 새로운 기존 메뉴 모음입니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:195
-msgid "Option to use a traditional titlebar and menubar instead of a headerbar (experimental)"
-msgstr "헤더표시줄 대신 전통적인 제목표시줄과 메뉴표시줄(실험용)을 사용하는 옵션입니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
-msgid "Reading:"
-msgstr "읽기:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
-msgid "Continuous scrolling layout"
-msgstr "연속 스크롤 레이아웃"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
-msgid "Option to show decorative shadows that mimic the appearance of a real book"
-msgstr "실제 책처럼 보이는 장식적인 그림자를 표시하는 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:201
-msgid "Ability to zoom in and zoom out"
-msgstr "확대 및 축소 기능"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
-msgid "Improved image viewer with \"save as\" option"
-msgstr "\"다른 이름으로 저장\" 옵션이 있는 이미지 뷰어 개선됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:203
-msgid "Open copies of a book in new windows (Ctrl + N)"
-msgstr "새 창에서 책의 사본 열기(Ctrl + N)"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:204
-msgid "Reload book (Ctrl + R)"
-msgstr "책 다시 불러오기 (Ctrl + R)"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:205
-msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
-msgstr "새로운 기본 제공 테마: 회색, 솔라라이즈드, 그루브박스, 노르"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:207
-msgid "Text selection:"
-msgstr "텍스트 선택:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
-msgid "Ability to select text across pages"
-msgstr "페이지에서 텍스트를 선택하는 기능"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
-msgid "Find selected text in book"
-msgstr "책에서 선택한 텍스트 찾기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
-msgid "Speak selected text or from the selected locatio"
-msgstr "선택한 텍스트 또는 선택한 위치에서 말하기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
-msgid "Annotations:"
-msgstr "주석:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
-msgid "Spellcheck notes"
-msgstr "철자검사 메모"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
-msgid "Export annotations to Markdown"
-msgstr "마크다운으로 주석 내보내기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
-msgid "Options to use custom colors for highlights"
-msgstr "강조표시에 사용자지정 색상을 사용하는 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
-msgid "For publishers and developers:"
-msgstr "게시자 및 개발자:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
-msgid "Support for Apple Books theme attribute, which allows books to detect themes without JavaScript"
-msgstr "책이 JavaScript 없이 테마를 감지할 수 있도록 하는 Apple Books 테마 속성 지원"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
-msgid "WebKit's developer tools can be enabled"
-msgstr "WebKit의 개발자 도구를 활성화할 수 있습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:224
-msgid "Breaking changes:"
-msgstr "호환성이 손상되는 변경:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:226
-msgid "The settings schemas has been reorganized"
-msgstr "설정 스키마가 재구성되었습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:227
-msgid "The format for custom themes has changed"
-msgstr "사용자 지정 테마의 형식이 변경되었습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:228
-msgid "Locations are now 1024 characters in size"
-msgstr "위치의 크기는 이제 1024자입니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
-msgid "Bug fixes:"
-msgstr "버그 수정하기:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:232
-msgid "Fixed not restoring exact last location"
-msgstr "정확한 마지막 위치를 복원하지 않는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:233
-msgid "Fixed navigation not working with scrolled layout"
-msgstr "스크롤된 레이아웃으로 작동하지 않는 탐색 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
-msgid "Fixed font size not changing when the book uses absolute-size keywords"
-msgstr "책에서 절대 크기의 키워드를 사용할 때 글꼴 크기가 변경되지 않는 글꼴 크기 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:235
-msgid "Fixed text cut off at margin edge"
-msgstr "여백 가장자리에서 잘리는 텍스트 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:236
-msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
-msgstr "파일 이름에 \"#\" 또는 \"?\"가 있는 책을 열 수 없는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:244
-msgid "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
-msgstr ".mobi, .azw 및 .azw3 파일을 열 수 없는 Flatpak 버전 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:245
-msgid "Improved Wiktionary lookup, now with links and example sentences"
-msgstr "이제 링크와 예문이 포함된 위키낱말사전 조회 개선됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:246
-msgid "Improved popover footnote extraction and formatting"
-msgstr "향상된 팝오버 각주 추출 및 서식"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:247
-msgid "Added option to export annotations to BibTeX"
-msgstr "주석을 BibTeX로 내보내는 옵션 추가됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:255
-msgid "Fixed table of contents navigation not working with some books"
-msgstr "일부 책에서 목차 탐색이 작동하지 않는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:256
-msgid "Fixed not being able to zoom images with Kindle books"
-msgstr "Kindle 도서에서 이미지를 확대할 수 없던 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:257
-msgid "Fixed not being able to open books with .epub3 filename extension"
-msgstr ".epub3 파일 이름 확장자로 책을 열 수 없던 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:258
-msgid "Fixed temporary directory not being cleaned after closing"
-msgstr "닫은 후 임시 디렉토리가 정리되지 않는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:266
-msgid "Fixed F9 shortcut not working"
-msgstr "F9 단축키 작동하지 않는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:267
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:302
-msgid "Updated translations"
-msgstr "번역 업데이트됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:275
-msgid "External resources and JavaScript are now blocked by default"
-msgstr "이제 외부 리소스 및 JavaScript가 기본적으로 차단됩니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:276
-msgid "Basic text-to-speech support"
-msgstr "기본 텍스트 음성 변환 지원"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:277
-msgid "Export annotations to HTML, plain text, or JSON"
-msgstr "HTML, 일반 텍스트 또는 JSON에 주석 내보내기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:278
-msgid "Support for viewing .mobi, .azw, and .azw3 files"
-msgstr ".mobi, .azw 및 .azw3 파일 보기 지원"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:286
-msgid "New alternative sidebar UI"
-msgstr "새로운 대체 사이드바 UI"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:287
-msgid "Lookup words in Wikipedia and offline dictionaries"
-msgstr "위키백과 및 오프라인 사전에서 단어 조회"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:288
-msgid "Translate passages with Google Translate"
-msgstr "Google 번역으로 구절 번역"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:289
-msgid "Configure default action when words are selected"
-msgstr "단어 선택 시 기본 작업 구성"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:290
-msgid "Experimental popup footnote support"
-msgstr "실험적 팝업 각주 지원"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:291
-msgid "Ability to find within only the current chapter"
-msgstr "현재 장 내에서만 찾을 수 있는 기능"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:292
-msgid "Fixed CPU spikes when left open"
-msgstr "열려 있을 때 CPU 부하량 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:293
-msgid "Fixed highlights not rendering at the correct positions"
-msgstr "올바른 위치에서 렌더링되지 않는 강조표시 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:301
-msgid "Fixed crashing when opening files"
-msgstr "파일을 열 때 충돌되는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:310
-msgid "Customize page margins and brightness"
-msgstr "페이지 여백 및 밝기 사용자 맞춤"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:311
-msgid "Tweak the theme colors, or add your own custom themes"
-msgstr "테마 색상을 조정하거나 사용자 지정 테마 추가"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:312
-msgid "Ability to zoom and copy images"
-msgstr "이미지를 확대/축소 및 복사하는 기능"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:313
-msgid "Option to auto-hide cursor"
-msgstr "커서 자동 숨김 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:314
-msgid "See reading time left by hovering over the reading progress slider"
-msgstr "읽기 진행률 슬라이더 위로 마우스를 가져가 남은 읽기 시간 보기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:322
-msgid "Fixed some books not rendering sometimes"
-msgstr "가끔 렌더링되지 않는 일부 책 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:323
-msgid "Fixed images being too wide in some cases"
-msgstr "경우에 따라 이미지가 너무 넓어지는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:332
-msgid "Option to switch between left and full justification"
-msgstr "왼쪽과 전체 맞춤 사이를 전환하는 옵션입니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:333
-msgid "New layout option: single-column paginated view"
-msgstr "새로운 레이아웃 옵션: 페이지가 매겨진 단일 열보기"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:335
-msgid "Fixed:"
-msgstr "수정됨:"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:337
-msgid "Generated locations are now stored in the cache directory rather than localStorage"
-msgstr "생성된 위치는 이제 로컬저장소가 아닌 캐시 디렉토리에 저장됩니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:345
-msgid "Allow font size adjustment when using publisher fonts"
-msgstr "게시자 글꼴을 사용할 때 글꼴 크기 조정 허용"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:346
-msgid "Fixed reading progress slider not appearing after localStorage quota is exceeded"
-msgstr "로컬저장 할당량을 초과 ㅅ한 후 읽기 진행률 슬라이더가 표시되지 않는 문제 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:354
-msgid "Touchpad gestures and ability to scroll through pages"
-msgstr "터치패드 제스처 및 페이지를 스크롤 할 수있는 기능"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:355
-msgid "Fullscreen mode"
-msgstr "전체화면 모드"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:356
-msgid "Option to hide reading progress bar"
-msgstr "읽기 진행률 표시줄을 숨기는 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:357
-msgid "Option to disable dictionary"
-msgstr "사전을 비활성화하는 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:358
-msgid "Option to use publisher font"
-msgstr "게시자 글꼴을 사용하는 옵션"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:362
-msgid "Restoring reading progress is now smooth and jank-free"
-msgstr "읽기 진행률 복원이 이제 원활하고 버벅거림이 없습니다"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:363
-msgid "Fixed custom styles not applying in some cases"
-msgstr "일부 경우에 적용되지 않는 사용자지정 스타일 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:369
-msgid "Fixed invalid AppData file"
-msgstr "잘못된 앱데이터 파일 수정됨"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:374
-msgid "Initial release"
-msgstr "초기 릴리즈"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:23
 msgid "Store URIs"
@@ -3811,7 +3179,7 @@ msgstr "최대 너비"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:146
 msgid "Use publisher font"
-msgstr "게시자 글꼴 사용"
+msgstr "출판사 글꼴 사용"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:147
 msgid "If true, custom font is disabled"
@@ -3897,7 +3265,7 @@ msgstr "참일 경우, 이 책은 실제 책과 유사한 방식으로 장식이
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:211
 msgid "Auto-hide cursor"
-msgstr "커서 자동 숨김"
+msgstr "커서 숨김 자동"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:212
 msgid "Whether to hide the cursor automatically"
