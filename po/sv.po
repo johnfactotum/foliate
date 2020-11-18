@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-15 08:52+0800\n"
-"PO-Revision-Date: 2020-07-08 06:54+0200\n"
+"PO-Revision-Date: 2020-11-16 22:15+0100\n"
 "Last-Translator: Jonatan Nyberg <jonatan.nyberg.karl@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
@@ -78,7 +78,7 @@ msgstr "Ordlista"
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
 msgid "Annotation"
-msgstr "Kommentar"
+msgstr "Anteckning"
 
 #: src/contents.js:309
 msgid "Footnote"
@@ -112,19 +112,19 @@ msgstr "Filtyp stöds inte."
 #: src/export.js:35
 #, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr "<p>Kommentarer för</p><h1>%s</h1><h2>av %s</h2>"
+msgstr "<p>Anteckningar för</p><h1>%s</h1><h2>av %s</h2>"
 
 #: src/export.js:37 src/export.js:51 src/export.js:63
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "%d kommentar"
-msgstr[1] "%d kommentarer"
+msgstr[0] "%d anteckning"
+msgstr[1] "%d anteckningar"
 
 #: src/export.js:50
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "Kommentarer för \"%s\" av %s"
+msgstr "Anteckningar för \"%s\" av %s"
 
 #: src/export.js:54
 msgid "Section: "
@@ -145,7 +145,7 @@ msgstr "Anteckning:"
 #: src/export.js:62
 #, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr "Kommentarer för *%s* av %s"
+msgstr "Anteckningar för *%s* av %s"
 
 #: src/export.js:96
 msgid "Quote: "
@@ -157,15 +157,15 @@ msgstr " Anteckning: "
 
 #: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
 msgid "No annotations"
-msgstr "Inga kommentarer"
+msgstr "Inga anteckningar"
 
 #: src/export.js:105
 msgid "You don't have any annotations for this book."
-msgstr "Du har inga kommentarer för den här boken."
+msgstr "Du har inga anteckningar för den här boken."
 
 #: src/export.js:106
 msgid "Highlight some text to add annotations."
-msgstr "Markera lite text för att lägga till kommentarer."
+msgstr "Markera lite text för att lägga till anteckningar."
 
 #: src/export.js:128
 msgid "Save File"
@@ -174,7 +174,7 @@ msgstr "Spara fil"
 #: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
-msgstr "Kommentarer för \"%s\""
+msgstr "Anteckningar för \"%s\""
 
 #: src/export.js:166 src/utils.js:279
 msgid "All Files"
@@ -186,7 +186,7 @@ msgstr "JSON-filer"
 
 #: src/export.js:173 src/ui/importWindow.ui:6
 msgid "Import Annotations"
-msgstr "Importera kommentarer"
+msgstr "Importera anteckningar"
 
 #: src/export.js:187
 msgid "There’s nothing to import."
@@ -222,7 +222,7 @@ msgstr "Fel"
 
 #: src/export.js:246
 msgid "Could not import annotations."
-msgstr "Det gick inte att importera kommentarer."
+msgstr "Det gick inte att importera anteckningar."
 
 #: src/library.js:98 src/window.js:650 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
@@ -254,8 +254,7 @@ msgstr[1] "Är du säker på att du vill ta bort de %d valda böckerna?"
 
 #: src/library.js:450
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
-msgstr ""
-"Läsningens framsteg, kommentarer och bokmärken kommer att förloras permanent."
+msgstr "Läsframsteg, anteckningar och bokmärken kommer att förloras permanent."
 
 #: src/library.js:456 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
@@ -742,7 +741,7 @@ msgstr "Lösenord"
 
 #: src/utils.js:792
 msgid "Remember my credentials"
-msgstr ""
+msgstr "Kom ihåg mina uppgifter"
 
 #: src/window.js:126 src/window.js:816
 msgid "Leave fullscreen"
@@ -760,11 +759,11 @@ msgstr "av %d"
 
 #: src/window.js:565
 msgid "This file or format does not work well with annotations"
-msgstr "Den här filen eller formatet fungerar inte bra med kommentarer"
+msgstr "Den här filen eller formatet fungerar inte bra med anteckningar"
 
 #: src/window.js:566
 msgid "Your annotations might stop working properly at any time."
-msgstr "Dina kommentarer kan sluta fungera korrekt när som helst."
+msgstr "Dina anteckningar kan sluta fungera korrekt när som helst."
 
 #: src/window.js:572
 msgid "Continue Anyway"
@@ -809,7 +808,7 @@ msgstr "Fjärrfil"
 
 #: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
 msgid "Export Annotations…"
-msgstr "Exportera kommentarer…"
+msgstr "Exportera anteckningar…"
 
 #: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
@@ -846,15 +845,15 @@ msgstr "Innehållsförteckning"
 
 #: src/ui/contentsStack.ui:51
 msgid "Search annotations"
-msgstr "Sök kommentarer"
+msgstr "Sök anteckningar"
 
 #: src/ui/contentsStack.ui:92
 msgid "Select some text to add annotations."
-msgstr "Välj lite text för att lägga till kommentarer."
+msgstr "Välj lite text för att lägga till anteckningar."
 
 #: src/ui/contentsStack.ui:124
 msgid "Annotations"
-msgstr "Kommentarer"
+msgstr "Anteckningar"
 
 #: src/ui/contentsStack.ui:159
 msgid "No bookmarks"
@@ -894,7 +893,7 @@ msgstr "Klartext"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
-msgstr "Exportera kommentarer"
+msgstr "Exportera anteckningar"
 
 #: src/ui/exportWindow.ui:45
 msgid "Export"
@@ -907,7 +906,8 @@ msgstr "Välj exportformat:"
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
 msgstr ""
-"Välj \"JSON\" om du planerar att importera kommentarer tillbaka till Foliate."
+"Välj \"JSON\" om du planerar att importera anteckningar tillbaka till "
+"Foliate."
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
@@ -966,15 +966,15 @@ msgstr "Importera"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr "Dessa kommentarer läggs till:"
+msgstr "Dessa anteckningar kommer att läggas till:"
 
 #: src/ui/importWindow.ui:64
 msgid ""
 "The imported annotations will NOT overwrite the existing ones when they "
 "highlight the same passages."
 msgstr ""
-"De importerade kommentarerna kommer INTE att skriva över de befintliga när "
-"de markerar samma passager."
+"De importerade anteckningarna kommer INTE att skriva över de befintliga när "
+"de markerar samma avsnitt."
 
 #: src/ui/libraryWindow.ui:7
 msgid "Open Book…"
@@ -1202,7 +1202,7 @@ msgstr "Rensa cache"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
 msgid "Import Annotations…"
-msgstr "Importera kommentarer…"
+msgstr "Importera anteckningar…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
@@ -1625,7 +1625,7 @@ msgstr "Visa innehållsförteckning"
 
 #: src/ui/shortcutsWindow.ui:233
 msgid "Show annotations"
-msgstr "Visa kommentarer"
+msgstr "Visa anteckningar"
 
 #: src/ui/shortcutsWindow.ui:240
 msgid "Show bookmarks"
@@ -1981,7 +1981,7 @@ msgstr "Animatör"
 
 #: src/schemes.js:239
 msgid "Annotator"
-msgstr ""
+msgstr "Antecknare"
 
 #: src/schemes.js:240
 msgid "Bibliographic antecedent"
@@ -3033,7 +3033,7 @@ msgstr "Läsförloppsreglage med kapitelmärken"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
-msgstr "Bokmärken och kommentarer"
+msgstr "Bokmärken och anteckningar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
@@ -3089,7 +3089,7 @@ msgstr "Standardmarkeringsfärg"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Default highlight color for annotations"
-msgstr "Standardmarkeringsfärg för kommentarer"
+msgstr "Standardmarkeringsfärg för anteckningar"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:53
 msgid "Dictionary"
