@@ -235,6 +235,8 @@ var mimetypes = {
     directory: 'inode/directory',
     json: 'application/json',
     xml: 'application/xml',
+    xhtml: 'application/xhtml+xml',
+    html: 'text/html',
     text: 'text/plain',
     epub: 'application/epub+zip',
     mobi: 'application/x-mobipocket-ebook',

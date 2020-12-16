@@ -360,6 +360,12 @@ const open = async (uri, filename, inputType, renderTo, options) => {
                 await book.openJSON(json)
                 break
             }
+            case 'html':
+            case 'xhtml': {
+                const json = await webpubFromHTML(uri, filename, inputType)
+                await book.openJSON(json)
+                break
+            }
             case 'cbz':
             case 'cbr':
             case 'cb7':
