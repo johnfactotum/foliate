@@ -86,54 +86,6 @@ var readJSON = file => {
     }
 }
 
-// FROM stackoverflow.com/questions/4253367/how-to-escape-a-json-string-containing-newline-characters-using-javascript
-var escapeJSON = str => {
-  return str
-    .replace(/[\\]/g, '\\\\')
-    .replace(/[\"]/g, '\\\"')
-    .replace(/[\/]/g, '\\/')
-    .replace(/[\b]/g, '\\b')
-    .replace(/[\f]/g, '\\f')
-    .replace(/[\n]/g, '\\n')
-    .replace(/[\r]/g, '\\r')
-    .replace(/[\t]/g, '\\t');
-};
-
-var parseHTML = file => {
-    try {
-        const [success, data, /*tag*/] = file.load_contents(null)
-        if (success) {
-            var raw = data instanceof Uint8Array
-                ? ByteArray.toString(data) : data.toString()
-
-            var found = raw.replace(/\n|\r/g, '').split(/<hr>/)
-
-            var note_cache = ''
-
-            for (let i = 1; i < found.length; i++) {
-                var note = found[i].match(/<p class="cfi">(.*?)<\/p>.*?<blockquote style="border-color: (.*?);">(.*?)<\/blockquote>/)
-                var note_text = null
-
-                try {
-                    note_text = found[i].match(/<p>(.*?)<\/p>/)[1]
-                    note_text = note_text.replace(/<br>/g, '\n')
-                } catch (e) {}
-
-                if (note_cache.length != 0)
-                    note_cache += ','
-
-                note_cache += `{"value":"${escapeJSON(note[1])}","color":"${note[2]}","text":"${escapeJSON(note[3])}","note":"${note_text == null ? '' : escapeJSON(note_text)}"}`
-            }
-
-            return JSON.parse("{\"annotations\":[%s]}".format(note_cache))
-        }
-        else throw new Error()
-    } catch (e) {
-        log('EEE:' + e)
-        return {}
-    }
-}
-
 var glibcLocaleToBCP47 = x => x === 'C' ? 'en' : x.split('.')[0].replace('_', '-')
 var locales = GLib.get_language_names().map(glibcLocaleToBCP47)
 try {

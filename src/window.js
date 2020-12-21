@@ -683,9 +683,7 @@ const makeActions = self => ({
             .catch(e => logError(e))
     },
     'import-annotations': () => {
-        const annotations = importAnnotations(self, self._epub)
-        if (annotations) annotations.forEach(annotation =>
-            self._epub.addAnnotation(annotation))
+        importAnnotations(self, self._epub)
     },
     'close': () => self.close(),
 })
