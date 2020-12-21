@@ -3,7 +3,7 @@ Name=Foliate
 GenericName=eBook Viewer
 Comment=View eBooks
 Categories=Office;Viewer;
-MimeType=application/epub+zip;application/x-mobipocket-ebook;application/vnd.amazon.mobi8-ebook;application/x-fictionbook+xml;application/x-zip-compressed-fb2;application/vnd.comicbook+zip;application/vnd.comicbook-rar;application/x-cb7;application/x-cbt;text/plain;x-scheme-handler/opds;
+MimeType=application/epub+zip;application/x-mobipocket-ebook;application/vnd.amazon.mobi8-ebook;application/x-fictionbook+xml;application/x-zip-compressed-fb2;application/vnd.comicbook+zip;application/vnd.comicbook-rar;application/x-cb7;application/x-cbt;text/plain;application/xhtml+xml;text/html;x-scheme-handler/opds;
 Exec=com.github.johnfactotum.Foliate %U
 Icon=com.github.johnfactotum.Foliate
 Terminal=false
@@ -11,6 +11,8 @@ Type=Application
 # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 Keywords=Ebook;Book;EPUB;Viewer;Reader;
 Actions=new-window;
+# Translators: Do NOT translate or transliterate this text (these are enum types)!
+X-Purism-FormFactor=Workstation;Mobile;
 
 [Desktop Action new-window]
 Name=Library

@@ -22,7 +22,8 @@ const { EpubCFI } = imports.epubcfi
 const {
     debug, error, markupEscape, regexEscape,
     Storage, disconnectAllHandlers, base64ToPixbuf,
-    mimetypes, mimetypeIs, execCommand, recursivelyDeleteDir
+    mimetypes, mimetypeIs, execCommand, recursivelyDeleteDir,
+    debounce
 } = imports.utils
 
 const python = GLib.find_program_in_path('python') || GLib.find_program_in_path('python3')
@@ -38,6 +39,10 @@ const CHARACTERS_PER_PAGE = 1024
 // this should be bumped whenever FB2 rendering (see web/webpub.js) is changed
 // that way we can clear the cache
 const FB2_CONVERTER_VERSION = '2.4.0'
+
+// threshold for touchscreen swipe velocity, velocity higher than this is considered as a swipe
+// that will turn pages
+const SWIPE_SENSIVITY = 800
 
 // the `__ibooks_internal_theme` attribute is set on `:root` in Apple Books
 // can be used by books to detect dark theme without JavaScript
@@ -619,6 +624,79 @@ var EpubView = GObject.registerClass({
         this._connectSettings()
         this._connectData()
         this.connect('book-error', (_, msg) => logError(new Error(msg)))
+
+        this._swipeGesture = new Gtk.GestureSwipe({ widget: this._webView })
+        this._swipeGesture.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+        this._swipeGesture.set_touch_only(true)
+        this._swipeGesture.connect('swipe', async (_, velocityX, velocityY) => {
+            try {
+                // do not switch to another page if the page has been pinch zoomed,
+                // this protects against accidental switches if user pans the page
+                // too fast
+                if (await this.getWindowIsZoomed()) return
+                // switch to another page if swipe was fast enough
+                if (Math.abs(velocityY) < SWIPE_SENSIVITY) {
+                    // allow swipe to left/right with paginated and scrolled
+                    // layouts but not with continuous layout, as changing page
+                    // within continuous layout would just scroll the page by
+                    // the height of the screen and that is not very intuitive
+                    // to use
+                    if (this.isPaginated || this.isScrolled) {
+                        if (velocityX > SWIPE_SENSIVITY) {
+                            this.goLeft()
+                        } else if (velocityX < -SWIPE_SENSIVITY) {
+                            this.goRight()
+                        }
+                    }
+                } else {
+                    // allow swipe up/down with paginated layouts, and disable
+                    // for non-paginated layouts (scrolled, continuous), this
+                    // protects against accidental switches if user pans the
+                    // page too fast
+                    if (this.isPaginated) {
+                        if (velocityY > SWIPE_SENSIVITY) {
+                            this.prev()
+                        } else if (velocityY < -SWIPE_SENSIVITY) {
+                            this.next()
+                        }
+                    }
+                }
+            } catch (e) {
+                logError(e)
+            }
+        })
+
+        const scrollPage = debounce(async (deltaX, deltaY) => {
+            try {
+                // do not switch to another page if the page has been pinch zoomed,
+                // let the page contents scroll instead
+                if (await this.getWindowIsZoomed()) return
+                // switch to another page
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (deltaX > 0) this.goRight()
+                    else if (deltaX < 0) this.goLeft()
+                } else {
+                    if (deltaY > 0) this.next()
+                    else if (deltaY < 0) this.prev()
+                }
+            } catch (e) {
+                logError(e)
+            }
+        }, 100, true)
+
+        this._webView.connect('scroll-event', (_, event) => {
+            if (!this.isPaginated) return
+            // ignore touchscreen scroll events as webkit already handles those
+            // by default to pan the page and page flipping is already
+            // implemented by _swipeGesture above
+            const source = event.get_source_device().get_source()
+            if (source === Gdk.InputSource.TOUCHSCREEN) return
+
+            const [, deltaX, deltaY] = event.get_scroll_deltas()
+            // first mouse wheel scroll event starts with 0,0 delta, ignore them
+            // to avoid debounce from triggering on event that doesn't do anything
+            if (deltaX !== 0 || deltaY !== 0) scrollPage(deltaX, deltaY)
+        })
     }
     _connectSettings() {
         this._zoomLevel = this.settings.zoom_level
@@ -1079,6 +1157,8 @@ var EpubView = GObject.registerClass({
             case mimetypes.xml: this.open_(uri, 'opf'); break
             case mimetypes.epub: this.open_(uri, 'epub'); break
             case mimetypes.text: this.open_(uri, 'text'); break
+            case mimetypes.html: this.open_(uri, 'html'); break
+            case mimetypes.xhtml: this.open_(uri, 'xhtml'); break
             case mimetypes.fb2: this.open_(uri, 'fb2'); break
             case mimetypes.fb2zip: this.open_(uri, 'fb2zip'); break
             case mimetypes.cbz: this.open_(uri, 'cbz'); break
@@ -1125,6 +1205,14 @@ var EpubView = GObject.registerClass({
     }
     async goToPercentage(x) {
         this.goTo(await this._get(`book.locations.cfiFromPercentage(${x})`))
+    }
+    goRight() {
+        const rtl = this.metadata.direction === 'rtl'
+        rtl ? this.prev() : this.next()
+    }
+    goLeft() {
+        const rtl = this.metadata.direction === 'rtl'
+        rtl ? this.next() : this.prev()
     }
     back() {
         if (!this._history.length) return
@@ -1176,6 +1264,9 @@ var EpubView = GObject.registerClass({
     getSectionFromCfi(cfi) {
         return this._get(`getSectionFromCfi('${cfi}')`)
     }
+    getWindowIsZoomed() {
+        return this._eval('getWindowIsZoomed()')
+    }
     get sectionMarks() {
         return this._get('sectionMarks')
     }
@@ -1191,6 +1282,9 @@ var EpubView = GObject.registerClass({
     }
     get isPaginated() {
         return layouts[this.settings.layout].options.flow === 'paginated'
+    }
+    get isScrolled() {
+        return layouts[this.settings.layout].options.flow === 'scrolled-doc'
     }
     get widget() {
         return this._webView

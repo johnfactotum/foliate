@@ -1,206 +1,203 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# JungHee Lee <daemul72@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-15 08:52+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-11-22 23:48+0900\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.4.1\n"
+"Last-Translator: JungHee Lee <daemul72@gmail.com>\n"
+"Language: ko\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
 #: src/main.js:209 src/window.js:1001 src/schemes.js:100
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
-msgstr ""
+msgstr "Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "eBook Viewer"
-msgstr ""
+msgstr "eBook 뷰어"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "View eBooks"
-msgstr ""
+msgstr "eBooks 보기"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:13
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr ""
+msgstr "Ebook;Book;EPUB;Viewer;Reader;이북;도서;뷰어;리더;책;전자책;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:17
 #: src/ui/libraryWindow.ui:612 src/ui/mainMenu.ui:304
 #: src/ui/shortcutsWindow.ui:40
 msgid "Library"
-msgstr ""
+msgstr "라이브러리"
 
 #: src/contents.js:222
 msgid "Remove current location"
-msgstr ""
+msgstr "현재 위치 제거"
 
 #: src/contents.js:225 src/ui/contentsStack.ui:204
 #: src/ui/shortcutsWindow.ui:155
 msgid "Bookmark current location"
-msgstr ""
+msgstr "책갈피 현재 위치"
 
 #: src/contents.js:268
 msgid "No results"
-msgstr ""
+msgstr "결과 없음"
 
 #: src/contents.js:269
 #, javascript-format
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "결과 %d권"
+msgstr[1] "결과 %d권"
 
 #: src/contents.js:280
 msgid "Searching…"
-msgstr ""
+msgstr "검색중…"
 
 #: src/contents.js:303
 msgid "Bibliography"
-msgstr ""
+msgstr "서지"
 
 #: src/contents.js:304
 msgid "Glossary"
-msgstr ""
+msgstr "용어사전"
 
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
 msgid "Annotation"
-msgstr ""
+msgstr "주석"
 
 #: src/contents.js:309
 msgid "Footnote"
-msgstr ""
+msgstr "각주"
 
 #: src/contents.js:310 src/contents.js:311
 msgid "Endnote"
-msgstr ""
+msgstr "미주"
 
 #. deprecated
 #: src/contents.js:312 src/contents.js:339
 msgid "Note"
-msgstr ""
+msgstr "메모"
 
 #: src/epubView.js:1127
 msgid "Failed to load remote file."
-msgstr ""
+msgstr "원격 파일을 불러오지 못했습니다."
 
 #: src/epubView.js:1136
 msgid "File not found."
-msgstr ""
+msgstr "파일 찾을 할 수 없습니다."
 
 #: src/epubView.js:1150
 msgid "Could not unpack Kindle file."
-msgstr ""
+msgstr "Kindle 파일의 압축풀기를 할 수 없습니다."
 
 #: src/epubView.js:1166
 msgid "File type not supported."
-msgstr ""
+msgstr "파일 유형이 지원되지 않습니다."
 
 #: src/export.js:35
 #, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr ""
+msgstr "<h1>%s</h1><p>에 대한 주석 </p><h2>(작성자 %s)</h2>"
 
 #: src/export.js:37 src/export.js:51 src/export.js:63
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "주석 %d개"
+msgstr[1] "주석 %d개"
 
 #: src/export.js:50
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr ""
+msgstr "\"%s\"에 대한 주석 (작성자 %s)"
 
 #: src/export.js:54
 msgid "Section: "
-msgstr ""
+msgstr "섹션: "
 
 #: src/export.js:55
 msgid "Highlight: "
-msgstr ""
+msgstr "강조표시: "
 
 #: src/export.js:56
 msgid "Text:"
-msgstr ""
+msgstr "텍스트:"
 
 #: src/export.js:57
 msgid "Note:"
-msgstr ""
+msgstr "메모:"
 
 #: src/export.js:62
 #, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr ""
+msgstr "*%s*에 대한 주석 (작성자 %s)"
 
 #: src/export.js:96
 msgid "Quote: "
-msgstr ""
+msgstr "인용문: "
 
 #: src/export.js:96
 msgid " Note: "
-msgstr ""
+msgstr " 메모: "
 
 #: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
 msgid "No annotations"
-msgstr ""
+msgstr "주석 없음"
 
 #: src/export.js:105
 msgid "You don't have any annotations for this book."
-msgstr ""
+msgstr "이 책에 대한 주석이 없습니다."
 
 #: src/export.js:106
 msgid "Highlight some text to add annotations."
-msgstr ""
+msgstr "주석을 추가하려면 일부 텍스트를 강조표시 하십시오."
 
 #: src/export.js:128
 msgid "Save File"
-msgstr ""
+msgstr "파일 저장"
 
 #: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
-msgstr ""
+msgstr "\"%s\"에 대한 주석"
 
 #: src/export.js:166 src/utils.js:279
 msgid "All Files"
-msgstr ""
+msgstr "모든 파일"
 
 #: src/export.js:170
 msgid "JSON Files"
-msgstr ""
+msgstr "JSON 파일"
 
 #: src/export.js:173 src/ui/importWindow.ui:6
 msgid "Import Annotations"
-msgstr ""
+msgstr "주석 가져오기"
 
 #: src/export.js:187
 msgid "There’s nothing to import."
-msgstr ""
+msgstr "가져올 항목이 없습니다."
 
 #: src/export.js:228
 msgid "Identifier mismatch"
-msgstr ""
+msgstr "식별자 불일치"
 
 #: src/export.js:229
-msgid ""
-"The identifier of the imported file does not match the book’s. This might "
-"indicate that the annotations do not belong to this book."
-msgstr ""
+msgid "The identifier of the imported file does not match the book’s. This might indicate that the annotations do not belong to this book."
+msgstr "가져온 파일의 식별자가 책의 식별자와 일치하지 않습니다. 이는 주석이 이 책에 속하지 않음을 나타낼 수 있습니다."
 
 #: src/export.js:234 src/library.js:455 src/main.js:161 src/opds.js:229
 #: src/opds.js:376 src/opds.js:1174 src/utils.js:770 src/window.js:571
@@ -208,481 +205,481 @@ msgstr ""
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:601 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
 msgid "Cancel"
-msgstr ""
+msgstr "취소"
 
 #: src/export.js:235
 msgid "Import Anyway"
-msgstr ""
+msgstr "어떻게 해서든지 가져오기"
 
 #: src/export.js:245 src/opds.js:1300 src/opds.js:1371 src/window.js:1031
 msgid "Error"
-msgstr ""
+msgstr "오류"
 
 #: src/export.js:246
 msgid "Could not import annotations."
-msgstr ""
+msgstr "주석을 가져올 수 없습니다."
 
 #: src/library.js:98 src/window.js:650 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:613
 msgid "About This Book"
-msgstr ""
+msgstr "이 책 소개"
 
 #: src/library.js:132
 msgid "Choose File"
-msgstr ""
+msgstr "파일 선택하기"
 
 #: src/library.js:265 src/library.js:283
 msgid "Load more"
-msgstr ""
+msgstr "더 많이 불러오기"
 
 #: src/library.js:427
 msgid "File location unkown"
-msgstr ""
+msgstr "알 수 없는 파일 위치"
 
 #: src/library.js:428
 msgid "Choose the location of this file to open it."
-msgstr ""
+msgstr "이 파일을 열 위치를 선택하십시오."
 
 #: src/library.js:448
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "이 책을 제거하시겠습니까?"
+msgstr[1] "선택한 %d권의 책을 제거하시겠습니까?"
 
 #: src/library.js:450
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
-msgstr ""
+msgstr "읽기 진행률 상황, 주석 및 책갈피가 영구적으로 손실됩니다."
 
 #: src/library.js:456 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:581
 msgid "Remove"
-msgstr ""
+msgstr "제거"
 
 #: src/library.js:578
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d권 선택됨"
+msgstr[1] "%d권 선택됨"
 
 #: src/library.js:697
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "책을 추가하지 못했습니다"
+msgstr[1] "책들을 추가하지 못했습니다"
 
 #: src/library.js:699
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "다음 파일을 추가할 수 없음:"
+msgstr[1] "다음 파일들을 추가할 수 없음:"
 
 #: src/library.js:771
 msgid "All"
-msgstr ""
+msgstr "모두"
 
 #: src/library.js:774 src/ui/catalogWindow.ui:39
 msgid "Title"
-msgstr ""
+msgstr "제목"
 
 #: src/library.js:775 src/schemes.js:257
 msgid "Author"
-msgstr ""
+msgstr "저자"
 
 #: src/library.js:776 src/properties.js:359 src/ui/propertyBox.ui:16
 msgid "Tags"
-msgstr ""
+msgstr "태그"
 
 #: src/library.js:777 src/ui/propertiesBox.ui:65
 msgid "Description"
-msgstr ""
+msgstr "설명"
 
 #: src/library.js:778 src/properties.js:418 src/schemes.js:407
 msgid "Publisher"
-msgstr ""
+msgstr "게시자"
 
 #: src/library.js:779 src/properties.js:438 src/ui/ttsDialog.ui:284
 msgid "Language"
-msgstr ""
+msgstr "언어"
 
 #: src/library.js:816
 msgid "Add Files"
-msgstr ""
+msgstr "파일 추가"
 
 #: src/lookup.js:106
 msgid "Search on Wikipedia"
-msgstr ""
+msgstr "위키백과 검색"
 
 #: src/lookup.js:228
 msgid "Source: "
-msgstr ""
+msgstr "소스: "
 
 #: src/lookup.js:230
 msgid "Wiktionary"
-msgstr ""
+msgstr "위키낱말사전"
 
 #: src/lookup.js:313
 msgid "Wiktionary (English)"
-msgstr ""
+msgstr "위키낱말사전 (영어)"
 
 #: src/lookup.js:387
 msgid "Search on Wiktionary"
-msgstr ""
+msgstr "위키낱말사전에서 검색"
 
 #: src/lookup.js:410
 msgid "Translation by Google Translate"
-msgstr ""
+msgstr "Google 번역으로 번역"
 
 #: src/main.js:135 src/window.js:666
 msgid "Open File"
-msgstr ""
+msgstr "파일 열기"
 
 #: src/main.js:156
 msgid "Open Catalog"
-msgstr ""
+msgstr "카탈로그 열기"
 
 #: src/main.js:162 src/opds.js:202 src/opds.js:377 src/ui/catalogRow.ui:50
 msgid "Open"
-msgstr ""
+msgstr "열기"
 
 #: src/main.js:166
 msgid "OPDS Catalog URL:"
-msgstr ""
+msgstr "OPDS 카탈로그 URL:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
 #: src/main.js:208
 msgid "translator-credits"
-msgstr ""
+msgstr "이정희 (daemul72@gmail.com)"
 
 #: src/main.js:210 data/com.github.johnfactotum.Foliate.appdata.xml.in:7
 msgid "A simple and modern eBook viewer"
-msgstr ""
+msgstr "간단하고 현대적인 eBook 뷰어"
 
 #: src/main.js:235
 msgid "Open library window"
-msgstr ""
+msgstr "라이브러리 창 열기"
 
 #: src/main.js:239
 msgid "Add files to the library"
-msgstr ""
+msgstr "라이브러리에 파일 추가"
 
 #: src/main.js:243
 msgid "Show version"
-msgstr ""
+msgstr "버전 표시"
 
 #: src/main.js:247
 msgid "Show verbose debugging information"
-msgstr ""
+msgstr "자세한 디버깅 정보 표시"
 
 #: src/opds.js:91
 msgid "Download"
-msgstr ""
+msgstr "다운로드"
 
 #: src/opds.js:94
 msgid "Buy"
-msgstr ""
+msgstr "구입"
 
 #: src/opds.js:95
 msgid "Free"
-msgstr ""
+msgstr "무료"
 
 #: src/opds.js:96
 msgid "Preview"
-msgstr ""
+msgstr "미리보기"
 
 #: src/opds.js:97
 msgid "Sample"
-msgstr ""
+msgstr "견본"
 
 #: src/opds.js:98
 msgid "Borrow"
-msgstr ""
+msgstr "대여"
 
 #: src/opds.js:99
 msgid "Subscribe"
-msgstr ""
+msgstr "구독"
 
 #: src/opds.js:101
 msgid "More"
-msgstr ""
+msgstr "자세히"
 
 #: src/opds.js:125
 msgid "Protected by DRM"
-msgstr ""
+msgstr "DRM에 의해 보호됨"
 
 #: src/opds.js:144
 msgid " (DRM)"
-msgstr ""
+msgstr " (DRM)"
 
 #: src/opds.js:209
 msgid "Update available"
-msgstr ""
+msgstr "사용 가능한 업데이트"
 
 #: src/opds.js:210
 msgid "Update"
-msgstr ""
+msgstr "업데이트"
 
 #: src/opds.js:218 src/opds.js:230
 msgid "Delete"
-msgstr ""
+msgstr "삭제"
 
 #: src/opds.js:222
 msgid "Delete this item?"
-msgstr ""
+msgstr "이 항목을 삭제하시겠습니까?"
 
 #: src/opds.js:224
 msgid "If you delete this item, it will be permanently lost."
-msgstr ""
+msgstr "이 항목을 삭제하면 영구적으로 손실됩니다."
 
 #: src/opds.js:276
 msgid "An error occurred."
-msgstr ""
+msgstr "오류가 발생하였습니다."
 
 #: src/opds.js:280 src/ui/ttsDialog.ui:17
 msgid "OK"
-msgstr ""
+msgstr "확인"
 
 #: src/opds.js:309 src/ui/libraryWindow.ui:286 src/ui/shortcutsWindow.ui:71
 msgid "Go back"
-msgstr ""
+msgstr "돌아 가기"
 
 #: src/opds.js:369
 msgid "What would you like to do with this file?"
-msgstr ""
+msgstr "이 파일을 어떻게 하시겠습니까?"
 
 #: src/opds.js:370
 #, javascript-format
 msgid "Format: %s"
-msgstr ""
+msgstr "형식: %s"
 
 #: src/opds.js:378 src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
 msgid "Save"
-msgstr ""
+msgstr "저장"
 
 #. Translators: this is the punctuation used to join together a list of
 #. authors or categories
 #: src/opds.js:571
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/opds.js:662
 msgid "Unable to load OPDS feed"
-msgstr ""
+msgstr "OPDS 피드를 불러올 수 없음"
 
 #: src/opds.js:667 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
 #: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:78
 #: src/ui/shortcutsWindow.ui:120
 msgid "Reload"
-msgstr ""
+msgstr "다시 불러오기"
 
 #: src/opds.js:835 src/window.js:340
 #, javascript-format
 msgid "%d of %d"
-msgstr ""
+msgstr "%d / %d"
 
 #: src/opds.js:1068 src/ui/catalogWindow.ui:6
 msgid "OPDS Catalog"
-msgstr ""
+msgstr "OPDS 카탈로그"
 
 #: src/opds.js:1168 src/ui/catalogWindow.ui:53
 msgid "OPDS URL"
-msgstr ""
+msgstr "OPDS URL"
 
 #: src/opds.js:1175
 msgid "Go"
-msgstr ""
+msgstr "가기"
 
 #: src/opds.js:1195 src/opds.js:1221 src/window.js:1312
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
-msgstr ""
+msgstr "불러오는 중…"
 
 #: src/opds.js:1264
 msgid "First"
-msgstr ""
+msgstr "처음"
 
 #: src/opds.js:1265 src/properties.js:605
 msgid "Previous"
-msgstr ""
+msgstr "이전"
 
 #: src/opds.js:1266 src/properties.js:605
 msgid "Next"
-msgstr ""
+msgstr "다음"
 
 #: src/opds.js:1267
 msgid "Last"
-msgstr ""
+msgstr "마지막"
 
 #: src/opds.js:1315
 msgid "Related"
-msgstr ""
+msgstr "관련됨"
 
 #: src/opds.js:1316
 msgid "Section"
-msgstr ""
+msgstr "섹션"
 
 #: src/opds.js:1317
 msgid "Subsection"
-msgstr ""
+msgstr "하위섹션"
 
 #: src/opds.js:1318
 msgid "New"
-msgstr ""
+msgstr "신간"
 
 #: src/opds.js:1319
 msgid "Popular"
-msgstr ""
+msgstr "인기"
 
 #: src/opds.js:1320
 msgid "Featured"
-msgstr ""
+msgstr "특집"
 
 #: src/opds.js:1321
 msgid "Recommended"
-msgstr ""
+msgstr "추천"
 
 #: src/opds.js:1358
 msgid "Filter"
-msgstr ""
+msgstr "필터"
 
 #: src/properties.js:32 src/schemes.js:82
 msgid "Amazon"
-msgstr ""
+msgstr "Amazon"
 
 #: src/properties.js:37
 msgid "Goodreads"
-msgstr ""
+msgstr "Goodreads"
 
 #: src/properties.js:42
 msgid "Google Books"
-msgstr ""
+msgstr "Google 도서"
 
 #: src/properties.js:47
 msgid "LibraryThing"
-msgstr ""
+msgstr "라이브러리Thing"
 
 #: src/properties.js:52
 msgid "Open Library"
-msgstr ""
+msgstr "Open 라이브러리"
 
 #: src/properties.js:57
 msgid "WorldCat"
-msgstr ""
+msgstr "WorldCat"
 
 #: src/properties.js:370
 msgid "Series"
-msgstr ""
+msgstr "시리즈"
 
 #: src/properties.js:375
 #, javascript-format
 msgid "#%s"
-msgstr ""
+msgstr "#%s"
 
 #: src/properties.js:402
 msgid "Collections"
-msgstr ""
+msgstr "컬렉션"
 
 #: src/properties.js:424
 msgid "Publication Date"
-msgstr ""
+msgstr "게시 날짜"
 
 #: src/properties.js:431
 msgid "Modified Date"
-msgstr ""
+msgstr "수정된 날짜"
 
 #: src/properties.js:443
 msgid "File Size"
-msgstr ""
+msgstr "파일 크기"
 
 #: src/properties.js:447
 msgid "Format"
-msgstr ""
+msgstr "형식"
 
 #: src/properties.js:457
 msgid "Identifier"
-msgstr ""
+msgstr "식별자"
 
 #: src/properties.js:463
 msgid "Source"
-msgstr ""
+msgstr "소스"
 
 #: src/properties.js:518
 msgid "Contributors"
-msgstr ""
+msgstr "기여자"
 
 #: src/properties.js:522
 msgid "Copyright"
-msgstr ""
+msgstr "저작권"
 
 #: src/properties.js:643
 msgid "Find on…"
-msgstr ""
+msgstr "다음에서 찾기…"
 
 #: src/theme.js:23
 msgid "Light"
-msgstr ""
+msgstr "밝게"
 
 #: src/theme.js:27
 msgid "Sepia"
-msgstr ""
+msgstr "세피아"
 
 #: src/theme.js:31
 msgid "Gray"
-msgstr ""
+msgstr "회색"
 
 #: src/theme.js:35
 msgid "Dark"
-msgstr ""
+msgstr "어둡게"
 
 #: src/theme.js:39 src/ui/imageViewer.ui:56 src/ui/shortcutsWindow.ui:409
 #: src/ui/themeWindow.ui:145
 #: data/com.github.johnfactotum.Foliate.gschema.xml:176
 msgid "Invert"
-msgstr ""
+msgstr "반전"
 
 #: src/theme.js:43
 msgid "Solarized Light"
-msgstr ""
+msgstr "Solarized 밝게"
 
 #: src/theme.js:47
 msgid "Solarized Dark"
-msgstr ""
+msgstr "Solarized 어둡게"
 
 #: src/theme.js:51
 msgid "Gruvbox Light"
-msgstr ""
+msgstr "Gruvbox 밝게"
 
 #: src/theme.js:55
 msgid "Gruvbox Dark"
-msgstr ""
+msgstr "Gruvbox 어둡게"
 
 #: src/theme.js:59
 msgid "Nord"
-msgstr ""
+msgstr "노르"
 
 #. Translatros: these are sentences from "The North Wind and the Sun",
 #. used for testing text-to-speech
 #: src/tts.js:226
 msgid "The North Wind and the Sun were disputing which was the stronger,"
-msgstr ""
+msgstr "북풍과 태양은 어느 쪽이 더 강한지 논쟁하고 있었고,"
 
 #: src/tts.js:227
 msgid "when a traveler came along wrapped in a warm cloak."
-msgstr ""
+msgstr "여행자가 따뜻한 망토를 두르고 왔을 때."
 
 #. Translators: this is the language code of the test sentences
 #: src/tts.js:229
 msgid "en"
-msgstr ""
+msgstr "영어"
 
 #: src/utils.js:150
 #, javascript-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
 #. "%s" is usually already a fully formatted date string,
@@ -691,2694 +688,2671 @@ msgstr ""
 #: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
-msgstr ""
+msgstr "%s BCE"
 
 #: src/utils.js:219
 #, javascript-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d분"
+msgstr[1] "%d분"
 
 #: src/utils.js:222
 #, javascript-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d시간"
+msgstr[1] "%d시간"
 
 #: src/utils.js:281
 msgid "E-book Files"
-msgstr ""
+msgstr "E book 파일"
 
 #: src/utils.js:761
 msgid "Authentication Required"
-msgstr ""
+msgstr "인증 요구됨"
 
 #: src/utils.js:763
 #, javascript-format
 msgid "Authentication required by %s"
-msgstr ""
+msgstr "%s에 인증 요구됨"
 
 #: src/utils.js:766
 #, javascript-format
 msgid "The site says: “%s”"
-msgstr ""
+msgstr "사이트 내용: \"%s\""
 
 #: src/utils.js:771
 msgid "Authenticate"
-msgstr ""
+msgstr "인증하기"
 
 #: src/utils.js:785
 msgid "Username"
-msgstr ""
+msgstr "사용자이름"
 
 #: src/utils.js:789
 msgid "Password"
-msgstr ""
+msgstr "비밀번호"
 
 #: src/utils.js:792
 msgid "Remember my credentials"
-msgstr ""
+msgstr "내 자격 증명 기억하기"
 
 #: src/window.js:126 src/window.js:816
 msgid "Leave fullscreen"
-msgstr ""
+msgstr "전체화면 종료"
 
 #: src/window.js:129 src/ui/mainMenu.ui:91
 #: data/com.github.johnfactotum.Foliate.gschema.xml:234
 msgid "Fullscreen"
-msgstr ""
+msgstr "전체화면"
 
 #: src/window.js:219 src/window.js:220
 #, javascript-format
 msgid "of %d"
-msgstr ""
+msgstr "/ %d"
 
 #: src/window.js:565
 msgid "This file or format does not work well with annotations"
-msgstr ""
+msgstr "이 파일 또는 형식은 주석과 잘 작동하지 않음"
 
 #: src/window.js:566
 msgid "Your annotations might stop working properly at any time."
-msgstr ""
+msgstr "주석은 언제든지 제대로 작동하지 않을 수 있습니다."
 
 #: src/window.js:572
 msgid "Continue Anyway"
-msgstr ""
+msgstr "어떻게 해서든지 계속하기"
 
 #: src/window.js:795
 msgid "Contents"
-msgstr ""
+msgstr "콘텐츠"
 
 #: src/window.js:799 data/com.github.johnfactotum.Foliate.gschema.xml:244
 msgid "Show sidebar"
-msgstr ""
+msgstr "사이드바 표시"
 
 #: src/window.js:810 src/ui/selectionPopover.ui:47
 msgid "Find"
-msgstr ""
+msgstr "찾기"
 
 #: src/window.js:811 src/ui/libraryWindow.ui:205 src/ui/libraryWindow.ui:300
 msgid "Menu"
-msgstr ""
+msgstr "메뉴"
 
 #: src/window.js:1097
 #, javascript-format
 msgid "Image from “%s”"
-msgstr ""
+msgstr "\"%s\"의 이미지"
 
 #: src/window.js:1097
 msgid "Image"
-msgstr ""
+msgstr "이미지"
 
 #: src/ui/annotationBox.ui:35
 msgid "Change highlight color"
-msgstr ""
+msgstr "강조표시 색상 변경"
 
 #: src/ui/annotationBox.ui:98
 msgid "Choose custom color"
-msgstr ""
+msgstr "사용자지정 색상 선택하기"
 
 #: src/ui/bookBoxChild.ui:29 src/ui/bookBoxRow.ui:76
 msgid "Remote file"
-msgstr ""
+msgstr "원격 파일"
 
 #: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
 msgid "Export Annotations…"
-msgstr ""
+msgstr "주석 내보내기…"
 
 #: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
 msgid "Edit"
-msgstr ""
+msgstr "편집"
 
 #: src/ui/bookEditDialog.ui:46
 msgid "File URL:"
-msgstr ""
+msgstr "파일 URL:"
 
 #: src/ui/bookEditDialog.ui:62
 msgid "Browse…"
-msgstr ""
+msgstr "찾아보기…"
 
 #: src/ui/bookEditDialog.ui:72
 msgid "Remove Book"
-msgstr ""
+msgstr "책 제거"
 
 #: src/ui/catalogWindow.ui:68
 msgid "Preview URL"
-msgstr ""
+msgstr "미리보기 URL"
 
 #: src/ui/catalogWindow.ui:77
 msgid "Optional"
-msgstr ""
+msgstr "옵션"
 
 #: src/ui/catalogWindow.ui:93
 msgid "Remove Catalog"
-msgstr ""
+msgstr "카탈로그 제거"
 
 #: src/ui/contentsStack.ui:39
 msgid "Table of Contents"
-msgstr ""
+msgstr "목차"
 
 #: src/ui/contentsStack.ui:51
 msgid "Search annotations"
-msgstr ""
+msgstr "주석 검색"
 
 #: src/ui/contentsStack.ui:92
 msgid "Select some text to add annotations."
-msgstr ""
+msgstr "주석을 추가하려면 텍스트를 선택합니다."
 
 #: src/ui/contentsStack.ui:124
 msgid "Annotations"
-msgstr ""
+msgstr "주석"
 
 #: src/ui/contentsStack.ui:159
 msgid "No bookmarks"
-msgstr ""
+msgstr "책갈피 없음"
 
 #: src/ui/contentsStack.ui:171
 msgid "Add some bookmarks to see them here."
-msgstr ""
+msgstr "여기에서 보려면 일부 책갈피를 추가하십시오."
 
 #: src/ui/contentsStack.ui:216
 msgid "Bookmarks"
-msgstr ""
+msgstr "책갈피"
 
 #: src/ui/dictionaryBox.ui:75
 msgid "No definitions found"
-msgstr ""
+msgstr "정의를 찾을 수 없음"
 
 #: src/ui/exportWindow.ui:11
 msgid "BibTeX"
-msgstr ""
+msgstr "BibTeX"
 
 #: src/ui/exportWindow.ui:15
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: src/ui/exportWindow.ui:19
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: src/ui/exportWindow.ui:23
 msgid "Markdown"
-msgstr ""
+msgstr "가격 인하"
 
 #: src/ui/exportWindow.ui:27
 msgid "Plain Text"
-msgstr ""
+msgstr "일반 텍스트"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
-msgstr ""
+msgstr "주석 내보내기"
 
 #: src/ui/exportWindow.ui:45
 msgid "Export"
-msgstr ""
+msgstr "내보내기"
 
 #: src/ui/exportWindow.ui:67
 msgid "Choose export format:"
-msgstr ""
+msgstr "형식 선택하기:"
 
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
-msgstr ""
+msgstr "주석을 다시 Foliate로 가져올 계획이라면 \"JSON\"을 선택하십시오."
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
-msgstr ""
+msgstr "모든 챕터"
 
 #: src/ui/findBox.ui:22
 msgid "Current chapter"
-msgstr ""
+msgstr "현재 챕터"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
 msgid "Reference Preview"
-msgstr ""
+msgstr "참조 미리보기"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:186
 #: src/ui/shortcutsWindow.ui:369 src/ui/wikipediaBox.ui:107
 #: data/com.github.johnfactotum.Foliate.gschema.xml:272
 msgid "View"
-msgstr ""
+msgstr "보기"
 
 #: src/ui/imageViewer.ui:31 src/ui/menuBar.ui:60 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:338
 msgid "Copy"
-msgstr ""
+msgstr "복사하기"
 
 #: src/ui/imageViewer.ui:44 src/ui/shortcutsWindow.ui:345
 msgid "Save as"
-msgstr ""
+msgstr "다른 이름으로 저장"
 
 #: src/ui/imageViewer.ui:126 src/ui/mainMenu.ui:50
 #: src/ui/shortcutsWindow.ui:198 src/ui/shortcutsWindow.ui:318
 #: src/ui/shortcutsWindow.ui:381
 msgid "Zoom out"
-msgstr ""
+msgstr "축소"
 
 #: src/ui/imageViewer.ui:139 src/ui/mainMenu.ui:64
 msgid "Restore zoom"
-msgstr ""
+msgstr "확대/축소 복원"
 
 #: src/ui/imageViewer.ui:152 src/ui/mainMenu.ui:73
 #: src/ui/shortcutsWindow.ui:190 src/ui/shortcutsWindow.ui:311
 #: src/ui/shortcutsWindow.ui:373
 msgid "Zoom in"
-msgstr ""
+msgstr "확대"
 
 #: src/ui/imageViewer.ui:184 src/ui/shortcutsWindow.ui:395
 msgid "Rotate 90° counter-clockwise"
-msgstr ""
+msgstr "시계 반대 방향으로 90° 회전"
 
 #: src/ui/imageViewer.ui:197 src/ui/shortcutsWindow.ui:402
 msgid "Rotate 90° clockwise"
-msgstr ""
+msgstr "시계 방향으로 90° 회전"
 
 #: src/ui/importWindow.ui:17
 msgid "Import"
-msgstr ""
+msgstr "가져오기"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr ""
+msgstr "다음 주석이 추가됨:"
 
 #: src/ui/importWindow.ui:64
-msgid ""
-"The imported annotations will NOT overwrite the existing ones when they "
-"highlight the same passages."
-msgstr ""
+msgid "The imported annotations will NOT overwrite the existing ones when they highlight the same passages."
+msgstr "가져온 주석이 동일한 구문을 강조 표시할 때 기존 주석을 덮어쓰지 않습니다."
 
 #: src/ui/libraryWindow.ui:7
 msgid "Open Book…"
-msgstr ""
+msgstr "도서 열기…"
 
 #: src/ui/libraryWindow.ui:11
 msgid "Open Catalog…"
-msgstr ""
+msgstr "카탈로그 열기…"
 
 #: src/ui/libraryWindow.ui:17
 msgid "Add Books…"
-msgstr ""
+msgstr "도서 추가…"
 
 #: src/ui/libraryWindow.ui:21 src/ui/libraryWindow.ui:683
 msgid "Add Catalog…"
-msgstr ""
+msgstr "카탈로그 추가…"
 
 #: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
 #: src/ui/preferenceWindow.ui:118
 msgid "Preferences"
-msgstr ""
+msgstr "환경설정"
 
 #: src/ui/libraryWindow.ui:30 src/ui/mainMenu.ui:323 src/ui/menuBar.ui:223
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "키보드 단축키"
 
 #: src/ui/libraryWindow.ui:34 src/ui/mainMenu.ui:330 src/ui/menuBar.ui:227
 msgid "About Foliate"
-msgstr ""
+msgstr "Foliate 소개"
 
 #: src/ui/libraryWindow.ui:55
 msgid "Go to start page"
-msgstr ""
+msgstr "시작 페이지로 이동"
 
 #: src/ui/libraryWindow.ui:83
 msgid "Add this feed to catalogs"
-msgstr ""
+msgstr "카탈로그에 이 피드 추가"
 
 #: src/ui/libraryWindow.ui:104
 msgid "Location…"
-msgstr ""
+msgstr "위치…"
 
 #: src/ui/libraryWindow.ui:116
 msgid "Go Back to Library"
-msgstr ""
+msgstr "라이브러리로 돌아가기"
 
 #: src/ui/libraryWindow.ui:123
 msgid "Go Back to Catalogs"
-msgstr ""
+msgstr "카탈로그로 돌아가기"
 
 #: src/ui/libraryWindow.ui:149
 msgid "Add books"
-msgstr ""
+msgstr "책 추가"
 
 #: src/ui/libraryWindow.ui:166
 msgid "Add catalog"
-msgstr ""
+msgstr "카탈로그 추가"
 
 #: src/ui/libraryWindow.ui:229 src/ui/libraryWindow.ui:316
 #: src/ui/shortcutsWindow.ui:44
 msgid "Search"
-msgstr ""
+msgstr "검색"
 
 #: src/ui/libraryWindow.ui:243
 msgid "Toggle view"
-msgstr ""
+msgstr "보기 전환"
 
 #: src/ui/libraryWindow.ui:378
 msgid "Stop"
-msgstr ""
+msgstr "중지"
 
 #: src/ui/libraryWindow.ui:481
 msgid "No books yet"
-msgstr ""
+msgstr "아직 책이 없습니다"
 
 #: src/ui/libraryWindow.ui:493 src/ui/mainOverlay.ui:60
 msgid "Open a book to start reading."
-msgstr ""
+msgstr "읽기를 시작하려면 책을 엽니다."
 
 #: src/ui/libraryWindow.ui:507 src/ui/mainOverlay.ui:73
 msgid "Open File…"
-msgstr ""
+msgstr "파일 열기…"
 
 #: src/ui/libraryWindow.ui:515
 msgid "Browse Catalogs"
-msgstr ""
+msgstr "카탈로그 찾아보기"
 
 #: src/ui/libraryWindow.ui:547
 msgid "No results found"
-msgstr ""
+msgstr "발견된 결과 없음"
 
 #: src/ui/libraryWindow.ui:559
 msgid "Try a different search."
-msgstr ""
+msgstr "다른 검색을 시도합니다."
 
 #: src/ui/libraryWindow.ui:656
 msgid "No catalogs"
-msgstr ""
+msgstr "카탈로그 없음"
 
 #: src/ui/libraryWindow.ui:668
 msgid "You can browse, search, and download content from OPDS catalogs."
-msgstr ""
+msgstr "OPDS 카탈로그에서 콘텐츠를 찾아, 검색 및 다운로드할 수 있습니다."
 
 #: src/ui/libraryWindow.ui:692
 msgid "Learn More"
-msgstr ""
+msgstr "더 알아보기"
 
 #: src/ui/libraryWindow.ui:708 src/ui/shortcutsWindow.ui:67
 msgid "Catalogs"
-msgstr ""
+msgstr "카탈로그"
 
 #: src/ui/mainMenu.ui:115 data/com.github.johnfactotum.Foliate.gschema.xml:181
 msgid "Brightness"
-msgstr ""
+msgstr "밝기"
 
 #: src/ui/mainMenu.ui:148 data/com.github.johnfactotum.Foliate.gschema.xml:126
 #: data/com.github.johnfactotum.Foliate.gschema.xml:127
 msgid "Font"
-msgstr ""
+msgstr "글꼴"
 
 #: src/ui/mainMenu.ui:162 data/com.github.johnfactotum.Foliate.gschema.xml:131
 msgid "Spacing"
-msgstr ""
+msgstr "간격"
 
 #: src/ui/mainMenu.ui:176
 msgid "Margins"
-msgstr ""
+msgstr "여백"
 
 #: src/ui/mainMenu.ui:231
 msgid "Width"
-msgstr ""
+msgstr "너비"
 
 #: src/ui/mainMenu.ui:232 data/com.github.johnfactotum.Foliate.gschema.xml:142
 msgid "Maximum page width"
-msgstr ""
+msgstr "최대 페이지 너비"
 
 #: src/ui/mainMenu.ui:266 src/ui/mainMenu.ui:343
 msgid "Theme"
-msgstr ""
+msgstr "테마"
 
 #: src/ui/mainMenu.ui:273 src/ui/mainMenu.ui:409 src/ui/preferenceWindow.ui:600
 msgid "Advanced"
-msgstr ""
+msgstr "고급"
 
 #: src/ui/mainMenu.ui:285 src/ui/mainMenu.ui:603 src/ui/shortcutsWindow.ui:151
 msgid "Book"
-msgstr ""
+msgstr "도서"
 
 #: src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8
 msgid "Open…"
-msgstr ""
+msgstr "열기…"
 
 #: src/ui/mainMenu.ui:383
 msgid "Add Custom Theme…"
-msgstr ""
+msgstr "사용자지정 테마 추가…"
 
 #: src/ui/mainMenu.ui:429 src/ui/menuBar.ui:108
 #: data/com.github.johnfactotum.Foliate.gschema.xml:201
 msgid "Layout"
-msgstr ""
+msgstr "레이아웃"
 
 #: src/ui/mainMenu.ui:447 src/ui/menuBar.ui:111
 msgid "Automatic"
-msgstr ""
+msgstr "자동"
 
 #: src/ui/mainMenu.ui:455 src/ui/menuBar.ui:116
 msgid "Single Column"
-msgstr ""
+msgstr "단일 열"
 
 #: src/ui/mainMenu.ui:463 src/ui/menuBar.ui:121
 msgid "Scrolled"
-msgstr ""
+msgstr "스크롤됨"
 
 #: src/ui/mainMenu.ui:471 src/ui/menuBar.ui:126
 msgid "Continuous"
-msgstr ""
+msgstr "연속"
 
 #: src/ui/mainMenu.ui:488
 msgid "Text"
-msgstr ""
+msgstr "텍스트"
 
 #: src/ui/mainMenu.ui:505 src/ui/menuBar.ui:135
 msgid "Use Publisher Font"
-msgstr ""
+msgstr "출판사 글꼴 사용"
 
 #: src/ui/mainMenu.ui:512 src/ui/menuBar.ui:139
 msgid "Full Justification"
-msgstr ""
+msgstr "전체 맞춤"
 
 #: src/ui/mainMenu.ui:519 src/ui/menuBar.ui:143
 msgid "Auto-hyphenation"
-msgstr ""
+msgstr "하이픈 자동넣기"
 
 #: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114 src/schemes.js:402
 msgid "Other"
-msgstr ""
+msgstr "기타"
 
 #: src/ui/mainMenu.ui:560 src/ui/menuBar.ui:153
 msgid "Auto-hide Cursor"
-msgstr ""
+msgstr "커서 자동 숨김"
 
 #: src/ui/mainMenu.ui:567 src/ui/menuBar.ui:157
 msgid "Realistic Shadows"
-msgstr ""
+msgstr "책처럼 보기"
 
 #: src/ui/mainMenu.ui:579
 msgid "Allow JavaScript"
-msgstr ""
+msgstr "JavaScript 허용"
 
 #: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
 msgid "Allow Unsafe Content"
-msgstr ""
+msgstr "안전하지 않은 콘텐츠 허용"
 
 #: src/ui/mainMenu.ui:587 src/ui/menuBar.ui:167
 msgid "Enable Developer Tools"
-msgstr ""
+msgstr "개발자 도구 활성화"
 
 #: src/ui/mainMenu.ui:625 src/ui/menuBar.ui:14
 msgid "Open a Copy"
-msgstr ""
+msgstr "사본 열기"
 
 #: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
 msgid "Clear Cache"
-msgstr ""
+msgstr "캐시 지우기"
 
 #: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
 msgid "Import Annotations…"
-msgstr ""
+msgstr "주석 가져오기…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
-msgstr ""
+msgstr "열려있는 도서 없음"
 
 #: src/ui/mainOverlay.ui:88
 msgid "Recent Files"
-msgstr ""
+msgstr "최근 파일"
 
 #: src/ui/mainOverlay.ui:129
 msgid "Could not open file"
-msgstr ""
+msgstr "파일을 열 수 없습니다"
 
 #: src/ui/mainOverlay.ui:150
 msgid "Open Another File…"
-msgstr ""
+msgstr "다른 파일 열기…"
 
 #: src/ui/mainOverlay.ui:183
 msgid "Downloading…"
-msgstr ""
+msgstr "다운로드 중…"
 
 #: src/ui/menuBar.ui:5
 msgid "_File"
-msgstr ""
+msgstr "파일(_F)"
 
 #: src/ui/menuBar.ui:28
 msgid "Properties"
-msgstr ""
+msgstr "속성"
 
 #: src/ui/menuBar.ui:46
 msgid "Close Window"
-msgstr ""
+msgstr "창 닫기"
 
 #: src/ui/menuBar.ui:50 src/ui/shortcutsWindow.ui:31
 #: src/ui/shortcutsWindow.ui:141 src/ui/shortcutsWindow.ui:359
 msgid "Quit"
-msgstr ""
+msgstr "끝내기"
 
 #: src/ui/menuBar.ui:57
 msgid "_Edit"
-msgstr ""
+msgstr "편집(_E)"
 
 #: src/ui/menuBar.ui:66
 msgid "Bookmark Current Location"
-msgstr ""
+msgstr "책갈피 현재 위치"
 
 #: src/ui/menuBar.ui:72 src/ui/ttsDialog.ui:6
 msgid "Text-to-Speech"
-msgstr ""
+msgstr "텍스트 음성 변환"
 
 #: src/ui/menuBar.ui:85
 msgid "_View"
-msgstr ""
+msgstr "보기(_V)"
 
 #: src/ui/menuBar.ui:88
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "전체화면 전환"
 
 #: src/ui/menuBar.ui:94
 msgid "Zoom In"
-msgstr ""
+msgstr "확대"
 
 #: src/ui/menuBar.ui:98
 msgid "Restore Zoom"
-msgstr ""
+msgstr "확대/축소 복원"
 
 #: src/ui/menuBar.ui:102
 msgid "Zoom Out"
-msgstr ""
+msgstr "축소"
 
 #: src/ui/menuBar.ui:174
 msgid "_Go"
-msgstr ""
+msgstr "넘기기(_G)"
 
 #: src/ui/menuBar.ui:177
 msgid "Go Back"
-msgstr ""
+msgstr "돌아가기"
 
 #: src/ui/menuBar.ui:183
 msgid "Next Page"
-msgstr ""
+msgstr "다음 페이지"
 
 #: src/ui/menuBar.ui:187
 msgid "Previous Page"
-msgstr ""
+msgstr "이전 페이지"
 
 #: src/ui/menuBar.ui:193
 msgid "Next Chapter"
-msgstr ""
+msgstr "다음 챕터"
 
 #: src/ui/menuBar.ui:197
 msgid "Previous Chapter"
-msgstr ""
+msgstr "이전 챕터"
 
 #: src/ui/menuBar.ui:203
 msgid "Beginning"
-msgstr ""
+msgstr "첫장"
 
 #: src/ui/menuBar.ui:207
 msgid "End"
-msgstr ""
+msgstr "마지막장"
 
 #: src/ui/menuBar.ui:213 src/ui/navBar.ui:134 src/ui/navBar.ui:313
 #: src/ui/preferenceWindow.ui:19
 msgid "Location"
-msgstr ""
+msgstr "위치 찾기"
 
 #: src/ui/menuBar.ui:220
 msgid "_Help"
-msgstr ""
+msgstr "도움말(_H)"
 
 #: src/ui/navBar.ui:27 src/ui/preferenceWindow.ui:35
 msgid "Time left in book"
-msgstr ""
+msgstr "책에 남은 시간"
 
 #: src/ui/navBar.ui:41 src/ui/preferenceWindow.ui:31
 msgid "Time left in chapter"
-msgstr ""
+msgstr "챕터에 남은 시간"
 
 #: src/ui/navBar.ui:95 src/ui/preferenceWindow.ui:23
 msgid "Chapter"
-msgstr ""
+msgstr "챕터"
 
 #: src/ui/navBar.ui:173
 msgid "CFI"
-msgstr ""
+msgstr "CFI"
 
 #: src/ui/navBar.ui:174
 msgid "EPUB Canonical Fragment Identifier"
-msgstr ""
+msgstr "EPUB 정식 단편 식별자"
 
 #: src/ui/navBar.ui:213
 msgid "Go to beginning of book"
-msgstr ""
+msgstr "책의 첫장으로 가기"
 
 #: src/ui/navBar.ui:227
 msgid "Go to previous chapter"
-msgstr ""
+msgstr "이전 챕터로 가기"
 
 #: src/ui/navBar.ui:241
 msgid "Go to next chapter"
-msgstr ""
+msgstr "다음 챕터로 가기"
 
 #: src/ui/navBar.ui:255
 msgid "Go to end of book"
-msgstr ""
+msgstr "책의 마지막장으로 가기"
 
 #: src/ui/navBar.ui:284 src/ui/shortcutsWindow.ui:268
 #: src/ui/shortcutsWindow.ui:304
 msgid "Go to previous page"
-msgstr ""
+msgstr "이전 페이지로 가기"
 
 #: src/ui/navBar.ui:298 src/ui/shortcutsWindow.ui:275
 msgid "Go back to previous location"
-msgstr ""
+msgstr "이전 위치로 돌아가기"
 
 #: src/ui/navBar.ui:387 src/ui/shortcutsWindow.ui:261
 #: src/ui/shortcutsWindow.ui:297
 msgid "Go to next page"
-msgstr ""
+msgstr "다음 페이지로 가기"
 
 #: src/ui/navBar.ui:402
 msgid "Text-to-speech"
-msgstr ""
+msgstr "텍스트 음성 변환"
 
 #: src/ui/preferenceWindow.ui:11
 msgid "Nothing"
-msgstr ""
+msgstr "없음"
 
 #: src/ui/preferenceWindow.ui:15
 msgid "Percentage"
-msgstr ""
+msgstr "퍼센트"
 
 #: src/ui/preferenceWindow.ui:27
 msgid "Chapter name"
-msgstr ""
+msgstr "챕터 이름"
 
 #: src/ui/preferenceWindow.ui:39
 msgid "Clock"
-msgstr ""
+msgstr "시계"
 
 #: src/ui/preferenceWindow.ui:51
 msgid "Do nothing"
-msgstr ""
+msgstr "아무것도 하지 않음"
 
 #: src/ui/preferenceWindow.ui:55
 msgid "Show menu"
-msgstr ""
+msgstr "메뉴 표시"
 
 #: src/ui/preferenceWindow.ui:63 src/ui/selectionPopover.ui:33
 msgid "Highlight"
-msgstr ""
+msgstr "강조표시하기"
 
 #: src/ui/preferenceWindow.ui:67
 msgid "Look up in dictionary"
-msgstr ""
+msgstr "사전에서 조회하기"
 
 #: src/ui/preferenceWindow.ui:71
 msgid "Look up in Wikipedia"
-msgstr ""
+msgstr "위키백과에서 조회하기"
 
 #: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:93
 msgid "Translate"
-msgstr ""
+msgstr "번역하기"
 
 #: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:162
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
-msgstr ""
+msgstr "책에서 찾기"
 
 #: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:59
 #: src/ui/ttsDialog.ui:165
 msgid "Speak"
-msgstr ""
+msgstr "음성듣기"
 
 #: src/ui/preferenceWindow.ui:95
 msgid "Disabled"
-msgstr ""
+msgstr "비활성화됨"
 
 #: src/ui/preferenceWindow.ui:99
 msgid "Single click"
-msgstr ""
+msgstr "한 번 클릭"
 
 #: src/ui/preferenceWindow.ui:103
 msgid "Double click"
-msgstr ""
+msgstr "두 번 클릭"
 
 #: src/ui/preferenceWindow.ui:107
 msgid "Middle click"
-msgstr ""
+msgstr "가운데 버튼 클릭"
 
 #: src/ui/preferenceWindow.ui:111
 msgid "Right click"
-msgstr ""
+msgstr "오른쪽 버튼 클릭"
 
 #: src/ui/preferenceWindow.ui:142 src/ui/shortcutsWindow.ui:13
 #: src/ui/shortcutsWindow.ui:334
 msgid "General"
-msgstr ""
+msgstr "일반"
 
 #: src/ui/preferenceWindow.ui:157
 msgid "Open last opened file on startup"
-msgstr ""
+msgstr "시작 시 마지막으로 열린 파일 열기"
 
 #: src/ui/preferenceWindow.ui:182
 msgid "Reading"
-msgstr ""
+msgstr "읽기"
 
 #: src/ui/preferenceWindow.ui:197
 #: data/com.github.johnfactotum.Foliate.gschema.xml:108
 msgid "Turn page on tap"
-msgstr ""
+msgstr "화면터치 또는 클릭시 페이지 넘기기"
 
 #: src/ui/preferenceWindow.ui:220
 #: data/com.github.johnfactotum.Foliate.gschema.xml:98
 msgid "Left footer"
-msgstr ""
+msgstr "왼쪽 바닥글"
 
 #: src/ui/preferenceWindow.ui:254
 #: data/com.github.johnfactotum.Foliate.gschema.xml:103
 msgid "Right footer"
-msgstr ""
+msgstr "오른쪽 바닥글"
 
 #: src/ui/preferenceWindow.ui:288
 msgid "When a word is selected"
-msgstr ""
+msgstr "한 단어를 선택한 경우"
 
 #: src/ui/preferenceWindow.ui:322
 msgid "When multiple words are selected"
-msgstr ""
+msgstr "여러 단어를 선택한 경우"
 
 #: src/ui/preferenceWindow.ui:356
 msgid "Open images on"
-msgstr ""
+msgstr "다음에서 이미지 열기"
 
 #: src/ui/preferenceWindow.ui:391
 #: data/com.github.johnfactotum.Foliate.gschema.xml:78
 msgid "Text-to-speech command"
-msgstr ""
+msgstr "텍스트 음성 변환 명령"
 
 #: src/ui/preferenceWindow.ui:407
 msgid "Configure…"
-msgstr ""
+msgstr "구성하기…"
 
 #: src/ui/preferenceWindow.ui:425
 msgid "Interface"
-msgstr ""
+msgstr "인터페이스"
 
 #: src/ui/preferenceWindow.ui:440
 msgid "Auto-hide header bar"
-msgstr ""
+msgstr "머리글 표시줄 자동 숨김"
 
 #: src/ui/preferenceWindow.ui:474
 #: data/com.github.johnfactotum.Foliate.gschema.xml:83
 msgid "Use sidebar"
-msgstr ""
+msgstr "사이드바 사용"
 
 #: src/ui/preferenceWindow.ui:502
 msgid "Use traditional titlebar (experimental)"
-msgstr ""
+msgstr "기존 제목 표시줄 사용 (실험적)"
 
 #: src/ui/preferenceWindow.ui:510 src/ui/preferenceWindow.ui:628
 #: src/ui/preferenceWindow.ui:670
 msgid "Requires restart"
-msgstr ""
+msgstr "재시작 필요"
 
 #: src/ui/preferenceWindow.ui:542
 msgid "OPDS"
-msgstr ""
+msgstr "OPDS"
 
 #: src/ui/preferenceWindow.ui:552
 msgid "When downloading books"
-msgstr ""
+msgstr "책을 다운로드할 때"
 
 #: src/ui/preferenceWindow.ui:563
 msgid "Save to default directory"
-msgstr ""
+msgstr "기본 디렉터리에 저장"
 
 #: src/ui/preferenceWindow.ui:583
 msgid "Ask what to do"
-msgstr ""
+msgstr "어떻게 할지 묻기"
 
 #: src/ui/preferenceWindow.ui:620
 msgid "Use Tracker to track file locations"
-msgstr ""
+msgstr "추적기를 사용하여 파일 위치 추적"
 
 #: src/ui/preferenceWindow.ui:662
 msgid "Save file locations"
-msgstr ""
+msgstr "파일 위치 저장"
 
 #: src/ui/preferenceWindow.ui:700
 #: data/com.github.johnfactotum.Foliate.gschema.xml:28
 msgid "Cache locations"
-msgstr ""
+msgstr "캐시 위치"
 
 #: src/ui/preferenceWindow.ui:724
 msgid "Cache book covers"
-msgstr ""
+msgstr "책 표지 캐시"
 
 #: src/ui/propertiesBox.ui:93
 msgid "Details"
-msgstr ""
+msgstr "상세정보"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
-msgstr ""
+msgstr "사전에서 조회"
 
 #: src/ui/selectionPopover.ui:86
 msgid "Look Up in Wikipedia"
-msgstr ""
+msgstr "위키백과에서 조회"
 
 #: src/ui/selectionPopover.ui:105
 msgid "Speak from Here"
-msgstr ""
+msgstr "여기에서 음성듣기"
 
 #: src/ui/shortcutsWindow.ui:9
 msgid "Library Shortcuts"
-msgstr ""
+msgstr "라이브러리 단축키"
 
 #: src/ui/shortcutsWindow.ui:17 src/ui/shortcutsWindow.ui:106
 msgid "Open file"
-msgstr ""
+msgstr "파일 열기"
 
 #: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:134
 #: src/ui/shortcutsWindow.ui:352
 msgid "Close current window"
-msgstr ""
+msgstr "현재 창 닫기"
 
 #: src/ui/shortcutsWindow.ui:51
 msgid "List view"
-msgstr ""
+msgstr "목록 보기"
 
 #: src/ui/shortcutsWindow.ui:58
 msgid "Grid view"
-msgstr ""
+msgstr "그리드 보기"
 
 #: src/ui/shortcutsWindow.ui:85 src/ui/shortcutsWindow.ui:283
 msgid "Go to location"
-msgstr ""
+msgstr "위치로 가기"
 
 #: src/ui/shortcutsWindow.ui:98
 msgid "E-book Viewer Shortcuts"
-msgstr ""
+msgstr "E book 뷰어 단축키"
 
 #: src/ui/shortcutsWindow.ui:102
 msgid "File"
-msgstr ""
+msgstr "파일"
 
 #: src/ui/shortcutsWindow.ui:113
 msgid "Open a copy"
-msgstr ""
+msgstr "사본 열기"
 
 #: src/ui/shortcutsWindow.ui:127
 msgid "Clear cache"
-msgstr ""
+msgstr "캐시 지우기"
 
 #: src/ui/shortcutsWindow.ui:169
 msgid "View book info"
-msgstr ""
+msgstr "책 정보 보기"
 
 #: src/ui/shortcutsWindow.ui:176
 msgid "Start/stop text-to-speech"
-msgstr ""
+msgstr "텍스트 음성 변환 시작/중지"
 
 #: src/ui/shortcutsWindow.ui:205 src/ui/shortcutsWindow.ui:388
 msgid "Restore zoom level"
-msgstr ""
+msgstr "확대/축소 수준 복원"
 
 #: src/ui/shortcutsWindow.ui:212
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "전체화면 전환"
 
 #: src/ui/shortcutsWindow.ui:219
 msgid "Show contents"
-msgstr ""
+msgstr "콘텐츠 표시"
 
 #: src/ui/shortcutsWindow.ui:226
 msgid "Show table of contents"
-msgstr ""
+msgstr "목차 표시"
 
 #: src/ui/shortcutsWindow.ui:233
 msgid "Show annotations"
-msgstr ""
+msgstr "주석 표시"
 
 #: src/ui/shortcutsWindow.ui:240
 msgid "Show bookmarks"
-msgstr ""
+msgstr "책갈피 표시"
 
 #: src/ui/shortcutsWindow.ui:247
 msgid "Show primary menu"
-msgstr ""
+msgstr "기본 메뉴 표시"
 
 #: src/ui/shortcutsWindow.ui:257
 msgid "Navigation"
-msgstr ""
+msgstr "탐색"
 
 #: src/ui/shortcutsWindow.ui:293
 msgid "Touchpad Gestures"
-msgstr ""
+msgstr "터치패드 제스처"
 
 #: src/ui/shortcutsWindow.ui:330
 msgid "Image Viewer Shortcuts"
-msgstr ""
+msgstr "이미지 뷰어 단축키"
 
 #: src/ui/themeWindow.ui:6
 msgid "Custom Theme"
-msgstr ""
+msgstr "사용자지정 테마"
 
 #: src/ui/themeWindow.ui:39
 msgid "Theme Name"
-msgstr ""
+msgstr "테마 이름"
 
 #: src/ui/themeWindow.ui:64
 msgid "Background"
-msgstr ""
+msgstr "배경"
 
 #: src/ui/themeWindow.ui:78
 msgid "Text Color"
-msgstr ""
+msgstr "텍스트 색상"
 
 #: src/ui/themeWindow.ui:92
 msgid "Link Color"
-msgstr ""
+msgstr "링크 색상"
 
 #: src/ui/themeWindow.ui:159
 msgid "Dark Mode"
-msgstr ""
+msgstr "어두운 모드"
 
 #: src/ui/themeWindow.ui:200
 msgid "Remove Theme"
-msgstr ""
+msgstr "테마 제거"
 
 #: src/ui/translationBox.ui:53
 msgid "Cannot retrieve translation"
-msgstr ""
+msgstr "번역을 검색할 수 없음"
 
 #: src/ui/ttsDialog.ui:46
 msgid "Text-to-Speech Command"
-msgstr ""
+msgstr "텍스트 음성 변환 명령"
 
 #: src/ui/ttsDialog.ui:57
 msgid "Make sure the selected text-to-speech program is correctly installed."
-msgstr ""
+msgstr "선택한 텍스트 음성 변환 프로그램이 올바르게 설치되어 있는지 확인합니다."
 
 #: src/ui/ttsDialog.ui:63
 msgid "eSpeak NG"
-msgstr ""
+msgstr "eSpeak NG"
 
 #: src/ui/ttsDialog.ui:80 src/ui/ttsDialog.ui:106 src/ui/ttsDialog.ui:269
 msgid "Reset"
-msgstr ""
+msgstr "재설정"
 
 #: src/ui/ttsDialog.ui:88
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: src/ui/ttsDialog.ui:137
-msgid ""
-"<small>The environment variable <tt>$FOLIATE_TTS_LANG</tt> is available for "
-"the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for "
-"the all lower case code.</small>"
-msgstr ""
+msgid "<small>The environment variable <tt>$FOLIATE_TTS_LANG</tt> is available for the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for the all lower case code.</small>"
+msgstr "<small>환경 변수 <tt>$FOLIATE_TTS_LANG</tt>은(는) 책의 언어 코드에 사용할 수 있거나 모든 소문자 코드에 <tt>$FOLIATE_TTS_LANG_LOWER</tt>을(를) 사용합니다.</small>"
 
 #: src/ui/ttsDialog.ui:156
 msgid "Test Your Configuration"
-msgstr ""
+msgstr "구성 테스트"
 
 #: src/ui/ttsDialog.ui:178
 msgid "The program should speak the following test sentences in order:"
-msgstr ""
+msgstr "프로그램은 다음 테스트 문장을 순서대로 말해야합니다:"
 
 #: src/ui/ttsDialog.ui:191
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: src/ui/ttsDialog.ui:228
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: src/ui/wikipediaBox.ui:53
 msgid "No entry found"
-msgstr ""
+msgstr "항목을 찾을 수 없음"
 
 #: src/ui/wikipediaBox.ui:80
 msgid "Wikipedia"
-msgstr ""
+msgstr "위키백과"
 
 #: src/schemes.js:38
 msgid "DOI"
-msgstr ""
+msgstr "DOI"
 
 #: src/schemes.js:39
 msgid "Digital Object Identifier"
-msgstr ""
+msgstr "디지털 개체 식별자"
 
 #: src/schemes.js:43
 msgid "ISBN"
-msgstr ""
+msgstr "ISBN"
 
 #: src/schemes.js:44 src/schemes.js:48 src/schemes.js:53 src/schemes.js:58
 msgid "International Standard Book Number"
-msgstr ""
+msgstr "국제 표준 도서 번호"
 
 #: src/schemes.js:47
 msgid "ISBN-10"
-msgstr ""
+msgstr "ISBN 10"
 
 #: src/schemes.js:52
 msgid "ISBN-13"
-msgstr ""
+msgstr "ISBN 13"
 
 #: src/schemes.js:57
 msgid "ISBN-A"
-msgstr ""
+msgstr "ISBN A"
 
 #: src/schemes.js:62
 msgid "JDCN"
-msgstr ""
+msgstr "JDCN"
 
 #: src/schemes.js:63
 msgid "Japan Digital Comic Number"
-msgstr ""
+msgstr "일본 디지털 만화 번호"
 
 #: src/schemes.js:66
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 #: src/schemes.js:67
 msgid "Universally-Unique Identifier"
-msgstr ""
+msgstr "범용 고유 식별자"
 
 #: src/schemes.js:70
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/schemes.js:71
 msgid "Uniform Resource Locator"
-msgstr ""
+msgstr "인터넷 주소"
 
 #: src/schemes.js:74
 msgid "URI"
-msgstr ""
+msgstr "URI"
 
 #: src/schemes.js:75
 msgid "Uniform Resource Identifier"
-msgstr ""
+msgstr "인터넷 식별자"
 
 #: src/schemes.js:78
 msgid "ISSN"
-msgstr ""
+msgstr "ISSN"
 
 #: src/schemes.js:79
 msgid "International Standard Serial Number"
-msgstr ""
+msgstr "국제 표준 간행물 일련번호"
 
 #: src/schemes.js:83
 msgid "Amazon Standard Identification Number"
-msgstr ""
+msgstr "아마존 표준 식별 번호"
 
 #: src/schemes.js:87
 msgid "OCLC"
-msgstr ""
+msgstr "OCLC"
 
 #: src/schemes.js:88
 msgid "Online Computer Library Center"
-msgstr ""
+msgstr "온라인 컴퓨터 라이브러리 센터"
 
 #: src/schemes.js:92 src/schemes.js:93
 msgid "arXiv"
-msgstr ""
+msgstr "arXiv"
 
 #: src/schemes.js:96 src/schemes.js:97
 msgid "calibre"
-msgstr ""
+msgstr "calibre"
 
 #: src/schemes.js:101
 msgid "Foliate generated identifier"
-msgstr ""
+msgstr "Foliate 생성 식별자"
 
 #: src/schemes.js:122
 msgid "AAT"
-msgstr ""
+msgstr "AAT"
 
 #: src/schemes.js:123
 msgid "The Getty Art and Architecture Taxonomy"
-msgstr ""
+msgstr "게티 미술 및 건축 분류"
 
 #: src/schemes.js:126
 msgid "BIC"
-msgstr ""
+msgstr "BIC"
 
 #: src/schemes.js:127
 msgid "Book Industry Communication"
-msgstr ""
+msgstr "도서 산업 커뮤니케이션"
 
 #: src/schemes.js:130
 msgid "BISAC"
-msgstr ""
+msgstr "BISAC"
 
 #: src/schemes.js:131
 msgid "Book Industry Standards and Communications"
-msgstr ""
+msgstr "도서 산업 표준 및 커뮤니케이션"
 
 #: src/schemes.js:135
 msgid "CLC"
-msgstr ""
+msgstr "CLC"
 
 #: src/schemes.js:136
 msgid "Chinese Library Classification"
-msgstr ""
+msgstr "중국 도서관 분류"
 
 #: src/schemes.js:139
 msgid "DDC"
-msgstr ""
+msgstr "DDC"
 
 #: src/schemes.js:140
 msgid "Dewey Decimal Classification"
-msgstr ""
+msgstr "듀이 10진 분류법"
 
 #: src/schemes.js:144
 msgid "CLIL"
-msgstr ""
+msgstr "CLIL"
 
 #: src/schemes.js:145
 msgid "Commission de Liaison Interprofessionnelle du Livre"
-msgstr ""
+msgstr "리브르 국제 연락 위원회"
 
 #: src/schemes.js:148 src/schemes.js:149
 msgid "EuroVoc"
-msgstr ""
+msgstr "EuroVoc(유럽 ​​연합 출판 사무소에서 관리 하는 다국어 동의어 사전)"
 
 #: src/schemes.js:152
 msgid "MEDTOP"
-msgstr ""
+msgstr "MEDTOP"
 
 #: src/schemes.js:153
 msgid "IPTC Media Topics"
-msgstr ""
+msgstr "IPTC 미디어 토픽"
 
 #: src/schemes.js:156
 msgid "LCC"
-msgstr ""
+msgstr "LCC"
 
 #: src/schemes.js:157
 msgid "Library of Congress Classification"
-msgstr ""
+msgstr "국회 도서관 분류표"
 
 #: src/schemes.js:161
 msgid "LCSH"
-msgstr ""
+msgstr "LCSH"
 
 #: src/schemes.js:162
 msgid "Library of Congress Subject Headings"
-msgstr ""
+msgstr "주제 명표목 의회 도서관"
 
 #: src/schemes.js:166
 msgid "NDC"
-msgstr ""
+msgstr "NDC"
 
 #: src/schemes.js:167
 msgid "Nippon Decimal Classification"
-msgstr ""
+msgstr "일본 10진 분류법"
 
 #: src/schemes.js:170 src/schemes.js:171
 msgid "Thema"
-msgstr ""
+msgstr "Thema"
 
 #: src/schemes.js:174
 msgid "UDC"
-msgstr ""
+msgstr "UDC"
 
 #: src/schemes.js:175
 msgid "Universal Decimal Classification"
-msgstr ""
+msgstr "국제 십진 분류법"
 
 #: src/schemes.js:179
 msgid "WGS"
-msgstr ""
+msgstr "WGS"
 
 #: src/schemes.js:180
 msgid "Warengruppen-Systematik"
-msgstr ""
+msgstr "Warengruppen Systematik(제품 그룹 분류)"
 
 #: src/schemes.js:183
 msgid "DCMIType"
-msgstr ""
+msgstr "DCMIType"
 
 #: src/schemes.js:184
 msgid "DCMI Type Vocabulary"
-msgstr ""
+msgstr "DCMI 유형 어휘"
 
 #: src/schemes.js:188
 msgid "Audience"
-msgstr ""
+msgstr "독자층"
 
 #: src/schemes.js:189
 msgid "Intended Audience"
-msgstr ""
+msgstr "대상 독자층"
 
 #. Translators: see https://www.loc.gov/marc/relators/relaterm.html
 #. for detailed descriptions
 #: src/schemes.js:231
 msgid "Abridger"
-msgstr ""
+msgstr "어브리저"
 
 #: src/schemes.js:232
 msgid "Art copyist"
-msgstr ""
+msgstr "아트 카피스트"
 
 #: src/schemes.js:233
 msgid "Actor"
-msgstr ""
+msgstr "등장 인물"
 
 #: src/schemes.js:234
 msgid "Art director"
-msgstr ""
+msgstr "아트 디렉터"
 
 #: src/schemes.js:235
 msgid "Adapter"
-msgstr ""
+msgstr "개작자"
 
 #: src/schemes.js:236
 msgid "Author of afterword, colophon, etc."
-msgstr ""
+msgstr "후일담의 저자, 출판사 이름 등."
 
 #: src/schemes.js:237
 msgid "Analyst"
-msgstr ""
+msgstr "분석가"
 
 #: src/schemes.js:238
 msgid "Animator"
-msgstr ""
+msgstr "만화 영화[동영상] 제작자"
 
 #: src/schemes.js:239
 msgid "Annotator"
-msgstr ""
+msgstr "주석자"
 
 #: src/schemes.js:240
 msgid "Bibliographic antecedent"
-msgstr ""
+msgstr "도서 목록의 선행사"
 
 #: src/schemes.js:241
 msgid "Appellee"
-msgstr ""
+msgstr "피항소인"
 
 #: src/schemes.js:242
 msgid "Appellant"
-msgstr ""
+msgstr "항소인"
 
 #: src/schemes.js:243
 msgid "Applicant"
-msgstr ""
+msgstr "지원자"
 
 #: src/schemes.js:244
 msgid "Author in quotations or text abstracts"
-msgstr ""
+msgstr "인용문 또는 텍스트 개요의 저자"
 
 #: src/schemes.js:245
 msgid "Architect"
-msgstr ""
+msgstr "건축가"
 
 #: src/schemes.js:246
 msgid "Artistic director"
-msgstr ""
+msgstr "극단의 예술 감독"
 
 #: src/schemes.js:247
 msgid "Arranger"
-msgstr ""
+msgstr "편곡자"
 
 #: src/schemes.js:248
 msgid "Artist"
-msgstr ""
+msgstr "예술가"
 
 #: src/schemes.js:249
 msgid "Assignee"
-msgstr ""
+msgstr "양수인"
 
 #: src/schemes.js:250
 msgid "Associated name"
-msgstr ""
+msgstr "관련된 이름"
 
 #: src/schemes.js:251
 msgid "Autographer"
-msgstr ""
+msgstr "필사가"
 
 #: src/schemes.js:252
 msgid "Attributed name"
-msgstr ""
+msgstr "귀속된 이름"
 
 #: src/schemes.js:253
 msgid "Auctioneer"
-msgstr ""
+msgstr "경매인"
 
 #: src/schemes.js:254
 msgid "Author of dialog"
-msgstr ""
+msgstr "대화의 저자"
 
 #: src/schemes.js:255
 msgid "Author of introduction, etc."
-msgstr ""
+msgstr "저자 소개 등."
 
 #: src/schemes.js:256
 msgid "Screenwriter"
-msgstr ""
+msgstr "시나리오 작가"
 
 #: src/schemes.js:258
 msgid "Binding designer"
-msgstr ""
+msgstr "제본용 표지 디자이너"
 
 #: src/schemes.js:259
 msgid "Bookjacket designer"
-msgstr ""
+msgstr "책 커버 디자이너"
 
 #: src/schemes.js:260
 msgid "Book designer"
-msgstr ""
+msgstr "책 디자이너"
 
 #: src/schemes.js:261
 msgid "Book producer"
-msgstr ""
+msgstr "책 제작자"
 
 #: src/schemes.js:262
 msgid "Blurb writer"
-msgstr ""
+msgstr "안내문 작가"
 
 #: src/schemes.js:263
 msgid "Binder"
-msgstr ""
+msgstr "제본 기술자"
 
 #: src/schemes.js:264
 msgid "Bookplate designer"
-msgstr ""
+msgstr "장서표 디자이너"
 
 #: src/schemes.js:265
 msgid "Broadcaster"
-msgstr ""
+msgstr "방송인"
 
 #: src/schemes.js:266
 msgid "Braille embosser"
-msgstr ""
+msgstr "점자 제판가"
 
 #: src/schemes.js:267
 msgid "Bookseller"
-msgstr ""
+msgstr "서적상"
 
 #: src/schemes.js:268
 msgid "Caster"
-msgstr ""
+msgstr "배역 담당자"
 
 #: src/schemes.js:269
 msgid "Conceptor"
-msgstr ""
+msgstr "입안자"
 
 #: src/schemes.js:270
 msgid "Choreographer"
-msgstr ""
+msgstr "안무가"
 
 #: src/schemes.js:271
 msgid "Client"
-msgstr ""
+msgstr "의뢰인"
 
 #: src/schemes.js:272
 msgid "Calligrapher"
-msgstr ""
+msgstr "달필가"
 
 #: src/schemes.js:273
 msgid "Colorist"
-msgstr ""
+msgstr "컬러리스트"
 
 #: src/schemes.js:274
 msgid "Collotyper"
-msgstr ""
+msgstr "콜로타이퍼"
 
 #: src/schemes.js:275
 msgid "Commentator"
-msgstr ""
+msgstr "평론가"
 
 #: src/schemes.js:276
 msgid "Composer"
-msgstr ""
+msgstr "작곡가"
 
 #: src/schemes.js:277
 msgid "Compositor"
-msgstr ""
+msgstr "합성가"
 
 #: src/schemes.js:278
 msgid "Conductor"
-msgstr ""
+msgstr "지휘자"
 
 #: src/schemes.js:279
 msgid "Cinematographer"
-msgstr ""
+msgstr "영화 촬영 기사"
 
 #: src/schemes.js:280
 msgid "Censor"
-msgstr ""
+msgstr "검열관"
 
 #: src/schemes.js:281
 msgid "Contestant-appellee"
-msgstr ""
+msgstr "소송 피항소인"
 
 #: src/schemes.js:282
 msgid "Collector"
-msgstr ""
+msgstr "수집가"
 
 #: src/schemes.js:283
 msgid "Compiler"
-msgstr ""
+msgstr "편집자"
 
 #: src/schemes.js:284
 msgid "Conservator"
-msgstr ""
+msgstr "유적·예술품 등의 관리 위원"
 
 #: src/schemes.js:285
 msgid "Collection registrar"
-msgstr ""
+msgstr "수집 기록 사무관"
 
 #: src/schemes.js:286
 msgid "Contestant"
-msgstr ""
+msgstr "소송인"
 
 #: src/schemes.js:287
 msgid "Contestant-appellant"
-msgstr ""
+msgstr "소송 항소인"
 
 #: src/schemes.js:288
 msgid "Court governed"
-msgstr ""
+msgstr "관할 법원"
 
 #: src/schemes.js:289
 msgid "Cover designer"
-msgstr ""
+msgstr "표지 디자이너"
 
 #: src/schemes.js:290
 msgid "Copyright claimant"
-msgstr ""
+msgstr "저작권 청구인"
 
 #: src/schemes.js:291
 msgid "Complainant-appellee"
-msgstr ""
+msgstr "원고 피항소인"
 
 #: src/schemes.js:292
 msgid "Copyright holder"
-msgstr ""
+msgstr "저작권 소유자"
 
 #: src/schemes.js:293
 msgid "Complainant"
-msgstr ""
+msgstr "원고"
 
 #: src/schemes.js:294
 msgid "Complainant-appellant"
-msgstr ""
+msgstr "원고 항소인"
 
 #: src/schemes.js:295
 msgid "Creator"
-msgstr ""
+msgstr "창작자"
 
 #: src/schemes.js:296
 msgid "Correspondent"
-msgstr ""
+msgstr "특파원"
 
 #: src/schemes.js:297
 msgid "Corrector"
-msgstr ""
+msgstr "교정원"
 
 #: src/schemes.js:298
 msgid "Court reporter"
-msgstr ""
+msgstr "법원 속기사"
 
 #: src/schemes.js:299
 msgid "Consultant"
-msgstr ""
+msgstr "자문위원"
 
 #: src/schemes.js:300
 msgid "Consultant to a project"
-msgstr ""
+msgstr "프로젝트 자문위원"
 
 #: src/schemes.js:301
 msgid "Costume designer"
-msgstr ""
+msgstr "의상 디자이너"
 
 #: src/schemes.js:302
 msgid "Contributor"
-msgstr ""
+msgstr "기여자"
 
 #: src/schemes.js:303
 msgid "Contestee-appellee"
-msgstr ""
+msgstr "콘테스트 피항소인"
 
 #: src/schemes.js:304
 msgid "Cartographer"
-msgstr ""
+msgstr "지도 제작자"
 
 #: src/schemes.js:305
 msgid "Contractor"
-msgstr ""
+msgstr "도급업자"
 
 #: src/schemes.js:306
 msgid "Contestee"
-msgstr ""
+msgstr "콘테스트"
 
 #: src/schemes.js:307
 msgid "Contestee-appellant"
-msgstr ""
+msgstr "콘테스트 항소인"
 
 #: src/schemes.js:308
 msgid "Curator"
-msgstr ""
+msgstr "큐레이터"
 
 #: src/schemes.js:309
 msgid "Commentator for written text"
-msgstr ""
+msgstr "서면 텍스트 해설자"
 
 #: src/schemes.js:310
 msgid "Distribution place"
-msgstr ""
+msgstr "유통 장소"
 
 #: src/schemes.js:311
 msgid "Defendant"
-msgstr ""
+msgstr "피고인"
 
 #: src/schemes.js:312
 msgid "Defendant-appellee"
-msgstr ""
+msgstr "피고인 피항소인"
 
 #: src/schemes.js:313
 msgid "Defendant-appellant"
-msgstr ""
+msgstr "피고인 항소인"
 
 #: src/schemes.js:314
 msgid "Degree granting institution"
-msgstr ""
+msgstr "학위 수여 기관"
 
 #: src/schemes.js:315
 msgid "Degree supervisor"
-msgstr ""
+msgstr "학위 감독자"
 
 #: src/schemes.js:316
 msgid "Dissertant"
-msgstr ""
+msgstr "박사 학위 논문 준비생"
 
 #: src/schemes.js:317
 msgid "Delineator"
-msgstr ""
+msgstr "묘사가"
 
 #: src/schemes.js:318
 msgid "Dancer"
-msgstr ""
+msgstr "무용수"
 
 #: src/schemes.js:319
 msgid "Donor"
-msgstr ""
+msgstr "기증자"
 
 #: src/schemes.js:320
 msgid "Depicted"
-msgstr ""
+msgstr "서술가"
 
 #: src/schemes.js:321
 msgid "Depositor"
-msgstr ""
+msgstr "예금자"
 
 #: src/schemes.js:322
 msgid "Draftsman"
-msgstr ""
+msgstr "입안자"
 
 #: src/schemes.js:323
 msgid "Director"
-msgstr ""
+msgstr "감독"
 
 #: src/schemes.js:324
 msgid "Designer"
-msgstr ""
+msgstr "디자이너"
 
 #: src/schemes.js:325
 msgid "Distributor"
-msgstr ""
+msgstr "배급 업자"
 
 #: src/schemes.js:326
 msgid "Data contributor"
-msgstr ""
+msgstr "데이터 기여자"
 
 #: src/schemes.js:327
 msgid "Dedicatee"
-msgstr ""
+msgstr "피봉사자"
 
 #: src/schemes.js:328
 msgid "Data manager"
-msgstr ""
+msgstr "데이터 관리자"
 
 #: src/schemes.js:329
 msgid "Dedicator"
-msgstr ""
+msgstr "봉사자"
 
 #: src/schemes.js:330
 msgid "Dubious author"
-msgstr ""
+msgstr "모호한 저자"
 
 #: src/schemes.js:331
 msgid "Editor of compilation"
-msgstr ""
+msgstr "편수 편집자"
 
 #: src/schemes.js:332
 msgid "Editor of moving image work"
-msgstr ""
+msgstr "동영상 작업 편집자"
 
 #: src/schemes.js:333
 msgid "Editor"
-msgstr ""
+msgstr "편집자"
 
 #: src/schemes.js:334
 msgid "Engraver"
-msgstr ""
+msgstr "판화가"
 
 #: src/schemes.js:335
 msgid "Electrician"
-msgstr ""
+msgstr "전기 기술자"
 
 #: src/schemes.js:336
 msgid "Electrotyper"
-msgstr ""
+msgstr "전기 제판공"
 
 #: src/schemes.js:337
 msgid "Engineer"
-msgstr ""
+msgstr "기술자"
 
 #: src/schemes.js:338
 msgid "Enacting jurisdiction"
-msgstr ""
+msgstr "사법권 제정"
 
 #: src/schemes.js:339
 msgid "Etcher"
-msgstr ""
+msgstr "동판 화공"
 
 #: src/schemes.js:340
 msgid "Event place"
-msgstr ""
+msgstr "이벤트 장소"
 
 #: src/schemes.js:341
 msgid "Expert"
-msgstr ""
+msgstr "전문가"
 
 #: src/schemes.js:342
 msgid "Facsimilist"
-msgstr ""
+msgstr "팩시밀리리스트"
 
 #: src/schemes.js:343
 msgid "Film distributor"
-msgstr ""
+msgstr "영화 배급사"
 
 #: src/schemes.js:344
 msgid "Field director"
-msgstr ""
+msgstr "현장 감독"
 
 #: src/schemes.js:345
 msgid "Film editor"
-msgstr ""
+msgstr "영화 편집가"
 
 #: src/schemes.js:346
 msgid "Film director"
-msgstr ""
+msgstr "영화 감독"
 
 #: src/schemes.js:347
 msgid "Filmmaker"
-msgstr ""
+msgstr "영화 회사"
 
 #: src/schemes.js:348
 msgid "Former owner"
-msgstr ""
+msgstr "전 소유자"
 
 #: src/schemes.js:349
 msgid "Film producer"
-msgstr ""
+msgstr "영화 연출가"
 
 #: src/schemes.js:350
 msgid "Funder"
-msgstr ""
+msgstr "자금 제공자"
 
 #: src/schemes.js:351
 msgid "First party"
-msgstr ""
+msgstr "첫째 단체"
 
 #: src/schemes.js:352
 msgid "Forger"
-msgstr ""
+msgstr "위조범"
 
 #: src/schemes.js:353
 msgid "Geographic information specialist"
-msgstr ""
+msgstr "지리 정보 전문가"
 
 #: src/schemes.js:354
 msgid "Host institution"
-msgstr ""
+msgstr "호스트 기관"
 
 #: src/schemes.js:355
 msgid "Honoree"
-msgstr ""
+msgstr "수상자"
 
 #: src/schemes.js:356
 msgid "Host"
-msgstr ""
+msgstr "진행자"
 
 #: src/schemes.js:357
 msgid "Illustrator"
-msgstr ""
+msgstr "삽화가"
 
 #: src/schemes.js:358
 msgid "Illuminator"
-msgstr ""
+msgstr "채식사"
 
 #: src/schemes.js:359
 msgid "Inscriber"
-msgstr ""
+msgstr "(비석 따위에) 새기는 사람"
 
 #: src/schemes.js:360
 msgid "Inventor"
-msgstr ""
+msgstr "발명가"
 
 #: src/schemes.js:361
 msgid "Issuing body"
-msgstr ""
+msgstr "발급 기관"
 
 #: src/schemes.js:362
 msgid "Instrumentalist"
-msgstr ""
+msgstr "악기 연주자"
 
 #: src/schemes.js:363
 msgid "Interviewee"
-msgstr ""
+msgstr "인터뷰 대상자"
 
 #: src/schemes.js:364
 msgid "Interviewer"
-msgstr ""
+msgstr "인터뷰 진행자"
 
 #: src/schemes.js:365
 msgid "Judge"
-msgstr ""
+msgstr "판사"
 
 #: src/schemes.js:366
 msgid "Jurisdiction governed"
-msgstr ""
+msgstr "사법권 적용"
 
 #: src/schemes.js:367
 msgid "Laboratory"
-msgstr ""
+msgstr "실험실"
 
 #: src/schemes.js:368
 msgid "Librettist"
-msgstr ""
+msgstr "오페라 대본 작가"
 
 #: src/schemes.js:369
 msgid "Laboratory director"
-msgstr ""
+msgstr "실험실 감독"
 
 #: src/schemes.js:370
 msgid "Lead"
-msgstr ""
+msgstr "주연"
 
 #: src/schemes.js:371
 msgid "Libelee-appellee"
-msgstr ""
+msgstr "민사 피고 피항소인"
 
 #: src/schemes.js:372
 msgid "Libelee"
-msgstr ""
+msgstr "민사 피고"
 
 #: src/schemes.js:373
 msgid "Lender"
-msgstr ""
+msgstr "채권자"
 
 #: src/schemes.js:374
 msgid "Libelee-appellant"
-msgstr ""
+msgstr "민사 피고 항소인"
 
 #: src/schemes.js:375
 msgid "Lighting designer"
-msgstr ""
+msgstr "조명 디자이너"
 
 #: src/schemes.js:376
 msgid "Libelant-appellee"
-msgstr ""
+msgstr "명예훼손 피항소인"
 
 #: src/schemes.js:377
 msgid "Libelant"
-msgstr ""
+msgstr "원고"
 
 #: src/schemes.js:378
 msgid "Libelant-appellant"
-msgstr ""
+msgstr "명예훼손 항소인"
 
 #: src/schemes.js:379
 msgid "Landscape architect"
-msgstr ""
+msgstr "조경사"
 
 #: src/schemes.js:380
 msgid "Licensee"
-msgstr ""
+msgstr "사용권자"
 
 #: src/schemes.js:381
 msgid "Licensor"
-msgstr ""
+msgstr "검열관"
 
 #: src/schemes.js:382
 msgid "Lithographer"
-msgstr ""
+msgstr "석판 인쇄공"
 
 #: src/schemes.js:383
 msgid "Lyricist"
-msgstr ""
+msgstr "작사가"
 
 #: src/schemes.js:384
 msgid "Music copyist"
-msgstr ""
+msgstr "음악 카피스트"
 
 #: src/schemes.js:385
 msgid "Metadata contact"
-msgstr ""
+msgstr "메타데이터 연락처"
 
 #: src/schemes.js:386
 msgid "Medium"
-msgstr ""
+msgstr "그림물감의 용제"
 
 #: src/schemes.js:387
 msgid "Manufacture place"
-msgstr ""
+msgstr "제조 장소"
 
 #: src/schemes.js:388
 msgid "Manufacturer"
-msgstr ""
+msgstr "제조자"
 
 #: src/schemes.js:389
 msgid "Moderator"
-msgstr ""
+msgstr "사회자"
 
 #: src/schemes.js:390
 msgid "Monitor"
-msgstr ""
+msgstr "모니터 요원"
 
 #: src/schemes.js:391
 msgid "Marbler"
-msgstr ""
+msgstr "마블러"
 
 #: src/schemes.js:392
 msgid "Markup editor"
-msgstr ""
+msgstr "마크업 편집가"
 
 #: src/schemes.js:393
 msgid "Musical director"
-msgstr ""
+msgstr "뮤지컬 감독"
 
 #: src/schemes.js:394
 msgid "Metal-engraver"
-msgstr ""
+msgstr "금속 조각사"
 
 #: src/schemes.js:395
 msgid "Minute taker"
-msgstr ""
+msgstr "회의록 작성자"
 
 #: src/schemes.js:396
 msgid "Musician"
-msgstr ""
+msgstr "음악가"
 
 #: src/schemes.js:397
 msgid "Narrator"
-msgstr ""
+msgstr "해설자"
 
 #: src/schemes.js:398
 msgid "Opponent"
-msgstr ""
+msgstr "상대편"
 
 #: src/schemes.js:399
 msgid "Originator"
-msgstr ""
+msgstr "창설자"
 
 #: src/schemes.js:400
 msgid "Organizer"
-msgstr ""
+msgstr "주최자"
 
 #: src/schemes.js:401
 msgid "Onscreen presenter"
-msgstr ""
+msgstr "영화의 발표자"
 
 #: src/schemes.js:403
 msgid "Owner"
-msgstr ""
+msgstr "소유자"
 
 #: src/schemes.js:404
 msgid "Panelist"
-msgstr ""
+msgstr "토론자"
 
 #: src/schemes.js:405
 msgid "Patron"
-msgstr ""
+msgstr "후원자"
 
 #: src/schemes.js:406
 msgid "Publishing director"
-msgstr ""
+msgstr "출판 감독"
 
 #: src/schemes.js:408
 msgid "Project director"
-msgstr ""
+msgstr "프로젝트 감독"
 
 #: src/schemes.js:409
 msgid "Proofreader"
-msgstr ""
+msgstr "교정자"
 
 #: src/schemes.js:410
 msgid "Photographer"
-msgstr ""
+msgstr "사진작가"
 
 #: src/schemes.js:411
 msgid "Platemaker"
-msgstr ""
+msgstr "제판업자"
 
 #: src/schemes.js:412
 msgid "Permitting agency"
-msgstr ""
+msgstr "허가 관청"
 
 #: src/schemes.js:413
 msgid "Production manager"
-msgstr ""
+msgstr "생산 관리 책임자"
 
 #: src/schemes.js:414
 msgid "Printer of plates"
-msgstr ""
+msgstr "동판 인쇄업자"
 
 #: src/schemes.js:415
 msgid "Papermaker"
-msgstr ""
+msgstr "제지업자"
 
 #: src/schemes.js:416
 msgid "Puppeteer"
-msgstr ""
+msgstr "인형사"
 
 #: src/schemes.js:417
 msgid "Praeses"
-msgstr ""
+msgstr "주재자"
 
 #: src/schemes.js:418
 msgid "Process contact"
-msgstr ""
+msgstr "프로세스 연락처"
 
 #: src/schemes.js:419
 msgid "Production personnel"
-msgstr ""
+msgstr "제작 인력"
 
 #: src/schemes.js:420
 msgid "Presenter"
-msgstr ""
+msgstr "발표자"
 
 #: src/schemes.js:421
 msgid "Performer"
-msgstr ""
+msgstr "연기자"
 
 #: src/schemes.js:422
 msgid "Programmer"
-msgstr ""
+msgstr "프로그래머"
 
 #: src/schemes.js:423
 msgid "Printmaker"
-msgstr ""
+msgstr "판화 제작자"
 
 #: src/schemes.js:424
 msgid "Production company"
-msgstr ""
+msgstr "제작사"
 
 #: src/schemes.js:425
 msgid "Producer"
-msgstr ""
+msgstr "연출가"
 
 #: src/schemes.js:426
 msgid "Production place"
-msgstr ""
+msgstr "제작 장소"
 
 #: src/schemes.js:427
 msgid "Production designer"
-msgstr ""
+msgstr "프로덕션 디자이너"
 
 #: src/schemes.js:428
 msgid "Printer"
-msgstr ""
+msgstr "인쇄업자"
 
 #: src/schemes.js:429
 msgid "Provider"
-msgstr ""
+msgstr "공급자"
 
 #: src/schemes.js:430
 msgid "Patent applicant"
-msgstr ""
+msgstr "특허 출원인"
 
 #: src/schemes.js:431
 msgid "Plaintiff-appellee"
-msgstr ""
+msgstr "원고 피항소인"
 
 #: src/schemes.js:432
 msgid "Plaintiff"
-msgstr ""
+msgstr "원고"
 
 #: src/schemes.js:433
 msgid "Patent holder"
-msgstr ""
+msgstr "특허 보유자"
 
 #: src/schemes.js:434
 msgid "Plaintiff-appellant"
-msgstr ""
+msgstr "원고 항소인"
 
 #: src/schemes.js:435
 msgid "Publication place"
-msgstr ""
+msgstr "출판 장소"
 
 #: src/schemes.js:436
 msgid "Rubricator"
-msgstr ""
+msgstr "전례 법규로 정하는 사람"
 
 #: src/schemes.js:437
 msgid "Recordist"
-msgstr ""
+msgstr "기록 담당자"
 
 #: src/schemes.js:438
 msgid "Recording engineer"
-msgstr ""
+msgstr "녹음 엔지니어"
 
 #: src/schemes.js:439
 msgid "Addressee"
-msgstr ""
+msgstr "수신인"
 
 #: src/schemes.js:440
 msgid "Radio director"
-msgstr ""
+msgstr "라디오 감독"
 
 #: src/schemes.js:441
 msgid "Redaktor"
-msgstr ""
+msgstr "편집자"
 
 #: src/schemes.js:442
 msgid "Renderer"
-msgstr ""
+msgstr "렌더러"
 
 #: src/schemes.js:443
 msgid "Researcher"
-msgstr ""
+msgstr "조사원"
 
 #: src/schemes.js:444
 msgid "Reviewer"
-msgstr ""
+msgstr "비평가"
 
 #: src/schemes.js:445
 msgid "Radio producer"
-msgstr ""
+msgstr "라디오 연출가"
 
 #: src/schemes.js:446
 msgid "Repository"
-msgstr ""
+msgstr "저장소"
 
 #: src/schemes.js:447
 msgid "Reporter"
-msgstr ""
+msgstr "보도 기자"
 
 #: src/schemes.js:448
 msgid "Responsible party"
-msgstr ""
+msgstr "책임있는 단체"
 
 #: src/schemes.js:449
 msgid "Respondent-appellee"
-msgstr ""
+msgstr "피고 피항소인"
 
 #: src/schemes.js:450
 msgid "Restager"
-msgstr ""
+msgstr "극적인 작업을 재조정하는 사람"
 
 #: src/schemes.js:451
 msgid "Respondent"
-msgstr ""
+msgstr "피고"
 
 #: src/schemes.js:452
 msgid "Restorationist"
-msgstr ""
+msgstr "만민 구제[구원]주의자"
 
 #: src/schemes.js:453
 msgid "Respondent-appellant"
-msgstr ""
+msgstr "피고 항소인"
 
 #: src/schemes.js:454
 msgid "Research team head"
-msgstr ""
+msgstr "연구팀 장"
 
 #: src/schemes.js:455
 msgid "Research team member"
-msgstr ""
+msgstr "연구팀 구성원"
 
 #: src/schemes.js:456
 msgid "Scientific advisor"
-msgstr ""
+msgstr "과학 고문"
 
 #: src/schemes.js:457
 msgid "Scenarist"
-msgstr ""
+msgstr "시나리오 작가"
 
 #: src/schemes.js:458
 msgid "Sculptor"
-msgstr ""
+msgstr "조각가"
 
 #: src/schemes.js:459
 msgid "Scribe"
-msgstr ""
+msgstr "필경사"
 
 #: src/schemes.js:460
 msgid "Sound designer"
-msgstr ""
+msgstr "사운드 디자이너"
 
 #: src/schemes.js:461
 msgid "Secretary"
-msgstr ""
+msgstr "비서"
 
 #: src/schemes.js:462
 msgid "Stage director"
-msgstr ""
+msgstr "무대 감독"
 
 #: src/schemes.js:463
 msgid "Signer"
-msgstr ""
+msgstr "서명자"
 
 #: src/schemes.js:464
 msgid "Supporting host"
-msgstr ""
+msgstr "지원하는 호스트"
 
 #: src/schemes.js:465
 msgid "Seller"
-msgstr ""
+msgstr "판매자"
 
 #: src/schemes.js:466
 msgid "Singer"
-msgstr ""
+msgstr "가수"
 
 #: src/schemes.js:467
 msgid "Speaker"
-msgstr ""
+msgstr "발표자"
 
 #: src/schemes.js:468
 msgid "Sponsor"
-msgstr ""
+msgstr "광고주"
 
 #: src/schemes.js:469
 msgid "Second party"
-msgstr ""
+msgstr "둘째 단체"
 
 #: src/schemes.js:470
 msgid "Surveyor"
-msgstr ""
+msgstr "측량사"
 
 #: src/schemes.js:471
 msgid "Set designer"
-msgstr ""
+msgstr "인공배경 설계가"
 
 #: src/schemes.js:472
 msgid "Setting"
-msgstr ""
+msgstr "설정"
 
 #: src/schemes.js:473
 msgid "Storyteller"
-msgstr ""
+msgstr "소설가"
 
 #: src/schemes.js:474
 msgid "Stage manager"
-msgstr ""
+msgstr "무대 감독"
 
 #: src/schemes.js:475
 msgid "Standards body"
-msgstr ""
+msgstr "표준 기관"
 
 #: src/schemes.js:476
 msgid "Stereotyper"
-msgstr ""
+msgstr "연판 인쇄공"
 
 #: src/schemes.js:477
 msgid "Technical director"
-msgstr ""
+msgstr "기술 감독"
 
 #: src/schemes.js:478
 msgid "Teacher"
-msgstr ""
+msgstr "교사"
 
 #: src/schemes.js:479
 msgid "Thesis advisor"
-msgstr ""
+msgstr "논문 고문"
 
 #: src/schemes.js:480
 msgid "Television director"
-msgstr ""
+msgstr "텔레비전 감독"
 
 #: src/schemes.js:481
 msgid "Television producer"
-msgstr ""
+msgstr "텔레비전 연출가"
 
 #: src/schemes.js:482
 msgid "Transcriber"
-msgstr ""
+msgstr "전사자"
 
 #: src/schemes.js:483
 msgid "Translator"
-msgstr ""
+msgstr "번역가"
 
 #: src/schemes.js:484
 msgid "Type designer"
-msgstr ""
+msgstr "글꼴 디자이너"
 
 #: src/schemes.js:485
 msgid "Typographer"
-msgstr ""
+msgstr "활판인쇄기술자"
 
 #: src/schemes.js:486
 msgid "University place"
-msgstr ""
+msgstr "대학 장소"
 
 #: src/schemes.js:487
 msgid "Voice actor"
-msgstr ""
+msgstr "성우"
 
 #: src/schemes.js:488
 msgid "Videographer"
-msgstr ""
+msgstr "동영상 제작자"
 
 #: src/schemes.js:489
 msgid "Writer of added commentary"
-msgstr ""
+msgstr "추가 논평 작성자"
 
 #: src/schemes.js:490
 msgid "Writer of added lyrics"
-msgstr ""
+msgstr "추가 가사의 작성자"
 
 #: src/schemes.js:491
 msgid "Writer of accompanying material"
-msgstr ""
+msgstr "첨부 자료 작성자"
 
 #: src/schemes.js:492
 msgid "Writer of added text"
-msgstr ""
+msgstr "추가된 텍스트 작성자"
 
 #: src/schemes.js:493
 msgid "Woodcutter"
-msgstr ""
+msgstr "목판가"
 
 #: src/schemes.js:494
 msgid "Wood engraver"
-msgstr ""
+msgstr "나무 조각가"
 
 #: src/schemes.js:495
 msgid "Writer of introduction"
-msgstr ""
+msgstr "입문서 작성자"
 
 #: src/schemes.js:496
 msgid "Witness"
-msgstr ""
+msgstr "목격자"
 
 #: src/schemes.js:497
 msgid "Writer of preface"
-msgstr ""
+msgstr "서문 작성자"
 
 #: src/schemes.js:498
 msgid "Writer of supplementary textual content"
-msgstr ""
+msgstr "증보판의 원문 콘텐츠 작성자"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
-msgstr ""
+msgstr "Foliate는 간단하고 현대적인 GTK eBook 뷰어입니다."
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:11
 msgid "Features include:"
-msgstr ""
+msgstr "기능 포함:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:13
 msgid "Two-page view and scrolled view"
-msgstr ""
+msgstr "2페이지 보기 및 스크롤된 보기"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:14
 msgid "Customize font and line-spacing"
-msgstr ""
+msgstr "글꼴 및 줄 간격 사용자 맞춤"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
 msgid "Light, sepia, dark, and invert mode"
-msgstr ""
+msgstr "밝게, 세피아, 어둡게, 반전 모드"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
 msgid "Reading progress slider with chapter marks"
-msgstr ""
+msgstr "챕터 표시가 있는 진행률 슬라이더 읽기"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
-msgstr ""
+msgstr "책갈피 및 주석"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
-msgstr ""
+msgstr "빠른 사전 조회"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:22
 msgid "John Factotum"
-msgstr ""
+msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:23
 msgid "Store URIs"
-msgstr ""
+msgstr "URI 저장소"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:24
 msgid "Whether to save file URIs"
-msgstr ""
+msgstr "파일 URI 저장 여부"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
-msgid ""
-"Whether to save generated locations to cache (the locations are needed for "
-"calculating percentages of locations in book)"
-msgstr ""
+msgid "Whether to save generated locations to cache (the locations are needed for calculating percentages of locations in book)"
+msgstr "생성된 위치를 캐시에 저장할지 여부 (책에서 위치의 비율을 계산하는 데 필요한 위치)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:33
 msgid "Cache covers"
-msgstr ""
+msgstr "표지 캐시"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
 msgid "Whether to save book covers to cache"
-msgstr ""
+msgstr "책 표지를 캐시에 저장할지 여부"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:38
 msgid "Cover size"
-msgstr ""
+msgstr "표지 크기"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:39
 msgid "Width of cached book cover images"
-msgstr ""
+msgstr "캐시된 책 표지 이미지의 너비"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:43
 msgid "Restore last file opened"
-msgstr ""
+msgstr "마지막으로 열린 파일 복원"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:44
 msgid "Whether to automatically restore the last file"
-msgstr ""
+msgstr "마지막 파일을 자동으로 복원할지 여부"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:48
 msgid "Default highlight color"
-msgstr ""
+msgstr "기본 강조 색상"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Default highlight color for annotations"
-msgstr ""
+msgstr "주석에 대한 기본 강조 색상"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:53
 msgid "Dictionary"
-msgstr ""
+msgstr "사전"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:54
-msgid ""
-"Identifier of the default dictionary. Dictionaries from dictd and stardict, "
-"if any, are available with the \"dictd_\" and \"stardict_\" prefix added to "
-"the database ID"
-msgstr ""
+msgid "Identifier of the default dictionary. Dictionaries from dictd and stardict, if any, are available with the \"dictd_\" and \"stardict_\" prefix added to the database ID"
+msgstr "기본 사전의 식별자입니다. 데이터베이스 ID에 \"dictd_\" 및 \"stardct_\" 접두사가 추가된 dictd 및 stardict의 사전을 사용할 수 있습니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:58
 msgid "Target language of translation"
-msgstr ""
+msgstr "번역의 대상 언어"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:59
 msgid "Target language for translations"
-msgstr ""
+msgstr "번역을 돕기위한 대상 언어"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:63
 msgid "Default action when selecting a word"
-msgstr ""
+msgstr "단어 선택시 기본 작업"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:64
 msgid "Default action to perform when selecting a single word"
-msgstr ""
+msgstr "단일 단어를 선택할 때 수행할 기본 작업"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:68
 msgid "Default action when selecting multiple words"
-msgstr ""
+msgstr "여러 단어를 선택할 때 기본 작업"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:69
 msgid "Default action to perform when selecting multiple words"
-msgstr ""
+msgstr "여러 단어를 선택할 때 수행할 기본 작업입니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:73
 msgid "Event for opening image viewer"
-msgstr ""
+msgstr "이미지 뷰어 열기 이벤트"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:74
-msgid ""
-"DOM event type for viewing images; the special value \"middleclick\" is "
-"available for the middle click event"
-msgstr ""
+msgid "DOM event type for viewing images; the special value \"middleclick\" is available for the middle click event"
+msgstr "이미지를 볼 수 있는 DOM 이벤트 유형; 마우스 가운데 버튼 클릭 이벤트에는 특별 값 \"가운데버튼클릭\"을 사용할 수 있음"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:79
 msgid "Command to execute for text-to-speech"
-msgstr ""
+msgstr "텍스트 음성 변환을 위해 실행할 명령"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:84
 msgid "If true, a side pane will be used instead of popovers"
-msgstr ""
+msgstr "참일 경우, 팝오버 대신 사이드 창이 사용됩니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:88
 msgid "Use menubar"
-msgstr ""
+msgstr "메뉴표시줄 사용"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:89
 msgid "If true, use traditional titlebars and menubars"
-msgstr ""
+msgstr "참일 경우, 기존 제목표시줄과 메뉴표시줄을 사용합니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:93
 msgid "Auto-hide headerbar"
-msgstr ""
+msgstr "헤더표시줄 자동 숨김"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:94
-msgid ""
-"Whether to hide the headerbar automatically (this is setting has no effect "
-"if skeuomorphism or sidebar is enabled)"
-msgstr ""
+msgid "Whether to hide the headerbar automatically (this is setting has no effect if skeuomorphism or sidebar is enabled)"
+msgstr "헤더표시줄을 자동으로 숨길지 여부(이 설정은 스큐어모피즘 또는 사이드바를 활성화할 경우 영향을 미치지 않음)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:99
 msgid "Information to be displayed on the left footer"
-msgstr ""
+msgstr "왼쪽 바닥글에 표시할 정보"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:104
 msgid "Information to be displayed on the right footer"
-msgstr ""
+msgstr "오른쪽 바닥글에 표시할 정보"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:109
-msgid ""
-"If true, you can go to the previous or next page by tapping on the left or "
-"right part of the view; tap on the middle to toggle header bar and progress "
-"bar"
-msgstr ""
+msgid "If true, you can go to the previous or next page by tapping on the left or right part of the view; tap on the middle to toggle header bar and progress bar"
+msgstr "참일 경우, 보기의 왼쪽 또는 오른쪽을 눌러 이전 또는 다음 페이지로 이동할 수 있습니다. 가운데를 눌러 머리글 표시줄과 진행 표시줄을 전환하십시오"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:116
 msgid "Prefer dark GTK theme"
-msgstr ""
+msgstr "어두운 GTK 테마 선호"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:117
 msgid "If true, the dark variant of a GTK theme, if available, will be used"
-msgstr ""
+msgstr "참일 경우, GTK 테마의 어두운 변종(사용 가능한 경우)이 사용됩니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:121
 #: data/com.github.johnfactotum.Foliate.gschema.xml:122
 msgid "Zoom level"
-msgstr ""
+msgstr "확대/축소 수준"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:132
 msgid "Line-height"
-msgstr ""
+msgstr "줄 높이"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:136
 msgid "Margin"
-msgstr ""
+msgstr "여백"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:137
 msgid "Page margin in percentage"
-msgstr ""
+msgstr "페이지 여백 비율"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:141
 msgid "Max width"
-msgstr ""
+msgstr "최대 너비"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:146
 msgid "Use publisher font"
-msgstr ""
+msgstr "출판사 글꼴 사용"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:147
 msgid "If true, custom font is disabled"
-msgstr ""
+msgstr "참일 경우, 사용자 지정 글꼴이 비활성화됩니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:151
 msgid "Justify text"
-msgstr ""
+msgstr "텍스트 양쪽 맞춤"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:152
 msgid "If true, text will be justified"
-msgstr ""
+msgstr "참일 경우, 텍스트가 정렬됩니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:156
 msgid "Hyphenation"
-msgstr ""
+msgstr "하이픈으로 자동 연결"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:157
 msgid "If true, auto-hyphenation is enabled"
-msgstr ""
+msgstr "참일 경우, 자동 하이픈이 활성화됩니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:161
 msgid "Foreground color"
-msgstr ""
+msgstr "전경색"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:162
 msgid "Text color"
-msgstr ""
+msgstr "텍스트 색상"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:166
 #: data/com.github.johnfactotum.Foliate.gschema.xml:167
 msgid "Background color"
-msgstr ""
+msgstr "배경색"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:171
 #: data/com.github.johnfactotum.Foliate.gschema.xml:172
 msgid "Link color"
-msgstr ""
+msgstr "링크 색상"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:177
 msgid "Invert page"
-msgstr ""
+msgstr "반전 페이지"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:182
-msgid ""
-"A value under 1 darkens the page, while a value over 1 brightens it. A value "
-"of 0 will make the page completely black, while a value of 1 leaves the "
-"brightness unchanged"
-msgstr ""
+msgid "A value under 1 darkens the page, while a value over 1 brightens it. A value of 0 will make the page completely black, while a value of 1 leaves the brightness unchanged"
+msgstr "값이 1보다 작으면 페이지가 어두워지고 1보다 크면 페이지가 밝아집니다. 값이 0이면 페이지가 완전히 검은색인 반면 값이 1이면 밝기는 변경되지 않습니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:186
 msgid "Footnote preview"
-msgstr ""
+msgstr "각주 미리보기"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:187
 msgid "If true, will attempt to display footnotes in a popover"
-msgstr ""
+msgstr "참일 경우, 팝오버에 각주를 표시합니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:191
 msgid "Allow unsafe content"
-msgstr ""
+msgstr "안전하지 않은 콘텐츠 허용"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:192
 msgid "If true, allow JavaScript"
-msgstr ""
+msgstr "참일 경우, JavaScript를 허용합니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:196
 msgid "Enable developer tools"
-msgstr ""
+msgstr "개발자 도구 활성화"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:197
 msgid "If true, developer tools are enabled"
-msgstr ""
+msgstr "참일 경우, 개발자 도구가 활성화됩니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:202
 msgid "Page layout"
-msgstr ""
+msgstr "페이지 레이아웃"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:206
 msgid "Skeuomorphism"
-msgstr ""
+msgstr "스큐어모피즘(사물모습대로 디자인하는 기법)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:207
-msgid ""
-"If true, the book is decoratively presented in a way that resembles physical "
-"books"
-msgstr ""
+msgid "If true, the book is decoratively presented in a way that resembles physical books"
+msgstr "참일 경우, 이 책은 실제 책과 유사한 방식으로 장식이 되어 출판됩니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:211
 msgid "Auto-hide cursor"
-msgstr ""
+msgstr "커서 숨김 자동"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:212
 msgid "Whether to hide the cursor automatically"
-msgstr ""
+msgstr "커서를 자동으로 숨길지 여부"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:219
 #: data/com.github.johnfactotum.Foliate.gschema.xml:257
 msgid "Window width"
-msgstr ""
+msgstr "창 너비"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:220
 msgid "Width of the window"
-msgstr ""
+msgstr "창의 너비"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:224
 #: data/com.github.johnfactotum.Foliate.gschema.xml:262
 msgid "Window height"
-msgstr ""
+msgstr "창 높이"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:225
 msgid "Height of the window"
-msgstr ""
+msgstr "창의 높이"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:229
 #: data/com.github.johnfactotum.Foliate.gschema.xml:267
 msgid "Maximized"
-msgstr ""
+msgstr "최대화됨"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:230
 msgid "Whether the window is maximized"
-msgstr ""
+msgstr "창을 최대화할지 여부"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:235
 msgid "Whether the window is fullscreen"
-msgstr ""
+msgstr "창이 전체 화면인지 여부"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:239
 #: data/com.github.johnfactotum.Foliate.gschema.xml:240
 msgid "Last file opened"
-msgstr ""
+msgstr "마지막 파일 열기"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:245
 msgid "Whether the sidebar is shown"
-msgstr ""
+msgstr "사이드바 표시 여부"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:249
 msgid "Sidebar size"
-msgstr ""
+msgstr "사이드바 크기"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:250
 msgid "Sidebar width"
-msgstr ""
+msgstr "사이드바 너비"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:258
 msgid "Width of the library window"
-msgstr ""
+msgstr "라이브러리 창의 너비"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:263
 msgid "Height of the library window"
-msgstr ""
+msgstr "라이브러리 창의 높이"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:268
 msgid "Whether the library window is maximized"
-msgstr ""
+msgstr "라이브러리 창의 최대화 여부"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:273
 msgid "How to view the library"
-msgstr ""
+msgstr "라이브러리 보기 방법"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:277
 msgid "Library page"
-msgstr ""
+msgstr "라이브러리 페이지"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:278
 msgid "Current library page (“library” or “catalog”)"
-msgstr ""
+msgstr "현재 라이브러리 페이지(\"라이브러리\" 또는 \"카탈로그\")"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:282
 msgid "Use Tracker"
-msgstr ""
+msgstr "추적기 사용"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:283
-msgid ""
-"If true, will try to use Tracker (the file indexer) to get file locations"
-msgstr ""
+msgid "If true, will try to use Tracker (the file indexer) to get file locations"
+msgstr "참일 경우, 추적기(파일 인덱서)를 사용하여 파일 위치를 가져오려고 시도합니다"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:287
 msgid "OPDS download action"
-msgstr ""
+msgstr "OPDS 다운로드 동작"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:288
 msgid "What to do when downloading a file from an OPDS feed"
-msgstr ""
+msgstr "OPDS 피드에서 파일을 다운로드할 때 수행할 작업"

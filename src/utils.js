@@ -283,6 +283,8 @@ var mimetypes = {
     directory: 'inode/directory',
     json: 'application/json',
     xml: 'application/xml',
+    xhtml: 'application/xhtml+xml',
+    html: 'text/html',
     text: 'text/plain',
     epub: 'application/epub+zip',
     mobi: 'application/x-mobipocket-ebook',
@@ -577,6 +579,7 @@ var invertRotate = color => hueRotateColor(invertColor(color), 180)
 var doubleInvert = x => invertRotate(invertRotate(x))
 
 var base64ToPixbuf = base64 => {
+    if (!base64) return null
     try {
         const data = GLib.base64_decode(base64)
         const imageStream = Gio.MemoryInputStream.new_from_bytes(data)

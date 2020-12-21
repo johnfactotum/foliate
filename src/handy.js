@@ -56,7 +56,7 @@ var HdySearchBar =  GObject.registerClass({
 
 var HdyColumn =  GObject.registerClass({
     GTypeName: 'FoliateHdyColumn',
-    Properties: Handy ? {} : {
+    Properties: Handy && Handy.Column ? {} : {
         'linear-growth-width':
             GObject.ParamSpec.int('linear-growth-width', 'linear-growth-width', 'linear-growth-widthh',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 2147483647, 0),
@@ -65,5 +65,25 @@ var HdyColumn =  GObject.registerClass({
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 2147483647, 0),
     }
 }, Handy
-    ? class HdyColumn extends Handy.Column {}
+    ? (Handy.Column
+        ? class HdyColumn extends Handy.Column {}
+        : class HdyColumn extends Handy.Clamp {
+            constructor(params) {
+                super._init(params)
+                this.maximum_size = params.maximum_width
+                this.tightening_threshold = params.linear_growth_width
+            }
+            get maximum_width() {
+                return maximum_size
+            }
+            set maximum_width(x) {
+                this.maximum_size = x
+            }
+            get linear_growth_width() {
+                return tightening_threshold
+            }
+            set linear_growth_width(x) {
+                this.tightening_threshold = x
+            }
+        })
     : class HdyColumn extends Gtk.Bin {})

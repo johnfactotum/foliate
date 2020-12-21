@@ -44,6 +44,18 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="2.5.0" date="2020-10-15">
+            <description>
+                <p>Changes:</p>
+                <ul>
+                    <li>Improved support for touch screens</li>
+                    <li>OPDS credentials can now be remembered</li>
+                    <li>Various fixes for GNOME 3.38</li>
+                    <li>Fixed Wiktionary internal links</li>
+                    <li>Added Basque, Korean, and Norwegian translations</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.4.2" date="2020-07-06">
             <description>
                 <p>Fixed unable to open some EPUB files</p>
@@ -376,4 +388,8 @@
         </release>
     </releases>
     <content_rating type="oars-1.1" />
+    <custom>
+        <value key="Purism::form_factor">workstation</value>
+        <value key="Purism::form_factor">mobile</value>
+    </custom>
 </component>
