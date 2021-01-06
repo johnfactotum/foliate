@@ -221,7 +221,7 @@ var ttsDialog = (window) => {
         return $(activeOption + 'Entry').text
     }
 
-    // Translatros: these are sentences from "The North Wind and the Sun",
+    // Translators: these are sentences from "The North Wind and the Sun",
     // used for testing text-to-speech
     const test1 = _('The North Wind and the Sun were disputing which was the stronger,')
     const test2 = _('when a traveler came along wrapped in a warm cloak.')
