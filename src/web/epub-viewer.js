@@ -292,11 +292,15 @@ const setStyle = style => {
             '-webkit-hyphens': hyphenate ? 'auto' : 'manual',
             '-webkit-hyphenate-limit-before': 3,
             '-webkit-hyphenate-limit-after': 2,
-            '-webkit-hyphenate-limit-lines': 2
+            '-webkit-hyphenate-limit-lines': 2,
+            'overflow-wrap': 'break-word'
         },
         [`.${themeName} p`]: {
             'font-size': `${fontSize}px !important`,
             'line-height': `${spacing} !important`
+        },
+        [`.${themeName} pre`]: {
+            'white-space': 'pre-wrap'
         },
         [`.${themeName} code, .${themeName} pre`]: {
             '-webkit-hyphens': 'none'
