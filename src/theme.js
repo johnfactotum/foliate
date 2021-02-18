@@ -83,7 +83,18 @@ var Theme = GObject.registerClass({
             GObject.ParamSpec.boolean('dark-mode', 'dark-mode', 'dark-mode',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, false),
     }
-}, class Theme extends GObject.Object {})
+}, class Theme extends GObject.Object {
+    toJSON() {
+        return {
+            'theme-name': this['theme-name'],
+            'fg-color': this['fg-color'],
+            'bg-color': this['bg-color'],
+            'link-color': this['link-color'],
+            invert: this.invert,
+            'dark-mode': this['dark-mode']
+        }
+    }
+})
 
 var ThemeRow = GObject.registerClass({
     GTypeName: 'FoliateThemeRow',
