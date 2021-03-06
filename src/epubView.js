@@ -62,6 +62,10 @@ const layouts = {
         renderTo: `'viewer'`,
         options: { width: '100%', flow: 'paginated' },
     },
+    'double': {
+        renderTo: `'viewer'`,
+        options: { width: '100%', flow: 'paginated', maxSpreadColumns: 2 }
+    },
     'single': {
         renderTo: `'viewer'`,
         options: { width: '100%', flow: 'paginated', spread: 'none' }

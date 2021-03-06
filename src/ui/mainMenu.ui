@@ -451,6 +451,14 @@
           <object class="GtkModelButton">
             <property name="visible">True</property>
             <property name="action_name">view.layout</property>
+            <property name="action_target">'double'</property>
+            <property name="text" translatable="yes">Up to Two Columns</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkModelButton">
+            <property name="visible">True</property>
+            <property name="action_name">view.layout</property>
             <property name="action_target">'single'</property>
             <property name="text" translatable="yes">Single Column</property>
           </object>

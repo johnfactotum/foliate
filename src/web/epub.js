@@ -142,7 +142,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RangeObject", function() { return RangeObject; });
 /* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
 /* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_web_url__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
 /* harmony import */ var core_js_modules_web_url__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_url__WEBPACK_IMPORTED_MODULE_2__);
@@ -2260,7 +2260,7 @@ exports.methods = methods;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_web_url__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
 /* harmony import */ var core_js_modules_web_url__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_url__WEBPACK_IMPORTED_MODULE_1__);
@@ -2381,7 +2381,7 @@ class Path {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_web_url__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
 /* harmony import */ var core_js_modules_web_url__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_url__WEBPACK_IMPORTED_MODULE_1__);
@@ -2473,7 +2473,7 @@ class Url {
     }
 
     fullpath = path_webpack__WEBPACK_IMPORTED_MODULE_3___default.a.resolve(this.directory, what);
-    return (this.origin === 'null' ? 'file://' : this.origin) + fullpath;
+    return this.origin + fullpath;
   }
   /**
    * Resolve a path relative to the url
@@ -2503,7 +2503,7 @@ class Url {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__);
 
 
@@ -3207,6 +3207,45 @@ module.exports = function (it, key) {
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(7);
+var DOMIterables = __webpack_require__(102);
+var ArrayIteratorMethods = __webpack_require__(71);
+var createNonEnumerableProperty = __webpack_require__(15);
+var wellKnownSymbol = __webpack_require__(8);
+
+var ITERATOR = wellKnownSymbol('iterator');
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+var ArrayValues = ArrayIteratorMethods.values;
+
+for (var COLLECTION_NAME in DOMIterables) {
+  var Collection = global[COLLECTION_NAME];
+  var CollectionPrototype = Collection && Collection.prototype;
+  if (CollectionPrototype) {
+    // some Chrome versions have non-configurable methods on DOMTokenList
+    if (CollectionPrototype[ITERATOR] !== ArrayValues) try {
+      createNonEnumerableProperty(CollectionPrototype, ITERATOR, ArrayValues);
+    } catch (error) {
+      CollectionPrototype[ITERATOR] = ArrayValues;
+    }
+    if (!CollectionPrototype[TO_STRING_TAG]) {
+      createNonEnumerableProperty(CollectionPrototype, TO_STRING_TAG, COLLECTION_NAME);
+    }
+    if (DOMIterables[COLLECTION_NAME]) for (var METHOD_NAME in ArrayIteratorMethods) {
+      // some Chrome versions have non-configurable methods on DOMTokenList
+      if (CollectionPrototype[METHOD_NAME] !== ArrayIteratorMethods[METHOD_NAME]) try {
+        createNonEnumerableProperty(CollectionPrototype, METHOD_NAME, ArrayIteratorMethods[METHOD_NAME]);
+      } catch (error) {
+        CollectionPrototype[METHOD_NAME] = ArrayIteratorMethods[METHOD_NAME];
+      }
+    }
+  }
+}
+
+
+/***/ }),
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3352,7 +3391,7 @@ function substitute(content, urls, replacements) {
 }
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -3365,7 +3404,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(17);
@@ -3375,45 +3414,6 @@ module.exports = function (it) {
     throw TypeError(String(it) + ' is not an object');
   } return it;
 };
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(7);
-var DOMIterables = __webpack_require__(102);
-var ArrayIteratorMethods = __webpack_require__(71);
-var createNonEnumerableProperty = __webpack_require__(15);
-var wellKnownSymbol = __webpack_require__(8);
-
-var ITERATOR = wellKnownSymbol('iterator');
-var TO_STRING_TAG = wellKnownSymbol('toStringTag');
-var ArrayValues = ArrayIteratorMethods.values;
-
-for (var COLLECTION_NAME in DOMIterables) {
-  var Collection = global[COLLECTION_NAME];
-  var CollectionPrototype = Collection && Collection.prototype;
-  if (CollectionPrototype) {
-    // some Chrome versions have non-configurable methods on DOMTokenList
-    if (CollectionPrototype[ITERATOR] !== ArrayValues) try {
-      createNonEnumerableProperty(CollectionPrototype, ITERATOR, ArrayValues);
-    } catch (error) {
-      CollectionPrototype[ITERATOR] = ArrayValues;
-    }
-    if (!CollectionPrototype[TO_STRING_TAG]) {
-      createNonEnumerableProperty(CollectionPrototype, TO_STRING_TAG, COLLECTION_NAME);
-    }
-    if (DOMIterables[COLLECTION_NAME]) for (var METHOD_NAME in ArrayIteratorMethods) {
-      // some Chrome versions have non-configurable methods on DOMTokenList
-      if (CollectionPrototype[METHOD_NAME] !== ArrayIteratorMethods[METHOD_NAME]) try {
-        createNonEnumerableProperty(CollectionPrototype, METHOD_NAME, ArrayIteratorMethods[METHOD_NAME]);
-      } catch (error) {
-        CollectionPrototype[METHOD_NAME] = ArrayIteratorMethods[METHOD_NAME];
-      }
-    }
-  }
-}
 
 
 /***/ }),
@@ -3436,7 +3436,7 @@ module.exports = DESCRIPTORS ? function (object, key, value) {
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 
 // Thank's IE8 for his funny defineProperty
 module.exports = !fails(function () {
@@ -3459,7 +3459,7 @@ module.exports = function (it) {
 
 var DESCRIPTORS = __webpack_require__(16);
 var IE8_DOM_DEFINE = __webpack_require__(62);
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 var toPrimitive = __webpack_require__(41);
 
 var nativeDefineProperty = Object.defineProperty;
@@ -6777,7 +6777,7 @@ class Mapping {
 "use strict";
 
 var fixRegExpWellKnownSymbolLogic = __webpack_require__(87);
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 var toObject = __webpack_require__(36);
 var toLength = __webpack_require__(46);
 var toInteger = __webpack_require__(35);
@@ -7010,7 +7010,7 @@ module.exports = {};
 /* harmony import */ var _utils_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var _epubcfi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var _mapping__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23);
-/* harmony import */ var _utils_replacements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
+/* harmony import */ var _utils_replacements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
 /* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(1);
 
 
@@ -8837,6 +8837,7 @@ var constants = __webpack_require__(1);
  * @param {string} [settings.spread]
  * @param {number} [settings.minSpreadWidth=800]
  * @param {boolean} [settings.evenSpreads=false]
+ * @param {number} [settings.maxSpreadColumns=Infinity]
  */
 
 class layout_Layout {
@@ -8846,6 +8847,7 @@ class layout_Layout {
     this._spread = settings.spread === "none" ? false : true;
     this._minSpreadWidth = settings.minSpreadWidth || 800;
     this._evenSpreads = settings.evenSpreads || false;
+    this._maxSpreadColumns = settings.maxSpreadColumns || Infinity;
 
     if (settings.flow === "scrolled" || settings.flow === "scrolled-continuous" || settings.flow === "scrolled-doc") {
       this._flow = "scrolled";
@@ -8941,14 +8943,12 @@ class layout_Layout {
     var pageWidth;
     var delta;
 
-    if (this._spread && width >= this._minSpreadWidth * 2
-    && this.name === "reflowable" && this._flow === "paginated") {
-      divisor = 4;
-      section = section / 2
-    } else if (this._spread && width >= this._minSpreadWidth) {
-      divisor = 2;
-    } else {
-      divisor = 1;
+    if (this._spread) {
+      divisor = Math.min(this._maxSpreadColumns, Math.floor(width / (this._minSpreadWidth / 2)));
+
+      if (this._evenSpreads && divisor % 2) {
+        divisor = Math.max(1, divisor - 1);
+      }
     }
 
     if (this.name === "reflowable" && this._flow === "paginated" && !(_gap >= 0)) {
@@ -9738,6 +9738,8 @@ var continuous = __webpack_require__(56);
  * @param {string} [options.layout] layout to force
  * @param {string} [options.spread] force spread value
  * @param {number} [options.minSpreadWidth] overridden by spread: none (never) / both (always)
+ * @param {boolean} [settings.evenSpreads=true] whether to force an even number of columns
+ * @param {number} [settings.maxSpreadColumns=Infinity] max number of columns in the spread
  * @param {string} [options.stylesheet] url of stylesheet to be injected
  * @param {boolean} [options.resizeOnOrientationChange] false to disable orientation events
  * @param {string} [options.script] url of script to be injected
@@ -9756,6 +9758,8 @@ class rendition_Rendition {
       layout: null,
       spread: null,
       minSpreadWidth: 800,
+      evenSpreads: true,
+      maxSpreadColumns: Infinity,
       stylesheet: null,
       resizeOnOrientationChange: true,
       script: null,
@@ -10259,6 +10263,8 @@ class rendition_Rendition {
       flow: flow,
       viewport: viewport,
       minSpreadWidth: minSpreadWidth,
+      evenSpreads: this.settings.evenSpreads,
+      maxSpreadColumns: this.settings.maxSpreadColumns,
       direction: direction
     };
     return properties;
@@ -11002,7 +11008,7 @@ module.exports = {
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 var defineProperties = __webpack_require__(72);
 var enumBugKeys = __webpack_require__(47);
 var hiddenKeys = __webpack_require__(44);
@@ -11704,23 +11710,24 @@ class IframeView {
     }
 
     let m = new marks_pane__WEBPACK_IMPORTED_MODULE_5__["Highlight"](range, className, data, attributes);
+
     try {
-    let h = this.pane.addMark(m);
-    this.highlights[cfiRange] = {
-      "mark": h,
-      "element": h.element,
-      "listeners": [emitter, cb]
-    };
-    h.element.setAttribute("ref", className);
-    h.element.addEventListener("click", emitter);
-    h.element.addEventListener("touchstart", emitter);
+      let h = this.pane.addMark(m);
+      this.highlights[cfiRange] = {
+        "mark": h,
+        "element": h.element,
+        "listeners": [emitter, cb]
+      };
+      h.element.setAttribute("ref", className);
+      h.element.addEventListener("click", emitter);
+      h.element.addEventListener("touchstart", emitter);
 
-    if (cb) {
-      h.element.addEventListener("click", cb);
-      h.element.addEventListener("touchstart", cb);
-    }
+      if (cb) {
+        h.element.addEventListener("click", cb);
+        h.element.addEventListener("touchstart", cb);
+      }
 
-    return h;
+      return h;
     } catch (e) {}
   }
 
@@ -12150,7 +12157,7 @@ module.exports = debounce;
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
-var web_dom_collections_iterator = __webpack_require__(14);
+var web_dom_collections_iterator = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./src/utils/core.js
 var core = __webpack_require__(0);
@@ -15824,7 +15831,7 @@ module.exports = localforage_js;
 var es_string_replace = __webpack_require__(24);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
-var web_dom_collections_iterator = __webpack_require__(14);
+var web_dom_collections_iterator = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./node_modules/event-emitter/index.js
 var event_emitter = __webpack_require__(3);
@@ -15846,7 +15853,7 @@ var epubcfi = __webpack_require__(2);
 var hook = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./src/utils/replacements.js
-var replacements = __webpack_require__(11);
+var replacements = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.url.js
 var web_url = __webpack_require__(20);
@@ -16053,11 +16060,8 @@ class section_Section {
       request(this.url).then(function (xml) {
         // when the url has no extension, `request` won't parse it,
         // so we'll just have to parse it ourselves
-        if (typeof xml === 'string') {
-          const parser = new DOMParser();
-          xml = parser.parseFromString(xml, 'text/html');
-        }
-        // var directory = new Url(this.url).directory;
+        if (typeof xml === 'string') xml = new DOMParser().parseFromString(xml, 'text/html'); // var directory = new Url(this.url).directory;
+
         this.document = xml;
         this.contents = xml.documentElement;
         return this.hooks.content.trigger(this.document, this);
@@ -17171,6 +17175,7 @@ class container_Container {
 /* harmony default export */ var container = (container_Container);
 // CONCATENATED MODULE: ./src/packaging.js
 
+
 /**
  * Open Packaging Format Parser
  * @class
@@ -17252,92 +17257,66 @@ class packaging_Packaging {
 
   parseMetadata(xml) {
     var metadata = {};
-    const DC_NS = "http://purl.org/dc/elements/1.1/"
-    const OPF_NS = "http://www.idpf.org/2007/opf"
-    const getElementText = node => node ? node.childNodes[0].nodeValue : null
-    const getElementsNS = (ns, tagName) =>
-      [...xml.getElementsByTagNameNS(ns, tagName)]
-        .filter(node => node.childNodes.length)
-    const metas = [...xml.getElementsByTagName('meta')]
-    const getRefiningMetas = id => metas.filter(meta =>
-      meta.getAttribute('refines') === '#' + id)
+    const DC_NS = "http://purl.org/dc/elements/1.1/";
+    const OPF_NS = "http://www.idpf.org/2007/opf";
+
+    const getElementText = node => node ? node.childNodes[0].nodeValue : null;
+
+    const getElementsNS = (ns, tagName) => [...xml.getElementsByTagNameNS(ns, tagName)].filter(node => node.childNodes.length);
+
+    const metas = [...xml.getElementsByTagName('meta')];
+
+    const getRefiningMetas = id => metas.filter(meta => meta.getAttribute('refines') === '#' + id);
 
     const getPropertyMetas = (el, prop) => {
-      const id = el.getAttribute('id')
-      const metas = getRefiningMetas(id)
-      if (metas) {
-        const refined = metas
-          .filter(meta => meta.getAttribute('property') === prop)
-        if (refined) return refined
-      }
-    }
-    const getProperty = (el, ns, prop, one = true) => {
-      const attribute = el.getAttributeNS(ns, prop)
-      const metas = getPropertyMetas(el, prop)
-      return metas && metas.length
-        ? (one ? getElementText(metas[0]) : metas.map(getElementText))
-        : attribute
-    }
+      const id = el.getAttribute('id');
+      const metas = getRefiningMetas(id);
 
-    const titles = getElementsNS(DC_NS, "title")
-      .map(x => {
-        return {
-          type: getProperty(x, OPF_NS, 'title-type'),
-          seq: getProperty(x, OPF_NS, 'display-seq'),
-          label: getElementText(x)
-        }
-      })
-    metadata.titles = titles
-    const mainTitle = titles.find(x => x.type === 'main')
-    if (mainTitle) metadata.title = mainTitle.label
-    else metadata.title = this.getElementText(xml, "title");
+      if (metas) {
+        const refined = metas.filter(meta => meta.getAttribute('property') === prop);
+        if (refined) return refined;
+      }
+    };
+
+    const getProperty = (el, ns, prop, one = true) => {
+      const attribute = el.getAttributeNS(ns, prop);
+      const metas = getPropertyMetas(el, prop);
+      return metas && metas.length ? one ? getElementText(metas[0]) : metas.map(getElementText) : attribute;
+    };
+
+    const titles = getElementsNS(DC_NS, "title").map(x => ({
+      type: getProperty(x, OPF_NS, 'title-type'),
+      seq: getProperty(x, OPF_NS, 'display-seq'),
+      label: getElementText(x)
+    }));
+    metadata.titles = titles;
+    const mainTitle = titles.find(x => x.type === 'main');
+    if (mainTitle) metadata.title = mainTitle.label;else metadata.title = this.getElementText(xml, "title");
     metadata.creator = this.getElementText(xml, "creator");
     metadata.description = this.getElementText(xml, "description");
-
-    metadata.subjects = getElementsNS(DC_NS, "subject")
-      .map(x => {
-        return {
-          authority: getProperty(x, OPF_NS, 'authority'),
-          term: getProperty(x, OPF_NS, 'term'),
-          label: getElementText(x)
-        }
-      })
-
-    metadata.sources = getElementsNS(DC_NS, "source")
-      .map(getElementText)
-
-    metadata.collections = metas
-      .filter(meta => meta.getAttribute('property') === 'belongs-to-collection')
-      .map(meta => {
-        return {
-          type: getProperty(meta, OPF_NS, 'collection-type'),
-          position: getProperty(meta, OPF_NS, 'group-position'),
-          label: getElementText(meta)
-        }
-      })
-
-    metadata.contributors = getElementsNS(DC_NS, "contributor")
-      .map(x => {
-      return {
-        role: getProperty(x, OPF_NS, 'role', false),
-        scheme: getProperty(x, OPF_NS, 'scheme', false),
-        label: getElementText(x)
-      }
-    })
-
+    metadata.subjects = getElementsNS(DC_NS, "subject").map(x => ({
+      authority: getProperty(x, OPF_NS, 'authority'),
+      term: getProperty(x, OPF_NS, 'term'),
+      label: getElementText(x)
+    }));
+    metadata.sources = getElementsNS(DC_NS, "source").map(getElementText);
+    metadata.collections = metas.filter(meta => meta.getAttribute('property') === 'belongs-to-collection').map(meta => ({
+      type: getProperty(meta, OPF_NS, 'collection-type'),
+      position: getProperty(meta, OPF_NS, 'group-position'),
+      label: getElementText(meta)
+    }));
+    metadata.contributors = getElementsNS(DC_NS, "contributor").map(x => ({
+      role: getProperty(x, OPF_NS, 'role', false),
+      scheme: getProperty(x, OPF_NS, 'scheme', false),
+      label: getElementText(x)
+    }));
     metadata.pubdate = this.getElementText(xml, "date");
     metadata.publisher = this.getElementText(xml, "publisher");
-
-    const identifiers = getElementsNS(DC_NS, "identifier")
-      .map(x => {
-        return {
-          type: getProperty(x, OPF_NS, 'identifier-type'),
-          scheme: getProperty(x, OPF_NS, 'scheme'),
-          identifier: getElementText(x)
-        }
-      })
-    metadata.identifiers = identifiers
-
+    metadata.identifiers = getElementsNS(DC_NS, "identifier").map(x => ({
+      type: getProperty(x, OPF_NS, 'identifier-type'),
+      scheme: getProperty(x, OPF_NS, 'scheme'),
+      identifier: getElementText(x)
+    }));
     metadata.identifier = this.getElementText(xml, "identifier");
     metadata.language = this.getElementText(xml, "language");
     metadata.rights = this.getElementText(xml, "rights");
@@ -18754,7 +18733,7 @@ class pagelist_PageList {
 
 }
 
-/* harmony default export */ var pagelist = (pagelist_PageList);
+/* harmony default export */ var src_pagelist = (pagelist_PageList);
 // EXTERNAL MODULE: ./src/rendition.js + 3 modules
 var rendition = __webpack_require__(39);
 
@@ -19802,8 +19781,10 @@ class book_Book {
     });
   }
   /**
-   * Add a method to load a JSON manifest directly
-   */
+  * Load manifest JSON object
+  * @param  {Object} json
+  * @return {Promise}
+  */
 
 
   openJSON(json) {
@@ -20004,8 +19985,9 @@ class book_Book {
         this.navigation = new navigation(toc);
 
         if (packaging.pageList) {
-          this.pageList = new pagelist(packaging.pageList); // TODO: handle page lists from Manifest
-        } else this.pageList = new pagelist() // Fix pageList undefined when loading from manifest
+          this.pageList = new src_pagelist(packaging.pageList); // TODO: handle page lists from Manifest
+        } else this.pageList = new pagelist(); // Fix pageList undefined when loading from manifest
+
 
         resolve(this.navigation);
       });
@@ -20014,14 +19996,14 @@ class book_Book {
     if (!navPath) {
       return new Promise((resolve, reject) => {
         this.navigation = new navigation();
-        this.pageList = new pagelist();
+        this.pageList = new src_pagelist();
         resolve(this.navigation);
       });
     }
 
     return this.load(navPath, "xml").then(xml => {
       this.navigation = new navigation(xml);
-      this.pageList = new pagelist(xml);
+      this.pageList = new src_pagelist(xml);
       return this.navigation;
     });
   }
@@ -20291,7 +20273,7 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 /* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 var classof = __webpack_require__(40);
 
 var split = ''.split;
@@ -20311,7 +20293,7 @@ module.exports = fails(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var DESCRIPTORS = __webpack_require__(16);
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 var createElement = __webpack_require__(63);
 
 // Thank's IE8 for his funny defineProperty
@@ -20431,7 +20413,7 @@ exports.f = Object.getOwnPropertySymbols;
 /* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 
 module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
   // Chrome 38 Symbol has incorrect toString conversion
@@ -20506,7 +20488,7 @@ addToUnscopables('entries');
 
 var DESCRIPTORS = __webpack_require__(16);
 var definePropertyModule = __webpack_require__(18);
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 var objectKeys = __webpack_require__(73);
 
 // `Object.defineProperties` method
@@ -20727,7 +20709,7 @@ module.exports = CORRECT_PROTOTYPE_GETTER ? Object.getPrototypeOf : function (O)
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 var wellKnownSymbol = __webpack_require__(8);
 var IS_PURE = __webpack_require__(34);
 
@@ -21002,7 +20984,7 @@ ePub.utils = _utils_core__WEBPACK_IMPORTED_MODULE_4__;
 // TODO: Remove from `core-js@4` since it's moved to entry points
 __webpack_require__(88);
 var redefine = __webpack_require__(19);
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 var wellKnownSymbol = __webpack_require__(8);
 var regexpExec = __webpack_require__(48);
 var createNonEnumerableProperty = __webpack_require__(15);
@@ -21178,7 +21160,7 @@ module.exports = function (target, source) {
 var getBuiltIn = __webpack_require__(45);
 var getOwnPropertyNamesModule = __webpack_require__(93);
 var getOwnPropertySymbolsModule = __webpack_require__(69);
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 
 // all object keys, includes non-enumerable and symbols
 module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
@@ -21273,7 +21255,7 @@ module.exports = function (index, length) {
 /* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 
 var replacement = /#|\.prototype\./;
 
@@ -21302,7 +21284,7 @@ module.exports = isForced;
 
 "use strict";
 
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 
 // `RegExp.prototype.flags` getter implementation
 // https://tc39.github.io/ecma262/#sec-get-regexp.prototype.flags
@@ -21326,7 +21308,7 @@ module.exports = function () {
 "use strict";
 
 
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 
 // babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError,
 // so we use an intermediate function.
@@ -21485,7 +21467,7 @@ module.exports = getBuiltIn('document', 'documentElement');
 /* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 
 module.exports = !fails(function () {
   function F() { /* empty */ }
@@ -21498,7 +21480,7 @@ module.exports = !fails(function () {
 /* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 var aPossiblePrototype = __webpack_require__(107);
 
 // `Object.setPrototypeOf` method
@@ -21874,7 +21856,7 @@ defineIterator(String, 'String', function (iterated) {
 "use strict";
 
 var DESCRIPTORS = __webpack_require__(16);
-var fails = __webpack_require__(12);
+var fails = __webpack_require__(13);
 var objectKeys = __webpack_require__(73);
 var getOwnPropertySymbolsModule = __webpack_require__(69);
 var propertyIsEnumerableModule = __webpack_require__(60);
@@ -21989,7 +21971,7 @@ module.exports = function (it) {
 /* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 
 // call something on iterator step with safe closing on error
 module.exports = function (iterator, fn, value, ENTRIES) {
@@ -22246,7 +22228,7 @@ var anInstance = __webpack_require__(79);
 var hasOwn = __webpack_require__(10);
 var bind = __webpack_require__(80);
 var classof = __webpack_require__(81);
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 var isObject = __webpack_require__(17);
 var create = __webpack_require__(50);
 var createPropertyDescriptor = __webpack_require__(25);
@@ -22596,7 +22578,7 @@ module.exports = function (target, src, options) {
 /* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(13);
+var anObject = __webpack_require__(14);
 var getIteratorMethod = __webpack_require__(52);
 
 module.exports = function (it) {
