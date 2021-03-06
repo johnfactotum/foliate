@@ -18733,7 +18733,7 @@ class pagelist_PageList {
 
 }
 
-/* harmony default export */ var src_pagelist = (pagelist_PageList);
+/* harmony default export */ var pagelist = (pagelist_PageList);
 // EXTERNAL MODULE: ./src/rendition.js + 3 modules
 var rendition = __webpack_require__(39);
 
@@ -19985,7 +19985,7 @@ class book_Book {
         this.navigation = new navigation(toc);
 
         if (packaging.pageList) {
-          this.pageList = new src_pagelist(packaging.pageList); // TODO: handle page lists from Manifest
+          this.pageList = new pagelist(packaging.pageList); // TODO: handle page lists from Manifest
         } else this.pageList = new pagelist(); // Fix pageList undefined when loading from manifest
 
 
@@ -19996,14 +19996,14 @@ class book_Book {
     if (!navPath) {
       return new Promise((resolve, reject) => {
         this.navigation = new navigation();
-        this.pageList = new src_pagelist();
+        this.pageList = new pagelist();
         resolve(this.navigation);
       });
     }
 
     return this.load(navPath, "xml").then(xml => {
       this.navigation = new navigation(xml);
-      this.pageList = new src_pagelist(xml);
+      this.pageList = new pagelist(xml);
       return this.navigation;
     });
   }
