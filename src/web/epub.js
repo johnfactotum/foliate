@@ -2473,7 +2473,7 @@ class Url {
     }
 
     fullpath = path_webpack__WEBPACK_IMPORTED_MODULE_3___default.a.resolve(this.directory, what);
-    return this.origin + fullpath;
+    return (this.origin === 'null' ? 'file://' : this.origin) + fullpath;
   }
   /**
    * Resolve a path relative to the url
