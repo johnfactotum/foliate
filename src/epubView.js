@@ -371,8 +371,8 @@ var EpubViewSettings = GObject.registerClass({
             GObject.ParamSpec.double('spacing', 'spacing', 'spacing',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0.1, 10, 1.5),
         margin:
-            GObject.ParamSpec.double('margin', 'margin', 'margin',
-                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 100, 3.5),
+            GObject.ParamSpec.int('margin', 'margin', 'margin',
+                GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 1000, 40),
         'max-width':
             GObject.ParamSpec.int('max-width', 'max-width', 'max-width',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, 0, 2147483647, 1400),
@@ -476,10 +476,7 @@ var EpubView = GObject.registerClass({
         'locations-ready': { flags: GObject.SignalFlags.RUN_FIRST },
         'locations-fallback': { flags: GObject.SignalFlags.RUN_FIRST },
         'relocated': { flags: GObject.SignalFlags.RUN_FIRST },
-        'spread': {
-            flags: GObject.SignalFlags.RUN_FIRST,
-            param_types: [GObject.TYPE_BOOLEAN]
-        },
+        'layout': { flags: GObject.SignalFlags.RUN_FIRST },
         'find-results': { flags: GObject.SignalFlags.RUN_FIRST },
         'selection': { flags: GObject.SignalFlags.RUN_FIRST },
         'highlight-menu': { flags: GObject.SignalFlags.RUN_FIRST },
@@ -723,6 +720,7 @@ var EpubView = GObject.registerClass({
             this.settings.connect('notify::link-color', () => this._applyStyle()),
             this.settings.connect('notify::invert', () => this._applyStyle()),
             this.settings.connect('notify::brightness', () => this._applyStyle()),
+            this.settings.connect('notify::skeuomorphism', () => this._applyStyle()),
 
             this.settings.connect('notify::enable-footnote', () =>
                 this._enableFootnote = this.settings.enable_footnote),
@@ -732,8 +730,6 @@ var EpubView = GObject.registerClass({
                 this._enableDevtools = this.settings.enable_devtools),
             this.settings.connect('notify::allow-unsafe', () => this.reload()),
             this.settings.connect('notify::layout', () => this.reload()),
-            this.settings.connect('notify::skeuomorphism', () =>
-                this._skeuomorphism = this.settings.skeuomorphism),
         ]
         this._webView.connect('destroy', () =>
             handlers.forEach(h => this.settings.disconnect(h)))
@@ -875,7 +871,6 @@ var EpubView = GObject.registerClass({
 
                 this._enableFootnote = this.settings.enable_footnote
                 this._enableDevtools = this.settings.enable_devtools
-                this._skeuomorphism = this.settings.skeuomorphism
                 this._autohideCursor = this.settings.autohide_cursor
 
                 const uri = this._uri
@@ -956,8 +951,9 @@ var EpubView = GObject.registerClass({
                 this.emit('relocated')
                 break
             }
-            case 'spread':
-                this.emit('spread', payload)
+            case 'layout':
+                this.layoutProps = payload
+                this.emit('layout')
                 break
             case 'link-internal':
                 this.goTo(payload)
@@ -1059,6 +1055,7 @@ var EpubView = GObject.registerClass({
             linkColor: invert(this.settings.link_color),
             invert: this.settings.invert,
             brightness: this.settings.brightness,
+            skeuomorphism: this.settings.skeuomorphism,
             ibooksInternalTheme: getIbooksInternalTheme(invert(this.settings.bg_color))
         }
         return this._run(`setStyle(${JSON.stringify(style)})`)
@@ -1075,9 +1072,6 @@ var EpubView = GObject.registerClass({
         this.actionGroup.lookup_action('zoom-restore').enabled = zoomLevel !== 1
         this.actionGroup.lookup_action('zoom-out').enabled = zoomLevel > 0.2
         this.actionGroup.lookup_action('zoom-in').enabled = zoomLevel < 4
-    }
-    set _skeuomorphism(state) {
-        this._run(`skeuomorphism = ${state}`)
     }
     set _enableFootnote(state) {
         this._run(`enableFootnote = ${state}`)

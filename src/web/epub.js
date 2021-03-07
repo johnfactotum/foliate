@@ -8838,6 +8838,7 @@ var constants = __webpack_require__(1);
  * @param {number} [settings.minSpreadWidth=800]
  * @param {boolean} [settings.evenSpreads=false]
  * @param {number} [settings.maxSpreadColumns=Infinity]
+ * @param {number} [settings.gap] width of the gap between columns
  */
 
 class layout_Layout {
@@ -8848,6 +8849,7 @@ class layout_Layout {
     this._minSpreadWidth = settings.minSpreadWidth || 800;
     this._evenSpreads = settings.evenSpreads || false;
     this._maxSpreadColumns = settings.maxSpreadColumns || Infinity;
+    this._gap = settings.gap || 0;
 
     if (settings.flow === "scrolled" || settings.flow === "scrolled-continuous" || settings.flow === "scrolled-doc") {
       this._flow = "scrolled";
@@ -8926,18 +8928,16 @@ class layout_Layout {
    * Calculate the dimensions of the pagination
    * @param  {number} _width  width of the rendering
    * @param  {number} _height height of the rendering
-   * @param  {number} _gap    width of the gap between columns
    */
 
 
-  calculate(_width, _height, _gap) {
+  calculate(_width, _height) {
     var divisor = 1;
-    var gap = _gap || 0; //-- Check the width and create even width columns
+    var gap = this._gap % 2 ? this._gap - 1 : this._gap; //-- Check the width and create even width columns
     // var fullWidth = Math.floor(_width);
 
     var width = _width;
     var height = _height;
-    var section = Math.floor(width / 12);
     var columnWidth;
     var spreadWidth;
     var pageWidth;
@@ -8949,10 +8949,6 @@ class layout_Layout {
       if (this._evenSpreads && divisor % 2) {
         divisor = Math.max(1, divisor - 1);
       }
-    }
-
-    if (this.name === "reflowable" && this._flow === "paginated" && !(_gap >= 0)) {
-      gap = section % 2 === 0 ? section : section - 1;
     }
 
     if (this.name === "pre-paginated") {
@@ -9740,6 +9736,7 @@ var continuous = __webpack_require__(56);
  * @param {number} [options.minSpreadWidth] overridden by spread: none (never) / both (always)
  * @param {boolean} [settings.evenSpreads=true] whether to force an even number of columns
  * @param {number} [settings.maxSpreadColumns=Infinity] max number of columns in the spread
+ * @param {number} [settings.gap] width of the gap between columns
  * @param {string} [options.stylesheet] url of stylesheet to be injected
  * @param {boolean} [options.resizeOnOrientationChange] false to disable orientation events
  * @param {string} [options.script] url of script to be injected
@@ -9760,6 +9757,7 @@ class rendition_Rendition {
       minSpreadWidth: 800,
       evenSpreads: true,
       maxSpreadColumns: Infinity,
+      gap: 60,
       stylesheet: null,
       resizeOnOrientationChange: true,
       script: null,
@@ -10265,6 +10263,7 @@ class rendition_Rendition {
       minSpreadWidth: minSpreadWidth,
       evenSpreads: this.settings.evenSpreads,
       maxSpreadColumns: this.settings.maxSpreadColumns,
+      gap: this.settings.gap,
       direction: direction
     };
     return properties;

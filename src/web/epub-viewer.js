@@ -25,7 +25,6 @@ let cfiToc
 let sectionMarks = []
 let lineHeight = 24
 let enableFootnote = false
-let skeuomorphism = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
 let ibooksInternalTheme = 'Light'
 let doubleClickTime = 400
@@ -262,7 +261,8 @@ const setStyle = style => {
         brightness, fgColor, bgColor, linkColor, invert,
         fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
         spacing, margin, maxWidth,
-        usePublisherFont, hyphenate, justify
+        usePublisherFont, hyphenate, justify,
+        skeuomorphism
     } = style
 
     lineHeight = fontSize * spacing
@@ -271,8 +271,19 @@ const setStyle = style => {
     rendition.getContents().forEach(contents => contents.document.documentElement
         .setAttribute('__ibooks_internal_theme', ibooksInternalTheme))
 
-    document.documentElement.style.padding = `0 ${margin}%`
-    document.body.style.maxWidth = `${maxWidth}px`
+
+    if (rendition.settings.layout === 'pre-paginated') {
+        document.documentElement.style.padding = 0
+    } else {
+        const gap = skeuomorphism ? margin * 2 : margin
+        rendition.layout({
+            ...rendition.settings.globalLayoutProperties,
+            gap,
+            evenSpreads: skeuomorphism
+        })
+        document.documentElement.style.padding = `0 ${skeuomorphism ? 0 : margin / 2}px`
+        document.body.style.maxWidth = `${maxWidth + gap}px`
+    }
 
     document.documentElement.style.filter =
         invert || brightness !== 1
@@ -554,15 +565,8 @@ const setupRendition = () => {
         justResized = true
     })
 
-    const updateDivider = () => {
-        const spread = paginated && rendition.settings.spread !== 'none'
-            && document.getElementById('viewer').clientWidth >= 800
-        // document.getElementById('divider').style.display =
-        //     skeuomorphism && spread ? 'block' : 'none'
-        dispatch({ type: 'spread', payload: spread })
-    }
-    rendition.on('layout', updateDivider)
-    updateDivider()
+    rendition.on('layout', props => dispatch({ type: 'layout', payload: props }))
+    dispatch({ type: 'layout', payload: rendition._layout.props })
 
     let isSelecting = false
 
