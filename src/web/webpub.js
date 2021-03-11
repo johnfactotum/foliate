@@ -141,7 +141,10 @@ const webpubFromFB2Zip = async (uri, filename) => {
     const res = await fetch(uri)
     const data = await res.blob()
     const zip = await JSZip.loadAsync(data)
-    const blob = await zip.file(/\.fb2$/)[0].async('blob')
+    let files = await zip.file(/\.fb2$/)
+    if (!files.length) files = await zip.file(/[\s\S]*/)
+    if (!files.length) throw new Error('Zip file appears to be empty')
+    const blob = await files[0].async('blob')
     return fb2FromBlob(blob, filename)
 }
 
