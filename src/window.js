@@ -1022,8 +1022,14 @@ var Window = GObject.registerClass({
         this.loading = true
         this._setTitle(_('Foliate'))
     }
+    get file() {
+        return this._file || null
+    }
+    set file(file) {
+        this._file = file
+    }
     open(file) {
-        this.file = file
+        this._file = file
         this._epub.open(file)
     }
     _connectEpub() {
