@@ -5908,10 +5908,12 @@ class default_DefaultViewManager {
             if (this.settings.rtlScrollType === "default") {
               this.scrollTo(0, 0, true);
             } else {
-              this.scrollTo(this.container.scrollWidth * -1 + this.layout.delta, 0, true);
+              const deltas = Math.floor(this.container.scrollWidth / this.layout.delta) - 1;
+              this.scrollTo(-deltas * this.layout.delta, 0, true);
             }
           } else {
-            this.scrollTo(this.container.scrollWidth - this.layout.delta, 0, true);
+            const deltas = Math.floor(this.container.scrollWidth / this.layout.delta) - 1;
+            this.scrollTo(deltas * this.layout.delta, 0, true);
           }
         }
 
@@ -11453,9 +11455,9 @@ class IframeView {
         if (this.settings.forceEvenPages) {
           columns = width / this.layout.pageWidth;
 
-          if (this.layout.divisor > 1 && this.layout.name === "reflowable" && columns % 2 > 0) {
+          if (this.layout.divisor > 1 && this.layout.name === "reflowable" && columns % this.layout.divisor > 0) {
             // add a blank page
-            width += this.layout.pageWidth;
+            width += this.layout.pageWidth * (columns % this.layout.divisor);
           }
         }
       } // Expand Vertically
