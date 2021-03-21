@@ -1055,7 +1055,7 @@ class RangeObject {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return EVENTS; });
 const EPUBJS_VERSION = "0.3"; // Dom events to listen for
 
-const DOM_EVENTS = ["keydown", "keyup", "keypressed", "mouseup", "mousedown", "click", "touchend", "touchstart", "touchmove"];
+const DOM_EVENTS = ["keydown", "keyup", "keypressed", "mouseup", "mousedown", "mousemove", "click", "touchend", "touchstart", "touchmove"];
 const EVENTS = {
   BOOK: {
     OPEN_FAILED: "openFailed"
@@ -2566,7 +2566,11 @@ class Hook {
     var context = this.context;
     var promises = [];
     this.hooks.forEach(function (task) {
-      var executing = task.apply(context, args);
+      try {
+        var executing = task.apply(context, args);
+      } catch (err) {
+        console.log(err);
+      }
 
       if (executing && typeof executing["then"] === "function") {
         // Task is a function that returns a promise
@@ -5611,7 +5615,8 @@ class default_DefaultViewManager {
 
       if (target) {
         let offset = visible.locationOf(target);
-        this.moveTo(offset);
+        let width = visible.width();
+        this.moveTo(offset, width);
       }
 
       displaying.resolve();
@@ -5630,7 +5635,8 @@ class default_DefaultViewManager {
       // Move to correct place within the section, if needed
       if (target) {
         let offset = view.locationOf(target);
-        this.moveTo(offset);
+        let width = view.width();
+        this.moveTo(offset, width);
       }
     }.bind(this), err => {
       displaying.reject(err);
@@ -5657,7 +5663,7 @@ class default_DefaultViewManager {
     this.emit(constants["c" /* EVENTS */].MANAGERS.RESIZE, view.section);
   }
 
-  moveTo(offset) {
+  moveTo(offset, width) {
     var distX = 0,
         distY = 0;
 
@@ -5669,6 +5675,22 @@ class default_DefaultViewManager {
       if (distX + this.layout.delta > this.container.scrollWidth) {
         distX = this.container.scrollWidth - this.layout.delta;
       }
+
+      distY = Math.floor(offset.top / this.layout.delta) * this.layout.delta;
+
+      if (distY + this.layout.delta > this.container.scrollHeight) {
+        distY = this.container.scrollHeight - this.layout.delta;
+      }
+    }
+
+    if (this.settings.direction === 'rtl') {
+      /***
+      	the `floor` function above (L343) is on positive values, so we should add one `layout.delta` 
+      	to distX or use `Math.ceil` function, or multiply offset.left by -1
+      	before `Math.floor`
+      */
+      distX = distX + this.layout.delta;
+      distX = distX - width;
     }
 
     this.scrollTo(distX, distY, true);
@@ -5786,7 +5808,9 @@ class default_DefaultViewManager {
     }
 
     if (next) {
-      this.clear();
+      this.clear(); // The new section may have a different writing-mode from the old section. Thus, we need to update layout.
+
+      this.updateLayout();
       let forceRight = false;
 
       if (this.layout.name === "pre-paginated" && this.layout.divisor === 2 && next.properties.includes("page-spread-right")) {
@@ -5857,7 +5881,9 @@ class default_DefaultViewManager {
     }
 
     if (prev) {
-      this.clear();
+      this.clear(); // The new section may have a different writing-mode from the old section. Thus, we need to update layout.
+
+      this.updateLayout();
       let forceRight = false;
 
       if (this.layout.name === "pre-paginated" && this.layout.divisor === 2 && typeof prev.prev() !== "object") {
@@ -5915,6 +5941,8 @@ class default_DefaultViewManager {
   }
 
   currentLocation() {
+    this.updateLayout();
+
     if (this.isPaginated && this.settings.axis === "horizontal") {
       this.location = this.paginatedLocation();
     } else {
@@ -10575,7 +10603,7 @@ class rendition_Rendition {
   /**
    * Emit a selection event's CFI Range passed from a a view
    * @private
-   * @param  {EpubCFI} cfirange
+   * @param  {string} cfirange
    */
 
 
@@ -10583,7 +10611,7 @@ class rendition_Rendition {
     /**
      * Emit that a text selection has occured
      * @event selected
-     * @param {EpubCFI} cfirange
+     * @param {string} cfirange
      * @param {Contents} contents
      * @memberof Rendition
      */
@@ -17753,30 +17781,35 @@ class navigation_Navigation {
 
   parseNav(navHtml) {
     var navElement = Object(core["querySelectorByType"])(navHtml, "nav", "toc");
-    var navItems = navElement ? Object(core["qsa"])(navElement, "li") : [];
-    var length = navItems.length;
-    var i;
-    var toc = {};
     var list = [];
-    var item, parent;
-    if (!navItems || length === 0) return list;
+    if (!navElement) return list;
+    let navList = Object(core["filterChildren"])(navElement, "ol", true);
+    if (!navList) return list;
+    list = this.parseNavList(navList);
+    return list;
+  }
+  /**
+   * Parses lists in the toc
+   * @param  {document} navListHtml
+   * @param  {string} parent id
+   * @return {array} navigation list
+   */
 
-    for (i = 0; i < length; ++i) {
-      item = this.navItem(navItems[i]);
+
+  parseNavList(navListHtml, parent) {
+    const result = [];
+    if (!navListHtml) return result;
+    if (!navListHtml.children) return result;
+
+    for (let i = 0; i < navListHtml.children.length; i++) {
+      const item = this.navItem(navListHtml.children[i], parent);
 
       if (item) {
-        toc[item.id] = item;
-
-        if (!item.parent) {
-          list.push(item);
-        } else {
-          parent = toc[item.parent];
-          parent.subitems.push(item);
-        }
+        result.push(item);
       }
     }
 
-    return list;
+    return result;
   }
   /**
    * Create a navItem
@@ -17786,7 +17819,7 @@ class navigation_Navigation {
    */
 
 
-  navItem(item) {
+  navItem(item, parent) {
     let id = item.getAttribute("id") || undefined;
     let content = Object(core["filterChildren"])(item, "a", true);
 
@@ -17802,29 +17835,10 @@ class navigation_Navigation {
 
     let text = content.textContent || "";
     let subitems = [];
-    let parentItem = Object(core["getParentByTagName"])(item, "li");
-    let parent;
+    let nested = Object(core["filterChildren"])(item, "ol", true);
 
-    if (parentItem) {
-      parent = parentItem.getAttribute("id");
-
-      if (!parent) {
-        const parentContent = Object(core["filterChildren"])(parentItem, "a", true);
-        parent = parentContent && parentContent.getAttribute("href");
-      }
-    }
-
-    while (!parent && parentItem) {
-      parentItem = Object(core["getParentByTagName"])(parentItem, "li");
-
-      if (parentItem) {
-        parent = parentItem.getAttribute("id");
-
-        if (!parent) {
-          const parentContent = Object(core["filterChildren"])(parentItem, "a", true);
-          parent = parentContent && parentContent.getAttribute("href");
-        }
-      }
+    if (nested) {
+      subitems = this.parseNavList(nested, id);
     }
 
     return {
@@ -17976,7 +17990,7 @@ class navigation_Navigation {
 }
 
 /* harmony default export */ var navigation = (navigation_Navigation);
-// CONCATENATED MODULE: ./libs/mime/mime.js
+// CONCATENATED MODULE: ./src/utils/mime.js
 /*
  From Zip.js, by Gildas Lormeau
 edited down
@@ -20149,7 +20163,7 @@ class book_Book {
   /**
    * Find a DOM Range for a given CFI Range
    * @param  {EpubCFI} cfiRange a epub cfi range
-   * @return {Range}
+   * @return {Promise}
    */
 
 
