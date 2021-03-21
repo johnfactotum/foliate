@@ -8097,8 +8097,7 @@ class Contents {
 
     if (width >= 0) {
       this.width(width);
-      viewport.width = width;
-      this.css("padding", "0 " + width / 12 + "px");
+      viewport.width = width; //this.css("padding", "0 "+(width/12)+"px");
     }
 
     if (height >= 0) {

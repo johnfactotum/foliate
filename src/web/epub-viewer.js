@@ -264,6 +264,7 @@ const setStyle = style => {
         usePublisherFont, hyphenate, justify,
         skeuomorphism
     } = style
+    const paginated = rendition.settings.flow !== 'paginated'
 
     lineHeight = fontSize * spacing
 
@@ -281,7 +282,8 @@ const setStyle = style => {
             gap,
             evenSpreads: skeuomorphism
         })
-        document.documentElement.style.padding = `0 ${skeuomorphism ? 0 : margin / 2}px`
+        document.documentElement.style.padding = `0 ${
+            skeuomorphism ? 0 : paginated ? margin : margin / 2}px`
         document.body.style.maxWidth = `${maxWidth + gap}px`
     }
 
