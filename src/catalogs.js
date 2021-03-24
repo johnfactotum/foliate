@@ -25,7 +25,7 @@ const defaultCatalogs = [
     {
         title: 'Feedbooks',
         uri: 'https://catalog.feedbooks.com/catalog/index.atom',
-        preview: 'https://catalog.feedbooks.com/publicdomain/browse/homepage_selection.atom?lang=en',
+        preview: 'https://catalog.feedbooks.com/publicdomain/browse/awards.atom?lang=en',
     },
     {
         title: 'Project Gutenberg',
