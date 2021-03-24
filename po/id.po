@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-06 14:49+0100\n"
+"POT-Creation-Date: 2021-03-24 11:04+0800\n"
 "PO-Revision-Date: 2019-06-14 21:02+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 2.2.1\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
-#: src/main.js:209 src/window.js:1001 src/schemes.js:100
+#: src/main.js:209 src/window.js:1023 src/schemes.js:100
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
 msgstr "Foliate"
@@ -38,7 +38,7 @@ msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook,Buku,EPUB,Pemirsa,Pembaca;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:19
-#: src/ui/libraryWindow.ui:612 src/ui/mainMenu.ui:304
+#: src/ui/libraryWindow.ui:612 src/ui/mainMenu.ui:303
 #: src/ui/shortcutsWindow.ui:40
 msgid "Library"
 msgstr ""
@@ -94,20 +94,20 @@ msgstr ""
 msgid "Note"
 msgstr "Catatan"
 
-#: src/epubView.js:1127
+#: src/epubView.js:1121
 msgid "Failed to load remote file."
 msgstr ""
 
-#: src/epubView.js:1136
+#: src/epubView.js:1130
 #, fuzzy
 msgid "File not found."
 msgstr "Entri tidak ditemukan."
 
-#: src/epubView.js:1150
+#: src/epubView.js:1144
 msgid "Could not unpack Kindle file."
 msgstr ""
 
-#: src/epubView.js:1168
+#: src/epubView.js:1162
 msgid "File type not supported."
 msgstr ""
 
@@ -227,7 +227,7 @@ msgid ""
 msgstr ""
 
 #: src/export.js:234 src/library.js:455 src/main.js:161 src/opds.js:229
-#: src/opds.js:376 src/opds.js:1174 src/utils.js:772 src/window.js:571
+#: src/opds.js:376 src/opds.js:1174 src/utils.js:772 src/window.js:593
 #: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
 #: src/ui/libraryWindow.ui:601 src/ui/themeWindow.ui:10 src/ui/ttsDialog.ui:10
@@ -238,7 +238,7 @@ msgstr "Batalkan"
 msgid "Import Anyway"
 msgstr ""
 
-#: src/export.js:245 src/opds.js:1300 src/opds.js:1371 src/window.js:1031
+#: src/export.js:245 src/opds.js:1300 src/opds.js:1371 src/window.js:1059
 msgid "Error"
 msgstr ""
 
@@ -247,8 +247,8 @@ msgstr ""
 msgid "Could not import annotations."
 msgstr "Anotasi"
 
-#: src/library.js:98 src/window.js:650 src/ui/bookBoxMenu.ui:13
-#: src/ui/mainMenu.ui:613
+#: src/library.js:98 src/window.js:672 src/ui/bookBoxMenu.ui:13
+#: src/ui/mainMenu.ui:612
 msgid "About This Book"
 msgstr "Tentang Buku Ini"
 
@@ -361,7 +361,7 @@ msgstr "Cari di Wikitionary"
 msgid "Translation by Google Translate"
 msgstr "Terjemahan oleh Google Terjemahan"
 
-#: src/main.js:135 src/window.js:666
+#: src/main.js:135 src/window.js:688
 msgid "Open File"
 msgstr "Buka berkas"
 
@@ -504,13 +504,13 @@ msgstr ""
 msgid "Unable to load OPDS feed"
 msgstr ""
 
-#: src/opds.js:667 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:632
+#: src/opds.js:667 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:631
 #: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:78
 #: src/ui/shortcutsWindow.ui:120
 msgid "Reload"
 msgstr ""
 
-#: src/opds.js:835 src/window.js:340
+#: src/opds.js:835 src/window.js:368
 #, fuzzy, javascript-format
 msgid "%d of %d"
 msgstr "dari %d"
@@ -529,7 +529,7 @@ msgstr ""
 msgid "Go"
 msgstr "Pergi"
 
-#: src/opds.js:1195 src/opds.js:1221 src/window.js:1312
+#: src/opds.js:1195 src/opds.js:1221 src/window.js:1340
 #: src/ui/libraryWindow.ui:359
 msgid "Loading…"
 msgstr "Memuat…"
@@ -680,7 +680,7 @@ msgstr ""
 msgid "Dark"
 msgstr "Gelap"
 
-#: src/theme.js:39 src/ui/imageViewer.ui:56 src/ui/shortcutsWindow.ui:409
+#: src/theme.js:39 src/ui/imageViewer.ui:56 src/ui/shortcutsWindow.ui:413
 #: src/ui/themeWindow.ui:145
 #: data/com.github.johnfactotum.Foliate.gschema.xml:176
 msgid "Invert"
@@ -781,7 +781,7 @@ msgstr ""
 msgid "Remember my credentials"
 msgstr ""
 
-#: src/window.js:126 src/window.js:816
+#: src/window.js:126 src/window.js:838
 #, fuzzy
 msgid "Leave fullscreen"
 msgstr "Beralih ke layar penuh"
@@ -796,42 +796,42 @@ msgstr "Layar Penuh"
 msgid "of %d"
 msgstr "dari %d"
 
-#: src/window.js:565
+#: src/window.js:587
 msgid "This file or format does not work well with annotations"
 msgstr ""
 
-#: src/window.js:566
+#: src/window.js:588
 msgid "Your annotations might stop working properly at any time."
 msgstr ""
 
-#: src/window.js:572
+#: src/window.js:594
 msgid "Continue Anyway"
 msgstr ""
 
-#: src/window.js:795
+#: src/window.js:817
 #, fuzzy
 msgid "Contents"
 msgstr "Tampilkan daftar isi"
 
-#: src/window.js:799 data/com.github.johnfactotum.Foliate.gschema.xml:244
+#: src/window.js:821 data/com.github.johnfactotum.Foliate.gschema.xml:244
 #, fuzzy
 msgid "Show sidebar"
 msgstr "Tampilkan penanda buku"
 
-#: src/window.js:810 src/ui/selectionPopover.ui:47
+#: src/window.js:832 src/ui/selectionPopover.ui:47
 msgid "Find"
 msgstr ""
 
-#: src/window.js:811 src/ui/libraryWindow.ui:205 src/ui/libraryWindow.ui:300
+#: src/window.js:833 src/ui/libraryWindow.ui:205 src/ui/libraryWindow.ui:300
 msgid "Menu"
 msgstr ""
 
-#: src/window.js:1097
+#: src/window.js:1125
 #, javascript-format
 msgid "Image from “%s”"
 msgstr ""
 
-#: src/window.js:1097
+#: src/window.js:1125
 msgid "Image"
 msgstr ""
 
@@ -848,7 +848,7 @@ msgstr ""
 msgid "Remote file"
 msgstr "Hapus tema terpilih"
 
-#: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:651 src/ui/menuBar.ui:34
+#: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:650 src/ui/menuBar.ui:34
 #, fuzzy
 msgid "Export Annotations…"
 msgstr "Ekspor Anotasi…"
@@ -903,7 +903,7 @@ msgid "Select some text to add annotations."
 msgstr "Sorot teks untuk memberi anotasi."
 
 #: src/ui/contentsStack.ui:124
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:146
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
 msgid "Annotations"
 msgstr "Anotasi"
 
@@ -970,29 +970,29 @@ msgstr ""
 msgid "Current chapter"
 msgstr "Bagian saat ini"
 
-#: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:553 src/ui/menuBar.ui:149
+#: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:552 src/ui/menuBar.ui:154
 msgid "Reference Preview"
 msgstr ""
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:186
-#: src/ui/shortcutsWindow.ui:369 src/ui/wikipediaBox.ui:107
+#: src/ui/shortcutsWindow.ui:371 src/ui/wikipediaBox.ui:107
 #: data/com.github.johnfactotum.Foliate.gschema.xml:272
 msgid "View"
 msgstr "Lihat"
 
 #: src/ui/imageViewer.ui:31 src/ui/menuBar.ui:60 src/ui/preferenceWindow.ui:59
-#: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:338
+#: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:340
 msgid "Copy"
 msgstr "Salin"
 
-#: src/ui/imageViewer.ui:44 src/ui/shortcutsWindow.ui:345
+#: src/ui/imageViewer.ui:44 src/ui/shortcutsWindow.ui:347
 #, fuzzy
 msgid "Save as"
 msgstr "Simpan berkas"
 
 #: src/ui/imageViewer.ui:126 src/ui/mainMenu.ui:50
-#: src/ui/shortcutsWindow.ui:198 src/ui/shortcutsWindow.ui:318
-#: src/ui/shortcutsWindow.ui:381
+#: src/ui/shortcutsWindow.ui:198 src/ui/shortcutsWindow.ui:320
+#: src/ui/shortcutsWindow.ui:383
 msgid "Zoom out"
 msgstr "Perkecil"
 
@@ -1001,16 +1001,16 @@ msgid "Restore zoom"
 msgstr ""
 
 #: src/ui/imageViewer.ui:152 src/ui/mainMenu.ui:73
-#: src/ui/shortcutsWindow.ui:190 src/ui/shortcutsWindow.ui:311
-#: src/ui/shortcutsWindow.ui:373
+#: src/ui/shortcutsWindow.ui:190 src/ui/shortcutsWindow.ui:313
+#: src/ui/shortcutsWindow.ui:375
 msgid "Zoom in"
 msgstr "Perbesar"
 
-#: src/ui/imageViewer.ui:184 src/ui/shortcutsWindow.ui:395
+#: src/ui/imageViewer.ui:184 src/ui/shortcutsWindow.ui:399
 msgid "Rotate 90° counter-clockwise"
 msgstr ""
 
-#: src/ui/imageViewer.ui:197 src/ui/shortcutsWindow.ui:402
+#: src/ui/imageViewer.ui:197 src/ui/shortcutsWindow.ui:406
 msgid "Rotate 90° clockwise"
 msgstr ""
 
@@ -1048,16 +1048,16 @@ msgstr ""
 msgid "Add Catalog…"
 msgstr "Buka Berkas…"
 
-#: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:316 src/ui/menuBar.ui:78
+#: src/ui/libraryWindow.ui:26 src/ui/mainMenu.ui:315 src/ui/menuBar.ui:78
 #: src/ui/preferenceWindow.ui:118
 msgid "Preferences"
 msgstr "Preferensi"
 
-#: src/ui/libraryWindow.ui:30 src/ui/mainMenu.ui:323 src/ui/menuBar.ui:223
+#: src/ui/libraryWindow.ui:30 src/ui/mainMenu.ui:322 src/ui/menuBar.ui:228
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan Keyboard"
 
-#: src/ui/libraryWindow.ui:34 src/ui/mainMenu.ui:330 src/ui/menuBar.ui:227
+#: src/ui/libraryWindow.ui:34 src/ui/mainMenu.ui:329 src/ui/menuBar.ui:232
 msgid "About Foliate"
 msgstr "Tentang Foliate"
 
@@ -1168,110 +1168,110 @@ msgstr "Jarak"
 msgid "Margins"
 msgstr "Margin"
 
-#: src/ui/mainMenu.ui:231
+#: src/ui/mainMenu.ui:230
 msgid "Width"
 msgstr ""
 
-#: src/ui/mainMenu.ui:232 data/com.github.johnfactotum.Foliate.gschema.xml:142
+#: src/ui/mainMenu.ui:231 data/com.github.johnfactotum.Foliate.gschema.xml:142
 msgid "Maximum page width"
 msgstr ""
 
-#: src/ui/mainMenu.ui:266 src/ui/mainMenu.ui:343
+#: src/ui/mainMenu.ui:265 src/ui/mainMenu.ui:342
 msgid "Theme"
 msgstr "Tema"
 
-#: src/ui/mainMenu.ui:273 src/ui/mainMenu.ui:409 src/ui/preferenceWindow.ui:600
+#: src/ui/mainMenu.ui:272 src/ui/mainMenu.ui:408 src/ui/preferenceWindow.ui:600
 msgid "Advanced"
 msgstr ""
 
-#: src/ui/mainMenu.ui:285 src/ui/mainMenu.ui:603 src/ui/shortcutsWindow.ui:151
+#: src/ui/mainMenu.ui:284 src/ui/mainMenu.ui:602 src/ui/shortcutsWindow.ui:151
 #, fuzzy
 msgid "Book"
 msgstr "Penanda buku"
 
-#: src/ui/mainMenu.ui:297 src/ui/menuBar.ui:8
+#: src/ui/mainMenu.ui:296 src/ui/menuBar.ui:8
 msgid "Open…"
 msgstr "Buka…"
 
-#: src/ui/mainMenu.ui:383
+#: src/ui/mainMenu.ui:382
 msgid "Add Custom Theme…"
 msgstr ""
 
-#: src/ui/mainMenu.ui:429 src/ui/menuBar.ui:108
+#: src/ui/mainMenu.ui:428 src/ui/menuBar.ui:108
 #: data/com.github.johnfactotum.Foliate.gschema.xml:201
 msgid "Layout"
 msgstr "Tata letak"
 
-#: src/ui/mainMenu.ui:447 src/ui/menuBar.ui:111
+#: src/ui/mainMenu.ui:446 src/ui/menuBar.ui:111
 #, fuzzy
 msgid "Automatic"
 msgstr "Otomatis"
 
-#: src/ui/mainMenu.ui:455 src/ui/menuBar.ui:116
+#: src/ui/mainMenu.ui:454 src/ui/menuBar.ui:121
 #, fuzzy
 msgid "Single Column"
 msgstr "Tunggal"
 
-#: src/ui/mainMenu.ui:463 src/ui/menuBar.ui:121
+#: src/ui/mainMenu.ui:462 src/ui/menuBar.ui:126
 msgid "Scrolled"
 msgstr "Gulir"
 
-#: src/ui/mainMenu.ui:471 src/ui/menuBar.ui:126
+#: src/ui/mainMenu.ui:470 src/ui/menuBar.ui:131
 msgid "Continuous"
 msgstr ""
 
-#: src/ui/mainMenu.ui:488
+#: src/ui/mainMenu.ui:487
 msgid "Text"
 msgstr "Teks"
 
-#: src/ui/mainMenu.ui:505 src/ui/menuBar.ui:135
+#: src/ui/mainMenu.ui:504 src/ui/menuBar.ui:140
 msgid "Use Publisher Font"
 msgstr "Gunakan Fonta Penerbit"
 
-#: src/ui/mainMenu.ui:512 src/ui/menuBar.ui:139
+#: src/ui/mainMenu.ui:511 src/ui/menuBar.ui:144
 msgid "Full Justification"
 msgstr "Rata Kanan-Kiri"
 
-#: src/ui/mainMenu.ui:519 src/ui/menuBar.ui:143
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:343
+#: src/ui/mainMenu.ui:518 src/ui/menuBar.ui:148
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:358
 msgid "Auto-hyphenation"
 msgstr "Tanda hubung otomatis"
 
-#: src/ui/mainMenu.ui:536 src/ui/ttsDialog.ui:114 src/schemes.js:402
+#: src/ui/mainMenu.ui:535 src/ui/ttsDialog.ui:114 src/schemes.js:402
 msgid "Other"
 msgstr ""
 
-#: src/ui/mainMenu.ui:560 src/ui/menuBar.ui:153
+#: src/ui/mainMenu.ui:559 src/ui/menuBar.ui:158
 #, fuzzy
 msgid "Auto-hide Cursor"
 msgstr "Sembunyikan kursor otomatis"
 
-#: src/ui/mainMenu.ui:567 src/ui/menuBar.ui:157
+#: src/ui/mainMenu.ui:566 src/ui/menuBar.ui:162
 msgid "Realistic Shadows"
 msgstr ""
 
-#: src/ui/mainMenu.ui:579
+#: src/ui/mainMenu.ui:578
 msgid "Allow JavaScript"
 msgstr ""
 
-#: src/ui/mainMenu.ui:580 src/ui/menuBar.ui:163
+#: src/ui/mainMenu.ui:579 src/ui/menuBar.ui:168
 #, fuzzy
 msgid "Allow Unsafe Content"
 msgstr "Izinkan konten tidak aman (tidak direkomendasikan)"
 
-#: src/ui/mainMenu.ui:587 src/ui/menuBar.ui:167
+#: src/ui/mainMenu.ui:586 src/ui/menuBar.ui:172
 msgid "Enable Developer Tools"
 msgstr ""
 
-#: src/ui/mainMenu.ui:625 src/ui/menuBar.ui:14
+#: src/ui/mainMenu.ui:624 src/ui/menuBar.ui:14
 msgid "Open a Copy"
 msgstr ""
 
-#: src/ui/mainMenu.ui:639 src/ui/menuBar.ui:22
+#: src/ui/mainMenu.ui:638 src/ui/menuBar.ui:22
 msgid "Clear Cache"
 msgstr ""
 
-#: src/ui/mainMenu.ui:658 src/ui/menuBar.ui:40
+#: src/ui/mainMenu.ui:657 src/ui/menuBar.ui:40
 #, fuzzy
 msgid "Import Annotations…"
 msgstr "Ekspor Anotasi…"
@@ -1315,7 +1315,7 @@ msgid "Close Window"
 msgstr "Tutup jendela saat ini"
 
 #: src/ui/menuBar.ui:50 src/ui/shortcutsWindow.ui:31
-#: src/ui/shortcutsWindow.ui:141 src/ui/shortcutsWindow.ui:359
+#: src/ui/shortcutsWindow.ui:141 src/ui/shortcutsWindow.ui:361
 msgid "Quit"
 msgstr "Keluar"
 
@@ -1357,50 +1357,54 @@ msgstr ""
 msgid "Zoom Out"
 msgstr "Perkecil"
 
-#: src/ui/menuBar.ui:174
+#: src/ui/menuBar.ui:116
+msgid "Up to Two Columns"
+msgstr ""
+
+#: src/ui/menuBar.ui:179
 #, fuzzy
 msgid "_Go"
 msgstr "Pergi"
 
-#: src/ui/menuBar.ui:177
+#: src/ui/menuBar.ui:182
 msgid "Go Back"
 msgstr ""
 
-#: src/ui/menuBar.ui:183
+#: src/ui/menuBar.ui:188
 #, fuzzy
 msgid "Next Page"
 msgstr "Halaman berikutnya"
 
-#: src/ui/menuBar.ui:187
+#: src/ui/menuBar.ui:192
 #, fuzzy
 msgid "Previous Page"
 msgstr "Halaman sebelumnya"
 
-#: src/ui/menuBar.ui:193
+#: src/ui/menuBar.ui:198
 #, fuzzy
 msgid "Next Chapter"
 msgstr "Pergi ke halaman berikutnya"
 
-#: src/ui/menuBar.ui:197
+#: src/ui/menuBar.ui:202
 #, fuzzy
 msgid "Previous Chapter"
 msgstr "Halaman sebelumnya"
 
-#: src/ui/menuBar.ui:203
+#: src/ui/menuBar.ui:208
 msgid "Beginning"
 msgstr ""
 
-#: src/ui/menuBar.ui:207
+#: src/ui/menuBar.ui:212
 msgid "End"
 msgstr ""
 
-#: src/ui/menuBar.ui:213 src/ui/navBar.ui:134 src/ui/navBar.ui:313
+#: src/ui/menuBar.ui:218 src/ui/navBar.ui:134 src/ui/navBar.ui:313
 #: src/ui/preferenceWindow.ui:19
 #, fuzzy
 msgid "Location"
 msgstr "Kembali ke lokasi sebelumnya"
 
-#: src/ui/menuBar.ui:220
+#: src/ui/menuBar.ui:225
 msgid "_Help"
 msgstr ""
 
@@ -1445,18 +1449,18 @@ msgstr "Pergi ke halaman berikutnya"
 msgid "Go to end of book"
 msgstr ""
 
-#: src/ui/navBar.ui:284 src/ui/shortcutsWindow.ui:268
-#: src/ui/shortcutsWindow.ui:304
+#: src/ui/navBar.ui:284 src/ui/shortcutsWindow.ui:270
+#: src/ui/shortcutsWindow.ui:306
 #, fuzzy
 msgid "Go to previous page"
 msgstr "Pergi ke halaman sebelumnya"
 
-#: src/ui/navBar.ui:298 src/ui/shortcutsWindow.ui:275
+#: src/ui/navBar.ui:298 src/ui/shortcutsWindow.ui:277
 msgid "Go back to previous location"
 msgstr "Kembali ke lokasi sebelumnya"
 
-#: src/ui/navBar.ui:387 src/ui/shortcutsWindow.ui:261
-#: src/ui/shortcutsWindow.ui:297
+#: src/ui/navBar.ui:387 src/ui/shortcutsWindow.ui:263
+#: src/ui/shortcutsWindow.ui:299
 #, fuzzy
 msgid "Go to next page"
 msgstr "Pergi ke halaman berikutnya"
@@ -1540,7 +1544,7 @@ msgid "Right click"
 msgstr ""
 
 #: src/ui/preferenceWindow.ui:142 src/ui/shortcutsWindow.ui:13
-#: src/ui/shortcutsWindow.ui:334
+#: src/ui/shortcutsWindow.ui:336
 msgid "General"
 msgstr "Umum"
 
@@ -1680,7 +1684,7 @@ msgid "Open file"
 msgstr "Buka berkas"
 
 #: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:134
-#: src/ui/shortcutsWindow.ui:352
+#: src/ui/shortcutsWindow.ui:354
 msgid "Close current window"
 msgstr "Tutup jendela saat ini"
 
@@ -1692,7 +1696,7 @@ msgstr ""
 msgid "Grid view"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:85 src/ui/shortcutsWindow.ui:283
+#: src/ui/shortcutsWindow.ui:85 src/ui/shortcutsWindow.ui:285
 #, fuzzy
 msgid "Go to location"
 msgstr "Kembali ke lokasi sebelumnya"
@@ -1724,47 +1728,47 @@ msgstr "Lihat eBook"
 msgid "Start/stop text-to-speech"
 msgstr "Mulai/stop text-to-speech"
 
-#: src/ui/shortcutsWindow.ui:205 src/ui/shortcutsWindow.ui:388
+#: src/ui/shortcutsWindow.ui:206 src/ui/shortcutsWindow.ui:391
 msgid "Restore zoom level"
 msgstr ""
 
-#: src/ui/shortcutsWindow.ui:212
+#: src/ui/shortcutsWindow.ui:214
 msgid "Toggle fullscreen"
 msgstr "Beralih ke layar penuh"
 
-#: src/ui/shortcutsWindow.ui:219
+#: src/ui/shortcutsWindow.ui:221
 #, fuzzy
 msgid "Show contents"
 msgstr "Tampilkan daftar isi"
 
-#: src/ui/shortcutsWindow.ui:226
+#: src/ui/shortcutsWindow.ui:228
 #, fuzzy
 msgid "Show table of contents"
 msgstr "Daftar isi"
 
-#: src/ui/shortcutsWindow.ui:233
+#: src/ui/shortcutsWindow.ui:235
 #, fuzzy
 msgid "Show annotations"
 msgstr "Tampilkan anotasi"
 
-#: src/ui/shortcutsWindow.ui:240
+#: src/ui/shortcutsWindow.ui:242
 msgid "Show bookmarks"
 msgstr "Tampilkan penanda buku"
 
-#: src/ui/shortcutsWindow.ui:247
+#: src/ui/shortcutsWindow.ui:249
 #, fuzzy
 msgid "Show primary menu"
 msgstr "Tampilkan menu"
 
-#: src/ui/shortcutsWindow.ui:257
+#: src/ui/shortcutsWindow.ui:259
 msgid "Navigation"
 msgstr "Navigasi"
 
-#: src/ui/shortcutsWindow.ui:293
+#: src/ui/shortcutsWindow.ui:295
 msgid "Touchpad Gestures"
 msgstr "Gestur Touchpad"
 
-#: src/ui/shortcutsWindow.ui:330
+#: src/ui/shortcutsWindow.ui:332
 #, fuzzy
 msgid "Image Viewer Shortcuts"
 msgstr "Pintasan Keyboard"
@@ -3194,733 +3198,769 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:254
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:276
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:285
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:296
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:123
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:269
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:291
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:300
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:311
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:355
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:326
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:335
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:370
 #, fuzzy
 msgid "Changes:"
 msgstr "Oranye"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
-msgid "Improved support for touch screens"
+msgid "Added support for opening HTML files"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
-msgid "OPDS credentials can now be remembered"
+msgid "Consistent inner and outer margins"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-msgid "Various fixes for GNOME 3.38"
+msgid "The automatic layout no longer supports 4 columns"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
-msgid "Fixed Wiktionary internal links"
+msgid "Fixed long words overflowing"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
-msgid "Added Basque, Korean, and Norwegian translations"
+#, fuzzy
+msgid "Fixed custom themes not saved across sessions"
+msgstr "Perbaikan gaya kustom tidak terterapkan pada beberapa kasus"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
+#, fuzzy
+msgid "Fixed shortcuts for key pads"
+msgstr "Perbaikan jalan pintas F9 tidak bekerja"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
+msgid "Fixed opening non-UTF-8 zipped FB2 files"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
 #, fuzzy
-msgid "Fixed unable to open some EPUB files"
-msgstr "Perbaikan tidak dapat membuka buku dengan ekstensi berkas .epub3"
+msgid "Fixed books not opening on GNOME 40"
+msgstr "Perbaikan beberapa buku terkadang tidak terender"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
-#, fuzzy
-msgid "Fixed unable to open Mobipocket files"
-msgstr "Perbaikan tidak dapat membuka buku dengan ekstensi berkas .epub3"
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
-msgid "Improved metadata display"
+msgid "Improved support for touch screens"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
-msgid "Improved FictionBook rendering"
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
+msgid "OPDS credentials can now be remembered"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
-msgid "Improved UI for acquiring books from OPDS"
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
+msgid "Various fixes for GNOME 3.38"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
+msgid "Fixed Wiktionary internal links"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
+msgid "Added Basque, Korean, and Norwegian translations"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
 #, fuzzy
+msgid "Fixed unable to open some EPUB files"
+msgstr "Perbaikan tidak dapat membuka buku dengan ekstensi berkas .epub3"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
+#, fuzzy
+msgid "Fixed unable to open Mobipocket files"
+msgstr "Perbaikan tidak dapat membuka buku dengan ekstensi berkas .epub3"
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
+msgid "Improved metadata display"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+msgid "Improved FictionBook rendering"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
+msgid "Improved UI for acquiring books from OPDS"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+#, fuzzy
 msgid "Fixed unique identifier extraction for EPUB files"
 msgstr "Perbaikan tidak dapat membuka buku dengan ekstensi berkas .epub3"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:77
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
 msgid "Fixed missing window icon"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:78
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
 msgid "Fixed TTS environment variables not set when using Flatpak"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
 msgid "Fixed eSpeak NG voice not selected when testing TTS configuration"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:80
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
 msgid ""
 "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
 #, fuzzy
 msgid "OPDS catalogs:"
 msgstr "Bahasa Katala"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:103
 msgid "Catalogs are now opened in the main library window"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
 #, fuzzy
 msgid "View current location"
 msgstr "Bersihkan Lokasi Kini"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:105
 #, fuzzy
 msgid "Go to catalog start page"
 msgstr "Kembali ke lokasi sebelumnya"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
 #, fuzzy
 msgid "Reload catalog"
 msgstr "Bahasa Katala"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:107
 msgid "Add current feed to catalogs"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
 msgid "HTTP authentication support"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
 #, fuzzy
 msgid "Other changes:"
 msgstr "Oranye"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:97
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
 msgid "Fixed newlines being ignored when copying text"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:114
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:100
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
 msgid "Opening a book from the library view now closes the library window"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
 msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:102
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
 #, fuzzy
 msgid "Export annotations from the library view"
 msgstr "Anotasi"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:125
 msgid "Fixed blurry book covers on HiDPI"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
 msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
 msgid "Fixed wrong view icon on startup"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:118
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
 msgid "Library:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:135
 msgid "A library view showing recent books and reading progress"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
 msgid "Search books by metadata"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:122
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
 msgid "E-book discovery with OPDS"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:124
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:139
 #, fuzzy
 msgid "New supported formats:"
 msgstr "Pilih format ekspor:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:141
 msgid "FictionBook (.fb2, .fb2.zip)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:128
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
 #, fuzzy
 msgid "Plain text (.txt)"
 msgstr "Teks Biasa"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:144
 msgid "Unpacked EPUB files"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:146
 #, fuzzy
 msgid "Layout:"
 msgstr "Tata letak"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
 #, fuzzy
 msgid "Option to set maximum page width"
 msgstr "Opsi untuk menonaktifkan kamus"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:134
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
 msgid ""
 "The \"Automatic\" layout will now show four columns when the page width is "
 "wide"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
 #, fuzzy
 msgid "Image viewer:"
 msgstr "Pintasan Keyboard"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:138
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
 msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:139
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:154
 msgid ""
 "Option to disable image viewer, or to open images on double, middle, or "
 "right click"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:141
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:156
 #, fuzzy
 msgid "Text-to-speech:"
 msgstr "Text-to-speech"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:158
 msgid "Improved text-to-speech configuration UI"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:144
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
 msgid "Ability to set text-to-speech voice based on book language"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:163
 #, fuzzy
 msgid "Import annotations from JSON"
 msgstr "Anotasi"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:164
 #, fuzzy
 msgid "Search in annotations"
 msgstr "Tampilkan anotasi"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:150
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:165
 #, fuzzy
 msgid "Annotations are now sorted in the same order as they appear in the book"
 msgstr ""
 "Lokasi yang dibuat kini disimpan di direktori cache alih-alih di localStorage"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:152
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:167
 msgid "Security:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:154
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
 msgid ""
 "\"Allow Unsafe Content\" now only enables JavaScript; external content will "
 "no longer be loaded"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:155
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
 msgid "WebKit processes are now sandboxed"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:157
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
 msgid "Other featues and fixes:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:174
 msgid "Improved support for vertical and right-to-left books"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:160
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
 msgid "Support for StarDict dictionaries"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:176
 msgid "Fixed current location not preserved when resizing"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:162
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:177
 msgid "Fixed auto-hiding header bar under some themes"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:163
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:178
 msgid "Command-line options for showing version and adding books to library"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:164
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:179
 #, fuzzy
 msgid "Option to clear or disable cache"
 msgstr "Opsi untuk menonaktifkan kamus"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:165
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
 msgid ""
 "When an HTML page contains invalid self-closing anchor tags, it is now "
 "parsed as XHTML"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:171
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:187
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:265
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:332
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:372
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:186
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:280
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:347
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:387
 msgid "Fixes:"
 msgstr "Perbaikan:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:173
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
 msgid "Fixed wrong version number"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:174
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
 msgid ""
 "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:341
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:364
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:195
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:356
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:379
 msgid "New features:"
 msgstr "Fitur-fitur baru:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:182
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
 msgid "New and improved icon"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:183
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:198
 #, fuzzy
 msgid "Option to disable turn page on tap"
 msgstr "Opsi untuk menonaktifkan kamus"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:184
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
 msgid "A menu on the welcome screen for opening recent files"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:185
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
 #, fuzzy
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
 msgstr ""
 "Gunakan sidebar untuk menampilkan daftar isi, anotasi, dan penanda buku."
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:204
 msgid "Fixed application not translated"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:195
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
 msgid "Interface:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:212
 msgid "A redesigned interface that works better for smaller screens"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:198
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
 msgid "Improved fullscreen mode with an overlaid headerbar"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:214
 msgid ""
 "The headerbar and the progress bar now auto-hide, for a distraction-free "
 "reading experience"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
 msgid ""
 "Various location information, as well as a clock, can now be displayed in "
 "the footer"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:201
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
 msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
 msgid ""
 "E-reader style navigation: go to the previous or next page by tapping on the "
 "left or right part of the view; tap on the middle to toggle header bar and "
 "progress bar"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:203
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:218
 msgid "Annotations, bookmarks, and find results now show chapter titles"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:204
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
 msgid "When looking up words in dictionaries, the query can now be edited"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:205
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:220
 msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:206
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
 msgid ""
 "A new traditional menubar, which may be displayed depending on the desktop "
 "environment"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:207
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
 #, fuzzy
 msgid ""
 "Option to use a traditional titlebar and menubar instead of a headerbar "
 "(experimental)"
 msgstr "Gunakan sidebar (membutuhkan restart)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:224
 #, fuzzy
 msgid "Reading:"
 msgstr "Lanjutkan Membaca"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:211
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:226
 #, fuzzy
 msgid "Continuous scrolling layout"
 msgstr "Gulir Berlanjut (membutuhkan restart)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:212
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:227
 msgid ""
 "Option to show decorative shadows that mimic the appearance of a real book"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:228
 #, fuzzy
 msgid "Ability to zoom in and zoom out"
 msgstr "Kemampuan untuk memperbesar dan menyalin gambar"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:214
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:229
 msgid "Improved image viewer with \"save as\" option"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
 msgid "Open copies of a book in new windows (Ctrl + N)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:231
 msgid "Reload book (Ctrl + R)"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:232
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
 #, fuzzy
 msgid "Text selection:"
 msgstr "Text-to-speech"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:236
 #, fuzzy
 msgid "Ability to select text across pages"
 msgstr "Kemampuan untuk memperbesar dan menyalin gambar"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:237
 #, fuzzy
 msgid "Find selected text in book"
 msgstr "Temukan dalam buku"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:223
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:238
 msgid "Speak selected text or from the selected locatio"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:225
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:240
 #, fuzzy
 msgid "Annotations:"
 msgstr "Anotasi"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:227
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
 msgid "Spellcheck notes"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:228
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:243
 #, fuzzy
 msgid "Export annotations to Markdown"
 msgstr "Anotasi"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:229
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:244
 msgid "Options to use custom colors for highlights"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:231
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:246
 msgid "For publishers and developers:"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:233
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:248
 msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:249
 msgid "WebKit's developer tools can be enabled"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:236
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:251
 #, fuzzy
 msgid "Breaking changes:"
 msgstr "Oranye"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:238
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
 msgid "The settings schemas has been reorganized"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:239
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:254
 msgid "The format for custom themes has changed"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:240
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:255
 msgid "Locations are now 1024 characters in size"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:257
 #, fuzzy
 msgid "Bug fixes:"
 msgstr "Perbaikan:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:244
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:259
 msgid "Fixed not restoring exact last location"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:245
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:260
 #, fuzzy
 msgid "Fixed navigation not working with scrolled layout"
 msgstr "Perbaikan navigasi daftar isi yang tidak bekerja pada beberapa buku"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:246
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:261
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:247
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:262
 msgid "Fixed text cut off at margin edge"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:248
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:263
 #, fuzzy
 msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
 msgstr "Perbaikan tidak dapat membuka buku dengan ekstensi berkas .epub3"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:256
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:271
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr ""
 "Perbaikan versi flatpak tidak dapat membuka berkas .mobi, .azw, dan .azw3"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:257
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:272
 msgid "Improved Wiktionary lookup, now with links and example sentences"
 msgstr ""
 "Pengembangan pencarian Wikitionary, sekarang dengan tautan dan contoh kalimat"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:258
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:273
 msgid "Improved popover footnote extraction and formatting"
 msgstr "Perbaikan ekstraksi dan pemformatan popover catatan kaki"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:259
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:274
 msgid "Added option to export annotations to BibTeX"
 msgstr "Penambahan opsi untuk mengekspor anotasi ke BibTeX"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:267
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:282
 msgid "Fixed table of contents navigation not working with some books"
 msgstr "Perbaikan navigasi daftar isi yang tidak bekerja pada beberapa buku"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:268
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:283
 msgid "Fixed not being able to zoom images with Kindle books"
 msgstr "Perbaikan tidak dapat memperbesar gambar pada buku Kindle"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:269
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:284
 msgid "Fixed not being able to open books with .epub3 filename extension"
 msgstr "Perbaikan tidak dapat membuka buku dengan ekstensi berkas .epub3"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:270
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:285
 msgid "Fixed temporary directory not being cleaned after closing"
 msgstr "Perbaikan direktori temporari tidak dibersihkan setelah ditutup"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:278
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:293
 msgid "Fixed F9 shortcut not working"
 msgstr "Perbaikan jalan pintas F9 tidak bekerja"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:279
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:314
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:294
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:329
 msgid "Updated translations"
 msgstr "Pembaruan terjemahan"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:287
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:302
 msgid "External resources and JavaScript are now blocked by default"
 msgstr "Resource luar dan JavaScript sekarang diblok secara default"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:288
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:303
 msgid "Basic text-to-speech support"
 msgstr "Dukungan text-to-speech awal"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:289
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:304
 msgid "Export annotations to HTML, plain text, or JSON"
 msgstr "Ekspor anotasi ke HTML, teks biasa, atau JSON"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:290
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:305
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
 msgstr "Dukungan membuka berkas .mobi, .azw, dan .azw3"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:298
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:313
 msgid "New alternative sidebar UI"
 msgstr "Alternatif sidebar UI baru"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:299
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:314
 msgid "Lookup words in Wikipedia and offline dictionaries"
 msgstr "Cari kata di Wikipedia dan kamus luring"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:300
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:315
 msgid "Translate passages with Google Translate"
 msgstr "Terjemahkan kalimat dengan Google Terjemahan"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:301
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:316
 msgid "Configure default action when words are selected"
 msgstr "Konfigurasi aksi default saat kata dipilih"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:302
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:317
 msgid "Experimental popup footnote support"
 msgstr "Percobaan dukungan popup catatan kaki"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:303
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:318
 msgid "Ability to find within only the current chapter"
 msgstr "Kemampuan untuk mencari hanya di bab saat ini"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:304
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:319
 msgid "Fixed CPU spikes when left open"
 msgstr "Perbaikan CPU spikes ketika dibiarkan terbuka"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:305
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
 msgid "Fixed highlights not rendering at the correct positions"
 msgstr "Perbaikan sorotan tidak terender pada posisi yang benar"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:313
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:328
 msgid "Fixed crashing when opening files"
 msgstr "Perbaikan crash saat membuka berkas"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:322
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:337
 msgid "Customize page margins and brightness"
 msgstr "Kustomisasi margin halaman dan kecerahan"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:323
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:338
 msgid "Tweak the theme colors, or add your own custom themes"
 msgstr "Ubah warna tema, atau tambahkan tema kustom sendiri"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:324
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:339
 msgid "Ability to zoom and copy images"
 msgstr "Kemampuan untuk memperbesar dan menyalin gambar"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:325
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:340
 msgid "Option to auto-hide cursor"
 msgstr "Opsi untuk menyembunyikan kursor otomatis"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:326
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:341
 msgid "See reading time left by hovering over the reading progress slider"
 msgstr "Melihat sisa waktu baca dengan hover pada slider progres baca"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:334
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:349
 msgid "Fixed some books not rendering sometimes"
 msgstr "Perbaikan beberapa buku terkadang tidak terender"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:335
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:350
 msgid "Fixed images being too wide in some cases"
 msgstr "Perbaikan gambar terlalu lebar pada beberapa kasus"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:344
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:359
 msgid "Option to switch between left and full justification"
 msgstr "Opsi untuk beralih antara rata kiri dan rata kanan-kiri"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:345
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:360
 msgid "New layout option: single-column paginated view"
 msgstr "Opsi tata letak baru: pemirsa kolom tunggal dengan pagina"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:347
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:362
 msgid "Fixed:"
 msgstr "Perbaikan:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:349
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:364
 msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
 msgstr ""
 "Lokasi yang dibuat kini disimpan di direktori cache alih-alih di localStorage"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:357
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:372
 msgid "Allow font size adjustment when using publisher fonts"
 msgstr "Izinkan pengaturan ukuran fonta ketika menggunakan fonta penerbit"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:358
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:373
 msgid ""
 "Fixed reading progress slider not appearing after localStorage quota is "
 "exceeded"
 msgstr ""
 "Perbaikan bar progres baca tidak muncul setelah melampaui kuota localStorage"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:366
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:381
 msgid "Touchpad gestures and ability to scroll through pages"
 msgstr "Gestur touchpad dan kemampuan untuk gulir ke halaman"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:367
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:382
 msgid "Fullscreen mode"
 msgstr "Mode layar penuh"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:368
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:383
 msgid "Option to hide reading progress bar"
 msgstr "Opsi untuk menyembunyikan bar progres baca"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:369
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:384
 msgid "Option to disable dictionary"
 msgstr "Opsi untuk menonaktifkan kamus"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:370
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:385
 msgid "Option to use publisher font"
 msgstr "Opsi untuk menggunakan fonta penerbit"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:374
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:389
 msgid "Restoring reading progress is now smooth and jank-free"
 msgstr "Pengembalian progres baca kini halus"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:375
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:390
 msgid "Fixed custom styles not applying in some cases"
 msgstr "Perbaikan gaya kustom tidak terterapkan pada beberapa kasus"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:381
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:396
 msgid "Fixed invalid AppData file"
 msgstr "Perbaikan berkas AppData tidak valid"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:386
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:401
 msgid "Initial release"
 msgstr "Rilis awal"
 
@@ -4087,7 +4127,7 @@ msgid "Margin"
 msgstr "Margin"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:137
-msgid "Page margin in percentage"
+msgid "Page margin in pixels"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:141
