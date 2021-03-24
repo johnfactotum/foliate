@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-24 11:04+0800\n"
+"POT-Creation-Date: 2021-03-24 14:29+0800\n"
 "PO-Revision-Date: 2020-07-06 13:16+0800\n"
 "Last-Translator: Blanc Chan\n"
 "Language-Team: none\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.3\n"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:739
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:740
 #: src/main.js:209 src/window.js:1023 src/schemes.js:100
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:6
 msgid "Foliate"
@@ -200,7 +200,7 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr "匯入檔案識別碼與書籍識別碼不符。這可能表示這些註解不屬於此書籍。"
 
-#: src/export.js:234 src/library.js:455 src/main.js:161 src/opds.js:229
+#: src/export.js:234 src/library.js:456 src/main.js:161 src/opds.js:229
 #: src/opds.js:376 src/opds.js:1174 src/utils.js:772 src/window.js:593
 #: src/ui/bookEditDialog.ui:10 src/ui/catalogWindow.ui:10
 #: src/ui/exportWindow.ui:38 src/ui/importWindow.ui:10
@@ -220,88 +220,88 @@ msgstr "錯誤"
 msgid "Could not import annotations."
 msgstr "無法匯入註解。"
 
-#: src/library.js:98 src/window.js:672 src/ui/bookBoxMenu.ui:13
+#: src/library.js:99 src/window.js:672 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:612
 msgid "About This Book"
 msgstr "關於這本書"
 
-#: src/library.js:132
+#: src/library.js:133
 msgid "Choose File"
 msgstr "選擇檔案"
 
-#: src/library.js:265 src/library.js:283
+#: src/library.js:266 src/library.js:284
 msgid "Load more"
 msgstr "載入更多"
 
-#: src/library.js:427
+#: src/library.js:428
 msgid "File location unkown"
 msgstr "檔案位址不明"
 
-#: src/library.js:428
+#: src/library.js:429
 msgid "Choose the location of this file to open it."
 msgstr "選擇檔案位址以開啟此檔案。"
 
-#: src/library.js:448
+#: src/library.js:449
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
 msgstr[0] "確定要移除選取的 %d 本書？"
 
-#: src/library.js:450
+#: src/library.js:451
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
 msgstr "閱讀進度、註解與書籤會被永久刪除。"
 
-#: src/library.js:456 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
+#: src/library.js:457 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
 #: src/ui/libraryWindow.ui:581
 msgid "Remove"
 msgstr "移除"
 
-#: src/library.js:578
+#: src/library.js:579
 #, javascript-format
 msgid "%d selected"
 msgid_plural "%d selected"
 msgstr[0] "選取了 %d 個項目"
 
-#: src/library.js:697
+#: src/library.js:698
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
 msgstr[0] "無法新增書籍"
 
-#: src/library.js:699
+#: src/library.js:700
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
 msgstr[0] "無法新增以下書籍："
 
-#: src/library.js:771
+#: src/library.js:772
 msgid "All"
 msgstr "全部"
 
-#: src/library.js:774 src/ui/catalogWindow.ui:39
+#: src/library.js:775 src/ui/catalogWindow.ui:39
 msgid "Title"
 msgstr "標題"
 
-#: src/library.js:775 src/schemes.js:257
+#: src/library.js:776 src/schemes.js:257
 msgid "Author"
 msgstr "作者"
 
-#: src/library.js:776 src/properties.js:359 src/ui/propertyBox.ui:16
+#: src/library.js:777 src/properties.js:359 src/ui/propertyBox.ui:16
 msgid "Tags"
 msgstr "標籤"
 
-#: src/library.js:777 src/ui/propertiesBox.ui:65
+#: src/library.js:778 src/ui/propertiesBox.ui:65
 msgid "Description"
 msgstr "描述"
 
-#: src/library.js:778 src/properties.js:418 src/schemes.js:407
+#: src/library.js:779 src/properties.js:418 src/schemes.js:407
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/library.js:779 src/properties.js:438 src/ui/ttsDialog.ui:284
+#: src/library.js:780 src/properties.js:438 src/ui/ttsDialog.ui:284
 msgid "Language"
 msgstr "語言"
 
-#: src/library.js:816
+#: src/library.js:817
 msgid "Add Files"
 msgstr "新增檔案"
 
@@ -844,7 +844,7 @@ msgid "Select some text to add annotations."
 msgstr "選取一些文字以新增註解。"
 
 #: src/ui/contentsStack.ui:124
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:166
 msgid "Annotations"
 msgstr "註解"
 
@@ -1154,7 +1154,7 @@ msgid "Full Justification"
 msgstr "左右對齊"
 
 #: src/ui/mainMenu.ui:518 src/ui/menuBar.ui:148
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:358
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:363
 msgid "Auto-hyphenation"
 msgstr "自動斷字"
 
@@ -3037,398 +3037,402 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:123
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:269
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:291
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:300
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:311
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:326
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:335
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:370
-msgid "Changes:"
-msgstr "改變："
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:51
-msgid "Added support for opening HTML files"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:52
-msgid "Consistent inner and outer margins"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:53
-msgid "The automatic layout no longer supports 4 columns"
+msgid "Fixed automatic layout"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:128
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:274
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:296
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:305
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:316
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:331
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:340
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:375
+msgid "Changes:"
+msgstr "改變："
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
+msgid "Added support for opening HTML files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
+msgid "Consistent inner and outer margins"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
+msgid "The automatic layout no longer supports 4 columns"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 msgid "Fixed long words overflowing"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:55
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:60
 #, fuzzy
 msgid "Fixed custom themes not saved across sessions"
 msgstr "修復了有時無法套用自訂顏色的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:56
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:61
 #, fuzzy
 msgid "Fixed shortcuts for key pads"
 msgstr "修復了鍵盤捷徑鍵 F9 無法使用的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:57
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:62
 msgid "Fixed opening non-UTF-8 zipped FB2 files"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:58
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:63
 #, fuzzy
 msgid "Fixed books not opening on GNOME 40"
 msgstr "修復了部分書籍無法渲染的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
 #, fuzzy
 msgid "Improved support for touch screens"
 msgstr "改善直排和右到左書籍的支援"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
 msgid "OPDS credentials can now be remembered"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
 msgid "Various fixes for GNOME 3.38"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:74
 msgid "Fixed Wiktionary internal links"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:75
 msgid "Added Basque, Korean, and Norwegian translations"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:76
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 #, fuzzy
 msgid "Fixed unable to open some EPUB files"
 msgstr "修正無法開啟 Mobipocket 檔案的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:86
 msgid "Fixed unable to open Mobipocket files"
 msgstr "修正無法開啟 Mobipocket 檔案的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:88
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
 msgid "Improved metadata display"
 msgstr "改進書籍屬性顯示"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:89
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
 msgid "Improved FictionBook rendering"
 msgstr "改進 FictionBook 檔案顯示"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:90
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
 msgid "Improved UI for acquiring books from OPDS"
 msgstr "改進從 OPDS 取得書籍的介面"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:96
 msgid "Fixed unique identifier extraction for EPUB files"
 msgstr "修正了讀取 EPUB 獨特識別碼的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:92
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:97
 msgid "Fixed missing window icon"
 msgstr "修正無視窗圖標的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:93
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:98
 msgid "Fixed TTS environment variables not set when using Flatpak"
 msgstr "修正使用 Flatpak 時未設定文字轉語音環境變數的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:94
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:99
 msgid "Fixed eSpeak NG voice not selected when testing TTS configuration"
 msgstr "修正測試文字轉語音設定時不會自動選擇 eSpeak NG 聲音的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:95
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:100
 msgid ""
 "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
 msgstr "修正反轉顏色時「__ibooks_internal_theme」屬性錯誤"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:101
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
 msgid "OPDS catalogs:"
 msgstr "OPDS 目錄："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:103
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
 msgid "Catalogs are now opened in the main library window"
 msgstr "目錄現在在主書庫視窗中開啟"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:104
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:109
 msgid "View current location"
 msgstr "檢視目前位置"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:105
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
 msgid "Go to catalog start page"
 msgstr "前往起始頁"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:106
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:111
 msgid "Reload catalog"
 msgstr "重新載入目錄"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:107
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
 msgid "Add current feed to catalogs"
 msgstr "新增目前書源到目錄"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:108
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
 msgid "HTTP authentication support"
 msgstr "支援 HTTP 身份驗證"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:110
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
 msgid "Other changes:"
 msgstr "其他改變："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:112
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr "修正了 FictionBook (.fb2, .fb2.zip) 讀取獨特識別碼的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:113
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:118
 msgid "Fixed newlines being ignored when copying text"
 msgstr "修正了複製文字時忽略換行字元的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:114
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:119
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
 msgstr "捲動模式下將停用「點擊翻頁」"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:115
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
 msgid "Opening a book from the library view now closes the library window"
 msgstr "從書庫檢視開啟書籍時，會關閉書庫視窗"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:121
 msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr "解析與格式化書籍資料中的語言與出版日期"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:117
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:122
 msgid "Export annotations from the library view"
 msgstr "從書庫檢視匯出註解"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:125
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:130
 msgid "Fixed blurry book covers on HiDPI"
 msgstr "修正 HiDPI 上書籍封面模糊的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:126
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:131
 msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
 msgstr "修正 Standard Ebooks 與古騰堡計劃的 OPDS 連結"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:127
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:132
 msgid "Fixed wrong view icon on startup"
 msgstr "修正啟動時錯誤的檢視圖標"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:133
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:138
 msgid "Library:"
 msgstr "書庫："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:135
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:140
 msgid "A library view showing recent books and reading progress"
 msgstr "書庫檢視顯示最近閱讀的書籍和進度"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:136
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:141
 msgid "Search books by metadata"
 msgstr "以不同屬性欄位搜尋書籍"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:137
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
 msgid "E-book discovery with OPDS"
 msgstr "利用 OPDS 發掘書籍"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:139
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:144
 msgid "New supported formats:"
 msgstr "新格式支援："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:141
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:146
 msgid "FictionBook (.fb2, .fb2.zip)"
 msgstr "FictionBook 格式 (.fb2, .fb2.zip)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:142
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:147
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
 msgstr "漫畫壓縮檔 (.cbr, .cbz, .cbt, .cb7)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:143
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
 msgid "Plain text (.txt)"
 msgstr "純文字 (.txt)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:144
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
 msgid "Unpacked EPUB files"
 msgstr "解壓縮的 EPUB 檔案"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:146
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
 msgid "Layout:"
 msgstr "版面："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:148
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
 msgid "Option to set maximum page width"
 msgstr "設定最大頁寬"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:149
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:154
 msgid ""
 "The \"Automatic\" layout will now show four columns when the page width is "
 "wide"
 msgstr "頁面夠寬時，「自動」版面將顯示四欄文字"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:151
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:156
 msgid "Image viewer:"
 msgstr "影像檢視器："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:153
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:158
 msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
 msgstr "影像檢視器新增了新的捷徑鍵和旋轉、反轉顏色功能"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:154
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
 msgid ""
 "Option to disable image viewer, or to open images on double, middle, or "
 "right click"
 msgstr "可停用影縣檢視器，或設定以雙擊、單擊、中鍵、右鍵開啟"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:156
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:161
 msgid "Text-to-speech:"
 msgstr "文字轉語音："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:158
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:163
 msgid "Improved text-to-speech configuration UI"
 msgstr "改善了文字轉語音設定的介面"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:159
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:164
 msgid "Ability to set text-to-speech voice based on book language"
 msgstr "可基於書籍語言設定文字轉語音聲音"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:163
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:168
 msgid "Import annotations from JSON"
 msgstr "從 JSON 匯入註解"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:164
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
 msgid "Search in annotations"
 msgstr "搜尋註解"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:165
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
 msgid "Annotations are now sorted in the same order as they appear in the book"
 msgstr "註解依照書中順序排序"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:167
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
 msgid "Security:"
 msgstr "安全性："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:174
 msgid ""
 "\"Allow Unsafe Content\" now only enables JavaScript; external content will "
 "no longer be loaded"
 msgstr "「允許不安全的內容」只會啟用 JavaScript，不會載入外部資源"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:170
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
 msgid "WebKit processes are now sandboxed"
 msgstr "WebKit 程序現在會在沙盒中運行"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:172
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:177
 msgid "Other featues and fixes:"
 msgstr "其他功能與修復的問題："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:174
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:179
 msgid "Improved support for vertical and right-to-left books"
 msgstr "改善直排和右到左書籍的支援"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:175
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
 msgid "Support for StarDict dictionaries"
 msgstr "支援星際譯王字典"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:176
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:181
 msgid "Fixed current location not preserved when resizing"
 msgstr "修復了調整大小時沒有保持位置的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:177
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:182
 msgid "Fixed auto-hiding header bar under some themes"
 msgstr "修復自動隱藏標題列在某些佈景主題下的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:178
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:183
 msgid "Command-line options for showing version and adding books to library"
 msgstr "顯示版本和新增書籍的命令列選項"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:179
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:184
 msgid "Option to clear or disable cache"
 msgstr "支援停用快取"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:185
 msgid ""
 "When an HTML page contains invalid self-closing anchor tags, it is now "
 "parsed as XHTML"
 msgstr "當 HTML 頁面含有無效自關閉錨點標籤時，現在會被當作 XHTML 解析"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:186
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:280
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:347
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:387
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:207
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:285
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:352
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:392
 msgid "Fixes:"
 msgstr "修復："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:188
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:193
 msgid "Fixed wrong version number"
 msgstr "修正了錯誤的版本號"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:189
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:194
 msgid ""
 "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
 msgstr "修復了 Snap 包中字典、翻譯和維基百科無法使用的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:195
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:356
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:379
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:361
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:384
 msgid "New features:"
 msgstr "新功能:"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:197
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:202
 msgid "New and improved icon"
 msgstr "改進的新圖標"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:198
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:203
 msgid "Option to disable turn page on tap"
 msgstr "支援停用「點擊翻頁」"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:199
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:204
 msgid "A menu on the welcome screen for opening recent files"
 msgstr "歡迎畫面新增開啟最近檔案選單"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:200
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:205
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
 msgstr "還原了用於顯示目錄、註解和書籤的捷徑鍵"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:204
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:209
 msgid "Fixed application not translated"
 msgstr "修復了程式未被翻譯的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:210
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
 msgid "Interface:"
 msgstr "介面："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:212
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
 msgid "A redesigned interface that works better for smaller screens"
 msgstr "全新設計的介面，可適用較小的螢幕"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:218
 msgid "Improved fullscreen mode with an overlaid headerbar"
 msgstr "改進全螢幕模式，加入懸浮標題列"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:214
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
 msgid ""
 "The headerbar and the progress bar now auto-hide, for a distraction-free "
 "reading experience"
 msgstr "自動隱藏標題列和進度列，以免打擾閱讀"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:220
 msgid ""
 "Various location information, as well as a clock, can now be displayed in "
 "the footer"
 msgstr "頁尾可顯示多種位置訊息和時鐘"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:216
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
 msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
 msgstr "新的彈出選單 (Ctrl + L) 顯示預計閱讀時間，與跳轉到書中位置"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:217
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
 msgid ""
 "E-reader style navigation: go to the previous or next page by tapping on the "
 "left or right part of the view; tap on the middle to toggle header bar and "
@@ -3437,332 +3441,332 @@ msgstr ""
 "電子閱讀器風格的導航：點擊頁面左側前往上一頁，點擊頁面右側前往下一頁；點擊頁"
 "面中間顯示標題列和進度列"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:218
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:223
 msgid "Annotations, bookmarks, and find results now show chapter titles"
 msgstr "註解、書籤和搜尋結果標示章節標題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:224
 msgid "When looking up words in dictionaries, the query can now be edited"
 msgstr "查詢字典時，可編輯查詢內容"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:220
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:225
 msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr "新的鍵盤捷徑鍵：檢視書籍資訊 (Ctrl + I)、偏好設定(Ctrl + ,)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:221
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:226
 msgid ""
 "A new traditional menubar, which may be displayed depending on the desktop "
 "environment"
 msgstr "新的傳統選單列，依桌面環境而顯示"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:222
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:227
 msgid ""
 "Option to use a traditional titlebar and menubar instead of a headerbar "
 "(experimental)"
 msgstr "支援使用傳統標題列和選單列（實驗性）"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:224
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:229
 msgid "Reading:"
 msgstr "閱讀："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:226
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:231
 msgid "Continuous scrolling layout"
 msgstr "連續捲動版面"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:227
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:232
 msgid ""
 "Option to show decorative shadows that mimic the appearance of a real book"
 msgstr "支援介面模仿紙質書"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:228
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:233
 msgid "Ability to zoom in and zoom out"
 msgstr "可放大/縮小"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:229
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
 msgid "Improved image viewer with \"save as\" option"
 msgstr "改進了影像檢視器，可將影像另存新檔"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:230
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:235
 msgid "Open copies of a book in new windows (Ctrl + N)"
 msgstr "在新視窗中開啟副本 (Ctrl + N)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:231
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:236
 msgid "Reload book (Ctrl + R)"
 msgstr "重新載入書籍 (Ctrl + R)"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:232
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:237
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
 msgstr "新的預設主題：灰色、Solarized、Gruvbox、Nord"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:239
 msgid "Text selection:"
 msgstr "選取文字："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:236
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:241
 msgid "Ability to select text across pages"
 msgstr "能夠跨頁選取文字"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:237
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
 msgid "Find selected text in book"
 msgstr "在書中搜尋選取的文字"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:238
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:243
 msgid "Speak selected text or from the selected locatio"
 msgstr "朗讀選取的文字"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:240
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:245
 msgid "Annotations:"
 msgstr "註解："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:242
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:247
 msgid "Spellcheck notes"
 msgstr "檢查註解拼寫"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:243
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:248
 msgid "Export annotations to Markdown"
 msgstr "以 Markdown 格式匯出註解"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:244
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:249
 msgid "Options to use custom colors for highlights"
 msgstr "支援以自訂顏色標示"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:246
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:251
 msgid "For publishers and developers:"
 msgstr "出版商和開發者功能："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:248
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
 msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
 msgstr "支援 Apple Books 的主題屬性，可以不使用 JavaScript 偵測主題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:249
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:254
 msgid "WebKit's developer tools can be enabled"
 msgstr "可啟用 WebKit 開發者工具"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:251
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:256
 msgid "Breaking changes:"
 msgstr "不相容改變："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:258
 msgid "The settings schemas has been reorganized"
 msgstr "重構了設定的 schema"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:254
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:259
 msgid "The format for custom themes has changed"
 msgstr "改變了自訂主題的格式"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:255
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:260
 msgid "Locations are now 1024 characters in size"
 msgstr "位置大小改為 1024 個字元"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:257
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:262
 msgid "Bug fixes:"
 msgstr "修復的問題："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:259
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:264
 msgid "Fixed not restoring exact last location"
 msgstr "修復了無法準確恢復上次閱讀位置"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:260
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:265
 msgid "Fixed navigation not working with scrolled layout"
 msgstr "修復了目錄在捲動版面下無法使用"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:261
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:266
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
 msgstr "修復了書籍使用絕對字體大小時無法調整字體大小"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:262
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:267
 msgid "Fixed text cut off at margin edge"
 msgstr "修復了文字在邊界被截斷"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:263
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:268
 msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
 msgstr "修復了無法開啟檔案名稱中有「#」或「?」的書籍"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:271
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:276
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr "修復了 Flatpak 無法開啟 mobi、azw 和 azw3 檔案"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:272
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:277
 msgid "Improved Wiktionary lookup, now with links and example sentences"
 msgstr "改進了維基詞典搜尋，可顯示連結和例句"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:273
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:278
 msgid "Improved popover footnote extraction and formatting"
 msgstr "改進了腳註預覽擷取和格式"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:274
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:279
 msgid "Added option to export annotations to BibTeX"
 msgstr "支援匯出註解為 BibTeX"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:282
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:287
 msgid "Fixed table of contents navigation not working with some books"
 msgstr "修復了目錄在部分書中無法使用的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:283
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:288
 msgid "Fixed not being able to zoom images with Kindle books"
 msgstr "修復了無法縮放 Kindle 電子書中的影像的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:284
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:289
 msgid "Fixed not being able to open books with .epub3 filename extension"
 msgstr "修復了無法開啟 .epub3 檔案的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:285
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:290
 msgid "Fixed temporary directory not being cleaned after closing"
 msgstr "修復了關閉時臨時目錄未刪除的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:293
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:298
 msgid "Fixed F9 shortcut not working"
 msgstr "修復了鍵盤捷徑鍵 F9 無法使用的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:294
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:329
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:299
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:334
 msgid "Updated translations"
 msgstr "更新了翻譯"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:302
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:307
 msgid "External resources and JavaScript are now blocked by default"
 msgstr "外部資源和 JavaScript 現在預設停用"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:303
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:308
 msgid "Basic text-to-speech support"
 msgstr "基本的文字轉語音支援"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:304
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:309
 msgid "Export annotations to HTML, plain text, or JSON"
 msgstr "匯出註解到 HTML、純文字或 JSON"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:305
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:310
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
 msgstr "支援檢視 mobi、azw 和 azw3 檔案"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:313
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:318
 msgid "New alternative sidebar UI"
 msgstr "新的側邊欄 UI"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:314
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:319
 msgid "Lookup words in Wikipedia and offline dictionaries"
 msgstr "在維基詞典和本地詞典中搜尋"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:315
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
 msgid "Translate passages with Google Translate"
 msgstr "用 Google Translate 來翻譯頁面"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:316
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:321
 msgid "Configure default action when words are selected"
 msgstr "設定選取單字時的預設動作"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:317
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:322
 msgid "Experimental popup footnote support"
 msgstr "支援實驗性的腳註彈出選單"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:318
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:323
 msgid "Ability to find within only the current chapter"
 msgstr "支援只在目前章節內搜尋"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:319
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:324
 msgid "Fixed CPU spikes when left open"
 msgstr "修復了開啟時吃CPU的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:325
 msgid "Fixed highlights not rendering at the correct positions"
 msgstr "修復了標示不在正確的地方顯示的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:328
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:333
 msgid "Fixed crashing when opening files"
 msgstr "修復了開啟檔案時崩潰的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:337
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:342
 msgid "Customize page margins and brightness"
 msgstr "自訂頁面邊界和亮度"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:338
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:343
 msgid "Tweak the theme colors, or add your own custom themes"
 msgstr "改變主題顏色或添加自訂主題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:339
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:344
 msgid "Ability to zoom and copy images"
 msgstr "支援縮放和復製影像"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:340
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:345
 msgid "Option to auto-hide cursor"
 msgstr "支援自動隱藏游標"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:341
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:346
 msgid "See reading time left by hovering over the reading progress slider"
 msgstr "在閱讀進度列上懸停以查看估計閱讀時間"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:349
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:354
 msgid "Fixed some books not rendering sometimes"
 msgstr "修復了部分書籍無法渲染的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:350
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:355
 msgid "Fixed images being too wide in some cases"
 msgstr "修復了影像有時太寬的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:359
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:364
 msgid "Option to switch between left and full justification"
 msgstr "支援切換左對齊與兩端對齊"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:360
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:365
 msgid "New layout option: single-column paginated view"
 msgstr "新的版面選項：單欄"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:362
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:367
 msgid "Fixed:"
 msgstr "修復了："
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:364
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:369
 msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
 msgstr "產生的位置現在不使用 localStorage，而是儲存在快取目錄中"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:372
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:377
 msgid "Allow font size adjustment when using publisher fonts"
 msgstr "使用出版社字體時，允許調整字體大小"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:373
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:378
 msgid ""
 "Fixed reading progress slider not appearing after localStorage quota is "
 "exceeded"
 msgstr "修復閱讀進度滑桿在 localStorage 空間配額用滿後無法顯示的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:381
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:386
 msgid "Touchpad gestures and ability to scroll through pages"
 msgstr "觸控板手勢與捲動翻頁"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:382
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:387
 msgid "Fullscreen mode"
 msgstr "全螢幕模式"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:383
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:388
 msgid "Option to hide reading progress bar"
 msgstr "支援隱藏閱讀進度列"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:384
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:389
 msgid "Option to disable dictionary"
 msgstr "支援停字典"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:385
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:390
 msgid "Option to use publisher font"
 msgstr "支援使用出版社字體"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:389
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:394
 msgid "Restoring reading progress is now smooth and jank-free"
 msgstr "現在恢復閱讀進度變得順暢，且畫面不會閃爍"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:390
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:395
 msgid "Fixed custom styles not applying in some cases"
 msgstr "修復了有時無法套用自訂顏色的問題"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:396
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:401
 msgid "Fixed invalid AppData file"
 msgstr "修正了錯誤的 AppData 檔案"
 
-#: data/com.github.johnfactotum.Foliate.appdata.xml.in:401
+#: data/com.github.johnfactotum.Foliate.appdata.xml.in:406
 msgid "Initial release"
 msgstr "首次發布"
 
