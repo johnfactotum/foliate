@@ -60,7 +60,7 @@ const getIbooksInternalTheme = bgColor => {
 const layouts = {
     'auto': {
         renderTo: `'viewer'`,
-        options: { width: '100%', flow: 'paginated' }
+        options: { width: '100%', flow: 'paginated', maxSpreadColumns: 2 }
     },
     'single': {
         renderTo: `'viewer'`,
