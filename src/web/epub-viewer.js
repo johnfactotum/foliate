@@ -280,7 +280,6 @@ const setStyle = style => {
         rendition.layout({
             ...rendition.settings.globalLayoutProperties,
             gap,
-            evenSpreads: skeuomorphism
         })
         document.documentElement.style.padding = `0 ${
             skeuomorphism ? 0 : paginated ? margin : margin / 2}px`
