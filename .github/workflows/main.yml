@@ -23,7 +23,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - run: sudo apt install build-essential debhelper meson gettext
+      - run: sudo apt install build-essential debhelper meson gettext pkg-config libglib2.0-dev gjs
       - run: dpkg-buildpackage -us -uc -nc
       - uses: actions/upload-artifact@v2
         with:
