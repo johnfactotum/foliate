@@ -281,8 +281,9 @@ const setStyle = style => {
             ...rendition.settings.globalLayoutProperties,
             gap,
         })
-        document.documentElement.style.padding = `0 ${
-            skeuomorphism ? 0 : paginated ? margin : margin / 2}px`
+        const padding = paginated ? margin
+            : skeuomorphism ? 0 : margin / 2
+        document.documentElement.style.padding = `0 ${padding}px`
         document.body.style.maxWidth = `${maxWidth + gap}px`
     }
 
