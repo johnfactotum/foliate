@@ -34,6 +34,7 @@ const settings = new Gio.Settings({ schema_id: pkg.name + '.library' })
 let trackerConnection
 if (settings.get_boolean('use-tracker')) {
     try {
+        imports.gi.versions.Tracker = '2.0'
         const Tracker = imports.gi.Tracker
         trackerConnection = Tracker.SparqlConnection.get(null)
     } catch(e) {}
