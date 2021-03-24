@@ -313,6 +313,8 @@ function main(argv) {
     })
 
     application.connect('startup', () => {
+        if (Handy && imports.gi.versions.Handy === '1') Handy.init()
+
         viewSettings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
             'gtk-application-prefer-dark-theme', Gio.SettingsBindFlags.DEFAULT)
 
