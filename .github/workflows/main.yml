@@ -25,7 +25,8 @@ jobs:
 
       - run: sudo apt install build-essential debhelper meson gettext pkg-config libglib2.0-dev gjs
       - run: dpkg-buildpackage -us -uc -nc
+      - run: mv ../*.deb .
       - uses: actions/upload-artifact@v2
         with:
           name: Debian Package
-          path: ../*.deb
+          path: *.deb
