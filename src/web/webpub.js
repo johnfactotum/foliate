@@ -69,6 +69,61 @@ const webpubFromText = async (uri, filename) => {
     }
 }
 
+const getCharset = doc => {
+    const meta = doc.querySelector('meta[charset]')
+    if (meta) return meta.getAttribute('charset')
+    else {
+        const meta = doc.querySelector('meta[http-equiv="Content-Type"]')
+        if (meta) {
+            const content = meta.getAttribute('content')
+            if (content) {
+                const match = content.match(/charset=([^()<>@,;:\"/[\]?.=\s]*)/i)
+                if (match) return match[0].split('=')[1]
+            }
+        }
+    }
+}
+
+const webpubFromHTML = async (uri, filename, inputType) => {
+    const type = inputType === 'xhmlt' ? 'application/xhtml+xml' : 'text/html'
+    const res = await fetch(uri)
+    const blob = await res.blob()
+    const identifier = await generateIdentifier(blob)
+
+    const buffer = await new Response(blob).arrayBuffer()
+    const decoder = new TextDecoder('utf-8')
+    const data = decoder.decode(buffer)
+
+    let doc = new DOMParser().parseFromString(data, type)
+    const charset = getCharset(doc)
+    if (charset && charset !== 'utf-8') {
+        const decoder = new TextDecoder(charset)
+        const data = decoder.decode(buffer)
+        doc = new DOMParser().parseFromString(data, type)
+    }
+
+    const url = URL.createObjectURL(new Blob(
+        [doc.documentElement.outerHTML],
+        { type }))
+
+    const chapters = [{
+        href: url,
+        type,
+        title: filename
+    }]
+
+    return {
+        metadata: {
+            title: filename,
+            identifier
+        },
+        links: [],
+        readingOrder: chapters,
+        toc: chapters,
+        resources: []
+    }
+}
+
 const fb2FromBlob = async (blob, filename) => {
     const buffer = await new Response(blob).arrayBuffer()
     const decoder = new TextDecoder('utf-8')
@@ -86,7 +141,10 @@ const webpubFromFB2Zip = async (uri, filename) => {
     const res = await fetch(uri)
     const data = await res.blob()
     const zip = await JSZip.loadAsync(data)
-    const blob = await zip.file(/\.fb2$/)[0].async('blob')
+    let files = await zip.file(/\.fb2$/)
+    if (!files.length) files = await zip.file(/[\s\S]*/)
+    if (!files.length) throw new Error('Zip file appears to be empty')
+    const blob = await files[0].async('blob')
     return fb2FromBlob(blob, filename)
 }
 

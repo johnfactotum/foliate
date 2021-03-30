@@ -25,7 +25,6 @@ let cfiToc
 let sectionMarks = []
 let lineHeight = 24
 let enableFootnote = false
-let skeuomorphism = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
 let ibooksInternalTheme = 'Light'
 let doubleClickTime = 400
@@ -262,8 +261,10 @@ const setStyle = style => {
         brightness, fgColor, bgColor, linkColor, invert,
         fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
         spacing, margin, maxWidth,
-        usePublisherFont, hyphenate, justify
+        usePublisherFont, hyphenate, justify,
+        skeuomorphism
     } = style
+    const paginated = rendition.settings.flow !== 'paginated'
 
     lineHeight = fontSize * spacing
 
@@ -271,8 +272,20 @@ const setStyle = style => {
     rendition.getContents().forEach(contents => contents.document.documentElement
         .setAttribute('__ibooks_internal_theme', ibooksInternalTheme))
 
-    document.documentElement.style.padding = `0 ${margin}%`
-    document.body.style.maxWidth = `${maxWidth}px`
+
+    if (rendition.settings.layout === 'pre-paginated') {
+        document.documentElement.style.padding = 0
+    } else {
+        const gap = skeuomorphism ? margin * 2 : margin
+        rendition.layout({
+            ...rendition.settings.globalLayoutProperties,
+            gap,
+        })
+        const padding = paginated ? margin
+            : skeuomorphism ? 0 : margin / 2
+        document.documentElement.style.padding = `0 ${padding}px`
+        document.body.style.maxWidth = `${maxWidth + gap}px`
+    }
 
     document.documentElement.style.filter =
         invert || brightness !== 1
@@ -292,11 +305,15 @@ const setStyle = style => {
             '-webkit-hyphens': hyphenate ? 'auto' : 'manual',
             '-webkit-hyphenate-limit-before': 3,
             '-webkit-hyphenate-limit-after': 2,
-            '-webkit-hyphenate-limit-lines': 2
+            '-webkit-hyphenate-limit-lines': 2,
+            'overflow-wrap': 'break-word'
         },
         [`.${themeName} p`]: {
             'font-size': `${fontSize}px !important`,
             'line-height': `${spacing} !important`
+        },
+        [`.${themeName} pre`]: {
+            'white-space': 'pre-wrap'
         },
         [`.${themeName} code, .${themeName} pre`]: {
             '-webkit-hyphens': 'none'
@@ -357,6 +374,12 @@ const open = async (uri, filename, inputType, renderTo, options) => {
             }
             case 'fb2zip': {
                 const json = await webpubFromFB2Zip(uri, filename)
+                await book.openJSON(json)
+                break
+            }
+            case 'html':
+            case 'xhtml': {
+                const json = await webpubFromHTML(uri, filename, inputType)
                 await book.openJSON(json)
                 break
             }
@@ -544,15 +567,8 @@ const setupRendition = () => {
         justResized = true
     })
 
-    const updateDivider = () => {
-        const spread = paginated && rendition.settings.spread !== 'none'
-            && document.getElementById('viewer').clientWidth >= 800
-        // document.getElementById('divider').style.display =
-        //     skeuomorphism && spread ? 'block' : 'none'
-        dispatch({ type: 'spread', payload: spread })
-    }
-    rendition.on('layout', updateDivider)
-    updateDivider()
+    rendition.on('layout', props => dispatch({ type: 'layout', payload: props }))
+    dispatch({ type: 'layout', payload: rendition._layout.props })
 
     let isSelecting = false
 

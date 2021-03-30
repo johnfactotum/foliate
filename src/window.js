@@ -253,22 +253,28 @@ const NavBar = GObject.registerClass({
 
 const Footer = GObject.registerClass({
     GTypeName: 'FoliateFooter',
-}, class Footer extends Gtk.Box {
+}, class Footer extends Gtk.Grid {
     _init(params) {
         super._init(params)
+        this.column_homogeneous = true
+        this.valign = Gtk.Align.CENTER
+
         this._locationsFallback = false
         const labelOpts = {
             visible: true,
             ellipsize: Pango.EllipsizeMode.END,
             margin_start: 18,
-            margin_end: 18
+            margin_end: 18,
+            xalign: .5,
+            lines: 1
         }
         this._left = new Gtk.Label(labelOpts)
         this._right = new Gtk.Label(labelOpts)
         this._left.get_style_context().add_class('foliate-autohide-label')
         this._right.get_style_context().add_class('foliate-autohide-label')
-        this.pack_start(this._left, true, true, 0)
-        this.pack_start(this._right, true, true, 0)
+        this.attach(this._left, 0, 0, 1, 1)
+        this.attach(this._right, 1, 0, 1, 1)
+        this._center = new Gtk.Box({ visible: true, opacity: 0 })
 
         const hl = settings.connect('changed::footer-left', this._update.bind(this))
         const hr = settings.connect('changed::footer-right', this._update.bind(this))
@@ -295,43 +301,65 @@ const Footer = GObject.registerClass({
         this._epub.connect('relocated', () => {
             this._update()
         })
-        this._epub.connect('spread', (_, spread) => {
-            this._spread = spread
+        this._epub.connect('layout', () => {
+            const { flow, divisor } = this._epub.layoutProps
+            this._spread = flow === 'paginated' && divisor > 1
+            this._divisor = divisor
             this._update()
         })
     }
+    updateMargin(outerMargin) {
+        const { metadata } = this._epub
+        if (metadata && metadata.layout === 'pre-paginated') return
+
+        this.margin_end = outerMargin
+        this.margin_start = outerMargin
+
+        const { margin, zoom_level, skeuomorphism } = this._epub.settings
+        const innerMargin = Math.max(0, margin * zoom_level)
+
+        const outside = outerMargin ? innerMargin / 2 : innerMargin
+        const inside = skeuomorphism ? innerMargin : innerMargin / 2
+        this._left.margin_start = outside
+        this._left.margin_end = inside
+        this._right.margin_start = inside
+        this._right.margin_end = outside
+    }
     _update() {
         const spread = this._spread
-        this._setLabel(this._left)
-        this._setLabel(this._right)
 
-        this.homogeneous = spread
-        if (!spread) {
-            const lv = this._left.label !== ''
-                && settings.get_string('footer-left')
-                    !== settings.get_string('footer-right')
-            const rv = this._right.label !== ''
+        const leftLabel = this._getLabel(true)
+        const rightLabel = this._getLabel(false)
 
-            this._left.visible = lv
-            this._right.visible = rv
-
-            this._left.xalign =  rv ? 1 : 0.5
-            this._left.margin_end = rv ? 12 : 18
-
-            this._right.xalign =  lv ? 0 : 0.5
-            this._right.margin_start = lv ? 12 : 18
-        } else {
-            this._left.visible = true
+        this.remove(this._center)
+        if (spread) {
+            this._left.label = leftLabel
+            this._right.label = rightLabel
             this._right.visible = true
-            this._left.xalign = 0.5
-            this._right.xalign = 0.5
+
+            const divisor = this._divisor
+            if (divisor % 2) {
+                const sideWidth = (divisor - 1) / 2
+                this.remove(this._left)
+                this.remove(this._right)
+                this.attach(this._left, 0, 0, sideWidth, 1)
+                this.attach(this._center, sideWidth, 0, 1, 1)
+                this.attach(this._right, sideWidth + 1, 0, sideWidth, 1)
+            }
+        } else {
+            const same = settings.get_string('footer-left')
+                === settings.get_string('footer-right')
+            this._left.label = same
+                ? leftLabel
+                : [leftLabel, rightLabel].filter(x => x).join('  ·  ')
+            this._right.visible = false
         }
     }
-    _setLabel(label) {
-        if (!this._epub.location) return
+    _getLabel(isLeft) {
+        let s = ''
+        if (!this._epub.location) return s
         const { start, end, locationTotal, section, sectionTotal,
             timeInBook, timeInChapter } = this._epub.location
-        const isLeft = label === this._left
         const type = isLeft
             ? settings.get_string('footer-left')
             : settings.get_string('footer-right')
@@ -339,7 +367,6 @@ const Footer = GObject.registerClass({
 
         const of = (a, b) => _('%d of %d').format(a, b)
 
-        let s = ''
         switch (type) {
             case 'percentage':
                 if (this._locationsFallback)
@@ -377,7 +404,7 @@ const Footer = GObject.registerClass({
                 }
                 break
         }
-        label.label = s
+        return s
     }
 })
 
@@ -429,13 +456,9 @@ const MainOverlay = GObject.registerClass({
     }
     _updateMarginSize() {
         const width = this._autohide.get_allocation().width
-        const margin = this._epub.settings.margin
-        const maxWidth = this._epub.settings.max_width
-        const marginSize = Math.max(0,
-            width * margin / 100,
-            Math.max(width - maxWidth, 0) / 2)
-        this._footer.margin_end = marginSize
-        this._footer.margin_start = marginSize
+        const { margin, max_width, zoom_level } = this._epub.settings
+        const marginSize = Math.max((width - (max_width + margin) * zoom_level) / 2, 0)
+        this._footer.updateMargin(marginSize)
     }
     set epub(epub) {
         this._epub = epub
@@ -454,14 +477,13 @@ const MainOverlay = GObject.registerClass({
                 this._msg.label = msg
                 this._setStatus('error')
             }),
-            this._epub.connect('spread', (_, spread) => {
-                this._spread = spread
+            this._epub.connect('layout', () => {
+                const { flow, divisor } = this._epub.layoutProps
+                this._spread = flow === 'paginated' && divisor > 1
                 this._showDivider()
+                this._updateMarginSize()
             }),
-            this._epub.connect('notify::margin', () => this._updateMarginSize()),
-            this._epub.connect('notify::max-width', () => this._updateMarginSize()),
         ]
-        this._autohide.connect('size-allocate', () => this._updateMarginSize()),
         this.connect('destroy', () => {
             connections.forEach(connection => this._epub.disconnect(connection))
         })
@@ -1000,8 +1022,14 @@ var Window = GObject.registerClass({
         this.loading = true
         this._setTitle(_('Foliate'))
     }
+    get file() {
+        return this._file || null
+    }
+    set file(file) {
+        this._file = file
+    }
     open(file) {
-        this.file = file
+        this._file = file
         this._epub.open(file)
     }
     _connectEpub() {

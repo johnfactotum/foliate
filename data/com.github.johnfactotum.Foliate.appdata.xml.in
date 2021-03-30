@@ -44,6 +44,31 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="2.6.2" date="2021-03-25">
+            <description>
+                <p>Fix UI when running with libhandy 1.x</p>
+            </description>
+        </release>
+        <release version="2.6.1" date="2021-03-24">
+            <description>
+                <p>Fixed automatic layout</p>
+            </description>
+        </release>
+        <release version="2.6.0" date="2021-03-24">
+            <description>
+                <p>Changes:</p>
+                <ul>
+                    <li>Added support for opening HTML files</li>
+                    <li>Consistent inner and outer margins</li>
+                    <li>The automatic layout no longer supports 4 columns</li>
+                    <li>Fixed long words overflowing</li>
+                    <li>Fixed custom themes not saved across sessions</li>
+                    <li>Fixed shortcuts for key pads</li>
+                    <li>Fixed opening non-UTF-8 zipped FB2 files</li>
+                    <li>Fixed books not opening on GNOME 40</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.5.0" date="2020-10-15">
             <description>
                 <p>Changes:</p>
@@ -388,4 +413,8 @@
         </release>
     </releases>
     <content_rating type="oars-1.1" />
+    <custom>
+        <value key="Purism::form_factor">workstation</value>
+        <value key="Purism::form_factor">mobile</value>
+    </custom>
 </component>

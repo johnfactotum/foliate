@@ -91,7 +91,7 @@
     <key name="autohide-headerbar" type="b">
         <default>true</default>
         <summary>Auto-hide headerbar</summary>
-        <description>Whether to hide the headerbar automatically (this is setting has no effect if skeuomorphism or sidebar is enabled)</description>
+        <description>Whether to hide the headerbar automatically (this setting has no effect if skeuomorphism or sidebar is enabled)</description>
     </key>
     <key name="footer-left" type="s">
         <default>'location'</default>
@@ -131,10 +131,10 @@
       <summary>Spacing</summary>
       <description>Line-height</description>
     </key>
-    <key name="margin" type="d">
-      <default>3.5</default>
+    <key name="margin" type="i">
+      <default>40</default>
       <summary>Margin</summary>
-      <description>Page margin in percentage</description>
+      <description>Page margin in pixels</description>
     </key>
     <key name="max-width" type="i">
       <default>1400</default>

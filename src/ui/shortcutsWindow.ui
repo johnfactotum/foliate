@@ -196,14 +196,16 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Zoom out</property>
-                <property name="action-name">view.zoom-out</property>
+                <!--<property name="action-name">view.zoom-out</property>-->
+                <property name="accelerator">minus &lt;ctrl&gt;minus</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Restore zoom level</property>
-                <property name="action-name">view.zoom-restore</property>
+                <!--<property name="action-name">view.zoom-restore</property>-->
+                <property name="accelerator">0 &lt;ctrl&gt;0</property>
               </object>
             </child>
             <child>
@@ -379,14 +381,16 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Zoom out</property>
-                <property name="action-name">img.zoom-out</property>
+                <!--<property name="action-name">img.zoom-out</property>-->
+                <property name="accelerator">minus &lt;ctrl&gt;minus</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes">Restore zoom level</property>
-                <property name="action-name">img.zoom-restore</property>
+                <!--<property name="action-name">img.zoom-restore</property>-->
+                <property name="accelerator">0 &lt;ctrl&gt;0</property>
               </object>
             </child>
             <child>

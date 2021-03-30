@@ -74,13 +74,13 @@ var HdyColumn =  GObject.registerClass({
                 this.tightening_threshold = params.linear_growth_width
             }
             get maximum_width() {
-                return maximum_size
+                return this.maximum_size
             }
             set maximum_width(x) {
                 this.maximum_size = x
             }
             get linear_growth_width() {
-                return tightening_threshold
+                return this.tightening_threshold
             }
             set linear_growth_width(x) {
                 this.tightening_threshold = x
