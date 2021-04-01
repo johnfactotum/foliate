@@ -68,7 +68,7 @@ var HdyColumn =  GObject.registerClass({
     ? (Handy.Column
         ? class HdyColumn extends Handy.Column {}
         : class HdyColumn extends Handy.Clamp {
-            constructor(params) {
+            _init(params) {
                 super._init(params)
                 this.maximum_size = params.maximum_width
                 this.tightening_threshold = params.linear_growth_width
