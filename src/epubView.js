@@ -596,7 +596,7 @@ var EpubView = GObject.registerClass({
             this._webView.run_javascript_from_gresource(resource, null, () => resolve()))
 
         const loadScripts = async () => {
-            await runResource('/com/github/johnfactotum/Foliate/web/jszip.min.js')
+            await runResource('/com/github/johnfactotum/Foliate/web/jszip.js')
             await runResource('/com/github/johnfactotum/Foliate/web/epub.js')
             await runResource('/com/github/johnfactotum/Foliate/web/crypto-js/core.js')
             await runResource('/com/github/johnfactotum/Foliate/web/crypto-js/enc-latin1.js')
