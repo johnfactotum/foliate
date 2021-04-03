@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-01 16:44+0800\n"
-"PO-Revision-Date: 2020-12-09 22:25+0100\n"
+"PO-Revision-Date: 2021-04-02 22:14+0200\n"
 "Last-Translator: Jonatan Nyberg <jonatan.nyberg.karl@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -829,7 +829,7 @@ msgstr "Ta bort bok"
 
 #: src/ui/catalogWindow.ui:68
 msgid "Preview URL"
-msgstr "Förhandsgranska webbadress"
+msgstr "Förhandsgranskningswebbadress"
 
 #: src/ui/catalogWindow.ui:77
 msgid "Optional"
@@ -1277,7 +1277,7 @@ msgstr "Zooma ut"
 
 #: src/ui/menuBar.ui:116
 msgid "Up to Two Columns"
-msgstr ""
+msgstr "Upp till två kolumner"
 
 #: src/ui/menuBar.ui:179
 msgid "_Go"
@@ -3051,15 +3051,15 @@ msgstr "John Factotum"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Fixed a performance issue with zipped files (including EPUB files)"
-msgstr ""
+msgstr "Åtgärdat ett prestandaproblem med packade filer (inklusive EPUB-filer)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
 msgid "Fix UI when running with libhandy 1.x"
-msgstr ""
+msgstr "Åtgärdat användargränssnittet vid körning med libhandy 1.x"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 msgid "Fixed automatic layout"
-msgstr ""
+msgstr "Åtgärdat automatisk layout"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
@@ -3077,59 +3077,55 @@ msgstr "Ändringar:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
 msgid "Added support for opening HTML files"
-msgstr ""
+msgstr "Lagt till stöd för att öppna HTML-filer"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
 msgid "Consistent inner and outer margins"
-msgstr ""
+msgstr "Konsekventa inre och yttre marginaler"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid "The automatic layout no longer supports 4 columns"
-msgstr ""
+msgstr "Den automatiska layouten stöder inte längre fyra kolumner"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
 msgid "Fixed long words overflowing"
-msgstr ""
+msgstr "Åtgärdat att långa ord flyter över"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
-#, fuzzy
 msgid "Fixed custom themes not saved across sessions"
-msgstr "Åtgärdat att anpassade stilar inte tillämpas i vissa fall"
+msgstr "Åtgärdat att anpassade teman sparades inte över sessioner"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
-#, fuzzy
 msgid "Fixed shortcuts for key pads"
-msgstr "Åtgärdat att F9-kortkommandot inte fungerar"
+msgstr "Åtgärdat genvägar för knappsatser"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
 msgid "Fixed opening non-UTF-8 zipped FB2 files"
-msgstr ""
+msgstr "Åtgärdat öppnande av FB2-filer som inte är UTF-8"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
-#, fuzzy
 msgid "Fixed books not opening on GNOME 40"
-msgstr "Åtgärdat att vissa böcker inte återges ibland"
+msgstr "Åtgärdat att böcker inte öppnas i GNOME 40"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
-#, fuzzy
 msgid "Improved support for touch screens"
-msgstr "Förbättrat stöd för vertikala och höger till vänster böcker"
+msgstr "Förbättrat stöd för pekskärmar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:82
 msgid "OPDS credentials can now be remembered"
-msgstr ""
+msgstr "OPDS-referenser kan nu kommas ihåg"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:83
 msgid "Various fixes for GNOME 3.38"
-msgstr ""
+msgstr "Olika korrigeringar för GNOME 3.38"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:84
 msgid "Fixed Wiktionary internal links"
-msgstr ""
+msgstr "Åtgärdat interna länkar för Wiktionary"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:85
 msgid "Added Basque, Korean, and Norwegian translations"
-msgstr ""
+msgstr "Lade till baskiska, koreanska och norska översättningar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:91
 msgid "Fixed unable to open some EPUB files"
@@ -3305,7 +3301,7 @@ msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
 msgstr ""
-"Förbättrad bildvisare, med nya kortkommandon och förmågan att rotera och "
+"Förbättrad bildvisare, med nya genvägar och förmågan att rotera och "
 "invertera bilder"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:169
@@ -3432,8 +3428,8 @@ msgstr "En meny på välkomstskärmen för att öppna nya filer"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
 msgstr ""
-"Återställda kortkommandon för att visa innehållsföreteckning, kommentarer "
-"och bokmärken"
+"Återställda genvägar för att visa innehållsföreteckning, kommentarer och "
+"bokmärken"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
 msgid "Fixed application not translated"
@@ -3494,8 +3490,7 @@ msgstr "När du slår upp ord i ordböcker kan förfrågan nu redigeras"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:235
 msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr ""
-"Nytt kortkommando för visning av metadata (Ctrl + I) och inställningar (Ctrl "
-"+ ,)"
+"Ny genväg för visning av metadata (Ctrl + I) och inställningar (Ctrl + ,)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:236
 msgid ""
@@ -3674,7 +3669,7 @@ msgstr "Åtgärdat att tillfällig katalog inte rensas efter stängning"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:308
 msgid "Fixed F9 shortcut not working"
-msgstr "Åtgärdat att F9-kortkommandot inte fungerar"
+msgstr "Åtgärdat att F9-genvägen inte fungerar"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:309
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:344
@@ -3996,9 +3991,8 @@ msgid "Margin"
 msgstr "Marginal"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:137
-#, fuzzy
 msgid "Page margin in pixels"
-msgstr "Sidmarginal i procent"
+msgstr "Sidmarginal i pixlar"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:141
 msgid "Max width"
