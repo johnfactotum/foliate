@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-01 16:44+0800\n"
-"PO-Revision-Date: 2021-03-12 11:50+0100\n"
+"POT-Creation-Date: 2021-04-13 00:21+0200\n"
+"PO-Revision-Date: 2021-04-13 00:43+0200\n"
 "Last-Translator: Gianluca Boiano <morf3089@gmail.com>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -51,7 +51,7 @@ msgstr "Rimuovi posizione corrente"
 #: src/contents.js:225 src/ui/contentsStack.ui:204
 #: src/ui/shortcutsWindow.ui:155
 msgid "Bookmark current location"
-msgstr "Aggiunge un segnalibro"
+msgstr "Aggiungi un segnalibro"
 
 #: src/contents.js:268
 msgid "No results"
@@ -92,7 +92,7 @@ msgstr "Nota di chiusura"
 #. deprecated
 #: src/contents.js:312 src/contents.js:339
 msgid "Note"
-msgstr "Note"
+msgstr "Nota"
 
 #: src/epubView.js:1121
 msgid "Failed to load remote file."
@@ -625,7 +625,7 @@ msgstr "Copyright"
 
 #: src/properties.js:643
 msgid "Find on…"
-msgstr "Trova su…"
+msgstr "Cerca su…"
 
 #: src/theme.js:23
 msgid "Light"
@@ -786,7 +786,7 @@ msgstr "Mostra barra laterale"
 
 #: src/window.js:832 src/ui/selectionPopover.ui:47
 msgid "Find"
-msgstr "Trova"
+msgstr "Cerca"
 
 #: src/window.js:833 src/ui/libraryWindow.ui:205 src/ui/libraryWindow.ui:300
 msgid "Menu"
@@ -1423,7 +1423,7 @@ msgstr "Traduci"
 #: src/ui/preferenceWindow.ui:79 src/ui/shortcutsWindow.ui:162
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:18
 msgid "Find in book"
-msgstr "Trova nel libro"
+msgstr "Cerca nel libro"
 
 #: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:59
 #: src/ui/ttsDialog.ui:165
@@ -1581,7 +1581,7 @@ msgstr "Apri file"
 #: src/ui/shortcutsWindow.ui:24 src/ui/shortcutsWindow.ui:134
 #: src/ui/shortcutsWindow.ui:354
 msgid "Close current window"
-msgstr "Chiude finestra corrente"
+msgstr "Chiudi finestra corrente"
 
 #: src/ui/shortcutsWindow.ui:51
 msgid "List view"
@@ -3059,14 +3059,15 @@ msgstr "John Factotum"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:49
 msgid "Fixed a performance issue with zipped files (including EPUB files)"
 msgstr ""
+"Risolto un problema di prestazioni con i file compressi (inclusi i file EPUB)"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:54
 msgid "Fix UI when running with libhandy 1.x"
-msgstr ""
+msgstr "Correzione dell'UI durante l'esecuzione con libhandy 1.x"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:59
 msgid "Fixed automatic layout"
-msgstr ""
+msgstr "Risolto un problema con l'impaginazione automatica"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:64
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:79
@@ -3084,39 +3085,35 @@ msgstr "Novità:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:66
 msgid "Added support for opening HTML files"
-msgstr ""
+msgstr "Aggiunto supporto per l'apertura di file HTML"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:67
 msgid "Consistent inner and outer margins"
-msgstr ""
+msgstr "Margini interni ed esterni coerenti"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:68
 msgid "The automatic layout no longer supports 4 columns"
-msgstr ""
+msgstr "L'impaginazione automatica non supporta più 4 colonne"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:69
 msgid "Fixed long words overflowing"
-msgstr ""
+msgstr "Risolto il problema con parole molto lunghe"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:70
-#, fuzzy
 msgid "Fixed custom themes not saved across sessions"
-msgstr "Risolti gli stili personalizzati che non si applicavano in alcuni casi"
+msgstr "Risolti i temi personalizzati non salvati tra le sessioni"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:71
-#, fuzzy
 msgid "Fixed shortcuts for key pads"
-msgstr "Risolto il problema con la scorciatoia F9 che non funzionava"
+msgstr "Risolto il problema con le scorciatoie da tastiera"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:72
 msgid "Fixed opening non-UTF-8 zipped FB2 files"
-msgstr ""
+msgstr "Risolto il problema con l'apertura di file FB2 compressi non UTF-8"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:73
-#, fuzzy
 msgid "Fixed books not opening on GNOME 40"
-msgstr ""
-"Risolto il problema con alcuni libri che a volte non venivano visualizzati"
+msgstr "Risolto il problema con i libri che non si aprivano su GNOME 40"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:81
 msgid "Improved support for touch screens"
@@ -3592,7 +3589,7 @@ msgstr "Possibilità di selezionare il testo tra le pagine"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:252
 msgid "Find selected text in book"
-msgstr "Trova testo selezionato nel libro"
+msgstr "Cerca testo selezionato nel libro"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
 msgid "Speak selected text or from the selected locatio"
@@ -3770,7 +3767,7 @@ msgstr "Supporto sperimentale per le note a piè di pagina"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:333
 msgid "Ability to find within only the current chapter"
-msgstr "Possibilità di trovare solo all'interno del capitolo corrente"
+msgstr "Possibilità di cercare solo all'interno del capitolo corrente"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:334
 msgid "Fixed CPU spikes when left open"
@@ -4256,129 +4253,3 @@ msgstr "Azione di download OPDS"
 #: data/com.github.johnfactotum.Foliate.gschema.xml:288
 msgid "What to do when downloading a file from an OPDS feed"
 msgstr "Cosa fare quando si scarica un file da un feed OPDS"
-
-#, fuzzy
-#~ msgid "Open a Catalog…"
-#~ msgstr "Apri file…"
-
-#, fuzzy
-#~ msgid "English"
-#~ msgstr "Editore"
-
-#, fuzzy
-#~ msgid "Lao"
-#~ msgstr "Impaginazione"
-
-#, fuzzy
-#~ msgid "Polish"
-#~ msgstr "Editore"
-
-#, fuzzy
-#~ msgid "Cache locations in book"
-#~ msgstr "%d minuto alla fine del libro"
-
-#, fuzzy
-#~ msgid "The file cannot be opened."
-#~ msgstr "Oh no! Il file non può essere aperto"
-
-#~ msgid "Auto"
-#~ msgstr "Automatica"
-
-#~ msgid "Yellow"
-#~ msgstr "Giallo"
-
-#~ msgid "Red"
-#~ msgstr "Rosso"
-
-#~ msgid "Magenta"
-#~ msgstr "Magenta"
-
-#~ msgid "Aqua"
-#~ msgstr "Acqua"
-
-#~ msgid "Lime"
-#~ msgstr "Lime"
-
-#~ msgid "From Wiktionary, the free dictionary"
-#~ msgstr "Da Wikizionario, il dizionario libero"
-
-#, javascript-format
-#~ msgid "%d hour left in book"
-#~ msgid_plural "%d hours left in book"
-#~ msgstr[0] "%d ora alla fine del libro"
-#~ msgstr[1] "%d ore alla fine del libro"
-
-#, fuzzy, javascript-format
-#~ msgid "%d minute left in section"
-#~ msgid_plural "%d minutes left in section"
-#~ msgstr[0] "%d minuto alla fine del libro"
-#~ msgstr[1] "%d minuti alla fine del libro"
-
-#, fuzzy, javascript-format
-#~ msgid "%d hour left in section"
-#~ msgid_plural "%d hours left in section"
-#~ msgstr[0] "%d ora alla fine del libro"
-#~ msgstr[1] "%d ore alla fine del libro"
-
-#~ msgid "Find in Book"
-#~ msgstr "Trova nel libro"
-
-#, fuzzy
-#~ msgid "From Wikipedia, the free encyclopedia"
-#~ msgstr "Da Wikizionario, il dizionario libero"
-
-#, fuzzy
-#~ msgid "Go to Linked Location"
-#~ msgstr "Torna al punto precedente"
-
-#~ msgid "Zoom"
-#~ msgstr "Ingrandisci"
-
-#~ msgid "Open a file, or continue reading the last opened book."
-#~ msgstr "Apri un file o continua a leggere l'ultimo libro aperto."
-
-#, fuzzy
-#~ msgid "Go to Location…"
-#~ msgstr "Torna al punto precedente"
-
-#~ msgid "Set font, theme, and layout"
-#~ msgstr "Configura carattere, tema e impaginazione"
-
-#~ msgid "Reading Progress Bar"
-#~ msgstr "Barra Progresso di Lettura"
-
-#, fuzzy, javascript-format
-#~ msgid "Annotations for %s"
-#~ msgstr "Annotazioni"
-
-#~ msgid "Link"
-#~ msgstr "Collegamenti"
-
-#~ msgid "A theme with that name already exists."
-#~ msgstr "Esiste già un tema con quel nome."
-
-#~ msgid "Add"
-#~ msgstr "Aggiungi"
-
-#~ msgid "Add…"
-#~ msgstr "Aggiungi…"
-
-#~ msgid "Add a new theme"
-#~ msgstr "Aggiungi un nuovo tema"
-
-#~ msgid "Increase font size"
-#~ msgstr "Aumenta la dimensione del carattere"
-
-#~ msgid "Decrease font size"
-#~ msgstr "Riduce la dimensione del carattere"
-
-#~ msgid "Never"
-#~ msgstr "Mai"
-
-#~ msgid "Always"
-#~ msgstr "Sempre"
-
-#~ msgid "%d hour left in chapter"
-#~ msgid_plural "%d hours left in chapter"
-#~ msgstr[0] "%d ora alla fine del capitolo"
-#~ msgstr[1] "%d ore alla fine del capitolo"
