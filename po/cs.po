@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-13 00:21+0200\n"
-"PO-Revision-Date: 2021-04-18 15:05+0200\n"
+"PO-Revision-Date: 2021-04-24 16:08+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -44,12 +44,12 @@ msgstr "Knihovna"
 
 #: src/contents.js:222
 msgid "Remove current location"
-msgstr "Odstranit nynější polohu"
+msgstr "Odstranit nynější místo"
 
 #: src/contents.js:225 src/ui/contentsStack.ui:204
 #: src/ui/shortcutsWindow.ui:155
 msgid "Bookmark current location"
-msgstr "Přidat nynější polohu do záložek"
+msgstr "Přidat nynější místo do záložek"
 
 #: src/contents.js:268
 msgid "No results"
@@ -78,7 +78,7 @@ msgstr "Slovníček"
 #. deprecated
 #: src/contents.js:306 src/contents.js:313
 msgid "Annotation"
-msgstr "Vysvětlivka"
+msgstr "Poznámka"
 
 #: src/contents.js:309
 msgid "Footnote"
@@ -112,20 +112,20 @@ msgstr "Typ souboru nepodporován."
 #: src/export.js:35
 #, javascript-format
 msgid "<p>Annotations for</p><h1>%s</h1><h2>By %s</h2>"
-msgstr "<p>Vysvětlivky pro</p><h1>%s</h1><h2>Od %s</h2>"
+msgstr "<p>Poznámky pro</p><h1>%s</h1><h2>Od %s</h2>"
 
 #: src/export.js:37 src/export.js:51 src/export.js:63
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "%d vysvětlivka"
-msgstr[1] "%d vysvětlivky"
-msgstr[2] "%d vysvětlivek"
+msgstr[0] "%d poznámka"
+msgstr[1] "%d poznámky"
+msgstr[2] "%d poznámek"
 
 #: src/export.js:50
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "Vysvětlivky pro “%s” od %s"
+msgstr "Poznámky pro “%s” od %s"
 
 #: src/export.js:54
 msgid "Section: "
@@ -146,7 +146,7 @@ msgstr "Poznámka:"
 #: src/export.js:62
 #, javascript-format
 msgid "Annotations for *%s* by %s"
-msgstr "Vysvětlivky pro *%s* od %s"
+msgstr "Poznámky pro *%s* od %s"
 
 #: src/export.js:96
 msgid "Quote: "
@@ -158,15 +158,15 @@ msgstr " Poznámka: "
 
 #: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
 msgid "No annotations"
-msgstr "Žádné vysvětlivky"
+msgstr "Žádné poznámky"
 
 #: src/export.js:105
 msgid "You don't have any annotations for this book."
-msgstr "Pro tuto knihu nemáte žádné vysvětlivky."
+msgstr "Pro tuto knihu nemáte žádné poznámky."
 
 #: src/export.js:106
 msgid "Highlight some text to add annotations."
-msgstr "Zvýrazněte text pro přidání vysvětlivek."
+msgstr "Pro jejich přidání zvýrazněte text."
 
 #: src/export.js:128
 msgid "Save File"
@@ -175,7 +175,7 @@ msgstr "Uložit soubor"
 #: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
-msgstr "Vysvětlivky pro “%s”"
+msgstr "Poznámky pro “%s”"
 
 #: src/export.js:166 src/utils.js:281
 msgid "All Files"
@@ -187,7 +187,7 @@ msgstr "Soubory JSON"
 
 #: src/export.js:173 src/ui/importWindow.ui:6
 msgid "Import Annotations"
-msgstr "Zavést vysvětlivky"
+msgstr "Zavést poznámky"
 
 #: src/export.js:187
 msgid "There’s nothing to import."
@@ -203,7 +203,7 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr ""
 "Identifikátor zavedeného souboru neodpovídá identifikátoru knihy. To může "
-"znamenat, že vysvětlivky nepatří k této knize."
+"znamenat, že poznámky nepatří k této knize."
 
 #: src/export.js:234 src/library.js:456 src/main.js:161 src/opds.js:229
 #: src/opds.js:376 src/opds.js:1174 src/utils.js:772 src/window.js:593
@@ -223,12 +223,12 @@ msgstr "Chyba"
 
 #: src/export.js:246
 msgid "Could not import annotations."
-msgstr "Nepodařilo se zavést vysvětlivky"
+msgstr "Poznámky se nepodařilo zavést."
 
 #: src/library.js:99 src/window.js:672 src/ui/bookBoxMenu.ui:13
 #: src/ui/mainMenu.ui:612
 msgid "About This Book"
-msgstr "O této knize"
+msgstr "O knize"
 
 #: src/library.js:133
 msgid "Choose File"
@@ -240,11 +240,11 @@ msgstr "Nahrát více"
 
 #: src/library.js:428
 msgid "File location unkown"
-msgstr "Umístění souboru neznámé"
+msgstr "Umístění souboru není známo"
 
 #: src/library.js:429
 msgid "Choose the location of this file to open it."
-msgstr "Vyberte umístění tohoto souboru pro jeho otevření."
+msgstr "Pro otevření tohoto souboru vyberte jeho umístění."
 
 #: src/library.js:449
 #, javascript-format
@@ -256,7 +256,7 @@ msgstr[2] "Opravdu chcete odstranit %d vybraných knih?"
 
 #: src/library.js:451
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
-msgstr "Postup čtení, vysvětlivky a záložky budou trvale ztraceny."
+msgstr "Postup čtení, poznámky a záložky budou trvale ztraceny."
 
 #: src/library.js:457 src/ui/annotationBox.ui:63 src/ui/annotationRow.ui:53
 #: src/ui/bookBoxMenu.ui:44 src/ui/bookmarkRow.ui:44
@@ -320,7 +320,7 @@ msgstr "Přidat soubory"
 
 #: src/lookup.js:106
 msgid "Search on Wikipedia"
-msgstr "Hledat na Wikipedii"
+msgstr "Hledat ve Wikipedii"
 
 #: src/lookup.js:228
 msgid "Source: "
@@ -649,7 +649,7 @@ msgstr "Tmavý"
 #: src/ui/themeWindow.ui:145
 #: data/com.github.johnfactotum.Foliate.gschema.xml:176
 msgid "Invert"
-msgstr "Černý"
+msgstr "Obrácený"
 
 #: src/theme.js:43
 msgid "Solarized Light"
@@ -766,11 +766,11 @@ msgstr "z %d"
 
 #: src/window.js:587
 msgid "This file or format does not work well with annotations"
-msgstr "Tento soubor nebo formát nepracuje dobře s vysvětlivkami"
+msgstr "Tento soubor nebo formát nepracuje dobře s poznámkami"
 
 #: src/window.js:588
 msgid "Your annotations might stop working properly at any time."
-msgstr "Vaše vysvětlivky mohou kdykoli přestat pracovat."
+msgstr "Vaše poznámky mohou kdykoli přestat pracovat."
 
 #: src/window.js:594
 msgid "Continue Anyway"
@@ -815,7 +815,7 @@ msgstr "Vzdálený soubor"
 
 #: src/ui/bookBoxMenu.ui:25 src/ui/mainMenu.ui:650 src/ui/menuBar.ui:34
 msgid "Export Annotations…"
-msgstr "Vyvést vysvětlivky…"
+msgstr "Vyvést poznámky…"
 
 #: src/ui/bookBoxMenu.ui:37 src/ui/bookEditDialog.ui:6 src/ui/catalogRow.ui:60
 #: src/ui/themeRow.ui:26
@@ -852,16 +852,16 @@ msgstr "Obsah"
 
 #: src/ui/contentsStack.ui:51
 msgid "Search annotations"
-msgstr "Hledat vysvětlivky"
+msgstr "Hledat čtenářské poznámky"
 
 #: src/ui/contentsStack.ui:92
 msgid "Select some text to add annotations."
-msgstr "Vyberte text pro přidání vysvětlivek."
+msgstr "Pro přidání čtenářských poznámek vyberte text."
 
 #: src/ui/contentsStack.ui:124
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:176
 msgid "Annotations"
-msgstr "Vysvětlivky"
+msgstr "Poznámky"
 
 #: src/ui/contentsStack.ui:159
 msgid "No bookmarks"
@@ -869,7 +869,7 @@ msgstr "Žádné záložky"
 
 #: src/ui/contentsStack.ui:171
 msgid "Add some bookmarks to see them here."
-msgstr "Přidejte nějaké záložky a uvidíte je zde."
+msgstr "Abyste zde nějaké uviděl/a, přidejte je."
 
 #: src/ui/contentsStack.ui:216
 msgid "Bookmarks"
@@ -877,7 +877,7 @@ msgstr "Záložky"
 
 #: src/ui/dictionaryBox.ui:75
 msgid "No definitions found"
-msgstr "Nenalezena žádná vymezení"
+msgstr "Nenalezeno žádné vysvětlení"
 
 #: src/ui/exportWindow.ui:11
 msgid "BibTeX"
@@ -901,7 +901,7 @@ msgstr "Prostý text"
 
 #: src/ui/exportWindow.ui:34
 msgid "Export Annotations"
-msgstr "Vyvést vysvětlivky"
+msgstr "Vyvést poznámky"
 
 #: src/ui/exportWindow.ui:45
 msgid "Export"
@@ -913,8 +913,7 @@ msgstr "Vybrat ukládací formát:"
 
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
-msgstr ""
-"Zvolte “JSON”, pokud máte v úmyslu zavedení vysvětlivek zpět do Foliate."
+msgstr "Zvolte “JSON”, pokud máte v úmyslu zavedení poznámek zpět do Foliate."
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
@@ -932,7 +931,7 @@ msgstr "Náhled odkazu"
 #: src/ui/shortcutsWindow.ui:371 src/ui/wikipediaBox.ui:107
 #: data/com.github.johnfactotum.Foliate.gschema.xml:272
 msgid "View"
-msgstr "Zobrazit"
+msgstr "Zobrazení"
 
 #: src/ui/imageViewer.ui:31 src/ui/menuBar.ui:60 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:340
@@ -973,13 +972,13 @@ msgstr "Zavést"
 
 #: src/ui/importWindow.ui:34
 msgid "These annotations will be added:"
-msgstr "Budou přidány tyto vysvětlivky:"
+msgstr "Budou přidány tyto poznámky:"
 
 #: src/ui/importWindow.ui:64
 msgid ""
 "The imported annotations will NOT overwrite the existing ones when they "
 "highlight the same passages."
-msgstr "Zavedené vysvětlivky NEPŘEPÍŠÍ stávající, když zvýrazní stejné úseky."
+msgstr "Zavedené poznámky NEPŘEPÍŠÍ stávající, když zvýrazní stejné úseky."
 
 #: src/ui/libraryWindow.ui:7
 msgid "Open Book…"
@@ -1208,7 +1207,7 @@ msgstr "Vyprázdnit vyrovnávací paměť"
 
 #: src/ui/mainMenu.ui:657 src/ui/menuBar.ui:40
 msgid "Import Annotations…"
-msgstr "Zavést vysvětlivky…"
+msgstr "Zavést poznámky…"
 
 #: src/ui/mainOverlay.ui:48
 msgid "No books open"
@@ -1253,7 +1252,7 @@ msgstr "_Upravit"
 
 #: src/ui/menuBar.ui:66
 msgid "Bookmark Current Location"
-msgstr "Přidat nynější polohu do záložek"
+msgstr "Přidat nynější místo do záložek"
 
 #: src/ui/menuBar.ui:72 src/ui/ttsDialog.ui:6
 msgid "Text-to-Speech"
@@ -1367,7 +1366,7 @@ msgstr "Jít na předchozí stranu"
 
 #: src/ui/navBar.ui:298 src/ui/shortcutsWindow.ui:277
 msgid "Go back to previous location"
-msgstr "Jít zpět na předchozí polohu"
+msgstr "Jít zpět na předchozí místo"
 
 #: src/ui/navBar.ui:387 src/ui/shortcutsWindow.ui:263
 #: src/ui/shortcutsWindow.ui:299
@@ -1408,11 +1407,11 @@ msgstr "Zvýraznit"
 
 #: src/ui/preferenceWindow.ui:67
 msgid "Look up in dictionary"
-msgstr "Vyhledat ve slovníku"
+msgstr "Hledat ve slovníku"
 
 #: src/ui/preferenceWindow.ui:71
 msgid "Look up in Wikipedia"
-msgstr "Vyhledat na Wikipedii"
+msgstr "Hledat ve Wikipedii"
 
 #: src/ui/preferenceWindow.ui:75 src/ui/selectionPopover.ui:93
 msgid "Translate"
@@ -1426,7 +1425,7 @@ msgstr "Najít v knize"
 #: src/ui/preferenceWindow.ui:83 src/ui/selectionPopover.ui:59
 #: src/ui/ttsDialog.ui:165
 msgid "Speak"
-msgstr "Vyslovit"
+msgstr "Přečíst nahlas"
 
 #: src/ui/preferenceWindow.ui:95
 msgid "Disabled"
@@ -1464,17 +1463,17 @@ msgstr "Čtení"
 #: src/ui/preferenceWindow.ui:197
 #: data/com.github.johnfactotum.Foliate.gschema.xml:108
 msgid "Turn page on tap"
-msgstr "Obrátit stranu při ťuknutí"
+msgstr "Obrátit stranu při klepnutí/ťuknutí"
 
 #: src/ui/preferenceWindow.ui:220
 #: data/com.github.johnfactotum.Foliate.gschema.xml:98
 msgid "Left footer"
-msgstr "Levá patička stránky"
+msgstr "Levé zápatí"
 
 #: src/ui/preferenceWindow.ui:254
 #: data/com.github.johnfactotum.Foliate.gschema.xml:103
 msgid "Right footer"
-msgstr "Pravá patička stránky"
+msgstr "Pravé zápatí"
 
 #: src/ui/preferenceWindow.ui:288
 msgid "When a word is selected"
@@ -1558,15 +1557,15 @@ msgstr "Podrobnosti"
 
 #: src/ui/selectionPopover.ui:79
 msgid "Look Up in Dictionary"
-msgstr "Vyhledat ve slovníku"
+msgstr "Hledat ve slovníku"
 
 #: src/ui/selectionPopover.ui:86
 msgid "Look Up in Wikipedia"
-msgstr "Vyhledat ve Wikipedii"
+msgstr "Hledat ve Wikipedii"
 
 #: src/ui/selectionPopover.ui:105
 msgid "Speak from Here"
-msgstr "Vyslovit odtud"
+msgstr "Číst nahlas odtud"
 
 #: src/ui/shortcutsWindow.ui:9
 msgid "Library Shortcuts"
@@ -1591,7 +1590,7 @@ msgstr "Zobrazení mřížky"
 
 #: src/ui/shortcutsWindow.ui:85 src/ui/shortcutsWindow.ui:285
 msgid "Go to location"
-msgstr "Jít na polohu"
+msgstr "Jít na místo"
 
 #: src/ui/shortcutsWindow.ui:98
 msgid "E-book Viewer Shortcuts"
@@ -1635,7 +1634,7 @@ msgstr "Ukázat obsah"
 
 #: src/ui/shortcutsWindow.ui:235
 msgid "Show annotations"
-msgstr "Ukázat vysvětlivky"
+msgstr "Ukázat poznámky"
 
 #: src/ui/shortcutsWindow.ui:242
 msgid "Show bookmarks"
@@ -1651,7 +1650,7 @@ msgstr "Pohyb"
 
 #: src/ui/shortcutsWindow.ui:295
 msgid "Touchpad Gestures"
-msgstr "Gesta pro dotykovou plochu"
+msgstr "Pohyby prsty nad dotykovou plochou"
 
 #: src/ui/shortcutsWindow.ui:332
 msgid "Image Viewer Shortcuts"
@@ -1726,7 +1725,7 @@ msgstr "Vyzkoušejte své nastavení"
 
 #: src/ui/ttsDialog.ui:178
 msgid "The program should speak the following test sentences in order:"
-msgstr "Program má vyslovit následující zkušební věty v pořadí:"
+msgstr "Program má nahlas přečíst následující zkušební věty v pořadí:"
 
 #: src/ui/ttsDialog.ui:191
 msgid "1"
@@ -1992,7 +1991,7 @@ msgstr "Animátor"
 
 #: src/schemes.js:239
 msgid "Annotator"
-msgstr "Autor vysvětlivky"
+msgstr "Autor poznámky"
 
 #: src/schemes.js:240
 msgid "Bibliographic antecedent"
@@ -3037,7 +3036,7 @@ msgstr "Přizpůsobení písma a odstupu řádků"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:15
 msgid "Light, sepia, dark, and invert mode"
-msgstr "Světlý, sépiový, tmavý a obrácený režim"
+msgstr "Světlý, hnědý (sépiový), tmavý a obrácený režim"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:16
 msgid "Reading progress slider with chapter marks"
@@ -3045,7 +3044,7 @@ msgstr "Posuvník s postupem čtení se značkami kapitol"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:17
 msgid "Bookmarks and annotations"
-msgstr "Záložky a vysvětlivky"
+msgstr "Záložky a poznámky"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:19
 msgid "Quick dictionary lookup"
@@ -3176,7 +3175,7 @@ msgid ""
 "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
 msgstr ""
 "Opraven nesprávný atribut „__ibooks_internal_theme“, když je povoleno "
-"„Černý“"
+"„Obrácený“"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:116
 msgid "OPDS catalogs:"
@@ -3188,7 +3187,7 @@ msgstr "Katalogy se nyní otevírají v hlavním okně knihovny"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:119
 msgid "View current location"
-msgstr "Zobrazit nynější polohu"
+msgstr "Zobrazit nynější místo"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:120
 msgid "Go to catalog start page"
@@ -3224,7 +3223,8 @@ msgstr "Opraven, že při kopírování textu se přehlížely nové řádky"
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:129
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
 msgstr ""
-"Možnost „Zapnout stránku při klepnutí“ je nyní v nestránkovaných rozloženích "
+"Možnost „obrátit stránku při klepnutí/ťuknutí“ je nyní v nestránkovaných"
+" rozloženích "
 "zakázána"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:130
@@ -3238,7 +3238,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:132
 msgid "Export annotations from the library view"
-msgstr "Vyvést vysvětlivky ze zobrazení knihovny"
+msgstr "Vyvést poznámky ze zobrazení knihovny"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:140
 msgid "Fixed blurry book covers on HiDPI"
@@ -3339,16 +3339,16 @@ msgstr "Schopnost nastavení hlasu textu na řeč podle jazyka knihy"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:178
 msgid "Import annotations from JSON"
-msgstr "Zavést vysvětlivky z JSON"
+msgstr "Zavést poznámky z JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:179
 msgid "Search in annotations"
-msgstr "Hledat ve vysvětlivkách"
+msgstr "Hledat v poznámkách"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:180
 msgid "Annotations are now sorted in the same order as they appear in the book"
 msgstr ""
-"Vysvětlivky jsou nyní řazeny ve stejném pořadí, jak se objevují v knize"
+"Poznámky jsou nyní řazeny ve stejném pořadí, v němž se objevují v knize"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:182
 msgid "Security:"
@@ -3380,7 +3380,7 @@ msgstr "Podpora slovníků StarDict"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:191
 msgid "Fixed current location not preserved when resizing"
-msgstr "Opraveno, že aktuální umístění se při změně velikosti nezachovalo"
+msgstr "Opraveno, že nynější místo se při změně velikosti nezachovalo"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:192
 msgid "Fixed auto-hiding header bar under some themes"
@@ -3431,7 +3431,7 @@ msgstr "Nová a lepší ikona"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:213
 msgid "Option to disable turn page on tap"
-msgstr "Volba pro zakázání obrácení strany při ťuknutí"
+msgstr "Volba pro zakázání obrácení strany při klepnutí/ťuknutí"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:214
 msgid "A menu on the welcome screen for opening recent files"
@@ -3439,7 +3439,7 @@ msgstr "Nabídka na uvítací obrazovce pro otevření nedávných souborů"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:215
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
-msgstr "Obnoveny zkratky pro ukázání obsahu, vysvětlivek a záložek"
+msgstr "Obnoveny zkratky pro ukázání obsahu, poznámek a záložek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:219
 msgid "Fixed application not translated"
@@ -3485,14 +3485,16 @@ msgid ""
 "left or right part of the view; tap on the middle to toggle header bar and "
 "progress bar"
 msgstr ""
-"Navigace ve stylu elektronické čtečky: přejděte na předchozí nebo na další"
-" stranu ťuknutím v levé "
-"nebo pravé části zobrazení; ťukněte doprostřed pro přepnutí záhlaví a "
+"Pohyb v knize ve stylu elektronické čtečky: přejděte na předchozí nebo na"
+" další"
+" stranu klepnutím/ťuknutím v levé "
+"nebo pravé části zobrazení; klepněte/ťukněte doprostřed pro přepnutí záhlaví"
+" a "
 "ukazatele postupu"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:233
 msgid "Annotations, bookmarks, and find results now show chapter titles"
-msgstr "Vysvětlivky, záložky a výsledky hledání nyní ukazují názvy kapitol"
+msgstr "Poznámky, záložky a výsledky hledání nyní ukazují názvy kapitol"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:234
 msgid "When looking up words in dictionaries, the query can now be edited"
@@ -3566,11 +3568,11 @@ msgstr "Najít vybraný text v knize"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:253
 msgid "Speak selected text or from the selected locatio"
-msgstr "Vyslovit vybraný text nebo od vybrané polohy"
+msgstr "Přečíst nahlas vybraný text nebo od vybraného místa"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:255
 msgid "Annotations:"
-msgstr "Vysvětlivky:"
+msgstr "Poznámky:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:257
 msgid "Spellcheck notes"
@@ -3578,7 +3580,7 @@ msgstr "Zkontrolovat pravopis poznámek"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:258
 msgid "Export annotations to Markdown"
-msgstr "Vyvést vysvětlivky do Markdown"
+msgstr "Vyvést poznámky do Markdown"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:259
 msgid "Options to use custom colors for highlights"
@@ -3614,7 +3616,7 @@ msgstr "Formát pro vlastní vzhled byl změněn"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:270
 msgid "Locations are now 1024 characters in size"
-msgstr "Polohy nyní mají velikost 1024 znaků"
+msgstr "Místa nyní mají velikost 1024 znaků"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:272
 msgid "Bug fixes:"
@@ -3622,7 +3624,7 @@ msgstr "Opravy chyb:"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:274
 msgid "Fixed not restoring exact last location"
-msgstr "Opraveno neobnovení přesného posledního umístění"
+msgstr "Opraveno neobnovení přesného posledního místa"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:275
 msgid "Fixed navigation not working with scrolled layout"
@@ -3657,7 +3659,7 @@ msgstr "Vylepšené získávání a formátování poznámek pod čarou"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:289
 msgid "Added option to export annotations to BibTeX"
-msgstr "Přidána volba vyvádění vysvětlivek do BibTeX"
+msgstr "Přidána volba vyvádění poznámek do BibTeX"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:297
 msgid "Fixed table of contents navigation not working with some books"
@@ -3695,7 +3697,7 @@ msgstr "Základní podpora pro převod textu na řeč"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:319
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr "Vyvést vysvětlivky do HTML, prostého textu nebo JSON"
+msgstr "Vyvést poznámky do HTML, prostého textu nebo JSON"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:320
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
@@ -3707,7 +3709,7 @@ msgstr "Nové další rozhraní postranního pruhu"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:329
 msgid "Lookup words in Wikipedia and offline dictionaries"
-msgstr "Vyhledat slova ve Wikipedii a ve slovnících mimo internet"
+msgstr "Hledat slova ve Wikipedii a ve slovnících vytvářených mimo internet"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:330
 msgid "Translate passages with Google Translate"
@@ -3767,7 +3769,7 @@ msgstr "Opraveno, že v některých případech byly obrázky příliš široké
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:374
 msgid "Option to switch between left and full justification"
-msgstr "Volba pro přepnutí mezi levým a zarovnáním do bloku"
+msgstr "Volba pro přepnutí mezi zarovnáním vlevo a do bloku"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:375
 msgid "New layout option: single-column paginated view"
@@ -3782,7 +3784,7 @@ msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
 msgstr ""
-"Vytvořená umístění jsou nyní uložena spíše v adresáři s vyrovnávací pamětí než"
+"Vytvořená místa jsou nyní uložena spíše v adresáři s vyrovnávací pamětí než"
 "v místním úložišti"
 
 #: data/com.github.johnfactotum.Foliate.appdata.xml.in:387
@@ -3846,8 +3848,8 @@ msgid ""
 "Whether to save generated locations to cache (the locations are needed for "
 "calculating percentages of locations in book)"
 msgstr ""
-"Zda uložit vytvořené polohy do vyrovnávací paměti (k vypočítání procenta "
-"poloh v knize jsou potřeba polohy)"
+"Zda uložit vytvořená místa do vyrovnávací paměti (k vypočítání procenta "
+"míst v knize jsou potřeba místa)"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:33
 msgid "Cache covers"
@@ -3879,7 +3881,7 @@ msgstr "Výchozí barva zvýraznění"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:49
 msgid "Default highlight color for annotations"
-msgstr "Výchozí barva zvýraznění pro vysvětlivky"
+msgstr "Výchozí barva zvýraznění pro poznámky"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:53
 msgid "Dictionary"
@@ -3936,7 +3938,7 @@ msgstr "Příkaz pro vykonání převodu textu na řeč"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:84
 msgid "If true, a side pane will be used instead of popovers"
-msgstr "Je-li zapnuto, bude namísto vysunovacích použit postranní panel"
+msgstr "Je-li zapnuto, bude namísto vyskakovacích oken použit postranní panel"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:88
 msgid "Use menubar"
@@ -3944,11 +3946,11 @@ msgstr "Použít nabídkový pruh"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:89
 msgid "If true, use traditional titlebars and menubars"
-msgstr "Je-li zapnuto, používat obyčejné titulkové pruhy a nabídky"
+msgstr "Je-li zapnuto, používat obvyklé titulkové pruhy a hlavní nabídky"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:93
 msgid "Auto-hide headerbar"
-msgstr "Automaticky skrývat pruh se záhlavím"
+msgstr "Automaticky skrývat záhlaví"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:94
 msgid ""
@@ -3972,8 +3974,10 @@ msgid ""
 "right part of the view; tap on the middle to toggle header bar and progress "
 "bar"
 msgstr ""
-"Je-li zapnuto, můžete jít na předchozí nebo na další stranu ťuknutím do levé "
-"nebo pravé části zobrazeného; ťukněte doprostřed pro přepnutí záhlaví a "
+"Je-li zapnuto, můžete jít na předchozí nebo na další stranu"
+" klepnutím/ťuknutím do levé "
+"nebo pravé části zobrazeného; klepněte/ťukněte doprostřed pro přepnutí"
+" záhlaví a "
 "ukazatele postupu"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:116
