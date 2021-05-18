@@ -15,8 +15,8 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-  input: 'com.github.johnfactotum.Foliate.appdata.xml.in',
-  output: 'com.github.johnfactotum.Foliate.appdata.xml',
+  input: 'com.github.johnfactotum.Foliate.metainfo.xml.in',
+  output: 'com.github.johnfactotum.Foliate.metainfo.xml',
   po_dir: '../po',
   install: true,
   install_dir: join_paths(get_option('datadir'), 'metainfo')
