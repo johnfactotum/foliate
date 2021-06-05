@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-13 00:21+0200\n"
-"PO-Revision-Date: 2021-03-24 09:54+0100\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"PO-Revision-Date: 2021-06-05 12:43+0200\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:3 src/library.js:740
@@ -26,7 +26,7 @@ msgstr "Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "eBook Viewer"
-msgstr "eBook-lezer"
+msgstr "E-boeklezer"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "View eBooks"
@@ -95,7 +95,7 @@ msgstr "Notitie"
 
 #: src/epubView.js:1121
 msgid "Failed to load remote file."
-msgstr "Kan extern bestand niet laden."
+msgstr "Het externe bestand kan niet worden geladen."
 
 #: src/epubView.js:1130
 msgid "File not found."
@@ -103,7 +103,7 @@ msgstr "Het bestand is niet aangetroffen."
 
 #: src/epubView.js:1144
 msgid "Could not unpack Kindle file."
-msgstr "Kan Kindle-bestand niet uitpakken."
+msgstr "Het Kindle-bestand kan niet worden uitgepakt."
 
 #: src/epubView.js:1162
 msgid "File type not supported."
@@ -124,7 +124,7 @@ msgstr[1] "%d aantekeningen"
 #: src/export.js:50
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "Aantekeningen bij '%s' van '%s'"
+msgstr "Aantekeningen bij ‘%s’ van ‘%s’"
 
 #: src/export.js:54
 msgid "Section: "
@@ -174,7 +174,7 @@ msgstr "Bestand opslaan"
 #: src/export.js:135
 #, javascript-format
 msgid "Annotations for “%s”"
-msgstr "Aantekeningen bij '%s'"
+msgstr "Aantekeningen bij ‘%s’"
 
 #: src/export.js:166 src/utils.js:281
 msgid "All Files"
@@ -279,8 +279,8 @@ msgstr[1] "Kan boeken niet toevoegen"
 #: src/library.js:700
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
-msgstr[0] "Kan het volgende bestand niet toevoegen:"
-msgstr[1] "Kan de volgende bestanden niet toevoegen:"
+msgstr[0] "Het volgende bestand kan niet worden toegevoegd:"
+msgstr[1] "De volgende bestanden kunnen niet worden toegevoegd:"
 
 #: src/library.js:772
 msgid "All"
@@ -336,7 +336,7 @@ msgstr "Zoeken op Wiktionary"
 
 #: src/lookup.js:410
 msgid "Translation by Google Translate"
-msgstr "Vertaling door Google Translate"
+msgstr "Vertaald door Google Translate"
 
 #: src/main.js:135 src/window.js:688
 msgid "Open File"
@@ -358,7 +358,7 @@ msgstr "OPDS-catalogus-url:"
 #. they will be shown in the "About" dialog
 #: src/main.js:208
 msgid "translator-credits"
-msgstr "Heimen Stoffelssni"
+msgstr "Heimen Stoffels <vistausss@fastmail.com>"
 
 #: src/main.js:210 data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "A simple and modern eBook viewer"
@@ -474,7 +474,7 @@ msgstr ", "
 
 #: src/opds.js:662
 msgid "Unable to load OPDS feed"
-msgstr "Kan OPDS-feed niet laden"
+msgstr "De opds-feed kan niet worden geladen"
 
 #: src/opds.js:667 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:631
 #: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:78
@@ -721,7 +721,7 @@ msgstr "Authenticatie vereist"
 #: src/utils.js:765
 #, javascript-format
 msgid "Authentication required by %s"
-msgstr "Authenticatie vereist door %s"
+msgstr "%s vereist authenticatie"
 
 #: src/utils.js:768
 #, javascript-format
@@ -789,7 +789,7 @@ msgstr "Menu"
 #: src/window.js:1125
 #, javascript-format
 msgid "Image from “%s”"
-msgstr "Afbeelding van '%s'"
+msgstr "Afbeelding van ‘%s’"
 
 #: src/window.js:1125
 msgid "Image"
@@ -801,7 +801,7 @@ msgstr "Markeerkleur wijzigen"
 
 #: src/ui/annotationBox.ui:98
 msgid "Choose custom color"
-msgstr "Aangepaste kleur kiezen"
+msgstr "Eigen kleur kiezen"
 
 #: src/ui/bookBoxChild.ui:29 src/ui/bookBoxRow.ui:76
 msgid "Remote file"
@@ -908,7 +908,7 @@ msgstr "Kies een bestandsindeling:"
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
 msgstr ""
-"Kies 'JSON' als je van plan bent later aantekeningen te importeren in "
+"Kies ‘JSON’ als je van plan bent later aantekeningen te importeren in "
 "Foliate."
 
 #: src/ui/findBox.ui:16
@@ -921,7 +921,7 @@ msgstr "Huidige hoofdstuk"
 
 #: src/ui/footnotePopover.ui:36 src/ui/mainMenu.ui:552 src/ui/menuBar.ui:154
 msgid "Reference Preview"
-msgstr "Voorvertoning van referentie"
+msgstr "Referentie voorvertonen"
 
 #: src/ui/footnotePopover.ui:46 src/ui/shortcutsWindow.ui:186
 #: src/ui/shortcutsWindow.ui:371 src/ui/wikipediaBox.ui:107
@@ -1079,7 +1079,7 @@ msgstr "Geen catalogi"
 #: src/ui/libraryWindow.ui:668
 msgid "You can browse, search, and download content from OPDS catalogs."
 msgstr ""
-"Je kunt OPDS-catalogi doorzoeken, doorbladeren of de inhoud downloaden."
+"Je kunt opds-catalogi doorzoeken, doorbladeren of inhoud eruit downloaden."
 
 #: src/ui/libraryWindow.ui:692
 msgid "Learn More"
@@ -1132,7 +1132,7 @@ msgstr "Openen…"
 
 #: src/ui/mainMenu.ui:382
 msgid "Add Custom Theme…"
-msgstr "Aangepast thema toevoegen…"
+msgstr "Eigen thema toevoegen…"
 
 #: src/ui/mainMenu.ui:428 src/ui/menuBar.ui:108
 #: data/com.github.johnfactotum.Foliate.gschema.xml:201
@@ -1255,7 +1255,7 @@ msgstr "Huidige locatie toevoegen aan bladwijzers"
 
 #: src/ui/menuBar.ui:72 src/ui/ttsDialog.ui:6
 msgid "Text-to-Speech"
-msgstr "Tekst-naar-spraak"
+msgstr "Voorlezen"
 
 #: src/ui/menuBar.ui:85
 msgid "_View"
@@ -1299,11 +1299,11 @@ msgstr "Vorige pagina"
 
 #: src/ui/menuBar.ui:198
 msgid "Next Chapter"
-msgstr "Volgende hoofdstuk"
+msgstr "Volgend hoofdstuk"
 
 #: src/ui/menuBar.ui:202
 msgid "Previous Chapter"
-msgstr "Vorige hoofdstuk"
+msgstr "Vorig hoofdstuk"
 
 #: src/ui/menuBar.ui:208
 msgid "Beginning"
@@ -1374,11 +1374,11 @@ msgstr "Ga naar de volgende pagina"
 
 #: src/ui/navBar.ui:402
 msgid "Text-to-speech"
-msgstr "Tekst-naar-spraak"
+msgstr "Voorlezen"
 
 #: src/ui/preferenceWindow.ui:11
 msgid "Nothing"
-msgstr "Niks doen"
+msgstr "Niets doen"
 
 #: src/ui/preferenceWindow.ui:15
 msgid "Percentage"
@@ -1394,7 +1394,7 @@ msgstr "Klok"
 
 #: src/ui/preferenceWindow.ui:51
 msgid "Do nothing"
-msgstr "Niks doen"
+msgstr "Niets doen"
 
 #: src/ui/preferenceWindow.ui:55
 msgid "Show menu"
@@ -1432,7 +1432,7 @@ msgstr "Uitgeschakeld"
 
 #: src/ui/preferenceWindow.ui:99
 msgid "Single click"
-msgstr "Eén keer klikken"
+msgstr "Eenmaal klikken"
 
 #: src/ui/preferenceWindow.ui:103
 msgid "Double click"
@@ -1484,12 +1484,12 @@ msgstr "Na selecteren van meerdere woorden"
 
 #: src/ui/preferenceWindow.ui:356
 msgid "Open images on"
-msgstr "Afbeeldingen openen op"
+msgstr "Afbeeldingen openen na"
 
 #: src/ui/preferenceWindow.ui:391
 #: data/com.github.johnfactotum.Foliate.gschema.xml:78
 msgid "Text-to-speech command"
-msgstr "Tekst-naar-spraak-opdracht"
+msgstr "Voorleesopdracht"
 
 #: src/ui/preferenceWindow.ui:407
 msgid "Configure…"
@@ -1497,7 +1497,7 @@ msgstr "Instellen…"
 
 #: src/ui/preferenceWindow.ui:425
 msgid "Interface"
-msgstr "Uiterlijk"
+msgstr "Vormgeving"
 
 #: src/ui/preferenceWindow.ui:440
 msgid "Auto-hide header bar"
@@ -1585,7 +1585,7 @@ msgstr "Lijstweergave"
 
 #: src/ui/shortcutsWindow.ui:58
 msgid "Grid view"
-msgstr "Rasterweergave"
+msgstr "Roosterweergave"
 
 #: src/ui/shortcutsWindow.ui:85 src/ui/shortcutsWindow.ui:285
 msgid "Go to location"
@@ -1613,7 +1613,7 @@ msgstr "Informatie over boek tonen"
 
 #: src/ui/shortcutsWindow.ui:176
 msgid "Start/stop text-to-speech"
-msgstr "Tekst-naar-spraak aan/uit"
+msgstr "Voorlezen aan/uit"
 
 #: src/ui/shortcutsWindow.ui:206 src/ui/shortcutsWindow.ui:391
 msgid "Restore zoom level"
@@ -1649,7 +1649,7 @@ msgstr "Navigatie"
 
 #: src/ui/shortcutsWindow.ui:295
 msgid "Touchpad Gestures"
-msgstr "Touchpad-gebaren"
+msgstr "Touchpadgebaren"
 
 #: src/ui/shortcutsWindow.ui:332
 msgid "Image Viewer Shortcuts"
@@ -1657,7 +1657,7 @@ msgstr "Sneltoetsen in afbeeldingsweergave"
 
 #: src/ui/themeWindow.ui:6
 msgid "Custom Theme"
-msgstr "Aangepast thema"
+msgstr "Eigen thema"
 
 #: src/ui/themeWindow.ui:39
 msgid "Theme Name"
@@ -1685,17 +1685,15 @@ msgstr "Thema verwijderen"
 
 #: src/ui/translationBox.ui:53
 msgid "Cannot retrieve translation"
-msgstr "Kan vertaling niet ophalen"
+msgstr "De vertaling kan niet worden opgehaald"
 
 #: src/ui/ttsDialog.ui:46
 msgid "Text-to-Speech Command"
-msgstr "Tekst-naar-spraakopdracht"
+msgstr "Voorleesopdracht"
 
 #: src/ui/ttsDialog.ui:57
 msgid "Make sure the selected text-to-speech program is correctly installed."
-msgstr ""
-"Zorg er voor dat het gekozen tekst-naar-spraakprogramma juist geïnstalleerd "
-"is."
+msgstr "Zorg er voor dat de gekozen voorleestoepassingjuist geïnstalleerd is."
 
 #: src/ui/ttsDialog.ui:63
 msgid "eSpeak NG"
@@ -1715,7 +1713,7 @@ msgid ""
 "the language code of the book, or use <tt>$FOLIATE_TTS_LANG_LOWER</tt> for "
 "the all lower case code.</small>"
 msgstr ""
-"<small>De 'environment'-variabele <tt>$FOLIATE_TTS_LANG</tt> is beschikbaar "
+"<small>De ‘environment’-variabele <tt>$FOLIATE_TTS_LANG</tt> is beschikbaar "
 "voor de taalcode van het book, of gebruik <tt>$FOLIATE_TTS_LANG_LOWER</tt> "
 "voor alle tekst in kleine letters.</small>"
 
@@ -1726,7 +1724,7 @@ msgstr "Instellingen testen"
 #: src/ui/ttsDialog.ui:178
 msgid "The program should speak the following test sentences in order:"
 msgstr ""
-"Het programma zou de volgende testzinnen in de juiste volgorde moeten "
+"De toepassing zou de volgende testzinnen in de juiste volgorde moeten "
 "voorlezen:"
 
 #: src/ui/ttsDialog.ui:191
@@ -3058,10 +3056,12 @@ msgstr "John Factotum"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:49
 msgid "Fixed a performance issue with zipped files (including EPUB files)"
 msgstr ""
+"[OPGELOST] Prestatieprobleem bij gebruik van zip-bestanden (inclusief epub-"
+"bestanden)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:54
 msgid "Fix UI when running with libhandy 1.x"
-msgstr ""
+msgstr "[OPGELOST] Vormgevingsprobleem bij gebruik van libhandy 1.x"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:59
 msgid "Fixed automatic layout"
@@ -3079,7 +3079,7 @@ msgstr "Probleem opgelost met de automatische indeling"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:350
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:385
 msgid "Changes:"
-msgstr "Wijzigingen:"
+msgstr "Wijzigingslog:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added support for opening HTML files"
@@ -3177,7 +3177,7 @@ msgstr ""
 msgid ""
 "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
 msgstr ""
-"Opgelost: verkeerd '__ibooks_internal_theme'-attribuut als 'Omkeren' is "
+"Opgelost: verkeerd ‘__ibooks_internal_theme’-attribuut als ‘Omkeren’ is "
 "ingeschakeld"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:116
@@ -3226,7 +3226,7 @@ msgstr "Regeleindes worden niet meer genegeerd tijdens het kopiëren van tekst"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:129
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
 msgstr ""
-"'Pagina omslaan door drukken' is voortaan uitgeschakeld in niet-gepagineerde "
+"‘Pagina omslaan door drukken’ is voortaan uitgeschakeld in niet-gepagineerde "
 "indelingen"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:130
@@ -3305,7 +3305,7 @@ msgid ""
 "The \"Automatic\" layout will now show four columns when the page width is "
 "wide"
 msgstr ""
-"De 'Automatische' indeling toont voortaan vier kolommen als je pagina erg "
+"De automatische indeling toont voortaan vier kolommen als je pagina erg "
 "breed is"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:166
@@ -3330,21 +3330,19 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:171
 msgid "Text-to-speech:"
-msgstr "Tekst-naar-spraak:"
+msgstr "Voorlezen:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:173
 msgid "Improved text-to-speech configuration UI"
-msgstr "Verbeterde tekst-naar-spraakinstellingen"
+msgstr "Verbeterde voorleesinstellingen"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:174
 msgid "Ability to set text-to-speech voice based on book language"
-msgstr ""
-"Mogelijkheid om de stem van tekst-naar-spraak in te stellen op basis van de "
-"boektaal"
+msgstr "Mogelijkheid om de voorleesstem in te stellen op basis van de boektaal"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:178
 msgid "Import annotations from JSON"
-msgstr "Aantekeningen importeren uit JSON"
+msgstr "Aantekeningen importeren uit json"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:179
 msgid "Search in annotations"
@@ -3363,7 +3361,7 @@ msgid ""
 "\"Allow Unsafe Content\" now only enables JavaScript; external content will "
 "no longer be loaded"
 msgstr ""
-"'Onveilige inhoud toestaan' schakelt voortaan alleen JavaScript in - externe "
+"‘Onveilige inhoud toestaan’ schakelt voortaan alleen JavaScript in - externe "
 "inhoud wordt niet meer geladen"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:185
@@ -3550,7 +3548,7 @@ msgstr "Mogelijkheid om in en uit te zoomen"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:244
 msgid "Improved image viewer with \"save as\" option"
-msgstr "Verbeterde afbeeldingsweergave met 'Opslaan als'-optie"
+msgstr "Verbeterde afbeeldingsweergave in de ‘Opslaan als’-optie"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:245
 msgid "Open copies of a book in new windows (Ctrl + N)"
@@ -3626,7 +3624,7 @@ msgstr "De opmaak van aangepaste thema's is gewijzigd"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:270
 msgid "Locations are now 1024 characters in size"
-msgstr "Locaties zijn nu 1024 tekens lang"
+msgstr "Locaties zijn voortaan 1024 tekens lang"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:272
 msgid "Bug fixes:"
@@ -3653,7 +3651,7 @@ msgstr "Probleem opgelost met tekst op de schermranden"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:278
 msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
 msgstr ""
-"Probleem opgelost met het openen van boeken met '#' of '?' in de bestandsnaam"
+"Probleem opgelost met het openen van boeken met ‘#’ of ‘?’ in de bestandsnaam"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:286
 msgid ""
@@ -3707,11 +3705,11 @@ msgstr "Externe bronnen en JavaScript worden nu standaard geblokkeerd"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:318
 msgid "Basic text-to-speech support"
-msgstr "Basisondersteuning voor tekst-naar-spraak"
+msgstr "Basisondersteuning voor voorlezen"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:319
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr "Exporteer aantekeningen naar HTML, platte tekst of JSON"
+msgstr "Exporteer aantekeningen naar html, platte tekst of json"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:320
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
@@ -3910,8 +3908,8 @@ msgid ""
 "the database ID"
 msgstr ""
 "Identificatie van het standaard woordenboek. Woordenboeken van dictd en "
-"stardict zijn beschikbaar als naam + 'dictd_' en 'stardict_' in de databank-"
-"id"
+"stardict zijn beschikbaar als naam + ‘dictd_’ en ‘stardict_’ in de databank-"
+"id."
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:58
 msgid "Target language of translation"
@@ -3946,12 +3944,12 @@ msgid ""
 "DOM event type for viewing images; the special value \"middleclick\" is "
 "available for the middle click event"
 msgstr ""
-"DOM-actie voor het tonen van afbeeldingen. De speciale waarde 'middleclick' "
+"DOM-actie voor het tonen van afbeeldingen. De speciale waarde ‘middleclick’ "
 "is beschikbaar voor middelklikken."
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:79
 msgid "Command to execute for text-to-speech"
-msgstr "Opdracht voor tekst-naar-spraak"
+msgstr "Voorleesopdracht"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:84
 msgid "If true, a side pane will be used instead of popovers"
