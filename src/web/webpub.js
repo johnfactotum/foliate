@@ -733,6 +733,7 @@ const webpubFromComicBookArchive = async (uri, inputType, layout, filename) => {
             }
 
             .image-wrapper img {
+                display: block;
                 width: 100%;
             }
         `
