@@ -329,6 +329,7 @@ function main(argv) {
             ['app.quit', ['<ctrl>q']],
             ['app.open', ['<ctrl>o']],
             ['app.preferences', ['<ctrl>comma']],
+            ['app.library', ['<ctrl>h']],
 
             ['lib.list-view', ['<ctrl>1']],
             ['lib.grid-view', ['<ctrl>2']],
