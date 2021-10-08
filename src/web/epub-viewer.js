@@ -177,7 +177,7 @@ const dispatchLocation = async () => {
                 location: book.locations.locationFromCfi(location.end.cfi),
                 label: endSection.label
             },
-            sectionHref: startSection.href,
+            sectionHref: endSection.href,
             section: index,
             sectionTotal: book.spine.length,
             locationTotal: book.locations.total,
