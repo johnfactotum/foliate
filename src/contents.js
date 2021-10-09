@@ -177,7 +177,7 @@ var ContentsStack = GObject.registerClass({
     _updateAnnotations() {
         let model = this._annotations
         if (!model) return
-        const query = this._annotationsSearchEntry.text
+        const query = this._annotationsSearchEntry.text.toLowerCase()
         if (query) {
             const results = new Gio.ListStore()
             const n = model.get_n_items()
