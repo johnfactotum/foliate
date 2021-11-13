@@ -17,7 +17,8 @@ pkg.initGettext()
 pkg.initFormat()
 pkg.require({
     'Gio': '2.0',
-    'Gtk': '3.0'
+    'Gtk': '3.0',
+    'WebKit2': '4.0'
 })
 
 const { Gio, Gtk, Gdk, GLib, WebKit2 } = imports.gi
