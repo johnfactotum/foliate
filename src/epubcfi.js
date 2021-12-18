@@ -165,7 +165,7 @@ var EpubCFI = class EpubCFI {
 		}
 
 		if(cfiStr.indexOf("epubcfi(") === 0 && cfiStr[cfiStr.length-1] === ")") {
-			// Remove intial epubcfi( and ending )
+			// Remove initial epubcfi( and ending )
 			cfiStr = cfiStr.slice(8, cfiStr.length-1);
 		}
 
@@ -451,7 +451,7 @@ var EpubCFI = class EpubCFI {
 			return -1;
 		}
 
-		// Compare the charecter offset of the text node
+		// Compare the character offset of the text node
 		if(terminalA.offset > terminalB.offset) {
 			return 1;
 		}

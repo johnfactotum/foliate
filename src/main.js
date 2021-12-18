@@ -293,7 +293,7 @@ function main(argv) {
                 if (openHint) print(Math.round(progress / total * 100) + '%')
                 if (progress === total && held) {
                     // add a delay because of debouncing when writing metadata
-                    // this doens't feel like the proper way but it's probably
+                    // this doesn't feel like the proper way but it's probably
                     // the easiest fix
                     setTimeout(() => {
                         application.release()

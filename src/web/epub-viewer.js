@@ -149,7 +149,7 @@ const dispatchLocation = async () => {
 
     // rough estimate of reading time
     // should be reasonable for English and European languages
-    // will be way off for some langauges
+    // will be way off for some languages
     const estimate = endPercentage =>
         (endPercentage - percentage) * book.locations.total
         * CHARACTERS_PER_PAGE

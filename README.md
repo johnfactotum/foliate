@@ -60,7 +60,7 @@ For offline dictionary support, install `dictd` or `sdcv`.
 
 For text-to-speech support, install `espeak-ng`, or `festival`, and packages for the individual voices.
 
-To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based distributions) is requried.
+To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based distributions) is required.
 
 `libhandy` (`gir1.2-handy-0.0`) is recommended to make the interface work better on larger as well as smaller screens.
 
