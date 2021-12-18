@@ -122,7 +122,7 @@ var getRegionEmoji = code => {
     return String.fromCodePoint(...Array.from(code.toUpperCase())
         .map(x => regionEmojiOffset + x.charCodeAt()))
 }
-// get langauge names
+// get language names
 // should perhaps use `Intl.DisplayNames()` instead once it becomes available
 var getLanguageDisplayName = (code, showEmoji) => {
     try {

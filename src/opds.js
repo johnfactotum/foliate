@@ -1261,7 +1261,7 @@ var OpdsBrowser = GObject.registerClass({
                     box.pack_end(buttonBox, false, true, 0)
 
                     const paginationRels = {
-                        fisrt: { icon: 'go-first-symbolic', label: _('First') },
+                        first: { icon: 'go-first-symbolic', label: _('First') },
                         previous: { icon: 'go-previous-symbolic', label: _('Previous') },
                         next: { icon: 'go-next-symbolic', label: _('Next') },
                         last: { icon: 'go-last-symbolic', label: _('Last') }
