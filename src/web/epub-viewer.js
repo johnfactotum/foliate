@@ -355,6 +355,11 @@ open() -> 'book-ready' -> loadLocations()
 */
 
 const open = async (uri, filename, inputType, renderTo, options) => {
+    // new in Epub.js >= 0.3.89 — scripts are blocked by default;
+    // but it needs script to handle events in the iframe,
+    // so scripts really need to be allowed in Epub.js no matter what;
+    // this is fine as, we already block script with CSP and WebKit settings
+    options.allowScriptedContent = true
 
     // force rendering as XHTML
     // if method is 'srcdoc' (default) or `write`, it will be rendered as HTML
