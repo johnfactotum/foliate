@@ -34,9 +34,10 @@ const settings = new Gio.Settings({ schema_id: pkg.name + '.library' })
 let trackerConnection
 if (settings.get_boolean('use-tracker')) {
     try {
-        imports.gi.versions.Tracker = '2.0'
+        imports.gi.versions.Tracker = '3.0'
         const Tracker = imports.gi.Tracker
-        trackerConnection = Tracker.SparqlConnection.get(null)
+        trackerConnection = Tracker.SparqlConnection.bus_new(
+            'org.freedesktop.Tracker3.Miner.Files', null, null)
     } catch(e) {}
 }
 
@@ -414,7 +415,17 @@ const makeLibraryWidget = (params, widget) => {
             if (trackerConnection) {
                 // get file url with Tracker
                 try {
-                    const sparql = `SELECT nie:url(?u) WHERE { ?u nie:identifier <${id}> }`
+                    const sparql = `
+                        SELECT ?uri
+                        WHERE {
+                            SERVICE <dbus:org.freedesktop.Tracker3.Miner.Files> {
+                                GRAPH tracker:Documents {
+                                    ?u rdf:type nfo:EBook .
+                                    ?u nie:isStoredAs ?uri .
+                                    ?u nie:identifier <${id}> .
+                                }
+                            }
+                        }`
                     const cursor = trackerConnection.query(sparql, null)
                     cursor.next(null)
                     const url = cursor.get_string(0)[0]
