@@ -64,7 +64,7 @@ To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based 
 
 `libhandy` (`gir1.2-handy-0.0`) is recommended to make the interface work better on larger as well as smaller screens.
 
-If `tracker` (`gir1.2-tracker-2.0`) is installed, it can be used to track the locations of files.
+If `tracker3` (`gir1.2-tracker-3.0`) is installed, it can be used to track the locations of files.
 
 ### Building manually from source
 
