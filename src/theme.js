@@ -86,12 +86,12 @@ var Theme = GObject.registerClass({
 }, class Theme extends GObject.Object {
     toJSON() {
         return {
-            'theme-name': this['theme-name'],
-            'fg-color': this['fg-color'],
-            'bg-color': this['bg-color'],
-            'link-color': this['link-color'],
+            'theme-name': this.theme_name,
+            'fg-color': this.fg_color,
+            'bg-color': this.bg_color,
+            'link-color': this.link_color,
             invert: this.invert,
-            'dark-mode': this['dark-mode']
+            'dark-mode': this.dark_mode
         }
     }
 })
