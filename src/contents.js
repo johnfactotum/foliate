@@ -120,6 +120,14 @@ var ContentsStack = GObject.registerClass({
     }
     set epub(epub) {
         this._epub = epub
+
+        this._epub.connect('metadata', () => {
+            const rtl = this._epub.metadata.direction === 'rtl'
+            const dir = rtl ? Gtk.TextDirection.RTL : Gtk.TextDirection.LTR
+            this._tocTreeView.get_parent().set_direction(dir)
+            this._tocTreeView.set_direction(dir)
+        })
+
         this._tocTreeView.model = this._epub.toc
 
         this._updateData(epub.annotations, epub.bookmarks)
