@@ -869,7 +869,7 @@ var EpubView = GObject.registerClass({
                 this._enableDevtools = this.settings.enable_devtools
                 this._autohideCursor = this.settings.autohide_cursor
 
-                let uri = this._uri;
+                let uri = this._uri
                 const filename = this._file.get_basename().replace(/\.[^\s.]+$/, '')
 
                 // Resolve non-file URIs, if possible. This enables support for certain network 
