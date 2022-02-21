@@ -869,8 +869,14 @@ var EpubView = GObject.registerClass({
                 this._enableDevtools = this.settings.enable_devtools
                 this._autohideCursor = this.settings.autohide_cursor
 
-                const uri = this._uri
+                let uri = this._uri;
                 const filename = this._file.get_basename().replace(/\.[^\s.]+$/, '')
+
+                // Resolve non-file URIs, if possible. This enables support for certain network 
+                // mounted filesystems that WebKit may not know how to resolve. 
+                if (!this._file.has_uri_scheme("file") && this._file.get_path() != null) {
+                    uri = `file://${this._file.get_path()}`
+                }
 
                 const options = layouts[this.settings.layout].options
 
