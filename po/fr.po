@@ -2,6 +2,7 @@
 # Copyright (C) 2020 THE com.github.johnfactotum.Foliate'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 # Julien Humbert <julroy67@gmail.com>, 2019-2020.
+# Mathieu Bousquet <mathieu.bousquet2@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
@@ -128,19 +129,19 @@ msgstr "Annotations pour « %s » par %s"
 
 #: src/export.js:54
 msgid "Section: "
-msgstr "Section : "
+msgstr "Section: "
 
 #: src/export.js:55
 msgid "Highlight: "
-msgstr "Surligner : "
+msgstr "Surligner: "
 
 #: src/export.js:56
 msgid "Text:"
-msgstr "Texte :"
+msgstr "Texte:"
 
 #: src/export.js:57
 msgid "Note:"
-msgstr "Note :"
+msgstr "Note:"
 
 #: src/export.js:62
 #, javascript-format
@@ -149,11 +150,11 @@ msgstr "Annotations pour *%s* par %s"
 
 #: src/export.js:96
 msgid "Quote: "
-msgstr "Citation : "
+msgstr "Citation: "
 
 #: src/export.js:96
 msgid " Note: "
-msgstr " Note : "
+msgstr " Note: "
 
 #: src/export.js:104 src/export.js:186 src/ui/contentsStack.ui:80
 msgid "No annotations"
@@ -280,8 +281,8 @@ msgstr[1] "Échec de l’ajout des livres"
 #: src/library.js:700
 msgid "Could not add the following file:"
 msgid_plural "Could not add the following files:"
-msgstr[0] "Impossible d’ajouter le fichier suivant :"
-msgstr[1] "Impossible d’ajouter les fichiers suivants :"
+msgstr[0] "Impossible d’ajouter le fichier suivant:"
+msgstr[1] "Impossible d’ajouter les fichiers suivants:"
 
 #: src/library.js:772
 msgid "All"
@@ -321,7 +322,7 @@ msgstr "Rechercher sur Wikipédia"
 
 #: src/lookup.js:228
 msgid "Source: "
-msgstr "Source : "
+msgstr "Source: "
 
 #: src/lookup.js:230
 msgid "Wiktionary"
@@ -359,7 +360,7 @@ msgstr "URL du catalogue OPDS :"
 #. they will be shown in the "About" dialog
 #: src/main.js:208
 msgid "translator-credits"
-msgstr "Julien Humbert <julroy67@gmail.com>"
+msgstr "Julien Humbert <julroy67@gmail.com>, Mathieu Bousquet <mathieu.bousquet2@gmail.com>"
 
 #: src/main.js:210 data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "A simple and modern eBook viewer"
@@ -379,7 +380,7 @@ msgstr "Afficher la version"
 
 #: src/main.js:247
 msgid "Show verbose debugging information"
-msgstr "Afficher des informations verbeuses pour le débogage"
+msgstr "Afficher les détails des informations de débogage"
 
 #: src/opds.js:91
 msgid "Download"
@@ -650,11 +651,11 @@ msgstr "Inversé"
 
 #: src/theme.js:43
 msgid "Solarized Light"
-msgstr "Solarized Clair"
+msgstr "Solarisé Clair"
 
 #: src/theme.js:47
 msgid "Solarized Dark"
-msgstr "Solarized Sombre"
+msgstr "Solarisé Sombre"
 
 #: src/theme.js:51
 msgid "Gruvbox Light"
@@ -733,7 +734,7 @@ msgstr "Le site dit : « %s »"
 
 #: src/utils.js:773
 msgid "Authenticate"
-msgstr "S’authentifier"
+msgstr "S’identifier"
 
 #: src/utils.js:787
 msgid "Username"
@@ -745,7 +746,7 @@ msgstr "Mot de passe"
 
 #: src/utils.js:794
 msgid "Remember my credentials"
-msgstr ""
+msgstr "Enregistrer mes identifiants"
 
 #: src/window.js:126 src/window.js:838
 msgid "Leave fullscreen"
@@ -931,7 +932,7 @@ msgstr "Aperçu de référence"
 #: src/ui/shortcutsWindow.ui:371 src/ui/wikipediaBox.ui:107
 #: data/com.github.johnfactotum.Foliate.gschema.xml:272
 msgid "View"
-msgstr "Vue"
+msgstr "Affichage"
 
 #: src/ui/imageViewer.ui:31 src/ui/menuBar.ui:60 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:340
@@ -984,11 +985,11 @@ msgstr ""
 
 #: src/ui/libraryWindow.ui:7
 msgid "Open Book…"
-msgstr "Ouvrir le livre…"
+msgstr "Ouvrir un livre…"
 
 #: src/ui/libraryWindow.ui:11
 msgid "Open Catalog…"
-msgstr "Ouvrir le catalogue…"
+msgstr "Ouvrir un catalogue…"
 
 #: src/ui/libraryWindow.ui:17
 msgid "Add Books…"
@@ -1046,7 +1047,7 @@ msgstr "Rechercher"
 
 #: src/ui/libraryWindow.ui:243
 msgid "Toggle view"
-msgstr ""
+msgstr "Basculer l'affichage"
 
 #: src/ui/libraryWindow.ui:378
 msgid "Stop"
@@ -1074,7 +1075,7 @@ msgstr "Aucun résultat trouvé"
 
 #: src/ui/libraryWindow.ui:559
 msgid "Try a different search."
-msgstr ""
+msgstr "Essayez une autre recherche."
 
 #: src/ui/libraryWindow.ui:656
 msgid "No catalogs"
@@ -1082,7 +1083,7 @@ msgstr "Aucun catalogue"
 
 #: src/ui/libraryWindow.ui:668
 msgid "You can browse, search, and download content from OPDS catalogs."
-msgstr ""
+msgstr "Vous pouvez parcourir, rechercher et télécharger du contenu à partir des catalogues OPDS."
 
 #: src/ui/libraryWindow.ui:692
 msgid "Learn More"
@@ -1193,7 +1194,7 @@ msgstr "Autoriser JavaScript"
 
 #: src/ui/mainMenu.ui:579 src/ui/menuBar.ui:168
 msgid "Allow Unsafe Content"
-msgstr "Autoriser le contenu non sûr"
+msgstr "Autoriser le contenu non sécurisé"
 
 #: src/ui/mainMenu.ui:586 src/ui/menuBar.ui:172
 msgid "Enable Developer Tools"
@@ -1282,7 +1283,7 @@ msgstr "Dézoomer"
 
 #: src/ui/menuBar.ui:116
 msgid "Up to Two Columns"
-msgstr ""
+msgstr "Jusqu'à deux colonnes"
 
 #: src/ui/menuBar.ui:179
 msgid "_Go"
@@ -1479,11 +1480,11 @@ msgstr "Pied de page droit"
 
 #: src/ui/preferenceWindow.ui:288
 msgid "When a word is selected"
-msgstr "Quand un mot est sélectionné"
+msgstr "Lorsque un mot est sélectionné"
 
 #: src/ui/preferenceWindow.ui:322
 msgid "When multiple words are selected"
-msgstr "Quand plusieurs mots sont sélectionnés"
+msgstr "Lorsque plusieurs mots sont sélectionnés"
 
 #: src/ui/preferenceWindow.ui:356
 msgid "Open images on"
@@ -1526,20 +1527,20 @@ msgstr "OPDS"
 
 #: src/ui/preferenceWindow.ui:552
 msgid "When downloading books"
-msgstr ""
+msgstr "Lors du téléchargement de livres"
 
 #: src/ui/preferenceWindow.ui:563
 msgid "Save to default directory"
-msgstr ""
+msgstr "Enregistrer dans le dossier par défaut"
 
 #: src/ui/preferenceWindow.ui:583
 msgid "Ask what to do"
-msgstr "Demander que faire"
+msgstr "Demander quoi faire"
 
 #: src/ui/preferenceWindow.ui:620
 #, fuzzy
 msgid "Use Tracker to track file locations"
-msgstr "Aller à la position précédente"
+msgstr "Utiliser Tracker pour indexer les fichiers"
 
 #: src/ui/preferenceWindow.ui:662
 msgid "Save file locations"
@@ -1698,7 +1699,7 @@ msgstr "Commande de synthèse vocale"
 
 #: src/ui/ttsDialog.ui:57
 msgid "Make sure the selected text-to-speech program is correctly installed."
-msgstr ""
+msgstr "Assurez-vous que le programme de synthèse vocale sélectionné est correctement installé."
 
 #: src/ui/ttsDialog.ui:63
 msgid "eSpeak NG"
@@ -1725,7 +1726,7 @@ msgstr "Tester votre configuration"
 
 #: src/ui/ttsDialog.ui:178
 msgid "The program should speak the following test sentences in order:"
-msgstr ""
+msgstr "Le programme doit prononcer les phrases de test suivantes dans le bon ordre :"
 
 #: src/ui/ttsDialog.ui:191
 msgid "1"
@@ -1952,11 +1953,11 @@ msgstr ""
 
 #: src/schemes.js:188
 msgid "Audience"
-msgstr ""
+msgstr "Audience"
 
 #: src/schemes.js:189
 msgid "Intended Audience"
-msgstr ""
+msgstr "Audience visé"
 
 #. Translators: see https://www.loc.gov/marc/relators/relaterm.html
 #. for detailed descriptions
@@ -2082,7 +2083,7 @@ msgstr "Dessinateur-maquettiste"
 
 #: src/schemes.js:262
 msgid "Blurb writer"
-msgstr ""
+msgstr "Rédacteur de présentation"
 
 #: src/schemes.js:263
 msgid "Binder"
@@ -2094,7 +2095,7 @@ msgstr "Concepteur d’exlibris"
 
 #: src/schemes.js:265
 msgid "Broadcaster"
-msgstr ""
+msgstr "Diffuseur"
 
 #: src/schemes.js:266
 msgid "Braille embosser"
@@ -2126,7 +2127,7 @@ msgstr "Calligraphiste"
 
 #: src/schemes.js:273
 msgid "Colorist"
-msgstr ""
+msgstr "Coloriste"
 
 #: src/schemes.js:274
 msgid "Collotyper"
@@ -2170,11 +2171,11 @@ msgstr "Compilateur"
 
 #: src/schemes.js:284
 msgid "Conservator"
-msgstr ""
+msgstr "Conservateur"
 
 #: src/schemes.js:285
 msgid "Collection registrar"
-msgstr ""
+msgstr "Registraire des collections"
 
 #: src/schemes.js:286
 msgid "Contestant"
@@ -2186,7 +2187,7 @@ msgstr "Contestant-appelant"
 
 #: src/schemes.js:288
 msgid "Court governed"
-msgstr ""
+msgstr "Gouverné par les tribunaux"
 
 #: src/schemes.js:289
 msgid "Cover designer"
@@ -2226,7 +2227,7 @@ msgstr "Réviseur"
 
 #: src/schemes.js:298
 msgid "Court reporter"
-msgstr ""
+msgstr "Sténographe judiciaire"
 
 #: src/schemes.js:299
 msgid "Consultant"
@@ -2494,7 +2495,7 @@ msgstr "Interviewer"
 
 #: src/schemes.js:365
 msgid "Judge"
-msgstr ""
+msgstr "Juge"
 
 #: src/schemes.js:366
 msgid "Jurisdiction governed"
@@ -2886,7 +2887,7 @@ msgstr "Organisme de soutien"
 
 #: src/schemes.js:465
 msgid "Seller"
-msgstr ""
+msgstr "Vendeur"
 
 #: src/schemes.js:466
 msgid "Singer"
@@ -3890,7 +3891,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:34
 msgid "Whether to save book covers to cache"
-msgstr ""
+msgstr "Indique s'il faut enregistrer les couvertures de livre dans le cache"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:38
 #, fuzzy
@@ -3959,7 +3960,7 @@ msgstr "Action à effectuer par défaut lors de la sélection de mots multiples"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:73
 msgid "Event for opening image viewer"
-msgstr ""
+msgstr "Événement pour l'ouverture de la visionneuse d'images"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:74
 msgid ""
@@ -4117,7 +4118,7 @@ msgstr "Autoriser le contenu non sûr"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:192
 msgid "If true, allow JavaScript"
-msgstr ""
+msgstr "Si vrai, autoriser JavaScript"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:196
 msgid "Enable developer tools"
@@ -4215,7 +4216,7 @@ msgstr "Si la fenêtre est maximisée"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:273
 msgid "How to view the library"
-msgstr ""
+msgstr "Comment consulter la bibliothèque"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:277
 #, fuzzy
@@ -4224,7 +4225,7 @@ msgstr "Ouvrir une copie"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:278
 msgid "Current library page (“library” or “catalog”)"
-msgstr ""
+msgstr "Page actuelle de la bibliothèque ("bibliothèque" ou "catalogue")"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:282
 msgid "Use Tracker"
@@ -4233,15 +4234,15 @@ msgstr "Utiliser Tracker"
 #: data/com.github.johnfactotum.Foliate.gschema.xml:283
 msgid ""
 "If true, will try to use Tracker (the file indexer) to get file locations"
-msgstr ""
+msgstr "Si vrai, essaiera d'utiliser Tracker (l'indexeur de fichiers) pour obtenir les emplacements des fichiers"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:287
 msgid "OPDS download action"
-msgstr ""
+msgstr "Action suite au téléchargement d'un fichier OPDS"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:288
 msgid "What to do when downloading a file from an OPDS feed"
-msgstr ""
+msgstr "Que faire lors du téléchargement d'un fichier à partir d'un flux OPDS ?"
 
 #, fuzzy
 #~ msgid "Open a Catalog…"
