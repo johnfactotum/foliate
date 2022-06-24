@@ -9,9 +9,9 @@
   </object>
   <object class="GtkAdjustment" id="marginAdjustment">
     <property name="lower">0</property>
-    <property name="upper">40</property>
-    <property name="step_increment">3.5</property>
-    <property name="page_increment">7</property>
+    <property name="upper">1000</property>
+    <property name="step_increment">20</property>
+    <property name="page_increment">30</property>
     <property name="value">0</property>
   </object>
   <object class="GtkAdjustment" id="maxWidthAdjustment">
@@ -214,7 +214,6 @@
             <child>
               <object class="GtkSpinButton" id="marginButton">
                 <property name="visible">True</property>
-                <property name="digits">1</property>
                 <property name="adjustment">marginAdjustment</property>
               </object>
               <packing>
@@ -550,7 +549,7 @@
           <object class="GtkModelButton">
             <property name="visible">True</property>
             <property name="action_name">view.enable-footnote</property>
-            <property name="text" translatable="yes">Footnote Preview</property>
+            <property name="text" translatable="yes">Reference Preview</property>
           </object>
         </child>
         <child>

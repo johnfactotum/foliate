@@ -25,12 +25,12 @@ const defaultCatalogs = [
     {
         title: 'Feedbooks',
         uri: 'https://catalog.feedbooks.com/catalog/index.atom',
-        preview: 'https://catalog.feedbooks.com/publicdomain/browse/homepage_selection.atom?lang=en',
+        preview: 'https://catalog.feedbooks.com/publicdomain/browse/awards.atom?lang=en',
     },
     {
         title: 'Project Gutenberg',
         uri: 'https://m.gutenberg.org/ebooks.opds/',
-        preview: 'http://www.gutenberg.org/ebooks/search.opds/?sort_order=random',
+        preview: 'https://www.gutenberg.org/ebooks/search.opds/?sort_order=random',
     }
 ]
 
@@ -47,7 +47,12 @@ var Catalog = GObject.registerClass({
             GObject.ParamSpec.string('preview', 'preview', 'preview',
                 GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT, ''),
     }
-}, class Catalog extends GObject.Object {})
+}, class Catalog extends GObject.Object {
+    toJSON() {
+        const { title, uri, preview } = this
+        return { title, uri, preview }
+    }
+})
 
 var CatalogRow = GObject.registerClass({
     GTypeName: 'FoliateCatalogRow',
@@ -146,7 +151,7 @@ class CatalogStore {
         const store = this._catalogs
         const n = store.get_n_items()
         for (let i = 0; i < n; i++) {
-            catalogs.push(store.get_item(i))
+            catalogs.push(store.get_item(i).toJSON())
         }
         this._storage.set('catalogs', catalogs)
     }

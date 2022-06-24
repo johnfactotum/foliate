@@ -14,14 +14,13 @@
  */
 
 const wiktionary = (word, language = 'en') => {
-    language = language.slice(0, 2).toLowerCase()
     const baseURL = 'https://en.wiktionary.org/'
     fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${word}`)
         .then(res => res.ok ? res.json() : Promise.reject(new Error()))
         .then(json => {
             const results = language.length === 2
                 ? json[language]
-                : Object.values(json).find(x => x[0].language === language)
+                : Object.values(json).find(x => x[0].language.toLowerCase() === language)
             results.forEach(el => {
                 el.definitions.forEach(x => {
                     x.definition = toPangoMarkup(x.definition, baseURL)

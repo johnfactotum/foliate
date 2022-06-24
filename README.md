@@ -50,6 +50,8 @@ Debian packages can be downloaded from the [releases](https://github.com/johnfac
 
 #### Optional dependencies
 
+`iso-codes (>= 3.67)` is needed for displaying language and region names.
+
 For Mobipocket (.mobi) and Kindle File Format (.azw, .azw3) support, you would need Python (2.7 or >= 3.4).
 
 Auto-hyphenation is done using CSS hyphenation. To enable CSS hyphenation in WebKitGTK, you will need to install the hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc.
@@ -58,13 +60,11 @@ For offline dictionary support, install `dictd` or `sdcv`.
 
 For text-to-speech support, install `espeak-ng`, or `festival`, and packages for the individual voices.
 
-To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based distributions) is requried.
+To enable spellchecking for notes, `gspell` (`gir1.2-gspell-1` for Debian based distributions) is required.
 
-`libhandy` (`gir1.2-tracker-2.0`) is recommended to make the interface work better on larger as well as smaller screens.
+`libhandy` (`gir1.2-handy-0.0`) is recommended to make the interface work better on larger as well as smaller screens.
 
-If `tracker` (`gir1.2-tracker-2.0`) is installed, it can be used to track the locations of files.
-
-`libsoup` (`gir1.2-soup-2.4`) is required for opening remote files.
+If `tracker3` (`gir1.2-tracker-3.0`) is installed, it can be used to track the locations of files.
 
 ### Building manually from source
 
@@ -185,8 +185,8 @@ Alternative sidebar UI:
 
 **Note:** The following JavaScript libraries are bundled in this software:
 
-- [Epub.js](https://github.com/futurepress/epub.js/), which is licensed under [FreeBSD](https://github.com/futurepress/epub.js/blob/master/license). The included file is patched with various fixes and enhancements (see [git history](https://github.com/johnfactotum/foliate/commits/master/src/assets/epub.js) for details).
-- The minified version of [JSZip](https://stuk.github.io/jszip/), which is dual-licensed. You may use it under the MIT license or the GPLv3 license. See [LICENSE.markdown](https://github.com/Stuk/jszip/blob/master/LICENSE.markdown)
+- [Epub.js](https://github.com/futurepress/epub.js/), which is licensed under [FreeBSD](https://github.com/futurepress/epub.js/blob/master/license). The included file is patched with various fixes and enhancements (see the [repo for Foliate's Epub.js fork](https://github.com/johnfactotum/epub.js) for details).
+- A [patched](https://github.com/Stuk/jszip/pull/716) version of [JSZip](https://stuk.github.io/jszip/), which is dual-licensed. You may use it under the MIT license or the GPLv3 license. See [LICENSE.markdown](https://github.com/Stuk/jszip/blob/master/LICENSE.markdown)
 - [libarchivejs](https://github.com/nika-begiashvili/libarchivejs), which is MIT licensed. It is a WASM port of the popular [libarchive](https://github.com/libarchive/libarchive) C library.
 - [crypto-js](https://github.com/brix/crypto-js), which is MIT licensed. The MD5 module is used to generate identifiers for files that don't have unique identifiers.
 

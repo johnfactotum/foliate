@@ -25,7 +25,6 @@ let cfiToc
 let sectionMarks = []
 let lineHeight = 24
 let enableFootnote = false
-let skeuomorphism = false
 let autohideCursor, myScreenX, myScreenY, cursorHidden
 let ibooksInternalTheme = 'Light'
 let doubleClickTime = 400
@@ -150,7 +149,7 @@ const dispatchLocation = async () => {
 
     // rough estimate of reading time
     // should be reasonable for English and European languages
-    // will be way off for some langauges
+    // will be way off for some languages
     const estimate = endPercentage =>
         (endPercentage - percentage) * book.locations.total
         * CHARACTERS_PER_PAGE
@@ -178,7 +177,7 @@ const dispatchLocation = async () => {
                 location: book.locations.locationFromCfi(location.end.cfi),
                 label: endSection.label
             },
-            sectionHref: startSection.href,
+            sectionHref: endSection.href,
             section: index,
             sectionTotal: book.spine.length,
             locationTotal: book.locations.total,
@@ -262,8 +261,10 @@ const setStyle = style => {
         brightness, fgColor, bgColor, linkColor, invert,
         fontFamily, fontSize, fontWeight, fontStyle, fontStretch,
         spacing, margin, maxWidth,
-        usePublisherFont, hyphenate, justify
+        usePublisherFont, hyphenate, justify,
+        skeuomorphism
     } = style
+    const paginated = rendition.settings.flow !== 'paginated'
 
     lineHeight = fontSize * spacing
 
@@ -271,8 +272,20 @@ const setStyle = style => {
     rendition.getContents().forEach(contents => contents.document.documentElement
         .setAttribute('__ibooks_internal_theme', ibooksInternalTheme))
 
-    document.documentElement.style.padding = `0 ${margin}%`
-    document.body.style.maxWidth = `${maxWidth}px`
+
+    if (rendition.settings.layout === 'pre-paginated') {
+        document.documentElement.style.padding = 0
+    } else {
+        const gap = skeuomorphism ? margin * 2 : margin
+        rendition.layout({
+            ...rendition.settings.globalLayoutProperties,
+            gap,
+        })
+        const padding = paginated ? margin
+            : skeuomorphism ? 0 : margin / 2
+        document.documentElement.style.padding = `0 ${padding}px`
+        document.body.style.maxWidth = `${maxWidth + gap}px`
+    }
 
     document.documentElement.style.filter =
         invert || brightness !== 1
@@ -292,11 +305,15 @@ const setStyle = style => {
             '-webkit-hyphens': hyphenate ? 'auto' : 'manual',
             '-webkit-hyphenate-limit-before': 3,
             '-webkit-hyphenate-limit-after': 2,
-            '-webkit-hyphenate-limit-lines': 2
+            '-webkit-hyphenate-limit-lines': 2,
+            'overflow-wrap': 'break-word'
         },
         [`.${themeName} p`]: {
             'font-size': `${fontSize}px !important`,
             'line-height': `${spacing} !important`
+        },
+        [`.${themeName} pre`]: {
+            'white-space': 'pre-wrap'
         },
         [`.${themeName} code, .${themeName} pre`]: {
             '-webkit-hyphens': 'none'
@@ -338,6 +355,16 @@ open() -> 'book-ready' -> loadLocations()
 */
 
 const open = async (uri, filename, inputType, renderTo, options) => {
+    // new in Epub.js >= 0.3.89 — scripts are blocked by default;
+    // but it needs script to handle events in the iframe,
+    // so scripts really need to be allowed in Epub.js no matter what;
+    // this is fine as, we already block script with CSP and WebKit settings
+    options.allowScriptedContent = true
+
+    // force rendering as XHTML
+    // if method is 'srcdoc' (default) or `write`, it will be rendered as HTML
+    if (!['directory', 'opf', 'json'].includes(inputType)) options.method = 'blobUrl'
+
     try {
         switch (inputType) {
             case 'text': {
@@ -352,6 +379,12 @@ const open = async (uri, filename, inputType, renderTo, options) => {
             }
             case 'fb2zip': {
                 const json = await webpubFromFB2Zip(uri, filename)
+                await book.openJSON(json)
+                break
+            }
+            case 'html':
+            case 'xhtml': {
+                const json = await webpubFromHTML(uri, filename, inputType)
                 await book.openJSON(json)
                 break
             }
@@ -423,10 +456,11 @@ book.ready.then(async () => {
     }))
     cfiToc.sort((a, b) => CFI.compare(a.cfi, b.cfi))
 
-    const metadata = book.package.metadata
+    const metadata = book.packaging.metadata
+    if (book.packaging.uniqueIdentifier)
+        metadata.identifier = book.packaging.uniqueIdentifier
     if (metadata.description)
         metadata.description = toPangoMarkup(metadata.description)
-    if (!metadata.language) metadata.language = 'en'
     dispatch({ type: 'book-ready' })
 })
 
@@ -538,15 +572,8 @@ const setupRendition = () => {
         justResized = true
     })
 
-    const updateDivider = () => {
-        const spread = paginated && rendition.settings.spread !== 'none'
-            && document.getElementById('viewer').clientWidth >= 800
-        // document.getElementById('divider').style.display =
-        //     skeuomorphism && spread ? 'block' : 'none'
-        dispatch({ type: 'spread', payload: spread })
-    }
-    rendition.on('layout', updateDivider)
-    updateDivider()
+    rendition.on('layout', props => dispatch({ type: 'layout', payload: props }))
+    dispatch({ type: 'layout', payload: rendition._layout.props })
 
     let isSelecting = false
 
@@ -561,11 +588,30 @@ const setupRendition = () => {
 
         html.setAttribute('__ibooks_internal_theme', ibooksInternalTheme)
 
-        // hide EPUB 3 aside footnotes
+        const refTypes = [
+            'annoref', // deprecated
+            'biblioref',
+            'glossref',
+            'noteref',
+        ]
+        const forbidRefTypes = [
+            'backlink',
+            'referrer'
+        ]
+        const noteTypes = [
+            'annotation', // deprecated
+            'note', // deprecated
+            'footnote',
+            'endnote',
+            'rearnote' // deprecated
+        ]
+        // hide EPUB 3 aside notes
         const asides = contents.document.querySelectorAll('aside')
         Array.from(asides).forEach(aside => {
-            const type = aside.getAttribute('epub:type')
-            if (type === 'footnote') aside.style.display = 'none'
+            const type = aside.getAttributeNS(EPUB_NS, 'type')
+            const types = type ? type.split(' ') : []
+            if (noteTypes.some(x => types.includes(x)))
+                aside.style.display = 'none'
         })
 
         const links = contents.document.querySelectorAll('a:link')
@@ -573,7 +619,10 @@ const setupRendition = () => {
             e.stopPropagation()
             e.preventDefault()
 
-            const type = link.getAttribute('epub:type')
+            const type = link.getAttributeNS(EPUB_NS, 'type')
+            const types = type ? type.split(' ') : []
+            const isRefLink = refTypes.some(x => types.includes(x))
+
             const href = link.getAttribute('href')
             const id = href.split('#')[1]
             const pageHref = resolveURL(href,
@@ -586,7 +635,9 @@ const setupRendition = () => {
 
             if (isExternalURL(href))
                 dispatch({ type: 'link-external', payload: href })
-            else if (type !== 'noteref' && !enableFootnote) followLink()
+            else if (!isRefLink && !enableFootnote
+                || forbidRefTypes.some(x => types.includes(x)))
+                followLink()
             else {
                 const item = book.spine.get(pageHref)
                 if (item) await item.load(book.load.bind(book))
@@ -594,6 +645,14 @@ const setupRendition = () => {
                 let el = (item && item.document ? item.document : contents.document)
                     .getElementById(id)
                 if (!el) return followLink()
+
+                let dt
+                if (el.nodeName.toLowerCase() === 'dt') {
+                    const dfn = el.querySelector('dfn')
+                    if (dfn) dt = dfn
+                    else dt = el
+                    el = el.nextElementSibling
+                }
 
                 // this bit deals with situations like
                 //     <p><sup><a id="note1" href="link1">1</a></sup> My footnote</p>
@@ -617,19 +676,29 @@ const setupRendition = () => {
                 }
 
                 if (item) item.unload()
-                if (el.innerText.trim()) dispatch({
-                    type: 'footnote',
-                    payload: {
-                        footnote: toPangoMarkup(el.innerHTML, pageHref),
-                        // footnotes matching this would be hidden (see above)
-                        // and so one cannot navigate to them
-                        link: (el.nodeName === 'aside'
-                            && el.getAttribute('epub:type') === 'footnote')
-                            ? null : pageHref,
-                        position: getRect(e.target, frame)
-                    }
-                })
-                else followLink()
+                if (el.innerText.trim()) {
+                    const elType = el.getAttributeNS(EPUB_NS, 'type')
+                    const elTypes = elType ? elType.split(' ') : []
+
+                    // footnotes not matching this would be hidden (see above)
+                    // and so one cannot navigate to them
+                    const canLink = !(el.nodeName === 'aside'
+                        && noteTypes.some(x => elTypes.includes(x)))
+
+                    dispatch({
+                        type: 'footnote',
+                        payload: {
+                            footnote: toPangoMarkup(
+                                (dt ? `<strong>${dt.innerHTML}</strong><br/>` : '') + el.innerHTML,
+                                pageHref
+                            ),
+                            link: canLink ? pageHref : null,
+                            position: getRect(e.target, frame),
+                            refTypes: types,
+                            noteTypes: elTypes
+                        }
+                    })
+                } else followLink()
             }
         }, true))
 
@@ -659,7 +728,7 @@ const setupRendition = () => {
         }
 
         // handle selection and clicks
-        let timer = 0
+        let clickTimeout
         const dispatchClick = e => {
             const clientX = (e.changedTouches ? e.changedTouches[0] : e).clientX
             const left = e.target === document.documentElement ? 0 : frame
@@ -671,7 +740,7 @@ const setupRendition = () => {
                     position: clientX + left
                 }
             })
-            timer = setTimeout(f, doubleClickTime)
+            clickTimeout = setTimeout(f, doubleClickTime)
         }
 
         document.onclick = dispatchClick
@@ -686,7 +755,7 @@ const setupRendition = () => {
             const range = selection.getRangeAt(0)
             if (range.collapsed) return dispatchClick(e)
 
-            clearTimeout(timer)
+            clearTimeout(clickTimeout)
             dispatch({
                 type: 'selection',
                 payload: {
@@ -699,7 +768,7 @@ const setupRendition = () => {
         }
 
         // auto-hide cursor
-        let timeout
+        let cursorTimeout
         const hideCursor = () => {
             contents.document.documentElement.style.cursor = 'none'
             cursorHidden = true
@@ -715,8 +784,8 @@ const setupRendition = () => {
             if (e.screenX === myScreenX && e.screenY === myScreenY) return
             myScreenX = e.screenX, myScreenY = e.screenY
             showCursor()
-            if (timeout) clearTimeout(timeout)
-            if (autohideCursor) timeout = setTimeout(hideCursor, 1000)
+            if (cursorTimeout) clearTimeout(cursorTimeout)
+            if (autohideCursor) cursorTimeout = setTimeout(hideCursor, 1000)
         }, false)
     })
 
@@ -749,21 +818,6 @@ const setupRendition = () => {
     document.addEventListener('keydown', handleKeydown, false)
 
     if (paginated) {
-        // scroll through pages
-        const onwheel = debounce(event => {
-            if (getWindowIsZoomed()) return
-            const { deltaX, deltaY } = event
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                if (deltaX > 0) goRight()
-                else if (deltaX < 0) goLeft()
-            } else {
-                if (deltaY > 0) rendition.next()
-                else if (deltaY < 0) rendition.prev()
-            }
-            event.preventDefault()
-        }, 100, true)
-        document.documentElement.onwheel = onwheel
-
         // go to the next page when selecting to the end of a page
         // this makes it possible to select across pages
         rendition.on('selected', debounce(cfiRange => {

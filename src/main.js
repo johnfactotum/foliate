@@ -17,20 +17,32 @@ pkg.initGettext()
 pkg.initFormat()
 pkg.require({
     'Gio': '2.0',
-    'Gtk': '3.0'
+    'Gtk': '3.0',
+    'WebKit2': '4.0'
 })
 
 const { Gio, Gtk, Gdk, GLib, WebKit2 } = imports.gi
 const { ttsDialog } = imports.tts
-let Handy; try { Handy = imports.gi.Handy } catch (e) {}
-if (Handy) Handy.init(null)
+let Handy
+try {
+    imports.gi.versions.Handy = '0.0'
+    Handy = imports.gi.Handy
+    Handy.init(null)
+} catch (e) {
+    try {
+        imports.gi.versions.Handy = '1'
+        Handy = imports.gi.Handy
+    } catch (e) {}
+}
 
 const webContext = WebKit2.WebContext.get_default()
 webContext.set_sandbox_enabled(true)
 
+Gtk.Window.set_default_icon_name(pkg.name)
+
 const { fileFilters } = imports.utils
 const { Window } = imports.window
-const { LibraryWindow, OpdsWindow } = imports.library
+const { LibraryWindow } = imports.library
 const { customThemes, ThemeEditor, makeThemeFromSettings, applyTheme } = imports.theme
 const { setVerbose, setTimeout } = imports.utils
 const { headlessViewer } = imports.epubView
@@ -39,6 +51,12 @@ const settings = new Gio.Settings({ schema_id: pkg.name })
 const windowState = new Gio.Settings({ schema_id: pkg.name + '.window-state' })
 const viewSettings = new Gio.Settings({ schema_id: pkg.name + '.view' })
 const librarySettings = new Gio.Settings({ schema_id: pkg.name + '.library' })
+
+const getLibraryWindow = (app = Gio.Application.get_default()) =>
+    app.get_windows().find(window => window instanceof LibraryWindow)
+    || new LibraryWindow({ application: app })
+
+window.getLibraryWindow = getLibraryWindow
 
 const makeActions = app => ({
     'new-theme': () => {
@@ -74,6 +92,18 @@ const makeActions = app => ({
         settings.bind('store-uris', $('storeUris'), 'state', flag)
         settings.bind('cache-locations', $('cacheLocations'), 'state', flag)
         settings.bind('cache-covers', $('cacheCovers'), 'state', flag)
+
+        const opdsAction = librarySettings.get_string('opds-action')
+        const $opdsAction = str => $('opds_' + str)
+        $opdsAction(opdsAction).active = true
+        ;['auto', 'ask'].forEach(x => {
+            const button = $opdsAction(x)
+            button.connect('toggled', () => {
+                if (button.active) librarySettings.set_string('opds-action', x)
+            })
+        })
+        $('opdsAutoDir').label = GLib.build_filenamev(
+            [GLib.get_user_data_dir(), pkg.name, 'books'])
 
         const updateAHBox = () => {
             const available =
@@ -112,8 +142,8 @@ const makeActions = app => ({
         dialog.set_filter(fileFilters.ebook)
 
         if (dialog.run() === Gtk.ResponseType.ACCEPT) {
-            // const activeWindow = app.active_window
-            // if (activeWindow instanceof LibraryWindow) activeWindow.close()
+            const activeWindow = app.active_window
+            if (activeWindow instanceof LibraryWindow) activeWindow.close()
             new Window({ application: app, file: dialog.get_file() }).present()
         }
     },
@@ -149,18 +179,26 @@ const makeActions = app => ({
         window.show_all()
         const response = window.run()
         if (response === Gtk.ResponseType.OK && entry.text) {
-            const window = new OpdsWindow({ application: app })
+            const window = getLibraryWindow(app)
             let uri = entry.text.trim().replace(/^opds:\/\//, 'http://')
             if (!uri.includes(':')) uri = 'http://' + uri
-            window.loadOpds(uri)
+            window.openCatalog(uri)
             window.present()
         }
         window.close()
     },
     'library': () => {
-        const windows = app.get_windows()
-        ;(windows.find(window => window instanceof LibraryWindow)
-            || new LibraryWindow({ application: app })).present()
+        const existingLibraryWindow =
+            app.get_windows().find(window => window instanceof LibraryWindow)
+        const activeWindow = app.active_window
+
+        if (existingLibraryWindow) {
+            if (activeWindow.modal) activeWindow.close()
+            existingLibraryWindow.present()
+        } else {
+            activeWindow.close()
+            new LibraryWindow({ application: app }).present()
+        }
     },
     'about': () => {
         const aboutDialog = new Gtk.AboutDialog({
@@ -219,10 +257,9 @@ function main(argv) {
                 file: Gio.File.new_for_path(lastFile)
             })
         else {
-            window = windows.find(window => window instanceof LibraryWindow)
-                || new LibraryWindow({ application })
+            window = getLibraryWindow(application)
         }
-        window.present_with_time(Gdk.CURRENT_TIME)
+        window.present()
     })
 
     application.connect('handle-local-options', (application, options) => {
@@ -256,7 +293,7 @@ function main(argv) {
                 if (openHint) print(Math.round(progress / total * 100) + '%')
                 if (progress === total && held) {
                     // add a delay because of debouncing when writing metadata
-                    // this doens't feel like the proper way but it's probably
+                    // this doesn't feel like the proper way but it's probably
                     // the easiest fix
                     setTimeout(() => {
                         application.release()
@@ -268,15 +305,17 @@ function main(argv) {
         } else files.forEach(file => {
             let window
             if (file.get_uri_scheme() === 'opds') {
-                window = new OpdsWindow({ application })
+                window = getLibraryWindow(application)
                 const uri = file.get_uri().replace(/^opds:\/\//, 'http://')
-                window.loadOpds(uri)
+                window.openCatalog(uri)
             } else window = new Window({ application, file })
             window.present()
         })
     })
 
     application.connect('startup', () => {
+        if (Handy && imports.gi.versions.Handy === '1') Handy.init()
+
         viewSettings.bind('prefer-dark-theme', Gtk.Settings.get_default(),
             'gtk-application-prefer-dark-theme', Gio.SettingsBindFlags.DEFAULT)
 
@@ -291,12 +330,16 @@ function main(argv) {
             ['app.quit', ['<ctrl>q']],
             ['app.open', ['<ctrl>o']],
             ['app.preferences', ['<ctrl>comma']],
+            ['app.library', ['<ctrl>h']],
 
             ['lib.list-view', ['<ctrl>1']],
             ['lib.grid-view', ['<ctrl>2']],
             ['lib.main-menu', ['F10']],
             ['lib.search', ['<ctrl>f']],
             ['lib.close', ['<ctrl>w']],
+            ['lib.opds-back', ['<alt>Left']],
+            ['opds.reload', ['<ctrl>r']],
+            ['opds.location', ['<ctrl>l']],
 
             ['win.close', ['<ctrl>w']],
             ['win.reload', ['<ctrl>r']],
@@ -318,17 +361,17 @@ function main(argv) {
             ['view.go-prev', ['p']],
             ['view.go-next', ['n']],
             ['view.go-back', ['<alt>p', '<alt>Left']],
-            ['view.zoom-in', ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
-            ['view.zoom-out', ['minus', '<ctrl>minus']],
-            ['view.zoom-restore', ['0', '<ctrl>0']],
+            ['view.zoom-in', ['plus', 'equal', 'KP_Add', 'KP_Equal', '<ctrl>plus', '<ctrl>equal', '<ctrl>KP_Add', '<ctrl>KP_Equal']],
+            ['view.zoom-out', ['minus', 'KP_Subtract', '<ctrl>minus', '<ctrl>KP_Subtract']],
+            ['view.zoom-restore', ['0', 'KP_0', '<ctrl>0', '<ctrl>KP_0']],
             ['view.bookmark', ['<ctrl>d']],
             ['view.clear-cache', ['<ctrl><shift>r']],
 
             ['img.copy', ['<ctrl>c']],
             ['img.save-as', ['<ctrl>s']],
-            ['img.zoom-in', ['plus', 'equal', '<ctrl>plus', '<ctrl>equal']],
-            ['img.zoom-out', ['minus', '<ctrl>minus']],
-            ['img.zoom-restore', ['0', '<ctrl>0']],
+            ['img.zoom-in', ['plus', 'equal', 'KP_Add', 'KP_Equal', '<ctrl>plus', '<ctrl>equal', '<ctrl>KP_Add', '<ctrl>KP_Equal']],
+            ['img.zoom-out', ['minus', 'KP_Subtract', '<ctrl>minus', '<ctrl>KP_Subtract']],
+            ['img.zoom-restore', ['0', 'KP_0', '<ctrl>0', '<ctrl>KP_0']],
             ['img.rotate-left', ['<ctrl>Left']],
             ['img.rotate-right', ['<ctrl>Right']],
             ['img.invert', ['<ctrl>i']],
@@ -342,6 +385,14 @@ function main(argv) {
 
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
+            /* remove flowboxchild padding so things align better
+               when mixing flowbox and other widgets;
+               why does Adwaita has flowboxchild padding, anyway?
+               there's already row-/column-spacing, plus you can set margin */
+            flowboxchild {
+                padding: 0;
+            }
+
             /* set min-width to 1px,
                so we can have variable width progress bars a la Kindle */
             progress, trough {
@@ -381,8 +432,8 @@ function main(argv) {
             }
 
             .foliate-emblem {
-                color: white;
-                background: gray;
+                background: @theme_fg_color;
+                color: @theme_bg_color;
                 border-radius: 100%;
                 padding: 6px;
                 opacity: 0.9;
@@ -397,6 +448,25 @@ function main(argv) {
             .foliate-select {
                 color: #fff;
                 background: rgba(0, 0, 0, 0.4);
+            }
+
+            .foliate-title-main {
+                font-size: 1.18em;
+                font-weight: bold;
+            }
+            .foliate-title-subtitle {
+                font-size: 1.13em;
+                font-weight: 300;
+            }
+            .foliate-title-collection {
+                font-size: smaller;
+            }
+            .foliate-authority-label {
+                font-size: smaller;
+                font-weight: bold;
+                border: 1px solid;
+                border-radius: 5px;
+                padding: 0 5px;
             }
         `)
         Gtk.StyleContext.add_provider_for_screen(

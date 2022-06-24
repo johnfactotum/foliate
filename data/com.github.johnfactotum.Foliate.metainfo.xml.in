@@ -44,6 +44,110 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="2.6.4" date="2022-01-13">
+            <description>
+                <p>Fixed various bugs</p>
+            </description>
+        </release>
+        <release version="2.6.3" date="2021-04-01">
+            <description>
+                <p>Fixed a performance issue with zipped files (including EPUB files)</p>
+            </description>
+        </release>
+        <release version="2.6.2" date="2021-03-25">
+            <description>
+                <p>Fix UI when running with libhandy 1.x</p>
+            </description>
+        </release>
+        <release version="2.6.1" date="2021-03-24">
+            <description>
+                <p>Fixed automatic layout</p>
+            </description>
+        </release>
+        <release version="2.6.0" date="2021-03-24">
+            <description>
+                <p>Changes:</p>
+                <ul>
+                    <li>Added support for opening HTML files</li>
+                    <li>Consistent inner and outer margins</li>
+                    <li>The automatic layout no longer supports 4 columns</li>
+                    <li>Fixed long words overflowing</li>
+                    <li>Fixed custom themes not saved across sessions</li>
+                    <li>Fixed shortcuts for key pads</li>
+                    <li>Fixed opening non-UTF-8 zipped FB2 files</li>
+                    <li>Fixed books not opening on GNOME 40</li>
+                </ul>
+            </description>
+        </release>
+        <release version="2.5.0" date="2020-10-15">
+            <description>
+                <p>Changes:</p>
+                <ul>
+                    <li>Improved support for touch screens</li>
+                    <li>OPDS credentials can now be remembered</li>
+                    <li>Various fixes for GNOME 3.38</li>
+                    <li>Fixed Wiktionary internal links</li>
+                    <li>Added Basque, Korean, and Norwegian translations</li>
+                </ul>
+            </description>
+        </release>
+        <release version="2.4.2" date="2020-07-06">
+            <description>
+                <p>Fixed unable to open some EPUB files</p>
+            </description>
+        </release>
+        <release version="2.4.1" date="2020-07-06">
+            <description>
+                <p>Fixed unable to open Mobipocket files</p>
+            </description>
+        </release>
+        <release version="2.4.0" date="2020-07-02">
+            <description>
+                <p>Changes:</p>
+                <ul>
+                    <li>Improved metadata display</li>
+                    <li>Improved FictionBook rendering</li>
+                    <li>Improved UI for acquiring books from OPDS</li>
+                    <li>Fixed unique identifier extraction for EPUB files</li>
+                    <li>Fixed missing window icon</li>
+                    <li>Fixed TTS environment variables not set when using Flatpak</li>
+                    <li>Fixed eSpeak NG voice not selected when testing TTS configuration</li>
+                    <li>Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled</li>
+                </ul>
+            </description>
+        </release>
+        <release version="2.3.0" date="2020-06-18">
+            <description>
+                <p>OPDS catalogs:</p>
+                <ul>
+                    <li>Catalogs are now opened in the main library window</li>
+                    <li>View current location</li>
+                    <li>Go to catalog start page</li>
+                    <li>Reload catalog</li>
+                    <li>Add current feed to catalogs</li>
+                    <li>HTTP authentication support</li>
+                </ul>
+                <p>Other changes:</p>
+                <ul>
+                    <li>Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files</li>
+                    <li>Fixed newlines being ignored when copying text</li>
+                    <li>“Turn page on tap” is now disabled in non-paginated layouts</li>
+                    <li>Opening a book from the library view now closes the library window</li>
+                    <li>Language and publication dates in metadata are now parsed and formatted</li>
+                    <li>Export annotations from the library view</li>
+                </ul>
+            </description>
+        </release>
+        <release version="2.2.1" date="2020-06-07">
+            <description>
+                <p>Changes:</p>
+                <ul>
+                    <li>Fixed blurry book covers on HiDPI</li>
+                    <li>Fixed OPDS links to Standard Ebooks and Project Gutenberg</li>
+                    <li>Fixed wrong view icon on startup</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.2.0" date="2020-05-29">
             <description>
                 <p>Library:</p>
@@ -319,4 +423,8 @@
         </release>
     </releases>
     <content_rating type="oars-1.1" />
+    <custom>
+        <value key="Purism::form_factor">workstation</value>
+        <value key="Purism::form_factor">mobile</value>
+    </custom>
 </component>

@@ -38,9 +38,10 @@ var debounce = (f, wait, immediate) => {
     }
 }
 
-const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf } = imports.gi
+const { Gtk, Gio, GLib, GObject, Gdk, GdkPixbuf, WebKit2 } = imports.gi
 const ByteArray = imports.byteArray
 const ngettext = imports.gettext.ngettext
+const { iso_639_2_path, iso_3166_1_path } = imports.isoCodes
 
 let verbose = false
 var setVerbose = value => verbose = value
@@ -74,13 +75,144 @@ var markupEscape = text => text ? GLib.markup_escape_text(text, -1) : ''
 
 var regexEscape = str => str ? str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&') : ''
 
-var glibcLocaleToJsLocale = x => x === 'C' ? 'en' : x.split('.')[0].replace('_', '-')
-var locales = GLib.get_language_names().map(glibcLocaleToJsLocale)
+var readJSON = file => {
+    try {
+        const [success, data, /*tag*/] = file.load_contents(null)
+        if (success) return JSON.parse(data instanceof Uint8Array
+            ? ByteArray.toString(data) : data.toString())
+        else throw new Error()
+    } catch (e) {
+        return {}
+    }
+}
+
+var glibcLocaleToBCP47 = x => x === 'C' ? 'en' : x.split('.')[0].replace('_', '-')
+var locales = GLib.get_language_names().map(glibcLocaleToBCP47)
 try {
     const settings = new Gio.Settings({ schema_id: 'org.gnome.system.locale' })
-    const locale = glibcLocaleToJsLocale(settings.get_string('region'))
+    const locale = glibcLocaleToBCP47(settings.get_string('region'))
     if (locale) locales = locale
 } catch (e) {}
+
+var languageNames = new Map()
+var alpha_3_to_alpha_2 = new Map()
+var regionNames = new Map()
+const iso_639_2 = readJSON(Gio.File.new_for_path(iso_639_2_path))
+const iso_3166_1 = readJSON(Gio.File.new_for_path(iso_3166_1_path))
+const hasIso_639_2 = '639-2' in iso_639_2
+const hasIso_3166_1 = '3166-1' in iso_3166_1
+if (hasIso_639_2) for (const obj of iso_639_2['639-2']) {
+    if (!obj) continue
+    const { alpha_2, alpha_3, name } = obj
+    if (alpha_2) languageNames.set(alpha_2, name)
+    if (alpha_3) languageNames.set(alpha_3, name)
+    if (alpha_2 && alpha_3) alpha_3_to_alpha_2.set(alpha_3, alpha_2)
+}
+if (hasIso_3166_1) for (const obj of iso_3166_1['3166-1']) {
+    if (!obj) continue
+    const { alpha_2, alpha_3, name, common_name } = obj
+    const n = common_name || name
+    if (alpha_2) regionNames.set(alpha_2, n)
+    if (alpha_3) regionNames.set(alpha_3, n)
+}
+var isRegionCode = str => str === str.toUpperCase()
+const regionEmojiOffset = 127397
+var getRegionEmoji = code => {
+    if (!code || code.length !== 2) return
+    return String.fromCodePoint(...Array.from(code.toUpperCase())
+        .map(x => regionEmojiOffset + x.charCodeAt()))
+}
+// get language names
+// should perhaps use `Intl.DisplayNames()` instead once it becomes available
+var getLanguageDisplayName = (code, showEmoji) => {
+    try {
+        code = Intl.getCanonicalLocales(code)[0]
+    } catch (e) {
+        return code
+    }
+    if (!hasIso_639_2) return code
+    const [language, ...rest] = code.split('-')
+    const languageName = languageNames.get(language)
+    const languageDisplayName = languageName
+        ? GLib.dgettext('iso_639-2', languageName)
+        : language
+
+    const region = rest.find(isRegionCode)
+    const regionName = region ? regionNames.get(region) : null
+    const regionDisplayName = regionName
+        ? GLib.dgettext('iso_3166-1', regionName)
+        : region
+
+    const emoji = showEmoji ? getRegionEmoji(region) : ''
+
+    return regionDisplayName
+        ? (emoji ? emoji + ' ' : '')
+            + _('%s (%s)').format(languageDisplayName, regionDisplayName)
+        : languageDisplayName
+}
+// convert alpha-3 to alpha-2 if possible
+var getAlpha2 = code => {
+    try {
+        code = Intl.getCanonicalLocales(code)[0]
+    } catch (e) {
+        return
+    }
+    const lang = code.split('-')[0]
+    if (lang.length === 2) return lang
+    return alpha_3_to_alpha_2.get(lang) || lang
+}
+
+var formatPrice = ({ currencycode, value }) => {
+    try {
+        return new Intl.NumberFormat(locales,
+            { style: 'currency', currency: currencycode }).format(value)
+    } catch (e) {
+        return (currencycode ? currencycode + ' ' : '') + value
+    }
+}
+
+// Translators: here "BCE" is for "before common era"
+// "%s" is usually already a fully formatted date string,
+// and can even include month and day, not just year;
+// so make sure NOT to translate it to something like "The year %s before Christ"
+const formatBCE = (str, isBCE) => isBCE ? _('%s BCE').format(str) : str
+
+var formatDate = (string, showTime) => {
+    let isBCE = false
+    if (string.startsWith('-')) {
+        // Intl does not format BCE dates
+        // so we treat it as a CE date and add "BCE" ourselves later
+        isBCE = true
+        string = string.split('-')[1]
+    }
+
+    const split = string.split('-').filter(x => x)
+    const yearOnly = split.length === 1
+    const yearMonthOnly = split.length === 2
+
+    const date = yearOnly
+        // this is needed because dates like `new Date("100")` is invalid
+        ? new Date(Date.UTC(split[0]))
+        : new Date(string)
+
+    if (isNaN(date)) return formatBCE(string, isBCE)
+
+    const options = yearOnly
+        ? { year: 'numeric' }
+        : yearMonthOnly
+            ? { year: 'numeric', month: 'long' }
+            : showTime
+                ? { year: 'numeric', month: 'long', day: 'numeric',
+                    hour: 'numeric', minute: 'numeric' }
+                : { year: 'numeric', month: 'long', day: 'numeric' }
+
+    try {
+        const dateString = new Intl.DateTimeFormat(locales, options).format(date)
+        return formatBCE(dateString, isBCE)
+    } catch (e) {
+        return formatBCE(string, isBCE)
+    }
+}
 
 var formatMinutes = n => {
     n = Math.round(n)
@@ -103,6 +235,8 @@ var mimetypes = {
     directory: 'inode/directory',
     json: 'application/json',
     xml: 'application/xml',
+    xhtml: 'application/xhtml+xml',
+    html: 'text/html',
     text: 'text/plain',
     epub: 'application/epub+zip',
     mobi: 'application/x-mobipocket-ebook',
@@ -116,6 +250,30 @@ var mimetypes = {
     cbt: 'application/x-cbt',
 }
 
+var getMimetype = key => mimetypes[key]
+var mimetypesThatWeCan = {
+    // all supported files
+    open: Object.keys(mimetypes).map(getMimetype),
+    // show in file choosers
+    choose: [
+        'epub', 'mobi', 'kindle', 'kindleAlias', 'fb2', 'fb2zip',
+        'cbz', 'cbr', 'cb7', 'cbt'
+    ].map(getMimetype),
+    // formats where we let the user add annotations without warning
+    annotate: [
+        'directory', 'json', 'xml', 'epub', 'mobi', 'kindle', 'kindleAlias'
+    ].map(getMimetype)
+}
+
+var mimetypeCan = {
+    open: type => mimetypesThatWeCan.open.includes(type),
+    choose: type => mimetypesThatWeCan.choose.includes(type),
+    annotate: type => mimetypesThatWeCan.annotate.includes(type),
+}
+var mimetypeIs = {
+    fb2: type => [mimetypes.fb2, mimetypes.fb2zip].includes(type)
+}
+
 var fileFilters = {
     all: new Gtk.FileFilter(),
     ebook: new Gtk.FileFilter()
@@ -123,20 +281,18 @@ var fileFilters = {
 fileFilters.all.set_name(_('All Files'))
 fileFilters.all.add_pattern('*')
 fileFilters.ebook.set_name(_('E-book Files'))
-fileFilters.ebook.add_mime_type(mimetypes.epub)
-fileFilters.ebook.add_mime_type(mimetypes.mobi)
-fileFilters.ebook.add_mime_type(mimetypes.kindle)
-fileFilters.ebook.add_mime_type(mimetypes.fb2)
-fileFilters.ebook.add_mime_type(mimetypes.fb2zip)
-fileFilters.ebook.add_mime_type(mimetypes.cbz)
-fileFilters.ebook.add_mime_type(mimetypes.cbr)
-fileFilters.ebook.add_mime_type(mimetypes.cb7)
-fileFilters.ebook.add_mime_type(mimetypes.cbt)
+mimetypesThatWeCan.choose
+    .forEach(type => fileFilters.ebook.add_mime_type(type))
 
 const flatpakSpawn = GLib.find_program_in_path('flatpak-spawn')
 var execCommand = (argv, input = null, waitCheck, token, inFlatpak, envs) =>
     new Promise((resolve, reject) => {
-        if (flatpakSpawn && !inFlatpak) argv = [flatpakSpawn, '--host', ...argv]
+        const useFlatpakSpawn = flatpakSpawn && !inFlatpak
+        if (useFlatpakSpawn) {
+            const envArgs = (envs || [])
+                .map(([variable, value]) => `--env=${variable}=${value}`)
+            argv = [flatpakSpawn, ...envArgs, '--host', ...argv]
+        }
         const flags = input
             ? Gio.SubprocessFlags.STDIN_PIPE | Gio.SubprocessFlags.STDOUT_PIPE
             : Gio.SubprocessFlags.STDOUT_PIPE
@@ -144,7 +300,7 @@ var execCommand = (argv, input = null, waitCheck, token, inFlatpak, envs) =>
         try {
             const launcher = new Gio.SubprocessLauncher({ flags })
             launcher.setenv('G_MESSAGES_DEBUG', '', true)
-            if (envs) envs.forEach(([variable, value]) =>
+            if (envs && !useFlatpakSpawn) envs.forEach(([variable, value]) =>
                 launcher.setenv(variable, value, true))
 
             const proc = launcher.spawnv(argv)
@@ -184,14 +340,23 @@ var recursivelyDeleteDir = dir => {
     dir.delete(null)
 }
 
-var readJSON = file => {
-    try {
-        const [success, data, /*tag*/] = file.load_contents(null)
-        if (success) return JSON.parse(data instanceof Uint8Array
-            ? ByteArray.toString(data) : data.toString())
-        else throw new Error()
-    } catch (e) {
-        return {}
+var listDir = function* (file) {
+    const path = file.get_path()
+    if (!GLib.file_test(path, GLib.FileTest.IS_DIR)) {
+        debug(`"${path}" is not a directory`)
+        return
+    }
+    const children = file.enumerate_children('standard::name',
+        Gio.FileQueryInfoFlags.NONE, null)
+
+    let info
+    while ((info = children.next_file(null)) != null) {
+        try {
+            const name = info.get_name()
+            yield name
+        } catch (e) {
+            continue
+        }
     }
 }
 
@@ -366,6 +531,7 @@ var invertRotate = color => hueRotateColor(invertColor(color), 180)
 var doubleInvert = x => invertRotate(invertRotate(x))
 
 var base64ToPixbuf = base64 => {
+    if (!base64) return null
     try {
         const data = GLib.base64_decode(base64)
         const imageStream = Gio.MemoryInputStream.new_from_bytes(data)
@@ -376,10 +542,11 @@ var base64ToPixbuf = base64 => {
     }
 }
 
-var scalePixbuf = (pixbuf, width = 120) => {
+var scalePixbuf = (pixbuf, factor = 1, width = 120, scaleUp = true) => {
+    width = width * factor
     // TODO: maybe just use gdkpixbuf's "[...]_at_sacale" functions instead of this?
     const ratio = width / pixbuf.get_width()
-    if (ratio === 1) return pixbuf
+    if (ratio === 1 || (!scaleUp && ratio > 1)) return pixbuf
     const height = parseInt(pixbuf.get_height() * ratio, 10)
     return pixbuf.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
 }
@@ -491,7 +658,7 @@ var linkIsRel = (link, rel) => {
         : rels.some(x => x === rel)
 }
 
-var makeLinksButton = (params, links, onActivate) => {
+var makeLinksButton = (params, links, onActivate, defaultLink) => {
     const popover = new Gtk.PopoverMenu()
     const box = new Gtk.Box({
         visible: true,
@@ -499,14 +666,13 @@ var makeLinksButton = (params, links, onActivate) => {
         margin: 10
     })
     popover.add(box)
-    const button = new Gtk.MenuButton(Object.assign({ popover }, params, { label: null }))
-    const buttonBox =  new Gtk.Box({ spacing: 3 })
-    const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
-    buttonBox.pack_start(new Gtk.Label({ label: params.label }), true, true, 0)
-    buttonBox.pack_end(icon, false, true, 0)
-    button.add(buttonBox)
-    button.show_all()
-    links.forEach(({ href, type, title, tooltip }) => {
+
+    links.forEach(link => {
+        if (link instanceof Gtk.Widget) {
+            box.pack_start(link, false, true, 0)
+            return
+        }
+        const { href, type, title, tooltip } = link
         const menuItem = new Gtk.ModelButton({
             visible: true,
             text: title,
@@ -515,9 +681,216 @@ var makeLinksButton = (params, links, onActivate) => {
         menuItem.connect('clicked', () => onActivate({ href, type }))
         box.pack_start(menuItem, false, true, 0)
     })
+
+    if (defaultLink) {
+        const button = new Gtk.Button(params)
+        button.connect('clicked', () => onActivate(defaultLink))
+        const down = new Gtk.MenuButton({
+            popover,
+            image: new Gtk.Image({ icon_name: 'pan-down-symbolic' })
+        })
+        const box = new Gtk.Box()
+        box.pack_start(button, true, true, 0)
+        box.pack_start(down, false, true, 0)
+        box.get_style_context().add_class('linked')
+        box.show_all()
+        return box
+    }
+
+    const button = new Gtk.MenuButton(Object.assign({ popover }, params, { label: null }))
+    const buttonBox =  new Gtk.Box({ spacing: 3 })
+    const icon = new Gtk.Image({ icon_name: 'pan-down-symbolic' })
+    buttonBox.pack_start(new Gtk.Label({ label: params.label }), true, true, 0)
+    buttonBox.pack_end(icon, false, true, 0)
+    button.add(buttonBox)
+    button.show_all()
     return button
+}
+
+var unorderedListStyleFunc = () => {
+    const dot = new Gtk.Label({
+        visible: true,
+        label: '•',
+        xalign: 1
+    })
+    dot.get_style_context().add_class('dim-label')
+    return dot
+}
+var makeList = (widgets, listStyleFunc = unorderedListStyleFunc) => {
+    const grid = new Gtk.Grid({
+        visible: true,
+        column_spacing: 6
+    })
+    widgets.forEach((widget, i) => {
+        if (!(widget instanceof Gtk.Widget)) {
+            widget = new Gtk.Label(Object.assign({
+                visible: true,
+                selectable: true,
+                xalign: 0,
+                wrap: true,
+            }, widget))
+        }
+        const marker = listStyleFunc(i)
+        if (marker) grid.attach(marker, 0, i, 1, 1)
+        grid.attach(widget, 1, i, 1, 1)
+    })
+    return grid
 }
 
 var sepHeaderFunc = row => {
     if (row.get_index()) row.set_header(new Gtk.Separator())
 }
+
+var promptAuthenticate = (req, username, password, toplevel) => {
+    // Authenticate using username and password provided via URL in format of:
+    //   http://username:password@example.com/
+    if (username) {
+        const cred = new WebKit2.Credential(username, password,
+            WebKit2.CredentialPersistence.FOR_SESSION)
+        req.authenticate(cred)
+        return true
+    }
+
+    // Authenticate using username and password stored in Secret Service
+    const storedCred = req.get_proposed_credential()
+    if (storedCred && !req.is_retry()) {
+        req.authenticate(storedCred)
+        return true
+    }
+
+    // Username and password not available, query them from user
+    const msg = new Gtk.MessageDialog({
+        text: _('Authentication Required'),
+        secondary_text:
+            _('Authentication required by %s')
+                .format(req.get_host())
+            + '\n'
+            + _('The site says: “%s”').format(req.get_realm()),
+        message_type: Gtk.MessageType.ERROR,
+        modal: true,
+    })
+    msg.add_button(_('Cancel'), Gtk.ResponseType.CANCEL)
+    msg.add_button(_('Authenticate'), Gtk.ResponseType.OK)
+    msg.set_default_response(Gtk.ResponseType.OK)
+    msg.get_widget_for_response(Gtk.ResponseType.OK)
+        .get_style_context().add_class('suggested-action')
+
+    if (toplevel instanceof Gtk.Window)
+        msg.transient_for = toplevel
+
+    const grid = new Gtk.Grid({
+        row_spacing: 6,
+        column_spacing: 6
+    })
+    const uLabel = new Gtk.Label({
+        xalign: 1,
+        label: _('Username')
+    })
+    const pLabel = new Gtk.Label({
+        xalign: 1,
+        label: _('Password')
+    })
+    const rCheckButton = new Gtk.CheckButton({
+        label: _('Remember my credentials')
+    })
+    uLabel.get_style_context().add_class('dim-label')
+    pLabel.get_style_context().add_class('dim-label')
+    const uEntry = new Gtk.Entry()
+    const pEntry = new Gtk.Entry({
+        visibility: false,
+        input_purpose: Gtk.InputPurpose.PASSWORD
+    })
+
+    if (storedCred) {
+        uEntry.text = storedCred.get_username()
+        pEntry.text = storedCred.get_password()
+        rCheckButton.set_active(true)
+    }
+
+    grid.attach(uLabel, 0, 0, 1, 1)
+    grid.attach(uEntry, 1, 0, 1, 1)
+    grid.attach(pLabel, 0, 1, 1, 1)
+    grid.attach(pEntry, 1, 1, 1, 1)
+    grid.attach(rCheckButton, 1, 2, 1, 1)
+    grid.show_all()
+    msg.message_area.pack_start(grid, false, true, 0)
+
+    const ok = () =>
+        msg.get_widget_for_response(Gtk.ResponseType.OK).activate()
+    pEntry.connect('activate', ok)
+    uEntry.connect('activate', ok)
+
+    if (msg.run() === Gtk.ResponseType.OK) {
+        const cred = new WebKit2.Credential(uEntry.text, pEntry.text,
+            rCheckButton.get_active()
+                ? WebKit2.CredentialPersistence.PERMANENT // Stored to Secret Service
+                : WebKit2.CredentialPersistence.FOR_SESSION)
+        req.authenticate(cred)
+    } else req.cancel()
+
+    msg.destroy()
+    return true
+}
+
+var downloadWithWebKit = (uri, decideDestination, onProgress, token, toplevel) =>
+    new Promise((resolve, reject) => {
+        const webView = new WebKit2.WebView({
+            settings: new WebKit2.Settings({
+                enable_write_console_messages_to_stdout: true,
+                user_agent
+            })
+        })
+        webView.connect('authenticate', (webview, req) =>
+            promptAuthenticate(req, null, null, toplevel))
+
+        const webContext = WebKit2.WebContext.get_default()
+        const connection = webContext.connect('download-started', (ctx, download) => {
+            debug('download-started')
+
+            download.set_allow_overwrite(true)
+
+            if (token) token.cancel = () => download.cancel()
+
+            download.connect('decide-destination', (download, suggestedName) => {
+                debug('decide-destination')
+                const destination = typeof decideDestination === 'string'
+                    ? decideDestination
+                    : decideDestination(download, suggestedName)
+                if (destination) {
+                    debug(`destination: ${destination}`)
+                    download.set_destination(destination)
+                }
+            })
+            download.connect('failed', (download, err) => {
+                logError(err)
+                reject(err)
+            })
+            download.connect('notify::estimated-progress', download => {
+                const progress = download.estimated_progress
+                debug(`progress: ${progress}`)
+                if (onProgress) onProgress(progress)
+            })
+            download.connect('finished', () => {
+                debug('finished')
+                if (token) token.cacel = null
+                ctx.disconnect(connection)
+                webView.destroy()
+                resolve()
+            })
+        })
+
+        webView.download_uri(uri)
+    })
+
+var getFileInfoAsync = (file, attributes = 'standard::content-type') =>
+    new Promise((resolve, reject) => file.query_info_async(
+        attributes,
+        Gio.FileQueryInfoFlags.NONE,
+        GLib.PRIORITY_DEFAULT, null,
+        (file, res) => {
+            try {
+                resolve(file.query_info_finish(res))
+            } catch (e) {
+                reject(e)
+            }
+        }))

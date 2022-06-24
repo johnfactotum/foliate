@@ -39,7 +39,7 @@ const exportToHTML = async ({ annotations }, metadata, getSection) => {
     <hr>
     <section>
         <p class="cfi">${value}</p>
-        <p class="section">${await getSection(value)}</p>
+        ${getSection ? `<p class="section">${await getSection(value)}</p>` : ''}
         <blockquote style="border-color: ${color};">${text}</blockquote>
         ${note ? '<p>' + note.replace(/\n/g, '<br>') + '</p>' : ''}
     </section>`))
@@ -51,7 +51,7 @@ const exportToTxt = async ({ annotations }, metadata, getSection) => {
         + ngettext('%d Annotation', '%d Annotations', annotations.length).format(annotations.length)
     const body = await Promise.all(annotations.map(async ({ value, text, color, note }) => '\n\n'
         + '--------------------------------------------------------------------------------\n\n'
-        + _('Section: ') + (await getSection(value)) + '\n'
+        + (getSection ? _('Section: ') + (await getSection(value)) + '\n' : '')
         + _('Highlight: ') + color + '\n\n'
         + _('Text:') + '\n' + text
         + (note ? '\n\n' + _('Note:') + '\n' + note : '')))
@@ -65,7 +65,7 @@ const exportToMarkdown = async ({ annotations }, metadata, getSection) => {
 
 ---
 
-${await getSection(value)} - **${color}**
+${getSection ? await getSection(value) + ' - ' : ''}**${color}**
 
 > ${text}${note ? '\n\n' + note : ''}`))
     return head + body.join('')
@@ -99,6 +99,21 @@ const exportToBibTeX = ({ annotations }, metadata) => {
 }
 
 var exportAnnotations = async (window, data, metadata, getSection) => {
+    if (!data.annotations || !data.annotations.length) {
+        const msg = new Gtk.MessageDialog({
+            text: _('No annotations'),
+            secondary_text: _("You don't have any annotations for this book.")
+                + '\n' + _('Highlight some text to add annotations.'),
+            message_type: Gtk.MessageType.INFO,
+            buttons: [Gtk.ButtonsType.OK],
+            modal: true,
+            transient_for: window
+        })
+        msg.run()
+        msg.destroy()
+        return
+    }
+
     const builder = Gtk.Builder.new_from_resource(
         '/com/github/johnfactotum/Foliate/ui/exportWindow.ui')
     const dialog = builder.get_object('exportDialog')
@@ -116,7 +131,7 @@ var exportAnnotations = async (window, data, metadata, getSection) => {
             modal: true,
             transient_for: window
         })
-        const title = window._epub.metadata.title
+        const title = metadata.title
         chooser.set_current_name(_('Annotations for “%s”').format(title) + '.' + format)
         const response = chooser.run()
         if (response === Gtk.ResponseType.ACCEPT) {
@@ -147,8 +162,6 @@ var exportAnnotations = async (window, data, metadata, getSection) => {
 }
 
 var importAnnotations = (window, epub) => {
-    let annotations
-
     const allFiles = new Gtk.FileFilter()
     allFiles.set_name(_('All Files'))
     allFiles.add_pattern('*')

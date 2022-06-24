@@ -113,6 +113,11 @@
               <attribute name="target">auto</attribute>
             </item>
             <item>
+              <attribute name="label" translatable="yes">Up to Two Columns</attribute>
+              <attribute name="action">view.layout</attribute>
+              <attribute name="target">double</attribute>
+            </item>
+            <item>
               <attribute name="label" translatable="yes">Single Column</attribute>
               <attribute name="action">view.layout</attribute>
               <attribute name="target">single</attribute>
@@ -146,7 +151,7 @@
       </section>
       <section>
         <item>
-          <attribute name="label" translatable="yes">Footnote Preview</attribute>
+          <attribute name="label" translatable="yes">Reference Preview</attribute>
           <attribute name="action">view.enable-footnote</attribute>
         </item>
         <item>

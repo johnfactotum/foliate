@@ -9,10 +9,10 @@
         <property name="visible">True</property>
         <property name="spacing">18</property>
         <child>
-          <object class="GtkImage" id="cover">
+          <object class="FoliateBookImage" id="cover">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="valign">center</property>
+            <property name="valign">start</property>
           </object>
         </child>
         <child>
@@ -21,15 +21,10 @@
             <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <child>
-              <object class="GtkLabel" id="title">
+              <object class="GtkBox" id="title">
                 <property name="visible">True</property>
-                <property name="wrap">True</property>
-                <property name="selectable">True</property>
-                <property name="xalign">0</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                  <attribute name="scale" value="1.18"/>
-                </attributes>
+                <property name="orientation">vertical</property>
+                <property name="spacing">3</property>
               </object>
             </child>
             <child>
@@ -41,10 +36,44 @@
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="actionArea">
+              <object class="GtkFlowBox" id="actionArea">
                 <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <property name="selection-mode">none</property>
+                <property name="row-spacing">6</property>
+                <property name="column-spacing">6</property>
+                <property name="margin-top">12</property>
               </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
             </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="descriptionSep">
+        <property name="visible">True</property>
+        <property name="spacing">6</property>
+        <property name="margin-top">12</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="xalign">0</property>
+            <property name="wrap">True</property>
+            <property name="label" translatable="yes">Description</property>
+            <style><class name="dim-label"/></style>
+            <attributes>
+              <attribute name="scale" value="0.85"/>
+            </attributes>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+            <property name="hexpand">True</property>
+            <property name="valign">center</property>
           </object>
         </child>
       </object>
@@ -56,19 +85,46 @@
         <property name="selectable">True</property>
         <property name="use-markup">True</property>
         <property name="xalign">0</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkExpander" id="descriptionExpander">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Details</property>
+        <child>
+          <object class="GtkLabel" id="descriptionLong">
+            <property name="visible">True</property>
+            <property name="wrap">True</property>
+            <property name="selectable">True</property>
+            <property name="use-markup">True</property>
+            <property name="xalign">0</property>
+            <property name="margin-top">6</property>
+            <property name="margin-start">18</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="categoriesBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">18</property>
         <property name="margin-top">12</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparator">
+        <property name="visible">True</property>
+        <property name="margin-top">12</property>
+        <property name="margin-bottom">12</property>
       </object>
     </child>
     <child>
       <object class="GtkBox" id="propertiesBox">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
-        <property name="margin-top">12</property>
         <property name="spacing">18</property>
       </object>
-      <packing>
-        <property name="pack_type">end</property>
-      </packing>
     </child>
   </template>
 </interface>

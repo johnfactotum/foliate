@@ -3,15 +3,14 @@ let baseURI
 // very simple OPDS parser
 // the basic idea is derived from https://github.com/SamyPesse/xml-schema
 
-const OPDS_CAT_NS = 'http://opds-spec.org/2010/catalog'
-const OPDS_ROOT_NS = 'http://opds-spec.org/'
-const OPDS_NS = [OPDS_CAT_NS, OPDS_ROOT_NS]
-const THR_NS = 'http://purl.org/syndication/thread/1.0'
-const DC_ELS_NS = 'http://purl.org/dc/elements/1.1/'
-const DC_TERMS_NS = 'http://purl.org/dc/terms/'
-const DC_NS = [DC_TERMS_NS, DC_ELS_NS]
-
-const trim = x => x ? x.trim() : x
+const getContent = el => {
+    const type = el.getAttribute('type')
+    if (['html', 'xhtml', 'text/html', 'application/xhtml+xml'].includes(type)) {
+        const str = el.innerHTML
+        if (str.includes('<')) return toPangoMarkup(str)
+        else return toPangoMarkup(unescapeHTML(str))
+    } else return trim(el.textContent)
+}
 
 const link = {
     tag: 'link',
@@ -63,13 +62,25 @@ const entry = {
             array: true,
             attrs: { term: {}, label: {}, scheme: {} }
         },
-        identifier: { ns: DC_NS },
+        identifiers: {
+            tag: 'identifier',
+            array: true,
+            ns: DC_NS
+        },
         publisher: { ns: DC_NS },
         language: { ns: DC_NS },
         issued: { ns: DC_TERMS_NS },
         extent: { ns: DC_TERMS_NS },
+        sources: {
+            tag: 'source',
+            array: true,
+            ns: DC_NS
+        },
         rights: {},
-        content: {},
+        content: {
+            manual: true,
+            transform: getContent
+        },
     }
 }
 const feed = {
@@ -77,6 +88,7 @@ const feed = {
     fields: {
         id: {},
         title: {},
+        subtitle: {},
         icon: {},
         updated: {},
         links: link,
@@ -90,6 +102,7 @@ const parse = (el, schema) => {
     const fields = schema.fields || {}
     const attrList = Object.keys(attrs)
     const fieldList = Object.keys(fields)
+    if (schema.manual) return schema.transform(el)
     if (!attrList.length && !fieldList.length) {
         const transform = schema.transform || trim
         return transform(el.textContent)
@@ -165,10 +178,23 @@ const getImage = async (src, token) => {
     }
 }
 
+const fetchWithAuth = (resource, init) => {
+    if (typeof resource !== 'string') return fetch(resource, init)
+    const url = new URL(resource)
+    const { username, password } = url
+    if (!username) return fetch(resource, init)
+    dispatch({ type: 'auth', payload: { username, password } })
+    url.username = ''
+    url.password = ''
+    const req = new Request(url.toString(), init)
+    return fetch(req)
+}
+
+let myfeed
 const getFeed = (uri, token) => {
     baseURI = uri
     const parser = new DOMParser()
-    fetch(uri)
+    fetchWithAuth(uri)
         .then(res => res.text())
         .then(text => parser.parseFromString(text, 'text/xml'))
         .then(doc => {
@@ -179,6 +205,7 @@ const getFeed = (uri, token) => {
                 dispatch({ type: 'entry', payload, token })
             } else if (tagName === 'feed') {
                 const payload = parse(doc.documentElement, feed)
+                myfeed = payload
                 payload.isEntry = false
                 dispatch({ type: 'feed', payload, token })
             } else
