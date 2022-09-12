@@ -1,19 +1,20 @@
 # Russian translations for com.github.johnfactotum.Foliate package.
-# Copyright (C) 2019 THE com.github.johnfactotum.Foliate'S COPYRIGHT HOLDER
+# Copyright (C) 2022 THE com.github.johnfactotum.Foliate'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
-# Schwonder Reismus <schw0reismus@protonmail.com>, 2019.
-# Artem Polishchuk <ego.cordatus@gmail.com>, 2019.
-# Artemii Sudakov <finziyr@yandex.ru>, 2020.
-# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2021.
+# Schwonder Reismus <schw0reismus@protonmail.com>, 2019,
+# Artem Polishchuk <ego.cordatus@gmail.com>, 2019,
+# Artemii Sudakov <finziyr@yandex.ru>, 2020,
+# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2021,
+# ViktorOn https://github.com/viktoron 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-13 00:21+0200\n"
-"PO-Revision-Date: 2021-06-12 12:10+0300\n"
-"Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
-"Language-Team: русский <gnome-cyr@lists.gnome.org>\n"
+"PO-Revision-Date: 2022-09-12 12:12+0300\n"
+"Last-Translator: ViktorOn https://github.com/viktoron\n"
+"Language-Team: Русский <gnome-cyr@lists.gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr ""
 #: src/main.js:209 src/window.js:1023 src/schemes.js:100
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:6
 msgid "Foliate"
-msgstr ""
+msgstr "Foliate"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "eBook Viewer"
@@ -39,7 +40,7 @@ msgstr "Читать электронные книги"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:13
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "Книга;Книги;EPUB;Читалка;"
+msgstr "Книга;Книги;EPUB;Просмотрщик;Читалка;"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:19
 #: src/ui/libraryWindow.ui:612 src/ui/mainMenu.ui:303
@@ -100,7 +101,7 @@ msgstr "Заметка"
 
 #: src/epubView.js:1121
 msgid "Failed to load remote file."
-msgstr "Не удалось загрузить удаленный файл."
+msgstr "Не удалось загрузить удалённый файл."
 
 #: src/epubView.js:1130
 msgid "File not found."
@@ -130,7 +131,7 @@ msgstr[2] "%d примечаний"
 #: src/export.js:50
 #, javascript-format
 msgid "Annotations for “%s” by %s"
-msgstr "Примечания к “%s” от %s"
+msgstr "Примечания к "%s" от %s"
 
 #: src/export.js:54
 msgid "Section: "
@@ -188,7 +189,7 @@ msgstr "Все файлы"
 
 #: src/export.js:170
 msgid "JSON Files"
-msgstr "JSON файлы"
+msgstr "JSON-файлы"
 
 #: src/export.js:173 src/ui/importWindow.ui:6
 msgid "Import Annotations"
@@ -208,7 +209,7 @@ msgid ""
 "indicate that the annotations do not belong to this book."
 msgstr ""
 "Идентификатор импортированного файла не совпадает с идентификатором книги. "
-"Это может указывать на то, что аннотации не относятся к этой книге."
+"Это может указывать на то, что примечания не относятся к этой книге."
 
 #: src/export.js:234 src/library.js:456 src/main.js:161 src/opds.js:229
 #: src/opds.js:376 src/opds.js:1174 src/utils.js:772 src/window.js:593
@@ -220,7 +221,7 @@ msgstr "Отменить"
 
 #: src/export.js:235
 msgid "Import Anyway"
-msgstr "Всё равно иммпортировать"
+msgstr "Всё равно импортировать"
 
 #: src/export.js:245 src/opds.js:1300 src/opds.js:1371 src/window.js:1059
 msgid "Error"
@@ -343,7 +344,7 @@ msgstr "Викисловарь (английский)"
 
 #: src/lookup.js:387
 msgid "Search on Wiktionary"
-msgstr "Смотреть на Викисловаре"
+msgstr "Поиск в Викисловаре"
 
 #: src/lookup.js:410
 msgid "Translation by Google Translate"
@@ -363,7 +364,7 @@ msgstr "Открыть"
 
 #: src/main.js:166
 msgid "OPDS Catalog URL:"
-msgstr "URL адрес OPDS каталога:"
+msgstr "URL-адрес каталога OPDS:"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
@@ -373,7 +374,8 @@ msgstr ""
 "Schwonder Reismus, 2019\n"
 "Artem Polishchuk, 2019\n"
 "Artemii Sudakov, 2020\n"
-"Alexandre Prokoudine, 2021"
+"Alexandre Prokoudine, 2021\n"
+"ViktorOn, 2022"
 
 #: src/main.js:210 data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "A simple and modern eBook viewer"
@@ -393,7 +395,7 @@ msgstr "Показать версию"
 
 #: src/main.js:247
 msgid "Show verbose debugging information"
-msgstr "Показать дополненную информацию отладки"
+msgstr "Показать подробную отладочную информацию"
 
 #: src/opds.js:91
 msgid "Download"
@@ -426,7 +428,7 @@ msgstr "Подписаться"
 
 #: src/opds.js:101
 msgid "More"
-msgstr ""
+msgstr "Больше"
 
 #: src/opds.js:125
 msgid "Protected by DRM"
@@ -446,15 +448,15 @@ msgstr "Обновить"
 
 #: src/opds.js:218 src/opds.js:230
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: src/opds.js:222
 msgid "Delete this item?"
-msgstr ""
+msgstr "Удалить этот элемент?"
 
 #: src/opds.js:224
 msgid "If you delete this item, it will be permanently lost."
-msgstr ""
+msgstr "Если вы удалите этот элемент, он будет навсегда потерян."
 
 #: src/opds.js:276
 msgid "An error occurred."
@@ -470,12 +472,12 @@ msgstr "Назад"
 
 #: src/opds.js:369
 msgid "What would you like to do with this file?"
-msgstr ""
+msgstr "Что бы вы хотите сделать с этим файлом?"
 
 #: src/opds.js:370
 #, fuzzy, javascript-format
 msgid "Format: %s"
-msgstr "Формат"
+msgstr "Формат: %s"
 
 #: src/opds.js:378 src/ui/bookEditDialog.ui:17 src/ui/catalogWindow.ui:17
 #: src/ui/themeWindow.ui:17
@@ -490,7 +492,7 @@ msgstr ", "
 
 #: src/opds.js:662
 msgid "Unable to load OPDS feed"
-msgstr "Не удается загрузить OPDS ленту"
+msgstr "Не удаётся загрузить ленту OPDS"
 
 #: src/opds.js:667 src/ui/libraryWindow.ui:69 src/ui/mainMenu.ui:631
 #: src/ui/menuBar.ui:18 src/ui/shortcutsWindow.ui:78
@@ -509,7 +511,7 @@ msgstr "Каталог OPDS"
 
 #: src/opds.js:1168 src/ui/catalogWindow.ui:53
 msgid "OPDS URL"
-msgstr "URL адрес OPDS"
+msgstr "URL-адрес OPDS"
 
 #: src/opds.js:1175
 msgid "Go"
@@ -574,7 +576,7 @@ msgstr "Amazon"
 
 #: src/properties.js:37
 msgid "Goodreads"
-msgstr ""
+msgstr "Goodreads"
 
 #: src/properties.js:42
 msgid "Google Books"
@@ -582,24 +584,24 @@ msgstr "Google Книги"
 
 #: src/properties.js:47
 msgid "LibraryThing"
-msgstr ""
+msgstr "LibraryThing"
 
 #: src/properties.js:52
 msgid "Open Library"
-msgstr ""
+msgstr "Open Library"
 
 #: src/properties.js:57
 msgid "WorldCat"
-msgstr ""
+msgstr "WorldCat"
 
 #: src/properties.js:370
 msgid "Series"
-msgstr ""
+msgstr "Серии"
 
 #: src/properties.js:375
 #, javascript-format
 msgid "#%s"
-msgstr ""
+msgstr "#%s"
 
 #: src/properties.js:402
 msgid "Collections"
@@ -630,9 +632,8 @@ msgid "Source"
 msgstr "Источник"
 
 #: src/properties.js:518
-#, fuzzy
 msgid "Contributors"
-msgstr "Непрерывный"
+msgstr "Авторы"
 
 #: src/properties.js:522
 msgid "Copyright"
@@ -702,7 +703,7 @@ msgstr "ru"
 #: src/utils.js:150
 #, javascript-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. Translators: here "BCE" is for "before common era"
 #. "%s" is usually already a fully formatted date string,
@@ -711,7 +712,7 @@ msgstr ""
 #: src/utils.js:178
 #, javascript-format
 msgid "%s BCE"
-msgstr ""
+msgstr "%s до н. э."
 
 #: src/utils.js:219
 #, javascript-format
@@ -745,7 +746,7 @@ msgstr "%s требует аутентификации"
 #: src/utils.js:768
 #, javascript-format
 msgid "The site says: “%s”"
-msgstr "Сообщение сайта: “%s”"
+msgstr "Сообщение сайта: "%s""
 
 #: src/utils.js:773
 msgid "Authenticate"
@@ -761,7 +762,7 @@ msgstr "Пароль"
 
 #: src/utils.js:794
 msgid "Remember my credentials"
-msgstr ""
+msgstr "Запомнить мои данные"
 
 #: src/window.js:126 src/window.js:838
 msgid "Leave fullscreen"
@@ -808,7 +809,7 @@ msgstr "Меню"
 #: src/window.js:1125
 #, javascript-format
 msgid "Image from “%s”"
-msgstr "Изображение с “%s”"
+msgstr "Изображение с "%s""
 
 #: src/window.js:1125
 msgid "Image"
@@ -837,7 +838,7 @@ msgstr "Редактировать"
 
 #: src/ui/bookEditDialog.ui:46
 msgid "File URL:"
-msgstr "URL адрес файла:"
+msgstr "URL-адрес файла:"
 
 #: src/ui/bookEditDialog.ui:62
 msgid "Browse…"
@@ -894,19 +895,19 @@ msgstr "Значений не найдено"
 
 #: src/ui/exportWindow.ui:11
 msgid "BibTeX"
-msgstr ""
+msgstr "BibTeX"
 
 #: src/ui/exportWindow.ui:15
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: src/ui/exportWindow.ui:19
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: src/ui/exportWindow.ui:23
 msgid "Markdown"
-msgstr "Разметка"
+msgstr "Markdown"
 
 #: src/ui/exportWindow.ui:27
 msgid "Plain Text"
@@ -927,7 +928,7 @@ msgstr "Выберите формат экспорта:"
 #: src/ui/exportWindow.ui:104
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate."
 msgstr ""
-"Выбирайте “JSON” если планируете импортировать примечания обратно в Foliate."
+"Выберите "JSON", если планируете импортировать примечания обратно в Foliate."
 
 #: src/ui/findBox.ui:16
 msgid "All chapters"
@@ -950,7 +951,7 @@ msgstr "Вид"
 #: src/ui/imageViewer.ui:31 src/ui/menuBar.ui:60 src/ui/preferenceWindow.ui:59
 #: src/ui/selectionPopover.ui:19 src/ui/shortcutsWindow.ui:340
 msgid "Copy"
-msgstr "Копировать"
+msgstr "Скопировать"
 
 #: src/ui/imageViewer.ui:44 src/ui/shortcutsWindow.ui:347
 msgid "Save as"
@@ -1061,7 +1062,7 @@ msgstr "Поиск"
 
 #: src/ui/libraryWindow.ui:243
 msgid "Toggle view"
-msgstr "Переключить режим просмотра"
+msgstr "Переключить вид"
 
 #: src/ui/libraryWindow.ui:378
 msgid "Stop"
@@ -1306,7 +1307,7 @@ msgstr "_Перейти"
 
 #: src/ui/menuBar.ui:182
 msgid "Go Back"
-msgstr "Вернуться назад"
+msgstr "Вернуться"
 
 #: src/ui/menuBar.ui:188
 msgid "Next Page"
@@ -1355,7 +1356,7 @@ msgstr "Глава"
 
 #: src/ui/navBar.ui:173
 msgid "CFI"
-msgstr ""
+msgstr "CFI"
 
 #: src/ui/navBar.ui:174
 msgid "EPUB Canonical Fragment Identifier"
@@ -1486,12 +1487,12 @@ msgstr "Переворачивать страницу по нажатию"
 #: src/ui/preferenceWindow.ui:220
 #: data/com.github.johnfactotum.Foliate.gschema.xml:98
 msgid "Left footer"
-msgstr "Левый футер"
+msgstr "Левый нижний колонтитул"
 
 #: src/ui/preferenceWindow.ui:254
 #: data/com.github.johnfactotum.Foliate.gschema.xml:103
 msgid "Right footer"
-msgstr "Правый футер"
+msgstr "Правый нижний колонтитул"
 
 #: src/ui/preferenceWindow.ui:288
 msgid "When a word is selected"
@@ -1546,7 +1547,7 @@ msgstr "При скачивании книг"
 
 #: src/ui/preferenceWindow.ui:563
 msgid "Save to default directory"
-msgstr "Сохранять в используемый по умолчанию каталог"
+msgstr "Сохранять в каталог по умолчанию"
 
 #: src/ui/preferenceWindow.ui:583
 msgid "Ask what to do"
@@ -1583,7 +1584,7 @@ msgstr "Искать в Википедии"
 
 #: src/ui/selectionPopover.ui:105
 msgid "Speak from Here"
-msgstr "Озвучивать отсюда"
+msgstr "Озвучить отсюда"
 
 #: src/ui/shortcutsWindow.ui:9
 msgid "Library Shortcuts"
@@ -1600,7 +1601,7 @@ msgstr "Закрыть текущее окно"
 
 #: src/ui/shortcutsWindow.ui:51
 msgid "List view"
-msgstr "Вид колонками"
+msgstr "Вид списком"
 
 #: src/ui/shortcutsWindow.ui:58
 msgid "Grid view"
@@ -1735,7 +1736,7 @@ msgid ""
 "the all lower case code.</small>"
 msgstr ""
 "<small>Переменная окружения <tt>$FOLIATE_TTS_LANG</tt> доступна для языка "
-"этой книги. Можете также использовать <tt>$FOLIATE_TTS_LANG_LOWER</tt> для "
+"этой книги. Можно использовать <tt>$FOLIATE_TTS_LANG_LOWER</tt> для "
 "кода языка в нижнем регистре.</small>"
 
 #: src/ui/ttsDialog.ui:156
@@ -1764,7 +1765,7 @@ msgstr "Википедия"
 
 #: src/schemes.js:38
 msgid "DOI"
-msgstr ""
+msgstr "DOI"
 
 #: src/schemes.js:39
 msgid "Digital Object Identifier"
@@ -1993,9 +1994,8 @@ msgid "Art director"
 msgstr "Арт-директор"
 
 #: src/schemes.js:235
-#, fuzzy
 msgid "Adapter"
-msgstr "Глава"
+msgstr "Адаптатор"
 
 #: src/schemes.js:236
 msgid "Author of afterword, colophon, etc."
@@ -2007,11 +2007,11 @@ msgstr "Аналитик"
 
 #: src/schemes.js:238
 msgid "Animator"
-msgstr ""
+msgstr "Аниматор"
 
 #: src/schemes.js:239
 msgid "Annotator"
-msgstr ""
+msgstr "Аннотатор"
 
 #: src/schemes.js:240
 #, fuzzy
@@ -2076,7 +2076,7 @@ msgstr "Автор диалогов"
 
 #: src/schemes.js:255
 msgid "Author of introduction, etc."
-msgstr "Автор предисловия и пр."
+msgstr "Автор предисловия и др."
 
 #: src/schemes.js:256
 msgid "Screenwriter"
@@ -2084,7 +2084,7 @@ msgstr "Сценарист"
 
 #: src/schemes.js:258
 msgid "Binding designer"
-msgstr ""
+msgstr "Дизайнер переплёта"
 
 #: src/schemes.js:259
 msgid "Bookjacket designer"
@@ -2092,11 +2092,11 @@ msgstr ""
 
 #: src/schemes.js:260
 msgid "Book designer"
-msgstr ""
+msgstr "Книжный дизайнер"
 
 #: src/schemes.js:261
 msgid "Book producer"
-msgstr ""
+msgstr "Книжный продюсер"
 
 #: src/schemes.js:262
 msgid "Blurb writer"
@@ -2152,7 +2152,7 @@ msgstr ""
 
 #: src/schemes.js:275
 msgid "Commentator"
-msgstr ""
+msgstr "Комментатор"
 
 #: src/schemes.js:276
 msgid "Composer"
@@ -2382,9 +2382,8 @@ msgid "Editor of compilation"
 msgstr ""
 
 #: src/schemes.js:332
-#, fuzzy
 msgid "Editor of moving image work"
-msgstr "Событие для открытия программы просмотра изображений"
+msgstr "Редактор подвижных изображений"
 
 #: src/schemes.js:333
 msgid "Editor"
@@ -2392,7 +2391,7 @@ msgstr "Редактор"
 
 #: src/schemes.js:334
 msgid "Engraver"
-msgstr ""
+msgstr "Гравировщик"
 
 #: src/schemes.js:335
 msgid "Electrician"
@@ -2506,7 +2505,7 @@ msgstr ""
 
 #: src/schemes.js:362
 msgid "Instrumentalist"
-msgstr ""
+msgstr "Инструменталист"
 
 #: src/schemes.js:363
 #, fuzzy
@@ -2514,9 +2513,8 @@ msgid "Interviewee"
 msgstr "Интерфейс"
 
 #: src/schemes.js:364
-#, fuzzy
 msgid "Interviewer"
-msgstr "Просмоторщик изображений:"
+msgstr "Интервьюер"
 
 #: src/schemes.js:365
 msgid "Judge"
@@ -2584,7 +2582,7 @@ msgstr ""
 
 #: src/schemes.js:381
 msgid "Licensor"
-msgstr ""
+msgstr "Лицензиар"
 
 #: src/schemes.js:382
 msgid "Lithographer"
@@ -2616,7 +2614,7 @@ msgstr ""
 
 #: src/schemes.js:389
 msgid "Moderator"
-msgstr ""
+msgstr "Модератор"
 
 #: src/schemes.js:390
 msgid "Monitor"
@@ -2628,7 +2626,7 @@ msgstr ""
 
 #: src/schemes.js:392
 msgid "Markup editor"
-msgstr ""
+msgstr "Редактор разметки"
 
 #: src/schemes.js:393
 msgid "Musical director"
@@ -2689,11 +2687,11 @@ msgstr ""
 
 #: src/schemes.js:409
 msgid "Proofreader"
-msgstr ""
+msgstr "Корректор"
 
 #: src/schemes.js:410
 msgid "Photographer"
-msgstr ""
+msgstr "Фотограф"
 
 #: src/schemes.js:411
 msgid "Platemaker"
@@ -2737,11 +2735,11 @@ msgstr ""
 
 #: src/schemes.js:421
 msgid "Performer"
-msgstr ""
+msgstr "Исполнитель"
 
 #: src/schemes.js:422
 msgid "Programmer"
-msgstr ""
+msgstr "Программист"
 
 #: src/schemes.js:423
 msgid "Printmaker"
@@ -2765,11 +2763,11 @@ msgstr ""
 
 #: src/schemes.js:428
 msgid "Printer"
-msgstr ""
+msgstr "Типограф"
 
 #: src/schemes.js:429
 msgid "Provider"
-msgstr ""
+msgstr "Поставщик"
 
 #: src/schemes.js:430
 msgid "Patent applicant"
@@ -2894,7 +2892,7 @@ msgstr ""
 
 #: src/schemes.js:460
 msgid "Sound designer"
-msgstr ""
+msgstr "Звукорежиссер"
 
 #: src/schemes.js:461
 msgid "Secretary"
@@ -2926,7 +2924,7 @@ msgstr "Докладчик"
 
 #: src/schemes.js:468
 msgid "Sponsor"
-msgstr ""
+msgstr "Спонсор"
 
 #: src/schemes.js:469
 msgid "Second party"
@@ -2942,11 +2940,11 @@ msgstr ""
 
 #: src/schemes.js:472
 msgid "Setting"
-msgstr ""
+msgstr "Настройка"
 
 #: src/schemes.js:473
 msgid "Storyteller"
-msgstr ""
+msgstr "Рассказчик"
 
 #: src/schemes.js:474
 msgid "Stage manager"
@@ -3042,11 +3040,11 @@ msgstr "Свидетель"
 
 #: src/schemes.js:497
 msgid "Writer of preface"
-msgstr ""
+msgstr "Автор предисловия"
 
 #: src/schemes.js:498
 msgid "Writer of supplementary textual content"
-msgstr ""
+msgstr "Автор дополнительного текстового контента"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
 msgid "Foliate is a simple and modern GTK eBook viewer."
@@ -3059,7 +3057,7 @@ msgstr "Особенности:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
 msgid "Two-page view and scrolled view"
-msgstr "Просмотр как в виде двух страниц, так и с помощью прокрутки"
+msgstr "Двухстраничный просмотр и просмотр с помощью прокрутки"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
 msgid "Customize font and line-spacing"
@@ -3079,7 +3077,7 @@ msgstr "Закладки и примечания"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
 msgid "Quick dictionary lookup"
-msgstr "Быстрый поиск значения в словаре"
+msgstr "Быстрый поиск в словаре"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:22
 msgid "John Factotum"
@@ -3095,7 +3093,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:59
 msgid "Fixed automatic layout"
-msgstr ""
+msgstr "Исправлена автоматическая раскладка"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:79
@@ -3168,24 +3166,20 @@ msgid "Added Basque, Korean, and Norwegian translations"
 msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:91
-#, fuzzy
 msgid "Fixed unable to open some EPUB files"
-msgstr ""
-"Исправлена невозможность открытия книг у которых имя содержит \"#\" или \"?\""
+msgstr "Исправлена невозможность открытия файлов EPUB"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:96
-#, fuzzy
 msgid "Fixed unable to open Mobipocket files"
-msgstr ""
-"Исправлена невозможность открытия книг у которых имя содержит \"#\" или \"?\""
+msgstr "Исправлена невозможность открытия файлов Mobipocket"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:103
 msgid "Improved metadata display"
-msgstr ""
+msgstr "Улучшено отображение метаданных"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:104
 msgid "Improved FictionBook rendering"
-msgstr ""
+msgstr "Улучшен рендеринг FictionBook"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:105
 msgid "Improved UI for acquiring books from OPDS"
@@ -3199,7 +3193,7 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:107
 msgid "Fixed missing window icon"
-msgstr ""
+msgstr "Исправлено отсутствие иконки окна"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:108
 msgid "Fixed TTS environment variables not set when using Flatpak"
@@ -3270,7 +3264,7 @@ msgstr "Открытие книги из библиотеки теперь за�
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:131
 msgid "Language and publication dates in metadata are now parsed and formatted"
-msgstr "Язык и дата публикации теперь парсятся и форматируются"
+msgstr "Язык и дата публикации в матаданных теперь парсятся и форматируются"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:132
 msgid "Export annotations from the library view"
@@ -3311,11 +3305,11 @@ msgstr "Новые поддерживаемые форматы:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:156
 msgid "FictionBook (.fb2, .fb2.zip)"
-msgstr ""
+msgstr "FictionBook (.fb2, .fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:157
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
-msgstr "Архив comic book (.cbr, .cbz, .cbt, .cb7)"
+msgstr "Архив комиксов (.cbr, .cbz, .cbt, .cb7)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:158
 msgid "Plain text (.txt)"
@@ -3339,7 +3333,7 @@ msgid ""
 "wide"
 msgstr ""
 "\"Автоматическое\" расположение теперь будет отображать четыре столбца при "
-"широкой ширине страницы"
+"большой ширине страницы"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:166
 msgid "Image viewer:"
@@ -3350,15 +3344,15 @@ msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
 msgstr ""
-"Улучшенный просмотрщик изображений с новыми сочетаниями клавиш и "
-"возможностью поворачивать и инвертировать изображения"
+"Улучшен просмотрщик изображений с новыми сочетаниями клавиш и возможностью "
+"поворачивать и инвертировать изображения"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:169
 msgid ""
 "Option to disable image viewer, or to open images on double, middle, or "
 "right click"
 msgstr ""
-"Возможность для отключения просмотрщика изображений или открытия изображения "
+"Возможность отключиения просмотрщика изображений или открытия изображения "
 "по двойному, среднему или правому щелчку"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:171
@@ -3371,8 +3365,7 @@ msgstr "Улучшенный пользовательский интерфейс
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:174
 msgid "Ability to set text-to-speech voice based on book language"
-msgstr ""
-"Возможность установить голос для озвучки текста основываясь на языке книги"
+msgstr "Возможность установить голос озвучки текста, на основе языка книги"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:178
 msgid "Import annotations from JSON"
