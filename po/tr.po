@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-13 00:21+0200\n"
-"PO-Revision-Date: 2022-09-21 16:52+0300\n"
+"PO-Revision-Date: 2022-10-22 01:39+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -249,7 +249,7 @@ msgstr "Bu dosyayı açmak için konum seç."
 #, javascript-format
 msgid "Are you sure you want to remove this book?"
 msgid_plural "Are you sure you want to remove the %d selected books?"
-msgstr[0] "Bu %d kitabı kaldırmak istediğine emin misiniz?"
+msgstr[0] "Seçilen %d kitabı kaldırmak istediğinizden emin misiniz?"
 
 #: src/library.js:451
 msgid "Reading progress, annotations, and bookmarks will be permanently lost."
@@ -270,7 +270,7 @@ msgstr[0] "%d seçildi"
 #: src/library.js:698
 msgid "Failed to add book"
 msgid_plural "Failed to add books"
-msgstr[0] "Kitap eklenemedi"
+msgstr[0] "Kitap(lar) eklenemedi"
 
 #: src/library.js:700
 msgid "Could not add the following file:"
@@ -427,7 +427,7 @@ msgstr "Güncelle"
 
 #: src/opds.js:218 src/opds.js:230
 msgid "Delete"
-msgstr "sil"
+msgstr "Sil"
 
 #: src/opds.js:222
 msgid "Delete this item?"
@@ -1009,7 +1009,7 @@ msgstr "Başlangıç sayfasına git"
 
 #: src/ui/libraryWindow.ui:83
 msgid "Add this feed to catalogs"
-msgstr "Bu meslemeyi kataloğa ekle"
+msgstr "Bu beslemeyi kataloğa ekle"
 
 #: src/ui/libraryWindow.ui:104
 msgid "Location…"
@@ -2227,15 +2227,15 @@ msgstr ""
 
 #: src/schemes.js:299
 msgid "Consultant"
-msgstr ""
+msgstr "Danışman"
 
 #: src/schemes.js:300
 msgid "Consultant to a project"
-msgstr ""
+msgstr "Bir proje danışmanı"
 
 #: src/schemes.js:301
 msgid "Costume designer"
-msgstr ""
+msgstr "Kostüm tasarımcısı"
 
 #: src/schemes.js:302
 #, fuzzy
@@ -2331,15 +2331,15 @@ msgstr ""
 
 #: src/schemes.js:323
 msgid "Director"
-msgstr ""
+msgstr "Yönetmen"
 
 #: src/schemes.js:324
 msgid "Designer"
-msgstr ""
+msgstr "Tasarımcı"
 
 #: src/schemes.js:325
 msgid "Distributor"
-msgstr ""
+msgstr "Dağıtımcı"
 
 #: src/schemes.js:326
 msgid "Data contributor"
@@ -2351,7 +2351,7 @@ msgstr ""
 
 #: src/schemes.js:328
 msgid "Data manager"
-msgstr ""
+msgstr "Veri yöneticisi"
 
 #: src/schemes.js:329
 msgid "Dedicator"
@@ -2387,7 +2387,7 @@ msgstr ""
 
 #: src/schemes.js:337
 msgid "Engineer"
-msgstr ""
+msgstr "Mühendis"
 
 #: src/schemes.js:338
 msgid "Enacting jurisdiction"
@@ -2411,7 +2411,7 @@ msgstr ""
 
 #: src/schemes.js:343
 msgid "Film distributor"
-msgstr ""
+msgstr "Film dağıtıcısı"
 
 #: src/schemes.js:344
 msgid "Field director"
@@ -2419,15 +2419,15 @@ msgstr ""
 
 #: src/schemes.js:345
 msgid "Film editor"
-msgstr ""
+msgstr "Film editörü"
 
 #: src/schemes.js:346
 msgid "Film director"
-msgstr ""
+msgstr "Film yönetmeni"
 
 #: src/schemes.js:347
 msgid "Filmmaker"
-msgstr ""
+msgstr "Film yapımcısı"
 
 #: src/schemes.js:348
 msgid "Former owner"
@@ -2439,7 +2439,7 @@ msgstr ""
 
 #: src/schemes.js:350
 msgid "Funder"
-msgstr ""
+msgstr "Fonlayan"
 
 #: src/schemes.js:351
 msgid "First party"
@@ -2643,7 +2643,7 @@ msgstr ""
 
 #: src/schemes.js:400
 msgid "Organizer"
-msgstr ""
+msgstr "Organizatör"
 
 #: src/schemes.js:401
 msgid "Onscreen presenter"
@@ -2651,11 +2651,11 @@ msgstr ""
 
 #: src/schemes.js:403
 msgid "Owner"
-msgstr ""
+msgstr "Sahibi"
 
 #: src/schemes.js:404
 msgid "Panelist"
-msgstr ""
+msgstr "Panel katılımcısı"
 
 #: src/schemes.js:405
 msgid "Patron"
@@ -2751,11 +2751,11 @@ msgstr ""
 
 #: src/schemes.js:429
 msgid "Provider"
-msgstr ""
+msgstr "Sağlayıcı"
 
 #: src/schemes.js:430
 msgid "Patent applicant"
-msgstr ""
+msgstr "Patent başvurusu sahibi"
 
 #: src/schemes.js:431
 #, fuzzy
@@ -2801,7 +2801,7 @@ msgstr ""
 
 #: src/schemes.js:441
 msgid "Redaktor"
-msgstr ""
+msgstr "Redaktör"
 
 #: src/schemes.js:442
 msgid "Renderer"
@@ -2867,7 +2867,7 @@ msgstr ""
 
 #: src/schemes.js:457
 msgid "Scenarist"
-msgstr ""
+msgstr "Senarist"
 
 #: src/schemes.js:458
 msgid "Sculptor"
@@ -2879,11 +2879,11 @@ msgstr "Katip"
 
 #: src/schemes.js:460
 msgid "Sound designer"
-msgstr ""
+msgstr "Ses tasarımcısı"
 
 #: src/schemes.js:461
 msgid "Secretary"
-msgstr ""
+msgstr "Sekreter"
 
 #: src/schemes.js:462
 msgid "Stage director"
@@ -2891,7 +2891,7 @@ msgstr ""
 
 #: src/schemes.js:463
 msgid "Signer"
-msgstr ""
+msgstr "İmzalayan"
 
 #: src/schemes.js:464
 msgid "Supporting host"
@@ -2899,11 +2899,11 @@ msgstr ""
 
 #: src/schemes.js:465
 msgid "Seller"
-msgstr ""
+msgstr "Satıcı"
 
 #: src/schemes.js:466
 msgid "Singer"
-msgstr ""
+msgstr "Şarkıcı"
 
 #: src/schemes.js:467
 msgid "Speaker"
@@ -2955,15 +2955,15 @@ msgstr "Öğretmen"
 
 #: src/schemes.js:479
 msgid "Thesis advisor"
-msgstr ""
+msgstr "Tez daşınmanı"
 
 #: src/schemes.js:480
 msgid "Television director"
-msgstr ""
+msgstr "Televizyon yönetmeni"
 
 #: src/schemes.js:481
 msgid "Television producer"
-msgstr ""
+msgstr "Televizyon yapımcısı"
 
 #: src/schemes.js:482
 msgid "Transcriber"
@@ -2987,7 +2987,7 @@ msgstr ""
 
 #: src/schemes.js:487
 msgid "Voice actor"
-msgstr ""
+msgstr "Ses sanatcısı"
 
 #: src/schemes.js:488
 msgid "Videographer"
@@ -3072,14 +3072,16 @@ msgstr "John Factotum"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:49
 msgid "Fixed a performance issue with zipped files (including EPUB files)"
 msgstr ""
+"Sıkıştırılmış dosyalarla (EPUB dosyaları dahil) ilgili performans sorunu "
+"düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:54
 msgid "Fix UI when running with libhandy 1.x"
-msgstr ""
+msgstr "libhandy 1.x ile çalışırken kullanıcı arayüzü düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:59
 msgid "Fixed automatic layout"
-msgstr ""
+msgstr "Otomatik yerleşim düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:79
@@ -3093,337 +3095,330 @@ msgstr ""
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:350
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:385
 msgid "Changes:"
-msgstr ""
+msgstr "Değişiklikler:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added support for opening HTML files"
-msgstr ""
+msgstr "HTML dosyalarını açma desteği eklendi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
 msgid "Consistent inner and outer margins"
-msgstr ""
+msgstr "Tutarlı iç ve dış kenar boşlukları"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
 msgid "The automatic layout no longer supports 4 columns"
-msgstr ""
+msgstr "Otomatik yerleşim artık 4 sütunu desteklemiyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed long words overflowing"
-msgstr ""
+msgstr "Taşan uzun sözcükler düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:70
 msgid "Fixed custom themes not saved across sessions"
-msgstr ""
+msgstr "Özel temaların oturumlar arasında kaydedilmemesi düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:71
 msgid "Fixed shortcuts for key pads"
-msgstr ""
+msgstr "Tuş takımları için kısayollar düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:72
 msgid "Fixed opening non-UTF-8 zipped FB2 files"
-msgstr ""
+msgstr "UTF-8 olmayan sıkıştırılmış FB2 dosyalarının açılması düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:73
 msgid "Fixed books not opening on GNOME 40"
-msgstr ""
+msgstr "GNOME 40ʼta kitapların açılmaması düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:81
 msgid "Improved support for touch screens"
-msgstr ""
+msgstr "Dokunmatik ekranlar için iyileştirilmiş destek"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:82
 msgid "OPDS credentials can now be remembered"
-msgstr ""
+msgstr "OPDS kimlik bilgileri artık hatırlanabilir"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:83
 msgid "Various fixes for GNOME 3.38"
-msgstr ""
+msgstr "GNOME 3.38 için çeşitli düzeltmeler"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:84
 msgid "Fixed Wiktionary internal links"
-msgstr ""
+msgstr "Vikisözlük iç bağlantıları düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:85
 msgid "Added Basque, Korean, and Norwegian translations"
-msgstr ""
+msgstr "Baskça, Korece ve Norveççe çeviriler eklendi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:91
 msgid "Fixed unable to open some EPUB files"
-msgstr ""
+msgstr "Bazı EPUB dosyalarının açılamaması düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:96
 msgid "Fixed unable to open Mobipocket files"
-msgstr ""
+msgstr "Mobipocket dosyalarının açılamaması düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:103
 msgid "Improved metadata display"
-msgstr ""
+msgstr "İyileştirilmiş üst veri görünümü"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:104
 msgid "Improved FictionBook rendering"
-msgstr ""
+msgstr "İyileştirilmiş FictionBook işleme"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:105
 msgid "Improved UI for acquiring books from OPDS"
-msgstr ""
+msgstr "OPDSʼden kitap almak arayüzü iyileştirildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:106
 msgid "Fixed unique identifier extraction for EPUB files"
-msgstr ""
+msgstr "EPUB dosyaları için benzersiz tanımlayıcı çıkarma düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:107
 msgid "Fixed missing window icon"
-msgstr ""
+msgstr "Eksik pencere simgesi düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:108
 msgid "Fixed TTS environment variables not set when using Flatpak"
 msgstr ""
+"Flatpak kullanılırken sabit TTS ortam değişkenleri ayarlanmadı hatası "
+"düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:109
 msgid "Fixed eSpeak NG voice not selected when testing TTS configuration"
 msgstr ""
+"TTS yapılandırması test edilirken eSpeak NG sesinin seçilmemesi düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:110
 msgid ""
 "Fixed wrong “__ibooks_internal_theme” attribute when “Invert” is enabled"
 msgstr ""
+"“Ters Çevir” etkinleştirildiğinde yanlış “__ibooks_internal_theme” "
+"özniteliği düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:116
-#, fuzzy
-#| msgid "OPDS Catalog"
 msgid "OPDS catalogs:"
-msgstr "OPDS Katalog"
+msgstr "OPDS Katalogları:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:118
 msgid "Catalogs are now opened in the main library window"
-msgstr ""
+msgstr "Kataloglar artık ana kitaplık penceresinde açılıyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:119
-#, fuzzy
-#| msgid "Remove current location"
 msgid "View current location"
-msgstr "Geçerli konumu kaldır"
+msgstr "Geçerli konumu görüntüle"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:120
-#, fuzzy
-#| msgid "Go to start page"
 msgid "Go to catalog start page"
-msgstr "Başlangıç sayfasına git"
+msgstr "Katalog başlangıç sayfasına git"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:121
-#, fuzzy
-#| msgid "Add catalog"
 msgid "Reload catalog"
-msgstr "Katalog ekle"
+msgstr "Katalogu yeniden yükle"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:122
-#, fuzzy
-#| msgid "Add this feed to catalogs"
 msgid "Add current feed to catalogs"
-msgstr "Bu meslemeyi kataloğa ekle"
+msgstr "Geçerli beslemeyi kataloğa ekle"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:123
-#, fuzzy
-#| msgid "Authentication Required"
 msgid "HTTP authentication support"
-msgstr "Kimlik Doğrulaması Gerekli"
+msgstr "HTTP kimlik doğrulama desteği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:125
 msgid "Other changes:"
-msgstr ""
+msgstr "Diğer değişiklikler:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:127
 msgid ""
 "Fixed unique identifier extraction for FictionBook (.fb2, .fb2.zip) files"
 msgstr ""
+"FictionBook (.fb2, .fb2.zip) dosyaları için benzersiz tanımlayıcı çıkarma "
+"düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:128
 msgid "Fixed newlines being ignored when copying text"
-msgstr ""
+msgstr "Metin kopyalanırken yeni satırların yok sayılması düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:129
 msgid "“Turn page on tap” is now disabled in non-paginated layouts"
 msgstr ""
+"Sayfalandırılmamış yerleşimlerde \"Dokununca sayfayı değiştir\" artık devre "
+"dışı bırakıldı"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:130
 msgid "Opening a book from the library view now closes the library window"
-msgstr ""
+msgstr "Kitaplık görünümünden kitap açmak artık kitaplık penceresini kapatıyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:131
 msgid "Language and publication dates in metadata are now parsed and formatted"
 msgstr ""
+"Meta verilerdeki dil ve yayın tarihleri artık ayrıştırılıyor ve "
+"biçimlendiriliyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:132
 msgid "Export annotations from the library view"
-msgstr ""
+msgstr "Notları kitaplık görünümünden dışa aktarma"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:140
 msgid "Fixed blurry book covers on HiDPI"
-msgstr ""
+msgstr "Yüksek çözünürlükte bulanık kitap kapakları düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:141
 msgid "Fixed OPDS links to Standard Ebooks and Project Gutenberg"
-msgstr ""
+msgstr "Standart Ebooks ve Project Gutenberg OPDS bağlantıları düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:142
 msgid "Fixed wrong view icon on startup"
-msgstr ""
+msgstr "Başlangıçta yanlış görünüm simgesi düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:148
-#, fuzzy
-#| msgid "Library"
 msgid "Library:"
-msgstr "Kitaplık"
+msgstr "Kitaplık:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:150
 msgid "A library view showing recent books and reading progress"
-msgstr ""
+msgstr "Son kitapları ve okuma ilerlemesini gösteren kitaplık görünümü"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:151
 msgid "Search books by metadata"
-msgstr ""
+msgstr "Kitapları üst verilere göre ara"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:152
 msgid "E-book discovery with OPDS"
-msgstr ""
+msgstr "OPDS ile e-kitap keşfi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:154
-#, fuzzy
-#| msgid "Choose export format:"
 msgid "New supported formats:"
-msgstr "Dışa aktarım biçimi:"
+msgstr "Yeni desteklenen biçimler:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:156
 msgid "FictionBook (.fb2, .fb2.zip)"
-msgstr ""
+msgstr "FictionBook (.fb2, .fb2.zip)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:157
 msgid "Comic book archive (.cbr, .cbz, .cbt, .cb7)"
-msgstr ""
+msgstr "Çizgi roman arşiv (.cbr, .cbz, .cbt, .cb7)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:158
-#, fuzzy
-#| msgid "Plain Text"
 msgid "Plain text (.txt)"
-msgstr "Düz Metin"
+msgstr "Düz metin (.txt)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:159
 msgid "Unpacked EPUB files"
-msgstr ""
+msgstr "Paketlenmemiş EPUB dosyaları"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:161
-#, fuzzy
-#| msgid "Layout"
 msgid "Layout:"
-msgstr "Yerleşim"
+msgstr "Yerleşim:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:163
-#, fuzzy
-#| msgid "Maximum page width"
 msgid "Option to set maximum page width"
-msgstr "Azami sayfa genişliği"
+msgstr "Azami sayfa genişliğini ayarlama seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:164
 msgid ""
 "The \"Automatic\" layout will now show four columns when the page width is "
 "wide"
 msgstr ""
+"\"Otomatik\" düzen, sayfa genişliği geniş olduğunda artık dört sütun "
+"gösteriyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:166
-#, fuzzy
-#| msgid "Interviewer"
 msgid "Image viewer:"
-msgstr "Söyleşi yapan"
+msgstr "Resim görüntüleyici:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:168
 msgid ""
 "Improved image viewer, with new shortcuts and the ability to rotate and "
 "invert images"
 msgstr ""
+"Yeni kısayollar ve görüntüleri döndürme ve ters çevirme özelliğiyle "
+"iyileştirilmiş resim görüntüleyici"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:169
 msgid ""
 "Option to disable image viewer, or to open images on double, middle, or "
 "right click"
 msgstr ""
+"Resim görüntüleyiciyi devre dışı bırakma ya da resimleri çift, orta veya sağ "
+"tıklama ile açma seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:171
-#, fuzzy
-#| msgid "Text-to-speech"
 msgid "Text-to-speech:"
-msgstr "Metinden sese"
+msgstr "Metinden sese:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:173
 msgid "Improved text-to-speech configuration UI"
-msgstr ""
+msgstr "Metinden sese yapılalandırma arayüzü iyileştirildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:174
 msgid "Ability to set text-to-speech voice based on book language"
-msgstr ""
+msgstr "Kitap diline göre metinden sese ses ayarı yapabilme"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:178
-#, fuzzy
-#| msgid "Import Annotations"
 msgid "Import annotations from JSON"
-msgstr "Notları İçe Aktar"
+msgstr "JSONʼdan notları içe aktar"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:179
-#, fuzzy
-#| msgid "Search annotations"
 msgid "Search in annotations"
-msgstr "Not ara"
+msgstr "Notlarda ara"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:180
 msgid "Annotations are now sorted in the same order as they appear in the book"
-msgstr ""
+msgstr "Notlar artık kitapta göründükleri sırayla sıralanıyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:182
 msgid "Security:"
-msgstr ""
+msgstr "Güvenlik:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:184
 msgid ""
 "\"Allow Unsafe Content\" now only enables JavaScript; external content will "
 "no longer be loaded"
 msgstr ""
+"\"Güvenli Olmayan İçeriğe İzin Ver\" artık yalnızca JavaScriptʼi "
+"etkinleştiriyor; harici içerik artık yüklenmeyecek"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:185
 msgid "WebKit processes are now sandboxed"
-msgstr ""
+msgstr "WebKit süreçleri artık korumalı alana alındı"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:187
 msgid "Other featues and fixes:"
-msgstr ""
+msgstr "Diğer özellikler ve düzeltmeler:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:189
 msgid "Improved support for vertical and right-to-left books"
-msgstr ""
+msgstr "Dikey ve sağdan sola kitap desteği iyileştirildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:190
 msgid "Support for StarDict dictionaries"
-msgstr ""
+msgstr "StarDict sözlükleri desteği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:191
 msgid "Fixed current location not preserved when resizing"
 msgstr ""
+"Yeniden boyutlandırma sırasında geçerli konum korunmuyor hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:192
 msgid "Fixed auto-hiding header bar under some themes"
-msgstr ""
+msgstr "Bazı temalarda başlık çubuğunu otomatik gizleme düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:193
 msgid "Command-line options for showing version and adding books to library"
 msgstr ""
+"Sürümü göstermek ve kitaplığa kitap eklemek için komut satırı seçenekleri"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:194
 msgid "Option to clear or disable cache"
-msgstr ""
+msgstr "Önbelleği temizleme veya devre dışı bırakma seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:195
 msgid ""
 "When an HTML page contains invalid self-closing anchor tags, it is now "
 "parsed as XHTML"
 msgstr ""
+"HTML sayfası geçersiz kendi kendine kapanan bağlantı etiketleri içerdiğinde, "
+"artık XHTML olarak ayrıştırılıyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:201
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:217
@@ -3431,456 +3426,444 @@ msgstr ""
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:362
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:402
 msgid "Fixes:"
-msgstr ""
+msgstr "Düzeltmeler:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:203
 msgid "Fixed wrong version number"
-msgstr ""
+msgstr "Hatalı sürüm numarası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:204
 msgid ""
 "Fixed dictionary, translation, and Wikipedia not working in the Snap package"
-msgstr ""
+msgstr "Szlük, çeviri ve Wikipedia Snap paketinde çalışmıyor hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:210
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:371
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:394
 msgid "New features:"
-msgstr ""
+msgstr "Yeni özellikler:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:212
 msgid "New and improved icon"
-msgstr ""
+msgstr "Yeni ve iyileştirilmiş simge"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:213
-#, fuzzy
-#| msgid "Turn page on tap"
 msgid "Option to disable turn page on tap"
-msgstr "Dokununca sayfayı değiştir"
+msgstr "Dokununca sayfayı değiştirmeyi devre dışı bırakma seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:214
 msgid "A menu on the welcome screen for opening recent files"
-msgstr ""
+msgstr "Son dosyaları açmak için karşılama ekranına menü eklendi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:215
 msgid "Restored shortcuts for showing ToC, annotations, and bookmarks"
-msgstr ""
+msgstr "ToC, notlar ve yer imlerini gösterme kısayolları düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:219
 msgid "Fixed application not translated"
-msgstr ""
+msgstr "Uygulama çevrilmemiş hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:225
-#, fuzzy
-#| msgid "Interface"
 msgid "Interface:"
-msgstr "Arayüz"
+msgstr "Arayüz:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:227
 msgid "A redesigned interface that works better for smaller screens"
-msgstr ""
+msgstr "Daha küçük ekranlarda daha iyi çalışan yeniden tasarlanmış arayüz"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:228
 msgid "Improved fullscreen mode with an overlaid headerbar"
-msgstr ""
+msgstr "Üst üste bindirilmiş başlık çubuklarıyla tam ekran kipi iyileştirildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:229
 msgid ""
 "The headerbar and the progress bar now auto-hide, for a distraction-free "
 "reading experience"
 msgstr ""
+"Başlık çubuğu ve ilerleme çubuğu, dikkat dağıtıcı olmayan bir okuma deneyimi "
+"sağlamak için artık otomatik olarak gizleniyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:230
 msgid ""
 "Various location information, as well as a clock, can now be displayed in "
 "the footer"
 msgstr ""
+"Çeşitli konum bilgilerinin yanı sıra bir saat artık altbilgide "
+"görüntülenebilir"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:231
 msgid ""
 "A new location popover (Ctrl + L) that shows reading time estimates and "
 "allows skipping to locations"
 msgstr ""
+"Okuma süresi tahminlerini gösteren ve konumlara atlamaya izin veren yeni "
+"konum açılır penceresi (Ctrl + L)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:232
-#, fuzzy
-#| msgid ""
-#| "If true, you can go to the previous or next page by tapping on the left "
-#| "or right part of the view; tap on the middle to toggle header bar and "
-#| "progress bar"
 msgid ""
 "E-reader style navigation: go to the previous or next page by tapping on the "
 "left or right part of the view; tap on the middle to toggle header bar and "
 "progress bar"
 msgstr ""
-"Doğruysa, görünümün sol veya sağ kısmına dokunarak önceki veya sonraki "
-"sayfaya gidebilirsiniz; başlık çubuğunu ve ilerleme çubuğunu değiştirmek "
+"E-okuyucu tarzı gezinme: görünümün sol veya sağ kısmına dokunarak önceki "
+"veya sonraki sayfaya gidin; başlık çubuğunu ve ilerleme çubuğunu değiştirmek "
 "için ortaya dokunun"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:233
 msgid "Annotations, bookmarks, and find results now show chapter titles"
 msgstr ""
+"Notlar, yer imleri ve arama sonuçları artık bölüm başlıklarını gösteriyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:234
 msgid "When looking up words in dictionaries, the query can now be edited"
-msgstr ""
+msgstr "Sözlüklerde kelimeleri ararken, sorgu artık düzenlenebilir"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:235
 msgid "New shortcut for viewing metadata (Ctrl + I) and preferences (Ctrl + ,)"
 msgstr ""
+"Üst verileri (Ctrl + I) ve tercihleri (Ctrl + ,) görüntülemek için yeni "
+"kısayol"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:236
 msgid ""
 "A new traditional menubar, which may be displayed depending on the desktop "
 "environment"
 msgstr ""
+"Masaüstü ortamına bağlı olarak görüntülenebilen yeni geleneksel menü çubuğu"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:237
-#, fuzzy
-#| msgid "Use traditional titlebar (experimental)"
 msgid ""
 "Option to use a traditional titlebar and menubar instead of a headerbar "
 "(experimental)"
-msgstr "Geleneksel başlık çubuğu kullan (deneysel)"
+msgstr ""
+"Başlık çubuğu yerine geleneksel başlık çubuğu ve menü çubuğu kullanma "
+"seçeneği (deneysel)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:239
-#, fuzzy
-#| msgid "Reading"
 msgid "Reading:"
-msgstr "Okuma"
+msgstr "Okuma:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:241
 msgid "Continuous scrolling layout"
-msgstr ""
+msgstr "Sürekli kaydırma yerleşimi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:242
 msgid ""
 "Option to show decorative shadows that mimic the appearance of a real book"
 msgstr ""
+"Gerçek bir kitabın görünümünü taklit eden dekoratif gölgeler gösterme "
+"seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:243
 msgid "Ability to zoom in and zoom out"
-msgstr ""
+msgstr "Yakınlaştırma ve uzaklaştırma yeteneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:244
 msgid "Improved image viewer with \"save as\" option"
-msgstr ""
+msgstr "\"Farklı kaydet\" seçeneği ile geliştirilmiş resim görüntüleyici"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:245
 msgid "Open copies of a book in new windows (Ctrl + N)"
-msgstr ""
+msgstr "Kitabın kopyalarını yeni pencerelerde açma (Ctrl + N)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:246
 msgid "Reload book (Ctrl + R)"
-msgstr ""
+msgstr "Kitabı yeniden yükle (Ctrl + R)"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:247
 msgid "New built-in themes: Gray, Solarized, Gruvbox, Nord"
-msgstr ""
+msgstr "Yeni yerleşik temalar: Gray, Solarized, Gruvbox, Nord"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:249
 msgid "Text selection:"
-msgstr ""
+msgstr "Metin seçimi:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:251
 msgid "Ability to select text across pages"
-msgstr ""
+msgstr "Sayfalarda metin seçme yeteneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:252
-#, fuzzy
-#| msgid "Find in book"
 msgid "Find selected text in book"
-msgstr "Kitapta bul"
+msgstr "Seçili metni kitapta bul"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:253
 msgid "Speak selected text or from the selected locatio"
-msgstr ""
+msgstr "Seçili metni veya seçilen konumdan seslendir"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:255
-#, fuzzy
-#| msgid "Annotations"
 msgid "Annotations:"
-msgstr "Notlar"
+msgstr "Notlar:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:257
 msgid "Spellcheck notes"
-msgstr ""
+msgstr "Notlara yazım denetimi yap"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:258
-#, fuzzy
-#| msgid "Export Annotations"
 msgid "Export annotations to Markdown"
-msgstr "Notları Dışa Aktar"
+msgstr "Notları Markdown olarak dışa aktar"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:259
 msgid "Options to use custom colors for highlights"
-msgstr ""
+msgstr "Vurgulamalar için özel renk kullanma seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:261
 msgid "For publishers and developers:"
-msgstr ""
+msgstr "Yayıncılar ve geliştiriciler için:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:263
 msgid ""
 "Support for Apple Books theme attribute, which allows books to detect themes "
 "without JavaScript"
 msgstr ""
+"Kitapların, temaları JavaScript olmadan algılamasını sağlayan Apple Books "
+"tema özelliği desteği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:264
-#, fuzzy
-#| msgid "If true, developer tools are enabled"
 msgid "WebKit's developer tools can be enabled"
-msgstr "Doğruysa, geliştirici araçları etkinleştirilir"
+msgstr "WebKitʼin geliştirici araçları etkinleştirilir"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:266
 msgid "Breaking changes:"
-msgstr ""
+msgstr "Bozucu değişiklikler:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:268
 msgid "The settings schemas has been reorganized"
-msgstr ""
+msgstr "Ayar şemaları yeniden düzenlendi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:269
 msgid "The format for custom themes has changed"
-msgstr ""
+msgstr "Özel tema biçimi değişti"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:270
 msgid "Locations are now 1024 characters in size"
-msgstr ""
+msgstr "Konumlar artık 1024 karakter boyutunda"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:272
 msgid "Bug fixes:"
-msgstr ""
+msgstr "Hata düzeltmeler:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:274
 msgid "Fixed not restoring exact last location"
-msgstr ""
+msgstr "Kesin son konumun geri yüklenmemesi sorunu düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:275
 msgid "Fixed navigation not working with scrolled layout"
-msgstr ""
+msgstr "Gezinme, kaydırılmış düzende çalışmıyor hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:276
 msgid "Fixed font size not changing when the book uses absolute-size keywords"
 msgstr ""
+"Kitap mutlak boyutlu anahtar kelimeler kullandığında yazı tipi boyutu "
+"değişmiyor hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:277
 msgid "Fixed text cut off at margin edge"
-msgstr ""
+msgstr "Metin kenar boşluğunda kesiliyor hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:278
 msgid "Fixed unable to open books with \"#\" or \"?\" in the file name"
 msgstr ""
+"Dosya adında \"#\" veya \"?\" içeren dosyaların açılmaması hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:286
 msgid ""
 "Fixed Flatpak version not being able to open .mobi, .azw, and .azw3 files"
 msgstr ""
+"Flatpak sürümünün .mobi, .azw ve .azw3 dosyalarını açamaması düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:287
 msgid "Improved Wiktionary lookup, now with links and example sentences"
 msgstr ""
+"Vikisözlük araması, şimdi bağlantılar ve örnek cümlelerle iyileştirildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:288
 msgid "Improved popover footnote extraction and formatting"
-msgstr ""
+msgstr "Dipnot çıkarma ve biçimlendirme açılır penceresi iyileştirildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:289
 msgid "Added option to export annotations to BibTeX"
-msgstr ""
+msgstr "Ek açıklamaları BibTeXʼe dışa aktarma seçeneği eklendi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:297
 msgid "Fixed table of contents navigation not working with some books"
-msgstr ""
+msgstr "Bazı kitaplarla içindekiler gezinmesi çalışmıyor hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:298
 msgid "Fixed not being able to zoom images with Kindle books"
-msgstr ""
+msgstr "Kindle kitaplarında görüntüleri yakınlaştıramama sorunu düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:299
 msgid "Fixed not being able to open books with .epub3 filename extension"
-msgstr ""
+msgstr ".epub3 uzantılı kitapların açılamaması sorunu düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:300
 msgid "Fixed temporary directory not being cleaned after closing"
-msgstr ""
+msgstr "Kapatıldıktan sonra geçici dizinin temizlenmemesi sorunu düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:308
 msgid "Fixed F9 shortcut not working"
-msgstr ""
+msgstr "F9 kısayolu çalışmıyor hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:309
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:344
-#, fuzzy
-#| msgid "Cannot retrieve translation"
 msgid "Updated translations"
-msgstr "Çeviri alınamıyor"
+msgstr "Çeviriler güncellendi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:317
 msgid "External resources and JavaScript are now blocked by default"
-msgstr ""
+msgstr "Harici kaynaklar ve JavaScript artık varsayılan olarak engelleniyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:318
-#, fuzzy
-#| msgid "Start/stop text-to-speech"
 msgid "Basic text-to-speech support"
-msgstr "Metinden sese başlat/durdur"
+msgstr "Basit metinden sese desteği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:319
 msgid "Export annotations to HTML, plain text, or JSON"
-msgstr ""
+msgstr "Notları HTML, düz metin veya JSON olarak dışa aktar"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:320
 msgid "Support for viewing .mobi, .azw, and .azw3 files"
-msgstr ""
+msgstr ".mobi, .azw ve .azw3 uzantılı dosyaları görüntüleme desteği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:328
 msgid "New alternative sidebar UI"
-msgstr ""
+msgstr "Yeni alternatif kenar çubuğu arayüzü"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:329
 msgid "Lookup words in Wikipedia and offline dictionaries"
-msgstr ""
+msgstr "Wikipediaʼda ve çevrimdışı sözlüklerde kelime arama"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:330
-#, fuzzy
-#| msgid "Translation by Google Translate"
 msgid "Translate passages with Google Translate"
-msgstr "Google Çeviri ile çevrildi"
+msgstr "Sayfaları Google Çeviri ile çevir"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:331
-#, fuzzy
-#| msgid "When multiple words are selected"
 msgid "Configure default action when words are selected"
-msgstr "Çoklu sözlük seçildiğinde"
+msgstr "Sözcükler seçildiğinde gerçekleştirilecek öntanımlı eylemi yapılandır"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:332
 msgid "Experimental popup footnote support"
-msgstr ""
+msgstr "Deneysel açılır dipnot desteği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:333
 msgid "Ability to find within only the current chapter"
-msgstr ""
+msgstr "Yalnızca geçerli bölümde arama yeteneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:334
 msgid "Fixed CPU spikes when left open"
-msgstr ""
+msgstr "Açık bırakıldığında CPU kullanım artışı sorunu düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:335
 msgid "Fixed highlights not rendering at the correct positions"
-msgstr ""
+msgstr "Öne çıkanlar doğru konumlarda görüntülenmiyor hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:343
 msgid "Fixed crashing when opening files"
-msgstr ""
+msgstr "Dosyaları açarken kilitlenme sorunu düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:352
 msgid "Customize page margins and brightness"
-msgstr ""
+msgstr "Sayfa kenar boşluklarını ve parlaklığı özelleştir"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:353
 msgid "Tweak the theme colors, or add your own custom themes"
-msgstr ""
+msgstr "Tema renklerini değiştirin veya kendi özel temalarınızı ekleyin"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:354
 msgid "Ability to zoom and copy images"
-msgstr ""
+msgstr "Görüntüleri yakınlaştırma ve kopyalama yeteneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:355
-#, fuzzy
-#| msgid "Auto-hide cursor"
 msgid "Option to auto-hide cursor"
-msgstr "İmleci kendiliğinden gizle"
+msgstr "İmleci kendiliğinden gizleme seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:356
 msgid "See reading time left by hovering over the reading progress slider"
 msgstr ""
+"Fareyi okuma ilerleme çubuğunun üzerine getirerek kalan okuma süresini görün"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:364
 msgid "Fixed some books not rendering sometimes"
-msgstr ""
+msgstr "Bazı kitapların bazen görüntülenememesi sorunu düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:365
 msgid "Fixed images being too wide in some cases"
-msgstr ""
+msgstr "Bazı durumlarda görüntülerin çok geniş olması sorunu düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:374
 msgid "Option to switch between left and full justification"
-msgstr ""
+msgstr "Sola ve tam hizalama arasında geçiş yapma seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:375
 msgid "New layout option: single-column paginated view"
-msgstr ""
+msgstr "Yeni yerleşim seçeneği: tek sütunlu sayfalandırılmış görünüm"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:377
 msgid "Fixed:"
-msgstr ""
+msgstr "Düzeltildi:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:379
 msgid ""
 "Generated locations are now stored in the cache directory rather than "
 "localStorage"
 msgstr ""
+"Oluşturulan konumlar artık localStorage yerine önbellek dizininde depolanıyor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:387
 msgid "Allow font size adjustment when using publisher fonts"
-msgstr ""
+msgstr "Yayıncı yazı tiplerini kullanırken yazı tipi boyutu ayarına izin ver"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:388
 msgid ""
 "Fixed reading progress slider not appearing after localStorage quota is "
 "exceeded"
 msgstr ""
+"LocalStorage kotası aşıldıktan sonra okuma ilerleme kaydırıcısının "
+"görünmemesi sorunu düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:396
 msgid "Touchpad gestures and ability to scroll through pages"
-msgstr ""
+msgstr "Dokunmatik yüzey hareketleri ve sayfalar arasında gezinme yeteneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:397
-#, fuzzy
-#| msgid "Fullscreen"
 msgid "Fullscreen mode"
-msgstr "Tam ekran"
+msgstr "Tam ekran kipi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:398
 msgid "Option to hide reading progress bar"
-msgstr ""
+msgstr "Okuma ilerleme çubuğunu gizleme seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:399
-#, fuzzy
-#| msgid "Look up in dictionary"
 msgid "Option to disable dictionary"
-msgstr "Sözlükte bak"
+msgstr "Sözlüğü devre dışı bırakma seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:400
-#, fuzzy
-#| msgid "Use publisher font"
 msgid "Option to use publisher font"
-msgstr "Yayımcı yazı tipini kullan"
+msgstr "Yayımcı yazı tipini devre dışı bırakma seçeneği"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:404
 msgid "Restoring reading progress is now smooth and jank-free"
-msgstr ""
+msgstr "Okuma ilerlemesini geri yüklemek artık pürüzsüz ve sorunsuz"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:405
 msgid "Fixed custom styles not applying in some cases"
-msgstr ""
+msgstr "Bazı durumlarda özel stiller uygulanmıyor hatası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:411
 msgid "Fixed invalid AppData file"
-msgstr ""
+msgstr "Geçersiz AppData dosyası düzeltildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:416
 msgid "Initial release"
-msgstr ""
+msgstr "İlk sürüm"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:23
 msgid "Store URIs"
-msgstr "URI'leri depola"
+msgstr "URIʼleri depola"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:24
 msgid "Whether to save file URIs"
-msgstr "Dosya URI'lerinin kaydedilme durumu"
+msgstr "Dosya URIʼlerinin kaydedilme durumu"
 
 #: data/com.github.johnfactotum.Foliate.gschema.xml:29
 msgid ""
@@ -4099,7 +4082,7 @@ msgid ""
 "of 0 will make the page completely black, while a value of 1 leaves the "
 "brightness unchanged"
 msgstr ""
-"1'in altındaki değer sayfayı koyulaştırırken, 1'in üzerindeki değer sayfayı "
+"1ʼin altındaki değer sayfayı koyulaştırırken, 1ʼin üzerindeki değer sayfayı "
 "aydınlatır. 0 değeri sayfayı tamamen siyah yapar, 1 değeri ise parlaklığı "
 "değiştirmez"
 
