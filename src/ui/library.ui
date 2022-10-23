@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<menu id="primary-menu">
+  <section>
+    <item>
+      <attribute name="label" translatable="yes">Open…</attribute>
+      <attribute name="action">win.open</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
+      <attribute name="label" translatable="yes">Fullscreen</attribute>
+      <attribute name="action">win.fullscreened</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
+      <attribute name="label" translatable="yes">Preferences</attribute>
+      <attribute name="action">app.preferences</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Keyboard Shortcuts</attribute>
+      <attribute name="action">win.show-help-overlay</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">About Foliate</attribute>
+      <attribute name="action">app.about</attribute>
+    </item>
+  </section>
+</menu>
+<template class="FoliateLibrary" parent="GtkBox">
+      <property name="orientation">vertical</property>
+      <child>
+        <object class="AdwHeaderBar">
+          <property name="title-widget">
+            <object class="GtkLabel">
+              <property name="label" translatable="yes">Library</property>
+              <property name="single-line-mode">True</property>
+              <property name="ellipsize">end</property>
+              <style><class name="title"/></style>
+            </object>
+          </property>
+          <child type="end">
+            <object class="GtkMenuButton" id="primary-menu-button">
+              <property name="icon-name">open-menu-symbolic</property>
+              <property name="menu-model">primary-menu</property>
+            </object>
+          </child>
+          <child type="end">
+            <object class="GtkToggleButton">
+              <property name="icon-name">edit-find-symbolic</property>
+              <property name="tooltip-text" translatable="yes">Search</property>
+              <property name="active" bind-source="search-bar" bind-property="search-mode-enabled" bind-flags="sync-create|bidirectional"/>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="GtkSearchBar" id="search-bar">
+          <child>
+            <object class="GtkSearchEntry" id="search-entry">
+              <property name="placeholder-text" translatable="yes">Search library</property>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="FoliateLibraryView" id="books-view">
+        </object>
+      </child>
+</template>
+</interface>

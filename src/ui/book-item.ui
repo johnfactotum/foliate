@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><interface>
+<template class="FoliateBookItem" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <property name="halign">center</property>
+    <property name="valign">start</property>
+    <property name="width-request">120</property>
+    <property name="margin-start">9</property>
+    <property name="margin-end">9</property>
+    <property name="margin-top">6</property>
+    <child>
+      <object class="FoliateBookImage" id="image"/>
+    </child>
+    <child>
+      <object class="GtkBox" id="box">
+        <child>
+          <object class="GtkLabel" id="progress">
+            <property name="xalign">0</property>
+            <property name="hexpand">true</property>
+            <style><class name="dim-label"/></style>
+            <style><class name="caption"/></style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkMenuButton" id="menu-button">
+            <property name="visible">True</property>
+            <property name="valign">center</property>
+            <property name="icon-name">view-more-horizontal-symbolic</property>
+            <style><class name="flat"/></style>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="title">
+        <property name="hexpand">True</property>
+        <property name="xalign">0</property>
+        <property name="wrap">True</property>
+        <property name="ellipsize">end</property>
+        <property name="lines">3</property>
+        <property name="margin-bottom">6</property>
+        <style><class name="heading"/></style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="creator">
+        <property name="hexpand">True</property>
+        <property name="xalign">0</property>
+        <property name="wrap">True</property>
+        <property name="ellipsize">end</property>
+        <property name="lines">3</property>
+        <property name="margin-bottom">6</property>
+        <style><class name="caption"/><class name="dim-label"/></style>
+      </object>
+    </child>
+</template>
+</interface>

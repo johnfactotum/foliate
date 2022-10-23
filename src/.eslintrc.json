@@ -1,26 +1,28 @@
 {
+    "root": true,
     "env": {
-        "es6": true
+        "es2022": true,
+        "browser": true
     },
     "parserOptions": {
-        "ecmaVersion": 2018
+        "ecmaVersion": 2022,
+        "sourceType": "module"
     },
     "extends": "eslint:recommended",
     "rules": {
         "semi": ["error", "never"],
         "indent": ["warn", 4, { "flatTernaryExpressions": true, "SwitchCase": 1 }],
+        "quotes": ["warn", "single"],
+        "comma-dangle": ["warn", "always-multiline"],
+        "no-trailing-spaces": "warn",
         "no-unused-vars": "warn",
-        "no-cond-assign": ["error", "except-parens"],
+        "no-console": ["warn", { "allow": ["debug", "warn", "error"] }],
         "no-constant-condition": ["error", { "checkLoops": false }],
         "no-empty": ["error", { "allowEmptyCatch": true }]
     },
     "globals": {
-        "window": "readonly",
-        "pkg": "readonly",
         "imports": "readonly",
-        "log": "readonly",
-        "logError": "readonly",
-        "print": "readonly",
-        "_": "readonly"
-    }
+        "pkg": "readonly"
+    },
+    "reportUnusedDisableDirectives": true
 }

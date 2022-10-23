@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Copy</attribute>
+        <attribute name="action">img.copy</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Save as…</attribute>
+        <attribute name="action">img.save-as</attribute>
+      </item>
+    </section>
+  </menu>
+  <template class="FoliateImageViewer" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkHeaderBar">
+        <property name="title-widget">
+          <object class="GtkBox">
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkButton">
+                <property name="action-name">img.rotate-left</property>
+                <property name="tooltip-text" translatable="yes">Rotate 90° counter-clockwise</property>
+                <property name="icon-name">object-rotate-left-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="action-name">img.rotate-right</property>
+                <property name="tooltip-text" translatable="yes">Rotate 90° clockwise</property>
+                <property name="icon-name">object-rotate-right-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </property>
+        <child>
+          <object class="GtkButton">
+            <property name="action-name">img.zoom-out</property>
+            <property name="tooltip-text" translatable="yes">Zoom out</property>
+            <property name="icon-name">zoom-out-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="action-name">img.zoom-restore</property>
+            <property name="tooltip-text" translatable="yes">Restore zoom</property>
+            <property name="icon-name">zoom-original-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="action-name">img.zoom-in</property>
+            <property name="tooltip-text" translatable="yes">Zoom in</property>
+            <property name="icon-name">zoom-in-symbolic</property>
+          </object>
+        </child>
+        <child type="end">
+          <object class="GtkMenuButton">
+            <property name="icon-name">view-more-symbolic</property>
+            <property name="menu-model">menu</property>
+            <property name="primary">True</property>
+          </object>
+        </child>
+        <!--
+        <child type="end">
+          <object class="GtkToggleButton" id="invertButton">
+            <property name="tooltip-text" translatable="yes">Invert colors</property>
+            <property name="icon-name">night-light-symbolic</property>
+          </object>
+        </child>
+        -->
+      </object>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="scrolled">
+        <property name="vexpand">True</property>
+        <property name="propagate-natural-width">True</property>
+        <property name="propagate-natural-height">True</property>
+        <property name="min-content-height">250</property>
+        <property name="min-content-width">250</property>
+        <child>
+          <object class="GtkPicture" id="image">
+            <property name="can-shrink">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

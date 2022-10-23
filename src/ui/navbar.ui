@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?><interface>
+<menu id="tts-menu">
+  <section>
+    <item>
+      <attribute name="custom">rate</attribute>
+    </item>
+  </section>
+  <section>
+    <submenu>
+      <attribute name="label" translatable="yes">Voice</attribute>
+    </submenu>
+  </section>
+  <section>
+    <attribute name="display-hint">horizontal-buttons</attribute>
+    <item>
+      <attribute name="label" translatable="yes">Start Speaking</attribute>
+      <attribute name="action">view.play</attribute>
+      <attribute name="verb-icon">media-playback-start-symbolic</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Stop Speaking</attribute>
+      <attribute name="action">view.pause</attribute>
+      <attribute name="verb-icon">media-playback-stop-symbolic</attribute>
+    </item>
+  </section>
+</menu>
+<template class="FoliateNavBar" parent="GtkBox">
+  <style><class name="toolbar"/></style>
+  <child>
+    <object class="GtkButton">
+      <property name="valign">center</property>
+      <property name="action-name">view.prev</property>
+      <property name="tooltip-text" translatable="yes">Go to previous page</property>
+      <style><class name="image-button"/></style>
+      <child>
+        <object class="GtkImage" id="prev-image">
+          <property name="visible">True</property>
+          <property name="icon-name">go-previous-symbolic</property>
+        </object>
+      </child>
+    </object>
+  </child>
+  <child>
+    <object class="GtkButton">
+      <property name="valign">center</property>
+      <property name="tooltip-text" translatable="yes">Go back to previous location</property>
+      <style><class name="image-button"/></style>
+      <child>
+        <object class="GtkImage" id="back-image">
+          <property name="visible">True</property>
+          <property name="icon-name">edit-undo-symbolic</property>
+        </object>
+      </child>
+    </object>
+  </child>
+  <child>
+    <object class="AdwLeaflet" id="progress-leaflet">
+      <property name="fold-threshold-policy">natural</property>
+      <child>
+        <object class="GtkMenuButton" id="location-button">
+          <property name="direction">up</property>
+          <property name="tooltip-text" translatable="yes">Location</property>
+          <property name="popover">location-popover</property>
+          <style><class name="numeric"/></style>
+        </object>
+      </child>
+      <child>
+        <object class="FoliateProgressScale" id="progress-scale">
+            <property name="draw-value">False</property>
+            <property name="width-request">180</property>
+            <property name="hexpand">True</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="lower">0</property>
+                <property name="upper">1</property>
+                <property name="step-increment">0.01</property>
+                <property name="page-increment">0.05</property>
+                <property name="value">0</property>
+              </object>
+            </property>
+        </object>
+      </child>
+    </object>
+  </child>
+  <child>
+    <object class="GtkMenuButton">
+      <property name="valign">center</property>
+      <property name="icon-name">audio-headphones-symbolic</property>
+      <property name="popover">
+        <object class="GtkPopoverMenu" id="tts-popover">
+          <property name="menu-model">tts-menu</property>
+          <child type="rate">
+            <object class="GtkGrid">
+              <property name="column-spacing">12</property>
+              <property name="row-spacing">3</property>
+              <property name="margin-start">12</property>
+              <child>
+                <object class="GtkLabel">
+                  <property name="label" translatable="yes">Speed</property>
+                  <property name="xalign">0</property>
+                </object>
+              </child>
+              <child>
+                <object class="GtkScale" id="tts-rate-scale">
+                  <property name="draw-value">False</property>
+                  <property name="width-request">180</property>
+                  <property name="hexpand">True</property>
+                  <property name="adjustment">
+                    <object class="GtkAdjustment">
+                      <property name="lower">-100</property>
+                      <property name="upper">100</property>
+                      <property name="step-increment">5</property>
+                      <property name="page-increment">10</property>
+                      <property name="value">0</property>
+                    </object>
+                  </property>
+                </object>
+              </child>
+              <child>
+                <object class="GtkLabel">
+                  <property name="label" translatable="yes">Pitch</property>
+                  <property name="xalign">0</property>
+                  <layout>
+                    <property name="row">1</property>
+                    <property name="column">0</property>
+                  </layout>
+                </object>
+              </child>
+              <child>
+                <object class="GtkScale" id="tts-pitch-scale">
+                  <property name="draw-value">False</property>
+                  <property name="width-request">180</property>
+                  <property name="hexpand">True</property>
+                  <property name="adjustment">
+                    <object class="GtkAdjustment">
+                      <property name="lower">-100</property>
+                      <property name="upper">100</property>
+                      <property name="step-increment">5</property>
+                      <property name="page-increment">10</property>
+                      <property name="value">0</property>
+                    </object>
+                  </property>
+                  <layout>
+                    <property name="row">1</property>
+                    <property name="column">1</property>
+                  </layout>
+                </object>
+              </child>
+            </object>
+          </child>
+        </object>
+      </property>
+    </object>
+  </child>
+  <child>
+    <object class="GtkButton">
+      <property name="valign">center</property>
+      <property name="action-name">view.next</property>
+      <property name="tooltip-text" translatable="yes">Go to next page</property>
+      <style><class name="image-button"/></style>
+      <child>
+        <object class="GtkImage" id="next-image">
+          <property name="visible">True</property>
+          <property name="icon-name">go-next-symbolic</property>
+        </object>
+      </child>
+    </object>
+  </child>
+</template>
+<object class="GtkPopover" id="location-popover">
+  <child>
+    <object class="GtkBox">
+      <property name="orientation">vertical</property>
+      <child>
+        <object class="GtkStack" id="location-popover-stack">
+          <property name="transition-type">slide-up-down</property>
+          <child>
+            <object class="GtkStackPage">
+              <property name="name">main</property>
+              <property name="child">
+                <object class="GtkBox">
+                  <property name="orientation">vertical</property>
+                  <property name="margin-bottom">12</property>
+                  <child>
+                    <object class="GtkBox">
+                      <property name="orientation">vertical</property>
+                      <child>
+                        <object class="GtkGrid" id="timeBox">
+                          <property name="row-spacing">6</property>
+                          <property name="column-spacing">18</property>
+                          <property name="margin-start">12</property>
+                          <property name="margin-end">12</property>
+                          <property name="margin-top">9</property>
+                          <property name="hexpand">True</property>
+                          <child>
+                            <object class="GtkLabel">
+                              <property name="label" translatable="yes">Time Left in Section</property>
+                              <property name="hexpand">True</property>
+                              <style><class name="caption"/></style>
+                              <layout>
+                                <property name="row">0</property>
+                                <property name="column">0</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkLabel" id="time-section">
+                              <style><class name="title-3"/></style>
+                              <layout>
+                                <property name="row">1</property>
+                                <property name="column">0</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkSeparator">
+                              <property name="orientation">vertical</property>
+                              <layout>
+                                <property name="row">0</property>
+                                <property name="column">1</property>
+                                <property name="row-span">2</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkLabel">
+                              <property name="label" translatable="yes">Time Left in Book</property>
+                              <property name="hexpand">True</property>
+                              <style><class name="caption"/></style>
+                              <layout>
+                                <property name="row">0</property>
+                                <property name="column">2</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkLabel" id="time-book">
+                              <style><class name="title-3"/></style>
+                              <layout>
+                                <property name="row">1</property>
+                                <property name="column">2</property>
+                              </layout>
+                            </object>
+                          </child>
+                        </object>
+                      </child>
+                      <child>
+                        <object class="GtkSeparator" id="time-sep">
+                          <property name="margin-top">12</property>
+                          <property name="margin-bottom">12</property>
+                        </object>
+                      </child>
+                      <child>
+                        <object class="GtkGrid">
+                          <property name="row-spacing">6</property>
+                          <property name="column-spacing">12</property>
+                          <property name="vexpand">True</property>
+                          <child>
+                            <object class="GtkLabel" id="page-label">
+                              <property name="xalign">1</property>
+                              <property name="label" translatable="yes">Page</property>
+                              <property name="margin-start">12</property>
+                              <layout>
+                                <property name="row">0</property>
+                                <property name="column">0</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkBox" id="page-box">
+                              <property name="spacing">6</property>
+                              <layout>
+                                <property name="row">0</property>
+                                <property name="column">1</property>
+                              </layout>
+                              <child>
+                                <object class="FoliatePageListDropDown" id="page-drop-down">
+                                </object>
+                              </child>
+                              <child>
+                                <object class="GtkLabel" id="page-total"/>
+                              </child>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkLabel" id="loc-label">
+                              <property name="xalign">1</property>
+                              <property name="label" translatable="yes">Location</property>
+                              <property name="margin-start">12</property>
+                              <layout>
+                                <property name="row">1</property>
+                                <property name="column">0</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkBox" id="loc-box">
+                              <property name="spacing">6</property>
+                              <layout>
+                                <property name="row">1</property>
+                                <property name="column">1</property>
+                              </layout>
+                              <child>
+                                <object class="GtkEntry" id="loc-entry">
+                                  <property name="xalign">1</property>
+                                  <property name="max-width-chars">7</property>
+                                  <property name="input-purpose">digits</property>
+                                </object>
+                              </child>
+                              <child>
+                                <object class="GtkLabel" id="loc-total"/>
+                              </child>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkLabel">
+                              <property name="xalign">1</property>
+                              <property name="label" translatable="yes">Identifier</property>
+                              <property name="margin-start">12</property>
+                              <layout>
+                                <property name="row">2</property>
+                                <property name="column">0</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkBox">
+                              <style><class name="linked"/></style>
+                              <child>
+                                <object class="GtkEntry" id="cfi-entry">
+                                  <property name="max-width-chars">15</property>
+                                </object>
+                              </child>
+                              <child>
+                                <object class="GtkButton" id="cfi-copy">
+                                  <property name="icon-name">edit-copy-symbolic</property>
+                                  <property name="tooltip-text" translatable="yes">Copy</property>
+                                  <property name="action-name">navbar.copy-cfi</property>
+                                </object>
+                              </child>
+                              <child>
+                                <object class="GtkButton" id="cfi-paste">
+                                  <property name="icon-name">edit-paste-symbolic</property>
+                                  <property name="tooltip-text" translatable="yes">Paste and go</property>
+                                  <property name="action-name">navbar.paste-cfi</property>
+                                </object>
+                              </child>
+                              <layout>
+                                <property name="row">2</property>
+                                <property name="column">1</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkLabel">
+                              <property name="xalign">1</property>
+                              <property name="label" translatable="yes">Section</property>
+                              <property name="margin-start">12</property>
+                              <layout>
+                                <property name="row">3</property>
+                                <property name="column">0</property>
+                              </layout>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkBox">
+                              <property name="spacing">6</property>
+                              <layout>
+                                <property name="row">3</property>
+                                <property name="column">1</property>
+                              </layout>
+                              <child>
+                                <object class="GtkEntry" id="section-entry">
+                                  <property name="xalign">1</property>
+                                  <property name="max-width-chars">5</property>
+                                  <property name="input-purpose">digits</property>
+                                </object>
+                              </child>
+                              <child>
+                                <object class="GtkLabel" id="section-total"/>
+                              </child>
+                            </object>
+                          </child>
+                        </object>
+                      </child>
+                    </object>
+                  </child>
+                </object>
+              </property>
+            </object>
+          </child>
+          <child>
+            <object class="GtkStackPage">
+              <property name="name">landmarks</property>
+              <property name="child">
+                <object class="GtkScrolledWindow">
+                  <property name="hexpand">True</property>
+                  <property name="vexpand">True</property>
+                  <child>
+                    <object class="FoliateLandmarkView" id="landmark-view">
+                      <property name="single-click-activate">True</property>
+                      <style><class name="navigation-sidebar"/></style>
+                    </object>
+                  </child>
+                </object>
+              </property>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="GtkSeparator">
+          <property name="margin-bottom">9</property>
+        </object>
+      </child>
+      <child>
+        <object class="GtkBox" id="section-buttons">
+          <property name="spacing">3</property>
+          <child>
+            <object class="GtkButton">
+              <property name="hexpand">True</property>
+              <property name="action-name">view.first-section</property>
+              <property name="tooltip-text" translatable="yes">Go to first section</property>
+              <property name="icon-name">go-first-symbolic</property>
+              <style><class name="flat"/></style>
+            </object>
+          </child>
+          <child>
+            <object class="GtkButton">
+              <property name="hexpand">True</property>
+              <property name="action-name">view.prev-section</property>
+              <property name="tooltip-text" translatable="yes">Go to previous section</property>
+              <property name="icon-name">go-previous-symbolic</property>
+              <style><class name="flat"/></style>
+            </object>
+          </child>
+          <child>
+            <object class="GtkToggleButton" id="landmark-toggle">
+              <property name="hexpand">True</property>
+              <property name="tooltip-text" translatable="yes">Jump to…</property>
+              <property name="icon-name">go-jump-symbolic</property>
+              <style><class name="flat"/></style>
+            </object>
+          </child>
+          <child>
+            <object class="GtkButton">
+              <property name="hexpand">True</property>
+              <property name="action-name">view.next-section</property>
+              <property name="tooltip-text" translatable="yes">Go to next section</property>
+              <property name="icon-name">go-next-symbolic</property>
+              <style><class name="flat"/></style>
+            </object>
+          </child>
+          <child>
+            <object class="GtkButton">
+              <property name="hexpand">True</property>
+              <property name="action-name">view.last-section</property>
+              <property name="tooltip-text" translatable="yes">Go to last section</property>
+              <property name="icon-name">go-last-symbolic</property>
+              <style><class name="flat"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+    </object>
+  </child>
+</object>
+</interface>

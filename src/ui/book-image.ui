@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><interface>
+<template class="FoliateBookImage" parent="GtkOverlay">
+  <property name="height-request">200</property>
+  <child>
+    <object class="GtkFrame">
+      <property name="valign">end</property>
+      <child>
+        <object class="GtkPicture" id="image">
+          <property name="width-request">120</property>
+        </object>
+      </child>
+      <style><class name="background"/><class name="foliate-book-frame"/></style>
+    </object>
+  </child>
+  <child type="overlay">
+    <object class="GtkBox" id="generated">
+      <property name="visible">false</property>
+      <property name="orientation">vertical</property>
+      <property name="valign">center</property>
+      <property name="spacing">12</property>
+      <property name="margin-start">12</property>
+      <property name="margin-end">12</property>
+      <child>
+        <object class="GtkLabel" id="title">
+          <property name="xalign">0.5</property>
+          <property name="justify">center</property>
+          <property name="wrap">True</property>
+          <property name="wrap-mode">word-char</property>
+          <property name="ellipsize">end</property>
+          <property name="lines">7</property>
+          <style><class name="title-4"/><class name="dim-label"/></style>
+        </object>
+      </child>
+    </object>
+  </child>
+</template>
+</interface>

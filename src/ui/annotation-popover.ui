@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateAnnotationPopover" parent="GtkPopover">
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">6</property>
+            <child>
+              <object class="FoliateAnnotationColorDropDown" id="drop-down">
+                <property name="hexpand">True</property>
+                <property name="tooltip-text" translatable="yes">Choose highlight style</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="icon-name">user-trash-symbolic</property>
+                <property name="action-name">annotation.delete</property>
+                <property name="tooltip-text" translatable="yes">Delete annotation</property>
+                <style><class name="flat"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="icon-name">view-more-symbolic</property>
+                <style><class name="flat"/></style>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="margin-top">9</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStack" id="stack">
+            <property name="vhomogeneous">False</property>
+            <child>
+              <object class="GtkButton" id="button">
+                <style><class name="flat"/></style>
+                <property name="margin-top">9</property>
+                <property name="action-name">annotation.add-note</property>
+                <property name="label" translatable="yes">Add Note…</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="width-request">250</property>
+                <property name="height-request">200</property>
+                <child>
+                  <object class="GtkTextView" id="text-view">
+                    <property name="top-margin">9</property>
+                    <property name="bottom-margin">9</property>
+                    <property name="right-margin">9</property>
+                    <property name="left-margin">9</property>
+                    <property name="wrap-mode">word</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

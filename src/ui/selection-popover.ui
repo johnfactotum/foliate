@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<menu id="selection-menu">
+  <section>
+    <attribute name="display-hint">horizontal-buttons</attribute>
+    <item>
+      <attribute name="label" translatable="yes">Copy</attribute>
+      <attribute name="action">selection.copy</attribute>
+      <attribute name="verb-icon">edit-copy-symbolic</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Highlight</attribute>
+      <attribute name="action">selection.highlight</attribute>
+      <attribute name="verb-icon">document-edit-symbolic</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Find</attribute>
+      <attribute name="action">selection.search</attribute>
+      <attribute name="verb-icon">edit-find-symbolic</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
+      <attribute name="label" translatable="yes">Dictionary</attribute>
+      <attribute name="action">selection.dictionary</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Wikipedia</attribute>
+      <attribute name="action">selection.wikipedia</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Translate</attribute>
+      <attribute name="action">selection.translate</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
+      <attribute name="label" translatable="yes">Speak</attribute>
+      <attribute name="action">selection.speak</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Speak from Here</attribute>
+      <attribute name="action">selection.speak-from-here</attribute>
+    </item>
+  </section>
+</menu>
+<template class="FoliateSelectionPopover" parent="GtkPopoverMenu">
+  <property name="menu-model">selection-menu</property>
+</template>
+</interface>

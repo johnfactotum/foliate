@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<template class="FoliateLibraryView" parent="GtkStack">
+  <child>
+    <object class="GtkStackPage">
+      <property name="name">main</property>
+      <property name="child">
+        <object class="GtkScrolledWindow" id="scrolled">
+          <property name="vexpand">true</property>
+          <style><class name="view"/></style>
+        </object>
+      </property>
+    </object>
+  </child>
+  <child>
+    <object class="GtkStackPage">
+      <property name="name">empty</property>
+      <property name="child">
+        <object class="AdwStatusPage">
+          <property name="vexpand">true</property>
+          <property name="icon-name">com.github.johnfactotum.Foliate-symbolic</property>
+          <property name="title" translatable="yes">No books yet</property>
+          <property name="description" translatable="yes">Open a book to start reading.</property>
+          <child>
+            <object class="GtkButton">
+              <property name="halign">center</property>
+              <property name="action-name">win.open</property>
+              <property name="label" translatable="yes">Open…</property>
+              <style><class name="pill"/></style>
+            </object>
+          </child>
+        </object>
+      </property>
+    </object>
+  </child>
+  <child>
+    <object class="GtkStackPage">
+      <property name="name">no-results</property>
+      <property name="child">
+        <object class="AdwStatusPage">
+          <property name="vexpand">true</property>
+          <property name="icon-name">edit-find-symbolic</property>
+          <property name="title" translatable="yes">No results found</property>
+          <property name="description" translatable="yes">Try a different search.</property>
+        </object>
+      </property>
+    </object>
+  </child>
+</template>
+</interface>
