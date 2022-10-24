@@ -224,12 +224,12 @@ GObject.registerClass({
     firstSection() { return this.#exec('reader.view.renderer.firstSection') }
     lastSection() { return this.#exec('reader.view.renderer.lastSection') }
     search(x) { return this.#webView.iter('reader.view.search', x) }
-    showAnnotation(x) { return this.#exec('reader.showAnnotation', x) }
-    addAnnotation(x) { return this.#exec('reader.annotations.add', x) }
-    updateAnnotation(x) { return this.#exec('reader.annotations.update', x) }
-    deleteAnnotation(x) { return this.#exec('reader.annotations.delete', x) }
+    showAnnotation(x) { return this.#exec('reader.view.showAnnotation', x) }
+    addAnnotation(x) { return this.#exec('reader.view.annotations.add', x) }
+    updateAnnotation(x) { return this.#exec('reader.view.annotations.update', x) }
+    deleteAnnotation(x) { return this.#exec('reader.view.annotations.delete', x) }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
-    init(x) { return this.#exec('reader.init', x) }
+    init(x) { return this.#exec('reader.view.init', x) }
     get webView() { return this.#webView }
 })
 

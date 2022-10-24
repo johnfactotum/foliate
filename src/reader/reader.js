@@ -1,5 +1,6 @@
 /* global zip: false, fflate: false */
 import { View } from '../foliate-js/view.js'
+import { Overlayer } from '../foliate-js/overlayer.js'
 import { toPangoMarkup } from './markup.js'
 
 const emit = x => globalThis.webkit.messageHandlers.viewer
@@ -137,13 +138,6 @@ class Reader {
         this.view = new View(this.book, this.#handleEvent.bind(this))
         document.body.append(await this.view.display())
     }
-    async init({ lastLocation }) {
-        if (lastLocation) {
-            const resolved = this.view.resolveNavigation(lastLocation)
-            if (resolved) await this.view.renderer.goTo(resolved)
-            else await this.view.renderer.next()
-        } else await this.view.renderer.next()
-    }
     setAppearance({ style, layout }) {
         Object.assign(this.style, style)
         Object.assign(this.layout, layout)
@@ -151,7 +145,16 @@ class Reader {
     }
     #handleEvent(obj) {
         switch (obj.type) {
-            case 'relocated': emit(obj); break
+            case 'relocated':
+            case 'add-annotation':
+            case 'delete-annotation':
+            case 'show-annotation': emit(obj); break
+            case 'draw-annotation': {
+                const { annotation } = obj
+                const { color } = annotation
+                if (color === 'underline') return [Overlayer.underline]
+                else return [Overlayer.highlight, { color }]
+            }
             case 'reference': this.#onReference(obj); break
         }
     }
