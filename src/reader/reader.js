@@ -1,5 +1,5 @@
 /* global zip: false, fflate: false */
-import { View } from '../foliate-js/view.js'
+import { View, getPosition } from '../foliate-js/view.js'
 import { Overlayer } from '../foliate-js/overlayer.js'
 import { toPangoMarkup } from './markup.js'
 
@@ -11,6 +11,14 @@ const blobToBase64 = blob => new Promise(resolve => {
     reader.readAsDataURL(blob)
     reader.onloadend = () => resolve(reader.result.split(',')[1])
 })
+
+const embedImages = async doc => {
+    for (const el of doc.querySelectorAll('img[src]')) {
+        const res = await fetch(el.src)
+        const blob = await res.blob()
+        el.src = `data:${blob.type};base64,${await blobToBase64(blob)}`
+    }
+}
 
 const { ZipReader, BlobReader, TextWriter, BlobWriter } = zip
 zip.configure({ useWebWorkers: false })
@@ -147,8 +155,11 @@ class Reader {
         switch (obj.type) {
             case 'relocated':
             case 'add-annotation':
-            case 'delete-annotation':
-            case 'show-annotation': emit(obj); break
+            case 'delete-annotation': emit(obj); break
+            case 'show-annotation':
+                obj.pos = getPosition(obj.range)
+                emit(obj)
+                break
             case 'draw-annotation': {
                 const { annotation } = obj
                 const { color } = annotation
@@ -156,10 +167,37 @@ class Reader {
                 else return [Overlayer.highlight, { color }]
             }
             case 'reference': this.#onReference(obj); break
+            case 'loaded': this.#onLoaded(obj); break
         }
     }
-    #onReference({ content, href, pos }) {
+    #onLoaded({ doc, index }) {
+        for (const img of doc.querySelectorAll('img'))
+            img.addEventListener('dblclick', () => fetch(img.src)
+                .then(res => res.blob())
+                .then(blob => Promise.all([blobToBase64(blob), blob.type]))
+                .then(([base64, mimetype]) =>
+                    emit({ type: 'show-image', base64, mimetype }))
+                .catch(e => console.error(e)))
+
+        doc.addEventListener('click', () => {
+            const sel = doc.defaultView.getSelection()
+            if (!sel.rangeCount) return
+            let range = sel.getRangeAt(0)
+            if (range.collapsed) return
+            const text = sel.toString().trim()
+            if (!text) return
+            const cfi = this.view.getCFI(index, range)
+            const pos = getPosition(range)
+            const fragment = range.cloneContents()
+            embedImages(fragment).then(() => {
+                const html = new XMLSerializer().serializeToString(fragment)
+                emit({ type: 'selection', cfi, text, html, pos })
+            })
+        })
+    }
+    #onReference({ content, href, element }) {
         if (content) {
+            const pos = getPosition(element)
             const html = toPangoMarkup(content)
             emit({ type: 'reference', href, html, pos })
         }
