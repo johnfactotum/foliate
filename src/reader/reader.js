@@ -114,6 +114,12 @@ const getCSS = ({ spacing, justify, hyphenate }) => `
         hanging-punctuation: allow-end last;
         widows: 2;
     }
+    /* prevent the above from overriding the align attribute */
+    [align="left"] { text-align: left; }
+    [align="right"] { text-align: right; }
+    [align="center"] { text-align: center; }
+    [align="justify"] { text-align: justify; }
+
     pre {
         white-space: pre-wrap !important;
     }
