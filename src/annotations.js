@@ -306,7 +306,7 @@ GObject.registerClass({
         // create item for custom color
         const i = model.get_n_items() - 1
         model.insert(i, new AnnotationColor({
-            label: _('Custum'),
+            label: _('Custom'),
             value: color,
             type: 'custom',
         }))
