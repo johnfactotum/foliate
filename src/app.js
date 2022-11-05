@@ -165,13 +165,8 @@ export const Application = GObject.registerClass({
 
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
-            /* it seems this is the only way to get vertical margins for grids */
-            gridview child {
-                margin: 9px 0;
-            }
-            /* might as well just set horizontal margins here */
             gridview {
-                margin: 0 12px;
+                padding: 12px;
             }
 
             /* remove flowboxchild padding so things align better
