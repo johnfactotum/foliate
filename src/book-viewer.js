@@ -231,6 +231,7 @@ GObject.registerClass({
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
     init(x) { return this.#exec('reader.view.init', x) }
     get webView() { return this.#webView }
+    grab_focus() { return this.#webView.grab_focus() }
 })
 
 const FootnotePopover = GObject.registerClass({
@@ -307,7 +308,7 @@ export const BookViewer = GObject.registerClass({
         'headerbar-revealer', 'navbar-revealer',
         'book-menu-button',
         'view-popover', 'zoom-button', 'spacing', 'margin', 'width', 'navbar',
-        'sidebar-stack', 'contents-stack', 'toc-view',
+        'library-button', 'sidebar-stack', 'contents-stack', 'toc-view',
         'search-view', 'search-bar', 'search-entry',
         'annotation-stack', 'annotation-view', 'annotation-search-entry',
         'book-cover', 'book-title', 'book-author',
@@ -352,6 +353,8 @@ export const BookViewer = GObject.registerClass({
         this._resize_handle.add_controller(utils.connect(new Gtk.GestureDrag(), {
             'drag-update': (_, x) => this._sidebar.width_request += x,
         }))
+        this._flap.connect('notify::reveal-flap', flap =>
+            (flap.reveal_flap ? this._library_button : this._view).grab_focus())
 
         // revealers
         const autohideHeaderbar = autohide(this._headerbar_revealer,
@@ -392,6 +395,7 @@ export const BookViewer = GObject.registerClass({
         this._toc_view.connect('go-to-href', (_, href) => {
             this._view.goTo(href)
             if (this._flap.folded) this._flap.reveal_flap = false
+            this._view.grab_focus()
         })
         this._navbar.connect('go-to-cfi', (_, x) => this._view.goTo(x))
         this._navbar.connect('go-to-fraction', (_, x) => this._view.goToFraction(x))
