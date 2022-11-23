@@ -66,7 +66,7 @@ const ApplicationWindow = GObject.registerClass({
         })
         this.content.child = this.#leaflet
         utils.addMethods(this, {
-            actions: ['open', 'close', 'show-library', 'show-menu'],
+            actions: ['open', 'close', 'show-library', 'show-menu', 'open-copy'],
             props: ['fullscreened'],
         })
         if (this.file) this.openFile(this.file)
@@ -133,6 +133,12 @@ const ApplicationWindow = GObject.registerClass({
     showMenu() {
         if (this.#bookViewer) this.#bookViewer.showPrimaryMenu()
     }
+    openCopy() {
+        const { application, file } = this
+        const win = new ApplicationWindow({ application, file })
+        new Gtk.WindowGroup().add_window(win)
+        win.present()
+    }
 })
 
 export const Application = GObject.registerClass({
@@ -155,6 +161,7 @@ export const Application = GObject.registerClass({
             'win.fullscreened': ['F11'],
             'win.show-menu': ['F10'],
             'win.open': ['<ctrl>o'],
+            'win.open-copy': ['<ctrl>n'],
         })) this.set_accels_for_action(key, val)
     }
     connectStartup() {

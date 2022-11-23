@@ -429,7 +429,6 @@ export const BookViewer = GObject.registerClass({
             'F9': 'viewer.toggle-sidebar',
             '<ctrl>f|slash': 'viewer.toggle-search',
             '<ctrl>l': 'viewer.show-location',
-            '<ctrl>n': 'viewer.open-copy',
             '<ctrl>i|<alt>Return': 'viewer.show-info',
             '<ctrl><shift>g': 'search.prev',
             '<ctrl>g': 'search.next',
