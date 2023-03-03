@@ -21,7 +21,7 @@ const registerPaths = (name, dirs) => registerScheme(name, req => {
     const path = req.get_path()
     if (dirs.every(dir => !path.startsWith(dir))) throw new Error()
     const mime = path.endsWith('.js') ? 'application/javascript' : 'text/html'
-    const file = Gio.File.new_for_path(pkg.modulepath(path))
+    const file = Gio.File.new_for_uri(pkg.moduleuri(path))
     req.finish(file.read(null), -1, mime)
 })
 

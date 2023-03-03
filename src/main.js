@@ -1,4 +1,6 @@
-#!/usr/bin/gjs -m
+#!@GJS@ -m
+const MESON = '\@GJS@' !== '@GJS@' // the latter would be replace by Meson
+
 import Gtk from 'gi://Gtk?version=4.0'
 import Gio from 'gi://Gio?version=2.0'
 import GLib from 'gi://GLib?version=2.0'
@@ -17,7 +19,7 @@ globalThis.pkg = {
 GLib.set_prgname(pkg.name)
 setConsoleLogDomain(pkg.name)
 Gtk.Window.set_default_icon_name(pkg.name)
-bindtextdomain(pkg.name, GLib.build_filenamev(['/usr/share', 'locale']))
+bindtextdomain(pkg.name, GLib.build_filenamev([MESON ? '@datadir@' : '/usr/share', 'locale']))
 textdomain(pkg.name)
 
 pkg.localeName = _('Foliate')
@@ -30,9 +32,20 @@ pkg.datafile = path => Gio.File.new_for_path(pkg.datapath(path))
 pkg.cachedir = GLib.build_filenamev([GLib.get_user_cache_dir(), pkg.name])
 pkg.cachepath = path => GLib.build_filenamev([pkg.cachedir, path])
 
-pkg.moduledir = GLib.path_get_dirname(GLib.filename_from_uri(import.meta.url)[0])
-pkg.modulepath = path => GLib.build_filenamev([pkg.moduledir, path])
-pkg.moduleuri = path => GLib.filename_to_uri(pkg.modulepath(path), null)
+if (MESON) {
+    // when using Meson, load from compiled GResource binary
+    Gio.Resource
+        .load(GLib.build_filenamev(['@datadir@', pkg.name, `${pkg.name}.gresource`]))
+        ._register()
+    const moduledir = '/' + pkg.name.replaceAll('.', '/')
+    pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
+    pkg.moduleuri = path => `resource://${pkg.modulepath(path)}`
+}
+else {
+    const moduledir = GLib.path_get_dirname(GLib.filename_from_uri(import.meta.url)[0])
+    pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
+    pkg.moduleuri = path => GLib.filename_to_uri(pkg.modulepath(path), null)
+}
 
 // run application
 // see https://gitlab.gnome.org/GNOME/gjs/-/issues/468
