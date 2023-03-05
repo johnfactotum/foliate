@@ -1,4 +1,5 @@
 #!@GJS@ -m
+// eslint-disable-next-line no-useless-escape
 const MESON = '\@GJS@' !== '@GJS@' // the latter would be replace by Meson
 
 import Gtk from 'gi://Gtk?version=4.0'
