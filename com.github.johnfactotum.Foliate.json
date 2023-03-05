@@ -1,0 +1,26 @@
+{
+    "app-id" : "com.github.johnfactotum.Foliate",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "43",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "foliate",
+    "finish-args" : [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--device=dri",
+        "--socket=wayland"
+    ],
+    "modules" : [
+        {
+            "name" : "foliate",
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url": "https://github.com/johnfactotum/foliate.git"
+                }
+            ]
+        }
+    ]
+}
