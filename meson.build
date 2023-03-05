@@ -6,7 +6,9 @@ project('com.github.johnfactotum.Foliate',
 gnome = import('gnome')
 i18n = import('i18n')
 
+subdir('data')
 subdir('src')
+subdir('po')
 
 gnome.post_install(
     glib_compile_schemas: true,
