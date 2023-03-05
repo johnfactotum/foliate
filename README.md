@@ -1,5 +1,7 @@
 🚧️ This is the work-in-progress GTK 4 branch.
 
+⚠️ Currently, it does NOT save reading progress or annotations.
+
 ## Installation
 
 ### Run Time Dependencies
