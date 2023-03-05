@@ -112,17 +112,17 @@ GObject.registerClass({
             if ('progress' in result)
                 this.entry.progress_fraction = result.progress
             else {
-                const { label, cfi, subitems } = result
+                const { label, cfi, excerpt, subitems } = result
                 const { model } = this.model
                 if (!model) return
-                model.model.append(new SearchResult({
+                model.model.append(subitems ? new SearchResult({
                     label: label ?? '',
                     cfi: cfi ?? '',
-                    subitems: subitems ? utils.list(subitems.map(item => ({
+                    subitems: utils.list(subitems.map(item => ({
                         label: formatExcerpt(item.excerpt),
                         cfi: item.cfi,
-                    })), SearchResult) : null,
-                }))
+                    })), SearchResult),
+                }) : new SearchResult({ label: formatExcerpt(excerpt), cfi }))
             }
         }
         this.entry.progress_fraction = null
