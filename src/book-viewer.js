@@ -129,6 +129,45 @@ GObject.registerClass({
                 .catch(e => console.error(e)),
         }))
 
+        // handle scroll and swipe events
+        const scrollPageAsync = utils.debounce((dx, dy) => {
+            if (Math.abs(dx) > Math.abs(dy)) {
+                if (dx > 0) return this.goRight()
+                else if (dx < 0) return this.goLeft()
+            } else {
+                if (dy > 0) return this.next()
+                else if (dy < 0) return this.prev()
+            }
+        }, 100, true)
+        this.#webView.add_controller(utils.connect(new Gtk.EventControllerScroll({
+            flags: Gtk.EventControllerScrollFlags.BOTH_AXES,
+        }), {
+            'scroll': (_, dx, dy) => {
+                if (this.#pinchFactor > 1) return false
+                if (this.viewSettings.scrolled) return false
+                scrollPageAsync(dx, dy)
+                return true
+            },
+        }))
+        this.add_controller(utils.connect(new Gtk.GestureSwipe({
+            propagation_phase: Gtk.PropagationPhase.CAPTURE,
+            touch_only: true,
+        }), {
+            'swipe': (_, vx, vy) => {
+                if (this.#pinchFactor > 1) return false
+                if (Math.max(Math.abs(vx), Math.abs(vy)) < 800) return false
+                if (this.viewSettings.scrolled) return false
+                if (Math.abs(vx) > Math.abs(vy)) {
+                    if (vx > 0) return this.goLeft()
+                    else if (vx < 0) return this.goRight()
+                } else {
+                    if (vy > 0) return this.prev()
+                    else if (vy < 0) return this.next()
+                }
+                return true
+            },
+        }))
+
         const applyStyle = () => this.#applyStyle().catch(e => console.error(e))
         this.viewSettings.connectAll(applyStyle)
         this.fontSettings.connectAll(applyStyle)
