@@ -473,6 +473,7 @@ export const BookViewer = GObject.registerClass({
         const actions = utils.addMethods(this, {
             actions: [
                 'toggle-sidebar', 'toggle-search', 'show-location',
+                'toggle-toc', 'toggle-annotations', 'toggle-bookmarks',
                 'choose-font', 'show-info', 'bookmark',
             ],
             props: ['fold-sidebar'],
@@ -485,6 +486,10 @@ export const BookViewer = GObject.registerClass({
             '<ctrl>f|slash': 'viewer.toggle-search',
             '<ctrl>l': 'viewer.show-location',
             '<ctrl>i|<alt>Return': 'viewer.show-info',
+            '<ctrl><alt>t': 'viewer.toggle-toc',
+            '<ctrl><alt>a': 'viewer.toggle-annotations',
+            '<ctrl><alt>d': 'viewer.toggle-bookmarks',
+            '<ctrl>d': 'viewer.bookmark',
             '<ctrl><shift>g': 'search.prev',
             '<ctrl>g': 'search.next',
             '<ctrl>c': 'selection.copy',
@@ -663,6 +668,19 @@ export const BookViewer = GObject.registerClass({
     toggleSidebar() {
         this._flap.reveal_flap = !this._flap.reveal_flap
     }
+    #toggleSidebarContent(name) {
+        this._search_bar.search_mode_enabled = false
+        if (this._flap.reveal_flap
+        && this._contents_stack.visible_child_name === name)
+            this._flap.reveal_flap = false
+        else {
+            this._contents_stack.visible_child_name = name
+            this._flap.reveal_flap = true
+        }
+    }
+    toggleToc() { this.#toggleSidebarContent('toc') }
+    toggleAnnotations() { this.#toggleSidebarContent('annotations') }
+    toggleBookmarks() { this.#toggleSidebarContent('bookmarks') }
     toggleSearch() {
         const bar = this._search_bar
         if (this._search_entry.has_focus)
