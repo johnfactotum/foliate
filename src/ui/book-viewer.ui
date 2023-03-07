@@ -436,7 +436,7 @@
                                   <property name="title" translatable="yes">Bookmarks</property>
                                   <property name="icon-name">user-bookmarks-symbolic</property>
                                   <property name="child">
-                                    <object class="GtkStack">
+                                    <object class="GtkStack" id="bookmark-stack">
                                       <child>
                                         <object class="GtkStackPage">
                                           <property name="name">empty</property>
@@ -452,12 +452,19 @@
                                         </object>
                                       </child>
                                       <child>
-                                        <object class="GtkScrolledWindow">
-                                          <child>
-                                            <object class="GtkListView">
-                                              <property name="show-separators">true</property>
-                                            </object>
-                                          </child>
+                                        <object class="GtkStackPage">
+                                          <property name="name">main</property>
+                                          <property name="child">
+	                                          <object class="GtkScrolledWindow">
+	                                            <property name="vexpand">true</property>
+	                                            <child>
+	                                              <object class="FoliateBookmarkView" id="bookmark-view">
+	                                                <property name="single-click-activate">True</property>
+	                                                <style><class name="navigation-sidebar"/></style>
+	                                              </object>
+	                                            </child>
+	                                          </object>
+                                          </property>
                                         </object>
                                       </child>
                                     </object>
@@ -533,8 +540,9 @@
                       </child>
                       <child type="start">
                         <object class="GtkButton">
-                          <property name="icon-name">bookmark-new-symbolic</property>
-                          <property name="tooltip-text" translatable="yes">Add bookmark</property>
+                          <property name="icon-name">user-bookmarks-symbolic</property>
+                          <property name="action-name">viewer.bookmark</property>
+                          <property name="tooltip-text" translatable="yes">Add/remove bookmark</property>
                         </object>
                       </child>
                       <child type="end">

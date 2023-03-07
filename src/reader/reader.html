@@ -6,8 +6,27 @@
 body {
     margin: 0;
 }
+#ribbon {
+    visibility: hidden;
+    display: inline-block;
+    position: absolute;
+    left: 48px;
+}
+#ribbon:before,
+#ribbon:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 10px;
+    border: 9px solid red;
+ }
+#ribbon:before {
+    border-bottom-color: transparent;
+    bottom: -40px;
+}
 </style>
 <input type="file" id="file-input" hidden>
+<div id="ribbon"></div>
 <script src="../foliate-js/vendor/zip-no-worker.min.js"></script>
 <script src="../foliate-js/vendor/fflate.min.js"></script>
 <script src="reader.js" type="module"></script>

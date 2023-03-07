@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><interface>
+<template class="FoliateBookmarkRow" parent="GtkBox">
+    <property name="margin-top">12</property>
+    <property name="margin-bottom">12</property>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <property name="hexpand">true</property>
+        <child>
+          <object class="GtkLabel" id="label">
+            <property name="xalign">0</property>
+            <property name="wrap">True</property>
+            <property name="ellipsize">middle</property>
+            <property name="lines">3</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="value">
+            <property name="xalign">0</property>
+            <property name="wrap">True</property>
+            <property name="ellipsize">end</property>
+            <property name="lines">3</property>
+            <style><class name="dim-label"/><class name="caption"/></style>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="button">
+        <property name="valign">center</property>
+        <property name="icon-name">edit-delete-symbolic</property>
+        <property name="tooltip-text" translatable="yes">Delete</property>
+        <style><class name="flat"/></style>
+      </object>
+    </child>
+</template>
+</interface>

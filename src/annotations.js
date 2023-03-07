@@ -3,6 +3,12 @@ import Gio from 'gi://Gio'
 import GObject from 'gi://GObject'
 import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
+import * as CFI from './foliate-js/epubcfi.js'
+
+const Bookmark = utils.makeDataClass('FoliateBookmark', {
+    'value': 'string',
+    'label': 'string',
+})
 
 const Annotation = utils.makeDataClass('FoliateAnnotation', {
     'value': 'string',
@@ -15,6 +21,19 @@ const AnnotationHeading = utils.makeDataClass('FoliateAnnotationHeading', {
     'label': 'string',
     'index': 'uint',
     'subitems': 'object',
+})
+
+const BookmarkRow = GObject.registerClass({
+    GTypeName: 'FoliateBookmarkRow',
+    Template: pkg.moduleuri('ui/bookmark-row.ui'),
+    Children: ['button'],
+    InternalChildren: ['label', 'value'],
+}, class extends Gtk.Box {
+    update({ value, label }) {
+        this.value = value
+        this._label.label = label
+        this._value.label = value
+    }
 })
 
 const AnnotationRow = GObject.registerClass({
@@ -71,6 +90,66 @@ const BookData = GObject.registerClass({
     }
 })
 */
+
+GObject.registerClass({
+    GTypeName: 'FoliateBookmarkView',
+    Properties: utils.makeParams({
+        'has-items': 'boolean',
+        'has-items-in-view': 'boolean',
+    }),
+    Signals: {
+        'go-to-bookmark': { param_types: [GObject.TYPE_STRING] },
+    },
+}, class extends Gtk.ListView {
+    #location
+    #inView = []
+    constructor(params) {
+        super(params)
+        this.model = new Gtk.NoSelection({ model: new Gio.ListStore() })
+        this.model.model.connect('notify::n-items', model =>
+            this.set_property('has-items', model.get_n_items() > 0))
+        this.connect('activate', (_, pos) => {
+            const bookmark = this.model.model.get_item(pos) ?? {}
+            if (bookmark) this.emit('go-to-bookmark', bookmark.value)
+        })
+        this.factory = utils.connect(new Gtk.SignalListItemFactory(), {
+            'setup': (_, listItem) => {
+                const row = new BookmarkRow()
+                row.button.connect('clicked', () => {
+                    this.delete(row.value)
+                    this.updateLocation()
+                })
+                listItem.child = row
+            },
+            'bind': (_, listItem) => listItem.child.update(listItem.item),
+        })
+    }
+    add(value, label) {
+        this.model.model.append(new Bookmark({ value, label }))
+    }
+    delete(value) {
+        const { model } = this.model
+        for (const [i, item] of utils.gliter(model))
+            if (item.value === value) model.remove(i)
+    }
+    updateLocation(location = this.#location) {
+        this.#location = location
+        const { cfi } = location
+        const start = CFI.collapse(cfi)
+        const end = CFI.collapse(cfi, true)
+        this.#inView = Array.from(utils.gliter(this.model.model),
+            ([, { value }]) => [value,
+                CFI.compare(start, value) * CFI.compare(end, value) <= 0])
+            .filter(([, x]) => x)
+        this.set_property('has-items-in-view', this.#inView.length > 0)
+    }
+    toggle() {
+        const inView = this.#inView
+        if (inView.length) for (const [value] of inView) this.delete(value)
+        else this.add(this.#location.cfi, this.#location.tocItem?.label)
+        this.updateLocation()
+    }
+})
 
 GObject.registerClass({
     GTypeName: 'FoliateAnnotationView',

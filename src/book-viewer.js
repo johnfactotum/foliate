@@ -251,9 +251,14 @@ GObject.registerClass({
         popover.pointing_to = this.getRect(point)
         popover.popup()
     }
+    showRibbon(x) {
+        return this.#webView.run(`document.querySelector('#ribbon').style.visibility =
+            '${x ? 'visible' : 'hidden'}'`).catch(e => console.error(e))
+    }
     goTo(x) { return this.#exec('reader.view.goTo', x) }
     goToFraction(x) { return this.#exec('reader.view.goToFraction', x) }
     select(x) { return this.#exec('reader.view.select', x) }
+    getTOCItemOf(x) { return this.#exec('reader.view.getTOCItemOf', x) }
     prev() { return this.#exec('reader.view.renderer.prev') }
     next() { return this.#exec('reader.view.renderer.next') }
     goLeft() { return this.#exec('reader.view.goLeft') }
@@ -350,6 +355,7 @@ export const BookViewer = GObject.registerClass({
         'library-button', 'sidebar-stack', 'contents-stack', 'toc-view',
         'search-view', 'search-bar', 'search-entry',
         'annotation-stack', 'annotation-view', 'annotation-search-entry',
+        'bookmark-stack', 'bookmark-view',
         'book-cover', 'book-title', 'book-author',
     ],
 }, class extends Gtk.Overlay {
@@ -440,6 +446,16 @@ export const BookViewer = GObject.registerClass({
         this._navbar.connect('go-to-fraction', (_, x) => this._view.goToFraction(x))
 
         // annotations
+        utils.connect(this._bookmark_view, {
+            'notify::has-items': view => this._bookmark_stack
+                .visible_child_name = view.has_items ? 'main' : 'empty',
+            'notify::has-items-in-view': view =>
+                this._view.showRibbon(view.has_items_in_view),
+            'go-to-bookmark': (_, target) => {
+                this._view.goTo(target)
+                if (this._flap.folded) this._flap.reveal_flap = false
+            },
+        })
         utils.connect(this._annotation_view, {
             'notify::has-items': view => this._annotation_stack
                 .visible_child_name = view.has_items ? 'main' : 'empty',
@@ -457,7 +473,7 @@ export const BookViewer = GObject.registerClass({
         const actions = utils.addMethods(this, {
             actions: [
                 'toggle-sidebar', 'toggle-search', 'show-location',
-                'choose-font', 'show-info',
+                'choose-font', 'show-info', 'bookmark',
             ],
             props: ['fold-sidebar'],
         })
@@ -538,6 +554,11 @@ export const BookViewer = GObject.registerClass({
             const storage = new utils.JSONStorage(pkg.datadir, identifier)
             const lastLocation = storage.get('lastLocation', null)
             const annotations = storage.get('annotations', [])
+            const bookmarks = storage.get('bookmarks', [])
+            for (const bookmark of bookmarks) {
+                const item = await this._view.getTOCItemOf(bookmark)
+                this._bookmark_view.add(bookmark, item?.label ?? '')
+            }
             await this._view.init({ lastLocation, annotations })
         } else await this._view.next()
     }
@@ -546,6 +567,7 @@ export const BookViewer = GObject.registerClass({
         this._toc_view.setCurrent(tocItem?.id)
         this._search_view.index = section.current
         this._navbar.update(payload)
+        this._bookmark_view.updateLocation(payload)
     }
     #onReference({ href, html, pos: { point, dir } }) {
         const popover = new FootnotePopover({ href, footnote: html })
@@ -672,6 +694,9 @@ export const BookViewer = GObject.registerClass({
         })
         win.add_controller(utils.addShortcuts({ 'Escape|<ctrl>w': () => win.close() }))
         win.present()
+    }
+    bookmark() {
+        this._bookmark_view.toggle()
     }
     // it seems that it's necessary to explicitly destroy web view
     vfunc_unroot() {
