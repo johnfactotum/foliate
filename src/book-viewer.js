@@ -245,8 +245,10 @@ GObject.registerClass({
     }
     showPopover(popover, point, dir) {
         this.add_overlay(popover)
-        popover.connect('closed', () => utils.wait(0)
-            .then(() => this.remove_overlay(popover)))
+        popover.connect('closed', () => utils.wait(0).then(() => {
+            this.remove_overlay(popover)
+            this.deselect()
+        }))
         popover.position = dir === 'up' ? Gtk.PositionType.TOP : Gtk.PositionType.BOTTOM
         popover.pointing_to = this.getRect(point)
         popover.popup()
@@ -258,6 +260,7 @@ GObject.registerClass({
     goTo(x) { return this.#exec('reader.view.goTo', x) }
     goToFraction(x) { return this.#exec('reader.view.goToFraction', x) }
     select(x) { return this.#exec('reader.view.select', x) }
+    deselect() { return this.#exec('reader.view.deselect') }
     getTOCItemOf(x) { return this.#exec('reader.view.getTOCItemOf', x) }
     prev() { return this.#exec('reader.view.renderer.prev') }
     next() { return this.#exec('reader.view.renderer.next') }
