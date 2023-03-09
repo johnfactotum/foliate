@@ -26,6 +26,7 @@ const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'hyphenate': 'boolean',
     'margin': 'uint',
     'width': 'uint',
+    'columns': 'uint',
     'scrolled': 'boolean',
     'zoom-level': 'double',
 })
@@ -107,6 +108,7 @@ GObject.registerClass({
         'hyphenate': true,
         'margin': 60,
         'width': 720,
+        'columns': 2,
         'zoom-level': 1,
         //'scrolled': true,
     })
@@ -202,6 +204,7 @@ GObject.registerClass({
             layout: {
                 gap: view.margin,
                 maxColumnWidth: view.width,
+                maxColumns: view.columns,
                 flow: view.scrolled ? 'scrolled' : 'paginated',
             },
             style: {
@@ -354,7 +357,8 @@ export const BookViewer = GObject.registerClass({
         'view', 'flap', 'sidebar', 'resize-handle',
         'headerbar-revealer', 'navbar-revealer',
         'book-menu-button',
-        'view-popover', 'zoom-button', 'spacing', 'margin', 'width', 'navbar',
+        'view-popover', 'zoom-button', 'spacing', 'margin', 'width', 'columns',
+        'navbar',
         'library-button', 'sidebar-stack', 'contents-stack', 'toc-view',
         'search-view', 'search-bar', 'search-entry',
         'annotation-stack', 'annotation-view', 'annotation-search-entry',
@@ -385,6 +389,7 @@ export const BookViewer = GObject.registerClass({
             'spacing': [this._spacing, 'value'],
             'margin': [this._margin, 'value'],
             'width': [this._width, 'value'],
+            'columns': [this._columns, 'value'],
         })
         const updateZoom = () => this._zoom_button.label =
             format.percent(this._view.viewSettings.zoom_level)

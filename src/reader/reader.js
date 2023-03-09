@@ -148,6 +148,7 @@ class Reader {
         margin: 48,
         gap: 48,
         maxColumnWidth: 720,
+        maxColumns: 2,
     }
     constructor(book) {
         this.book = book
