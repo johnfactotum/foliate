@@ -3,6 +3,11 @@ import { View, getPosition } from '../foliate-js/view.js'
 import { Overlayer } from '../foliate-js/overlayer.js'
 import { toPangoMarkup } from './markup.js'
 
+// TODO: make this translatable
+const format = {
+    loc: (a, b) => `Loc ${a} of ${b}`,
+}
+
 const emit = x => globalThis.webkit.messageHandlers.viewer
     .postMessage(JSON.stringify(x))
 
@@ -159,7 +164,26 @@ class Reader {
     }
     #handleEvent(obj) {
         switch (obj.type) {
-            case 'relocated':
+            case 'relocated': {
+                const { heads, feet } = this.view.renderer
+                if (heads) {
+                    const { tocItem } = obj
+                    heads.at(-1).innerText = tocItem?.label ?? ''
+                    if (heads.length > 1)
+                        heads[0].innerText = this.book.metadata.title
+                }
+                if (feet) {
+                    const { location: { current, next, total } } = obj
+                    feet[0].innerText = format.loc(current + 1, total)
+                    if (feet.length > 1) {
+                        const r = 1 - 1 / feet.length
+                        const end = Math.floor((1 - r) * current + r * next)
+                        feet.at(-1).innerText = format.loc(end + 1, total)
+                    }
+                }
+                emit(obj)
+                break
+            }
             case 'add-annotation':
             case 'delete-annotation': emit(obj); break
             case 'show-annotation':
