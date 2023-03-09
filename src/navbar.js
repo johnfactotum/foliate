@@ -195,7 +195,7 @@ GObject.registerClass({
     loadSections(sections) {
         this._progress_scale.loadSections(sections)
     }
-    loadPageList(pageList) {
+    loadPageList(pageList, total) {
         if (!pageList?.length) {
             this._page_box.hide()
             this._page_label.hide()
@@ -204,12 +204,7 @@ GObject.registerClass({
         this._page_box.show()
         this._page_label.show()
         this._page_drop_down.load(pageList)
-        let last
-        for (let i = pageList.length - 1; i > -1; i--) {
-            last = parseInt(pageList[i].label)
-            if (!isNaN(last)) break
-        }
-        this._page_total.label = format.total(last)
+        this._page_total.label = total ? format.total(total) : ''
     }
     loadLandmarks(landmarks) {
         this._landmark_toggle.sensitive = landmarks?.length ? true : false

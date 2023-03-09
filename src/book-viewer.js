@@ -546,7 +546,7 @@ export const BookViewer = GObject.registerClass({
         this._toc_view.load(book.toc)
         this._navbar.setDirection(book.dir)
         this._navbar.loadSections(book.sections)
-        this._navbar.loadPageList(book.pageList)
+        this._navbar.loadPageList(book.pageList, reader.pageTotal)
         this._navbar.loadLandmarks(book.landmarks)
 
         this._view.getCover().then(cover => {

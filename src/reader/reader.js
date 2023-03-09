@@ -6,6 +6,7 @@ import { toPangoMarkup } from './markup.js'
 // TODO: make this translatable
 const format = {
     loc: (a, b) => `Loc ${a} of ${b}`,
+    page: (a, b) => b ? `Page ${a} of ${b}` : `Page ${a}`,
 }
 
 const emit = x => globalThis.webkit.messageHandlers.viewer
@@ -152,6 +153,8 @@ class Reader {
         this.book = book
         if (book.metadata?.description)
             book.metadata.description = toPangoMarkup(book.metadata.description)
+        this.pageTotal = book.pageList
+            ?.findLast(x => !isNaN(parseInt(x.label)))?.label
     }
     async display() {
         this.view = new View(this.book, this.#handleEvent.bind(this))
@@ -173,12 +176,22 @@ class Reader {
                         heads[0].innerText = this.book.metadata.title
                 }
                 if (feet) {
-                    const { location: { current, next, total } } = obj
-                    feet[0].innerText = format.loc(current + 1, total)
-                    if (feet.length > 1) {
-                        const r = 1 - 1 / feet.length
-                        const end = Math.floor((1 - r) * current + r * next)
-                        feet.at(-1).innerText = format.loc(end + 1, total)
+                    const { pageItem, location: { current, next, total } } = obj
+                    if (pageItem) {
+                        // only show page number at the end
+                        // because we only have visible range for the spread,
+                        // not each column
+                        feet.at(-1).innerText = format.page(pageItem.label, this.pageTotal)
+                        if (feet.length > 1)
+                            feet[0].innerText = format.loc(current + 1, total)
+                    }
+                    else {
+                        feet[0].innerText = format.loc(current + 1, total)
+                        if (feet.length > 1) {
+                            const r = 1 - 1 / feet.length
+                            const end = Math.floor((1 - r) * current + r * next)
+                            feet.at(-1).innerText = format.loc(end + 1, total)
+                        }
                     }
                 }
                 emit(obj)
