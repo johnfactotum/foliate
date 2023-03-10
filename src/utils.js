@@ -305,7 +305,7 @@ export const RGBA = color => {
 
 export const addStyle = (widget, style) => {
     const cssProvider = new Gtk.CssProvider()
-    cssProvider.load_from_data(style)
+    cssProvider.load_from_data(style, -1)
     const ctx = widget.get_style_context()
     ctx.add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
     return widget

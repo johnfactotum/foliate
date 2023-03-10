@@ -165,8 +165,6 @@ export const Application = GObject.registerClass({
         })) this.set_accels_for_action(key, val)
     }
     connectStartup() {
-        //Adw.StyleManager.get_default().color_scheme = Adw.ColorScheme.FORCE_LIGHT
-
         const theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
         theme.add_search_path(pkg.modulepath('/icons'))
 
@@ -187,12 +185,6 @@ export const Application = GObject.registerClass({
             /* fix dark mode background in popovers */
             textview {
                 background: none;
-            }
-
-            button.emulate-windowcontrol {
-                min-height: 22px;
-                min-width: 22px;
-                padding: 0;
             }
 
             checkbutton.theme-selector {
@@ -231,7 +223,7 @@ export const Application = GObject.registerClass({
                 background-color: @theme_selected_bg_color;
                 color: @theme_selected_fg_color;
             }
-        `)
+        `, -1)
         Gtk.StyleContext.add_provider_for_display(
             Gdk.Display.get_default(),
             cssProvider,
