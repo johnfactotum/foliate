@@ -29,6 +29,7 @@ const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'columns': 'uint',
     'scrolled': 'boolean',
     'zoom-level': 'double',
+    'invert': 'boolean',
 })
 
 const FontSettings = utils.makeDataClass('FoliateFontSettings', {
@@ -211,6 +212,7 @@ GObject.registerClass({
                 spacing: view.spacing,
                 justify: view.justify,
                 hyphenate: view.hyphenate,
+                invert: view.invert,
             },
         })
         const z = view.zoom_level

@@ -99,17 +99,18 @@ const open = async file => {
     emit({ type: 'book-ready', book, reader })
 }
 
-const getCSS = ({ spacing, justify, hyphenate }) => `
+const getCSS = ({ spacing, justify, hyphenate, invert }) => `
     @namespace epub "http://www.idpf.org/2007/ops";
     html {
-        color-scheme: light dark;
+        color-scheme: ${invert ? 'only light' : 'light dark'};
     }
+    ${invert ? '' : `
     /* https://github.com/whatwg/html/issues/5426 */
     @media (prefers-color-scheme: dark) {
         a:link {
             color: lightblue;
         }
-    }
+    }`}
     p, li, blockquote, dd {
         line-height: ${spacing};
         text-align: ${justify ? 'justify' : 'start'};
@@ -143,6 +144,7 @@ class Reader {
         spacing: 1.4,
         justify: true,
         hyphenate: true,
+        invert: false,
     }
     layout = {
         margin: 48,
@@ -165,6 +167,7 @@ class Reader {
         Object.assign(this.style, style)
         Object.assign(this.layout, layout)
         this.view?.setAppearance({ css: getCSS(this.style), layout: this.layout })
+        document.body.classList.toggle('invert', this.style.invert)
     }
     #handleEvent(obj) {
         switch (obj.type) {
