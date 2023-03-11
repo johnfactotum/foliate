@@ -163,6 +163,19 @@ export const disconnect = (object, ids) => {
     for (const id of ids) object.disconnect(id)
 }
 
+export const settings = name => {
+    const schema = pkg.name + (name ? '.' + name : '')
+    try { return new Gio.Settings({ schema }) } catch {}
+}
+
+export const bindSettings = (name, target, arr) => {
+    const s = settings(name)
+    if (!s) return
+    for (const prop of arr)
+        s.bind(prop, target, prop, Gio.SettingsBindFlags.DEFAULT)
+    return s
+}
+
 export const makeParams = obj => Object.fromEntries(Object.entries(obj).map(([k, v]) => {
     const type = typeof v === 'string' ? v : 'object'
     const flags = GObject.ParamFlags.READWRITE
@@ -197,6 +210,12 @@ export const makeDataClass = (name, params) => {
             const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
             for (const [prop, [target, targetProp]] of Object.entries(obj))
                 this.bind_property(prop, target, targetProp, flag)
+        }
+        bindSettings(name) {
+            return bindSettings(name, this, keys)
+        }
+        unbindSettings() {
+            for (const k of keys) Gio.Settings.unbind(this, k)
         }
     })
 }

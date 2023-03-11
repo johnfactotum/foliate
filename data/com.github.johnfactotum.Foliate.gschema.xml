@@ -1,5 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="com.github.johnfactotum.Foliate">
   <schema id="com.github.johnfactotum.Foliate" path="/com/github/johnfactotum/Foliate/">
+    <child schema="com.github.johnfactotum.Foliate.window" name="window"/>
+    <child schema="com.github.johnfactotum.Foliate.viewer" name="viewer"/>
+    <key name="color-scheme" type="i">
+      <default>0</default>
+    </key>
+  </schema>
+
+  <schema id="com.github.johnfactotum.Foliate.window"
+    path="/com/github/johnfactotum/Foliate/window/">
+    <key name="default-width" type="i">
+      <default>1200</default>
+    </key>
+    <key name="default-height" type="i">
+      <default>750</default>
+    </key>
+    <key name="maximized" type="b">
+      <default>false</default>
+    </key>
+    <key name="fullscreened" type="b">
+      <default>false</default>
+    </key>
+  </schema>
+
+  <schema id="com.github.johnfactotum.Foliate.viewer"
+    path="/com/github/johnfactotum/Foliate/viewer/">
+    <child schema="com.github.johnfactotum.Foliate.viewer.view" name="view"/>
+    <child schema="com.github.johnfactotum.Foliate.viewer.font" name="font"/>
+    <key name="fold-sidebar" type="b">
+      <default>false</default>
+    </key>
+  </schema>
+
+  <schema id="com.github.johnfactotum.Foliate.viewer.view"
+    path="/com/github/johnfactotum/Foliate/viewer/view/">
+    <key name="brightness" type="d">
+      <default>1</default>
+    </key>
+    <key name="spacing" type="d">
+      <default>1.5</default>
+    </key>
+    <key name="justify" type="b">
+      <default>true</default>
+    </key>
+    <key name="hyphenate" type="b">
+      <default>true</default>
+    </key>
+    <key name="margin" type="i">
+      <default>50</default>
+    </key>
+    <key name="width" type="i">
+      <default>720</default>
+    </key>
+    <key name="columns" type="i">
+      <default>2</default>
+    </key>
+    <key name="scrolled" type="b">
+      <default>false</default>
+    </key>
+    <key name="zoom-level" type="d">
+      <default>1</default>
+    </key>
+    <key name="invert" type="b">
+      <default>false</default>
+    </key>
+  </schema>
+
+  <schema id="com.github.johnfactotum.Foliate.viewer.font"
+    path="/com/github/johnfactotum/Foliate/viewer/font/">
+    <key name="serif" type="s">
+      <default>'Serif'</default>
+    </key>
+    <key name="sans-serif" type="s">
+      <default>'Sans'</default>
+    </key>
+    <key name="monospace" type="s">
+      <default>'Monospace'</default>
+    </key>
+    <key name="default" type="u">
+      <default>0</default>
+    </key>
+    <key name="default-size" type="d">
+      <default>12</default>
+    </key>
+    <key name="minimum-size" type="d">
+      <default>0</default>
+    </key>
   </schema>
 </schemalist>

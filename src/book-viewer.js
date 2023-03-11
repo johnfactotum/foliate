@@ -94,6 +94,7 @@ GObject.registerClass({
             (req.select_files([encodeURI(this.#path)]), true),
         'context-menu': this.#contextMenu.bind(this),
     })
+    #bookReady = false
     #pinchFactor = 1
     fontSettings = new FontSettings({
         'serif': 'Serif 12',
@@ -120,6 +121,7 @@ GObject.registerClass({
             if (payload.type === 'ready') this.#exec('init')
             else this.emit(payload.type, payload)
         })
+        this.connect('book-ready', () => this.#bookReady = true)
 
         // handle pinch zoom
         this.add_controller(utils.connect(new Gtk.GestureZoom({
@@ -201,7 +203,7 @@ GObject.registerClass({
             minimum_font_size: WebKit.Settings.font_size_to_pixels(font.minimum_size),
         })
         const view = this.viewSettings
-        await this.#exec('reader.setAppearance', {
+        if (this.#bookReady) await this.#exec('reader.setAppearance', {
             layout: {
                 gap: view.margin,
                 maxColumnWidth: view.width,
@@ -225,6 +227,7 @@ GObject.registerClass({
         return true
     }
     open(file) {
+        this.#bookReady = false
         if (file) this.#path = file.get_path()
         this.#webView.loadURI('foliate:///reader/reader.html')
             .catch(e => console.error(e))
@@ -385,6 +388,9 @@ export const BookViewer = GObject.registerClass({
             'show-annotation': (_, x) => this.#showAnnotation(x),
             'show-image': (_, x) => this.#showImage(x),
         })
+        utils.bindSettings('viewer', this, ['fold-sidebar'])
+        this._view.fontSettings.bindSettings('viewer.font')
+        this._view.viewSettings.bindSettings('viewer.view')
 
         // view settings
         this._view.viewSettings.bindProperties({
@@ -727,8 +733,11 @@ export const BookViewer = GObject.registerClass({
     bookmark() {
         this._bookmark_view.toggle()
     }
-    // it seems that it's necessary to explicitly destroy web view
     vfunc_unroot() {
+        this._view.viewSettings.unbindSettings()
+        this._view.fontSettings.unbindSettings()
+
+        // it seems that it's necessary to explicitly destroy web view
         this._view.webView.unparent()
         this._view.webView.run_dispose()
     }

@@ -69,6 +69,10 @@ const ApplicationWindow = GObject.registerClass({
             actions: ['open', 'close', 'show-library', 'show-menu', 'open-copy'],
             props: ['fullscreened'],
         })
+
+        utils.bindSettings('window', this,
+            ['default-width', 'default-height', 'maximized', 'fullscreened'])
+
         if (this.file) this.openFile(this.file)
         else this.showLibrary()
     }
@@ -165,6 +169,14 @@ export const Application = GObject.registerClass({
         })) this.set_accels_for_action(key, val)
     }
     connectStartup() {
+        const settings = utils.settings()
+        if (settings) {
+            const styleManager = Adw.StyleManager.get_default()
+            styleManager.color_scheme = settings.get_int('color-scheme')
+            styleManager.connect('notify::color-scheme', () =>
+                settings.set_int('color-scheme', styleManager.color_scheme))
+        }
+
         const theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
         theme.add_search_path(pkg.modulepath('/icons'))
 
