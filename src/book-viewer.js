@@ -565,6 +565,7 @@ export const BookViewer = GObject.registerClass({
         book.metadata.identifier ??= makeIdentifier(this.#file)
         const { identifier } = book.metadata
         this._annotation_view.clear()
+        this._bookmark_view.clear()
         if (identifier) {
             const storage = new utils.JSONStorage(pkg.datadir, identifier)
             const lastLocation = storage.get('lastLocation', null)

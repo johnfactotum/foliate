@@ -149,6 +149,9 @@ GObject.registerClass({
         else this.add(this.#location.cfi, this.#location.tocItem?.label)
         this.updateLocation()
     }
+    clear() {
+        this.model.model.remove_all()
+    }
 })
 
 GObject.registerClass({
