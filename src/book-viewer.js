@@ -19,6 +19,16 @@ import { AnnotationPopover } from './annotations.js'
 import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
 
+const storageMap = new Map()
+const getStorage = identifier => {
+    if (storageMap.has(identifier)) return storageMap.get(identifier)
+    else {
+        const storage = new utils.JSONStorage(pkg.datadir, identifier)
+        storageMap.set(identifier, storage)
+        return storage
+    }
+}
+
 const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'brightness': 'double',
     'spacing': 'double',
@@ -367,6 +377,7 @@ export const BookViewer = GObject.registerClass({
     #file
     #book
     #cover
+    #storage
     constructor(params) {
         super(params)
         utils.connect(this._view, {
@@ -471,7 +482,8 @@ export const BookViewer = GObject.registerClass({
                 if (this._flap.folded) this._flap.reveal_flap = false
             },
             'update-annotation': (_, annotation) =>
-                this._view.updateAnnotation(annotation),
+                this._view.updateAnnotation(annotation)
+                    .then(() => this.#saveAnnotations()),
         })
         this._annotation_search_entry.connect('search-changed', entry =>
             this._annotation_view.filter(entry.text))
@@ -564,16 +576,20 @@ export const BookViewer = GObject.registerClass({
         this._annotation_view.clear()
         this._bookmark_view.clear()
         if (identifier) {
-            const storage = new utils.JSONStorage(pkg.datadir, identifier)
-            const lastLocation = storage.get('lastLocation', null)
-            const annotations = storage.get('annotations', [])
-            const bookmarks = storage.get('bookmarks', [])
+            this.#storage = getStorage(identifier)
+            const lastLocation = this.#storage.get('lastLocation', null)
+            const annotations = this.#storage.get('annotations', [])
+            const bookmarks = this.#storage.get('bookmarks', [])
             for (const bookmark of bookmarks) {
                 const item = await this._view.getTOCItemOf(bookmark)
                 this._bookmark_view.add(bookmark, item?.label ?? '')
             }
             await this._view.init({ lastLocation, annotations })
         } else await this._view.next()
+    }
+    async #saveAnnotations() {
+        const arr = await this._view.webView.eval('reader.view.annotations.export()')
+        this.#storage.set('annotations', arr)
     }
     #onRelocated(payload) {
         const { section, tocItem } = payload
@@ -598,7 +614,7 @@ export const BookViewer = GObject.registerClass({
             'highlight': () => this._view.addAnnotation({
                 value: cfi, text,
                 color: 'underline',
-            }),
+            }).then(() => this.#saveAnnotations()),
             'search': () => {
                 this._search_entry.text = text
                 this._search_bar.search_mode_enabled = true
@@ -617,7 +633,9 @@ export const BookViewer = GObject.registerClass({
                 title: _('Annotation deleted'),
                 button_label: _('Undo'),
             }), { 'button-clicked': () =>
-                this._view.addAnnotation(annotation) }))
+                this._view.addAnnotation(annotation)
+                    .then(() => this.#saveAnnotations()) }))
+            this.#saveAnnotations()
         })
         this._view.showPopover(popover, point, dir)
     }

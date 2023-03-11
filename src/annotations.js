@@ -64,33 +64,6 @@ const AnnotationRow = GObject.registerClass({
     }
 })
 
-/*
-const BookData = GObject.registerClass({
-    GTypeName: 'FoliateBookData',
-    Signals: {
-        'externally-modified': {},
-    },
-}, class extends GObject.Object {
-    #storage
-    #annotations = new Gio.ListStore()
-    constructor(identifier) {
-        super()
-        this.#storage = new utils.JSONStorage(pkg.datadir, identifier)
-        this.#storage.connect('externally-modified', () => {
-            this.#loadData()
-            this.emit('externally-modified')
-        })
-        this.#loadData()
-    }
-    #loadData() {
-        this.#annotations.remove_all()
-        this.#storage.get('annotations', [])
-            .map(annotation => ({ annotation, parsed: CFI.parse(annotation.value) }))
-            .sort((a, b) => CFI.compare(a.parsed, b.parsed))
-    }
-})
-*/
-
 GObject.registerClass({
     GTypeName: 'FoliateBookmarkView',
     Properties: utils.makeParams({
@@ -414,16 +387,16 @@ export const AnnotationPopover = GObject.registerClass({
             actions: ['add-note', 'delete'],
         }))
 
+        this._drop_down.selectColor(this.annotation.color)
+        this._text_view.buffer.text = this.annotation.note
+        this.#updateStack()
+
         this._drop_down.connect('color-changed', (_, color) =>
             this.annotation.set_property('color', color))
         this._text_view.buffer.connect('changed', buffer => {
             this.#updateStack()
             this.annotation.set_property('note', buffer.text)
         })
-
-        this._drop_down.selectColor(this.annotation.color)
-        this._text_view.buffer.text = this.annotation.note
-        this.#updateStack()
     }
     #updateStack() {
         const { buffer } = this._text_view
