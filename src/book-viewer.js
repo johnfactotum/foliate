@@ -28,7 +28,6 @@ const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'width': 'uint',
     'columns': 'uint',
     'scrolled': 'boolean',
-    'zoom-level': 'double',
     'invert': 'boolean',
 })
 
@@ -111,8 +110,7 @@ GObject.registerClass({
         'margin': 60,
         'width': 720,
         'columns': 2,
-        'zoom-level': 1,
-        //'scrolled': true,
+        'scrolled': false,
     })
     constructor(params) {
         super(params)
@@ -178,6 +176,12 @@ GObject.registerClass({
         this.fontSettings.connectAll(applyStyle)
         this.connect('book-ready', applyStyle)
 
+        this.#webView.connect('notify::zoom-level', webView => {
+            const z = webView.zoom_level
+            this.actionGroup.lookup_action('zoom-out').enabled = z > 0.2
+            this.actionGroup.lookup_action('zoom-in').enabled = z < 4
+        })
+
         this.actionGroup = utils.addMethods(this, {
             actions: [
                 'reload', 'inspector', 'prev', 'next', 'go-left', 'go-right',
@@ -217,11 +221,6 @@ GObject.registerClass({
                 invert: view.invert,
             },
         })
-        const z = view.zoom_level
-        this.#webView.zoom_level = z
-        //this.actionGroup.lookup_action('zoom-restore').enabled = z !== 1
-        this.actionGroup.lookup_action('zoom-out').enabled = z > 0.2
-        this.actionGroup.lookup_action('zoom-in').enabled = z < 4
     }
     #contextMenu() {
         return true
@@ -235,15 +234,9 @@ GObject.registerClass({
     reload() {
         this.open()
     }
-    zoomIn() {
-        this.viewSettings.set_property('zoom-level', this.viewSettings.zoom_level + 0.1)
-    }
-    zoomOut() {
-        this.viewSettings.set_property('zoom-level', this.viewSettings.zoom_level - 0.1)
-    }
-    zoomRestore() {
-        this.viewSettings.set_property('zoom-level', 1)
-    }
+    zoomIn() { this.#webView.zoom_level += 0.1 }
+    zoomOut() { this.#webView.zoom_level -= 0.1 }
+    zoomRestore() { this.#webView.zoom_level = 1 }
     inspector() {
         this.#webView.get_inspector().show()
     }
@@ -399,10 +392,8 @@ export const BookViewer = GObject.registerClass({
             'width': [this._width, 'value'],
             'columns': [this._columns, 'value'],
         })
-        const updateZoom = () => this._zoom_button.label =
-            format.percent(this._view.viewSettings.zoom_level)
-        this._view.viewSettings.connect('notify::zoom-level', updateZoom)
-        updateZoom()
+        this._view.webView.connect('notify::zoom-level', webView =>
+            this._zoom_button.label = format.percent(webView.zoom_level))
 
         // sidebar
         const setFoldSidebar = () =>
