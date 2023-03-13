@@ -196,7 +196,9 @@ export const makeDataClass = (name, params) => {
         GTypeName: name,
         Properties: makeParams(params),
     }, class extends GObject.Object {
-        keys = keys
+        get keys() {
+            return keys
+        }
         toJSON() {
             return Object.fromEntries(keys.map(k => [k, this[k]]))
         }

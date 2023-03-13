@@ -15,19 +15,102 @@ import { WebView } from './webview.js'
 import './toc.js'
 import './search.js'
 import './navbar.js'
-import { AnnotationPopover } from './annotations.js'
+import { AnnotationPopover, AnnotationModel } from './annotations.js'
 import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
+import * as CFI from './foliate-js/epubcfi.js'
 
-const storageMap = new Map()
-const getStorage = identifier => {
-    if (storageMap.has(identifier)) return storageMap.get(identifier)
-    else {
-        const storage = new utils.JSONStorage(pkg.datadir, identifier)
-        storageMap.set(identifier, storage)
-        return storage
+class BookData {
+    annotations = utils.connect(new AnnotationModel(), {
+        'update-annotation': async (_, annotation) => {
+            for (const view of this.views) await view.addAnnotation(annotation)
+            await this.#saveAnnotations()
+        },
+    })
+    //bookmarks = new BookmarkModel()
+    constructor(key, views) {
+        this.key = key
+        this.views = views
+        this.storage = utils.connect(new utils.JSONStorage(pkg.datadir, this.key), {
+            'externally-modified': () => {
+                // TODO: the file monitor doesn't seem to work
+            },
+        })
+    }
+    async initView(view, init) {
+        const lastLocation = this.storage.get('lastLocation', null)
+        await view.init({ lastLocation })
+        // const bookmarks = this.storage.get('bookmarks', [])
+        // for (const bookmark of bookmarks) {
+        //     const item = await view.getTOCItemOf(bookmark)
+        //     this.bookmarks.add(bookmark, item?.label ?? '')
+        // }
+        const annotations = init
+            ? this.storage.get('annotations', [])
+                .sort((a, b) => CFI.compare(a.value, b.value))
+            : this.annotations.export()
+        for (const annotation of annotations) this.addAnnotation(annotation)
+        return this
+    }
+    async addAnnotation(annotation) {
+        try {
+            const [view, ...views] = this.views
+            const { index, label } = await view.addAnnotation(annotation)
+            this.annotations.add(annotation, index, label)
+            for (const view of views) view.addAnnotation(annotation)
+            return this.#saveAnnotations()
+        } catch (e) {
+            console.error(e)
+        }
+    }
+    async deleteAnnotation(annotation) {
+        try {
+            const [view, ...views] = this.views
+            const { index } = await view.deleteAnnotation(annotation)
+            this.annotations.delete(annotation, index)
+            for (const view of views) view.deleteAnnotation(annotation)
+            return this.#saveAnnotations()
+        } catch (e) {
+            console.error(e)
+        }
+    }
+    #saveAnnotations() {
+        this.storage.set('annotations', this.annotations.export())
     }
 }
+
+class BookDataStore {
+    #map = new Map()
+    #views = new Map()
+    #keys = new WeakMap()
+    get(key, view) {
+        const map = this.#map
+        if (map.has(key)) {
+            this.#views.get(key).add(view)
+            this.#keys.set(view, key)
+            return map.get(key).initView(view)
+        }
+        else {
+            const views = new Set([view])
+            const obj = new BookData(key, views)
+            map.set(key, obj)
+            this.#views.set(key, views)
+            this.#keys.set(view, key)
+            return obj.initView(view, true)
+        }
+    }
+    delete(view) {
+        const key = this.#keys.get(view)
+        const views = this.#views.get(key)
+        views.delete(view)
+        if (!views.size) {
+            this.#map.delete(key)
+            this.#views.delete(key)
+        }
+    }
+}
+
+const dataStore = new BookDataStore()
 
 const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'brightness': 'double',
@@ -82,6 +165,7 @@ GObject.registerClass({
         'external-link': { param_types: [GObject.TYPE_JSOBJECT] },
         'reference': { param_types: [GObject.TYPE_JSOBJECT] },
         'selection': { param_types: [GObject.TYPE_JSOBJECT] },
+        'create-overlay': { param_types: [GObject.TYPE_JSOBJECT] },
         'add-annotation': { param_types: [GObject.TYPE_JSOBJECT] },
         'delete-annotation': { param_types: [GObject.TYPE_JSOBJECT] },
         'show-annotation': { param_types: [GObject.TYPE_JSOBJECT] },
@@ -283,9 +367,8 @@ GObject.registerClass({
     lastSection() { return this.#exec('reader.view.renderer.lastSection') }
     search(x) { return this.#webView.iter('reader.view.search', x) }
     showAnnotation(x) { return this.#exec('reader.view.showAnnotation', x) }
-    addAnnotation(x) { return this.#exec('reader.view.annotations.add', x) }
-    updateAnnotation(x) { return this.#exec('reader.view.annotations.update', x) }
-    deleteAnnotation(x) { return this.#exec('reader.view.annotations.delete', x) }
+    addAnnotation(x) { return this.#exec('reader.view.addAnnotation', x) }
+    deleteAnnotation(x) { return this.#exec('reader.view.deleteAnnotation', x) }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
     init(x) { return this.#exec('reader.view.init', x) }
     get webView() { return this.#webView }
@@ -377,7 +460,7 @@ export const BookViewer = GObject.registerClass({
     #file
     #book
     #cover
-    #storage
+    #data
     constructor(params) {
         super(params)
         utils.connect(this._view, {
@@ -387,8 +470,7 @@ export const BookViewer = GObject.registerClass({
             'external-link': (_, x) => Gtk.show_uri(null, x.uri, Gdk.CURRENT_TIME),
             'reference': (_, x) => this.#onReference(x),
             'selection': (_, x) => this.#onSelection(x),
-            'add-annotation': (_, x) => this._annotation_view.add(x),
-            'delete-annotation': (_, x) => this._annotation_view.delete(x),
+            'create-overlay': (_, x) => this.#createOverlay(x),
             'show-annotation': (_, x) => this.#showAnnotation(x),
             'show-image': (_, x) => this.#showImage(x),
         })
@@ -475,15 +557,10 @@ export const BookViewer = GObject.registerClass({
             },
         })
         utils.connect(this._annotation_view, {
-            'notify::has-items': view => this._annotation_stack
-                .visible_child_name = view.has_items ? 'main' : 'empty',
             'go-to-annotation': (_, annotation) => {
                 this._view.showAnnotation(annotation)
                 if (this._flap.folded) this._flap.reveal_flap = false
             },
-            'update-annotation': (_, annotation) =>
-                this._view.updateAnnotation(annotation)
-                    .then(() => this.#saveAnnotations()),
         })
         this._annotation_search_entry.connect('search-changed', entry =>
             this._annotation_view.filter(entry.text))
@@ -573,23 +650,16 @@ export const BookViewer = GObject.registerClass({
 
         book.metadata.identifier ??= makeIdentifier(this.#file)
         const { identifier } = book.metadata
-        this._annotation_view.clear()
-        this._bookmark_view.clear()
         if (identifier) {
-            this.#storage = getStorage(identifier)
-            const lastLocation = this.#storage.get('lastLocation', null)
-            const annotations = this.#storage.get('annotations', [])
-            const bookmarks = this.#storage.get('bookmarks', [])
-            for (const bookmark of bookmarks) {
-                const item = await this._view.getTOCItemOf(bookmark)
-                this._bookmark_view.add(bookmark, item?.label ?? '')
-            }
-            await this._view.init({ lastLocation, annotations })
-        } else await this._view.next()
-    }
-    async #saveAnnotations() {
-        const arr = await this._view.webView.eval('reader.view.annotations.export()')
-        this.#storage.set('annotations', arr)
+            this.#data = await dataStore.get(identifier, this._view)
+            const { annotations } = this.#data
+            this._annotation_view.setupModel(annotations)
+            const updateAnnotations = () => this._annotation_stack
+                .visible_child_name = annotations.has_items ? 'main' : 'empty'
+            annotations.connect_(this, { 'notify::has-items': updateAnnotations })
+            updateAnnotations()
+        }
+        else await this._view.next()
     }
     #onRelocated(payload) {
         const { section, tocItem } = payload
@@ -611,10 +681,10 @@ export const BookViewer = GObject.registerClass({
                     Gdk.ContentProvider.new_for_bytes('text/html',
                         new TextEncoder().encode(html)),
                     Gdk.ContentProvider.new_for_value(text)])),
-            'highlight': () => this._view.addAnnotation({
+            'highlight': () => this.#data.addAnnotation({
                 value: cfi, text,
                 color: 'underline',
-            }).then(() => this.#saveAnnotations()),
+            }),
             'search': () => {
                 this._search_entry.text = text
                 this._search_bar.search_mode_enabled = true
@@ -624,18 +694,22 @@ export const BookViewer = GObject.registerClass({
         }))
         this._view.showPopover(popover, point, dir)
     }
+    #createOverlay({ index }) {
+        if (!this.#data) return
+        const list = this.#data.annotations.getForIndex(index)
+        if (list) for (const [, annotation] of utils.gliter(list))
+            this._view.addAnnotation(annotation)
+    }
     #showAnnotation({ value, pos: { point, dir } }) {
-        const annotation = this._annotation_view.get(value)
+        const annotation = this.#data.annotations.get(value)
         const popover = new AnnotationPopover({ annotation })
         popover.connect('delete-annotation', () => {
-            this._view.deleteAnnotation(value)
+            this.#data.deleteAnnotation(annotation)
             this.root.toast(utils.connect(new Adw.Toast({
                 title: _('Annotation deleted'),
                 button_label: _('Undo'),
             }), { 'button-clicked': () =>
-                this._view.addAnnotation(annotation)
-                    .then(() => this.#saveAnnotations()) }))
-            this.#saveAnnotations()
+                this.#data.addAnnotation(annotation) }))
         })
         this._view.showPopover(popover, point, dir)
     }
@@ -745,6 +819,8 @@ export const BookViewer = GObject.registerClass({
     vfunc_unroot() {
         this._view.viewSettings.unbindSettings()
         this._view.fontSettings.unbindSettings()
+        this.#data.annotations.disconnect_(this)
+        dataStore.delete(this._view)
 
         // it seems that it's necessary to explicitly destroy web view
         this._view.webView.unparent()

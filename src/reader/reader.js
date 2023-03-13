@@ -201,8 +201,7 @@ class Reader {
                 emit(obj)
                 break
             }
-            case 'add-annotation':
-            case 'delete-annotation': emit(obj); break
+            case 'create-overlay': emit(obj); break
             case 'show-annotation':
                 obj.pos = getPosition(obj.range)
                 emit(obj)

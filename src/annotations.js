@@ -127,24 +127,102 @@ GObject.registerClass({
     }
 })
 
+export const AnnotationModel = GObject.registerClass({
+    GTypeName: 'FoliateAnnotationModel',
+    Properties: utils.makeParams({
+        'has-items': 'boolean',
+    }),
+    Signals: {
+        'update-annotation': { param_types: [Annotation.$gtype] },
+    },
+}, class extends Gio.ListStore {
+    #map = new Map()
+    #lists = new Map()
+    #connections = new WeakMap()
+    constructor(params) {
+        super(params)
+        this.connect('notify::n-items', model =>
+            this.set_property('has-items', model.get_n_items() > 0))
+    }
+    add(annotation, index, label) {
+        const { value } = annotation
+        if (this.#map.has(value)) return
+        const obj = annotation instanceof Annotation
+            ? new Annotation(annotation.toJSON()) : new Annotation(annotation)
+        this.#map.set(value, obj)
+        obj.connectAll(() => this.emit('update-annotation', obj))
+        if (this.#lists.has(index)) {
+            const list = this.#lists.get(index)
+            for (const [i, item] of utils.gliter(list)) {
+                if (CFI.compare(value, item.value) <= 0) {
+                    list.insert(i, obj)
+                    return
+                }
+            }
+            list.append(obj)
+        } else {
+            const subitems = new Gio.ListStore()
+            subitems.append(obj)
+            this.#lists.set(index, subitems)
+            const heading = new AnnotationHeading({ label, index, subitems })
+            for (const [i, item] of utils.gliter(this))
+                if (item.index > index) return this.insert(i, heading)
+            this.append(heading)
+        }
+    }
+    delete(annotation, index) {
+        const { value } = annotation
+        this.#map.delete(value)
+        const list = this.#lists.get(index)
+        for (const [i, item] of utils.gliter(list)) {
+            if (item.value === value) {
+                list.remove(i)
+                if (!list.get_n_items()) {
+                    for (const [j, item] of utils.gliter(this))
+                        if (item.subitems === list) {
+                            this.remove(j)
+                            this.#lists.delete(index)
+                            break
+                        }
+                }
+                break
+            }
+        }
+    }
+    get(value) {
+        return this.#map.get(value)
+    }
+    getForIndex(index) {
+        return this.#lists.get(index)
+    }
+    export() {
+        return Array.from(utils.gliter(this), ([, item]) =>
+            Array.from(utils.gliter(item.subitems), ([, item]) => item)).flat()
+    }
+    connect_(object, obj) {
+        if (this.#connections.has(object)) return
+        this.#connections.set(object, Array.from(Object.entries(obj),
+            ([key, val]) => this.connect(key, val)))
+        return this
+    }
+    disconnect_(object) {
+        const handlers = this.#connections.get(object)
+        if (handlers) for (const id of handlers) this.disconnect(id)
+    }
+})
+
 GObject.registerClass({
     GTypeName: 'FoliateAnnotationView',
     Properties: utils.makeParams({
         'has-items': 'boolean',
     }),
     Signals: {
-        'update-annotation': { param_types: [Annotation.$gtype] },
         'go-to-annotation': { param_types: [Annotation.$gtype] },
     },
 }, class extends Gtk.ListView {
-    #tree = utils.tree([])
-    #filter = new Gtk.FilterListModel({ model: this.#tree })
-    #map = new Map()
+    #filter
     constructor(params) {
         super(params)
-        this.#tree.model.connect('notify::n-items', model =>
-            this.set_property('has-items', model.get_n_items() > 0))
-        this.model = new Gtk.NoSelection({ model: this.#filter })
         this.connect('activate', (_, pos) => {
             const annotation = this.model.model.get_item(pos).item ?? {}
             if (annotation) this.emit('go-to-annotation', annotation)
@@ -172,44 +250,12 @@ GObject.registerClass({
             'unbind': (_, listItem) =>
                 utils.disconnect(listItem.item.item, handlers.get(listItem)),
         })
-        const tree = utils.tree([], Annotation)
-        tree.model.append(new Annotation())
     }
-    add({ annotation, label, index, position }) {
-        const obj = new Annotation(annotation)
-        obj.connectAll(() => this.emit('update-annotation', obj))
-        this.#map.set(annotation.value, obj)
-        const { model } = this.#tree
-        for (const [i, item] of utils.gliter(model)) {
-            if (item.index === index) {
-                item.subitems.insert(position, obj)
-                return
-            }
-            if (item.index > index) {
-                const subitems = new Gio.ListStore()
-                subitems.append(obj)
-                model.insert(i, new AnnotationHeading({ label, index, subitems }))
-                return
-            }
-        }
-        const subitems = new Gio.ListStore()
-        subitems.append(obj)
-        model.append(new AnnotationHeading({ label, index, subitems }))
-    }
-    delete({ index, position }) {
-        const { model } = this.#tree
-        for (const [i, item] of utils.gliter(model))
-            if (item.index === index) {
-                item.subitems.remove(position)
-                if (!item.subitems.get_n_items()) model.remove(i)
-                return
-            }
-    }
-    clear() {
-        this.#tree.model.remove_all()
-    }
-    get(value) {
-        return this.#map.get(value)
+    setupModel(model) {
+        const tree = Gtk.TreeListModel
+            .new(model, false, true, item => item.subitems ?? null)
+        this.#filter = new Gtk.FilterListModel({ model: tree })
+        this.model = new Gtk.NoSelection({ model: this.#filter })
     }
     filter(query) {
         query = query?.trim()?.toLowerCase()
