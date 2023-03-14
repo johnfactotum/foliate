@@ -6,7 +6,7 @@ Read books in style.
 
 🚧️ This is the work-in-progress GTK 4 branch.
 
-⚠️ Currently, it saves annotations, but not reading progress or bookmarks.
+⚠️ Currently, it saves annotations and bookmarks, but not reading progress.
 
 ## Installation
 

@@ -163,6 +163,18 @@ export const disconnect = (object, ids) => {
     for (const id of ids) object.disconnect(id)
 }
 
+const connections = new WeakMap()
+
+export const connectWith = (a, b, obj) => {
+    if (!connections.has(a)) connections.set(a, new Map())
+    connections.get(a).set(b, Array.from(Object.entries(obj), ([k, v]) => b.connect(k, v)))
+    return b
+}
+
+export const disconnectWith = (a, b) => {
+    for (const id of connections.get(a).get(b)) b.disconnect(id)
+}
+
 export const settings = name => {
     const schema = pkg.name + (name ? '.' + name : '')
     try { return new Gio.Settings({ schema }) } catch {}

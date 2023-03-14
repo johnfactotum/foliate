@@ -15,7 +15,7 @@ import { WebView } from './webview.js'
 import './toc.js'
 import './search.js'
 import './navbar.js'
-import { AnnotationPopover, AnnotationModel } from './annotations.js'
+import { AnnotationPopover, AnnotationModel, BookmarkModel } from './annotations.js'
 import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
 
@@ -26,7 +26,7 @@ class BookData {
             await this.#saveAnnotations()
         },
     })
-    //bookmarks = new BookmarkModel()
+    bookmarks = new BookmarkModel()
     constructor(key, views) {
         this.key = key
         this.views = views
@@ -39,11 +39,20 @@ class BookData {
     async initView(view, init) {
         const lastLocation = this.storage.get('lastLocation', null)
         await view.init({ lastLocation })
-        // const bookmarks = this.storage.get('bookmarks', [])
-        // for (const bookmark of bookmarks) {
-        //     const item = await view.getTOCItemOf(bookmark)
-        //     this.bookmarks.add(bookmark, item?.label ?? '')
-        // }
+
+        if (init) {
+            const bookmarks = this.storage.get('bookmarks', [])
+            for (const bookmark of bookmarks) {
+                try {
+                    const item = await view.getTOCItemOf(bookmark)
+                    this.bookmarks.add(bookmark, item?.label ?? '')
+                } catch (e) {
+                    console.error(e)
+                }
+            }
+            this.bookmarks.connect('notify::n-items', () => this.#saveBookmarks())
+        }
+
         const annotations = init
             ? this.storage.get('annotations', [])
             : this.annotations.export()
@@ -74,6 +83,9 @@ class BookData {
     }
     #saveAnnotations() {
         this.storage.set('annotations', this.annotations.export())
+    }
+    #saveBookmarks() {
+        this.storage.set('bookmarks', this.bookmarks.export())
     }
 }
 
@@ -650,12 +662,20 @@ export const BookViewer = GObject.registerClass({
         const { identifier } = book.metadata
         if (identifier) {
             this.#data = await dataStore.get(identifier, this._view)
-            const { annotations } = this.#data
+            const { annotations, bookmarks } = this.#data
             this._annotation_view.setupModel(annotations)
+            this._bookmark_view.setupModel(bookmarks)
             const updateAnnotations = () => this._annotation_stack
-                .visible_child_name = annotations.has_items ? 'main' : 'empty'
-            annotations.connect_(this, { 'notify::has-items': updateAnnotations })
+                .visible_child_name = annotations.n_items > 0 ? 'main' : 'empty'
+            const updateBookmarks = () => {
+                this._bookmark_view.update()
+                this._bookmark_stack.visible_child_name =
+                    bookmarks.n_items > 0 ? 'main' : 'empty'
+            }
+            utils.connectWith(this, annotations, { 'notify::n-items': updateAnnotations })
+            utils.connectWith(this, bookmarks, { 'notify::n-items': updateBookmarks })
             updateAnnotations()
+            updateBookmarks()
         }
         else await this._view.next()
     }
@@ -664,7 +684,7 @@ export const BookViewer = GObject.registerClass({
         this._toc_view.setCurrent(tocItem?.id)
         this._search_view.index = section.current
         this._navbar.update(payload)
-        this._bookmark_view.updateLocation(payload)
+        this._bookmark_view.update(payload)
     }
     #onReference({ href, html, pos: { point, dir } }) {
         const popover = new FootnotePopover({ href, footnote: html })
@@ -817,7 +837,8 @@ export const BookViewer = GObject.registerClass({
     vfunc_unroot() {
         this._view.viewSettings.unbindSettings()
         this._view.fontSettings.unbindSettings()
-        this.#data.annotations.disconnect_(this)
+        utils.disconnectWith(this, this.#data.annotations)
+        utils.disconnectWith(this, this.#data.bookmarks)
         dataStore.delete(this._view)
 
         // it seems that it's necessary to explicitly destroy web view

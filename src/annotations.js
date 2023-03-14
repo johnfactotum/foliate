@@ -64,6 +64,28 @@ const AnnotationRow = GObject.registerClass({
     }
 })
 
+export const BookmarkModel = GObject.registerClass({
+    GTypeName: 'FoliateBookmarkModel',
+}, class extends Gio.ListStore {
+    add(value, label) {
+        const obj = new Bookmark({ value, label })
+        for (const [i, item] of utils.gliter(this)) {
+            if (CFI.compare(value, item.value) <= 0) {
+                this.insert(i, obj)
+                return
+            }
+        }
+        this.append(obj)
+    }
+    delete(value) {
+        for (const [i, item] of utils.gliter(this))
+            if (item.value === value) this.remove(i)
+    }
+    export() {
+        return Array.from(utils.gliter(this), ([, item]) => item.value)
+    }
+})
+
 GObject.registerClass({
     GTypeName: 'FoliateBookmarkView',
     Properties: utils.makeParams({
@@ -78,9 +100,6 @@ GObject.registerClass({
     #inView = []
     constructor(params) {
         super(params)
-        this.model = new Gtk.NoSelection({ model: new Gio.ListStore() })
-        this.model.model.connect('notify::n-items', model =>
-            this.set_property('has-items', model.get_n_items() > 0))
         this.connect('activate', (_, pos) => {
             const bookmark = this.model.model.get_item(pos) ?? {}
             if (bookmark) this.emit('go-to-bookmark', bookmark.value)
@@ -88,25 +107,18 @@ GObject.registerClass({
         this.factory = utils.connect(new Gtk.SignalListItemFactory(), {
             'setup': (_, listItem) => {
                 const row = new BookmarkRow()
-                row.button.connect('clicked', () => {
-                    this.delete(row.value)
-                    this.updateLocation()
-                })
+                row.button.connect('clicked', () => this.model.model.delete(row.value))
                 listItem.child = row
             },
             'bind': (_, listItem) => listItem.child.update(listItem.item),
         })
     }
-    add(value, label) {
-        this.model.model.append(new Bookmark({ value, label }))
+    setupModel(model) {
+        this.model = new Gtk.NoSelection({ model })
     }
-    delete(value) {
-        const { model } = this.model
-        for (const [i, item] of utils.gliter(model))
-            if (item.value === value) model.remove(i)
-    }
-    updateLocation(location = this.#location) {
+    update(location = this.#location) {
         this.#location = location
+        if (!this.model) return
         const { cfi } = location
         const start = CFI.collapse(cfi)
         const end = CFI.collapse(cfi, true)
@@ -118,32 +130,19 @@ GObject.registerClass({
     }
     toggle() {
         const inView = this.#inView
-        if (inView.length) for (const [value] of inView) this.delete(value)
-        else this.add(this.#location.cfi, this.#location.tocItem?.label)
-        this.updateLocation()
-    }
-    clear() {
-        this.model.model.remove_all()
+        if (inView.length) for (const [value] of inView) this.model.model.delete(value)
+        else this.model.model.add(this.#location.cfi, this.#location.tocItem?.label)
     }
 })
 
 export const AnnotationModel = GObject.registerClass({
     GTypeName: 'FoliateAnnotationModel',
-    Properties: utils.makeParams({
-        'has-items': 'boolean',
-    }),
     Signals: {
         'update-annotation': { param_types: [Annotation.$gtype] },
     },
 }, class extends Gio.ListStore {
     #map = new Map()
     #lists = new Map()
-    #connections = new WeakMap()
-    constructor(params) {
-        super(params)
-        this.connect('notify::n-items', model =>
-            this.set_property('has-items', model.get_n_items() > 0))
-    }
     add(annotation, index, label) {
         const { value } = annotation
         if (this.#map.has(value)) return
@@ -198,16 +197,6 @@ export const AnnotationModel = GObject.registerClass({
     export() {
         return Array.from(utils.gliter(this), ([, item]) =>
             Array.from(utils.gliter(item.subitems), ([, item]) => item)).flat()
-    }
-    connect_(object, obj) {
-        if (this.#connections.has(object)) return
-        this.#connections.set(object, Array.from(Object.entries(obj),
-            ([key, val]) => this.connect(key, val)))
-        return this
-    }
-    disconnect_(object) {
-        const handlers = this.#connections.get(object)
-        if (handlers) for (const id of handlers) this.disconnect(id)
     }
 })
 
