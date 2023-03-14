@@ -1,4 +1,5 @@
 import Gtk from 'gi://Gtk'
+import Adw from 'gi://Adw'
 import Gio from 'gi://Gio'
 import GObject from 'gi://GObject'
 import { gettext as _ } from 'gettext'
@@ -31,6 +32,7 @@ const BookmarkRow = GObject.registerClass({
 }, class extends Gtk.Box {
     update({ value, label }) {
         this.value = value
+        this.label = label
         this._label.label = label
         this._value.label = value
     }
@@ -79,7 +81,10 @@ export const BookmarkModel = GObject.registerClass({
     }
     delete(value) {
         for (const [i, item] of utils.gliter(this))
-            if (item.value === value) this.remove(i)
+            if (item.value === value) {
+                this.remove(i)
+                break
+            }
     }
     export() {
         return Array.from(utils.gliter(this), ([, item]) => item.value)
@@ -105,9 +110,16 @@ GObject.registerClass({
             if (bookmark) this.emit('go-to-bookmark', bookmark.value)
         })
         this.factory = utils.connect(new Gtk.SignalListItemFactory(), {
-            'setup': (_, listItem) => {
+            'setup': (__, listItem) => {
                 const row = new BookmarkRow()
-                row.button.connect('clicked', () => this.model.model.delete(row.value))
+                row.button.connect('clicked', () => {
+                    this.model.model.delete(row.value)
+                    this.root.toast(utils.connect(new Adw.Toast({
+                        title: _('Bookmark deleted'),
+                        button_label: _('Undo'),
+                    }), { 'button-clicked': () =>
+                        this.model.model.add(row.value, row.label) }))
+                })
                 listItem.child = row
             },
             'bind': (_, listItem) => listItem.child.update(listItem.item),
@@ -123,15 +135,24 @@ GObject.registerClass({
         const start = CFI.collapse(cfi)
         const end = CFI.collapse(cfi, true)
         this.#inView = Array.from(utils.gliter(this.model.model),
-            ([, { value }]) => [value,
-                CFI.compare(start, value) * CFI.compare(end, value) <= 0])
+            ([, bookmark]) => [bookmark,
+                CFI.compare(start, bookmark.value) * CFI.compare(end, bookmark.value) <= 0])
             .filter(([, x]) => x)
         this.set_property('has-items-in-view', this.#inView.length > 0)
     }
     toggle() {
         const inView = this.#inView
-        if (inView.length) for (const [value] of inView) this.model.model.delete(value)
-        else this.model.model.add(this.#location.cfi, this.#location.tocItem?.label)
+        const { model } = this.model
+        if (inView.length) {
+            const marks = inView.map(x => x[0])
+            for (const { value } of marks) model.delete(value)
+            this.root.toast(utils.connect(new Adw.Toast({
+                title: _('Bookmark deleted'),
+                button_label: _('Undo'),
+            }), { 'button-clicked': () =>
+                marks.forEach(({ value, label }) => model.add(value, label)) }))
+        }
+        else model.add(this.#location.cfi, this.#location.tocItem?.label)
     }
 })
 
