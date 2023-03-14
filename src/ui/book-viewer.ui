@@ -12,11 +12,11 @@
   </section>
   <section>
     <item>
-      <attribute name="label" translatable="yes">Import Annotations</attribute>
+      <attribute name="label" translatable="yes">Import Annotations…</attribute>
       <attribute name="action">viewer.import</attribute>
     </item>
     <item>
-      <attribute name="label" translatable="yes">Export Annotations</attribute>
+      <attribute name="label" translatable="yes">Export Annotations…</attribute>
       <attribute name="action">viewer.export</attribute>
     </item>
   </section>
@@ -159,7 +159,7 @@
               <property name="child">
                 <object class="AdwStatusPage" id="error-page">
                   <property name="icon-name">face-uncertain-symbolic</property>
-                  <property name="title" translatable="yes">Could not open file</property>
+                  <property name="title" translatable="yes">Book Cannot Be Opened</property>
                   <child>
                     <object class="GtkBox">
                       <property name="orientation">vertical</property>
@@ -237,6 +237,7 @@
                   <child type="end">
                     <object class="GtkMenuButton" id="book-menu-button">
                       <property name="icon-name">open-menu-symbolic</property>
+                      <property name="tooltip-text" translatable="yes">Menu</property>
                       <property name="menu-model">book-menu</property>
                     </object>
                   </child>
@@ -258,7 +259,7 @@
                         <object class="GtkEntry" id="search-entry">
                           <property name="primary-icon-name">edit-find-symbolic</property>
                           <property name="secondary-icon-name"></property>
-                          <property name="placeholder-text" translatable="yes">Find in book</property>
+                          <property name="placeholder-text" translatable="yes">Find in book…</property>
                           <style><class name="search"/></style>
                         </object>
                       </child>
@@ -390,8 +391,8 @@
                                             <object class="AdwStatusPage">
                                               <property name="vexpand">true</property>
                                               <property name="icon-name">document-edit-symbolic</property>
-                                              <property name="title">No annotations</property>
-                                              <property name="description">Select some text to add annotations.</property>
+                                              <property name="title">No Annotations</property>
+                                              <property name="description">Select some text to add annotations</property>
                                               <style><class name="compact"/></style>
                                             </object>
                                           </property>
@@ -423,7 +424,7 @@
                                                   <property name="margin-bottom">6</property>
                                                   <property name="margin-start">6</property>
                                                   <property name="margin-end">6</property>
-                                                  <property name="placeholder-text" translatable="yes">Filter annotations</property>
+                                                  <property name="placeholder-text" translatable="yes">Filter annotations…</property>
                                                 </object>
                                               </child>
                                             </object>
@@ -448,8 +449,8 @@
                                             <object class="AdwStatusPage">
                                               <property name="vexpand">true</property>
                                               <property name="icon-name">user-bookmarks-symbolic</property>
-                                              <property name="title">No bookmarks</property>
-                                              <property name="description">Add some bookmarks to see them here.</property>
+                                              <property name="title">No Bookmarks</property>
+                                              <property name="description">Add some bookmarks to see them here</property>
                                               <style><class name="compact"/></style>
                                             </object>
                                           </property>
@@ -488,8 +489,8 @@
                         <object class="AdwStatusPage">
                           <property name="vexpand">true</property>
                           <property name="icon-name">edit-find-symbolic</property>
-                          <property name="title" translatable="yes">No results found</property>
-                          <property name="description" translatable="yes">Try a different search.</property>
+                          <property name="title" translatable="yes">No Results Found</property>
+                          <property name="description" translatable="yes">Try a different search</property>
                           <style><class name="compact"/></style>
                         </object>
                       </property>
@@ -552,6 +553,7 @@
                       <child type="end">
                         <object class="GtkMenuButton">
                           <property name="icon-name">view-more-symbolic</property>
+                          <property name="tooltip-text" translatable="yes">View</property>
                           <property name="popover">
                             <object class="GtkPopoverMenu" id="view-popover">
                               <property name="menu-model">view-menu</property>

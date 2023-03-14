@@ -86,6 +86,7 @@
     <object class="GtkMenuButton">
       <property name="valign">center</property>
       <property name="icon-name">audio-headphones-symbolic</property>
+      <property name="tooltip-text" translatable="yes">Text-to-Speech</property>
       <property name="popover">
         <object class="GtkPopoverMenu" id="tts-popover">
           <property name="menu-model">tts-menu</property>

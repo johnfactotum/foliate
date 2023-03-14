@@ -620,9 +620,9 @@ export const BookViewer = GObject.registerClass({
         }))
     }
     #onError({ id, message, stack }) {
-        const desc = id === 'not-found' ? _('The file could not be found.')
-            : id === 'unsupported-type' ? _('The file type is not supported.')
-            : _('The file could not be opened because an error occurred.')
+        const desc = id === 'not-found' ? _('File not found')
+            : id === 'unsupported-type' ? _('File type not supported')
+            : _('An error occurred')
         this._error_page.description = desc
         if (message) {
             this._error_page_details.label =
@@ -823,7 +823,7 @@ export const BookViewer = GObject.registerClass({
         content.append(widget)
         const win = new Adw.Window({
             content,
-            title: _('Fonts'),
+            title: _('Default Fonts'),
             default_width: 360,
             modal: true,
             transient_for: this.root,
