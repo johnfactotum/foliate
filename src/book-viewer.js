@@ -18,7 +18,6 @@ import './navbar.js'
 import { AnnotationPopover, AnnotationModel } from './annotations.js'
 import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
-import * as CFI from './foliate-js/epubcfi.js'
 
 class BookData {
     annotations = utils.connect(new AnnotationModel(), {
@@ -47,18 +46,17 @@ class BookData {
         // }
         const annotations = init
             ? this.storage.get('annotations', [])
-                .sort((a, b) => CFI.compare(a.value, b.value))
             : this.annotations.export()
-        for (const annotation of annotations) this.addAnnotation(annotation)
+        for (const annotation of annotations) this.addAnnotation(annotation, init)
         return this
     }
-    async addAnnotation(annotation) {
+    async addAnnotation(annotation, init) {
         try {
             const [view, ...views] = this.views
             const { index, label } = await view.addAnnotation(annotation)
             this.annotations.add(annotation, index, label)
             for (const view of views) view.addAnnotation(annotation)
-            return this.#saveAnnotations()
+            if (!init) return this.#saveAnnotations()
         } catch (e) {
             console.error(e)
         }

@@ -213,9 +213,6 @@ export const AnnotationModel = GObject.registerClass({
 
 GObject.registerClass({
     GTypeName: 'FoliateAnnotationView',
-    Properties: utils.makeParams({
-        'has-items': 'boolean',
-    }),
     Signals: {
         'go-to-annotation': { param_types: [Annotation.$gtype] },
     },
