@@ -65,7 +65,8 @@ class BookData {
             const { index, label } = await view.addAnnotation(annotation)
             this.annotations.add(annotation, index, label)
             for (const view of views) view.addAnnotation(annotation)
-            if (!init) return this.#saveAnnotations()
+            if (!init) this.#saveAnnotations()
+            return annotation
         } catch (e) {
             console.error(e)
         }
@@ -704,7 +705,7 @@ export const BookViewer = GObject.registerClass({
             'highlight': () => this.#data.addAnnotation({
                 value: cfi, text,
                 color: this.highlight_color,
-            }),
+            }).then(annotation => this._view.showAnnotation(annotation)),
             'search': () => {
                 this._search_entry.text = text
                 this._search_bar.search_mode_enabled = true
