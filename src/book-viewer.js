@@ -451,6 +451,7 @@ export const BookViewer = GObject.registerClass({
     Template: pkg.moduleuri('ui/book-viewer.ui'),
     Properties: utils.makeParams({
         'fold-sidebar': 'boolean',
+        'highlight-color': 'string',
     }),
     InternalChildren: [
         'top-overlay-box', 'top-overlay-stack',
@@ -484,7 +485,8 @@ export const BookViewer = GObject.registerClass({
             'show-annotation': (_, x) => this.#showAnnotation(x),
             'show-image': (_, x) => this.#showImage(x),
         })
-        utils.bindSettings('viewer', this, ['fold-sidebar'])
+        this.highlight_color = 'yellow'
+        utils.bindSettings('viewer', this, ['fold-sidebar', 'highlight-color'])
         this._view.fontSettings.bindSettings('viewer.font')
         this._view.viewSettings.bindSettings('viewer.view')
 
@@ -701,7 +703,7 @@ export const BookViewer = GObject.registerClass({
                     Gdk.ContentProvider.new_for_value(text)])),
             'highlight': () => this.#data.addAnnotation({
                 value: cfi, text,
-                color: 'underline',
+                color: this.highlight_color,
             }),
             'search': () => {
                 this._search_entry.text = text
@@ -720,14 +722,16 @@ export const BookViewer = GObject.registerClass({
     }
     #showAnnotation({ value, pos: { point, dir } }) {
         const annotation = this.#data.annotations.get(value)
-        const popover = new AnnotationPopover({ annotation })
-        popover.connect('delete-annotation', () => {
-            this.#data.deleteAnnotation(annotation)
-            this.root.toast(utils.connect(new Adw.Toast({
-                title: _('Annotation deleted'),
-                button_label: _('Undo'),
-            }), { 'button-clicked': () =>
-                this.#data.addAnnotation(annotation) }))
+        const popover = utils.connect(new AnnotationPopover({ annotation }), {
+            'delete-annotation': () => {
+                this.#data.deleteAnnotation(annotation)
+                this.root.toast(utils.connect(new Adw.Toast({
+                    title: _('Annotation deleted'),
+                    button_label: _('Undo'),
+                }), { 'button-clicked': () =>
+                    this.#data.addAnnotation(annotation) }))
+            },
+            'color-changed': (_, color) => this.highlight_color = color,
         })
         this._view.showPopover(popover, point, dir)
     }

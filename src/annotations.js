@@ -444,6 +444,7 @@ export const AnnotationPopover = GObject.registerClass({
     }),
     Signals: {
         'delete-annotation': {},
+        'color-changed': { param_types: [GObject.TYPE_STRING] },
     },
     InternalChildren: ['stack', 'button', 'text-view', 'drop-down'],
 }, class extends Gtk.Popover {
@@ -458,8 +459,10 @@ export const AnnotationPopover = GObject.registerClass({
         this._text_view.buffer.text = this.annotation.note
         this.#updateStack()
 
-        this._drop_down.connect('color-changed', (_, color) =>
-            this.annotation.set_property('color', color))
+        this._drop_down.connect('color-changed', (_, color) => {
+            this.annotation.set_property('color', color)
+            this.emit('color-changed', color)
+        })
         this._text_view.buffer.connect('changed', buffer => {
             this.#updateStack()
             this.annotation.set_property('note', buffer.text)
