@@ -41,7 +41,7 @@ const BookmarkRow = GObject.registerClass({
 const AnnotationRow = GObject.registerClass({
     GTypeName: 'FoliateAnnotationRow',
     Template: pkg.moduleuri('ui/annotation-row.ui'),
-    InternalChildren: ['heading', 'box', 'color', 'text', 'note'],
+    InternalChildren: ['heading', 'box', 'color', 'text', 'sep', 'note'],
 }, class extends Gtk.Box {
     update(obj) {
         if (obj instanceof Annotation) {
@@ -51,14 +51,16 @@ const AnnotationRow = GObject.registerClass({
             this._color.update(color)
             this._heading.hide()
             this._box.show()
-            if (note) this._note.show()
-            else this._note.hide()
+            const showNote = Boolean(note)
+            this._sep.visible = showNote
+            this._note.visible = showNote
             this.margin_top = 6
             this.margin_bottom = 6
         } else {
             this._heading.label = obj.label
             this._heading.show()
             this._box.hide()
+            this._sep.hide()
             this._note.hide()
             this.margin_top = 3
             this.margin_bottom = 3
@@ -250,9 +252,15 @@ GObject.registerClass({
                 handlers.set(listItem, annotation.connectAll(() =>
                     widget.update(annotation)))
 
-                const ctx = expander.get_style_context()
-                if (annotation.subitems) ctx.add_class('dim-label')
-                else ctx.remove_class('dim-label')
+                if (annotation.subitems) {
+                    expander.remove_css_class('card')
+                    expander.remove_css_class('activatable')
+                    expander.add_css_class('dim-label')
+                } else {
+                    expander.add_css_class('card')
+                    expander.add_css_class('activatable')
+                    expander.remove_css_class('dim-label')
+                }
             },
             'unbind': (_, listItem) =>
                 utils.disconnect(listItem.item.item, handlers.get(listItem)),

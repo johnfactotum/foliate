@@ -237,6 +237,19 @@ export const Application = GObject.registerClass({
                 background-color: @theme_selected_bg_color;
                 color: @theme_selected_fg_color;
             }
+
+            .card-sidebar {
+                padding: 8px;
+            }
+            .card-sidebar .card {
+                padding: 6px 12px 6px 0;
+            }
+            .card-sidebar row {
+                margin: 4px 0;
+            }
+            .card-sidebar, .card-sidebar row.activatable {
+                background-color: transparent;
+            }
         `, -1)
         Gtk.StyleContext.add_provider_for_display(
             Gdk.Display.get_default(),
