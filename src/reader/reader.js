@@ -209,7 +209,7 @@ class Reader {
             case 'draw-annotation': {
                 const { annotation, doc, range } = obj
                 const { color } = annotation
-                if (color === 'underline' || color === 'squiggly') {
+                if (['underline', 'squiggly', 'strikethrough'].includes(color)) {
                     const { defaultView } = doc
                     const node = range.startContainer
                     const el = node.nodeType === 1 ? node : node.parentElement

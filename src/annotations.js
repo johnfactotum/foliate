@@ -282,6 +282,12 @@ const AnnotationColor = utils.makeDataClass('FoliateAnnotationColor', {
     'type': 'string',
 })
 
+const colorImageIcons = {
+    underline: 'format-text-underline-symbolic',
+    squiggly: 'format-text-squiggly-symbolic',
+    strikethrough: 'format-text-strikethrough-symbolic',
+}
+
 const AnnotationColorImage = GObject.registerClass({
     GTypeName: 'FoliateAnnotationColorImage',
 }, class extends Gtk.Stack {
@@ -297,20 +303,15 @@ const AnnotationColorImage = GObject.registerClass({
         this.add_child(this.#frame)
     }
     update(color) {
-        if (color === 'underline') {
-            this.#icon.icon_name = 'format-text-underline-symbolic'
+        const icon = color ? colorImageIcons[color] : 'color-select-symbolic'
+        if (icon) {
+            this.#icon.icon_name = icon
             this.visible_child = this.#icon
-        } else if (color === 'squiggly') {
-            this.#icon.icon_name = 'format-text-squiggly-symbolic'
-            this.visible_child = this.#icon
-        } else if (color) {
+        } else {
             utils.addStyle(this.#frame, `frame {
                 background: ${utils.RGBA(color).to_string()};
             }`)
             this.visible_child = this.#frame
-        } else {
-            this.#icon.icon_name = 'color-select-symbolic'
-            this.visible_child = this.#icon
         }
     }
 })
@@ -358,6 +359,7 @@ GObject.registerClass({
         this.model = utils.list([
             { label: _('Underline'), value: 'underline' },
             { label: _('Squiggly'), value: 'squiggly' },
+            { label: _('Strikethrough'), value: 'strikethrough' },
             { label: _('Yellow'), value: 'yellow' },
             { label: _('Orange'), value: 'orange' },
             { label: _('Red'), value: 'red' },
