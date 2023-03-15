@@ -679,15 +679,20 @@ export const BookViewer = GObject.registerClass({
             utils.connectWith(this, bookmarks, { 'notify::n-items': updateBookmarks })
             updateAnnotations()
             updateBookmarks()
+            this.#data.storage.set('metadata', book.metadata)
         }
         else await this._view.next()
     }
     #onRelocated(payload) {
-        const { section, tocItem } = payload
+        const { section, location, tocItem, cfi } = payload
         this._toc_view.setCurrent(tocItem?.id)
         this._search_view.index = section.current
         this._navbar.update(payload)
         this._bookmark_view.update(payload)
+        if (this.#data) {
+            this.#data.storage.set('progress', [location.current, location.total])
+            this.#data.storage.set('lastLocation', cfi)
+        }
     }
     #onReference({ href, html, pos: { point, dir } }) {
         const popover = new FootnotePopover({ href, footnote: html })
