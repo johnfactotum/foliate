@@ -300,6 +300,9 @@ const AnnotationColorImage = GObject.registerClass({
         if (color === 'underline') {
             this.#icon.icon_name = 'format-text-underline-symbolic'
             this.visible_child = this.#icon
+        } else if (color === 'squiggly') {
+            this.#icon.icon_name = 'format-text-squiggly-symbolic'
+            this.visible_child = this.#icon
         } else if (color) {
             utils.addStyle(this.#frame, `frame {
                 background: ${utils.RGBA(color).to_string()};
@@ -354,6 +357,7 @@ GObject.registerClass({
         super(params)
         this.model = utils.list([
             { label: _('Underline'), value: 'underline' },
+            { label: _('Squiggly'), value: 'squiggly' },
             { label: _('Yellow'), value: 'yellow' },
             { label: _('Orange'), value: 'orange' },
             { label: _('Red'), value: 'red' },

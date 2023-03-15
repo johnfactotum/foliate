@@ -209,12 +209,12 @@ class Reader {
             case 'draw-annotation': {
                 const { annotation, doc, range } = obj
                 const { color } = annotation
-                if (color === 'underline') {
+                if (color === 'underline' || color === 'squiggly') {
                     const { defaultView } = doc
                     const node = range.startContainer
                     const el = node.nodeType === 1 ? node : node.parentElement
                     const { writingMode } = defaultView.getComputedStyle(el)
-                    return [Overlayer.underline, { writingMode }]
+                    return [Overlayer[color], { writingMode }]
                 }
                 else return [Overlayer.highlight, { color }]
             }
