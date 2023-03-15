@@ -236,7 +236,7 @@ class Reader {
             if (!sel.rangeCount) return
             let range = sel.getRangeAt(0)
             if (range.collapsed) return
-            const text = sel.toString().trim()
+            const text = sel.toString()
             if (!text) return
             const cfi = this.view.getCFI(index, range)
             const pos = getPosition(range)

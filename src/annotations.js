@@ -46,8 +46,8 @@ const AnnotationRow = GObject.registerClass({
     update(obj) {
         if (obj instanceof Annotation) {
             const { text, note, color } = obj
-            this._text.label = text.replace(/\n/g, ' ')
-            this._note.label = note.replace(/\n/g, ' ')
+            this._text.label = text.trim().replace(/\n/g, ' ')
+            this._note.label = note.trim().replace(/\n/g, ' ')
             this._color.update(color)
             this._heading.hide()
             this._box.show()
