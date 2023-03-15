@@ -263,7 +263,7 @@ GObject.registerClass({
         }), {
             'swipe': (_, vx, vy) => {
                 if (this.#pinchFactor > 1) return false
-                if (Math.max(Math.abs(vx), Math.abs(vy)) < 800) return false
+                if (Math.max(Math.abs(vx), Math.abs(vy)) < 200) return false
                 if (this.viewSettings.scrolled) return false
                 if (Math.abs(vx) > Math.abs(vy)) {
                     if (vx > 0) return this.goLeft()
