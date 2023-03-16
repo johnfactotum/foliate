@@ -522,6 +522,12 @@ export const BookViewer = GObject.registerClass({
         this._view_popover.connect('closed', autohideHeaderbar.hide)
         this._navbar.connect('closed', autohideNavbar.hide)
         this._navbar.connect('opened', autohideNavbar.show)
+        this._view.webView.add_controller(utils.connect(new Gtk.GestureClick(), {
+            'pressed': () => {
+                autohideHeaderbar.hide()
+                autohideNavbar.hide()
+            },
+        }))
 
         // search
         this._search_view.getGenerator = params => this._view.search(params)
