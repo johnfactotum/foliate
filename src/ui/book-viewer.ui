@@ -544,10 +544,10 @@
                         </object>
                       </child>
                       <child type="start">
-                        <object class="GtkButton">
+                        <object class="GtkButton" id="bookmark-button">
                           <property name="icon-name">user-bookmarks-symbolic</property>
                           <property name="action-name">viewer.bookmark</property>
-                          <property name="tooltip-text" translatable="yes">Add/remove bookmark</property>
+                          <property name="visible">false</property>
                         </object>
                       </child>
                       <child type="end">

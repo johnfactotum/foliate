@@ -459,7 +459,7 @@ export const BookViewer = GObject.registerClass({
         'error-page', 'error-page-expander', 'error-page-details',
         'view', 'flap', 'sidebar', 'resize-handle',
         'headerbar-revealer', 'navbar-revealer',
-        'book-menu-button',
+        'book-menu-button', 'bookmark-button',
         'view-popover', 'zoom-button', 'spacing', 'margin', 'width', 'columns',
         'navbar',
         'library-button', 'sidebar-stack', 'contents-stack', 'toc-view',
@@ -520,6 +520,7 @@ export const BookViewer = GObject.registerClass({
         const autohideNavbar = autohide(this._navbar_revealer,
             () => this._navbar.shouldStayVisible)
         this._view_popover.connect('closed', autohideHeaderbar.hide)
+        this._bookmark_button.connect('clicked', autohideHeaderbar.hide)
         this._navbar.connect('closed', autohideNavbar.hide)
         this._navbar.connect('opened', autohideNavbar.show)
         this._view.webView.add_controller(utils.connect(new Gtk.GestureClick(), {
@@ -568,8 +569,19 @@ export const BookViewer = GObject.registerClass({
         utils.connect(this._bookmark_view, {
             'notify::has-items': view => this._bookmark_stack
                 .visible_child_name = view.has_items ? 'main' : 'empty',
-            'notify::has-items-in-view': view =>
-                this._view.showRibbon(view.has_items_in_view),
+            'notify::has-items-in-view': view => {
+                const b = view.has_items_in_view
+                this._view.showRibbon(b)
+                Object.assign(this._bookmark_button, {
+                    visible: true,
+                    icon_name: b
+                        ? 'bookmark-filled-symbolic'
+                        : 'bookmark-new-symbolic',
+                    tooltip_text: b
+                        ? _('Remove bookmark')
+                        : _('Add bookmark'),
+                })
+            },
             'go-to-bookmark': (_, target) => {
                 this._view.goTo(target)
                 if (this._flap.folded) this._flap.reveal_flap = false
