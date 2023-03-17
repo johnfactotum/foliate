@@ -26,6 +26,12 @@ const embedImages = async doc => {
     }
 }
 
+const getHTML = async range => {
+    const fragment = range.cloneContents()
+    await embedImages(fragment)
+    return new XMLSerializer().serializeToString(fragment)
+}
+
 const { ZipReader, BlobReader, TextWriter, BlobWriter } = zip
 zip.configure({ useWebWorkers: false })
 
@@ -202,10 +208,16 @@ class Reader {
                 break
             }
             case 'create-overlay': emit(obj); break
-            case 'show-annotation':
-                obj.pos = getPosition(obj.range)
-                emit(obj)
+            case 'show-annotation': {
+                const { value, range } = obj
+                const pos = getPosition(range)
+                globalThis.showSelection({ type: 'annotation', value, pos })
+                    .then(action => {
+                        if (action === 'select')
+                            this.#showSelection({ range, value, pos })
+                    })
                 break
+            }
             case 'draw-annotation': {
                 const { annotation, doc, range } = obj
                 const { color } = annotation
@@ -234,18 +246,20 @@ class Reader {
         doc.addEventListener('click', () => {
             const sel = doc.defaultView.getSelection()
             if (!sel.rangeCount) return
-            let range = sel.getRangeAt(0)
+            const range = sel.getRangeAt(0)
             if (range.collapsed) return
-            const text = sel.toString()
-            if (!text) return
-            const cfi = this.view.getCFI(index, range)
             const pos = getPosition(range)
-            const fragment = range.cloneContents()
-            embedImages(fragment).then(() => {
-                const html = new XMLSerializer().serializeToString(fragment)
-                emit({ type: 'selection', cfi, text, html, pos })
-            })
+            const value = this.view.getCFI(index, range)
+            this.#showSelection({ range, value, pos })
         })
+    }
+    #showSelection({ range, value, pos }) {
+        const text = range.toString()
+        globalThis.showSelection({ type: 'selection', text, value, pos })
+            .then(action => {
+                if (action === 'copy') getHTML(range).then(html =>
+                    emit({ type: 'selection', action, text, html }))
+            })
     }
     #onReference({ content, href, element }) {
         if (content) {

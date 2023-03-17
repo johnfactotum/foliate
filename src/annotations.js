@@ -444,6 +444,7 @@ export const AnnotationPopover = GObject.registerClass({
     }),
     Signals: {
         'delete-annotation': {},
+        'select-annotation': {},
         'color-changed': { param_types: [GObject.TYPE_STRING] },
     },
     InternalChildren: ['stack', 'button', 'text-view', 'drop-down'],
@@ -452,7 +453,7 @@ export const AnnotationPopover = GObject.registerClass({
     constructor(params) {
         super(params)
         this.insert_action_group('annotation', utils.addMethods(this, {
-            actions: ['add-note', 'delete'],
+            actions: ['add-note', 'delete', 'more'],
         }))
 
         this._drop_down.selectColor(this.annotation.color)
@@ -481,6 +482,10 @@ export const AnnotationPopover = GObject.registerClass({
     }
     delete() {
         this.emit('delete-annotation')
+        this.popdown()
+    }
+    more() {
+        this.emit('select-annotation')
         this.popdown()
     }
 })

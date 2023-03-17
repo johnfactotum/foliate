@@ -179,8 +179,11 @@ GObject.registerClass({
         'create-overlay': { param_types: [GObject.TYPE_JSOBJECT] },
         'add-annotation': { param_types: [GObject.TYPE_JSOBJECT] },
         'delete-annotation': { param_types: [GObject.TYPE_JSOBJECT] },
-        'show-annotation': { param_types: [GObject.TYPE_JSOBJECT] },
         'show-image': { param_types: [GObject.TYPE_JSOBJECT] },
+        'show-selection': {
+            param_types: [GObject.TYPE_JSOBJECT],
+            return_type: GObject.TYPE_JSOBJECT,
+        },
     },
 }, class extends Gtk.Overlay {
     #path
@@ -221,7 +224,11 @@ GObject.registerClass({
         super(params)
         this.child = this.#webView
         this.#webView.registerHandler('viewer', payload => {
-            if (payload.type === 'ready') this.#exec('init')
+            if (payload.type === 'ready') {
+                this.#exec('init')
+                this.#webView.provide('showSelection', payload =>
+                    this.emit('show-selection', payload))
+            }
             else this.emit(payload.type, payload)
         })
         this.connect('book-ready', () => this.#bookReady = true)
@@ -483,8 +490,8 @@ export const BookViewer = GObject.registerClass({
             'reference': (_, x) => this.#onReference(x),
             'selection': (_, x) => this.#onSelection(x),
             'create-overlay': (_, x) => this.#createOverlay(x),
-            'show-annotation': (_, x) => this.#showAnnotation(x),
             'show-image': (_, x) => this.#showImage(x),
+            'show-selection': (_, x) => this.#showSelection(x),
         })
         this.highlight_color = 'yellow'
         utils.bindSettings('viewer', this, ['fold-sidebar', 'highlight-color'])
@@ -717,47 +724,57 @@ export const BookViewer = GObject.registerClass({
         popover.connect('go-to', () => this._view.goTo(href))
         this._view.showPopover(popover, point, dir)
     }
-    #onSelection({ cfi, text, html, pos: { point, dir } }) {
-        const popover = new SelectionPopover()
-        popover.insert_action_group('selection', utils.addSimpleActions({
-            'copy': () => utils.getClipboard()
-                .set_content(Gdk.ContentProvider.new_union([
-                    Gdk.ContentProvider.new_for_bytes('text/html',
-                        new TextEncoder().encode(html)),
-                    Gdk.ContentProvider.new_for_value(text)])),
-            'highlight': () => this.#data.addAnnotation({
-                value: cfi, text,
-                color: this.highlight_color,
-            }).then(annotation => this._view.showAnnotation(annotation)),
-            'search': () => {
-                this._search_entry.text = text
-                this._search_bar.search_mode_enabled = true
-                this._flap.reveal_flap = true
-                this._search_view.doSearch()
-            },
-        }))
-        this._view.showPopover(popover, point, dir)
+    #showSelection({ type, value, text, pos: { point, dir } }) {
+        if (type === 'annotation') return new Promise(resolve => {
+            const annotation = this.#data.annotations.get(value)
+            const popover = utils.connect(new AnnotationPopover({ annotation }), {
+                'delete-annotation': () => {
+                    this.#data.deleteAnnotation(annotation)
+                    this.root.toast(utils.connect(new Adw.Toast({
+                        title: _('Annotation deleted'),
+                        button_label: _('Undo'),
+                    }), { 'button-clicked': () =>
+                        this.#data.addAnnotation(annotation) }))
+                },
+                'select-annotation': () => resolve('select'),
+                'color-changed': (_, color) => this.highlight_color = color,
+            })
+            popover.connect('closed', () => resolve())
+            this._view.showPopover(popover, point, dir)
+        })
+        return new Promise(resolve => {
+            const popover = new SelectionPopover()
+            popover.insert_action_group('selection', utils.addSimpleActions({
+                'copy': () => resolve('copy'),
+                'highlight': () =>  this.#data.addAnnotation({
+                    value, text,
+                    color: this.highlight_color,
+                }).then(annotation => this._view.showAnnotation(annotation)),
+                'search': () => {
+                    this._search_entry.text = text
+                    this._search_bar.search_mode_enabled = true
+                    this._flap.reveal_flap = true
+                    this._search_view.doSearch()
+                },
+            }))
+            // it seems `closed` is emitted before the actions are run
+            // so it needs the timeout
+            popover.connect('closed', () => setTimeout(() => resolve(), 0))
+            this._view.showPopover(popover, point, dir)
+        })
+    }
+    #onSelection({ action, text, html }) {
+        if (action === 'copy') utils.getClipboard()
+            .set_content(Gdk.ContentProvider.new_union([
+                Gdk.ContentProvider.new_for_bytes('text/html',
+                    new TextEncoder().encode(html)),
+                Gdk.ContentProvider.new_for_value(text)]))
     }
     #createOverlay({ index }) {
         if (!this.#data) return
         const list = this.#data.annotations.getForIndex(index)
         if (list) for (const [, annotation] of utils.gliter(list))
             this._view.addAnnotation(annotation)
-    }
-    #showAnnotation({ value, pos: { point, dir } }) {
-        const annotation = this.#data.annotations.get(value)
-        const popover = utils.connect(new AnnotationPopover({ annotation }), {
-            'delete-annotation': () => {
-                this.#data.deleteAnnotation(annotation)
-                this.root.toast(utils.connect(new Adw.Toast({
-                    title: _('Annotation deleted'),
-                    button_label: _('Undo'),
-                }), { 'button-clicked': () =>
-                    this.#data.addAnnotation(annotation) }))
-            },
-            'color-changed': (_, color) => this.highlight_color = color,
-        })
-        this._view.showPopover(popover, point, dir)
     }
     #showImage({ base64, mimetype }) {
         const pixbuf = utils.base64ToPixbuf(base64)

@@ -127,6 +127,35 @@ export const WebView = GObject.registerClass({
             throw: async () => this.run(`${instance}?.throw?.()`),
         }
     }
+    // the revserse of the `exec` method
+    // scripts in the webview can get response from GJS as a promise
+    provide(name, callback) {
+        const handlerName = this.#handlerName + '.' + name
+        const handler = makeHandlerStr(handlerName)
+        this.registerHandler(handlerName, ({ token, payload }) => {
+            Promise.resolve(callback(payload))
+                .then(value => this.run(
+                    `globalThis.${name}.resolve("${token}", true, ${pass(value)})`))
+                .catch(e => {
+                    console.error(e)
+                    this.run(`globalThis.${name}.resolve("${token}", false)`)
+                })
+        })
+        const script = `globalThis["${name}"] = (() => {
+            const makeToken = () => Math.random().toString()
+            ${PromiseStore.toString()}
+            const promises = new PromiseStore()
+            const func = params => {
+                const token = makeToken()
+                const promise = promises.make(token)
+                ${handler}.postMessage(JSON.stringify({ token, payload: params }))
+                return promise
+            }
+            func.resolve = promises.resolve.bind(promises)
+            return func
+        })()`
+        this.run(script)
+    }
     registerHandler(name, callback) {
         const manager = this.get_user_content_manager()
         manager.connect(`script-message-received::${name}`, (_, result) => {
