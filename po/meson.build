@@ -1,1 +1,1 @@
-i18n.gettext('com.github.johnfactotum.Foliate', preset: 'glib')
+i18n.gettext(meson.project_name())
