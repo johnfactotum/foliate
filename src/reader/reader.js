@@ -211,11 +211,7 @@ class Reader {
             case 'show-annotation': {
                 const { value, range } = obj
                 const pos = getPosition(range)
-                globalThis.showSelection({ type: 'annotation', value, pos })
-                    .then(action => {
-                        if (action === 'select')
-                            this.#showSelection({ range, value, pos })
-                    })
+                this.#showAnnotation({ range, value, pos })
                 break
             }
             case 'draw-annotation': {
@@ -253,12 +249,21 @@ class Reader {
             this.#showSelection({ range, value, pos })
         })
     }
+    #showAnnotation({ range, value, pos }) {
+        globalThis.showSelection({ type: 'annotation', value, pos })
+            .then(action => {
+                if (action === 'select')
+                    this.#showSelection({ range, value, pos })
+            })
+    }
     #showSelection({ range, value, pos }) {
         const text = range.toString()
         globalThis.showSelection({ type: 'selection', text, value, pos })
             .then(action => {
                 if (action === 'copy') getHTML(range).then(html =>
                     emit({ type: 'selection', action, text, html }))
+                else if (action === 'highlight')
+                    this.#showAnnotation({ range, value, pos })
             })
     }
     #onReference({ content, href, element }) {

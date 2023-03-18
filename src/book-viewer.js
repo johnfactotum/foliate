@@ -743,13 +743,17 @@ export const BookViewer = GObject.registerClass({
             this._view.showPopover(popover, point, dir)
         })
         return new Promise(resolve => {
+            let resolved
             const popover = new SelectionPopover()
             popover.insert_action_group('selection', utils.addSimpleActions({
                 'copy': () => resolve('copy'),
-                'highlight': () =>  this.#data.addAnnotation({
-                    value, text,
-                    color: this.highlight_color,
-                }).then(annotation => this._view.showAnnotation(annotation)),
+                'highlight': () => {
+                    resolved = true
+                    this.#data.addAnnotation({
+                        value, text,
+                        color: this.highlight_color,
+                    }).then(() => resolve('highlight'))
+                },
                 'search': () => {
                     this._search_entry.text = text
                     this._search_bar.search_mode_enabled = true
@@ -759,7 +763,8 @@ export const BookViewer = GObject.registerClass({
             }))
             // it seems `closed` is emitted before the actions are run
             // so it needs the timeout
-            popover.connect('closed', () => setTimeout(() => resolve(), 0))
+            popover.connect('closed', () => setTimeout(() =>
+                resolved ? null : resolve(), 0))
             this._view.showPopover(popover, point, dir)
         })
     }
