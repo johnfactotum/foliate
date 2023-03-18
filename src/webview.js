@@ -71,9 +71,20 @@ export const WebView = GObject.registerClass({
         this.registerHandler(this.#handlerName, ({ token, ok, payload }) =>
             this.#promises.resolve(token, ok, payload))
 
-        this.connect('web-process-crashed', () => {
-            console.error('My name is Oh-No-WebKit-Crashed, bug of bugs!')
-            console.error('Look on this line, Developer -- despair!')
+        this.connect('web-process-terminated', (_, reason) => {
+            switch (reason) {
+                case WebKit.WebProcessTerminationReason.CRASHED:
+                    console.error('My name is Oh-No-WebKit-Crashed, bug of bugs!')
+                    console.error('Look on this line, Developer -- despair!')
+                    break
+                case WebKit.WebProcessTerminationReason.EXCEEDED_MEMORY_LIMIT:
+                    console.error('Memory, all alone in the moonlight')
+                    console.error('I can dream of the old days')
+                    console.error('Life was beautiful then')
+                    console.error('I remember the time I knew what happiness was')
+                    console.error('Let the memory live again')
+                    break
+            }
         })
     }
     // execute arbitrary js without returning anything
