@@ -223,11 +223,12 @@ GObject.registerClass({
     constructor(params) {
         super(params)
         this.child = this.#webView
+        const initSelection = this.#webView.provide('showSelection', payload =>
+            this.emit('show-selection', payload))
         this.#webView.registerHandler('viewer', payload => {
             if (payload.type === 'ready') {
                 this.#exec('init')
-                this.#webView.provide('showSelection', payload =>
-                    this.emit('show-selection', payload))
+                initSelection()
             }
             else this.emit(payload.type, payload)
         })

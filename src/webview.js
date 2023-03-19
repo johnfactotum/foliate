@@ -152,20 +152,22 @@ export const WebView = GObject.registerClass({
                     this.run(`globalThis.${name}.resolve("${token}", false)`)
                 })
         })
-        const script = `globalThis["${name}"] = (() => {
-            const makeToken = () => Math.random().toString()
-            ${PromiseStore.toString()}
-            const promises = new PromiseStore()
-            const func = params => {
-                const token = makeToken()
-                const promise = promises.make(token)
-                ${handler}.postMessage(JSON.stringify({ token, payload: params }))
-                return promise
-            }
-            func.resolve = promises.resolve.bind(promises)
-            return func
-        })()`
-        this.run(script)
+        return () => {
+            const script = `globalThis["${name}"] = (() => {
+                const makeToken = () => Math.random().toString()
+                ${PromiseStore.toString()}
+                const promises = new PromiseStore()
+                const func = params => {
+                    const token = makeToken()
+                    const promise = promises.make(token)
+                    ${handler}.postMessage(JSON.stringify({ token, payload: params }))
+                    return promise
+                }
+                func.resolve = promises.resolve.bind(promises)
+                return func
+            })()`
+            this.run(script)
+        }
     }
     registerHandler(name, callback) {
         const manager = this.get_user_content_manager()
