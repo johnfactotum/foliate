@@ -1,0 +1,1 @@
+export { unzlibSync } from 'fflate'

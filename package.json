@@ -1,0 +1,28 @@
+{
+  "name": "foliate",
+  "version": "3.0.0",
+  "description": "Read e-books in style",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnfactotum/foliate.git"
+  },
+  "author": "John Factotum",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/johnfactotum/foliate/issues"
+  },
+  "homepage": "https://johnfactotum.github.io/foliate/",
+  "type": "module",
+  "dependencies": {
+    "@zip.js/zip.js": "^2.6.79",
+    "fflate": "^0.7.3"
+  },
+  "devDependencies": {
+    "rollup": "^3.20.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0"
+  },
+  "scripts": {
+    "build": "npx rollup -c"
+  }
+}

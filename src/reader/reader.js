@@ -1,4 +1,3 @@
-/* global zip: false, fflate: false */
 import { View, getPosition } from '../foliate-js/view.js'
 import { Overlayer } from '../foliate-js/overlayer.js'
 import { toPangoMarkup } from './markup.js'
@@ -32,15 +31,15 @@ const getHTML = async range => {
     return new XMLSerializer().serializeToString(fragment)
 }
 
-const { ZipReader, BlobReader, TextWriter, BlobWriter } = zip
-zip.configure({ useWebWorkers: false })
-
 const isZip = async file => {
     const arr = new Uint8Array(await file.slice(0, 4).arrayBuffer())
     return arr[0] === 0x50 && arr[1] === 0x4b && arr[2] === 0x03 && arr[3] === 0x04
 }
 
 const makeZipLoader = async file => {
+    const { configure, ZipReader, BlobReader, TextWriter, BlobWriter } =
+        await import('../foliate-js/vendor/zip.js')
+    configure({ useWebWorkers: false })
     const reader = new ZipReader(new BlobReader(file))
     const entries = await reader.getEntries()
     const map = new Map(entries.map(entry => [entry.filename, entry]))
@@ -86,9 +85,10 @@ const open = async file => {
         }
     } else {
         const { isMOBI, MOBI } = await import('../foliate-js/mobi.js')
-        if (await isMOBI(file))
+        if (await isMOBI(file)) {
+            const fflate = await import('../foliate-js/vendor/fflate.js')
             book = await new MOBI({ unzlib: fflate.unzlibSync }).open(file)
-        else if (isFB2(file)) {
+        } else if (isFB2(file)) {
             const { makeFB2 } = await import('../foliate-js/fb2.js')
             book = await makeFB2(file)
         }
