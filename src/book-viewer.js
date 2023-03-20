@@ -18,6 +18,7 @@ import './navbar.js'
 import { AnnotationPopover, AnnotationModel, BookmarkModel } from './annotations.js'
 import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
+import { getURIStore, getBookList } from './library.js'
 
 class BookData {
     annotations = utils.connect(new AnnotationModel(), {
@@ -34,6 +35,7 @@ class BookData {
             'externally-modified': () => {
                 // TODO: the file monitor doesn't seem to work
             },
+            'modified': storage => getBookList()?.update(storage.path),
         })
     }
     async initView(view, init) {
@@ -706,6 +708,7 @@ export const BookViewer = GObject.registerClass({
             updateAnnotations()
             updateBookmarks()
             this.#data.storage.set('metadata', book.metadata)
+            getURIStore().set(identifier, this.#file.get_uri())
         }
         else await this._view.next()
     }

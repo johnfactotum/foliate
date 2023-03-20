@@ -123,6 +123,9 @@ export const JSONStorage = GObject.registerClass({
             console.warn(e)
         }
     }
+    get path() {
+        return this.#file.get_path()
+    }
 })
 
 export const getClipboard = () => Gdk.Display.get_default().get_clipboard()

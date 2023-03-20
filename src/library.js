@@ -47,10 +47,12 @@ class URIStore {
     }
 }
 
+export const getURIStore = utils.memoize(() => new URIStore())
+
 const BookList = GObject.registerClass({
     GTypeName: 'FoliateBookList',
 }, class extends Gio.ListStore {
-    #uriStore = new URIStore()
+    #uriStore = getURIStore()
     #files = Array.from(listDir(pkg.datadir) ?? [])
         .sort((a, b) => b.modified - a.modified)
         .map(x => x.file)
@@ -68,7 +70,7 @@ const BookList = GObject.registerClass({
         for (let i = 0; i < n; i++) {
             const { value, done } = this.#iter.next()
             if (done) return true
-            else this.append(value)
+            else if (value) this.append(value)
         }
     }
     getURI(identifier) {
@@ -83,9 +85,20 @@ const BookList = GObject.registerClass({
         for (const f of [file, cover]) try { f.delete(null) } catch {}
         for (const [i, el] of utils.gliter(this)) if (el === file) this.remove(i)
     }
+    update(path) {
+        // remove it from the queue if it's not yet loaded
+        const i = this.#files.findIndex(f => f?.get_path() === path)
+        // set to null instead of removing it so we don't mess up the iterator
+        if (i !== -1) this.#files[i] = null
+        // remove it from the list if it has been loaded
+        for (const [i, el] of utils.gliter(this)) if (el.get_path() === path) this.remove(i)
+        this.insert(0, Gio.File.new_for_path(path))
+    }
 })
 
-const getBooks = utils.memoize(() => new BookList())
+let gotBooks // don't create book list just to update it
+const getBooks = utils.memoize(() => (gotBooks = true, new BookList()))
+export const getBookList = () => gotBooks ? getBooks() : null
 
 const width = 256
 const height = width * 1.5
