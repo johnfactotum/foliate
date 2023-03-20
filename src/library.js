@@ -1,10 +1,12 @@
 import Gtk from 'gi://Gtk'
+import Adw from 'gi://Adw'
 import GObject from 'gi://GObject'
 import Gio from 'gi://Gio'
 import GLib from 'gi://GLib'
 import Gdk from 'gi://Gdk'
 import GdkPixbuf from 'gi://GdkPixbuf'
 import cairo from 'gi://cairo'
+import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 
@@ -29,10 +31,26 @@ const listDir = function* (path) {
     }
 }
 
+class URIStore {
+    #storage = new utils.JSONStorage(pkg.datapath('library'), 'uri-store')
+    #map = new Map(this.#storage.get('uris'))
+    get(id) {
+        return this.#map.get(id)
+    }
+    set(id, uri) {
+        this.#map.set(id, uri)
+        this.#storage.set('uris', Array.from(this.#map.entries()))
+    }
+    delete(id) {
+        this.#map.delete(id)
+        this.#storage.set('uris', Array.from(this.#map.entries()))
+    }
+}
+
 const BookList = GObject.registerClass({
     GTypeName: 'FoliateBookList',
 }, class extends Gio.ListStore {
-    #uriMap
+    #uriStore = new URIStore()
     #files = Array.from(listDir(pkg.datadir) ?? [])
         .sort((a, b) => b.modified - a.modified)
         .map(x => x.file)
@@ -53,17 +71,21 @@ const BookList = GObject.registerClass({
             else this.append(value)
         }
     }
-    #getURIMap() {
-        if (this.#uriMap) return this.#uriMap
-        const obj = this.readFile(pkg.datafile('library/uri-store.json'))
-        this.#uriMap = new Map(obj?.uris)
-        return this.#uriMap
-    }
     getURI(identifier) {
         // TODO: use tracker
-        return this.#getURIMap().get(identifier)
+        return this.#uriStore.get(identifier)
+    }
+    delete(file) {
+        const name = file.get_basename()
+        const cover = Gio.File.new_for_path(pkg.cachepath(name.replace('.json', '.png')))
+        const id = decodeURIComponent(name.replace('.json', ''))
+        this.#uriStore.delete(id)
+        for (const f of [file, cover]) try { f.delete(null) } catch {}
+        for (const [i, el] of utils.gliter(this)) if (el === file) this.remove(i)
     }
 })
+
+const getBooks = utils.memoize(() => new BookList())
 
 const width = 256
 const height = width * 1.5
@@ -93,12 +115,20 @@ const BookItem = GObject.registerClass({
     GTypeName: 'FoliateBookItem',
     Template: pkg.moduleuri('ui/book-item.ui'),
     InternalChildren: ['image', 'title', 'creator', 'box', 'progress'],
+    Signals: {
+        'remove-book': { param_types: [Gio.File.$gtype] },
+    },
 }, class extends Gtk.Box {
-    #token
-    update(data) {
-        const { token, cover, title, creator, progress, menu } = data
-        if (this.#token && this.#token !== token) return
-        this.#token = token
+    #item
+    constructor(params) {
+        super(params)
+        this.insert_action_group('book-item', utils.addSimpleActions({
+            'remove': () => this.emit('remove-book', this.#item),
+        }))
+    }
+    update(item, data) {
+        this.#item = item
+        const { cover, title, creator, progress, menu } = data
         this._title.label = title ?? ''
         this._creator.label = creator ?? ''
         this._title.margin_top = menu ? 0 : 6
@@ -161,10 +191,12 @@ GObject.registerClass({
             vscroll_policy: Gtk.ScrollablePolicy.NATURAL,
             model: new Gtk.NoSelection({ model: this.#filterModel }),
             factory: utils.connect(new Gtk.SignalListItemFactory(), {
-                'setup': (_, item) => item.child = new BookItem(),
+                'setup': (_, item) => item.child = utils.connect(new BookItem(), {
+                    'remove-book': (_, file) => this.removeBook(file),
+                }),
                 'bind': (_, { child, item }) => {
                     const data = this.emit('get-data', item, showCover)
-                    child.update(data)
+                    child.update(item, data)
                     if (data?.cover?.then) data.cover
                         .then(cover => child.update({ ...data, cover }))
                         .catch(e => console.warn(e))
@@ -205,6 +237,21 @@ GObject.registerClass({
             return fields.some(field => matchString(metadata[field], q))
         })
     }
+    removeBook(file) {
+        const dialog = new Adw.MessageDialog({
+            transient_for: this.get_root(),
+            modal: true,
+            heading: _('Remove Book?'),
+            body: _('Reading progress, annotations, and bookmarks will be permanently lost'),
+        })
+        dialog.add_response('cancel', _('_Cancel'))
+        dialog.add_response('remove', _('_Remove'))
+        dialog.set_response_appearance('remove', Adw.ResponseAppearance.DESTRUCTIVE)
+        dialog.present()
+        dialog.connect('response', (_, response) => {
+            if (response === 'remove') getBooks().delete(file)
+        })
+    }
 })
 
 export const Library = GObject.registerClass({
@@ -216,7 +263,7 @@ export const Library = GObject.registerClass({
 }, class extends Gtk.Box {
     constructor(params) {
         super(params)
-        const books = new BookList()
+        const books = getBooks()
 
         utils.connect(this._books_view, {
             'activate': (_, item) => {

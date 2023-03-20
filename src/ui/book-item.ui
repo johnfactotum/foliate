@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?><interface>
+<menu id="menu">
+  <section>
+    <item>
+      <attribute name="label" translatable="yes">About This Book</attribute>
+      <attribute name="action">book-item.info</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
+      <attribute name="label" translatable="yes">Export Annotations…</attribute>
+      <attribute name="action">book-item.export</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
+      <attribute name="label" translatable="yes">Remove</attribute>
+      <attribute name="action">book-item.remove</attribute>
+    </item>
+  </section>
+</menu>
 <template class="FoliateBookItem" parent="GtkBox">
     <property name="orientation">vertical</property>
     <property name="halign">center</property>
@@ -24,6 +44,7 @@
             <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="icon-name">view-more-horizontal-symbolic</property>
+            <property name="menu-model">menu</property>
             <style><class name="flat"/></style>
           </object>
         </child>
