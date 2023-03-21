@@ -43,7 +43,7 @@ const makeSubjectBox = subject => {
     return box
 }
 
-const makeBookInfoBox = (metadata, wide) => {
+const makeBookInfoBox = metadata => {
     const box = new Gtk.Box({
         orientation: Gtk.Orientation.VERTICAL,
         spacing: 6,
@@ -54,7 +54,7 @@ const makeBookInfoBox = (metadata, wide) => {
         wrap: true,
         selectable: true,
         label: metadata.title ?? '',
-    }), wide ? 'title-1' : 'title-2'))
+    }), 'title-2'))
 
     box.append(new Gtk.Label({
         xalign: 0,
@@ -119,20 +119,16 @@ const makeBookInfoBox = (metadata, wide) => {
 }
 
 export const makeBookInfoWindow = (root, metadata, pixbuf) => {
-    const wide = false//root.default_width > 720
-
-    const win = new Adw.Window({
+    const win = new Gtk.Window({
         title: _('About This Book'),
         default_width: 360,
         default_height: 420,
         modal: true,
         transient_for: root,
-        content: new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL }),
     })
     const headerbar = new Gtk.HeaderBar()
 
-    const box = new Gtk.Box()
-    const infobox = Object.assign(makeBookInfoBox(metadata, wide), {
+    const infobox = Object.assign(makeBookInfoBox(metadata), {
         margin_top: 18,
         margin_bottom: 18,
         margin_start: 18,
@@ -158,9 +154,8 @@ export const makeBookInfoWindow = (root, metadata, pixbuf) => {
         scrolled.child.vscroll_policy = Gtk.ScrollablePolicy.NATURAL
     } else scrolled.child = infobox
 
-    box.append(scrolled)
-    win.content.append(headerbar)
-    win.content.append(box)
+    win.titlebar = headerbar
+    win.child = scrolled
     win.add_controller(utils.addShortcuts({ 'Escape|<ctrl>w': () => win.close() }))
     win.show()
 }
