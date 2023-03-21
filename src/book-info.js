@@ -43,10 +43,11 @@ const makeSubjectBox = subject => {
     return box
 }
 
-const makeBookInfoBox = metadata => {
+const makeBookHeader = (metadata, pixbuf) => {
     const box = new Gtk.Box({
         orientation: Gtk.Orientation.VERTICAL,
         spacing: 6,
+        hexpand: true,
     })
 
     box.append(utils.addClass(new Gtk.Label({
@@ -63,6 +64,26 @@ const makeBookInfoBox = metadata => {
         label: format.list(metadata.author
             ?.map(author => typeof author === 'string' ? author : author.name)),
     }))
+
+    if (!pixbuf) return box
+
+    const box2 = new Gtk.Box({ spacing: 18 })
+    const frame = new Gtk.Frame()
+    const picture = new Gtk.Picture({ focusable: true, height_request: 180 })
+    picture.set_pixbuf(pixbuf)
+    frame.child = picture
+    box2.append(frame)
+    box2.append(box)
+    return box2
+}
+
+const makeBookInfoBox = (metadata, pixbuf) => {
+    const box = new Gtk.Box({
+        orientation: Gtk.Orientation.VERTICAL,
+        spacing: 6,
+    })
+
+    box.append(makeBookHeader(metadata, pixbuf))
 
     if (metadata.description) box.append(new Gtk.Label({
         xalign: 0,
@@ -115,20 +136,20 @@ const makeBookInfoBox = metadata => {
         selectable: true,
         label: metadata.rights,
     }), 'caption', 'dim-label'))
-    return box
+    return new Adw.Clamp({ child: box })
 }
 
-export const makeBookInfoWindow = (root, metadata, pixbuf) => {
+export const makeBookInfoWindow = (root, metadata, pixbuf, bigCover) => {
     const win = new Gtk.Window({
         title: _('About This Book'),
         default_width: 360,
-        default_height: 420,
+        default_height: pixbuf ? 540 : 420,
         modal: true,
         transient_for: root,
     })
     const headerbar = new Gtk.HeaderBar()
 
-    const infobox = Object.assign(makeBookInfoBox(metadata), {
+    const infobox = Object.assign(makeBookInfoBox(metadata, bigCover ? null : pixbuf), {
         margin_top: 18,
         margin_bottom: 18,
         margin_start: 18,
@@ -140,7 +161,7 @@ export const makeBookInfoWindow = (root, metadata, pixbuf) => {
         width_request: 360,
     })
 
-    if (pixbuf) {
+    if (bigCover && pixbuf) {
         const picture = new Gtk.Picture({ focusable: true })
         picture.set_pixbuf(pixbuf)
         win.default_height = 700

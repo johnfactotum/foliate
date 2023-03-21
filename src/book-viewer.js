@@ -880,7 +880,7 @@ export const BookViewer = GObject.registerClass({
         this._navbar.showLocation()
     }
     showInfo() {
-        makeBookInfoWindow(this.root, this.#book.metadata, this.#cover)
+        makeBookInfoWindow(this.root, this.#book.metadata, this.#cover, true)
     }
     chooseFont() {
         const widget = new FontSettingsWidget({ font_settings: this._view.fontSettings })

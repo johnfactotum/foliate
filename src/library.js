@@ -10,6 +10,7 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 import { exportAnnotations } from './annotations.js'
+import { makeBookInfoWindow } from './book-info.js'
 
 const listDir = function* (path) {
     const dir = Gio.File.new_for_path(path)
@@ -132,6 +133,7 @@ const BookItem = GObject.registerClass({
     Signals: {
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
+        'book-info': { param_types: [Gio.File.$gtype] },
     },
 }, class extends Gtk.Box {
     #item
@@ -140,6 +142,7 @@ const BookItem = GObject.registerClass({
         this.insert_action_group('book-item', utils.addSimpleActions({
             'remove': () => this.emit('remove-book', this.#item),
             'export': () => this.emit('export-book', this.#item),
+            'info': () => this.emit('book-info', this.#item),
         }))
     }
     update(item, data) {
@@ -212,6 +215,12 @@ GObject.registerClass({
                     'export-book': (_, file) => {
                         const data = getBooks().readFile(file)
                         exportAnnotations(this.get_root(), data)
+                    },
+                    'book-info': (_, file) => {
+                        const books = getBooks()
+                        const { metadata } = books.readFile(file)
+                        const cover = books.readCover(metadata.identifier)
+                        makeBookInfoWindow(this.get_root(), metadata, cover)
                     },
                 }),
                 'bind': (_, { child, item }) => {
