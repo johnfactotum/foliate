@@ -478,7 +478,7 @@ export const BookViewer = GObject.registerClass({
         'search-view', 'search-bar', 'search-entry',
         'annotation-stack', 'annotation-view', 'annotation-search-entry',
         'bookmark-stack', 'bookmark-view',
-        'book-cover', 'book-title', 'book-author',
+        'book-info', 'book-cover', 'book-title', 'book-author',
     ],
 }, class extends Gtk.Overlay {
     #file
@@ -678,8 +678,18 @@ export const BookViewer = GObject.registerClass({
             ?? ''
         this._book_author.visible = !!book.metadata?.author?.length
 
-        this._search_view.dir = reader.view.textDirection
-        this._toc_view.dir = reader.view.textDirection
+        const { textDirection } = reader.view
+        utils.setDirection(this._book_info, textDirection)
+        for (const x of [
+            this._search_view,
+            this._toc_view,
+            this._annotation_view,
+            this._bookmark_view,
+        ]) {
+            utils.setDirection(x.parent, textDirection)
+            x.dir = textDirection
+        }
+
         this._toc_view.load(book.toc)
         this._navbar.setDirection(book.dir)
         this._navbar.loadSections(book.sections)

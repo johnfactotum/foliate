@@ -243,6 +243,9 @@ export const Application = GObject.registerClass({
             .card-sidebar .card {
                 padding: 6px 12px 6px 0;
             }
+            .card-sidebar .card:dir(rtl) {
+                padding: 6px 0 6px 12px;
+            }
             .card-sidebar row {
                 margin: 4px 0;
             }

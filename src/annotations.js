@@ -97,7 +97,7 @@ export const BookmarkModel = GObject.registerClass({
 GObject.registerClass({
     GTypeName: 'FoliateBookmarkView',
     Properties: utils.makeParams({
-        'has-items': 'boolean',
+        'dir': 'string',
         'has-items-in-view': 'boolean',
     }),
     Signals: {
@@ -125,7 +125,10 @@ GObject.registerClass({
                 })
                 listItem.child = row
             },
-            'bind': (_, listItem) => listItem.child.update(listItem.item),
+            'bind': (_, listItem) => {
+                listItem.child.update(listItem.item)
+                utils.setDirection(listItem.child, this.dir)
+            },
         })
     }
     setupModel(model) {
@@ -226,6 +229,9 @@ export const AnnotationModel = GObject.registerClass({
 
 GObject.registerClass({
     GTypeName: 'FoliateAnnotationView',
+    Properties: utils.makeParams({
+        'dir': 'string',
+    }),
     Signals: {
         'go-to-annotation': { param_types: [Annotation.$gtype] },
     },
@@ -262,6 +268,7 @@ GObject.registerClass({
                     expander.add_css_class('activatable')
                     expander.remove_css_class('dim-label')
                 }
+                utils.setDirection(expander, this.dir)
             },
             'unbind': (_, listItem) =>
                 utils.disconnect(listItem.item.item, handlers.get(listItem)),
