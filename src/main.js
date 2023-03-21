@@ -47,6 +47,7 @@ else {
     pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
     pkg.moduleuri = path => GLib.filename_to_uri(pkg.modulepath(path), null)
 }
+pkg.useResource = MESON
 
 // run application
 // see https://gitlab.gnome.org/GNOME/gjs/-/issues/468

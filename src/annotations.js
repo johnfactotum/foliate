@@ -2,9 +2,10 @@ import Gtk from 'gi://Gtk'
 import Adw from 'gi://Adw'
 import Gio from 'gi://Gio'
 import GObject from 'gi://GObject'
-import { gettext as _ } from 'gettext'
+import { gettext as _, ngettext } from 'gettext'
 import * as utils from './utils.js'
 import * as CFI from './foliate-js/epubcfi.js'
+import { vprintf } from './format.js'
 
 const Bookmark = utils.makeDataClass('FoliateBookmark', {
     'value': 'string',
@@ -489,3 +490,91 @@ export const AnnotationPopover = GObject.registerClass({
         this.popdown()
     }
 })
+
+export const exportAnnotations = (window, data) => {
+    const n = data.annotations?.length
+    if (!(n > 0)) {
+        const dialog = new Adw.MessageDialog({
+            heading: _('No Annotations'),
+            body: _('You don’t have any annotations for this book'),
+            modal: true,
+            transient_for: window,
+        })
+        dialog.add_response('ok', _('OK'))
+        dialog.present()
+        return
+    }
+    const path = pkg.modulepath('ui/export-dialog.ui')
+    const builder = pkg.useResource
+        ? Gtk.Builder.new_from_resource(path)
+        : Gtk.Builder.new_from_file(path)
+    const dialog = builder.get_object('export-dialog')
+    dialog.transient_for = window
+    dialog.present()
+    builder.get_object('ok-button').connect('clicked', () => {
+        const { selected } = builder.get_object('format-combo')
+        const format = ['json', 'html', 'md'][selected]
+        const chooser = new Gtk.FileChooserNative({
+            title: _('Save File'),
+            action: Gtk.FileChooserAction.SAVE,
+            transient_for: window,
+            modal: true,
+        })
+        const { metadata = {} } = data
+        const title = vprintf(_('Annotations for “%s”'), [metadata.title])
+        const total = vprintf(ngettext('%d Annotation', '%d Annotations', n), [n])
+        chooser.set_current_name(title + '.' + format)
+        chooser.show()
+        chooser.connect('response', (_, res) => {
+            if (res !== Gtk.ResponseType.ACCEPT) return
+            const contents = exportFunctions[format](data, title, total)
+            chooser.get_file().replace_contents(contents, null, false,
+                Gio.FileCreateFlags.REPLACE_DESTINATION, null)
+        })
+        dialog.close()
+    })
+    builder.get_object('cancel-button').connect('clicked', () => dialog.close())
+    dialog.add_controller(utils.addShortcuts({ 'Escape|<ctrl>w': () => dialog.close() }))
+}
+
+const htmlEscape = str => str.replace(/[<>&]/g, x =>
+    x === '<' ? '&lt;' : x === '>' ? '&gt;' : '&amp;')
+
+const mdEscape = str => str.replace(/[<>&]/g, x => '\\' + x)
+
+const exportFunctions = {
+    json: data => JSON.stringify(data, null, 2),
+    html: ({ annotations }, title, total) => `<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>
+    body { max-width: 36em; padding: 1em; margin: auto; }
+    header { text-align: center; }
+    section { border-top: 1px solid; }
+    .cfi { font-size: small; opacity: 0.5; font-family: monospace; }
+    blockquote { margin-inline-start: 0; padding-inline-start: 1em;
+        border-inline-start: .5em solid; }
+    .underline { text-decoration: underline red; }
+    .squiggly { text-decoration: underline wavy red; }
+    .strikethrough { text-decoration: line-through red; }
+    .underline, .squiggly, .strikethrough { border: none; }
+    .note { white-space: pre-wrap; }
+</style>
+<header><h1>${title}</h1><p>${total}</p></header>${
+    annotations.map(({ value, text, color, note }) => `<section>
+    <p class="cfi">${htmlEscape(value)}</p>
+    <blockquote style="border-color: ${color}">
+        <span class="${color}">${htmlEscape(text)}</span>
+    </blockquote>
+    ${note ? `<p class="note">${htmlEscape(note)}</p>` : ''}
+</section>`).join('')}`,
+    md: ({ annotations }, title, total) => `# ${title}\n\n${total}${
+        annotations.map(({ value, text, color, note }) => `
+
+---
+
+**${color}** - \`${value}\`
+
+> ${mdEscape(text)}${note ? '\n\n' + mdEscape(note) : ''}`).join('')}`,
+}

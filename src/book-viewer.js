@@ -15,7 +15,9 @@ import { WebView } from './webview.js'
 import './toc.js'
 import './search.js'
 import './navbar.js'
-import { AnnotationPopover, AnnotationModel, BookmarkModel } from './annotations.js'
+import {
+    AnnotationPopover, AnnotationModel, BookmarkModel, exportAnnotations,
+} from './annotations.js'
 import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
 import { getURIStore, getBookList } from './library.js'
@@ -612,6 +614,7 @@ export const BookViewer = GObject.registerClass({
                 'toggle-sidebar', 'toggle-search', 'show-location',
                 'toggle-toc', 'toggle-annotations', 'toggle-bookmarks',
                 'choose-font', 'show-info', 'bookmark',
+                'export-annotations',
             ],
             props: ['fold-sidebar'],
         })
@@ -887,6 +890,9 @@ export const BookViewer = GObject.registerClass({
     }
     bookmark() {
         this._bookmark_view.toggle()
+    }
+    exportAnnotations() {
+        exportAnnotations(this.get_root(), this.#data.storage.export())
     }
     vfunc_unroot() {
         this._view.viewSettings.unbindSettings()

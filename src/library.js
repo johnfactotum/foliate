@@ -9,6 +9,7 @@ import cairo from 'gi://cairo'
 import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
+import { exportAnnotations } from './annotations.js'
 
 const listDir = function* (path) {
     const dir = Gio.File.new_for_path(path)
@@ -130,6 +131,7 @@ const BookItem = GObject.registerClass({
     InternalChildren: ['image', 'title', 'creator', 'box', 'progress'],
     Signals: {
         'remove-book': { param_types: [Gio.File.$gtype] },
+        'export-book': { param_types: [Gio.File.$gtype] },
     },
 }, class extends Gtk.Box {
     #item
@@ -137,6 +139,7 @@ const BookItem = GObject.registerClass({
         super(params)
         this.insert_action_group('book-item', utils.addSimpleActions({
             'remove': () => this.emit('remove-book', this.#item),
+            'export': () => this.emit('export-book', this.#item),
         }))
     }
     update(item, data) {
@@ -206,6 +209,10 @@ GObject.registerClass({
             factory: utils.connect(new Gtk.SignalListItemFactory(), {
                 'setup': (_, item) => item.child = utils.connect(new BookItem(), {
                     'remove-book': (_, file) => this.removeBook(file),
+                    'export-book': (_, file) => {
+                        const data = getBooks().readFile(file)
+                        exportAnnotations(this.get_root(), data)
+                    },
                 }),
                 'bind': (_, { child, item }) => {
                     const data = this.emit('get-data', item, showCover)

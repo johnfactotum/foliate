@@ -178,8 +178,7 @@ export const Application = GObject.registerClass({
         }
 
         const theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
-        if (pkg.moduleuri('/icons').startsWith('resource:'))
-            theme.add_resource_path(pkg.modulepath('/icons'))
+        if (pkg.useResource) theme.add_resource_path(pkg.modulepath('/icons'))
         else theme.add_search_path(pkg.modulepath('/icons'))
 
         const cssProvider = new Gtk.CssProvider()
