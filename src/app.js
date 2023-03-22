@@ -257,6 +257,13 @@ export const Application = GObject.registerClass({
                 box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
             }
 
+            .book-list {
+                background: transparent;
+            }
+            .book-list row {
+                margin-top: -1px;
+                border-top: 1px solid @borders;
+            }
             /* set min-width to 1px,
                so we can have variable width progress bars a la Kindle */
             progress, trough {

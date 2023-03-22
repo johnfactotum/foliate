@@ -302,7 +302,7 @@ GObject.registerClass({
                         child.update(item, data)
                     },
                 }),
-            }), 'navigation-sidebar'), { 'activate': (_, pos) =>
+            }), 'book-list'), { 'activate': (_, pos) =>
                 this.emit('activate', this.#filterModel.get_item(pos)) }),
         })
     }
