@@ -207,6 +207,7 @@ class Reader {
                 emit(obj)
                 break
             }
+            case 'external-link':
             case 'create-overlay': emit(obj); break
             case 'show-annotation': {
                 const { value, range } = obj
