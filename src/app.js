@@ -252,6 +252,10 @@ export const Application = GObject.registerClass({
             .card-sidebar, .card-sidebar row.activatable {
                 background-color: transparent;
             }
+
+            .book-image-frame {
+                box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
+            }
         `, -1)
         Gtk.StyleContext.add_provider_for_display(
             Gdk.Display.get_default(),

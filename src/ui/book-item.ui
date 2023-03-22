@@ -5,8 +5,6 @@
       <attribute name="label" translatable="yes">About This Book</attribute>
       <attribute name="action">book-item.info</attribute>
     </item>
-  </section>
-  <section>
     <item>
       <attribute name="label" translatable="yes">Export Annotations…</attribute>
       <attribute name="action">book-item.export</attribute>
@@ -22,15 +20,25 @@
 <template class="FoliateBookItem" parent="GtkBox">
     <property name="orientation">vertical</property>
     <property name="halign">center</property>
-    <property name="valign">start</property>
+    <property name="valign">end</property>
     <property name="width-request">120</property>
-    <property name="margin-start">9</property>
-    <property name="margin-end">9</property>
+    <property name="margin-start">12</property>
+    <property name="margin-end">12</property>
+    <property name="margin-top">9</property>
+    <property name="margin-bottom">3</property>
     <child>
       <object class="FoliateBookImage" id="image"/>
     </child>
     <child>
-      <object class="GtkBox" id="box">
+      <object class="GtkInscription" id="title">
+        <property name="text-overflow">ellipsize-end</property>
+        <property name="min-lines">2</property>
+        <property name="margin-top">9</property>
+        <style><class name="caption-heading"/></style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
         <child>
           <object class="GtkLabel" id="progress">
             <property name="xalign">0</property>
@@ -45,31 +53,9 @@
             <property name="valign">center</property>
             <property name="icon-name">view-more-horizontal-symbolic</property>
             <property name="menu-model">menu</property>
-            <style><class name="flat"/></style>
+            <style><class name="flat"/><class name="circular"/></style>
           </object>
         </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkLabel" id="title">
-        <property name="hexpand">True</property>
-        <property name="xalign">0</property>
-        <property name="wrap">True</property>
-        <property name="ellipsize">end</property>
-        <property name="lines">3</property>
-        <property name="margin-bottom">6</property>
-        <style><class name="heading"/></style>
-      </object>
-    </child>
-    <child>
-      <object class="GtkLabel" id="creator">
-        <property name="hexpand">True</property>
-        <property name="xalign">0</property>
-        <property name="wrap">True</property>
-        <property name="ellipsize">end</property>
-        <property name="lines">3</property>
-        <property name="margin-bottom">6</property>
-        <style><class name="caption"/><class name="dim-label"/></style>
       </object>
     </child>
 </template>

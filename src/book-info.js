@@ -69,6 +69,7 @@ const makeBookHeader = (metadata, pixbuf) => {
 
     const box2 = new Gtk.Box({ spacing: 18 })
     const frame = new Gtk.Frame()
+    frame.add_css_class('book-image-frame')
     const picture = new Gtk.Picture({ focusable: true, height_request: 180 })
     picture.set_pixbuf(pixbuf)
     frame.child = picture

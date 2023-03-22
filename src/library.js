@@ -123,13 +123,14 @@ GObject.registerClass({
             this._title.label = title
             this._generated.visible = true
         }
+        this._image.tooltip_text = title
     }
 })
 
 const BookItem = GObject.registerClass({
     GTypeName: 'FoliateBookItem',
     Template: pkg.moduleuri('ui/book-item.ui'),
-    InternalChildren: ['image', 'title', 'creator', 'box', 'progress'],
+    InternalChildren: ['image', 'progress', 'title'],
     Signals: {
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
@@ -145,15 +146,14 @@ const BookItem = GObject.registerClass({
             'info': () => this.emit('book-info', this.#item),
         }))
     }
-    update(item, data) {
+    update(item, data, cover) {
         this.#item = item
-        const { cover, title, creator, progress, menu } = data
-        this._title.label = title ?? ''
-        this._creator.label = creator ?? ''
-        this._title.margin_top = menu ? 0 : 6
-        this._box.visible = !!menu
-        this._progress.label = progress == null ? '' : format.percent(progress)
+        const title = data.metadata?.title
+        this._title.text = title
         this._image.load(cover?.then ? null : cover, title)
+        const p = data.progress
+        const progress = p?.[1] ? (p[0] + 1) / (p[1] + 1) : null
+        this._progress.label = progress == null ? '' : format.percent(progress)
     }
 })
 
@@ -168,10 +168,6 @@ GObject.registerClass({
         'load-more': { return_type: GObject.TYPE_BOOLEAN },
         'load-all': {},
         'activate': { param_types: [GObject.TYPE_OBJECT] },
-        'get-data': {
-            param_types: [GObject.TYPE_OBJECT, GObject.TYPE_BOOLEAN],
-            return_type: GObject.TYPE_JSOBJECT,
-        },
     },
 }, class extends Gtk.Stack {
     #done = false
@@ -203,7 +199,6 @@ GObject.registerClass({
     }
     showGrid() {
         this._scrolled.child?.unparent()
-        const showCover = true
         this._scrolled.child = utils.connect(new Gtk.GridView({
             single_click_activate: true,
             max_columns: 20,
@@ -224,10 +219,10 @@ GObject.registerClass({
                     },
                 }),
                 'bind': (_, { child, item }) => {
-                    const data = this.emit('get-data', item, showCover)
-                    child.update(item, data)
-                    if (data?.cover?.then) data.cover
-                        .then(cover => child.update({ ...data, cover }))
+                    const { cover, data } = this.#getData(item)
+                    child.update(item, data, cover)
+                    if (cover?.then) cover
+                        .then(cover => child.update(item, data, cover))
                         .catch(e => console.warn(e))
                 },
             }),
@@ -251,6 +246,13 @@ GObject.registerClass({
         })
     }
     */
+    #getData(file) {
+        const books = getBooks()
+        const data = books.readFile(file)
+        const identifier = data?.metadata?.identifier
+        const cover = identifier ? books.readCover(identifier) : null
+        return { cover, data }
+    }
     search(text) {
         const q = text.trim().toLowerCase()
         if (!q) {
@@ -302,17 +304,6 @@ export const Library = GObject.registerClass({
             },
             'load-more': () => books.loadMore(1),
             'load-all': () => books.loadMore(Infinity),
-            'get-data': (_, file, showCover) => {
-                const data = books.readFile(file)
-                const identifier = data?.metadata?.identifier
-                const cover = showCover && identifier
-                    ? books.readCover(identifier) : null
-                const title = data?.metadata?.title
-                const creator = data?.metadata?.creator
-                const p = data?.progress
-                const progress = p?.[1] ? (p[0] + 1) / (p[1] + 1) : null
-                return { cover, title, creator, progress, menu: true }
-            },
         })
         this._books_view.setModel(books)
         this._books_view.showGrid()
