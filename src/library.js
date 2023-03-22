@@ -10,7 +10,7 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 import { exportAnnotations } from './annotations.js'
-import { makeBookInfoWindow } from './book-info.js'
+import { formatAuthors, makeBookInfoWindow } from './book-info.js'
 
 const listDir = function* (path) {
     const dir = Gio.File.new_for_path(path)
@@ -127,6 +127,8 @@ GObject.registerClass({
     }
 })
 
+const fraction = p => p?.[1] ? (p[0] + 1) / (p[1] + 1) : null
+
 const BookItem = GObject.registerClass({
     GTypeName: 'FoliateBookItem',
     Template: pkg.moduleuri('ui/book-item.ui'),
@@ -151,9 +153,55 @@ const BookItem = GObject.registerClass({
         const title = data.metadata?.title
         this._title.text = title
         this._image.load(cover?.then ? null : cover, title)
-        const p = data.progress
-        const progress = p?.[1] ? (p[0] + 1) / (p[1] + 1) : null
-        this._progress.label = progress == null ? '' : format.percent(progress)
+        this._progress.label = format.percent(fraction(data.progress))
+    }
+})
+
+const BookRow = GObject.registerClass({
+    GTypeName: 'FoliateBookRow',
+    Template: pkg.moduleuri('ui/book-row.ui'),
+    InternalChildren: ['title', 'author', 'progress-grid', 'progress-bar', 'progress-label'],
+    Signals: {
+        'remove-book': { param_types: [Gio.File.$gtype] },
+        'export-book': { param_types: [Gio.File.$gtype] },
+        'book-info': { param_types: [Gio.File.$gtype] },
+    },
+}, class extends Gtk.Box {
+    #item
+    constructor(params) {
+        super(params)
+        this.insert_action_group('book-item', utils.addSimpleActions({
+            'remove': () => this.emit('remove-book', this.#item),
+            'export': () => this.emit('export-book', this.#item),
+            'info': () => this.emit('book-info', this.#item),
+        }))
+    }
+    update(item, data) {
+        this.#item = item
+        const { metadata, progress } = data
+        const title = metadata?.title
+        this._title.label = title
+
+        const author = formatAuthors(metadata)
+        this._author.label = author
+        this._author.visible = Boolean(author)
+
+        const frac = fraction(progress)
+        this._progress_bar.fraction = frac
+        this._progress_label.label = format.percent(frac)
+
+        const bookSize = Math.min((progress?.[1] + 1) / 1500, 0.8)
+        const steps = 10
+        const span = Math.ceil(bookSize * steps)
+        const grid = this._progress_grid
+        if (isNaN(span)) grid.hide()
+        else {
+            grid.show()
+            grid.remove(this._progress_bar)
+            grid.remove(this._progress_label)
+            grid.attach(this._progress_bar, 0, 0, span, 1)
+            grid.attach(this._progress_label, span, 0, steps - span, 1)
+        }
     }
 })
 
@@ -164,6 +212,9 @@ GObject.registerClass({
     GTypeName: 'FoliateLibraryView',
     Template: pkg.moduleuri('ui/library-view.ui'),
     InternalChildren: ['scrolled'],
+    Properties: utils.makeParams({
+        'view-mode': 'string',
+    }),
     Signals: {
         'load-more': { return_type: GObject.TYPE_BOOLEAN },
         'load-all': {},
@@ -174,12 +225,31 @@ GObject.registerClass({
     #filter = new Gtk.CustomFilter()
     #filterModel = utils.connect(new Gtk.FilterListModel({ filter: this.#filter }),
         { 'items-changed': () => this.#update() })
+    #itemConnections = {
+        'remove-book': (_, file) => this.removeBook(file),
+        'export-book': (_, file) => {
+            const data = getBooks().readFile(file)
+            exportAnnotations(this.get_root(), data)
+        },
+        'book-info': (_, file) => {
+            const books = getBooks()
+            const { metadata } = books.readFile(file)
+            const cover = books.readCover(metadata.identifier)
+            makeBookInfoWindow(this.get_root(), metadata, cover)
+        },
+    }
+    actionGroup = utils.addMethods(this, {
+        props: ['view-mode'],
+    })
     constructor(params) {
         super(params)
         utils.connect(this._scrolled.vadjustment, {
             'changed': this.#checkAdjustment.bind(this),
             'value-changed': this.#checkAdjustment.bind(this),
         })
+        const show = () => this.view_mode === 'list' ? this.showList() : this.showGrid()
+        this.connect('notify::view-mode', show)
+        show()
     }
     #checkAdjustment(adj) {
         if (this.#done) return
@@ -205,21 +275,10 @@ GObject.registerClass({
             vscroll_policy: Gtk.ScrollablePolicy.NATURAL,
             model: new Gtk.NoSelection({ model: this.#filterModel }),
             factory: utils.connect(new Gtk.SignalListItemFactory(), {
-                'setup': (_, item) => item.child = utils.connect(new BookItem(), {
-                    'remove-book': (_, file) => this.removeBook(file),
-                    'export-book': (_, file) => {
-                        const data = getBooks().readFile(file)
-                        exportAnnotations(this.get_root(), data)
-                    },
-                    'book-info': (_, file) => {
-                        const books = getBooks()
-                        const { metadata } = books.readFile(file)
-                        const cover = books.readCover(metadata.identifier)
-                        makeBookInfoWindow(this.get_root(), metadata, cover)
-                    },
-                }),
+                'setup': (_, item) => item.child =
+                    utils.connect(new BookItem(), this.#itemConnections),
                 'bind': (_, { child, item }) => {
-                    const { cover, data } = this.#getData(item)
+                    const { cover, data } = this.#getData(item, true)
                     child.update(item, data, cover)
                     if (cover?.then) cover
                         .then(cover => child.update(item, data, cover))
@@ -229,28 +288,29 @@ GObject.registerClass({
         }), { 'activate': (_, pos) =>
             this.emit('activate', this.#filterModel.get_item(pos)) })
     }
-    /*
     showList() {
         this._scrolled.child?.unparent()
         this._scrolled.child = new Adw.ClampScrollable({
-            child: utils.connect(new Gtk.ListView({
+            child: utils.connect(utils.addClass(new Gtk.ListView({
                 single_click_activate: true,
                 model: new Gtk.NoSelection({ model: this.#filterModel }),
                 factory: utils.connect(new Gtk.SignalListItemFactory(), {
-                    'setup': (_, item) => item.child = new BookRow(),
-                    'bind': (_, { child, item }) =>
-                        child.update(this.emit('get-data', item, false)),
+                    'setup': (_, item) => item.child = utils.connect(
+                        new BookRow(), this.#itemConnections),
+                    'bind': (_, { child, item }) => {
+                        const { data } = this.#getData(item, true)
+                        child.update(item, data)
+                    },
                 }),
-            }),  { 'activate': (_, pos) =>
+            }), 'navigation-sidebar'), { 'activate': (_, pos) =>
                 this.emit('activate', this.#filterModel.get_item(pos)) }),
         })
     }
-    */
-    #getData(file) {
+    #getData(file, getCover) {
         const books = getBooks()
         const data = books.readFile(file)
         const identifier = data?.metadata?.identifier
-        const cover = identifier ? books.readCover(identifier) : null
+        const cover = getCover && identifier ? books.readCover(identifier) : null
         return { cover, data }
     }
     search(text) {
@@ -306,11 +366,14 @@ export const Library = GObject.registerClass({
             'load-all': () => books.loadMore(Infinity),
         })
         this._books_view.setModel(books)
-        this._books_view.showGrid()
+        this._books_view.view_mode = 'grid'
+        utils.bindSettings('library', this._books_view, ['view-mode'])
         books.loadMore(10)
 
         this._search_bar.connect_entry(this._search_entry)
         this._search_entry.connect('search-changed', entry =>
             this._books_view.search(entry.text))
+
+        this.insert_action_group('library', this._books_view.actionGroup)
     }
 })

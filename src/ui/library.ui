@@ -9,6 +9,18 @@
   </section>
   <section>
     <item>
+      <attribute name="label" translatable="yes">List View</attribute>
+      <attribute name="action">library.view-mode</attribute>
+      <attribute name="target">list</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Grid View</attribute>
+      <attribute name="action">library.view-mode</attribute>
+      <attribute name="target">grid</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
       <attribute name="label" translatable="yes">Fullscreen</attribute>
       <attribute name="action">win.fullscreened</attribute>
     </item>

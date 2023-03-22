@@ -256,6 +256,12 @@ export const Application = GObject.registerClass({
             .book-image-frame {
                 box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
             }
+
+            /* set min-width to 1px,
+               so we can have variable width progress bars a la Kindle */
+            progress, trough {
+                min-width: 1px;
+            }
         `, -1)
         Gtk.StyleContext.add_provider_for_display(
             Gdk.Display.get_default(),

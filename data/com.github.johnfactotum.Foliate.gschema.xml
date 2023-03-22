@@ -2,6 +2,7 @@
 <schemalist gettext-domain="com.github.johnfactotum.Foliate">
   <schema id="com.github.johnfactotum.Foliate" path="/com/github/johnfactotum/Foliate/">
     <child schema="com.github.johnfactotum.Foliate.window" name="window"/>
+    <child schema="com.github.johnfactotum.Foliate.viewer" name="library"/>
     <child schema="com.github.johnfactotum.Foliate.viewer" name="viewer"/>
     <key name="color-scheme" type="i">
       <default>0</default>
@@ -21,6 +22,13 @@
     </key>
     <key name="fullscreened" type="b">
       <default>false</default>
+    </key>
+  </schema>
+
+  <schema id="com.github.johnfactotum.Foliate.library"
+    path="/com/github/johnfactotum/Foliate/library/">
+    <key name="view-mode" type="s">
+      <default>'grid'</default>
     </key>
   </schema>
 

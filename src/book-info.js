@@ -5,6 +5,14 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 
+export const formatAuthors = metadata => metadata?.author
+    ? (Array.isArray(metadata.author)
+        ? format.list(metadata.author.map(author =>
+            typeof author === 'string' ? author : author.name))
+        : metadata.author)
+    : metadata?.creator // compat with previous versions
+    ?? ''
+
 const makePropertyBox = (title, value) => {
     const box = new Gtk.Box({
         orientation: Gtk.Orientation.VERTICAL,
@@ -61,8 +69,7 @@ const makeBookHeader = (metadata, pixbuf) => {
         xalign: 0,
         wrap: true,
         selectable: true,
-        label: format.list(metadata.author
-            ?.map(author => typeof author === 'string' ? author : author.name)),
+        label: formatAuthors(metadata),
     }))
 
     if (!pixbuf) return box
