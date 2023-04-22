@@ -4,6 +4,7 @@ import GObject from 'gi://GObject'
 import GLib from 'gi://GLib'
 import Gio from 'gi://Gio'
 import Gdk from 'gi://Gdk'
+import WebKit from 'gi://WebKit'
 import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import { Library } from './library.js'
@@ -32,6 +33,7 @@ Versions:
 - GTK ${getImportVersion(Gtk)}
 - Adwaita ${getImportVersion(imports.gi.Adw)}
 - GLib ${getImportVersion(GLib)}
+- WebKitGTK ${getImportVersion(WebKit)}
 
 User directories:
 - ${GLib.get_user_data_dir()}

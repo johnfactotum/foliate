@@ -1,11 +1,7 @@
 import GObject from 'gi://GObject'
 import GLib from 'gi://GLib'
 import Gio from 'gi://Gio'
-import WebKit from 'gi://WebKit2'
-
-// enable sandbox
-// remove this after https://bugs.webkit.org/show_bug.cgi?id=220117 is fixed
-WebKit.WebContext.get_default().set_sandbox_enabled(true)
+import WebKit from 'gi://WebKit'
 
 const registerScheme = (name, callback) =>
     WebKit.WebContext.get_default().register_uri_scheme(name, req => {
@@ -90,13 +86,13 @@ export const WebView = GObject.registerClass({
     // execute arbitrary js without returning anything
     run(script) {
         return new Promise(resolve =>
-            this.run_javascript(script, null, () => resolve()))
+            this.evaluate_javascript(script, -1, null, null, null, () => resolve()))
     }
     eval(exp) {
         return new Promise((resolve, reject) =>
-            this.run_javascript(`JSON.stringify(${exp})`, null, (_, result) => {
+            this.evaluate_javascript(`JSON.stringify(${exp})`, -1, null, null, null, (_, result) => {
                 try {
-                    const jsResult = this.run_javascript_finish(result)
+                    const jsResult = this.evaluate_javascript_finish(result)
                     const str = jsResult.get_js_value().to_string()
                     const value = str != null ? JSON.parse(str) : null
                     resolve(value)
@@ -115,7 +111,7 @@ export const WebView = GObject.registerClass({
                 JSON.stringify({ token: "${token}", ok: false, payload:
                     e?.message + '\\n' + e?.stack + '\\n' + \`${func}\` })))`
         const promise = this.#promises.make(token)
-        this.run_javascript(script, null, () => {})
+        this.evaluate_javascript(script, -1, null, null, null, () => {})
         return promise
     }
     // call generator, get async generator object
@@ -173,12 +169,12 @@ export const WebView = GObject.registerClass({
         const manager = this.get_user_content_manager()
         manager.connect(`script-message-received::${name}`, (_, result) => {
             try {
-                callback(JSON.parse(result.get_js_value().to_string()))
+                callback(JSON.parse(result.to_string()))
             } catch (e) {
                 console.error(e)
             }
         })
-        const success = manager.register_script_message_handler(name)
+        const success = manager.register_script_message_handler(name, null)
         if (!success) throw new Error('Failed to register script message handler')
     }
     #load(func, ...args) {

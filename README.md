@@ -13,7 +13,7 @@ Read books in style.
 - `gjs` (>= 1.72)
 - `gtk4`
 - `libadwaita` (`gir1.2-adw-1` in Debian-based distros)
-- `webkit2gtk-5.0` (`gir1.2-webkit2-5.0` in Debian-based distros)
+- `webkitgtk-6.0` (`gir1.2-webkit-6.0` in Debian-based distros)
 
 #### Optional Dependencies
 
