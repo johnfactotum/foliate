@@ -91,36 +91,34 @@ const ApplicationWindow = GObject.registerClass({
         this.#bookViewer.open(file)
     }
     open() {
-        const chooser = new Gtk.FileChooserNative({
-            title: _('Open File'),
-            action: Gtk.FileChooserAction.OPEN,
-            transient_for: this,
-            modal: true,
+        const dialog = new Gtk.FileDialog()
+        const ebooks = new Gtk.FileFilter({
+            name: _('E-Book Files'),
+            mime_types: [
+                'application/epub+zip',
+                'application/x-mobipocket-ebook',
+                'application/vnd.amazon.mobi8-ebook',
+                'application/x-mobi8-ebook',
+                'application/x-fictionbook+xml',
+                'application/x-zip-compressed-fb2',
+                'application/vnd.comicbook+zip',
+            ],
         })
-
-        const all = new Gtk.FileFilter()
-        all.set_name(_('All Files'))
-        all.add_pattern('*')
-
-        const ebook = new Gtk.FileFilter()
-        ebook.set_name(_('E-book Files'))
-        for (const type of [
-            'application/epub+zip',
-            'application/x-mobipocket-ebook',
-            'application/vnd.amazon.mobi8-ebook',
-            'application/x-mobi8-ebook',
-            'application/x-fictionbook+xml',
-            'application/x-zip-compressed-fb2',
-            'application/vnd.comicbook+zip',
-        ]) ebook.add_mime_type(type)
-
-        chooser.add_filter(all)
-        chooser.add_filter(ebook)
-        chooser.set_filter(ebook)
-
-        chooser.show()
-        chooser.connect('response', (_, res) => {
-            if (res === Gtk.ResponseType.ACCEPT) this.openFile(chooser.get_file())
+        dialog.filters = new Gio.ListStore()
+        dialog.filters.append(new Gtk.FileFilter({
+            name: _('All Files'),
+            patterns: ['*'],
+        }))
+        dialog.filters.append(ebooks)
+        dialog.default_filter = ebooks
+        dialog.open(this, null, (_, res) => {
+            try {
+                const file = dialog.open_finish(res)
+                this.openFile(file)
+            } catch (e) {
+                if (e instanceof Gtk.DialogError) console.debug(e)
+                else console.error(e)
+            }
         })
     }
     showLibrary() {

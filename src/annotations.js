@@ -400,18 +400,16 @@ GObject.registerClass({
             const selected = this.selected
             const item = this.selected_item
             if (item.type === 'choose') {
-                const chooser = new Gtk.ColorChooserDialog({
-                    modal: true,
-                    transient_for: this.root,
-                })
-                chooser.show()
-                chooser.connect('response', (_, res) => {
-                    if (res === Gtk.ResponseType.OK) {
-                        const color = chooser.get_rgba().to_string()
+                new Gtk.ColorDialog().choose_rgba(this.root, null, null, (self, res) => {
+                    try {
+                        const color = self.choose_rgba_finish(res).to_string()
                         this.selectColor(color)
                         this.emit('color-changed', color)
-                    } else this.selected = this.#prevSelected
-                    chooser.close()
+                    } catch (e) {
+                        if (e instanceof Gtk.DialogError) console.debug(e)
+                        else console.error(e)
+                        this.selected = this.#prevSelected
+                    }
                 })
             } else {
                 this.emit('color-changed', item.value)
@@ -521,23 +519,21 @@ export const exportAnnotations = (window, data) => {
     builder.get_object('ok-button').connect('clicked', () => {
         const { selected } = builder.get_object('format-combo')
         const format = ['json', 'html', 'md'][selected]
-        const chooser = new Gtk.FileChooserNative({
-            title: _('Save File'),
-            action: Gtk.FileChooserAction.SAVE,
-            transient_for: window,
-            modal: true,
-        })
         const { metadata = {} } = data
         const title = vprintf(_('Annotations for “%s”'), [metadata.title])
         const total = vprintf(ngettext('%d Annotation', '%d Annotations', n), [n])
-        chooser.set_current_name(title + '.' + format)
-        chooser.show()
-        chooser.connect('response', (_, res) => {
-            if (res !== Gtk.ResponseType.ACCEPT) return
-            const contents = exportFunctions[format](data, title, total)
-            chooser.get_file().replace_contents(contents, null, false,
-                Gio.FileCreateFlags.REPLACE_DESTINATION, null)
-        })
+        new Gtk.FileDialog({ initial_name: title + '.' + format })
+            .save(window, null, (self, res) => {
+                try {
+                    const file = self.save_finish(res)
+                    const contents = exportFunctions[format](data, title, total)
+                    file.replace_contents(contents, null, false,
+                        Gio.FileCreateFlags.REPLACE_DESTINATION, null)
+                } catch (e) {
+                    if (e instanceof Gtk.DialogError) console.debug(e)
+                    else console.error(e)
+                }
+            })
         dialog.close()
     })
     builder.get_object('cancel-button').connect('clicked', () => dialog.close())

@@ -814,20 +814,18 @@ export const BookViewer = GObject.registerClass({
                     new Adw.Toast({ title: _('Copied to clipboard') }))
             },
             'save-as': () => {
-                const chooser = new Gtk.FileChooserNative({
-                    title: _('Save File'),
-                    action: Gtk.FileChooserAction.SAVE,
-                    transient_for: win,
-                    modal: true,
-                })
                 const ext = /\/([^+]*)/.exec(mimetype)?.[1]
-                chooser.set_current_name(win.title + (ext ? `.${ext}` : ''))
-                chooser.connect('response', (_, res) => {
-                    if (res === Gtk.ResponseType.ACCEPT) chooser.get_file()
-                        .replace_contents(bytes, null, false,
-                            Gio.FileCreateFlags.REPLACE_DESTINATION, null)
-                })
-                chooser.show()
+                new Gtk.FileDialog({ initial_name: win.title + (ext ? `.${ext}` : '') })
+                    .save(win, null, (self, res) => {
+                        try {
+                            const file = self.save_finish(res)
+                            file.replace_contents(bytes, null, false,
+                                Gio.FileCreateFlags.REPLACE_DESTINATION, null)
+                        } catch (e) {
+                            if (e instanceof Gtk.DialogError) console.debug(e)
+                            else console.error(e)
+                        }
+                    })
             },
         })
         win.add_controller(utils.addShortcuts({ '<ctrl>w': () => win.close() }))
