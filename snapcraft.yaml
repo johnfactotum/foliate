@@ -5,6 +5,9 @@ license: GPL-3.0+
 base: core22
 compression: lzo
 confinement: strict
+architectures:
+  - build-on: [amd64]
+    build-for: [amd64]
 
 apps:
   foliate:
