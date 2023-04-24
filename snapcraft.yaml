@@ -28,7 +28,7 @@ parts:
       craftctl set-version $(git describe --tags --abbrev=10)
     override-build: |
       set -ex
-      xmlstarlet edit -L -u "/schemalist/schema/key[@name='tts-command']/default" -v "'espeak-ng -v mb-en1'" $SNAPCRAFT_PART_BUILD/data/com.github.johnfactotum.Foliate.gschema.xml
+      xmlstarlet edit -L -u "/schemalist/schema/key[@name='tts-command']/default" -v "'espeak-ng -v mb-en1'" $CRAFT_PART_BUILD/data/com.github.johnfactotum.Foliate.gschema.xml
       craftctl default
     meson-parameters: [--prefix=/snap/foliate/current/usr]
     build-packages:
