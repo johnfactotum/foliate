@@ -51,12 +51,12 @@ slots:
     name: com.github.johnfactotum.Foliate
 
 layout:
-  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/espeak-ng-data:
-    symlink: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/espeak-ng-data
+  /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
+    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
   # This is a bind instead of a (faster) symlink because mbrola uses LD_PRELOAD
   # with libraries from this directory, which doesn't work with symlinks.
-  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/mbrola:
-    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/mbrola
+  /usr/lib/$CRAFT_ARCH_TRIPLET/mbrola:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/mbrola
   /usr/share/mbrola:
     symlink: $SNAP/usr/share/mbrola
   /usr/bin/gjs:
