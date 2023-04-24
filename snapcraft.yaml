@@ -1,1 +1,40 @@
+name: foliate
+base: core22
+adopt-info: foliate
+grade: stable
+confinement: strict
+compression: lzo
+architectures:
+  - build-on: amd64
+    build-for: amd64
 
+
+slots:
+  foliate:
+    interface: dbus
+    bus: session
+    name: com.github.johnfactotum.Foliate
+
+apps:
+  foliate:
+    command: usr/bin/foliate
+    extensions: [gnome]
+    common-id: com.github.johnfactotum.Foliate
+    desktop: usr/share/applications/com.github.huluti.Curtail.desktop
+    
+parts:
+  curtail:
+    after: [oxipng]
+    source: https://github.com/Huluti/Curtail.git
+    plugin: meson
+    parse-info: [usr/share/metainfo/com.github.huluti.Curtail.appdata.xml]
+    meson-parameters:
+      - --prefix=/usr
+    stage-packages:
+      - pngquant
+      - scour
+      - jpegoptim
+    override-pull: |
+      craftctl default
+      craftctl set version=$(git describe --tags --abbrev=0)
+      
