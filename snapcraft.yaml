@@ -1,16 +1,30 @@
-name: foliate
+name: foliate-gtk
 grade: stable
-adopt-info: foliate
+version: '2.5.4'
+summary: Foliate is a Simple Yet Powerful  E-Book Reader built in Gtk.
+description: |
+  Simple, Advanced and Lightweight Ebook Reader.
 license: GPL-3.0+
 base: core22
-compression: lzo
 confinement: strict
+compression: lzo
 architectures:
   - build-on: [amd64]
     build-for: [amd64]
+layout:
+  /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
+    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
+  /usr/bin/gjs:
+    symlink: $SNAP/gnome-platform/usr/bin/gjs
+
+slots:
+  dbus-daemon:
+    interface: dbus
+    bus: session
+    name: com.github.johnfactotum.Foliate
 
 apps:
-  foliate:
+  foliate-gtk:
     command: usr/bin/com.github.johnfactotum.Foliate
     extensions: [gnome]
     plugs:
@@ -22,45 +36,29 @@ apps:
     common-id: com.github.johnfactotum.Foliate
 
 parts:
-  foliate:
+  foliate-gtk:
     plugin: meson
-    source: .
+    source: https://github.com/johnfactotum/foliate/archive/refs/tags/2.6.4.tar.gz
+    meson-parameters: [--prefix=/snap/foliate/current/usr]
     override-pull: |
       craftctl default
       sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
-      craftctl set-version $(git describe --tags --abbrev=10)
-    override-build: |
-      set -ex
-      xmlstarlet edit -L -u "/schemalist/schema/key[@name='tts-command']/default" -v "'espeak-ng -v mb-en1'" $CRAFT_PART_BUILD/data/com.github.johnfactotum.Foliate.gschema.xml
-      craftctl default
-    meson-parameters: [--prefix=/snap/foliate/current/usr]
     build-packages:
-      - git # for set-version
-      - xmlstarlet  # for override-build
+      - git
+      - libgjs-dev
+      - build-essential
+      - xmlstarlet 
+    parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
     organize:
       snap/foliate/current/usr: usr
-    parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
+      
   tts:
     plugin: nil
     stage-packages:
       - espeak-ng
-      - mbrola-en1
-      - mbrola
+      - speech-dispatcher-espeak-ng
+      - libaudio2
+      - libsndio7.0
+      
 
-slots:
-  dbus-daemon:
-    interface: dbus
-    bus: session
-    name: com.github.johnfactotum.Foliate
 
-layout:
-  /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
-    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
-  # This is a bind instead of a (faster) symlink because mbrola uses LD_PRELOAD
-  # with libraries from this directory, which doesn't work with symlinks.
-  /usr/lib/$CRAFT_ARCH_TRIPLET/mbrola:
-    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/mbrola
-  /usr/share/mbrola:
-    symlink: $SNAP/usr/share/mbrola
-  /usr/bin/gjs:
-    symlink: $SNAP/gnome-platform/usr/bin/gjs
