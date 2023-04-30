@@ -703,7 +703,7 @@ export const BookViewer = GObject.registerClass({
             else this._book_cover.icon_name = 'image-missing-symbolic'
         })
 
-        book.metadata.identifier ??= makeIdentifier(this.#file)
+        book.metadata.identifier ||= makeIdentifier(this.#file)
         const { identifier } = book.metadata
         if (identifier) {
             this.#data = await dataStore.get(identifier, this._view)
