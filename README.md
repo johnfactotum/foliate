@@ -17,7 +17,7 @@ Read books in style.
 
 #### Optional Dependencies
 
-To enable auto-hyphenation, you will need to install hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc. (which strictly speaking are optional dependencies for `webkit2gtk`, not Foliate itself).
+To enable auto-hyphenation, you will need to install hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc. (which strictly speaking are optional dependencies for WebkitGTK, not Foliate itself).
 
 ### Obtaining the Source
 
