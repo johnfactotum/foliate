@@ -317,6 +317,7 @@ GObject.registerClass({
         Object.assign(this.#webView.get_settings(), {
             serif_font_family: getFamily(font.serif),
             sans_serif_font_family: getFamily(font.sans_serif),
+            monospace_font_family: getFamily(font.monospace),
             default_font_family: getFamily(font.default === 1
                 ? font.sans_serif : font.serif),
             default_font_size: WebKit.Settings.font_size_to_pixels(font.default_size),
