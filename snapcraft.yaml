@@ -17,17 +17,15 @@ layout:
   /usr/bin/gjs:
     symlink: $SNAP/gnome-platform/usr/bin/gjs
     
-environment:
-   GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0
-
-
-
 slots:
   dbus-daemon:
     interface: dbus
     bus: session
     name: com.github.johnfactotum.Foliate
 
+environment:
+   GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0
+   
 apps:
   foliate:
     command: usr/bin/com.github.johnfactotum.Foliate
