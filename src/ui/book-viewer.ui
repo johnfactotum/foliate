@@ -629,13 +629,13 @@
                                     <child>
                                       <object class="GtkSpinButton" id="margin">
                                         <property name="valign">center</property>
-                                        <property name="digits">0</property>
+                                        <property name="digits">2</property>
                                         <property name="adjustment">
                                           <object class="GtkAdjustment">
                                             <property name="lower">0</property>
-                                            <property name="upper">200</property>
-                                            <property name="step-increment">10</property>
-                                            <property name="page-increment">10</property>
+                                            <property name="upper">0.5</property>
+                                            <property name="step-increment">0.01</property>
+                                            <property name="page-increment">0.01</property>
                                           </object>
                                         </property>
                                         <layout>

@@ -14,9 +14,23 @@ body {
     .invert {
         background: #000;
     }
-    .invert .filter {
+    .invert .foliate-filter {
         filter: invert(1) hue-rotate(180deg);
     }
+}
+.foliate-header > *, .foliate-footer > * {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    text-align: center;
+    font-size: .75em;
+    opacity: .6;
+}
+.foliate-header > * > *, .foliate-footer > * > * {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #ribbon {
     visibility: hidden;

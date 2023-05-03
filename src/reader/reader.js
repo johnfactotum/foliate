@@ -1,4 +1,4 @@
-import { View, getPosition } from '../foliate-js/view.js'
+import { View } from '../foliate-js/view.js'
 import { Overlayer } from '../foliate-js/overlayer.js'
 import { toPangoMarkup } from './markup.js'
 
@@ -144,6 +144,53 @@ const getCSS = ({ spacing, justify, hyphenate, invert }) => `
     }
 `
 
+const frameRect = (frame, rect, sx = 1, sy = 1) => {
+    const left = sx * rect.left + frame.left
+    const right = sx * rect.right + frame.left
+    const top = sy * rect.top + frame.top
+    const bottom = sy * rect.bottom + frame.top
+    return { left, right, top, bottom }
+}
+
+const pointIsInView = ({ x, y }) =>
+    x > 0 && y > 0 && x < window.innerWidth && y < window.innerHeight
+
+const getPosition = target => {
+    // TODO: vertical text
+    const frameElement = (target.getRootNode?.() ?? target?.endContainer?.getRootNode?.())
+        ?.defaultView?.frameElement
+
+    const transform = frameElement ? getComputedStyle(frameElement).transform : ''
+    const match = transform.match(/matrix\((.+)\)/)
+    const [sx, , , sy] = match?.[1]?.split(/\s*,\s*/)?.map(x => parseFloat(x)) ?? []
+
+    const frame = frameElement?.getBoundingClientRect() ?? { top: 0, left: 0 }
+    const rects = Array.from(target.getClientRects())
+    const first = frameRect(frame, rects[0], sx, sy)
+    const last = frameRect(frame, rects.at(-1), sx, sy)
+    const start = {
+        point: { x: (first.left + first.right) / 2, y: first.top },
+        dir: 'up',
+    }
+    const end = {
+        point: { x: (last.left + last.right) / 2, y: last.bottom },
+        dir: 'down',
+    }
+    const startInView = pointIsInView(start.point)
+    const endInView = pointIsInView(end.point)
+    if (!startInView && !endInView) return { point: { x: 0, y: 0 } }
+    if (!startInView) return end
+    if (!endInView) return start
+    return start.point.y > window.innerHeight - end.point.y ? start : end
+}
+
+const hasEPUBSSV = (el, v) =>
+    el.getAttributeNS('http://www.idpf.org/2007/ops', 'type')
+        ?.split(' ')?.some(t => v.includes(t))
+
+const hasRole = (el, v) =>
+    el.getAttribute('role')?.split(' ')?.some(t => v.includes(t))
+
 class Reader {
     #tocView
     style = {
@@ -207,7 +254,6 @@ class Reader {
                 emit(obj)
                 break
             }
-            case 'external-link':
             case 'create-overlay': emit(obj); break
             case 'show-annotation': {
                 const { value, range } = obj
@@ -227,7 +273,8 @@ class Reader {
                 }
                 else return [Overlayer.highlight, { color }]
             }
-            case 'reference': this.#onReference(obj); break
+            case 'external-link': emit(obj); return true
+            case 'link': return this.#onLink(obj)
             case 'loaded': this.#onLoaded(obj); break
         }
     }
@@ -267,12 +314,21 @@ class Reader {
                     this.#showAnnotation({ range, value, pos })
             })
     }
-    #onReference({ content, href, element }) {
-        if (content) {
-            const pos = getPosition(element)
-            const html = toPangoMarkup(content)
-            emit({ type: 'reference', href, html, pos })
-        }
+    #onLink({ a, href }) {
+        const { index, anchor } = this.view.book.resolveHref(href)
+        if (hasEPUBSSV(a, ['annoref', 'biblioref', 'glossref', 'noteref'])
+        || hasRole(a, ['doc-biblioref', 'doc-glossref', 'doc-noteref'])) return Promise
+            .resolve(this.view.book.sections[index].createDocument())
+            .then(doc => {
+                const el = anchor(doc)
+                if (el) {
+                    const pos = getPosition(a)
+                    const html = toPangoMarkup(el.innerHTML)
+                    emit({ type: 'reference', href, html, pos })
+                    return true
+                }
+            })
+            .catch(e => console.error(e))
     }
     async getCover() {
         try {
