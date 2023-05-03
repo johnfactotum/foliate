@@ -576,6 +576,7 @@ export const BookViewer = GObject.registerClass({
             this._view.grab_focus()
         })
         this._navbar.connect('go-to-cfi', (_, x) => this._view.goTo(x))
+        this._navbar.connect('go-to-section', (_, x) => this._view.goTo(x))
         this._navbar.connect('go-to-fraction', (_, x) => this._view.goToFraction(x))
 
         // annotations

@@ -137,11 +137,13 @@ GObject.registerClass({
     ],
     Signals: {
         'go-to-cfi': { param_types: [GObject.TYPE_STRING] },
+        'go-to-section': { param_types: [GObject.TYPE_UINT] },
         'go-to-fraction': { param_types: [GObject.TYPE_DOUBLE] },
         'opened': {},
         'closed': {},
     },
 }, class extends Gtk.Box {
+    #locationTotal
     constructor(params) {
         super(params)
         const closed = () => this.emit('closed')
@@ -150,8 +152,14 @@ GObject.registerClass({
             closed()
         })
         this._tts_popover.connect('closed', closed)
+        this._loc_entry.connect('activate', entry => {
+            this.emit('go-to-fraction', parseInt(entry.text) / this.#locationTotal)
+            this._location_popover.popdown()
+        })
         this._cfi_entry.connect('activate',
             entry => this.emit('go-to-cfi', entry.text))
+        this._section_entry.connect('activate',
+            entry => this.emit('go-to-section', parseInt(entry.text) - 1))
         this._progress_scale.connect('go-to-fraction',
             (_, value) => this.emit('go-to-fraction', value))
         this._page_drop_down.connect('go-to-href',
@@ -163,6 +171,7 @@ GObject.registerClass({
                 toggle.active ? 'landmarks' : 'main')
 
         this.connect('go-to-cfi', () => this._location_popover.popdown())
+        this.connect('go-to-section', () => this._location_popover.popdown())
 
         const actions = utils.addMethods(this, {
             actions: ['copy-cfi', 'paste-cfi', 'toggle-landmarks'],
@@ -181,6 +190,7 @@ GObject.registerClass({
         this._time_section.label = format.duration(time.section)
         this._loc_entry.text = (location.current + 1).toString()
         this._loc_total.label = format.total(location.total)
+        this.#locationTotal = location.total
         this._section_entry.text = (section.current + 1).toString()
         this._section_total.label = format.total(section.total)
         this._page_drop_down.update(pageItem)
