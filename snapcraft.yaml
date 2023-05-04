@@ -28,13 +28,14 @@ apps:
     command: usr/bin/com.github.johnfactotum.Foliate
     extensions: [gnome]
     plugs:
+      - home
       - network
       - audio-playback
       - removable-media
     slots:
       - dbus-daemon
-    common-id: com.github.johnfactotum.Foliate
     desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
+    common-id: com.github.johnfactotum.Foliate
     environment:
       GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0
 
