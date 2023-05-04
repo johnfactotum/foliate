@@ -1,0 +1,64 @@
+name: foliate
+grade: stable
+version: '2.5.4'
+summary: Foliate is a Simple Yet Powerful  E-Book Reader built in Gtk.
+description: |
+  Simple, Advanced and Lightweight Ebook Reader.
+license: GPL-3.0+
+base: core22
+confinement: strict
+compression: lzo
+architectures:
+  - build-on: [amd64]
+    build-for: [amd64]
+layout:
+  /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
+    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
+  /usr/bin/gjs:
+    symlink: $SNAP/gnome-platform/usr/bin/gjs
+
+slots:
+  dbus-daemon:
+    interface: dbus
+    bus: session
+    name: com.github.johnfactotum.Foliate
+
+apps:
+  foliate:
+    command: usr/bin/com.github.johnfactotum.Foliate
+    extensions: [gnome]
+    plugs:
+      - network
+      - audio-playback
+      - removable-media
+    slots:
+      - dbus-daemon
+    common-id: com.github.johnfactotum.Foliate
+    desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
+    environment:
+      GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0
+
+parts:
+  foliate:
+    plugin: meson
+    source: https://github.com/johnfactotum/foliate/archive/refs/tags/2.6.4.tar.gz
+    meson-parameters: [--prefix=/snap/foliate/current/usr]
+    override-pull: |
+      craftctl default
+      sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
+    build-packages:
+      - git
+      - libgjs-dev
+      - build-essential
+      - xmlstarlet 
+    parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
+    organize:
+      snap/foliate/current/usr: usr
+      
+  tts:
+    plugin: nil
+    stage-packages:
+      - espeak-ng
+      - speech-dispatcher-espeak-ng
+      - libaudio2
+      - libsndio7.0
