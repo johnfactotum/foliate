@@ -9,8 +9,9 @@ base: core22
 confinement: strict
 compression: lzo
 architectures:
-  - build-on: [amd64]
-    build-for: [amd64]
+  - build-on: amd64
+  - build-on: armhf
+  - build-on: arm64
 layout:
   /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
     symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
