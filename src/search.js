@@ -109,7 +109,11 @@ GObject.registerClass({
         this.generator = await this.getGenerator({ ...opts, query, index })
 
         for await (const result of this.generator) {
-            if ('progress' in result)
+            if (result === 'done') {
+                this.entry.progress_fraction = null
+                if (!this.model.model.get_n_items()) this.emit('no-results')
+            }
+            else if ('progress' in result)
                 this.entry.progress_fraction = result.progress
             else {
                 const { label, cfi, excerpt, subitems } = result
@@ -125,8 +129,6 @@ GObject.registerClass({
                 }) : new SearchResult({ label: formatExcerpt(excerpt), cfi }))
             }
         }
-        this.entry.progress_fraction = null
-        if (!this.model.model.get_n_items()) this.emit('no-results')
     }
     cycle(dir) {
         const { model } = this
