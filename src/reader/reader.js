@@ -1,8 +1,6 @@
-import { View } from '../foliate-js/view.js'
+import '../foliate-js/view.js'
 import { Overlayer } from '../foliate-js/overlayer.js'
 import { toPangoMarkup } from './markup.js'
-
-customElements.define('foliate-view', View)
 
 // TODO: make this translatable
 const format = {
