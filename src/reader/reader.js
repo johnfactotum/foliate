@@ -2,6 +2,8 @@ import { View } from '../foliate-js/view.js'
 import { Overlayer } from '../foliate-js/overlayer.js'
 import { toPangoMarkup } from './markup.js'
 
+customElements.define('foliate-view', View)
+
 // TODO: make this translatable
 const format = {
     loc: (a, b) => `Loc ${a} of ${b}`,
@@ -101,7 +103,7 @@ const open = async file => {
 
     const reader = new Reader(book)
     globalThis.reader = reader
-    await reader.display()
+    await reader.init()
     emit({ type: 'book-ready', book, reader })
 }
 
@@ -212,9 +214,11 @@ class Reader {
         this.pageTotal = book.pageList
             ?.findLast(x => !isNaN(parseInt(x.label)))?.label
     }
-    async display() {
-        this.view = new View(this.book, this.#handleEvent.bind(this))
-        document.body.append(await this.view.display())
+    async init() {
+        this.view = document.createElement('foliate-view')
+        this.#handleEvents()
+        await this.view.open(this.book)
+        document.body.append(this.view)
     }
     setAppearance({ style, layout }) {
         Object.assign(this.style, style)
@@ -222,63 +226,64 @@ class Reader {
         this.view?.setAppearance({ css: getCSS(this.style), layout: this.layout })
         document.body.classList.toggle('invert', this.style.invert)
     }
-    #handleEvent(obj) {
-        switch (obj.type) {
-            case 'relocated': {
-                const { heads, feet } = this.view.renderer
-                if (heads) {
-                    const { tocItem } = obj
-                    heads.at(-1).innerText = tocItem?.label ?? ''
-                    if (heads.length > 1)
-                        heads[0].innerText = this.book.metadata.title
-                }
-                if (feet) {
-                    const { pageItem, location: { current, next, total } } = obj
-                    if (pageItem) {
-                        // only show page number at the end
-                        // because we only have visible range for the spread,
-                        // not each column
-                        feet.at(-1).innerText = format.page(pageItem.label, this.pageTotal)
-                        if (feet.length > 1)
-                            feet[0].innerText = format.loc(current + 1, total)
-                    }
-                    else {
+    #handleEvents() {
+        this.view.addEventListener('relocate', e => {
+            const { heads, feet } = this.view.renderer
+            if (heads) {
+                const { tocItem } = e.detail
+                heads.at(-1).innerText = tocItem?.label ?? ''
+                if (heads.length > 1)
+                    heads[0].innerText = this.book.metadata.title
+            }
+            if (feet) {
+                const { pageItem, location: { current, next, total } } = e.detail
+                if (pageItem) {
+                    // only show page number at the end
+                    // because we only have visible range for the spread,
+                    // not each column
+                    feet.at(-1).innerText = format.page(pageItem.label, this.pageTotal)
+                    if (feet.length > 1)
                         feet[0].innerText = format.loc(current + 1, total)
-                        if (feet.length > 1) {
-                            const r = 1 - 1 / feet.length
-                            const end = Math.floor((1 - r) * current + r * next)
-                            feet.at(-1).innerText = format.loc(end + 1, total)
-                        }
+                }
+                else {
+                    feet[0].innerText = format.loc(current + 1, total)
+                    if (feet.length > 1) {
+                        const r = 1 - 1 / feet.length
+                        const end = Math.floor((1 - r) * current + r * next)
+                        feet.at(-1).innerText = format.loc(end + 1, total)
                     }
                 }
-                emit(obj)
-                break
             }
-            case 'create-overlay': emit(obj); break
-            case 'show-annotation': {
-                const { value, range } = obj
-                const pos = getPosition(range)
-                this.#showAnnotation({ range, value, pos })
-                break
+            emit({ type: 'relocate', ...e.detail })
+        })
+        this.view.addEventListener('create-overlay', e =>
+            emit({ type: 'create-overlay', ...e.detail }))
+        this.view.addEventListener('show-annotation', e => {
+            const { value, range } = e.detail
+            const pos = getPosition(range)
+            this.#showAnnotation({ range, value, pos })
+        })
+        this.view.addEventListener('draw-annotation', e => {
+            const { draw, annotation, doc, range } = e.detail
+            const { color } = annotation
+            if (['underline', 'squiggly', 'strikethrough'].includes(color)) {
+                const { defaultView } = doc
+                const node = range.startContainer
+                const el = node.nodeType === 1 ? node : node.parentElement
+                const { writingMode } = defaultView.getComputedStyle(el)
+                draw(Overlayer[color], { writingMode })
             }
-            case 'draw-annotation': {
-                const { annotation, doc, range } = obj
-                const { color } = annotation
-                if (['underline', 'squiggly', 'strikethrough'].includes(color)) {
-                    const { defaultView } = doc
-                    const node = range.startContainer
-                    const el = node.nodeType === 1 ? node : node.parentElement
-                    const { writingMode } = defaultView.getComputedStyle(el)
-                    return [Overlayer[color], { writingMode }]
-                }
-                else return [Overlayer.highlight, { color }]
-            }
-            case 'external-link': emit(obj); return true
-            case 'link': return this.#onLink(obj)
-            case 'loaded': this.#onLoaded(obj); break
-        }
+            else draw(Overlayer.highlight, { color })
+        })
+        this.view.addEventListener('external-link', e => {
+            e.preventDefault()
+            emit({ type: 'external-link', ...e.detail })
+        })
+        this.view.addEventListener('link', e => this.#onLink(e))
+        this.view.addEventListener('load', e => this.#onLoad(e))
     }
-    #onLoaded({ doc, index }) {
+    #onLoad(e) {
+        const { doc, index } = e.detail
         for (const img of doc.querySelectorAll('img'))
             img.addEventListener('dblclick', () => fetch(img.src)
                 .then(res => res.blob())
@@ -314,21 +319,25 @@ class Reader {
                     this.#showAnnotation({ range, value, pos })
             })
     }
-    #onLink({ a, href }) {
+    #onLink(e) {
+        const { a, href } = e.detail
         const { index, anchor } = this.view.book.resolveHref(href)
         if (hasEPUBSSV(a, ['annoref', 'biblioref', 'glossref', 'noteref'])
-        || hasRole(a, ['doc-biblioref', 'doc-glossref', 'doc-noteref'])) return Promise
-            .resolve(this.view.book.sections[index].createDocument())
-            .then(doc => {
-                const el = anchor(doc)
-                if (el) {
-                    const pos = getPosition(a)
-                    const html = toPangoMarkup(el.innerHTML)
-                    emit({ type: 'reference', href, html, pos })
-                    return true
-                }
-            })
-            .catch(e => console.error(e))
+        || hasRole(a, ['doc-biblioref', 'doc-glossref', 'doc-noteref'])) {
+            e.preventDefault()
+            Promise
+                .resolve(this.view.book.sections[index].createDocument())
+                .then(doc => {
+                    const el = anchor(doc)
+                    if (el) {
+                        const pos = getPosition(a)
+                        const html = toPangoMarkup(el.innerHTML)
+                        emit({ type: 'reference', href, html, pos })
+                        return true
+                    }
+                })
+                .catch(e => console.error(e))
+        }
     }
     async getCover() {
         try {

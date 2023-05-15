@@ -176,7 +176,7 @@ GObject.registerClass({
     Signals: {
         'book-ready': { param_types: [GObject.TYPE_JSOBJECT] },
         'book-error': { param_types: [GObject.TYPE_JSOBJECT] },
-        'relocated': { param_types: [GObject.TYPE_JSOBJECT] },
+        'relocate': { param_types: [GObject.TYPE_JSOBJECT] },
         'external-link': { param_types: [GObject.TYPE_JSOBJECT] },
         'reference': { param_types: [GObject.TYPE_JSOBJECT] },
         'selection': { param_types: [GObject.TYPE_JSOBJECT] },
@@ -491,8 +491,8 @@ export const BookViewer = GObject.registerClass({
         utils.connect(this._view, {
             'book-error': (_, x) => this.#onError(x),
             'book-ready': (_, x) => this.#onBookReady(x).catch(e => console.error(e)),
-            'relocated': (_, x) => this.#onRelocated(x),
-            'external-link': (_, x) => Gtk.show_uri(null, x.uri, Gdk.CURRENT_TIME),
+            'relocate': (_, x) => this.#onRelocate(x),
+            'external-link': (_, x) => Gtk.show_uri(null, x.href, Gdk.CURRENT_TIME),
             'reference': (_, x) => this.#onReference(x),
             'selection': (_, x) => this.#onSelection(x),
             'create-overlay': (_, x) => this.#createOverlay(x),
@@ -727,7 +727,7 @@ export const BookViewer = GObject.registerClass({
         }
         else await this._view.next()
     }
-    #onRelocated(payload) {
+    #onRelocate(payload) {
         const { section, location, tocItem, cfi } = payload
         this._toc_view.setCurrent(tocItem?.id)
         this._search_view.index = section.current
