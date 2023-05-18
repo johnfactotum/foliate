@@ -303,7 +303,7 @@ GObject.registerClass({
             actions: [
                 'reload', 'inspector', 'prev', 'next', 'go-left', 'go-right',
                 'prev-section', 'next-section', 'first-section', 'last-section',
-                'zoom-in', 'zoom-restore', 'zoom-out',
+                'back', 'forward', 'zoom-in', 'zoom-restore', 'zoom-out',
             ],
         })
         utils.addPropertyActions(this.viewSettings,
@@ -381,14 +381,17 @@ GObject.registerClass({
     select(x) { return this.#exec('reader.view.select', x) }
     deselect() { return this.#exec('reader.view.deselect') }
     getTOCItemOf(x) { return this.#exec('reader.view.getTOCItemOf', x) }
-    prev() { return this.#exec('reader.view.renderer.prev') }
-    next() { return this.#exec('reader.view.renderer.next') }
+    prev() { return this.#exec('reader.view.prev') }
+    next() { return this.#exec('reader.view.next') }
     goLeft() { return this.#exec('reader.view.goLeft') }
     goRight() { return this.#exec('reader.view.goRight') }
+    // TODO: these should push history
     prevSection() { return this.#exec('reader.view.renderer.prevSection') }
     nextSection() { return this.#exec('reader.view.renderer.nextSection') }
     firstSection() { return this.#exec('reader.view.renderer.firstSection') }
     lastSection() { return this.#exec('reader.view.renderer.lastSection') }
+    back() { return this.#exec('reader.view.history.back') }
+    forward() { return this.#exec('reader.view.history.forward') }
     search(x) { return this.#webView.iter('reader.view.search', x) }
     showAnnotation(x) { return this.#exec('reader.view.showAnnotation', x) }
     addAnnotation(x) { return this.#exec('reader.view.addAnnotation', x) }
@@ -646,6 +649,8 @@ export const BookViewer = GObject.registerClass({
             'n|j|Down|Page_Down': 'view.next',
             'h|Left': 'view.go-left',
             'l|Right': 'view.go-right',
+            '<alt>Left': 'view.back',
+            '<alt>Right': 'view.forward',
         }))
         // TODO: disable these when pinch zoomed
         this._view.webView.add_controller(utils.addShortcuts({
@@ -653,6 +658,8 @@ export const BookViewer = GObject.registerClass({
             'Down|Page_Down': 'view.next',
             'Left': 'view.go-left',
             'Right': 'view.go-right',
+            '<alt>Left': 'view.back',
+            '<alt>Right': 'view.forward',
         }))
     }
     #onError({ id, message, stack }) {

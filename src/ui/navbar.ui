@@ -43,12 +43,27 @@
   <child>
     <object class="GtkButton">
       <property name="valign">center</property>
+      <property name="action-name">view.back</property>
       <property name="tooltip-text" translatable="yes">Go back to previous location</property>
       <style><class name="image-button"/></style>
       <child>
         <object class="GtkImage" id="back-image">
           <property name="visible">True</property>
           <property name="icon-name">edit-undo-symbolic</property>
+        </object>
+      </child>
+    </object>
+  </child>
+  <child>
+    <object class="GtkButton">
+      <property name="valign">center</property>
+      <property name="action-name">view.forward</property>
+      <property name="tooltip-text" translatable="yes">Go forward to next location</property>
+      <style><class name="image-button"/></style>
+      <child>
+        <object class="GtkImage" id="forward-image">
+          <property name="visible">True</property>
+          <property name="icon-name">edit-redo-symbolic</property>
         </object>
       </child>
     </object>
@@ -67,7 +82,7 @@
       <child>
         <object class="FoliateProgressScale" id="progress-scale">
             <property name="draw-value">False</property>
-            <property name="width-request">180</property>
+            <property name="width-request">100</property>
             <property name="hexpand">True</property>
             <property name="adjustment">
               <object class="GtkAdjustment">
