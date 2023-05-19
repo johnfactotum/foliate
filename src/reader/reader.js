@@ -279,6 +279,10 @@ class Reader {
         })
         this.view.addEventListener('link', e => this.#onLink(e))
         this.view.addEventListener('load', e => this.#onLoad(e))
+        this.view.history.addEventListener('index-change', e => {
+            const { canGoBack, canGoForward } = e.target
+            emit({ type: 'history-index-change', canGoBack, canGoForward })
+        })
     }
     #onLoad(e) {
         const { doc, index } = e.detail

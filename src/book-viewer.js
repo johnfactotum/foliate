@@ -234,6 +234,10 @@ GObject.registerClass({
                 this.#exec('init')
                 initSelection()
             }
+            else if (payload.type === 'history-index-change') {
+                this.actionGroup.lookup_action('back').enabled = payload.canGoBack
+                this.actionGroup.lookup_action('forward').enabled = payload.canGoForward
+            }
             else this.emit(payload.type, payload)
         })
         this.connect('book-ready', () => this.#bookReady = true)
@@ -308,6 +312,9 @@ GObject.registerClass({
         })
         utils.addPropertyActions(this.viewSettings,
             this.viewSettings.keys, this.actionGroup)
+
+        this.actionGroup.lookup_action('back').enabled = false
+        this.actionGroup.lookup_action('forward').enabled = false
     }
     #exec(...args) {
         return this.#webView.exec(...args).catch(e => console.error(e))
