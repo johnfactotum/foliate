@@ -351,6 +351,15 @@ class Reader {
             return null
         }
     }
+
+    // wrap these renderer methods
+    // because `FoliateWebView.exec()` can only pass one argument
+    scrollBy([x, y]) {
+        return this.view.renderer.scrollBy?.(x, y)
+    }
+    snap([x, y]) {
+        return this.view.renderer.snap?.(x, y)
+    }
 }
 
 globalThis.init = () => document.getElementById('file-input').click()

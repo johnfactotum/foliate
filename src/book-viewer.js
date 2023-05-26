@@ -253,7 +253,8 @@ GObject.registerClass({
                 .catch(e => console.error(e)),
         }))
 
-        // handle scroll and swipe events
+        // handle scroll events
+        let isDiscrete = true, dxLast, dyLast
         const scrollPageAsync = utils.debounce((dx, dy) => {
             if (Math.abs(dx) > Math.abs(dy)) {
                 if (dx > 0) return this.goRight()
@@ -266,29 +267,23 @@ GObject.registerClass({
         this.#webView.add_controller(utils.connect(new Gtk.EventControllerScroll({
             flags: Gtk.EventControllerScrollFlags.BOTH_AXES,
         }), {
+            'scroll-begin': () => isDiscrete = false,
             'scroll': (_, dx, dy) => {
                 if (this.#pinchFactor > 1) return false
                 if (this.viewSettings.scrolled) return false
-                scrollPageAsync(dx, dy)
-                return true
-            },
-        }))
-        this.add_controller(utils.connect(new Gtk.GestureSwipe({
-            propagation_phase: Gtk.PropagationPhase.CAPTURE,
-            touch_only: true,
-        }), {
-            'swipe': (_, vx, vy) => {
-                if (this.#pinchFactor > 1) return false
-                if (Math.max(Math.abs(vx), Math.abs(vy)) < 200) return false
-                if (this.viewSettings.scrolled) return false
-                if (Math.abs(vx) > Math.abs(vy)) {
-                    if (vx > 0) return this.goLeft()
-                    else if (vx < 0) return this.goRight()
-                } else {
-                    if (vy > 0) return this.prev()
-                    else if (vy < 0) return this.next()
+                if (isDiscrete) scrollPageAsync(dx, dy)
+                else {
+                    dxLast = dx
+                    dyLast = dy
+                    this.#exec('reader.scrollBy', [dx, dy])
                 }
                 return true
+            },
+            'scroll-end': () => {
+                if (dxLast != null) this.#exec('reader.snap', [dxLast, dyLast])
+                isDiscrete = false
+                dxLast = null
+                dyLast = null
             },
         }))
 
