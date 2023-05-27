@@ -15,6 +15,7 @@ body {
         background: #000;
     }
     .invert foliate-view::part(filter) {
+        color-scheme: light; /* required to make the iframe bg transparent */
         filter: invert(1) hue-rotate(180deg);
     }
 }
