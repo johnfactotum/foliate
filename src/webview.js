@@ -92,8 +92,8 @@ export const WebView = GObject.registerClass({
         return new Promise((resolve, reject) =>
             this.evaluate_javascript(`JSON.stringify(${exp})`, -1, null, null, null, (_, result) => {
                 try {
-                    const jsResult = this.evaluate_javascript_finish(result)
-                    const str = jsResult.get_js_value().to_string()
+                    const jscValue = this.evaluate_javascript_finish(result)
+                    const str = jscValue.to_string()
                     const value = str != null ? JSON.parse(str) : null
                     resolve(value)
                 } catch (e) {
