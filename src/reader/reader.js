@@ -199,12 +199,6 @@ class Reader {
         hyphenate: true,
         invert: false,
     }
-    layout = {
-        margin: 48,
-        gap: 48,
-        maxColumnWidth: 720,
-        maxColumns: 2,
-    }
     constructor(book) {
         this.book = book
         if (book.metadata?.description)
@@ -220,8 +214,14 @@ class Reader {
     }
     setAppearance({ style, layout }) {
         Object.assign(this.style, style)
-        Object.assign(this.layout, layout)
-        this.view?.setAppearance({ css: getCSS(this.style), layout: this.layout })
+        const renderer = this.view?.renderer
+        if (renderer) {
+            renderer.setStyles(getCSS(this.style))
+            renderer.setAttribute('flow', layout.flow)
+            renderer.setAttribute('gap', layout.gap * 100 + '%')
+            renderer.setAttribute('max-inline-size', layout.maxColumnWidth + 'px')
+            renderer.setAttribute('max-column-count', layout.maxColumns)
+        }
         document.body.classList.toggle('invert', this.style.invert)
     }
     #handleEvents() {
