@@ -395,6 +395,7 @@ GObject.registerClass({
     back() { return this.#exec('reader.view.history.back') }
     forward() { return this.#exec('reader.view.history.forward') }
     search(x) { return this.#webView.iter('reader.view.search', x) }
+    clearSearch() { return this.#webView.iter('reader.view.clearSearch') }
     showAnnotation(x) { return this.#exec('reader.view.showAnnotation', x) }
     addAnnotation(x) { return this.#exec('reader.view.addAnnotation', x) }
     deleteAnnotation(x) { return this.#exec('reader.view.deleteAnnotation', x) }
@@ -553,6 +554,7 @@ export const BookViewer = GObject.registerClass({
         utils.connect(this._search_view, {
             'show-results': () => this._sidebar_stack.visible_child_name = 'search',
             'no-results': () => this._sidebar_stack.visible_child_name = 'search-empty',
+            'clear-results': () => this._view.clearSearch(),
             'show-cfi': (_, cfi) => {
                 this._view.select(cfi)
                 if (this._flap.folded) this._flap.reveal_flap = false

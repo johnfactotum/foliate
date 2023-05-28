@@ -32,6 +32,7 @@ GObject.registerClass({
     Signals: {
         'show-results': {},
         'no-results': {},
+        'clear-results': {},
         'show-cfi': {
             param_types: [GObject.TYPE_STRING],
         },
@@ -96,6 +97,7 @@ GObject.registerClass({
         this.generator = null
         this.model.model = null
         this.entry.progress_fraction = null
+        this.emit('clear-results')
     }
     async search() {
         const query = this.entry.text.trim()
