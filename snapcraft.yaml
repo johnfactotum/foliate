@@ -1,18 +1,16 @@
 name: foliate
 grade: stable
-version: '2.6.4'
-summary: Foliate is a Simple Yet Powerful  E-Book Reader built in Gtk.
-description: |
-  Simple, Advanced and Lightweight Ebook Reader.
+adopt-info: foliate
 license: GPL-3.0+
 base: core22
 confinement: strict
 compression: lzo
 architectures:
   - build-on: amd64
-  - build-on: armhf
-  - build-on: arm64
+  
 layout:
+  /usr/lib/webkitgtk-6.0:
+    bind: $SNAP/webkitgtk/usr/lib/webkitgtk-6.0
   /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
     symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
   /usr/bin/gjs:
@@ -23,7 +21,12 @@ slots:
     interface: dbus
     bus: session
     name: com.github.johnfactotum.Foliate
-
+plugs:
+  webkitgtk:
+    interface: content
+    target: $SNAP/webkitgtk
+    default-provider: webkitgtk
+    
 apps:
   foliate:
     command: usr/bin/com.github.johnfactotum.Foliate
@@ -43,16 +46,15 @@ apps:
 parts:
   foliate:
     plugin: meson
-    source: https://github.com/johnfactotum/foliate/archive/refs/tags/2.6.4.tar.gz
+    source: .
     meson-parameters: [--prefix=/snap/foliate/current/usr]
     override-pull: |
       craftctl default
       sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
     build-packages:
-      - git
-      - libgjs-dev
-      - build-essential
       - xmlstarlet 
+    build-snaps:
+      - webkitgtk-sdk/latest/edge
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.appdata.xml]
     organize:
       snap/foliate/current/usr: usr
