@@ -1,10 +1,14 @@
+> **Note**
+> 
+> This is the `gtk4` branch. You are reading the README for the work-in-progress, unreleased GTK 4 version.
+> 
+> To learn about the last stable, GTK 3 version, see [README.md in the `master` branch](https://github.com/johnfactotum/foliate/blob/master/README.md).
+
 <img src="data/com.github.johnfactotum.Foliate.svg" align="left">
 
 # Foliate
 
 Read books in style.
-
-🚧️ This is the work-in-progress GTK 4 branch.
 
 ## Installation
 
