@@ -11,8 +11,6 @@ architectures:
 layout:
   /usr/lib/webkitgtk-6.0:
     bind: $SNAP/webkitgtk/usr/lib/webkitgtk-6.0
-  /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
-    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
   /usr/bin/gjs:
     symlink: $SNAP/gnome-platform/usr/bin/gjs
 
@@ -57,10 +55,3 @@ parts:
     organize:
       snap/foliate/current/usr: usr
       
-  tts:
-    plugin: nil
-    stage-packages:
-      - espeak-ng
-      - speech-dispatcher-espeak-ng
-      - libaudio2
-      - libsndio7.0
