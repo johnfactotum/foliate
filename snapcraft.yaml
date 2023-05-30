@@ -1,6 +1,5 @@
 name: foliate
 grade: stable
-version: '2.6.4'
 adopt-info: foliate
 license: GPL-3.0+
 base: core22
@@ -8,31 +7,33 @@ confinement: strict
 compression: lzo
 architectures:
   - build-on: amd64
-  - build-on: armhf
-  - build-on: arm64
+  
 layout:
-  /usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data:
-    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/espeak-ng-data
+  /usr/lib/webkitgtk-6.0:
+    bind: $SNAP/webkitgtk/usr/lib/webkitgtk-6.0
   /usr/bin/gjs:
     symlink: $SNAP/gnome-platform/usr/bin/gjs
 
 slots:
-  dbus-daemon:
+  foliate:
     interface: dbus
     bus: session
     name: com.github.johnfactotum.Foliate
-
+plugs:
+  webkitgtk:
+    interface: content
+    target: $SNAP/webkitgtk
+    default-provider: webkitgtk
+    
 apps:
   foliate:
-    command: usr/bin/com.github.johnfactotum.Foliate
+    command: usr/bin/foliate
     extensions: [gnome]
     plugs:
       - home
       - network
       - audio-playback
       - removable-media
-    slots:
-      - dbus-daemon
     desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
     common-id: com.github.johnfactotum.Foliate
     environment:
@@ -41,24 +42,16 @@ apps:
 parts:
   foliate:
     plugin: meson
-    source: https://github.com/johnfactotum/foliate/archive/refs/tags/2.6.4.tar.gz
+    source: .
     meson-parameters: [--prefix=/snap/foliate/current/usr]
     override-pull: |
       craftctl default
       sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/com.github.johnfactotum.Foliate.in
     build-packages:
-      - git
-      - libgjs-dev
-      - build-essential
       - xmlstarlet 
+    build-snaps:
+      - webkitgtk-sdk/latest/edge
     parse-info: [usr/share/metainfo/com.github.johnfactotum.Foliate.metainfo.xml]
     organize:
       snap/foliate/current/usr: usr
       
-  tts:
-    plugin: nil
-    stage-packages:
-      - espeak-ng
-      - speech-dispatcher-espeak-ng
-      - libaudio2
-      - libsndio7.0
