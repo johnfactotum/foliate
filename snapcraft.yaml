@@ -17,7 +17,7 @@ layout:
     symlink: $SNAP/gnome-platform/usr/bin/gjs
 
 slots:
-  dbus-daemon:
+  foliate:
     interface: dbus
     bus: session
     name: com.github.johnfactotum.Foliate
@@ -29,15 +29,13 @@ plugs:
     
 apps:
   foliate:
-    command: usr/bin/com.github.johnfactotum.Foliate
+    command: usr/bin/foliate
     extensions: [gnome]
     plugs:
       - home
       - network
       - audio-playback
       - removable-media
-    slots:
-      - dbus-daemon
     desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
     common-id: com.github.johnfactotum.Foliate
     environment:
