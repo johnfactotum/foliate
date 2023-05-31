@@ -4,6 +4,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob:; script-src 'self'; style-src 'self' blob: 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self' blob: data:; frame-src blob: data:; object-src blob: data:; form-action 'none';">
 <style>
 html {
+    /* TODO: high contrast mode */
+    --hover: rgba(0, 0, 0, .03);
+    --active: rgba(0, 0, 0, .05);
+    --border: rgba(0, 0, 0, .15);
     height: 100%;
 }
 body {
@@ -11,6 +15,11 @@ body {
     height: 100%;
 }
 @media (prefers-color-scheme: dark) {
+    html {
+        --hover: rgba(255, 255, 255, .03);
+        --active: rgba(255, 255, 255, .05);
+        --border: rgba(255, 255, 255, .15);
+    }
     .invert {
         background: #000;
     }
@@ -42,7 +51,63 @@ foliate-view::part(head), foliate-view::part(foot) {
     border-bottom-color: transparent;
     bottom: -40px;
 }
+
+#footnote-dialog {
+    font: menu;
+    padding: 0;
+    width: 400px;
+    height: 400px;
+    border-radius: 12px;
+    border: 0;
+    box-shadow: 0 0 0 1px var(--border), 0 0 12px rgba(0, 0, 0, .2);
+}
+#footnote-dialog div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+#footnote-dialog header {
+    text-align: center;
+    font-weight: bold;
+    padding: 9px;
+    border-bottom: 1px solid var(--border);
+}
+#footnote-dialog form {
+    display: flex;
+    border-top: 1px solid var(--border);
+}
+#footnote-dialog form button + button {
+    border-inline-start: 1px solid var(--border);
+}
+#footnote-dialog button {
+    flex: 1;
+    border: 0;
+    margin: 0;
+    padding: 12px;
+    font-weight: bold;
+    background: none;
+}
+#footnote-dialog button:hover {
+    background: var(--hover);
+}
+#footnote-dialog button:active {
+    background: var(--active);
+}
+#footnote-dialog main {
+    min-height: 0;
+}
 </style>
 <input type="file" id="file-input" hidden>
 <div id="ribbon"></div>
+<dialog id="footnote-dialog">
+    <div>
+        <header></header>
+        <main></main>
+        <form method="dialog">
+            <input name="href" type="hidden">
+            <button value="close"></button>
+            <button value="go"></button>
+        </form>
+    </div>
+</dialog>
 <script src="reader.js" type="module"></script>

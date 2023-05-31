@@ -191,6 +191,17 @@ const hasEPUBSSV = (el, v) =>
 const hasRole = (el, v) =>
     el.getAttribute('role')?.split(' ')?.some(t => v.includes(t))
 
+const footnoteDialog = document.getElementById('footnote-dialog')
+footnoteDialog.addEventListener('close', () => {
+    emit({ type: 'dialog-close' })
+    const view = footnoteDialog.querySelector('foliate-view')
+    view.close()
+    view.remove()
+    if (footnoteDialog.returnValue === 'go')
+        globalThis.reader.view.goTo(footnoteDialog.querySelector('[name="href"]').value)
+    footnoteDialog.returnValue = null
+})
+
 class Reader {
     #tocView
     style = {
@@ -327,18 +338,38 @@ class Reader {
         if (hasEPUBSSV(a, ['annoref', 'biblioref', 'glossref', 'noteref'])
         || hasRole(a, ['doc-biblioref', 'doc-glossref', 'doc-noteref'])) {
             e.preventDefault()
-            Promise
-                .resolve(this.view.book.sections[index].createDocument())
-                .then(doc => {
-                    const el = anchor(doc)
-                    if (el) {
-                        const pos = getPosition(a)
-                        const html = toPangoMarkup(el.innerHTML)
-                        emit({ type: 'reference', href, html, pos })
-                        return true
-                    }
-                })
-                .catch(e => console.error(e))
+
+            const v = document.createElement('foliate-view')
+            footnoteDialog.querySelector('main').replaceChildren(v)
+            footnoteDialog.querySelector('[name="href"]').value = href
+            v.addEventListener('load', e => {
+                const { doc } = e.detail
+                const el = anchor(doc)
+                const range = doc.createRange()
+                range.selectNodeContents(el)
+                const frag = range.extractContents()
+                doc.body.replaceChildren()
+                doc.body.appendChild(frag)
+
+                footnoteDialog.querySelector('[value="go"]')
+                    .style.display = el.nodeName.toLowerCase() === 'aside'
+                        ? 'none' : 'block'
+                footnoteDialog.showModal()
+                emit({ type: 'dialog-open' })
+            })
+            v.addEventListener('link', e => {
+                e.preventDefault()
+                const { href } = e.detail
+                this.view.goTo(href)
+                footnoteDialog.close()
+            })
+            v.open(this.view.book).then(() => {
+                v.renderer.setAttribute('flow', 'scrolled')
+                v.renderer.setAttribute('margin', '12px')
+                v.renderer.setAttribute('gap', '5%')
+                v.renderer.setStyles(getCSS(this.style))
+                v.goTo(index)
+            })
         }
     }
     async getCover() {
@@ -362,7 +393,12 @@ class Reader {
     }
 }
 
-globalThis.init = () => document.getElementById('file-input').click()
+globalThis.init = ({ uiText }) => {
+    footnoteDialog.querySelector('header').innerText = uiText.footnote
+    footnoteDialog.querySelector('[value="close"]').innerText = uiText.close
+    footnoteDialog.querySelector('[value="go"]').innerText = uiText.goToFootnote
+    document.getElementById('file-input').click()
+}
 
 document.getElementById('file-input').onchange = e => open(e.target.files[0])
     .catch(({ message, stack }) => emit({ type: 'book-error', message, stack }))

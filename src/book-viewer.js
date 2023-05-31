@@ -22,6 +22,13 @@ import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
 import { getURIStore, getBookList } from './library.js'
 
+// for use in the WebView
+const uiText = {
+    close: _('Close'),
+    footnote: _('Footnote'),
+    goToFootnote: _('Go to Footnote'),
+}
+
 class BookData {
     annotations = utils.connect(new AnnotationModel(), {
         'update-annotation': async (_, annotation) => {
@@ -178,7 +185,6 @@ GObject.registerClass({
         'book-error': { param_types: [GObject.TYPE_JSOBJECT] },
         'relocate': { param_types: [GObject.TYPE_JSOBJECT] },
         'external-link': { param_types: [GObject.TYPE_JSOBJECT] },
-        'reference': { param_types: [GObject.TYPE_JSOBJECT] },
         'selection': { param_types: [GObject.TYPE_JSOBJECT] },
         'create-overlay': { param_types: [GObject.TYPE_JSOBJECT] },
         'add-annotation': { param_types: [GObject.TYPE_JSOBJECT] },
@@ -207,6 +213,7 @@ GObject.registerClass({
     })
     #bookReady = false
     #pinchFactor = 1
+    #dialogOpened = false
     fontSettings = new FontSettings({
         'serif': 'Serif 12',
         'sans-serif': 'Sans 12',
@@ -231,13 +238,15 @@ GObject.registerClass({
             this.emit('show-selection', payload))
         this.#webView.registerHandler('viewer', payload => {
             if (payload.type === 'ready') {
-                this.#exec('init')
+                this.#exec('init', { uiText })
                 initSelection()
             }
             else if (payload.type === 'history-index-change') {
                 this.actionGroup.lookup_action('back').enabled = payload.canGoBack
                 this.actionGroup.lookup_action('forward').enabled = payload.canGoForward
             }
+            else if (payload.type === 'dialog-open') this.#dialogOpened = true
+            else if (payload.type === 'dialog-close') this.#dialogOpened = false
             else this.emit(payload.type, payload)
         })
         this.connect('book-ready', () => this.#bookReady = true)
@@ -269,8 +278,9 @@ GObject.registerClass({
         }), {
             'scroll-begin': () => isDiscrete = false,
             'scroll': (_, dx, dy) => {
-                if (this.#pinchFactor > 1) return false
-                if (this.viewSettings.scrolled) return false
+                if (this.#pinchFactor > 1
+                || this.viewSettings.scrolled
+                || this.#dialogOpened) return false
                 if (isDiscrete) scrollPageAsync(dx, dy)
                 else {
                     dxLast = dx
@@ -405,36 +415,6 @@ GObject.registerClass({
     grab_focus() { return this.#webView.grab_focus() }
 })
 
-const FootnotePopover = GObject.registerClass({
-    GTypeName: 'FoliateFootnotePopover',
-    Template: pkg.moduleuri('ui/footnote-popover.ui'),
-    Properties: utils.makeParams({
-        'footnote': 'string',
-        'href': 'string',
-    }),
-    InternalChildren: ['footnote', 'sep', 'button'],
-    Signals: {
-        'go-to': {},
-    },
-}, class extends Gtk.Popover {
-    constructor(params) {
-        super(params)
-        this._footnote.label = this.footnote
-        if (this.href) this._button.connect('clicked', () => {
-            this.emit('go-to')
-            this.popdown()
-        })
-        else {
-            this._sep.hide()
-            this._button.hide()
-        }
-    }
-    popup() {
-        super.popup()
-        this._footnote.select_region(-1, -1)
-    }
-})
-
 const SelectionPopover = GObject.registerClass({
     GTypeName: 'FoliateSelectionPopover',
     Template: pkg.moduleuri('ui/selection-popover.ui'),
@@ -499,7 +479,6 @@ export const BookViewer = GObject.registerClass({
             'book-ready': (_, x) => this.#onBookReady(x).catch(e => console.error(e)),
             'relocate': (_, x) => this.#onRelocate(x),
             'external-link': (_, x) => Gtk.show_uri(null, x.href, Gdk.CURRENT_TIME),
-            'reference': (_, x) => this.#onReference(x),
             'selection': (_, x) => this.#onSelection(x),
             'create-overlay': (_, x) => this.#createOverlay(x),
             'show-image': (_, x) => this.#showImage(x),
@@ -748,11 +727,6 @@ export const BookViewer = GObject.registerClass({
             this.#data.storage.set('progress', [location.current, location.total])
             this.#data.storage.set('lastLocation', cfi)
         }
-    }
-    #onReference({ href, html, pos: { point, dir } }) {
-        const popover = new FootnotePopover({ href, footnote: html })
-        popover.connect('go-to', () => this._view.goTo(href))
-        this._view.showPopover(popover, point, dir)
     }
     #showSelection({ type, value, text, pos: { point, dir } }) {
         if (type === 'annotation') return new Promise(resolve => {
