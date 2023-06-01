@@ -260,6 +260,7 @@ GObject.registerClass({
                 this.#exec('init', { uiText })
                 initSelection()
             }
+            else if (payload.type === 'pinch-zoom') this.#pinchFactor = payload.scale
             else if (payload.type === 'history-index-change') {
                 this.actionGroup.lookup_action('back').enabled = payload.canGoBack
                 this.actionGroup.lookup_action('forward').enabled = payload.canGoForward
@@ -269,17 +270,6 @@ GObject.registerClass({
         this.connect('book-ready', () => this.#bookReady = true)
         this.connect('dialog-open', () => this.#dialogOpened = true)
         this.connect('dialog-close', () => this.#dialogOpened = false)
-
-        // handle pinch zoom
-        this.add_controller(utils.connect(new Gtk.GestureZoom({
-            propagation_phase: Gtk.PropagationPhase.CAPTURE,
-        }), {
-            'end': () => Promise.resolve()
-                .then(() => this.webView.eval('window.innerWidth'))
-                .then(innerWidth => this.#pinchFactor =
-                    this.#webView.get_allocated_width() / innerWidth)
-                .catch(e => console.error(e)),
-        }))
 
         // handle scroll events
         let isDiscrete = true, dxLast, dyLast

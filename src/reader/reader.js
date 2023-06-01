@@ -400,6 +400,9 @@ class Reader {
     }
 }
 
+globalThis.visualViewport.addEventListener('resize', () =>
+    emit({ type: 'pinch-zoom', scale: globalThis.visualViewport.scale }))
+
 globalThis.init = ({ uiText }) => {
     footnoteDialog.querySelector('header').innerText = uiText.footnote
     footnoteDialog.querySelector('[value="close"]').innerText = uiText.close
