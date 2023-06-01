@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-17 22:57+0800\n"
+"POT-Creation-Date: 2023-06-02 06:24+0800\n"
 "PO-Revision-Date: 2020-07-08 15:09+0300\n"
 "Last-Translator: Anton Isachenko <antonyua23@gmail.com>\n"
 "Language-Team: <trans-uk@lists.fedoraproject.org>\n"
@@ -20,174 +20,221 @@ msgstr ""
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Poedit 2.3.1\n"
 
-#: src/annotations.js:120 src/annotations.js:152
+#: src/annotations.js:121 src/annotations.js:156
 #, fuzzy
 msgid "Bookmark deleted"
 msgstr "Закладки"
 
-#: src/annotations.js:121 src/annotations.js:153 src/book-viewer.js:735
+#: src/annotations.js:122 src/annotations.js:157 src/book-viewer.js:750
 msgid "Undo"
 msgstr ""
 
-#: src/annotations.js:368
+#: src/annotations.js:376
 msgid "Underline"
 msgstr ""
 
-#: src/annotations.js:369
+#: src/annotations.js:377
 msgid "Squiggly"
 msgstr ""
 
-#: src/annotations.js:370
+#: src/annotations.js:378
 msgid "Strikethrough"
 msgstr ""
 
-#: src/annotations.js:371
+#: src/annotations.js:379
 msgid "Yellow"
 msgstr ""
 
-#: src/annotations.js:372
+#: src/annotations.js:380
 #, fuzzy
 msgid "Orange"
 msgstr "Зміни:"
 
-#: src/annotations.js:373
+#: src/annotations.js:381
 #, fuzzy
 msgid "Red"
 msgstr "Перезавантажити"
 
-#: src/annotations.js:374
+#: src/annotations.js:382
 msgid "Magenta"
 msgstr ""
 
-#: src/annotations.js:375
+#: src/annotations.js:383
 msgid "Aqua"
 msgstr ""
 
-#: src/annotations.js:376
+#: src/annotations.js:384
 msgid "Lime"
 msgstr ""
 
-#: src/annotations.js:377
+#: src/annotations.js:385
 #, fuzzy
 msgid "Custom Color…"
 msgstr "Вибрати власний колір"
 
-#: src/annotations.js:431
+#: src/annotations.js:437
 #, fuzzy
 msgid "Custom"
 msgstr "Користувацька Тема"
 
-#: src/app.js:93
-msgid "Open File"
-msgstr "Відкрити файл"
+#: src/annotations.js:503
+#, fuzzy
+msgid "No Annotations"
+msgstr "Примітки"
 
-#: src/app.js:100
+#: src/annotations.js:504
+msgid "You don’t have any annotations for this book"
+msgstr ""
+
+#: src/annotations.js:508
+msgid "OK"
+msgstr ""
+
+#: src/annotations.js:523
+#, fuzzy, javascript-format
+msgid "Annotations for “%s”"
+msgstr "Примітки"
+
+#: src/annotations.js:524
+#, fuzzy, javascript-format
+msgid "%d Annotation"
+msgid_plural "%d Annotations"
+msgstr[0] "Примітки"
+msgstr[1] "Примітки"
+msgstr[2] "Примітки"
+msgstr[3] "Примітки"
+
+#: src/app.js:96
+#, fuzzy
+msgid "E-Book Files"
+msgstr "Файли електронних книг"
+
+#: src/app.js:109
 msgid "All Files"
 msgstr "Усі файли"
 
-#: src/app.js:104
-msgid "E-book Files"
-msgstr "Файли електронних книг"
-
-#: src/app.js:291 data/com.github.johnfactotum.Foliate.desktop.in:5
+#: src/app.js:310 data/com.github.johnfactotum.Foliate.desktop.in:5
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
 msgstr ""
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/app.js:297
+#: src/app.js:316
 msgid "translator-credits"
 msgstr ""
 "Danylo Korostil <ted.korostiled@gmail.com>\n"
 "Юрій Яновський <lytvyn349@ukr.net>"
 
-#: src/app.js:306
+#: src/app.js:325
 #, fuzzy
 msgid "Source Code"
 msgstr "Джерело: "
 
-#: src/book-info.js:89
+#: src/book-info.js:118
 msgid "Publisher"
 msgstr "Видавець"
 
-#: src/book-info.js:90
+#: src/book-info.js:119
 #, fuzzy
 msgid "Published"
 msgstr "Видавець"
 
-#: src/book-info.js:91
+#: src/book-info.js:120
 #, fuzzy
 msgid "Updated"
 msgstr "Оновити"
 
-#: src/book-info.js:92
+#: src/book-info.js:121
 msgid "Language"
 msgstr "Мова"
 
-#: src/book-info.js:93 src/book-info.js:97 src/ui/navbar.ui:319
+#: src/book-info.js:122 src/book-info.js:126 src/ui/navbar.ui:334
 msgid "Identifier"
 msgstr "Ідентифікатор"
 
-#: src/book-info.js:125
+#: src/book-info.js:152 src/ui/book-item.ui:5 src/ui/book-row.ui:5
+#: src/ui/book-viewer.ui:346
 msgid "About This Book"
 msgstr "Про цю книгу"
 
-#: src/book-viewer.js:588
+#: src/book-viewer.js:27
+msgid "Close"
+msgstr ""
+
+#: src/book-viewer.js:28
+msgid "Footnote"
+msgstr ""
+
+#: src/book-viewer.js:29
+#, fuzzy
+msgid "Go to Footnote"
+msgstr "Наступна сторінка"
+
+#: src/book-viewer.js:591
 #, fuzzy
 msgid "Remove bookmark"
 msgstr "Вилучити Книгу"
 
-#: src/book-viewer.js:589
+#: src/book-viewer.js:592
 #, fuzzy
 msgid "Add bookmark"
 msgstr "Додати книги"
 
-#: src/book-viewer.js:651
+#: src/book-viewer.js:660
 #, fuzzy
 msgid "File not found"
 msgstr "Файл не знайдено."
 
-#: src/book-viewer.js:652
+#: src/book-viewer.js:661
 #, fuzzy
 msgid "File type not supported"
 msgstr "Цей тип файлу не підтримується."
 
-#: src/book-viewer.js:653
+#: src/book-viewer.js:662
 #, fuzzy
 msgid "An error occurred"
 msgstr "Сталася помилка."
 
-#: src/book-viewer.js:734
+#: src/book-viewer.js:749
 #, fuzzy
 msgid "Annotation deleted"
 msgstr "Примітка"
 
-#: src/book-viewer.js:785
+#: src/book-viewer.js:805
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Зображення з «%s»"
 
-#: src/book-viewer.js:785
+#: src/book-viewer.js:805
 msgid "Image"
 msgstr "Зображення"
 
-#: src/book-viewer.js:792 src/navbar.js:216
+#: src/book-viewer.js:812 src/navbar.js:226
 msgid "Copied to clipboard"
-msgstr ""
-
-#: src/book-viewer.js:796
-msgid "Save File"
-msgstr "Зберегти файл"
-
-#: src/book-viewer.js:871
-msgid "Default Fonts"
 msgstr ""
 
 #: src/format.js:83
 #, javascript-format
 msgid "of %d"
 msgstr "з %d"
+
+#: src/library.js:335
+#, fuzzy
+msgid "Remove Book?"
+msgstr "Вилучити Книгу"
+
+#: src/library.js:336
+msgid "Reading progress, annotations, and bookmarks will be permanently lost"
+msgstr ""
+
+#: src/library.js:338
+msgid "_Cancel"
+msgstr ""
+
+#: src/library.js:339
+msgid "_Remove"
+msgstr ""
 
 #: src/main.js:26 data/com.github.johnfactotum.Foliate.desktop.in:3
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:6
@@ -196,22 +243,30 @@ msgstr "Foliate"
 
 #: src/ui/annotation-popover.ui:13
 #, fuzzy
-msgid "Choose highlight style"
-msgstr "Змінити колір виділення"
+msgid "Highlight Style"
+msgstr "Висвітлювання"
 
-#: src/ui/annotation-popover.ui:20
-#, fuzzy
-msgid "Delete annotation"
-msgstr "Приміток немає"
+#: src/ui/annotation-popover.ui:20 src/ui/bookmark-row.ui:33
+msgid "Delete"
+msgstr "Вилучити"
 
-#: src/ui/annotation-popover.ui:28 src/ui/image-viewer.ui:62
-msgid "More"
-msgstr "Більше"
+#: src/ui/annotation-popover.ui:28 src/ui/book-item.ui:55 src/ui/book-row.ui:69
+#: src/ui/image-viewer.ui:62
+msgid "Menu"
+msgstr "Меню"
 
 #: src/ui/annotation-popover.ui:47
 #, fuzzy
 msgid "Add Note…"
 msgstr "Додати Книги…"
+
+#: src/ui/book-item.ui:9 src/ui/book-row.ui:9 src/ui/book-viewer.ui:19
+msgid "Export Annotations…"
+msgstr "Експортувати примітки…"
+
+#: src/ui/book-item.ui:15 src/ui/book-row.ui:15
+msgid "Remove"
+msgstr ""
 
 #: src/ui/book-viewer.ui:5
 msgid "Reload"
@@ -225,20 +280,16 @@ msgstr "Відкрити Копію"
 msgid "Import Annotations…"
 msgstr "Імпортувати примітки…"
 
-#: src/ui/book-viewer.ui:19
-msgid "Export Annotations…"
-msgstr "Експортувати примітки…"
-
 #: src/ui/book-viewer.ui:25
 #, fuzzy
 msgid "Fold Sidebar"
 msgstr "Показувати бічну панель"
 
-#: src/ui/book-viewer.ui:32 src/ui/library.ui:22
+#: src/ui/book-viewer.ui:32 src/ui/library.ui:34
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
 
-#: src/ui/book-viewer.ui:36 src/ui/library.ui:26
+#: src/ui/book-viewer.ui:36 src/ui/library.ui:38
 msgid "About Foliate"
 msgstr "Про Foliate"
 
@@ -264,191 +315,208 @@ msgstr ""
 msgid "Match Diacritics"
 msgstr ""
 
-#: src/ui/book-viewer.ui:87
-msgid "Set Default Fonts…"
-msgstr ""
-
-#: src/ui/book-viewer.ui:91
-msgid "Full Justification"
-msgstr "Повне вирівнювання"
-
-#: src/ui/book-viewer.ui:95
-msgid "Auto-hyphenation"
-msgstr "Автоматичне перенесення слів"
-
-#: src/ui/book-viewer.ui:99
+#: src/ui/book-viewer.ui:82
 msgid "Invert Colors in Dark Mode"
 msgstr ""
 
-#: src/ui/book-viewer.ui:103
+#: src/ui/book-viewer.ui:86
 #, fuzzy
 msgid "Scrolled Layout"
 msgstr "Прокручування"
 
-#: src/ui/book-viewer.ui:109
+#: src/ui/book-viewer.ui:92 src/ui/library.ui:30
+msgid "Preferences"
+msgstr "Налаштування"
+
+#: src/ui/book-viewer.ui:98
 msgid "Inspector"
 msgstr ""
 
-#: src/ui/book-viewer.ui:162
+#: src/ui/book-viewer.ui:151
 msgid "Book Cannot Be Opened"
 msgstr ""
 
-#: src/ui/book-viewer.ui:172
+#: src/ui/book-viewer.ui:161
 msgid "Details"
 msgstr ""
 
-#: src/ui/book-viewer.ui:191 src/ui/book-viewer.ui:234 src/ui/library.ui:37
+#: src/ui/book-viewer.ui:180 src/ui/book-viewer.ui:223 src/ui/library.ui:49
 #: data/com.github.johnfactotum.Foliate.desktop.in:20
 msgid "Library"
 msgstr "Бібліотека"
 
-#: src/ui/book-viewer.ui:240 src/ui/library.ui:46
-msgid "Menu"
+#: src/ui/book-viewer.ui:229
+#, fuzzy
+msgid "Book Menu"
 msgstr "Меню"
 
-#: src/ui/book-viewer.ui:247 src/ui/selection-popover.ui:17
+#: src/ui/book-viewer.ui:236 src/ui/selection-popover.ui:17
 msgid "Find"
 msgstr "Знайти"
 
-#: src/ui/book-viewer.ui:262
+#: src/ui/book-viewer.ui:251
 #, fuzzy
 msgid "Find in book…"
 msgstr "Пошук в книзі"
 
-#: src/ui/book-viewer.ui:303
+#: src/ui/book-viewer.ui:292
 msgid "Contents"
 msgstr "Вміст"
 
-#: src/ui/book-viewer.ui:357
-#, fuzzy
-msgid "About this book"
-msgstr "Про цю книгу"
-
-#: src/ui/book-viewer.ui:383
+#: src/ui/book-viewer.ui:372
 msgid "Annotations"
 msgstr "Примітки"
 
-#: src/ui/book-viewer.ui:427
+#: src/ui/book-viewer.ui:416
 #, fuzzy
 msgid "Filter annotations…"
 msgstr "Пошук приміток"
 
-#: src/ui/book-viewer.ui:441
+#: src/ui/book-viewer.ui:430
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: src/ui/book-viewer.ui:492 src/ui/library-view.ui:43
+#: src/ui/book-viewer.ui:481 src/ui/library-view.ui:42
 #, fuzzy
 msgid "No Results Found"
 msgstr "Нічого не знайдено"
 
-#: src/ui/book-viewer.ui:493 src/ui/library-view.ui:44
+#: src/ui/book-viewer.ui:482 src/ui/library-view.ui:43
 #, fuzzy
 msgid "Try a different search"
 msgstr "Спробуйте інший запит."
 
-#: src/ui/book-viewer.ui:542
+#: src/ui/book-viewer.ui:531
 #, fuzzy
-msgid "Toggle sidebar"
-msgstr "Бічна панель"
+msgid "Sidebar"
+msgstr "Показувати бічну панель"
 
-#: src/ui/book-viewer.ui:556
-msgid "View"
-msgstr "Вигляд"
+#: src/ui/book-viewer.ui:545
+#, fuzzy
+msgid "View Menu"
+msgstr "Меню"
 
-#: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
-msgid "Zoom out"
+#: src/ui/book-viewer.ui:558 src/ui/image-viewer.ui:41
+#, fuzzy
+msgid "Zoom Out"
 msgstr "Зменшити масштаб"
 
-#: src/ui/book-viewer.ui:577 src/ui/image-viewer.ui:48
-msgid "Restore zoom"
-msgstr "Відновити масштаб"
+#: src/ui/book-viewer.ui:566 src/ui/image-viewer.ui:48
+msgid "Reset Zoom"
+msgstr ""
 
-#: src/ui/book-viewer.ui:586 src/ui/image-viewer.ui:55
-msgid "Zoom in"
+#: src/ui/book-viewer.ui:575 src/ui/image-viewer.ui:55
+#, fuzzy
+msgid "Zoom In"
 msgstr "Збільшити масштаб"
 
-#: src/ui/book-viewer.ui:602
+#: src/ui/book-viewer.ui:591
+msgid "Follow System Style"
+msgstr ""
+
+#: src/ui/book-viewer.ui:601
 #, fuzzy
-msgid "Line Height"
-msgstr "Висота рядка"
-
-#: src/ui/book-viewer.ui:622
-msgid "Margins"
-msgstr "Поля"
-
-#: src/ui/book-viewer.ui:650
-msgid "Max Col Size"
-msgstr ""
-
-#: src/ui/book-viewer.ui:678
-msgid "Max Cols"
-msgstr ""
-
-#: src/ui/book-viewer.ui:715
-msgid "Follow system style"
-msgstr ""
-
-#: src/ui/book-viewer.ui:725
-#, fuzzy
-msgid "Light style"
+msgid "Light Style"
 msgstr "Світлість"
 
-#: src/ui/book-viewer.ui:735
+#: src/ui/book-viewer.ui:611
 #, fuzzy
-msgid "Dark style"
+msgid "Dark Style"
 msgstr "Темна Тема"
 
-#: src/ui/book-viewer.ui:750 src/ui/library.ui:12
+#: src/ui/book-viewer.ui:626 src/ui/library.ui:24
 msgid "Fullscreen"
 msgstr "Повноекранний режим"
 
-#: src/ui/library-view.ui:22
+#: src/ui/export-dialog.ui:5
+#, fuzzy
+msgid "Export Annotations"
+msgstr "Експортувати примітки…"
+
+#: src/ui/export-dialog.ui:11
+msgid "Cancel"
+msgstr ""
+
+#: src/ui/export-dialog.ui:16
+msgid "Export"
+msgstr ""
+
+#: src/ui/export-dialog.ui:28
+msgid "Format"
+msgstr ""
+
+#: src/ui/export-dialog.ui:29
+msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
+msgstr ""
+
+#: src/ui/export-dialog.ui:33
+msgid "JSON"
+msgstr ""
+
+#: src/ui/export-dialog.ui:34
+msgid "HTML"
+msgstr ""
+
+#: src/ui/export-dialog.ui:35
+msgid "Markdown"
+msgstr ""
+
+#: src/ui/image-viewer.ui:6 src/ui/navbar.ui:353 src/ui/selection-popover.ui:7
+msgid "Copy"
+msgstr "Скопіювати"
+
+#: src/ui/image-viewer.ui:10
+#, fuzzy
+msgid "Save As…"
+msgstr "Зберегти як"
+
+#: src/ui/image-viewer.ui:25
+#, fuzzy
+msgid "Rotate 90° Counter-Clockwise"
+msgstr "Повернути на 90° проти годинникової стрілки"
+
+#: src/ui/image-viewer.ui:32
+#, fuzzy
+msgid "Rotate 90° Clockwise"
+msgstr "Повернути на 90° за годинниковою стрілкою"
+
+#: src/ui/library.ui:6 src/ui/library-view.ui:27
+msgid "Open…"
+msgstr "Відкрити…"
+
+#: src/ui/library.ui:12
+#, fuzzy
+msgid "List View"
+msgstr "Вигляд"
+
+#: src/ui/library.ui:17
+#, fuzzy
+msgid "Grid View"
+msgstr "Вигляд"
+
+#: src/ui/library.ui:58
+#, fuzzy
+msgid "Main Menu"
+msgstr "Меню"
+
+#: src/ui/library.ui:65
+msgid "Search"
+msgstr "Пошук"
+
+#: src/ui/library.ui:75
+#, fuzzy
+msgid "Search library…"
+msgstr "Пошук…"
+
+#: src/ui/library-view.ui:21
 #, fuzzy
 msgid "No Books Yet"
 msgstr "Жодної книги ще немає"
 
-#: src/ui/library-view.ui:23
+#: src/ui/library-view.ui:22
 #, fuzzy
 msgid "Open a book to start reading"
 msgstr "Відкрийте книгу, щоб почати читати."
-
-#: src/ui/library-view.ui:28 src/ui/library.ui:6
-msgid "Open…"
-msgstr "Відкрити…"
-
-#: src/ui/font-settings-widget.ui:10
-msgid "Default Font"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:14
-#, fuzzy
-msgid "Serif"
-msgstr "Серія"
-
-#: src/ui/font-settings-widget.ui:15
-msgid "Sans-serif"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:23
-msgid "Serif Font"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:34
-msgid "Sans-serif Font"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:45
-msgid "Monospace Font"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:60
-msgid "Default Font Size"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:78
-msgid "Minimum Font Size"
-msgstr ""
 
 #: src/ui/navbar.ui:10
 msgid "Voice"
@@ -463,88 +531,83 @@ msgid "Stop Speaking"
 msgstr ""
 
 #: src/ui/navbar.ui:33
-msgid "Go to previous page"
-msgstr "Попередня сторінки"
+msgid "Previous"
+msgstr ""
 
-#: src/ui/navbar.ui:46
-msgid "Go back to previous location"
-msgstr "Перейти до попереднього розташування"
+#: src/ui/navbar.ui:47
+msgid "Back"
+msgstr ""
 
-#: src/ui/navbar.ui:62 src/ui/navbar.ui:289
+#: src/ui/navbar.ui:61
+msgid "Forward"
+msgstr ""
+
+#: src/ui/navbar.ui:77 src/ui/navbar.ui:304
 msgid "Location"
 msgstr "Позиція"
 
-#: src/ui/navbar.ui:89
+#: src/ui/navbar.ui:104
 msgid "Text-to-Speech"
 msgstr "Синтез мовлення"
 
-#: src/ui/navbar.ui:100
+#: src/ui/navbar.ui:115
 msgid "Speed"
 msgstr ""
 
-#: src/ui/navbar.ui:122
+#: src/ui/navbar.ui:137
 msgid "Pitch"
 msgstr ""
 
-#: src/ui/navbar.ui:160
-msgid "Go to next page"
-msgstr "Наступна сторінка"
+#: src/ui/navbar.ui:175
+msgid "Next"
+msgstr ""
 
-#: src/ui/navbar.ui:198
+#: src/ui/navbar.ui:213
 #, fuzzy
 msgid "Time Left in Section"
 msgstr "Залишилось часу в книзі"
 
-#: src/ui/navbar.ui:228
+#: src/ui/navbar.ui:243
 #, fuzzy
 msgid "Time Left in Book"
 msgstr "Залишилось часу в книзі"
 
-#: src/ui/navbar.ui:262
+#: src/ui/navbar.ui:277 src/ui/view-preferences-window.ui:156
 #, fuzzy
 msgid "Page"
 msgstr "Наступна сторінка"
 
-#: src/ui/navbar.ui:338 src/ui/selection-popover.ui:7 src/ui/image-viewer.ui:6
-msgid "Copy"
-msgstr "Скопіювати"
-
-#: src/ui/navbar.ui:345
-msgid "Paste and go"
+#: src/ui/navbar.ui:360
+msgid "Paste and Go"
 msgstr ""
 
-#: src/ui/navbar.ui:358
+#: src/ui/navbar.ui:373
 msgid "Section"
 msgstr "Розділ"
 
-#: src/ui/navbar.ui:424
+#: src/ui/navbar.ui:439
 #, fuzzy
-msgid "Go to first section"
-msgstr "Вилучити поточну позицію"
+msgid "First Section"
+msgstr "Поточний розділ"
 
-#: src/ui/navbar.ui:433
+#: src/ui/navbar.ui:448
 #, fuzzy
-msgid "Go to previous section"
+msgid "Previous Section"
 msgstr "Перейти до попереднього розташування"
 
-#: src/ui/navbar.ui:441
-msgid "Jump to…"
+#: src/ui/navbar.ui:456
+msgid "Jump To…"
 msgstr ""
 
-#: src/ui/navbar.ui:450
+#: src/ui/navbar.ui:465
 #, fuzzy
-msgid "Go to next section"
-msgstr "Наступна сторінка"
+msgid "Next Section"
+msgstr "Поточний розділ"
 
-#: src/ui/navbar.ui:459
+#: src/ui/navbar.ui:474
 #, fuzzy
-msgid "Go to last section"
-msgstr "Вилучити поточну позицію"
-
-#: src/ui/footnote-popover.ui:33
-#, fuzzy
-msgid "Go to Reference"
-msgstr "Налаштування"
+msgid "Last Section"
+msgstr "Розділ"
 
 #: src/ui/selection-popover.ui:12
 msgid "Highlight"
@@ -570,35 +633,96 @@ msgstr ""
 msgid "Speak from Here"
 msgstr ""
 
-#: src/ui/image-viewer.ui:10
+#: src/ui/view-preferences-window.ui:5
+msgid "Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:9
+msgid "Font Family"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:12
+msgid "Default Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:16
 #, fuzzy
-msgid "Save as…"
-msgstr "Зберегти як"
+msgid "Serif"
+msgstr "Серія"
 
-#: src/ui/image-viewer.ui:25
-msgid "Rotate 90° counter-clockwise"
-msgstr "Повернути на 90° проти годинникової стрілки"
+#: src/ui/view-preferences-window.ui:17
+msgid "Sans-serif"
+msgstr ""
 
-#: src/ui/image-viewer.ui:32
-msgid "Rotate 90° clockwise"
-msgstr "Повернути на 90° за годинниковою стрілкою"
+#: src/ui/view-preferences-window.ui:25
+msgid "Serif Font"
+msgstr ""
 
-#: src/ui/bookmark-row.ui:33
-msgid "Delete"
-msgstr "Вилучити"
+#: src/ui/view-preferences-window.ui:37
+msgid "Sans-Serif Font"
+msgstr ""
 
-#: src/ui/library.ui:18
-msgid "Preferences"
-msgstr "Налаштування"
+#: src/ui/view-preferences-window.ui:49
+msgid "Monospace Font"
+msgstr ""
 
-#: src/ui/library.ui:53
-msgid "Search"
-msgstr "Пошук"
+#: src/ui/view-preferences-window.ui:63
+msgid "Font Size"
+msgstr ""
 
-#: src/ui/library.ui:63
+#: src/ui/view-preferences-window.ui:66
+msgid "Default Font Size"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:84
+msgid "Minimum Font Size"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:106
+msgid "Layout"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:110
+msgid "Paragraph"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:113
 #, fuzzy
-msgid "Search library…"
-msgstr "Пошук…"
+msgid "Line Height"
+msgstr "Висота рядка"
+
+#: src/ui/view-preferences-window.ui:132
+msgid "Full Justification"
+msgstr "Повне вирівнювання"
+
+#: src/ui/view-preferences-window.ui:143
+#, fuzzy
+msgid "Auto-Hyphenation"
+msgstr "Автоматичне перенесення слів"
+
+#: src/ui/view-preferences-window.ui:159
+msgid "Margins"
+msgstr "Поля"
+
+#: src/ui/view-preferences-window.ui:178
+msgid "Maximum Number of Columns"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:197
+msgid "Maximum Inline Size"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:198
+msgid "Maximum column width (horizontal writing) or height (vertical writing)"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:217
+msgid "Maximum Block Size"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:218
+msgid "Maximum height (horizontal writing) or width (vertical writing)"
+msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 #, fuzzy
@@ -613,3 +737,53 @@ msgstr "Е-книга;Книга;EPUB;Переглядач;Читач;"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
 msgid "John Factotum"
 msgstr ""
+
+#~ msgid "Open File"
+#~ msgstr "Відкрити файл"
+
+#~ msgid "Save File"
+#~ msgstr "Зберегти файл"
+
+#, fuzzy
+#~ msgid "Choose highlight style"
+#~ msgstr "Змінити колір виділення"
+
+#, fuzzy
+#~ msgid "Delete annotation"
+#~ msgstr "Приміток немає"
+
+#~ msgid "More"
+#~ msgstr "Більше"
+
+#, fuzzy
+#~ msgid "About this book"
+#~ msgstr "Про цю книгу"
+
+#, fuzzy
+#~ msgid "Toggle sidebar"
+#~ msgstr "Бічна панель"
+
+#~ msgid "Restore zoom"
+#~ msgstr "Відновити масштаб"
+
+#~ msgid "Go to previous page"
+#~ msgstr "Попередня сторінки"
+
+#~ msgid "Go back to previous location"
+#~ msgstr "Перейти до попереднього розташування"
+
+#, fuzzy
+#~ msgid "Go to first section"
+#~ msgstr "Вилучити поточну позицію"
+
+#, fuzzy
+#~ msgid "Go to next section"
+#~ msgstr "Наступна сторінка"
+
+#, fuzzy
+#~ msgid "Go to last section"
+#~ msgstr "Вилучити поточну позицію"
+
+#, fuzzy
+#~ msgid "Go to Reference"
+#~ msgstr "Налаштування"

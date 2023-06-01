@@ -226,7 +226,7 @@
                   <child type="end">
                     <object class="GtkMenuButton" id="book-menu-button">
                       <property name="icon-name">open-menu-symbolic</property>
-                      <property name="tooltip-text" translatable="yes">Menu</property>
+                      <property name="tooltip-text" translatable="yes">Book Menu</property>
                       <property name="menu-model">book-menu</property>
                     </object>
                   </child>
@@ -343,7 +343,7 @@
                                               <property name="margin-end">6</property>
                                               <property name="icon-name">help-about-symbolic</property>
                                               <property name="action-name">viewer.show-info</property>
-                                              <property name="tooltip-text" translatable="yes">About this book</property>
+                                              <property name="tooltip-text" translatable="yes">About This Book</property>
                                               <style><class name="circular"/><class name="flat"/></style>
                                             </object>
                                           </child>
@@ -528,7 +528,7 @@
                       <child type="start">
                         <object class="GtkToggleButton">
                           <property name="icon-name">sidebar-show-symbolic</property>
-                          <property name="tooltip-text" translatable="yes">Toggle sidebar</property>
+                          <property name="tooltip-text" translatable="yes">Sidebar</property>
                           <property name="active" bind-source="flap" bind-property="reveal-flap" bind-flags="sync-create|bidirectional"/>
                         </object>
                       </child>
@@ -542,7 +542,7 @@
                       <child type="end">
                         <object class="GtkMenuButton">
                           <property name="icon-name">view-more-symbolic</property>
-                          <property name="tooltip-text" translatable="yes">View</property>
+                          <property name="tooltip-text" translatable="yes">View Menu</property>
                           <property name="popover">
                             <object class="GtkPopoverMenu" id="view-popover">
                               <property name="menu-model">view-menu</property>
@@ -555,7 +555,7 @@
                                       <object class="GtkButton">
                                         <property name="icon-name">zoom-out-symbolic</property>
                                         <property name="action-name">view.zoom-out</property>
-                                        <property name="tooltip-text" translatable="yes">Zoom out</property>
+                                        <property name="tooltip-text" translatable="yes">Zoom Out</property>
                                         <style><class name="circular"/><class name="flat"/></style>
                                       </object>
                                     </child>
@@ -563,7 +563,7 @@
                                       <object class="GtkButton" id="zoom-button">
                                         <property name="hexpand">True</property>
                                         <property name="label">100%</property>
-                                        <property name="tooltip-text" translatable="yes">Restore zoom</property>
+                                        <property name="tooltip-text" translatable="yes">Reset Zoom</property>
                                         <property name="action-name">view.zoom-restore</property>
                                         <style><class name="flat"/></style>
                                       </object>
@@ -572,7 +572,7 @@
                                       <object class="GtkButton">
                                         <property name="icon-name">zoom-in-symbolic</property>
                                         <property name="action-name">view.zoom-in</property>
-                                        <property name="tooltip-text" translatable="yes">Zoom in</property>
+                                        <property name="tooltip-text" translatable="yes">Zoom In</property>
                                         <style><class name="circular"/><class name="flat"/></style>
                                       </object>
                                     </child>
@@ -588,7 +588,7 @@
                                         <style><class name="theme-selector"/><class name="follow"/></style>
                                         <property name="hexpand">true</property>
                                         <property name="halign">center</property>
-                                        <property name="tooltip-text" translatable="yes">Follow system style</property>
+                                        <property name="tooltip-text" translatable="yes">Follow System Style</property>
                                         <property name="action-name">viewer.color-scheme</property>
                                         <property name="action-target">'default'</property>
                                       </object>
@@ -598,7 +598,7 @@
                                         <style><class name="theme-selector"/><class name="light"/></style>
                                         <property name="hexpand">true</property>
                                         <property name="halign">center</property>
-                                        <property name="tooltip-text" translatable="yes">Light style</property>
+                                        <property name="tooltip-text" translatable="yes">Light Style</property>
                                         <property name="action-name">viewer.color-scheme</property>
                                         <property name="action-target">'force-light'</property>
                                       </object>
@@ -608,7 +608,7 @@
                                         <style><class name="theme-selector"/><class name="dark"/></style>
                                         <property name="hexpand">true</property>
                                         <property name="halign">center</property>
-                                        <property name="tooltip-text" translatable="yes">Dark style</property>
+                                        <property name="tooltip-text" translatable="yes">Dark Style</property>
                                         <property name="action-name">viewer.color-scheme</property>
                                         <property name="action-target">'force-dark'</property>
                                       </object>

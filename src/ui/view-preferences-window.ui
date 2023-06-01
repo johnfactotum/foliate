@@ -34,7 +34,7 @@
           </child>
           <child>
             <object class="AdwActionRow">
-              <property name="title" translatable="yes">Sans-serif Font</property>
+              <property name="title" translatable="yes">Sans-Serif Font</property>
               <child>
                 <object class="GtkFontButton" id="sans-serif-font">
                   <property name="level">family</property>
@@ -140,7 +140,7 @@
           </child>
           <child>
             <object class="AdwActionRow">
-              <property name="title" translatable="yes">Auto-hyphenation</property>
+              <property name="title" translatable="yes">Auto-Hyphenation</property>
               <property name="activatable-widget">hyphenate</property>
               <child>
                 <object class="GtkSwitch" id="hyphenate">
@@ -175,7 +175,7 @@
           </child>
           <child>
             <object class="AdwActionRow">
-              <property name="title" translatable="yes">Max Number of Columns</property>
+              <property name="title" translatable="yes">Maximum Number of Columns</property>
               <child>
                 <object class="GtkSpinButton" id="max-column-count">
                   <property name="valign">center</property>
@@ -194,8 +194,8 @@
           </child>
           <child>
             <object class="AdwActionRow">
-              <property name="title" translatable="yes">Max Inline Size</property>
-              <property name="subtitle" translatable="yes">Max column width (horizontal writing) or height (vertical writing)</property>
+              <property name="title" translatable="yes">Maximum Inline Size</property>
+              <property name="subtitle" translatable="yes">Maximum column width (horizontal writing) or height (vertical writing)</property>
               <child>
                 <object class="GtkSpinButton" id="max-inline-size">
                   <property name="valign">center</property>
@@ -214,8 +214,8 @@
           </child>
           <child>
             <object class="AdwActionRow">
-              <property name="title" translatable="yes">Max Block Size</property>
-              <property name="subtitle" translatable="yes">Max height (horizontal writing) or width (vertical writing)</property>
+              <property name="title" translatable="yes">Maximum Block Size</property>
+              <property name="subtitle" translatable="yes">Maximum height (horizontal writing) or width (vertical writing)</property>
               <child>
                 <object class="GtkSpinButton" id="max-block-size">
                   <property name="valign">center</property>

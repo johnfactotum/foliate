@@ -30,7 +30,7 @@
     <object class="GtkButton">
       <property name="valign">center</property>
       <property name="action-name">view.prev</property>
-      <property name="tooltip-text" translatable="yes">Go to previous page</property>
+      <property name="tooltip-text" translatable="yes">Previous</property>
       <style><class name="image-button"/></style>
       <child>
         <object class="GtkImage" id="prev-image">
@@ -44,7 +44,7 @@
     <object class="GtkButton">
       <property name="valign">center</property>
       <property name="action-name">view.back</property>
-      <property name="tooltip-text" translatable="yes">Go back to previous location</property>
+      <property name="tooltip-text" translatable="yes">Back</property>
       <style><class name="image-button"/></style>
       <child>
         <object class="GtkImage" id="back-image">
@@ -58,7 +58,7 @@
     <object class="GtkButton">
       <property name="valign">center</property>
       <property name="action-name">view.forward</property>
-      <property name="tooltip-text" translatable="yes">Go forward to next location</property>
+      <property name="tooltip-text" translatable="yes">Forward</property>
       <style><class name="image-button"/></style>
       <child>
         <object class="GtkImage" id="forward-image">
@@ -172,7 +172,7 @@
     <object class="GtkButton">
       <property name="valign">center</property>
       <property name="action-name">view.next</property>
-      <property name="tooltip-text" translatable="yes">Go to next page</property>
+      <property name="tooltip-text" translatable="yes">Next</property>
       <style><class name="image-button"/></style>
       <child>
         <object class="GtkImage" id="next-image">
@@ -357,7 +357,7 @@
                               <child>
                                 <object class="GtkButton" id="cfi-paste">
                                   <property name="icon-name">edit-paste-symbolic</property>
-                                  <property name="tooltip-text" translatable="yes">Paste and go</property>
+                                  <property name="tooltip-text" translatable="yes">Paste and Go</property>
                                   <property name="action-name">navbar.paste-cfi</property>
                                 </object>
                               </child>
@@ -436,7 +436,7 @@
             <object class="GtkButton">
               <property name="hexpand">True</property>
               <property name="action-name">view.first-section</property>
-              <property name="tooltip-text" translatable="yes">Go to first section</property>
+              <property name="tooltip-text" translatable="yes">First Section</property>
               <property name="icon-name">go-first-symbolic</property>
               <style><class name="flat"/></style>
             </object>
@@ -445,7 +445,7 @@
             <object class="GtkButton">
               <property name="hexpand">True</property>
               <property name="action-name">view.prev-section</property>
-              <property name="tooltip-text" translatable="yes">Go to previous section</property>
+              <property name="tooltip-text" translatable="yes">Previous Section</property>
               <property name="icon-name">go-previous-symbolic</property>
               <style><class name="flat"/></style>
             </object>
@@ -453,7 +453,7 @@
           <child>
             <object class="GtkToggleButton" id="landmark-toggle">
               <property name="hexpand">True</property>
-              <property name="tooltip-text" translatable="yes">Jump to…</property>
+              <property name="tooltip-text" translatable="yes">Jump To…</property>
               <property name="icon-name">go-jump-symbolic</property>
               <style><class name="flat"/></style>
             </object>
@@ -462,7 +462,7 @@
             <object class="GtkButton">
               <property name="hexpand">True</property>
               <property name="action-name">view.next-section</property>
-              <property name="tooltip-text" translatable="yes">Go to next section</property>
+              <property name="tooltip-text" translatable="yes">Next Section</property>
               <property name="icon-name">go-next-symbolic</property>
               <style><class name="flat"/></style>
             </object>
@@ -471,7 +471,7 @@
             <object class="GtkButton">
               <property name="hexpand">True</property>
               <property name="action-name">view.last-section</property>
-              <property name="tooltip-text" translatable="yes">Go to last section</property>
+              <property name="tooltip-text" translatable="yes">Last Section</property>
               <property name="icon-name">go-last-symbolic</property>
               <style><class name="flat"/></style>
             </object>

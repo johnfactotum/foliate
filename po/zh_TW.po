@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-17 22:57+0800\n"
+"POT-Creation-Date: 2023-06-02 06:24+0800\n"
 "PO-Revision-Date: 2020-07-06 13:16+0800\n"
 "Last-Translator: Blanc Chan\n"
 "Language-Team: none\n"
@@ -18,173 +18,217 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.3\n"
 
-#: src/annotations.js:120 src/annotations.js:152
+#: src/annotations.js:121 src/annotations.js:156
 #, fuzzy
 msgid "Bookmark deleted"
 msgstr "書籤"
 
-#: src/annotations.js:121 src/annotations.js:153 src/book-viewer.js:735
+#: src/annotations.js:122 src/annotations.js:157 src/book-viewer.js:750
 msgid "Undo"
 msgstr ""
 
-#: src/annotations.js:368
+#: src/annotations.js:376
 msgid "Underline"
 msgstr ""
 
-#: src/annotations.js:369
+#: src/annotations.js:377
 msgid "Squiggly"
 msgstr ""
 
-#: src/annotations.js:370
+#: src/annotations.js:378
 msgid "Strikethrough"
 msgstr ""
 
-#: src/annotations.js:371
+#: src/annotations.js:379
 msgid "Yellow"
 msgstr "黃"
 
-#: src/annotations.js:372
+#: src/annotations.js:380
 #, fuzzy
 msgid "Orange"
 msgstr "其他改變："
 
-#: src/annotations.js:373
+#: src/annotations.js:381
 msgid "Red"
 msgstr "紅"
 
-#: src/annotations.js:374
+#: src/annotations.js:382
 msgid "Magenta"
 msgstr "紫"
 
-#: src/annotations.js:375
+#: src/annotations.js:383
 msgid "Aqua"
 msgstr "藍"
 
-#: src/annotations.js:376
+#: src/annotations.js:384
 msgid "Lime"
 msgstr "綠"
 
-#: src/annotations.js:377
+#: src/annotations.js:385
 #, fuzzy
 msgid "Custom Color…"
 msgstr "自訂顏色"
 
-#: src/annotations.js:431
+#: src/annotations.js:437
 #, fuzzy
 msgid "Custom"
 msgstr "自訂主題"
 
-#: src/app.js:93
-msgid "Open File"
-msgstr "開啟檔案"
+#: src/annotations.js:503
+#, fuzzy
+msgid "No Annotations"
+msgstr "註解"
 
-#: src/app.js:100
+#: src/annotations.js:504
+msgid "You don’t have any annotations for this book"
+msgstr ""
+
+#: src/annotations.js:508
+msgid "OK"
+msgstr ""
+
+#: src/annotations.js:523
+#, fuzzy, javascript-format
+msgid "Annotations for “%s”"
+msgstr "註解"
+
+#: src/annotations.js:524
+#, fuzzy, javascript-format
+msgid "%d Annotation"
+msgid_plural "%d Annotations"
+msgstr[0] "註解"
+
+#: src/app.js:96
+#, fuzzy
+msgid "E-Book Files"
+msgstr "電子書檔案"
+
+#: src/app.js:109
 msgid "All Files"
 msgstr "所有檔案"
 
-#: src/app.js:104
-msgid "E-book Files"
-msgstr "電子書檔案"
-
-#: src/app.js:291 data/com.github.johnfactotum.Foliate.desktop.in:5
+#: src/app.js:310 data/com.github.johnfactotum.Foliate.desktop.in:5
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
 msgstr ""
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/app.js:297
+#: src/app.js:316
 msgid "translator-credits"
 msgstr ""
 "Blan Chan\n"
 "John Factotum"
 
-#: src/app.js:306
+#: src/app.js:325
 #, fuzzy
 msgid "Source Code"
 msgstr "來源： "
 
-#: src/book-info.js:89
+#: src/book-info.js:118
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/book-info.js:90
+#: src/book-info.js:119
 #, fuzzy
 msgid "Published"
 msgstr "出版社"
 
-#: src/book-info.js:91
+#: src/book-info.js:120
 #, fuzzy
 msgid "Updated"
 msgstr "更新"
 
-#: src/book-info.js:92
+#: src/book-info.js:121
 msgid "Language"
 msgstr "語言"
 
-#: src/book-info.js:93 src/book-info.js:97 src/ui/navbar.ui:319
+#: src/book-info.js:122 src/book-info.js:126 src/ui/navbar.ui:334
 msgid "Identifier"
 msgstr "識別碼"
 
-#: src/book-info.js:125
+#: src/book-info.js:152 src/ui/book-item.ui:5 src/ui/book-row.ui:5
+#: src/ui/book-viewer.ui:346
 msgid "About This Book"
 msgstr "關於這本書"
 
-#: src/book-viewer.js:588
+#: src/book-viewer.js:27
+msgid "Close"
+msgstr ""
+
+#: src/book-viewer.js:28
+msgid "Footnote"
+msgstr ""
+
+#: src/book-viewer.js:29
+#, fuzzy
+msgid "Go to Footnote"
+msgstr "前往下一頁"
+
+#: src/book-viewer.js:591
 #, fuzzy
 msgid "Remove bookmark"
 msgstr "移除書籍"
 
-#: src/book-viewer.js:589
+#: src/book-viewer.js:592
 #, fuzzy
 msgid "Add bookmark"
 msgstr "新增書籍"
 
-#: src/book-viewer.js:651
+#: src/book-viewer.js:660
 #, fuzzy
 msgid "File not found"
 msgstr "找不到檔案。"
 
-#: src/book-viewer.js:652
+#: src/book-viewer.js:661
 #, fuzzy
 msgid "File type not supported"
 msgstr "不支援此檔案類型。"
 
-#: src/book-viewer.js:653
+#: src/book-viewer.js:662
 #, fuzzy
 msgid "An error occurred"
 msgstr "發生了錯誤。"
 
-#: src/book-viewer.js:734
+#: src/book-viewer.js:749
 #, fuzzy
 msgid "Annotation deleted"
 msgstr "註解"
 
-#: src/book-viewer.js:785
+#: src/book-viewer.js:805
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "來自《%s》的影像"
 
-#: src/book-viewer.js:785
+#: src/book-viewer.js:805
 msgid "Image"
 msgstr "影像"
 
-#: src/book-viewer.js:792 src/navbar.js:216
+#: src/book-viewer.js:812 src/navbar.js:226
 msgid "Copied to clipboard"
-msgstr ""
-
-#: src/book-viewer.js:796
-msgid "Save File"
-msgstr "儲存檔案"
-
-#: src/book-viewer.js:871
-msgid "Default Fonts"
 msgstr ""
 
 #: src/format.js:83
 #, javascript-format
 msgid "of %d"
 msgstr "共 %d"
+
+#: src/library.js:335
+#, fuzzy
+msgid "Remove Book?"
+msgstr "移除書籍"
+
+#: src/library.js:336
+msgid "Reading progress, annotations, and bookmarks will be permanently lost"
+msgstr ""
+
+#: src/library.js:338
+msgid "_Cancel"
+msgstr ""
+
+#: src/library.js:339
+msgid "_Remove"
+msgstr ""
 
 #: src/main.js:26 data/com.github.johnfactotum.Foliate.desktop.in:3
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:6
@@ -193,22 +237,30 @@ msgstr "Foliate"
 
 #: src/ui/annotation-popover.ui:13
 #, fuzzy
-msgid "Choose highlight style"
-msgstr "更改標示顏色"
+msgid "Highlight Style"
+msgstr "標示"
 
-#: src/ui/annotation-popover.ui:20
-#, fuzzy
-msgid "Delete annotation"
-msgstr "無註解"
+#: src/ui/annotation-popover.ui:20 src/ui/bookmark-row.ui:33
+msgid "Delete"
+msgstr "刪除"
 
-#: src/ui/annotation-popover.ui:28 src/ui/image-viewer.ui:62
-msgid "More"
-msgstr "更多"
+#: src/ui/annotation-popover.ui:28 src/ui/book-item.ui:55 src/ui/book-row.ui:69
+#: src/ui/image-viewer.ui:62
+msgid "Menu"
+msgstr "選單"
 
 #: src/ui/annotation-popover.ui:47
 #, fuzzy
 msgid "Add Note…"
 msgstr "新增書籍…"
+
+#: src/ui/book-item.ui:9 src/ui/book-row.ui:9 src/ui/book-viewer.ui:19
+msgid "Export Annotations…"
+msgstr "匯出註解…"
+
+#: src/ui/book-item.ui:15 src/ui/book-row.ui:15
+msgid "Remove"
+msgstr ""
 
 #: src/ui/book-viewer.ui:5
 msgid "Reload"
@@ -222,20 +274,16 @@ msgstr "開啟副本"
 msgid "Import Annotations…"
 msgstr "匯入註解…"
 
-#: src/ui/book-viewer.ui:19
-msgid "Export Annotations…"
-msgstr "匯出註解…"
-
 #: src/ui/book-viewer.ui:25
 #, fuzzy
 msgid "Fold Sidebar"
 msgstr "顯示側邊欄"
 
-#: src/ui/book-viewer.ui:32 src/ui/library.ui:22
+#: src/ui/book-viewer.ui:32 src/ui/library.ui:34
 msgid "Keyboard Shortcuts"
 msgstr "鍵盤捷徑鍵"
 
-#: src/ui/book-viewer.ui:36 src/ui/library.ui:26
+#: src/ui/book-viewer.ui:36 src/ui/library.ui:38
 msgid "About Foliate"
 msgstr "關於 Foliate"
 
@@ -261,192 +309,208 @@ msgstr ""
 msgid "Match Diacritics"
 msgstr ""
 
-#: src/ui/book-viewer.ui:87
-msgid "Set Default Fonts…"
-msgstr ""
-
-#: src/ui/book-viewer.ui:91
-msgid "Full Justification"
-msgstr "左右對齊"
-
-#: src/ui/book-viewer.ui:95
-msgid "Auto-hyphenation"
-msgstr "自動斷字"
-
-#: src/ui/book-viewer.ui:99
+#: src/ui/book-viewer.ui:82
 msgid "Invert Colors in Dark Mode"
 msgstr ""
 
-#: src/ui/book-viewer.ui:103
+#: src/ui/book-viewer.ui:86
 #, fuzzy
 msgid "Scrolled Layout"
 msgstr "捲動"
 
-#: src/ui/book-viewer.ui:109
+#: src/ui/book-viewer.ui:92 src/ui/library.ui:30
+msgid "Preferences"
+msgstr "偏好設定"
+
+#: src/ui/book-viewer.ui:98
 msgid "Inspector"
 msgstr ""
 
-#: src/ui/book-viewer.ui:162
+#: src/ui/book-viewer.ui:151
 msgid "Book Cannot Be Opened"
 msgstr ""
 
-#: src/ui/book-viewer.ui:172
+#: src/ui/book-viewer.ui:161
 msgid "Details"
 msgstr "詳細資料"
 
-#: src/ui/book-viewer.ui:191 src/ui/book-viewer.ui:234 src/ui/library.ui:37
+#: src/ui/book-viewer.ui:180 src/ui/book-viewer.ui:223 src/ui/library.ui:49
 #: data/com.github.johnfactotum.Foliate.desktop.in:20
 msgid "Library"
 msgstr "書庫"
 
-#: src/ui/book-viewer.ui:240 src/ui/library.ui:46
-msgid "Menu"
+#: src/ui/book-viewer.ui:229
+#, fuzzy
+msgid "Book Menu"
 msgstr "選單"
 
-#: src/ui/book-viewer.ui:247 src/ui/selection-popover.ui:17
+#: src/ui/book-viewer.ui:236 src/ui/selection-popover.ui:17
 msgid "Find"
 msgstr "搜尋"
 
-#: src/ui/book-viewer.ui:262
+#: src/ui/book-viewer.ui:251
 #, fuzzy
 msgid "Find in book…"
 msgstr "搜尋書籍內容"
 
-#: src/ui/book-viewer.ui:303
+#: src/ui/book-viewer.ui:292
 msgid "Contents"
 msgstr "內容"
 
-#: src/ui/book-viewer.ui:357
-#, fuzzy
-msgid "About this book"
-msgstr "關於這本書"
-
-#: src/ui/book-viewer.ui:383
+#: src/ui/book-viewer.ui:372
 msgid "Annotations"
 msgstr "註解"
 
-#: src/ui/book-viewer.ui:427
+#: src/ui/book-viewer.ui:416
 #, fuzzy
 msgid "Filter annotations…"
 msgstr "搜尋註解"
 
-#: src/ui/book-viewer.ui:441
+#: src/ui/book-viewer.ui:430
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: src/ui/book-viewer.ui:492 src/ui/library-view.ui:43
+#: src/ui/book-viewer.ui:481 src/ui/library-view.ui:42
 #, fuzzy
 msgid "No Results Found"
 msgstr "找不到結果"
 
-#: src/ui/book-viewer.ui:493 src/ui/library-view.ui:44
+#: src/ui/book-viewer.ui:482 src/ui/library-view.ui:43
 #, fuzzy
 msgid "Try a different search"
 msgstr "請嘗試不同的搜尋。"
 
-#: src/ui/book-viewer.ui:542
+#: src/ui/book-viewer.ui:531
 #, fuzzy
-msgid "Toggle sidebar"
-msgstr "使用側邊欄"
+msgid "Sidebar"
+msgstr "顯示側邊欄"
 
-#: src/ui/book-viewer.ui:556
-msgid "View"
-msgstr "檢視"
+#: src/ui/book-viewer.ui:545
+#, fuzzy
+msgid "View Menu"
+msgstr "選單"
 
-#: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
-msgid "Zoom out"
+#: src/ui/book-viewer.ui:558 src/ui/image-viewer.ui:41
+#, fuzzy
+msgid "Zoom Out"
 msgstr "縮小"
 
-#: src/ui/book-viewer.ui:577 src/ui/image-viewer.ui:48
-msgid "Restore zoom"
-msgstr "重設縮放"
+#: src/ui/book-viewer.ui:566 src/ui/image-viewer.ui:48
+msgid "Reset Zoom"
+msgstr ""
 
-#: src/ui/book-viewer.ui:586 src/ui/image-viewer.ui:55
-msgid "Zoom in"
+#: src/ui/book-viewer.ui:575 src/ui/image-viewer.ui:55
+#, fuzzy
+msgid "Zoom In"
 msgstr "放大"
 
-#: src/ui/book-viewer.ui:602
+#: src/ui/book-viewer.ui:591
+msgid "Follow System Style"
+msgstr ""
+
+#: src/ui/book-viewer.ui:601
 #, fuzzy
-msgid "Line Height"
-msgstr "行高"
-
-#: src/ui/book-viewer.ui:622
-msgid "Margins"
-msgstr "邊界"
-
-#: src/ui/book-viewer.ui:650
-msgid "Max Col Size"
-msgstr ""
-
-#: src/ui/book-viewer.ui:678
-msgid "Max Cols"
-msgstr ""
-
-#: src/ui/book-viewer.ui:715
-msgid "Follow system style"
-msgstr ""
-
-#: src/ui/book-viewer.ui:725
-#, fuzzy
-msgid "Light style"
+msgid "Light Style"
 msgstr "亮色"
 
-#: src/ui/book-viewer.ui:735
+#: src/ui/book-viewer.ui:611
 #, fuzzy
-msgid "Dark style"
+msgid "Dark Style"
 msgstr "暗色模式"
 
-#: src/ui/book-viewer.ui:750 src/ui/library.ui:12
+#: src/ui/book-viewer.ui:626 src/ui/library.ui:24
 msgid "Fullscreen"
 msgstr "全螢幕"
 
-#: src/ui/library-view.ui:22
+#: src/ui/export-dialog.ui:5
+#, fuzzy
+msgid "Export Annotations"
+msgstr "匯出註解…"
+
+#: src/ui/export-dialog.ui:11
+msgid "Cancel"
+msgstr ""
+
+#: src/ui/export-dialog.ui:16
+msgid "Export"
+msgstr ""
+
+#: src/ui/export-dialog.ui:28
+msgid "Format"
+msgstr ""
+
+#: src/ui/export-dialog.ui:29
+msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
+msgstr ""
+
+#: src/ui/export-dialog.ui:33
+msgid "JSON"
+msgstr ""
+
+#: src/ui/export-dialog.ui:34
+msgid "HTML"
+msgstr ""
+
+#: src/ui/export-dialog.ui:35
+msgid "Markdown"
+msgstr ""
+
+#: src/ui/image-viewer.ui:6 src/ui/navbar.ui:353 src/ui/selection-popover.ui:7
+msgid "Copy"
+msgstr "複製"
+
+#: src/ui/image-viewer.ui:10
+#, fuzzy
+msgid "Save As…"
+msgstr "另存新檔"
+
+#: src/ui/image-viewer.ui:25
+#, fuzzy
+msgid "Rotate 90° Counter-Clockwise"
+msgstr "逆時針旋轉 90°"
+
+#: src/ui/image-viewer.ui:32
+#, fuzzy
+msgid "Rotate 90° Clockwise"
+msgstr "順時針旋轉 90°"
+
+#: src/ui/library.ui:6 src/ui/library-view.ui:27
+msgid "Open…"
+msgstr "開啟…"
+
+#: src/ui/library.ui:12
+#, fuzzy
+msgid "List View"
+msgstr "檢視"
+
+#: src/ui/library.ui:17
+#, fuzzy
+msgid "Grid View"
+msgstr "檢視"
+
+#: src/ui/library.ui:58
+#, fuzzy
+msgid "Main Menu"
+msgstr "選單"
+
+#: src/ui/library.ui:65
+msgid "Search"
+msgstr "搜尋"
+
+#: src/ui/library.ui:75
+#, fuzzy
+msgid "Search library…"
+msgstr "搜尋中…"
+
+#: src/ui/library-view.ui:21
 #, fuzzy
 msgid "No Books Yet"
 msgstr "沒有書籍"
 
-#: src/ui/library-view.ui:23
+#: src/ui/library-view.ui:22
 #, fuzzy
 msgid "Open a book to start reading"
 msgstr "開啟書籍以開始閱讀。"
-
-#: src/ui/library-view.ui:28 src/ui/library.ui:6
-msgid "Open…"
-msgstr "開啟…"
-
-#: src/ui/font-settings-widget.ui:10
-msgid "Default Font"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:14
-#, fuzzy
-msgid "Serif"
-msgstr "系列"
-
-#: src/ui/font-settings-widget.ui:15
-msgid "Sans-serif"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:23
-msgid "Serif Font"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:34
-msgid "Sans-serif Font"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:45
-msgid "Monospace Font"
-msgstr ""
-
-#: src/ui/font-settings-widget.ui:60
-#, fuzzy
-msgid "Default Font Size"
-msgstr "縮小字體"
-
-#: src/ui/font-settings-widget.ui:78
-msgid "Minimum Font Size"
-msgstr ""
 
 #: src/ui/navbar.ui:10
 #, fuzzy
@@ -462,88 +526,83 @@ msgid "Stop Speaking"
 msgstr ""
 
 #: src/ui/navbar.ui:33
-msgid "Go to previous page"
-msgstr "前往上一頁"
+msgid "Previous"
+msgstr ""
 
-#: src/ui/navbar.ui:46
-msgid "Go back to previous location"
-msgstr "返回先前位置"
+#: src/ui/navbar.ui:47
+msgid "Back"
+msgstr ""
 
-#: src/ui/navbar.ui:62 src/ui/navbar.ui:289
+#: src/ui/navbar.ui:61
+msgid "Forward"
+msgstr ""
+
+#: src/ui/navbar.ui:77 src/ui/navbar.ui:304
 msgid "Location"
 msgstr "位置"
 
-#: src/ui/navbar.ui:89
+#: src/ui/navbar.ui:104
 msgid "Text-to-Speech"
 msgstr "文字轉語音"
 
-#: src/ui/navbar.ui:100
+#: src/ui/navbar.ui:115
 msgid "Speed"
 msgstr ""
 
-#: src/ui/navbar.ui:122
+#: src/ui/navbar.ui:137
 msgid "Pitch"
 msgstr ""
 
-#: src/ui/navbar.ui:160
-msgid "Go to next page"
-msgstr "前往下一頁"
+#: src/ui/navbar.ui:175
+msgid "Next"
+msgstr ""
 
-#: src/ui/navbar.ui:198
+#: src/ui/navbar.ui:213
 #, fuzzy
 msgid "Time Left in Section"
 msgstr "全書剩餘 %d 分鐘"
 
-#: src/ui/navbar.ui:228
+#: src/ui/navbar.ui:243
 #, fuzzy
 msgid "Time Left in Book"
 msgstr "全書剩餘時間"
 
-#: src/ui/navbar.ui:262
+#: src/ui/navbar.ui:277 src/ui/view-preferences-window.ui:156
 #, fuzzy
 msgid "Page"
 msgstr "下一頁"
 
-#: src/ui/navbar.ui:338 src/ui/selection-popover.ui:7 src/ui/image-viewer.ui:6
-msgid "Copy"
-msgstr "複製"
-
-#: src/ui/navbar.ui:345
-msgid "Paste and go"
+#: src/ui/navbar.ui:360
+msgid "Paste and Go"
 msgstr ""
 
-#: src/ui/navbar.ui:358
+#: src/ui/navbar.ui:373
 msgid "Section"
 msgstr "區塊"
 
-#: src/ui/navbar.ui:424
+#: src/ui/navbar.ui:439
 #, fuzzy
-msgid "Go to first section"
-msgstr "前往位置"
+msgid "First Section"
+msgstr "目前章節"
 
-#: src/ui/navbar.ui:433
+#: src/ui/navbar.ui:448
 #, fuzzy
-msgid "Go to previous section"
+msgid "Previous Section"
 msgstr "返回先前位置"
 
-#: src/ui/navbar.ui:441
-msgid "Jump to…"
+#: src/ui/navbar.ui:456
+msgid "Jump To…"
 msgstr ""
 
-#: src/ui/navbar.ui:450
+#: src/ui/navbar.ui:465
 #, fuzzy
-msgid "Go to next section"
-msgstr "前往下一頁"
+msgid "Next Section"
+msgstr "目前章節"
 
-#: src/ui/navbar.ui:459
+#: src/ui/navbar.ui:474
 #, fuzzy
-msgid "Go to last section"
-msgstr "前往位置"
-
-#: src/ui/footnote-popover.ui:33
-#, fuzzy
-msgid "Go to Reference"
-msgstr "偏好設定"
+msgid "Last Section"
+msgstr "區塊"
 
 #: src/ui/selection-popover.ui:12
 msgid "Highlight"
@@ -569,35 +628,98 @@ msgstr "朗讀"
 msgid "Speak from Here"
 msgstr "從這裡開始朗讀"
 
-#: src/ui/image-viewer.ui:10
+#: src/ui/view-preferences-window.ui:5
+msgid "Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:9
+msgid "Font Family"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:12
+msgid "Default Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:16
 #, fuzzy
-msgid "Save as…"
-msgstr "另存新檔"
+msgid "Serif"
+msgstr "系列"
 
-#: src/ui/image-viewer.ui:25
-msgid "Rotate 90° counter-clockwise"
-msgstr "逆時針旋轉 90°"
+#: src/ui/view-preferences-window.ui:17
+msgid "Sans-serif"
+msgstr ""
 
-#: src/ui/image-viewer.ui:32
-msgid "Rotate 90° clockwise"
-msgstr "順時針旋轉 90°"
+#: src/ui/view-preferences-window.ui:25
+msgid "Serif Font"
+msgstr ""
 
-#: src/ui/bookmark-row.ui:33
-msgid "Delete"
-msgstr "刪除"
+#: src/ui/view-preferences-window.ui:37
+msgid "Sans-Serif Font"
+msgstr ""
 
-#: src/ui/library.ui:18
-msgid "Preferences"
-msgstr "偏好設定"
+#: src/ui/view-preferences-window.ui:49
+msgid "Monospace Font"
+msgstr ""
 
-#: src/ui/library.ui:53
-msgid "Search"
-msgstr "搜尋"
-
-#: src/ui/library.ui:63
+#: src/ui/view-preferences-window.ui:63
 #, fuzzy
-msgid "Search library…"
-msgstr "搜尋中…"
+msgid "Font Size"
+msgstr "縮小字體"
+
+#: src/ui/view-preferences-window.ui:66
+#, fuzzy
+msgid "Default Font Size"
+msgstr "縮小字體"
+
+#: src/ui/view-preferences-window.ui:84
+msgid "Minimum Font Size"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:106
+msgid "Layout"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:110
+msgid "Paragraph"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:113
+#, fuzzy
+msgid "Line Height"
+msgstr "行高"
+
+#: src/ui/view-preferences-window.ui:132
+msgid "Full Justification"
+msgstr "左右對齊"
+
+#: src/ui/view-preferences-window.ui:143
+#, fuzzy
+msgid "Auto-Hyphenation"
+msgstr "自動斷字"
+
+#: src/ui/view-preferences-window.ui:159
+msgid "Margins"
+msgstr "邊界"
+
+#: src/ui/view-preferences-window.ui:178
+msgid "Maximum Number of Columns"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:197
+msgid "Maximum Inline Size"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:198
+msgid "Maximum column width (horizontal writing) or height (vertical writing)"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:217
+msgid "Maximum Block Size"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:218
+msgid "Maximum height (horizontal writing) or width (vertical writing)"
+msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:4
 #, fuzzy
@@ -612,3 +734,53 @@ msgstr "Ebook;Book;EPUB;Viewer;Reader;電子書;書;檢視器;閱讀器;"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
 msgid "John Factotum"
 msgstr "John Factotum"
+
+#~ msgid "Open File"
+#~ msgstr "開啟檔案"
+
+#~ msgid "Save File"
+#~ msgstr "儲存檔案"
+
+#, fuzzy
+#~ msgid "Choose highlight style"
+#~ msgstr "更改標示顏色"
+
+#, fuzzy
+#~ msgid "Delete annotation"
+#~ msgstr "無註解"
+
+#~ msgid "More"
+#~ msgstr "更多"
+
+#, fuzzy
+#~ msgid "About this book"
+#~ msgstr "關於這本書"
+
+#, fuzzy
+#~ msgid "Toggle sidebar"
+#~ msgstr "使用側邊欄"
+
+#~ msgid "Restore zoom"
+#~ msgstr "重設縮放"
+
+#~ msgid "Go to previous page"
+#~ msgstr "前往上一頁"
+
+#~ msgid "Go back to previous location"
+#~ msgstr "返回先前位置"
+
+#, fuzzy
+#~ msgid "Go to first section"
+#~ msgstr "前往位置"
+
+#, fuzzy
+#~ msgid "Go to next section"
+#~ msgstr "前往下一頁"
+
+#, fuzzy
+#~ msgid "Go to last section"
+#~ msgstr "前往位置"
+
+#, fuzzy
+#~ msgid "Go to Reference"
+#~ msgstr "偏好設定"

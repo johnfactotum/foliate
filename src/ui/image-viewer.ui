@@ -7,7 +7,7 @@
         <attribute name="action">img.copy</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">Save as…</attribute>
+        <attribute name="label" translatable="yes">Save As…</attribute>
         <attribute name="action">img.save-as</attribute>
       </item>
     </section>
@@ -22,14 +22,14 @@
             <child>
               <object class="GtkButton">
                 <property name="action-name">img.rotate-left</property>
-                <property name="tooltip-text" translatable="yes">Rotate 90° counter-clockwise</property>
+                <property name="tooltip-text" translatable="yes">Rotate 90° Counter-Clockwise</property>
                 <property name="icon-name">object-rotate-left-symbolic</property>
               </object>
             </child>
             <child>
               <object class="GtkButton">
                 <property name="action-name">img.rotate-right</property>
-                <property name="tooltip-text" translatable="yes">Rotate 90° clockwise</property>
+                <property name="tooltip-text" translatable="yes">Rotate 90° Clockwise</property>
                 <property name="icon-name">object-rotate-right-symbolic</property>
               </object>
             </child>
@@ -38,28 +38,28 @@
         <child>
           <object class="GtkButton">
             <property name="action-name">img.zoom-out</property>
-            <property name="tooltip-text" translatable="yes">Zoom out</property>
+            <property name="tooltip-text" translatable="yes">Zoom Out</property>
             <property name="icon-name">zoom-out-symbolic</property>
           </object>
         </child>
         <child>
           <object class="GtkButton">
             <property name="action-name">img.zoom-restore</property>
-            <property name="tooltip-text" translatable="yes">Restore zoom</property>
+            <property name="tooltip-text" translatable="yes">Reset Zoom</property>
             <property name="icon-name">zoom-original-symbolic</property>
           </object>
         </child>
         <child>
           <object class="GtkButton">
             <property name="action-name">img.zoom-in</property>
-            <property name="tooltip-text" translatable="yes">Zoom in</property>
+            <property name="tooltip-text" translatable="yes">Zoom In</property>
             <property name="icon-name">zoom-in-symbolic</property>
           </object>
         </child>
         <child type="end">
           <object class="GtkMenuButton">
             <property name="icon-name">view-more-symbolic</property>
-            <property name="tooltip-text" translatable="yes">More</property>
+            <property name="tooltip-text" translatable="yes">Menu</property>
             <property name="menu-model">menu</property>
             <property name="primary">True</property>
           </object>
