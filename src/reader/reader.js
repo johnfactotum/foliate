@@ -201,6 +201,8 @@ footnoteDialog.addEventListener('close', () => {
         globalThis.reader.view.goTo(footnoteDialog.querySelector('[name="href"]').value)
     footnoteDialog.returnValue = null
 })
+footnoteDialog.addEventListener('click', e =>
+    e.target === footnoteDialog ? footnoteDialog.close() : null)
 
 class Reader {
     #tocView
@@ -362,6 +364,10 @@ class Reader {
                 const { href } = e.detail
                 this.view.goTo(href)
                 footnoteDialog.close()
+            })
+            v.addEventListener('external-link', e => {
+                e.preventDefault()
+                emit({ type: 'external-link', ...e.detail })
             })
             v.open(this.view.book).then(() => {
                 v.renderer.setAttribute('flow', 'scrolled')

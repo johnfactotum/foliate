@@ -183,6 +183,8 @@ GObject.registerClass({
     Signals: {
         'book-ready': { param_types: [GObject.TYPE_JSOBJECT] },
         'book-error': { param_types: [GObject.TYPE_JSOBJECT] },
+        'dialog-open': { param_types: [GObject.TYPE_JSOBJECT] },
+        'dialog-close': { param_types: [GObject.TYPE_JSOBJECT] },
         'relocate': { param_types: [GObject.TYPE_JSOBJECT] },
         'external-link': { param_types: [GObject.TYPE_JSOBJECT] },
         'selection': { param_types: [GObject.TYPE_JSOBJECT] },
@@ -245,11 +247,11 @@ GObject.registerClass({
                 this.actionGroup.lookup_action('back').enabled = payload.canGoBack
                 this.actionGroup.lookup_action('forward').enabled = payload.canGoForward
             }
-            else if (payload.type === 'dialog-open') this.#dialogOpened = true
-            else if (payload.type === 'dialog-close') this.#dialogOpened = false
             else this.emit(payload.type, payload)
         })
         this.connect('book-ready', () => this.#bookReady = true)
+        this.connect('dialog-open', () => this.#dialogOpened = true)
+        this.connect('dialog-close', () => this.#dialogOpened = false)
 
         // handle pinch zoom
         this.add_controller(utils.connect(new Gtk.GestureZoom({
@@ -483,6 +485,14 @@ export const BookViewer = GObject.registerClass({
             'create-overlay': (_, x) => this.#createOverlay(x),
             'show-image': (_, x) => this.#showImage(x),
             'show-selection': (_, x) => this.#showSelection(x),
+            'dialog-open': () => {
+                this._headerbar_revealer.visible = false
+                this._navbar_revealer.visible = false
+            },
+            'dialog-close': () => {
+                this._headerbar_revealer.visible = true
+                this._navbar_revealer.visible = true
+            },
         })
         this.highlight_color = 'yellow'
         utils.bindSettings('viewer', this, ['fold-sidebar', 'highlight-color'])
