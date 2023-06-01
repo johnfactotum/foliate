@@ -6,7 +6,7 @@
       <property name="icon-name">font-select-symbolic</property>
       <child>
         <object class="AdwPreferencesGroup">
-          <property name="title" translatable="yes">Font Face</property>
+          <property name="title" translatable="yes">Font Family</property>
           <child>
             <object class="AdwComboRow" id="default-font">
               <property name="title" translatable="yes">Default Font</property>
@@ -26,6 +26,7 @@
               <child>
                 <object class="GtkFontButton" id="serif-font">
                   <property name="level">family</property>
+                  <property name="use-font">true</property>
                   <property name="valign">center</property>
                 </object>
               </child>
@@ -37,6 +38,7 @@
               <child>
                 <object class="GtkFontButton" id="sans-serif-font">
                   <property name="level">family</property>
+                  <property name="use-font">true</property>
                   <property name="valign">center</property>
                 </object>
               </child>
@@ -48,6 +50,7 @@
               <child>
                 <object class="GtkFontButton" id="monospace-font">
                   <property name="level">family</property>
+                  <property name="use-font">true</property>
                   <property name="valign">center</property>
                 </object>
               </child>
