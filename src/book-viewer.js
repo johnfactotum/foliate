@@ -136,12 +136,13 @@ const dataStore = new BookDataStore()
 
 const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'brightness': 'double',
-    'spacing': 'double',
+    'line-height': 'double',
     'justify': 'boolean',
     'hyphenate': 'boolean',
-    'margin': 'double',
-    'width': 'uint',
-    'columns': 'uint',
+    'gap': 'double',
+    'max-inline-size': 'uint',
+    'max-block-size': 'uint',
+    'max-column-count': 'uint',
     'scrolled': 'boolean',
     'invert': 'boolean',
 })
@@ -157,23 +158,38 @@ const FontSettings = utils.makeDataClass('FoliateFontSettings', {
 
 const getFamily = str => Pango.FontDescription.from_string(str).get_family()
 
-const FontSettingsWidget = GObject.registerClass({
-    GTypeName: 'FoliateFontSettingsWidget',
-    Template: pkg.moduleuri('ui/font-settings-widget.ui'),
+const ViewPreferencesWindow = GObject.registerClass({
+    GTypeName: 'FoliateViewPreferencesWindow',
+    Template: pkg.moduleuri('ui/view-preferences-window.ui'),
     Properties: utils.makeParams({
         'font-settings': 'object',
+        'view-settings': 'object',
     }),
-    InternalChildren: ['default', 'serif', 'sans-serif', 'monospace', 'default-size', 'minimum-size'],
-}, class extends Gtk.Box {
+    InternalChildren: [
+        'default-font', 'serif-font', 'sans-serif-font', 'monospace-font',
+        'default-font-size', 'minimum-font-size',
+        'line-height', 'justify', 'hyphenate', 'gap',
+        'max-inline-size', 'max-block-size', 'max-column-count',
+    ],
+}, class extends Adw.PreferencesWindow {
     constructor(params) {
         super(params)
         this.font_settings.bindProperties({
-            'serif': [this._serif, 'font'],
-            'sans-serif': [this._sans_serif, 'font'],
-            'monospace': [this._monospace, 'font'],
-            'default': [this._default, 'selected'],
-            'default-size': [this._default_size, 'value'],
-            'minimum-size': [this._minimum_size, 'value'],
+            'serif': [this._serif_font, 'font'],
+            'sans-serif': [this._sans_serif_font, 'font'],
+            'monospace': [this._monospace_font, 'font'],
+            'default': [this._default_font, 'selected'],
+            'default-size': [this._default_font_size, 'value'],
+            'minimum-size': [this._minimum_font_size, 'value'],
+        })
+        this.viewSettings.bindProperties({
+            'line-height': [this._line_height, 'value'],
+            'justify': [this._justify, 'active'],
+            'hyphenate': [this._hyphenate, 'active'],
+            'gap': [this._gap, 'value'],
+            'max-inline-size': [this._max_inline_size, 'value'],
+            'max-block-size': [this._max_block_size, 'value'],
+            'max-column-count': [this._max_column_count, 'value'],
         })
     }
 })
@@ -225,12 +241,13 @@ GObject.registerClass({
     })
     viewSettings = new ViewSettings({
         'brightness': 1,
-        'spacing': 1.5,
+        'line-height': 1.5,
         'justify': true,
         'hyphenate': true,
-        'margin': 0.06,
-        'width': 720,
-        'columns': 2,
+        'gap': 0.06,
+        'max-inline-size': 720,
+        'max-block-size': 1440,
+        'max-column-count': 2,
         'scrolled': false,
     })
     constructor(params) {
@@ -341,13 +358,14 @@ GObject.registerClass({
         const view = this.viewSettings
         if (this.#bookReady) await this.#exec('reader.setAppearance', {
             layout: {
-                gap: view.margin,
-                maxColumnWidth: view.width,
-                maxColumns: view.columns,
+                gap: view.gap,
+                maxInlineSize: view.max_inline_size,
+                maxBlockSize: view.max_block_size,
+                maxColumnCount: view.max_column_count,
                 flow: view.scrolled ? 'scrolled' : 'paginated',
             },
             style: {
-                spacing: view.spacing,
+                lineHeight: view.line_height,
                 justify: view.justify,
                 hyphenate: view.hyphenate,
                 invert: view.invert,
@@ -461,7 +479,7 @@ export const BookViewer = GObject.registerClass({
         'view', 'flap', 'sidebar', 'resize-handle',
         'headerbar-revealer', 'navbar-revealer',
         'book-menu-button', 'bookmark-button',
-        'view-popover', 'zoom-button', 'spacing', 'margin', 'width', 'columns',
+        'view-popover', 'zoom-button',
         'navbar',
         'library-button', 'sidebar-stack', 'contents-stack', 'toc-view',
         'search-view', 'search-bar', 'search-entry',
@@ -498,14 +516,6 @@ export const BookViewer = GObject.registerClass({
         utils.bindSettings('viewer', this, ['fold-sidebar', 'highlight-color'])
         this._view.fontSettings.bindSettings('viewer.font')
         this._view.viewSettings.bindSettings('viewer.view')
-
-        // view settings
-        this._view.viewSettings.bindProperties({
-            'spacing': [this._spacing, 'value'],
-            'margin': [this._margin, 'value'],
-            'width': [this._width, 'value'],
-            'columns': [this._columns, 'value'],
-        })
         this._view.webView.connect('notify::zoom-level', webView =>
             this._zoom_button.label = format.percent(webView.zoom_level))
 
@@ -611,7 +621,7 @@ export const BookViewer = GObject.registerClass({
             actions: [
                 'toggle-sidebar', 'toggle-search', 'show-location',
                 'toggle-toc', 'toggle-annotations', 'toggle-bookmarks',
-                'choose-font', 'show-info', 'bookmark',
+                'preferences', 'show-info', 'bookmark',
                 'export-annotations',
             ],
             props: ['fold-sidebar'],
@@ -628,6 +638,7 @@ export const BookViewer = GObject.registerClass({
             '<ctrl><alt>a': 'viewer.toggle-annotations',
             '<ctrl><alt>d': 'viewer.toggle-bookmarks',
             '<ctrl>d': 'viewer.bookmark',
+            '<ctrl>comma': 'viewer.preferences',
             '<ctrl><shift>g': 'search.prev',
             '<ctrl>g': 'search.next',
             '<ctrl>c': 'selection.copy',
@@ -877,20 +888,13 @@ export const BookViewer = GObject.registerClass({
     showInfo() {
         makeBookInfoWindow(this.root, this.#book.metadata, this.#cover, true)
     }
-    chooseFont() {
-        const widget = new FontSettingsWidget({ font_settings: this._view.fontSettings })
-        const content = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
-        const header = new Adw.HeaderBar()
-        content.append(header)
-        content.append(widget)
-        const win = new Adw.Window({
-            content,
-            title: _('Default Fonts'),
-            default_width: 360,
+    preferences() {
+        const win = new ViewPreferencesWindow({
+            view_settings: this._view.viewSettings,
+            font_settings: this._view.fontSettings,
             modal: true,
             transient_for: this.root,
         })
-        win.add_controller(utils.addShortcuts({ 'Escape|<ctrl>w': () => win.close() }))
         win.present()
     }
     bookmark() {

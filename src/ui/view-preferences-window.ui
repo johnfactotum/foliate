@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?><interface>
+<template class="FoliateViewPreferencesWindow" parent="AdwPreferencesWindow">
+  <child>
+    <object class="AdwPreferencesPage">
+      <property name="title" translatable="yes">Font</property>
+      <property name="icon-name">font-select-symbolic</property>
+      <child>
+        <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">Font Face</property>
+          <child>
+            <object class="AdwComboRow" id="default-font">
+              <property name="title" translatable="yes">Default Font</property>
+              <property name="model">
+                <object class="GtkStringList">
+                  <items>
+                    <item translatable="yes">Serif</item>
+                    <item translatable="yes">Sans-serif</item>
+                  </items>
+                </object>
+              </property>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Serif Font</property>
+              <child>
+                <object class="GtkFontButton" id="serif-font">
+                  <property name="level">family</property>
+                  <property name="valign">center</property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Sans-serif Font</property>
+              <child>
+                <object class="GtkFontButton" id="sans-serif-font">
+                  <property name="level">family</property>
+                  <property name="valign">center</property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Monospace Font</property>
+              <child>
+                <object class="GtkFontButton" id="monospace-font">
+                  <property name="level">family</property>
+                  <property name="valign">center</property>
+                </object>
+              </child>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">Font Size</property>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Default Font Size</property>
+              <child>
+                <object class="GtkSpinButton" id="default-font-size">
+                  <property name="valign">center</property>
+                  <property name="adjustment">
+                    <object class="GtkAdjustment">
+                      <property name="lower">1</property>
+                      <property name="upper">72</property>
+                      <property name="step-increment">1</property>
+                      <property name="page-increment">1</property>
+                    </object>
+                  </property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Minimum Font Size</property>
+              <child>
+                <object class="GtkSpinButton" id="minimum-font-size">
+                  <property name="valign">center</property>
+                  <property name="adjustment">
+                    <object class="GtkAdjustment">
+                      <property name="lower">1</property>
+                      <property name="upper">72</property>
+                      <property name="step-increment">1</property>
+                      <property name="page-increment">1</property>
+                    </object>
+                  </property>
+                </object>
+              </child>
+            </object>
+          </child>
+        </object>
+      </child>
+    </object>
+  </child>
+  <child>
+    <object class="AdwPreferencesPage">
+      <property name="title" translatable="yes">Layout</property>
+      <property name="icon-name">document-page-setup-symbolic</property>
+      <child>
+        <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">Paragraph</property>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Line Height</property>
+              <child>
+                <object class="GtkSpinButton" id="line-height">
+                  <property name="valign">center</property>
+                  <property name="digits">2</property>
+                  <property name="adjustment">
+                    <object class="GtkAdjustment">
+                      <property name="lower">1</property>
+                      <property name="upper">3</property>
+                      <property name="step-increment">0.05</property>
+                      <property name="page-increment">0.1</property>
+                    </object>
+                  </property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Full Justification</property>
+              <property name="activatable-widget">justify</property>
+              <child>
+                <object class="GtkSwitch" id="justify">
+                  <property name="valign">center</property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Auto-hyphenation</property>
+              <property name="activatable-widget">hyphenate</property>
+              <child>
+                <object class="GtkSwitch" id="hyphenate">
+                  <property name="valign">center</property>
+                </object>
+              </child>
+            </object>
+          </child>"
+        </object>
+      </child>
+      <child>
+        <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">Page</property>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Margins</property>
+              <child>
+                <object class="GtkSpinButton" id="gap">
+                  <property name="valign">center</property>
+                  <property name="digits">2</property>
+                  <property name="adjustment">
+                    <object class="GtkAdjustment">
+                      <property name="lower">0</property>
+                      <property name="upper">0.5</property>
+                      <property name="step-increment">0.01</property>
+                      <property name="page-increment">0.01</property>
+                    </object>
+                  </property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Max Number of Columns</property>
+              <child>
+                <object class="GtkSpinButton" id="max-column-count">
+                  <property name="valign">center</property>
+                  <property name="digits">0</property>
+                  <property name="adjustment">
+                    <object class="GtkAdjustment">
+                      <property name="lower">1</property>
+                      <property name="upper">10</property>
+                      <property name="step-increment">1</property>
+                      <property name="page-increment">1</property>
+                    </object>
+                  </property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Max Inline Size</property>
+              <property name="subtitle" translatable="yes">Max column width (horizontal writing) or height (vertical writing)</property>
+              <child>
+                <object class="GtkSpinButton" id="max-inline-size">
+                  <property name="valign">center</property>
+                  <property name="digits">0</property>
+                  <property name="adjustment">
+                    <object class="GtkAdjustment">
+                      <property name="lower">100</property>
+                      <property name="upper">5000</property>
+                      <property name="step-increment">60</property>
+                      <property name="page-increment">60</property>
+                    </object>
+                  </property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Max Block Size</property>
+              <property name="subtitle" translatable="yes">Max height (horizontal writing) or width (vertical writing)</property>
+              <child>
+                <object class="GtkSpinButton" id="max-block-size">
+                  <property name="valign">center</property>
+                  <property name="digits">0</property>
+                  <property name="adjustment">
+                    <object class="GtkAdjustment">
+                      <property name="lower">100</property>
+                      <property name="upper">5000</property>
+                      <property name="step-increment">60</property>
+                      <property name="page-increment">60</property>
+                    </object>
+                  </property>
+                </object>
+              </child>
+            </object>
+          </child>
+        </object>
+      </child>
+    </object>
+  </child>
+</template>
+</interface>

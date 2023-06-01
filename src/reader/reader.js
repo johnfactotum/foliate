@@ -105,7 +105,7 @@ const open = async file => {
     emit({ type: 'book-ready', book, reader })
 }
 
-const getCSS = ({ spacing, justify, hyphenate, invert }) => `
+const getCSS = ({ lineHeight, justify, hyphenate, invert }) => `
     @namespace epub "http://www.idpf.org/2007/ops";
     html {
         color-scheme: ${invert ? 'only light' : 'light dark'};
@@ -118,7 +118,7 @@ const getCSS = ({ spacing, justify, hyphenate, invert }) => `
         }
     }`}
     p, li, blockquote, dd {
-        line-height: ${spacing};
+        line-height: ${lineHeight};
         text-align: ${justify ? 'justify' : 'start'};
         -webkit-hyphens: ${hyphenate ? 'auto' : 'manual'};
         -webkit-hyphenate-limit-before: 3;
@@ -232,8 +232,9 @@ class Reader {
             renderer.setStyles(getCSS(this.style))
             renderer.setAttribute('flow', layout.flow)
             renderer.setAttribute('gap', layout.gap * 100 + '%')
-            renderer.setAttribute('max-inline-size', layout.maxColumnWidth + 'px')
-            renderer.setAttribute('max-column-count', layout.maxColumns)
+            renderer.setAttribute('max-inline-size', layout.maxInlineSize + 'px')
+            renderer.setAttribute('max-block-size', layout.maxBlockSize + 'px')
+            renderer.setAttribute('max-column-count', layout.maxColumnCount)
         }
         document.body.classList.toggle('invert', this.style.invert)
     }
