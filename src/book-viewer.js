@@ -321,7 +321,7 @@ GObject.registerClass({
             actions: [
                 'reload', 'inspector', 'prev', 'next', 'go-left', 'go-right',
                 'prev-section', 'next-section', 'first-section', 'last-section',
-                'back', 'forward', 'zoom-in', 'zoom-restore', 'zoom-out',
+                'back', 'forward', 'zoom-in', 'zoom-restore', 'zoom-out', 'print',
             ],
         })
         utils.addPropertyActions(this.viewSettings,
@@ -419,6 +419,7 @@ GObject.registerClass({
     showAnnotation(x) { return this.#exec('reader.view.showAnnotation', x) }
     addAnnotation(x) { return this.#exec('reader.view.addAnnotation', x) }
     deleteAnnotation(x) { return this.#exec('reader.view.deleteAnnotation', x) }
+    print() { return this.#exec('reader.print') }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
     init(x) { return this.#exec('reader.view.init', x) }
     get webView() { return this.#webView }
@@ -645,6 +646,7 @@ export const BookViewer = GObject.registerClass({
             'l|Right': 'view.go-right',
             '<alt>Left': 'view.back',
             '<alt>Right': 'view.forward',
+            '<ctrl>p': 'view.print',
         }))
         // TODO: disable these when pinch zoomed
         this._view.webView.add_controller(utils.addShortcuts({
@@ -775,6 +777,7 @@ export const BookViewer = GObject.registerClass({
                     this._flap.reveal_flap = true
                     this._search_view.doSearch()
                 },
+                'print': () => resolve('print'),
             }))
             // it seems `closed` is emitted before the actions are run
             // so it needs the timeout

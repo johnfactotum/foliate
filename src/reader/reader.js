@@ -105,19 +105,34 @@ const open = async file => {
     emit({ type: 'book-ready', book, reader })
 }
 
-const getCSS = ({ lineHeight, justify, hyphenate, invert }) => `
+const getCSS = ({ lineHeight, justify, hyphenate, invert }) => [`
     @namespace epub "http://www.idpf.org/2007/ops";
-    html {
-        color-scheme: ${invert ? 'only light' : 'light dark'};
-    }
-    ${invert ? '' : `
-    /* https://github.com/whatwg/html/issues/5426 */
-    @media (prefers-color-scheme: dark) {
-        a:link {
-            color: lightblue;
+    @media print {
+        html {
+            column-width: auto !important;
+            height: auto !important;
+            width: auto !important;
         }
-    }`}
-    p, li, blockquote, dd {
+    }
+    @media screen {
+        html {
+            color-scheme: ${invert ? 'only light' : 'light dark'};
+        }
+        ${invert ? '' : `
+        /* https://github.com/whatwg/html/issues/5426 */
+        @media (prefers-color-scheme: dark) {
+            a:any-link {
+                color: lightblue;
+            }
+        }`}
+        aside[epub|type~="endnote"],
+        aside[epub|type~="footnote"],
+        aside[epub|type~="note"],
+        aside[epub|type~="rearnote"] {
+            display: none;
+        }
+    }
+    html, body, p, li, blockquote, dd {
         line-height: ${lineHeight};
         text-align: ${justify ? 'justify' : 'start'};
         -webkit-hyphens: ${hyphenate ? 'auto' : 'manual'};
@@ -125,6 +140,7 @@ const getCSS = ({ lineHeight, justify, hyphenate, invert }) => `
         -webkit-hyphenate-limit-after: 2;
         -webkit-hyphenate-limit-lines: 2;
         hanging-punctuation: allow-end last;
+        orphans: 2;
         widows: 2;
     }
     /* prevent the above from overriding the align attribute */
@@ -135,14 +151,15 @@ const getCSS = ({ lineHeight, justify, hyphenate, invert }) => `
 
     pre {
         white-space: pre-wrap !important;
+        tab-size: 2;
     }
-    aside[epub|type~="endnote"],
-    aside[epub|type~="footnote"],
-    aside[epub|type~="note"],
-    aside[epub|type~="rearnote"] {
-        display: none;
+`, `
+    p, li, blockquote, dd {
+        line-height: ${lineHeight};
+        text-align: ${justify ? 'justify' : 'start'};
+        -webkit-hyphens: ${hyphenate ? 'auto' : 'manual'};
     }
-`
+`]
 
 const frameRect = (frame, rect, sx = 1, sy = 1) => {
     const left = sx * rect.left + frame.left
@@ -333,6 +350,8 @@ class Reader {
                     emit({ type: 'selection', action, text, html }))
                 else if (action === 'highlight')
                     this.#showAnnotation({ range, value, pos })
+                else if (action === 'print')
+                    this.printRange(range.startContainer.ownerDocument, range)
             })
     }
     #onLink(e) {
@@ -378,6 +397,40 @@ class Reader {
                 v.goTo(index)
             })
         }
+    }
+    printRange(doc, range) {
+        const iframe = document.createElement('iframe')
+        // NOTE: it needs `allow-scripts` to remove the frame after printing
+        // and `allow-modals` to show the print dialog
+        iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-modals')
+        const css = getCSS(this.style)
+        iframe.addEventListener('load', () => {
+            const doc = iframe.contentDocument
+
+            const beforeStyle = doc.createElement('style')
+            beforeStyle.textContent = css[0]
+            doc.head.prepend(beforeStyle)
+
+            const afterStyle = doc.createElement('style')
+            afterStyle.textContent = css[1]
+            doc.head.append(afterStyle)
+
+            if (range) {
+                const frag = range.cloneContents()
+                doc.body.replaceChildren()
+                doc.body.appendChild(frag)
+            }
+            iframe.contentWindow.addEventListener('afterprint', () =>
+                iframe.remove())
+            iframe.contentWindow.print()
+        }, { once: true })
+
+        iframe.src = doc.defaultView.frameElement.src
+        iframe.style.display = 'none'
+        document.body.append(iframe)
+    }
+    print() {
+        this.printRange(this.view.renderer.getContents()[0]?.doc)
     }
     async getCover() {
         try {

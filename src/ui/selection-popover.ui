@@ -43,6 +43,12 @@
       <attribute name="action">selection.speak-from-here</attribute>
     </item>
   </section>
+  <section>
+    <item>
+      <attribute name="label" translatable="yes">Print Selection…</attribute>
+      <attribute name="action">selection.print</attribute>
+    </item>
+  </section>
 </menu>
 <template class="FoliateSelectionPopover" parent="GtkPopoverMenu">
   <property name="menu-model">selection-menu</property>
