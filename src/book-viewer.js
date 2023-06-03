@@ -766,7 +766,8 @@ export const BookViewer = GObject.registerClass({
                 'copy': () => resolve('copy'),
                 'highlight': () => {
                     resolved = true
-                    this.#data.addAnnotation({
+                    const annotation = this.#data.annotations.get(value)
+                    this.#data.addAnnotation(annotation ?? {
                         value, text,
                         color: this.highlight_color,
                     }).then(() => resolve('highlight'))
