@@ -237,7 +237,7 @@ GObject.registerClass({
         'sans-serif': 'Sans 12',
         'monospace': 'Monospace 12',
         'default': 'serif',
-        'default-size': 12,
+        'default-size': 16,
     })
     viewSettings = new ViewSettings({
         'brightness': 1,
@@ -341,9 +341,9 @@ GObject.registerClass({
             monospace_font_family: getFamily(font.monospace),
             default_font_family: getFamily(font.default === 1
                 ? font.sans_serif : font.serif),
-            default_font_size: WebKit.Settings.font_size_to_pixels(font.default_size),
+            default_font_size: font.default_size,
             // TODO: disable this for fixed-layout
-            minimum_font_size: WebKit.Settings.font_size_to_pixels(font.minimum_size),
+            minimum_font_size: font.minimum_size,
         })
         const view = this.viewSettings
         if (this.#bookReady) await this.#exec('reader.setAppearance', {
