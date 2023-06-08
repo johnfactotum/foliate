@@ -12,20 +12,18 @@ architectures:
   - build-on: arm64
   - build-on: armhf
 layout:
-  /usr/lib/webkitgtk-6.0:
-    bind: $SNAP/webkitgtk/usr/lib/webkitgtk-6.0
-  /usr/bin/gjs:
-    symlink: $SNAP/gnome-platform/usr/bin/gjs
+  /usr/lib/$CRAFT_ARCH_TRIPLET/webkitgtk-6.0:
+    bind: $SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET/webkitgtk-6.0
 slots:
   foliate:
     interface: dbus
     bus: session
     name: com.github.johnfactotum.Foliate
 plugs:
-  webkitgtk:
+  webkitgtk-6-gnome-2204:
     interface: content
-    target: $SNAP/webkitgtk
-    default-provider: webkitgtk
+    target: $SNAP/webkitgtk-platform
+    default-provider: webkitgtk-6-gnome-2204
 apps:
   foliate:
     command: usr/bin/foliate
@@ -37,8 +35,8 @@ apps:
     desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
     common-id: com.github.johnfactotum.Foliate
     environment:
-      LD_LIBRARY_PATH: $SNAP/webkitgtk/usr/lib:$SNAP/webkitgtk/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
-      GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0:$SNAP/webkitgtk/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0
+      LD_LIBRARY_PATH: $SNAP/webkitgtk-platform/usr/lib:$SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
+      GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0:$SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0
 parts:
   foliate:
     plugin: meson
@@ -48,13 +46,13 @@ parts:
       - --prefix=/snap/foliate/current/usr
     override-pull: |
       craftctl default
-      sed -i '1c#!/usr/bin/gjs -m' src/main.js
+      sed -i '1c#!/snap/foliate/gnome-platform/usr/bin/gjs -m' src/main.js
     build-packages:
       - xmlstarlet
     build-snaps:
-      - webkitgtk-sdk/latest/edge
+      - webkitgtk-6-gnome-2204-sdk/latest/stable
     parse-info:
       - usr/share/metainfo/com.github.johnfactotum.Foliate.metainfo.xml
     organize:
       snap/foliate/current/usr: usr
-      
+
