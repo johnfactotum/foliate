@@ -629,7 +629,7 @@ export const BookViewer = GObject.registerClass({
             '<ctrl><alt>a': 'viewer.toggle-annotations',
             '<ctrl><alt>d': 'viewer.toggle-bookmarks',
             '<ctrl>d': 'viewer.bookmark',
-            '<ctrl>comma': 'viewer.preferences',
+            '<alt>comma': 'viewer.preferences',
             '<ctrl><shift>g': 'search.prev',
             '<ctrl>g': 'search.next',
             '<ctrl>c': 'selection.copy',
