@@ -46,7 +46,7 @@ parts:
       - --prefix=/snap/foliate/current/usr
     override-pull: |
       craftctl default
-      sed -i '1c#!/snap/foliate/gnome-platform/usr/bin/gjs -m' src/main.js
+      sed -i '1c#!/snap/foliate/current/gnome-platform/usr/bin/gjs -m' src/main.js
     build-packages:
       - xmlstarlet
     build-snaps:
