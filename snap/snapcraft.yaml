@@ -46,7 +46,6 @@ parts:
       - --prefix=/snap/foliate/current/usr
     override-pull: |
       craftctl default
-      sed -i '1c#!/snap/foliate/current/gnome-platform/usr/bin/gjs -m' src/main.js
       patch -p1 < $CRAFT_PROJECT_DIR/snap/foliate.patch
     override-build: |
       craftctl default
@@ -63,4 +62,6 @@ parts:
       - usr/share/metainfo/com.github.johnfactotum.Foliate.metainfo.xml
     organize:
       snap/foliate/current: .
+    prime:
+      - -snap/foliate
 
