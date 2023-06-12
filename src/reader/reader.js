@@ -246,12 +246,12 @@ class Reader {
         Object.assign(this.style, style)
         const renderer = this.view?.renderer
         if (renderer) {
-            renderer.setStyles(getCSS(this.style))
             renderer.setAttribute('flow', layout.flow)
             renderer.setAttribute('gap', layout.gap * 100 + '%')
             renderer.setAttribute('max-inline-size', layout.maxInlineSize + 'px')
             renderer.setAttribute('max-block-size', layout.maxBlockSize + 'px')
             renderer.setAttribute('max-column-count', layout.maxColumnCount)
+            renderer.setStyles(getCSS(this.style))
         }
         document.body.classList.toggle('invert', this.style.invert)
     }
