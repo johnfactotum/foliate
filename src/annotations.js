@@ -17,6 +17,8 @@ const Annotation = utils.makeDataClass('FoliateAnnotation', {
     'color': 'string',
     'text': 'string',
     'note': 'string',
+    'created': 'string',
+    'modified': 'string',
 })
 
 const AnnotationHeading = utils.makeDataClass('FoliateAnnotationHeading', {
@@ -462,16 +464,21 @@ export const AnnotationPopover = GObject.registerClass({
             actions: ['add-note', 'delete', 'more'],
         }))
 
+        const currentDateTime = new Date().toISOString();
+        this.annotation.set_property('created', currentDateTime)
+
         this._drop_down.selectColor(this.annotation.color)
         this._text_view.buffer.text = this.annotation.note
         this.#updateStack()
 
         this._drop_down.connect('color-changed', (_, color) => {
             this.annotation.set_property('color', color)
+            this.annotation.set_property('modified', currentDateTime)
             this.emit('color-changed', color)
         })
         this._text_view.buffer.connect('changed', buffer => {
             this.#updateStack()
+            this.annotation.set_property('modified', currentDateTime)
             this.annotation.set_property('note', buffer.text)
         })
     }
