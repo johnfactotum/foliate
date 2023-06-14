@@ -19,6 +19,8 @@ Read books in style.
 - `libadwaita` (`gir1.2-adw-1` in Debian-based distros)
 - `webkitgtk-6.0` (`gir1.2-webkit-6.0` in Debian-based distros)
 
+In some cases, if your don't have `Mesa libEGL runtime` you need to install `mesa-libEGL-devel` (`libegl1-mesa-dev` in Debian-based distros).
+
 #### Optional Dependencies
 
 To enable auto-hyphenation, you will need to install hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc. (which strictly speaking are optional dependencies for WebkitGTK, not Foliate itself).
