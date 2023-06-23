@@ -342,6 +342,37 @@ export const RGBA = color => {
     return rgba
 }
 
+const invert = rgba => {
+    rgba.red = 1 - rgba.red
+    rgba.green = 1 - rgba.green
+    rgba.blue = 1 - rgba.blue
+    return rgba
+}
+
+// replicate CSS's hue-rotate filter
+const hueRotate = (rgba, deg) => {
+    const r = rgba.red * 255, g = rgba.green * 255, b = rgba.blue * 255
+    const lumR = 0.2126, lumG = 0.7152, lumB = 0.0722
+    const hueRotateR = 0.143, hueRotateG = 0.140, hueRotateB = 0.283
+    const rad = deg * Math.PI / 180
+    const cos = Math.cos(rad)
+    const sin = Math.sin(rad)
+    ;[rgba.red, rgba.green, rgba.blue] = [
+        r * (lumR + (1 - lumR) * cos - lumR * sin)
+            + g * (lumG - lumG * cos - lumG * sin)
+            + b * (lumB - lumB * cos + (1 - lumB) * sin),
+        r * (lumR - lumR * cos + hueRotateR * sin)
+            + g * (lumG + (1 - lumG) * cos + hueRotateG * sin)
+            + b * (lumB - lumB * cos - hueRotateB * sin),
+        r * (lumR - lumR * cos - (1 - lumR) * sin)
+            + g * (lumG - lumG * cos + lumG * sin)
+            + b * (lumB + (1 - lumB) * cos + lumB * sin),
+    ].map(x => Math.max(0, Math.min(255, x)) / 255)
+    return rgba
+}
+
+export const invertColor = color => hueRotate(invert(RGBA(color)), 180).to_string()
+
 export const addStyle = (widget, style) => {
     const cssProvider = new Gtk.CssProvider()
     cssProvider.load_from_data(style, -1)

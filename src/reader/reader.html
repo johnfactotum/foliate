@@ -8,20 +8,23 @@ html {
     --hover: rgba(0, 0, 0, .03);
     --active: rgba(0, 0, 0, .05);
     --border: rgba(0, 0, 0, .15);
+    --bg: var(--light-bg);
+    --fg: var(--light-fg);
     height: 100%;
 }
 body {
     margin: 0 auto;
     height: 100%;
+    background: var(--bg);
+    color: var(--fg);
 }
 @media (prefers-color-scheme: dark) {
     html {
         --hover: rgba(255, 255, 255, .03);
         --active: rgba(255, 255, 255, .05);
         --border: rgba(255, 255, 255, .15);
-    }
-    .invert {
-        background: #000;
+        --bg: var(--dark-bg);
+        --fg: var(--dark-fg);
     }
     .invert foliate-view::part(filter) {
         color-scheme: light; /* required to make the iframe bg transparent */

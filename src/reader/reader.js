@@ -105,7 +105,7 @@ const open = async file => {
     emit({ type: 'book-ready', book, reader })
 }
 
-const getCSS = ({ lineHeight, justify, hyphenate, invert }) => [`
+const getCSS = ({ lineHeight, justify, hyphenate, invert, theme }) => [`
     @namespace epub "http://www.idpf.org/2007/ops";
     @media print {
         html {
@@ -117,14 +117,19 @@ const getCSS = ({ lineHeight, justify, hyphenate, invert }) => [`
     @media screen {
         html {
             color-scheme: ${invert ? 'only light' : 'light dark'};
+            color: ${theme.light.fg};
         }
-        ${invert ? '' : `
-        /* https://github.com/whatwg/html/issues/5426 */
+        a:any-link {
+            color: ${theme.light.link};
+        }
         @media (prefers-color-scheme: dark) {
-            a:any-link {
-                color: lightblue;
+            html {
+                color: ${invert ? theme.inverted.fg : theme.dark.fg};
             }
-        }`}
+            a:any-link {
+                color: ${invert ? theme.inverted.link : theme.dark.link};
+            }
+        }
         aside[epub|type~="endnote"],
         aside[epub|type~="footnote"],
         aside[epub|type~="note"],
@@ -244,6 +249,12 @@ class Reader {
     }
     setAppearance({ style, layout }) {
         Object.assign(this.style, style)
+        const { theme } = style
+        const $style = document.documentElement.style
+        $style.setProperty('--light-bg', theme.light.bg)
+        $style.setProperty('--light-fg', theme.light.fg)
+        $style.setProperty('--dark-bg', theme.dark.bg)
+        $style.setProperty('--dark-fg', theme.dark.fg)
         const renderer = this.view?.renderer
         if (renderer) {
             renderer.setAttribute('flow', layout.flow)
@@ -251,7 +262,7 @@ class Reader {
             renderer.setAttribute('max-inline-size', layout.maxInlineSize + 'px')
             renderer.setAttribute('max-block-size', layout.maxBlockSize + 'px')
             renderer.setAttribute('max-column-count', layout.maxColumnCount)
-            renderer.setStyles(getCSS(this.style))
+            renderer.setStyles?.(getCSS(this.style))
         }
         document.body.classList.toggle('invert', this.style.invert)
     }

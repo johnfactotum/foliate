@@ -29,6 +29,16 @@ const uiText = {
     goToFootnote: _('Go to Footnote'),
 }
 
+const defaultTheme = {
+    light: { fg: '#000000', bg: '#ffffff', link: '#0066cc' },
+    dark: { fg: '#e0e0e0', bg: '#222222', link: '#88ccee' },
+}
+
+const invertTheme = ({ light, dark }) => ({ light, dark, inverted: {
+    fg: utils.invertColor(dark.fg),
+    link: utils.invertColor(dark.link),
+} })
+
 class BookData {
     annotations = utils.connect(new AnnotationModel(), {
         'update-annotation': async (_, annotation) => {
@@ -359,6 +369,7 @@ GObject.registerClass({
                 justify: view.justify,
                 hyphenate: view.hyphenate,
                 invert: view.invert,
+                theme: view.invert ? invertTheme(defaultTheme) : defaultTheme,
             },
         })
     }
