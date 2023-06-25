@@ -781,6 +781,7 @@ export const BookViewer = GObject.registerClass({
                     this.#data.addAnnotation(annotation ?? {
                         value, text,
                         color: this.highlight_color,
+                        created: new Date().toISOString(),
                     }).then(() => resolve('highlight'))
                 },
                 'search': () => {

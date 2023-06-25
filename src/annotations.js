@@ -17,6 +17,8 @@ const Annotation = utils.makeDataClass('FoliateAnnotation', {
     'color': 'string',
     'text': 'string',
     'note': 'string',
+    'created': 'string',
+    'modified': 'string',
 })
 
 const AnnotationHeading = utils.makeDataClass('FoliateAnnotationHeading', {
@@ -176,7 +178,10 @@ export const AnnotationModel = GObject.registerClass({
         const obj = annotation instanceof Annotation
             ? new Annotation(annotation.toJSON()) : new Annotation(annotation)
         this.#map.set(value, obj)
-        obj.connectAll(() => this.emit('update-annotation', obj))
+        obj.connectAll(() => {
+            obj.modified = new Date().toISOString()
+            this.emit('update-annotation', obj)
+        })
         if (this.#lists.has(index)) {
             const list = this.#lists.get(index)
             for (const [i, item] of utils.gliter(list)) {
