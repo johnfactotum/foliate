@@ -29,10 +29,77 @@ const uiText = {
     goToFootnote: _('Go to Footnote'),
 }
 
-const defaultTheme = {
-    light: { fg: '#000000', bg: '#ffffff', link: '#0066cc' },
-    dark: { fg: '#e0e0e0', bg: '#222222', link: '#88ccee' },
-}
+const themes = [
+    {
+        name: 'default', label: _('Default'),
+        light: { fg: '#000000', bg: '#ffffff', link: '#0066cc' },
+        dark: { fg: '#e0e0e0', bg: '#222222', link: '#88ccee' },
+    },
+    {
+        name: 'gray', label: _('Gray'),
+        light: { fg: '#222222', bg: '#e0e0e0', link: '#4488cc' },
+        dark: { fg: '#c6c6c6', bg: '#444444', link: '#88ccee' },
+    },
+    {
+        name: 'sepia', label: _('Sepia'),
+        light: { fg: '#5b4636', bg: '#f1e8d0', link: '#008b8b' },
+        dark: { fg: '#ffd595', bg: '#342e25', link: '#48d1cc' },
+    },
+    {
+        name: 'grass', label: _('Grass'),
+        light: { fg: '#232c16', bg: '#d7dbbd', link: '#177b4d' },
+        dark: { fg: '#d8deba', bg: '#333627', link: '#a6d608' },
+    },
+    {
+        name: 'cherry', label: _('Cherry'),
+        light: { fg: '#4e1609', bg: '#f0d1d5', link: '#de3838' },
+        dark: { fg: '#e5c4c8', bg: '#462f32', link: '#ff646e' },
+    },
+    {
+        name: 'sky', label: _('Sky'),
+        light: { fg: '#262d48', bg: '#cedef5', link: '#2d53e5' },
+        dark: { fg: '#babee1', bg: '#282e47', link: '#ff646e' },
+    },
+    {
+        name: 'solarized', label: _('Solarized'),
+        light: { fg: '#586e75', bg: '#fdf6e3', link: '#268bd2' },
+        dark: { fg: '#93a1a1', bg: '#002b36', link: '#268bd2' },
+    },
+    {
+        name: 'gruvbox', label: _('Gruvbox'),
+        light: { fg: '#3c3836', bg: '#fbf1c7', link: '#076678' },
+        dark: { fg: '#ebdbb2', bg: '#282828', link: '#83a598' },
+    },
+    {
+        name: 'nord', label: _('Nord'),
+        light: { fg: '#2e3440', bg: '#eceff4', link: '#5e81ac' },
+        dark: { fg: '#d8dee9', bg: '#2e3440', link: '#88c0d0' },
+    },
+]
+
+const themeCssProvider = new Gtk.CssProvider()
+themeCssProvider.load_from_data(`
+    .theme-container .card {
+        padding: 9px;
+    }
+` + themes.map(theme => {
+    const id = `theme-${GLib.uuid_string_random()}`
+    theme.id = id
+    return `
+        .${id} {
+            color: ${theme.light.fg};
+            background: ${theme.light.bg};
+        }
+        .is-dark .${id} {
+            color: ${theme.dark.fg};
+            background-color: ${theme.dark.bg};
+        }
+    `
+}).join(''), -1)
+Gtk.StyleContext.add_provider_for_display(
+    Gdk.Display.get_default(),
+    themeCssProvider,
+    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
 const invertTheme = ({ light, dark }) => ({ light, dark, inverted: {
     fg: utils.invertColor(dark.fg),
@@ -155,6 +222,7 @@ const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'max-column-count': 'uint',
     'scrolled': 'boolean',
     'invert': 'boolean',
+    'theme': 'string',
 })
 
 const FontSettings = utils.makeDataClass('FoliateFontSettings', {
@@ -180,6 +248,7 @@ const ViewPreferencesWindow = GObject.registerClass({
         'default-font-size', 'minimum-font-size',
         'line-height', 'justify', 'hyphenate', 'gap',
         'max-inline-size', 'max-block-size', 'max-column-count',
+        'theme-flow-box',
     ],
 }, class extends Adw.PreferencesWindow {
     constructor(params) {
@@ -201,6 +270,35 @@ const ViewPreferencesWindow = GObject.registerClass({
             'max-block-size': [this._max_block_size, 'value'],
             'max-column-count': [this._max_column_count, 'value'],
         })
+
+        const actionGroup = utils.addPropertyActions(this.viewSettings, ['theme'])
+        this.insert_action_group('view-settings', actionGroup)
+        let group = null
+        for (const theme of themes) {
+            const widget = new Gtk.Box({ spacing: 6 })
+            const check = new Gtk.CheckButton({
+                group,
+                action_name: 'view-settings.theme',
+                action_target: new GLib.Variant('s', theme.name),
+            })
+            group ??= check
+            const label = new Gtk.Label({
+                label: theme.label,
+                hexpand: true,
+            })
+            widget.append(check)
+            widget.append(label)
+            widget.add_css_class(theme.id)
+            widget.add_css_class('card')
+            this._theme_flow_box.append(widget)
+        }
+        const styleManager = Adw.StyleManager.get_default()
+        if (styleManager.dark) this.add_css_class('is-dark')
+        const handler = styleManager.connect('notify::dark', ({ dark }) => {
+            if (dark) this.add_css_class('is-dark')
+            else this.remove_css_class('is-dark')
+        })
+        this.connect('destroy', () => styleManager.disconnect(handler))
     }
 })
 
@@ -355,8 +453,10 @@ GObject.registerClass({
             // TODO: disable this for fixed-layout
             minimum_font_size: font.minimum_size,
         })
+        if (!this.#bookReady) return
         const view = this.viewSettings
-        if (this.#bookReady) await this.#exec('reader.setAppearance', {
+        const theme = themes.find(theme => theme.name === view.theme) ?? themes[0]
+        await this.#exec('reader.setAppearance', {
             layout: {
                 gap: view.gap,
                 maxInlineSize: view.max_inline_size,
@@ -369,7 +469,7 @@ GObject.registerClass({
                 justify: view.justify,
                 hyphenate: view.hyphenate,
                 invert: view.invert,
-                theme: view.invert ? invertTheme(defaultTheme) : defaultTheme,
+                theme: view.invert ? invertTheme(theme) : theme,
             },
         })
     }

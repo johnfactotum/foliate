@@ -107,6 +107,20 @@
       <property name="icon-name">document-page-setup-symbolic</property>
       <child>
         <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">Color</property>
+          <child>
+            <object class="GtkFlowBox" id="theme-flow-box">
+              <property name="selection-mode">none</property>
+              <property name="homogeneous">True</property>
+              <property name="row-spacing">12</property>
+              <property name="column-spacing">12</property>
+              <style><class name="theme-container"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="AdwPreferencesGroup">
           <property name="title" translatable="yes">Paragraph</property>
           <child>
             <object class="AdwActionRow">
