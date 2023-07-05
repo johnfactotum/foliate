@@ -11,6 +11,28 @@ const format = {
 const emit = x => globalThis.webkit.messageHandlers.viewer
     .postMessage(JSON.stringify(x))
 
+const debounce = (f, wait, immediate) => {
+    let timeout
+    return (...args) => {
+        const later = () => {
+            timeout = null
+            if (!immediate) f(...args)
+        }
+        const callNow = immediate && !timeout
+        if (timeout) clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+        if (callNow) f(...args)
+    }
+}
+
+const getSelectionRange = doc => {
+    const sel = doc.getSelection()
+    if (!sel.rangeCount) return
+    const range = sel.getRangeAt(0)
+    if (range.collapsed) return
+    return range
+}
+
 const blobToBase64 = blob => new Promise(resolve => {
     const reader = new FileReader()
     reader.readAsDataURL(blob)
@@ -337,14 +359,25 @@ class Reader {
                 .catch(e => console.error(e)))
 
         doc.addEventListener('click', () => {
-            const sel = doc.defaultView.getSelection()
-            if (!sel.rangeCount) return
-            const range = sel.getRangeAt(0)
-            if (range.collapsed) return
+            const range = getSelectionRange(doc)
+            if (!range) return
             const pos = getPosition(range)
             const value = this.view.getCFI(index, range)
             this.#showSelection({ range, value, pos })
         })
+
+        if (!this.view.isFixedLayout)
+            // go to the next page when selecting to the end of a page
+            // this makes it possible to select across pages
+            doc.addEventListener('selectionchange', debounce(() => {
+                if (this.view.renderer.getAttribute('flow') !== 'paginated') return
+                const { lastLocation } = this.view
+                if (!lastLocation) return
+                const selRange = getSelectionRange(doc)
+                if (!selRange) return
+                if (selRange.compareBoundaryPoints(Range.END_TO_END, lastLocation.range) >= 0)
+                    this.view.next()
+            }, 1000))
     }
     #showAnnotation({ range, value, pos }) {
         globalThis.showSelection({ type: 'annotation', value, pos })
