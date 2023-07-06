@@ -75,9 +75,14 @@ const BookList = GObject.registerClass({
             else if (value) this.append(value)
         }
     }
-    getURI(identifier) {
+    getBook(file) {
+        const { identifier } = this.readFile(file)?.metadata ?? {}
+        return this.getBookFromIdentifier(identifier)
+    }
+    getBookFromIdentifier(identifier) {
         // TODO: use tracker
-        return this.#uriStore.get(identifier)
+        const uri = this.#uriStore.get(identifier)
+        return uri ? Gio.File.new_for_uri(uri) : null
     }
     delete(file) {
         const name = file.get_basename()
@@ -134,6 +139,7 @@ const BookItem = GObject.registerClass({
     Template: pkg.moduleuri('ui/book-item.ui'),
     InternalChildren: ['image', 'progress', 'title'],
     Signals: {
+        'open-new-window': { param_types: [Gio.File.$gtype] },
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
         'book-info': { param_types: [Gio.File.$gtype] },
@@ -143,6 +149,7 @@ const BookItem = GObject.registerClass({
     constructor(params) {
         super(params)
         this.insert_action_group('book-item', utils.addSimpleActions({
+            'open-new-window': () => this.emit('open-new-window', this.#item),
             'remove': () => this.emit('remove-book', this.#item),
             'export': () => this.emit('export-book', this.#item),
             'info': () => this.emit('book-info', this.#item),
@@ -162,6 +169,7 @@ const BookRow = GObject.registerClass({
     Template: pkg.moduleuri('ui/book-row.ui'),
     InternalChildren: ['title', 'author', 'progress-grid', 'progress-bar', 'progress-label'],
     Signals: {
+        'open-new-window': { param_types: [Gio.File.$gtype] },
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
         'book-info': { param_types: [Gio.File.$gtype] },
@@ -171,6 +179,7 @@ const BookRow = GObject.registerClass({
     constructor(params) {
         super(params)
         this.insert_action_group('book-item', utils.addSimpleActions({
+            'open-new-window': () => this.emit('open-new-window', this.#item),
             'remove': () => this.emit('remove-book', this.#item),
             'export': () => this.emit('export-book', this.#item),
             'info': () => this.emit('book-info', this.#item),
@@ -226,6 +235,7 @@ GObject.registerClass({
     #filterModel = utils.connect(new Gtk.FilterListModel({ filter: this.#filter }),
         { 'items-changed': () => this.#update() })
     #itemConnections = {
+        'open-new-window': (_, file) => this.root.addWindow(getBooks().getBook(file)),
         'remove-book': (_, file) => this.removeBook(file),
         'export-book': (_, file) => {
             const data = getBooks().readFile(file)
@@ -357,11 +367,7 @@ export const Library = GObject.registerClass({
         const books = getBooks()
 
         utils.connect(this._books_view, {
-            'activate': (_, item) => {
-                const { identifier } = books.readFile(item)?.metadata ?? {}
-                const uri = books.getURI(identifier)
-                this.root.openFile(Gio.File.new_for_uri(uri))
-            },
+            'activate': (_, item) => this.root.openFile(books.getBook(item)),
             'load-more': () => books.loadMore(1),
             'load-all': () => books.loadMore(Infinity),
         })
