@@ -6,6 +6,7 @@ import GObject from 'gi://GObject'
 import WebKit from 'gi://WebKit'
 import Gdk from 'gi://Gdk'
 import Pango from 'gi://Pango'
+import GdkPixbuf from 'gi://GdkPixbuf'
 import { gettext as _ } from 'gettext'
 
 import * as utils from './utils.js'
@@ -178,6 +179,18 @@ class BookData {
     }
     #saveBookmarks() {
         this.storage.set('bookmarks', this.bookmarks.export())
+    }
+    saveCover(cover) {
+        const settings = utils.settings('library')
+        if (!(settings?.get_boolean('show-covers') ?? true)) return
+        const path = pkg.cachepath(this.key + '.png')
+        if (Gio.File.new_for_path(path).query_exists(null)) return
+        const width = settings?.get_int('cover-size') ?? 256
+        const ratio = width / cover.get_width()
+        const scaled = ratio >= 1 ? cover
+            : cover.scale_simple(width, Math.round(cover.get_height() * ratio),
+                GdkPixbuf.InterpType.BILINEAR)
+        scaled.savev(path, 'png', [], [])
     }
 }
 
@@ -816,11 +829,10 @@ export const BookViewer = GObject.registerClass({
         this._navbar.loadPageList(book.pageList, reader.pageTotal)
         this._navbar.loadLandmarks(book.landmarks)
 
-        this._view.getCover().then(cover => {
-            this.#cover = cover
-            if (cover) this._book_cover.set_from_pixbuf(cover)
-            else this._book_cover.icon_name = 'image-missing-symbolic'
-        })
+        const cover = await this._view.getCover()
+        this.#cover = cover
+        if (cover) this._book_cover.set_from_pixbuf(cover)
+        else this._book_cover.icon_name = 'image-missing-symbolic'
 
         book.metadata.identifier ||= makeIdentifier(this.#file)
         const { identifier } = book.metadata
@@ -842,6 +854,7 @@ export const BookViewer = GObject.registerClass({
             updateBookmarks()
             this.#data.storage.set('metadata', book.metadata)
             getURIStore().set(identifier, this.#file.get_uri())
+            if (cover) this.#data.saveCover(cover)
         }
         else await this._view.next()
     }

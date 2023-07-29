@@ -12,6 +12,8 @@ import * as format from './format.js'
 import { exportAnnotations } from './annotations.js'
 import { formatAuthors, makeBookInfoWindow } from './book-info.js'
 
+const showCovers = utils.settings('library')?.get_boolean('show-covers') ?? true
+
 const listDir = function* (path) {
     const dir = Gio.File.new_for_path(path)
     if (!GLib.file_test(path, GLib.FileTest.IS_DIR)) return null
@@ -288,7 +290,7 @@ GObject.registerClass({
                 'setup': (_, item) => item.child =
                     utils.connect(new BookItem(), this.#itemConnections),
                 'bind': (_, { child, item }) => {
-                    const { cover, data } = this.#getData(item, true)
+                    const { cover, data } = this.#getData(item, showCovers)
                     child.update(item, data, cover)
                     if (cover?.then) cover
                         .then(cover => child.update(item, data, cover))
@@ -308,7 +310,7 @@ GObject.registerClass({
                     'setup': (_, item) => item.child = utils.connect(
                         new BookRow(), this.#itemConnections),
                     'bind': (_, { child, item }) => {
-                        const { data } = this.#getData(item, true)
+                        const { data } = this.#getData(item, false)
                         child.update(item, data)
                     },
                 }),
