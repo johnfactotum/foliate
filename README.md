@@ -84,6 +84,18 @@ You can then run it with
 GSETTINGS_SCHEMA_DIR=run/share/glib-2.0/schemas ./run/bin/foliate
 ```
 
+### Flatpak
+
+There's no Flatpak package for the `gtk4` branch yet. For developement with Flatpak, use [GNOME Builder](https://wiki.gnome.org/Apps/Builder) to open and run the project.
+
+### Snap
+
+The `gtk4` branch is available on the [Snap Store](https://snapcraft.io/foliate) through the `edge` channel:
+
+```
+sudo snap install foliate --edge
+```
+
 ## License
 
 This program is free software: you can redistribute it and/or modify it under the terms of the [GNU General Public License](https://www.gnu.org/licenses/gpl.html) as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
