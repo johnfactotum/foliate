@@ -127,7 +127,7 @@ const open = async file => {
     emit({ type: 'book-ready', book, reader })
 }
 
-const getCSS = ({ lineHeight, justify, hyphenate, invert, theme }) => [`
+const getCSS = ({ lineHeight, justify, hyphenate, invert, theme, userStylesheet }) => [`
     @namespace epub "http://www.idpf.org/2007/ops";
     @media print {
         html {
@@ -186,7 +186,7 @@ const getCSS = ({ lineHeight, justify, hyphenate, invert, theme }) => [`
         text-align: ${justify ? 'justify' : 'start'};
         -webkit-hyphens: ${hyphenate ? 'auto' : 'manual'};
     }
-`]
+` + userStylesheet]
 
 const frameRect = (frame, rect, sx = 1, sy = 1) => {
     const left = sx * rect.left + frame.left

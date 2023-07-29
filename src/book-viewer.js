@@ -106,6 +106,9 @@ const invertTheme = ({ light, dark }) => ({ light, dark, inverted: {
     link: utils.invertColor(dark.link),
 } })
 
+const userStylesheet = utils.readFile(Gio.File.new_for_path(
+    pkg.configpath('user-stylesheet.css')))
+
 class BookData {
     annotations = utils.connect(new AnnotationModel(), {
         'update-annotation': async (_, annotation) => {
@@ -470,6 +473,7 @@ GObject.registerClass({
                 hyphenate: view.hyphenate,
                 invert: view.invert,
                 theme: view.invert ? invertTheme(theme) : theme,
+                userStylesheet,
             },
         })
     }

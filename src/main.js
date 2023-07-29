@@ -30,6 +30,9 @@ pkg.datadir = GLib.build_filenamev([GLib.get_user_data_dir(), pkg.name])
 pkg.datapath = path => GLib.build_filenamev([pkg.datadir, path])
 pkg.datafile = path => Gio.File.new_for_path(pkg.datapath(path))
 
+pkg.configdir = GLib.build_filenamev([GLib.get_user_config_dir(), pkg.name])
+pkg.configpath = path => GLib.build_filenamev([pkg.configdir, path])
+
 pkg.cachedir = GLib.build_filenamev([GLib.get_user_cache_dir(), pkg.name])
 pkg.cachepath = path => GLib.build_filenamev([pkg.cachedir, path])
 
