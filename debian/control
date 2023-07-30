@@ -1,0 +1,31 @@
+Source: foliate
+Section: gnome
+Priority: optional
+Maintainer: John Factotum <50942278+johnfactotum@users.noreply.github.com>
+Build-Depends: debhelper-compat(=10),
+	gettext,
+	meson (>= 0.59),
+	pkg-config,
+	libglib2.0-dev (>= 2.54),
+	gjs,
+	appstream
+Standards-Version: 4.5.0
+Rules-Requires-Root: no
+Homepage: https://johnfactotum.github.io/foliate/
+Vcs-Browser: https://github.com/johnfactotum/foliate
+Vcs-Git: https://github.com/johnfactotum/foliate.git
+
+Package: foliate
+Architecture: all
+Depends: ${misc:Depends},
+	gjs (>= 1.72),
+	gir1.2-gtk-4.0 (>= 4.10),
+	gir1.2-adw-1,
+	gir1.2-webkit-6.0
+Suggests: gir1.2-tracker-3.0
+Description: Read e-books in style
+ Supported formats:
+   EPUB (.epub)
+   Kindle (.azw, .azw3) and Mobipocket (.mobi)
+   FictionBook 2 (.fb2, .fb2.zip)
+   Comic Book Archive (.cbz)
