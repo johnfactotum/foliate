@@ -329,6 +329,7 @@ export const Application = GObject.registerClass({
             transient_for: this.active_window,
         })
         win.add_link(_('Source Code'), 'https://github.com/johnfactotum/foliate')
+        win.add_legal_section('foliate-js', null, Gtk.License.MIT_X11, null)
         win.add_legal_section('zip.js',
             'Copyright © 2022 Gildas Lormeau',
             Gtk.License.BSD_3, null)
