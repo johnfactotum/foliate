@@ -183,7 +183,7 @@ class BookData {
     saveCover(cover) {
         const settings = utils.settings('library')
         if (!(settings?.get_boolean('show-covers') ?? true)) return
-        const path = pkg.cachepath(this.key + '.png')
+        const path = pkg.cachepath(`${encodeURIComponent(this.key)}.png`)
         if (Gio.File.new_for_path(path).query_exists(null)) return
         const width = settings?.get_int('cover-size') ?? 256
         const ratio = width / cover.get_width()
