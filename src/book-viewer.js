@@ -853,7 +853,13 @@ export const BookViewer = GObject.registerClass({
             updateAnnotations()
             updateBookmarks()
             this.#data.storage.set('metadata', book.metadata)
-            getURIStore().set(identifier, this.#file.get_uri())
+
+            const path = this.#file.get_path()
+            const homeDir = GLib.get_home_dir()
+            getURIStore().set(identifier, path.startsWith(homeDir)
+                ? path.replace(homeDir, '~')
+                : this.#file.get_uri())
+
             if (cover) this.#data.saveCover(cover)
         }
         else await this._view.next()

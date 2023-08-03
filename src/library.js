@@ -84,7 +84,9 @@ const BookList = GObject.registerClass({
     getBookFromIdentifier(identifier) {
         // TODO: use tracker
         const uri = this.#uriStore.get(identifier)
-        return uri ? Gio.File.new_for_uri(uri) : null
+        return !uri ? null : uri.startsWith('~')
+            ? Gio.File.new_for_path(uri.replace('~', GLib.get_home_dir()))
+            : Gio.File.new_for_uri(uri)
     }
     delete(file) {
         const name = file.get_basename()
