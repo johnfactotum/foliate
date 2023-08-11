@@ -444,6 +444,7 @@ GObject.registerClass({
         this.actionGroup = utils.addMethods(this, {
             actions: [
                 'reload', 'inspector', 'prev', 'next', 'go-left', 'go-right',
+                'scroll-up', 'scroll-down',
                 'prev-section', 'next-section', 'first-section', 'last-section',
                 'back', 'forward', 'zoom-in', 'zoom-restore', 'zoom-out', 'print',
             ],
@@ -535,6 +536,11 @@ GObject.registerClass({
     next() { return this.#exec('reader.view.next') }
     goLeft() { return this.#exec('reader.view.goLeft') }
     goRight() { return this.#exec('reader.view.goRight') }
+    get #scrollDistance() {
+        return this.fontSettings.default_size * this.viewSettings.line_height * 3
+    }
+    scrollUp() { return this.#exec('reader.view.prev', this.#scrollDistance) }
+    scrollDown() { return this.#exec('reader.view.next', this.#scrollDistance) }
     // TODO: these should push history
     prevSection() { return this.#exec('reader.view.renderer.prevSection') }
     nextSection() { return this.#exec('reader.view.renderer.nextSection') }
@@ -768,8 +774,10 @@ export const BookViewer = GObject.registerClass({
             'plus|equal|KP_Add|KP_Equal|<ctrl>plus|<ctrl>equal|<ctrl>KP_Add|<ctrl>KP_Equal': 'view.zoom-in',
             'minus|KP_Subtract|<ctrl>minus|<ctrl>KP_Subtract': 'view.zoom-out',
             '0|1|KP_0|<ctrl>0|<ctrl>KP_0': 'view.zoom-restore',
-            'p|k|Up|Page_Up': 'view.prev',
-            'n|j|Down|Page_Down': 'view.next',
+            'p|Page_Up': 'view.prev',
+            'n|Page_Down': 'view.next',
+            'k|Up': 'view.scroll-up',
+            'j|Down': 'view.scroll-down',
             'h|Left': 'view.go-left',
             'l|Right': 'view.go-right',
             '<alt>Left': 'view.back',
@@ -778,8 +786,10 @@ export const BookViewer = GObject.registerClass({
         }))
         // TODO: disable these when pinch zoomed
         this._view.webView.add_controller(utils.addShortcuts({
-            'Up|Page_Up': 'view.prev',
-            'Down|Page_Down': 'view.next',
+            'Page_Up': 'view.prev',
+            'Page_Down': 'view.next',
+            'Up': 'view.scroll-up',
+            'Down': 'view.scroll-down',
             'Left': 'view.go-left',
             'Right': 'view.go-right',
             '<alt>Left': 'view.back',
