@@ -301,6 +301,7 @@ GObject.registerClass({
             }),
         }), { 'activate': (_, pos) =>
             this.emit('activate', this.#filterModel.get_item(pos)) })
+        this._scrolled.child.remove_css_class('view')
     }
     showList() {
         this._scrolled.child?.unparent()

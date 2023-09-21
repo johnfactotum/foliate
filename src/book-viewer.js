@@ -645,17 +645,15 @@ export const BookViewer = GObject.registerClass({
             this._zoom_button.label = format.percent(webView.zoom_level))
 
         // sidebar
-        const setFoldSidebar = () =>
-            this._flap.fold_policy = this.fold_sidebar
-                ? Adw.FlapFoldPolicy.ALWAYS : Adw.FlapFoldPolicy.AUTO
+        const setFoldSidebar = () => this._flap.collapsed = this.fold_sidebar
         this.connect('notify::fold-sidebar', setFoldSidebar)
         setFoldSidebar()
         this._resize_handle.cursor = Gdk.Cursor.new_from_name('col-resize', null)
         this._resize_handle.add_controller(utils.connect(new Gtk.GestureDrag(), {
             'drag-update': (_, x) => this._sidebar.width_request += x,
         }))
-        this._flap.connect('notify::reveal-flap', flap =>
-            (flap.reveal_flap ? this._library_button : this._view).grab_focus())
+        this._flap.connect('notify::show-sidebar', flap =>
+            (flap.show_sidebar ? this._library_button : this._view).grab_focus())
 
         // revealers
         const autohideHeaderbar = autohide(this._headerbar_revealer,
@@ -681,7 +679,7 @@ export const BookViewer = GObject.registerClass({
             'clear-results': () => this._view.clearSearch(),
             'show-cfi': (_, cfi) => {
                 this._view.select(cfi)
-                if (this._flap.folded) this._flap.reveal_flap = false
+                if (this._flap.collapsed) this._flap.show_sidebar = false
             },
         })
         this.insert_action_group('search', this._search_view.actionGroup)
@@ -703,7 +701,7 @@ export const BookViewer = GObject.registerClass({
         // navigation
         this._toc_view.connect('go-to-href', (_, href) => {
             this._view.goTo(href)
-            if (this._flap.folded) this._flap.reveal_flap = false
+            if (this._flap.collapsed) this._flap.show_sidebar = false
             this._view.grab_focus()
         })
         this._navbar.connect('go-to-cfi', (_, x) => this._view.goTo(x))
@@ -729,13 +727,13 @@ export const BookViewer = GObject.registerClass({
             },
             'go-to-bookmark': (_, target) => {
                 this._view.goTo(target)
-                if (this._flap.folded) this._flap.reveal_flap = false
+                if (this._flap.collapsed) this._flap.show_sidebar = false
             },
         })
         utils.connect(this._annotation_view, {
             'go-to-annotation': (_, annotation) => {
                 this._view.showAnnotation(annotation)
-                if (this._flap.folded) this._flap.reveal_flap = false
+                if (this._flap.collapsed) this._flap.show_sidebar = false
             },
         })
         this._annotation_search_entry.connect('search-changed', entry =>
@@ -920,7 +918,7 @@ export const BookViewer = GObject.registerClass({
                 'search': () => {
                     this._search_entry.text = text
                     this._search_bar.search_mode_enabled = true
-                    this._flap.reveal_flap = true
+                    this._flap.show_sidebar = true
                     this._search_view.doSearch()
                 },
                 'print': () => resolve('print'),
@@ -992,20 +990,20 @@ export const BookViewer = GObject.registerClass({
         this._view.open(file)
     }
     showPrimaryMenu() {
-        this._flap.reveal_flap = true
+        this._flap.show_sidebar = true
         this._book_menu_button.popup()
     }
     toggleSidebar() {
-        this._flap.reveal_flap = !this._flap.reveal_flap
+        this._flap.show_sidebar = !this._flap.show_sidebar
     }
     #toggleSidebarContent(name) {
         this._search_bar.search_mode_enabled = false
-        if (this._flap.reveal_flap
+        if (this._flap.show_sidebar
         && this._contents_stack.visible_child_name === name)
-            this._flap.reveal_flap = false
+            this._flap.show_sidebar = false
         else {
             this._contents_stack.visible_child_name = name
-            this._flap.reveal_flap = true
+            this._flap.show_sidebar = true
         }
     }
     toggleToc() { this.#toggleSidebarContent('toc') }
@@ -1017,7 +1015,7 @@ export const BookViewer = GObject.registerClass({
             bar.search_mode_enabled = false
         else {
             bar.search_mode_enabled = true
-            this._flap.reveal_flap = true
+            this._flap.show_sidebar = true
             this._search_entry.grab_focus()
         }
     }

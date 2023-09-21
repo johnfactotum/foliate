@@ -69,32 +69,43 @@
     </object>
   </child>
   <child>
-    <object class="AdwLeaflet" id="progress-leaflet">
-      <property name="fold-threshold-policy">natural</property>
+    <object class="AdwBreakpointBin" id="progress-leaflet">
+      <property name="height-request">1</property>
+      <property name="width-request">1</property>
       <child>
-        <object class="GtkMenuButton" id="location-button">
-          <property name="direction">up</property>
-          <property name="tooltip-text" translatable="yes">Location</property>
-          <property name="popover">location-popover</property>
-          <style><class name="numeric"/></style>
+        <object class="AdwBreakpoint">
+          <condition>max-width: 300px</condition>
+          <setter object="location-button" property="hexpand">True</setter>
+          <setter object="progress-scale" property="visible">False</setter>
         </object>
       </child>
-      <child>
-        <object class="FoliateProgressScale" id="progress-scale">
-            <property name="draw-value">False</property>
-            <property name="width-request">100</property>
-            <property name="hexpand">True</property>
-            <property name="adjustment">
-              <object class="GtkAdjustment">
-                <property name="lower">0</property>
-                <property name="upper">1</property>
-                <property name="step-increment">0.01</property>
-                <property name="page-increment">0.05</property>
-                <property name="value">0</property>
-              </object>
-            </property>
+      <property name="child">
+        <object class="GtkBox">
+          <child>
+            <object class="GtkMenuButton" id="location-button">
+              <property name="direction">up</property>
+              <property name="tooltip-text" translatable="yes">Location</property>
+              <property name="popover">location-popover</property>
+              <style><class name="numeric"/></style>
+            </object>
+          </child>
+          <child>
+            <object class="FoliateProgressScale" id="progress-scale">
+                <property name="draw-value">False</property>
+                <property name="hexpand">True</property>
+                <property name="adjustment">
+                  <object class="GtkAdjustment">
+                    <property name="lower">0</property>
+                    <property name="upper">1</property>
+                    <property name="step-increment">0.01</property>
+                    <property name="page-increment">0.05</property>
+                    <property name="value">0</property>
+                  </object>
+                </property>
+            </object>
+          </child>
         </object>
-      </child>
+      </property>
     </object>
   </child>
   <child>
