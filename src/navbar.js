@@ -57,6 +57,8 @@ GObject.registerClass({
     #shouldGo = true
     constructor(params) {
         super(params)
+        this.expression = Gtk.PropertyExpression.new(Gtk.StringObject, null, 'string')
+        this.enable_search = true
         this.connect('notify::selected', () => {
             if (this.#shouldGo) {
                 const href = this.#hrefs.get(this.selected)
