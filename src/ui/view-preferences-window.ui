@@ -23,6 +23,7 @@
           <child>
             <object class="AdwActionRow">
               <property name="title" translatable="yes">Serif Font</property>
+              <property name="activatable-widget">serif-font</property>
               <child>
                 <object class="GtkFontButton" id="serif-font">
                   <property name="level">family</property>
@@ -35,6 +36,7 @@
           <child>
             <object class="AdwActionRow">
               <property name="title" translatable="yes">Sans-Serif Font</property>
+              <property name="activatable-widget">sans-serif-font</property>
               <child>
                 <object class="GtkFontButton" id="sans-serif-font">
                   <property name="level">family</property>
@@ -47,6 +49,7 @@
           <child>
             <object class="AdwActionRow">
               <property name="title" translatable="yes">Monospace Font</property>
+              <property name="activatable-widget">monospace-font</property>
               <child>
                 <object class="GtkFontButton" id="monospace-font">
                   <property name="level">family</property>
@@ -62,39 +65,29 @@
         <object class="AdwPreferencesGroup">
           <property name="title" translatable="yes">Font Size</property>
           <child>
-            <object class="AdwActionRow">
+            <object class="AdwSpinRow" id="default-font-size">
               <property name="title" translatable="yes">Default Font Size</property>
-              <child>
-                <object class="GtkSpinButton" id="default-font-size">
-                  <property name="valign">center</property>
-                  <property name="adjustment">
-                    <object class="GtkAdjustment">
-                      <property name="lower">1</property>
-                      <property name="upper">72</property>
-                      <property name="step-increment">1</property>
-                      <property name="page-increment">1</property>
-                    </object>
-                  </property>
+              <property name="adjustment">
+                <object class="GtkAdjustment">
+                  <property name="lower">1</property>
+                  <property name="upper">72</property>
+                  <property name="step-increment">1</property>
+                  <property name="page-increment">1</property>
                 </object>
-              </child>
+              </property>
             </object>
           </child>
           <child>
-            <object class="AdwActionRow">
+            <object class="AdwSpinRow" id="minimum-font-size">
               <property name="title" translatable="yes">Minimum Font Size</property>
-              <child>
-                <object class="GtkSpinButton" id="minimum-font-size">
-                  <property name="valign">center</property>
-                  <property name="adjustment">
-                    <object class="GtkAdjustment">
-                      <property name="lower">1</property>
-                      <property name="upper">72</property>
-                      <property name="step-increment">1</property>
-                      <property name="page-increment">1</property>
-                    </object>
-                  </property>
+              <property name="adjustment">
+                <object class="GtkAdjustment">
+                  <property name="lower">1</property>
+                  <property name="upper">72</property>
+                  <property name="step-increment">1</property>
+                  <property name="page-increment">1</property>
                 </object>
-              </child>
+              </property>
             </object>
           </child>
         </object>
@@ -123,22 +116,17 @@
         <object class="AdwPreferencesGroup">
           <property name="title" translatable="yes">Paragraph</property>
           <child>
-            <object class="AdwActionRow">
+            <object class="AdwSpinRow" id="line-height">
               <property name="title" translatable="yes">Line Height</property>
-              <child>
-                <object class="GtkSpinButton" id="line-height">
-                  <property name="valign">center</property>
-                  <property name="digits">2</property>
-                  <property name="adjustment">
-                    <object class="GtkAdjustment">
-                      <property name="lower">1</property>
-                      <property name="upper">3</property>
-                      <property name="step-increment">0.05</property>
-                      <property name="page-increment">0.1</property>
-                    </object>
-                  </property>
+              <property name="digits">2</property>
+              <property name="adjustment">
+                <object class="GtkAdjustment">
+                  <property name="lower">1</property>
+                  <property name="upper">3</property>
+                  <property name="step-increment">0.05</property>
+                  <property name="page-increment">0.1</property>
                 </object>
-              </child>
+              </property>
             </object>
           </child>
           <child>
@@ -169,81 +157,58 @@
         <object class="AdwPreferencesGroup">
           <property name="title" translatable="yes">Page</property>
           <child>
-            <object class="AdwActionRow">
+            <object class="AdwSpinRow" id="gap">
               <property name="title" translatable="yes">Margins</property>
-              <child>
-                <object class="GtkSpinButton" id="gap">
-                  <property name="valign">center</property>
-                  <property name="digits">2</property>
-                  <property name="adjustment">
-                    <object class="GtkAdjustment">
-                      <property name="lower">0</property>
-                      <property name="upper">0.5</property>
-                      <property name="step-increment">0.01</property>
-                      <property name="page-increment">0.01</property>
-                    </object>
-                  </property>
+              <property name="digits">2</property>
+              <property name="adjustment">
+                <object class="GtkAdjustment">
+                  <property name="lower">0</property>
+                  <property name="upper">0.5</property>
+                  <property name="step-increment">0.01</property>
+                  <property name="page-increment">0.01</property>
                 </object>
-              </child>
+              </property>
             </object>
           </child>
           <child>
-            <object class="AdwActionRow">
+            <object class="AdwSpinRow" id="max-column-count">
               <property name="title" translatable="yes">Maximum Number of Columns</property>
-              <child>
-                <object class="GtkSpinButton" id="max-column-count">
-                  <property name="valign">center</property>
-                  <property name="digits">0</property>
-                  <property name="adjustment">
-                    <object class="GtkAdjustment">
-                      <property name="lower">1</property>
-                      <property name="upper">10</property>
-                      <property name="step-increment">1</property>
-                      <property name="page-increment">1</property>
-                    </object>
-                  </property>
+              <property name="adjustment">
+                <object class="GtkAdjustment">
+                  <property name="lower">1</property>
+                  <property name="upper">10</property>
+                  <property name="step-increment">1</property>
+                  <property name="page-increment">1</property>
                 </object>
-              </child>
+              </property>
             </object>
           </child>
           <child>
-            <object class="AdwActionRow">
+            <object class="AdwSpinRow" id="max-inline-size">
               <property name="title" translatable="yes">Maximum Inline Size</property>
               <property name="subtitle" translatable="yes">Maximum column width (horizontal writing) or height (vertical writing)</property>
-              <child>
-                <object class="GtkSpinButton" id="max-inline-size">
-                  <property name="valign">center</property>
-                  <property name="digits">0</property>
-                  <property name="adjustment">
-                    <object class="GtkAdjustment">
-                      <property name="lower">100</property>
-                      <property name="upper">5000</property>
-                      <property name="step-increment">60</property>
-                      <property name="page-increment">60</property>
-                    </object>
-                  </property>
+              <property name="adjustment">
+                <object class="GtkAdjustment">
+                  <property name="lower">100</property>
+                  <property name="upper">5000</property>
+                  <property name="step-increment">60</property>
+                  <property name="page-increment">60</property>
                 </object>
-              </child>
+              </property>
             </object>
           </child>
           <child>
-            <object class="AdwActionRow">
+            <object class="AdwSpinRow" id="max-block-size">
               <property name="title" translatable="yes">Maximum Block Size</property>
               <property name="subtitle" translatable="yes">Maximum height (horizontal writing) or width (vertical writing)</property>
-              <child>
-                <object class="GtkSpinButton" id="max-block-size">
-                  <property name="valign">center</property>
-                  <property name="digits">0</property>
-                  <property name="adjustment">
-                    <object class="GtkAdjustment">
-                      <property name="lower">100</property>
-                      <property name="upper">5000</property>
-                      <property name="step-increment">60</property>
-                      <property name="page-increment">60</property>
-                    </object>
-                  </property>
+              <property name="adjustment">
+                <object class="GtkAdjustment">
+                  <property name="lower">100</property>
+                  <property name="upper">5000</property>
+                  <property name="step-increment">60</property>
+                  <property name="page-increment">60</property>
                 </object>
-              </child>
+              </property>
             </object>
           </child>
         </object>
