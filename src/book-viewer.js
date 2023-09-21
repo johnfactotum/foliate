@@ -601,7 +601,7 @@ export const BookViewer = GObject.registerClass({
     InternalChildren: [
         'top-overlay-box', 'top-overlay-stack',
         'error-page', 'error-page-expander', 'error-page-details',
-        'view', 'flap', 'sidebar', 'resize-handle',
+        'view', 'flap', 'breakpoint-bin', 'sidebar', 'resize-handle',
         'headerbar-revealer', 'navbar-revealer',
         'book-menu-button', 'bookmark-button',
         'view-popover', 'zoom-button',
@@ -647,7 +647,21 @@ export const BookViewer = GObject.registerClass({
             this._zoom_button.label = format.percent(webView.zoom_level))
 
         // sidebar
-        const setFoldSidebar = () => this._flap.collapsed = this.fold_sidebar
+        let breakpointApplied
+        this._breakpoint_bin.add_breakpoint(utils.connect(new Adw.Breakpoint({
+            condition: Adw.BreakpointCondition.parse('max-width: 720px'),
+        }), {
+            'apply': () => {
+                breakpointApplied = true
+                this._flap.collapsed = true
+            },
+            'unapply': () => {
+                breakpointApplied = false
+                this._flap.collapsed = this.fold_sidebar
+            },
+        }))
+        const setFoldSidebar = () =>
+            this._flap.collapsed = breakpointApplied || this.fold_sidebar
         this.connect('notify::fold-sidebar', setFoldSidebar)
         setFoldSidebar()
         this._resize_handle.cursor = Gdk.Cursor.new_from_name('col-resize', null)
