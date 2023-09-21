@@ -310,10 +310,6 @@ export const tree = (arr, item, autoexpand = true) => {
     return Gtk.TreeListModel.new(root, false, autoexpand, item => item.subitems ?? null)
 }
 
-// see https://gitlab.gnome.org/GNOME/gtk/-/issues/4237
-export const scrollListView = (listView, pos) =>
-    listView.activate_action('list.scroll-to-item', new GLib.Variant('u', pos))
-
 // go through all child widgets
 export const walk = (widget, callback) => {
     const f = widget => {

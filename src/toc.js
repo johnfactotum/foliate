@@ -104,8 +104,7 @@ GObject.registerClass({
             }
         }
         this.#shouldGoToTocItem = false
-        model.set_selected(index)
-        utils.scrollListView(this, index)
+        this.scroll_to(index, Gtk.ListScrollFlags.SELECT, null)
         this.#shouldGoToTocItem = true
     }
 })

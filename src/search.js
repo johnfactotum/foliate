@@ -52,7 +52,7 @@ GObject.registerClass({
         })
         utils.addPropertyActions(this.settings, this.settings.keys, this.actionGroup)
         this.model.connect('selection-changed', sel => {
-            utils.scrollListView(this, sel.selected)
+            this.scroll_to(sel.selected, Gtk.ListScrollFlags.NONE, null)
             const { cfi } = sel.selected_item?.item ?? {}
             if (cfi) this.emit('show-cfi', cfi)
         })
