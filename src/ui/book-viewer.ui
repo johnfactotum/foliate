@@ -214,9 +214,9 @@
 
     <object class="AdwOverlaySplitView" id="flap">
       <property name="enable-show-gesture">False</property>
+      <property name="sidebar-width-unit">px</property>
       <child type="sidebar">
         <object class="GtkOverlay" id="sidebar">
-          <property name="width-request">300</property>
           <child type="overlay">
             <object class="GtkBox" id="resize-handle">
               <property name="width-request">4</property>

@@ -649,7 +649,8 @@ export const BookViewer = GObject.registerClass({
         // sidebar
         let breakpointApplied
         this._breakpoint_bin.add_breakpoint(utils.connect(new Adw.Breakpoint({
-            condition: Adw.BreakpointCondition.parse('max-width: 720px'),
+            // min sidebar width (defaults to 180) + min page width (360) = 540
+            condition: Adw.BreakpointCondition.parse('max-width: 540px'),
         }), {
             'apply': () => {
                 breakpointApplied = true
@@ -666,10 +667,25 @@ export const BookViewer = GObject.registerClass({
         setFoldSidebar()
         this._resize_handle.cursor = Gdk.Cursor.new_from_name('col-resize', null)
         this._resize_handle.add_controller(utils.connect(new Gtk.GestureDrag(), {
-            'drag-update': (_, x) => this._sidebar.width_request += x,
+            'drag-update': (_, x) => {
+                if (this._flap.collapsed) {
+                    this._flap.max_sidebar_width += x
+                } else {
+                    const sidebarWidth = this._sidebar.get_width() + x
+                    const totalWidth = this.get_width()
+                    this._flap.sidebar_width_fraction =
+                        Math.max(0, Math.min(1, sidebarWidth / totalWidth))
+                }
+            },
         }))
-        this._flap.connect('notify::show-sidebar', flap =>
-            (flap.show_sidebar ? this._library_button : this._view).grab_focus())
+        const onSidebarCollapsedChanged = flap =>
+            flap.max_sidebar_width = flap.collapsed ? 300 : 360
+        onSidebarCollapsedChanged(this._flap)
+        utils.connect(this._flap, {
+            'notify::collapsed': onSidebarCollapsedChanged,
+            'notify::show-sidebar': flap =>
+                (flap.show_sidebar ? this._library_button : this._view).grab_focus(),
+        })
 
         // revealers
         const autohideHeaderbar = autohide(this._headerbar_revealer,
