@@ -264,6 +264,7 @@
                       <style><class name="linked"/></style>
                       <child>
                         <object class="GtkEntry" id="search-entry">
+                          <property name="hexpand">True</property>
                           <property name="primary-icon-name">edit-find-symbolic</property>
                           <property name="secondary-icon-name"></property>
                           <property name="placeholder-text" translatable="yes">Find in book…</property>
@@ -280,6 +281,15 @@
                   </child>
                 </object>
               </child>
+              <child type="bottom">
+                <object class="AdwViewSwitcher" id="contents-stack-switcher">
+                  <property name="stack">contents-stack</property>
+                  <property name="margin-top">6</property>
+                  <property name="margin-bottom">6</property>
+                  <property name="margin-start">6</property>
+                  <property name="margin-end">6</property>
+                </object>
+              </child>
               <child>
                 <object class="GtkStack" id="sidebar-stack">
                   <child>
@@ -289,23 +299,10 @@
                         <object class="GtkBox">
                           <property name="orientation">vertical</property>
                           <child>
-                            <object class="GtkStackSwitcher">
-                              <property name="stack">contents-stack</property>
-                              <property name="margin-top">6</property>
-                              <property name="margin-bottom">6</property>
-                              <property name="margin-start">6</property>
-                              <property name="margin-end">6</property>
-                            </object>
-                          </child>
-                          <child>
-                            <object class="GtkSeparator">
-                            </object>
-                          </child>
-                          <child>
-                            <object class="GtkStack" id="contents-stack">
+                            <object class="AdwViewStack" id="contents-stack">
                               <property name="vexpand">True</property>
                               <child>
-                                <object class="GtkStackPage">
+                                <object class="AdwViewStackPage">
                                   <property name="name">toc</property>
                                   <property name="title" translatable="yes">Contents</property>
                                   <property name="icon-name">view-list-symbolic</property>
@@ -316,7 +313,6 @@
                                         <object class="GtkBox" id="book-info">
                                           <property name="margin-start">6</property>
                                           <property name="margin-end">6</property>
-                                          <property name="margin-top">6</property>
                                           <property name="margin-bottom">6</property>
                                           <property name="spacing">6</property>
                                           <property name="hexpand">False</property>
@@ -385,7 +381,7 @@
                                 </object>
                               </child>
                               <child>
-                                <object class="GtkStackPage">
+                                <object class="AdwViewStackPage">
                                   <property name="name">annotations</property>
                                   <property name="title" translatable="yes">Annotations</property>
                                   <property name="icon-name">document-edit-symbolic</property>
@@ -443,7 +439,7 @@
                                 </object>
                               </child>
                               <child>
-                                <object class="GtkStackPage">
+                                <object class="AdwViewStackPage">
                                   <property name="name">bookmarks</property>
                                   <property name="title" translatable="yes">Bookmarks</property>
                                   <property name="icon-name">user-bookmarks-symbolic</property>

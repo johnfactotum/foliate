@@ -606,7 +606,9 @@ export const BookViewer = GObject.registerClass({
         'book-menu-button', 'bookmark-button',
         'view-popover', 'zoom-button',
         'navbar',
-        'library-button', 'sidebar-stack', 'contents-stack', 'toc-view',
+        'library-button', 'sidebar-stack',
+        'contents-stack', 'contents-stack-switcher',
+        'toc-view',
         'search-view', 'search-bar', 'search-entry',
         'annotation-stack', 'annotation-view', 'annotation-search-entry',
         'bookmark-stack', 'bookmark-view',
@@ -688,6 +690,8 @@ export const BookViewer = GObject.registerClass({
             this._search_view.reset().catch(e => console.error(e))
             this._sidebar_stack.visible_child_name = 'main'
         })
+        this._sidebar_stack.connect('notify::visible-child-name', stack =>
+            this._contents_stack_switcher.visible = stack.visible_child_name === 'main')
         utils.connect(this._search_entry, {
             'activate': this._search_view.doSearch,
             'changed': entry =>
