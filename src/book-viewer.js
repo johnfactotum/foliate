@@ -19,6 +19,7 @@ import './navbar.js'
 import {
     AnnotationPopover, AnnotationModel, BookmarkModel, exportAnnotations,
 } from './annotations.js'
+import { SelectionPopover } from './selection-tools.js'
 import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
 import { getURIStore, getBookList } from './library.js'
@@ -577,12 +578,6 @@ GObject.registerClass({
     grab_focus() { return this.#webView.grab_focus() }
 })
 
-const SelectionPopover = GObject.registerClass({
-    GTypeName: 'FoliateSelectionPopover',
-    Template: pkg.moduleuri('ui/selection-popover.ui'),
-}, class extends Gtk.PopoverMenu {
-})
-
 const autohide = (revealer, shouldStayVisible) => {
     const show = () => revealer.reveal_child = true
     const hide = () => revealer.reveal_child = false
@@ -951,7 +946,7 @@ export const BookViewer = GObject.registerClass({
             this.#data.storage.set('lastLocation', cfi)
         }
     }
-    #showSelection({ type, value, text, pos: { point, dir } }) {
+    #showSelection({ type, value, text, lang, pos: { point, dir } }) {
         if (type === 'annotation') return new Promise(resolve => {
             const annotation = this.#data.annotations.get(value)
             const popover = utils.connect(new AnnotationPopover({ annotation }), {
@@ -991,10 +986,14 @@ export const BookViewer = GObject.registerClass({
                 },
                 'print': () => resolve('print'),
             }))
-            // it seems `closed` is emitted before the actions are run
-            // so it needs the timeout
-            popover.connect('closed', () => setTimeout(() =>
-                resolved ? null : resolve(), 0))
+            utils.connect(popover, {
+                'show-popover': (_, popover) =>
+                    this._view.showPopover(popover, point, dir),
+                'run-tool': () => ({ text, lang }),
+                // it seems `closed` is emitted before the actions are run
+                // so it needs the timeout
+                'closed': () => setTimeout(() => resolved ? null : resolve(), 0),
+            })
             this._view.showPopover(popover, point, dir)
         })
     }

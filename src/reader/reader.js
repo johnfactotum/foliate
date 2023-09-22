@@ -33,6 +33,12 @@ const getSelectionRange = doc => {
     return range
 }
 
+const getLang = el => {
+    const lang = el.lang || el?.getAttributeNS?.('http://www.w3.org/XML/1998/namespace', 'lang')
+    if (lang) return lang
+    if (el.parentElement) return getLang(el.parentElement)
+}
+
 const blobToBase64 = blob => new Promise(resolve => {
     const reader = new FileReader()
     reader.readAsDataURL(blob)
@@ -363,7 +369,8 @@ class Reader {
             if (!range) return
             const pos = getPosition(range)
             const value = this.view.getCFI(index, range)
-            this.#showSelection({ range, value, pos })
+            const lang = getLang(range.commonAncestorContainer)
+            this.#showSelection({ range, lang, value, pos })
         })
 
         if (!this.view.isFixedLayout)
@@ -386,9 +393,9 @@ class Reader {
                     this.#showSelection({ range, value, pos })
             })
     }
-    #showSelection({ range, value, pos }) {
+    #showSelection({ range, lang, value, pos }) {
         const text = range.toString()
-        globalThis.showSelection({ type: 'selection', text, value, pos })
+        globalThis.showSelection({ type: 'selection', text, lang, value, pos })
             .then(action => {
                 if (action === 'copy') getHTML(range).then(html =>
                     emit({ type: 'selection', action, text, html }))
