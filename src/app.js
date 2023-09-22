@@ -67,6 +67,15 @@ const ApplicationWindow = GObject.registerClass({
             content: new Adw.ToastOverlay(),
         })
         this.content.child = this.#leaflet
+
+        const styleManager = Adw.StyleManager.get_default()
+        if (styleManager.dark) this.add_css_class('is-dark')
+        const handler = styleManager.connect('notify::dark', ({ dark }) => {
+            if (dark) this.add_css_class('is-dark')
+            else this.remove_css_class('is-dark')
+        })
+        this.connect('destroy', () => styleManager.disconnect(handler))
+
         utils.addMethods(this, {
             actions: ['open', 'close', 'show-library', 'show-menu', 'new-window', 'open-copy'],
             props: ['fullscreened'],

@@ -86,6 +86,9 @@ themeCssProvider.load_from_data(`
 ` + themes.map(theme => {
     const id = `theme-${GLib.uuid_string_random()}`
     theme.id = id
+    // NOTE: .92 matches Libadwaita's sidebar color when the bg is white
+    // in dark mode it should use 1.41 to match Libadwaita
+    // but it seems better to tone it down as many dark themes are quite bright
     return `
         .${id} {
             color: ${theme.light.fg};
@@ -93,7 +96,21 @@ themeCssProvider.load_from_data(`
         }
         .is-dark .${id} {
             color: ${theme.dark.fg};
-            background-color: ${theme.dark.bg};
+            background: ${theme.dark.bg};
+        }
+        .sidebar-${id}:not(.background) {
+            color: ${theme.light.fg};
+            background: shade(${theme.light.bg}, .92);
+        }
+        .is-dark .sidebar-${id}:not(.background) {
+            color: ${theme.dark.fg};
+            background: shade(${theme.dark.bg}, 1.2);
+        }
+        .${id} highlight {
+            background: ${theme.light.link};
+        }
+        .is-dark .${id} highlight {
+            background: ${theme.dark.link};
         }
     `
 }).join(''), -1)
@@ -645,6 +662,23 @@ export const BookViewer = GObject.registerClass({
         this._view.viewSettings.bindSettings('viewer.view')
         this._view.webView.connect('notify::zoom-level', webView =>
             this._zoom_button.label = format.percent(webView.zoom_level))
+
+        let lastThemeClass
+        const recolorUI = view => {
+            const theme = themes.find(theme => theme.name === view.theme) ?? themes[0]
+            const name = theme.id
+            if (lastThemeClass) {
+                this._sidebar.parent.remove_css_class('sidebar-' + lastThemeClass)
+                this._headerbar_revealer.get_first_child().remove_css_class(lastThemeClass)
+                this._navbar_revealer.get_first_child().remove_css_class(lastThemeClass)
+            }
+            this._sidebar.parent.add_css_class('sidebar-' + name)
+            this._headerbar_revealer.get_first_child().add_css_class(name)
+            this._navbar_revealer.get_first_child().add_css_class(name)
+            lastThemeClass = name
+        }
+        recolorUI(this._view.viewSettings)
+        this._view.viewSettings.connect('notify::theme', recolorUI)
 
         // sidebar
         let breakpointApplied
