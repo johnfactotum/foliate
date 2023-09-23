@@ -8,42 +8,31 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import { WebView } from './webview.js'
 
-const tools = {
-    'dictionary': {
-        label: _('Dictionary'),
-        run: ({ text, lang }) => {
-            const { language } = new Intl.Locale(lang)
-            return `
-<base href="https://en.wiktionary.org/wiki/Wiktionary:Main_Page">
-<style>
+const getLanguage = lang => {
+    try {
+        return new Intl.Locale(lang).language
+    } catch (e) {
+        console.warn(e)
+        return 'en'
+    }
+}
+
+const commonStyle = `
 html, body {
     color-scheme: light dark;
     font: menu;
 }
-a:any-link {
-    color: highlight;
+h1 {
+    font-size: larger;
 }
 h2 {
     font-size: smaller;
 }
+a:any-link {
+    color: highlight;
+}
 ul, ol {
     padding-inline-start: 2em;
-}
-ul {
-    margin: .5em 0;
-    font-style: italic;
-    opacity: .75;
-    font-size: smaller;
-    list-style: none;
-}
-h1 {
-    font-size: larger;
-    padding-inline-end: 1em;
-    display: inline;
-}
-hgroup p {
-    font-size: smaller;
-    display: inline;
 }
 footer {
     font-size: smaller;
@@ -63,13 +52,38 @@ footer {
     justify-content: center;
     align-items: center;
 }
+`
+
+const tools = {
+    'dictionary': {
+        label: _('Dictionary'),
+        run: ({ text, lang }) => {
+            const language = getLanguage(lang)
+            return `
+<base href="https://en.wiktionary.org/wiki/Wiktionary:Main_Page">
+<style>
+${commonStyle}
+ul {
+    margin: .5em 0;
+    font-style: italic;
+    opacity: .75;
+    font-size: smaller;
+    list-style: none;
+}
+h1 {
+    padding-inline-end: 1em;
+    display: inline;
+}
+hgroup p {
+    font-size: smaller;
+    display: inline;
+}
 </style>
 <main></main>
 <footer><p>${_('From <a id="link">Wiktionary</a>, released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA License</a>.')}</footer>
 <script>
 const main = document.querySelector('main')
 const footer = document.querySelector('footer')
-const link = document.querySelector('#link')
 const wiktionary = (word, language, languageName) => {
     document.body.dataset.state = 'loading'
     return fetch('https://en.wiktionary.org/api/rest_v1/page/definition/' + encodeURI(word))
@@ -104,7 +118,7 @@ const wiktionary = (word, language, languageName) => {
                     }
                 }
             }
-            link.href = '/wiki/' + word
+            document.querySelector('#link').href = '/wiki/' + word
             document.body.dataset.state = 'loaded'
         })
         .catch(e => {
@@ -148,8 +162,67 @@ main.addEventListener('click', e => {
     }
 })
 
-wiktionary(decodeURIComponent("${encodeURIComponent(text)}"),
-    decodeURIComponent("${encodeURIComponent(language)}"))
+wiktionary(decodeURIComponent("${encodeURIComponent(text)}"), "${language}")
+</script>`
+        },
+    },
+    'wikipedia': {
+        label: _('Wikipedia'),
+        run: ({ text, lang }) => {
+            const language = getLanguage(lang)
+            return `<style>
+${commonStyle}
+hgroup {
+    color: #fff;
+    background-position: center center;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, .4);
+    background-blend-mode: darken;
+    border-radius: 6px;
+    padding: 12px;
+    margin: -8px;
+    margin-bottom: 0;
+    min-height: 100px;
+}
+</style>
+<main></main>
+<footer><p>${_('From <a id="link">Wikipedia</a>, released under the <a href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-ShareAlike_4.0_International_License">CC BY-SA License</a>.')}</footer>
+<script>
+const main = document.querySelector('main')
+document.body.dataset.state = 'loading'
+const word = decodeURIComponent("${encodeURIComponent(text)}")
+fetch('https://${language}.wikipedia.org/api/rest_v1/page/summary/' + word)
+    .then(res => res.ok ? res.json() : Promise.reject(new Error()))
+    .then(json => {
+        const hgroup = document.createElement('hgroup')
+        const h1 = document.createElement('h1')
+        h1.innerHTML = json.titles.display
+        hgroup.append(h1)
+        if (json.description) {
+            const p = document.createElement('p')
+            p.innerText = json.description
+            hgroup.append(p)
+        }
+        if (json.thumbnail)
+            hgroup.style.backgroundImage = 'url("' + json.thumbnail.source + '")'
+        const div = document.createElement('div')
+        div.innerHTML = json.extract_html
+        main.append(hgroup, div)
+        main.dir = json.dir
+        document.querySelector('#link').href = json.content_urls.desktop.page
+        document.body.dataset.state = 'loaded'
+    })
+    .catch(e => {
+        console.error(e)
+        const div = document.createElement('div')
+        const h1 = document.createElement('h1')
+        h1.innerText = decodeURIComponent("${encodeURIComponent(_('No Definitions Found'))}")
+        const p = document.createElement('p')
+        p.innerHTML = \`<a href="https://${language}.wikipedia.org/w/index.php?search=${encodeURIComponent(text)}">${_('Search on Wikipedia')}</a>\`
+        div.append(h1, p)
+        main.append(div)
+        document.body.dataset.state = 'error'
+    })
 </script>`
         },
     },
