@@ -87,7 +87,7 @@ const ApplicationWindow = GObject.registerClass({
         if (this.file) this.openFile(this.file)
         else this.showLibrary()
     }
-    toast(toast) {
+    add_toast(toast) {
         this.content.add_toast(toast)
     }
     openFile(file) {

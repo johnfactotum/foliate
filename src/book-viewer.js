@@ -952,7 +952,7 @@ export const BookViewer = GObject.registerClass({
             const popover = utils.connect(new AnnotationPopover({ annotation }), {
                 'delete-annotation': () => {
                     this.#data.deleteAnnotation(annotation)
-                    this.root.toast(utils.connect(new Adw.Toast({
+                    this.root.add_toast(utils.connect(new Adw.Toast({
                         title: _('Annotation deleted'),
                         button_label: _('Undo'),
                     }), { 'button-clicked': () =>
@@ -969,6 +969,8 @@ export const BookViewer = GObject.registerClass({
             const popover = new SelectionPopover()
             popover.insert_action_group('selection', utils.addSimpleActions({
                 'copy': () => resolve('copy'),
+                'copy-cfi': () => utils.setClipboardText(value, this.root),
+                'copy-citation': () => resolve('copy-citation'),
                 'highlight': () => {
                     resolved = true
                     const annotation = this.#data.annotations.get(value)
@@ -997,12 +999,33 @@ export const BookViewer = GObject.registerClass({
             this._view.showPopover(popover, point, dir)
         })
     }
-    #onSelection({ action, text, html }) {
-        if (action === 'copy') utils.getClipboard()
-            .set_content(Gdk.ContentProvider.new_union([
+    #onSelection(payload) {
+        const { action, text, html } = payload
+        if (action === 'copy') {
+            utils.getClipboard().set_content(Gdk.ContentProvider.new_union([
                 Gdk.ContentProvider.new_for_bytes('text/html',
                     new TextEncoder().encode(html)),
                 Gdk.ContentProvider.new_for_value(text)]))
+            utils.addClipboardToast(this.root)
+        }
+        else if (action === 'copy-citation') {
+            const page = payload.pageItem?.label
+            const title = this._book_title.label
+            const author = this._book_author.label
+            const result = page
+                ? (author
+                    ? format.vprintf(_('‘%s’\n—%s, “%s”, p. %s'), [text, author, title, page])
+                    : title
+                        ? format.vprintf(_('‘%s’\n—“%s”, p. %s'), [text, title, page])
+                        : format.vprintf(_('‘%s’ (p. %s)'), [text, page])
+                )
+                : author
+                    ? format.vprintf(_('‘%s’\n—%s, “%s”'), [text, author, title])
+                    : title
+                        ? format.vprintf(_('‘%s’\n—“%s”'), [text, title])
+                        : format.vprintf(_('‘%s’'), [text])
+            utils.setClipboardText(result, this.root)
+        }
     }
     #createOverlay({ index }) {
         if (!this.#data) return
@@ -1022,8 +1045,7 @@ export const BookViewer = GObject.registerClass({
             'copy': () => {
                 utils.getClipboard().set_content(Gdk.ContentProvider
                     .new_for_bytes(mimetype, bytes))
-                win.content.add_toast(
-                    new Adw.Toast({ title: _('Copied to clipboard') }))
+                utils.addClipboardToast(win.content)
             },
             'save-as': () => {
                 const ext = /\/([^+]*)/.exec(mimetype)?.[1]

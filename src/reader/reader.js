@@ -327,9 +327,9 @@ class Reader {
         this.view.addEventListener('create-overlay', e =>
             emit({ type: 'create-overlay', ...e.detail }))
         this.view.addEventListener('show-annotation', e => {
-            const { value, range } = e.detail
+            const { value, index, range } = e.detail
             const pos = getPosition(range)
-            this.#showAnnotation({ range, value, pos })
+            this.#showAnnotation({ index, range, value, pos })
         })
         this.view.addEventListener('draw-annotation', e => {
             const { draw, annotation, doc, range } = e.detail
@@ -370,7 +370,7 @@ class Reader {
             const pos = getPosition(range)
             const value = this.view.getCFI(index, range)
             const lang = getLang(range.commonAncestorContainer)
-            this.#showSelection({ range, lang, value, pos })
+            this.#showSelection({ index, range, lang, value, pos })
         })
 
         if (!this.view.isFixedLayout)
@@ -386,24 +386,32 @@ class Reader {
                     this.view.next()
             }, 1000))
     }
-    #showAnnotation({ range, value, pos }) {
+    #showAnnotation({ index, range, value, pos }) {
         globalThis.showSelection({ type: 'annotation', value, pos })
             .then(action => {
                 if (action === 'select')
-                    this.#showSelection({ range, value, pos })
+                    this.#showSelection({ index, range, value, pos })
             })
     }
-    #showSelection({ range, lang, value, pos }) {
+    #showSelection({ index, range, lang, value, pos }) {
         const text = range.toString()
-        globalThis.showSelection({ type: 'selection', text, lang, value, pos })
-            .then(action => {
-                if (action === 'copy') getHTML(range).then(html =>
+        globalThis.showSelection({ type: 'selection', text, lang, value, pos }).then(action => {
+            switch (action) {
+                case 'copy': getHTML(range).then(html =>
                     emit({ type: 'selection', action, text, html }))
-                else if (action === 'highlight')
-                    this.#showAnnotation({ range, value, pos })
-                else if (action === 'print')
+                    break
+                case 'copy-citation':
+                    emit({ type: 'selection', action, text, value,
+                        ...this.view.getProgressOf(index, range) })
+                    break
+                case 'highlight':
+                    this.#showAnnotation({ index, range, value, pos })
+                    break
+                case 'print':
                     this.printRange(range.startContainer.ownerDocument, range)
-            })
+                    break
+            }
+        })
     }
     #onLink(e) {
         const { a, href } = e.detail

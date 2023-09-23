@@ -1,9 +1,11 @@
 import Gtk from 'gi://Gtk'
+import Adw from 'gi://Adw'
 import GObject from 'gi://GObject'
 import Gio from 'gi://Gio'
 import GLib from 'gi://GLib'
 import Gdk from 'gi://Gdk'
 import GdkPixbuf from 'gi://GdkPixbuf'
+import { gettext as _ } from 'gettext'
 
 // convert to camel case
 const camel = x => x.toLowerCase().replace(/[-:](.)/g, (_, g) => g.toUpperCase())
@@ -133,8 +135,10 @@ export const JSONStorage = GObject.registerClass({
 
 export const getClipboard = () => Gdk.Display.get_default().get_clipboard()
 
-export const setClipboardText = text => getClipboard()
-    .set_content(Gdk.ContentProvider.new_for_value(text))
+export const setClipboardText = (text, overlay) => {
+    getClipboard().set_content(Gdk.ContentProvider.new_for_value(text))
+    if (overlay) addClipboardToast(overlay)
+}
 
 export const getClipboardText = () => new Promise((resolve, reject) => {
     const clipboard = getClipboard()
@@ -146,6 +150,9 @@ export const getClipboardText = () => new Promise((resolve, reject) => {
         }
     })
 })
+
+export const addClipboardToast = overlay =>
+    overlay.add_toast(new Adw.Toast({ title: _('Copied to clipboard'), timeout: 1 }))
 
 export const base64ToPixbuf = base64 => {
     if (!base64) return null

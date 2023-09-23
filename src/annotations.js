@@ -119,7 +119,7 @@ GObject.registerClass({
                 const row = new BookmarkRow()
                 row.button.connect('clicked', () => {
                     this.model.model.delete(row.value)
-                    this.root.toast(utils.connect(new Adw.Toast({
+                    this.root.add_toast(utils.connect(new Adw.Toast({
                         title: _('Bookmark deleted'),
                         button_label: _('Undo'),
                     }), { 'button-clicked': () =>
@@ -154,7 +154,7 @@ GObject.registerClass({
         if (inView.length) {
             const marks = inView.map(x => x[0])
             for (const { value } of marks) model.delete(value)
-            this.root.toast(utils.connect(new Adw.Toast({
+            this.root.add_toast(utils.connect(new Adw.Toast({
                 title: _('Bookmark deleted'),
                 button_label: _('Undo'),
             }), { 'button-clicked': () =>

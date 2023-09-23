@@ -1,8 +1,6 @@
 import Gtk from 'gi://Gtk'
-import Adw from 'gi://Adw'
 import GObject from 'gi://GObject'
 import Pango from 'gi://Pango'
-import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 
@@ -223,9 +221,8 @@ GObject.registerClass({
         this._landmark_view.load(landmarks)
     }
     copyCfi() {
-        utils.setClipboardText(this._cfi_entry.text)
+        utils.setClipboardText(this._cfi_entry.text, this.root)
         this._location_popover.popdown()
-        this.root.toast(new Adw.Toast({ title: _('Copied to clipboard'), timeout: 1 }))
     }
     pasteCfi() {
         utils.getClipboardText()
