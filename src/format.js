@@ -10,7 +10,7 @@ const getCanonicalLocale = locale => {
 const glibcLocaleToBCP47 = str => getCanonicalLocale(
     str === 'C' ? 'en' : str.split('.')[0].replace('_', '-'))
 
-const locales = GLib.get_language_names().map(glibcLocaleToBCP47).filter(x => x)
+export const locales = GLib.get_language_names().map(glibcLocaleToBCP47).filter(x => x)
 try {
     const settings = new Gio.Settings({ schema_id: 'org.gnome.system.locale' })
     const locale = glibcLocaleToBCP47(settings.get_string('region'))
