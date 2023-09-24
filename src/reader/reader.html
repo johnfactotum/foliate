@@ -64,6 +64,8 @@ foliate-view::part(head), foliate-view::part(foot) {
     border: 0;
     box-shadow: 0 0 0 1px var(--border), 0 0 12px rgba(0, 0, 0, .2);
     -webkit-user-select: none;
+    background: var(--bg);
+    color: var(--fg);
 }
 #footnote-dialog div {
     display: flex;
@@ -90,6 +92,7 @@ foliate-view::part(head), foliate-view::part(foot) {
     margin: 0;
     padding: 12px;
     font-weight: bold;
+    color: inherit;
     background: none;
 }
 #footnote-dialog button:hover {
