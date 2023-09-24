@@ -187,6 +187,40 @@ const getCSS = ({ lineHeight, justify, hyphenate, invert, theme, userStylesheet 
         tab-size: 2;
     }
 `, `
+    @media (prefers-color-scheme: light) {
+        ${theme.light.bg !== '#ffffff' ? `
+        html, body {
+            color: ${theme.light.fg} !important;
+            background: none !important;
+        }
+        body * {
+            color: inherit !important;
+            border-color: currentColor !important;
+            background-color: ${theme.light.bg} !important;
+        }
+        a:any-link {
+            color: ${theme.light.link} !important;
+        }
+        svg, img {
+            background-color: transparent !important;
+            mix-blend-mode: multiply;
+        }` : ''}
+    }
+    @media (prefers-color-scheme: dark) {
+        ${invert ? '' : `
+        html, body {
+            color: ${theme.dark.fg} !important;
+            background: none !important;
+        }
+        body * {
+            color: inherit !important;
+            border-color: currentColor !important;
+            background-color: ${theme.dark.bg} !important;
+        }
+        a:any-link {
+            color: ${theme.dark.link} !important;
+        }`}
+    }
     p, li, blockquote, dd {
         line-height: ${lineHeight};
         text-align: ${justify ? 'justify' : 'start'};
