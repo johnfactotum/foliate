@@ -52,14 +52,5 @@ else {
 }
 pkg.useResource = MESON
 
-// run application
-// see https://gitlab.gnome.org/GNOME/gjs/-/issues/468
-const { mainloop } = imports
-import(pkg.moduleuri('app.js'))
-    .then(({ Application }) => setTimeout(() => {
-        mainloop.quit()
-        exit(new Application().run([programInvocationName, ...programArgs]))
-    }))
-    .catch(e => console.error(e))
-
-mainloop.run()
+const { Application } = await import(pkg.moduleuri('app.js'))
+exit(await new Application().runAsync([programInvocationName, ...programArgs]))
