@@ -119,7 +119,7 @@ GObject.registerClass({
                 const row = new BookmarkRow()
                 row.button.connect('clicked', () => {
                     this.model.model.delete(row.value)
-                    this.root.add_toast(utils.connect(new Adw.Toast({
+                    this.root.toast(utils.connect(new Adw.Toast({
                         title: _('Bookmark deleted'),
                         button_label: _('Undo'),
                     }), { 'button-clicked': () =>
@@ -154,7 +154,7 @@ GObject.registerClass({
         if (inView.length) {
             const marks = inView.map(x => x[0])
             for (const { value } of marks) model.delete(value)
-            this.root.add_toast(utils.connect(new Adw.Toast({
+            this.root.toast(utils.connect(new Adw.Toast({
                 title: _('Bookmark deleted'),
                 button_label: _('Undo'),
             }), { 'button-clicked': () =>
@@ -523,7 +523,7 @@ export const exportAnnotations = (window, data) => {
     dialog.present()
     builder.get_object('ok-button').connect('clicked', () => {
         const { selected } = builder.get_object('format-combo')
-        const format = ['json', 'html', 'md'][selected]
+        const format = ['json', 'html', 'md', 'org'][selected]
         const { metadata = {} } = data
         const title = vprintf(_('Annotations for “%s”'), [metadata.title])
         const total = vprintf(ngettext('%d Annotation', '%d Annotations', n), [n])
@@ -585,4 +585,18 @@ const exportFunctions = {
 **${color}** - \`${value}\`
 
 > ${mdEscape(text)}${note ? '\n\n' + mdEscape(note) : ''}`).join('')}`,
+    org: ({ annotations }, title, total) => `* ${title}
+${total}
+${annotations.map(({ value, text, color, note }) => `
+
+-----
+
+*${color}* - \`${value}\`
+
+#+begin_quote
+${text}
+#+end_quote
+${note}
+`)}
+`,
 }
