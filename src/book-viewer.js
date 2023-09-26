@@ -12,6 +12,7 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 import { WebView } from './webview.js'
+import * as speech from './speech.js'
 
 import './toc.js'
 import './search.js'
@@ -572,6 +573,8 @@ GObject.registerClass({
     addAnnotation(x) { return this.#exec('reader.view.addAnnotation', x) }
     deleteAnnotation(x) { return this.#exec('reader.view.deleteAnnotation', x) }
     print() { return this.#exec('reader.print') }
+    speak(x) { return this.#exec('reader.view.speak', x) }
+    hightlightSpeechMark(x) { return this.#exec('reader.view.hightlightSpeechMark', x) }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
     init(x) { return this.#exec('reader.view.init', x) }
     get webView() { return this.#webView }
@@ -809,6 +812,7 @@ export const BookViewer = GObject.registerClass({
                 'toggle-toc', 'toggle-annotations', 'toggle-bookmarks',
                 'preferences', 'show-info', 'bookmark',
                 'export-annotations',
+                'tts-speak', 'tts-stop',
             ],
             props: ['fold-sidebar'],
         })
@@ -1128,6 +1132,19 @@ export const BookViewer = GObject.registerClass({
     }
     exportAnnotations() {
         exportAnnotations(this.get_root(), this.#data.storage.export())
+    }
+    async #speak() {
+        const ssml = await this._view.speak('word')
+        const iter = await speech.speak(ssml)
+        for await (const { mark } of iter) {
+            if (mark) await this._view.hightlightSpeechMark(mark)
+        }
+    }
+    ttsSpeak() {
+        this.#speak().catch(e => console.error(e))
+    }
+    ttsStop() {
+        speech.stop().catch(e => console.error(e))
     }
     vfunc_unroot() {
         this._view.viewSettings.unbindSettings()

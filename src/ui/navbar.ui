@@ -14,12 +14,12 @@
     <attribute name="display-hint">horizontal-buttons</attribute>
     <item>
       <attribute name="label" translatable="yes">Start Speaking</attribute>
-      <attribute name="action">view.play</attribute>
+      <attribute name="action">viewer.tts-speak</attribute>
       <attribute name="verb-icon">media-playback-start-symbolic</attribute>
     </item>
     <item>
       <attribute name="label" translatable="yes">Stop Speaking</attribute>
-      <attribute name="action">view.pause</attribute>
+      <attribute name="action">viewer.tts-stop</attribute>
       <attribute name="verb-icon">media-playback-stop-symbolic</attribute>
     </item>
   </section>

@@ -50,7 +50,7 @@ class SSIPClient {
     }
 }
 
-export class SpeechD {
+class SpeechD {
     #promises = new Map()
     #client = new SSIPClient((msgID, result) =>
         this.#promises.get(msgID)?.resolve?.(result))
@@ -103,4 +103,10 @@ export class SpeechD {
             [Symbol.asyncIterator]: () => ({ next }),
         }
     }
+    stop() {
+        return this.#client.send('STOP all')
+    }
 }
+
+export const speak = str => new SpeechD().init().then(x => x.speak(str))
+export const stop = () => new SpeechD().init().then(x => x.stop())
