@@ -444,6 +444,12 @@ class Reader {
                 case 'print':
                     this.printRange(range.startContainer.ownerDocument, range)
                     break
+                case 'speak-from-here':
+                    this.view.initSpeech('word').then(() => emit({
+                        type: 'selection', action,
+                        mark: this.view.getSpeechMarkBefore(range),
+                    }))
+                    break
             }
         })
     }

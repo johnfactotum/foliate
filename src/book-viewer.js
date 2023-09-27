@@ -12,7 +12,7 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 import { WebView } from './webview.js'
-import * as speech from './speech.js'
+import { SSIPClient } from './speech.js'
 
 import './toc.js'
 import './search.js'
@@ -24,6 +24,8 @@ import { SelectionPopover } from './selection-tools.js'
 import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
 import { getURIStore, getBookList } from './library.js'
+
+const ssip = new SSIPClient()
 
 // for use in the WebView
 const uiText = {
@@ -573,7 +575,9 @@ GObject.registerClass({
     addAnnotation(x) { return this.#exec('reader.view.addAnnotation', x) }
     deleteAnnotation(x) { return this.#exec('reader.view.deleteAnnotation', x) }
     print() { return this.#exec('reader.print') }
+    initSpeech(x) { return this.#exec('reader.view.initSpeech', x) }
     speak(x) { return this.#exec('reader.view.speak', x) }
+    resumeSpeech() { return this.#exec('reader.view.resumeSpeech') }
     hightlightSpeechMark(x) { return this.#exec('reader.view.hightlightSpeechMark', x) }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
     init(x) { return this.#exec('reader.view.init', x) }
@@ -634,6 +638,7 @@ export const BookViewer = GObject.registerClass({
     #book
     #cover
     #data
+    #ttsPaused
     constructor(params) {
         super(params)
         utils.connect(this._view, {
@@ -812,7 +817,7 @@ export const BookViewer = GObject.registerClass({
                 'toggle-toc', 'toggle-annotations', 'toggle-bookmarks',
                 'preferences', 'show-info', 'bookmark',
                 'export-annotations',
-                'tts-speak', 'tts-stop',
+                'tts-speak', 'tts-pause', 'tts-stop',
             ],
             props: ['fold-sidebar'],
         })
@@ -991,6 +996,7 @@ export const BookViewer = GObject.registerClass({
                     this._search_view.doSearch()
                 },
                 'print': () => resolve('print'),
+                'speak-from-here': () => resolve('speak-from-here'),
             }))
             utils.connect(popover, {
                 'show-popover': (_, popover) =>
@@ -1030,6 +1036,8 @@ export const BookViewer = GObject.registerClass({
                         : format.vprintf(_('‘%s’'), [text])
             utils.setClipboardText(result, this.root)
         }
+        else if (action === 'speak-from-here')
+            this.#speak(payload.mark).catch(e => console.error(e))
     }
     #createOverlay({ index }) {
         if (!this.#data) return
@@ -1133,18 +1141,36 @@ export const BookViewer = GObject.registerClass({
     exportAnnotations() {
         exportAnnotations(this.get_root(), this.#data.storage.export())
     }
-    async #speak() {
-        const ssml = await this._view.speak('word')
-        const iter = await speech.speak(ssml)
-        for await (const { mark } of iter) {
+    async #speak(mark) {
+        await this._view.initSpeech('word')
+        const ssml = await (!mark && this.#ttsPaused
+            ? this._view.resumeSpeech()
+            : this._view.speak(mark))
+
+        const iter = await ssip.speak(ssml)
+        this.#ttsPaused = false
+
+        let state
+        for await (const { mark, message } of iter) {
             if (mark) await this._view.hightlightSpeechMark(mark)
+            else state = message
+        }
+        if (state === 'END') {
+            // FIXME: check if at end
+            await this._view.next()
+            return this.#speak()
         }
     }
     ttsSpeak() {
         this.#speak().catch(e => console.error(e))
     }
+    ttsPause() {
+        ssip.stop()
+            .then(() => this.#ttsPaused = true)
+            .catch(e => console.error(e))
+    }
     ttsStop() {
-        speech.stop().catch(e => console.error(e))
+        ssip.stop().catch(e => console.error(e))
     }
     vfunc_unroot() {
         this._view.viewSettings.unbindSettings()

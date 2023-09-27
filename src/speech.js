@@ -1,19 +1,28 @@
 import Gio from 'gi://Gio'
 import GLib from 'gi://GLib'
 
-class SSIPClient {
+class SSIPConnection {
+    #connection
     #inputStream
     #outputStream
     #onResponse
     #eventData = []
     constructor(onEvent) {
         this.onEvent = onEvent
+    }
+    spawn() {
+        const flags = Gio.SubprocessFlags.NONE
+        const launcher = new Gio.SubprocessLauncher({ flags })
+        const proc = launcher.spawnv(['speech-dispatcher', '--spawn'])
+        return new Promise(resolve => proc.wait_check_async(null, () => resolve()))
+    }
+    connect() {
         const path = GLib.build_filenamev(
             [GLib.get_user_runtime_dir(), 'speech-dispatcher/speechd.sock'])
         const address = Gio.UnixSocketAddress.new(path)
-        const connection = new Gio.SocketClient().connect(address, null)
-        this.#outputStream = Gio.DataOutputStream.new(connection.get_output_stream())
-        this.#inputStream = Gio.DataInputStream.new(connection.get_input_stream())
+        this.#connection = new Gio.SocketClient().connect(address, null)
+        this.#outputStream = Gio.DataOutputStream.new(this.#connection.get_output_stream())
+        this.#inputStream = Gio.DataInputStream.new(this.#connection.get_input_stream())
         this.#inputStream.newline_type = Gio.DataStreamNewlineType.TYPE_CR_LF
         this.#receive()
     }
@@ -38,6 +47,7 @@ class SSIPClient {
     }
     send(command) {
         return new Promise((resolve, reject) => {
+            if (!this.#connection.is_connected()) reject()
             this.#outputStream.put_string(command + '\r\n', null)
             const data = []
             this.#onResponse = (code, end, message) => {
@@ -50,16 +60,25 @@ class SSIPClient {
     }
 }
 
-class SpeechD {
+export class SSIPClient {
+    #initialized
     #promises = new Map()
-    #client = new SSIPClient((msgID, result) =>
+    #connection = new SSIPConnection((msgID, result) =>
         this.#promises.get(msgID)?.resolve?.(result))
     async init() {
-        const clientName = `${GLib.get_user_name()}:foliate:tts`
-        await this.#client.send('SET SELF CLIENT_NAME ' + clientName)
-        await this.#client.send('SET SELF SSML_MODE on')
-        await this.#client.send('SET SELF NOTIFICATION ALL on')
-        return this
+        if (this.#initialized) return
+        this.#initialized = true
+        try {
+            await this.#connection.spawn()
+            this.#connection.connect()
+            const clientName = `${GLib.get_user_name()}:foliate:tts`
+            await this.#connection.send('SET SELF CLIENT_NAME ' + clientName)
+            await this.#connection.send('SET SELF SSML_MODE on')
+            await this.#connection.send('SET SELF NOTIFICATION ALL on')
+        } catch (e) {
+            this.#initialized = false
+            throw e
+        }
     }
     #makePromise(msgID){
         return new Promise((resolve, reject) => this.#promises.set(msgID, {
@@ -81,10 +100,14 @@ class SpeechD {
             },
         }
     }
+    async send(command) {
+        await this.init()
+        return this.#connection.send(command)
+    }
     async speak(str) {
-        await this.#client.send('SPEAK')
+        await this.send('SPEAK')
         const text = str.replace('\r\n.', '\r\n..') + '\r\n.'
-        const [msgID] = await this.#client.send(text)
+        const [msgID] = await this.send(text)
         const iter = this.#makeIter(msgID)
         let done = false
         const next = async () => {
@@ -103,10 +126,20 @@ class SpeechD {
             [Symbol.asyncIterator]: () => ({ next }),
         }
     }
+    pause() {
+        return this.send('PAUSE all')
+    }
+    resume() {
+        return this.send('RESUME all')
+    }
     stop() {
-        return this.#client.send('STOP all')
+        return this.send('STOP all')
+    }
+    async listSynthesisVoices() {
+        const data = await this.send('LIST SYNTHESIS_VOICES')
+        return data.map(row => {
+            const [name, lang, variant] = row.split('\t')
+            return { name, lang, variant }
+        })
     }
 }
-
-export const speak = str => new SpeechD().init().then(x => x.speak(str))
-export const stop = () => new SpeechD().init().then(x => x.stop())
