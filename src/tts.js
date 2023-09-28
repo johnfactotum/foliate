@@ -57,7 +57,6 @@ export const TTSBox = GObject.registerClass({
             else state = message
         }
         if (state === 'END' && await this.emit('next-section')) this.start()
-        else this.state = 'stopped'
     }
     play() {
         if (this.#state !== 'playing') this.start()
