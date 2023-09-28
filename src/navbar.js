@@ -129,7 +129,7 @@ GObject.registerClass({
     Children: ['tts-box'],
     InternalChildren: [
         'prev-image', 'next-image', 'back-image', 'forward-image',
-        'progress-leaflet', 'progress-scale', 'location-button',
+        'progress-box', 'progress-scale', 'location-button',
         'location-popover', 'tts-popover',
         'time-book', 'time-section',
         'page-label', 'page-box', 'page-drop-down', 'page-total',
@@ -199,8 +199,8 @@ GObject.registerClass({
     }
     setDirection(dir) {
         const value = utils.getGtkDir(dir)
-        for (const widget of [this._progress_leaflet, this._progress_scale,
-            this, this._prev_image, this._next_image, this._back_image, this._forward_image])
+        for (const widget of [this, this._progress_box, this._progress_scale,
+            this._prev_image, this._next_image, this._back_image, this._forward_image])
             widget.set_direction(value)
         utils.setDirection(this._section_buttons, value)
     }

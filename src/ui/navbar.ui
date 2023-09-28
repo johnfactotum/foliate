@@ -44,7 +44,7 @@
     </object>
   </child>
   <child>
-    <object class="AdwBreakpointBin" id="progress-leaflet">
+    <object class="AdwBreakpointBin">
       <property name="height-request">1</property>
       <property name="width-request">1</property>
       <child>
@@ -55,7 +55,7 @@
         </object>
       </child>
       <property name="child">
-        <object class="GtkBox">
+        <object class="GtkBox" id="progress-box">
           <child>
             <object class="GtkMenuButton" id="location-button">
               <property name="direction">up</property>

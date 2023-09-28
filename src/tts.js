@@ -26,7 +26,7 @@ export const TTSBox = GObject.registerClass({
         'next-section': { return_type: GObject.TYPE_JSOBJECT },
     },
     InternalChildren: [
-        'play-button',
+        'media-buttons', 'play-button',
     ],
 }, class extends Gtk.Box {
     #state = 'stopped'
@@ -35,6 +35,7 @@ export const TTSBox = GObject.registerClass({
         this.insert_action_group('tts', utils.addMethods(this, {
             actions: ['play', 'backward', 'forward', 'stop'],
         }))
+        utils.setDirection(this._media_buttons, Gtk.TextDirection.LTR)
     }
     get state() {
         return this.#state
