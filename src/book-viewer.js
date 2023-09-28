@@ -12,7 +12,6 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 import { WebView } from './webview.js'
-import { SSIPClient } from './speech.js'
 
 import './toc.js'
 import './search.js'
@@ -24,8 +23,6 @@ import { SelectionPopover } from './selection-tools.js'
 import { ImageViewer } from './image-viewer.js'
 import { makeBookInfoWindow } from './book-info.js'
 import { getURIStore, getBookList } from './library.js'
-
-const ssip = new SSIPClient()
 
 // for use in the WebView
 const uiText = {
@@ -115,6 +112,9 @@ themeCssProvider.load_from_data(`
         }
         .is-dark .${id} highlight {
             background: ${theme.dark.link};
+        }
+        .${id} popover highlight, .is-dark .${id} popover highlight {
+            background: @accent_bg_color;
         }
     `
 }).join(''), -1)
@@ -576,7 +576,8 @@ GObject.registerClass({
     deleteAnnotation(x) { return this.#exec('reader.view.deleteAnnotation', x) }
     print() { return this.#exec('reader.print') }
     initSpeech(x) { return this.#exec('reader.view.initSpeech', x) }
-    speak(x) { return this.#exec('reader.view.speak', x) }
+    startSpeech(x) { return this.#exec('reader.view.startSpeech', x) }
+    seekSpeech(x) { return this.#exec('reader.view.seekSpeech', x) }
     resumeSpeech() { return this.#exec('reader.view.resumeSpeech') }
     hightlightSpeechMark(x) { return this.#exec('reader.view.hightlightSpeechMark', x) }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
@@ -810,6 +811,19 @@ export const BookViewer = GObject.registerClass({
         this._annotation_search_entry.connect('search-changed', entry =>
             this._annotation_view.filter(entry.text))
 
+        // TTS
+        utils.connect(this._navbar.tts_box, {
+            'init': () => this._view.initSpeech('word'),
+            'start': () => this._view.startSpeech(),
+            'start-from': (_, mark) => this._view.startSpeech(mark),
+            'resume': () => this._view.resumeSpeech(),
+            'backward': () => this._view.seekSpeech(-1),
+            'forward': () => this._view.seekSpeech(1),
+            'highlight': (_, mark) => this._view.hightlightSpeechMark(mark),
+            // FIXME: check if at end
+            'next-section': () => this._view.next().then(() => true),
+        })
+
         // setup actions
         const actions = utils.addMethods(this, {
             actions: [
@@ -817,7 +831,6 @@ export const BookViewer = GObject.registerClass({
                 'toggle-toc', 'toggle-annotations', 'toggle-bookmarks',
                 'preferences', 'show-info', 'bookmark',
                 'export-annotations',
-                'tts-speak', 'tts-pause', 'tts-stop',
             ],
             props: ['fold-sidebar'],
         })
@@ -1037,7 +1050,7 @@ export const BookViewer = GObject.registerClass({
             utils.setClipboardText(result, this.root)
         }
         else if (action === 'speak-from-here')
-            this.#speak(payload.mark).catch(e => console.error(e))
+            this._navbar.tts_box.startFrom(payload.mark)
     }
     #createOverlay({ index }) {
         if (!this.#data) return
@@ -1140,37 +1153,6 @@ export const BookViewer = GObject.registerClass({
     }
     exportAnnotations() {
         exportAnnotations(this.get_root(), this.#data.storage.export())
-    }
-    async #speak(mark) {
-        await this._view.initSpeech('word')
-        const ssml = await (!mark && this.#ttsPaused
-            ? this._view.resumeSpeech()
-            : this._view.speak(mark))
-
-        const iter = await ssip.speak(ssml)
-        this.#ttsPaused = false
-
-        let state
-        for await (const { mark, message } of iter) {
-            if (mark) await this._view.hightlightSpeechMark(mark)
-            else state = message
-        }
-        if (state === 'END') {
-            // FIXME: check if at end
-            await this._view.next()
-            return this.#speak()
-        }
-    }
-    ttsSpeak() {
-        this.#speak().catch(e => console.error(e))
-    }
-    ttsPause() {
-        ssip.stop()
-            .then(() => this.#ttsPaused = true)
-            .catch(e => console.error(e))
-    }
-    ttsStop() {
-        ssip.stop().catch(e => console.error(e))
     }
     vfunc_unroot() {
         this._view.viewSettings.unbindSettings()

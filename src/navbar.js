@@ -3,6 +3,7 @@ import GObject from 'gi://GObject'
 import Pango from 'gi://Pango'
 import * as utils from './utils.js'
 import * as format from './format.js'
+import './tts.js'
 
 const Landmark = utils.makeDataClass('FoliateLandmark', {
     'label': 'string',
@@ -125,6 +126,7 @@ GObject.registerClass({
 GObject.registerClass({
     GTypeName: 'FoliateNavBar',
     Template: pkg.moduleuri('ui/navbar.ui'),
+    Children: ['tts-box'],
     InternalChildren: [
         'prev-image', 'next-image', 'back-image', 'forward-image',
         'progress-leaflet', 'progress-scale', 'location-button',

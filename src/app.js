@@ -215,6 +215,10 @@ export const Application = GObject.registerClass({
                 background: none;
             }
 
+            .large-button {
+                padding: 6px;
+            }
+
             checkbutton.theme-selector {
                 padding: 0;
                 min-height: 44px;

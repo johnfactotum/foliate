@@ -1,34 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?><interface>
-<menu id="tts-menu">
-  <section>
-    <item>
-      <attribute name="custom">rate</attribute>
-    </item>
-  </section>
-  <section>
-    <submenu>
-      <attribute name="label" translatable="yes">Voice</attribute>
-    </submenu>
-  </section>
-  <section>
-    <attribute name="display-hint">horizontal-buttons</attribute>
-    <item>
-      <attribute name="label" translatable="yes">Start</attribute>
-      <attribute name="action">viewer.tts-speak</attribute>
-      <attribute name="verb-icon">media-playback-start-symbolic</attribute>
-    </item>
-    <item>
-      <attribute name="label" translatable="yes">Pause</attribute>
-      <attribute name="action">viewer.tts-pause</attribute>
-      <attribute name="verb-icon">media-playback-pause-symbolic</attribute>
-    </item>
-    <item>
-      <attribute name="label" translatable="yes">Stop</attribute>
-      <attribute name="action">viewer.tts-stop</attribute>
-      <attribute name="verb-icon">media-playback-stop-symbolic</attribute>
-    </item>
-  </section>
-</menu>
 <template class="FoliateNavBar" parent="GtkBox">
   <style><class name="toolbar"/></style>
   <child>
@@ -119,66 +89,9 @@
       <property name="icon-name">audio-headphones-symbolic</property>
       <property name="tooltip-text" translatable="yes">Text-to-Speech</property>
       <property name="popover">
-        <object class="GtkPopoverMenu" id="tts-popover">
-          <property name="menu-model">tts-menu</property>
-          <child type="rate">
-            <object class="GtkGrid">
-              <property name="column-spacing">12</property>
-              <property name="row-spacing">3</property>
-              <property name="margin-start">12</property>
-              <child>
-                <object class="GtkLabel">
-                  <property name="label" translatable="yes">Speed</property>
-                  <property name="xalign">0</property>
-                </object>
-              </child>
-              <child>
-                <object class="GtkScale" id="tts-rate-scale">
-                  <property name="draw-value">False</property>
-                  <property name="width-request">180</property>
-                  <property name="hexpand">True</property>
-                  <property name="adjustment">
-                    <object class="GtkAdjustment">
-                      <property name="lower">-100</property>
-                      <property name="upper">100</property>
-                      <property name="step-increment">5</property>
-                      <property name="page-increment">10</property>
-                      <property name="value">0</property>
-                    </object>
-                  </property>
-                </object>
-              </child>
-              <child>
-                <object class="GtkLabel">
-                  <property name="label" translatable="yes">Pitch</property>
-                  <property name="xalign">0</property>
-                  <layout>
-                    <property name="row">1</property>
-                    <property name="column">0</property>
-                  </layout>
-                </object>
-              </child>
-              <child>
-                <object class="GtkScale" id="tts-pitch-scale">
-                  <property name="draw-value">False</property>
-                  <property name="width-request">180</property>
-                  <property name="hexpand">True</property>
-                  <property name="adjustment">
-                    <object class="GtkAdjustment">
-                      <property name="lower">-100</property>
-                      <property name="upper">100</property>
-                      <property name="step-increment">5</property>
-                      <property name="page-increment">10</property>
-                      <property name="value">0</property>
-                    </object>
-                  </property>
-                  <layout>
-                    <property name="row">1</property>
-                    <property name="column">1</property>
-                  </layout>
-                </object>
-              </child>
-            </object>
+        <object class="GtkPopover" id="tts-popover">
+          <child>
+            <object class="FoliateTTSBox" id="tts-box"/>
           </child>
         </object>
       </property>
