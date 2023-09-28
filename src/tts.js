@@ -19,6 +19,8 @@ export const TTSBox = GObject.registerClass({
         'resume': { return_type: GObject.TYPE_JSOBJECT },
         'backward': { return_type: GObject.TYPE_JSOBJECT },
         'forward': { return_type: GObject.TYPE_JSOBJECT },
+        'backward-paused': {},
+        'forward-paused': {},
         'highlight': {
             param_types: [GObject.TYPE_STRING],
             return_type: GObject.TYPE_JSOBJECT,
@@ -85,12 +87,16 @@ export const TTSBox = GObject.registerClass({
     }
     backward() {
         this.#init()
-            .then(() => this.#speak(this.emit('backward')))
+            .then(() => this.state === 'playing'
+                ? this.#speak(this.emit('backward'))
+                : (this.state = 'paused', this.emit('backward-paused')))
             .catch(e => this.error(e))
     }
     forward() {
         this.#init()
-            .then(() => this.#speak(this.emit('forward')))
+            .then(() => this.state === 'playing'
+                ? this.#speak(this.emit('forward'))
+                : (this.state = 'paused', this.emit('forward-paused')))
             .catch(e => this.error(e))
     }
     error(e) {

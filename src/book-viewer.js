@@ -578,6 +578,7 @@ GObject.registerClass({
     initSpeech(x) { return this.#exec('reader.view.initSpeech', x) }
     startSpeech(x) { return this.#exec('reader.view.startSpeech', x) }
     seekSpeech(x) { return this.#exec('reader.view.seekSpeech', x) }
+    seekSpeechPaused(x) { return this.#exec('reader.view.seekSpeechPaused', x) }
     resumeSpeech() { return this.#exec('reader.view.resumeSpeech') }
     hightlightSpeechMark(x) { return this.#exec('reader.view.hightlightSpeechMark', x) }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
@@ -819,6 +820,8 @@ export const BookViewer = GObject.registerClass({
             'resume': () => this._view.resumeSpeech(),
             'backward': () => this._view.seekSpeech(-1),
             'forward': () => this._view.seekSpeech(1),
+            'backward-paused': () => this._view.seekSpeechPaused(-1),
+            'forward-paused': () => this._view.seekSpeechPaused(1),
             'highlight': (_, mark) => this._view.hightlightSpeechMark(mark),
             // FIXME: check if at end
             'next-section': () => this._view.next().then(() => true),
