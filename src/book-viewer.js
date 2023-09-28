@@ -1155,6 +1155,7 @@ export const BookViewer = GObject.registerClass({
         exportAnnotations(this.get_root(), this.#data.storage.export())
     }
     vfunc_unroot() {
+        this._navbar.tts_box.kill()
         this._view.viewSettings.unbindSettings()
         this._view.fontSettings.unbindSettings()
         utils.disconnectWith(this, this.#data.annotations)

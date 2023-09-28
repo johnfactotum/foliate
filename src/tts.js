@@ -57,6 +57,7 @@ export const TTSBox = GObject.registerClass({
             else state = message
         }
         if (state === 'END' && await this.emit('next-section')) this.start()
+        else this.state = 'stopped'
     }
     play() {
         if (this.#state !== 'playing') this.start()
@@ -96,5 +97,9 @@ export const TTSBox = GObject.registerClass({
         this.state = 'stopped'
         // TODO: display error
         console.error(e)
+    }
+    kill() {
+        this.emit = () => {}
+        if (this.state === 'playing') ssip.stop().catch(e => console.error(e))
     }
 })
