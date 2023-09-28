@@ -907,16 +907,16 @@ export const BookViewer = GObject.registerClass({
             ?? ''
         this._book_author.visible = !!book.metadata?.author?.length
 
-        const { textDirection } = reader.view
-        utils.setDirection(this._book_info, textDirection)
+        const { language: { direction } } = reader.view
+        utils.setDirection(this._book_info, direction)
         for (const x of [
             this._search_view,
             this._toc_view,
             this._annotation_view,
             this._bookmark_view,
         ]) {
-            utils.setDirection(x.parent, textDirection)
-            x.dir = textDirection
+            utils.setDirection(x.parent, direction)
+            x.dir = direction
         }
 
         this._toc_view.load(book.toc)
