@@ -3,12 +3,12 @@
 <template class="FoliateTTSBox" parent="GtkBox">
   <property name="orientation">vertical</property>
   <property name="spacing">9</property>
-  <!--
   <child>
     <object class="GtkGrid">
       <property name="column-spacing">6</property>
       <property name="row-spacing">9</property>
       <property name="margin-start">6</property>
+      <!--
       <child>
         <object class="GtkLabel">
           <property name="label" translatable="yes">Voice</property>
@@ -28,6 +28,7 @@
           </layout>
         </object>
       </child>
+      -->
       <child>
         <object class="GtkLabel">
           <property name="label" translatable="yes">Speed</property>
@@ -53,9 +54,7 @@
             </object>
           </property>
           <marks>
-            <mark value="-50"/>
             <mark value="0"/>
-            <mark value="50"/>
           </marks>
           <layout>
             <property name="row">1</property>
@@ -88,9 +87,7 @@
             </object>
           </property>
           <marks>
-            <mark value="-50"/>
             <mark value="0"/>
-            <mark value="50"/>
           </marks>
           <layout>
             <property name="row">2</property>
@@ -103,7 +100,6 @@
   <child>
     <object class="GtkSeparator"/>
   </child>
-  -->
   <child>
     <object class="GtkBox" id="media-buttons">
       <property name="halign">center</property>

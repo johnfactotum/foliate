@@ -28,6 +28,7 @@ export const TTSBox = GObject.registerClass({
         'next-section': { return_type: GObject.TYPE_JSOBJECT },
     },
     InternalChildren: [
+        'tts-rate-scale', 'tts-pitch-scale',
         'media-buttons', 'play-button',
     ],
 }, class extends Gtk.Box {
@@ -38,6 +39,19 @@ export const TTSBox = GObject.registerClass({
             actions: ['play', 'backward', 'forward', 'stop'],
         }))
         utils.setDirection(this._media_buttons, Gtk.TextDirection.LTR)
+
+        this.#connectScale(this._tts_rate_scale, ssip.setRate.bind(ssip))
+        this.#connectScale(this._tts_pitch_scale, ssip.setPitch.bind(ssip))
+    }
+    #connectScale(scale, f) {
+        scale.connect('value-changed', scale => {
+            const shouldResume = this.state === 'playing'
+            this.state = 'paused'
+            ssip.stop()
+                .then(() => f(parseInt(scale.get_value())))
+                .then(() => shouldResume ? this.start() : null)
+                .catch(e => this.error(e))
+        })
     }
     get state() {
         return this.#state

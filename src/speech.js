@@ -127,13 +127,19 @@ export class SSIPClient {
         }
     }
     pause() {
-        return this.send('PAUSE all')
+        return this.send('PAUSE self')
     }
     resume() {
-        return this.send('RESUME all')
+        return this.send('RESUME self')
     }
     stop() {
-        return this.send('STOP all')
+        return this.send('STOP self')
+    }
+    setRate(rate) {
+        return this.send(`SET self RATE ${rate}`)
+    }
+    setPitch(rate) {
+        return this.send(`SET self PITCH ${rate}`)
     }
     async listSynthesisVoices() {
         const data = await this.send('LIST SYNTHESIS_VOICES')
