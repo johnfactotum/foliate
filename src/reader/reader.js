@@ -450,9 +450,9 @@ class Reader {
                     this.printRange(range.startContainer.ownerDocument, range)
                     break
                 case 'speak-from-here':
-                    this.view.initSpeech('word').then(() => emit({
+                    this.view.initTTS().then(() => emit({
                         type: 'selection', action,
-                        mark: this.view.getSpeechMarkBefore(range),
+                        ssml: this.view.tts.from(range),
                     }))
                     break
             }

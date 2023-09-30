@@ -12,10 +12,6 @@ export const TTSBox = GObject.registerClass({
     Signals: {
         'init': { return_type: GObject.TYPE_JSOBJECT },
         'start': { return_type: GObject.TYPE_JSOBJECT },
-        'start-from': {
-            param_types: [GObject.TYPE_STRING],
-            return_type: GObject.TYPE_JSOBJECT,
-        },
         'resume': { return_type: GObject.TYPE_JSOBJECT },
         'backward': { return_type: GObject.TYPE_JSOBJECT },
         'forward': { return_type: GObject.TYPE_JSOBJECT },
@@ -67,13 +63,18 @@ export const TTSBox = GObject.registerClass({
     }
     async #speak(ssml) {
         this.state = 'playing'
-        const iter = await ssip.speak(await ssml)
+        ssml = await ssml
+        if (!ssml && await this.emit('next-section')) return this.forward()
+        const iter = await ssip.speak(ssml)
         let state
         for await (const { mark, message } of iter) {
             if (mark) await this.emit('highlight', mark)
             else state = message
         }
-        if (state === 'END' && await this.emit('next-section')) this.start()
+        if (state === 'END') this.forward()
+    }
+    speak(ssml) {
+        this.#init().then(() => this.#speak(ssml)).catch(e => this.error(e))
     }
     play() {
         if (this.#state !== 'playing') this.start()
@@ -84,11 +85,6 @@ export const TTSBox = GObject.registerClass({
             .then(() => this.#speak(this.state === 'paused'
                 ? this.emit('resume')
                 : this.emit('start')))
-            .catch(e => this.error(e))
-    }
-    startFrom(mark) {
-        this.#init()
-            .then(() => this.#speak(this.emit('start-from', mark)))
             .catch(e => this.error(e))
     }
     pause() {

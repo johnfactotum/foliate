@@ -575,12 +575,12 @@ GObject.registerClass({
     addAnnotation(x) { return this.#exec('reader.view.addAnnotation', x) }
     deleteAnnotation(x) { return this.#exec('reader.view.deleteAnnotation', x) }
     print() { return this.#exec('reader.print') }
-    initSpeech(x) { return this.#exec('reader.view.initSpeech', x) }
-    startSpeech(x) { return this.#exec('reader.view.startSpeech', x) }
-    seekSpeech(x) { return this.#exec('reader.view.seekSpeech', x) }
-    seekSpeechPaused(x) { return this.#exec('reader.view.seekSpeechPaused', x) }
-    resumeSpeech() { return this.#exec('reader.view.resumeSpeech') }
-    hightlightSpeechMark(x) { return this.#exec('reader.view.hightlightSpeechMark', x) }
+    initTTS(x) { return this.#exec('reader.view.initTTS', x) }
+    ttsStart() { return this.#exec('reader.view.tts.start') }
+    ttsPrev(x) { return this.#exec('reader.view.tts.prev', x) }
+    ttsNext(x) { return this.#exec('reader.view.tts.next', x) }
+    ttsResume() { return this.#exec('reader.view.tts.resume') }
+    ttsSetMark(x) { return this.#exec('reader.view.tts.setMark', x) }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
     init(x) { return this.#exec('reader.view.init', x) }
     get webView() { return this.#webView }
@@ -814,15 +814,14 @@ export const BookViewer = GObject.registerClass({
 
         // TTS
         utils.connect(this._navbar.tts_box, {
-            'init': () => this._view.initSpeech('word'),
-            'start': () => this._view.startSpeech(),
-            'start-from': (_, mark) => this._view.startSpeech(mark),
-            'resume': () => this._view.resumeSpeech(),
-            'backward': () => this._view.seekSpeech(-1),
-            'forward': () => this._view.seekSpeech(1),
-            'backward-paused': () => this._view.seekSpeechPaused(-1),
-            'forward-paused': () => this._view.seekSpeechPaused(1),
-            'highlight': (_, mark) => this._view.hightlightSpeechMark(mark),
+            'init': () => this._view.initTTS(),
+            'start': () => this._view.ttsStart(),
+            'resume': () => this._view.ttsResume(),
+            'backward': () => this._view.ttsPrev(),
+            'forward': () => this._view.ttsNext(),
+            'backward-paused': () => this._view.ttsPrev(true),
+            'forward-paused': () => this._view.ttsNext(true),
+            'highlight': (_, mark) => this._view.ttsSetMark(mark),
             // FIXME: check if at end
             'next-section': () => this._view.next().then(() => true),
         })
@@ -1053,7 +1052,7 @@ export const BookViewer = GObject.registerClass({
             utils.setClipboardText(result, this.root)
         }
         else if (action === 'speak-from-here')
-            this._navbar.tts_box.startFrom(payload.mark)
+            this._navbar.tts_box.speak(payload.ssml)
     }
     #createOverlay({ index }) {
         if (!this.#data) return
