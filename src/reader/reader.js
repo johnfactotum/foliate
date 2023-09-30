@@ -182,6 +182,11 @@ const getCSS = ({ lineHeight, justify, hyphenate, invert, theme, userStylesheet 
     [align="center"] { text-align: center; }
     [align="justify"] { text-align: justify; }
 
+    hgroup p {
+        text-align: unset;
+        -webkit-hyphens: unset;
+    }
+
     pre {
         white-space: pre-wrap !important;
         tab-size: 2;
