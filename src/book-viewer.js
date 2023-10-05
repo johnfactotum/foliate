@@ -369,6 +369,10 @@ GObject.registerClass({
             enable_html5_database: false,
             enable_html5_local_storage: false,
         }),
+        // needed for playing media overlay
+        website_policies: new WebKit.WebsitePolicies({
+            autoplay: WebKit.AutoplayPolicy.ALLOW,
+        }),
     }), {
         'run-file-chooser': (_, req) =>
             (req.select_files([encodeURI(this.#path)]), true),
@@ -581,6 +585,9 @@ GObject.registerClass({
     ttsNext(x) { return this.#exec('reader.view.tts.next', x) }
     ttsResume() { return this.#exec('reader.view.tts.resume') }
     ttsSetMark(x) { return this.#exec('reader.view.tts.setMark', x) }
+    mediaOverlayStart() { return this.#exec('reader.view.startMediaOverlay') }
+    mediaOverlayPause() { return this.#exec('reader.view.mediaOverlay.pause') }
+    mediaOverlayResume() { return this.#exec('reader.view.mediaOverlay.resume') }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
     init(x) { return this.#exec('reader.view.init', x) }
     get webView() { return this.#webView }
@@ -825,6 +832,11 @@ export const BookViewer = GObject.registerClass({
             // FIXME: check if at end
             'next-section': () => this._view.next().then(() => true),
         })
+        utils.connect(this._navbar.media_overlay_box, {
+            'start': () => this._view.mediaOverlayStart(),
+            'pause': () => this._view.mediaOverlayPause(),
+            'resume': () => this._view.mediaOverlayResume(),
+        })
 
         // setup actions
         const actions = utils.addMethods(this, {
@@ -923,6 +935,7 @@ export const BookViewer = GObject.registerClass({
         this._navbar.loadSections(book.sections)
         this._navbar.loadPageList(book.pageList, reader.pageTotal)
         this._navbar.loadLandmarks(book.landmarks)
+        this._navbar.setTTSType(book.media.duration ? 'media-overlay' : 'tts')
 
         const cover = await this._view.getCover()
         this.#cover = cover

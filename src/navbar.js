@@ -126,11 +126,11 @@ GObject.registerClass({
 GObject.registerClass({
     GTypeName: 'FoliateNavBar',
     Template: pkg.moduleuri('ui/navbar.ui'),
-    Children: ['tts-box'],
+    Children: ['tts-box', 'media-overlay-box'],
     InternalChildren: [
         'prev-image', 'next-image', 'back-image', 'forward-image',
         'progress-box', 'progress-scale', 'location-button',
-        'location-popover', 'tts-popover',
+        'location-popover', 'tts-popover', 'tts-stack',
         'time-book', 'time-section',
         'page-label', 'page-box', 'page-drop-down', 'page-total',
         'loc-entry', 'loc-total', 'cfi-entry',
@@ -234,5 +234,8 @@ GObject.registerClass({
     showLocation() {
         this.emit('opened')
         this._location_button.popup()
+    }
+    setTTSType(name) {
+        this._tts_stack.visible_child_name = name
     }
 })

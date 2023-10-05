@@ -6,7 +6,7 @@ import { SSIPClient } from './speech.js'
 
 const ssip = new SSIPClient()
 
-export const TTSBox = GObject.registerClass({
+GObject.registerClass({
     GTypeName: 'FoliateTTSBox',
     Template: pkg.moduleuri('ui/tts-box.ui'),
     Signals: {
@@ -117,5 +117,51 @@ export const TTSBox = GObject.registerClass({
     kill() {
         this.emit = () => {}
         if (this.state === 'playing') ssip.stop().catch(e => console.error(e))
+    }
+})
+
+
+GObject.registerClass({
+    GTypeName: 'FoliateMediaOverlayBox',
+    Template: pkg.moduleuri('ui/media-overlay-box.ui'),
+    Signals: {
+        'start': {},
+        'pause': {},
+        'resume': {},
+    },
+    InternalChildren: [
+        'tts-rate-scale',
+        'media-buttons', 'play-button',
+    ],
+}, class extends Gtk.Box {
+    #state = 'stopped'
+    constructor(params) {
+        super(params)
+        this.insert_action_group('media-overlay', utils.addMethods(this, {
+            actions: ['play', 'backward', 'forward', 'stop'],
+        }))
+        utils.setDirection(this._media_buttons, Gtk.TextDirection.LTR)
+    }
+    get state() {
+        return this.#state
+    }
+    set state(state) {
+        this.#state = state
+        this._play_button.icon_name = state === 'playing'
+            ? 'media-playback-pause-symbolic'
+            : 'media-playback-start-symbolic'
+    }
+    play() {
+        if (this.#state !== 'playing') this.start()
+        else this.pause()
+    }
+    start() {
+        if (this.state === 'paused') this.emit('resume')
+        else this.emit('start')
+        this.state = 'playing'
+    }
+    pause() {
+        this.state = 'paused'
+        this.emit('pause')
     }
 })

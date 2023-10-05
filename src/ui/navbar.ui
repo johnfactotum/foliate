@@ -86,12 +86,32 @@
   <child>
     <object class="GtkMenuButton">
       <property name="valign">center</property>
+      <property name="direction">up</property>
       <property name="icon-name">audio-headphones-symbolic</property>
       <property name="tooltip-text" translatable="yes">Text-to-Speech</property>
       <property name="popover">
         <object class="GtkPopover" id="tts-popover">
           <child>
-            <object class="FoliateTTSBox" id="tts-box"/>
+            <object class="GtkStack" id="tts-stack">
+              <property name="hhomogeneous">False</property>
+              <property name="vhomogeneous">False</property>
+              <child>
+                <object class="GtkStackPage">
+                  <property name="name">tts</property>
+                  <property name="child">
+                    <object class="FoliateTTSBox" id="tts-box"/>
+                  </property>
+                </object>
+              </child>
+              <child>
+                <object class="GtkStackPage">
+                  <property name="name">media-overlay</property>
+                  <property name="child">
+                    <object class="FoliateMediaOverlayBox" id="media-overlay-box"/>
+                  </property>
+                </object>
+              </child>
+            </object>
           </child>
         </object>
       </property>
