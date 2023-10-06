@@ -588,6 +588,9 @@ GObject.registerClass({
     mediaOverlayStart() { return this.#exec('reader.view.startMediaOverlay') }
     mediaOverlayPause() { return this.#exec('reader.view.mediaOverlay.pause') }
     mediaOverlayResume() { return this.#exec('reader.view.mediaOverlay.resume') }
+    mediaOverlayPrev() { return this.#exec('reader.view.mediaOverlay.prev') }
+    mediaOverlayNext() { return this.#exec('reader.view.mediaOverlay.next') }
+    mediaOverlaySetRate(x) { return this.#exec('reader.view.mediaOverlay.setRate', x) }
     getCover() { return this.#exec('reader.getCover').then(utils.base64ToPixbuf) }
     init(x) { return this.#exec('reader.view.init', x) }
     get webView() { return this.#webView }
@@ -836,6 +839,9 @@ export const BookViewer = GObject.registerClass({
             'start': () => this._view.mediaOverlayStart(),
             'pause': () => this._view.mediaOverlayPause(),
             'resume': () => this._view.mediaOverlayResume(),
+            'backward': () => this._view.mediaOverlayPrev(),
+            'forward': () => this._view.mediaOverlayNext(),
+            'set-rate': (_, x) => this._view.mediaOverlaySetRate(x),
         })
 
         // setup actions

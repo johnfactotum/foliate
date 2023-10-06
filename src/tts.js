@@ -44,7 +44,7 @@ GObject.registerClass({
             const shouldResume = this.state === 'playing'
             this.state = 'paused'
             ssip.stop()
-                .then(() => f(parseInt(scale.get_value())))
+                .then(() => f(Math.trunc(scale.get_value())))
                 .then(() => shouldResume ? this.start() : null)
                 .catch(e => this.error(e))
         })
@@ -128,9 +128,12 @@ GObject.registerClass({
         'start': {},
         'pause': {},
         'resume': {},
+        'backward': {},
+        'forward': {},
+        'set-rate': { param_types: [GObject.TYPE_DOUBLE] },
     },
     InternalChildren: [
-        'tts-rate-scale',
+        'rate-scale',
         'media-buttons', 'play-button',
     ],
 }, class extends Gtk.Box {
@@ -141,6 +144,8 @@ GObject.registerClass({
             actions: ['play', 'backward', 'forward', 'stop'],
         }))
         utils.setDirection(this._media_buttons, Gtk.TextDirection.LTR)
+        this._rate_scale.connect('value-changed', scale =>
+            this.emit('set-rate', scale.get_value()))
     }
     get state() {
         return this.#state
@@ -163,5 +168,13 @@ GObject.registerClass({
     pause() {
         this.state = 'paused'
         this.emit('pause')
+    }
+    backward() {
+        this.state = 'playing'
+        this.emit('backward')
+    }
+    forward() {
+        this.state = 'playing'
+        this.emit('forward')
     }
 })

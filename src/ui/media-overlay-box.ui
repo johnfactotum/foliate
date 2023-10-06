@@ -19,21 +19,21 @@
         </object>
       </child>
       <child>
-        <object class="GtkScale" id="tts-rate-scale">
+        <object class="GtkScale" id="rate-scale">
           <property name="draw-value">False</property>
           <property name="width-request">200</property>
           <property name="hexpand">True</property>
           <property name="adjustment">
             <object class="GtkAdjustment">
-              <property name="lower">-100</property>
-              <property name="upper">100</property>
-              <property name="step-increment">5</property>
-              <property name="page-increment">10</property>
-              <property name="value">0</property>
+              <property name="lower">0.5</property>
+              <property name="upper">2</property>
+              <property name="step-increment">0.05</property>
+              <property name="page-increment">0.25</property>
+              <property name="value">1</property>
             </object>
           </property>
           <marks>
-            <mark value="0"/>
+            <mark value="1"/>
           </marks>
           <layout>
             <property name="row">1</property>
