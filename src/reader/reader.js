@@ -133,7 +133,10 @@ const open = async file => {
     emit({ type: 'book-ready', book, reader })
 }
 
-const getCSS = ({ lineHeight, justify, hyphenate, invert, theme, userStylesheet }) => [`
+const getCSS = ({
+    lineHeight, justify, hyphenate, invert, theme, userStylesheet,
+    mediaActiveClass,
+}) => [`
     @namespace epub "http://www.idpf.org/2007/ops";
     @media print {
         html {
@@ -209,6 +212,10 @@ const getCSS = ({ lineHeight, justify, hyphenate, invert, theme, userStylesheet 
         svg, img {
             background-color: transparent !important;
             mix-blend-mode: multiply;
+        }
+        .${CSS.escape(mediaActiveClass)}, .${CSS.escape(mediaActiveClass)} * {
+            color: ${theme.light.fg} !important;
+            background: color-mix(in lch, ${theme.light.fg}, ${theme.light.bg} 85%) !important;
         }` : ''}
     }
     @media (prefers-color-scheme: dark) {
@@ -224,6 +231,10 @@ const getCSS = ({ lineHeight, justify, hyphenate, invert, theme, userStylesheet 
         }
         a:any-link {
             color: ${theme.dark.link} !important;
+        }
+        .${CSS.escape(mediaActiveClass)}, .${CSS.escape(mediaActiveClass)} * {
+            color: ${theme.dark.fg} !important;
+            background: color-mix(in lch, ${theme.dark.fg}, ${theme.dark.bg} 75%) !important;
         }`}
     }
     p, li, blockquote, dd {
@@ -307,6 +318,7 @@ class Reader {
             book.metadata.description = toPangoMarkup(book.metadata.description)
         this.pageTotal = book.pageList
             ?.findLast(x => !isNaN(parseInt(x.label)))?.label
+        this.style.mediaActiveClass = book.media?.activeClass
     }
     async init() {
         this.view = document.createElement('foliate-view')
