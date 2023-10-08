@@ -352,6 +352,9 @@ export const Application = GObject.registerClass({
         win.add_legal_section('fflate',
             'Copyright © 2020 Arjun Barrett',
             Gtk.License.MIT_X11, null)
+        win.add_legal_section('PDF.js',
+            '©Mozilla and individual contributors',
+            Gtk.License.APACHE_2_0, null)
         win.present()
     }
 })
