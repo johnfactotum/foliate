@@ -21,7 +21,7 @@ import {
 } from './annotations.js'
 import { SelectionPopover } from './selection-tools.js'
 import { ImageViewer } from './image-viewer.js'
-import { makeBookInfoWindow } from './book-info.js'
+import { formatAuthors, makeBookInfoWindow } from './book-info.js'
 import { getURIStore, getBookList } from './library.js'
 
 // for use in the WebView
@@ -920,10 +920,7 @@ export const BookViewer = GObject.registerClass({
         book.metadata ??= {}
         this.root.title = book.metadata.title ?? ''
         this._book_title.label = book.metadata.title ?? ''
-        this._book_author.label = book.metadata.author
-            ?.map(author => typeof author === 'string' ? author : author.name)
-            ?.join(', ')
-            ?? ''
+        this._book_author.label = formatAuthors(book.metadata)
         this._book_author.visible = !!book.metadata?.author?.length
 
         const { language: { direction } } = reader.view
