@@ -29,6 +29,7 @@ GObject.registerClass({
     ],
 }, class extends Gtk.Box {
     #state = 'stopped'
+    defaultWidget = this._play_button
     constructor(params) {
         super(params)
         this.insert_action_group('tts', utils.addMethods(this, {
@@ -124,28 +125,38 @@ GObject.registerClass({
 GObject.registerClass({
     GTypeName: 'FoliateMediaOverlayBox',
     Template: pkg.moduleuri('ui/media-overlay-box.ui'),
+    Properties: utils.makeParams({
+        'rate': 'double',
+        'volume': 'double',
+    }),
     Signals: {
         'start': {},
         'pause': {},
         'resume': {},
         'backward': {},
         'forward': {},
-        'set-rate': { param_types: [GObject.TYPE_DOUBLE] },
     },
     InternalChildren: [
-        'rate-scale',
+        'volume-scale',
         'media-buttons', 'play-button',
     ],
 }, class extends Gtk.Box {
     #state = 'stopped'
+    defaultWidget = this._play_button
     constructor(params) {
         super(params)
-        this.insert_action_group('media-overlay', utils.addMethods(this, {
+        this.set_property('rate', 1)
+        const actionGroup = utils.addMethods(this, {
             actions: ['play', 'backward', 'forward', 'stop'],
-        }))
+        })
+        utils.addPropertyActions(this, ['rate'], actionGroup)
+        this.insert_action_group('media-overlay', actionGroup)
+
         utils.setDirection(this._media_buttons, Gtk.TextDirection.LTR)
-        this._rate_scale.connect('value-changed', scale =>
-            this.emit('set-rate', scale.get_value()))
+
+        // GtkScale, y u no implement GtkActionable?
+        this._volume_scale.connect('value-changed', scale =>
+            this.set_property('volume', scale.get_value()))
     }
     get state() {
         return this.#state

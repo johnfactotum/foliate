@@ -218,6 +218,9 @@ export const Application = GObject.registerClass({
             .large-button {
                 padding: 6px;
             }
+            .chips button {
+                border-radius: 9999px;
+            }
 
             checkbutton.theme-selector {
                 padding: 0;

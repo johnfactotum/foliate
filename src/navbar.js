@@ -237,5 +237,6 @@ GObject.registerClass({
     }
     setTTSType(name) {
         this._tts_stack.visible_child_name = name
+        this._tts_popover.default_widget = this._tts_stack.visible_child.defaultWidget
     }
 })
