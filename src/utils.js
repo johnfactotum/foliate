@@ -38,6 +38,19 @@ export const debounce = (f, wait, immediate) => {
     }
 }
 
+export const listDir = function* (path, attributes = 'standard::name') {
+    const dir = Gio.File.new_for_path(path)
+    if (!GLib.file_test(path, GLib.FileTest.IS_DIR)) return
+    const children = dir.enumerate_children(attributes, Gio.FileQueryInfoFlags.NONE, null)
+    let info
+    while ((info = children.next_file(null)) != null) try {
+        const name = info.get_name()
+        yield { file: dir.get_child(name), name, info }
+    } catch (e) {
+        console.error(e)
+    }
+}
+
 const decoder = new TextDecoder()
 export const readFile = (file, defaultValue = '') => {
     try {

@@ -14,24 +14,14 @@ import { formatAuthors, makeBookInfoWindow } from './book-info.js'
 
 const showCovers = utils.settings('library')?.get_boolean('show-covers') ?? true
 
-const listDir = function* (path) {
-    const dir = Gio.File.new_for_path(path)
-    if (!GLib.file_test(path, GLib.FileTest.IS_DIR)) return null
-    const children = dir.enumerate_children('standard::name,time::modified',
-        Gio.FileQueryInfoFlags.NONE, null)
-    let info
-    while ((info = children.next_file(null)) != null) {
-        try {
-            const name = info.get_name()
-            if (!/\.json$/.test(name)) continue
-            const child = dir.get_child(name)
-            yield {
-                file: child,
-                modified: new Date(info.get_attribute_uint64('time::modified') * 1000),
-            }
-        } catch (e) {
-            continue
-        }
+const listBooks = function* (path) {
+    const ls = utils.listDir(path, 'standard::name,time::modified')
+    for (const { file, name, info } of ls) try {
+        if (!/\.json$/.test(name)) continue
+        const modified = new Date(info.get_attribute_uint64('time::modified') * 1000)
+        yield { file, modified }
+    } catch (e) {
+        console.error(e)
     }
 }
 
@@ -57,7 +47,7 @@ const BookList = GObject.registerClass({
     GTypeName: 'FoliateBookList',
 }, class extends Gio.ListStore {
     #uriStore = getURIStore()
-    #files = Array.from(listDir(pkg.datadir) ?? [])
+    #files = Array.from(listBooks(pkg.datadir) ?? [])
         .sort((a, b) => b.modified - a.modified)
         .map(x => x.file)
     #iter = this.#files.values()
