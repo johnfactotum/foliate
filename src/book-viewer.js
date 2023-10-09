@@ -164,6 +164,7 @@ const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'scrolled': 'boolean',
     'invert': 'boolean',
     'theme': 'string',
+    'autohide-cursor': 'boolean',
 })
 
 const FontSettings = utils.makeDataClass('FoliateFontSettings', {
@@ -418,6 +419,7 @@ GObject.registerClass({
                 theme: view.invert ? invertTheme(theme) : theme,
                 userStylesheet,
             },
+            autohideCursor: view.autohide_cursor,
         })
     }
     #contextMenu() {

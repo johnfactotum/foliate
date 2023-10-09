@@ -316,8 +316,42 @@ footnoteDialog.addEventListener('close', () => {
 footnoteDialog.addEventListener('click', e =>
     e.target === footnoteDialog ? footnoteDialog.close() : null)
 
+class CursorAutohider {
+    #timeout
+    #el
+    #check
+    #state
+    constructor(el, check, state = {}) {
+        this.#el = el
+        this.#check = check
+        this.#state = state
+        if (this.#state.hidden) this.hide()
+        this.#el.addEventListener('mousemove', ({ screenX, screenY }) => {
+            // check if it actually moved
+            if (screenX === this.#state.x && screenY === this.#state.y) return
+            this.#state.x = screenX, this.#state.y = screenY
+            this.show()
+            if (this.#timeout) clearTimeout(this.#timeout)
+            if (check()) this.#timeout = setTimeout(this.hide.bind(this), 1000)
+        }, false)
+    }
+    cloneFor(el) {
+        return new CursorAutohider(el, this.#check, this.#state)
+    }
+    hide() {
+        this.#el.style.cursor = 'none'
+        this.#state.hidden = true
+    }
+    show() {
+        this.#el.style.cursor = 'auto'
+        this.#state.hidden = false
+    }
+}
+
 class Reader {
-    #tocView
+    autohideCursor
+    #cursorAutohider = new CursorAutohider(
+        document.documentElement, () => this.autohideCursor)
     style = {
         spacing: 1.4,
         justify: true,
@@ -338,7 +372,7 @@ class Reader {
         await this.view.open(this.book)
         document.body.append(this.view)
     }
-    setAppearance({ style, layout }) {
+    setAppearance({ style, layout, autohideCursor }) {
         Object.assign(this.style, style)
         const { theme } = style
         const $style = document.documentElement.style
@@ -356,6 +390,7 @@ class Reader {
             renderer.setStyles?.(getCSS(this.style))
         }
         document.body.classList.toggle('invert', this.style.invert)
+        this.autohideCursor = autohideCursor
     }
     #handleEvents() {
         this.view.addEventListener('relocate', e => {
@@ -452,6 +487,8 @@ class Reader {
                 if (selRange.compareBoundaryPoints(Range.END_TO_END, lastLocation.range) >= 0)
                     this.view.next()
             }, 1000))
+
+        this.#cursorAutohider.cloneFor(doc.documentElement)
     }
     #showAnnotation({ index, range, value, pos }) {
         globalThis.showSelection({ type: 'annotation', value, pos })
