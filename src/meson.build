@@ -1,5 +1,5 @@
 bin_conf = configuration_data()
-bin_conf.set('GJS', find_program('gjs').full_path())
+bin_conf.set('GJS', gjs.get_variable(pkgconfig: 'gjs_console'))
 bin_conf.set('datadir', join_paths(get_option('prefix'), get_option('datadir')))
 
 configure_file(

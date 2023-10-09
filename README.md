@@ -54,6 +54,7 @@ GSETTINGS_SCHEMA_DIR=data gjs -m src/main.js
 The following dependencies are required for building:
 
 - `meson` (>= 0.59)
+- `pkg-config`
 - `gettext`
 
 To install, run the following commands:

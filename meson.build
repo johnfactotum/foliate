@@ -6,6 +6,11 @@ project('com.github.johnfactotum.Foliate',
 gnome = import('gnome')
 i18n = import('i18n')
 
+gjs = dependency('gjs-1.0', version: '>= 1.76')
+dependency('gtk4', version: '>= 4.12')
+dependency('libadwaita-1', version: '>= 1.4')
+dependency('webkitgtk-6.0', version: '>= 2.40.1')
+
 subdir('data')
 subdir('src')
 subdir('po')
