@@ -427,7 +427,10 @@ class Reader {
                     emit({ type: 'show-image', base64, mimetype }))
                 .catch(e => console.error(e)))
 
-        doc.addEventListener('click', () => {
+        let isSelecting = false
+        doc.addEventListener('pointerdown', () => isSelecting = true)
+        doc.addEventListener('pointerup', () => {
+            isSelecting = false
             const range = getSelectionRange(doc)
             if (!range) return
             const pos = getPosition(range)
@@ -440,6 +443,7 @@ class Reader {
             // go to the next page when selecting to the end of a page
             // this makes it possible to select across pages
             doc.addEventListener('selectionchange', debounce(() => {
+                if (!isSelecting) return
                 if (this.view.renderer.getAttribute('flow') !== 'paginated') return
                 const { lastLocation } = this.view
                 if (!lastLocation) return
