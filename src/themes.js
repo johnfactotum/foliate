@@ -54,11 +54,10 @@ export const themes = [
 
 for (const { file, name } of utils.listDir(pkg.configpath('themes'))) try {
     if (!/\.json$/.test(name)) continue
-    const name_ = name.replace(/\.json$/)
     const theme = utils.readJSONFile(file)
     themes.push({
-        name: name_,
-        label: theme.label ?? name_,
+        name,
+        label: theme.label ?? name.replace(/\.json$/, ''),
         light: {
             fg: theme.light.fg,
             bg: theme.light.bg,
