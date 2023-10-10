@@ -2,11 +2,7 @@ import '../foliate-js/view.js'
 import { Overlayer } from '../foliate-js/overlayer.js'
 import { toPangoMarkup } from './markup.js'
 
-// TODO: make this translatable
-const format = {
-    loc: (a, b) => `Loc ${a} of ${b}`,
-    page: (a, b) => b ? `Page ${a} of ${b}` : `Page ${a}`,
-}
+const format = {}
 
 const emit = x => globalThis.webkit.messageHandlers.viewer
     .postMessage(JSON.stringify(x))
@@ -625,10 +621,21 @@ class Reader {
 globalThis.visualViewport.addEventListener('resize', () =>
     emit({ type: 'pinch-zoom', scale: globalThis.visualViewport.scale }))
 
+const printf = (str, args) => {
+    for (const arg of args) str = str.replace('%s', arg)
+    return str
+}
+
 globalThis.init = ({ uiText }) => {
+    format.loc = (a, b) => printf(uiText.loc, [a, b])
+    format.page = (a, b) => b
+        ? printf(uiText.page, [a, b])
+        : printf(uiText.pageWithoutTotal, [a])
+
     footnoteDialog.querySelector('header').innerText = uiText.footnote
     footnoteDialog.querySelector('[value="close"]').innerText = uiText.close
     footnoteDialog.querySelector('[value="go"]').innerText = uiText.goToFootnote
+
     document.getElementById('file-input').click()
 }
 

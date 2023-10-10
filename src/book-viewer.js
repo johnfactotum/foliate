@@ -27,9 +27,12 @@ import { themes, invertTheme } from './themes.js'
 
 // for use in the WebView
 const uiText = {
+    loc: _('Loc. %s of %s'),
+    page: _('Page %s of %s'),
+    pageWithoutTotal: _('Page %s'),
     close: _('Close'),
-    footnote: _('Footnote'),
-    goToFootnote: _('Go to Footnote'),
+    footnote: _('Reference'),
+    goToFootnote: _('Go to Reference'),
 }
 
 const userStylesheet = utils.readFile(Gio.File.new_for_path(
