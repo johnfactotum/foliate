@@ -176,34 +176,26 @@ const getCSS = ({
             display: none;
         }
     }
-    html, body, p, li, blockquote, dd {
+    html {
         line-height: ${lineHeight};
-        text-align: ${justify ? 'justify' : 'start'};
-        -webkit-hyphens: ${hyphenate ? 'auto' : 'manual'};
-        -webkit-hyphenate-limit-before: 3;
-        -webkit-hyphenate-limit-after: 2;
-        -webkit-hyphenate-limit-lines: 2;
         hanging-punctuation: allow-end last;
         orphans: 2;
         widows: 2;
     }
-    /* prevent the above from overriding the align attribute */
     [align="left"] { text-align: left; }
     [align="right"] { text-align: right; }
     [align="center"] { text-align: center; }
     [align="justify"] { text-align: justify; }
-
     hgroup p {
         text-align: unset;
-        -webkit-hyphens: unset;
+        hyphens: unset;
     }
-
     pre {
         white-space: pre-wrap !important;
         tab-size: 2;
     }
 `, `
-    @media (prefers-color-scheme: light) {
+    @media screen and (prefers-color-scheme: light) {
         ${theme.light.bg !== '#ffffff' ? `
         html, body {
             color: ${theme.light.fg} !important;
@@ -226,7 +218,7 @@ const getCSS = ({
             background: color-mix(in lch, ${theme.light.fg}, ${theme.light.bg} 85%) !important;
         }` : ''}
     }
-    @media (prefers-color-scheme: dark) {
+    @media screen and (prefers-color-scheme: dark) {
         ${invert ? '' : `
         html, body {
             color: ${theme.dark.fg} !important;
@@ -248,7 +240,7 @@ const getCSS = ({
     p, li, blockquote, dd {
         line-height: ${lineHeight};
         text-align: ${justify ? 'justify' : 'start'};
-        -webkit-hyphens: ${hyphenate ? 'auto' : 'manual'};
+        hyphens: ${hyphenate ? 'auto' : 'none'};
     }
 ` + userStylesheet]
 
