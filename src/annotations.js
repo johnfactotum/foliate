@@ -5,7 +5,7 @@ import GObject from 'gi://GObject'
 import { gettext as _, ngettext } from 'gettext'
 import * as utils from './utils.js'
 import * as CFI from './foliate-js/epubcfi.js'
-import { vprintf } from './format.js'
+import { vprintf, locales } from './format.js'
 
 const Bookmark = utils.makeDataClass('FoliateBookmark', {
     'value': 'string',
@@ -41,12 +41,22 @@ const BookmarkRow = GObject.registerClass({
     }
 })
 
+const dateFormat = new Intl.DateTimeFormat(locales, {
+    year: 'numeric', month: 'short', day: 'numeric',
+    hour: 'numeric', minute: 'numeric',
+})
+
 const AnnotationRow = GObject.registerClass({
     GTypeName: 'FoliateAnnotationRow',
     Template: pkg.moduleuri('ui/annotation-row.ui'),
-    InternalChildren: ['heading', 'box', 'color', 'text', 'sep', 'note'],
+    Children: ['button'],
+    InternalChildren: ['heading', 'box', 'color', 'text', 'sep', 'note', 'bar', 'date'],
+    Properties: utils.makeParams({
+        'editable': 'boolean',
+    }),
 }, class extends Gtk.Box {
     update(obj) {
+        this.annotation = obj
         if (obj instanceof Annotation) {
             const { text, note, color } = obj
             this._text.label = text.trim().replace(/\n/g, ' ')
@@ -57,6 +67,12 @@ const AnnotationRow = GObject.registerClass({
             const showNote = Boolean(note)
             this._sep.visible = showNote
             this._note.visible = showNote
+            this._bar.show()
+            const date = obj.modified || obj.created
+            if (date) {
+                this._date.label = dateFormat.format(new Date(date))
+                this._date.show()
+            } else this._date.hide()
             this.margin_top = 6
             this.margin_bottom = 6
         } else {
@@ -65,6 +81,7 @@ const AnnotationRow = GObject.registerClass({
             this._box.hide()
             this._sep.hide()
             this._note.hide()
+            this._bar.hide()
             this.margin_top = 3
             this.margin_bottom = 3
         }
@@ -236,9 +253,11 @@ GObject.registerClass({
     GTypeName: 'FoliateAnnotationView',
     Properties: utils.makeParams({
         'dir': 'string',
+        'editable': 'boolean',
     }),
     Signals: {
         'go-to-annotation': { param_types: [Annotation.$gtype] },
+        'delete-annotation': { param_types: [Annotation.$gtype] },
     },
 }, class extends Gtk.ListView {
     #filter
@@ -251,8 +270,11 @@ GObject.registerClass({
         const handlers = new WeakMap()
         this.factory = utils.connect(new Gtk.SignalListItemFactory(), {
             'setup': (_, listItem) => {
+                const row = new AnnotationRow({ editable: this.editable })
+                row.button.connect('clicked', () =>
+                    this.emit('delete-annotation', row.annotation))
                 listItem.child = new Gtk.TreeExpander({ indent_for_icon: false })
-                listItem.child.child = new AnnotationRow()
+                listItem.child.child = row
             },
             'bind': (_, listItem) => {
                 const expander = listItem.child

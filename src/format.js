@@ -2,20 +2,28 @@ import GLib from 'gi://GLib'
 import Gio from 'gi://Gio'
 import { gettext as _ } from 'gettext'
 
-const getCanonicalLocale = locale => {
-    try { return Intl.getCanonicalLocales(locale)[0] }
+const makeLocale = locale => {
+    try { return new Intl.Locale(locale) }
     catch (e) { return null }
 }
 
-const glibcLocaleToBCP47 = str => getCanonicalLocale(
+const glibcLocale = str => makeLocale(
     str === 'C' ? 'en' : str.split('.')[0].replace('_', '-'))
 
-export const locales = GLib.get_language_names().map(glibcLocaleToBCP47).filter(x => x)
-try {
-    const settings = new Gio.Settings({ schema_id: 'org.gnome.system.locale' })
-    const locale = glibcLocaleToBCP47(settings.get_string('region'))
-    if (locale) locales.unshift(locale)
-} catch (e) {}
+const getHourCycle = () => {
+    try {
+        const settings = new Gio.Settings({ schema_id: 'org.gnome.desktop.interface' })
+        return settings.get_string('clock-format') === '24h' ? 'h23' : 'h12'
+    } catch (e) {
+        console.debug(e)
+    }
+}
+
+const hourCycle = getHourCycle()
+
+export const locales = GLib.get_language_names()
+    .map(glibcLocale).filter(x => x)
+    .map(locale => new Intl.Locale(locale, { hourCycle }))
 
 const percentFormat = new Intl.NumberFormat(locales, { style: 'percent' })
 export const percent = x => percentFormat.format(x)

@@ -44,5 +44,27 @@
         <style><class name="caption"/></style>
       </object>
     </child>
+    <child>
+      <object class="GtkBox" id="bar">
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkLabel" id="date">
+            <property name="hexpand">True</property>
+            <property name="xalign">0</property>
+            <property name="ellipsize">end</property>
+            <style><class name="caption"/><class name="dim-label"/></style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="button">
+            <property name="visible" bind-source="FoliateAnnotationRow" bind-property="editable"/>
+            <property name="valign">center</property>
+            <property name="icon-name">user-trash-symbolic</property>
+            <property name="tooltip-text" translatable="yes">Delete</property>
+            <style><class name="flat"/></style>
+          </object>
+        </child>
+      </object>
+    </child>
 </template>
 </interface>

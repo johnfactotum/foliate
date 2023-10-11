@@ -733,6 +733,8 @@ export const BookViewer = GObject.registerClass({
                 this._view.showAnnotation(annotation)
                 if (this._flap.collapsed) this._flap.show_sidebar = false
             },
+            'delete-annotation': (_, annotation) =>
+                this.#deleteAnnotation(annotation),
         })
         this._annotation_search_entry.connect('search-changed', entry =>
             this._annotation_view.filter(entry.text))
@@ -902,18 +904,19 @@ export const BookViewer = GObject.registerClass({
             this.#data.storage.set('lastLocation', cfi)
         }
     }
+    #deleteAnnotation(annotation) {
+        this.#data.deleteAnnotation(annotation)
+        this.root.add_toast(utils.connect(new Adw.Toast({
+            title: _('Annotation deleted'),
+            button_label: _('Undo'),
+        }), { 'button-clicked': () =>
+            this.#data.addAnnotation(annotation) }))
+    }
     #showSelection({ type, value, text, lang, pos: { point, dir } }) {
         if (type === 'annotation') return new Promise(resolve => {
             const annotation = this.#data.annotations.get(value)
             const popover = utils.connect(new AnnotationPopover({ annotation }), {
-                'delete-annotation': () => {
-                    this.#data.deleteAnnotation(annotation)
-                    this.root.add_toast(utils.connect(new Adw.Toast({
-                        title: _('Annotation deleted'),
-                        button_label: _('Undo'),
-                    }), { 'button-clicked': () =>
-                        this.#data.addAnnotation(annotation) }))
-                },
+                'delete-annotation': () => this.#deleteAnnotation(annotation),
                 'select-annotation': () => resolve('select'),
                 'color-changed': (_, color) => this.highlight_color = color,
             })

@@ -284,7 +284,7 @@ export const Application = GObject.registerClass({
                 background-color: transparent;
             }
             .card-sidebar.flat-list .card {
-                padding: 12px;
+                padding: 6px 12px;
             }
 
             .book-image-frame {
