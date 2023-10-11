@@ -501,19 +501,83 @@ export const AnnotationPopover = GObject.registerClass({
     }
 })
 
+const ImportDialog = GObject.registerClass({
+    GTypeName: 'FoliateImportDialog',
+    Template: pkg.moduleuri('ui/import-dialog.ui'),
+    Children: ['annotation-view'],
+    InternalChildren: ['cancel-button', 'ok-button', 'banner'],
+    Properties: utils.makeParams({
+        'identifier-mismatch': 'boolean',
+    }),
+    Signals: {
+        'response': {},
+    },
+}, class extends Adw.Window {
+    constructor(params) {
+        super(params)
+        const respond = () => {
+            this.emit('response')
+            this.close()
+        }
+        this._ok_button.connect('clicked', respond)
+        this._banner.connect('button-clicked', respond)
+        this._cancel_button.connect('clicked', () => this.close())
+        this.add_controller(utils.addShortcuts({ 'Escape|<ctrl>w': () => this.close() }))
+    }
+    close() {
+        super.close()
+        this.run_dispose()
+    }
+})
+
+export const importAnnotations = (window, data) => {
+    const dialog = new Gtk.FileDialog()
+    const filter = new Gtk.FileFilter({
+        name: _('JSON Files'),
+        mime_types: ['application/json'],
+    })
+    dialog.filters = new Gio.ListStore()
+    dialog.filters.append(new Gtk.FileFilter({
+        name: _('All Files'),
+        patterns: ['*'],
+    }))
+    dialog.filters.append(filter)
+    dialog.default_filter = filter
+    dialog.open(window, null, (__, res) => {
+        try {
+            const file = dialog.open_finish(res)
+            const json = utils.readJSONFile(file)
+            if (!json.annotations?.length) return window.error(_('No Annotations'),
+                _('The imported file has no annotations'))
+            const importDialog = new ImportDialog({
+                identifier_mismatch: !(json.metadata?.identifier === data.key),
+                transient_for: window,
+            })
+            const model = new Gio.ListStore()
+            importDialog.annotation_view.setupModel(model)
+            importDialog.show()
+            const annotations = json.annotations.map(item => {
+                const annotation = new Annotation(item)
+                model.append(annotation)
+                return annotation
+            })
+            importDialog.connect('response', () => data.addAnnotations(annotations))
+        } catch (e) {
+            if (e instanceof Gtk.DialogError) console.debug(e)
+            else {
+                console.error(e)
+                window.error(_('Cannot Import Annotations'),
+                    _('An error occurred'))
+            }
+        }
+    })
+}
+
 export const exportAnnotations = (window, data) => {
     const n = data.annotations?.length
-    if (!(n > 0)) {
-        const dialog = new Adw.MessageDialog({
-            heading: _('No Annotations'),
-            body: _('You don’t have any annotations for this book'),
-            modal: true,
-            transient_for: window,
-        })
-        dialog.add_response('ok', _('OK'))
-        dialog.present()
-        return
-    }
+    if (!(n > 0)) return window.error(_('No Annotations'),
+        _('You don’t have any annotations for this book'))
+
     const path = pkg.modulepath('ui/export-dialog.ui')
     const builder = pkg.useResource
         ? Gtk.Builder.new_from_resource(path)

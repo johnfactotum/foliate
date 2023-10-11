@@ -90,6 +90,15 @@ const ApplicationWindow = GObject.registerClass({
     add_toast(toast) {
         this.content.add_toast(toast)
     }
+    error(heading, body) {
+        const dialog = new Adw.MessageDialog({
+            heading, body,
+            modal: true,
+            transient_for: this,
+        })
+        dialog.add_response('close', _('Close'))
+        dialog.present()
+    }
     openFile(file) {
         this.file = file
         if (!this.#bookViewer) {
@@ -273,6 +282,9 @@ export const Application = GObject.registerClass({
             }
             .card-sidebar, .card-sidebar row.activatable {
                 background-color: transparent;
+            }
+            .card-sidebar.flat-list .card {
+                padding: 12px;
             }
 
             .book-image-frame {

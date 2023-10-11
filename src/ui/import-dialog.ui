@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FoliateImportDialog" parent="AdwWindow">
+    <property name="modal">true</property>
+    <property name="default-width">400</property>
+    <property name="default-widget">ok-button</property>
+    <property name="title" translatable="yes">Import Annotations</property>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="GtkHeaderBar">
+            <property name="show-title-buttons">False</property>
+            <child>
+              <object class="GtkButton" id="cancel-button">
+                <property name="label" translatable="yes">Cancel</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkButton" id="ok-button">
+                <property name="sensitive" bind-source="FoliateImportDialog" bind-property="identifier-mismatch" bind-flags="invert-boolean"/>
+                <property name="label" translatable="yes">Import</property>
+                <style><class name="suggested-action"/></style>
+              </object>
+            </child>
+          </object>
+        </child>
+        <property name="content">
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="AdwBanner" id="banner">
+                <property name="revealed" bind-source="FoliateImportDialog" bind-property="identifier-mismatch"/>
+                <property name="title" translatable="yes">The identifier doesn’t match. These annotations may not be for this book.</property>
+                <property name="button-label" translatable="yes">Import Anyway</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="propagate-natural-height">True</property>
+                <child>
+                  <object class="FoliateAnnotationView" id="annotation-view">
+                    <style><class name="card-sidebar"/><class name="flat-list"/></style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>

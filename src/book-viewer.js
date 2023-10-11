@@ -17,7 +17,8 @@ import './toc.js'
 import './search.js'
 import './navbar.js'
 import {
-    AnnotationPopover, AnnotationModel, BookmarkModel, exportAnnotations,
+    AnnotationPopover, AnnotationModel, BookmarkModel,
+    importAnnotations, exportAnnotations,
 } from './annotations.js'
 import { SelectionPopover } from './selection-tools.js'
 import { ImageViewer } from './image-viewer.js'
@@ -76,20 +77,24 @@ class BookData {
         const annotations = init
             ? this.storage.get('annotations', [])
             : this.annotations.export()
-        for (const annotation of annotations) this.addAnnotation(annotation, init)
+        await this.addAnnotations(annotations, false)
         return this
     }
-    async addAnnotation(annotation, init) {
+    async addAnnotation(annotation, save = true) {
         try {
             const [view, ...views] = this.views
             const { index, label } = await view.addAnnotation(annotation)
             this.annotations.add(annotation, index, label)
             for (const view of views) view.addAnnotation(annotation)
-            if (!init) this.#saveAnnotations()
+            if (save) this.#saveAnnotations()
             return annotation
         } catch (e) {
             console.error(e)
         }
+    }
+    async addAnnotations(annotations, save = true) {
+        await Promise.all(annotations.map(x => this.addAnnotation(x, false)))
+        if (save) this.#saveAnnotations()
     }
     async deleteAnnotation(annotation) {
         try {
@@ -761,7 +766,7 @@ export const BookViewer = GObject.registerClass({
                 'toggle-sidebar', 'toggle-search', 'show-location',
                 'toggle-toc', 'toggle-annotations', 'toggle-bookmarks',
                 'preferences', 'show-info', 'bookmark',
-                'export-annotations',
+                'export-annotations', 'import-annotations',
             ],
             props: ['fold-sidebar'],
         })
@@ -1081,7 +1086,10 @@ export const BookViewer = GObject.registerClass({
         this._bookmark_view.toggle()
     }
     exportAnnotations() {
-        exportAnnotations(this.get_root(), this.#data.storage.export())
+        exportAnnotations(this.root, this.#data.storage.export())
+    }
+    importAnnotations() {
+        importAnnotations(this.root, this.#data)
     }
     vfunc_unroot() {
         this._navbar.tts_box.kill()
