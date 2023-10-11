@@ -117,17 +117,24 @@
 
 <template class="FoliateBookViewer" parent="GtkOverlay">
   <child type="overlay">
-    <object class="GtkBox" id="top-overlay-box">
-      <property name="orientation">vertical</property>
+    <object class="AdwToolbarView" id="top-overlay-box">
       <property name="vexpand">True</property>
       <property name="hexpand">True</property>
       <style><class name="background"/></style>
-      <child>
+      <child type="top">
         <object class="GtkHeaderBar" id="top-overlay-headerbar">
           <style><class name="flat"/></style>
           <property name="title-widget">
             <object class="GtkLabel"/>
           </property>
+          <child>
+            <object class="GtkButton">
+              <property name="action-name">win.show-library</property>
+              <property name="halign">center</property>
+              <property name="icon-name">go-previous-symbolic</property>
+              <property name="tooltip-text" translatable="yes">Library</property>
+            </object>
+          </child>
         </object>
       </child>
       <child>
@@ -186,14 +193,9 @@
                       </child>
                       <child>
                         <object class="GtkButton">
-                          <property name="action-name">win.show-library</property>
+                          <property name="action-name">win.open</property>
                           <property name="halign">center</property>
-                          <property name="child">
-                            <object class="AdwButtonContent">
-                              <property name="icon-name">go-previous-symbolic</property>
-                              <property name="label" translatable="yes">Library</property>
-                            </object>
-                          </property>
+                          <property name="label" translatable="yes">Open Another File…</property>
                           <style><class name="pill"/></style>
                         </object>
                       </child>
