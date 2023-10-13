@@ -261,9 +261,13 @@ GObject.registerClass({
     },
 }, class extends Gtk.ListView {
     #filter
+    #location
+    // don't scroll when activating, as that would mean it's already in view
+    #shouldScroll = true
     constructor(params) {
         super(params)
         this.connect('activate', (_, pos) => {
+            this.#shouldScroll = false
             const annotation = this.model.model.get_item(pos).item ?? {}
             if (annotation) this.emit('go-to-annotation', annotation)
         })
@@ -306,6 +310,7 @@ GObject.registerClass({
             .new(model, false, true, item => item.subitems ?? null)
         this.#filter = new Gtk.FilterListModel({ model: tree })
         this.model = new Gtk.NoSelection({ model: this.#filter })
+        if (this.#location) this.scrollToCFI(this.#location.cfi)
     }
     filter(query) {
         query = query?.trim()?.toLowerCase()
@@ -316,6 +321,29 @@ GObject.registerClass({
             return [text, color, note].some(x => x?.toLowerCase()?.includes(query))
         } : null)
         this.#filter.filter = filter
+    }
+    #scrollToIndex(i) {
+        return this.scroll_to(i, Gtk.ListScrollFlags.NONE, null)
+    }
+    scrollToCFI(cfi) {
+        for (const [i, item] of utils.gliter(this.#filter))
+            if (item.item.value && CFI.compare(cfi, item.item.value) <= 0)
+                return this.#scrollToIndex(i)
+        return this.#scrollToIndex(this.#filter.get_n_items() - 1)
+    }
+    update(location) {
+        if (!this.#filter) {
+            this.#location = location
+            return
+        }
+        if (!this.#shouldScroll) {
+            this.#shouldScroll = true
+            this.#location = location
+            return
+        }
+        if (this.#location.cfi === location.cfi) return
+        this.scrollToCFI(location.cfi)
+        this.#location = location
     }
 })
 

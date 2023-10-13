@@ -899,6 +899,7 @@ export const BookViewer = GObject.registerClass({
         this._search_view.index = section.current
         this._navbar.update(payload)
         this._bookmark_view.update(payload)
+        this._annotation_view.update(payload)
         if (this.#data) {
             this.#data.storage.set('progress', [location.current, location.total])
             this.#data.storage.set('lastLocation', cfi)
@@ -914,6 +915,7 @@ export const BookViewer = GObject.registerClass({
     }
     #showSelection({ type, value, text, lang, pos: { point, dir } }) {
         if (type === 'annotation') return new Promise(resolve => {
+            this._annotation_view.scrollToCFI(value)
             const annotation = this.#data.annotations.get(value)
             const popover = utils.connect(new AnnotationPopover({ annotation }), {
                 'delete-annotation': () => this.#deleteAnnotation(annotation),
