@@ -35,6 +35,14 @@ foliate-view::part(head), foliate-view::part(foot) {
     font-family: system-ui;
     font-size: 9pt;
 }
+foliate-view {
+    --overlayer-highlight-blend-mode: multiply;
+}
+@media (prefers-color-scheme: dark) {
+    foliate-view {
+        --overlayer-highlight-blend-mode: screen;
+    }
+}
 #ribbon {
     visibility: hidden;
     display: inline-block;
