@@ -304,6 +304,15 @@ GObject.registerClass({
             'unbind': (_, listItem) =>
                 utils.disconnect(listItem.item.item, handlers.get(listItem)),
         })
+
+        // XXX: `scroll_to()` doesn't work until after the list view is shown
+        // or rather, not even then; probably a GTK bug?
+        const handler = this.connect('map', () => {
+            this.disconnect(handler)
+            if (this.#location)
+                // horrible hack but it's better than nothing I guess
+                setTimeout(() => this.scrollToCFI(this.#location.cfi), 100)
+        })
     }
     setupModel(model) {
         const tree = Gtk.TreeListModel
