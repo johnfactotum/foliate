@@ -332,7 +332,7 @@ GObject.registerClass({
         this.#filter.filter = filter
     }
     #scrollToIndex(i) {
-        return this.scroll_to(i, Gtk.ListScrollFlags.NONE, null)
+        if (i >= 0) this.scroll_to(i, Gtk.ListScrollFlags.NONE, null)
     }
     scrollToCFI(cfi) {
         for (const [i, item] of utils.gliter(this.#filter))
