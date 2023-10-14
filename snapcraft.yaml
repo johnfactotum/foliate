@@ -58,4 +58,10 @@ parts:
       - usr/share/metainfo/com.github.johnfactotum.Foliate.metainfo.xml
     organize:
       snap/foliate/current/usr: usr
+  deps:
+    plugin: nil
+    stage-packages:
+      - libspeechd2 # probably necessary, need testing
+    prime:
+      - usr/lib/*/libspeechd.so.*
 
