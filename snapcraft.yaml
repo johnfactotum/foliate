@@ -42,6 +42,8 @@ parts:
     plugin: meson
     source: https://github.com/johnfactotum/foliate.git
     source-branch: gtk4
+    build-environment:
+      - PKG_CONFIG_PATH: /snap/webkitgtk-6-gnome-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig:$PKG_CONFIG_PATH
     meson-parameters:
       - --prefix=/snap/foliate/current/usr
     override-pull: |
