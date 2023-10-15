@@ -13,14 +13,20 @@ class SSIPConnection {
     spawn() {
         const flags = Gio.SubprocessFlags.NONE
         const launcher = new Gio.SubprocessLauncher({ flags })
-        const proc = launcher.spawnv(['speech-dispatcher', '--spawn'])
+        const cmd = GLib.getenv('SPEECHD_CMD') ?? 'speech-dispatcher'
+        const proc = launcher.spawnv([cmd, '--spawn'])
         return new Promise(resolve => proc.wait_check_async(null, () => resolve()))
     }
     connect() {
-        const path = GLib.build_filenamev(
-            [GLib.get_user_runtime_dir(), 'speech-dispatcher/speechd.sock'])
-        const address = Gio.UnixSocketAddress.new(path)
-        this.#connection = new Gio.SocketClient().connect(address, null)
+        const path = GLib.getenv('SPEECHD_ADDRESS')?.split(':')?.[1]
+            ?? GLib.build_filenamev([GLib.get_user_runtime_dir(),
+                'speech-dispatcher/speechd.sock'])
+        try {
+            const address = Gio.UnixSocketAddress.new(path)
+            this.#connection = new Gio.SocketClient().connect(address, null)
+        } catch (e){
+            throw new Error(`Error connecting to ${path}: ${e}`)
+        }
         this.#outputStream = Gio.DataOutputStream.new(this.#connection.get_output_stream())
         this.#inputStream = Gio.DataInputStream.new(this.#connection.get_input_stream())
         this.#inputStream.newline_type = Gio.DataStreamNewlineType.TYPE_CR_LF
@@ -70,6 +76,10 @@ export class SSIPClient {
         this.#initialized = true
         try {
             await this.#connection.spawn()
+        } catch (e) {
+            console.debug(e)
+        }
+        try {
             this.#connection.connect()
             const clientName = `${GLib.get_user_name()}:foliate:tts`
             await this.#connection.send('SET SELF CLIENT_NAME ' + clientName)
