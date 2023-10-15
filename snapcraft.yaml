@@ -35,6 +35,7 @@ apps:
     desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
     common-id: com.github.johnfactotum.Foliate
     environment:
+      SPEECHD_ADDRESS: "unix_socket:/run/user/$SNAP_UID/speech-dispatcher/speechd.sock"
       LD_LIBRARY_PATH: $SNAP/webkitgtk-platform/usr/lib:$SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
       GI_TYPELIB_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0:$SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0
 parts:
@@ -42,6 +43,8 @@ parts:
     plugin: meson
     source: https://github.com/johnfactotum/foliate.git
     source-branch: gtk4
+    build-environment:
+      - PKG_CONFIG_PATH: /snap/webkitgtk-6-gnome-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig:$PKG_CONFIG_PATH
     meson-parameters:
       - --prefix=/snap/foliate/current/usr
     override-pull: |
@@ -55,4 +58,10 @@ parts:
       - usr/share/metainfo/com.github.johnfactotum.Foliate.metainfo.xml
     organize:
       snap/foliate/current/usr: usr
+  deps:
+    plugin: nil
+    stage-packages:
+      - libspeechd2 # probably necessary, need testing
+    prime:
+      - usr/lib/*/libspeechd.so.*
 
