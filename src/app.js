@@ -288,6 +288,19 @@ export const Application = GObject.registerClass({
             .book-image-frame {
                 box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
             }
+            .book-image-full {
+                box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
+            }
+            .overlaid windowcontrols > button > image {
+                background: rgba(0, 0, 0, .5);
+                color: #fff;
+            }
+            .overlaid windowcontrols > button:hover > image {
+                background: rgba(40, 40, 40, .5);
+            }
+            .overlaid windowcontrols > button:active > image {
+                background: rgba(60, 60, 60, .5);
+            }
 
             .book-list {
                 background: transparent;

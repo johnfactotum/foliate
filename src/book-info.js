@@ -148,17 +148,17 @@ const makeBookInfoBox = (metadata, pixbuf) => {
 }
 
 export const makeBookInfoWindow = (root, metadata, pixbuf, bigCover) => {
-    const win = new Gtk.Window({
+    const win = new Adw.Window({
         title: _('About This Book'),
-        default_width: 360,
+        width_request: 320,
+        height_request: 300,
+        default_width: bigCover && pixbuf && root.get_width() > 800 ? 800 : 320,
         default_height: pixbuf ? 540 : 420,
         modal: true,
         transient_for: root,
     })
-    const headerbar = new Gtk.HeaderBar()
 
     const infobox = Object.assign(makeBookInfoBox(metadata, bigCover ? null : pixbuf), {
-        margin_top: 18,
         margin_bottom: 18,
         margin_start: 18,
         margin_end: 18,
@@ -166,25 +166,61 @@ export const makeBookInfoWindow = (root, metadata, pixbuf, bigCover) => {
     const scrolled = new Gtk.ScrolledWindow({
         hexpand: true,
         vexpand: true,
-        width_request: 360,
+        width_request: 320,
     })
+    const toolbarView = new Adw.ToolbarView({ content: scrolled })
+    const headerbar = new Adw.HeaderBar({ show_title: false })
+    toolbarView.add_top_bar(headerbar)
 
     if (bigCover && pixbuf) {
-        const picture = new Gtk.Picture({ focusable: true })
-        picture.set_pixbuf(pixbuf)
-        win.default_height = 700
-        const box = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL,
-        })
-        box.append(picture)
-        box.append(new Gtk.Separator())
-        box.append(infobox)
-        scrolled.child = box
-        scrolled.child.vscroll_policy = Gtk.ScrollablePolicy.NATURAL
-    } else scrolled.child = infobox
+        headerbar.add_css_class('overlaid')
+        toolbarView.extend_content_to_top_edge = true
 
-    win.titlebar = headerbar
-    win.child = scrolled
+        const picture = new Gtk.Picture({
+            content_fit: Gtk.ContentFit.COVER,
+            focusable: true,
+        })
+        picture.add_css_class('book-image-full')
+        picture.set_pixbuf(pixbuf)
+
+        const innerBox = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 18,
+        })
+        innerBox.append(picture)
+        innerBox.append(infobox)
+        scrolled.child = innerBox
+        scrolled.child.vscroll_policy = Gtk.ScrollablePolicy.NATURAL
+
+        const outerBox = new Gtk.Box()
+        outerBox.append(toolbarView)
+
+        win.content = outerBox
+        win.add_breakpoint(utils.connect(new Adw.Breakpoint({
+            condition: Adw.BreakpointCondition.parse(
+                'min-width: 540px and min-aspect-ratio: 5/4'),
+        }), {
+            'apply': () => {
+                innerBox.remove(picture)
+                outerBox.prepend(picture)
+                picture.grab_focus()
+                headerbar.decoration_layout = ':close'
+                headerbar.remove_css_class('overlaid')
+                toolbarView.extend_content_to_top_edge = false
+            },
+            'unapply': () => {
+                outerBox.remove(picture)
+                innerBox.prepend(picture)
+                headerbar.decoration_layout = null
+                headerbar.add_css_class('overlaid')
+                toolbarView.extend_content_to_top_edge = true
+            },
+        }))
+    } else {
+        scrolled.child = infobox
+        win.content = toolbarView
+    }
+
     win.add_controller(utils.addShortcuts({ 'Escape|<ctrl>w': () => win.close() }))
     win.show()
 }
