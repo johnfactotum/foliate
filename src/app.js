@@ -53,10 +53,7 @@ const ApplicationWindow = GObject.registerClass({
 }, class extends Adw.ApplicationWindow {
     #library
     #bookViewer
-    #leaflet = new Adw.Leaflet({
-        can_unfold: false,
-        transition_type: Adw.LeafletTransitionType.SLIDE,
-    })
+    #stack = new Gtk.Stack()
     constructor(params) {
         super(params)
         Object.assign(this, {
@@ -64,9 +61,8 @@ const ApplicationWindow = GObject.registerClass({
             title: pkg.localeName,
             default_width: 1200,
             default_height: 750,
-            content: new Adw.ToastOverlay(),
+            content: new Adw.ToastOverlay({ child: this.#stack }),
         })
-        this.content.child = this.#leaflet
 
         const styleManager = Adw.StyleManager.get_default()
         if (styleManager.dark) this.add_css_class('is-dark')
@@ -103,9 +99,10 @@ const ApplicationWindow = GObject.registerClass({
         this.file = file
         if (!this.#bookViewer) {
             this.#bookViewer = new BookViewer()
-            this.#leaflet.append(this.#bookViewer)
+            this.#stack.add_child(this.#bookViewer)
         }
-        this.#leaflet.visible_child = this.#bookViewer
+        this.#stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT
+        this.#stack.visible_child = this.#bookViewer
         this.#bookViewer.open(file)
     }
     open() {
@@ -144,11 +141,12 @@ const ApplicationWindow = GObject.registerClass({
         this.title = pkg.localeName
         if (!this.#library) {
             this.#library = new Library()
-            this.#leaflet.prepend(this.#library)
+            this.#stack.add_child(this.#library)
         }
-        this.#leaflet.visible_child = this.#library
+        this.#stack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
+        this.#stack.visible_child = this.#library
         if (this.#bookViewer) {
-            this.#leaflet.remove(this.#bookViewer)
+            this.#stack.remove(this.#bookViewer)
             this.#bookViewer = null
         }
     }
