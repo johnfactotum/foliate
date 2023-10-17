@@ -28,13 +28,6 @@
   </section>
   <section>
     <item>
-      <attribute name="label" translatable="yes">Fold Sidebar</attribute>
-      <attribute name="action">viewer.fold-sidebar</attribute>
-      <attribute name="hidden-when">action-disabled</attribute>
-    </item>
-  </section>
-  <section>
-    <item>
       <attribute name="label" translatable="yes">Keyboard Shortcuts</attribute>
       <attribute name="action">win.help-overlay</attribute>
     </item>
@@ -242,6 +235,14 @@
                       <property name="action-name">win.show-library</property>
                       <property name="label" translatable="yes">Library</property>
                       <property name="can-shrink">True</property>
+                    </object>
+                  </child>
+                  <child type="end">
+                    <object class="GtkToggleButton" id="pin-button">
+                      <property name="icon-name">pin-symbolic</property>
+                      <property name="tooltip-text" translatable="yes">Pin Sidebar</property>
+                      <property name="active" bind-source="FoliateBookViewer" bind-property="fold-sidebar" bind-flags="sync-create|bidirectional|invert-boolean"/>
+                      <style><class name="circular"/><class name="raised"/><class name="small-button"/></style>
                     </object>
                   </child>
                   <child type="end">

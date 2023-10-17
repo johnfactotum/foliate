@@ -225,6 +225,9 @@ export const Application = GObject.registerClass({
             .large-button {
                 padding: 6px;
             }
+            .small-button {
+                transform: scale(.7);
+            }
             .chips button {
                 border-radius: 9999px;
             }

@@ -552,7 +552,7 @@ export const BookViewer = GObject.registerClass({
         'book-menu-button', 'bookmark-button',
         'view-popover', 'zoom-button',
         'navbar',
-        'library-button', 'sidebar-stack',
+        'library-button', 'pin-button', 'sidebar-stack',
         'contents-stack', 'contents-stack-switcher',
         'toc-view',
         'search-view', 'search-bar', 'search-entry',
@@ -619,10 +619,12 @@ export const BookViewer = GObject.registerClass({
             'apply': () => {
                 breakpointApplied = true
                 this._flap.collapsed = true
+                this._pin_button.hide()
             },
             'unapply': () => {
                 breakpointApplied = false
                 this._flap.collapsed = this.fold_sidebar
+                this._pin_button.show()
             },
         }))
         const setFoldSidebar = () =>
