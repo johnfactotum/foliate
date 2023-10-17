@@ -364,7 +364,7 @@ const AnnotationColor = utils.makeDataClass('FoliateAnnotationColor', {
 
 const colorImageIcons = {
     underline: 'format-text-underline-symbolic',
-    squiggly: 'format-text-squiggly-symbolic',
+    squiggly: 'text-squiggly-symbolic',
     strikethrough: 'format-text-strikethrough-symbolic',
 }
 

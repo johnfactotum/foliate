@@ -37,7 +37,7 @@ const makePropertyBox = (title, value) => {
 const makeSubjectBox = subject => {
     const box = new Gtk.Box({ spacing: 6 })
     box.append(new Gtk.Image({
-        icon_name: 'view-tag-symbolic',
+        icon_name: 'tag-symbolic',
         valign: Gtk.Align.START,
     }))
     box.append(utils.addClass(new Gtk.Label({
