@@ -148,12 +148,13 @@ const makeBookInfoBox = (metadata, pixbuf) => {
 }
 
 export const makeBookInfoWindow = (root, metadata, pixbuf, bigCover) => {
+    const wide = root.get_width() > 800
     const win = new Adw.Window({
         title: _('About This Book'),
         width_request: 320,
         height_request: 300,
-        default_width: bigCover && pixbuf && root.get_width() > 800 ? 800 : 320,
-        default_height: pixbuf ? 540 : 420,
+        default_width: bigCover && pixbuf ? (wide ? 800 : 320) : 420,
+        default_height: bigCover && pixbuf ? (wide ? 540 : 640) : pixbuf ? 540 : 420,
         modal: true,
         transient_for: root,
     })
