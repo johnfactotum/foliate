@@ -860,8 +860,14 @@ export const BookViewer = GObject.registerClass({
 
         const cover = await this._view.getCover()
         this.#cover = cover
-        if (cover) this._book_cover.set_from_pixbuf(cover)
-        else this._book_cover.icon_name = 'image-missing-symbolic'
+        if (cover) {
+            this._book_cover.set_pixbuf(cover)
+            this._book_cover.parent.show()
+            this._book_info.height_request = 72
+        } else {
+            this._book_cover.parent.hide()
+            this._book_info.height_request = -1
+        }
 
         book.metadata.identifier ||= makeIdentifier(this.#file)
         const { identifier } = book.metadata

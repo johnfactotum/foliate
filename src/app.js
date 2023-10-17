@@ -288,6 +288,10 @@ export const Application = GObject.registerClass({
             .book-image-frame {
                 box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
             }
+            .book-image-frame-small {
+                box-shadow: 0 3px 6px rgba(0, 0, 0, .15);
+                border-radius: 6px;
+            }
             .book-image-full {
                 box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
             }

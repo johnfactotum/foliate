@@ -314,16 +314,18 @@
                                       <property name="orientation">vertical</property>
                                       <child>
                                         <object class="GtkBox" id="book-info">
-                                          <property name="margin-start">6</property>
-                                          <property name="margin-end">6</property>
-                                          <property name="margin-bottom">6</property>
-                                          <property name="spacing">6</property>
-                                          <property name="hexpand">False</property>
+                                          <property name="margin-start">12</property>
+                                          <property name="margin-bottom">12</property>
+                                          <property name="margin-top">3</property>
+                                          <property name="spacing">12</property>
                                           <child>
-                                            <object class="GtkImage" id="book-cover">
-                                              <property name="pixel-size">32</property>
-                                              <property name="height-request">72</property>
-                                              <property name="width-request">60</property>
+                                            <object class="GtkFrame">
+                                              <property name="valign">center</property>
+                                              <style><class name="book-image-frame-small"/></style>
+                                              <child>
+                                                <object class="GtkPicture" id="book-cover">
+                                                </object>
+                                              </child>
                                             </object>
                                           </child>
                                           <child>
