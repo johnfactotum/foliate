@@ -12,6 +12,29 @@ import * as format from './format.js'
 import { exportAnnotations } from './annotations.js'
 import { formatAuthors, makeBookInfoWindow } from './book-info.js'
 
+const getURIFromTracker = identifier => {
+    const connection = imports.gi.Tracker.SparqlConnection.bus_new(
+        'org.freedesktop.Tracker3.Miner.Files', null, null)
+    const statement = connection.query_statement(`
+        SELECT ?uri
+        WHERE {
+            SERVICE <dbus:org.freedesktop.Tracker3.Miner.Files> {
+                GRAPH tracker:Documents {
+                    ?u rdf:type nfo:EBook .
+                    ?u nie:isStoredAs ?uri .
+                    ?u nie:identifier ~identifier .
+                }
+            }
+        }`, null)
+    statement.bind_string('identifier', identifier)
+    const cursor = statement.execute(null)
+    cursor.next(null)
+    const uri = cursor.get_string(0)[0]
+    cursor.close()
+    connection.close()
+    return uri
+}
+
 const showCovers = utils.settings('library')?.get_boolean('show-covers') ?? true
 
 const listBooks = function* (path) {
@@ -29,6 +52,12 @@ class URIStore {
     #storage = new utils.JSONStorage(pkg.datapath('library'), 'uri-store')
     #map = new Map(this.#storage.get('uris'))
     get(id) {
+        try {
+            const uri = getURIFromTracker(id)
+            if (uri) return uri
+        } catch (e) {
+            console.warn(e)
+        }
         return this.#map.get(id)
     }
     set(id, uri) {

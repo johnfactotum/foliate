@@ -23,6 +23,10 @@ Read books in style.
 
 To enable auto-hyphenation, you will need to install hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc. (which strictly speaking are optional dependencies for WebkitGTK, not Foliate itself).
 
+For text-to-speech support, install `speech-dispatcher` and output modules such as `espeak-ng`.
+
+If installed, `tracker` (>= 3; `gir1.2-tracker-3.0` in Debian-based distros) and `tracker-miners` can be used to track the locations of files.
+
 ### Obtaining the Source
 
 The repo uses git submodules. Before running or installing, make sure you clone the whole thing with `--recurse-submodules`.

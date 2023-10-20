@@ -10,7 +10,8 @@
         "--socket=fallback-x11",
         "--device=dri",
         "--socket=wayland",
-        "--filesystem=xdg-run/speech-dispatcher:ro"
+        "--filesystem=xdg-run/speech-dispatcher:ro",
+        "--add-policy=Tracker3.dbus:org.freedesktop.Tracker3.Miner.Files=tracker:Documents"
     ],
     "modules" : [
         {
