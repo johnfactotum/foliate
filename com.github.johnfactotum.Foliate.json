@@ -9,7 +9,8 @@
         "--share=ipc",
         "--socket=fallback-x11",
         "--device=dri",
-        "--socket=wayland"
+        "--socket=wayland",
+        "--filesystem=xdg-run/speech-dispatcher:ro"
     ],
     "modules" : [
         {
