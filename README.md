@@ -10,6 +10,8 @@
 
 Read books in style.
 
+![Screenshot](data/screenshots/screenshot.png)
+
 ## Installation
 
 ### Run Time Dependencies
