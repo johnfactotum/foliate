@@ -751,7 +751,7 @@ export const BookViewer = GObject.registerClass({
         if (identifier) {
             this.#data = await dataStore.get(identifier, this._view)
             const { annotations, bookmarks } = this.#data
-            this._navbar.loadAnnotations(annotations.export())
+            this._navbar.loadAnnotations(annotations.export(), book)
             this._annotation_view.setupModel(annotations)
             this._bookmark_view.setupModel(bookmarks)
             const updateAnnotations = () => this._annotation_stack

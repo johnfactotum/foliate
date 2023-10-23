@@ -115,23 +115,37 @@ GObject.registerClass({
             this.add_mark(fraction, Gtk.PositionType.TOP, null)
         }
     }
-    loadAnnotations(annotations) {
+    loadAnnotations(annotations, book) {
+
+        // if (book.resolveCFI) {
+        //     console.log("resolved", book.resolveCFI(annotations[0].value))
+        //     // TODO: find index
+        // } else {
         const parts = CFI.parse(annotations[0].value)
-        const top = (parts.parent ?? parts).shift()
-        let $itemref = CFI.toElement(this.opf, top)
-        // make sure it's an idref; if not, try again without the ID assertion
-        // mainly because Epub.js used to generate wrong ID assertions
-        // https://github.com/futurepress/epub.js/issues/1236
-        if ($itemref && $itemref.nodeName !== 'idref') {
-            top.at(-1).id = null
-            $itemref = CFI.toElement(this.opf, top)
+        const index = CFI.fake.toIndex((parts.parent ?? parts).shift())
+        // const anchor = doc => CFI.toRange(doc, parts)
+        // console.log(":book.sections[index]", book.sections[index].size)
+        // console.log("not resolved", { index, anchor })
+        // }
+        const sections = book.sections
+        const sizes = sections.filter(s => s.linear !== 'no').map(s => s.size)
+        if (sizes.length > 100) return
+        const total = sizes.reduce((a, b) => a + b, 0)
+        let sum = 0
+        let i = 0
+        let sums = []
+        for (const size of sizes.slice(0, -1)) {
+            sum += size
+            sums.push(sum)
+            // add epsilon so it will snap to section start
+            const fraction = sum / total + Number.EPSILON
+            this.add_mark(fraction, Gtk.PositionType.TOP, null)
+            i += 1
         }
-        const idref = $itemref?.getAttribute('idref')
-        const index = this.spine.findIndex(item => item.idref === idref)
-        const anchor = doc => CFI.toRange(doc, parts)
-        console.log(index, anchor)
+        
+        console.log("sums", sums, total)
         console.log(annotations, annotations[0].value)
-        this.add_mark(CFI.collapse(annotations[0].value), Gtk.PositionType.BOTTOM, null)
+        this.add_mark(sums[index - 1] / total + Number.EPSILON, Gtk.PositionType.BOTTOM, null)
     }
     update(fraction) {
         if (this.#shouldUpdate) {
@@ -226,8 +240,8 @@ GObject.registerClass({
     loadSections(sections) {
         this._progress_scale.loadSections(sections)
     }
-    loadAnnotations(annotations) {
-        this._progress_scale.loadAnnotations(annotations)
+    loadAnnotations(annotations, book) {
+        this._progress_scale.loadAnnotations(annotations, book)
     }
     loadPageList(pageList, total) {
         if (!pageList?.length) {
