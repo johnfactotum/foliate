@@ -1,7 +1,7 @@
 > **Note**
-> 
+>
 > This is the `gtk4` branch. You are reading the README for the work-in-progress, unreleased GTK 4 version.
-> 
+>
 > To learn about the last stable, GTK 3 version, see [README.md in the `master` branch](https://github.com/johnfactotum/foliate/blob/master/README.md).
 
 <img src="data/com.github.johnfactotum.Foliate.svg" align="left">
@@ -109,10 +109,10 @@ This program is free software: you can redistribute it and/or modify it under th
 
 The following JavaScript libraries are bundled in this software:
 
-* [foliate-js](https://github.com/johnfactotum/foliate-js), which is MIT licensed.
-* [zip.js](https://github.com/gildas-lormeau/zip.js), which is licensed under the BSD-3-Clause license.
-* [fflate](https://github.com/101arrowz/fflate), which is MIT licensed.
-* [PDF.js](https://github.com/mozilla/pdf.js), which is licensed under Apache License 2.0.
+- [foliate-js](https://github.com/johnfactotum/foliate-js), which is MIT licensed.
+- [zip.js](https://github.com/gildas-lormeau/zip.js), which is licensed under the BSD-3-Clause license.
+- [fflate](https://github.com/101arrowz/fflate), which is MIT licensed.
+- [PDF.js](https://github.com/mozilla/pdf.js), which is licensed under Apache License 2.0.
 
 ---
 
