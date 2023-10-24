@@ -102,38 +102,16 @@ GObject.registerClass({
             }
         })
     }
-    loadSections(sections) {
+    loadMarks(book, annotations) {
+        // add section and annotation marks
         this.clear_marks()
-        const sizes = sections.filter(s => s.linear !== 'no').map(s => s.size)
-        if (sizes.length > 100) return
-        const total = sizes.reduce((a, b) => a + b, 0)
-        let sum = 0
-        for (const size of sizes.slice(0, -1)) {
-            sum += size
-            // add epsilon so it will snap to section start
-            const fraction = sum / total + Number.EPSILON
-            this.add_mark(fraction, Gtk.PositionType.TOP, null)
-        }
-    }
-    loadAnnotations(annotations, book) {
-
-        // if (book.resolveCFI) {
-        //     console.log("resolved", book.resolveCFI(annotations[0].value))
-        //     // TODO: find index
-        // } else {
-        const parts = CFI.parse(annotations[0].value)
-        const index = CFI.fake.toIndex((parts.parent ?? parts).shift())
-        // const anchor = doc => CFI.toRange(doc, parts)
-        // console.log(":book.sections[index]", book.sections[index].size)
-        // console.log("not resolved", { index, anchor })
-        // }
         const sections = book.sections
         const sizes = sections.filter(s => s.linear !== 'no').map(s => s.size)
         if (sizes.length > 100) return
         const total = sizes.reduce((a, b) => a + b, 0)
-        let sum = 0
         let i = 0
-        let sums = []
+        let sum = 0
+        let sums = [0]
         for (const size of sizes.slice(0, -1)) {
             sum += size
             sums.push(sum)
@@ -142,10 +120,17 @@ GObject.registerClass({
             this.add_mark(fraction, Gtk.PositionType.TOP, null)
             i += 1
         }
-        
-        console.log("sums", sums, total)
-        console.log(annotations, annotations[0].value)
-        this.add_mark(sums[index - 1] / total + Number.EPSILON, Gtk.PositionType.BOTTOM, null)
+        for (const annotation of annotations) {
+            const parts = CFI.parse(annotation.value)
+            // console.log(annotation.value)
+            // console.log('parts', parts.start)
+            const index = CFI.fake.toIndex((parts.parent ?? parts).shift())
+            // const indexStart = parts.start[0][0].index
+            // const offsetStart = parts.start[0][0].offset
+            // console.log(parts.start[0][0], index, indexStart, offsetStart)
+            const fraction = sums[index]/total // + indexStart*512/total + offsetStart/total
+            this.add_mark(fraction, Gtk.PositionType.BOTTOM, null)
+        } 
     }
     update(fraction) {
         if (this.#shouldUpdate) {
@@ -237,11 +222,8 @@ GObject.registerClass({
             widget.set_direction(value)
         utils.setDirection(this._section_buttons, value)
     }
-    loadSections(sections) {
-        this._progress_scale.loadSections(sections)
-    }
-    loadAnnotations(annotations, book) {
-        this._progress_scale.loadAnnotations(annotations, book)
+    loadMarks(book, annotations) {
+        this._progress_scale.loadMarks(book, annotations)
     }
     loadPageList(pageList, total) {
         if (!pageList?.length) {
