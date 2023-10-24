@@ -5,11 +5,13 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 
+const formatContributors = contributors => Array.isArray(contributors)
+    ? format.list(contributors.map(contributor =>
+        typeof contributor === 'string' ? contributor : contributor.name))
+    : contributors
+
 export const formatAuthors = metadata => metadata?.author
-    ? (Array.isArray(metadata.author)
-        ? format.list(metadata.author.map(author =>
-            typeof author === 'string' ? author : author.name))
-        : metadata.author)
+    ? formatContributors(metadata.author)
     : metadata?.creator // compat with previous versions
     ?? ''
 
@@ -65,6 +67,13 @@ const makeBookHeader = (metadata, pixbuf) => {
         label: metadata.title ?? '',
     }), 'title-2'))
 
+    if (metadata.subtitle) box.append(utils.addClass(new Gtk.Label({
+        xalign: 0,
+        wrap: true,
+        selectable: true,
+        label: metadata.subtitle,
+    }), 'title-4'))
+
     box.append(new Gtk.Label({
         xalign: 0,
         wrap: true,
@@ -112,18 +121,27 @@ const makeBookInfoBox = (metadata, pixbuf) => {
     })
     box.append(flowbox)
 
-    const longIdentifier = metadata.identifier?.length > 18
-
     for (const [title, value] of [
         [_('Publisher'), metadata.publisher],
+        // Translators: this is the heading for the publication date
         [_('Published'), format.date(metadata.published)],
+        // Translators: this is the heading for the modified date
         [_('Updated'), format.date(metadata.modified)],
         [_('Language'), format.language(metadata.language)],
-        [_('Identifier'), longIdentifier ? null : metadata.identifier],
-    ].filter(([, value]) => value))
-        flowbox.insert(makePropertyBox(title, value), -1)
-
-    if (longIdentifier) box.append(makePropertyBox(_('Identifier'), metadata.identifier))
+        [_('Translated by'), formatContributors(metadata.translator)],
+        [_('Edited by'), formatContributors(metadata.editor)],
+        [_('Narrated by'), formatContributors(metadata.narrator)],
+        [_('Illustrated by'), formatContributors(metadata.illustrator)],
+        [_('Produced by'), formatContributors(metadata.producer)],
+        [_('Artwork by'), formatContributors(metadata.artist)],
+        [_('Color by'), formatContributors(metadata.colorist)],
+        [_('Contributors'), formatContributors(metadata.contributor)],
+        [_('Identifier'), metadata.identifier],
+    ]) {
+        if (!value) continue
+        if (value.length > 30) box.append(makePropertyBox(title, value))
+        else flowbox.insert(makePropertyBox(title, value), -1)
+    }
 
     if (metadata.subject?.length) {
         const subjectsBox = new Gtk.FlowBox({
