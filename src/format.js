@@ -28,7 +28,7 @@ export const locales = GLib.get_language_names()
 const percentFormat = new Intl.NumberFormat(locales, { style: 'percent' })
 export const percent = x => percentFormat.format(x)
 
-const listFormat = new Intl.ListFormat(locales, { style: 'long', type: 'conjunction' })
+const listFormat = new Intl.ListFormat(locales, { style: 'short', type: 'conjunction' })
 export const list = x => x ? listFormat.format(x) : ''
 
 export const date = (str, showTime = false) => {

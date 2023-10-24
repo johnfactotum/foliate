@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-11 16:15+0000\n"
+"POT-Creation-Date: 2023-10-24 10:24+0000\n"
 "PO-Revision-Date: 2021-03-30 14:03+0800\n"
 "Last-Translator: Tranquilo Chan <cdh4227@foxmail.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
@@ -19,276 +19,312 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Gtranslator 3.38.0\n"
 
-#: src/annotations.js:123 src/annotations.js:158
+#: src/annotations.js:140 src/annotations.js:175
 #, fuzzy
 msgid "Bookmark deleted"
 msgstr "书签"
 
-#: src/annotations.js:124 src/annotations.js:159 src/book-viewer.js:913
+#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:789
 msgid "Undo"
 msgstr ""
 
-#: src/annotations.js:381
+#: src/annotations.js:440
 msgid "Underline"
 msgstr ""
 
-#: src/annotations.js:382
+#: src/annotations.js:441
 msgid "Squiggly"
 msgstr ""
 
-#: src/annotations.js:383
+#: src/annotations.js:442
 msgid "Strikethrough"
 msgstr ""
 
-#: src/annotations.js:384
+#: src/annotations.js:443
 msgid "Yellow"
 msgstr ""
 
-#: src/annotations.js:385
+#: src/annotations.js:444
 #, fuzzy
 msgid "Orange"
 msgstr "编排"
 
-#: src/annotations.js:386
+#: src/annotations.js:445
 #, fuzzy
 msgid "Red"
 msgstr "刷新"
 
-#: src/annotations.js:387
+#: src/annotations.js:446
 msgid "Magenta"
 msgstr ""
 
-#: src/annotations.js:388
+#: src/annotations.js:447
 msgid "Aqua"
 msgstr ""
 
-#: src/annotations.js:389
+#: src/annotations.js:448
 msgid "Lime"
 msgstr ""
 
-#: src/annotations.js:390
+#: src/annotations.js:449
 #, fuzzy
 msgid "Custom Color…"
 msgstr "自定义颜色"
 
-#: src/annotations.js:442
+#: src/annotations.js:501
 #, fuzzy
 msgid "Custom"
 msgstr "自定义主题"
 
-#: src/annotations.js:536
+#: src/annotations.js:595
 #, fuzzy
 msgid "JSON Files"
 msgstr "所有文件"
 
-#: src/annotations.js:541 src/app.js:127
+#: src/annotations.js:600 src/app.js:124
 msgid "All Files"
 msgstr "所有文件"
 
-#: src/annotations.js:550 src/annotations.js:578
+#: src/annotations.js:609 src/annotations.js:637
 #, fuzzy
 msgid "No Annotations"
 msgstr "笔记"
 
-#: src/annotations.js:551
+#: src/annotations.js:610
 msgid "The imported file has no annotations"
 msgstr ""
 
-#: src/annotations.js:569
+#: src/annotations.js:628
 #, fuzzy
 msgid "Cannot Import Annotations"
 msgstr "导入笔记…"
 
-#: src/annotations.js:570 src/book-viewer.js:821
+#: src/annotations.js:629 src/book-viewer.js:700
 #, fuzzy
 msgid "An error occurred"
 msgstr "出错了。"
 
-#: src/annotations.js:579
+#: src/annotations.js:638
 msgid "You don’t have any annotations for this book"
 msgstr ""
 
-#: src/annotations.js:592
+#: src/annotations.js:651
 #, fuzzy, javascript-format
 msgid "Annotations for “%s”"
 msgstr "笔记"
 
-#: src/annotations.js:593
+#: src/annotations.js:652
 #, fuzzy, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
 msgstr[0] "笔记"
 
-#: src/app.js:99 src/book-viewer.js:34
+#: src/app.js:95 src/book-viewer.js:30
 msgid "Close"
 msgstr ""
 
-#: src/app.js:114
+#: src/app.js:111
 #, fuzzy
 msgid "E-Book Files"
 msgstr "电子书文件"
 
-#: src/app.js:344 data/com.github.johnfactotum.Foliate.desktop.in:5
+#: src/app.js:362 data/com.github.johnfactotum.Foliate.desktop.in:5
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
 msgstr ""
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/app.js:350
+#: src/app.js:368
 msgid "translator-credits"
 msgstr ""
 "Tranquilo Chan\n"
 "王滋涵"
 
-#: src/app.js:359
+#: src/app.js:377
 #, fuzzy
 msgid "Source Code"
 msgstr "来源: "
 
-#: src/book-info.js:118
+#: src/book-info.js:125
 msgid "Publisher"
 msgstr "出版社"
 
-#: src/book-info.js:119
+#. Translators: this is the heading for the publication date
+#: src/book-info.js:127
 #, fuzzy
 msgid "Published"
 msgstr "出版社"
 
-#: src/book-info.js:120
+#. Translators: this is the heading for the modified date
+#: src/book-info.js:129
 #, fuzzy
 msgid "Updated"
 msgstr "升级"
 
-#: src/book-info.js:121
+#: src/book-info.js:130
 msgid "Language"
 msgstr "语言"
 
-#: src/book-info.js:122 src/book-info.js:126 src/ui/navbar.ui:283
+#: src/book-info.js:131
+#, fuzzy
+msgid "Translated by"
+msgstr "翻译"
+
+#: src/book-info.js:132
+msgid "Edited by"
+msgstr ""
+
+#: src/book-info.js:133
+msgid "Narrated by"
+msgstr ""
+
+#: src/book-info.js:134
+msgid "Illustrated by"
+msgstr ""
+
+#: src/book-info.js:135
+msgid "Produced by"
+msgstr ""
+
+#: src/book-info.js:136
+msgid "Artwork by"
+msgstr ""
+
+#: src/book-info.js:137
+msgid "Color by"
+msgstr ""
+
+#: src/book-info.js:138
+#, fuzzy
+msgid "Contributors"
+msgstr "显示内容"
+
+#: src/book-info.js:139 src/ui/navbar.ui:283
 msgid "Identifier"
 msgstr "标识符"
 
-#: src/book-info.js:152 src/ui/book-item.ui:11 src/ui/book-row.ui:11
-#: src/ui/book-viewer.ui:361
+#: src/book-info.js:171 src/ui/book-item.ui:11 src/ui/book-row.ui:11
+#: src/ui/book-viewer.ui:366
 msgid "About This Book"
 msgstr "关于此书"
 
-#: src/book-viewer.js:31
+#: src/book-viewer.js:27
 #, javascript-format
 msgid "Loc. %s of %s"
 msgstr ""
 
-#: src/book-viewer.js:32
+#: src/book-viewer.js:28
 #, javascript-format
 msgid "Page %s of %s"
 msgstr ""
 
-#: src/book-viewer.js:33
+#: src/book-viewer.js:29
 #, fuzzy, javascript-format
 msgid "Page %s"
 msgstr "下一页"
 
-#: src/book-viewer.js:35
+#: src/book-viewer.js:31
 #, fuzzy
 msgid "Reference"
 msgstr "偏好设置"
 
-#: src/book-viewer.js:36
+#: src/book-viewer.js:32
 #, fuzzy
 msgid "Go to Reference"
 msgstr "偏好设置"
 
-#: src/book-viewer.js:722
+#: src/book-viewer.js:599
 #, fuzzy
 msgid "Remove bookmark"
 msgstr "删除图书"
 
-#: src/book-viewer.js:723
+#: src/book-viewer.js:600
 #, fuzzy
 msgid "Add bookmark"
 msgstr "添加图书"
 
-#: src/book-viewer.js:819
+#: src/book-viewer.js:698
 #, fuzzy
 msgid "File not found"
 msgstr "找不到该文件。"
 
-#: src/book-viewer.js:820
+#: src/book-viewer.js:699
 #, fuzzy
 msgid "File type not supported"
 msgstr "不支持的文件类型。"
 
-#: src/book-viewer.js:912
+#: src/book-viewer.js:788
 #, fuzzy
 msgid "Annotation deleted"
 msgstr "笔记"
 
-#: src/book-viewer.js:974
+#: src/book-viewer.js:856
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:976
+#: src/book-viewer.js:858
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:977
+#: src/book-viewer.js:859
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr ""
 
-#: src/book-viewer.js:980
+#: src/book-viewer.js:862
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
 
-#: src/book-viewer.js:982
+#: src/book-viewer.js:864
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
 
-#: src/book-viewer.js:983
+#: src/book-viewer.js:865
 #, javascript-format
 msgid "‘%s’"
 msgstr ""
 
-#: src/book-viewer.js:1001
+#: src/book-viewer.js:883
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "图片来自 “%s”"
 
-#: src/book-viewer.js:1001
+#: src/book-viewer.js:883
 msgid "Image"
 msgstr "图片"
 
-#: src/format.js:83
+#: src/format.js:91
 #, javascript-format
 msgid "of %d"
 msgstr "共 %d"
 
-#: src/library.js:340
+#: src/library.js:369
 #, fuzzy
 msgid "Remove Book?"
 msgstr "删除图书"
 
-#: src/library.js:341
+#: src/library.js:370
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr ""
 
-#: src/library.js:343
+#: src/library.js:372
 msgid "_Cancel"
 msgstr ""
 
-#: src/library.js:344
+#: src/library.js:373
 msgid "_Remove"
 msgstr ""
 
@@ -389,7 +425,8 @@ msgstr ""
 msgid "Highlight Style"
 msgstr "高亮"
 
-#: src/ui/annotation-popover.ui:20 src/ui/bookmark-row.ui:33
+#: src/ui/annotation-popover.ui:20 src/ui/annotation-row.ui:63
+#: src/ui/bookmark-row.ui:33
 msgid "Delete"
 msgstr "删除"
 
@@ -431,65 +468,65 @@ msgstr "刷新"
 msgid "Import Annotations…"
 msgstr "导入笔记…"
 
-#: src/ui/book-viewer.ui:31
-#, fuzzy
-msgid "Fold Sidebar"
-msgstr "显示侧边栏"
-
-#: src/ui/book-viewer.ui:38 src/ui/library.ui:34
+#: src/ui/book-viewer.ui:31 src/ui/library.ui:34
 msgid "Keyboard Shortcuts"
 msgstr "快捷键"
 
-#: src/ui/book-viewer.ui:42 src/ui/library.ui:38
+#: src/ui/book-viewer.ui:35 src/ui/library.ui:38
 msgid "About Foliate"
 msgstr "关于 Foliate"
 
-#: src/ui/book-viewer.ui:50
+#: src/ui/book-viewer.ui:43
 #, fuzzy
 msgid "All Sections"
 msgstr "合辑"
 
-#: src/ui/book-viewer.ui:55
+#: src/ui/book-viewer.ui:48
 #, fuzzy
 msgid "Current Section"
 msgstr "当前章节"
 
-#: src/ui/book-viewer.ui:62
+#: src/ui/book-viewer.ui:55
 msgid "Match Whole Words Only"
 msgstr ""
 
-#: src/ui/book-viewer.ui:66
+#: src/ui/book-viewer.ui:59
 msgid "Match Case"
 msgstr ""
 
-#: src/ui/book-viewer.ui:70
+#: src/ui/book-viewer.ui:63
 msgid "Match Diacritics"
 msgstr ""
 
-#: src/ui/book-viewer.ui:88
+#: src/ui/book-viewer.ui:81
 msgid "Font & Layout Settings"
 msgstr ""
 
-#: src/ui/book-viewer.ui:94
+#: src/ui/book-viewer.ui:87
 #, fuzzy
 msgid "Scrolled Mode"
 msgstr "滚动"
 
-#: src/ui/book-viewer.ui:98
+#: src/ui/book-viewer.ui:91
 msgid "Invert Colors in Dark Mode"
 msgstr ""
 
-#: src/ui/book-viewer.ui:102
+#: src/ui/book-viewer.ui:95
 msgid "Autohide Cursor"
 msgstr ""
 
-#: src/ui/book-viewer.ui:108
+#: src/ui/book-viewer.ui:101
 msgid "Print…"
 msgstr ""
 
-#: src/ui/book-viewer.ui:112
+#: src/ui/book-viewer.ui:105
 msgid "Inspector"
 msgstr ""
+
+#: src/ui/book-viewer.ui:128 src/ui/book-viewer.ui:236 src/ui/library.ui:51
+#: data/com.github.johnfactotum.Foliate.desktop.in:20
+msgid "Library"
+msgstr "书库"
 
 #: src/ui/book-viewer.ui:165
 msgid "Book Cannot Be Opened"
@@ -499,30 +536,35 @@ msgstr ""
 msgid "Details"
 msgstr "详情"
 
-#: src/ui/book-viewer.ui:194 src/ui/book-viewer.ui:241 src/ui/library.ui:51
-#: data/com.github.johnfactotum.Foliate.desktop.in:20
-msgid "Library"
-msgstr "书库"
+#: src/ui/book-viewer.ui:191
+#, fuzzy
+msgid "Open Another File…"
+msgstr "打开文件"
 
-#: src/ui/book-viewer.ui:248
+#: src/ui/book-viewer.ui:243
+#, fuzzy
+msgid "Pin Sidebar"
+msgstr "显示侧边栏"
+
+#: src/ui/book-viewer.ui:251
 #, fuzzy
 msgid "Book Menu"
 msgstr "菜单"
 
-#: src/ui/book-viewer.ui:255 src/ui/selection-popover.ui:17
+#: src/ui/book-viewer.ui:258 src/ui/selection-popover.ui:17
 msgid "Find"
 msgstr "搜索"
 
-#: src/ui/book-viewer.ui:271
+#: src/ui/book-viewer.ui:274
 #, fuzzy
 msgid "Find in book…"
 msgstr "书中搜索"
 
-#: src/ui/book-viewer.ui:308
+#: src/ui/book-viewer.ui:311
 msgid "Contents"
 msgstr "显示内容"
 
-#: src/ui/book-viewer.ui:387
+#: src/ui/book-viewer.ui:389
 msgid "Annotations"
 msgstr "笔记"
 
@@ -926,6 +968,10 @@ msgid "John Factotum"
 msgstr "John Factotum"
 
 #, fuzzy
+#~ msgid "Fold Sidebar"
+#~ msgstr "显示侧边栏"
+
+#, fuzzy
 #~ msgid "Go to Footnote"
 #~ msgstr "下一页"
 
@@ -935,9 +981,6 @@ msgstr "John Factotum"
 
 #~ msgid "Text-to-Speech"
 #~ msgstr "文字转语音"
-
-#~ msgid "Open File"
-#~ msgstr "打开文件"
 
 #~ msgid "Save File"
 #~ msgstr "保存文件"
