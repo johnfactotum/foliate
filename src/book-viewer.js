@@ -819,6 +819,8 @@ export const BookViewer = GObject.registerClass({
                     const annotation = this.#data.annotations.get(value)
                     this.#data.addAnnotation(annotation ?? {
                         value, text,
+                        location: this.#data.storage.get('progress')[0],
+                        total: this.#data.storage.get('progress')[1],
                         color: this.highlight_color,
                         created: new Date().toISOString(),
                     }).then(() => resolve('highlight'))

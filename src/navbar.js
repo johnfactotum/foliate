@@ -109,27 +109,18 @@ GObject.registerClass({
         const sizes = sections.filter(s => s.linear !== 'no').map(s => s.size)
         if (sizes.length > 100) return
         const total = sizes.reduce((a, b) => a + b, 0)
-        let i = 0
         let sum = 0
-        let sums = [0]
         for (const size of sizes.slice(0, -1)) {
             sum += size
-            sums.push(sum)
             // add epsilon so it will snap to section start
             const fraction = sum / total + Number.EPSILON
             this.add_mark(fraction, Gtk.PositionType.TOP, null)
-            i += 1
         }
         for (const annotation of annotations) {
-            const parts = CFI.parse(annotation.value)
-            // console.log(annotation.value)
-            // console.log('parts', parts.start)
-            const index = CFI.fake.toIndex((parts.parent ?? parts).shift())
-            // const indexStart = parts.start[0][0].index
-            // const offsetStart = parts.start[0][0].offset
-            // console.log(parts.start[0][0], index, indexStart, offsetStart)
-            const fraction = sums[index]/total // + indexStart*512/total + offsetStart/total
-            this.add_mark(fraction, Gtk.PositionType.BOTTOM, null)
+            if (annotation.location) {
+                const fraction = annotation.location / annotation.total + Number.EPSILON
+                this.add_mark(fraction, Gtk.PositionType.BOTTOM, null)
+            }
         } 
     }
     update(fraction) {
