@@ -4,7 +4,6 @@ import Pango from 'gi://Pango'
 import * as utils from './utils.js'
 import * as format from './format.js'
 import './tts.js'
-import * as CFI from './foliate-js/epubcfi.js'
 
 const Landmark = utils.makeDataClass('FoliateLandmark', {
     'label': 'string',
