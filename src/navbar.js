@@ -104,7 +104,6 @@ GObject.registerClass({
     loadSections(sections) {
         this.clear_marks()
         const sizes = sections.filter(s => s.linear !== 'no').map(s => s.size)
-        if (sizes.length > 100) return
         const total = sizes.reduce((a, b) => a + b, 0)
         let sum = 0
         for (const size of sizes.slice(0, -1)) {
