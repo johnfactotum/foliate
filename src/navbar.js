@@ -5,6 +5,8 @@ import * as utils from './utils.js'
 import * as format from './format.js'
 import './tts.js'
 
+const ONE_HUNDRED_PERCENT_LENGTH = format.percent(1).length
+
 const Landmark = utils.makeDataClass('FoliateLandmark', {
     'label': 'string',
     'href': 'string',
@@ -106,7 +108,6 @@ GObject.registerClass({
         this.clear_marks()
         const sections = book.sections
         const sizes = sections.filter(s => s.linear !== 'no').map(s => s.size)
-        if (sizes.length > 100) return
         const total = sizes.reduce((a, b) => a + b, 0)
         let sum = 0
         for (const size of sizes.slice(0, -1)) {
@@ -196,6 +197,7 @@ GObject.registerClass({
         this._cfi_entry.text = cfi ?? ''
         this._progress_scale.update(fraction)
         this._location_button.label = format.percent(fraction)
+            .padStart(ONE_HUNDRED_PERCENT_LENGTH, '\u2007')
         this._time_book.label = format.duration(time.total)
         this._time_section.label = format.duration(time.section)
         this._loc_entry.text = (location.current + 1).toString()
