@@ -789,11 +789,10 @@ export const BookViewer = GObject.registerClass({
             title: _('Annotation deleted'),
             button_label: _('Undo'),
         }), { 'button-clicked': () => {
-                this.#data.addAnnotation(annotation).then(() => {
-                    this._navbar.loadMarks(this.#book, this.#data.annotations.export())
-                })
-            }
-        }))
+            this.#data.addAnnotation(annotation).then(() => {
+                this._navbar.loadMarks(this.#book, this.#data.annotations.export())
+            })
+        }}))
     }
     #showSelection({ type, value, text, lang, pos: { point, dir } }) {
         if (type === 'annotation') return new Promise(resolve => {
@@ -819,8 +818,7 @@ export const BookViewer = GObject.registerClass({
                     const annotation = this.#data.annotations.get(value)
                     this.#data.addAnnotation(annotation ?? {
                         value, text,
-                        location: this.#data.storage.get('progress')[0],
-                        total: this.#data.storage.get('progress')[1],
+                        location: JSON.stringify(this._navbar._progress_scale.get_value()),
                         color: this.highlight_color,
                         created: new Date().toISOString(),
                     }).then(() => {

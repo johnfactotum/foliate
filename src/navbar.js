@@ -118,8 +118,7 @@ GObject.registerClass({
         }
         for (const annotation of annotations) {
             if (annotation.location) {
-                const fraction = annotation.location / annotation.total + Number.EPSILON
-                this.add_mark(fraction, Gtk.PositionType.BOTTOM, null)
+                this.add_mark(annotation.location, Gtk.PositionType.BOTTOM, null)
             }
         }
     }

@@ -14,8 +14,7 @@ const Bookmark = utils.makeDataClass('FoliateBookmark', {
 
 const Annotation = utils.makeDataClass('FoliateAnnotation', {
     'value': 'string',
-    'location': 'int',
-    'total': 'int',
+    'location': 'string',
     'color': 'string',
     'text': 'string',
     'note': 'string',
