@@ -103,10 +103,9 @@ GObject.registerClass({
             }
         })
     }
-    loadMarks(book, annotations) {
+    async loadMarks(sections, annotations, annotationFractions) {
         // add section and annotation marks
         this.clear_marks()
-        const sections = book.sections
         const sizes = sections.filter(s => s.linear !== 'no').map(s => s.size)
         const total = sizes.reduce((a, b) => a + b, 0)
         let sum = 0
@@ -116,11 +115,8 @@ GObject.registerClass({
             const fraction = sum / total + Number.EPSILON
             this.add_mark(fraction, Gtk.PositionType.TOP, null)
         }
-        for (const annotation of annotations) {
-            if (annotation.location) {
-                this.add_mark(annotation.location, Gtk.PositionType.BOTTOM, null)
-            }
-        }
+        for (const annotation of annotations.export()) {
+            this.add_mark(annotationFractions.get(annotation.value), Gtk.PositionType.BOTTOM, null) }
     }
     update(fraction) {
         if (this.#shouldUpdate) {
@@ -213,8 +209,8 @@ GObject.registerClass({
             widget.set_direction(value)
         utils.setDirection(this._section_buttons, value)
     }
-    loadMarks(book, annotations) {
-        this._progress_scale.loadMarks(book, annotations)
+    loadMarks(sections, annotations, annotationFractions) {
+        this._progress_scale.loadMarks(sections, annotations, annotationFractions)
     }
     loadPageList(pageList, total) {
         if (!pageList?.length) {

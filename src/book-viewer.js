@@ -22,6 +22,8 @@ import { formatAuthors, makeBookInfoWindow } from './book-info.js'
 import { themes, invertTheme } from './themes.js'
 import { dataStore } from './data.js'
 
+const annotationFractions = new Map()
+
 // for use in the WebView
 const uiText = {
     loc: _('Loc. %s of %s'),
@@ -708,7 +710,6 @@ export const BookViewer = GObject.registerClass({
         this._top_overlay_stack.visible_child_name = 'error'
     }
     async #onBookReady({ book, reader }) {
-        this._top_overlay_box.hide()
         this.#book = book
         book.metadata ??= {}
         this.root.title = book.metadata.title ?? ''
@@ -750,7 +751,16 @@ export const BookViewer = GObject.registerClass({
         if (identifier) {
             this.#data = await dataStore.get(identifier, this._view)
             const { annotations, bookmarks } = this.#data
-            this._navbar.loadMarks(book, annotations.export())
+            // TODO: run this in background
+            const locationToReturn = this.#data.storage.get('lastLocation')
+            for (const annotation of annotations.export()) {
+                await this._view.goTo(annotation.value)
+                annotationFractions.set(annotation.value, this._navbar._progress_scale.get_value())
+            }
+            await this._view.goTo(locationToReturn)
+            // TODO: clear history
+            this._navbar.loadMarks(book.sections, annotations, annotationFractions)
+            this._top_overlay_box.hide()
             this._annotation_view.setupModel(annotations)
             this._bookmark_view.setupModel(bookmarks)
             const updateAnnotations = () => this._annotation_stack
@@ -784,13 +794,15 @@ export const BookViewer = GObject.registerClass({
     }
     async #deleteAnnotation(annotation) {
         await this.#data.deleteAnnotation(annotation)
-        this._navbar.loadMarks(this.#book, this.#data.annotations.export())
+        annotationFractions.delete(annotation.value)
+        this._navbar.loadMarks(this.#book.sections, this.#data.annotations, annotationFractions )
         this.root.add_toast(utils.connect(new Adw.Toast({
             title: _('Annotation deleted'),
             button_label: _('Undo'),
         }), { 'button-clicked': () => {
             this.#data.addAnnotation(annotation).then(() => {
-                this._navbar.loadMarks(this.#book, this.#data.annotations.export())
+                annotationFractions.set(annotation.value, this._navbar._progress_scale.get_value())
+                this._navbar.loadMarks(this.#book.sections, this.#data.annotations, annotationFractions)
             })
         }}))
     }
@@ -818,12 +830,12 @@ export const BookViewer = GObject.registerClass({
                     const annotation = this.#data.annotations.get(value)
                     this.#data.addAnnotation(annotation ?? {
                         value, text,
-                        location: JSON.stringify(this._navbar._progress_scale.get_value()),
                         color: this.highlight_color,
                         created: new Date().toISOString(),
                     }).then(() => {
                         resolve('highlight')
-                        this._navbar.loadMarks(this.#book, this.#data.annotations.export())
+                        annotationFractions.set(value, this._navbar._progress_scale.get_value())
+                        this._navbar.loadMarks(this.#book.sections, this.#data.annotations, annotationFractions)
                     })
                 },
                 'search': () => {
