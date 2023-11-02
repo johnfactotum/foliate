@@ -103,17 +103,10 @@ GObject.registerClass({
             }
         })
     }
-    loadSections(sections) {
+    loadSectionFractions(fractions) {
         this.clear_marks()
-        const sizes = sections.filter(s => s.linear !== 'no').map(s => s.size)
-        const total = sizes.reduce((a, b) => a + b, 0)
-        let sum = 0
-        for (const size of sizes.slice(0, -1)) {
-            sum += size
-            // add epsilon so it will snap to section start
-            const fraction = sum / total + Number.EPSILON
+        for (const fraction of fractions.slice(1, -1))
             this.add_mark(fraction, Gtk.PositionType.TOP, null)
-        }
     }
     update(fraction) {
         if (this.#shouldUpdate) {
@@ -206,8 +199,8 @@ GObject.registerClass({
             widget.set_direction(value)
         utils.setDirection(this._section_buttons, value)
     }
-    loadSections(sections) {
-        this._progress_scale.loadSections(sections)
+    loadSectionFractions(fractions) {
+        this._progress_scale.loadSectionFractions(fractions)
     }
     loadPageList(pageList, total) {
         if (!pageList?.length) {

@@ -352,6 +352,7 @@ class Reader {
         this.#handleEvents()
         await this.view.open(this.book)
         document.body.append(this.view)
+        this.sectionFractions = this.view.getSectionFractions()
     }
     setAppearance({ style, layout, autohideCursor }) {
         Object.assign(this.style, style)
