@@ -369,7 +369,7 @@ export const Application = GObject.registerClass({
             license_type: Gtk.License.GPL_3_0,
             website: 'https://johnfactotum.github.io/foliate/',
             issue_url: 'https://github.com/johnfactotum/foliate/issues',
-            support_url: 'https://github.com/johnfactotum/foliate/wiki',
+            support_url: 'https://github.com/johnfactotum/foliate/blob/gtk4/docs/faq.md',
             debug_info: getDebugInfo(),
             modal: true,
             transient_for: this.active_window,
