@@ -1,5 +1,6 @@
 import '../foliate-js/view.js'
 import { Overlayer } from '../foliate-js/overlayer.js'
+import { FootnoteHandler } from '../foliate-js/footnote.js'
 import { toPangoMarkup } from './markup.js'
 
 const format = {}
@@ -333,6 +334,7 @@ class Reader {
     autohideCursor
     #cursorAutohider = new CursorAutohider(
         document.documentElement, () => this.autohideCursor)
+    #footnoteHandler = new FootnoteHandler()
     style = {
         spacing: 1.4,
         justify: true,
@@ -346,6 +348,35 @@ class Reader {
         this.pageTotal = book.pageList
             ?.findLast(x => !isNaN(parseInt(x.label)))?.label
         this.style.mediaActiveClass = book.media?.activeClass
+
+        this.#footnoteHandler.addEventListener('before-render', e => {
+            const { view } = e.detail
+            view.addEventListener('link', e => {
+                e.preventDefault()
+                const { href } = e.detail
+                this.view.goTo(href)
+                footnoteDialog.close()
+            })
+            view.addEventListener('external-link', e => {
+                e.preventDefault()
+                emit({ type: 'external-link', ...e.detail })
+            })
+            footnoteDialog.querySelector('main').replaceChildren(view)
+
+            const { renderer } = view
+            renderer.setAttribute('flow', 'scrolled')
+            renderer.setAttribute('margin', '12px')
+            renderer.setAttribute('gap', '5%')
+            renderer.setStyles(getCSS(this.style))
+        })
+        this.#footnoteHandler.addEventListener('render', e => {
+            const { href } = e.detail
+            footnoteDialog.querySelector('[name="href"]').value = href
+            footnoteDialog.querySelector('[value="go"]')
+                .style.display = href ? 'block' : 'none'
+            footnoteDialog.showModal()
+            emit({ type: 'dialog-open' })
+        })
     }
     async init() {
         this.view = document.createElement('foliate-view')
@@ -427,7 +458,8 @@ class Reader {
             e.preventDefault()
             emit({ type: 'external-link', ...e.detail })
         })
-        this.view.addEventListener('link', e => this.#onLink(e))
+        this.view.addEventListener('link', e =>
+            this.#footnoteHandler.handle(this.book, e))
         this.view.addEventListener('load', e => this.#onLoad(e))
         this.view.history.addEventListener('index-change', e => {
             const { canGoBack, canGoForward } = e.target
@@ -504,78 +536,6 @@ class Reader {
                     break
             }
         })
-    }
-    #showFootnote(index, anchor, href, canGoTo) {
-        const v = document.createElement('foliate-view')
-        footnoteDialog.querySelector('main').replaceChildren(v)
-        footnoteDialog.querySelector('[name="href"]').value = href
-        v.addEventListener('load', e => {
-            const { doc } = e.detail
-            const el = anchor(doc)
-            const range = doc.createRange()
-
-            if (el.tagName.toLowerCase() === 'li') range.selectNodeContents(el)
-            else range.selectNode(el)
-
-            const frag = range.extractContents()
-            doc.body.replaceChildren()
-            doc.body.appendChild(frag)
-
-            footnoteDialog.querySelector('[value="go"]')
-                .style.display = canGoTo(el) ? 'block' : 'none'
-            footnoteDialog.showModal()
-            emit({ type: 'dialog-open' })
-        })
-        v.addEventListener('link', e => {
-            e.preventDefault()
-            const { href } = e.detail
-            this.view.goTo(href)
-            footnoteDialog.close()
-        })
-        v.addEventListener('external-link', e => {
-            e.preventDefault()
-            emit({ type: 'external-link', ...e.detail })
-        })
-        v.open(this.view.book).then(() => {
-            v.renderer.setAttribute('flow', 'scrolled')
-            v.renderer.setAttribute('margin', '12px')
-            v.renderer.setAttribute('gap', '5%')
-            v.renderer.setStyles(getCSS(this.style))
-            v.goTo(index)
-        })
-    }
-    #onLink(e) {
-        const { a, href } = e.detail
-        const types = a.getAttributeNS('http://www.idpf.org/2007/ops', 'type')?.split(' ')
-        const roles = a.getAttribute('role')?.split(' ')
-        const refTypes = ['annoref', 'biblioref', 'glossref', 'noteref']
-        const refRoles = ['doc-biblioref', 'doc-glossref', 'doc-noteref']
-
-        if (types?.some(t => refTypes.includes(t)) || roles?.some(r => refRoles.includes(r))) {
-            e.preventDefault()
-            Promise.resolve(this.view.book.resolveHref(href)).then(({ index, anchor }) =>
-                this.#showFootnote(index, anchor, href, el =>
-                    el.nodeName.toLowerCase() === 'aside' ? null : href))
-        } else if (!types?.includes('backlink') && !roles?.includes('doc-backlink')
-        && (getComputedStyle(a).verticalAlign === 'super'
-        || a.children.length === 1 && getComputedStyle(a.children[0]).verticalAlign === 'super')
-        || getComputedStyle(a.parentElement).verticalAlign === 'super') {
-            e.preventDefault()
-            Promise.resolve(this.view.book.resolveHref(href)).then(({ index, anchor }) => {
-                this.#showFootnote(index, doc => {
-                    const inlineTags = ['a', 'span', 'sup', 'sub', 'em', 'strong',
-                        'i', 'b', 'small', 'big']
-                    const isInline = el => inlineTags.includes(el.tagName.toLowerCase())
-                    let el = anchor(doc)
-                    while (isInline(el)) {
-                        const parent = el.parentElement
-                        if (!parent) break
-                        el = parent
-                    }
-                    return el
-                }, href, () => true)
-            })
-        }
     }
     printRange(doc, range) {
         const iframe = document.createElement('iframe')
