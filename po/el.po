@@ -32,7 +32,7 @@ msgstr "Υπογράμμιση"
 
 #: src/annotations.js:441
 msgid "Squiggly"
-msgstr "Στριφογυριστή γραμμή"
+msgstr "Τεθλασμένη γραμμή"
 
 #: src/annotations.js:442
 msgid "Strikethrough"
@@ -85,7 +85,7 @@ msgstr "Καμία επισήμανση"
 
 #: src/annotations.js:610
 msgid "The imported file has no annotations"
-msgstr ""
+msgstr "Το εισαχθέν αρχείο δεν περιέχει επισημάνσεις"
 
 #: src/annotations.js:628
 #, fuzzy
@@ -156,27 +156,27 @@ msgstr "Γλώσσα"
 #: src/book-info.js:131
 #, fuzzy
 msgid "Translated by"
-msgstr "Μετάφραση"
+msgstr "Μετάφραση από"
 
 #: src/book-info.js:132
 msgid "Edited by"
-msgstr ""
+msgstr "Επεξεργασία από"
 
 #: src/book-info.js:133
 msgid "Narrated by"
-msgstr ""
+msgstr "Αφήγηση από"
 
 #: src/book-info.js:134
 msgid "Illustrated by"
-msgstr ""
+msgstr "Εικονογράφηση από"
 
 #: src/book-info.js:135
 msgid "Produced by"
-msgstr ""
+msgstr "Παραγωγή από"
 
 #: src/book-info.js:136
 msgid "Artwork by"
-msgstr ""
+msgstr "Καλλιτεχνικό έργο από"
 
 #: src/book-info.js:137
 #, fuzzy
@@ -200,17 +200,17 @@ msgstr "Περί του Βιβλίου"
 #: src/book-viewer.js:27
 #, javascript-format
 msgid "Loc. %s of %s"
-msgstr ""
+msgstr "Τοπ. %s από %s"
 
 #: src/book-viewer.js:28
 #, javascript-format
 msgid "Page %s of %s"
-msgstr ""
+msgstr "Σελ. %s από %s"
 
 #: src/book-viewer.js:29
 #, fuzzy, javascript-format
 msgid "Page %s"
-msgstr "Σελίδα"
+msgstr "Σελίδα %s"
 
 #: src/book-viewer.js:32
 msgid "Footnote"
@@ -222,39 +222,39 @@ msgstr "Πλοήγηση στην Υποσημείωση"
 
 #: src/book-viewer.js:34
 msgid "Endnote"
-msgstr ""
+msgstr "Σημείωση τέλους"
 
 #: src/book-viewer.js:35
 #, fuzzy
 msgid "Go to Endnote"
-msgstr "Πλοήγηση στην Υποσημείωση"
+msgstr "Πλοήγηση στη Σημείωση τέλους"
 
 #: src/book-viewer.js:36
 msgid "Note"
-msgstr ""
+msgstr "Σημείωση"
 
 #: src/book-viewer.js:37
 #, fuzzy
 msgid "Go to Note"
-msgstr "Πλοήγηση στην Υποσημείωση"
+msgstr "Πλοήγηση στη Σημείωση"
 
 #: src/book-viewer.js:38
 #, fuzzy
 msgid "Definition"
-msgstr "Δεν βρέθηκαν ορισμοί"
+msgstr "Ορισμός"
 
 #: src/book-viewer.js:39
 #, fuzzy
 msgid "Go to Definition"
-msgstr "Δεν βρέθηκαν ορισμοί"
+msgstr "Μετάβαση στον Ορισμό"
 
 #: src/book-viewer.js:40
 msgid "Bibliography"
-msgstr ""
+msgstr "Βιβλιογραφία"
 
 #: src/book-viewer.js:41
 msgid "Go to Bibliography"
-msgstr ""
+msgstr "Μετάβαση στη Βιβλιογραφία"
 
 #: src/book-viewer.js:609
 msgid "Remove bookmark"
@@ -441,11 +441,11 @@ msgstr ""
 #: src/tts.js:117
 #, fuzzy
 msgid "Text-to-Speech Error"
-msgstr "Κείμενο-σε-Ομιλία"
+msgstr "Σφάλμα Κειμένου-σε-Ομιλία"
 
 #: src/tts.js:118
 msgid "Make sure Speech Dispatcher is installed and working on your system"
-msgstr ""
+msgstr "Βεβαιωθείτε ότι το λογισμικό κειμένου-σε-ομιλία είναι εγκατεστημένο και λειτουργικό στο σύστημά σας"
 
 #: src/utils.js:168
 msgid "Copied to clipboard"
@@ -532,11 +532,11 @@ msgstr "Κυλιόμενη Διάταξη"
 
 #: src/ui/book-viewer.ui:93
 msgid "Invert Colors in Dark Mode"
-msgstr "Αντιστροφή χρωμάτων στη Σκουρόχρωμη Λειτουργία"
+msgstr "Αντιστροφή Χρωμάτων στη Σκουρόχρωμη Λειτουργία"
 
 #: src/ui/book-viewer.ui:97
 msgid "Autohide Cursor"
-msgstr ""
+msgstr "Αυτόματη Απόκρυψη Δείκτη Ποντικιού"
 
 #: src/ui/book-viewer.ui:103
 msgid "Print…"
@@ -560,12 +560,12 @@ msgstr "Λεπτομέρειες"
 
 #: src/ui/book-viewer.ui:193
 msgid "Open Another File…"
-msgstr ""
+msgstr "Άνοιγμα Άλλου Αρχείου…"
 
 #: src/ui/book-viewer.ui:245
 #, fuzzy
 msgid "Pin Sidebar"
-msgstr "Πλαϊνή μπάρα"
+msgstr "Καρφίτσωμα Πλαϊνής Μπάρας"
 
 #: src/ui/book-viewer.ui:253
 msgid "Book Menu"
@@ -701,17 +701,17 @@ msgstr "Εισαγωγή Επισημάνσεων…"
 #: src/ui/import-dialog.ui:21
 #, fuzzy
 msgid "Import"
-msgstr "Εξαγωγή"
+msgstr "Εισαγωγή"
 
 #: src/ui/import-dialog.ui:33
 #, fuzzy
 msgid ""
 "The identifier doesn’t match. These annotations may not be for this book."
-msgstr "Δεν έχετε επισημάνσεις για αυτό το βιβλίο"
+msgstr "Το αναγνωριστικό δεν ταιριάζει. Αυτές οι επισημάνσεις πιθανώς δεν αναφέρονται σε αυτό το βιβλίο"
 
 #: src/ui/import-dialog.ui:34
 msgid "Import Anyway"
-msgstr ""
+msgstr "Εισαγωγή Παρόλα Αυτά"
 
 #: src/ui/library.ui:6 src/ui/library-view.ui:27
 msgid "Open…"
@@ -763,7 +763,7 @@ msgstr "Τοποθεσία"
 
 #: src/ui/navbar.ui:91
 msgid "Narration"
-msgstr ""
+msgstr "Αφήγηση"
 
 #: src/ui/navbar.ui:124 src/ui/tts-box.ui:132
 msgid "Next"
@@ -819,12 +819,12 @@ msgstr "Εκκίνηση Ομιλίας από Εδώ"
 
 #: src/ui/selection-popover.ui:36
 msgid "Copy with Citation"
-msgstr ""
+msgstr "Αντιγραφή με Αναφορά"
 
 #: src/ui/selection-popover.ui:40
 #, fuzzy
 msgid "Copy Identifier"
-msgstr "Αναγνωριστικό"
+msgstr "Αντιγραφή Αναγνωριστικού"
 
 #: src/ui/selection-popover.ui:44
 msgid "Print Selection…"
@@ -840,11 +840,11 @@ msgstr "Τονικότητα"
 
 #: src/ui/tts-box.ui:123
 msgid "Play/Pause"
-msgstr ""
+msgstr "Εκκίνηση/Παύση"
 
 #: src/ui/tts-box.ui:141
 msgid "Stop"
-msgstr ""
+msgstr "Διακοπή"
 
 #: src/ui/view-preferences-window.ui:5
 msgid "Font"
@@ -946,27 +946,27 @@ msgstr "Αναγνώστης Ηλεκτρονικών Βιβλίων"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:13
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "Ηλεκτρονικό Βιβλίο;Βιβλίο;EPUB;Αναγνώστης;Διάβασμα;"
+msgstr "Ηλεκτρονικό Βιβλίο;Βιβλίο;EPUB;Ανάγνωση;Διάβασμα;"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
 msgid "Foliate is modern e-book reader app designed for GNOME."
-msgstr ""
+msgstr "Το Φυλλοειδές είναι ένας μοντέρνος αναγνώστης ηλεκτρονικών βιβλίων σχεδιασμένος για το GNOME."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
-msgstr ""
+msgstr "Οι λειτουργίες του περιλαμβάνουν:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
 msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
-msgstr ""
+msgstr "Άνοιγμα αρχείων EPUB, Mobipocket, Kindle, FB2, CBZ, και PDF"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
 msgid "Paginated mode and scrolled mode"
-msgstr ""
+msgstr "Σελιδοποιημένη λειτουργία και κυλιόμενη λειτουργία"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
 msgid "Customize font and line-spacing"
-msgstr ""
+msgstr "Επιλογή γραμματοσειράς και διάστιχου"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
 msgid "Light, sepia, dark, and invert mode"
@@ -974,12 +974,12 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
 msgid "Reading progress slider with chapter marks"
-msgstr ""
+msgstr "Πρόοδος ανάγνωσης με δείκτες κεφαλαίων"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
 #, fuzzy
 msgid "Bookmarks and annotations"
-msgstr "Καμία επισήμανση"
+msgstr "Σελιδοδείκτες και επισημάνσεις"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
 #, fuzzy
@@ -988,7 +988,7 @@ msgstr "Εύρεση στο βιβλίο…"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
 msgid "Quick dictionary lookup"
-msgstr ""
+msgstr "Ταχεία αναζήτηση σε λεξικό"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:23
 msgid "John Factotum"
@@ -999,15 +999,15 @@ msgid ""
 "Foliate has been rewritten from scratch with a new e-book rendering library "
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
 "and improved performance."
-msgstr ""
+msgstr "Το Φυλλοειδές έχει επαναγραφεί από την αρχή με νέα βιβλιοθήκη προσπέλασης ηλεκτρονικών βιβλίων και τις τελευταίες βιβλιοθήκες πλατφόρμας, GTK 4 και Libadwaita, με ανανεωμένο UI και βελτιωμένη επίδοση."
 
 #, fuzzy
 #~ msgid "Reference"
-#~ msgstr "Προτιμήσεις"
+#~ msgstr "Αναφορά"
 
 #, fuzzy
 #~ msgid "Go to Reference"
-#~ msgstr "Προτιμήσεις"
+#~ msgstr "Μετάβαση στην Αναφορά"
 
 #~ msgid "Keyboard Shortcuts"
 #~ msgstr "Συντομεύσεις Πληκτρολογίου"
