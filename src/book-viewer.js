@@ -28,8 +28,18 @@ const uiText = {
     page: _('Page %s of %s'),
     pageWithoutTotal: _('Page %s'),
     close: _('Close'),
-    footnote: _('Reference'),
-    goToFootnote: _('Go to Reference'),
+    references: {
+        'footnote': _('Footnote'),
+        'footnote-go': _('Go to Footnote'),
+        'endnote': _('Endnote'),
+        'endnote-go': _('Go to Endnote'),
+        'note': _('Note'),
+        'note-go': _('Go to Note'),
+        'glossary': _('Definition'),
+        'glossary-go': _('Go to Definition'),
+        'biblioentry': _('Bibliography'),
+        'biblioentry-go': _('Go to Bibliography'),
+    },
 }
 
 const userStylesheet = utils.readFile(Gio.File.new_for_path(

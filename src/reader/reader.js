@@ -170,10 +170,7 @@ const getCSS = ({
                 color: ${invert ? theme.inverted.link : theme.dark.link};
             }
         }
-        aside[epub|type~="endnote"],
-        aside[epub|type~="footnote"],
-        aside[epub|type~="note"],
-        aside[epub|type~="rearnote"] {
+        aside[epub|type~="footnote"] {
             display: none;
         }
     }
@@ -370,10 +367,18 @@ class Reader {
             renderer.setStyles(getCSS(this.style))
         })
         this.#footnoteHandler.addEventListener('render', e => {
-            const { href } = e.detail
+            const { href, hidden, type } = e.detail
+
             footnoteDialog.querySelector('[name="href"]').value = href
-            footnoteDialog.querySelector('[value="go"]')
-                .style.display = href ? 'block' : 'none'
+            footnoteDialog.querySelector('[value="go"]').style.display =
+                hidden ? 'none' : 'block'
+
+            const { uiText } = globalThis
+            footnoteDialog.querySelector('header').innerText =
+                uiText.references[type] ?? uiText.references.footnote
+            footnoteDialog.querySelector('[value="go"]').innerText =
+                uiText.references[type + '-go'] ?? uiText.references['footnote-go']
+
             footnoteDialog.showModal()
             emit({ type: 'dialog-open' })
         })
@@ -601,14 +606,14 @@ const printf = (str, args) => {
 }
 
 globalThis.init = ({ uiText }) => {
+    globalThis.uiText = uiText
+
     format.loc = (a, b) => printf(uiText.loc, [a, b])
     format.page = (a, b) => b
         ? printf(uiText.page, [a, b])
         : printf(uiText.pageWithoutTotal, [a])
 
-    footnoteDialog.querySelector('header').innerText = uiText.footnote
     footnoteDialog.querySelector('[value="close"]').innerText = uiText.close
-    footnoteDialog.querySelector('[value="go"]').innerText = uiText.goToFootnote
 
     document.getElementById('file-input').click()
 }
