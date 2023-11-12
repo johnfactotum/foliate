@@ -1,9 +1,3 @@
-> **Note**
->
-> This is the `gtk4` branch. You are reading the README for the work-in-progress, unreleased GTK 4 version.
->
-> To learn about the last stable, GTK 3 version, see [README.md in the `master` branch](https://github.com/johnfactotum/foliate/blob/master/README.md).
-
 <img src="data/com.github.johnfactotum.Foliate.svg" align="left">
 
 # Foliate
@@ -93,7 +87,9 @@ GSETTINGS_SCHEMA_DIR=run/share/glib-2.0/schemas ./run/bin/foliate
 
 ### Flatpak
 
-There's no Flatpak package for the `gtk4` branch yet. For developement with Flatpak, use [GNOME Builder](https://wiki.gnome.org/Apps/Builder) to open and run the project.
+Foliate is available on [Flathub](https://flathub.org/apps/details/com.github.johnfactotum.Foliate).
+
+For developement with Flatpak, use [GNOME Builder](https://wiki.gnome.org/Apps/Builder) to open and run the project.
 
 ### Snap
 
