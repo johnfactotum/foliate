@@ -1,6 +1,6 @@
 > **Note**
 > 
-> This is the `master` branch, which contains the code for the v2.x versions. To learn about the newer, work-in-progress, unreleased GTK 4 version, see the [`gtk4` branch](https://github.com/johnfactotum/foliate/tree/gtk4).
+> This is the `master` branch, which contains the code for the old v2.x versions. To learn about the newer GTK 4 version, see the [`gtk4` branch](https://github.com/johnfactotum/foliate/tree/gtk4).
 
 <img src="data/com.github.johnfactotum.Foliate.svg" align="left">
 
