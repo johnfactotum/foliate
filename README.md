@@ -103,6 +103,20 @@ The `gtk4` branch is available on the [Snap Store](https://snapcraft.io/foliate)
 sudo snap install foliate --edge
 ```
 
+## Screenshots
+
+![Dark mode](data/screenshots/dark.png)
+
+![Wikipedia lookup](data/screenshots/lookup.png)
+
+![Book metadata](data/screenshots/about.png)
+
+![Annotations](data/screenshots/annotations.png)
+
+![Popup footnote](data/screenshots/footnote.png)
+
+![Vertical writing](data/screenshots/vertical.png)
+
 ## License
 
 This program is free software: you can redistribute it and/or modify it under the terms of the [GNU General Public License](https://www.gnu.org/licenses/gpl.html) as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
