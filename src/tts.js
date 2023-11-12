@@ -1,5 +1,6 @@
 import Gtk from 'gi://Gtk'
 import GObject from 'gi://GObject'
+import { gettext as _ } from 'gettext'
 
 import * as utils from './utils.js'
 import { SSIPClient } from './speech.js'
@@ -112,8 +113,9 @@ GObject.registerClass({
     }
     error(e) {
         this.state = 'stopped'
-        // TODO: display error
         console.error(e)
+        this.root.error(_('Text-to-Speech Error'),
+            _('Make sure Speech Dispatcher is installed and working on your system'))
     }
     kill() {
         this.emit = () => {}
