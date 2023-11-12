@@ -1,6 +1,6 @@
 import '../foliate-js/view.js'
 import { Overlayer } from '../foliate-js/overlayer.js'
-import { FootnoteHandler } from '../foliate-js/footnote.js'
+import { FootnoteHandler } from '../foliate-js/footnotes.js'
 import { toPangoMarkup } from './markup.js'
 
 const format = {}
