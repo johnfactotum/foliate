@@ -6,13 +6,50 @@
     <name>Foliate</name>
     <summary>Read e-books in style</summary>
     <translation type="gettext">com.github.johnfactotum.Foliate</translation>
-    <description></description>
+    <description>
+        <p>Foliate is modern e-book reader app designed for GNOME.</p>
+        <p>Features include:</p>
+        <ul>
+            <li>Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files</li>
+            <li>Paginated mode and scrolled mode</li>
+            <li>Customize font and line-spacing</li>
+            <li>Light, sepia, dark, and invert mode</li>
+            <li>Reading progress slider with chapter marks</li>
+            <li>Bookmarks and annotations</li>
+            <li>Find in book</li>
+            <li>Quick dictionary lookup</li>
+        </ul>
+    </description>
     <developer_name>John Factotum</developer_name>
     <url type="homepage">https://johnfactotum.github.io/foliate/</url>
+    <url type="vcs-browser">https://github.com/johnfactotum/foliate</url>
     <url type="bugtracker">https://github.com/johnfactotum/foliate/issues</url>
-    <url type="faq">https://github.com/johnfactotum/foliate/wiki</url>
-    <screenshots></screenshots>
-    <releases></releases>
+    <url type="faq">https://github.com/johnfactotum/foliate/blob/gtk4/docs/faq.md</url>
+    <url type="donation">https://www.buymeacoffee.com/johnfactotum</url>
+    <screenshots>
+        <screenshot type="default">
+            <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/gtk4/data/screenshots/screenshot.png</image>
+        </screenshot>
+        <screenshot>
+            <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/gtk4/data/screenshots/dark.png</image>
+        </screenshot>
+        <screenshot>
+            <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/gtk4/data/screenshots/lookup.png</image>
+        </screenshot>
+        <screenshot>
+            <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/gtk4/data/screenshots/annotations.png</image>
+        </screenshot>
+        <screenshot>
+            <image type="source">https://raw.githubusercontent.com/johnfactotum/foliate/gtk4/data/screenshots/vertical.png</image>
+        </screenshot>
+    </screenshots>
+    <releases>
+        <release version="3.0.0" date="2023-11-12">
+            <description>
+                <p>Foliate has been rewritten from scratch with a new e-book rendering library and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI and improved performance.</p>
+            </description>
+        </release>
+    </releases>
     <content_rating type="oars-1.1" />
     <custom>
         <value key="Purism::form_factor">workstation</value>
