@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 10:24+0000\n"
+"POT-Creation-Date: 2023-11-12 16:50+0000\n"
 "PO-Revision-Date: 2020-08-30 16:03+0200\n"
 "Last-Translator: micrococo\n"
 "Language-Team: \n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "Laster-markak"
 
-#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:789
+#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:799
 msgid "Undo"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Cannot Import Annotations"
 msgstr "Inportatu oharrak…"
 
-#: src/annotations.js:629 src/book-viewer.js:700
+#: src/annotations.js:629 src/book-viewer.js:710
 #, fuzzy
 msgid "An error occurred"
 msgstr "Errore bat gertatu da."
@@ -205,7 +205,7 @@ msgid "Identifier"
 msgstr "Identifikatzailea"
 
 #: src/book-info.js:171 src/ui/book-item.ui:11 src/ui/book-row.ui:11
-#: src/ui/book-viewer.ui:366
+#: src/ui/book-viewer.ui:368
 msgid "About This Book"
 msgstr "Liburu honi buruz"
 
@@ -224,85 +224,121 @@ msgstr ""
 msgid "Page %s"
 msgstr "Hurrengo orria"
 
-#: src/book-viewer.js:31
-#, fuzzy
-msgid "Reference"
-msgstr "Hobespenak"
-
 #: src/book-viewer.js:32
 #, fuzzy
-msgid "Go to Reference"
-msgstr "Hobespenak"
+msgid "Footnote"
+msgstr "Joan hurrengo orrira"
 
-#: src/book-viewer.js:599
+#: src/book-viewer.js:33
+#, fuzzy
+msgid "Go to Footnote"
+msgstr "Joan hurrengo orrira"
+
+#: src/book-viewer.js:34
+msgid "Endnote"
+msgstr ""
+
+#: src/book-viewer.js:35
+#, fuzzy
+msgid "Go to Endnote"
+msgstr "Joan hurrengo orrira"
+
+#: src/book-viewer.js:36
+msgid "Note"
+msgstr ""
+
+#: src/book-viewer.js:37
+#, fuzzy
+msgid "Go to Note"
+msgstr "Joan hurrengo orrira"
+
+#: src/book-viewer.js:38
+#, fuzzy
+msgid "Definition"
+msgstr "Ez da emaitzarik aurkitu"
+
+#: src/book-viewer.js:39
+#, fuzzy
+msgid "Go to Definition"
+msgstr "Joan kokalekura"
+
+#: src/book-viewer.js:40
+msgid "Bibliography"
+msgstr ""
+
+#: src/book-viewer.js:41
+msgid "Go to Bibliography"
+msgstr ""
+
+#: src/book-viewer.js:609
 #, fuzzy
 msgid "Remove bookmark"
 msgstr "Kendu liburua"
 
-#: src/book-viewer.js:600
+#: src/book-viewer.js:610
 #, fuzzy
 msgid "Add bookmark"
 msgstr "Gehitu liburuak"
 
-#: src/book-viewer.js:698
+#: src/book-viewer.js:708
 #, fuzzy
 msgid "File not found"
 msgstr "Fitxategia ez da aurkitu."
 
-#: src/book-viewer.js:699
+#: src/book-viewer.js:709
 #, fuzzy
 msgid "File type not supported"
 msgstr "Fitxatigi mota hau ez da onartzen."
 
-#: src/book-viewer.js:788
+#: src/book-viewer.js:798
 #, fuzzy
 msgid "Annotation deleted"
 msgstr "Oharrak"
 
-#: src/book-viewer.js:856
+#: src/book-viewer.js:866
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:858
+#: src/book-viewer.js:868
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:859
+#: src/book-viewer.js:869
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr ""
 
-#: src/book-viewer.js:862
+#: src/book-viewer.js:872
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
 
-#: src/book-viewer.js:864
+#: src/book-viewer.js:874
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
 
-#: src/book-viewer.js:865
+#: src/book-viewer.js:875
 #, javascript-format
 msgid "‘%s’"
 msgstr ""
 
-#: src/book-viewer.js:883
+#: src/book-viewer.js:893
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "«%s»-ren irudia"
 
-#: src/book-viewer.js:883
+#: src/book-viewer.js:893
 msgid "Image"
 msgstr "Irudia"
 
@@ -416,6 +452,15 @@ msgstr ""
 msgid "Nord"
 msgstr ""
 
+#: src/tts.js:117
+#, fuzzy
+msgid "Text-to-Speech Error"
+msgstr "Testutik-hizketara"
+
+#: src/tts.js:118
+msgid "Make sure Speech Dispatcher is installed and working on your system"
+msgstr ""
+
 #: src/utils.js:168
 msgid "Copied to clipboard"
 msgstr ""
@@ -468,164 +513,159 @@ msgstr "Birkargatu"
 msgid "Import Annotations…"
 msgstr "Inportatu oharrak…"
 
-#: src/ui/book-viewer.ui:31 src/ui/library.ui:34
-msgid "Keyboard Shortcuts"
-msgstr "Laster-teklak"
-
-#: src/ui/book-viewer.ui:35 src/ui/library.ui:38
+#: src/ui/book-viewer.ui:37 src/ui/library.ui:40
 msgid "About Foliate"
 msgstr "Foliate-ri buruz"
 
-#: src/ui/book-viewer.ui:43
+#: src/ui/book-viewer.ui:45
 #, fuzzy
 msgid "All Sections"
 msgstr "Bildumak"
 
-#: src/ui/book-viewer.ui:48
+#: src/ui/book-viewer.ui:50
 #, fuzzy
 msgid "Current Section"
 msgstr "Uneko kapitulua"
 
-#: src/ui/book-viewer.ui:55
+#: src/ui/book-viewer.ui:57
 msgid "Match Whole Words Only"
 msgstr ""
 
-#: src/ui/book-viewer.ui:59
+#: src/ui/book-viewer.ui:61
 msgid "Match Case"
 msgstr ""
 
-#: src/ui/book-viewer.ui:63
+#: src/ui/book-viewer.ui:65
 msgid "Match Diacritics"
 msgstr ""
 
-#: src/ui/book-viewer.ui:81
+#: src/ui/book-viewer.ui:83
 msgid "Font & Layout Settings"
 msgstr ""
 
-#: src/ui/book-viewer.ui:87
+#: src/ui/book-viewer.ui:89
 #, fuzzy
 msgid "Scrolled Mode"
 msgstr "Korrituta"
 
-#: src/ui/book-viewer.ui:91
+#: src/ui/book-viewer.ui:93
 msgid "Invert Colors in Dark Mode"
 msgstr ""
 
-#: src/ui/book-viewer.ui:95
+#: src/ui/book-viewer.ui:97
 msgid "Autohide Cursor"
 msgstr ""
 
-#: src/ui/book-viewer.ui:101
+#: src/ui/book-viewer.ui:103
 msgid "Print…"
 msgstr ""
 
-#: src/ui/book-viewer.ui:105
+#: src/ui/book-viewer.ui:107
 msgid "Inspector"
 msgstr ""
 
-#: src/ui/book-viewer.ui:128 src/ui/book-viewer.ui:236 src/ui/library.ui:51
-#: data/com.github.johnfactotum.Foliate.desktop.in:20
+#: src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:238 src/ui/library.ui:53
 msgid "Library"
 msgstr "Biblioteka"
 
-#: src/ui/book-viewer.ui:165
+#: src/ui/book-viewer.ui:167
 msgid "Book Cannot Be Opened"
 msgstr ""
 
-#: src/ui/book-viewer.ui:175
+#: src/ui/book-viewer.ui:177
 msgid "Details"
 msgstr "Zehaztasunak"
 
-#: src/ui/book-viewer.ui:191
+#: src/ui/book-viewer.ui:193
 #, fuzzy
 msgid "Open Another File…"
 msgstr "Ireki fitxategia"
 
-#: src/ui/book-viewer.ui:243
+#: src/ui/book-viewer.ui:245
 #, fuzzy
 msgid "Pin Sidebar"
 msgstr "Erakutsi alboko panela"
 
-#: src/ui/book-viewer.ui:251
+#: src/ui/book-viewer.ui:253
 #, fuzzy
 msgid "Book Menu"
 msgstr "Menua"
 
-#: src/ui/book-viewer.ui:258 src/ui/selection-popover.ui:17
+#: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
 msgid "Find"
 msgstr "Bilatu"
 
-#: src/ui/book-viewer.ui:274
+#: src/ui/book-viewer.ui:276
 #, fuzzy
 msgid "Find in book…"
 msgstr "Bilatu liburuan"
 
-#: src/ui/book-viewer.ui:311
+#: src/ui/book-viewer.ui:313
 msgid "Contents"
 msgstr "Edukiak"
 
-#: src/ui/book-viewer.ui:389
+#: src/ui/book-viewer.ui:391
 msgid "Annotations"
 msgstr "Oharrak"
 
-#: src/ui/book-viewer.ui:431
+#: src/ui/book-viewer.ui:433
 #, fuzzy
 msgid "Filter annotations…"
 msgstr "Bilatu oharrak"
 
-#: src/ui/book-viewer.ui:445
+#: src/ui/book-viewer.ui:447
 msgid "Bookmarks"
 msgstr "Laster-markak"
 
-#: src/ui/book-viewer.ui:496 src/ui/library-view.ui:42
+#: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
 #, fuzzy
 msgid "No Results Found"
 msgstr "Ez da emaitzarik aurkitu"
 
-#: src/ui/book-viewer.ui:497 src/ui/library-view.ui:43
+#: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
 #, fuzzy
 msgid "Try a different search"
 msgstr "Saiatu beste bilaketa."
 
-#: src/ui/book-viewer.ui:540
+#: src/ui/book-viewer.ui:542
 #, fuzzy
 msgid "Sidebar"
 msgstr "Erakutsi alboko panela"
 
-#: src/ui/book-viewer.ui:554
+#: src/ui/book-viewer.ui:556
 #, fuzzy
 msgid "View Menu"
 msgstr "Menua"
 
-#: src/ui/book-viewer.ui:567 src/ui/image-viewer.ui:41
+#: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
 #, fuzzy
 msgid "Zoom Out"
 msgstr "Txikiagotu"
 
-#: src/ui/book-viewer.ui:575 src/ui/image-viewer.ui:48
+#: src/ui/book-viewer.ui:577 src/ui/image-viewer.ui:48
 msgid "Reset Zoom"
 msgstr ""
 
-#: src/ui/book-viewer.ui:584 src/ui/image-viewer.ui:55
+#: src/ui/book-viewer.ui:586 src/ui/image-viewer.ui:55
 #, fuzzy
 msgid "Zoom In"
 msgstr "Handiagotu"
 
-#: src/ui/book-viewer.ui:600
+#: src/ui/book-viewer.ui:602
 msgid "Follow System Style"
 msgstr ""
 
-#: src/ui/book-viewer.ui:610
+#: src/ui/book-viewer.ui:612
 #, fuzzy
 msgid "Light Style"
 msgstr "Argia"
 
-#: src/ui/book-viewer.ui:620
+#: src/ui/book-viewer.ui:622
 #, fuzzy
 msgid "Dark Style"
 msgstr "Itxura iluna"
 
-#: src/ui/book-viewer.ui:635 src/ui/library.ui:24
+#: src/ui/book-viewer.ui:637 src/ui/library.ui:24
 msgid "Fullscreen"
 msgstr "Pantaila osoa"
 
@@ -717,20 +757,16 @@ msgstr "Ikusi"
 msgid "Grid View"
 msgstr "Ikusi"
 
-#: src/ui/library.ui:30
-msgid "Preferences"
-msgstr "Hobespenak"
-
-#: src/ui/library.ui:60
+#: src/ui/library.ui:62
 #, fuzzy
 msgid "Main Menu"
 msgstr "Menua"
 
-#: src/ui/library.ui:67
+#: src/ui/library.ui:69
 msgid "Search"
 msgstr "Bilatu"
 
-#: src/ui/library.ui:77
+#: src/ui/library.ui:79
 #, fuzzy
 msgid "Search library…"
 msgstr "Bilatzen…"
@@ -820,24 +856,20 @@ msgstr "Atala"
 msgid "Highlight"
 msgstr "Nabarmendu"
 
-#: src/ui/selection-popover.ui:24
-msgid "Speak"
-msgstr "Ozen irakurri"
-
-#: src/ui/selection-popover.ui:28
+#: src/ui/selection-popover.ui:30
 msgid "Speak from Here"
 msgstr "Irakurri ozen hemendik"
 
-#: src/ui/selection-popover.ui:34
+#: src/ui/selection-popover.ui:36
 msgid "Copy with Citation"
 msgstr ""
 
-#: src/ui/selection-popover.ui:38
+#: src/ui/selection-popover.ui:40
 #, fuzzy
 msgid "Copy Identifier"
 msgstr "Identifikatzailea"
 
-#: src/ui/selection-popover.ui:42
+#: src/ui/selection-popover.ui:44
 #, fuzzy
 msgid "Print Selection…"
 msgstr "Uneko kapitulua"
@@ -966,19 +998,78 @@ msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook;Liburu;EPUB;Ikustailea;Irakurgailua;"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
+msgid "Foliate is modern e-book reader app designed for GNOME."
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
+msgid "Features include:"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
+msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
+msgid "Paginated mode and scrolled mode"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
+msgid "Customize font and line-spacing"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
+msgid "Light, sepia, dark, and invert mode"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
+msgid "Reading progress slider with chapter marks"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
+#, fuzzy
+msgid "Bookmarks and annotations"
+msgstr "Oharrak"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
+#, fuzzy
+msgid "Find in book"
+msgstr "Bilatu liburuan"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
+msgid "Quick dictionary lookup"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:23
 msgid "John Factotum"
 msgstr "John Factotum"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:49
+msgid ""
+"Foliate has been rewritten from scratch with a new e-book rendering library "
+"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
+"and improved performance."
+msgstr ""
+
+#, fuzzy
+#~ msgid "Reference"
+#~ msgstr "Hobespenak"
+
+#, fuzzy
+#~ msgid "Go to Reference"
+#~ msgstr "Hobespenak"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Laster-teklak"
+
+#~ msgid "Preferences"
+#~ msgstr "Hobespenak"
+
+#~ msgid "Speak"
+#~ msgstr "Ozen irakurri"
 
 #, fuzzy
 #~ msgid "Fold Sidebar"
 #~ msgstr "Erakutsi alboko panela"
-
-#, fuzzy
-#~ msgid "Go to Footnote"
-#~ msgstr "Joan hurrengo orrira"
-
-#~ msgid "Text-to-Speech"
-#~ msgstr "Testutik-hizketara"
 
 #~ msgid "Save File"
 #~ msgstr "Gorde fitxategia"
@@ -1010,10 +1101,6 @@ msgstr "John Factotum"
 
 #~ msgid "Go back to previous location"
 #~ msgstr "Joan aurreko kokalekura"
-
-#, fuzzy
-#~ msgid "Go to first section"
-#~ msgstr "Joan kokalekura"
 
 #, fuzzy
 #~ msgid "Go to next section"
