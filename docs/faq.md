@@ -1,5 +1,11 @@
 # FAQ
 
+## General
+
+### Something isn't working! What can I do?
+
+See [<i>troubleshooting common issues</i>](troubleshooting.md).
+
 ## Reading
 
 ### What are "locations"?
