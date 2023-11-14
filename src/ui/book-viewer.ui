@@ -399,8 +399,8 @@
                                             <object class="AdwStatusPage">
                                               <property name="vexpand">true</property>
                                               <property name="icon-name">document-edit-symbolic</property>
-                                              <property name="title">No Annotations</property>
-                                              <property name="description">Select some text to add annotations</property>
+                                              <property name="title" translatable="yes">No Annotations</property>
+                                              <property name="description" translatable="yes">Select some text to add annotations</property>
                                               <style><class name="compact"/></style>
                                             </object>
                                           </property>
@@ -455,8 +455,8 @@
                                             <object class="AdwStatusPage">
                                               <property name="vexpand">true</property>
                                               <property name="icon-name">user-bookmarks-symbolic</property>
-                                              <property name="title">No Bookmarks</property>
-                                              <property name="description">Add some bookmarks to see them here</property>
+                                              <property name="title" translatable="yes">No Bookmarks</property>
+                                              <property name="description" translatable="yes">Add some bookmarks to see them here</property>
                                               <style><class name="compact"/></style>
                                             </object>
                                           </property>
@@ -573,7 +573,6 @@
                                     <child>
                                       <object class="GtkButton" id="zoom-button">
                                         <property name="hexpand">True</property>
-                                        <property name="label">100%</property>
                                         <property name="tooltip-text" translatable="yes">Reset Zoom</property>
                                         <property name="action-name">view.zoom-restore</property>
                                         <style><class name="flat"/></style>

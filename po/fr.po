@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 16:50+0000\n"
+"POT-Creation-Date: 2023-11-14 00:21+0000\n"
 "PO-Revision-Date: 2023-11-13 23:26+0100\n"
 "Last-Translator: Irénée THIRION <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "Marque-page supprimé"
 
-#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:799
+#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:800
 msgid "Undo"
 msgstr "Annuler"
 
@@ -80,7 +80,7 @@ msgstr "Fichiers JSON"
 msgid "All Files"
 msgstr "Tous les fichiers"
 
-#: src/annotations.js:609 src/annotations.js:637
+#: src/annotations.js:609 src/annotations.js:637 src/ui/book-viewer.ui:402
 msgid "No Annotations"
 msgstr "Aucune annotation"
 
@@ -92,7 +92,7 @@ msgstr "Le fichier importé ne comporte pas d’annotations"
 msgid "Cannot Import Annotations"
 msgstr "Impossible d’importer les annotations"
 
-#: src/annotations.js:629 src/book-viewer.js:710
+#: src/annotations.js:629 src/book-viewer.js:711
 msgid "An error occurred"
 msgstr "Une erreur s’est produite"
 
@@ -251,27 +251,27 @@ msgstr "Bibliographie"
 msgid "Go to Bibliography"
 msgstr "Aller à la bibliographie"
 
-#: src/book-viewer.js:609
+#: src/book-viewer.js:610
 msgid "Remove bookmark"
 msgstr "Supprimer le marque-page"
 
-#: src/book-viewer.js:610
+#: src/book-viewer.js:611
 msgid "Add bookmark"
 msgstr "Ajouter un marque-page"
 
-#: src/book-viewer.js:708
+#: src/book-viewer.js:709
 msgid "File not found"
 msgstr "Fichier non trouvé"
 
-#: src/book-viewer.js:709
+#: src/book-viewer.js:710
 msgid "File type not supported"
 msgstr "Type de fichier non pris en charge"
 
-#: src/book-viewer.js:798
+#: src/book-viewer.js:799
 msgid "Annotation deleted"
 msgstr "Annotation supprimée"
 
-#: src/book-viewer.js:866
+#: src/book-viewer.js:867
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -279,22 +279,22 @@ msgid ""
 msgstr ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
-
-#: src/book-viewer.js:868
-#, javascript-format
-msgid ""
-"‘%s’\n"
-"—“%s”, p. %s"
-msgstr ""
-"‘%s’\n"
-"—“%s”, p. %s"
 
 #: src/book-viewer.js:869
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—“%s”, p. %s"
+msgstr ""
+"‘%s’\n"
+"—“%s”, p. %s"
+
+#: src/book-viewer.js:870
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr "‘%s’ (p. %s)"
 
-#: src/book-viewer.js:872
+#: src/book-viewer.js:873
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -302,27 +302,27 @@ msgid ""
 msgstr ""
 "‘%s’\n"
 "—%s, “%s”"
-
-#: src/book-viewer.js:874
-#, javascript-format
-msgid ""
-"‘%s’\n"
-"—“%s”"
-msgstr ""
-"‘%s’\n"
-"—“%s”"
 
 #: src/book-viewer.js:875
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—“%s”"
+msgstr ""
+"‘%s’\n"
+"—“%s”"
+
+#: src/book-viewer.js:876
 #, javascript-format
 msgid "‘%s’"
 msgstr "‘%s’"
 
-#: src/book-viewer.js:893
+#: src/book-viewer.js:894
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Image de « %s »"
 
-#: src/book-viewer.js:893
+#: src/book-viewer.js:894
 msgid "Image"
 msgstr "Image"
 
@@ -587,6 +587,11 @@ msgstr "Contenu"
 msgid "Annotations"
 msgstr "Annotations"
 
+#: src/ui/book-viewer.ui:403
+#, fuzzy
+msgid "Select some text to add annotations"
+msgstr "Aucune annotation"
+
 #: src/ui/book-viewer.ui:433
 msgid "Filter annotations…"
 msgstr "Filtrer les annotations…"
@@ -594,6 +599,15 @@ msgstr "Filtrer les annotations…"
 #: src/ui/book-viewer.ui:447
 msgid "Bookmarks"
 msgstr "Marque-pages"
+
+#: src/ui/book-viewer.ui:458
+#, fuzzy
+msgid "No Bookmarks"
+msgstr "Marque-pages"
+
+#: src/ui/book-viewer.ui:459
+msgid "Add some bookmarks to see them here"
+msgstr ""
 
 #: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
 msgid "No Results Found"
@@ -615,27 +629,27 @@ msgstr "Menu de visualisation"
 msgid "Zoom Out"
 msgstr "Rétrécir la vue"
 
-#: src/ui/book-viewer.ui:577 src/ui/image-viewer.ui:48
+#: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
 msgid "Reset Zoom"
 msgstr "Réinitialiser le zoom"
 
-#: src/ui/book-viewer.ui:586 src/ui/image-viewer.ui:55
+#: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
 msgid "Zoom In"
 msgstr "Agrandir"
 
-#: src/ui/book-viewer.ui:602
+#: src/ui/book-viewer.ui:601
 msgid "Follow System Style"
 msgstr "Suivre le thème système"
 
-#: src/ui/book-viewer.ui:612
+#: src/ui/book-viewer.ui:611
 msgid "Light Style"
 msgstr "Style clair"
 
-#: src/ui/book-viewer.ui:622
+#: src/ui/book-viewer.ui:621
 msgid "Dark Style"
 msgstr "Style sombre"
 
-#: src/ui/book-viewer.ui:637 src/ui/library.ui:24
+#: src/ui/book-viewer.ui:636 src/ui/library.ui:24
 msgid "Fullscreen"
 msgstr "Plein écran"
 
@@ -1028,10 +1042,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Choose highlight style"
 #~ msgstr "Changer la couleur de surlignage"
-
-#, fuzzy
-#~ msgid "Delete annotation"
-#~ msgstr "Aucune annotation"
 
 #~ msgid "More"
 #~ msgstr "Plus"

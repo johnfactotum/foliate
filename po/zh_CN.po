@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 16:50+0000\n"
+"POT-Creation-Date: 2023-11-14 00:21+0000\n"
 "PO-Revision-Date: 2021-03-30 14:03+0800\n"
 "Last-Translator: Tranquilo Chan <cdh4227@foxmail.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "书签"
 
-#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:799
+#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:800
 msgid "Undo"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr "所有文件"
 msgid "All Files"
 msgstr "所有文件"
 
-#: src/annotations.js:609 src/annotations.js:637
+#: src/annotations.js:609 src/annotations.js:637 src/ui/book-viewer.ui:402
 #, fuzzy
 msgid "No Annotations"
 msgstr "笔记"
@@ -99,7 +99,7 @@ msgstr ""
 msgid "Cannot Import Annotations"
 msgstr "导入笔记…"
 
-#: src/annotations.js:629 src/book-viewer.js:710
+#: src/annotations.js:629 src/book-viewer.js:711
 #, fuzzy
 msgid "An error occurred"
 msgstr "出错了。"
@@ -270,75 +270,75 @@ msgstr ""
 msgid "Go to Bibliography"
 msgstr ""
 
-#: src/book-viewer.js:609
+#: src/book-viewer.js:610
 #, fuzzy
 msgid "Remove bookmark"
 msgstr "删除图书"
 
-#: src/book-viewer.js:610
+#: src/book-viewer.js:611
 #, fuzzy
 msgid "Add bookmark"
 msgstr "添加图书"
 
-#: src/book-viewer.js:708
+#: src/book-viewer.js:709
 #, fuzzy
 msgid "File not found"
 msgstr "找不到该文件。"
 
-#: src/book-viewer.js:709
+#: src/book-viewer.js:710
 #, fuzzy
 msgid "File type not supported"
 msgstr "不支持的文件类型。"
 
-#: src/book-viewer.js:798
+#: src/book-viewer.js:799
 #, fuzzy
 msgid "Annotation deleted"
 msgstr "笔记"
 
-#: src/book-viewer.js:866
+#: src/book-viewer.js:867
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:868
+#: src/book-viewer.js:869
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:869
+#: src/book-viewer.js:870
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr ""
 
-#: src/book-viewer.js:872
+#: src/book-viewer.js:873
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
 
-#: src/book-viewer.js:874
+#: src/book-viewer.js:875
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
 
-#: src/book-viewer.js:875
+#: src/book-viewer.js:876
 #, javascript-format
 msgid "‘%s’"
 msgstr ""
 
-#: src/book-viewer.js:893
+#: src/book-viewer.js:894
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "图片来自 “%s”"
 
-#: src/book-viewer.js:893
+#: src/book-viewer.js:894
 msgid "Image"
 msgstr "图片"
 
@@ -608,6 +608,11 @@ msgstr "显示内容"
 msgid "Annotations"
 msgstr "笔记"
 
+#: src/ui/book-viewer.ui:403
+#, fuzzy
+msgid "Select some text to add annotations"
+msgstr "无笔记"
+
 #: src/ui/book-viewer.ui:433
 #, fuzzy
 msgid "Filter annotations…"
@@ -616,6 +621,15 @@ msgstr "搜索笔记"
 #: src/ui/book-viewer.ui:447
 msgid "Bookmarks"
 msgstr "书签"
+
+#: src/ui/book-viewer.ui:458
+#, fuzzy
+msgid "No Bookmarks"
+msgstr "书签"
+
+#: src/ui/book-viewer.ui:459
+msgid "Add some bookmarks to see them here"
+msgstr ""
 
 #: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
 #, fuzzy
@@ -642,30 +656,30 @@ msgstr "菜单"
 msgid "Zoom Out"
 msgstr "缩小"
 
-#: src/ui/book-viewer.ui:577 src/ui/image-viewer.ui:48
+#: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
 msgid "Reset Zoom"
 msgstr ""
 
-#: src/ui/book-viewer.ui:586 src/ui/image-viewer.ui:55
+#: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
 #, fuzzy
 msgid "Zoom In"
 msgstr "放大"
 
-#: src/ui/book-viewer.ui:602
+#: src/ui/book-viewer.ui:601
 msgid "Follow System Style"
 msgstr ""
 
-#: src/ui/book-viewer.ui:612
+#: src/ui/book-viewer.ui:611
 #, fuzzy
 msgid "Light Style"
 msgstr "亮色"
 
-#: src/ui/book-viewer.ui:622
+#: src/ui/book-viewer.ui:621
 #, fuzzy
 msgid "Dark Style"
 msgstr "暗色模式"
 
-#: src/ui/book-viewer.ui:637 src/ui/library.ui:24
+#: src/ui/book-viewer.ui:636 src/ui/library.ui:24
 msgid "Fullscreen"
 msgstr "全屏"
 
@@ -1079,10 +1093,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Choose highlight style"
 #~ msgstr "更改高亮颜色"
-
-#, fuzzy
-#~ msgid "Delete annotation"
-#~ msgstr "无笔记"
 
 #~ msgid "More"
 #~ msgstr "更多"

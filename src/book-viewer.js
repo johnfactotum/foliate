@@ -477,6 +477,7 @@ export const BookViewer = GObject.registerClass({
         this._view.viewSettings.bindSettings('viewer.view')
         this._view.webView.connect('notify::zoom-level', webView =>
             this._zoom_button.label = format.percent(webView.zoom_level))
+        this._zoom_button.label = format.percent(this._view.webView.zoom_level)
 
         let lastThemeClass
         const recolorUI = view => {
