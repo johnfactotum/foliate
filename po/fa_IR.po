@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 00:21+0000\n"
+"POT-Creation-Date: 2023-11-14 06:50+0000\n"
 "PO-Revision-Date: 2023-11-14 01:17+0330\n"
 "Last-Translator: Meysam Pour Ganji <p.g.meysam@gmail.com>\n"
 "Language-Team: \n"
@@ -118,7 +118,7 @@ msgstr "بستن"
 msgid "E-Book Files"
 msgstr "سندهای رایاکتاب"
 
-#: src/app.js:362 data/com.github.johnfactotum.Foliate.desktop.in:5
+#: src/app.js:362 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
 msgstr "خوانش رایاکتاب در سبک"
@@ -339,8 +339,8 @@ msgstr ""
 msgid "_Remove"
 msgstr ""
 
-#: src/main.js:26 data/com.github.johnfactotum.Foliate.desktop.in:3
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:6
+#. Translators: Do NOT translate! The is the application name!
+#: src/main.js:26 data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "Foliate"
 msgstr "فولیت"
 
@@ -937,18 +937,21 @@ msgstr "بیشترین اندازه‌ی بلوک"
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
 msgstr "بیشترین ارتفاع (نوشتار افقی) یا پهنا (نوشتار عمودی)"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:4
+#: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
 msgstr "بیننده رایاکتاب"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.github.johnfactotum.Foliate.desktop.in:13
+#: data/com.github.johnfactotum.Foliate.desktop.in:14
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "رایاکتاب;کتاب;EPUB;بیننده;خواننده;"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
-msgid "Foliate is modern e-book reader app designed for GNOME."
-msgstr "فولیت یک ابزار رایاکتاب‌خوان طراحی‌شده برای گنوم است."
+msgid ""
+"Discover a new chapter in reading with Foliate, the modern e-book reader "
+"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
+"customization features designed to match your unique preferences."
+msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
@@ -986,11 +989,29 @@ msgstr "یافتن در کتاب"
 msgid "Quick dictionary lookup"
 msgstr "جستجوی سریع واژه‌نامه"
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:23
-msgid "John Factotum"
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:30
+#, fuzzy
+msgid "Book"
+msgstr "فهرست کتاب"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:31
+msgid "EPUB"
 msgstr ""
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:49
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:32
+msgid "Ebook"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:33
+msgid "Reader"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:34
+#, fuzzy
+msgid "Viewer"
+msgstr "دیدن فهرست"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:62
 msgid ""
 "Foliate has been rewritten from scratch with a new e-book rendering library "
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
@@ -999,3 +1020,6 @@ msgstr ""
 "فولیت با یک کتابخانه‌ی تفسیر رایاکتاب‌خوان و آخرین کتابخانه‌های سکو، GTK4 و "
 "Libadwaita به همراه یک رابط کاربری تازه و با کارایی بالاتر از ابتدا بازنویسی "
 "شده است."
+
+#~ msgid "Foliate is modern e-book reader app designed for GNOME."
+#~ msgstr "فولیت یک ابزار رایاکتاب‌خوان طراحی‌شده برای گنوم است."

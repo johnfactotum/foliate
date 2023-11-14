@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 00:21+0000\n"
+"POT-Creation-Date: 2023-11-14 06:50+0000\n"
 "PO-Revision-Date: 2023-11-13 23:26+0100\n"
 "Last-Translator: Irénée THIRION <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
@@ -120,7 +120,7 @@ msgstr "Fermer"
 msgid "E-Book Files"
 msgstr "Fichiers E-Book"
 
-#: src/app.js:362 data/com.github.johnfactotum.Foliate.desktop.in:5
+#: src/app.js:362 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
 msgstr "Lisez vos livres électroniques avec style"
@@ -349,8 +349,8 @@ msgstr "A_nnuler"
 msgid "_Remove"
 msgstr "_Supprimer"
 
-#: src/main.js:26 data/com.github.johnfactotum.Foliate.desktop.in:3
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:6
+#. Translators: Do NOT translate! The is the application name!
+#: src/main.js:26 data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "Foliate"
 msgstr "Foliate"
 
@@ -951,19 +951,21 @@ msgstr "Taille maximale des paragraphes"
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
 msgstr "Hauteur (lecture horizontale) ou largeur (lecture verticale) maximale"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:4
+#: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
 msgstr "Lecteur de livres électroniques"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.github.johnfactotum.Foliate.desktop.in:13
+#: data/com.github.johnfactotum.Foliate.desktop.in:14
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
 msgstr "Ebook;Livre;EPUB;Liseuse;Lecteur;"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
-msgid "Foliate is modern e-book reader app designed for GNOME."
+msgid ""
+"Discover a new chapter in reading with Foliate, the modern e-book reader "
+"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
+"customization features designed to match your unique preferences."
 msgstr ""
-"Foliate est un lecteur de livres électroniques moderne, conçu pour GNOME."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
@@ -1001,11 +1003,29 @@ msgstr "Recherche dans le livre"
 msgid "Quick dictionary lookup"
 msgstr "Vérification dans le dictionnaire"
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:23
-msgid "John Factotum"
-msgstr "John Factotum"
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:30
+#, fuzzy
+msgid "Book"
+msgstr "Menu du livre"
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:49
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:31
+msgid "EPUB"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:32
+msgid "Ebook"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:33
+msgid "Reader"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:34
+#, fuzzy
+msgid "Viewer"
+msgstr "Menu de visualisation"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:62
 msgid ""
 "Foliate has been rewritten from scratch with a new e-book rendering library "
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
@@ -1014,6 +1034,13 @@ msgstr ""
 "Foliate a été entièrement réécri avec un nouveau moteur de rendu des livres "
 "et les dernières bibliothèques de la plateforme, GTK4 et Libadwaita, ainsi "
 "qu’une interface rafraîchie et des performances améliorées."
+
+#~ msgid "Foliate is modern e-book reader app designed for GNOME."
+#~ msgstr ""
+#~ "Foliate est un lecteur de livres électroniques moderne, conçu pour GNOME."
+
+#~ msgid "John Factotum"
+#~ msgstr "John Factotum"
 
 #, fuzzy
 #~ msgid "Reference"
