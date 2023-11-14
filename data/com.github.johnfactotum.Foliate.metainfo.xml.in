@@ -3,11 +3,11 @@
     <id>com.github.johnfactotum.Foliate</id>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>GPL-3.0-or-later</project_license>
-    <name>Foliate</name>
+    <name translate="no">Foliate</name>
     <summary>Read e-books in style</summary>
     <translation type="gettext">com.github.johnfactotum.Foliate</translation>
     <description>
-        <p>Foliate is modern e-book reader app designed for GNOME.</p>
+        <p>Discover a new chapter in reading with Foliate, the modern e-book reader tailored for GNOME. Immerse yourself in a distraction-free interface, with customization features designed to match your unique preferences.</p>
         <p>Features include:</p>
         <ul>
             <li>Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files</li>
@@ -20,10 +20,23 @@
             <li>Quick dictionary lookup</li>
         </ul>
     </description>
-    <developer_name>John Factotum</developer_name>
+    <developer_name translate="no">John Factotum</developer_name>
+    <launchable type="desktop-id">com.github.johnfactotum.Foliate.desktop</launchable>
+    <categories>
+      <category>Office</category>
+      <category>Viewer</category>
+    </categories>
+    <keywords>
+      <keyword>Book</keyword>
+      <keyword>EPUB</keyword>
+      <keyword>Ebook</keyword>
+      <keyword>Reader</keyword>
+      <keyword>Viewer</keyword>
+    </keywords>    
     <url type="homepage">https://johnfactotum.github.io/foliate/</url>
     <url type="vcs-browser">https://github.com/johnfactotum/foliate</url>
     <url type="bugtracker">https://github.com/johnfactotum/foliate/issues</url>
+    <url type="translate">https://github.com/johnfactotum/foliate/tree/gtk4/po</url>
     <url type="faq">https://github.com/johnfactotum/foliate/blob/gtk4/docs/faq.md</url>
     <url type="donation">https://www.buymeacoffee.com/johnfactotum</url>
     <screenshots>
@@ -52,7 +65,6 @@
     </releases>
     <content_rating type="oars-1.1" />
     <custom>
-        <value key="Purism::form_factor">workstation</value>
         <value key="Purism::form_factor">mobile</value>
     </custom>
 </component>
