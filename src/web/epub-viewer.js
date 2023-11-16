@@ -302,6 +302,7 @@ const setStyle = style => {
             'background': bgColor,
             'font-size': `${fontSize}px !important`,
             'line-height': `${spacing} !important`,
+            '-webkit-font-smoothing': invert ? 'antialiased' : 'auto',
             '-webkit-hyphens': hyphenate ? 'auto' : 'manual',
             '-webkit-hyphenate-limit-before': 3,
             '-webkit-hyphenate-limit-after': 2,
