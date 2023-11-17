@@ -4,7 +4,7 @@
 
 ### Something isn't working! What can I do?
 
-See [<i>troubleshooting common issues</i>](troubleshooting.md).
+See [<i>troubleshooting</i>](troubleshooting.md).
 
 ## Reading
 
@@ -52,12 +52,6 @@ You can create a user stylesheet file at `/home/user/.config/com.github.johnfact
 
 Tip: you can use the [`:lang()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) selector to apply different styles for books in different languages.
 
-### The dictionary/Wikipedia/translation tool doesn't work!
-
-- These tools requires network access to online third party services.
-- Dictionary and Wikipedia lookup requires that the language metadata be correctly marked up in the book.
-- Dictionary and Wikipedia lookup relies on Wikimedia's REST APIs and they often have trouble extracting content from wikitext (a notoriously difficult task).
-
 ## Bookmarks & Annotations
 
 ### How are notes and bookmarks stored?
@@ -95,7 +89,7 @@ The `epubcfi(...)` parts are [EPUB Canonical Fragment Identifiers (CFI)](https:/
 
 ### How are identifiers generated?
 
-For formats or books without unique identifiers, Foliate will generate one from the MD5 hash of the file. To speed things up, it only uses up to the first 10000000 bytes of the file. You can run `head -c 10000000 $YOUR_FILE_HERE | md5sum` to get the same hash.
+For formats or books without unique identifiers, Foliate will generate one with the prefix `foliate:`, plus the MD5 hash of the file. To speed things up, it only uses up to the first 10000000 bytes of the file. You can run `head -c 10000000 $YOUR_FILE_HERE | md5sum` to get the same hash.
 
 ## Security
 
