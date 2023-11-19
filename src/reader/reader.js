@@ -165,6 +165,7 @@ const getCSS = ({
         @media (prefers-color-scheme: dark) {
             html {
                 color: ${invert ? theme.inverted.fg : theme.dark.fg};
+                ${invert ? '-webkit-font-smoothing: antialiased;' : ''}
             }
             a:any-link {
                 color: ${invert ? theme.inverted.link : theme.dark.link};
