@@ -93,10 +93,10 @@ For developement with Flatpak, use [GNOME Builder](https://wiki.gnome.org/Apps/B
 
 ### Snap
 
-The `gtk4` branch is available on the [Snap Store](https://snapcraft.io/foliate) through the `edge` channel:
+Foliate is available on the [Snap Store](https://snapcraft.io/foliate). To install:
 
 ```
-sudo snap install foliate --edge
+sudo snap install foliate
 ```
 
 ## Screenshots
