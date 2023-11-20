@@ -214,7 +214,8 @@ const getCSS = ({
         }
         .${CSS.escape(mediaActiveClass)}, .${CSS.escape(mediaActiveClass)} * {
             color: ${theme.light.fg} !important;
-            background: color-mix(in lch, ${theme.light.fg}, ${theme.light.bg} 85%) !important;
+            background: color-mix(in hsl, ${theme.light.fg}, #fff 50%) !important;
+            background: color-mix(in hsl, ${theme.light.fg}, ${theme.light.bg} 85%) !important;
         }` : ''}
     }
     @media screen and (prefers-color-scheme: dark) {
@@ -233,7 +234,8 @@ const getCSS = ({
         }
         .${CSS.escape(mediaActiveClass)}, .${CSS.escape(mediaActiveClass)} * {
             color: ${theme.dark.fg} !important;
-            background: color-mix(in lch, ${theme.dark.fg}, ${theme.dark.bg} 75%) !important;
+            background: color-mix(in hsl, ${theme.dark.fg}, #000 50%) !important;
+            background: color-mix(in hsl, ${theme.dark.fg}, ${theme.dark.bg} 75%) !important;
         }`}
     }
     p, li, blockquote, dd {
