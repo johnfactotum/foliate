@@ -94,7 +94,7 @@ themeCssProvider.load_from_data(`
             background: ${theme.dark.bg};
         }
         .is-dark .sidebar-${id}:not(.background) toolbarview {
-            background: rgba(255, 255, 255, .03);
+            background: rgba(255, 255, 255, .05);
         }
         .${id} highlight {
             background: ${theme.light.link};
