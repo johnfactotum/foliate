@@ -1,8 +1,6 @@
 name: foliate
 grade: stable
 adopt-info: foliate
-version: 3.0.0
-description: A simple and modern GTK e-book reader
 license: GPL-3.0+
 base: core22
 confinement: strict
@@ -42,7 +40,7 @@ parts:
   foliate:
     plugin: meson
     source: https://github.com/johnfactotum/foliate.git
-    source-branch: gtk4
+    source-tag: '3.0.1'
     build-environment:
       - PKG_CONFIG_PATH: /snap/webkitgtk-6-gnome-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig:$PKG_CONFIG_PATH
     meson-parameters:
