@@ -1,5 +1,5 @@
 project('com.github.johnfactotum.Foliate',
-    version: '3.0.0',
+    version: '3.0.1',
     meson_version: '>= 0.59.0',
 )
 
