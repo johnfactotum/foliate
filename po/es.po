@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 06:50+0000\n"
-"PO-Revision-Date: 2023-11-13 16:45+0100\n"
+"POT-Creation-Date: 2023-11-24 21:24+0100\n"
+"PO-Revision-Date: 2023-11-24 21:20+0100\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -555,10 +555,6 @@ msgstr "Biblioteca"
 msgid "Book Cannot Be Opened"
 msgstr "No se puede abrir el libro"
 
-#: src/ui/book-viewer.ui:177
-msgid "Details"
-msgstr ""
-
 #: src/ui/book-viewer.ui:193
 msgid "Open Another File…"
 msgstr "Abrir otro archivo…"
@@ -589,7 +585,7 @@ msgstr "Anotaciones"
 
 #: src/ui/book-viewer.ui:403
 msgid "Select some text to add annotations"
-msgstr ""
+msgstr "Seleccione un texto para añadir anotaciones"
 
 #: src/ui/book-viewer.ui:433
 msgid "Filter annotations…"
@@ -600,13 +596,12 @@ msgid "Bookmarks"
 msgstr "Marcadores"
 
 #: src/ui/book-viewer.ui:458
-#, fuzzy
 msgid "No Bookmarks"
-msgstr "Marcadores"
+msgstr "No hay marcadores"
 
 #: src/ui/book-viewer.ui:459
 msgid "Add some bookmarks to see them here"
-msgstr ""
+msgstr "Añada algunos marcadores para verlos aquí"
 
 #: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
 msgid "No Results Found"
@@ -755,9 +750,49 @@ msgstr "No hay libros todavía"
 msgid "Open a book to start reading"
 msgstr "Abra un libro para empezar a leer"
 
-#: src/ui/navbar.ui:8 src/ui/tts-box.ui:115
+#: src/ui/media-overlay-box.ui:12
+msgid "Volume"
+msgstr "Volumen"
+
+#: src/ui/media-overlay-box.ui:42 src/ui/tts-box.ui:34
+msgid "Speed"
+msgstr "Velocidad"
+
+#: src/ui/media-overlay-box.ui:52
+msgid "0.75"
+msgstr "0,75"
+
+#: src/ui/media-overlay-box.ui:60
+msgid "1"
+msgstr "1"
+
+#: src/ui/media-overlay-box.ui:68
+msgid "1.25"
+msgstr "1,25"
+
+#: src/ui/media-overlay-box.ui:76
+msgid "1.5"
+msgstr "1,5"
+
+#: src/ui/media-overlay-box.ui:84
+msgid "2"
+msgstr "2"
+
+#: src/ui/media-overlay-box.ui:109 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
 msgid "Previous"
 msgstr "Anterior"
+
+#: src/ui/media-overlay-box.ui:117 src/ui/tts-box.ui:123
+msgid "Play/Pause"
+msgstr "Reproducir/Pausar"
+
+#: src/ui/media-overlay-box.ui:126 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
+msgid "Next"
+msgstr "Siguiente"
+
+#: src/ui/media-overlay-box.ui:135 src/ui/tts-box.ui:141
+msgid "Stop"
+msgstr "Detener"
 
 #: src/ui/navbar.ui:22
 msgid "Back"
@@ -774,10 +809,6 @@ msgstr "Posición"
 #: src/ui/navbar.ui:91
 msgid "Narration"
 msgstr "Narración"
-
-#: src/ui/navbar.ui:124 src/ui/tts-box.ui:132
-msgid "Next"
-msgstr "Siguiente"
 
 #: src/ui/navbar.ui:162
 msgid "Time Left in Section"
@@ -839,21 +870,9 @@ msgstr "Copiar identificador"
 msgid "Print Selection…"
 msgstr "Imprimir selección…"
 
-#: src/ui/tts-box.ui:34
-msgid "Speed"
-msgstr "Velocidad"
-
 #: src/ui/tts-box.ui:67
 msgid "Pitch"
 msgstr "Tono"
-
-#: src/ui/tts-box.ui:123
-msgid "Play/Pause"
-msgstr "Reproducir/Pausar"
-
-#: src/ui/tts-box.ui:141
-msgid "Stop"
-msgstr "Detener"
 
 #: src/ui/view-preferences-window.ui:5
 msgid "Font"
@@ -964,6 +983,10 @@ msgid ""
 "tailored for GNOME. Immerse yourself in a distraction-free interface, with "
 "customization features designed to match your unique preferences."
 msgstr ""
+"Descubra un capítulo nuevo en la lectura con Foliate, el moderno lector de "
+"libros electrónicos adaptado a GNOME. Sumérjase en una interfaz libre de "
+"distracciones, con características de personalización diseñadas para "
+"adaptarse a sus preferencias únicas."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
@@ -1002,28 +1025,26 @@ msgid "Quick dictionary lookup"
 msgstr "Búsqueda rápida en el diccionario"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:30
-#, fuzzy
 msgid "Book"
-msgstr "Menú del libro"
+msgstr "Libro"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:31
 msgid "EPUB"
-msgstr ""
+msgstr "EPUB"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:32
 msgid "Ebook"
-msgstr ""
+msgstr "Libro electrónico"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:33
 msgid "Reader"
-msgstr ""
+msgstr "Lector"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:34
-#, fuzzy
 msgid "Viewer"
-msgstr "Menú de visualización"
+msgstr "Visor"
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:62
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
 msgid ""
 "Foliate has been rewritten from scratch with a new e-book rendering library "
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
@@ -1033,11 +1054,3 @@ msgstr ""
 "libros electrónicos nueva y las bibliotecas de plataforma más recientes, GTK "
 "4 y Libadwaita, con una interfaz de usuario renovada y un rendimiento "
 "mejorado."
-
-#~ msgid "Foliate is modern e-book reader app designed for GNOME."
-#~ msgstr ""
-#~ "Foliate es una moderna aplicación de lectura de libros electrónicos "
-#~ "diseñada para GNOME."
-
-#~ msgid "John Factotum"
-#~ msgstr "John Factotum"
