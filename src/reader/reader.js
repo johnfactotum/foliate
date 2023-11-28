@@ -408,6 +408,8 @@ class Reader {
             renderer.setAttribute('max-inline-size', layout.maxInlineSize + 'px')
             renderer.setAttribute('max-block-size', layout.maxBlockSize + 'px')
             renderer.setAttribute('max-column-count', layout.maxColumnCount)
+            if (layout.animated) renderer.setAttribute('animated', '')
+            else renderer.removeAttribute('animated')
             renderer.setStyles?.(getCSS(this.style))
         }
         document.body.classList.toggle('invert', this.style.invert)
