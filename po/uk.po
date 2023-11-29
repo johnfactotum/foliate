@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 06:50+0000\n"
+"POT-Creation-Date: 2023-11-28 03:20+0000\n"
 "PO-Revision-Date: 2020-07-08 15:09+0300\n"
 "Last-Translator: Anton Isachenko <antonyua23@gmail.com>\n"
 "Language-Team: <trans-uk@lists.fedoraproject.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "Закладки"
 
-#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:800
+#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:804
 msgid "Undo"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgstr ""
 msgid "Cannot Import Annotations"
 msgstr "Імпортувати примітки…"
 
-#: src/annotations.js:629 src/book-viewer.js:711
+#: src/annotations.js:629 src/book-viewer.js:715
 #, fuzzy
 msgid "An error occurred"
 msgstr "Сталася помилка."
@@ -274,75 +274,75 @@ msgstr ""
 msgid "Go to Bibliography"
 msgstr ""
 
-#: src/book-viewer.js:610
+#: src/book-viewer.js:614
 #, fuzzy
 msgid "Remove bookmark"
 msgstr "Вилучити Книгу"
 
-#: src/book-viewer.js:611
+#: src/book-viewer.js:615
 #, fuzzy
 msgid "Add bookmark"
 msgstr "Додати книги"
 
-#: src/book-viewer.js:709
+#: src/book-viewer.js:713
 #, fuzzy
 msgid "File not found"
 msgstr "Файл не знайдено."
 
-#: src/book-viewer.js:710
+#: src/book-viewer.js:714
 #, fuzzy
 msgid "File type not supported"
 msgstr "Цей тип файлу не підтримується."
 
-#: src/book-viewer.js:799
+#: src/book-viewer.js:803
 #, fuzzy
 msgid "Annotation deleted"
 msgstr "Примітка"
 
-#: src/book-viewer.js:867
+#: src/book-viewer.js:871
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:869
+#: src/book-viewer.js:873
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:870
+#: src/book-viewer.js:874
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr ""
 
-#: src/book-viewer.js:873
+#: src/book-viewer.js:877
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
 
-#: src/book-viewer.js:875
+#: src/book-viewer.js:879
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
 
-#: src/book-viewer.js:876
+#: src/book-viewer.js:880
 #, javascript-format
 msgid "‘%s’"
 msgstr ""
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Зображення з «%s»"
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 msgid "Image"
 msgstr "Зображення"
 
@@ -980,26 +980,31 @@ msgid "Hyphenation"
 msgstr "Автоматичне перенесення слів"
 
 #: src/ui/view-preferences-window.ui:161
+#, fuzzy
+msgid "Reduce Animation"
+msgstr "Примітки"
+
+#: src/ui/view-preferences-window.ui:171
 msgid "Margins"
 msgstr "Поля"
 
-#: src/ui/view-preferences-window.ui:175
+#: src/ui/view-preferences-window.ui:185
 msgid "Maximum Number of Columns"
 msgstr ""
 
-#: src/ui/view-preferences-window.ui:188
+#: src/ui/view-preferences-window.ui:198
 msgid "Maximum Inline Size"
 msgstr ""
 
-#: src/ui/view-preferences-window.ui:189
+#: src/ui/view-preferences-window.ui:199
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
 msgstr ""
 
-#: src/ui/view-preferences-window.ui:202
+#: src/ui/view-preferences-window.ui:212
 msgid "Maximum Block Size"
 msgstr ""
 
-#: src/ui/view-preferences-window.ui:203
+#: src/ui/view-preferences-window.ui:213
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
 msgstr ""
 
@@ -1080,7 +1085,7 @@ msgstr ""
 msgid "Viewer"
 msgstr "Меню"
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:62
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
 msgid ""
 "Foliate has been rewritten from scratch with a new e-book rendering library "
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "

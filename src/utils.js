@@ -248,8 +248,9 @@ export const makeDataClass = (name, params) => {
         }
         bindProperties(obj) {
             const flag = GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
-            for (const [prop, [target, targetProp]] of Object.entries(obj))
-                this.bind_property(prop, target, targetProp, flag)
+            for (const [prop, [target, targetProp, invert]] of Object.entries(obj))
+                this.bind_property(prop, target, targetProp,
+                    flag | (invert ? GObject.BindingFlags.INVERT_BOOLEAN : 0))
         }
         bindSettings(name) {
             return bindSettings(name, this, keys)

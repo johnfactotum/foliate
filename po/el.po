@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 06:50+0000\n"
+"POT-Creation-Date: 2023-11-28 03:20+0000\n"
 "PO-Revision-Date: 2023-10-07 14:00+0200\n"
 "Last-Translator: Giorgos Mousa <gmou3@hotmail.com>\n"
 "Language-Team: Greek <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "Ο σελιδοδείκτης διαγράφηκε"
 
-#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:800
+#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:804
 msgid "Undo"
 msgstr "Αναίρεση"
 
@@ -92,7 +92,7 @@ msgstr "Το εισαχθέν αρχείο δεν περιέχει επισημ�
 msgid "Cannot Import Annotations"
 msgstr "Εισαγωγή Επισημάνσεων…"
 
-#: src/annotations.js:629 src/book-viewer.js:711
+#: src/annotations.js:629 src/book-viewer.js:715
 msgid "An error occurred"
 msgstr "Πρόκυψε κάποιο σφάλμα"
 
@@ -256,70 +256,70 @@ msgstr "Βιβλιογραφία"
 msgid "Go to Bibliography"
 msgstr "Μετάβαση στη Βιβλιογραφία"
 
-#: src/book-viewer.js:610
+#: src/book-viewer.js:614
 msgid "Remove bookmark"
 msgstr "Αφαίρεση σελιδοδείκτη"
 
-#: src/book-viewer.js:611
+#: src/book-viewer.js:615
 msgid "Add bookmark"
 msgstr "Προσθήκη σελιδοδείκτη"
 
-#: src/book-viewer.js:709
+#: src/book-viewer.js:713
 msgid "File not found"
 msgstr "Το αρχείο δεν βρέθηκε"
 
-#: src/book-viewer.js:710
+#: src/book-viewer.js:714
 msgid "File type not supported"
 msgstr "Ο τύπος του αρχείου δεν υποστηρίζεται"
 
-#: src/book-viewer.js:799
+#: src/book-viewer.js:803
 msgid "Annotation deleted"
 msgstr "Η επισήμανση διαγράφηκε"
 
-#: src/book-viewer.js:867
+#: src/book-viewer.js:871
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:869
+#: src/book-viewer.js:873
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:870
+#: src/book-viewer.js:874
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr ""
 
-#: src/book-viewer.js:873
+#: src/book-viewer.js:877
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
 
-#: src/book-viewer.js:875
+#: src/book-viewer.js:879
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
 
-#: src/book-viewer.js:876
+#: src/book-viewer.js:880
 #, javascript-format
 msgid "‘%s’"
 msgstr ""
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Εικόνα από “%s”"
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 msgid "Image"
 msgstr "Εικόνα"
 
@@ -933,26 +933,31 @@ msgid "Hyphenation"
 msgstr "Αυτόματος Συλλαβισμός"
 
 #: src/ui/view-preferences-window.ui:161
+#, fuzzy
+msgid "Reduce Animation"
+msgstr "%d Επισήμανση"
+
+#: src/ui/view-preferences-window.ui:171
 msgid "Margins"
 msgstr "Περιθώρια"
 
-#: src/ui/view-preferences-window.ui:175
+#: src/ui/view-preferences-window.ui:185
 msgid "Maximum Number of Columns"
 msgstr "Μέγιστος Αριθμός Στηλών"
 
-#: src/ui/view-preferences-window.ui:188
+#: src/ui/view-preferences-window.ui:198
 msgid "Maximum Inline Size"
 msgstr "Μέγιστο Μέγεθος Εντός της Γραμμής"
 
-#: src/ui/view-preferences-window.ui:189
+#: src/ui/view-preferences-window.ui:199
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
 msgstr "Μέγιστο πλάτος στήλης (οριζόντια γραφή) ή ύψος (κάθετη γραφή)"
 
-#: src/ui/view-preferences-window.ui:202
+#: src/ui/view-preferences-window.ui:212
 msgid "Maximum Block Size"
 msgstr "Μέγιστο Μέγεθος Τμήματος"
 
-#: src/ui/view-preferences-window.ui:203
+#: src/ui/view-preferences-window.ui:213
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
 msgstr "Μέγιστο ύψος (οριζόντια γραφή) ή μέγιστο πλάτος (κάθετη γραφή)"
 
@@ -1032,7 +1037,7 @@ msgstr ""
 msgid "Viewer"
 msgstr "Προβολή Μενού"
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:62
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
 msgid ""
 "Foliate has been rewritten from scratch with a new e-book rendering library "
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "

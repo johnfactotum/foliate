@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 06:50+0000\n"
-"PO-Revision-Date: 2023-11-13 16:45+0100\n"
+"POT-Creation-Date: 2023-11-28 03:20+0000\n"
+"PO-Revision-Date: 2023-11-24 21:20+0100\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "Marcador borrado"
 
-#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:800
+#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:804
 msgid "Undo"
 msgstr "Deshacer"
 
@@ -90,7 +90,7 @@ msgstr "El archivo importado no tiene anotaciones"
 msgid "Cannot Import Annotations"
 msgstr "No se pueden importar anotaciones"
 
-#: src/annotations.js:629 src/book-viewer.js:711
+#: src/annotations.js:629 src/book-viewer.js:715
 msgid "An error occurred"
 msgstr "Se ha producido un error"
 
@@ -251,27 +251,27 @@ msgstr "Bibliografía"
 msgid "Go to Bibliography"
 msgstr "Ir a la bibliografía"
 
-#: src/book-viewer.js:610
+#: src/book-viewer.js:614
 msgid "Remove bookmark"
 msgstr "Eliminar marcador"
 
-#: src/book-viewer.js:611
+#: src/book-viewer.js:615
 msgid "Add bookmark"
 msgstr "Añadir marcador"
 
-#: src/book-viewer.js:709
+#: src/book-viewer.js:713
 msgid "File not found"
 msgstr "Archivo no encontrado"
 
-#: src/book-viewer.js:710
+#: src/book-viewer.js:714
 msgid "File type not supported"
 msgstr "Tipo de archivo no soportado"
 
-#: src/book-viewer.js:799
+#: src/book-viewer.js:803
 msgid "Annotation deleted"
 msgstr "Anotación eliminada"
 
-#: src/book-viewer.js:867
+#: src/book-viewer.js:871
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -279,31 +279,31 @@ msgid ""
 msgstr ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
-
-#: src/book-viewer.js:869
-#, javascript-format
-msgid ""
-"‘%s’\n"
-"—“%s”, p. %s"
-msgstr ""
-"‘%s’\n"
-"—“%s”, p. %s"
-
-#: src/book-viewer.js:870
-#, javascript-format
-msgid "‘%s’ (p. %s)"
-msgstr "‘%s’ (p. %s)"
 
 #: src/book-viewer.js:873
 #, javascript-format
 msgid ""
 "‘%s’\n"
+"—“%s”, p. %s"
+msgstr ""
+"‘%s’\n"
+"—“%s”, p. %s"
+
+#: src/book-viewer.js:874
+#, javascript-format
+msgid "‘%s’ (p. %s)"
+msgstr "‘%s’ (p. %s)"
+
+#: src/book-viewer.js:877
+#, javascript-format
+msgid ""
+"‘%s’\n"
 "—%s, “%s”"
 msgstr ""
 "‘%s’\n"
 "—%s, “%s”"
 
-#: src/book-viewer.js:875
+#: src/book-viewer.js:879
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -312,17 +312,17 @@ msgstr ""
 "‘%s’\n"
 "—“%s”"
 
-#: src/book-viewer.js:876
+#: src/book-viewer.js:880
 #, javascript-format
 msgid "‘%s’"
 msgstr "‘%s’"
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Imagen de “%s”"
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 msgid "Image"
 msgstr "Imagen"
 
@@ -589,7 +589,7 @@ msgstr "Anotaciones"
 
 #: src/ui/book-viewer.ui:403
 msgid "Select some text to add annotations"
-msgstr ""
+msgstr "Seleccione un texto para añadir anotaciones"
 
 #: src/ui/book-viewer.ui:433
 msgid "Filter annotations…"
@@ -600,13 +600,12 @@ msgid "Bookmarks"
 msgstr "Marcadores"
 
 #: src/ui/book-viewer.ui:458
-#, fuzzy
 msgid "No Bookmarks"
-msgstr "Marcadores"
+msgstr "No hay marcadores"
 
 #: src/ui/book-viewer.ui:459
 msgid "Add some bookmarks to see them here"
-msgstr ""
+msgstr "Añada algunos marcadores para verlos aquí"
 
 #: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
 msgid "No Results Found"
@@ -924,28 +923,33 @@ msgid "Hyphenation"
 msgstr "Separación silábica"
 
 #: src/ui/view-preferences-window.ui:161
+#, fuzzy
+msgid "Reduce Animation"
+msgstr "%d anotación"
+
+#: src/ui/view-preferences-window.ui:171
 msgid "Margins"
 msgstr "Márgenes"
 
-#: src/ui/view-preferences-window.ui:175
+#: src/ui/view-preferences-window.ui:185
 msgid "Maximum Number of Columns"
 msgstr "Número máximo de columnas"
 
-#: src/ui/view-preferences-window.ui:188
+#: src/ui/view-preferences-window.ui:198
 msgid "Maximum Inline Size"
 msgstr "Tamaño máximo en línea"
 
-#: src/ui/view-preferences-window.ui:189
+#: src/ui/view-preferences-window.ui:199
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
 msgstr ""
 "Anchura máxima de columna (escritura horizontal) o altura (escritura "
 "vertical)"
 
-#: src/ui/view-preferences-window.ui:202
+#: src/ui/view-preferences-window.ui:212
 msgid "Maximum Block Size"
 msgstr "Tamaño máximo de bloque"
 
-#: src/ui/view-preferences-window.ui:203
+#: src/ui/view-preferences-window.ui:213
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
 msgstr "Altura (escritura horizontal) o anchura (escritura vertical) máximas"
 
@@ -964,6 +968,10 @@ msgid ""
 "tailored for GNOME. Immerse yourself in a distraction-free interface, with "
 "customization features designed to match your unique preferences."
 msgstr ""
+"Descubra un capítulo nuevo en la lectura con Foliate, el moderno lector de "
+"libros electrónicos adaptado a GNOME. Sumérjase en una interfaz libre de "
+"distracciones, con características de personalización diseñadas para "
+"adaptarse a sus preferencias únicas."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
@@ -1002,28 +1010,26 @@ msgid "Quick dictionary lookup"
 msgstr "Búsqueda rápida en el diccionario"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:30
-#, fuzzy
 msgid "Book"
-msgstr "Menú del libro"
+msgstr "Libro"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:31
 msgid "EPUB"
-msgstr ""
+msgstr "EPUB"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:32
 msgid "Ebook"
-msgstr ""
+msgstr "Libro electrónico"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:33
 msgid "Reader"
-msgstr ""
+msgstr "Lector"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:34
-#, fuzzy
 msgid "Viewer"
-msgstr "Menú de visualización"
+msgstr "Visor"
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:62
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
 msgid ""
 "Foliate has been rewritten from scratch with a new e-book rendering library "
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
@@ -1034,10 +1040,20 @@ msgstr ""
 "4 y Libadwaita, con una interfaz de usuario renovada y un rendimiento "
 "mejorado."
 
-#~ msgid "Foliate is modern e-book reader app designed for GNOME."
-#~ msgstr ""
-#~ "Foliate es una moderna aplicación de lectura de libros electrónicos "
-#~ "diseñada para GNOME."
+#~ msgid "Volume"
+#~ msgstr "Volumen"
 
-#~ msgid "John Factotum"
-#~ msgstr "John Factotum"
+#~ msgid "0.75"
+#~ msgstr "0,75"
+
+#~ msgid "1"
+#~ msgstr "1"
+
+#~ msgid "1.25"
+#~ msgstr "1,25"
+
+#~ msgid "1.5"
+#~ msgstr "1,5"
+
+#~ msgid "2"
+#~ msgstr "2"

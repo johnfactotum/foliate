@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 06:50+0000\n"
+"POT-Creation-Date: 2023-11-28 03:20+0000\n"
 "PO-Revision-Date: 2021-11-18 11:43+0200\n"
 "Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
 "Language-Team: Italian\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "Segnalibri cancellati"
 
-#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:800
+#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:804
 msgid "Undo"
 msgstr "Annulla"
 
@@ -91,7 +91,7 @@ msgstr "Il file importato non ha annotazioni"
 msgid "Cannot Import Annotations"
 msgstr "Impossibile importare annotazioni"
 
-#: src/annotations.js:629 src/book-viewer.js:711
+#: src/annotations.js:629 src/book-viewer.js:715
 msgid "An error occurred"
 msgstr "Si è verificato un errore"
 
@@ -248,70 +248,70 @@ msgstr "Bibliografia"
 msgid "Go to Bibliography"
 msgstr "Vai alla bibliografia"
 
-#: src/book-viewer.js:610
+#: src/book-viewer.js:614
 msgid "Remove bookmark"
 msgstr "Rimuovi segnalibroo"
 
-#: src/book-viewer.js:611
+#: src/book-viewer.js:615
 msgid "Add bookmark"
 msgstr "Aggiungi segnalibro"
 
-#: src/book-viewer.js:709
+#: src/book-viewer.js:713
 msgid "File not found"
 msgstr "File non trovato"
 
-#: src/book-viewer.js:710
+#: src/book-viewer.js:714
 msgid "File type not supported"
 msgstr "Tipo di file non supportato"
 
-#: src/book-viewer.js:799
+#: src/book-viewer.js:803
 msgid "Annotation deleted"
 msgstr "Annotazione cancellata"
 
-#: src/book-viewer.js:867
+#: src/book-viewer.js:871
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:869
+#: src/book-viewer.js:873
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:870
+#: src/book-viewer.js:874
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr ""
 
-#: src/book-viewer.js:873
+#: src/book-viewer.js:877
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
 
-#: src/book-viewer.js:875
+#: src/book-viewer.js:879
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
 
-#: src/book-viewer.js:876
+#: src/book-viewer.js:880
 #, javascript-format
 msgid "‘%s’"
 msgstr ""
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Immagine da \"%s\""
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 msgid "Image"
 msgstr "Immagine"
 
@@ -326,7 +326,9 @@ msgstr "Rimuovere il Libro?"
 
 #: src/library.js:370
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
-msgstr "L'avanzamento della lettura, le annotazioni e i segnalibri andranno persi definitivamente"
+msgstr ""
+"L'avanzamento della lettura, le annotazioni e i segnalibri andranno persi "
+"definitivamente"
 
 #: src/library.js:372
 msgid "_Cancel"
@@ -433,7 +435,8 @@ msgstr "Errore della Sintesi Vocale"
 
 #: src/tts.js:118
 msgid "Make sure Speech Dispatcher is installed and working on your system"
-msgstr "Assicurati che Speech Dispatcher sia installato e funzionante sul tuo sistema"
+msgstr ""
+"Assicurati che Speech Dispatcher sia installato e funzionante sul tuo sistema"
 
 #: src/utils.js:168
 msgid "Copied to clipboard"
@@ -656,7 +659,8 @@ msgstr "Formato"
 
 #: src/ui/export-dialog.ui:29
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
-msgstr "Scegli \"JSON\" se prevedi di importare nuovamente le annotazioni in Foliate"
+msgstr ""
+"Scegli \"JSON\" se prevedi di importare nuovamente le annotazioni in Foliate"
 
 #: src/ui/export-dialog.ui:33
 msgid "JSON"
@@ -702,7 +706,8 @@ msgstr "Importa"
 msgid ""
 "The identifier doesn’t match. These annotations may not be for this book."
 msgstr ""
-"L'identificatore non corrisponde. Queste annotazioni potrebbero non riguardare questo libro."
+"L'identificatore non corrisponde. Queste annotazioni potrebbero non "
+"riguardare questo libro."
 
 #: src/ui/import-dialog.ui:34
 msgid "Import Anyway"
@@ -713,7 +718,6 @@ msgid "Open…"
 msgstr "Apri…"
 
 #: src/ui/library.ui:12
-
 msgid "List View"
 msgstr "Vista ad elenco"
 
@@ -910,28 +914,36 @@ msgid "Hyphenation"
 msgstr "Sillabazione"
 
 #: src/ui/view-preferences-window.ui:161
+#, fuzzy
+msgid "Reduce Animation"
+msgstr "%d Annotazione"
+
+#: src/ui/view-preferences-window.ui:171
 msgid "Margins"
 msgstr "Margini"
 
-#: src/ui/view-preferences-window.ui:175
+#: src/ui/view-preferences-window.ui:185
 msgid "Maximum Number of Columns"
 msgstr "Numero massimo di colonne"
 
-#: src/ui/view-preferences-window.ui:188
+#: src/ui/view-preferences-window.ui:198
 msgid "Maximum Inline Size"
 msgstr "Dimensione massima in linea"
 
-#: src/ui/view-preferences-window.ui:189
+#: src/ui/view-preferences-window.ui:199
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
-msgstr "Larghezza massima della colonna (scrittura orizzontale) o altezza (scrittura verticale)"
+msgstr ""
+"Larghezza massima della colonna (scrittura orizzontale) o altezza (scrittura "
+"verticale)"
 
-#: src/ui/view-preferences-window.ui:202
+#: src/ui/view-preferences-window.ui:212
 msgid "Maximum Block Size"
 msgstr "Dimensione massima del blocco"
 
-#: src/ui/view-preferences-window.ui:203
+#: src/ui/view-preferences-window.ui:213
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
-msgstr "Altezza massima (scrittura orizzontale) o larghezza (scrittura verticale)"
+msgstr ""
+"Altezza massima (scrittura orizzontale) o larghezza (scrittura verticale)"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
@@ -948,9 +960,10 @@ msgid ""
 "tailored for GNOME. Immerse yourself in a distraction-free interface, with "
 "customization features designed to match your unique preferences."
 msgstr ""
-"Scopri un nuovo capitolo della lettura con Foliate, il moderno lettore di e-book "
-"su misura per GNOME. Immergiti in un'interfaccia priva di distrazioni, con "
-"funzionalità di personalizzazione progettate per soddisfare le tue uniche preferenze."
+"Scopri un nuovo capitolo della lettura con Foliate, il moderno lettore di e-"
+"book su misura per GNOME. Immergiti in un'interfaccia priva di distrazioni, "
+"con funzionalità di personalizzazione progettate per soddisfare le tue "
+"uniche preferenze."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
@@ -974,7 +987,9 @@ msgstr "Modalità chiara, seppia, scura e invertita"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
 msgid "Reading progress slider with chapter marks"
-msgstr "Dispositivo di scorrimento dell'avanzamento della lettura con contrassegni del capitolo"
+msgstr ""
+"Dispositivo di scorrimento dell'avanzamento della lettura con contrassegni "
+"del capitolo"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
 msgid "Bookmarks and annotations"
@@ -1009,15 +1024,15 @@ msgstr "Lettore"
 msgid "Viewer"
 msgstr "Menu"
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:62
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
 msgid ""
 "Foliate has been rewritten from scratch with a new e-book rendering library "
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
 "and improved performance."
 msgstr ""
-"Foliate è stato riscritto da zero con una nuova libreria di rendering di e-book "
-"e le ultime librerie della piattaforma, GTK 4 e Libadwaita, con interfaccia utente aggiornata "
-"e prestazioni migliorate."
+"Foliate è stato riscritto da zero con una nuova libreria di rendering di e-"
+"book e le ultime librerie della piattaforma, GTK 4 e Libadwaita, con "
+"interfaccia utente aggiornata e prestazioni migliorate."
 
 #~ msgid "John Factotum"
 #~ msgstr "John Factotum"

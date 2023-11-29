@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 06:50+0000\n"
+"POT-Creation-Date: 2023-11-28 03:20+0000\n"
 "PO-Revision-Date: 2021-04-21 00:54+0900\n"
 "Last-Translator: JungHee Lee <daemul72@gmail.com>\n"
 "Language-Team: 이정희 <daemul72@gmail.com>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "책갈피"
 
-#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:800
+#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:804
 msgid "Undo"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Cannot Import Annotations"
 msgstr "주석 가져오기…"
 
-#: src/annotations.js:629 src/book-viewer.js:711
+#: src/annotations.js:629 src/book-viewer.js:715
 #, fuzzy
 msgid "An error occurred"
 msgstr "오류가 발생하였습니다."
@@ -268,75 +268,75 @@ msgstr ""
 msgid "Go to Bibliography"
 msgstr ""
 
-#: src/book-viewer.js:610
+#: src/book-viewer.js:614
 #, fuzzy
 msgid "Remove bookmark"
 msgstr "책 제거"
 
-#: src/book-viewer.js:611
+#: src/book-viewer.js:615
 #, fuzzy
 msgid "Add bookmark"
 msgstr "책 추가"
 
-#: src/book-viewer.js:709
+#: src/book-viewer.js:713
 #, fuzzy
 msgid "File not found"
 msgstr "파일 찾을 할 수 없습니다."
 
-#: src/book-viewer.js:710
+#: src/book-viewer.js:714
 #, fuzzy
 msgid "File type not supported"
 msgstr "파일 유형이 지원되지 않습니다."
 
-#: src/book-viewer.js:799
+#: src/book-viewer.js:803
 #, fuzzy
 msgid "Annotation deleted"
 msgstr "주석"
 
-#: src/book-viewer.js:867
+#: src/book-viewer.js:871
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:869
+#: src/book-viewer.js:873
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:870
+#: src/book-viewer.js:874
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr ""
 
-#: src/book-viewer.js:873
+#: src/book-viewer.js:877
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
 
-#: src/book-viewer.js:875
+#: src/book-viewer.js:879
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
 
-#: src/book-viewer.js:876
+#: src/book-viewer.js:880
 #, javascript-format
 msgid "‘%s’"
 msgstr ""
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "\"%s\"의 이미지"
 
-#: src/book-viewer.js:894
+#: src/book-viewer.js:898
 msgid "Image"
 msgstr "이미지"
 
@@ -974,26 +974,31 @@ msgid "Hyphenation"
 msgstr "하이픈 자동넣기"
 
 #: src/ui/view-preferences-window.ui:161
+#, fuzzy
+msgid "Reduce Animation"
+msgstr "주석"
+
+#: src/ui/view-preferences-window.ui:171
 msgid "Margins"
 msgstr "여백"
 
-#: src/ui/view-preferences-window.ui:175
+#: src/ui/view-preferences-window.ui:185
 msgid "Maximum Number of Columns"
 msgstr ""
 
-#: src/ui/view-preferences-window.ui:188
+#: src/ui/view-preferences-window.ui:198
 msgid "Maximum Inline Size"
 msgstr ""
 
-#: src/ui/view-preferences-window.ui:189
+#: src/ui/view-preferences-window.ui:199
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
 msgstr ""
 
-#: src/ui/view-preferences-window.ui:202
+#: src/ui/view-preferences-window.ui:212
 msgid "Maximum Block Size"
 msgstr ""
 
-#: src/ui/view-preferences-window.ui:203
+#: src/ui/view-preferences-window.ui:213
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
 msgstr ""
 
@@ -1074,7 +1079,7 @@ msgstr ""
 msgid "Viewer"
 msgstr "메뉴"
 
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:62
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
 msgid ""
 "Foliate has been rewritten from scratch with a new e-book rendering library "
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "

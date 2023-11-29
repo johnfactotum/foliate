@@ -81,25 +81,20 @@ themeCssProvider.load_from_data(`
 ` + themes.map(theme => {
     const id = `theme-${GLib.uuid_string_random()}`
     theme.id = id
-    // NOTE: .92 matches Libadwaita's sidebar color when the bg is white
-    // in dark mode it should use 1.41 to match Libadwaita
-    // but it seems better to tone it down as many dark themes are quite bright
     return `
-        .${id} {
+        .${id}, .sidebar-${id}:not(.background) {
             color: ${theme.light.fg};
             background: ${theme.light.bg};
         }
-        .is-dark .${id} {
+        .sidebar-${id}:not(.background) toolbarview {
+            background: rgba(0, 0, 0, .08);
+        }
+        .is-dark .${id}, .is-dark .sidebar-${id}:not(.background) {
             color: ${theme.dark.fg};
             background: ${theme.dark.bg};
         }
-        .sidebar-${id}:not(.background) {
-            color: ${theme.light.fg};
-            background: shade(${theme.light.bg}, .92);
-        }
-        .is-dark .sidebar-${id}:not(.background) {
-            color: ${theme.dark.fg};
-            background: shade(${theme.dark.bg}, 1.2);
+        .is-dark .sidebar-${id}:not(.background) toolbarview {
+            background: rgba(255, 255, 255, .05);
         }
         .${id} highlight {
             background: ${theme.light.link};
