@@ -22,6 +22,7 @@ const registerPaths = (name, dirs) => registerScheme(name, req => {
 })
 
 registerPaths('foliate', ['/reader/', '/foliate-js/'])
+registerPaths('foliate-opds', ['/opds/'])
 
 /*
 `.run_javascript()` is hard to use if you're running an async function. You have

@@ -12,6 +12,9 @@ import * as format from './format.js'
 import { exportAnnotations } from './annotations.js'
 import { formatAuthors, makeBookInfoWindow } from './book-info.js'
 
+import WebKit from 'gi://WebKit'
+import { WebView } from './webview.js'
+
 const getURIFromTracker = identifier => {
     const connection = imports.gi.Tracker.SparqlConnection.bus_new(
         'org.freedesktop.Tracker3.Miner.Files', null, null)
@@ -379,15 +382,111 @@ GObject.registerClass({
     }
 })
 
+const SidebarItem = utils.makeDataClass('FoliateSidebarItem', {
+    'type': 'string',
+    'icon': 'string',
+    'label': 'string',
+    'value': 'string',
+})
+
+const SidebarRow = GObject.registerClass({
+    GTypeName: 'FoliateSidebarRow',
+    Properties: utils.makeParams({
+        'item': 'object',
+    }),
+}, class extends Gtk.Box {
+    #icon = new Gtk.Image()
+    #label = new Gtk.Label({})
+    constructor(params) {
+        super(params)
+        this.spacing = 12
+        this.margin_start = 6
+        this.append(this.#icon)
+        this.append(this.#label)
+        this.item.bindProperties({
+            icon: [this.#icon, 'icon-name'],
+            label: [this.#label, 'label'],
+        })
+    }
+})
+
+const sidebarListModel = new Gio.ListStore()
+sidebarListModel.append(new SidebarItem({
+    icon: 'library-symbolic',
+    label: _('All Books'),
+    value: 'library',
+}))
+sidebarListModel.append(new SidebarItem({
+    type: 'action',
+    icon: 'list-add-symbolic',
+    label: _('Add Catalog…'),
+    value: 'add-catalog',
+}))
+
+const addCatalogItem = (label, value) => {
+    sidebarListModel.insert(sidebarListModel.get_n_items() - 1,
+        new SidebarItem({
+            type: 'catalog',
+            icon: 'application-rss+xml-symbolic',
+            label, value,
+        }))
+}
+addCatalogItem('Project Gutenberg', 'https://m.gutenberg.org/ebooks.opds/')
+addCatalogItem('Manybooks', 'http://manybooks.net/opds/')
+addCatalogItem('unglue.it', 'https://unglue.it/api/opds/')
+addCatalogItem('Test Catalog', 'http://feedbooks.github.io/opds-test-catalog/catalog/root.xml')
+
 export const Library = GObject.registerClass({
     GTypeName: 'FoliateLibrary',
     Template: pkg.moduleuri('ui/library.ui'),
     InternalChildren: [
+        'breakpoint-bin', 'split-view',
+        'sidebar-list-box', 'main-stack',
+        'library-toolbar-view', 'catalog-toolbar-view',
         'books-view', 'search-bar', 'search-entry',
     ],
 }, class extends Gtk.Box {
     constructor(params) {
         super(params)
+
+        this._breakpoint_bin.add_breakpoint(utils.connect(new Adw.Breakpoint({
+            condition: Adw.BreakpointCondition.parse('max-width: 700px'),
+        }), {
+            'apply': () => this._split_view.collapsed = true,
+            'unapply': () => this._split_view.collapsed = false,
+        }))
+
+        this._sidebar_list_box.set_header_func((row, before) => {
+            if (!before)
+                row.set_header(utils.addClass(new Gtk.Label({
+                    label: _('Library'),
+                    xalign: 0,
+                    margin_start: 12,
+                    margin_bottom: 6,
+                }), 'caption-heading', 'dim-label'))
+            if (before && before.child.item.type !== 'catalog'
+            && row.child.item.type === 'catalog')
+                row.set_header(utils.addClass(new Gtk.Label({
+                    label: _('Catalogs'),
+                    xalign: 0,
+                    margin_start: 12,
+                    margin_top: 18,
+                    margin_bottom: 6,
+                }), 'caption-heading', 'dim-label'))
+        })
+        this._sidebar_list_box.bind_model(sidebarListModel, item =>
+            new Gtk.ListBoxRow({
+                child: new SidebarRow({ item }),
+                selectable: item.value !== 'add-catalog',
+            }))
+        this._sidebar_list_box.connect('row-activated', (__, row) => {
+            const { type, value } = row.child.item
+            if (value === 'add-catalog') return this.addCatalog()
+            if (value === 'library') return this._main_stack.visible_child = this._library_toolbar_view
+            if (type === 'catalog') return this.showCatalog(value)
+        })
+        this._sidebar_list_box.select_row(this._sidebar_list_box.get_row_at_index(0))
+
         const books = getBooks()
 
         utils.connect(this._books_view, {
@@ -405,5 +504,72 @@ export const Library = GObject.registerClass({
             this._books_view.search(entry.text))
 
         this.insert_action_group('library', this._books_view.actionGroup)
+    }
+    addCatalog() {
+        const submit = () => {
+            const url = entry.text.trim()
+            if (!url) return
+            win.close()
+        }
+        const win = new Adw.Window({
+            title: _('Add Catalog'),
+            modal: true,
+            transient_for: this.root,
+            content: new Adw.ToolbarView(),
+            default_width: 400,
+        })
+        win.add_controller(utils.addShortcuts({ 'Escape|<ctrl>w': () => win.close() }))
+        const header = new Adw.HeaderBar({
+            show_title: false,
+            show_start_title_buttons: false,
+            show_end_title_buttons: false,
+        })
+        header.pack_start(utils.connect(new Gtk.Button({
+            label: _('Cancel'),
+        }), { 'clicked': () => win.close() }))
+        const add = utils.connect(utils.addClass(new Gtk.Button({
+            label: _('Add'),
+        }), 'suggested-action'), { 'clicked': () => submit() })
+        header.pack_end(add)
+        win.content.add_top_bar(header)
+        win.content.content = utils.addClass(new Adw.StatusPage({
+            icon_name: 'application-rss+xml-symbolic',
+            title: _('Add Catalog'),
+            description: _('You can browse and download books from OPDS catalogs. <a href="https://opds.io">Learn More…</a>'),
+        }), 'compact')
+        const group = new Adw.PreferencesGroup()
+        const entry = utils.connect(new Adw.EntryRow({
+            title: _('URL'),
+            input_purpose: Gtk.InputPurpose.URL,
+        }), { 'entry-activated': () => submit() })
+        group.add(entry)
+        win.content.content.child = group
+        win.show()
+        entry.grab_focus()
+    }
+    showCatalog(url) {
+        this._main_stack.visible_child = this._catalog_toolbar_view
+        this._catalog_toolbar_view.content ??= utils.connect(new WebView({
+            settings: new WebKit.Settings({
+                enable_write_console_messages_to_stdout: true,
+                enable_developer_extras: true,
+                enable_back_forward_navigation_gestures: false,
+                enable_hyperlink_auditing: false,
+                enable_html5_database: false,
+                enable_html5_local_storage: false,
+                disable_web_security: true,
+            }),
+        }), {
+            'context-menu': () => false,
+        })
+        const webView = this._catalog_toolbar_view.content
+        webView.loadURI(`foliate-opds:///opds/opds.html?url=${encodeURIComponent(url)}`)
+            .catch(e => console.error(e))
+        webView.set_background_color(new Gdk.RGBA())
+    }
+    vfunc_unroot() {
+        this._catalog_toolbar_view.content?.unparent()
+        this._catalog_toolbar_view.content?.run_dispose()
+        this._sidebar_list_box.set_header_func(null)
     }
 })
