@@ -49,13 +49,13 @@ const isOPDSCatalog = str => {
         && parameters.profile?.toLowerCase() !== 'opds-catalog'
 }
 
-const filterNS = (doc, ns) => {
-    // ignore the namespace if it doesn't appear in document at all
-    const useNS = doc.lookupNamespaceURI(null) === ns || doc.lookupPrefix(ns)
-    return useNS
-        ? name => el => el.namespaceURI === ns && el.localName === name
-        : name => el => el.localName === name
-}
+// ignore the namespace if it doesn't appear in document at all
+const useNS = (doc, ns) =>
+    doc.lookupNamespaceURI(null) === ns || doc.lookupPrefix(ns) ? ns : null
+
+const filterNS = ns => ns
+    ? name => el => el.namespaceURI === ns && el.localName === name
+    : name => el => el.localName === name
 
 const filterRel = f => el => el.getAttribute('rel')?.split(/ +/)?.some(f)
 
@@ -107,6 +107,49 @@ customElements.define('opds-pub', class extends HTMLElement {
     }
 })
 
+customElements.define('opds-pub-full', class extends HTMLElement {
+    static observedAttributes = ['heading', 'author', 'image', 'description']
+    #root = this.attachShadow({ mode: 'closed' })
+    constructor() {
+        super()
+        this.attachInternals().role = 'article'
+        const template = document.querySelector('#opds-pub-full')
+        this.#root.append(template.content.cloneNode(true))
+
+        const frame = this.#root.querySelector('iframe')
+        frame.onload = () => {
+            const doc = frame.contentDocument
+            const $style = doc.createElement('style')
+            doc.head.append($style)
+            $style.textContent = `html, body {
+                color-scheme: light dark;
+                font-family: system-ui;
+                margin: 0;
+            }`
+            const updateHeight = () => frame.style.height =
+                `${doc.documentElement.getBoundingClientRect().height}px`
+            updateHeight()
+            new ResizeObserver(updateHeight).observe(doc.documentElement)
+        }
+    }
+    attributeChangedCallback(name, _, val) {
+        switch (name) {
+            case 'heading':
+                this.#root.querySelector('h1').textContent = val
+                break
+            case 'author':
+                this.#root.querySelector('p').textContent = val
+                break
+            case 'image':
+                this.#root.querySelector('img').src = val
+                break
+            case 'description':
+                this.#root.querySelector('iframe').srcdoc = val
+                break
+        }
+    }
+})
+
 const getImageLink = links => {
     for (const R of REL.IMG) {
         const link = links.find(filterRel(r => r === R))
@@ -115,15 +158,17 @@ const getImageLink = links => {
 }
 
 const renderFeed = (doc, baseURL) => {
-    const filter = filterNS(doc, NS.ATOM)
+    const ns = useNS(doc, NS.ATOM)
+    const filter = filterNS(ns)
     const children = Array.from(doc.documentElement.children)
+    const entries = children.filter(filter('entry'))
 
     const resolveHref = href => href ? resolveURL(href, baseURL) : null
     const getHref = link => resolveHref(link?.getAttribute('href'))
 
     const container = document.createElement('div')
     container.classList.add('container')
-    for (const entry of children.filter(filter('entry'))) {
+    for (const entry of entries) {
         const children = Array.from(entry.children)
         const links = children.filter(filter('link'))
         const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
@@ -133,6 +178,7 @@ const renderFeed = (doc, baseURL) => {
             item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
             const src = getHref(getImageLink(links))
             if (src) item.setAttribute('image', src)
+            item.setAttribute('href', '#' + children.find(filter('id'))?.textContent)
             container.append(item)
         } else {
             const item = document.createElement('opds-nav')
@@ -153,7 +199,50 @@ const renderFeed = (doc, baseURL) => {
     p.textContent = subtitle ?? ''
     hgroup.replaceChildren(h1, p)
 
-    document.body.replaceChildren(hgroup, container)
+    document.querySelector('#feed').replaceChildren(hgroup, container)
+
+    addEventListener('hashchange', () => {
+        const hash = location.hash.slice(1)
+        if (!hash) {
+            document.querySelector('#entry').style.visibility = 'hidden'
+            document.querySelector('#feed').style.visibility = 'visible'
+        }
+        const ids = ns ? doc.getElementsByTagNameNS(ns, 'id')
+            : doc.getElementsByTagName('id')
+        for (const id of ids) {
+            if (id.textContent === hash) {
+                document.querySelector('#entry').style.visibility = 'visible'
+                document.querySelector('#feed').style.visibility = 'hidden'
+                const entry = id.parentElement
+                const children = Array.from(entry.children)
+                const links = children.filter(filter('link'))
+                const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
+
+                const item = document.createElement('opds-pub-full')
+                item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
+                item.setAttribute('author', children.find(filter('author'))?.getElementsByTagName('name')?.[0]?.textContent ?? '')
+                item.setAttribute('description', (children.find(filter('content')) ?? children.find(filter('summary')))?.textContent ?? '')
+                const src = getHref(getImageLink(links))
+                if (src) item.setAttribute('image', src)
+
+                const actions = document.createElement('div')
+                actions.slot = 'actions'
+                item.append(actions)
+
+                for (const link of acqLinks) {
+                    const rel = link.getAttribute('rel').split(/ +/).find(r => r.startsWith(REL.ACQ))
+                    const label = globalThis.uiText.acq[rel]
+                        ?? globalThis.uiText.acq['http://opds-spec.org/acquisition']
+                    const button = document.createElement('button')
+                    button.innerText = label
+                    actions.append(button)
+                }
+
+                document.querySelector('#entry').replaceChildren(item)
+                break
+            }
+        }
+    })
 }
 
 try {

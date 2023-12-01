@@ -15,6 +15,18 @@ import { formatAuthors, makeBookInfoWindow } from './book-info.js'
 import WebKit from 'gi://WebKit'
 import { WebView } from './webview.js'
 
+const uiText = {
+    acq: {
+        'http://opds-spec.org/acquisition': _('Download'),
+        'http://opds-spec.org/acquisition/buy': _('Buy'),
+        'http://opds-spec.org/acquisition/open-access': _('Free'),
+        'http://opds-spec.org/acquisition/preview': _('Preview'),
+        'http://opds-spec.org/acquisition/sample': _('Sample'),
+        'http://opds-spec.org/acquisition/borrow': _('Borrow'),
+        'http://opds-spec.org/acquisition/subscribe': _('Subscribe'),
+    },
+}
+
 const getURIFromTracker = identifier => {
     const connection = imports.gi.Tracker.SparqlConnection.bus_new(
         'org.freedesktop.Tracker3.Miner.Files', null, null)
@@ -561,6 +573,12 @@ export const Library = GObject.registerClass({
             }),
         }), {
             'context-menu': () => false,
+            'load-changed': (webView, event) => {
+                if (event === WebKit.LoadEvent.FINISHED) {
+                    webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}`)
+                        .catch(e => console.error(e))
+                }
+            },
         })
         const webView = this._catalog_toolbar_view.content
         webView.loadURI(`foliate-opds:///opds/opds.html?url=${encodeURIComponent(url)}`)

@@ -6,15 +6,13 @@
     font-size: 11pt;
     font-family: system-ui;
 }
-body {
-    margin: 24px;
-}
 hgroup {
     margin-bottom: 24px;
 }
 hgroup h1 {
     font-size: 1.5em;
     font-weight: 900;
+    margin: 0;
     margin-bottom: .5rem;
 }
 .container {
@@ -46,6 +44,27 @@ opds-nav:hover {
     opds-nav:hover {
         background: #ffffff17;
     }
+}
+#feed, #entry {
+    position: absolute;
+    inset: 0;
+    overflow: auto;
+    padding: 24px;
+}
+opds-pub-full {
+    display: block;
+    max-width: 42em;
+}
+button {
+    padding: 9px 18px;
+    font-weight: 700;
+    min-width: min(100%, 8em);
+}
+opds-pub-full [slot="actions"] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    width: 100%;
 }
 </style>
 <template id="opds-nav">
@@ -95,6 +114,7 @@ opds-nav:hover {
 <template id="opds-pub">
     <style>
     :host {
+        position: relative;
         display: grid;
         grid-row: auto / span 2;
         grid-template-rows: subgrid;
@@ -111,8 +131,62 @@ opds-nav:hover {
         margin-top: 12px;
         margin-bottom: 18px;
     }
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    h1 a:before {
+        content: "";
+        display: block;
+        position: absolute;
+        inset: 0;
+    }
     </style>
     <img>
     <h1><a></a></h1>
 </template>
+<template id="opds-pub-full">
+    <style>
+    div {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        grid-template-rows: min-content min-content 1fr;
+        column-gap: 24px;
+        row-gap: 9px;
+    }
+    img {
+        max-width: 100%;
+        border-radius: 9px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
+        border: 1px solid color-mix(in hsl, currentColor, transparent 85%);
+        grid-row: span 3;
+    }
+    h1, p {
+        margin: 0;
+    }
+    h1 {
+        font-size: 1.5em;
+        font-weight: 900;
+    }
+    iframe {
+        border: 0;
+        width: 100%;
+        margin-top: 24px;
+    }
+    slot[name="actions"] {
+        display: flex;
+        align-items: end;
+    }
+    </style>
+    <div>
+        <img>
+        <h1></h1>
+        <p></p>
+        <slot name="actions"></slot>
+    </div>
+    <iframe sandbox="allow-same-origin"></iframe>
+    <slot name="details"></slot>
+</template>
+<div id="feed"></div>
+<div id="entry" style="visibility: hidden"></div>
 <script src="opds.js" type="module"></script>
