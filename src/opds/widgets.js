@@ -1,3 +1,30 @@
+customElements.define('foliate-scrolled', class extends HTMLElement {
+    #root = this.attachShadow({ mode: 'closed' })
+    constructor() {
+        super()
+        this.#root.append(document.createElement('slot'))
+        const top = document.createElement('div')
+        this.#root.prepend(top)
+        const bottom = document.createElement('div')
+        this.#root.append(bottom)
+        const observer = new IntersectionObserver(entries => {
+            for (const entry of entries) {
+                if (entry.target === top) {
+                    if (entry.isIntersecting) this.dataset.scrolledToTop = ''
+                    else delete this.dataset.scrolledToTop
+                }
+                else {
+                    if (entry.isIntersecting) this.dataset.scrolledToBottom = ''
+                    else delete this.dataset.scrolledToBottom
+                }
+            }
+            this.dispatchEvent(new Event('change'))
+        }, { root: this })
+        observer.observe(top)
+        observer.observe(bottom)
+    }
+})
+
 customElements.define('foliate-menu', class extends HTMLElement {
     #root = this.attachShadow({ mode: 'closed' })
     #internals = this.attachInternals()

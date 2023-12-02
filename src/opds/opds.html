@@ -61,6 +61,21 @@ opds-nav:hover {
     overflow: auto;
     padding: 24px;
 }
+#undershoot-top {
+    position: absolute;
+    inset: 0;
+    bottom: auto;
+    height: 4px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, .07);
+    background: linear-gradient(rgba(0, 0, 0, .07), transparent);
+    pointer-events: none;
+}
+@media (prefers-color-scheme: dark) {
+    #undershoot-top {
+        box-shadow: inset 0 1px rgba(0, 0, 0, .2);
+        background: linear-gradient(rgba(0, 0, 0, .2), transparent);
+    }
+}
 opds-pub-full {
     display: block;
     max-width: 42em;
@@ -257,6 +272,7 @@ button[role="menuitem"]:active {
     <iframe sandbox="allow-same-origin"></iframe>
     <slot name="details"></slot>
 </template>
-<div id="feed"></div>
-<div id="entry" style="visibility: hidden"></div>
+<foliate-scrolled id="feed"></foliate-scrolled>
+<foliate-scrolled id="entry" style="visibility: hidden"></foliate-scrolled>
+<div id="undershoot-top" hidden></div>
 <script src="opds.js" type="module"></script>

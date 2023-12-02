@@ -315,8 +315,17 @@ const renderFeed = (doc, baseURL) => {
                 document.querySelector('#entry').replaceChildren(item))
                 .catch(e => console.error(e))
         }
+        updateScrolledState()
     })
 }
+
+const updateScrolledState = () => {
+    const el = document.querySelector('#entry').style.visibility === 'visible'
+        ? document.querySelector('#entry') : document.querySelector('#feed')
+    document.querySelector('#undershoot-top').hidden = 'scrolledToTop' in el.dataset
+}
+document.querySelector('#entry').addEventListener('change', updateScrolledState)
+document.querySelector('#feed').addEventListener('change', updateScrolledState)
 
 try {
     const params = new URLSearchParams(location.search)
