@@ -2,6 +2,7 @@ import './widgets.js'
 
 const NS = {
     ATOM: 'http://www.w3.org/2005/Atom',
+    OPDS: 'http://opds-spec.org/2010/catalog',
 }
 
 const MIME = {
@@ -170,6 +171,67 @@ const getImageLink = links => {
     }
 }
 
+const getPrice = link => {
+    const price = link.getElementsByTagNameNS(NS.OPDS, 'price')[0]
+    return price ? globalThis.formatPrice({
+        currency: price.getAttribute('currencycode'),
+        value: price.textContent,
+    }) : null
+}
+
+const renderEntry = async (entry, filter, getHref) => {
+    const children = Array.from(entry.children)
+    const links = children.filter(filter('link'))
+    const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
+
+    const item = document.createElement('opds-pub-full')
+    item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
+    item.setAttribute('author', children.find(filter('author'))?.getElementsByTagName('name')?.[0]?.textContent ?? '')
+    item.setAttribute('description', (children.find(filter('content')) ?? children.find(filter('summary')))?.textContent ?? '')
+    const src = getHref(getImageLink(links))
+    if (src) item.setAttribute('image', src)
+
+    const actions = document.createElement('div')
+    actions.slot = 'actions'
+    item.append(actions)
+
+    const groups = groupBy(acqLinks, link =>
+        link.getAttribute('rel').split(/ +/).find(r => r.startsWith(REL.ACQ)))
+    for (const [rel, links] of groups.entries()) {
+        const label = globalThis.uiText.acq[rel]
+            ?? globalThis.uiText.acq['http://opds-spec.org/acquisition']
+        const price = await getPrice(links[0])
+
+        const button = document.createElement('button')
+        button.innerText = price ? `${label} · ${price}` : label
+        if (links.length === 1) actions.append(button)
+        else {
+            const menuButton = document.createElement('foliate-menubutton')
+            menuButton.innerText = '▼'
+            const menu = document.createElement('foliate-menu')
+            menu.slot = 'menu'
+            menuButton.append(menu)
+
+            for (const link of links) {
+                const type = link.getAttribute('type')
+                const title = link.getAttribute('title')
+                const price = await getPrice(links[0])
+                const menuitem = document.createElement('button')
+                menuitem.role = 'menuitem'
+                menuitem.textContent = (title || await globalThis.formatMime(type))
+                    + (price ? ' · ' + price : '')
+                menu.append(menuitem)
+            }
+
+            const div = document.createElement('div')
+            div.classList.add('split-button')
+            div.replaceChildren(button, menuButton)
+            actions.append(div)
+        }
+    }
+    return item
+}
+
 const renderFeed = (doc, baseURL) => {
     const ns = useNS(doc, NS.ATOM)
     const filter = filterNS(ns)
@@ -227,55 +289,9 @@ const renderFeed = (doc, baseURL) => {
                 document.querySelector('#entry').style.visibility = 'visible'
                 document.querySelector('#feed').style.visibility = 'hidden'
                 const entry = id.parentElement
-                const children = Array.from(entry.children)
-                const links = children.filter(filter('link'))
-                const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
-
-                const item = document.createElement('opds-pub-full')
-                item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
-                item.setAttribute('author', children.find(filter('author'))?.getElementsByTagName('name')?.[0]?.textContent ?? '')
-                item.setAttribute('description', (children.find(filter('content')) ?? children.find(filter('summary')))?.textContent ?? '')
-                const src = getHref(getImageLink(links))
-                if (src) item.setAttribute('image', src)
-
-                const actions = document.createElement('div')
-                actions.slot = 'actions'
-                item.append(actions)
-
-                const groups = groupBy(acqLinks, link =>
-                    link.getAttribute('rel').split(/ +/).find(r => r.startsWith(REL.ACQ)))
-                for (const [rel, links] of groups.entries()) {
-                    const label = globalThis.uiText.acq[rel]
-                        ?? globalThis.uiText.acq['http://opds-spec.org/acquisition']
-                    const button = document.createElement('button')
-                    button.innerText = label
-                    if (links.length === 1) actions.append(button)
-                    else {
-                        const menuButton = document.createElement('foliate-menubutton')
-                        menuButton.innerText = '▼'
-                        const menu = document.createElement('foliate-menu')
-                        menu.slot = 'menu'
-                        menuButton.append(menu)
-
-                        for (const link of links) {
-                            const type = link.getAttribute('type')
-                            const title = link.getAttribute('title')
-                            const menuitem = document.createElement('button')
-                            menuitem.role = 'menuitem'
-                            if (title) menuitem.textContent = title
-                            else globalThis.formatMediaType(type).then(text =>
-                                menuitem.textContent = text)
-                            menu.append(menuitem)
-                        }
-
-                        const div = document.createElement('div')
-                        div.classList.add('split-button')
-                        div.replaceChildren(button, menuButton)
-                        actions.append(div)
-                    }
-                }
-
-                document.querySelector('#entry').replaceChildren(item)
+                renderEntry(entry, filter, getHref).then(item =>
+                    document.querySelector('#entry').replaceChildren(item))
+                    .catch(e => console.error(e))
                 break
             }
         }

@@ -87,5 +87,13 @@ export const duration = minutes => minutes < 60
 
 export const mime = mime => mime ? Gio.content_type_get_description(mime) : ''
 
+export const price = (currency, value) => {
+    try {
+        return new Intl.NumberFormat(locales, { style: 'currency', currency }).format(value)
+    } catch (e) {
+        return (currency ? currency + ' ' : '') + value
+    }
+}
+
 export const vprintf = imports.format.vprintf
 export const total = n => vprintf(_('of %d'), [n])

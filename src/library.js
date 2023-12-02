@@ -573,15 +573,17 @@ export const Library = GObject.registerClass({
                     disable_web_security: true,
                 }),
             })
-            const initFormatMediaType = webView.provide('formatMediaType', type =>
-                Gio.content_type_get_description(type))
+            const initFormatMime = webView.provide('formatMime', format.mime)
+            const initFormatPrice = webView.provide('formatPrice',
+                ({ currency, value }) => format.price(currency, value))
             utils.connect(webView, {
                 'context-menu': () => false,
                 'load-changed': (webView, event) => {
                     if (event === WebKit.LoadEvent.FINISHED) {
                         webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}`)
                             .catch(e => console.error(e))
-                        initFormatMediaType()
+                        initFormatMime()
+                        initFormatPrice()
                     }
                 },
             })
