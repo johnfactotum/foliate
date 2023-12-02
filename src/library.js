@@ -561,25 +561,32 @@ export const Library = GObject.registerClass({
     }
     showCatalog(url) {
         this._main_stack.visible_child = this._catalog_toolbar_view
-        this._catalog_toolbar_view.content ??= utils.connect(new WebView({
-            settings: new WebKit.Settings({
-                enable_write_console_messages_to_stdout: true,
-                enable_developer_extras: true,
-                enable_back_forward_navigation_gestures: false,
-                enable_hyperlink_auditing: false,
-                enable_html5_database: false,
-                enable_html5_local_storage: false,
-                disable_web_security: true,
-            }),
-        }), {
-            'context-menu': () => false,
-            'load-changed': (webView, event) => {
-                if (event === WebKit.LoadEvent.FINISHED) {
-                    webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}`)
-                        .catch(e => console.error(e))
-                }
-            },
-        })
+        if (!this._catalog_toolbar_view.content) {
+            const webView = new WebView({
+                settings: new WebKit.Settings({
+                    enable_write_console_messages_to_stdout: true,
+                    enable_developer_extras: true,
+                    enable_back_forward_navigation_gestures: false,
+                    enable_hyperlink_auditing: false,
+                    enable_html5_database: false,
+                    enable_html5_local_storage: false,
+                    disable_web_security: true,
+                }),
+            })
+            const initFormatMediaType = webView.provide('formatMediaType', type =>
+                Gio.content_type_get_description(type))
+            utils.connect(webView, {
+                'context-menu': () => false,
+                'load-changed': (webView, event) => {
+                    if (event === WebKit.LoadEvent.FINISHED) {
+                        webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}`)
+                            .catch(e => console.error(e))
+                        initFormatMediaType()
+                    }
+                },
+            })
+            this._catalog_toolbar_view.content = webView
+        }
         const webView = this._catalog_toolbar_view.content
         webView.loadURI(`foliate-opds:///opds/opds.html?url=${encodeURIComponent(url)}`)
             .catch(e => console.error(e))

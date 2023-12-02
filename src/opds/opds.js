@@ -1,3 +1,5 @@
+import './widgets.js'
+
 const NS = {
     ATOM: 'http://www.w3.org/2005/Atom',
 }
@@ -15,6 +17,17 @@ const REL = {
         'http://opds-spec.org/image/thumbnail',
         'http://opds-spec.org/thumbnail',
     ],
+}
+
+const groupBy = (arr, f) => {
+    const map = new Map()
+    for (const el of arr) {
+        const key = f(el)
+        const group = map.get(key)
+        if (group) group.push(el)
+        else map.set(key, [el])
+    }
+    return map
 }
 
 const resolveURL = (url, relativeTo) => {
@@ -229,13 +242,37 @@ const renderFeed = (doc, baseURL) => {
                 actions.slot = 'actions'
                 item.append(actions)
 
-                for (const link of acqLinks) {
-                    const rel = link.getAttribute('rel').split(/ +/).find(r => r.startsWith(REL.ACQ))
+                const groups = groupBy(acqLinks, link =>
+                    link.getAttribute('rel').split(/ +/).find(r => r.startsWith(REL.ACQ)))
+                for (const [rel, links] of groups.entries()) {
                     const label = globalThis.uiText.acq[rel]
                         ?? globalThis.uiText.acq['http://opds-spec.org/acquisition']
                     const button = document.createElement('button')
                     button.innerText = label
-                    actions.append(button)
+                    if (links.length === 1) actions.append(button)
+                    else {
+                        const menuButton = document.createElement('foliate-menubutton')
+                        menuButton.innerText = '▼'
+                        const menu = document.createElement('foliate-menu')
+                        menu.slot = 'menu'
+                        menuButton.append(menu)
+
+                        for (const link of links) {
+                            const type = link.getAttribute('type')
+                            const title = link.getAttribute('title')
+                            const menuitem = document.createElement('button')
+                            menuitem.role = 'menuitem'
+                            if (title) menuitem.textContent = title
+                            else globalThis.formatMediaType(type).then(text =>
+                                menuitem.textContent = text)
+                            menu.append(menuitem)
+                        }
+
+                        const div = document.createElement('div')
+                        div.classList.add('split-button')
+                        div.replaceChildren(button, menuButton)
+                        actions.append(div)
+                    }
                 }
 
                 document.querySelector('#entry').replaceChildren(item)
