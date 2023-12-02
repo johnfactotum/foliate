@@ -8,6 +8,8 @@ const NS = {
 const MIME = {
     XML: 'application/xml',
     ATOM: 'application/atom+xml',
+    XHTML: 'application/xhtml+xml',
+    HTML: 'text/html',
 }
 
 const REL = {
@@ -139,6 +141,9 @@ customElements.define('opds-pub-full', class extends HTMLElement {
                 color-scheme: light dark;
                 font-family: system-ui;
                 margin: 0;
+            }
+            a:any-link {
+                color: highlight;
             }`
             const updateHeight = () => frame.style.height =
                 `${doc.documentElement.getBoundingClientRect().height}px`
@@ -158,7 +163,7 @@ customElements.define('opds-pub-full', class extends HTMLElement {
                 this.#root.querySelector('img').src = val
                 break
             case 'description':
-                this.#root.querySelector('iframe').srcdoc = val
+                this.#root.querySelector('iframe').src = val
                 break
         }
     }
@@ -179,7 +184,27 @@ const getPrice = link => {
     }) : null
 }
 
-const renderEntry = async (entry, filter, getHref) => {
+const getContent = (el, baseURL) => {
+    if (!el) return ''
+    const type = el.getAttribute('type')
+    const str = type === 'xhtml'
+        ? `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head><base href="${baseURL}"/></head>
+    <body>${el.innerHTML}</body>
+</html>`
+        : `<!DOCTYPE html>
+            <base href="${baseURL}"><body>` + (type === 'html' ? el.textContent
+            .replaceAll('&lt;', '<')
+            .replaceAll('&gt;', '>')
+            .replaceAll('&amp;', '&')
+        : el.textContent)
+    const blob = new Blob([str], { type: type === 'xhtml' ? MIME.XHTML : MIME.HTML })
+    return URL.createObjectURL(blob)
+}
+
+const renderEntry = async (entry, filter, getHref, baseURL) => {
     const children = Array.from(entry.children)
     const links = children.filter(filter('link'))
     const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
@@ -187,7 +212,8 @@ const renderEntry = async (entry, filter, getHref) => {
     const item = document.createElement('opds-pub-full')
     item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
     item.setAttribute('author', children.find(filter('author'))?.getElementsByTagName('name')?.[0]?.textContent ?? '')
-    item.setAttribute('description', (children.find(filter('content')) ?? children.find(filter('summary')))?.textContent ?? '')
+    item.setAttribute('description', getContent(
+        children.find(filter('content')) ?? children.find(filter('summary')), baseURL))
     const src = getHref(getImageLink(links))
     if (src) item.setAttribute('image', src)
 
@@ -285,7 +311,7 @@ const renderFeed = (doc, baseURL) => {
         } else {
             document.querySelector('#entry').style.visibility = 'visible'
             document.querySelector('#feed').style.visibility = 'hidden'
-            renderEntry(entry, filter, getHref).then(item =>
+            renderEntry(entry, filter, getHref, baseURL).then(item =>
                 document.querySelector('#entry').replaceChildren(item))
                 .catch(e => console.error(e))
         }

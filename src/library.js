@@ -586,6 +586,19 @@ export const Library = GObject.registerClass({
                         initFormatPrice()
                     }
                 },
+                'decide-policy': (_, decision, type) => {
+                    switch (type) {
+                        case WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+                        case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION: {
+                            const { uri } = decision.navigation_action.get_request()
+                            if (!uri.startsWith('foliate-opds:') && !uri.startsWith('blob:')) {
+                                decision.ignore()
+                                Gtk.show_uri(null, uri, Gdk.CURRENT_TIME)
+                                return true
+                            }
+                        }
+                    }
+                },
             })
             this._catalog_toolbar_view.content = webView
         }
