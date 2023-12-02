@@ -243,7 +243,7 @@ const renderFeed = (doc, baseURL) => {
 
     const container = document.createElement('div')
     container.classList.add('container')
-    for (const entry of entries) {
+    for (const [i, entry] of entries.entries()) {
         const children = Array.from(entry.children)
         const links = children.filter(filter('link'))
         const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
@@ -253,7 +253,7 @@ const renderFeed = (doc, baseURL) => {
             item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
             const src = getHref(getImageLink(links))
             if (src) item.setAttribute('image', src)
-            item.setAttribute('href', '#' + children.find(filter('id'))?.textContent)
+            item.setAttribute('href', '#' + i)
             container.append(item)
         } else {
             const item = document.createElement('opds-nav')
@@ -278,22 +278,16 @@ const renderFeed = (doc, baseURL) => {
 
     addEventListener('hashchange', () => {
         const hash = location.hash.slice(1)
-        if (!hash) {
+        const entry = entries[hash]
+        if (!entry) {
             document.querySelector('#entry').style.visibility = 'hidden'
             document.querySelector('#feed').style.visibility = 'visible'
-        }
-        const ids = ns ? doc.getElementsByTagNameNS(ns, 'id')
-            : doc.getElementsByTagName('id')
-        for (const id of ids) {
-            if (id.textContent === hash) {
-                document.querySelector('#entry').style.visibility = 'visible'
-                document.querySelector('#feed').style.visibility = 'hidden'
-                const entry = id.parentElement
-                renderEntry(entry, filter, getHref).then(item =>
-                    document.querySelector('#entry').replaceChildren(item))
-                    .catch(e => console.error(e))
-                break
-            }
+        } else {
+            document.querySelector('#entry').style.visibility = 'visible'
+            document.querySelector('#feed').style.visibility = 'hidden'
+            renderEntry(entry, filter, getHref).then(item =>
+                document.querySelector('#entry').replaceChildren(item))
+                .catch(e => console.error(e))
         }
     })
 }
