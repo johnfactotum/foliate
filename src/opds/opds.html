@@ -81,9 +81,10 @@ opds-pub-full {
     max-width: 42em;
 }
 button, foliate-menubutton::part(button) {
-    padding: 9px 18px;
+    padding: 12px 24px;
+    font: inherit;
     font-weight: 700;
-    border-radius: 6px;
+    border-radius: 9999px;
     border: 0;
     background: var(--shade);
 }
@@ -205,7 +206,7 @@ button[role="menuitem"]:active {
         grid-template-rows: subgrid;
     }
     img {
-        max-width: 100%;
+        width: 100%;
         border-radius: 9px;
         box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
         border: 1px solid color-mix(in hsl, currentColor, transparent 85%);
@@ -234,13 +235,13 @@ button[role="menuitem"]:active {
     <style>
     div {
         display: grid;
-        grid-template-columns: 120px 1fr;
+        grid-template-columns: min(40%, 180px) 1fr;
         grid-template-rows: min-content min-content 1fr;
         column-gap: 24px;
         row-gap: 9px;
     }
     img {
-        max-width: 100%;
+        width: 100%;
         border-radius: 9px;
         box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
         border: 1px solid color-mix(in hsl, currentColor, transparent 85%);
