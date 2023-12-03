@@ -233,7 +233,7 @@ button[role="menuitem"]:active {
 </template>
 <template id="opds-pub-full">
     <style>
-    div {
+    #header {
         display: grid;
         grid-template-columns: min(40%, 180px) 1fr;
         grid-template-rows: min-content min-content 1fr;
@@ -259,16 +259,33 @@ button[role="menuitem"]:active {
         width: 100%;
         margin-top: 24px;
     }
-    slot[name="actions"] {
+    #actions, #actions > * {
         display: flex;
         align-items: end;
+        flex: 1;
     }
+    #downloading {
+        gap: 6px;
+    }
+    #downloading progress {
+        align-self: center;
+        flex: 1;
+        width: auto;
+    }
+    :host(:not([downloading])) #actions > :not(slot) { display: none }
+    :host([downloading]) #actions > :not(#downloading) { display: none }
     </style>
-    <div>
+    <div id="header">
         <img>
         <h1></h1>
         <p></p>
-        <slot name="actions"></slot>
+        <div id="actions">
+            <div id="downloading">
+                <progress></progress>
+                <button><span aria-hidden="true">✕</span></button>
+            </div>
+            <slot name="actions"></slot>
+        </div>
     </div>
     <iframe sandbox="allow-same-origin"></iframe>
     <slot name="details"></slot>

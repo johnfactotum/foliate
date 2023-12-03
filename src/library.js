@@ -16,6 +16,7 @@ import WebKit from 'gi://WebKit'
 import { WebView } from './webview.js'
 
 const uiText = {
+    cancel: _('Cancel'),
     acq: {
         'http://opds-spec.org/acquisition': _('Download'),
         'http://opds-spec.org/acquisition/buy': _('Buy'),
@@ -458,6 +459,7 @@ export const Library = GObject.registerClass({
         'books-view', 'search-bar', 'search-entry',
     ],
 }, class extends Gtk.Box {
+    #downloads = new Map()
     constructor(params) {
         super(params)
 
@@ -600,12 +602,48 @@ export const Library = GObject.registerClass({
                     }
                 },
             })
+            webView.registerHandler('opds', payload => {
+                if (payload.type === 'download') this.download(payload)
+                else if (payload.type === 'cancel')
+                    this.#downloads.get(payload.token)?.deref()?.cancel()
+            })
             this._catalog_toolbar_view.content = webView
         }
         const webView = this._catalog_toolbar_view.content
         webView.loadURI(`foliate-opds:///opds/opds.html?url=${encodeURIComponent(url)}`)
             .catch(e => console.error(e))
         webView.set_background_color(new Gdk.RGBA())
+    }
+    download({ href, token }) {
+        const webView = this._catalog_toolbar_view.content
+        const download = utils.connect(webView.download_uri(href), {
+            'decide-destination': (download, initial_name) => {
+                new Gtk.FileDialog({ initial_name })
+                    .save(this.root, null, (dialog, res) => {
+                        try {
+                            const file = dialog.save_finish(res)
+                            download.set_destination(file.get_path())
+                        } catch (e) {
+                            if (e instanceof Gtk.DialogError) console.debug(e)
+                            else console.error(e)
+                            download.cancel()
+                        }
+                    })
+                return true
+            },
+            'notify::estimated-progress': download => webView.exec('updateProgress',
+                { progress: download.estimated_progress, token }),
+            'finished': () => {
+                this.#downloads.delete(token)
+                webView.exec('finishDownload', { token })
+            },
+            'failed': (download, error) => {
+                if (error.code === WebKit.DownloadError.CANCELLED_BY_USER) return
+                console.error(error)
+                this.root.error(_('Download Failed'), '')
+            },
+        })
+        this.#downloads.set(token, new WeakRef(download))
     }
     vfunc_unroot() {
         this._catalog_toolbar_view.content?.unparent()

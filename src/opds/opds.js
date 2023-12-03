@@ -1,5 +1,8 @@
 import './widgets.js'
 
+const emit = x => globalThis.webkit.messageHandlers.opds
+    .postMessage(JSON.stringify(x))
+
 const NS = {
     ATOM: 'http://www.w3.org/2005/Atom',
     OPDS: 'http://opds-spec.org/2010/catalog',
@@ -124,7 +127,7 @@ customElements.define('opds-pub', class extends HTMLElement {
 })
 
 customElements.define('opds-pub-full', class extends HTMLElement {
-    static observedAttributes = ['heading', 'author', 'image', 'description']
+    static observedAttributes = ['heading', 'author', 'image', 'description', 'progress']
     #root = this.attachShadow({ mode: 'closed' })
     constructor() {
         super()
@@ -150,6 +153,11 @@ customElements.define('opds-pub-full', class extends HTMLElement {
             updateHeight()
             new ResizeObserver(updateHeight).observe(doc.documentElement)
         }
+
+        const button = this.#root.querySelector('#downloading button')
+        button.title = globalThis.uiText.cancel
+        button.addEventListener('click', () =>
+            this.dispatchEvent(new Event('cancel-download')))
     }
     attributeChangedCallback(name, _, val) {
         switch (name) {
@@ -165,7 +173,16 @@ customElements.define('opds-pub-full', class extends HTMLElement {
             case 'description':
                 this.#root.querySelector('iframe').src = val
                 break
+            case 'progress': {
+                const progress = this.#root.querySelector('#downloading progress')
+                if (val) progress.value = val
+                else progress.removeAttribute('value')
+                break
+            }
         }
+    }
+    disconnectedCallback() {
+        this.dispatchEvent(new Event('cancel-download'))
     }
 })
 
@@ -204,6 +221,12 @@ const getContent = (el, baseURL) => {
     return URL.createObjectURL(blob)
 }
 
+const entryMap = new Map()
+globalThis.updateProgress = ({ progress, token }) =>
+    entryMap.get(token)?.deref()?.setAttribute('progress', progress)
+globalThis.finishDownload = ({ token }) =>
+    entryMap.get(token)?.deref()?.removeAttribute('downloading')
+
 const renderEntry = async (entry, filter, getHref, baseURL) => {
     const children = Array.from(entry.children)
     const links = children.filter(filter('link'))
@@ -221,6 +244,15 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
     actions.slot = 'actions'
     item.append(actions)
 
+    const token = new Date() + Math.random()
+    entryMap.set(token, new WeakRef(item))
+    item.addEventListener('cancel-download', () => emit({ type: 'cancel', token }))
+    const download = href => {
+        item.setAttribute('downloading', '')
+        item.removeAttribute('progress')
+        emit({ type: 'download', href, token })
+    }
+
     const groups = groupBy(acqLinks, link =>
         link.getAttribute('rel').split(/ +/).find(r => r.startsWith(REL.ACQ)))
     for (const [rel, links] of groups.entries()) {
@@ -230,6 +262,7 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
 
         const button = document.createElement('button')
         button.innerText = price ? `${label} · ${price}` : label
+        button.onclick = () => download(getHref(links[0]))
         if (links.length === 1) actions.append(button)
         else {
             const menuButton = document.createElement('foliate-menubutton')
@@ -246,6 +279,7 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
                 menuitem.role = 'menuitem'
                 menuitem.textContent = (title || await globalThis.formatMime(type))
                     + (price ? ' · ' + price : '')
+                menuitem.onclick = () => download(getHref(link))
                 menu.append(menuitem)
             }
 
@@ -308,6 +342,7 @@ const renderFeed = (doc, baseURL) => {
         if (!entry) {
             document.querySelector('#entry').style.visibility = 'hidden'
             document.querySelector('#feed').style.visibility = 'visible'
+            document.querySelector('#entry').replaceChildren()
         } else {
             document.querySelector('#entry').style.visibility = 'visible'
             document.querySelector('#feed').style.visibility = 'hidden'
