@@ -3,12 +3,6 @@
 <menu id="library-menu">
   <section>
     <item>
-      <attribute name="label" translatable="yes">Open…</attribute>
-      <attribute name="action">win.open</attribute>
-    </item>
-  </section>
-  <section>
-    <item>
       <attribute name="label" translatable="yes">List View</attribute>
       <attribute name="action">library.view-mode</attribute>
       <attribute name="target">list</attribute>
@@ -35,12 +29,18 @@
 <menu id="primary-menu">
   <section>
     <item>
+      <attribute name="label" translatable="yes">Open…</attribute>
+      <attribute name="action">win.open</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
       <attribute name="label" translatable="yes">Fullscreen</attribute>
       <attribute name="action">win.fullscreened</attribute>
     </item>
-  <!--
   </section>
   <section>
+    <!--
     <item>
       <attribute name="label" translatable="yes">Preferences</attribute>
       <attribute name="action">app.preferences</attribute>
@@ -113,6 +113,14 @@
                           <property name="icon-name">sidebar-show-symbolic</property>
                           <property name="tooltip-text" translatable="yes">Sidebar</property>
                           <property name="active" bind-source="split-view" bind-property="show-sidebar" bind-flags="sync-create|bidirectional"/>
+                          <property name="visible" bind-source="split-view" bind-property="show-sidebar" bind-flags="sync-create|invert-boolean"/>
+                        </object>
+                      </child>
+                      <child type="start">
+                        <object class="GtkButton">
+                          <property name="icon-name">list-add-symbolic</property>
+                          <property name="tooltip-text" translatable="yes">Open</property>
+                          <property name="action-name">win.open</property>
                         </object>
                       </child>
                       <child type="end">
@@ -163,6 +171,21 @@
                           <property name="icon-name">sidebar-show-symbolic</property>
                           <property name="tooltip-text" translatable="yes">Sidebar</property>
                           <property name="active" bind-source="split-view" bind-property="show-sidebar" bind-flags="sync-create|bidirectional"/>
+                          <property name="visible" bind-source="split-view" bind-property="show-sidebar" bind-flags="sync-create|invert-boolean"/>
+                        </object>
+                      </child>
+                      <child type="start">
+                        <object class="GtkButton">
+                          <property name="icon-name">go-previous-symbolic</property>
+                          <property name="tooltip-text" translatable="yes">Back</property>
+                          <property name="action-name">catalog.back</property>
+                        </object>
+                      </child>
+                      <child type="start">
+                        <object class="GtkButton">
+                          <property name="icon-name">go-next-symbolic</property>
+                          <property name="tooltip-text" translatable="yes">Forward</property>
+                          <property name="action-name">catalog.forward</property>
                         </object>
                       </child>
                       <child type="end">
@@ -189,6 +212,10 @@
                           <property name="placeholder-text" translatable="yes">Search catalog…</property>
                         </object>
                       </child>
+                    </object>
+                  </child>
+                  <child>
+                    <object class="FoliateOPDSView" id="opds-view">
                     </object>
                   </child>
                 </object>

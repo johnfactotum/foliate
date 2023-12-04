@@ -395,6 +395,115 @@ GObject.registerClass({
     }
 })
 
+GObject.registerClass({
+    GTypeName: 'FoliateOPDSView',
+}, class extends Adw.Bin {
+    #downloads = new Map()
+    constructor(params) {
+        super(params)
+        this.actionGroup = utils.addMethods(this, {
+            actions: [
+                'back', 'forward',
+            ],
+        })
+        this.actionGroup.lookup_action('back').enabled = false
+        this.actionGroup.lookup_action('forward').enabled = false
+    }
+    init() {
+        const webView = new WebView({
+            settings: new WebKit.Settings({
+                enable_write_console_messages_to_stdout: true,
+                enable_developer_extras: true,
+                enable_back_forward_navigation_gestures: false,
+                enable_hyperlink_auditing: false,
+                enable_html5_database: false,
+                enable_html5_local_storage: false,
+                disable_web_security: true,
+            }),
+        })
+        const initFormatMime = webView.provide('formatMime', format.mime)
+        const initFormatPrice = webView.provide('formatPrice',
+            ({ currency, value }) => format.price(currency, value))
+        utils.connect(webView, {
+            'context-menu': () => false,
+            'load-changed': (webView, event) => {
+                if (event === WebKit.LoadEvent.FINISHED) {
+                    webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}`)
+                        .catch(e => console.error(e))
+                    initFormatMime()
+                    initFormatPrice()
+                }
+            },
+            'decide-policy': (_, decision, type) => {
+                switch (type) {
+                    case WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+                    case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION: {
+                        const { uri } = decision.navigation_action.get_request()
+                        if (!uri.startsWith('foliate-opds:') && !uri.startsWith('blob:')) {
+                            decision.ignore()
+                            Gtk.show_uri(null, uri, Gdk.CURRENT_TIME)
+                            return true
+                        }
+                    }
+                }
+            },
+        })
+        webView.registerHandler('opds', payload => {
+            if (payload.type === 'download') this.download(payload)
+            else if (payload.type === 'cancel')
+                this.#downloads.get(payload.token)?.deref()?.cancel()
+        })
+        webView.get_back_forward_list().connect('changed', () => {
+            this.actionGroup.lookup_action('back').enabled = webView.can_go_back()
+            this.actionGroup.lookup_action('forward').enabled = webView.can_go_forward()
+        })
+        webView.set_background_color(new Gdk.RGBA())
+        this.child = webView
+    }
+    load(url) {
+        if (!this.child) this.init()
+        this.child.loadURI(`foliate-opds:///opds/opds.html?url=${encodeURIComponent(url)}`)
+            .catch(e => console.error(e))
+    }
+    back() {
+        this.child.go_back()
+    }
+    forward() {
+        this.child.go_forward()
+    }
+    download({ href, token }) {
+        const webView = this.child
+        const download = utils.connect(webView.download_uri(href), {
+            'decide-destination': (download, initial_name) => {
+                new Gtk.FileDialog({ initial_name })
+                    .save(this.root, null, (dialog, res) => {
+                        try {
+                            const file = dialog.save_finish(res)
+                            download.set_destination(file.get_path())
+                        } catch (e) {
+                            if (e instanceof Gtk.DialogError) console.debug(e)
+                            else console.error(e)
+                            download.cancel()
+                        }
+                    })
+                return true
+            },
+            'notify::estimated-progress': download => webView.exec('updateProgress',
+                { progress: download.estimated_progress, token }),
+            'finished': () => {
+                this.#downloads.delete(token)
+                webView.exec('finishDownload', { token })
+            },
+            'failed': (download, error) => {
+                if (error.code === WebKit.DownloadError.CANCELLED_BY_USER) return
+                console.error(error)
+                this.root.error(_('Download Failed'), '')
+            },
+        })
+        this.#downloads.set(token, new WeakRef(download))
+    }
+})
+
 const SidebarItem = utils.makeDataClass('FoliateSidebarItem', {
     'type': 'string',
     'icon': 'string',
@@ -457,9 +566,9 @@ export const Library = GObject.registerClass({
         'sidebar-list-box', 'main-stack',
         'library-toolbar-view', 'catalog-toolbar-view',
         'books-view', 'search-bar', 'search-entry',
+        'opds-view',
     ],
 }, class extends Gtk.Box {
-    #downloads = new Map()
     constructor(params) {
         super(params)
 
@@ -518,6 +627,7 @@ export const Library = GObject.registerClass({
             this._books_view.search(entry.text))
 
         this.insert_action_group('library', this._books_view.actionGroup)
+        this.insert_action_group('catalog', this._opds_view.actionGroup)
     }
     addCatalog() {
         const submit = () => {
@@ -563,87 +673,7 @@ export const Library = GObject.registerClass({
     }
     showCatalog(url) {
         this._main_stack.visible_child = this._catalog_toolbar_view
-        if (!this._catalog_toolbar_view.content) {
-            const webView = new WebView({
-                settings: new WebKit.Settings({
-                    enable_write_console_messages_to_stdout: true,
-                    enable_developer_extras: true,
-                    enable_back_forward_navigation_gestures: false,
-                    enable_hyperlink_auditing: false,
-                    enable_html5_database: false,
-                    enable_html5_local_storage: false,
-                    disable_web_security: true,
-                }),
-            })
-            const initFormatMime = webView.provide('formatMime', format.mime)
-            const initFormatPrice = webView.provide('formatPrice',
-                ({ currency, value }) => format.price(currency, value))
-            utils.connect(webView, {
-                'context-menu': () => false,
-                'load-changed': (webView, event) => {
-                    if (event === WebKit.LoadEvent.FINISHED) {
-                        webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}`)
-                            .catch(e => console.error(e))
-                        initFormatMime()
-                        initFormatPrice()
-                    }
-                },
-                'decide-policy': (_, decision, type) => {
-                    switch (type) {
-                        case WebKit.PolicyDecisionType.NAVIGATION_ACTION:
-                        case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION: {
-                            const { uri } = decision.navigation_action.get_request()
-                            if (!uri.startsWith('foliate-opds:') && !uri.startsWith('blob:')) {
-                                decision.ignore()
-                                Gtk.show_uri(null, uri, Gdk.CURRENT_TIME)
-                                return true
-                            }
-                        }
-                    }
-                },
-            })
-            webView.registerHandler('opds', payload => {
-                if (payload.type === 'download') this.download(payload)
-                else if (payload.type === 'cancel')
-                    this.#downloads.get(payload.token)?.deref()?.cancel()
-            })
-            this._catalog_toolbar_view.content = webView
-        }
-        const webView = this._catalog_toolbar_view.content
-        webView.loadURI(`foliate-opds:///opds/opds.html?url=${encodeURIComponent(url)}`)
-            .catch(e => console.error(e))
-        webView.set_background_color(new Gdk.RGBA())
-    }
-    download({ href, token }) {
-        const webView = this._catalog_toolbar_view.content
-        const download = utils.connect(webView.download_uri(href), {
-            'decide-destination': (download, initial_name) => {
-                new Gtk.FileDialog({ initial_name })
-                    .save(this.root, null, (dialog, res) => {
-                        try {
-                            const file = dialog.save_finish(res)
-                            download.set_destination(file.get_path())
-                        } catch (e) {
-                            if (e instanceof Gtk.DialogError) console.debug(e)
-                            else console.error(e)
-                            download.cancel()
-                        }
-                    })
-                return true
-            },
-            'notify::estimated-progress': download => webView.exec('updateProgress',
-                { progress: download.estimated_progress, token }),
-            'finished': () => {
-                this.#downloads.delete(token)
-                webView.exec('finishDownload', { token })
-            },
-            'failed': (download, error) => {
-                if (error.code === WebKit.DownloadError.CANCELLED_BY_USER) return
-                console.error(error)
-                this.root.error(_('Download Failed'), '')
-            },
-        })
-        this.#downloads.set(token, new WeakRef(download))
+        this._opds_view.load(url)
     }
     vfunc_unroot() {
         this._catalog_toolbar_view.content?.unparent()
