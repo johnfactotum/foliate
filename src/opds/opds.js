@@ -17,6 +17,7 @@ const MIME = {
 
 const REL = {
     ACQ: 'http://opds-spec.org/acquisition',
+    GROUP: 'http://opds-spec.org/group',
     IMG: [
         'http://opds-spec.org/image',
         'http://opds-spec.org/cover',
@@ -65,7 +66,7 @@ const parseMediaType = str => {
 const isOPDSCatalog = str => {
     const { mediaType, parameters } = parseMediaType(str)
     return mediaType === MIME.ATOM
-        && parameters.profile?.toLowerCase() !== 'opds-catalog'
+        && parameters.profile?.toLowerCase() === 'opds-catalog'
 }
 
 // ignore the namespace if it doesn't appear in document at all
@@ -301,40 +302,65 @@ const renderFeed = (doc, baseURL) => {
     const resolveHref = href => href ? resolveURL(href, baseURL) : null
     const getHref = link => resolveHref(link?.getAttribute('href'))
 
-    const container = document.createElement('div')
-    container.classList.add('container')
+    const items = []
+    const groupedItems = new Map()
+    const groups = new Map()
     for (const [i, entry] of entries.entries()) {
         const children = Array.from(entry.children)
         const links = children.filter(filter('link'))
         const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
 
+        const groupLinks = links.filter(filterRel(r => r === REL.GROUP || r === 'collection'))
+        const groupLink = groupLinks.length
+            ? groupLinks.find(link => groupedItems.has(link.getAttribute('href'))) ?? groupLinks[0] : null
+        const groupHref = groupLink?.getAttribute('href')
+        if (groupLink && !groups.has(groupHref)) groups.set(groupHref, {
+            title: groupLink.getAttribute('title'),
+            type: groupLink.getAttribute('type'),
+        })
+
+        const item = document.createElement(acqLinks.length ? 'opds-pub' : 'opds-nav')
+        item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
         if (acqLinks.length) {
-            const item = document.createElement('opds-pub')
-            item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
             const src = getHref(getImageLink(links))
             if (src) item.setAttribute('image', src)
             item.setAttribute('href', '#' + i)
-            container.append(item)
         } else {
-            const item = document.createElement('opds-nav')
-            item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
             item.setAttribute('description', children.find(filter('content'))?.textContent ?? '')
             const href = getHref(links.find(el => isOPDSCatalog(el.getAttribute('type'))) ?? links[0])
             if (href) item.setAttribute('href', '?url=' + encodeURIComponent(href))
-            container.append(item)
         }
+
+        if (groupHref) {
+            const arr = groupedItems.get(groupHref)
+            if (arr) arr.push(item)
+            else groupedItems.set(groupHref, [item])
+        } else items.push(item)
     }
-    const title = children.find(filter('title'))?.textContent
-    const subtitle = children.find(filter('subtitle'))?.textContent
 
-    const hgroup = document.createElement('hgroup')
-    const h1 = document.createElement('h1')
-    h1.textContent = title ?? ''
-    const p = document.createElement('p')
-    p.textContent = subtitle ?? ''
-    hgroup.replaceChildren(h1, p)
+    const main = document.querySelector('#feed main')
+    main.replaceChildren(...[[null, items], ...groupedItems.entries()].flatMap(([href, arr]) => {
+        const container = document.createElement('div')
+        container.classList.add('container')
+        container.replaceChildren(...arr)
+        if (href == null) return container
 
-    document.querySelector('#feed').replaceChildren(hgroup, container)
+        const { title, type } = groups.get(href)
+        const div = document.createElement('div')
+        const h = document.createElement('h2')
+        h.textContent = title
+        const a = document.createElement('a')
+        const url = resolveHref(href)
+        a.href = isOPDSCatalog(type) ? '?url=' + encodeURIComponent(url) : url
+        a.textContent = globalThis.uiText.viewCollection
+        div.append(h, a)
+        div.classList.add('carousel-header')
+        container.classList.add('carousel')
+        return [document.createElement('hr'), div, container]
+    }))
+
+    document.querySelector('#feed h1').textContent = children.find(filter('title'))?.textContent ?? ''
+    document.querySelector('#feed p').textContent = children.find(filter('subtitle'))?.textContent ?? ''
 
     addEventListener('hashchange', () => {
         const hash = location.hash.slice(1)

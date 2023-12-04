@@ -16,14 +16,29 @@
         --pressed: rgba(255, 255, 255, .15);
     }
 }
+a:any-link {
+    color: highlight;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+hr {
+    background: none;
+    border: 0;
+    border-top: 1px solid color-mix(in hsl, currentColor, transparent 85%);
+}
 hgroup {
     margin-bottom: 24px;
 }
 hgroup h1 {
-    font-size: 1.5em;
+    font-size: 1.75em;
     font-weight: 900;
     margin: 0;
     margin-bottom: .5rem;
+}
+h2 {
+    font-size: 1.25em;
 }
 .container {
     display: grid;
@@ -34,6 +49,29 @@ hgroup h1 {
     gap: 24px;
     row-gap: 0;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr))
+}
+.carousel:has(opds-pub) {
+    gap: 18px;
+    row-gap: 0;
+    grid-template-columns: repeat(auto-fill, 120px);
+    grid-auto-flow: column;
+    grid-auto-columns: 120px;
+    margin-inline: -24px;
+    padding-inline: 24px;
+    overflow: auto;
+    scroll-snap-type: inline proximity;
+    scroll-padding: 24px;
+}
+.carousel:has(opds-pub) > * {
+    scroll-snap-align: start;
+}
+.carousel-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+.carousel-header h2 {
+    flex: 1;
 }
 opds-nav {
     padding: 12px;
@@ -290,7 +328,13 @@ button[role="menuitem"]:active {
     <iframe sandbox="allow-same-origin"></iframe>
     <slot name="details"></slot>
 </template>
-<foliate-scrolled id="feed"></foliate-scrolled>
+<foliate-scrolled id="feed">
+    <hgroup>
+        <h1></h1>
+        <p></p>
+    </hgroup>
+    <main></main>
+</foliate-scrolled>
 <foliate-scrolled id="entry" style="visibility: hidden"></foliate-scrolled>
 <div id="undershoot-top" hidden></div>
 <script src="opds.js" type="module"></script>
