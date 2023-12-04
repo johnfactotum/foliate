@@ -6,6 +6,7 @@ const emit = x => globalThis.webkit.messageHandlers.opds
 const NS = {
     ATOM: 'http://www.w3.org/2005/Atom',
     OPDS: 'http://opds-spec.org/2010/catalog',
+    THR: 'http://purl.org/syndication/thread/1.0',
 }
 
 const MIME = {
@@ -17,6 +18,7 @@ const MIME = {
 
 const REL = {
     ACQ: 'http://opds-spec.org/acquisition',
+    FACET: 'http://opds-spec.org/facet',
     GROUP: 'http://opds-spec.org/group',
     IMG: [
         'http://opds-spec.org/image',
@@ -298,6 +300,7 @@ const renderFeed = (doc, baseURL) => {
     const filter = filterNS(ns)
     const children = Array.from(doc.documentElement.children)
     const entries = children.filter(filter('entry'))
+    const links = children.filter(filter('link'))
 
     const resolveHref = href => href ? resolveURL(href, baseURL) : null
     const getHref = link => resolveHref(link?.getAttribute('href'))
@@ -357,6 +360,36 @@ const renderFeed = (doc, baseURL) => {
         div.classList.add('carousel-header')
         container.classList.add('carousel')
         return [document.createElement('hr'), div, container]
+    }))
+
+    const facetLinks = links.filter(filterRel(r => r.startsWith(REL.FACET)))
+    const facets = groupBy(facetLinks, link => link.getAttributeNS(NS.OPDS, 'facetGroup'))
+    document.querySelector('#nav').replaceChildren(...Array.from(facets.entries(), ([facet, links]) => {
+        const section = document.createElement('section')
+        const h = document.createElement('h3')
+        h.textContent = facet ?? ''
+        const l = document.createElement('ul')
+        l.append(...links.map(link => {
+            const li = document.createElement('li')
+            const a = document.createElement('a')
+            const url = getHref(link)
+            a.href = isOPDSCatalog(link.getAttribute('type')) ? '?url=' + encodeURIComponent(url) : url
+            const title = link.getAttribute('title') ?? ''
+            a.title = title
+            a.textContent = title
+            li.append(a)
+            const count = link.getAttributeNS(NS.THR, 'count')
+            if (count) {
+                const span = document.createElement('span')
+                span.textContent = count
+                li.append(span)
+            }
+            if (link.getAttributeNS(NS.OPDS, 'activeFacet') === 'true')
+                li.ariaCurrent = 'true'
+            return li
+        }))
+        section.append(h, l)
+        return section
     }))
 
     document.querySelector('#feed h1').textContent = children.find(filter('title'))?.textContent ?? ''

@@ -114,6 +114,57 @@ opds-nav:hover {
         background: linear-gradient(rgba(0, 0, 0, .2), transparent);
     }
 }
+@media (min-width: 800px) {
+    #feed:has(#nav:not(:empty)) {
+        margin-inline-end: 200px;
+    }
+    #nav:not(:empty) {
+        width: 200px;
+        position: fixed;
+        inset: 0;
+        inset-inline-start: auto;
+        box-sizing: border-box;
+        padding: 12px 9px;
+    }
+}
+#nav section + section {
+    margin-top: 2em;
+}
+#nav h3 {
+    font-size: smaller;
+    margin: 0;
+    margin-bottom: 6px;
+    color: graytext;
+}
+#nav ul {
+    margin: 0;
+    padding: 0;
+}
+#nav a {
+    color: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+#nav span {
+    color: graytext;
+    font-size: .75em;
+    font-weight: 700;
+}
+#nav li {
+    border-radius: 6px;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+#nav [aria-current] {
+    background: var(--shade);
+}
+#feed[data-scrolled-to-top] #nav:not([data-scrolled-to-top]) {
+    -webkit-mask-image: linear-gradient(transparent, #000 4em, #000);
+}
 opds-pub-full {
     display: block;
     max-width: 42em;
@@ -329,11 +380,14 @@ button[role="menuitem"]:active {
     <slot name="details"></slot>
 </template>
 <foliate-scrolled id="feed">
-    <hgroup>
-        <h1></h1>
-        <p></p>
-    </hgroup>
-    <main></main>
+    <article>
+        <hgroup>
+            <h1></h1>
+            <p></p>
+        </hgroup>
+        <main></main>
+        <foliate-scrolled id="nav" role="navigation"></foliate-scrolled>
+    </article>
 </foliate-scrolled>
 <foliate-scrolled id="entry" style="visibility: hidden"></foliate-scrolled>
 <div id="undershoot-top" hidden></div>

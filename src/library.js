@@ -554,6 +554,7 @@ const addCatalogItem = (label, value) => {
             label, value,
         }))
 }
+addCatalogItem('Feedbooks', 'https://catalog.feedbooks.com/publicdomain/browse/top.atom?lang=en')
 addCatalogItem('Project Gutenberg', 'https://m.gutenberg.org/ebooks.opds/')
 addCatalogItem('Manybooks', 'http://manybooks.net/opds/')
 addCatalogItem('unglue.it', 'https://unglue.it/api/opds/')

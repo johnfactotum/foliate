@@ -2,6 +2,9 @@ customElements.define('foliate-scrolled', class extends HTMLElement {
     #root = this.attachShadow({ mode: 'closed' })
     constructor() {
         super()
+        const sheet = new CSSStyleSheet()
+        sheet.replaceSync(':host { overflow: auto }')
+        this.#root.adoptedStyleSheets = [sheet]
         this.#root.append(document.createElement('slot'))
         const top = document.createElement('div')
         this.#root.prepend(top)
