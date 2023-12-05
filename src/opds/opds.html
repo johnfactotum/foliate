@@ -123,6 +123,12 @@ body[data-state="search"] #search { visibility: visible }
     pointer-events: none;
     opacity: 1;
 }
+@media (prefers-color-scheme: dark) {
+    #stack > *:before {
+        box-shadow: inset 0 1px rgba(0, 0, 0, .2);
+        background: linear-gradient(rgba(0, 0, 0, .2), transparent);
+    }
+}
 #stack > *[data-scrolled-to-top]:before {
     opacity: 0;
 }
@@ -152,12 +158,6 @@ body[data-state="search"] #search { visibility: visible }
     font: inherit;
 }
 
-@media (prefers-color-scheme: dark) {
-    #undershoot-top {
-        box-shadow: inset 0 1px rgba(0, 0, 0, .2);
-        background: linear-gradient(rgba(0, 0, 0, .2), transparent);
-    }
-}
 @media (min-width: 800px) {
     #feed:has(#nav:not(:empty)) {
         margin-inline-end: 200px;
