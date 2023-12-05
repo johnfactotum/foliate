@@ -531,6 +531,10 @@ GObject.registerClass({
         })
         this.#downloads.set(token, new WeakRef(download))
     }
+    vfunc_unroot() {
+        this.child?.unparent()
+        this.child?.run_dispose()
+    }
 })
 
 const SidebarItem = utils.makeDataClass('FoliateSidebarItem', {
@@ -704,10 +708,5 @@ export const Library = GObject.registerClass({
     showCatalog(url) {
         this._main_stack.visible_child = this._catalog_toolbar_view
         this._opds_view.load(url)
-    }
-    vfunc_unroot() {
-        this._catalog_toolbar_view.content?.unparent()
-        this._catalog_toolbar_view.content?.run_dispose()
-        this._sidebar_list_box.set_header_func(null)
     }
 })
