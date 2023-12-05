@@ -17,10 +17,10 @@
     }
 }
 a:any-link {
-    color: highlight;
+    color: inherit;
     text-decoration: none;
 }
-a:hover {
+a:any-link:hover {
     text-decoration: underline;
 }
 hr {
@@ -145,7 +145,6 @@ opds-nav:hover {
     padding: 0;
 }
 #nav a {
-    color: inherit;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -371,7 +370,7 @@ button[role="menuitem"]:active {
     <div id="header">
         <img>
         <h1></h1>
-        <p></p>
+        <slot name="authors"></slot>
         <div id="actions">
             <div id="downloading">
                 <progress></progress>

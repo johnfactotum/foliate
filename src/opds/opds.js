@@ -81,6 +81,28 @@ const filterNS = ns => ns
 
 const filterRel = f => el => el.getAttribute('rel')?.split(/ +/)?.some(f)
 
+const getInheritedAttributeNS = (el, ns, attr, defaultValue) => {
+    if (!el) return defaultValue
+    const lang = el.getAttributeNS(ns, attr)
+    if (lang) return lang
+    return getInheritedAttributeNS(el.parentElement, ns, attr, defaultValue)
+}
+
+const getXMLLang = el => getInheritedAttributeNS(el, NS.XML, 'lang', 'en')
+
+const langToLocales = lang => {
+    try { return new Intl.Locale(lang) }
+    catch { return 'en' }
+}
+
+const formatElementList = (locales, els) => {
+    const arr = els.slice(0)
+    return new Intl.ListFormat(locales, { type: 'conjunction' })
+        .format(els.map(() => '%s'))
+        .split(/(%s)/g)
+        .map(str => str === '%s' ? arr.shift() : document.createTextNode(str))
+}
+
 customElements.define('opds-nav', class extends HTMLElement {
     static observedAttributes = ['heading', 'description', 'href']
     #root = this.attachShadow({ mode: 'closed' })
@@ -130,7 +152,7 @@ customElements.define('opds-pub', class extends HTMLElement {
 })
 
 customElements.define('opds-pub-full', class extends HTMLElement {
-    static observedAttributes = ['heading', 'author', 'image', 'description', 'progress']
+    static observedAttributes = ['heading', 'image', 'description', 'progress']
     #root = this.attachShadow({ mode: 'closed' })
     constructor() {
         super()
@@ -166,9 +188,6 @@ customElements.define('opds-pub-full', class extends HTMLElement {
         switch (name) {
             case 'heading':
                 this.#root.querySelector('h1').textContent = val
-                break
-            case 'author':
-                this.#root.querySelector('p').textContent = val
                 break
             case 'image':
                 this.#root.querySelector('img').src = val
@@ -231,17 +250,34 @@ globalThis.finishDownload = ({ token }) =>
     entryMap.get(token)?.deref()?.removeAttribute('downloading')
 
 const renderEntry = async (entry, filter, getHref, baseURL) => {
+    const lang = getXMLLang(entry)
     const children = Array.from(entry.children)
     const links = children.filter(filter('link'))
     const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
 
     const item = document.createElement('opds-pub-full')
+    item.lang = lang
     item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
-    item.setAttribute('author', children.find(filter('author'))?.getElementsByTagName('name')?.[0]?.textContent ?? '')
     item.setAttribute('description', getContent(
         children.find(filter('content')) ?? children.find(filter('summary')), baseURL))
     const src = getHref(getImageLink(links))
     if (src) item.setAttribute('image', src)
+
+    const authors = document.createElement('div')
+    authors.slot = 'authors'
+    item.append(authors)
+    const authorAs = children.filter(filter('author')).map(person => {
+        const NS = person.namespaceURI
+        const uri = person.getElementsByTagNameNS(NS, 'uri')[0]?.textContent
+        const a = document.createElement('a')
+        a.innerText = person.getElementsByTagNameNS(NS, 'name')[0]?.textContent ?? ''
+        // TODO: this might be a link to an OPDS catalog
+        // actually I'm not sure if you're supposed to link to it at all
+        if (uri) a.href = resolveURL(uri, baseURL)
+        return a
+    })
+    authors.replaceChildren(...(authorAs.length <= 1 ? authorAs
+        : formatElementList(langToLocales(lang), authorAs)))
 
     const actions = document.createElement('div')
     actions.slot = 'actions'
@@ -297,6 +333,7 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
 const renderFeed = (doc, baseURL) => {
     const ns = useNS(doc, NS.ATOM)
     const filter = filterNS(ns)
+    const lang = getXMLLang(doc.documentElement)
     const children = Array.from(doc.documentElement.children)
     const entries = children.filter(filter('entry'))
     const links = children.filter(filter('link'))
@@ -393,6 +430,7 @@ const renderFeed = (doc, baseURL) => {
 
     document.querySelector('#feed h1').textContent = children.find(filter('title'))?.textContent ?? ''
     document.querySelector('#feed p').textContent = children.find(filter('subtitle'))?.textContent ?? ''
+    document.querySelector('#feed').lang = lang
 
     addEventListener('hashchange', () => {
         const hash = location.hash.slice(1)
