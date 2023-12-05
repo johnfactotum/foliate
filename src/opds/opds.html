@@ -61,6 +61,10 @@ h2 {
     overflow: auto;
     scroll-snap-type: inline proximity;
     scroll-padding: 24px;
+    -webkit-mask-image: linear-gradient(to left, transparent, #000 24px, #000);
+}
+.carousel:has(opds-pub):dir(rtl) {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 24px, #000);
 }
 .carousel:has(opds-pub) > * {
     scroll-snap-align: start;
