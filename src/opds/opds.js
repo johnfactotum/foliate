@@ -259,8 +259,7 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
     const groups = groupBy(acqLinks, link =>
         link.getAttribute('rel').split(/ +/).find(r => r.startsWith(REL.ACQ)))
     for (const [rel, links] of groups.entries()) {
-        const label = globalThis.uiText.acq[rel]
-            ?? globalThis.uiText.acq['http://opds-spec.org/acquisition']
+        const label = globalThis.uiText.acq[rel] ?? globalThis.uiText.acq[REL.ACQ]
         const price = await getPrice(links[0])
 
         const button = document.createElement('button')
