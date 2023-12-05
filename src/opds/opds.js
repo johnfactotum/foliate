@@ -14,6 +14,7 @@ const MIME = {
     ATOM: 'application/atom+xml',
     XHTML: 'application/xhtml+xml',
     HTML: 'text/html',
+    OPENSEARCH: 'application/opensearchdescription+xml',
 }
 
 const REL = {
@@ -41,7 +42,7 @@ const groupBy = (arr, f) => {
 
 const resolveURL = (url, relativeTo) => {
     try {
-        if (relativeTo.includes(':')) return new URL(url, relativeTo)
+        if (relativeTo.includes(':')) return new URL(url, relativeTo).toString()
         // the base needs to be a valid URL, so set a base URL and then remove it
         const root = 'https://invalid.invalid/'
         const obj = new URL(url, root + relativeTo)
@@ -341,6 +342,11 @@ const renderFeed = (doc, baseURL) => {
     const resolveHref = href => href ? resolveURL(href, baseURL) : null
     const getHref = link => resolveHref(link?.getAttribute('href'))
 
+    const searchURL = getHref(links.find(link => link.getAttribute('type') === MIME.OPENSEARCH))
+    if (searchURL) document.body.dataset.searchUrl = searchURL
+    else delete document.body.dataset.searchUrl
+    globalThis.updateSearchURL()
+
     const items = []
     const groupedItems = new Map()
     const groups = new Map()
@@ -436,27 +442,92 @@ const renderFeed = (doc, baseURL) => {
         const hash = location.hash.slice(1)
         const entry = entries[hash]
         if (!entry) {
-            document.querySelector('#entry').style.visibility = 'hidden'
-            document.querySelector('#feed').style.visibility = 'visible'
+            document.body.dataset.state = 'feed'
             document.querySelector('#entry').replaceChildren()
         } else {
-            document.querySelector('#entry').style.visibility = 'visible'
-            document.querySelector('#feed').style.visibility = 'hidden'
+            document.body.dataset.state = 'entry'
             renderEntry(entry, filter, getHref, baseURL).then(item =>
                 document.querySelector('#entry').replaceChildren(item))
                 .catch(e => console.error(e))
         }
-        updateScrolledState()
     })
+    document.body.dataset.state = 'feed'
 }
 
-const updateScrolledState = () => {
-    const el = document.querySelector('#entry').style.visibility === 'visible'
-        ? document.querySelector('#entry') : document.querySelector('#feed')
-    document.querySelector('#undershoot-top').hidden = 'scrolledToTop' in el.dataset
+const renderOpenSearch = (doc, baseURL) => {
+    const defaultNS = doc.documentElement.namespaceURI
+    const filter = filterNS(defaultNS)
+    const children = Array.from(doc.documentElement.children)
+
+    const $$urls = children.filter(filter('Url'))
+    const $url = $$urls.find(url => isOPDSCatalog(url.getAttribute('type'))) ?? $$urls[0]
+    if (!$url) throw new Error('document must contain at least one Url element')
+
+    const regex = /{(?:([^}]+?):)?(.+?)(\?)?}/g
+    const defaultMap = new Map([
+        ['count', '100'],
+        ['startIndex', $url.getAttribute('indexOffset') ?? '0'],
+        ['startPage', $url.getAttribute('pageOffset') ?? '0'],
+        ['language', '*'],
+        ['inputEncoding', 'UTF-8'],
+        ['outputEncoding', 'UTF-8'],
+    ])
+
+    const template = resolveURL($url.getAttribute('template'), baseURL)
+    const search = map => template.replace(regex, (_, prefix, param) => {
+        const namespace = prefix ? $url.lookupNamespaceURI(prefix) : null
+        const ns = namespace === defaultNS ? null : namespace
+        const val = map.get(ns)?.get(param)
+        return val ? val : (!ns ? defaultMap.get(param) ?? '' : '')
+    })
+
+    document.querySelector('#search form').onsubmit = e => {
+        e.preventDefault()
+        const map = new Map()
+        for (const input of document.querySelectorAll('#search input[data-param]')) {
+            const { value } = input
+            const { ns = null, param } = input.dataset
+            if (map.has(ns)) map.get(ns).set(param, value)
+            else map.set(ns, new Map([[param, value]]))
+        }
+        location = '?url=' + encodeURIComponent(search(map))
+    }
+
+    document.querySelector('#search h1').textContent =
+        (children.find(filter('LongName')) ?? children.find(filter('ShortName')))?.textContent ?? ''
+    document.querySelector('#search p').textContent =
+        children.find(filter('Description'))?.textContent ?? ''
+    document.querySelector('#search button').textContent = globalThis.uiText.search
+
+    document.body.dataset.state = 'search'
+    const container = document.querySelector('#search-params')
+    for (const [, prefix, param, optional] of template.matchAll(regex)) {
+        const namespace = prefix ? $url.lookupNamespaceURI(prefix) : null
+        const ns = namespace === defaultNS ? null : namespace
+
+        const input = document.createElement('input')
+        if (ns) input.dataset.ns = ns
+        input.dataset.param = param
+        input.required = !optional
+        input.type = 'text'
+        input.value = ns && ns !== defaultNS ? '' : defaultMap.get(param) ?? ''
+
+        const label = document.createElement('label')
+        const span = document.createElement('span')
+        span.textContent = (ns === NS.ATOM
+            ? globalThis.uiText.atomParams[param]
+            : globalThis.uiText.openSearchParams[param] ?? param)
+        label.append(span, input)
+
+        const p = document.createElement('p')
+        p.append(label)
+        container.append(p)
+    }
+    container.querySelector('input').focus()
 }
-document.querySelector('#entry').addEventListener('change', updateScrolledState)
-document.querySelector('#feed').addEventListener('change', updateScrolledState)
+
+globalThis.updateSearchURL = () =>
+    emit({ type: 'search', url: document.body.dataset.searchUrl })
 
 try {
     const params = new URLSearchParams(location.search)
@@ -469,6 +540,7 @@ try {
         const { documentElement: { localName } } = doc
         if (localName === 'feed') renderFeed(doc, url)
         else if (localName === 'entry') throw new Error('todo')
+        else if (localName === 'OpenSearchDescription') renderOpenSearch(doc, url)
         else throw new Error(`root element is <${localName}>; expected <feed> or <entry>`)
     }
     else {

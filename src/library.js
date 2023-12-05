@@ -18,6 +18,7 @@ import { WebView } from './webview.js'
 const uiText = {
     cancel: _('Cancel'),
     viewCollection: _('See All'),
+    search: _('Search'),
     acq: {
         'http://opds-spec.org/acquisition': _('Download'),
         'http://opds-spec.org/acquisition/buy': _('Buy'),
@@ -26,6 +27,15 @@ const uiText = {
         'http://opds-spec.org/acquisition/sample': _('Sample'),
         'http://opds-spec.org/acquisition/borrow': _('Borrow'),
         'http://opds-spec.org/acquisition/subscribe': _('Subscribe'),
+    },
+    openSearchParams: {
+        searchTerms: _('Search Terms'),
+        language: _('Language'),
+    },
+    atomParams: {
+        title: _('Title'),
+        author: _('Author'),
+        contributor: _('Contributor'),
     },
 }
 
@@ -400,15 +410,16 @@ GObject.registerClass({
     GTypeName: 'FoliateOPDSView',
 }, class extends Adw.Bin {
     #downloads = new Map()
+    #searchURL
     constructor(params) {
         super(params)
         this.actionGroup = utils.addMethods(this, {
             actions: [
-                'back', 'forward',
+                'back', 'forward', 'search',
             ],
         })
-        this.actionGroup.lookup_action('back').enabled = false
-        this.actionGroup.lookup_action('forward').enabled = false
+        for (const action of ['back', 'forward', 'search'])
+            this.actionGroup.lookup_action(action).enabled = false
     }
     init() {
         const webView = new WebView({
@@ -433,6 +444,11 @@ GObject.registerClass({
                         .catch(e => console.error(e))
                     initFormatMime()
                     initFormatPrice()
+
+                    // update after going back/foward
+                    webView.exec('updateSearchURL')
+                        // it will fail when the page first loads but that's ok
+                        .catch(e => console.debug(e))
                 }
             },
             'decide-policy': (_, decision, type) => {
@@ -450,9 +466,16 @@ GObject.registerClass({
             },
         })
         webView.registerHandler('opds', payload => {
-            if (payload.type === 'download') this.download(payload)
-            else if (payload.type === 'cancel')
-                this.#downloads.get(payload.token)?.deref()?.cancel()
+            switch (payload.type) {
+                case 'download': this.download(payload); break
+                case 'cancel':
+                    this.#downloads.get(payload.token)?.deref()?.cancel()
+                    break
+                case 'search':
+                    this.#searchURL = payload.url
+                    this.actionGroup.lookup_action('search').enabled = !!payload.url
+                    break
+            }
         })
         webView.get_back_forward_list().connect('changed', () => {
             this.actionGroup.lookup_action('back').enabled = webView.can_go_back()
@@ -462,8 +485,10 @@ GObject.registerClass({
         this.child = webView
     }
     load(url) {
+        this.actionGroup.lookup_action('search').enabled = false
         if (!this.child) this.init()
         this.child.loadURI(`foliate-opds:///opds/opds.html?url=${encodeURIComponent(url)}`)
+            .then(() => this.child.grab_focus())
             .catch(e => console.error(e))
     }
     back() {
@@ -471,6 +496,9 @@ GObject.registerClass({
     }
     forward() {
         this.child.go_forward()
+    }
+    search() {
+        if (this.#searchURL) this.load(this.#searchURL)
     }
     download({ href, token }) {
         const webView = this.child

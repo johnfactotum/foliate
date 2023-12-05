@@ -196,20 +196,10 @@
                         </object>
                       </child>
                       <child type="end">
-                        <object class="GtkToggleButton" id="catalog-search-button">
-                          <property name="visible">False</property>
+                        <object class="GtkButton" id="catalog-search-button">
                           <property name="icon-name">edit-find-symbolic</property>
                           <property name="tooltip-text" translatable="yes">Search</property>
-                          <property name="active" bind-source="catalog-search-bar" bind-property="search-mode-enabled" bind-flags="sync-create|bidirectional"/>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <child type="top">
-                    <object class="GtkSearchBar" id="catalog-search-bar">
-                      <child>
-                        <object class="GtkSearchEntry" id="catalog-search-entry">
-                          <property name="placeholder-text" translatable="yes">Search catalog…</property>
+                          <property name="action-name">catalog.search</property>
                         </object>
                       </child>
                     </object>
