@@ -37,10 +37,13 @@ export const date = (str, showTime = false) => {
     const split = str.split('-').filter(x => x)
     const yearOnly = split.length === 1
     const yearMonthOnly = split.length === 2
-    const date = yearOnly
-        // this is needed because dates like `new Date("100")` is invalid
-        ? new Date(Date.UTC((isBCE ? '-' : '') + split[0]))
-        : new Date(str)
+
+    // years from 0 to 99 treated as 1900 to 1999, and BCE years unsupported,
+    // unless you use "expanded years", which is `+` or `-` followed by 6 digits
+    const [year, ...rest] = split
+    const date = new Date((isBCE ? '-' : '+')
+        + year.replace(/^0+/, '').padStart(6, '0')
+        + (rest.length ? '-' + rest.join('-') : ''))
 
     // fallback when failed to parse date
     if (isNaN(date)) return str
