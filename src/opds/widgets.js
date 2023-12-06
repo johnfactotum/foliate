@@ -1,3 +1,27 @@
+customElements.define('foliate-symbolic', class extends HTMLElement {
+    static observedAttributes = ['src']
+    #root = this.attachShadow({ mode: 'closed' })
+    #sheet = new CSSStyleSheet()
+    #img = document.createElement('img')
+    constructor() {
+        super()
+        this.attachInternals().ariaHidden = 'true'
+        this.#root.adoptedStyleSheets = [this.#sheet]
+        this.#root.append(this.#img)
+        this.#img.style.visibility = 'hidden'
+    }
+    attributeChangedCallback(_, __, val) {
+        this.#img.src = val
+        this.#sheet.replaceSync(`:host {
+            display: inline-flex;
+            background: currentColor;
+            width: min-content;
+            height: min-content;
+            mask: url("${encodeURI(decodeURI(val))}");
+        }`)
+    }
+})
+
 customElements.define('foliate-scrolled', class extends HTMLElement {
     #root = this.attachShadow({ mode: 'closed' })
     constructor() {
@@ -92,7 +116,7 @@ customElements.define('foliate-menubutton', class extends HTMLElement {
     #onBlur = () => this.#button.ariaExpanded = 'false'
     #onClick = e => {
         const target = e.composedPath()[0]
-        if (!this.#button.contains(target) && !this.#menu.contains(target)) {
+        if (!this.contains(target) && !this.#button.contains(target) && !this.#menu.contains(target)) {
             this.#button.setAttribute('aria-expanded', 'false')
         }
     }

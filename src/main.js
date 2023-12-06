@@ -15,6 +15,7 @@ import { setConsoleLogDomain } from 'console'
 globalThis.pkg = {
     name: 'com.github.johnfactotum.Foliate',
     version: '3.0.1',
+    MESON,
 }
 
 GLib.set_prgname(pkg.name)

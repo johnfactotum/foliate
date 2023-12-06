@@ -213,6 +213,9 @@ opds-pub-full {
     max-width: 42em;
 }
 button, foliate-menubutton::part(button) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     padding: 12px 24px;
     font: inherit;
     font-weight: 700;
@@ -273,6 +276,7 @@ foliate-menu:not([hidden]) {
 button[role="menuitem"] {
     border: 0;
     text-align: start;
+    justify-content: start;
     font: menu;
     background: none;
     border-radius: 6px;
@@ -372,7 +376,7 @@ button[role="menuitem"]:active {
         column-gap: 24px;
         row-gap: 9px;
     }
-    img {
+    #cover {
         width: 100%;
         border-radius: 9px;
         box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
@@ -408,13 +412,15 @@ button[role="menuitem"]:active {
     :host([downloading]) #actions > :not(#downloading) { display: none }
     </style>
     <div id="header">
-        <img>
+        <img id="cover">
         <h1></h1>
         <slot name="authors"></slot>
         <div id="actions">
             <div id="downloading">
                 <progress></progress>
-                <button><span aria-hidden="true">✕</span></button>
+                <button>
+                    <foliate-symbolic src="/icons/hicolor/scalable/actions/stop-sign-symbolic.svg"></foliate-symbolic>
+                </button>
             </div>
             <slot name="actions"></slot>
         </div>

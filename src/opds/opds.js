@@ -305,7 +305,9 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
         if (links.length === 1) actions.append(button)
         else {
             const menuButton = document.createElement('foliate-menubutton')
-            menuButton.innerText = '▼'
+            const icon = document.createElement('foliate-symbolic')
+            icon.setAttribute('src', '/icons/hicolor/scalable/actions/pan-down-symbolic.svg')
+            menuButton.append(icon)
             const menu = document.createElement('foliate-menu')
             menu.slot = 'menu'
             menuButton.append(menu)
