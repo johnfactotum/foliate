@@ -172,6 +172,7 @@ customElements.define('opds-pub-full', class extends HTMLElement {
                 color-scheme: light dark;
                 font-family: system-ui;
                 margin: 0;
+                overflow-wrap: anywhere;
             }
             a:any-link {
                 color: highlight;
@@ -360,6 +361,7 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
         tr.append(th, td)
         th.textContent = globalThis.uiText.metadata[k]
         td.textContent = v
+        if (v.length > 30) tr.classList.add('long')
         table.append(tr)
     }
 

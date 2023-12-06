@@ -3,6 +3,7 @@
 <meta name="color-scheme" content="light dark">
 <style>
 :root {
+    overflow-wrap: anywhere;
     font-size: 11pt;
     font-family: system-ui;
     --shade: rgba(0, 0, 0, .1);
@@ -229,6 +230,9 @@ opds-pub-full > [slot="details"] tr {
     grid-row: auto / span 2;
     grid-template-rows: subgrid;
     margin-bottom: 18px;
+}
+opds-pub-full > [slot="details"] tr.long {
+    grid-column: span 2;
 }
 opds-pub-full > [slot="details"] [role="listitem"] {
     display: inline-flex;
