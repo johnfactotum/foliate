@@ -341,7 +341,10 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
 
     const filterDCEL = filterNS(NS.DC)
     const filterDCTERMS = filterNS(NS.DCTERMS)
-    const filterDC = x => filterDCEL(x) && filterDCTERMS(x)
+    const filterDC = x => {
+        const a = filterDCEL(x), b = filterDCTERMS(x)
+        return y => a(y) || b(y)
+    }
     for (const [k, v] of [
         ['publisher', children.find(filterDC('publisher'))?.textContent],
         ['published', await globalThis.formatDate((children.find(filterDCTERMS('issued'))
