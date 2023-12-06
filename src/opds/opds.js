@@ -400,7 +400,8 @@ const renderFeed = (doc, baseURL) => {
     const resolveHref = href => href ? resolveURL(href, baseURL) : null
     const getHref = link => resolveHref(link?.getAttribute('href'))
 
-    const searchURL = getHref(links.find(link => link.getAttribute('type') === MIME.OPENSEARCH))
+    const searchURL = getHref(links.filter(filterRel(r => r === 'search')).find(link =>
+        parseMediaType(link.getAttribute('type')).mediaType === MIME.OPENSEARCH))
     if (searchURL) document.body.dataset.searchUrl = searchURL
     else delete document.body.dataset.searchUrl
     globalThis.updateSearchURL()
