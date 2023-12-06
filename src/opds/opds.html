@@ -210,7 +210,35 @@ body[data-state="search"] #search { visibility: visible }
 }
 opds-pub-full {
     display: block;
-    max-width: 42em;
+    max-width: 640px;
+}
+opds-pub-full > [slot="details"] table {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    column-gap: 12px;
+    row-gap: 3px;
+    margin-top: 24px;
+    margin-bottom: 6px;
+}
+opds-pub-full > [slot="details"] th {
+    text-align: start;
+    font-size: smaller;
+}
+opds-pub-full > [slot="details"] tr {
+    display: grid;
+    grid-row: auto / span 2;
+    grid-template-rows: subgrid;
+    margin-bottom: 18px;
+}
+opds-pub-full > [slot="details"] [role="listitem"] {
+    display: inline-flex;
+    gap: 1ex;
+    margin-inline-end: 2em;
+    font-size: smaller;
+}
+opds-pub-full > [slot="details"] footer {
+    font-size: smaller;
+    color: graytext;
 }
 button, foliate-menubutton::part(button) {
     display: inline-flex;

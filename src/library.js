@@ -37,6 +37,13 @@ const uiText = {
         author: _('Author'),
         contributor: _('Contributor'),
     },
+    metadata: {
+        publisher: _('Publisher'),
+        published: _('Published'),
+        language: _('Language'),
+        format: _('Format'),
+        identifier: _('Identifier'),
+    },
 }
 
 const getURIFromTracker = identifier => {
@@ -433,17 +440,20 @@ GObject.registerClass({
                 disable_web_security: true,
             }),
         })
-        const initFormatMime = webView.provide('formatMime', format.mime)
-        const initFormatPrice = webView.provide('formatPrice',
-            ({ currency, value }) => format.price(currency, value))
+        const initFuncs = [
+            webView.provide('formatMime', format.mime),
+            webView.provide('formatPrice',
+                ({ currency, value }) => format.price(currency, value)),
+            webView.provide('formatLanguage', format.language),
+            webView.provide('formatDate', format.date),
+        ]
         utils.connect(webView, {
             'context-menu': () => false,
             'load-changed': (webView, event) => {
                 if (event === WebKit.LoadEvent.FINISHED) {
                     webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}`)
                         .catch(e => console.error(e))
-                    initFormatMime()
-                    initFormatPrice()
+                    for (const f of initFuncs) f()
 
                     // update after going back/foward
                     webView.exec('updateSearchURL')

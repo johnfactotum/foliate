@@ -7,6 +7,8 @@ const NS = {
     ATOM: 'http://www.w3.org/2005/Atom',
     OPDS: 'http://opds-spec.org/2010/catalog',
     THR: 'http://purl.org/syndication/thread/1.0',
+    DC: 'http://purl.org/dc/elements/1.1/',
+    DCTERMS: 'http://purl.org/dc/terms/',
 }
 
 const MIME = {
@@ -330,6 +332,55 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
             actions.append(div)
         }
     }
+
+    const details = document.createElement('div')
+    details.slot = 'details'
+    item.append(details)
+    const table = document.createElement('table')
+    details.append(table)
+
+    const filterDCEL = filterNS(NS.DC)
+    const filterDCTERMS = filterNS(NS.DCTERMS)
+    const filterDC = x => filterDCEL(x) && filterDCTERMS(x)
+    for (const [k, v] of [
+        ['publisher', children.find(filterDC('publisher'))?.textContent],
+        ['published', await globalThis.formatDate((children.find(filterDCTERMS('issued'))
+            ?? children.find(filterDC('date')))?.textContent)],
+        ['language', await globalThis.formatLanguage(children.find(filterDC('language'))?.textContent)],
+        ['format', await globalThis.formatMime(children.find(filterDCTERMS('format'))?.textContent)],
+        ['identifier', children.find(filterDC('identifier'))?.textContent],
+    ]) {
+        if (!v) continue
+        const tr = document.createElement('tr')
+        const th = document.createElement('th')
+        const td = document.createElement('td')
+        tr.append(th, td)
+        th.textContent = globalThis.uiText.metadata[k]
+        td.textContent = v
+        table.append(tr)
+    }
+
+    const tags = document.createElement('div')
+    tags.role = 'list'
+    details.append(tags)
+    for (const category of children.filter(filter('category'))) {
+        const li = document.createElement('div')
+        li.role = 'listitem'
+        const icon = document.createElement('foliate-symbolic')
+        icon.setAttribute('src', '/icons/hicolor/scalable/actions/tag-symbolic.svg')
+        const span = document.createElement('span')
+        span.textContent = category.getAttribute('label') ?? category.getAttribute('term')
+        li.append(icon, span)
+        tags.append(li)
+    }
+
+    const footer = document.createElement('footer')
+    details.append(footer)
+    const p = document.createElement('p')
+    p.textContent = (children.find(filter('rights'))
+        ?? children.find(filterDC('rights')))?.textContent ?? ''
+    footer.append(p)
+
     return item
 }
 
