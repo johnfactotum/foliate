@@ -438,6 +438,7 @@ GObject.registerClass({
                 enable_html5_database: false,
                 enable_html5_local_storage: false,
                 disable_web_security: true,
+                user_agent: pkg.userAgent,
             }),
         })
         const initFuncs = [

@@ -17,6 +17,7 @@ globalThis.pkg = {
     version: '3.0.1',
     MESON,
 }
+pkg.userAgent = `Foliate/${pkg.version}`
 
 GLib.set_prgname(pkg.name)
 setConsoleLogDomain(pkg.name)
