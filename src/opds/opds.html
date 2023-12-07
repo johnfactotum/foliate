@@ -45,13 +45,15 @@ h2 {
 }
 .container {
     display: grid;
-    gap: 24px;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    margin-bottom: 24px;
 }
 .container:has(opds-pub) {
     gap: 24px;
     row-gap: 0;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr))
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    margin-bottom: 0;
 }
 .carousel:has(opds-pub) {
     gap: 18px;
@@ -240,10 +242,6 @@ opds-pub-full > [slot="details"] [role="listitem"] {
     margin-inline-end: 2em;
     font-size: smaller;
 }
-opds-pub-full > [slot="details"] footer {
-    font-size: smaller;
-    color: graytext;
-}
 button, foliate-menubutton::part(button) {
     display: inline-flex;
     justify-content: center;
@@ -426,6 +424,9 @@ button[role="menuitem"]:active {
         border: 0;
         width: 100%;
         margin-top: 24px;
+    }
+    :host(:not([description])) iframe {
+        display: none;
     }
     #actions, #actions > * {
         display: flex;

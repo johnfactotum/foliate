@@ -41,7 +41,6 @@ const uiText = {
         publisher: _('Publisher'),
         published: _('Published'),
         language: _('Language'),
-        format: _('Format'),
         identifier: _('Identifier'),
     },
 }
@@ -467,7 +466,8 @@ GObject.registerClass({
                     case WebKit.PolicyDecisionType.NAVIGATION_ACTION:
                     case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION: {
                         const { uri } = decision.navigation_action.get_request()
-                        if (!uri.startsWith('foliate-opds:') && !uri.startsWith('blob:')) {
+                        if (!uri.startsWith('foliate-opds:') && !uri.startsWith('blob:')
+                        && uri !== 'about:blank') {
                             decision.ignore()
                             Gtk.show_uri(null, uri, Gdk.CURRENT_TIME)
                             return true
@@ -597,7 +597,9 @@ const addCatalogItem = (label, value) => {
             label, value,
         }))
 }
-addCatalogItem('Feedbooks', 'https://catalog.feedbooks.com/publicdomain/browse/top.atom?lang=en')
+addCatalogItem('Standard Ebooks', 'https://standardebooks.org/feeds/opds/new-releases')
+addCatalogItem('Feedbooks', 'https://catalog.feedbooks.com/catalog/index.json')
+addCatalogItem('Feedbooks (OPDS 1)', 'https://catalog.feedbooks.com/publicdomain/browse/top.atom?lang=en')
 addCatalogItem('Project Gutenberg', 'https://m.gutenberg.org/ebooks.opds/')
 addCatalogItem('Manybooks', 'http://manybooks.net/opds/')
 addCatalogItem('unglue.it', 'https://unglue.it/api/opds/')

@@ -9,6 +9,7 @@ const NS = {
     THR: 'http://purl.org/syndication/thread/1.0',
     DC: 'http://purl.org/dc/elements/1.1/',
     DCTERMS: 'http://purl.org/dc/terms/',
+    XHTML: 'http://www.w3.org/1999/xhtml',
 }
 
 const MIME = {
@@ -17,6 +18,7 @@ const MIME = {
     XHTML: 'application/xhtml+xml',
     HTML: 'text/html',
     OPENSEARCH: 'application/opensearchdescription+xml',
+    OPDS2: 'application/opds+json',
 }
 
 const REL = {
@@ -31,18 +33,31 @@ const REL = {
     ],
 }
 
-const groupBy = (arr, f) => {
+const SYMBOL = {
+    FACET_GROUP: Symbol('facetGroup'),
+    ACTIVE_FACET: Symbol('activeFacet'),
+    SUMMARY: Symbol('summary'),
+    CONTENT: 'http://invalid.invalid/#' + Math.random(),
+}
+
+const groupByArray = (arr, f) => {
     const map = new Map()
-    for (const el of arr) {
-        const key = f(el)
-        const group = map.get(key)
-        if (group) group.push(el)
-        else map.set(key, [el])
+    if (arr) for (const el of arr) {
+        const keys = f(el)
+        for (const key of [keys].flat()) {
+            const group = map.get(key)
+            if (group) group.push(el)
+            else map.set(key, [el])
+        }
     }
     return map
 }
 
+const filterKeys = (map, f) => Array.from(map, ([key, val]) =>
+    f(key) ? [key, val] : null).filter(x => x)
+
 const resolveURL = (url, relativeTo) => {
+    if (!url) return ''
     try {
         if (relativeTo.includes(':')) return new URL(url, relativeTo).toString()
         // the base needs to be a valid URL, so set a base URL and then remove it
@@ -58,6 +73,7 @@ const resolveURL = (url, relativeTo) => {
 
 // https://www.rfc-editor.org/rfc/rfc7231#section-3.1.1
 const parseMediaType = str => {
+    if (!str) return null
     const [mediaType, ...ps] = str.split(/ *; */)
     return {
         mediaType: mediaType.toLowerCase(),
@@ -69,9 +85,12 @@ const parseMediaType = str => {
 }
 
 const isOPDSCatalog = str => {
-    const { mediaType, parameters } = parseMediaType(str)
-    return mediaType === MIME.ATOM
-        && parameters.profile?.toLowerCase() === 'opds-catalog'
+    const parsed = parseMediaType(str)
+    if (!parsed) return false
+    const { mediaType, parameters } = parsed
+    if (mediaType !== MIME.ATOM && mediaType !== MIME.OPDS2) return false
+    if (!parameters.profile) return true
+    return parameters.profile.toLowerCase() === 'opds-catalog'
 }
 
 // ignore the namespace if it doesn't appear in document at all
@@ -81,17 +100,6 @@ const useNS = (doc, ns) =>
 const filterNS = ns => ns
     ? name => el => el.namespaceURI === ns && el.localName === name
     : name => el => el.localName === name
-
-const filterRel = f => el => el.getAttribute('rel')?.split(/ +/)?.some(f)
-
-const getInheritedAttributeNS = (el, ns, attr, defaultValue) => {
-    if (!el) return defaultValue
-    const lang = el.getAttributeNS(ns, attr)
-    if (lang) return lang
-    return getInheritedAttributeNS(el.parentElement, ns, attr, defaultValue)
-}
-
-const getXMLLang = el => getInheritedAttributeNS(el, NS.XML, 'lang', 'en')
 
 const langToLocales = lang => {
     try { return new Intl.Locale(lang) }
@@ -212,40 +220,240 @@ customElements.define('opds-pub-full', class extends HTMLElement {
     }
 })
 
-const getImageLink = links => {
-    for (const R of REL.IMG) {
-        const link = links.find(filterRel(r => r === R))
-        if (link) return link
-    }
+const getContent = el => {
+    if (!el) return
+    const type = el.getAttribute('type')
+    const value = type === 'xhtml' ? el.innerHTML
+        : type === 'html' ? el.textContent
+            .replaceAll('&lt;', '<')
+            .replaceAll('&gt;', '>')
+            .replaceAll('&amp;', '&')
+        : el.textContent
+    return { value, type }
 }
 
 const getPrice = link => {
     const price = link.getElementsByTagNameNS(NS.OPDS, 'price')[0]
-    return price ? globalThis.formatPrice({
+    return price ? {
         currency: price.getAttribute('currencycode'),
         value: price.textContent,
-    }) : null
+    } : null
 }
 
-const getContent = (el, baseURL) => {
-    if (!el) return ''
-    const type = el.getAttribute('type')
-    const str = type === 'xhtml'
-        ? `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head><base href="${baseURL}"/></head>
-    <body>${el.innerHTML}</body>
-</html>`
-        : `<!DOCTYPE html>
-            <base href="${baseURL}"><body>` + (type === 'html' ? el.textContent
-            .replaceAll('&lt;', '<')
-            .replaceAll('&gt;', '>')
-            .replaceAll('&amp;', '&')
-        : el.textContent)
-    const blob = new Blob([str], { type: type === 'xhtml' ? MIME.XHTML : MIME.HTML })
-    return URL.createObjectURL(blob)
+const getLink = link => ({
+    rel: link.getAttribute('rel')?.split(/ +/),
+    href: link.getAttribute('href'),
+    type: link.getAttribute('type'),
+    title: link.getAttribute('title'),
+    properties: {
+        price: getPrice(link),
+        numberOfItems: link.getAttributeNS(NS.THR, 'count'),
+    },
+    [SYMBOL.FACET_GROUP]: link.getAttributeNS(NS.OPDS, 'facetGroup'),
+    [SYMBOL.ACTIVE_FACET]: link.getAttributeNS(NS.OPDS, 'activeFacet') === 'true',
+})
+
+const getPublication = (entry, filter) => {
+    const children = Array.from(entry.children)
+    const filterDCEL = filterNS(NS.DC)
+    const filterDCTERMS = filterNS(NS.DCTERMS)
+    const filterDC = x => {
+        const a = filterDCEL(x), b = filterDCTERMS(x)
+        return y => a(y) || b(y)
+    }
+    const links = children.filter(filter('link')).map(getLink)
+    const linksByRel = groupByArray(links, link => link.rel)
+    return {
+        metadata: {
+            title: children.find(filter('title'))?.textContent ?? '',
+            author: children.filter(filter('author')).map(person => {
+                const NS = person.namespaceURI
+                const uri = person.getElementsByTagNameNS(NS, 'uri')[0]?.textContent
+                return {
+                    name: person.getElementsByTagNameNS(NS, 'name')[0]?.textContent ?? '',
+                    links: uri ? [{ href: uri }] : [],
+                }
+            }),
+            publisher: children.find(filterDC('publisher'))?.textContent,
+            published: (children.find(filterDCTERMS('issued'))
+                ?? children.find(filterDC('date')))?.textContent,
+            language: children.find(filterDC('language'))?.textContent,
+            identifier: children.find(filterDC('identifier'))?.textContent,
+            subjects: children.filter(filter('category')).map(category => ({
+                name: category.getAttribute('label'),
+                code: category.getAttribute('term'),
+            })),
+            [SYMBOL.CONTENT]: getContent(children.find(filter('content'))
+                ?? children.find(filter('summary'))),
+        },
+        links,
+        images: REL.IMG.map(R => linksByRel.get(R)?.[0]).filter(x => x),
+    }
 }
+
+const getFeed = doc => {
+    const ns = useNS(doc, NS.ATOM)
+    const filter = filterNS(ns)
+    const children = Array.from(doc.documentElement.children)
+    const entries = children.filter(filter('entry'))
+    const links = children.filter(filter('link')).map(getLink)
+    const linksByRel = groupByArray(links, link => link.rel)
+
+    const groupedItems = new Map([[null, []]])
+    const groupLinkMap = new Map()
+    for (const entry of entries) {
+        const children = Array.from(entry.children)
+        const linksByRel = groupByArray(children.filter(filter('link')).map(getLink), link => link.rel)
+        const isPub = [...linksByRel.keys()].some(rel => rel?.startsWith(REL.ACQ))
+
+        const groupLinks = linksByRel.get(REL.GROUP) ?? linksByRel.get('collection')
+        const groupLink = groupLinks?.length
+            ? groupLinks.find(link => groupedItems.has(link.href)) ?? groupLinks[0] : null
+        if (groupLink && !groupLinkMap.has(groupLink.href))
+            groupLinkMap.set(groupLink.href, groupLink)
+
+        const item = isPub
+            ? getPublication(entry, filter)
+            : Object.assign(linksByRel.values().next().value?.[0], {
+                title: children.find(filter('title'))?.textContent,
+                [SYMBOL.SUMMARY]: children.find(filter('content'))?.textContent ?? '',
+            })
+
+        const arr = groupedItems.get(groupLink?.href ?? null)
+        if (arr) arr.push(item)
+        else groupedItems.set(groupLink.href, [item])
+    }
+    return {
+        metadata: {
+            title: children.find(filter('title'))?.textContent,
+            subtitle: children.find(filter('subtitle'))?.textContent,
+        },
+        links,
+        groups: Array.from(groupedItems, ([key, val]) => {
+            const link = groupLinkMap.get(key)
+            return {
+                metadata: link ? {
+                    title: link.title,
+                    numberOfItems: link.properties.numberOfItems,
+                } : null,
+                links: link ? [{ rel: 'self', href: link.href, type: link.type }] : [],
+                [val[0]?.metadata ? 'publications' : 'navigation']: val,
+            }
+        }),
+        facets: Array.from(
+            groupByArray(linksByRel.get(REL.FACET) ?? [], link => link[SYMBOL.FACET_GROUP]),
+            ([facet, links]) => ({ metadata: { title: facet }, links })),
+    }
+}
+
+const renderAcquisitionButton = async (rel, links, callback) => {
+    const label = globalThis.uiText.acq[rel] ?? globalThis.uiText.acq[REL.ACQ]
+    const priceData = links[0].properties?.price
+    const price = priceData ? await globalThis.formatPrice(priceData) : null
+
+    const button = document.createElement('button')
+    button.innerText = price ? `${label} · ${price}` : label
+    button.onclick = () => callback(links[0].href)
+    if (links.length === 1) return button
+    else {
+        const menuButton = document.createElement('foliate-menubutton')
+        const icon = document.createElement('foliate-symbolic')
+        icon.setAttribute('src', '/icons/hicolor/scalable/actions/pan-down-symbolic.svg')
+        menuButton.append(icon)
+        const menu = document.createElement('foliate-menu')
+        menu.slot = 'menu'
+        menuButton.append(menu)
+
+        for (const link of links) {
+            const type = parseMediaType(link.type)?.mediaType
+            const priceData = links[0].properties?.price
+            const price = priceData ? await globalThis.formatPrice(priceData) : null
+
+            const menuitem = document.createElement('button')
+            menuitem.role = 'menuitem'
+            menuitem.textContent = (link.title || await globalThis.formatMime(type))
+                + (price ? ' · ' + price : '')
+            menuitem.onclick = () => callback(link.href)
+            menu.append(menuitem)
+        }
+
+        const div = document.createElement('div')
+        div.classList.add('split-button')
+        div.replaceChildren(button, menuButton)
+        return div
+    }
+}
+
+const renderAcquisitionButtons = (links, callback) =>
+    Promise.all(filterKeys(links, rel => rel.startsWith(REL.ACQ))
+        .map(([rel, links]) => renderAcquisitionButton(rel, links, callback)))
+
+const renderFacets = (facets, baseURL) => facets.map(({ metadata, links }) => {
+    const section = document.createElement('section')
+    const h = document.createElement('h3')
+    h.textContent = metadata.title ?? ''
+    const l = document.createElement('ul')
+    l.append(...links.map(link => {
+        const li = document.createElement('li')
+        const a = document.createElement('a')
+        const href = resolveURL(link.href, baseURL)
+        a.href = isOPDSCatalog(link.type) ? '?url=' + encodeURIComponent(href) : href
+        const title = link.title ?? ''
+        a.title = title
+        a.textContent = title
+        li.append(a)
+        const count = link.properties?.numberOfItems
+        if (count) {
+            const span = document.createElement('span')
+            span.textContent = count
+            li.append(span)
+        }
+        if (link[SYMBOL.ACTIVE_FACET] || link.rel === 'self' || link.rel?.includes('self'))
+            li.ariaCurrent = 'true'
+        return li
+    }))
+    section.append(h, l)
+    return section
+})
+
+const renderGroups = (groups, baseURL)  => groups.flatMap(({ metadata, links, publications, navigation }) => {
+    const container = document.createElement('div')
+    container.classList.add('container')
+    container.replaceChildren(...(publications ?? navigation).map(item => {
+        const isPub = 'metadata' in item
+        const el = document.createElement(isPub ? 'opds-pub' : 'opds-nav')
+        if (isPub) {
+            el.setAttribute('heading', item.metadata.title ?? '')
+            const src = resolveURL(item.images?.[0]?.href, baseURL)
+            if (src) el.setAttribute('image', src)
+            el.setAttribute('href', '#' + encodeURIComponent(JSON.stringify(item)))
+        } else {
+            el.setAttribute('heading', item.title ?? '')
+            el.setAttribute('description', item[SYMBOL.SUMMARY] ?? '')
+            const href = resolveURL(item.href, baseURL)
+            el.setAttribute('href', isOPDSCatalog(item.type)
+                ? '?url=' + encodeURIComponent(href) : href)
+        }
+        return el
+    }))
+    if (!metadata) return container
+
+    const div = document.createElement('div')
+    const h = document.createElement('h2')
+    h.textContent = metadata.title ?? ''
+    div.append(h)
+    const link = groupByArray(links, link => link.rel).get('self')?.[0]
+    if (link) {
+        const a = document.createElement('a')
+        const url = resolveURL(link.href, baseURL)
+        a.href = isOPDSCatalog(link.type) ? '?url=' + encodeURIComponent(url) : url
+        a.textContent = globalThis.uiText.viewCollection
+        div.append(a)
+    }
+    div.classList.add('carousel-header')
+    container.classList.add('carousel')
+    return [document.createElement('hr'), div, container]
+})
 
 const entryMap = new Map()
 globalThis.updateProgress = ({ progress, token }) =>
@@ -253,86 +461,68 @@ globalThis.updateProgress = ({ progress, token }) =>
 globalThis.finishDownload = ({ token }) =>
     entryMap.get(token)?.deref()?.removeAttribute('downloading')
 
-const renderEntry = async (entry, filter, getHref, baseURL) => {
-    const lang = getXMLLang(entry)
-    const children = Array.from(entry.children)
-    const links = children.filter(filter('link'))
-    const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
+const renderContent = (value, type, baseURL) => {
+    const doc = type === 'xhtml'
+        ? document.implementation.createDocument(NS.XHTML, 'html')
+        : document.implementation.createHTMLDocument()
+    if (type === 'xhtml') {
+        doc.documentElement.append(doc.createElement('head'))
+        doc.documentElement.append(doc.createElement('body'))
+    }
+    const base = doc.createElement('base')
+    base.href = baseURL
+    doc.head.append(base)
+    if (!type || type === 'text') doc.body.textContent = value
+    else doc.body.innerHTML = value
+    return new Blob([new XMLSerializer().serializeToString(doc)],
+        { type: type === 'xhtml' ? MIME.XHTML : MIME.HTML })
+}
 
+// TODO: handle localized strings etc. in webpub
+const renderPublication = async (pub, baseURL) => {
     const item = document.createElement('opds-pub-full')
-    item.lang = lang
-    item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
-    item.setAttribute('description', getContent(
-        children.find(filter('content')) ?? children.find(filter('summary')), baseURL))
-    const src = getHref(getImageLink(links))
-    if (src) item.setAttribute('image', src)
-
-    const authors = document.createElement('div')
-    authors.slot = 'authors'
-    item.append(authors)
-    const authorAs = children.filter(filter('author')).map(person => {
-        const NS = person.namespaceURI
-        const uri = person.getElementsByTagNameNS(NS, 'uri')[0]?.textContent
-        const a = document.createElement('a')
-        a.innerText = person.getElementsByTagNameNS(NS, 'name')[0]?.textContent ?? ''
-        // TODO: this might be a link to an OPDS catalog
-        // actually I'm not sure if you're supposed to link to it at all
-        if (uri) a.href = resolveURL(uri, baseURL)
-        return a
-    })
-    authors.replaceChildren(...(authorAs.length <= 1 ? authorAs
-        : formatElementList(langToLocales(lang), authorAs)))
-
-    const actions = document.createElement('div')
-    actions.slot = 'actions'
-    item.append(actions)
-
     const token = new Date() + Math.random()
     entryMap.set(token, new WeakRef(item))
     item.addEventListener('cancel-download', () => emit({ type: 'cancel', token }))
     const download = href => {
+        href = resolveURL(href, baseURL)
         item.setAttribute('downloading', '')
         item.removeAttribute('progress')
         emit({ type: 'download', href, token })
     }
 
-    const groups = groupBy(acqLinks, link =>
-        link.getAttribute('rel').split(/ +/).find(r => r.startsWith(REL.ACQ)))
-    for (const [rel, links] of groups.entries()) {
-        const label = globalThis.uiText.acq[rel] ?? globalThis.uiText.acq[REL.ACQ]
-        const price = await getPrice(links[0])
+    const src = resolveURL(pub.images?.[0]?.href, baseURL)
+    if (src) item.setAttribute('image', src)
 
-        const button = document.createElement('button')
-        button.innerText = price ? `${label} · ${price}` : label
-        button.onclick = () => download(getHref(links[0]))
-        if (links.length === 1) actions.append(button)
-        else {
-            const menuButton = document.createElement('foliate-menubutton')
-            const icon = document.createElement('foliate-symbolic')
-            icon.setAttribute('src', '/icons/hicolor/scalable/actions/pan-down-symbolic.svg')
-            menuButton.append(icon)
-            const menu = document.createElement('foliate-menu')
-            menu.slot = 'menu'
-            menuButton.append(menu)
+    item.setAttribute('heading', pub.metadata.title)
 
-            for (const link of links) {
-                const type = link.getAttribute('type')
-                const title = link.getAttribute('title')
-                const price = await getPrice(links[0])
-                const menuitem = document.createElement('button')
-                menuitem.role = 'menuitem'
-                menuitem.textContent = (title || await globalThis.formatMime(type))
-                    + (price ? ' · ' + price : '')
-                menuitem.onclick = () => download(getHref(link))
-                menu.append(menuitem)
+    const authors = document.createElement('div')
+    authors.slot = 'authors'
+    item.append(authors)
+    const authorAs = [pub.metadata.author ?? []].flat().map(author => {
+        const a = document.createElement('a')
+        a.innerText = typeof author === 'string' ? author : author.name
+        if (author.links?.length) {
+            for (const link of author.links) if (isOPDSCatalog(link.type)) {
+                a.href = '?url=' + encodeURIComponent(resolveURL(link.href, baseURL))
+                return a
             }
-
-            const div = document.createElement('div')
-            div.classList.add('split-button')
-            div.replaceChildren(button, menuButton)
-            actions.append(div)
+            a.href = resolveURL(author.links[0].href, baseURL)
         }
-    }
+        return a
+    })
+    authors.append(...(authorAs.length <= 1 ? authorAs
+        : formatElementList(langToLocales(pub.metadata.language ?? 'en'), authorAs)))
+
+    const blob = pub.metadata[SYMBOL.CONTENT]
+        ? renderContent(pub.metadata[SYMBOL.CONTENT].value, pub.metadata[SYMBOL.CONTENT].type, baseURL)
+        : pub.metadata.description ? renderContent(pub.metadata.description, 'html', baseURL) : null
+    if (blob) item.setAttribute('description', URL.createObjectURL(blob))
+
+    const actions = document.createElement('div')
+    item.append(actions)
+    actions.slot = 'actions'
+    actions.append(...await renderAcquisitionButtons(groupByArray(pub.links, link => link.rel), download))
 
     const details = document.createElement('div')
     details.slot = 'details'
@@ -340,19 +530,11 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
     const table = document.createElement('table')
     details.append(table)
 
-    const filterDCEL = filterNS(NS.DC)
-    const filterDCTERMS = filterNS(NS.DCTERMS)
-    const filterDC = x => {
-        const a = filterDCEL(x), b = filterDCTERMS(x)
-        return y => a(y) || b(y)
-    }
-    for (const [k, v] of [
-        ['publisher', children.find(filterDC('publisher'))?.textContent],
-        ['published', await globalThis.formatDate((children.find(filterDCTERMS('issued'))
-            ?? children.find(filterDC('date')))?.textContent)],
-        ['language', await globalThis.formatLanguage(children.find(filterDC('language'))?.textContent)],
-        ['format', await globalThis.formatMime(children.find(filterDCTERMS('format'))?.textContent)],
-        ['identifier', children.find(filterDC('identifier'))?.textContent],
+    for (const [k, v = pub.metadata[k]] of [
+        ['publisher'],
+        ['published', await globalThis.formatDate(pub.metadata.published)],
+        ['language', await globalThis.formatLanguage(pub.metadata.language)],
+        ['identifier'],
     ]) {
         if (!v) continue
         const tr = document.createElement('tr')
@@ -368,145 +550,45 @@ const renderEntry = async (entry, filter, getHref, baseURL) => {
     const tags = document.createElement('div')
     tags.role = 'list'
     details.append(tags)
-    for (const category of children.filter(filter('category'))) {
+    tags.append(...[pub.metadata.subjects ?? []].flat().map(subject => {
         const li = document.createElement('div')
         li.role = 'listitem'
         const icon = document.createElement('foliate-symbolic')
         icon.setAttribute('src', '/icons/hicolor/scalable/actions/tag-symbolic.svg')
         const span = document.createElement('span')
-        span.textContent = category.getAttribute('label') ?? category.getAttribute('term')
+        span.textContent = typeof subject === 'string' ? subject : subject.name ?? subject.code
         li.append(icon, span)
-        tags.append(li)
-    }
-
-    const footer = document.createElement('footer')
-    details.append(footer)
-    const p = document.createElement('p')
-    p.textContent = (children.find(filter('rights'))
-        ?? children.find(filterDC('rights')))?.textContent ?? ''
-    footer.append(p)
+        return li
+    }))
 
     return item
 }
 
-const renderFeed = (doc, baseURL) => {
-    const ns = useNS(doc, NS.ATOM)
-    const filter = filterNS(ns)
-    const lang = getXMLLang(doc.documentElement)
-    const children = Array.from(doc.documentElement.children)
-    const entries = children.filter(filter('entry'))
-    const links = children.filter(filter('link'))
-
-    const resolveHref = href => href ? resolveURL(href, baseURL) : null
-    const getHref = link => resolveHref(link?.getAttribute('href'))
-
-    const searchURL = getHref(links.filter(filterRel(r => r === 'search')).find(link =>
-        parseMediaType(link.getAttribute('type')).mediaType === MIME.OPENSEARCH))
-    if (searchURL) document.body.dataset.searchUrl = searchURL
+const renderFeed = (feed, baseURL) => {
+    const linksByRel = groupByArray(feed.links, link => link.rel)
+    const searchLink = linksByRel.get('search')
+        ?.find(link => parseMediaType(link.type).mediaType === MIME.OPENSEARCH)
+    if (searchLink) document.body.dataset.searchUrl = resolveURL(searchLink.href, baseURL)
     else delete document.body.dataset.searchUrl
     globalThis.updateSearchURL()
 
-    const items = []
-    const groupedItems = new Map()
-    const groups = new Map()
-    for (const [i, entry] of entries.entries()) {
-        const children = Array.from(entry.children)
-        const links = children.filter(filter('link'))
-        const acqLinks = links.filter(filterRel(r => r.startsWith(REL.ACQ)))
+    document.querySelector('#feed h1').textContent = feed.metadata.title ?? ''
+    document.querySelector('#feed p').textContent = feed.metadata.subtitle ?? ''
 
-        const groupLinks = links.filter(filterRel(r => r === REL.GROUP || r === 'collection'))
-        const groupLink = groupLinks.length
-            ? groupLinks.find(link => groupedItems.has(link.getAttribute('href'))) ?? groupLinks[0] : null
-        const groupHref = groupLink?.getAttribute('href')
-        if (groupLink && !groups.has(groupHref)) groups.set(groupHref, {
-            title: groupLink.getAttribute('title'),
-            type: groupLink.getAttribute('type'),
-        })
-
-        const item = document.createElement(acqLinks.length ? 'opds-pub' : 'opds-nav')
-        item.setAttribute('heading', children.find(filter('title'))?.textContent ?? '')
-        if (acqLinks.length) {
-            const src = getHref(getImageLink(links))
-            if (src) item.setAttribute('image', src)
-            item.setAttribute('href', '#' + i)
-        } else {
-            item.setAttribute('description', children.find(filter('content'))?.textContent ?? '')
-            const href = getHref(links.find(el => isOPDSCatalog(el.getAttribute('type'))) ?? links[0])
-            if (href) item.setAttribute('href', '?url=' + encodeURIComponent(href))
-        }
-
-        if (groupHref) {
-            const arr = groupedItems.get(groupHref)
-            if (arr) arr.push(item)
-            else groupedItems.set(groupHref, [item])
-        } else items.push(item)
-    }
-
-    const main = document.querySelector('#feed main')
-    main.replaceChildren(...[[null, items], ...groupedItems.entries()].flatMap(([href, arr]) => {
-        const container = document.createElement('div')
-        container.classList.add('container')
-        container.replaceChildren(...arr)
-        if (href == null) return container
-
-        const { title, type } = groups.get(href)
-        const div = document.createElement('div')
-        const h = document.createElement('h2')
-        h.textContent = title
-        const a = document.createElement('a')
-        const url = resolveHref(href)
-        a.href = isOPDSCatalog(type) ? '?url=' + encodeURIComponent(url) : url
-        a.textContent = globalThis.uiText.viewCollection
-        div.append(h, a)
-        div.classList.add('carousel-header')
-        container.classList.add('carousel')
-        return [document.createElement('hr'), div, container]
-    }))
-
-    const facetLinks = links.filter(filterRel(r => r.startsWith(REL.FACET)))
-    const facets = groupBy(facetLinks, link => link.getAttributeNS(NS.OPDS, 'facetGroup'))
-    document.querySelector('#nav').replaceChildren(...Array.from(facets.entries(), ([facet, links]) => {
-        const section = document.createElement('section')
-        const h = document.createElement('h3')
-        h.textContent = facet ?? ''
-        const l = document.createElement('ul')
-        l.append(...links.map(link => {
-            const li = document.createElement('li')
-            const a = document.createElement('a')
-            const url = getHref(link)
-            a.href = isOPDSCatalog(link.getAttribute('type')) ? '?url=' + encodeURIComponent(url) : url
-            const title = link.getAttribute('title') ?? ''
-            a.title = title
-            a.textContent = title
-            li.append(a)
-            const count = link.getAttributeNS(NS.THR, 'count')
-            if (count) {
-                const span = document.createElement('span')
-                span.textContent = count
-                li.append(span)
-            }
-            if (link.getAttributeNS(NS.OPDS, 'activeFacet') === 'true')
-                li.ariaCurrent = 'true'
-            return li
-        }))
-        section.append(h, l)
-        return section
-    }))
-
-    document.querySelector('#feed h1').textContent = children.find(filter('title'))?.textContent ?? ''
-    document.querySelector('#feed p').textContent = children.find(filter('subtitle'))?.textContent ?? ''
-    document.querySelector('#feed').lang = lang
+    document.querySelector('#feed main').append(...renderGroups(feed.groups, baseURL))
+    if (feed.facets)
+        document.querySelector('#nav').append(...renderFacets(feed.facets, baseURL))
 
     addEventListener('hashchange', () => {
         const hash = location.hash.slice(1)
-        const entry = entries[hash]
-        if (!entry) {
+        if (!hash) {
             document.body.dataset.state = 'feed'
             document.querySelector('#entry').replaceChildren()
         } else {
             document.body.dataset.state = 'entry'
-            renderEntry(entry, filter, getHref, baseURL).then(item =>
-                document.querySelector('#entry').replaceChildren(item))
+            const pub = JSON.parse(decodeURIComponent(hash))
+            renderPublication(pub, baseURL)
+                .then(el => document.querySelector('#entry').append(el))
                 .catch(e => console.error(e))
         }
     })
@@ -597,14 +679,20 @@ try {
     if (text.startsWith('<')) {
         const doc = new DOMParser().parseFromString(text, MIME.XML)
         const { documentElement: { localName } } = doc
-        if (localName === 'feed') renderFeed(doc, url)
+        if (localName === 'feed') renderFeed(getFeed(doc), url)
         else if (localName === 'entry') throw new Error('todo')
         else if (localName === 'OpenSearchDescription') renderOpenSearch(doc, url)
         else throw new Error(`root element is <${localName}>; expected <feed> or <entry>`)
     }
     else {
-        JSON.parse(text)
-        // TODO: OPDS 2.0
+        const feed = JSON.parse(text)
+        const { navigation, publications } = feed
+        feed.groups = [
+            navigation ? { navigation } : null,
+            publications ? { publications } : null,
+            ...(feed.groups ?? []),
+        ].filter(x => x)
+        renderFeed(feed, url)
     }
 } catch (e) {
     console.error(e)
