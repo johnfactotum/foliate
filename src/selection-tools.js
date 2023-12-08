@@ -7,7 +7,7 @@ import { gettext as _ } from 'gettext'
 
 import * as utils from './utils.js'
 import { WebView } from './webview.js'
-import { locales } from './format.js'
+import { locales, matchLocales } from './format.js'
 
 const getLanguage = lang => {
     try {
@@ -24,20 +24,7 @@ const getGoogleTranslateLanguages = utils.memoize(() => {
     // [...document.querySelector('table').querySelectorAll('tr')].map(tr => tr.querySelector('code')?.innerText).filter(x => x).map(x => `'${x}'`).join(', ')
     const displayName = new Intl.DisplayNames(locales, { type: 'language' })
     const langs = ['af', 'sq', 'am', 'ar', 'hy', 'as', 'ay', 'az', 'bm', 'eu', 'be', 'bn', 'bho', 'bs', 'bg', 'ca', 'ceb', 'zh-CN', 'zh-TW', 'co', 'hr', 'cs', 'da', 'dv', 'doi', 'nl', 'en', 'eo', 'et', 'ee', 'fil', 'fi', 'fr', 'fy', 'gl', 'ka', 'de', 'el', 'gn', 'gu', 'ht', 'ha', 'haw', 'he', 'hi', 'hmn', 'hu', 'is', 'ig', 'ilo', 'id', 'ga', 'it', 'ja', 'jv', 'kn', 'kk', 'km', 'rw', 'gom', 'ko', 'kri', 'ku', 'ckb', 'ky', 'lo', 'la', 'lv', 'ln', 'lt', 'lg', 'lb', 'mk', 'mai', 'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mni-Mtei', 'lus', 'mn', 'my', 'ne', 'no', 'ny', 'or', 'om', 'ps', 'fa', 'pl', 'pt', 'pa', 'qu', 'ro', 'ru', 'sm', 'sa', 'gd', 'nso', 'sr', 'st', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'es', 'su', 'sw', 'sv', 'tl', 'tg', 'ta', 'tt', 'te', 'th', 'ti', 'ts', 'tr', 'tk', 'ak', 'uk', 'ur', 'ug', 'uz', 'vi', 'cy', 'xh', 'yi', 'yo', 'zu']
-    let defaultLang
-    for (const locale of locales.map(locale => locale.baseName)) {
-        if (locale === 'zh-CN' || locale === 'zh-TW') {
-            defaultLang = locale
-            break
-        }
-        const language = getLanguage(locale)
-        if (language === 'mni') {
-            defaultLang = 'mni-Mtei'
-            break
-        }
-        defaultLang = langs.find(lang => lang === language)
-        if (defaultLang) break
-    }
+    const defaultLang = matchLocales(langs)[0] ?? 'en'
     return JSON.stringify([langs.map(lang => [lang, displayName.of(lang)]), defaultLang])
 })
 

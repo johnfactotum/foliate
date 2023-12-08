@@ -25,6 +25,23 @@ export const locales = GLib.get_language_names()
     .map(glibcLocale).filter(x => x)
     .map(locale => new Intl.Locale(locale, { hourCycle }))
 
+// very naive, probably bad locale matcher
+// replace this with `Intl.LocaleMatcher` once it's available
+export const matchLocales = strs => {
+    const availableLocales = strs.map(makeLocale)
+    const matches = []
+    for (const a of locales) {
+        for (const [i, b] of availableLocales.entries()) {
+            if (!b) continue
+            if (a.language === b.language
+            && (a.region && b.region ? a.region === b.region : true)
+            && (a.script && b.script ? a.script === b.script : true))
+                matches.push(strs[i])
+        }
+    }
+    return matches
+}
+
 const percentFormat = new Intl.NumberFormat(locales, { style: 'percent' })
 export const percent = x => percentFormat.format(x)
 

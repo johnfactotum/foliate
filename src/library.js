@@ -446,12 +446,16 @@ GObject.registerClass({
                 ({ currency, value }) => format.price(currency, value)),
             webView.provide('formatLanguage', format.language),
             webView.provide('formatDate', format.date),
+            webView.provide('formatList', format.list),
+            webView.provide('matchLocales', format.matchLocales),
         ]
         utils.connect(webView, {
             'context-menu': () => false,
             'load-changed': (webView, event) => {
                 if (event === WebKit.LoadEvent.FINISHED) {
-                    webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}`)
+                    const lang = format.locales[0].baseName
+                    webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}
+                    document.documentElement.lang = "${lang}"`)
                         .catch(e => console.error(e))
                     for (const f of initFuncs) f()
 

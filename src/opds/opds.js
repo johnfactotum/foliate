@@ -101,15 +101,9 @@ const filterNS = ns => ns
     ? name => el => el.namespaceURI === ns && el.localName === name
     : name => el => el.localName === name
 
-const langToLocales = lang => {
-    try { return new Intl.Locale(lang) }
-    catch { return 'en' }
-}
-
-const formatElementList = (locales, els) => {
+const formatElementList = async els => {
     const arr = els.slice(0)
-    return new Intl.ListFormat(locales, { type: 'conjunction' })
-        .format(els.map(() => '%s'))
+    return (await globalThis.formatList(els.map(() => '%s')))
         .split(/(%s)/g)
         .map(str => str === '%s' ? arr.shift() : document.createTextNode(str))
 }
@@ -279,7 +273,7 @@ const getPublication = (entry, filter) => {
                 ?? children.find(filterDC('date')))?.textContent,
             language: children.find(filterDC('language'))?.textContent,
             identifier: children.find(filterDC('identifier'))?.textContent,
-            subjects: children.filter(filter('category')).map(category => ({
+            subject: children.filter(filter('category')).map(category => ({
                 name: category.getAttribute('label'),
                 code: category.getAttribute('term'),
             })),
@@ -344,6 +338,36 @@ const getFeed = doc => {
             groupByArray(linksByRel.get(REL.FACET) ?? [], link => link[SYMBOL.FACET_GROUP]),
             ([facet, links]) => ({ metadata: { title: facet }, links })),
     }
+}
+
+const renderLanguageMap = async x => {
+    if (!x) return ''
+    if (typeof x === 'string') return x
+    const keys = Object.keys(x)
+    return x[(await globalThis.matchLocales(keys))[0]] ?? x.en ?? x[keys[0]]
+}
+
+const renderLinkedObject = (object, baseURL) => {
+    const a = document.createElement('a')
+    if (object.links?.length) {
+        for (const link of object.links) if (isOPDSCatalog(link.type)) {
+            a.href = '?url=' + encodeURIComponent(resolveURL(link.href, baseURL))
+            return a
+        }
+        a.href = resolveURL(object.links[0].href, baseURL)
+    }
+    return a
+}
+
+const renderContributor = async (contributor, baseURL) => {
+    if (!contributor) return
+    const as = await Promise.all([contributor ?? []].flat().map(async contributor => {
+        const a = renderLinkedObject(contributor, baseURL)
+        a.innerText = typeof contributor === 'string' ? contributor
+            : await renderLanguageMap(contributor.name)
+        return a
+    }))
+    return as.length <= 1 ? as : await formatElementList(as)
 }
 
 const renderAcquisitionButton = async (rel, links, callback) => {
@@ -416,14 +440,14 @@ const renderFacets = (facets, baseURL) => facets.map(({ metadata, links }) => {
     return section
 })
 
-const renderGroups = (groups, baseURL)  => groups.flatMap(({ metadata, links, publications, navigation }) => {
+const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(async ({ metadata, links, publications, navigation }) => {
     const container = document.createElement('div')
     container.classList.add('container')
-    container.replaceChildren(...(publications ?? navigation).map(item => {
+    container.replaceChildren(...await Promise.all((publications ?? navigation).map(async item => {
         const isPub = 'metadata' in item
         const el = document.createElement(isPub ? 'opds-pub' : 'opds-nav')
         if (isPub) {
-            el.setAttribute('heading', item.metadata.title ?? '')
+            el.setAttribute('heading', await renderLanguageMap(item.metadata.title))
             const src = resolveURL(item.images?.[0]?.href, baseURL)
             if (src) el.setAttribute('image', src)
             el.setAttribute('href', '#' + encodeURIComponent(JSON.stringify(item)))
@@ -435,7 +459,7 @@ const renderGroups = (groups, baseURL)  => groups.flatMap(({ metadata, links, pu
                 ? '?url=' + encodeURIComponent(href) : href)
         }
         return el
-    }))
+    })))
     if (!metadata) return container
 
     const div = document.createElement('div')
@@ -453,7 +477,7 @@ const renderGroups = (groups, baseURL)  => groups.flatMap(({ metadata, links, pu
     div.classList.add('carousel-header')
     container.classList.add('carousel')
     return [document.createElement('hr'), div, container]
-})
+}))).flat()
 
 const entryMap = new Map()
 globalThis.updateProgress = ({ progress, token }) =>
@@ -494,25 +518,12 @@ const renderPublication = async (pub, baseURL) => {
     const src = resolveURL(pub.images?.[0]?.href, baseURL)
     if (src) item.setAttribute('image', src)
 
-    item.setAttribute('heading', pub.metadata.title)
+    item.setAttribute('heading', await renderLanguageMap(pub.metadata.title))
 
     const authors = document.createElement('div')
     authors.slot = 'authors'
     item.append(authors)
-    const authorAs = [pub.metadata.author ?? []].flat().map(author => {
-        const a = document.createElement('a')
-        a.innerText = typeof author === 'string' ? author : author.name
-        if (author.links?.length) {
-            for (const link of author.links) if (isOPDSCatalog(link.type)) {
-                a.href = '?url=' + encodeURIComponent(resolveURL(link.href, baseURL))
-                return a
-            }
-            a.href = resolveURL(author.links[0].href, baseURL)
-        }
-        return a
-    })
-    authors.append(...(authorAs.length <= 1 ? authorAs
-        : formatElementList(langToLocales(pub.metadata.language ?? 'en'), authorAs)))
+    authors.append(...await renderContributor(pub.metadata.author, baseURL))
 
     const blob = pub.metadata[SYMBOL.CONTENT]
         ? renderContent(pub.metadata[SYMBOL.CONTENT].value, pub.metadata[SYMBOL.CONTENT].type, baseURL)
@@ -531,9 +542,10 @@ const renderPublication = async (pub, baseURL) => {
     details.append(table)
 
     for (const [k, v = pub.metadata[k]] of [
-        ['publisher'],
+        ['publisher', await renderContributor(pub.metadata.publisher, baseURL)],
         ['published', await globalThis.formatDate(pub.metadata.published)],
-        ['language', await globalThis.formatLanguage(pub.metadata.language)],
+        ['language', await Promise.all([pub.metadata.language ?? []].flat()
+            .map(x => globalThis.formatLanguage(x)))],
         ['identifier'],
     ]) {
         if (!v) continue
@@ -542,7 +554,8 @@ const renderPublication = async (pub, baseURL) => {
         const td = document.createElement('td')
         tr.append(th, td)
         th.textContent = globalThis.uiText.metadata[k]
-        td.textContent = v
+        if (v[0].nodeType != null) td.append(...v)
+        else td.textContent = v
         if (v.length > 30) tr.classList.add('long')
         table.append(tr)
     }
@@ -550,21 +563,21 @@ const renderPublication = async (pub, baseURL) => {
     const tags = document.createElement('div')
     tags.role = 'list'
     details.append(tags)
-    tags.append(...[pub.metadata.subjects ?? []].flat().map(subject => {
+    tags.append(...[pub.metadata.subject ?? []].flat().map(subject => {
         const li = document.createElement('div')
         li.role = 'listitem'
         const icon = document.createElement('foliate-symbolic')
         icon.setAttribute('src', '/icons/hicolor/scalable/actions/tag-symbolic.svg')
-        const span = document.createElement('span')
-        span.textContent = typeof subject === 'string' ? subject : subject.name ?? subject.code
-        li.append(icon, span)
+        const a = renderLinkedObject(subject, baseURL)
+        a.textContent = typeof subject === 'string' ? subject : subject.name ?? subject.code
+        li.append(icon, a)
         return li
     }))
 
     return item
 }
 
-const renderFeed = (feed, baseURL) => {
+const renderFeed = async (feed, baseURL) => {
     const linksByRel = groupByArray(feed.links, link => link.rel)
     const searchLink = linksByRel.get('search')
         ?.find(link => parseMediaType(link.type).mediaType === MIME.OPENSEARCH)
@@ -572,10 +585,10 @@ const renderFeed = (feed, baseURL) => {
     else delete document.body.dataset.searchUrl
     globalThis.updateSearchURL()
 
-    document.querySelector('#feed h1').textContent = feed.metadata.title ?? ''
-    document.querySelector('#feed p').textContent = feed.metadata.subtitle ?? ''
+    document.querySelector('#feed h1').textContent = await renderLanguageMap(feed.metadata.title)
+    document.querySelector('#feed p').textContent = await renderLanguageMap(feed.metadata.subtitle)
 
-    document.querySelector('#feed main').append(...renderGroups(feed.groups, baseURL))
+    document.querySelector('#feed main').append(...await renderGroups(feed.groups, baseURL))
     if (feed.facets)
         document.querySelector('#nav').append(...renderFacets(feed.facets, baseURL))
 
@@ -679,7 +692,7 @@ try {
     if (text.startsWith('<')) {
         const doc = new DOMParser().parseFromString(text, MIME.XML)
         const { documentElement: { localName } } = doc
-        if (localName === 'feed') renderFeed(getFeed(doc), url)
+        if (localName === 'feed') await renderFeed(getFeed(doc), url)
         else if (localName === 'entry') throw new Error('todo')
         else if (localName === 'OpenSearchDescription') renderOpenSearch(doc, url)
         else throw new Error(`root element is <${localName}>; expected <feed> or <entry>`)
@@ -692,7 +705,7 @@ try {
             publications ? { publications } : null,
             ...(feed.groups ?? []),
         ].filter(x => x)
-        renderFeed(feed, url)
+        await renderFeed(feed, url)
     }
 } catch (e) {
     console.error(e)
