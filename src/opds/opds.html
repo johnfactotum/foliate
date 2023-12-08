@@ -66,10 +66,6 @@ h2 {
     overflow: auto;
     scroll-snap-type: inline proximity;
     scroll-padding: 24px;
-    -webkit-mask-image: linear-gradient(to left, transparent, #000 24px, #000);
-}
-.carousel:has(opds-pub):dir(rtl) {
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 24px, #000);
 }
 .carousel:has(opds-pub) > * {
     scroll-snap-align: start;
@@ -172,6 +168,12 @@ body[data-state="search"] #search { visibility: visible }
         inset-inline-start: auto;
         box-sizing: border-box;
         padding: 12px 9px;
+    }
+    #feed:has(#nav:not(:empty)) .carousel:has(opds-pub) {
+        -webkit-mask-image: linear-gradient(to left, transparent, #000 24px, #000);
+    }
+    #feed:has(#nav:not(:empty)):dir(rtl) .carousel:has(opds-pub) {
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 24px, #000);
     }
 }
 #nav section + section {
