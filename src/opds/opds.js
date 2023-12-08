@@ -544,8 +544,9 @@ const renderPublication = async (pub, baseURL) => {
     for (const [k, v = pub.metadata[k]] of [
         ['publisher', await renderContributor(pub.metadata.publisher, baseURL)],
         ['published', await globalThis.formatDate(pub.metadata.published)],
-        ['language', await Promise.all([pub.metadata.language ?? []].flat()
-            .map(x => globalThis.formatLanguage(x)))],
+        ['language', await globalThis.formatList(
+            await Promise.all([pub.metadata.language ?? []].flat()
+                .map(x => globalThis.formatLanguage(x))))],
         ['identifier'],
     ]) {
         if (!v) continue
