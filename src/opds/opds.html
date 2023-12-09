@@ -428,6 +428,8 @@ button[role="menuitem"] {
         display: grid;
         grid-row: auto / span 2;
         grid-template-rows: subgrid;
+        margin-bottom: 18px;
+        font-size: .9em;
     }
     img {
         width: 100%;
@@ -436,10 +438,29 @@ button[role="menuitem"] {
         border: 1px solid color-mix(in hsl, currentColor, transparent 85%);
         align-self: end;
     }
-    h1 {
-        font-size: smaller;
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: .3em;
         margin-top: 12px;
-        margin-bottom: 18px;
+        min-width: 0;
+    }
+    div > * {
+        margin: 0;
+    }
+    h1 {
+        font-size: 1em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+    #author {
+        font-size: smaller;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     a {
         color: inherit;
@@ -452,8 +473,12 @@ button[role="menuitem"] {
         inset: 0;
     }
     </style>
-    <img loading="lazy">
-    <h1><a></a></h1>
+    <img loading="lazy" aria-labelledby="title">
+    <div>
+        <h1 id="title"><a></a></h1>
+        <p id="author"></p>
+        <p id="price"></p>
+    </div>
 </template>
 <template id="opds-pub-full">
     <style>

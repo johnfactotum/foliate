@@ -31,6 +31,7 @@ const uiText = {
         'http://opds-spec.org/acquisition/borrow': _('Borrow'),
         'http://opds-spec.org/acquisition/subscribe': _('Subscribe'),
     },
+    openAccess: _('Free'),
     pagination: [
         _('First'),
         _('Previous'),
@@ -452,7 +453,7 @@ GObject.registerClass({
         const initFuncs = [
             webView.provide('formatMime', format.mime),
             webView.provide('formatPrice',
-                ({ currency, value }) => format.price(currency, value)),
+                price => price ? format.price(price.currency, price.value) : ''),
             webView.provide('formatLanguage', format.language),
             webView.provide('formatDate', format.date),
             webView.provide('formatList', format.list),

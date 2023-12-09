@@ -134,7 +134,7 @@ customElements.define('opds-nav', class extends HTMLElement {
 })
 
 customElements.define('opds-pub', class extends HTMLElement {
-    static observedAttributes = ['heading', 'image', 'href']
+    static observedAttributes = ['heading', 'author', 'price', 'image', 'href']
     #root = this.attachShadow({ mode: 'closed' })
     constructor() {
         super()
@@ -146,6 +146,12 @@ customElements.define('opds-pub', class extends HTMLElement {
         switch (name) {
             case 'heading':
                 this.#root.querySelector('h1 a').textContent = val
+                break
+            case 'author':
+                this.#root.querySelector('#author').textContent = val
+                break
+            case 'price':
+                this.#root.querySelector('#price').textContent = val
                 break
             case 'image':
                 this.#root.querySelector('img').src = val
@@ -372,10 +378,16 @@ const renderContributor = async (contributor, baseURL) => {
     return as.length <= 1 ? as : await formatElementList(as)
 }
 
+const renderContributorText = async contributor => {
+    const arr = await Promise.all([contributor ?? []].flat().map(async contributor =>
+        typeof contributor === 'string' ? contributor
+        : await renderLanguageMap(contributor.name)))
+    return globalThis.formatList(arr)
+}
+
 const renderAcquisitionButton = async (rel, links, callback) => {
     const label = globalThis.uiText.acq[rel] ?? globalThis.uiText.acq[REL.ACQ]
-    const priceData = links[0].properties?.price
-    const price = priceData ? await globalThis.formatPrice(priceData) : null
+    const price = await globalThis.formatPrice(links[0].properties?.price)
 
     const button = document.createElement('button')
     button.classList.add('raised', 'pill')
@@ -397,8 +409,7 @@ const renderAcquisitionButton = async (rel, links, callback) => {
 
         for (const link of links) {
             const type = parseMediaType(link.type)?.mediaType
-            const priceData = links[0].properties?.price
-            const price = priceData ? await globalThis.formatPrice(priceData) : null
+            const price = await globalThis.formatPrice(links[0].properties?.price)
 
             const menuitem = document.createElement('button')
             menuitem.role = 'menuitem'
@@ -468,6 +479,11 @@ const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(as
         const el = document.createElement(isPub ? 'opds-pub' : 'opds-nav')
         if (isPub) {
             el.setAttribute('heading', await renderLanguageMap(item.metadata.title))
+            el.setAttribute('author', await renderContributorText(item.metadata.author))
+            el.setAttribute('price', (await globalThis.formatPrice(
+                item.links?.find(link => link.properties?.price)?.properties?.price))
+                || (item.links.some(link => [link.rel].flat().some(rel => rel === REL.ACQ + '/open-access'))
+                    ? globalThis.uiText.openAccess : ''))
             const src = resolveURL(item.images?.[0]?.href, baseURL)
             if (src) el.setAttribute('image', src)
             el.setAttribute('href', '#' + encodeURIComponent(JSON.stringify(item)))
