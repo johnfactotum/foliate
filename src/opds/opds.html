@@ -78,6 +78,34 @@ h2 {
 .carousel-header h2 {
     flex: 1;
 }
+#feed main > nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    margin: 1em auto;
+    width: fit-content;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03),
+        0 1px 3px 1px rgba(0, 0, 0, 0.07),
+        0 2px 6px 2px rgba(0, 0, 0, 0.03);
+    border-radius: 6px;
+    font: menu;
+}
+@media (prefers-color-scheme: dark) {
+    #feed main > nav {
+        background: #ffffff11;
+    }
+}
+#feed main > nav > * {
+    padding: 6px 9px;
+}
+#feed main > nav > * + * {
+    border-inline-start: 1px solid rgba(0, 0, 0, 0.07);
+}
+#feed main > nav a:not(:any-link) {
+    color: grayText;
+    cursor: default;
+}
 opds-nav {
     padding: 12px;
     border-radius: 9px;

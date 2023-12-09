@@ -28,6 +28,12 @@ const uiText = {
         'http://opds-spec.org/acquisition/borrow': _('Borrow'),
         'http://opds-spec.org/acquisition/subscribe': _('Subscribe'),
     },
+    pagination: [
+        _('First'),
+        _('Previous'),
+        _('Next'),
+        _('Last'),
+    ],
     openSearchParams: {
         searchTerms: _('Search Terms'),
         language: _('Language'),

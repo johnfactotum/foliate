@@ -38,6 +38,7 @@ const SYMBOL = {
     ACTIVE_FACET: Symbol('activeFacet'),
     SUMMARY: Symbol('summary'),
     CONTENT: 'http://invalid.invalid/#' + Math.random(),
+    PAGINATION: Symbol('pagination'),
 }
 
 const groupByArray = (arr, f) => {
@@ -323,15 +324,21 @@ const getFeed = doc => {
             subtitle: children.find(filter('subtitle'))?.textContent,
         },
         links,
-        groups: Array.from(groupedItems, ([key, val]) => {
+        groups: Array.from(groupedItems, ([key, items]) => {
+            const itemsKey = items[0]?.metadata ? 'publications' : 'navigation'
+            if (key == null) return {
+                [itemsKey]: items,
+                [SYMBOL.PAGINATION]: ['first', 'previous', 'next', 'last']
+                    .map(rel => linksByRel.get(rel)),
+            }
             const link = groupLinkMap.get(key)
             return {
-                metadata: link ? {
+                metadata: {
                     title: link.title,
                     numberOfItems: link.properties.numberOfItems,
-                } : null,
-                links: link ? [{ rel: 'self', href: link.href, type: link.type }] : [],
-                [val[0]?.metadata ? 'publications' : 'navigation']: val,
+                },
+                links: [{ rel: 'self', href: link.href, type: link.type }],
+                [itemsKey]: items,
             }
         }),
         facets: Array.from(
@@ -354,7 +361,7 @@ const renderLinkedObject = (object, baseURL) => {
             a.href = '?url=' + encodeURIComponent(resolveURL(link.href, baseURL))
             return a
         }
-        a.href = resolveURL(object.links[0].href, baseURL)
+        if (object.links[0]) a.href = resolveURL(object.links[0].href, baseURL)
     }
     return a
 }
@@ -440,7 +447,19 @@ const renderFacets = (facets, baseURL) => facets.map(({ metadata, links }) => {
     return section
 })
 
-const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(async ({ metadata, links, publications, navigation }) => {
+const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(async group => {
+    const { metadata, links, publications, navigation } = group
+
+    const paginationItems = group[SYMBOL.PAGINATION]?.map((links, i) => {
+        links ??= []
+        const a = renderLinkedObject({ links }, baseURL)
+        a.textContent = globalThis.uiText.pagination[i]
+        return a
+    })
+    const pagination = paginationItems?.filter(a => a.href)?.length
+        ? document.createElement('nav') : null
+    if (pagination) pagination.append(...paginationItems)
+
     const container = document.createElement('div')
     container.classList.add('container')
     container.replaceChildren(...await Promise.all((publications ?? navigation).map(async item => {
@@ -460,7 +479,7 @@ const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(as
         }
         return el
     })))
-    if (!metadata) return container
+    if (!metadata) return pagination ? [container, pagination] : container
 
     const div = document.createElement('div')
     const h = document.createElement('h2')
@@ -701,9 +720,12 @@ try {
     else {
         const feed = JSON.parse(text)
         const { navigation, publications } = feed
+        const linksByRel = groupByArray(feed.links, link => link.rel)
+        const pagination = ['first', 'previous', 'next', 'last']
+            .map(rel => linksByRel.get(rel))
         feed.groups = [
-            navigation ? { navigation } : null,
-            publications ? { publications } : null,
+            navigation ? { navigation, [SYMBOL.PAGINATION]: !publications ? pagination : null } : null,
+            publications ? { publications, [SYMBOL.PAGINATION]: pagination } : null,
             ...(feed.groups ?? []),
         ].filter(x => x)
         await renderFeed(feed, url)
