@@ -107,14 +107,15 @@ customElements.define('foliate-menu', class extends HTMLElement {
 
 customElements.define('foliate-menubutton', class extends HTMLElement {
     #root = this.attachShadow({ mode: 'open' })
-    #button = document.createElement('button')
+    #button
     #menu
     #ariaExpandedObserver = new MutationObserver(list => {
         for (const { target } of list)
             target.dispatchEvent(new Event('aria-expanded'))
     })
-    #onBlur = () => this.#button.ariaExpanded = 'false'
+    #onBlur = () => this.#button ? this.#button.ariaExpanded = 'false' : null
     #onClick = e => {
+        if (!this.#button) return
         const target = e.composedPath()[0]
         if (!this.contains(target) && !this.#button.contains(target) && !this.#menu.contains(target)) {
             this.#button.setAttribute('aria-expanded', 'false')
@@ -126,26 +127,27 @@ customElements.define('foliate-menubutton', class extends HTMLElement {
         sheet.replaceSync(':host { position: relative }')
         this.#root.adoptedStyleSheets = [sheet]
 
-        this.#root.append(this.#button)
-        this.#button.ariaExpanded = 'false'
-        this.#button.ariaHasPopup = 'menu'
-        this.#button.part = 'button'
-
         const slot = document.createElement('slot')
-        this.#button.append(slot)
+        this.#root.append(slot)
+        slot.addEventListener('slotchange', e => {
+            this.#button = e.target.assignedElements()[0]
+            if (!this.#button) return
+            this.#button.ariaExpanded = 'false'
+            this.#button.ariaHasPopup = 'menu'
 
-        this.#ariaExpandedObserver.observe(this.#button,
-            { attributes: true, attributeFilter: ['aria-expanded'] })
-        this.#button.addEventListener('click', () => {
-            this.#button.ariaExpanded =
-                this.#button.ariaExpanded === 'true' ? 'false' : 'true'
-        })
-        this.#button.addEventListener('aria-expanded', () => {
-            if (!this.#menu) return
-            if (this.#button.ariaExpanded === 'true') {
-                this.#menu.hidden = false
-                this.#menu.focus()
-            } else this.#menu.hidden = true
+            this.#ariaExpandedObserver.observe(this.#button,
+                { attributes: true, attributeFilter: ['aria-expanded'] })
+            this.#button.addEventListener('click', () => {
+                this.#button.ariaExpanded =
+                    this.#button.ariaExpanded === 'true' ? 'false' : 'true'
+            })
+            this.#button.addEventListener('aria-expanded', () => {
+                if (!this.#menu) return
+                if (this.#button.ariaExpanded === 'true') {
+                    this.#menu.hidden = false
+                    this.#menu.focus()
+                } else this.#menu.hidden = true
+            })
         })
 
         const menuSlot = document.createElement('slot')

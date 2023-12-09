@@ -6,15 +6,15 @@
     overflow-wrap: anywhere;
     font-size: 11pt;
     font-family: system-ui;
-    --shade: rgba(0, 0, 0, .1);
-    --raised: rgba(0, 0, 0, .05);
-    --pressed: rgba(0, 0, 0, .15);
+    --shade: rgba(0, 0, 0, .07);
+    --raised: rgba(0, 0, 0, .1);
+    --pressed: rgba(0, 0, 0, .2);
 }
 @media (prefers-color-scheme: dark) {
     :root {
-        --shade: rgba(255, 255, 255, .1);
-        --raised: rgba(255, 255, 255, .05);
-        --pressed: rgba(255, 255, 255, .15);
+        --shade: rgba(255, 255, 255, .15);
+        --raised: rgba(255, 255, 255, .2);
+        --pressed: rgba(255, 255, 255, .25);
     }
 }
 a:any-link {
@@ -245,6 +245,13 @@ opds-pub-full {
     display: block;
     max-width: 640px;
 }
+opds-pub-full a:any-link {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in hsl, currentcolor, transparent 75%);
+}
+opds-pub-full a:any-link:hover {
+    text-decoration-color: currentcolor;
+}
 opds-pub-full > [slot="details"] table {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -272,45 +279,76 @@ opds-pub-full > [slot="details"] [role="listitem"] {
     margin-inline-end: 2em;
     font-size: smaller;
 }
-button, foliate-menubutton::part(button) {
+opds-pub-full > [slot="details"] [role="listitem"] + [role="listitem"] {
+    margin-block-start: 1em;
+}
+button {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding: 12px 24px;
+    padding: 9px;
     font: inherit;
     font-weight: 700;
-    border-radius: 9999px;
+    border-radius: 6px;
     border: 0;
+    background: none;
+}
+button:hover {
     background: var(--shade);
 }
-button:hover, foliate-menubutton::part(button):hover {
+button:active, button[aria-expanded="true"] {
     background: var(--raised);
 }
-button:active, foliate-menubutton::part(button):active {
+button.raised {
+    background: var(--shade);
+}
+button.raised:hover {
+    background: var(--raised);
+}
+button.raised:active, button.raised[aria-expanded="true"] {
     background: var(--pressed);
+}
+.pill {
+    border-radius: 9999px;
+    padding: 12px 24px;
 }
 opds-pub-full > [slot="actions"] {
     display: flex;
     flex-wrap: wrap;
     gap: 9px;
     width: 100%;
+    margin-top: 1em;
 }
 opds-pub-full > [slot="actions"] > * {
     min-width: min(100%, 8em);
 }
+
+/* if first button is "sample", highlight last button */
+opds-pub-full > [slot="actions"]:has([data-rel$="sample"]:first-child) > button:not([data-rel$="sample"]):not(:has(~ :not([data-rel$="sample"]))),
+opds-pub-full > [slot="actions"]:has([data-rel$="sample"]:first-child) > :not([data-rel$="sample"]):not(:has(~ :not([data-rel$="sample"]))) > button,
+opds-pub-full > [slot="actions"]:has([data-rel$="sample"]:first-child) > :not([data-rel$="sample"]):not(:has(~ :not([data-rel$="sample"]))) > foliate-menubutton > button,
+/* otherwise, highlight first button */
+opds-pub-full > [slot="actions"]:not(:has([data-rel$="sample"]:first-child)) > button:first-child,
+opds-pub-full > [slot="actions"]:not(:has([data-rel$="sample"]:first-child)) > *:first-child > button,
+opds-pub-full > [slot="actions"]:not(:has([data-rel$="sample"]:first-child)) > *:first-child > foliate-menubutton > button {
+    color: highlighttext;
+    --shade: highlight;
+    --raised: color-mix(in srgb, var(--shade), highlighttext 10%);
+    --pressed: color-mix(in srgb, var(--shade), transparent 20%);
+}
 .split-button {
     display: flex;
 }
-.split-button button {
+.split-button > button {
     flex: 1;
     border-start-end-radius: 0;
     border-end-end-radius: 0;
 }
-.split-button foliate-menubutton::part(button) {
+.split-button foliate-menubutton > button {
     padding: 9px;
     border-start-start-radius: 0;
     border-end-start-radius: 0;
-    border-inline-start: 1px solid color-mix(in hsl, currentColor, transparent 85%);;
+    border-inline-start: 1px solid color-mix(in hsl, currentColor, transparent 75%);
 }
 foliate-menubutton {
     display: flex;
@@ -338,15 +376,8 @@ button[role="menuitem"] {
     text-align: start;
     justify-content: start;
     font: menu;
-    background: none;
     border-radius: 6px;
     padding: 9px;
-}
-button[role="menuitem"]:hover {
-    background: var(--raised);
-}
-button[role="menuitem"]:active {
-    background: var(--pressed);
 }
 </style>
 <template id="opds-nav">
@@ -475,15 +506,13 @@ button[role="menuitem"]:active {
     :host([downloading]) #actions > :not(#downloading) { display: none }
     </style>
     <div id="header">
-        <img id="cover">
-        <h1></h1>
+        <img id="cover" aria-labelledby="heading">
+        <h1 id="heading"></h1>
         <slot name="authors"></slot>
         <div id="actions">
             <div id="downloading">
                 <progress></progress>
-                <button>
-                    <foliate-symbolic src="/icons/hicolor/scalable/actions/stop-sign-symbolic.svg"></foliate-symbolic>
-                </button>
+                <slot name="cancel"></slot>
             </div>
             <slot name="actions"></slot>
         </div>
@@ -510,7 +539,7 @@ button[role="menuitem"]:active {
                 <p></p>
                 <form>
                     <div id="search-params"></div>
-                    <button></button>
+                    <button class="raised pill"></button>
                 </form>
             </div>
         </div>

@@ -185,11 +185,6 @@ customElements.define('opds-pub-full', class extends HTMLElement {
             updateHeight()
             new ResizeObserver(updateHeight).observe(doc.documentElement)
         }
-
-        const button = this.#root.querySelector('#downloading button')
-        button.title = globalThis.uiText.cancel
-        button.addEventListener('click', () =>
-            this.dispatchEvent(new Event('cancel-download')))
     }
     attributeChangedCallback(name, _, val) {
         switch (name) {
@@ -370,7 +365,7 @@ const renderContributor = async (contributor, baseURL) => {
     if (!contributor) return
     const as = await Promise.all([contributor ?? []].flat().map(async contributor => {
         const a = renderLinkedObject(contributor, baseURL)
-        a.innerText = typeof contributor === 'string' ? contributor
+        a.textContent = typeof contributor === 'string' ? contributor
             : await renderLanguageMap(contributor.name)
         return a
     }))
@@ -383,14 +378,19 @@ const renderAcquisitionButton = async (rel, links, callback) => {
     const price = priceData ? await globalThis.formatPrice(priceData) : null
 
     const button = document.createElement('button')
-    button.innerText = price ? `${label} · ${price}` : label
+    button.classList.add('raised', 'pill')
+    button.textContent = price ? `${label} · ${price}` : label
     button.onclick = () => callback(links[0].href)
+    button.dataset.rel = rel
     if (links.length === 1) return button
     else {
         const menuButton = document.createElement('foliate-menubutton')
+        const menuButtonButton = document.createElement('button')
+        menuButtonButton.classList.add('raised', 'pill')
+        menuButton.append(menuButtonButton)
         const icon = document.createElement('foliate-symbolic')
         icon.setAttribute('src', '/icons/hicolor/scalable/actions/pan-down-symbolic.svg')
-        menuButton.append(icon)
+        menuButtonButton.append(icon)
         const menu = document.createElement('foliate-menu')
         menu.slot = 'menu'
         menuButton.append(menu)
@@ -411,6 +411,7 @@ const renderAcquisitionButton = async (rel, links, callback) => {
         const div = document.createElement('div')
         div.classList.add('split-button')
         div.replaceChildren(button, menuButton)
+        div.dataset.rel = rel
         return div
     }
 }
@@ -526,13 +527,21 @@ const renderPublication = async (pub, baseURL) => {
     const item = document.createElement('opds-pub-full')
     const token = new Date() + Math.random()
     entryMap.set(token, new WeakRef(item))
-    item.addEventListener('cancel-download', () => emit({ type: 'cancel', token }))
     const download = href => {
         href = resolveURL(href, baseURL)
         item.setAttribute('downloading', '')
         item.removeAttribute('progress')
         emit({ type: 'download', href, token })
     }
+
+    const cancelButton = document.createElement('button')
+    cancelButton.slot = 'cancel'
+    cancelButton.title = globalThis.uiText.cancel
+    item.append(cancelButton)
+    const icon = document.createElement('foliate-symbolic')
+    icon.setAttribute('src', '/icons/hicolor/scalable/actions/stop-sign-symbolic.svg')
+    cancelButton.append(icon)
+    cancelButton.addEventListener('click', () => emit({ type: 'cancel', token }))
 
     const src = resolveURL(pub.images?.[0]?.href, baseURL)
     if (src) item.setAttribute('image', src)
