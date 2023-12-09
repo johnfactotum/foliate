@@ -16,6 +16,9 @@ import WebKit from 'gi://WebKit'
 import { WebView } from './webview.js'
 
 const uiText = {
+    loading: _('Loading'),
+    error: _('Failed to Load'),
+    reload: _('Reload'),
     cancel: _('Cancel'),
     viewCollection: _('See All'),
     search: _('Search'),

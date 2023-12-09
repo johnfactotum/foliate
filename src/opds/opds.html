@@ -131,12 +131,10 @@ opds-nav:hover {
     inset: 0;
     overflow: auto;
     padding: 24px;
-    visibility: hidden;
 }
-body[data-state="feed"] #feed { visibility: visible }
-body[data-state="entry"] #entry { visibility: visible }
-body[data-state="search"] #search { visibility: visible }
-
+#stack > [hidden] {
+    display: block;
+}
 #stack > *:before {
     content: "";
     display: block;
@@ -159,16 +157,15 @@ body[data-state="search"] #search { visibility: visible }
 #stack > *[data-scrolled-to-top]:before {
     opacity: 0;
 }
+#loading {
+    opacity: 0;
+    animation: .2s ease 1s 1 normal forwards fade-in;
+}
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
-#search > div {
-    text-align: center;
-    display: flex;
-    min-height: 100%;
-}
-#search > div > div {
-    margin: auto;
-    width: min(100%, 450px);
-}
 #search form p {
     text-align: start;
 }
@@ -520,7 +517,23 @@ button[role="menuitem"] {
     <iframe sandbox="allow-same-origin"></iframe>
     <slot name="details"></slot>
 </template>
-<div id="stack">
+<foliate-stack id="stack">
+    <foliate-scrolled id="loading">
+        <foliate-center>
+            <svg width="48" height="48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M24 8A 16 16 0 0 0 24 40"><animateTransform attributeName="transform" type="rotate" from="0 24 24" to="360 24 24" dur="600ms" repeatCount="indefinite"/></path>
+            </svg>
+            <h1></h1>
+        </foliate-center>
+    </foliate-scrolled>
+    <foliate-scrolled id="error">
+        <foliate-center>
+            <h1></h1>
+            <p></p>
+            <hr style="visibility: hidden">
+            <button class="raised pill"></button>
+        </foliate-center>
+    </foliate-scrolled>
     <foliate-scrolled id="feed">
         <article>
             <hgroup>
@@ -533,16 +546,14 @@ button[role="menuitem"] {
     </foliate-scrolled>
     <foliate-scrolled id="entry"></foliate-scrolled>
     <foliate-scrolled id="search">
-        <div>
-            <div>
-                <h1></h1>
-                <p></p>
-                <form>
-                    <div id="search-params"></div>
-                    <button class="raised pill"></button>
-                </form>
-            </div>
-        </div>
+        <foliate-center>
+            <h1></h1>
+            <p></p>
+            <form>
+                <div id="search-params"></div>
+                <button class="raised pill"></button>
+            </form>
+        </foliate-center>
     </foliate-scrolled>
-</div>
+</foliate-stack>
 <script src="opds.js" type="module"></script>

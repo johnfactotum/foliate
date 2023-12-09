@@ -624,17 +624,17 @@ const renderFeed = async (feed, baseURL) => {
     addEventListener('hashchange', () => {
         const hash = location.hash.slice(1)
         if (!hash) {
-            document.body.dataset.state = 'feed'
+            document.querySelector('#stack').showChild(document.querySelector('#feed'))
             document.querySelector('#entry').replaceChildren()
         } else {
-            document.body.dataset.state = 'entry'
+            document.querySelector('#stack').showChild(document.querySelector('#entry'))
             const pub = JSON.parse(decodeURIComponent(hash))
             renderPublication(pub, baseURL)
                 .then(el => document.querySelector('#entry').append(el))
                 .catch(e => console.error(e))
         }
     })
-    document.body.dataset.state = 'feed'
+    document.querySelector('#stack').showChild(document.querySelector('#feed'))
 }
 
 const renderOpenSearch = (doc, baseURL) => {
@@ -682,7 +682,6 @@ const renderOpenSearch = (doc, baseURL) => {
         children.find(filter('Description'))?.textContent ?? ''
     document.querySelector('#search button').textContent = globalThis.uiText.search
 
-    document.body.dataset.state = 'search'
     const container = document.querySelector('#search-params')
     for (const [, prefix, param, optional] of template.matchAll(regex)) {
         const namespace = prefix ? $url.lookupNamespaceURI(prefix) : null
@@ -706,17 +705,23 @@ const renderOpenSearch = (doc, baseURL) => {
         p.append(label)
         container.append(p)
     }
+    document.querySelector('#stack').showChild(document.querySelector('#search'))
     container.querySelector('input').focus()
 }
 
 globalThis.updateSearchURL = () =>
     emit({ type: 'search', url: document.body.dataset.searchUrl })
 
+document.querySelector('#loading h1').textContent = globalThis.uiText.loading
+document.querySelector('#error h1').textContent = globalThis.uiText.error
+document.querySelector('#error button').textContent = globalThis.uiText.reload
+document.querySelector('#error button').onclick = () => location.reload()
+
 try {
     const params = new URLSearchParams(location.search)
     const url = params.get('url')
     const res = await fetch(url)
-    if (!res.ok) throw new Error()
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
     const text = await res.text()
     if (text.startsWith('<')) {
         const doc = new DOMParser().parseFromString(text, MIME.XML)
@@ -741,4 +746,6 @@ try {
     }
 } catch (e) {
     console.error(e)
+    document.querySelector('#error p').innerText = e.message + '\n' + e.stack
+    document.querySelector('#stack').showChild(document.querySelector('#error'))
 }

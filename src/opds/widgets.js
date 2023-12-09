@@ -52,6 +52,53 @@ customElements.define('foliate-scrolled', class extends HTMLElement {
     }
 })
 
+customElements.define('foliate-center', class extends HTMLElement {
+    #root = this.attachShadow({ mode: 'closed' })
+    constructor() {
+        super()
+        const sheet = new CSSStyleSheet()
+        this.#root.adoptedStyleSheets = [sheet]
+        sheet.replaceSync(`
+        :host {
+            --max-width: 450px;
+            text-align: center;
+            display: flex;
+            width: 100%;
+            min-height: 100%;
+        }
+        :host > div {
+            margin: auto;
+            width: min(100%, var(--max-width));
+        }`)
+        const div = document.createElement('div')
+        div.append(document.createElement('slot'))
+        this.#root.append(div)
+    }
+})
+
+customElements.define('foliate-stack', class extends HTMLElement {
+    #root = this.attachShadow({ mode: 'closed' })
+    #children = []
+    #visibleChild
+    constructor() {
+        super()
+        const sheet = new CSSStyleSheet()
+        this.#root.adoptedStyleSheets = [sheet]
+        sheet.replaceSync(`
+        ::slotted([hidden]) {
+            display: none;
+            visibility: hidden !important;
+        }`)
+        const slot = document.createElement('slot')
+        slot.addEventListener('slotchange', () => this.showChild(
+            this.querySelector(':scope > :not([hidden])') ?? this.children[0]))
+        this.#root.append(slot)
+    }
+    showChild(child) {
+        for (const el of this.children) el.hidden = el !== child
+    }
+})
+
 customElements.define('foliate-menu', class extends HTMLElement {
     #root = this.attachShadow({ mode: 'closed' })
     #internals = this.attachInternals()
