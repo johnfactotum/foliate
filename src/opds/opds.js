@@ -249,7 +249,7 @@ const getLink = link => ({
     [SYMBOL.ACTIVE_FACET]: link.getAttributeNS(NS.OPDS, 'activeFacet') === 'true',
 })
 
-const getPublication = (entry, filter) => {
+const getPublication = (entry, filter = filterNS(useNS(entry.ownerDocument, NS.ATOM))) => {
     const children = Array.from(entry.children)
     const filterDCEL = filterNS(NS.DC)
     const filterDCTERMS = filterNS(NS.DCTERMS)
@@ -478,15 +478,25 @@ const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(as
         const isPub = 'metadata' in item
         const el = document.createElement(isPub ? 'opds-pub' : 'opds-nav')
         if (isPub) {
+            const linksByRel = groupByArray(item.links, link => link.rel)
             el.setAttribute('heading', await renderLanguageMap(item.metadata.title))
             el.setAttribute('author', await renderContributorText(item.metadata.author))
             el.setAttribute('price', (await globalThis.formatPrice(
                 item.links?.find(link => link.properties?.price)?.properties?.price))
-                || (item.links.some(link => [link.rel].flat().some(rel => rel === REL.ACQ + '/open-access'))
+                || (linksByRel.has(REL.ACQ + '/open-access')
                     ? globalThis.uiText.openAccess : ''))
             const src = resolveURL(item.images?.[0]?.href, baseURL)
             if (src) el.setAttribute('image', src)
-            el.setAttribute('href', '#' + encodeURIComponent(JSON.stringify(item)))
+            const alternate = linksByRel.get('alternate')?.find(link => {
+                const parsed = parseMediaType(link.type)
+                if (!parsed) return
+                return parsed.mediaType === MIME.ATOM
+                    && parsed.parameters.profile === 'opds-catalog'
+                    && parsed.parameters.type === 'entry'
+            })
+            el.setAttribute('href', alternate?.href
+                ? '?url=' + encodeURIComponent(resolveURL(alternate.href, baseURL))
+                : '#' + encodeURIComponent(JSON.stringify(item)))
         } else {
             el.setAttribute('heading', item.title ?? '')
             el.setAttribute('description', item[SYMBOL.SUMMARY] ?? '')
@@ -622,6 +632,12 @@ const renderPublication = async (pub, baseURL) => {
     return item
 }
 
+const renderEntry = (pub, baseURL) => {
+    document.querySelector('#stack').showChild(document.querySelector('#entry'))
+    return renderPublication(pub, baseURL)
+        .then(el => document.querySelector('#entry').append(el))
+}
+
 const renderFeed = async (feed, baseURL) => {
     const linksByRel = groupByArray(feed.links, link => link.rel)
     const searchLink = linksByRel.get('search')
@@ -642,13 +658,9 @@ const renderFeed = async (feed, baseURL) => {
         if (!hash) {
             document.querySelector('#stack').showChild(document.querySelector('#feed'))
             document.querySelector('#entry').replaceChildren()
-        } else {
-            document.querySelector('#stack').showChild(document.querySelector('#entry'))
-            const pub = JSON.parse(decodeURIComponent(hash))
-            renderPublication(pub, baseURL)
-                .then(el => document.querySelector('#entry').append(el))
-                .catch(e => console.error(e))
         }
+        else renderEntry(JSON.parse(decodeURIComponent(hash)), baseURL)
+            .catch(e => console.error(e))
     })
     document.querySelector('#stack').showChild(document.querySelector('#feed'))
 }
@@ -743,7 +755,7 @@ try {
         const doc = new DOMParser().parseFromString(text, MIME.XML)
         const { documentElement: { localName } } = doc
         if (localName === 'feed') await renderFeed(getFeed(doc), url)
-        else if (localName === 'entry') throw new Error('todo')
+        else if (localName === 'entry') await renderEntry(getPublication(doc.documentElement), url)
         else if (localName === 'OpenSearchDescription') renderOpenSearch(doc, url)
         else throw new Error(`root element is <${localName}>; expected <feed> or <entry>`)
     }
