@@ -465,7 +465,8 @@ GObject.registerClass({
                 if (event === WebKit.LoadEvent.FINISHED) {
                     const lang = format.locales[0].baseName
                     webView.run(`globalThis.uiText = ${JSON.stringify(uiText)}
-                    document.documentElement.lang = "${lang}"`)
+                    document.documentElement.lang = "${lang}"
+                    import('./opds.js').catch(e => console.error(e))`)
                         .catch(e => console.error(e))
                     for (const f of initFuncs) f()
 
