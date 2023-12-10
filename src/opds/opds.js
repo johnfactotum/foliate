@@ -236,6 +236,12 @@ const getPrice = link => {
     } : null
 }
 
+const getIndirectAcquisition = el => {
+    const ia = el.getElementsByTagNameNS(NS.OPDS, 'indirectAcquisition')[0]
+    if (!ia) return []
+    return [{ type: ia.getAttribute('type') }, ...getIndirectAcquisition(ia)]
+}
+
 const getLink = link => ({
     rel: link.getAttribute('rel')?.split(/ +/),
     href: link.getAttribute('href'),
@@ -243,6 +249,7 @@ const getLink = link => ({
     title: link.getAttribute('title'),
     properties: {
         price: getPrice(link),
+        indirectAcquisition: getIndirectAcquisition(link),
         numberOfItems: link.getAttributeNS(NS.THR, 'count'),
     },
     [SYMBOL.FACET_GROUP]: link.getAttributeNS(NS.OPDS, 'facetGroup'),
@@ -408,7 +415,8 @@ const renderAcquisitionButton = async (rel, links, callback) => {
         menuButton.append(menu)
 
         for (const link of links) {
-            const type = parseMediaType(link.type)?.mediaType
+            const type = parseMediaType(link.properties?.indirectAcquisition?.at(-1)?.type
+                ?? link.type)?.mediaType
             const price = await globalThis.formatPrice(links[0].properties?.price)
 
             const menuitem = document.createElement('button')
