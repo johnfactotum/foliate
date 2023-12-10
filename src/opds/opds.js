@@ -392,7 +392,7 @@ const renderAcquisitionButton = async (rel, links, callback) => {
     const button = document.createElement('button')
     button.classList.add('raised', 'pill')
     button.textContent = price ? `${label} · ${price}` : label
-    button.onclick = () => callback(links[0].href)
+    button.onclick = () => callback(links[0].href, links[0].type)
     button.dataset.rel = rel
     if (links.length === 1) return button
     else {
@@ -415,7 +415,7 @@ const renderAcquisitionButton = async (rel, links, callback) => {
             menuitem.role = 'menuitem'
             menuitem.textContent = (link.title || await globalThis.formatMime(type))
                 + (price ? ' · ' + price : '')
-            menuitem.onclick = () => callback(link.href)
+            menuitem.onclick = () => callback(link.href, link.type)
             menu.append(menuitem)
         }
 
@@ -553,8 +553,12 @@ const renderPublication = async (pub, baseURL) => {
     const item = document.createElement('opds-pub-full')
     const token = new Date() + Math.random()
     entryMap.set(token, new WeakRef(item))
-    const download = href => {
+    const download = (href, type) => {
         href = resolveURL(href, baseURL)
+        if (parseMediaType(type)?.mediaType === MIME.HTML) {
+            location = href
+            return
+        }
         item.setAttribute('downloading', '')
         item.removeAttribute('progress')
         emit({ type: 'download', href, token })
