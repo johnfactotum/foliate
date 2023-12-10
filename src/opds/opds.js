@@ -548,7 +548,6 @@ const renderContent = (value, type, baseURL) => {
         { type: type === 'xhtml' ? MIME.XHTML : MIME.HTML })
 }
 
-// TODO: handle localized strings etc. in webpub
 const renderPublication = async (pub, baseURL) => {
     const item = document.createElement('opds-pub-full')
     const token = new Date() + Math.random()
