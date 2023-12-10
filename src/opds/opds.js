@@ -666,7 +666,7 @@ const renderFeed = async (feed, baseURL) => {
 
     addEventListener('hashchange', () => {
         const hash = location.hash.slice(1)
-        if (!hash) {
+        if (!hash || hash === 'nav') {
             document.querySelector('#stack').showChild(document.querySelector('#feed'))
             document.querySelector('#entry').replaceChildren()
         }
@@ -755,6 +755,7 @@ document.querySelector('#loading h1').textContent = globalThis.uiText.loading
 document.querySelector('#error h1').textContent = globalThis.uiText.error
 document.querySelector('#error button').textContent = globalThis.uiText.reload
 document.querySelector('#error button').onclick = () => location.reload()
+document.querySelector('#feed a[href="#nav"]').title = globalThis.uiText.filter
 
 try {
     const params = new URLSearchParams(location.search)

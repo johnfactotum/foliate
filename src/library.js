@@ -22,6 +22,7 @@ const uiText = {
     cancel: _('Cancel'),
     viewCollection: _('See All'),
     search: _('Search'),
+    filter: _('Filter'),
     acq: {
         'http://opds-spec.org/acquisition': _('Download'),
         'http://opds-spec.org/acquisition/buy': _('Buy'),
