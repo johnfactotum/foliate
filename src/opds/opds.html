@@ -478,8 +478,9 @@ button[role="menuitem"] {
         margin-bottom: 18px;
         font-size: .9em;
     }
-    img {
+    ::slotted(img) {
         width: 100%;
+        height: auto;
         border-radius: 9px;
         box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
         border: 1px solid color-mix(in hsl, currentColor, transparent 85%);
@@ -530,9 +531,9 @@ button[role="menuitem"] {
         outline: 2px solid highlight;
     }
     </style>
-    <img loading="lazy" aria-labelledby="title">
+    <slot name="image"></slot>
     <div>
-        <h1 id="title"><a></a></h1>
+        <h1><a></a></h1>
         <p id="author"></p>
         <p id="price"></p>
     </div>
@@ -546,8 +547,9 @@ button[role="menuitem"] {
         column-gap: 24px;
         row-gap: 9px;
     }
-    #cover {
+    ::slotted(img) {
         width: 100%;
+        height: auto;
         border-radius: 9px;
         box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
         border: 1px solid color-mix(in hsl, currentColor, transparent 85%);
@@ -585,8 +587,8 @@ button[role="menuitem"] {
     :host([downloading]) #actions > :not(#downloading) { display: none }
     </style>
     <div id="header">
-        <img id="cover" aria-labelledby="heading">
-        <h1 id="heading"></h1>
+        <slot name="image"></slot>
+        <h1></h1>
         <slot name="authors"></slot>
         <div id="actions">
             <div id="downloading">

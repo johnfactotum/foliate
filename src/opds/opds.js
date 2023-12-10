@@ -25,9 +25,11 @@ const REL = {
     ACQ: 'http://opds-spec.org/acquisition',
     FACET: 'http://opds-spec.org/facet',
     GROUP: 'http://opds-spec.org/group',
-    IMG: [
+    COVER: [
         'http://opds-spec.org/image',
         'http://opds-spec.org/cover',
+    ],
+    THUMBNAIL: [
         'http://opds-spec.org/image/thumbnail',
         'http://opds-spec.org/thumbnail',
     ],
@@ -290,7 +292,8 @@ const getPublication = (entry, filter = filterNS(useNS(entry.ownerDocument, NS.A
                 ?? children.find(filter('summary'))),
         },
         links,
-        images: REL.IMG.map(R => linksByRel.get(R)?.[0]).filter(x => x),
+        images: REL.COVER.concat(REL.THUMBNAIL)
+            .map(R => linksByRel.get(R)?.[0]).filter(x => x),
     }
 }
 
@@ -467,6 +470,32 @@ const renderFacets = (facets, baseURL) => facets.map(({ metadata, links }) => {
     return section
 })
 
+const renderImages = (images, isThumbnail, baseURL) => {
+    const img = document.createElement('img')
+    img.loading = 'lazy'
+    const hasSizes = images?.filter(link => link.width > 0 && link.height > 0)
+    if (hasSizes?.length) {
+        const widest = hasSizes.reduce((state, link) => {
+            if (link.width >= state.width) state.link = link
+            return state
+        }, { width: 0 }).link
+        img.width = widest.width
+        img.height = widest.height
+        img.srcset = hasSizes.map(link =>
+            `${resolveURL(link.href, baseURL)} ${link.width}w`).join(',')
+    }
+    else {
+        img.width = 120
+        img.height = 180
+        const map = groupByArray(images, link => link.rel)
+        const getByRels = rels => rels.flatMap(rel => map.get(rel) ?? [])[0] ?? images?.[0]
+        const src = isThumbnail ? resolveURL(getByRels(REL.THUMBNAIL)?.href, baseURL)
+            : resolveURL(getByRels(REL.COVER)?.href, baseURL)
+        if (src) img.src = src
+    }
+    return img
+}
+
 const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(async group => {
     const { metadata, links, publications, navigation } = group
 
@@ -493,8 +522,9 @@ const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(as
                 item.links?.find(link => link.properties?.price)?.properties?.price))
                 || (linksByRel.has(REL.ACQ + '/open-access')
                     ? globalThis.uiText.openAccess : ''))
-            const src = resolveURL(item.images?.[0]?.href, baseURL)
-            if (src) el.setAttribute('image', src)
+            const img = renderImages(item.images, true, baseURL)
+            img.slot = 'image'
+            el.append(img)
             const alternate = linksByRel.get('alternate')?.find(link => {
                 const parsed = parseMediaType(link.type)
                 if (!parsed) return
@@ -580,8 +610,9 @@ const renderPublication = async (pub, baseURL) => {
     cancelButton.append(icon)
     cancelButton.addEventListener('click', () => emit({ type: 'cancel', token }))
 
-    const src = resolveURL(pub.images?.[0]?.href, baseURL)
-    if (src) item.setAttribute('image', src)
+    const img = renderImages(pub.images, false, baseURL)
+    img.slot = 'image'
+    item.append(img)
 
     item.setAttribute('heading', await renderLanguageMap(pub.metadata.title))
 
