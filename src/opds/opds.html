@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="color-scheme" content="light dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src *; connect-src *; frame-src blob:;">
 <style>
 :not(:defined) > * {
     display: none;
@@ -595,7 +596,7 @@ button[role="menuitem"] {
             <slot name="actions"></slot>
         </div>
     </div>
-    <iframe sandbox="allow-same-origin"></iframe>
+    <iframe sandbox></iframe>
     <slot name="details"></slot>
 </template>
 <foliate-stack id="stack">
