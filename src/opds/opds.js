@@ -177,9 +177,9 @@ customElements.define('opds-pub-full', class extends HTMLElement {
         const frame = this.#root.querySelector('iframe')
         frame.onload = () => {
             const doc = frame.contentDocument
-            const $style = doc.createElement('style')
-            doc.head.append($style)
-            $style.textContent = `html, body {
+            const sheet = new doc.defaultView.CSSStyleSheet()
+            sheet.replaceSync(`
+            html, body {
                 color-scheme: light dark;
                 font-family: system-ui;
                 margin: 0;
@@ -187,7 +187,8 @@ customElements.define('opds-pub-full', class extends HTMLElement {
             }
             a:any-link {
                 color: highlight;
-            }`
+            }`)
+            doc.adoptedStyleSheets = [sheet]
             const updateHeight = () => frame.style.height =
                 `${doc.documentElement.getBoundingClientRect().height}px`
             updateHeight()
@@ -577,9 +578,12 @@ const renderContent = (value, type, baseURL) => {
         doc.documentElement.append(doc.createElement('head'))
         doc.documentElement.append(doc.createElement('body'))
     }
+    const meta = doc.createElement('meta')
+    meta.setAttribute('http-equiv', 'Content-Security-Policy')
+    meta.setAttribute('content', "default-src 'none';")
     const base = doc.createElement('base')
     base.href = baseURL
-    doc.head.append(base)
+    doc.head.append(meta, base)
     if (!type || type === 'text') doc.body.textContent = value
     else doc.body.innerHTML = value
     return new Blob([new XMLSerializer().serializeToString(doc)],

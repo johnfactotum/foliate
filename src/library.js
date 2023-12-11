@@ -447,6 +447,7 @@ GObject.registerClass({
                 enable_hyperlink_auditing: false,
                 enable_html5_database: false,
                 enable_html5_local_storage: false,
+                enable_javascript_markup: false,
                 disable_web_security: true,
                 user_agent: pkg.userAgent,
             }),
