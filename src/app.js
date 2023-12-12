@@ -95,6 +95,27 @@ const ApplicationWindow = GObject.registerClass({
         dialog.add_response('close', _('Close'))
         dialog.present()
     }
+    actionDialog() {
+        const window = new Adw.Window({
+            modal: true,
+            transient_for: this.root,
+            content: new Adw.ToolbarView(),
+            default_width: 400,
+        })
+        window.add_controller(utils.addShortcuts({ 'Escape|<ctrl>w': () => window.close() }))
+        const header = new Adw.HeaderBar({
+            show_title: false,
+            show_start_title_buttons: false,
+            show_end_title_buttons: false,
+        })
+        header.pack_start(utils.connect(new Gtk.Button({
+            label: _('Cancel'),
+        }), { 'clicked': () => window.close() }))
+        const button = utils.addClass(new Gtk.Button(), 'suggested-action')
+        header.pack_end(button)
+        window.content.add_top_bar(header)
+        return { button, window }
+    }
     openFile(file) {
         this.file = file
         if (!this.#bookViewer) {

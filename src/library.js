@@ -15,6 +15,33 @@ import { formatAuthors, makeBookInfoWindow } from './book-info.js'
 import WebKit from 'gi://WebKit'
 import { WebView } from './webview.js'
 
+const defaultCatalogs = [
+    {
+        title: 'Feedbooks',
+        uri: 'https://catalog.feedbooks.com/catalog/index.json',
+    },
+    {
+        title: 'Internet Archive',
+        uri: 'http://bookserver.archive.org/catalog/',
+    },
+    {
+        title: 'Manybooks',
+        uri: 'https://manybooks.net/opds/',
+    },
+    {
+        title: 'Project Gutenberg',
+        uri: 'https://m.gutenberg.org/ebooks.opds/',
+    },
+    {
+        title: 'Standard Ebooks',
+        uri: 'https://standardebooks.org/feeds/opds',
+    },
+    {
+        title: 'unglue.it',
+        uri: 'https://unglue.it/api/opds/',
+    },
+]
+
 const uiText = {
     loading: _('Loading'),
     error: _('Failed to Load'),
@@ -425,9 +452,12 @@ GObject.registerClass({
 
 GObject.registerClass({
     GTypeName: 'FoliateOPDSView',
+    Signals: {
+        'state-changed': { param_types: [GObject.TYPE_JSOBJECT] },
+    },
 }, class extends Adw.Bin {
     #downloads = new Map()
-    #searchURL
+    #state
     constructor(params) {
         super(params)
         this.actionGroup = utils.addMethods(this, {
@@ -473,7 +503,7 @@ GObject.registerClass({
                     for (const f of initFuncs) f()
 
                     // update after going back/foward
-                    webView.exec('updateSearchURL')
+                    webView.exec('updateState')
                         // it will fail when the page first loads but that's ok
                         .catch(e => console.debug(e))
                 }
@@ -499,9 +529,10 @@ GObject.registerClass({
                 case 'cancel':
                     this.#downloads.get(payload.token)?.deref()?.cancel()
                     break
-                case 'search':
-                    this.#searchURL = payload.url
-                    this.actionGroup.lookup_action('search').enabled = !!payload.url
+                case 'state':
+                    this.#state = payload.state
+                    this.actionGroup.lookup_action('search').enabled = !!this.#state?.search
+                    this.emit('state-changed', this.#state)
                     break
             }
         })
@@ -526,7 +557,7 @@ GObject.registerClass({
         this.child.go_forward()
     }
     search() {
-        if (this.#searchURL) this.load(this.#searchURL)
+        if (this.#state?.search) this.load(this.#state.search)
     }
     download({ href, token }) {
         const webView = this.child
@@ -565,6 +596,8 @@ GObject.registerClass({
     }
 })
 
+const catalogsStore = new utils.JSONStorage(pkg.datapath('catalogs'), 'catalogs', 2)
+
 const SidebarItem = utils.makeDataClass('FoliateSidebarItem', {
     'type': 'string',
     'icon': 'string',
@@ -577,9 +610,18 @@ const SidebarRow = GObject.registerClass({
     Properties: utils.makeParams({
         'item': 'object',
     }),
+    Signals: {
+        'remove-catalog': { param_types: [GObject.TYPE_OBJECT] },
+    },
 }, class extends Gtk.Box {
     #icon = new Gtk.Image()
-    #label = new Gtk.Label({})
+    #label = new Gtk.Label()
+    #menu = new Gio.Menu()
+    #popover = new Gtk.PopoverMenu({
+        has_arrow: false,
+        halign: Gtk.Align.START,
+        menu_model: this.#menu,
+    })
     constructor(params) {
         super(params)
         this.spacing = 12
@@ -590,6 +632,49 @@ const SidebarRow = GObject.registerClass({
             icon: [this.#icon, 'icon-name'],
             label: [this.#label, 'label'],
         })
+
+        this.insert_action_group('catalog-item', utils.addSimpleActions({
+            'rename': () => this.rename(),
+            'remove': () => this.emit('remove-catalog', this.item),
+        }))
+
+        this.#popover.set_parent(this)
+        this.#menu.append(_('Rename…'), 'catalog-item.rename')
+        this.#menu.append(_('Remove'), 'catalog-item.remove')
+        this.add_controller(utils.connect(new Gtk.GestureClick({
+            button: Gdk.BUTTON_SECONDARY,
+        }), {
+            'pressed': (_, __, x, y) => {
+                if (this.item.type === 'catalog') {
+                    this.#popover.pointing_to = new Gdk.Rectangle({ x, y })
+                    this.#popover.popup()
+                }
+            },
+        }))
+    }
+    rename() {
+        const { window, button } = this.root.actionDialog()
+        const submit = () => {
+            const text = entry.text.trim()
+            if (!text) return
+            this.item.set_property('label', text)
+            window.close()
+        }
+        window.title = _('Rename')
+        button.label = _('Rename')
+        button.connect('clicked', submit)
+        const page = new Adw.PreferencesPage()
+        const group = new Adw.PreferencesGroup()
+        const entry = utils.connect(new Adw.EntryRow({
+            title: _('Name'),
+            text: this.item.label,
+            input_purpose: Gtk.InputPurpose.URL,
+        }), { 'entry-activated': submit })
+        group.add(entry)
+        page.add(group)
+        window.content.content = page
+        window.show()
+        entry.grab_focus()
     }
 })
 
@@ -606,21 +691,44 @@ sidebarListModel.append(new SidebarItem({
     value: 'add-catalog',
 }))
 
+const exportCatalogItems = () =>
+    Array.from(utils.gliter(sidebarListModel), ([, item]) => item.type === 'catalog' ? {
+        title: item.label,
+        uri: item.value,
+    } : null).filter(x => x)
+
+const saveCatalogs = () => catalogsStore.set('catalogs', exportCatalogItems())
+
 const addCatalogItem = (label, value) => {
-    sidebarListModel.insert(sidebarListModel.get_n_items() - 1,
-        new SidebarItem({
-            type: 'catalog',
-            icon: 'application-rss+xml-symbolic',
-            label, value,
-        }))
+    const item = new SidebarItem({
+        type: 'catalog',
+        icon: 'application-rss+xml-symbolic',
+        label, value,
+    })
+    item.connectAll(saveCatalogs)
+    sidebarListModel.insert(sidebarListModel.get_n_items() - 1, item)
 }
-addCatalogItem('Standard Ebooks', 'https://standardebooks.org/feeds/opds/new-releases')
-addCatalogItem('Feedbooks', 'https://catalog.feedbooks.com/catalog/index.json')
-addCatalogItem('Feedbooks (OPDS 1)', 'https://catalog.feedbooks.com/publicdomain/browse/top.atom?lang=en')
-addCatalogItem('Project Gutenberg', 'https://m.gutenberg.org/ebooks.opds/')
-addCatalogItem('Manybooks', 'http://manybooks.net/opds/')
-addCatalogItem('unglue.it', 'https://unglue.it/api/opds/')
-addCatalogItem('Test Catalog', 'http://feedbooks.github.io/opds-test-catalog/catalog/root.xml')
+
+const addCatalog = catalog => {
+    for (const [, item] of utils.gliter(sidebarListModel))
+        if (item.type === 'catalog' && item.value === catalog.uri) return
+    addCatalogItem(catalog.title, catalog.uri)
+    saveCatalogs()
+}
+
+const removeCatalog = uri => {
+    for (const [i, item] of utils.gliter(sidebarListModel))
+        if (item.type === 'catalog' && item.value === uri) {
+            sidebarListModel.remove(i)
+            break
+        }
+    saveCatalogs()
+}
+
+for (const catalog of catalogsStore.get('catalogs', defaultCatalogs)) {
+    if (typeof catalog.title === 'string' && typeof catalog.uri === 'string')
+        addCatalogItem(catalog.title, catalog.uri)
+}
 
 export const Library = GObject.registerClass({
     GTypeName: 'FoliateLibrary',
@@ -661,11 +769,66 @@ export const Library = GObject.registerClass({
                     margin_bottom: 6,
                 }), 'caption-heading', 'dim-label'))
         })
-        this._sidebar_list_box.bind_model(sidebarListModel, item =>
-            new Gtk.ListBoxRow({
-                child: new SidebarRow({ item }),
-                selectable: item.value !== 'add-catalog',
-            }))
+        this._sidebar_list_box.add_controller(utils.connect(Gtk.DropTarget.new(
+            SidebarItem.$gtype, Gdk.DragAction.MOVE), {
+            'motion': (_, _x, y) => {
+                const row = this._sidebar_list_box.get_row_at_y(y)
+                if (row && row.child.item.type === 'catalog')
+                    return Gdk.DragAction.MOVE
+            },
+            'drop': (_, value, _x, y) => {
+                const row = this._sidebar_list_box.get_row_at_y(y)
+                if (row && row.child.item.type === 'catalog') {
+                    let sourceItem, sourceIndex, targetIndex
+                    for (const [i, item] of utils.gliter(sidebarListModel)) {
+                        if (sourceIndex != null && targetIndex != null) break
+                        if (item.type === 'catalog') {
+                            if (item === value) {
+                                sourceItem = item
+                                sourceIndex = i
+                            }
+                            if (item.value === row.child.item.value) {
+                                targetIndex = i
+                            }
+                        }
+                    }
+                    if (sourceIndex === targetIndex) return
+                    sidebarListModel.remove(sourceIndex)
+                    if (sourceIndex < targetIndex + 1) targetIndex--
+                    sidebarListModel.insert(targetIndex + 1, sourceItem)
+                    saveCatalogs()
+                }
+            },
+        }))
+        this._sidebar_list_box.bind_model(sidebarListModel, item => {
+            const child = utils.connect(new SidebarRow({ item }), {
+                'remove-catalog': (self, item) => {
+                    removeCatalog(item.value)
+                    this.root.add_toast(utils.connect(new Adw.Toast({
+                        title: _('Catalog removed'),
+                        button_label: _('Undo'),
+                    }), { 'button-clicked': () => addCatalog({
+                        title: item.label,
+                        uri: item.value,
+                    }) }))
+                },
+            })
+            if (item.type === 'catalog') {
+                child.add_controller(utils.connect(new Gtk.DragSource({
+                    actions: Gdk.DragAction.MOVE,
+                }), {
+                    'prepare': (source, x, y) => {
+                        source.set_icon(new Gtk.WidgetPaintable({ widget: child }), x, y)
+                        const value = new GObject.Value()
+                        value.init(SidebarItem)
+                        value.set_object(item)
+                        return Gdk.ContentProvider.new_for_value(item)
+                    },
+                }))
+            }
+            return new Gtk.ListBoxRow({ child,
+                selectable: item.value !== 'add-catalog' })
+        })
         this._sidebar_list_box.connect('row-activated', (__, row) => {
             const { type, value } = row.child.item
             if (value === 'add-catalog') return this.addCatalog()
@@ -693,34 +856,40 @@ export const Library = GObject.registerClass({
         this.insert_action_group('library', this._books_view.actionGroup)
         this.insert_action_group('catalog', this._opds_view.actionGroup)
     }
+    #addCatalog(url) {
+        this._sidebar_list_box.select_row(null)
+        const handler = this._opds_view.connect('state-changed', (_, state) => {
+            this._opds_view.disconnect(handler)
+            if (state) {
+                const catalog = {
+                    title: state.title || '',
+                    uri: state.start || state.self,
+                }
+                addCatalog(catalog)
+
+                for (let i = 0;; i++) {
+                    const row = this._sidebar_list_box.get_row_at_index(i)
+                    if (!row) break
+                    const { type, value } = row.child.item
+                    if (type === 'catalog' && value === catalog.uri)
+                        this._sidebar_list_box.select_row(row)
+                }
+            }
+        })
+        this.showCatalog(url)
+    }
     addCatalog() {
+        const { window, button } = this.root.actionDialog()
         const submit = () => {
             const url = entry.text.trim()
             if (!url) return
-            win.close()
+            this.#addCatalog(url)
+            window.close()
         }
-        const win = new Adw.Window({
-            title: _('Add Catalog'),
-            modal: true,
-            transient_for: this.root,
-            content: new Adw.ToolbarView(),
-            default_width: 400,
-        })
-        win.add_controller(utils.addShortcuts({ 'Escape|<ctrl>w': () => win.close() }))
-        const header = new Adw.HeaderBar({
-            show_title: false,
-            show_start_title_buttons: false,
-            show_end_title_buttons: false,
-        })
-        header.pack_start(utils.connect(new Gtk.Button({
-            label: _('Cancel'),
-        }), { 'clicked': () => win.close() }))
-        const add = utils.connect(utils.addClass(new Gtk.Button({
-            label: _('Add'),
-        }), 'suggested-action'), { 'clicked': () => submit() })
-        header.pack_end(add)
-        win.content.add_top_bar(header)
-        win.content.content = utils.addClass(new Adw.StatusPage({
+        window.title = _('Add Catalog')
+        button.label = _('Add')
+        button.connect('clicked', submit)
+        window.content.content = utils.addClass(new Adw.StatusPage({
             icon_name: 'application-rss+xml-symbolic',
             title: _('Add Catalog'),
             description: _('You can browse and download books from OPDS catalogs. <a href="https://opds.io">Learn More…</a>'),
@@ -729,10 +898,10 @@ export const Library = GObject.registerClass({
         const entry = utils.connect(new Adw.EntryRow({
             title: _('URL'),
             input_purpose: Gtk.InputPurpose.URL,
-        }), { 'entry-activated': () => submit() })
+        }), { 'entry-activated': submit })
         group.add(entry)
-        win.content.content.child = group
-        win.show()
+        window.content.content.child = group
+        window.show()
         entry.grab_focus()
     }
     showCatalog(url) {

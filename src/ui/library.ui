@@ -14,18 +14,6 @@
     </item>
   </section>
 </menu>
-<menu id="catalog-menu">
-  <section>
-    <item>
-      <attribute name="label" translatable="yes">Reload</attribute>
-      <attribute name="action">catalog.reload</attribute>
-    </item>
-    <item>
-      <attribute name="label" translatable="yes">Edit…</attribute>
-      <attribute name="action">catalog.edit</attribute>
-    </item>
-  </section>
-</menu>
 <menu id="primary-menu">
   <section>
     <item>
@@ -186,13 +174,6 @@
                           <property name="icon-name">go-next-symbolic</property>
                           <property name="tooltip-text" translatable="yes">Forward</property>
                           <property name="action-name">catalog.forward</property>
-                        </object>
-                      </child>
-                      <child type="end">
-                        <object class="GtkMenuButton">
-                          <property name="icon-name">view-more-symbolic</property>
-                          <property name="tooltip-text" translatable="yes">Catalog Menu</property>
-                          <property name="menu-model">catalog-menu</property>
                         </object>
                       </child>
                       <child type="end">

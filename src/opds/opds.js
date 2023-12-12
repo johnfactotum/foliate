@@ -686,14 +686,17 @@ const renderEntry = (pub, baseURL) => {
 
 const renderFeed = async (feed, baseURL) => {
     const linksByRel = groupByArray(feed.links, link => link.rel)
-    const searchLink = linksByRel.get('search')
-        ?.find(link => parseMediaType(link.type).mediaType === MIME.OPENSEARCH)
-    if (searchLink) document.body.dataset.searchUrl = resolveURL(searchLink.href, baseURL)
-    else delete document.body.dataset.searchUrl
-    globalThis.updateSearchURL()
+    globalThis.state = {
+        title: feed.metadata?.title,
+        self: resolveURL(linksByRel.get('self')?.[0]?.href, baseURL) || baseURL,
+        start: resolveURL(linksByRel.get('start')?.[0]?.href, baseURL),
+        search: resolveURL(linksByRel.get('search')
+            ?.find(link => parseMediaType(link.type).mediaType === MIME.OPENSEARCH)?.href, baseURL),
+    }
+    globalThis.updateState()
 
-    document.querySelector('#feed h1').textContent = await renderLanguageMap(feed.metadata.title)
-    document.querySelector('#feed p').textContent = await renderLanguageMap(feed.metadata.subtitle)
+    document.querySelector('#feed h1').textContent = await renderLanguageMap(feed.metadata?.title)
+    document.querySelector('#feed p').textContent = await renderLanguageMap(feed.metadata?.subtitle)
 
     document.querySelector('#feed main').append(...await renderGroups(feed.groups, baseURL))
     if (feed.facets)
@@ -783,8 +786,7 @@ const renderOpenSearch = (doc, baseURL) => {
     container.querySelector('input').focus()
 }
 
-globalThis.updateSearchURL = () =>
-    emit({ type: 'search', url: document.body.dataset.searchUrl })
+globalThis.updateState = () => emit({ type: 'state', state: globalThis.state })
 
 document.querySelector('#loading h1').textContent = globalThis.uiText.loading
 document.querySelector('#error h1').textContent = globalThis.uiText.error
@@ -823,4 +825,5 @@ try {
     console.error(e)
     document.querySelector('#error p').innerText = e.message + '\n' + e.stack
     document.querySelector('#stack').showChild(document.querySelector('#error'))
+    globalThis.updateState()
 }
