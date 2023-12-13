@@ -36,13 +36,6 @@ hr {
     border: 0;
     border-top: 1px solid color-mix(in hsl, currentColor, transparent 85%);
 }
-hgroup {
-    margin-bottom: 24px;
-}
-hgroup h1 {
-    margin: 0;
-    margin-bottom: .5rem;
-}
 h1 {
     font-size: 1.75em;
     font-weight: 900;
@@ -84,6 +77,13 @@ h2 {
 }
 .carousel-header h2 {
     flex: 1;
+}
+#feed hgroup {
+    margin-bottom: 24px;
+}
+#feed hgroup h1 {
+    margin: 0;
+    margin-bottom: .5rem;
 }
 #feed main > nav {
     display: grid;
@@ -137,7 +137,7 @@ opds-nav:hover {
     position: absolute;
     inset: 0;
     overflow: auto;
-    padding: 24px;
+    padding: 18px 24px;
 }
 #stack > [hidden] {
     display: block;
@@ -296,6 +296,31 @@ opds-pub-full a:any-link {
 opds-pub-full a:any-link:hover {
     text-decoration-color: currentcolor;
 }
+opds-pub-full > [slot="heading"] {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 9px;
+}
+opds-pub-full > [slot="heading"] {
+    font-size: max(1em, min(3vw, 1.15em));
+}
+opds-pub-full > [slot="heading"] p:first-child {
+    font-size: 1rem;
+}
+opds-pub-full > [slot="heading"] h1 {
+    font-size: 1.5em;
+}
+opds-pub-full > [slot="heading"] h1 + p {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+opds-pub-full :is(h1, p) {
+    margin: 0;
+}
+opds-pub-full p:empty {
+    display: none;
+}
 opds-pub-full > [slot="details"] table {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -361,7 +386,7 @@ opds-pub-full > [slot="actions"] {
     flex-wrap: wrap;
     gap: 9px;
     width: 100%;
-    margin-top: 1em;
+    margin-top: 24px;
 }
 opds-pub-full > [slot="actions"] > * {
     min-width: min(100%, 8em);
@@ -545,7 +570,6 @@ button[role="menuitem"] {
         grid-template-columns: min(40%, 180px) 1fr;
         grid-template-rows: min-content min-content 1fr;
         column-gap: 24px;
-        row-gap: 9px;
     }
     ::slotted(img) {
         width: 100%;
@@ -554,13 +578,6 @@ button[role="menuitem"] {
         box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
         border: 1px solid color-mix(in hsl, currentColor, transparent 85%);
         grid-row: span 3;
-    }
-    h1, p {
-        margin: 0;
-    }
-    h1 {
-        font-size: 1.5em;
-        font-weight: 900;
     }
     iframe {
         border: 0;
@@ -588,7 +605,7 @@ button[role="menuitem"] {
     </style>
     <div id="header">
         <slot name="image"></slot>
-        <h1></h1>
+        <slot name="heading"></slot>
         <slot name="authors"></slot>
         <div id="actions">
             <div id="downloading">

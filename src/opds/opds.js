@@ -166,7 +166,7 @@ customElements.define('opds-pub', class extends HTMLElement {
 })
 
 customElements.define('opds-pub-full', class extends HTMLElement {
-    static observedAttributes = ['heading', 'image', 'description', 'progress']
+    static observedAttributes = ['description', 'progress']
     #root = this.attachShadow({ mode: 'closed' })
     constructor() {
         super()
@@ -197,12 +197,6 @@ customElements.define('opds-pub-full', class extends HTMLElement {
     }
     attributeChangedCallback(name, _, val) {
         switch (name) {
-            case 'heading':
-                this.#root.querySelector('h1').textContent = val
-                break
-            case 'image':
-                this.#root.querySelector('img').src = val
-                break
             case 'description':
                 this.#root.querySelector('iframe').src = val
                 break
@@ -379,14 +373,20 @@ const renderLinkedObject = (object, baseURL) => {
 }
 
 const renderContributor = async (contributor, baseURL) => {
-    if (!contributor) return
+    if (!contributor) return []
     const as = await Promise.all([contributor ?? []].flat().map(async contributor => {
         const a = renderLinkedObject(contributor, baseURL)
         a.textContent = typeof contributor === 'string' ? contributor
             : await renderLanguageMap(contributor.name)
+        if (contributor.position != null) {
+            const span = document.createElement('span')
+            span.textContent = contributor.position
+            // TODO: localize this
+            return [a, document.createTextNode('\u00a0'), span]
+        }
         return a
     }))
-    return as.length <= 1 ? as : await formatElementList(as)
+    return (as.length <= 1 ? as : await formatElementList(as)).flat()
 }
 
 const renderContributorText = async contributor => {
@@ -618,16 +618,27 @@ const renderPublication = async (pub, baseURL) => {
     img.slot = 'image'
     item.append(img)
 
-    item.setAttribute('heading', await renderLanguageMap(pub.metadata.title))
+    const metadata = pub.metadata ?? {}
 
-    const authors = document.createElement('div')
+    const hgroup = document.createElement('hgroup')
+    hgroup.slot = 'heading'
+    item.append(hgroup)
+    const series = document.createElement('p')
+    series.append(...await renderContributor(metadata.belongsTo?.series, baseURL))
+    const h1 = document.createElement('h1')
+    h1.textContent = await renderLanguageMap(metadata.title)
+    const subtitle = document.createElement('p')
+    subtitle.textContent = await renderLanguageMap(metadata.subtitle)
+    hgroup.append(series, h1, subtitle)
+
+    const authors = document.createElement('p')
     authors.slot = 'authors'
     item.append(authors)
-    authors.append(...await renderContributor(pub.metadata.author, baseURL))
+    authors.append(...await renderContributor(metadata.author, baseURL))
 
-    const blob = pub.metadata[SYMBOL.CONTENT]
-        ? renderContent(pub.metadata[SYMBOL.CONTENT].value, pub.metadata[SYMBOL.CONTENT].type, baseURL)
-        : pub.metadata.description ? renderContent(pub.metadata.description, 'html', baseURL) : null
+    const blob = metadata[SYMBOL.CONTENT]
+        ? renderContent(metadata[SYMBOL.CONTENT].value, metadata[SYMBOL.CONTENT].type, baseURL)
+        : metadata.description ? renderContent(metadata.description, 'html', baseURL) : null
     if (blob) item.setAttribute('description', URL.createObjectURL(blob))
 
     const actions = document.createElement('div')
@@ -641,15 +652,15 @@ const renderPublication = async (pub, baseURL) => {
     const table = document.createElement('table')
     details.append(table)
 
-    for (const [k, v = pub.metadata[k]] of [
-        ['publisher', await renderContributor(pub.metadata.publisher, baseURL)],
-        ['published', await globalThis.formatDate(pub.metadata.published)],
+    for (const [k, v = metadata[k]] of [
+        ['publisher', await renderContributor(metadata.publisher, baseURL)],
+        ['published', await globalThis.formatDate(metadata.published)],
         ['language', await globalThis.formatList(
-            await Promise.all([pub.metadata.language ?? []].flat()
+            await Promise.all([metadata.language ?? []].flat()
                 .map(x => globalThis.formatLanguage(x))))],
         ['identifier'],
     ]) {
-        if (!v) continue
+        if (!v?.length) continue
         const tr = document.createElement('tr')
         const th = document.createElement('th')
         const td = document.createElement('td')
@@ -664,7 +675,7 @@ const renderPublication = async (pub, baseURL) => {
     const tags = document.createElement('div')
     tags.role = 'list'
     details.append(tags)
-    tags.append(...[pub.metadata.subject ?? []].flat().map(subject => {
+    tags.append(...[metadata.subject ?? []].flat().map(subject => {
         const li = document.createElement('div')
         li.role = 'listitem'
         const icon = document.createElement('foliate-symbolic')
