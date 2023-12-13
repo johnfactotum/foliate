@@ -91,9 +91,8 @@ const isOPDSCatalog = str => {
     const parsed = parseMediaType(str)
     if (!parsed) return false
     const { mediaType, parameters } = parsed
-    if (mediaType !== MIME.ATOM && mediaType !== MIME.OPDS2) return false
-    if (!parameters.profile) return true
-    return parameters.profile.toLowerCase() === 'opds-catalog'
+    if (mediaType === MIME.OPDS2) return true
+    return mediaType === MIME.ATOM && parameters.profile?.toLowerCase() === 'opds-catalog'
 }
 
 // ignore the namespace if it doesn't appear in document at all
