@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-28 03:20+0000\n"
-"PO-Revision-Date: 2023-11-14 01:17+0330\n"
-"Last-Translator: Meysam Pour Ganji <p.g.meysam@gmail.com>\n"
+"PO-Revision-Date: 2023-12-13 12:45+0330\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: src/annotations.js:140 src/annotations.js:175
 msgid "Bookmark deleted"
-msgstr "چوب‌الف حذف شد"
+msgstr "نشانک حذف شد"
 
 #: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:804
 msgid "Undo"
@@ -76,7 +76,7 @@ msgstr "سندهای JSON"
 
 #: src/annotations.js:600 src/app.js:124
 msgid "All Files"
-msgstr "همه‌ی سندها"
+msgstr "همهٔ سندها"
 
 #: src/annotations.js:609 src/annotations.js:637 src/ui/book-viewer.ui:402
 msgid "No Annotations"
@@ -153,31 +153,31 @@ msgstr "زبان"
 
 #: src/book-info.js:131
 msgid "Translated by"
-msgstr "ترجمه توسط"
+msgstr "بازگردانی به دست"
 
 #: src/book-info.js:132
 msgid "Edited by"
-msgstr "ویرایش توسط"
+msgstr "ویراسته به دشت"
 
 #: src/book-info.js:133
 msgid "Narrated by"
-msgstr "روایت توسط"
+msgstr "روایت شده به دست"
 
 #: src/book-info.js:134
 msgid "Illustrated by"
-msgstr "تصویرسازی توسط"
+msgstr "تصویرسازی شده به دست"
 
 #: src/book-info.js:135
 msgid "Produced by"
-msgstr "تولید توسط"
+msgstr "تولید شده به دست"
 
 #: src/book-info.js:136
 msgid "Artwork by"
-msgstr "اثر هنری توسط"
+msgstr "کار هنری به دست"
 
 #: src/book-info.js:137
 msgid "Color by"
-msgstr "رنگ توسط"
+msgstr "رنگ به دست"
 
 #: src/book-info.js:138
 msgid "Contributors"
@@ -190,7 +190,7 @@ msgstr "شناسه"
 #: src/book-info.js:171 src/ui/book-item.ui:11 src/ui/book-row.ui:11
 #: src/ui/book-viewer.ui:368
 msgid "About This Book"
-msgstr "درباره‌ی این کتاب"
+msgstr "دربارهٔ این کتاب"
 
 #: src/book-viewer.js:27
 #, javascript-format
@@ -200,12 +200,12 @@ msgstr "محل %s of %s"
 #: src/book-viewer.js:28
 #, javascript-format
 msgid "Page %s of %s"
-msgstr "صفحه‌ی %s از %s"
+msgstr "صفحهٔ %s از %s"
 
 #: src/book-viewer.js:29
 #, javascript-format
 msgid "Page %s"
-msgstr "صفحه‌ی %s"
+msgstr "صفحهٔ %s"
 
 #: src/book-viewer.js:32
 msgid "Footnote"
@@ -229,7 +229,7 @@ msgstr "نکته"
 
 #: src/book-viewer.js:37
 msgid "Go to Note"
-msgstr "رفته به نکته"
+msgstr "رفتن به نکته"
 
 #: src/book-viewer.js:38
 msgid "Definition"
@@ -249,11 +249,11 @@ msgstr "رفتن به کتاب‌شناسی"
 
 #: src/book-viewer.js:614
 msgid "Remove bookmark"
-msgstr "حذف چوب‌الف"
+msgstr "برداشتن نشانک"
 
 #: src/book-viewer.js:615
 msgid "Add bookmark"
-msgstr "افزودن چوب‌الف"
+msgstr "افزودن نشانک"
 
 #: src/book-viewer.js:713
 msgid "File not found"
@@ -296,6 +296,8 @@ msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
+"«%s»\n"
+"— %s، «%s»"
 
 #: src/book-viewer.js:879
 #, javascript-format
@@ -303,11 +305,13 @@ msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
+"«%s»\n"
+"— «%s»"
 
 #: src/book-viewer.js:880
 #, javascript-format
 msgid "‘%s’"
-msgstr ""
+msgstr "«%s»"
 
 #: src/book-viewer.js:898
 #, javascript-format
@@ -329,20 +333,20 @@ msgstr "حذف کتاب؟"
 
 #: src/library.js:370
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
-msgstr "پیشرفت خواندن، یادداشت‌ها و چوب‌الف‌ها برای همیشه از دست خواهند رفت"
+msgstr "پیشرفت خواندن، یادداشت‌ها و نشانک‌ها برای همیشه از دست خواهند رفت"
 
 #: src/library.js:372
 msgid "_Cancel"
-msgstr ""
+msgstr "_لغو"
 
 #: src/library.js:373
 msgid "_Remove"
-msgstr ""
+msgstr "_برداشتن"
 
 #. Translators: Do NOT translate! The is the application name!
 #: src/main.js:26 data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "Foliate"
-msgstr "فولیت"
+msgstr "برگه"
 
 #: src/selection-tools.js:85
 msgid "Dictionary"
@@ -362,7 +366,7 @@ msgstr "تعریفی یافت نشد"
 
 #: src/selection-tools.js:159
 msgid "Search on Wiktionary"
-msgstr "جستجو در ویکی‌واژه"
+msgstr "جست‌وجو در ویکی‌واژه"
 
 #: src/selection-tools.js:196
 msgid "Wikipedia"
@@ -374,13 +378,13 @@ msgid ""
 "wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
 "ShareAlike_4.0_International_License\">CC BY-SA License</a>."
 msgstr ""
-"از <a id=\"link\">ویکی‌پدیا</a>، انتشاریافته تحت <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"از <a id=\"link\">ویکی‌پدیا</a>، انتشاریافته تحت <a href=\"https://en.wikipedia."
+"org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
 "ShareAlike_4.0_International_License\">CC BY-SA مجوز</a>."
 
 #: src/selection-tools.js:247
 msgid "Search on Wikipedia"
-msgstr "جستجو در ویکی‌پدیا"
+msgstr "جست‌وجو در ویکی‌پدیا"
 
 #: src/selection-tools.js:256
 msgid "Translate"
@@ -396,7 +400,7 @@ msgstr "ناتوانی در گرفتن ترجمه"
 
 #: src/themes.js:9
 msgid "Default"
-msgstr "پیش‌فرض"
+msgstr "پیش‌گزیده"
 
 #: src/themes.js:14
 msgid "Gray"
@@ -420,15 +424,15 @@ msgstr "آسمانی"
 
 #: src/themes.js:39
 msgid "Solarized"
-msgstr "برنزه"
+msgstr "آقتاب‌زده"
 
 #: src/themes.js:44
 msgid "Gruvbox"
-msgstr ""
+msgstr "معدن"
 
 #: src/themes.js:49
 msgid "Nord"
-msgstr ""
+msgstr "نورد"
 
 #: src/tts.js:117
 msgid "Text-to-Speech Error"
@@ -463,11 +467,11 @@ msgstr "افزودن حاشیه…"
 
 #: src/ui/book-item.ui:5 src/ui/book-row.ui:5
 msgid "Open in New Window"
-msgstr "گشودن در پنجره‌ی جدید"
+msgstr "گشودن در پنجرهٔ جدید"
 
 #: src/ui/book-item.ui:15 src/ui/book-row.ui:15 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
-msgstr "برون‌ریزی یادداشت‌ها"
+msgstr "برون‌ریزی یادداشت‌ها…"
 
 #: src/ui/book-item.ui:21 src/ui/book-row.ui:21
 msgid "Remove"
@@ -475,7 +479,7 @@ msgstr "حذف"
 
 #: src/ui/book-viewer.ui:5
 msgid "New Window"
-msgstr "پنجره‌ی جدید"
+msgstr "پنجرهٔ جدید"
 
 #: src/ui/book-viewer.ui:11
 msgid "Open a Copy"
@@ -491,11 +495,11 @@ msgstr "درون‌ریزی یادداشت‌ها…"
 
 #: src/ui/book-viewer.ui:37 src/ui/library.ui:40
 msgid "About Foliate"
-msgstr "درباره‌ی فولیت"
+msgstr "دربارهٔ برگه"
 
 #: src/ui/book-viewer.ui:45
 msgid "All Sections"
-msgstr "همه‌ی بخش‌ها"
+msgstr "همهٔ بخش‌ها"
 
 #: src/ui/book-viewer.ui:50
 msgid "Current Section"
@@ -547,7 +551,7 @@ msgstr "کتاب گشوده نمی‌شود"
 
 #: src/ui/book-viewer.ui:177
 msgid "Details"
-msgstr "جزئیات"
+msgstr "جزییات"
 
 #: src/ui/book-viewer.ui:193
 msgid "Open Another File…"
@@ -555,7 +559,7 @@ msgstr "گشودن سندی دیگر…"
 
 #: src/ui/book-viewer.ui:245
 msgid "Pin Sidebar"
-msgstr "سنجاق نوار کناری"
+msgstr "سنجاق کردن نوار کناری"
 
 #: src/ui/book-viewer.ui:253
 msgid "Book Menu"
@@ -563,11 +567,11 @@ msgstr "فهرست کتاب"
 
 #: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
 msgid "Find"
-msgstr "جستجو"
+msgstr "جست‌وجو"
 
 #: src/ui/book-viewer.ui:276
 msgid "Find in book…"
-msgstr "جستجو در کتاب…"
+msgstr "جست‌وجو در کتاب…"
 
 #: src/ui/book-viewer.ui:313
 msgid "Contents"
@@ -579,7 +583,7 @@ msgstr "یادداشت‌ها"
 
 #: src/ui/book-viewer.ui:403
 msgid "Select some text to add annotations"
-msgstr ""
+msgstr "گزینش متن برای افزودن یادداشت"
 
 #: src/ui/book-viewer.ui:433
 msgid "Filter annotations…"
@@ -587,16 +591,15 @@ msgstr "پالودن یادداشت‌ها…"
 
 #: src/ui/book-viewer.ui:447
 msgid "Bookmarks"
-msgstr "چوب‌الف‌ها"
+msgstr "نشانک‌ها"
 
 #: src/ui/book-viewer.ui:458
-#, fuzzy
 msgid "No Bookmarks"
-msgstr "چوب‌الف‌ها"
+msgstr "بدون نشانک"
 
 #: src/ui/book-viewer.ui:459
 msgid "Add some bookmarks to see them here"
-msgstr ""
+msgstr "افزودن نشانک‌هایی برای دیدنشان در این‌جا"
 
 #: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
 msgid "No Results Found"
@@ -604,7 +607,7 @@ msgstr "نتیجه‌ای حاصل نشد"
 
 #: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
 msgid "Try a different search"
-msgstr "تلاش برای جستجویی دیگر"
+msgstr "تلاش برای جست‌وجویی دیگر"
 
 #: src/ui/book-viewer.ui:542
 msgid "Sidebar"
@@ -661,24 +664,23 @@ msgstr "قالب"
 #: src/ui/export-dialog.ui:29
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
 msgstr ""
-"اگر می‌خواهید یادداشت‌ها را در فولیت درون‌ریزی کنید، گزینه‌ی \"JSON\" را انتخاب "
-"کنید"
+"اگر می‌خواهید یادداشت‌ها را در برگه درون‌ریزی کنید، گزینهٔ \"JSON\" را انتخاب کنید"
 
 #: src/ui/export-dialog.ui:33
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: src/ui/export-dialog.ui:34
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: src/ui/export-dialog.ui:35
 msgid "Markdown"
-msgstr ""
+msgstr "مارک‌دون"
 
 #: src/ui/export-dialog.ui:36
 msgid "Org Mode"
-msgstr ""
+msgstr "حالت Org"
 
 #: src/ui/image-viewer.ui:6 src/ui/navbar.ui:302 src/ui/selection-popover.ui:7
 msgid "Copy"
@@ -705,8 +707,7 @@ msgid "Import"
 msgstr "درون‌ریزی"
 
 #: src/ui/import-dialog.ui:33
-msgid ""
-"The identifier doesn’t match. These annotations may not be for this book."
+msgid "The identifier doesn’t match. These annotations may not be for this book."
 msgstr "شناسه یافت نشد. شاید یادداشت‌ها برای این کتاب نیستند."
 
 #: src/ui/import-dialog.ui:34
@@ -731,11 +732,11 @@ msgstr "فهرست اصلی"
 
 #: src/ui/library.ui:69
 msgid "Search"
-msgstr "جستجو"
+msgstr "جست‌وجو"
 
 #: src/ui/library.ui:79
 msgid "Search library…"
-msgstr "جستجوی کتابخانه…"
+msgstr "جست‌وجوی کتابخانه…"
 
 #: src/ui/library-view.ui:21
 msgid "No Books Yet"
@@ -851,7 +852,7 @@ msgstr "قلم"
 
 #: src/ui/view-preferences-window.ui:9
 msgid "Font Family"
-msgstr "دسته‌ی قلم‌ها"
+msgstr "دستهٔ قلم‌ها"
 
 #: src/ui/view-preferences-window.ui:12
 msgid "Default Font"
@@ -879,15 +880,15 @@ msgstr "قلم هم‌عرض"
 
 #: src/ui/view-preferences-window.ui:66
 msgid "Font Size"
-msgstr "اندازه‌ی قلم"
+msgstr "اندازهٔ قلم"
 
 #: src/ui/view-preferences-window.ui:69
 msgid "Default Font Size"
-msgstr "اندازه‌ی پیش‌فرض قلم"
+msgstr "اندازهٔ پیش‌فرض قلم"
 
 #: src/ui/view-preferences-window.ui:82
 msgid "Minimum Font Size"
-msgstr "کمترین اندازه‌ی قلم"
+msgstr "کمترین اندازهٔ قلم"
 
 #: src/ui/view-preferences-window.ui:99
 msgid "Layout"
@@ -914,9 +915,8 @@ msgid "Hyphenation"
 msgstr "خط تیره‌ گذاری"
 
 #: src/ui/view-preferences-window.ui:161
-#, fuzzy
 msgid "Reduce Animation"
-msgstr "%d یادداشت"
+msgstr "پویانمایی کاسته"
 
 #: src/ui/view-preferences-window.ui:171
 msgid "Margins"
@@ -924,11 +924,11 @@ msgstr "حاشیه‌ها"
 
 #: src/ui/view-preferences-window.ui:185
 msgid "Maximum Number of Columns"
-msgstr "بیشینه‌ی تعداد ستون‌ها"
+msgstr "بیشینهٔ تعداد ستون‌ها"
 
 #: src/ui/view-preferences-window.ui:198
 msgid "Maximum Inline Size"
-msgstr "بیشترین اندازه‌ی هم‌خوان"
+msgstr "بیشترین اندازهٔ هم‌خوان"
 
 #: src/ui/view-preferences-window.ui:199
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
@@ -936,7 +936,7 @@ msgstr "بیشترین پهنای ستون (نوشتار افقی) یا ارتف
 
 #: src/ui/view-preferences-window.ui:212
 msgid "Maximum Block Size"
-msgstr "بیشترین اندازه‌ی بلوک"
+msgstr "بیشترین اندازهٔ بلوک"
 
 #: src/ui/view-preferences-window.ui:213
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
@@ -957,6 +957,9 @@ msgid ""
 "tailored for GNOME. Immerse yourself in a distraction-free interface, with "
 "customization features designed to match your unique preferences."
 msgstr ""
+"فصلی جدید در خواندن با با برگه، رایاکتاب‌خوان نوین ساخته شده برای گنوم کشف کنید. "
+"با ویژگی‌های سفارشی سازی طرّاحی شده برای تطبیق با ترجیحات منحصر به فردتان، خود را "
+"در میانایی بدون حواس‌پرتی غوطه‌ور کنید."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
@@ -964,11 +967,11 @@ msgstr "ویژگی‌هایی همچون:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
 msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
-msgstr "باز کردن سندهای  EPUB، Mobipocket، Kindle، FB2، CBZ و PDF "
+msgstr "گشودن سندهای EPUB، Mobipocket، Kindle، FB2، CBZ و PDF"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
 msgid "Paginated mode and scrolled mode"
-msgstr "حالت صفحه‌ی و حالت پیوسته"
+msgstr "حالت صفحهٔ و حالت پیوسته"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
 msgid "Customize font and line-spacing"
@@ -980,11 +983,11 @@ msgstr "روشن، قرمزقهوه‌ای، تاریک و حالت برعکس"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
 msgid "Reading progress slider with chapter marks"
-msgstr "لغزنده‌ی پیشرفت خواندن با نشانه‌های فصل"
+msgstr "لغزندهٔ پیشرفت خواندن با نشانه‌های فصل"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
 msgid "Bookmarks and annotations"
-msgstr "چوب‌الف‌ها و یادداشت‌ها"
+msgstr "نشانک‌ها و یادداشت‌ها"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
 msgid "Find in book"
@@ -992,39 +995,37 @@ msgstr "یافتن در کتاب"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
 msgid "Quick dictionary lookup"
-msgstr "جستجوی سریع واژه‌نامه"
+msgstr "جست‌وجوی سریع واژه‌نامه"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:30
-#, fuzzy
 msgid "Book"
-msgstr "فهرست کتاب"
+msgstr "کتاب"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:31
 msgid "EPUB"
-msgstr ""
+msgstr "EPUB"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:32
 msgid "Ebook"
-msgstr ""
+msgstr "رایاکتاب"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:33
 msgid "Reader"
-msgstr ""
+msgstr "خواننده"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:34
-#, fuzzy
 msgid "Viewer"
-msgstr "دیدن فهرست"
+msgstr "بیننده"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
 msgid ""
-"Foliate has been rewritten from scratch with a new e-book rendering library "
-"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
-"and improved performance."
+"Foliate has been rewritten from scratch with a new e-book rendering library and "
+"the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI and "
+"improved performance."
 msgstr ""
-"فولیت با یک کتابخانه‌ی تفسیر رایاکتاب‌خوان و آخرین کتابخانه‌های سکو، GTK4 و "
+"برگه با یک کتابخانهٔ تفسیر رایاکتاب‌خوان و آخرین کتابخانه‌های سکو، GTK4 و "
 "Libadwaita به همراه یک رابط کاربری تازه و با کارایی بالاتر از ابتدا بازنویسی "
 "شده است."
 
 #~ msgid "Foliate is modern e-book reader app designed for GNOME."
-#~ msgstr "فولیت یک ابزار رایاکتاب‌خوان طراحی‌شده برای گنوم است."
+#~ msgstr "برگه یک ابزار رایاکتاب‌خوان طراحی‌شده برای گنوم است."
