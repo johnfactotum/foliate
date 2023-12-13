@@ -67,16 +67,11 @@ const uiText = {
         _('Next'),
         _('Last'),
     ],
-    openSearchParams: {
-        searchTerms: _('Search Terms'),
-        language: _('Language'),
-    },
-    atomParams: {
+    query: _('Search Terms'),
+    metadata: {
         title: _('Title'),
         author: _('Author'),
         contributor: _('Contributor'),
-    },
-    metadata: {
         publisher: _('Publisher'),
         published: _('Published'),
         language: _('Language'),
@@ -532,7 +527,8 @@ GObject.registerClass({
                     break
                 case 'state':
                     this.#state = payload.state
-                    this.actionGroup.lookup_action('search').enabled = !!this.#state?.search
+                    this.actionGroup.lookup_action('search').enabled =
+                        !!this.#state?.search && !!this.#state?.searchEnabled
                     this.emit('state-changed', this.#state)
                     break
             }
@@ -547,6 +543,12 @@ GObject.registerClass({
     load(url) {
         this.actionGroup.lookup_action('search').enabled = false
         if (!this.child) this.init()
+        if (url === '#search') {
+            this.child.run("location = location.href.split('#')[0] + '#search'")
+                .then(() => this.child.grab_focus())
+                .catch(e => console.debug(e))
+            return
+        }
         this.child.loadURI(`foliate-opds:///opds/opds.html?url=${encodeURIComponent(url)}`)
             .then(() => this.child.grab_focus())
             .catch(e => console.error(e))

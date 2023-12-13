@@ -697,12 +697,16 @@ const renderEntry = (pub, baseURL) => {
 
 const renderFeed = async (feed, baseURL) => {
     const linksByRel = groupByArray(feed.links, link => link.rel)
+    const templatedSearch = linksByRel.get('search')
+        ?.find(link => isOPDSCatalog(link.type) && link.templated)
     globalThis.state = {
         title: feed.metadata?.title,
         self: resolveURL(linksByRel.get('self')?.[0]?.href, baseURL) || baseURL,
         start: resolveURL(linksByRel.get('start')?.[0]?.href, baseURL),
-        search: resolveURL(linksByRel.get('search')
+        search: templatedSearch ? '#search'
+        : resolveURL(linksByRel.get('search')
             ?.find(link => parseMediaType(link.type).mediaType === MIME.OPENSEARCH)?.href, baseURL),
+        searchEnabled: true,
     }
     globalThis.updateState()
 
@@ -719,13 +723,35 @@ const renderFeed = async (feed, baseURL) => {
             document.querySelector('#stack').showChild(document.querySelector('#feed'))
             document.querySelector('#entry').replaceChildren()
         }
+        else if (hash === 'search') {
+            getSearch(templatedSearch)
+                .then(search => renderSearch(search, baseURL))
+                .catch(e => console.error(e))
+        }
         else renderEntry(JSON.parse(decodeURIComponent(hash)), baseURL)
             .catch(e => console.error(e))
+        globalThis.state.searchEnabled = hash !== 'search'
+        globalThis.updateState()
     })
     document.querySelector('#stack').showChild(document.querySelector('#feed'))
 }
 
-const renderOpenSearch = (doc, baseURL) => {
+const getSearch = async link => {
+    const { replace, getVariables } = await import('./uri-template.js')
+    return {
+        metadata: {
+            title: link.title,
+        },
+        search: map => replace(link.href, map.get(null)),
+        params: Array.from(getVariables(link.href), name => ({
+            label: name === 'query' ? globalThis.uiText.query
+            : globalThis.uiText.metadata[name] ?? name,
+            param: name,
+        })),
+    }
+}
+
+const getOpenSearch = doc => {
     const defaultNS = doc.documentElement.namespaceURI
     const filter = filterNS(defaultNS)
     const children = Array.from(doc.documentElement.children)
@@ -744,14 +770,34 @@ const renderOpenSearch = (doc, baseURL) => {
         ['outputEncoding', 'UTF-8'],
     ])
 
-    const template = resolveURL($url.getAttribute('template'), baseURL)
-    const search = map => template.replace(regex, (_, prefix, param) => {
-        const namespace = prefix ? $url.lookupNamespaceURI(prefix) : null
-        const ns = namespace === defaultNS ? null : namespace
-        const val = map.get(ns)?.get(param)
-        return val ? val : (!ns ? defaultMap.get(param) ?? '' : '')
-    })
+    const template = $url.getAttribute('template')
+    return {
+        metadata: {
+            title: (children.find(filter('LongName')) ?? children.find(filter('ShortName')))?.textContent,
+            description: children.find(filter('Description'))?.textContent,
+        },
+        search: map => template.replace(regex, (_, prefix, param) => {
+            const namespace = prefix ? $url.lookupNamespaceURI(prefix) : null
+            const ns = namespace === defaultNS ? null : namespace
+            const val = map.get(ns)?.get(param)
+            return val ? val : (!ns ? defaultMap.get(param) ?? '' : '')
+        }),
+        params: Array.from(template.matchAll(regex), ([, prefix, param, optional]) => {
+            const namespace = prefix ? $url.lookupNamespaceURI(prefix) : null
+            const ns = namespace === defaultNS ? null : namespace
+            return {
+                label: (ns === null && param === 'searchTerms'
+                    ? globalThis.uiText.query
+                    : globalThis.uiText.metadata[param] ?? param),
+                ns, param,
+                required: !optional,
+                value: ns && ns !== defaultNS ? '' : defaultMap.get(param) ?? '',
+            }
+        }),
+    }
+}
 
+const renderSearch = (search, baseURL) => {
     document.querySelector('#search form').onsubmit = e => {
         e.preventDefault()
         const map = new Map()
@@ -761,40 +807,31 @@ const renderOpenSearch = (doc, baseURL) => {
             if (map.has(ns)) map.get(ns).set(param, value)
             else map.set(ns, new Map([[param, value]]))
         }
-        location = '?url=' + encodeURIComponent(search(map))
+        location = '?url=' + encodeURIComponent(resolveURL(search.search(map), baseURL))
     }
 
-    document.querySelector('#search h1').textContent =
-        (children.find(filter('LongName')) ?? children.find(filter('ShortName')))?.textContent ?? ''
-    document.querySelector('#search p').textContent =
-        children.find(filter('Description'))?.textContent ?? ''
-    document.querySelector('#search button').textContent = globalThis.uiText.search
+    document.querySelector('#search h1').textContent = search.metadata.title ?? ''
+    document.querySelector('#search p').textContent = search.metadata.description ?? ''
 
-    const container = document.querySelector('#search-params')
-    for (const [, prefix, param, optional] of template.matchAll(regex)) {
-        const namespace = prefix ? $url.lookupNamespaceURI(prefix) : null
-        const ns = namespace === defaultNS ? null : namespace
-
+    document.querySelector('#search-params').replaceChildren(...search.params.map(obj => {
         const input = document.createElement('input')
-        if (ns) input.dataset.ns = ns
-        input.dataset.param = param
-        input.required = !optional
-        input.type = 'text'
-        input.value = ns && ns !== defaultNS ? '' : defaultMap.get(param) ?? ''
+        if (obj.ns) input.dataset.ns = obj.ns
+        input.dataset.param = obj.param
+        input.required = obj.required
+        input.type = 'search'
+        input.value = obj.value ?? ''
 
         const label = document.createElement('label')
         const span = document.createElement('span')
-        span.textContent = (ns === NS.ATOM
-            ? globalThis.uiText.atomParams[param]
-            : globalThis.uiText.openSearchParams[param] ?? param)
+        span.textContent = obj.label
         label.append(span, input)
 
         const p = document.createElement('p')
         p.append(label)
-        container.append(p)
-    }
+        return p
+    }))
     document.querySelector('#stack').showChild(document.querySelector('#search'))
-    container.querySelector('input').focus()
+    document.querySelector('#search input').focus()
 }
 
 globalThis.updateState = () => emit({ type: 'state', state: globalThis.state })
@@ -804,6 +841,7 @@ document.querySelector('#error h1').textContent = globalThis.uiText.error
 document.querySelector('#error button').textContent = globalThis.uiText.reload
 document.querySelector('#error button').onclick = () => location.reload()
 document.querySelector('#feed a[href="#nav"]').title = globalThis.uiText.filter
+document.querySelector('#search button').textContent = globalThis.uiText.search
 
 try {
     const params = new URLSearchParams(location.search)
@@ -816,7 +854,7 @@ try {
         const { documentElement: { localName } } = doc
         if (localName === 'feed') await renderFeed(getFeed(doc), url)
         else if (localName === 'entry') await renderEntry(getPublication(doc.documentElement), url)
-        else if (localName === 'OpenSearchDescription') renderOpenSearch(doc, url)
+        else if (localName === 'OpenSearchDescription') renderSearch(getOpenSearch(doc), url)
         else throw new Error(`root element is <${localName}>; expected <feed> or <entry>`)
     }
     else {
