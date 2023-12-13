@@ -497,7 +497,7 @@ const renderImages = (images, isThumbnail, baseURL) => {
     return img
 }
 
-const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(async group => {
+const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(async (group, groupIndex) => {
     const { metadata, links, publications, navigation } = group
 
     const paginationItems = group[SYMBOL.PAGINATION]?.map((links, i) => {
@@ -512,7 +512,7 @@ const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(as
 
     const container = document.createElement('div')
     container.classList.add('container')
-    container.replaceChildren(...await Promise.all((publications ?? navigation).map(async item => {
+    container.replaceChildren(...await Promise.all((publications ?? navigation).map(async (item, itemIndex) => {
         const isPub = 'metadata' in item
         const el = document.createElement(isPub ? 'opds-pub' : 'opds-nav')
         if (isPub) {
@@ -535,7 +535,7 @@ const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(as
             })
             el.setAttribute('href', alternate?.href
                 ? '?url=' + encodeURIComponent(resolveURL(alternate.href, baseURL))
-                : '#' + encodeURIComponent(JSON.stringify(item)))
+                : '#' + groupIndex + ',' + itemIndex)
         } else {
             el.setAttribute('heading', item.title ?? '')
             el.setAttribute('description', item[SYMBOL.SUMMARY] ?? '')
@@ -717,23 +717,28 @@ const renderFeed = async (feed, baseURL) => {
     if (feed.facets)
         document.querySelector('#nav').append(...renderFacets(feed.facets, baseURL))
 
-    addEventListener('hashchange', () => {
+    const update = () => {
         const hash = location.hash.slice(1)
-        if (!hash || hash === 'nav') {
+        document.querySelector('#entry').replaceChildren()
+        if (!hash || hash === 'nav')
             document.querySelector('#stack').showChild(document.querySelector('#feed'))
-            document.querySelector('#entry').replaceChildren()
-        }
         else if (hash === 'search') {
             getSearch(templatedSearch)
                 .then(search => renderSearch(search, baseURL))
                 .catch(e => console.error(e))
         }
-        else renderEntry(JSON.parse(decodeURIComponent(hash)), baseURL)
-            .catch(e => console.error(e))
+        else {
+            const [groupIndex, itemIndex] = hash.split(',').map(x => parseInt(x))
+            const group = feed.groups[groupIndex]
+            const items = group.publications ?? group.navigation
+            renderEntry(items[itemIndex], baseURL)
+                .catch(e => console.error(e))
+        }
         globalThis.state.searchEnabled = hash !== 'search'
         globalThis.updateState()
-    })
-    document.querySelector('#stack').showChild(document.querySelector('#feed'))
+    }
+    addEventListener('hashchange', update)
+    update()
 }
 
 const getSearch = async link => {
