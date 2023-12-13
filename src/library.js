@@ -5,6 +5,7 @@ import Gio from 'gi://Gio'
 import GLib from 'gi://GLib'
 import Gdk from 'gi://Gdk'
 import GdkPixbuf from 'gi://GdkPixbuf'
+import Pango from 'gi://Pango'
 import cairo from 'gi://cairo'
 import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
@@ -615,7 +616,9 @@ const SidebarRow = GObject.registerClass({
     },
 }, class extends Gtk.Box {
     #icon = new Gtk.Image()
-    #label = new Gtk.Label()
+    #label = new Gtk.Label({
+        ellipsize: Pango.EllipsizeMode.END,
+    })
     #menu = new Gio.Menu()
     #popover = new Gtk.PopoverMenu({
         has_arrow: false,
