@@ -540,8 +540,7 @@ const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(as
             el.setAttribute('heading', item.title ?? '')
             el.setAttribute('description', item[SYMBOL.SUMMARY] ?? '')
             const href = resolveURL(item.href, baseURL)
-            el.setAttribute('href', isOPDSCatalog(item.type)
-                ? '?url=' + encodeURIComponent(href) : href)
+            el.setAttribute('href', '?url=' + encodeURIComponent(href))
         }
         return el
     })))
