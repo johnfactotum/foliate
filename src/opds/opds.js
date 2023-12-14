@@ -497,6 +497,13 @@ const renderImages = (images, isThumbnail, baseURL) => {
     return img
 }
 
+const renderIdentifier = identifier => {
+    if (!identifier) return
+    const el = document.createElement('code')
+    el.textContent = identifier
+    return [el]
+}
+
 const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(async (group, groupIndex) => {
     const { metadata, links, publications, navigation } = group
 
@@ -651,13 +658,13 @@ const renderPublication = async (pub, baseURL) => {
     const table = document.createElement('table')
     details.append(table)
 
-    for (const [k, v = metadata[k]] of [
+    for (const [k, v] of [
         ['publisher', await renderContributor(metadata.publisher, baseURL)],
         ['published', await globalThis.formatDate(metadata.published)],
         ['language', await globalThis.formatList(
             await Promise.all([metadata.language ?? []].flat()
                 .map(x => globalThis.formatLanguage(x))))],
-        ['identifier'],
+        ['identifier', renderIdentifier(metadata.identifier)],
     ]) {
         if (!v?.length) continue
         const tr = document.createElement('tr')
@@ -665,9 +672,8 @@ const renderPublication = async (pub, baseURL) => {
         const td = document.createElement('td')
         tr.append(th, td)
         th.textContent = globalThis.uiText.metadata[k]
-        if (v[0].nodeType != null) td.append(...v)
-        else td.textContent = v
-        if (v.length > 30) tr.classList.add('long')
+        td.append(...v)
+        if (td.textContent.length > 30) tr.classList.add('long')
         table.append(tr)
     }
 
