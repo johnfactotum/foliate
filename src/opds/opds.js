@@ -699,11 +699,18 @@ const renderFeed = async (feed, baseURL) => {
     const linksByRel = groupByArray(feed.links, link => link.rel)
     const templatedSearch = linksByRel.get('search')
         ?.find(link => isOPDSCatalog(link.type) && link.templated)
+    const atomSearch = templatedSearch ? null
+        // can't find where this is specced, and it makes no sense,
+        // but it's used by calibre and Thorium Reader
+        // so apparently it's a thing...
+        : linksByRel.get('search')?.find(link =>
+            parseMediaType(link.type)?.mediaType === MIME.ATOM
+            && link.href?.includes('{searchTerms}'))
     globalThis.state = {
         title: feed.metadata?.title,
         self: resolveURL(linksByRel.get('self')?.[0]?.href, baseURL) || baseURL,
         start: resolveURL(linksByRel.get('start')?.[0]?.href, baseURL),
-        search: templatedSearch ? '#search'
+        search: templatedSearch || atomSearch ? '#search'
         : resolveURL(linksByRel.get('search')
             ?.find(link => parseMediaType(link.type).mediaType === MIME.OPENSEARCH)?.href, baseURL),
         searchEnabled: true,
@@ -723,9 +730,16 @@ const renderFeed = async (feed, baseURL) => {
         if (!hash || hash === 'nav')
             document.querySelector('#stack').showChild(document.querySelector('#feed'))
         else if (hash === 'search') {
-            getSearch(templatedSearch)
+            if (templatedSearch) getSearch(templatedSearch)
                 .then(search => renderSearch(search, baseURL))
                 .catch(e => console.error(e))
+            else if (atomSearch) renderSearch({
+                metadata: { title: atomSearch.title },
+                // NOTE: no full OpenSearch support here
+                search: map => atomSearch.href.replaceAll('{searchTerms}',
+                    encodeURIComponent(map.get(null).get('searchTerms'))),
+                params: [{ label: globalThis.uiText.query, param: 'searchTerms' }],
+            })
         }
         else {
             const [groupIndex, itemIndex] = hash.split(',').map(x => parseInt(x))
