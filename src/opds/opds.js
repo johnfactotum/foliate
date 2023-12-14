@@ -785,7 +785,7 @@ const getOpenSearch = doc => {
             const namespace = prefix ? $url.lookupNamespaceURI(prefix) : null
             const ns = namespace === defaultNS ? null : namespace
             const val = map.get(ns)?.get(param)
-            return val ? val : (!ns ? defaultMap.get(param) ?? '' : '')
+            return encodeURIComponent(val ? val : (!ns ? defaultMap.get(param) ?? '' : ''))
         }),
         params: Array.from(template.matchAll(regex), ([, prefix, param, optional]) => {
             const namespace = prefix ? $url.lookupNamespaceURI(prefix) : null
