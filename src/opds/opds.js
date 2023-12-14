@@ -303,7 +303,8 @@ const getFeed = doc => {
     const groupLinkMap = new Map()
     for (const entry of entries) {
         const children = Array.from(entry.children)
-        const linksByRel = groupByArray(children.filter(filter('link')).map(getLink), link => link.rel)
+        const links = children.filter(filter('link')).map(getLink)
+        const linksByRel = groupByArray(links, link => link.rel)
         const isPub = [...linksByRel.keys()].some(rel => rel?.startsWith(REL.ACQ))
 
         const groupLinks = linksByRel.get(REL.GROUP) ?? linksByRel.get('collection')
@@ -314,7 +315,7 @@ const getFeed = doc => {
 
         const item = isPub
             ? getPublication(entry, filter)
-            : Object.assign(linksByRel.values().next().value?.[0], {
+            : Object.assign(links.find(link => isOPDSCatalog(link.type)) ?? links[0] ?? {}, {
                 title: children.find(filter('title'))?.textContent,
                 [SYMBOL.SUMMARY]: children.find(filter('content'))?.textContent ?? '',
             })
