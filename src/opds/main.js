@@ -66,7 +66,7 @@ const formatElementList = async els => {
 }
 
 customElements.define('opds-nav', class extends HTMLElement {
-    static observedAttributes = ['heading', 'description', 'href']
+    static observedAttributes = ['heading', 'count', 'description', 'href']
     #root = this.attachShadow({ mode: 'closed' })
     constructor() {
         super()
@@ -78,6 +78,9 @@ customElements.define('opds-nav', class extends HTMLElement {
         switch (name) {
             case 'heading':
                 this.#root.querySelector('h1 a').textContent = val
+                break
+            case 'count':
+                this.#root.querySelector('#count').textContent = val
                 break
             case 'description':
                 this.#root.querySelector('p').textContent = val
@@ -379,6 +382,7 @@ const renderGroups = async (groups, baseURL) => (await Promise.all(groups.map(as
                 : '#' + groupIndex + ',' + itemIndex)
         } else {
             el.setAttribute('heading', item.title ?? '')
+            el.setAttribute('count', await globalThis.formatNumber(item.properties?.numberOfItems))
             el.setAttribute('description', item[SYMBOL.SUMMARY] ?? '')
             const href = resolveURL(item.href, baseURL)
             el.setAttribute('href', '?url=' + encodeURIComponent(href))

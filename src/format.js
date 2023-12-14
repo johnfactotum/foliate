@@ -42,6 +42,9 @@ export const matchLocales = strs => {
     return matches
 }
 
+const numberFormat = new Intl.NumberFormat(locales)
+export const number = x => x != null ? numberFormat.format(x) : ''
+
 const percentFormat = new Intl.NumberFormat(locales, { style: 'percent' })
 export const percent = x => percentFormat.format(x)
 

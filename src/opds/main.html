@@ -331,7 +331,7 @@ button[role="menuitem"] {
 /* navigation
 ------------------------------------------------------------------------------*/
 opds-nav {
-    padding: 12px;
+    padding: 15px;
     border-radius: 9px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03),
         0 1px 3px 1px rgba(0, 0, 0, 0.07),
@@ -470,9 +470,10 @@ opds-pub-full > [slot="actions"]:not(:has([data-rel$="sample"]:first-child)) > *
     :host {
         position: relative;
         display: grid;
-        grid-template-columns: 1fr min-content;
+        grid-template-columns: 1fr max-content min-content;
         column-gap: 12px;
-        min-height: 32px;
+        row-gap: 6px;
+        align-items: center;
     }
     a {
         color: inherit;
@@ -489,24 +490,36 @@ opds-pub-full > [slot="actions"]:not(:has([data-rel$="sample"]:first-child)) > *
         margin: 0;
         align-self: end;
     }
+    h1:has(+ #description:empty) {
+        align-self: center;
+    }
     p {
+        margin: 0;
+    }
+    #description {
         grid-row-start: 2;
         margin: 0;
-        margin-top: 6px;
         font-size: smaller;
+        align-self: start;
     }
-    p:empty {
+    #description:empty {
         display: none;
     }
-    span {
+    #description:not(:empty) ~ :is(#count, span) {
         grid-row: span 2;
-        display: flex;
-        align-items: center;
-        padding: 0 .5em;
+    }
+    #count {
+        font-variant-numeric: tabular-nums;
+        font-size: smaller;
+        color: graytext;
+    }
+    span {
+        color: graytext;
     }
     </style>
     <h1><a></a></h1>
-    <p></p>
+    <p id="description"></p>
+    <p id="count"></p>
     <span aria-hidden="true">❯</span>
 </template>
 <template id="opds-pub">

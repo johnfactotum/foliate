@@ -479,6 +479,7 @@ GObject.registerClass({
             }),
         })
         const initFuncs = [
+            webView.provide('formatNumber', format.number),
             webView.provide('formatMime', format.mime),
             webView.provide('formatPrice',
                 price => price ? format.price(price.currency, price.value) : ''),
