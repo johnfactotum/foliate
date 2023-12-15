@@ -637,9 +637,9 @@ document.querySelector('#search button').textContent = globalThis.uiText.search
 
 try {
     const params = new URLSearchParams(location.search)
-    const url = params.get('url')
-    const res = await fetch(url)
+    const res = await fetch(params.get('url'))
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
+    const url = res.url
     const text = await res.text()
     if (text.startsWith('<')) {
         const doc = new DOMParser().parseFromString(text, MIME.XML)
