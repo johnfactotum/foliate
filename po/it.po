@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-28 03:20+0000\n"
+"POT-Creation-Date: 2023-12-15 14:59+0000\n"
 "PO-Revision-Date: 2021-11-18 11:43+0200\n"
 "Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
 "Language-Team: Italian\n"
@@ -19,92 +19,93 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.1\n"
 
-#: src/annotations.js:140 src/annotations.js:175
+#: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
 msgstr "Segnalibri cancellati"
 
-#: src/annotations.js:141 src/annotations.js:176 src/book-viewer.js:804
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:804
+#: src/library.js:827
 msgid "Undo"
 msgstr "Annulla"
 
-#: src/annotations.js:440
+#: src/annotations.js:437
 msgid "Underline"
 msgstr "Sottolineare"
 
-#: src/annotations.js:441
+#: src/annotations.js:438
 msgid "Squiggly"
 msgstr "Ondulato"
 
-#: src/annotations.js:442
+#: src/annotations.js:439
 msgid "Strikethrough"
 msgstr "Barrato"
 
-#: src/annotations.js:443
+#: src/annotations.js:440
 msgid "Yellow"
 msgstr "Giallo"
 
-#: src/annotations.js:444
+#: src/annotations.js:441
 msgid "Orange"
 msgstr "Arancione"
 
-#: src/annotations.js:445
+#: src/annotations.js:442
 msgid "Red"
 msgstr "Rosso"
 
-#: src/annotations.js:446
+#: src/annotations.js:443
 msgid "Magenta"
 msgstr "Magenta"
 
-#: src/annotations.js:447
+#: src/annotations.js:444
 msgid "Aqua"
 msgstr "Aqua"
 
-#: src/annotations.js:448
+#: src/annotations.js:445
 msgid "Lime"
 msgstr "Lime"
 
-#: src/annotations.js:449
+#: src/annotations.js:446
 msgid "Custom Color…"
 msgstr "Colore personalizzato…"
 
-#: src/annotations.js:501
+#: src/annotations.js:498
 msgid "Custom"
 msgstr "Personalizzato"
 
-#: src/annotations.js:595
+#: src/annotations.js:592
 msgid "JSON Files"
 msgstr "File JSON"
 
-#: src/annotations.js:600 src/app.js:124
+#: src/annotations.js:597 src/app.js:145
 msgid "All Files"
 msgstr "Tutti i File"
 
-#: src/annotations.js:609 src/annotations.js:637 src/ui/book-viewer.ui:402
+#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:402
 msgid "No Annotations"
 msgstr "Nessuna Annotazione"
 
-#: src/annotations.js:610
+#: src/annotations.js:607
 msgid "The imported file has no annotations"
 msgstr "Il file importato non ha annotazioni"
 
-#: src/annotations.js:628
+#: src/annotations.js:625
 msgid "Cannot Import Annotations"
 msgstr "Impossibile importare annotazioni"
 
-#: src/annotations.js:629 src/book-viewer.js:715
+#: src/annotations.js:626 src/book-viewer.js:715 src/library.js:606
 msgid "An error occurred"
 msgstr "Si è verificato un errore"
 
-#: src/annotations.js:638
+#: src/annotations.js:635
 msgid "You don’t have any annotations for this book"
 msgstr "Non hai annotazioni per questo libro"
 
-#: src/annotations.js:651
+#: src/annotations.js:648
 #, javascript-format
 msgid "Annotations for “%s”"
 msgstr "Annotazioni per “%s”"
 
-#: src/annotations.js:652
+#: src/annotations.js:649
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
@@ -115,31 +116,36 @@ msgstr[1] "%d Annotazioni"
 msgid "Close"
 msgstr "Chiudi"
 
-#: src/app.js:111
+#: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
+#: src/ui/import-dialog.ui:15
+msgid "Cancel"
+msgstr "Annulla"
+
+#: src/app.js:132
 msgid "E-Book Files"
 msgstr "File E-Book"
 
-#: src/app.js:362 data/com.github.johnfactotum.Foliate.desktop.in:6
+#: src/app.js:383 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
 msgstr "Leggi gli e-book con stile"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/app.js:368
+#: src/app.js:389
 msgid "translator-credits"
 msgstr "Gianluca Boiano,Albano Battistella"
 
-#: src/app.js:377
+#: src/app.js:398
 msgid "Source Code"
 msgstr "Codice sorgente "
 
-#: src/book-info.js:125
+#: src/book-info.js:125 src/library.js:75
 msgid "Publisher"
 msgstr "Editore"
 
 #. Translators: this is the heading for the publication date
-#: src/book-info.js:127
+#: src/book-info.js:127 src/library.js:76
 msgid "Published"
 msgstr "Pubblicato"
 
@@ -148,7 +154,7 @@ msgstr "Pubblicato"
 msgid "Updated"
 msgstr "Aggiornato"
 
-#: src/book-info.js:130
+#: src/book-info.js:130 src/library.js:77
 msgid "Language"
 msgstr "Lingua"
 
@@ -184,7 +190,7 @@ msgstr "Colori di"
 msgid "Contributors"
 msgstr "Contributori"
 
-#: src/book-info.js:139 src/ui/navbar.ui:283
+#: src/book-info.js:139 src/library.js:78 src/ui/navbar.ui:283
 msgid "Identifier"
 msgstr "ID"
 
@@ -315,39 +321,188 @@ msgstr "Immagine da \"%s\""
 msgid "Image"
 msgstr "Immagine"
 
-#: src/format.js:91
+#: src/format.js:122
 #, javascript-format
 msgid "of %d"
 msgstr "di %d"
 
-#: src/library.js:369
+#: src/library.js:47
+msgid "Loading"
+msgstr ""
+
+#: src/library.js:48
+#, fuzzy
+msgid "Failed to Load"
+msgstr "Copiato negli appunti"
+
+#: src/library.js:49 src/ui/book-viewer.ui:15
+msgid "Reload"
+msgstr "Ricarica"
+
+#: src/library.js:51
+msgid "See All"
+msgstr ""
+
+#: src/library.js:52 src/ui/library.ui:124 src/ui/library.ui:182
+msgid "Search"
+msgstr "Cerca"
+
+#: src/library.js:53
+msgid "Filter"
+msgstr ""
+
+#: src/library.js:55 src/library.js:57
+msgid "Download"
+msgstr ""
+
+#: src/library.js:56
+msgid "Buy"
+msgstr ""
+
+#: src/library.js:58
+#, fuzzy
+msgid "Preview"
+msgstr "Precedente"
+
+#: src/library.js:59
+msgid "Sample"
+msgstr ""
+
+#: src/library.js:60
+msgid "Borrow"
+msgstr ""
+
+#: src/library.js:61
+msgid "Subscribe"
+msgstr ""
+
+#: src/library.js:63
+msgid "Free"
+msgstr ""
+
+#: src/library.js:65
+msgid "First"
+msgstr ""
+
+#: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
+msgid "Previous"
+msgstr "Precedente"
+
+#: src/library.js:67 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
+msgid "Next"
+msgstr "Prossimo"
+
+#: src/library.js:68
+msgid "Last"
+msgstr ""
+
+#: src/library.js:70
+#, fuzzy
+msgid "Search Terms"
+msgstr "Cerca"
+
+#: src/library.js:72
+msgid "Title"
+msgstr ""
+
+#: src/library.js:73
+msgid "Author"
+msgstr ""
+
+#: src/library.js:74
+#, fuzzy
+msgid "Contributor"
+msgstr "Contributori"
+
+#: src/library.js:436
 msgid "Remove Book?"
 msgstr "Rimuovere il Libro?"
 
-#: src/library.js:370
+#: src/library.js:437
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr ""
 "L'avanzamento della lettura, le annotazioni e i segnalibri andranno persi "
 "definitivamente"
 
-#: src/library.js:372
+#: src/library.js:439
 msgid "_Cancel"
 msgstr "_Annulla"
 
-#: src/library.js:373
+#: src/library.js:440
 msgid "_Remove"
 msgstr "_Rimuovi"
 
+#: src/library.js:606
+msgid "Download Failed"
+msgstr ""
+
+#: src/library.js:660
+msgid "Rename…"
+msgstr ""
+
+#: src/library.js:661 src/ui/book-item.ui:21 src/ui/book-row.ui:21
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: src/library.js:681 src/library.js:682
+msgid "Rename"
+msgstr ""
+
+#: src/library.js:687
+msgid "Name"
+msgstr ""
+
+#: src/library.js:702
+#, fuzzy
+msgid "All Books"
+msgstr "Libro"
+
+#: src/library.js:708
+#, fuzzy
+msgid "Add Catalog…"
+msgstr "Aggiungi nota…"
+
+#: src/library.js:775 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/ui/library.ui:93
+msgid "Library"
+msgstr "Libreria"
+
+#: src/library.js:783
+msgid "Catalogs"
+msgstr ""
+
+#: src/library.js:826
+msgid "Catalog removed"
+msgstr ""
+
+#: src/library.js:907 src/library.js:912
+msgid "Add Catalog"
+msgstr ""
+
+#: src/library.js:908
+msgid "Add"
+msgstr ""
+
+#: src/library.js:913
+msgid ""
+"You can browse and download books from OPDS catalogs. <a href=\"https://opds."
+"io\">Learn More…</a>"
+msgstr ""
+
+#: src/library.js:917
+msgid "URL"
+msgstr ""
+
 #. Translators: Do NOT translate! The is the application name!
-#: src/main.js:26 data/com.github.johnfactotum.Foliate.desktop.in:4
+#: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
 msgid "Foliate"
 msgstr "Foliate"
 
-#: src/selection-tools.js:85
+#: src/selection-tools.js:72
 msgid "Dictionary"
 msgstr "Dizionario"
 
-#: src/selection-tools.js:109
+#: src/selection-tools.js:96
 msgid ""
 "From <a id=\"link\">Wiktionary</a>, released under the <a href=\"https://"
 "creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
@@ -355,19 +510,19 @@ msgstr ""
 "Da <a id=\"link\">Wiktionary</a>, pubblicato sotto <a href=\"https://"
 "creativecommons.org/licenses/by-sa/4.0/\">Licenza CC BY-SA</a>."
 
-#: src/selection-tools.js:157 src/selection-tools.js:245
+#: src/selection-tools.js:144 src/selection-tools.js:232
 msgid "No Definitions Found"
 msgstr "Nessuna definizione trovata"
 
-#: src/selection-tools.js:159
+#: src/selection-tools.js:146
 msgid "Search on Wiktionary"
 msgstr "Cerca su Wiktionary"
 
-#: src/selection-tools.js:196
+#: src/selection-tools.js:183
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: src/selection-tools.js:215
+#: src/selection-tools.js:202
 msgid ""
 "From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://en."
 "wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
@@ -377,19 +532,19 @@ msgstr ""
 "wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
 "ShareAlike_4.0_International_License\">Licenza CC BY-SA</a>."
 
-#: src/selection-tools.js:247
+#: src/selection-tools.js:234
 msgid "Search on Wikipedia"
 msgstr "Cerca su Wikipedia"
 
-#: src/selection-tools.js:256
+#: src/selection-tools.js:243
 msgid "Translate"
 msgstr "Traduci"
 
-#: src/selection-tools.js:282
+#: src/selection-tools.js:269
 msgid "Translation by Google Translate"
 msgstr "Tradotto da Google Translate"
 
-#: src/selection-tools.js:293
+#: src/selection-tools.js:280
 msgid "Cannot retrieve translation"
 msgstr "Impossibile recuperare la traduzione"
 
@@ -468,10 +623,6 @@ msgstr "Apri in una nuova finestra"
 msgid "Export Annotations…"
 msgstr "Esporta Annotazioni…"
 
-#: src/ui/book-item.ui:21 src/ui/book-row.ui:21
-msgid "Remove"
-msgstr "Rimuovi"
-
 #: src/ui/book-viewer.ui:5
 msgid "New Window"
 msgstr "Nuova finestra"
@@ -480,15 +631,11 @@ msgstr "Nuova finestra"
 msgid "Open a Copy"
 msgstr "Apri una Copia"
 
-#: src/ui/book-viewer.ui:15
-msgid "Reload"
-msgstr "Ricarica"
-
 #: src/ui/book-viewer.ui:21
 msgid "Import Annotations…"
 msgstr "Importa Annotazioni…"
 
-#: src/ui/book-viewer.ui:37 src/ui/library.ui:40
+#: src/ui/book-viewer.ui:37 src/ui/library.ui:42
 msgid "About Foliate"
 msgstr "Informazioni su Foliate"
 
@@ -535,10 +682,6 @@ msgstr "Stampa…"
 #: src/ui/book-viewer.ui:107
 msgid "Inspector"
 msgstr ""
-
-#: src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:238 src/ui/library.ui:53
-msgid "Library"
-msgstr "Libreria"
 
 #: src/ui/book-viewer.ui:167
 msgid "Book Cannot Be Opened"
@@ -605,7 +748,7 @@ msgstr "Nessun risultato trovato"
 msgid "Try a different search"
 msgstr "Prova una ricerca diversa"
 
-#: src/ui/book-viewer.ui:542
+#: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
 msgid "Sidebar"
 msgstr "Barra laterale"
 
@@ -637,17 +780,13 @@ msgstr "Stile chiaro"
 msgid "Dark Style"
 msgstr "Stile Scuro"
 
-#: src/ui/book-viewer.ui:636 src/ui/library.ui:24
+#: src/ui/book-viewer.ui:636 src/ui/library.ui:26
 msgid "Fullscreen"
 msgstr "Schermo intero"
 
 #: src/ui/export-dialog.ui:5
 msgid "Export Annotations"
 msgstr "Esporta Annotazioni"
-
-#: src/ui/export-dialog.ui:11 src/ui/import-dialog.ui:15
-msgid "Cancel"
-msgstr "Annulla"
 
 #: src/ui/export-dialog.ui:16
 msgid "Export"
@@ -713,29 +852,43 @@ msgstr ""
 msgid "Import Anyway"
 msgstr "Importa comunque"
 
-#: src/ui/library.ui:6 src/ui/library-view.ui:27
-msgid "Open…"
-msgstr "Apri…"
-
-#: src/ui/library.ui:12
+#: src/ui/library.ui:6
 msgid "List View"
 msgstr "Vista ad elenco"
 
-#: src/ui/library.ui:17
+#: src/ui/library.ui:11
 msgid "Grid View"
 msgstr "Vista a grigia"
 
-#: src/ui/library.ui:62
+#: src/ui/library.ui:20 src/ui/library-view.ui:27
+msgid "Open…"
+msgstr "Apri…"
+
+#: src/ui/library.ui:67
 msgid "Main Menu"
 msgstr "Menu principale"
 
-#: src/ui/library.ui:69
-msgid "Search"
-msgstr "Cerca"
+#: src/ui/library.ui:110
+#, fuzzy
+msgid "Open"
+msgstr "Apri…"
 
-#: src/ui/library.ui:79
+#: src/ui/library.ui:117
+#, fuzzy
+msgid "Library Menu"
+msgstr "Libreria"
+
+#: src/ui/library.ui:134
 msgid "Search library…"
 msgstr "Cerca libreria…"
+
+#: src/ui/library.ui:168 src/ui/navbar.ui:22
+msgid "Back"
+msgstr "Indietro"
+
+#: src/ui/library.ui:175 src/ui/navbar.ui:36
+msgid "Forward"
+msgstr "Avanti"
 
 #: src/ui/library-view.ui:21
 msgid "No Books Yet"
@@ -745,18 +898,6 @@ msgstr "Ancora nessun libro"
 msgid "Open a book to start reading"
 msgstr "Apri un libro per iniziare a leggere"
 
-#: src/ui/navbar.ui:8 src/ui/tts-box.ui:115
-msgid "Previous"
-msgstr "Precedente"
-
-#: src/ui/navbar.ui:22
-msgid "Back"
-msgstr "Indietro"
-
-#: src/ui/navbar.ui:36
-msgid "Forward"
-msgstr "Avanti"
-
 #: src/ui/navbar.ui:62 src/ui/navbar.ui:253
 msgid "Location"
 msgstr "Posizione"
@@ -764,10 +905,6 @@ msgstr "Posizione"
 #: src/ui/navbar.ui:91
 msgid "Narration"
 msgstr "Narrazione"
-
-#: src/ui/navbar.ui:124 src/ui/tts-box.ui:132
-msgid "Next"
-msgstr "Prossimo"
 
 #: src/ui/navbar.ui:162
 msgid "Time Left in Section"

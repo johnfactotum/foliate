@@ -25,6 +25,26 @@ export const locales = GLib.get_language_names()
     .map(glibcLocale).filter(x => x)
     .map(locale => new Intl.Locale(locale, { hourCycle }))
 
+// very naive, probably bad locale matcher
+// replace this with `Intl.LocaleMatcher` once it's available
+export const matchLocales = strs => {
+    const availableLocales = strs.map(makeLocale)
+    const matches = []
+    for (const a of locales) {
+        for (const [i, b] of availableLocales.entries()) {
+            if (!b) continue
+            if (a.language === b.language
+            && (a.region && b.region ? a.region === b.region : true)
+            && (a.script && b.script ? a.script === b.script : true))
+                matches.push(strs[i])
+        }
+    }
+    return matches
+}
+
+const numberFormat = new Intl.NumberFormat(locales)
+export const number = x => x != null ? numberFormat.format(x) : ''
+
 const percentFormat = new Intl.NumberFormat(locales, { style: 'percent' })
 export const percent = x => percentFormat.format(x)
 
@@ -37,10 +57,13 @@ export const date = (str, showTime = false) => {
     const split = str.split('-').filter(x => x)
     const yearOnly = split.length === 1
     const yearMonthOnly = split.length === 2
-    const date = yearOnly
-        // this is needed because dates like `new Date("100")` is invalid
-        ? new Date(Date.UTC((isBCE ? '-' : '') + split[0]))
-        : new Date(str)
+
+    // years from 0 to 99 treated as 1900 to 1999, and BCE years unsupported,
+    // unless you use "expanded years", which is `+` or `-` followed by 6 digits
+    const [year, ...rest] = split
+    const date = new Date((isBCE ? '-' : '+')
+        + year.replace(/^0+/, '').padStart(6, '0')
+        + (rest.length ? '-' + rest.join('-') : ''))
 
     // fallback when failed to parse date
     if (isNaN(date)) return str
@@ -86,6 +109,14 @@ export const duration = minutes => minutes < 60
     : hourFormat.format((minutes / 60).toFixed(1))
 
 export const mime = mime => mime ? Gio.content_type_get_description(mime) : ''
+
+export const price = (currency, value) => {
+    try {
+        return new Intl.NumberFormat(locales, { style: 'currency', currency }).format(value)
+    } catch (e) {
+        return (currency ? currency + ' ' : '') + value
+    }
+}
 
 export const vprintf = imports.format.vprintf
 export const total = n => vprintf(_('of %d'), [n])

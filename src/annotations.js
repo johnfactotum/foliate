@@ -69,10 +69,7 @@ const AnnotationRow = GObject.registerClass({
             this._note.visible = showNote
             this._bar.show()
             const date = obj.modified || obj.created
-            if (date) {
-                this._date.label = dateFormat.format(new Date(date))
-                this._date.show()
-            } else this._date.hide()
+            this._date.label = date ? dateFormat.format(new Date(date)) : ''
             this.margin_top = 6
             this.margin_bottom = 6
         } else {

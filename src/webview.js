@@ -14,14 +14,18 @@ const registerScheme = (name, callback) =>
     })
 
 const registerPaths = (name, dirs) => registerScheme(name, req => {
-    const path = req.get_path()
+    const path = pkg.MESON
+        ? req.get_path().replace(/(?<=\/icons)\/hicolor(?=\/scalable\/)/, '')
+        : req.get_path()
     if (dirs.every(dir => !path.startsWith(dir))) throw new Error()
-    const mime = path.endsWith('.js') ? 'application/javascript' : 'text/html'
+    const mime = path.endsWith('.js') ? 'application/javascript'
+        : path.endsWith('.svg') ? 'image/svg+xml' : 'text/html'
     const file = Gio.File.new_for_uri(pkg.moduleuri(path))
     req.finish(file.read(null), -1, mime)
 })
 
 registerPaths('foliate', ['/reader/', '/foliate-js/'])
+registerPaths('foliate-opds', ['/opds/', '/icons/'])
 
 /*
 `.run_javascript()` is hard to use if you're running an async function. You have

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src foliate-opds:; style-src 'unsafe-inline'; img-src *; connect-src *; frame-src 'self';">
+<style>
+:not(:defined) > * {
+    display: none;
+}
+:root {
+    overflow-wrap: anywhere;
+    font-size: 11pt;
+    font-family: system-ui;
+    --shade: rgba(0, 0, 0, .07);
+    --raised: rgba(0, 0, 0, .1);
+    --pressed: rgba(0, 0, 0, .2);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --shade: rgba(255, 255, 255, .15);
+        --raised: rgba(255, 255, 255, .2);
+        --pressed: rgba(255, 255, 255, .25);
+    }
+}
+a:any-link {
+    color: inherit;
+    text-decoration: none;
+    text-underline-offset: .2em;
+    padding-block-end: .2em;
+    margin-block-end: -.2em;
+}
+a:any-link:hover {
+    text-decoration: underline;
+}
+hr {
+    background: none;
+    border: 0;
+    border-top: 1px solid color-mix(in hsl, currentColor, transparent 85%);
+}
+h1 {
+    font-size: 1.75em;
+    font-weight: 900;
+}
+h2 {
+    font-size: 1.25em;
+}
+button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 9px;
+    font: inherit;
+    font-weight: 700;
+    border-radius: 6px;
+    border: 0;
+    background: none;
+}
+button:hover {
+    background: var(--shade);
+}
+button:active, button[aria-expanded="true"] {
+    background: var(--raised);
+}
+button.raised {
+    background: var(--shade);
+}
+button.raised:hover {
+    background: var(--raised);
+}
+button.raised:active, button.raised[aria-expanded="true"] {
+    background: var(--pressed);
+}
+.pill {
+    border-radius: 9999px;
+    padding: 12px 24px;
+}
+.split-button {
+    display: flex;
+}
+.split-button > button {
+    flex: 1;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+}
+.split-button foliate-menubutton > button {
+    padding: 9px;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    border-inline-start: 1px solid color-mix(in hsl, currentColor, transparent 75%);
+}
+foliate-menubutton {
+    display: flex;
+}
+foliate-menu {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-end: 0;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    background: canvas;
+    border-radius: 9px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03),
+        0 1px 3px 1px rgba(0, 0, 0, 0.07),
+        0 2px 6px 2px rgba(0, 0, 0, 0.03);
+    visibility: hidden;
+    padding: 6px;
+}
+foliate-menu:not([hidden]) {
+    visibility: visible;
+}
+button[role="menuitem"] {
+    border: 0;
+    text-align: start;
+    justify-content: start;
+    font: menu;
+    border-radius: 6px;
+    padding: 9px;
+}
+
+/* main stack
+------------------------------------------------------------------------------*/
+#stack > * {
+    position: absolute;
+    inset: 0;
+    overflow: auto;
+    padding: 18px 24px;
+}
+#stack > [hidden] {
+    display: block;
+}
+#stack > *:before {
+    content: "";
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    bottom: auto;
+    height: 4px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, .07);
+    background: linear-gradient(rgba(0, 0, 0, .07), transparent);
+    pointer-events: none;
+    opacity: 1;
+}
+@media (prefers-color-scheme: dark) {
+    #stack > *:before {
+        box-shadow: inset 0 1px rgba(0, 0, 0, .2);
+        background: linear-gradient(rgba(0, 0, 0, .2), transparent);
+    }
+}
+#stack > *[data-scrolled-to-top]:before {
+    opacity: 0;
+}
+#loading {
+    opacity: 0;
+    animation: .2s ease 1s 1 normal forwards fade-in;
+}
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* feed
+------------------------------------------------------------------------------*/
+#feed hgroup {
+    margin-bottom: 24px;
+}
+#feed hgroup h1 {
+    margin: 0;
+    margin-bottom: .5rem;
+}
+#feed main > nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    margin: 1em auto;
+    width: fit-content;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03),
+        0 1px 3px 1px rgba(0, 0, 0, 0.07),
+        0 2px 6px 2px rgba(0, 0, 0, 0.03);
+    border-radius: 6px;
+    font: menu;
+}
+@media (prefers-color-scheme: dark) {
+    #feed main > nav {
+        background: #ffffff11;
+    }
+}
+#feed main > nav > * {
+    padding: 6px 9px;
+}
+#feed main > nav > * + * {
+    border-inline-start: 1px solid rgba(0, 0, 0, 0.07);
+}
+#feed main > nav a:not(:any-link) {
+    color: grayText;
+    cursor: default;
+}
+#nav:not(:empty) {
+    position: fixed;
+    inset: 0;
+    box-sizing: border-box;
+}
+#feed a[href="#nav"] {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    margin: 18px;
+    background: highlight;
+    color: highlightText;
+    border-radius: 100%;
+    height: min-content;
+    width: min-content;
+    padding: 9px;
+}
+@media (max-width: 800px) {
+    #nav {
+        display: none;
+    }
+    #nav:not(:empty):target {
+        display: block;
+    }
+    #feed[data-scrolled-to-top] {
+        box-shadow: none;
+    }
+    #nav:not(:empty) {
+        padding: 18px;
+        background: canvas;
+        color: canvasText;
+        box-shadow: inset 0 1px rgba(0, 0, 0, .1);
+    }
+    #feed:has(#nav:not(:empty)):not(:has(#nav:target)) {
+        padding-block-end: calc(16px + 18px + 9px * 2);
+    }
+    #feed:has(#nav:not(:empty)):not(:has(#nav:target)) a[href="#nav"] {
+        display: flex;
+    }
+}
+@media (width > 800px) {
+    #feed:has(#nav:not(:empty)) {
+        margin-inline-end: 200px;
+    }
+    #nav:not(:empty) {
+        display: block;
+        padding: 12px 9px;
+        width: 200px;
+        inset-inline-start: auto;
+    }
+    #feed[data-scrolled-to-top] #nav:not([data-scrolled-to-top]) {
+        -webkit-mask-image: linear-gradient(transparent, #000 4em, #000);
+    }
+    #feed:has(#nav:not(:empty)) .carousel:has(opds-pub) {
+        -webkit-mask-image: linear-gradient(to left, transparent, #000 24px, #000);
+    }
+    #feed:has(#nav:not(:empty)):dir(rtl) .carousel:has(opds-pub) {
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 24px, #000);
+    }
+}
+#nav section + section {
+    margin-top: 2em;
+}
+#nav h3 {
+    font-size: smaller;
+    margin: 0;
+    margin-bottom: 6px;
+    color: graytext;
+}
+#nav ul {
+    margin: 0;
+    padding: 0;
+}
+#nav a {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+#nav span {
+    color: graytext;
+    font-size: .75em;
+    font-weight: 700;
+}
+#nav li {
+    border-radius: 6px;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+#nav [aria-current] {
+    background: var(--shade);
+}
+.container {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    margin-bottom: 24px;
+}
+.container:has(opds-pub) {
+    gap: 24px;
+    row-gap: 0;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    margin-bottom: 0;
+}
+.carousel:has(opds-pub) {
+    gap: 18px;
+    row-gap: 0;
+    grid-template-columns: repeat(auto-fill, 120px);
+    grid-auto-flow: column;
+    grid-auto-columns: 120px;
+    margin-inline: -24px;
+    padding-inline: 24px;
+    overflow: auto;
+    scroll-snap-type: inline proximity;
+    scroll-padding: 24px;
+}
+.carousel:has(opds-pub) > * {
+    scroll-snap-align: start;
+}
+.carousel-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+.carousel-header h2 {
+    flex: 1;
+}
+
+/* navigation
+------------------------------------------------------------------------------*/
+opds-nav {
+    padding: 15px;
+    border-radius: 9px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03),
+        0 1px 3px 1px rgba(0, 0, 0, 0.07),
+        0 2px 6px 2px rgba(0, 0, 0, 0.03);
+    background: #fff;
+    transition: background .2s;
+}
+opds-nav:hover {
+    background: none;
+}
+@media (prefers-color-scheme: dark) {
+    opds-nav {
+        background: #ffffff11;
+    }
+    opds-nav:hover {
+        background: #ffffff17;
+    }
+}
+
+/* publication */
+:is(opds-pub, opds-pub-full) > [slot="image"] {
+    border-radius: 9px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
+    border: 1px solid color-mix(in hsl, currentColor, transparent 85%);
+}
+opds-pub-full {
+    display: block;
+    max-width: 640px;
+}
+opds-pub-full a:any-link {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in hsl, currentcolor, transparent 75%);
+}
+opds-pub-full a:any-link:hover {
+    text-decoration-color: currentcolor;
+}
+opds-pub-full > [slot="heading"] {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 9px;
+}
+opds-pub-full > [slot="heading"] {
+    font-size: max(1em, min(3vw, 1.15em));
+}
+opds-pub-full > [slot="heading"] p:first-child {
+    font-size: 1rem;
+}
+opds-pub-full > [slot="heading"] h1 {
+    font-size: 1.5em;
+}
+opds-pub-full > [slot="heading"] h1 + p {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+opds-pub-full :is(h1, p) {
+    margin: 0;
+}
+opds-pub-full hgroup p:empty {
+    display: none;
+}
+opds-pub-full > [slot="details"] table {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    column-gap: 12px;
+    row-gap: 3px;
+    margin-top: 24px;
+    margin-bottom: 6px;
+}
+opds-pub-full > [slot="details"] th {
+    text-align: start;
+    font-size: smaller;
+}
+opds-pub-full > [slot="details"] tr {
+    display: grid;
+    grid-row: auto / span 2;
+    grid-template-rows: subgrid;
+    margin-bottom: 18px;
+}
+opds-pub-full > [slot="details"] tr.long {
+    grid-column: span 2;
+}
+opds-pub-full > [slot="details"] [role="listitem"] {
+    display: inline-flex;
+    gap: 1ex;
+    margin-inline-end: 2em;
+    font-size: smaller;
+}
+opds-pub-full > [slot="details"] [role="listitem"] + [role="listitem"] {
+    margin-block-start: 1em;
+}
+opds-pub-full > [slot="actions"] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    width: 100%;
+    margin-top: 24px;
+}
+opds-pub-full > [slot="actions"] > * {
+    min-width: min(100%, 8em);
+}
+/* if first button is "sample", highlight last button */
+opds-pub-full > [slot="actions"]:has([data-rel$="sample"]:first-child) > button:not([data-rel$="sample"]):not(:has(~ :not([data-rel$="sample"]))),
+opds-pub-full > [slot="actions"]:has([data-rel$="sample"]:first-child) > :not([data-rel$="sample"]):not(:has(~ :not([data-rel$="sample"]))) > button,
+opds-pub-full > [slot="actions"]:has([data-rel$="sample"]:first-child) > :not([data-rel$="sample"]):not(:has(~ :not([data-rel$="sample"]))) > foliate-menubutton > button,
+/* otherwise, highlight first button */
+opds-pub-full > [slot="actions"]:not(:has([data-rel$="sample"]:first-child)) > button:first-child,
+opds-pub-full > [slot="actions"]:not(:has([data-rel$="sample"]:first-child)) > *:first-child > button,
+opds-pub-full > [slot="actions"]:not(:has([data-rel$="sample"]:first-child)) > *:first-child > foliate-menubutton > button {
+    color: highlighttext;
+    --shade: highlight;
+    --raised: color-mix(in srgb, var(--shade), highlighttext 10%);
+    --pressed: color-mix(in srgb, var(--shade), transparent 20%);
+}
+
+/* search
+------------------------------------------------------------------------------*/
+#search form p {
+    text-align: start;
+}
+#search label > span {
+    font-size: smaller;
+    color: graytext;
+}
+#search input[type="search"] {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px;
+    margin: 6px 0;
+    font: inherit;
+}
+</style>
+<template id="opds-nav">
+    <style>
+    :host {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr max-content min-content;
+        column-gap: 12px;
+        row-gap: 6px;
+        align-items: center;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    h1 a:before {
+        content: "";
+        display: block;
+        position: absolute;
+        inset: 0;
+    }
+    h1 {
+        font-size: inherit;
+        margin: 0;
+        align-self: end;
+    }
+    h1:has(+ #description:empty) {
+        align-self: center;
+    }
+    p {
+        margin: 0;
+    }
+    #description {
+        grid-row-start: 2;
+        margin: 0;
+        font-size: smaller;
+        align-self: start;
+    }
+    #description:empty {
+        display: none;
+    }
+    #description:not(:empty) ~ :is(#count, span) {
+        grid-row: span 2;
+    }
+    #count {
+        font-variant-numeric: tabular-nums;
+        font-size: smaller;
+        color: graytext;
+    }
+    span {
+        color: graytext;
+    }
+    </style>
+    <h1><a></a></h1>
+    <p id="description"></p>
+    <p id="count"></p>
+    <span aria-hidden="true">❯</span>
+</template>
+<template id="opds-pub">
+    <style>
+    :host {
+        position: relative;
+        display: grid;
+        grid-row: auto / span 2;
+        grid-template-rows: subgrid;
+        margin-bottom: 18px;
+        font-size: .9em;
+    }
+    ::slotted(img) {
+        width: 100%;
+        height: auto;
+        align-self: end;
+    }
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: .3em;
+        margin-top: 12px;
+        min-width: 0;
+    }
+    div > * {
+        margin: 0;
+    }
+    h1 {
+        font-size: 1em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        padding-block-end: .2em;
+        margin-block-end: -.2em;
+    }
+    #author {
+        font-size: smaller;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+        text-underline-offset: .2em;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    h1 a:before {
+        content: "";
+        display: block;
+        position: absolute;
+        inset: 0;
+        border-radius: 4px;
+    }
+    h1 a:focus-visible:before {
+        outline: 2px solid highlight;
+    }
+    </style>
+    <slot name="image"></slot>
+    <div>
+        <h1><a></a></h1>
+        <p id="author"></p>
+        <p id="price"></p>
+    </div>
+</template>
+<template id="opds-pub-full">
+    <style>
+    #header {
+        display: grid;
+        grid-template-columns: min(40%, 180px) 1fr;
+        grid-template-rows: min-content min-content 1fr;
+        column-gap: 24px;
+    }
+    ::slotted(img) {
+        width: 100%;
+        height: auto;
+        grid-row: span 3;
+    }
+    iframe {
+        border: 0;
+        width: 100%;
+        margin-top: 24px;
+    }
+    :host(:not([description])) iframe {
+        display: none;
+    }
+    #actions, #actions > * {
+        display: flex;
+        align-items: end;
+        flex: 1;
+    }
+    #downloading {
+        gap: 6px;
+    }
+    #downloading progress {
+        align-self: center;
+        flex: 1;
+        width: auto;
+    }
+    :host(:not([downloading])) #actions > :not(slot) { display: none }
+    :host([downloading]) #actions > :not(#downloading) { display: none }
+    </style>
+    <div id="header">
+        <slot name="image"></slot>
+        <slot name="heading"></slot>
+        <slot name="authors"></slot>
+        <div id="actions">
+            <div id="downloading">
+                <progress></progress>
+                <slot name="cancel"></slot>
+            </div>
+            <slot name="actions"></slot>
+        </div>
+    </div>
+    <iframe sandbox></iframe>
+    <slot name="details"></slot>
+</template>
+<foliate-stack id="stack">
+    <foliate-scrolled id="loading">
+        <foliate-center>
+            <svg width="48" height="48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M24 8A 16 16 0 0 0 24 40"><animateTransform attributeName="transform" type="rotate" from="0 24 24" to="360 24 24" dur="600ms" repeatCount="indefinite"/></path>
+            </svg>
+            <h1></h1>
+        </foliate-center>
+    </foliate-scrolled>
+    <foliate-scrolled id="error">
+        <foliate-center>
+            <h1></h1>
+            <p></p>
+            <hr style="visibility: hidden">
+            <button class="raised pill"></button>
+        </foliate-center>
+    </foliate-scrolled>
+    <foliate-scrolled id="feed">
+        <article>
+            <hgroup>
+                <h1></h1>
+                <p></p>
+            </hgroup>
+            <a href="#nav"><foliate-symbolic src="/icons/hicolor/scalable/actions/funnel-symbolic.svg"></foliate-symbolic></a>
+            <main></main>
+            <foliate-scrolled id="nav" role="navigation"></foliate-scrolled>
+        </article>
+    </foliate-scrolled>
+    <foliate-scrolled id="entry"></foliate-scrolled>
+    <foliate-scrolled id="search">
+        <foliate-center>
+            <h1></h1>
+            <p></p>
+            <form>
+                <div id="search-params"></div>
+                <button class="raised pill"></button>
+            </form>
+        </foliate-center>
+    </foliate-scrolled>
+</foliate-stack>
