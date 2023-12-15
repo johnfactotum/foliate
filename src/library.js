@@ -565,34 +565,46 @@ GObject.registerClass({
     }
     download({ href, token }) {
         const webView = this.child
-        const download = utils.connect(webView.download_uri(href), {
-            'decide-destination': (download, initial_name) => {
-                new Gtk.FileDialog({ initial_name })
-                    .save(this.root, null, (dialog, res) => {
-                        try {
-                            const file = dialog.save_finish(res)
-                            download.set_destination(file.get_path())
-                        } catch (e) {
-                            if (e instanceof Gtk.DialogError) console.debug(e)
-                            else console.error(e)
-                            download.cancel()
-                        }
-                    })
-                return true
-            },
-            'notify::estimated-progress': download => webView.exec('updateProgress',
-                { progress: download.estimated_progress, token }),
-            'finished': () => {
-                this.#downloads.delete(token)
-                webView.exec('finishDownload', { token })
-            },
-            'failed': (download, error) => {
-                if (error.code === WebKit.DownloadError.CANCELLED_BY_USER) return
-                console.error(error)
-                this.root.error(_('Download Failed'), '')
-            },
+        new Promise((resolve, reject) => {
+            let file
+            const download = utils.connect(webView.download_uri(href), {
+                'decide-destination': (download, initial_name) => {
+                    new Gtk.FileDialog({ initial_name })
+                        .save(this.root, null, (dialog, res) => {
+                            try {
+                                file = dialog.save_finish(res)
+                                download.set_destination(file.get_path())
+                            } catch (e) {
+                                if (e instanceof Gtk.DialogError) console.debug(e)
+                                else console.error(e)
+                                download.cancel()
+                            }
+                        })
+                    return true
+                },
+                'notify::estimated-progress': download => webView.exec('updateProgress',
+                    { progress: download.estimated_progress, token }),
+                'finished': () => {
+                    this.#downloads.delete(token)
+                    webView.exec('finishDownload', { token })
+                    resolve(file)
+                },
+                'failed': (download, error) => {
+                    if (error.code === WebKit.DownloadError.CANCELLED_BY_USER) return
+                    reject(error)
+                },
+            })
+            download.allow_overwrite = true
+            this.#downloads.set(token, new WeakRef(download))
         })
-        this.#downloads.set(token, new WeakRef(download))
+            .then(file => {
+                const launcher = new Gtk.FileLauncher({ file, always_ask: true })
+                launcher.launch(this.root, null, null)
+            })
+            .catch(e => {
+                console.error(e)
+                this.root.error(_('Download Failed'), _('An error occurred'))
+            })
     }
     vfunc_unroot() {
         this.child?.unparent()
