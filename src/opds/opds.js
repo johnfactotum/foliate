@@ -76,7 +76,7 @@ const filterNS = ns => ns
 
 const getContent = el => {
     if (!el) return
-    const type = el.getAttribute('type')
+    const type = el.getAttribute('type') ?? 'text'
     const value = type === 'xhtml' ? el.innerHTML
         : type === 'html' ? el.textContent
             .replaceAll('&lt;', '<')
@@ -85,6 +85,13 @@ const getContent = el => {
         : el.textContent
     return { value, type }
 }
+
+const getTextContent = el => {
+    const content = getContent(el)
+    if (content?.type === 'text') return content?.value
+}
+
+const getSummary = (a, b) => getTextContent(a) ?? getTextContent(b)
 
 const getPrice = link => {
     const price = link.getElementsByTagNameNS(NS.OPDS, 'price')[0]
@@ -184,7 +191,8 @@ export const getFeed = doc => {
             ? getPublication(entry)
             : Object.assign(links.find(link => isOPDSCatalog(link.type)) ?? links[0] ?? {}, {
                 title: children.find(filter('title'))?.textContent,
-                [SYMBOL.SUMMARY]: children.find(filter('content'))?.textContent ?? '',
+                [SYMBOL.SUMMARY]: getSummary(children.find(filter('summary')),
+                    children.find(filter('content'))),
             })
 
         const arr = groupedItems.get(groupLink?.href ?? null)
