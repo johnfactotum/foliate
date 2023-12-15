@@ -23,7 +23,7 @@ const defaultCatalogs = [
     },
     {
         title: 'Internet Archive',
-        uri: 'http://bookserver.archive.org/catalog/',
+        uri: 'https://bookserver.archive.org/catalog/',
     },
     {
         title: 'Manybooks',
