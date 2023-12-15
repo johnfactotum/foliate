@@ -513,7 +513,7 @@ GObject.registerClass({
                         if (!uri.startsWith('foliate-opds:') && !uri.startsWith('blob:')
                         && uri !== 'about:blank') {
                             decision.ignore()
-                            Gtk.show_uri(null, uri, Gdk.CURRENT_TIME)
+                            new Gtk.UriLauncher({ uri }).launch(this.root, null, null)
                             return true
                         }
                     }

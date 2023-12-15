@@ -461,7 +461,7 @@ export const BookViewer = GObject.registerClass({
             'book-error': (_, x) => this.#onError(x),
             'book-ready': (_, x) => this.#onBookReady(x).catch(e => console.error(e)),
             'relocate': (_, x) => this.#onRelocate(x),
-            'external-link': (_, x) => Gtk.show_uri(null, x.href, Gdk.CURRENT_TIME),
+            'external-link': (_, x) => new Gtk.UriLauncher({ uri: x.href }).launch(this.root, null, null),
             'selection': (_, x) => this.#onSelection(x),
             'create-overlay': (_, x) => this.#createOverlay(x),
             'show-image': (_, x) => this.#showImage(x),

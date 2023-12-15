@@ -320,7 +320,7 @@ const SelectionToolPopover = GObject.registerClass({
                     const { uri } = decision.navigation_action.get_request()
                     if (!uri.startsWith('foliate:')) {
                         decision.ignore()
-                        Gtk.show_uri(null, uri, Gdk.CURRENT_TIME)
+                        new Gtk.UriLauncher({ uri }).launch(this.root, null, null)
                         return true
                     }
                 }
