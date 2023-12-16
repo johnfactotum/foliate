@@ -1,5 +1,5 @@
 import './widgets.js'
-import { REL, SYMBOL, isOPDSCatalog, getPublication, getFeed, getSearch, getOpenSearch } from './opds.js'
+import { REL, SYMBOL, isOPDSCatalog, getPublication, getFeed, getSearch, getOpenSearch } from '../foliate-js/opds.js'
 
 const emit = x => globalThis.webkit.messageHandlers.opds
     .postMessage(JSON.stringify(x))
