@@ -179,7 +179,8 @@ export const getFeed = doc => {
         const children = Array.from(entry.children)
         const links = children.filter(filter('link')).map(getLink)
         const linksByRel = groupByArray(links, link => link.rel)
-        const isPub = [...linksByRel.keys()].some(rel => rel?.startsWith(REL.ACQ))
+        const isPub = [...linksByRel.keys()]
+            .some(rel => rel?.startsWith(REL.ACQ) || rel === 'preview')
 
         const groupLinks = linksByRel.get(REL.GROUP) ?? linksByRel.get('collection')
         const groupLink = groupLinks?.length

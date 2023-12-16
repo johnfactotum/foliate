@@ -55,7 +55,7 @@ const uiText = {
         'http://opds-spec.org/acquisition': _('Download'),
         'http://opds-spec.org/acquisition/buy': _('Buy'),
         'http://opds-spec.org/acquisition/open-access': _('Download'),
-        'http://opds-spec.org/acquisition/preview': _('Preview'),
+        'preview': _('Preview'),
         'http://opds-spec.org/acquisition/sample': _('Sample'),
         'http://opds-spec.org/acquisition/borrow': _('Borrow'),
         'http://opds-spec.org/acquisition/subscribe': _('Subscribe'),
