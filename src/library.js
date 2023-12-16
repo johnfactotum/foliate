@@ -600,8 +600,8 @@ GObject.registerClass({
             this.#downloads.set(token, new WeakRef(download))
         })
             .then(file => {
-                const launcher = new Gtk.FileLauncher({ file, always_ask: true })
-                launcher.launch(this.root, null, null)
+                if (file) new Gtk.FileLauncher({ file, always_ask: true })
+                    .launch(this.root, null, null)
             })
             .catch(e => {
                 console.error(e)
