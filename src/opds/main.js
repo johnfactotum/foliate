@@ -647,7 +647,23 @@ try {
         if (localName === 'feed') await renderFeed(getFeed(doc), url)
         else if (localName === 'entry') await renderEntry(getPublication(doc.documentElement), url)
         else if (localName === 'OpenSearchDescription') renderSearch(getOpenSearch(doc), url)
-        else throw new Error(`root element is <${localName}>; expected <feed> or <entry>`)
+        else {
+            const contentType = res.headers.get('Content-Type') ?? MIME.HTML
+            const type = parseMediaType(contentType)?.mediaType ?? MIME.HTML
+            const doc = new DOMParser().parseFromString(text, type)
+            if (!doc.head) throw new Error('document has no head')
+            const base = doc.head.querySelector('base')
+            if (base) base.href = resolveURL(base.getAttribute('href'), url)
+            else {
+                const base = doc.createElement('base')
+                base.href = url
+                doc.head.append(base)
+            }
+            const link = Array.from(doc.head.querySelectorAll('link'))
+                .find(link => isOPDSCatalog(link.type))
+            if (!link) throw new Error('document has no link to OPDS feeds')
+            location.replace('?url=' + encodeURIComponent(link.href))
+        }
     }
     else {
         const feed = JSON.parse(text)
