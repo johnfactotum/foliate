@@ -542,6 +542,7 @@ GObject.registerClass({
         this.child = webView
     }
     load(url) {
+        url = url.replace(/^opds:\/\//, 'http://')
         this.actionGroup.lookup_action('search').enabled = false
         if (!this.child) this.init()
         if (url === '#search') {

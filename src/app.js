@@ -126,6 +126,10 @@ const ApplicationWindow = GObject.registerClass({
         this.#stack.visible_child = this.#bookViewer
         this.#bookViewer.open(file)
     }
+    openOPDS(uri) {
+        this.showLibrary()
+        this.#library.showCatalog(uri)
+    }
     open() {
         const dialog = new Gtk.FileDialog()
         const ebooks = new Gtk.FileFilter({
@@ -360,7 +364,19 @@ export const Application = GObject.registerClass({
     connectOpen(application, files) {
         const oldWins = this.get_windows()
         file: for (const file of files) {
-            for (const oldWin of oldWins) {
+            if (file.get_uri_scheme() === 'opds') {
+                const oldWin = oldWins.find(win => !win.file)
+                const uri = file.get_uri()
+                if (oldWin) oldWin.openOPDS(uri)
+                else {
+                    const win = new ApplicationWindow({ application })
+                    new Gtk.WindowGroup().add_window(win)
+                    win.openOPDS(uri)
+                    win.present()
+                }
+                continue
+            }
+            else for (const oldWin of oldWins) {
                 if (oldWin.file?.get_uri() === file.get_uri()) {
                     oldWin.present()
                     continue file
