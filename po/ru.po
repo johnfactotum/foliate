@@ -13,15 +13,15 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-15 14:59+0000\n"
-"PO-Revision-Date: 2023-11-29 16:20+1000\n"
+"PO-Revision-Date: \n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
-"Language-Team: Русский <gnome-cyr@lists.gnome.org>\n"
+"Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.0.1\n"
 
 #: src/annotations.js:137 src/annotations.js:172
@@ -145,7 +145,8 @@ msgstr ""
 "Artem Polishchuk, 2019\n"
 "Artemii Sudakov, 2020\n"
 "Alexandre Prokoudine, 2021\n"
-"ViktorOn, 2022"
+"ViktorOn, 2022\n"
+"Ser82-png <asvmail.as@gmail.com>, 2023"
 
 #: src/app.js:398
 msgid "Source Code"
@@ -347,12 +348,11 @@ msgstr "из %d"
 
 #: src/library.js:47
 msgid "Loading"
-msgstr ""
+msgstr "Загрузка"
 
 #: src/library.js:48
-#, fuzzy
 msgid "Failed to Load"
-msgstr "Скопировано в буфер обмена"
+msgstr "Не удалось загрузить"
 
 #: src/library.js:49 src/ui/book-viewer.ui:15
 msgid "Reload"
@@ -360,7 +360,7 @@ msgstr "Перезагрузить"
 
 #: src/library.js:51
 msgid "See All"
-msgstr ""
+msgstr "Показать все"
 
 #: src/library.js:52 src/ui/library.ui:124 src/ui/library.ui:182
 msgid "Search"
@@ -368,70 +368,67 @@ msgstr "Поиск"
 
 #: src/library.js:53
 msgid "Filter"
-msgstr ""
+msgstr "Фильтр"
 
 #: src/library.js:55 src/library.js:57
 msgid "Download"
-msgstr ""
+msgstr "Скачать"
 
 #: src/library.js:56
 msgid "Buy"
-msgstr ""
+msgstr "Купить"
 
 #: src/library.js:58
-#, fuzzy
 msgid "Preview"
-msgstr "Предыдущее"
+msgstr "Просмотр"
 
 #: src/library.js:59
 msgid "Sample"
-msgstr ""
+msgstr "Ознакомиться"
 
 #: src/library.js:60
 msgid "Borrow"
-msgstr ""
+msgstr "Одолжить"
 
 #: src/library.js:61
 msgid "Subscribe"
-msgstr ""
+msgstr "Подписаться"
 
 #: src/library.js:63
 msgid "Free"
-msgstr ""
+msgstr "Бесплатно"
 
 #: src/library.js:65
 msgid "First"
-msgstr ""
+msgstr "Первая"
 
 #: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
 msgid "Previous"
-msgstr "Предыдущее"
+msgstr "Предыдущая"
 
 #: src/library.js:67 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
 msgid "Next"
-msgstr "Следующее"
+msgstr "Следующая"
 
 #: src/library.js:68
 msgid "Last"
-msgstr ""
+msgstr "Последняя"
 
 #: src/library.js:70
-#, fuzzy
 msgid "Search Terms"
-msgstr "Поиск"
+msgstr "Поисковый запрос"
 
 #: src/library.js:72
 msgid "Title"
-msgstr ""
+msgstr "Название"
 
 #: src/library.js:73
 msgid "Author"
-msgstr ""
+msgstr "Автор"
 
 #: src/library.js:74
-#, fuzzy
 msgid "Contributor"
-msgstr "Участники"
+msgstr "Участник"
 
 #: src/library.js:436
 msgid "Remove Book?"
@@ -451,11 +448,11 @@ msgstr "_Удалить"
 
 #: src/library.js:606
 msgid "Download Failed"
-msgstr ""
+msgstr "Не удалось скачать"
 
 #: src/library.js:660
 msgid "Rename…"
-msgstr ""
+msgstr "Переименовать…"
 
 #: src/library.js:661 src/ui/book-item.ui:21 src/ui/book-row.ui:21
 msgid "Remove"
@@ -463,21 +460,19 @@ msgstr "Удалить"
 
 #: src/library.js:681 src/library.js:682
 msgid "Rename"
-msgstr ""
+msgstr "Переименовать"
 
 #: src/library.js:687
 msgid "Name"
-msgstr ""
+msgstr "Название"
 
 #: src/library.js:702
-#, fuzzy
 msgid "All Books"
-msgstr "Книга"
+msgstr "Все книги"
 
 #: src/library.js:708
-#, fuzzy
 msgid "Add Catalog…"
-msgstr "Добавить заметку…"
+msgstr "Добавить каталог…"
 
 #: src/library.js:775 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
@@ -486,29 +481,31 @@ msgstr "Библиотека"
 
 #: src/library.js:783
 msgid "Catalogs"
-msgstr ""
+msgstr "Каталоги"
 
 #: src/library.js:826
 msgid "Catalog removed"
-msgstr ""
+msgstr "Каталог удалён"
 
 #: src/library.js:907 src/library.js:912
 msgid "Add Catalog"
-msgstr ""
+msgstr "Добавить каталог"
 
 #: src/library.js:908
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: src/library.js:913
 msgid ""
 "You can browse and download books from OPDS catalogs. <a href=\"https://opds."
 "io\">Learn More…</a>"
 msgstr ""
+"Вы можете просматривать и скачивать книги из каталогов OPDS. <a "
+"href=\"https://opds.io\">Узнать больше…</a>"
 
 #: src/library.js:917
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #. Translators: Do NOT translate! The is the application name!
 #: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
@@ -797,7 +794,7 @@ msgstr "Тёмный стиль"
 
 #: src/ui/book-viewer.ui:636 src/ui/library.ui:26
 msgid "Fullscreen"
-msgstr "Полноэкранный режим"
+msgstr "Во весь экран"
 
 #: src/ui/export-dialog.ui:5
 msgid "Export Annotations"
@@ -884,14 +881,12 @@ msgid "Main Menu"
 msgstr "Главное меню"
 
 #: src/ui/library.ui:110
-#, fuzzy
 msgid "Open"
-msgstr "Открыть…"
+msgstr "Открыть"
 
 #: src/ui/library.ui:117
-#, fuzzy
 msgid "Library Menu"
-msgstr "Библиотека"
+msgstr "Меню библиотеки"
 
 #: src/ui/library.ui:134
 msgid "Search library…"
