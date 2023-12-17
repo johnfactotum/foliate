@@ -59,6 +59,7 @@ const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'invert': 'boolean',
     'theme': 'string',
     'autohide-cursor': 'boolean',
+    'override-font': 'boolean',
 })
 
 const FontSettings = utils.makeDataClass('FoliateFontSettings', {
@@ -80,11 +81,13 @@ const ViewPreferencesWindow = GObject.registerClass({
         'view-settings': 'object',
     }),
     InternalChildren: [
-        'default-font', 'serif-font', 'sans-serif-font', 'monospace-font',
+        'default-font', 'override-font',
+        'serif-font', 'sans-serif-font', 'monospace-font',
         'default-font-size', 'minimum-font-size',
-        'line-height', 'justify', 'hyphenate', 'reduce-animation', 'gap',
+        'line-height', 'justify', 'hyphenate', 'gap',
         'max-inline-size', 'max-block-size', 'max-column-count',
         'theme-flow-box',
+        'reduce-animation',
     ],
 }, class extends Adw.PreferencesWindow {
     constructor(params) {
@@ -106,6 +109,7 @@ const ViewPreferencesWindow = GObject.registerClass({
             'max-block-size': [this._max_block_size, 'value'],
             'max-column-count': [this._max_column_count, 'value'],
             'animated': [this._reduce_animation, 'active', true],
+            'override-font': [this._override_font, 'active'],
         })
 
         const actionGroup = utils.addPropertyActions(this.viewSettings, ['theme'])
@@ -314,6 +318,7 @@ GObject.registerClass({
                 hyphenate: view.hyphenate,
                 invert: view.invert,
                 theme: view.invert ? invertTheme(theme) : theme,
+                overrideFont: view.override_font,
                 userStylesheet,
             },
             autohideCursor: view.autohide_cursor,
