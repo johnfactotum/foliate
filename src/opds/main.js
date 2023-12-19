@@ -179,13 +179,8 @@ const renderLanguageMap = async x => {
 
 const renderLinkedObject = (object, baseURL) => {
     const a = document.createElement('a')
-    if (object.links?.length) {
-        for (const link of object.links) if (isOPDSCatalog(link.type)) {
-            a.href = '?url=' + encodeURIComponent(resolveURL(link.href, baseURL))
-            return a
-        }
-        if (object.links[0]) a.href = resolveURL(object.links[0].href, baseURL)
-    }
+    const link = object.links?.find(link => isOPDSCatalog(link.type)) ?? object.links?.[0]
+    if (link) a.href = '?url=' + encodeURIComponent(resolveURL(link.href, baseURL))
     return a
 }
 
