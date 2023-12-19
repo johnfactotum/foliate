@@ -244,7 +244,7 @@ const BookItem = GObject.registerClass({
     }
     update(item, data, cover) {
         this.#item = item
-        const title = data.metadata?.title
+        const title = data.metadata?.title ?? ''
         this._title.text = title
         this._image.load(cover?.then ? null : cover, title)
         this._progress.label = format.percent(fraction(data.progress))
