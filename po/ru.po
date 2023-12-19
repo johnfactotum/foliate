@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-15 14:59+0000\n"
+"POT-Creation-Date: 2023-12-19 04:33+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: \n"
@@ -28,8 +28,8 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "Закладка удалена"
 
-#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:804
-#: src/library.js:827
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:809
+#: src/library.js:826
 msgid "Undo"
 msgstr "Отменить"
 
@@ -81,7 +81,7 @@ msgstr "Пользовательский"
 msgid "JSON Files"
 msgstr "Файлы JSON"
 
-#: src/annotations.js:597 src/app.js:145
+#: src/annotations.js:597 src/app.js:149
 msgid "All Files"
 msgstr "Все файлы"
 
@@ -97,7 +97,7 @@ msgstr "Импортированный файл не содержит приме
 msgid "Cannot Import Annotations"
 msgstr "Невозможно импортировать примечания"
 
-#: src/annotations.js:626 src/book-viewer.js:715 src/library.js:606
+#: src/annotations.js:626 src/book-viewer.js:720 src/library.js:605
 msgid "An error occurred"
 msgstr "Произошла ошибка"
 
@@ -127,18 +127,18 @@ msgstr "Закрыть"
 msgid "Cancel"
 msgstr "Отменить"
 
-#: src/app.js:132
+#: src/app.js:136
 msgid "E-Book Files"
 msgstr "Файлы электронных книг"
 
-#: src/app.js:383 data/com.github.johnfactotum.Foliate.desktop.in:6
+#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
 msgstr "Читайте электронные книги стильно"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/app.js:389
+#: src/app.js:405
 msgid "translator-credits"
 msgstr ""
 "Schwonder Reismus, 2019\n"
@@ -148,7 +148,7 @@ msgstr ""
 "ViktorOn, 2022\n"
 "Ser82-png <asvmail.as@gmail.com>, 2023"
 
-#: src/app.js:398
+#: src/app.js:414
 msgid "Source Code"
 msgstr "Исходный код"
 
@@ -266,27 +266,27 @@ msgstr "Библиография"
 msgid "Go to Bibliography"
 msgstr "Перейти к библиографии"
 
-#: src/book-viewer.js:614
+#: src/book-viewer.js:619
 msgid "Remove bookmark"
 msgstr "Удалить закладку"
 
-#: src/book-viewer.js:615
+#: src/book-viewer.js:620
 msgid "Add bookmark"
 msgstr "Добавить закладку"
 
-#: src/book-viewer.js:713
+#: src/book-viewer.js:718
 msgid "File not found"
 msgstr "Файл не найден"
 
-#: src/book-viewer.js:714
+#: src/book-viewer.js:719
 msgid "File type not supported"
 msgstr "Тип файла не поддерживается"
 
-#: src/book-viewer.js:803
+#: src/book-viewer.js:808
 msgid "Annotation deleted"
 msgstr "Примечание удалено"
 
-#: src/book-viewer.js:871
+#: src/book-viewer.js:876
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -295,7 +295,7 @@ msgstr ""
 "‘%s’\n"
 "—%s, «%s», с. %s"
 
-#: src/book-viewer.js:873
+#: src/book-viewer.js:878
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -304,12 +304,12 @@ msgstr ""
 "‘%s’\n"
 "—«%s», с. %s"
 
-#: src/book-viewer.js:874
+#: src/book-viewer.js:879
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr "‘%s’ (с. %s)"
 
-#: src/book-viewer.js:877
+#: src/book-viewer.js:882
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -318,7 +318,7 @@ msgstr ""
 "‘%s’\n"
 "—%s, «%s»"
 
-#: src/book-viewer.js:879
+#: src/book-viewer.js:884
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -327,17 +327,17 @@ msgstr ""
 "‘%s’\n"
 "—«%s»"
 
-#: src/book-viewer.js:880
+#: src/book-viewer.js:885
 #, javascript-format
 msgid "‘%s’"
 msgstr "‘%s’"
 
-#: src/book-viewer.js:898
+#: src/book-viewer.js:903
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Изображение с «%s»"
 
-#: src/book-viewer.js:898
+#: src/book-viewer.js:903
 msgid "Image"
 msgstr "Изображение"
 
@@ -430,72 +430,72 @@ msgstr "Автор"
 msgid "Contributor"
 msgstr "Участник"
 
-#: src/library.js:436
+#: src/library.js:433
 msgid "Remove Book?"
 msgstr "Удалить книгу?"
 
-#: src/library.js:437
+#: src/library.js:434
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr "Прогресс чтения, примечания и закладки будут безвозвратно потеряны"
 
-#: src/library.js:439
+#: src/library.js:436
 msgid "_Cancel"
 msgstr "_Отменить"
 
-#: src/library.js:440
+#: src/library.js:437
 msgid "_Remove"
 msgstr "_Удалить"
 
-#: src/library.js:606
+#: src/library.js:605
 msgid "Download Failed"
 msgstr "Не удалось скачать"
 
-#: src/library.js:660
+#: src/library.js:659
 msgid "Rename…"
 msgstr "Переименовать…"
 
-#: src/library.js:661 src/ui/book-item.ui:21 src/ui/book-row.ui:21
+#: src/library.js:660 src/ui/book-item.ui:21 src/ui/book-row.ui:21
 msgid "Remove"
 msgstr "Удалить"
 
-#: src/library.js:681 src/library.js:682
+#: src/library.js:680 src/library.js:681
 msgid "Rename"
 msgstr "Переименовать"
 
-#: src/library.js:687
+#: src/library.js:686
 msgid "Name"
 msgstr "Название"
 
-#: src/library.js:702
+#: src/library.js:701
 msgid "All Books"
 msgstr "Все книги"
 
-#: src/library.js:708
+#: src/library.js:707
 msgid "Add Catalog…"
 msgstr "Добавить каталог…"
 
-#: src/library.js:775 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/library.js:774 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
 msgid "Library"
 msgstr "Библиотека"
 
-#: src/library.js:783
+#: src/library.js:782
 msgid "Catalogs"
 msgstr "Каталоги"
 
-#: src/library.js:826
+#: src/library.js:825
 msgid "Catalog removed"
 msgstr "Каталог удалён"
 
-#: src/library.js:907 src/library.js:912
+#: src/library.js:912 src/library.js:917
 msgid "Add Catalog"
 msgstr "Добавить каталог"
 
-#: src/library.js:908
+#: src/library.js:913
 msgid "Add"
 msgstr "Добавить"
 
-#: src/library.js:913
+#: src/library.js:918
 msgid ""
 "You can browse and download books from OPDS catalogs. <a href=\"https://opds."
 "io\">Learn More…</a>"
@@ -503,7 +503,7 @@ msgstr ""
 "Вы можете просматривать и скачивать книги из каталогов OPDS. <a "
 "href=\"https://opds.io\">Узнать больше…</a>"
 
-#: src/library.js:917
+#: src/library.js:922
 msgid "URL"
 msgstr "URL"
 
@@ -924,7 +924,7 @@ msgstr "Раздел осталось читать"
 msgid "Time Left in Book"
 msgstr "Книгу осталось читать"
 
-#: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:158
+#: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:159
 msgid "Page"
 msgstr "Страница"
 
@@ -997,100 +997,108 @@ msgid "Font"
 msgstr "Шрифт"
 
 #: src/ui/view-preferences-window.ui:9
-msgid "Font Family"
-msgstr "Семейство шрифта"
-
-#: src/ui/view-preferences-window.ui:12
-msgid "Default Font"
-msgstr "Шрифт по умолчанию"
-
-#: src/ui/view-preferences-window.ui:16
-msgid "Serif"
-msgstr "С засечками"
-
-#: src/ui/view-preferences-window.ui:17
-msgid "Sans-serif"
-msgstr "Без засечек"
-
-#: src/ui/view-preferences-window.ui:25
-msgid "Serif Font"
-msgstr "Шрифт с засечками"
-
-#: src/ui/view-preferences-window.ui:38
-msgid "Sans-Serif Font"
-msgstr "Шрифт без засечек"
-
-#: src/ui/view-preferences-window.ui:51
-msgid "Monospace Font"
-msgstr "Моноширный шрифт"
-
-#: src/ui/view-preferences-window.ui:66
 msgid "Font Size"
 msgstr "Размер шрифта"
 
-#: src/ui/view-preferences-window.ui:69
+#: src/ui/view-preferences-window.ui:12
 msgid "Default Font Size"
 msgstr "Размер шрифта по умолчанию"
 
-#: src/ui/view-preferences-window.ui:82
+#: src/ui/view-preferences-window.ui:25
 msgid "Minimum Font Size"
 msgstr "Минимальный размер шрифта"
 
-#: src/ui/view-preferences-window.ui:99
+#: src/ui/view-preferences-window.ui:40
+msgid "Font Family"
+msgstr "Семейство шрифта"
+
+#: src/ui/view-preferences-window.ui:43
+msgid "Default Font"
+msgstr "Шрифт по умолчанию"
+
+#: src/ui/view-preferences-window.ui:47
+msgid "Serif"
+msgstr "С засечками"
+
+#: src/ui/view-preferences-window.ui:48
+msgid "Sans-serif"
+msgstr "Без засечек"
+
+#: src/ui/view-preferences-window.ui:56
+msgid "Override Publisher Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:71
+msgid "Serif Font"
+msgstr "Шрифт с засечками"
+
+#: src/ui/view-preferences-window.ui:84
+msgid "Sans-Serif Font"
+msgstr "Шрифт без засечек"
+
+#: src/ui/view-preferences-window.ui:97
+msgid "Monospace Font"
+msgstr "Моноширный шрифт"
+
+#: src/ui/view-preferences-window.ui:114
 msgid "Layout"
 msgstr "Макет"
 
-#: src/ui/view-preferences-window.ui:103
-msgid "Color"
-msgstr "Цвет"
-
-#: src/ui/view-preferences-window.ui:117
+#: src/ui/view-preferences-window.ui:118
 msgid "Paragraph"
 msgstr "Абзац"
 
-#: src/ui/view-preferences-window.ui:120
+#: src/ui/view-preferences-window.ui:121
 msgid "Line Height"
 msgstr "Высота строки"
 
-#: src/ui/view-preferences-window.ui:134
+#: src/ui/view-preferences-window.ui:135
 msgid "Full Justification"
 msgstr "Выравнивание по ширине"
 
-#: src/ui/view-preferences-window.ui:145
+#: src/ui/view-preferences-window.ui:146
 msgid "Hyphenation"
 msgstr "Автоматическая расстановка переносов"
 
-#: src/ui/view-preferences-window.ui:161
-msgid "Reduce Animation"
-msgstr "Отключить анимацию"
-
-#: src/ui/view-preferences-window.ui:171
+#: src/ui/view-preferences-window.ui:162
 msgid "Margins"
 msgstr "Поля"
 
-#: src/ui/view-preferences-window.ui:185
+#: src/ui/view-preferences-window.ui:176
 msgid "Maximum Number of Columns"
 msgstr "Максимальное количество столбцов"
 
-#: src/ui/view-preferences-window.ui:198
+#: src/ui/view-preferences-window.ui:189
 msgid "Maximum Inline Size"
 msgstr "Максимальный размер элемента"
 
-#: src/ui/view-preferences-window.ui:199
+#: src/ui/view-preferences-window.ui:190
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
 msgstr ""
 "Максимальная ширина столбца (горизонтальное написание) или высота "
 "(вертикальное написание)"
 
-#: src/ui/view-preferences-window.ui:212
+#: src/ui/view-preferences-window.ui:203
 msgid "Maximum Block Size"
 msgstr "Максимальный размер блока"
 
-#: src/ui/view-preferences-window.ui:213
+#: src/ui/view-preferences-window.ui:204
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
 msgstr ""
 "Максимальная высота (горизонтальное написание) или ширина (вертикальное "
 "написание)"
+
+#: src/ui/view-preferences-window.ui:221
+msgid "Color"
+msgstr "Цвет"
+
+#: src/ui/view-preferences-window.ui:240
+msgid "Behavior"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:246
+msgid "Reduce Animation"
+msgstr "Отключить анимацию"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"

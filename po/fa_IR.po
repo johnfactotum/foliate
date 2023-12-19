@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-15 14:59+0000\n"
+"POT-Creation-Date: 2023-12-19 04:33+0000\n"
 "PO-Revision-Date: 2023-12-13 12:45+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: \n"
@@ -22,8 +22,8 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "نشانک حذف شد"
 
-#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:804
-#: src/library.js:827
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:809
+#: src/library.js:826
 msgid "Undo"
 msgstr "واگرد"
 
@@ -75,7 +75,7 @@ msgstr "سفارشی"
 msgid "JSON Files"
 msgstr "سندهای JSON"
 
-#: src/annotations.js:597 src/app.js:145
+#: src/annotations.js:597 src/app.js:149
 msgid "All Files"
 msgstr "همهٔ سندها"
 
@@ -91,7 +91,7 @@ msgstr "سند درون‌ریزی‌ شده بدون حاشیه است"
 msgid "Cannot Import Annotations"
 msgstr "عدم امکان درون‌ریزی یادداشت‌ها"
 
-#: src/annotations.js:626 src/book-viewer.js:715 src/library.js:606
+#: src/annotations.js:626 src/book-viewer.js:720 src/library.js:605
 msgid "An error occurred"
 msgstr "خطایی رخ داد"
 
@@ -120,22 +120,22 @@ msgstr "بستن"
 msgid "Cancel"
 msgstr "لغو"
 
-#: src/app.js:132
+#: src/app.js:136
 msgid "E-Book Files"
 msgstr "سندهای رایاکتاب"
 
-#: src/app.js:383 data/com.github.johnfactotum.Foliate.desktop.in:6
+#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
 msgstr "خوانش رایاکتاب در سبک"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/app.js:389
+#: src/app.js:405
 msgid "translator-credits"
 msgstr "میثم پورگنجی"
 
-#: src/app.js:398
+#: src/app.js:414
 msgid "Source Code"
 msgstr "منبع کد"
 
@@ -253,27 +253,27 @@ msgstr "کتاب‌شناسی"
 msgid "Go to Bibliography"
 msgstr "رفتن به کتاب‌شناسی"
 
-#: src/book-viewer.js:614
+#: src/book-viewer.js:619
 msgid "Remove bookmark"
 msgstr "برداشتن نشانک"
 
-#: src/book-viewer.js:615
+#: src/book-viewer.js:620
 msgid "Add bookmark"
 msgstr "افزودن نشانک"
 
-#: src/book-viewer.js:713
+#: src/book-viewer.js:718
 msgid "File not found"
 msgstr "سند یافت نشد"
 
-#: src/book-viewer.js:714
+#: src/book-viewer.js:719
 msgid "File type not supported"
 msgstr "نوع سند پشتیبانی نمی‌شود"
 
-#: src/book-viewer.js:803
+#: src/book-viewer.js:808
 msgid "Annotation deleted"
 msgstr "یادداشت حذف شد"
 
-#: src/book-viewer.js:871
+#: src/book-viewer.js:876
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -282,7 +282,7 @@ msgstr ""
 "‘%s’\n"
 "—%s, “%s”، ص. %s"
 
-#: src/book-viewer.js:873
+#: src/book-viewer.js:878
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -291,12 +291,12 @@ msgstr ""
 "‘%s’\n"
 "—“%s”، ص. %s"
 
-#: src/book-viewer.js:874
+#: src/book-viewer.js:879
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr "‘%s’ (ص. %s)"
 
-#: src/book-viewer.js:877
+#: src/book-viewer.js:882
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -305,7 +305,7 @@ msgstr ""
 "«%s»\n"
 "— %s، «%s»"
 
-#: src/book-viewer.js:879
+#: src/book-viewer.js:884
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -314,17 +314,17 @@ msgstr ""
 "«%s»\n"
 "— «%s»"
 
-#: src/book-viewer.js:880
+#: src/book-viewer.js:885
 #, javascript-format
 msgid "‘%s’"
 msgstr "«%s»"
 
-#: src/book-viewer.js:898
+#: src/book-viewer.js:903
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "تصویر از “%s”"
 
-#: src/book-viewer.js:898
+#: src/book-viewer.js:903
 msgid "Image"
 msgstr "تصویر"
 
@@ -421,80 +421,80 @@ msgstr ""
 msgid "Contributor"
 msgstr "مشارکت‌کنندگان"
 
-#: src/library.js:436
+#: src/library.js:433
 msgid "Remove Book?"
 msgstr "حذف کتاب؟"
 
-#: src/library.js:437
+#: src/library.js:434
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr "پیشرفت خواندن، یادداشت‌ها و نشانک‌ها برای همیشه از دست خواهند رفت"
 
-#: src/library.js:439
+#: src/library.js:436
 msgid "_Cancel"
 msgstr "_لغو"
 
-#: src/library.js:440
+#: src/library.js:437
 msgid "_Remove"
 msgstr "_برداشتن"
 
-#: src/library.js:606
+#: src/library.js:605
 msgid "Download Failed"
 msgstr ""
 
-#: src/library.js:660
+#: src/library.js:659
 msgid "Rename…"
 msgstr ""
 
-#: src/library.js:661 src/ui/book-item.ui:21 src/ui/book-row.ui:21
+#: src/library.js:660 src/ui/book-item.ui:21 src/ui/book-row.ui:21
 msgid "Remove"
 msgstr "حذف"
 
-#: src/library.js:681 src/library.js:682
+#: src/library.js:680 src/library.js:681
 msgid "Rename"
 msgstr ""
 
-#: src/library.js:687
+#: src/library.js:686
 msgid "Name"
 msgstr ""
 
-#: src/library.js:702
+#: src/library.js:701
 #, fuzzy
 msgid "All Books"
 msgstr "کتاب"
 
-#: src/library.js:708
+#: src/library.js:707
 #, fuzzy
 msgid "Add Catalog…"
 msgstr "افزودن حاشیه…"
 
-#: src/library.js:775 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/library.js:774 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
 msgid "Library"
 msgstr "کتابخانه"
 
-#: src/library.js:783
+#: src/library.js:782
 msgid "Catalogs"
 msgstr ""
 
-#: src/library.js:826
+#: src/library.js:825
 msgid "Catalog removed"
 msgstr ""
 
-#: src/library.js:907 src/library.js:912
+#: src/library.js:912 src/library.js:917
 msgid "Add Catalog"
 msgstr ""
 
-#: src/library.js:908
+#: src/library.js:913
 msgid "Add"
 msgstr ""
 
-#: src/library.js:913
+#: src/library.js:918
 msgid ""
 "You can browse and download books from OPDS catalogs. <a href=\"https://opds."
 "io\">Learn More…</a>"
 msgstr ""
 
-#: src/library.js:917
+#: src/library.js:922
 msgid "URL"
 msgstr ""
 
@@ -917,7 +917,7 @@ msgstr "زمان مانده از بخش"
 msgid "Time Left in Book"
 msgstr "زمان مانده از کتاب"
 
-#: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:158
+#: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:159
 msgid "Page"
 msgstr "صفحه"
 
@@ -990,96 +990,104 @@ msgid "Font"
 msgstr "قلم"
 
 #: src/ui/view-preferences-window.ui:9
-msgid "Font Family"
-msgstr "دستهٔ قلم‌ها"
-
-#: src/ui/view-preferences-window.ui:12
-msgid "Default Font"
-msgstr "قلم پیش‌فرض"
-
-#: src/ui/view-preferences-window.ui:16
-msgid "Serif"
-msgstr "سرکش‌دار"
-
-#: src/ui/view-preferences-window.ui:17
-msgid "Sans-serif"
-msgstr "بی‌سرکش"
-
-#: src/ui/view-preferences-window.ui:25
-msgid "Serif Font"
-msgstr "قلم سرکش‌دار"
-
-#: src/ui/view-preferences-window.ui:38
-msgid "Sans-Serif Font"
-msgstr "قلم بی‌سرکش"
-
-#: src/ui/view-preferences-window.ui:51
-msgid "Monospace Font"
-msgstr "قلم هم‌عرض"
-
-#: src/ui/view-preferences-window.ui:66
 msgid "Font Size"
 msgstr "اندازهٔ قلم"
 
-#: src/ui/view-preferences-window.ui:69
+#: src/ui/view-preferences-window.ui:12
 msgid "Default Font Size"
 msgstr "اندازهٔ پیش‌فرض قلم"
 
-#: src/ui/view-preferences-window.ui:82
+#: src/ui/view-preferences-window.ui:25
 msgid "Minimum Font Size"
 msgstr "کمترین اندازهٔ قلم"
 
-#: src/ui/view-preferences-window.ui:99
+#: src/ui/view-preferences-window.ui:40
+msgid "Font Family"
+msgstr "دستهٔ قلم‌ها"
+
+#: src/ui/view-preferences-window.ui:43
+msgid "Default Font"
+msgstr "قلم پیش‌فرض"
+
+#: src/ui/view-preferences-window.ui:47
+msgid "Serif"
+msgstr "سرکش‌دار"
+
+#: src/ui/view-preferences-window.ui:48
+msgid "Sans-serif"
+msgstr "بی‌سرکش"
+
+#: src/ui/view-preferences-window.ui:56
+msgid "Override Publisher Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:71
+msgid "Serif Font"
+msgstr "قلم سرکش‌دار"
+
+#: src/ui/view-preferences-window.ui:84
+msgid "Sans-Serif Font"
+msgstr "قلم بی‌سرکش"
+
+#: src/ui/view-preferences-window.ui:97
+msgid "Monospace Font"
+msgstr "قلم هم‌عرض"
+
+#: src/ui/view-preferences-window.ui:114
 msgid "Layout"
 msgstr "چیدمان"
 
-#: src/ui/view-preferences-window.ui:103
-msgid "Color"
-msgstr "رنگ"
-
-#: src/ui/view-preferences-window.ui:117
+#: src/ui/view-preferences-window.ui:118
 msgid "Paragraph"
 msgstr "بند"
 
-#: src/ui/view-preferences-window.ui:120
+#: src/ui/view-preferences-window.ui:121
 msgid "Line Height"
 msgstr "ارتفاع خط"
 
-#: src/ui/view-preferences-window.ui:134
+#: src/ui/view-preferences-window.ui:135
 msgid "Full Justification"
 msgstr "ترازبندی کامل"
 
-#: src/ui/view-preferences-window.ui:145
+#: src/ui/view-preferences-window.ui:146
 msgid "Hyphenation"
 msgstr "خط تیره‌ گذاری"
 
-#: src/ui/view-preferences-window.ui:161
-msgid "Reduce Animation"
-msgstr "پویانمایی کاسته"
-
-#: src/ui/view-preferences-window.ui:171
+#: src/ui/view-preferences-window.ui:162
 msgid "Margins"
 msgstr "حاشیه‌ها"
 
-#: src/ui/view-preferences-window.ui:185
+#: src/ui/view-preferences-window.ui:176
 msgid "Maximum Number of Columns"
 msgstr "بیشینهٔ تعداد ستون‌ها"
 
-#: src/ui/view-preferences-window.ui:198
+#: src/ui/view-preferences-window.ui:189
 msgid "Maximum Inline Size"
 msgstr "بیشترین اندازهٔ هم‌خوان"
 
-#: src/ui/view-preferences-window.ui:199
+#: src/ui/view-preferences-window.ui:190
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
 msgstr "بیشترین پهنای ستون (نوشتار افقی) یا ارتفاع (نوشتار عمودی)"
 
-#: src/ui/view-preferences-window.ui:212
+#: src/ui/view-preferences-window.ui:203
 msgid "Maximum Block Size"
 msgstr "بیشترین اندازهٔ بلوک"
 
-#: src/ui/view-preferences-window.ui:213
+#: src/ui/view-preferences-window.ui:204
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
 msgstr "بیشترین ارتفاع (نوشتار افقی) یا پهنا (نوشتار عمودی)"
+
+#: src/ui/view-preferences-window.ui:221
+msgid "Color"
+msgstr "رنگ"
+
+#: src/ui/view-preferences-window.ui:240
+msgid "Behavior"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:246
+msgid "Reduce Animation"
+msgstr "پویانمایی کاسته"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
