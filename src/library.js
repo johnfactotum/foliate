@@ -85,12 +85,10 @@ const getURIFromTracker = identifier => {
     const statement = connection.query_statement(`
         SELECT ?uri
         WHERE {
-            SERVICE <dbus:org.freedesktop.Tracker3.Miner.Files> {
-                GRAPH tracker:Documents {
-                    ?u rdf:type nfo:EBook .
-                    ?u nie:isStoredAs ?uri .
-                    ?u nie:identifier ~identifier .
-                }
+            GRAPH tracker:Documents {
+                ?u rdf:type nfo:EBook .
+                ?u nie:isStoredAs ?uri .
+                ?u nie:identifier ~identifier .
             }
         }`, null)
     statement.bind_string('identifier', identifier)
@@ -168,7 +166,6 @@ const BookList = GObject.registerClass({
         return this.getBookFromIdentifier(identifier)
     }
     getBookFromIdentifier(identifier) {
-        // TODO: use tracker
         const uri = this.#uriStore.get(identifier)
         return !uri ? null : uri.startsWith('~')
             ? Gio.File.new_for_path(uri.replace('~', GLib.get_home_dir()))
