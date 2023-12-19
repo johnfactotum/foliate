@@ -143,7 +143,7 @@ const open = async file => {
 }
 
 const getCSS = ({
-    lineHeight, justify, hyphenate, invert, theme, userStylesheet,
+    lineHeight, justify, hyphenate, invert, theme, overrideFont, userStylesheet,
     mediaActiveClass,
 }) => [`
     @namespace epub "http://www.idpf.org/2007/ops";
@@ -243,6 +243,7 @@ const getCSS = ({
         text-align: ${justify ? 'justify' : 'start'};
         hyphens: ${hyphenate ? 'auto' : 'none'};
     }
+    ${overrideFont ? '* { font-family: revert !important }' : ''}
 ` + userStylesheet]
 
 const frameRect = (frame, rect, sx = 1, sy = 1) => {

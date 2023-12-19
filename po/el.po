@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-15 14:59+0000\n"
+"POT-Creation-Date: 2023-12-19 04:33+0000\n"
 "PO-Revision-Date: 2023-10-07 14:00+0200\n"
 "Last-Translator: Giorgos Mousa <gmou3@hotmail.com>\n"
 "Language-Team: Greek <LL@li.org>\n"
@@ -22,8 +22,8 @@ msgstr ""
 msgid "Bookmark deleted"
 msgstr "Ο σελιδοδείκτης διαγράφηκε"
 
-#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:804
-#: src/library.js:827
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:809
+#: src/library.js:826
 msgid "Undo"
 msgstr "Αναίρεση"
 
@@ -76,7 +76,7 @@ msgstr "Προσαρμοσμένο"
 msgid "JSON Files"
 msgstr "Όλα τα αρχεία"
 
-#: src/annotations.js:597 src/app.js:145
+#: src/annotations.js:597 src/app.js:149
 msgid "All Files"
 msgstr "Όλα τα αρχεία"
 
@@ -93,7 +93,7 @@ msgstr "Το εισαχθέν αρχείο δεν περιέχει επισημ�
 msgid "Cannot Import Annotations"
 msgstr "Εισαγωγή Επισημάνσεων…"
 
-#: src/annotations.js:626 src/book-viewer.js:715 src/library.js:606
+#: src/annotations.js:626 src/book-viewer.js:720 src/library.js:605
 msgid "An error occurred"
 msgstr "Πρόκυψε κάποιο σφάλμα"
 
@@ -122,22 +122,22 @@ msgstr "Κλείσιμο"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: src/app.js:132
+#: src/app.js:136
 msgid "E-Book Files"
 msgstr "Αρχεία Ηλεκτρονικών Βιβλίων"
 
-#: src/app.js:383 data/com.github.johnfactotum.Foliate.desktop.in:6
+#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
 msgstr "Ανάγνωση ηλεκτρονικών βιβλίων με στυλ"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
-#: src/app.js:389
+#: src/app.js:405
 msgid "translator-credits"
 msgstr "Γιώργος Μούσα"
 
-#: src/app.js:398
+#: src/app.js:414
 msgid "Source Code"
 msgstr "Πηγαίος Κώδικας"
 
@@ -262,70 +262,70 @@ msgstr "Βιβλιογραφία"
 msgid "Go to Bibliography"
 msgstr "Μετάβαση στη Βιβλιογραφία"
 
-#: src/book-viewer.js:614
+#: src/book-viewer.js:619
 msgid "Remove bookmark"
 msgstr "Αφαίρεση σελιδοδείκτη"
 
-#: src/book-viewer.js:615
+#: src/book-viewer.js:620
 msgid "Add bookmark"
 msgstr "Προσθήκη σελιδοδείκτη"
 
-#: src/book-viewer.js:713
+#: src/book-viewer.js:718
 msgid "File not found"
 msgstr "Το αρχείο δεν βρέθηκε"
 
-#: src/book-viewer.js:714
+#: src/book-viewer.js:719
 msgid "File type not supported"
 msgstr "Ο τύπος του αρχείου δεν υποστηρίζεται"
 
-#: src/book-viewer.js:803
+#: src/book-viewer.js:808
 msgid "Annotation deleted"
 msgstr "Η επισήμανση διαγράφηκε"
 
-#: src/book-viewer.js:871
+#: src/book-viewer.js:876
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:873
+#: src/book-viewer.js:878
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
 
-#: src/book-viewer.js:874
+#: src/book-viewer.js:879
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr ""
 
-#: src/book-viewer.js:877
+#: src/book-viewer.js:882
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
 
-#: src/book-viewer.js:879
+#: src/book-viewer.js:884
 #, javascript-format
 msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
 
-#: src/book-viewer.js:880
+#: src/book-viewer.js:885
 #, javascript-format
 msgid "‘%s’"
 msgstr ""
 
-#: src/book-viewer.js:898
+#: src/book-viewer.js:903
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Εικόνα από “%s”"
 
-#: src/book-viewer.js:898
+#: src/book-viewer.js:903
 msgid "Image"
 msgstr "Εικόνα"
 
@@ -336,7 +336,7 @@ msgstr "από %d"
 
 #: src/library.js:47
 msgid "Loading"
-msgstr ""
+msgstr "Φόρτωση"
 
 #: src/library.js:48
 #, fuzzy
@@ -349,7 +349,7 @@ msgstr "Επαναφόρτωση"
 
 #: src/library.js:51
 msgid "See All"
-msgstr ""
+msgstr "Προβολή Όλων"
 
 #: src/library.js:52 src/ui/library.ui:124 src/ui/library.ui:182
 msgid "Search"
@@ -357,40 +357,40 @@ msgstr "Αναζήτηση"
 
 #: src/library.js:53
 msgid "Filter"
-msgstr ""
+msgstr "Φίλτρο"
 
 #: src/library.js:55 src/library.js:57
 msgid "Download"
-msgstr ""
+msgstr "Κατέβασμα"
 
 #: src/library.js:56
 msgid "Buy"
-msgstr ""
+msgstr "Αγορά"
 
 #: src/library.js:58
 #, fuzzy
 msgid "Preview"
-msgstr "Προηγούμενο"
+msgstr "Προεπισκόπηση"
 
 #: src/library.js:59
 msgid "Sample"
-msgstr ""
+msgstr "Δείγμα"
 
 #: src/library.js:60
 msgid "Borrow"
-msgstr ""
+msgstr "Δανεισμός"
 
 #: src/library.js:61
 msgid "Subscribe"
-msgstr ""
+msgstr "Εγγραφή"
 
 #: src/library.js:63
 msgid "Free"
-msgstr ""
+msgstr "Δωρεάν"
 
 #: src/library.js:65
 msgid "First"
-msgstr ""
+msgstr "Πρώτο"
 
 #: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
 msgid "Previous"
@@ -402,102 +402,104 @@ msgstr "Επόμενο"
 
 #: src/library.js:68
 msgid "Last"
-msgstr ""
+msgstr "Τελευταίο"
 
 #: src/library.js:70
 #, fuzzy
 msgid "Search Terms"
-msgstr "Αναζήτηση"
+msgstr "Αναζήτηση Όρων"
 
 #: src/library.js:72
 msgid "Title"
-msgstr ""
+msgstr "Τίτλος"
 
 #: src/library.js:73
 msgid "Author"
-msgstr ""
+msgstr "Συγγραφέας"
 
 #: src/library.js:74
 #, fuzzy
 msgid "Contributor"
-msgstr "Περιεχόμενα"
+msgstr "Συμβάλλων"
 
-#: src/library.js:436
+#: src/library.js:433
 msgid "Remove Book?"
 msgstr "Αφαίρεση Βιβλίου;"
 
-#: src/library.js:437
+#: src/library.js:434
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr ""
 "Η πρόοδος ανάγνωσης, οι επισημάνσεις, και οι σελιδοδείκτες, θα χαθούν "
 "οριστικά"
 
-#: src/library.js:439
+#: src/library.js:436
 msgid "_Cancel"
 msgstr "_Ακύρωση"
 
-#: src/library.js:440
+#: src/library.js:437
 msgid "_Remove"
 msgstr "_Αφαίρεση"
 
-#: src/library.js:606
+#: src/library.js:605
 msgid "Download Failed"
-msgstr ""
+msgstr "Το κατέβασμα απέτυχε"
 
-#: src/library.js:660
+#: src/library.js:659
 msgid "Rename…"
-msgstr ""
+msgstr "Μετονομασία…"
 
-#: src/library.js:661 src/ui/book-item.ui:21 src/ui/book-row.ui:21
+#: src/library.js:660 src/ui/book-item.ui:21 src/ui/book-row.ui:21
 msgid "Remove"
 msgstr "Διαγραφή"
 
-#: src/library.js:681 src/library.js:682
+#: src/library.js:680 src/library.js:681
 msgid "Rename"
-msgstr ""
+msgstr "Μετονομασία"
 
-#: src/library.js:687
+#: src/library.js:686
 msgid "Name"
-msgstr ""
+msgstr "Όνομα"
 
-#: src/library.js:702
+#: src/library.js:701
 #, fuzzy
 msgid "All Books"
-msgstr "Κατάλογος Βιβλίων"
+msgstr "Όλα τα Βιβλία"
 
-#: src/library.js:708
+#: src/library.js:707
 #, fuzzy
 msgid "Add Catalog…"
-msgstr "Προσθήκη Σημείωσης…"
+msgstr "Προσθήκη Καταλόγου…"
 
-#: src/library.js:775 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/library.js:774 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
 msgid "Library"
 msgstr "Βιβλιοθήκη"
 
-#: src/library.js:783
+#: src/library.js:782
 msgid "Catalogs"
-msgstr ""
+msgstr "Κατάλογοι"
 
-#: src/library.js:826
+#: src/library.js:825
 msgid "Catalog removed"
-msgstr ""
+msgstr "Ο κατάλογος διαγράφηκε"
 
-#: src/library.js:907 src/library.js:912
+#: src/library.js:912 src/library.js:917
 msgid "Add Catalog"
-msgstr ""
-
-#: src/library.js:908
-msgid "Add"
-msgstr ""
+msgstr "Προσθήκη Καταλόγου"
 
 #: src/library.js:913
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: src/library.js:918
 msgid ""
 "You can browse and download books from OPDS catalogs. <a href=\"https://opds."
 "io\">Learn More…</a>"
 msgstr ""
+"Μπορείτε να κατεβάσετε βιβλία από τους OPDS καταλόγους. <a href=\"https://"
+"opds.io\">Μάθετε περισσότερα…</a>"
 
-#: src/library.js:917
+#: src/library.js:922
 msgid "URL"
 msgstr ""
 
@@ -583,7 +585,7 @@ msgstr "Ουρανός"
 
 #: src/themes.js:39
 msgid "Solarized"
-msgstr ""
+msgstr "Λιασμένο"
 
 #: src/themes.js:44
 msgid "Gruvbox"
@@ -591,7 +593,7 @@ msgstr ""
 
 #: src/themes.js:49
 msgid "Nord"
-msgstr ""
+msgstr "Βορινό"
 
 #: src/tts.js:117
 #, fuzzy
@@ -747,7 +749,7 @@ msgstr "Σελιδοδείκτες"
 #: src/ui/book-viewer.ui:458
 #, fuzzy
 msgid "No Bookmarks"
-msgstr "Σελιδοδείκτες"
+msgstr "Δεν υπάρχουν σελιδοδείκτες"
 
 #: src/ui/book-viewer.ui:459
 msgid "Add some bookmarks to see them here"
@@ -909,7 +911,7 @@ msgstr "Εμπρός"
 
 #: src/ui/library-view.ui:21
 msgid "No Books Yet"
-msgstr "Κανένα Βιβλίο Ακόμα"
+msgstr "Δεν υπάρχουν βιβλία ακόμα"
 
 #: src/ui/library-view.ui:22
 msgid "Open a book to start reading"
@@ -931,13 +933,13 @@ msgstr "Υπολειπόμενος Χρόνος στην Ενότητα"
 msgid "Time Left in Book"
 msgstr "Υπολειπόμενος Χρόνος στο Βιβλίο"
 
-#: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:158
+#: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:159
 msgid "Page"
 msgstr "Σελίδα"
 
 #: src/ui/navbar.ui:309
 msgid "Paste and Go"
-msgstr "Επικόλληση και Πλοήγηση"
+msgstr "Επικόλληση και Μετάβαση"
 
 #: src/ui/navbar.ui:322
 msgid "Section"
@@ -1005,98 +1007,106 @@ msgid "Font"
 msgstr "Γραμματοσειρά"
 
 #: src/ui/view-preferences-window.ui:9
-msgid "Font Family"
-msgstr "Οικογένεια Γραμματοσειρών"
-
-#: src/ui/view-preferences-window.ui:12
-msgid "Default Font"
-msgstr "Προκαθορισμένη Γραμματοσειρά"
-
-#: src/ui/view-preferences-window.ui:16
-msgid "Serif"
-msgstr ""
-
-#: src/ui/view-preferences-window.ui:17
-msgid "Sans-serif"
-msgstr ""
-
-#: src/ui/view-preferences-window.ui:25
-msgid "Serif Font"
-msgstr ""
-
-#: src/ui/view-preferences-window.ui:38
-msgid "Sans-Serif Font"
-msgstr ""
-
-#: src/ui/view-preferences-window.ui:51
-msgid "Monospace Font"
-msgstr ""
-
-#: src/ui/view-preferences-window.ui:66
 msgid "Font Size"
 msgstr "Μέγεθος Γραμματοσειράς"
 
-#: src/ui/view-preferences-window.ui:69
+#: src/ui/view-preferences-window.ui:12
 msgid "Default Font Size"
 msgstr "Προκαθορισμένο Μέγεθος Γραμματοσειράς"
 
-#: src/ui/view-preferences-window.ui:82
+#: src/ui/view-preferences-window.ui:25
 msgid "Minimum Font Size"
 msgstr "Ελάχιστο Μέγεθος Γραμματοσειράς"
 
-#: src/ui/view-preferences-window.ui:99
+#: src/ui/view-preferences-window.ui:40
+msgid "Font Family"
+msgstr "Οικογένεια Γραμματοσειρών"
+
+#: src/ui/view-preferences-window.ui:43
+msgid "Default Font"
+msgstr "Προκαθορισμένη Γραμματοσειρά"
+
+#: src/ui/view-preferences-window.ui:47
+msgid "Serif"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:48
+msgid "Sans-serif"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:56
+msgid "Override Publisher Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:71
+msgid "Serif Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:84
+msgid "Sans-Serif Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:97
+msgid "Monospace Font"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:114
 msgid "Layout"
 msgstr "Διάταξη"
 
-#: src/ui/view-preferences-window.ui:103
-msgid "Color"
-msgstr "Χρώμα"
-
-#: src/ui/view-preferences-window.ui:117
+#: src/ui/view-preferences-window.ui:118
 msgid "Paragraph"
 msgstr "Παράγραφος"
 
-#: src/ui/view-preferences-window.ui:120
+#: src/ui/view-preferences-window.ui:121
 msgid "Line Height"
 msgstr "Ύψος γραμμής"
 
-#: src/ui/view-preferences-window.ui:134
+#: src/ui/view-preferences-window.ui:135
 msgid "Full Justification"
 msgstr "Πλήρης Στοίχιση"
 
-#: src/ui/view-preferences-window.ui:145
+#: src/ui/view-preferences-window.ui:146
 #, fuzzy
 msgid "Hyphenation"
 msgstr "Αυτόματος Συλλαβισμός"
 
-#: src/ui/view-preferences-window.ui:161
-#, fuzzy
-msgid "Reduce Animation"
-msgstr "%d Επισήμανση"
-
-#: src/ui/view-preferences-window.ui:171
+#: src/ui/view-preferences-window.ui:162
 msgid "Margins"
 msgstr "Περιθώρια"
 
-#: src/ui/view-preferences-window.ui:185
+#: src/ui/view-preferences-window.ui:176
 msgid "Maximum Number of Columns"
 msgstr "Μέγιστος Αριθμός Στηλών"
 
-#: src/ui/view-preferences-window.ui:198
+#: src/ui/view-preferences-window.ui:189
 msgid "Maximum Inline Size"
 msgstr "Μέγιστο Μέγεθος Εντός της Γραμμής"
 
-#: src/ui/view-preferences-window.ui:199
+#: src/ui/view-preferences-window.ui:190
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
 msgstr "Μέγιστο πλάτος στήλης (οριζόντια γραφή) ή ύψος (κάθετη γραφή)"
 
-#: src/ui/view-preferences-window.ui:212
+#: src/ui/view-preferences-window.ui:203
 msgid "Maximum Block Size"
 msgstr "Μέγιστο Μέγεθος Τμήματος"
 
-#: src/ui/view-preferences-window.ui:213
+#: src/ui/view-preferences-window.ui:204
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
 msgstr "Μέγιστο ύψος (οριζόντια γραφή) ή μέγιστο πλάτος (κάθετη γραφή)"
+
+#: src/ui/view-preferences-window.ui:221
+msgid "Color"
+msgstr "Χρώμα"
+
+#: src/ui/view-preferences-window.ui:240
+msgid "Behavior"
+msgstr ""
+
+#: src/ui/view-preferences-window.ui:246
+#, fuzzy
+msgid "Reduce Animation"
+msgstr "Μείωση κινούμενων στοιχείων"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
@@ -1113,6 +1123,10 @@ msgid ""
 "tailored for GNOME. Immerse yourself in a distraction-free interface, with "
 "customization features designed to match your unique preferences."
 msgstr ""
+"Ξεκινήστε ένα νέο κεφάλαιο στον τρόπο ανάγνωσης με το Φυλλοειδές, έναν "
+"μοντέρνο αναγνώστη ηλεκτρονικών βιβλίων σχεδιασμένο για το GNOME. Εισαχθείτε "
+"σε ένα περιβάλλον δίχως περισπασμούς, με πολλές επιλογές προσαρμογής "
+"σχεδιασμένες για να ικανοποιήσουν τις μοναδικές σας προτιμήσεις."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
@@ -1132,7 +1146,7 @@ msgstr "Επιλογή γραμματοσειράς και διάστιχου"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
 msgid "Light, sepia, dark, and invert mode"
-msgstr ""
+msgstr "Ανοιχτόχρωμη, σέπια, σκουρόχρωμη, κι ανεστραμμένη λειτουργία"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
 msgid "Reading progress slider with chapter marks"
@@ -1155,7 +1169,7 @@ msgstr "Ταχεία αναζήτηση σε λεξικό"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:30
 #, fuzzy
 msgid "Book"
-msgstr "Κατάλογος Βιβλίων"
+msgstr "Βιβλίο"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:31
 msgid "EPUB"
@@ -1163,16 +1177,16 @@ msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:32
 msgid "Ebook"
-msgstr ""
+msgstr "Ηλεκτρονικό βιβλίο"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:33
 msgid "Reader"
-msgstr ""
+msgstr "Αναγνώστης"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:34
 #, fuzzy
 msgid "Viewer"
-msgstr "Προβολή Μενού"
+msgstr "Προβολέας"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
 msgid ""

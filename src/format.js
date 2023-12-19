@@ -46,7 +46,7 @@ const numberFormat = new Intl.NumberFormat(locales)
 export const number = x => x != null ? numberFormat.format(x) : ''
 
 const percentFormat = new Intl.NumberFormat(locales, { style: 'percent' })
-export const percent = x => percentFormat.format(x)
+export const percent = x => x != null ? percentFormat.format(x) : ''
 
 const listFormat = new Intl.ListFormat(locales, { style: 'short', type: 'conjunction' })
 export const list = x => x ? listFormat.format(x) : ''
