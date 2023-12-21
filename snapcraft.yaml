@@ -28,6 +28,8 @@ apps:
     extensions:
       - gnome
     plugs:
+      - home
+      - removable-media
       - network
       - audio-playback
     desktop: usr/share/applications/com.github.johnfactotum.Foliate.desktop
