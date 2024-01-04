@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 # Julien Humbert <julroy67@gmail.com>, 2019-2020.
 # mathieu <mathieu.bousquet2@gmail.com>, 2022.
-# Irénée THIRION <irenee.thirion@e.email>, 2023.
+# Irénée THIRION <irenee.thirion@e.email>, 2023-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-19 04:33+0000\n"
-"PO-Revision-Date: 2023-11-14 22:35+0100\n"
+"PO-Revision-Date: 2024-01-03 17:11+0100\n"
 "Last-Translator: Irénée THIRION <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -339,12 +339,11 @@ msgstr "sur %d"
 
 #: src/library.js:47
 msgid "Loading"
-msgstr ""
+msgstr "Chargement"
 
 #: src/library.js:48
-#, fuzzy
 msgid "Failed to Load"
-msgstr "Copié vers le presse-papiers"
+msgstr "Chargement échoué"
 
 #: src/library.js:49 src/ui/book-viewer.ui:15
 msgid "Reload"
@@ -352,7 +351,7 @@ msgstr "Recharger"
 
 #: src/library.js:51
 msgid "See All"
-msgstr ""
+msgstr "Voir tout"
 
 #: src/library.js:52 src/ui/library.ui:124 src/ui/library.ui:182
 msgid "Search"
@@ -360,40 +359,39 @@ msgstr "Rechercher"
 
 #: src/library.js:53
 msgid "Filter"
-msgstr ""
+msgstr "Filtrer"
 
 #: src/library.js:55 src/library.js:57
 msgid "Download"
-msgstr ""
+msgstr "Télécharger"
 
 #: src/library.js:56
 msgid "Buy"
-msgstr ""
+msgstr "Acheter"
 
 #: src/library.js:58
-#, fuzzy
 msgid "Preview"
-msgstr "Précédent"
+msgstr "Aperçu"
 
 #: src/library.js:59
 msgid "Sample"
-msgstr ""
+msgstr "Échantillon"
 
 #: src/library.js:60
 msgid "Borrow"
-msgstr ""
+msgstr "Emprunter"
 
 #: src/library.js:61
 msgid "Subscribe"
-msgstr ""
+msgstr "Souscrire"
 
 #: src/library.js:63
 msgid "Free"
-msgstr ""
+msgstr "Gratuit"
 
 #: src/library.js:65
 msgid "First"
-msgstr ""
+msgstr "Premier"
 
 #: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
 msgid "Previous"
@@ -405,25 +403,23 @@ msgstr "Suivant"
 
 #: src/library.js:68
 msgid "Last"
-msgstr ""
+msgstr "Dernier"
 
 #: src/library.js:70
-#, fuzzy
 msgid "Search Terms"
-msgstr "Rechercher"
+msgstr "Termes recherchés"
 
 #: src/library.js:72
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: src/library.js:73
 msgid "Author"
-msgstr ""
+msgstr "Auteur"
 
 #: src/library.js:74
-#, fuzzy
 msgid "Contributor"
-msgstr "Contributeurs"
+msgstr "Contributeur"
 
 #: src/library.js:433
 msgid "Remove Book?"
@@ -445,11 +441,11 @@ msgstr "_Supprimer"
 
 #: src/library.js:605
 msgid "Download Failed"
-msgstr ""
+msgstr "Téléchargement échoué"
 
 #: src/library.js:659
 msgid "Rename…"
-msgstr ""
+msgstr "Renommer…"
 
 #: src/library.js:660 src/ui/book-item.ui:21 src/ui/book-row.ui:21
 msgid "Remove"
@@ -457,21 +453,19 @@ msgstr "Supprimer"
 
 #: src/library.js:680 src/library.js:681
 msgid "Rename"
-msgstr ""
+msgstr "Renommer"
 
 #: src/library.js:686
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: src/library.js:701
-#, fuzzy
 msgid "All Books"
-msgstr "Livre"
+msgstr "Tous les livres"
 
 #: src/library.js:707
-#, fuzzy
 msgid "Add Catalog…"
-msgstr "Ajouter une note…"
+msgstr "Ajouter un catalogue…"
 
 #: src/library.js:774 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
@@ -480,29 +474,31 @@ msgstr "Bibliothèque"
 
 #: src/library.js:782
 msgid "Catalogs"
-msgstr ""
+msgstr "Catalogues"
 
 #: src/library.js:825
 msgid "Catalog removed"
-msgstr ""
+msgstr "Catalogue supprimé"
 
 #: src/library.js:912 src/library.js:917
 msgid "Add Catalog"
-msgstr ""
+msgstr "Ajouter un catalogue"
 
 #: src/library.js:913
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: src/library.js:918
 msgid ""
 "You can browse and download books from OPDS catalogs. <a href=\"https://opds."
 "io\">Learn More…</a>"
 msgstr ""
+"Vous pouvez parcourir et télécharger des livres depuis les catalogues OPDS. "
+"<a href=\"https://opds.io\">En savoir plus…</a>"
 
 #: src/library.js:922
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #. Translators: Do NOT translate! The is the application name!
 #: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
@@ -879,14 +875,12 @@ msgid "Main Menu"
 msgstr "Menu principal"
 
 #: src/ui/library.ui:110
-#, fuzzy
 msgid "Open"
-msgstr "Ouvrir…"
+msgstr "Ouvrir"
 
 #: src/ui/library.ui:117
-#, fuzzy
 msgid "Library Menu"
-msgstr "Bibliothèque"
+msgstr "Menu de la bibliothèque"
 
 #: src/ui/library.ui:134
 msgid "Search library…"
@@ -1026,7 +1020,7 @@ msgstr "Sans-sérif"
 
 #: src/ui/view-preferences-window.ui:56
 msgid "Override Publisher Font"
-msgstr ""
+msgstr "Outrepasser la police de l’éditeur"
 
 #: src/ui/view-preferences-window.ui:71
 msgid "Serif Font"
@@ -1092,12 +1086,11 @@ msgstr "Couleur"
 
 #: src/ui/view-preferences-window.ui:240
 msgid "Behavior"
-msgstr ""
+msgstr "Comportement"
 
 #: src/ui/view-preferences-window.ui:246
-#, fuzzy
 msgid "Reduce Animation"
-msgstr "%d annotation"
+msgstr "Réduire les animations"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
@@ -1184,66 +1177,3 @@ msgstr ""
 "Foliate a été entièrement réécri avec un nouveau moteur de rendu des livres "
 "et les dernières bibliothèques de la plateforme, GTK4 et Libadwaita, ainsi "
 "qu’une interface rafraîchie et des performances améliorées."
-
-#~ msgid "Foliate is modern e-book reader app designed for GNOME."
-#~ msgstr ""
-#~ "Foliate est un lecteur de livres électroniques moderne, conçu pour GNOME."
-
-#~ msgid "John Factotum"
-#~ msgstr "John Factotum"
-
-#, fuzzy
-#~ msgid "Reference"
-#~ msgstr "Préférences"
-
-#, fuzzy
-#~ msgid "Go to Reference"
-#~ msgstr "Préférences"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Raccourcis clavier"
-
-#~ msgid "Preferences"
-#~ msgstr "Préférences"
-
-#~ msgid "Speak"
-#~ msgstr "Lire"
-
-#, fuzzy
-#~ msgid "Fold Sidebar"
-#~ msgstr "Afficher la barre latérale"
-
-#~ msgid "Save File"
-#~ msgstr "Enregistrer le fichier"
-
-#, fuzzy
-#~ msgid "Choose highlight style"
-#~ msgstr "Changer la couleur de surlignage"
-
-#~ msgid "More"
-#~ msgstr "Plus"
-
-#, fuzzy
-#~ msgid "About this book"
-#~ msgstr "À propos de ce livre"
-
-#, fuzzy
-#~ msgid "Toggle sidebar"
-#~ msgstr "Utiliser la barre latérale"
-
-#~ msgid "Restore zoom"
-#~ msgstr "Restaurer le niveau de zoom"
-
-#~ msgid "Go to previous page"
-#~ msgstr "Aller à la page précédente"
-
-#~ msgid "Go back to previous location"
-#~ msgstr "Aller à la position précédente"
-
-#, fuzzy
-#~ msgid "Go to next section"
-#~ msgstr "Aller à la page suivante"
-
-#, fuzzy
-#~ msgid "Go to last section"
-#~ msgstr "Aller à la position"
