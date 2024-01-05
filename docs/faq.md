@@ -22,7 +22,11 @@ Currently, it simply uses the number of locations — basically, a character cou
 
 ### How to use text-to-speech?
 
-Foliate supports text-to-speech with speech-dispatcher. To use it, you need to install `speech-dispatcher` and output modules such as `espeak-ng`.
+Foliate supports text-to-speech with speech-dispatcher, so make sure `speech-dispatcher` and output modules such as `espeak-ng` are installed on your system.
+
+To use it, click on the <i>Narration</i> button (the one with a headphones icon) on the navbar (which is available by hovering or tapping on the footer area). Note that if the book has embedded audio ([EPUB Media Overlays](https://www.w3.org/TR/epub/#sec-media-overlays)), the <i>Narration</i> button would show controls for the embedded media, and TTS would not be available in that case.
+
+Alternatively you can select some text and choose <i>Speak from Here</i> from the selection menu. Though you still need to use the <i>Narration</i> button if you want to stop the speech output.
 
 ### How to use custom themes?
 
