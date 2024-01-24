@@ -138,7 +138,8 @@ customElements.define('opds-pub-full', class extends HTMLElement {
             sheet.replaceSync(`
             html, body {
                 color-scheme: light dark;
-                font-family: system-ui;
+                font: menu;
+                font-size: 11pt;
                 margin: 0;
                 overflow-wrap: anywhere;
             }
