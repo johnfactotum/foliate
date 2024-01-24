@@ -172,6 +172,7 @@ GObject.registerClass({
             enable_hyperlink_auditing: false,
             enable_html5_database: false,
             enable_html5_local_storage: false,
+            enable_smooth_scrolling: false,
         }),
         // needed for playing media overlay
         website_policies: new WebKit.WebsitePolicies({
