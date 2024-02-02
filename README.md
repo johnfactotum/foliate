@@ -4,7 +4,7 @@
 
 Read books in style.
 
-![Screenshot](data/screenshots/screenshot.png)
+![Screenshot](data/screenshots/screenshot_smaller.png)
 
 ## Installation
 
