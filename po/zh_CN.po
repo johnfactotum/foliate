@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 # 王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>, 2020.
 # Tranquilo Chan <cdh4227@foxmail.com>, 2020-2021.
-# lumingzh <lumingzh@qq.com>, 2023.
+# lumingzh <lumingzh@qq.com>, 2023-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-19 04:33+0000\n"
-"PO-Revision-Date: 2023-11-16 08:52+0800\n"
+"PO-Revision-Date: 2024-02-17 11:48+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -137,7 +137,7 @@ msgid "translator-credits"
 msgstr ""
 "Tranquilo Chan <cdh4227@foxmail.com>, 2020-2021.\n"
 "王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>, 2020.\n"
-"lumingzh <lumingzh@qq.com>, 2023."
+"lumingzh <lumingzh@qq.com>, 2023-2024."
 
 #: src/app.js:414
 msgid "Source Code"
@@ -339,12 +339,11 @@ msgstr "共 %d"
 
 #: src/library.js:47
 msgid "Loading"
-msgstr ""
+msgstr "加载中"
 
 #: src/library.js:48
-#, fuzzy
 msgid "Failed to Load"
-msgstr "已复制到剪贴板"
+msgstr "加载失败"
 
 #: src/library.js:49 src/ui/book-viewer.ui:15
 msgid "Reload"
@@ -352,7 +351,7 @@ msgstr "重新载入"
 
 #: src/library.js:51
 msgid "See All"
-msgstr ""
+msgstr "查看全部"
 
 #: src/library.js:52 src/ui/library.ui:124 src/ui/library.ui:182
 msgid "Search"
@@ -360,40 +359,39 @@ msgstr "搜索"
 
 #: src/library.js:53
 msgid "Filter"
-msgstr ""
+msgstr "筛选器"
 
 #: src/library.js:55 src/library.js:57
 msgid "Download"
-msgstr ""
+msgstr "下载"
 
 #: src/library.js:56
 msgid "Buy"
-msgstr ""
+msgstr "购买"
 
 #: src/library.js:58
-#, fuzzy
 msgid "Preview"
-msgstr "上页"
+msgstr "预览"
 
 #: src/library.js:59
 msgid "Sample"
-msgstr ""
+msgstr "样品"
 
 #: src/library.js:60
 msgid "Borrow"
-msgstr ""
+msgstr "借阅"
 
 #: src/library.js:61
 msgid "Subscribe"
-msgstr ""
+msgstr "订阅"
 
 #: src/library.js:63
 msgid "Free"
-msgstr ""
+msgstr "免费"
 
 #: src/library.js:65
 msgid "First"
-msgstr ""
+msgstr "首页"
 
 #: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
 msgid "Previous"
@@ -405,23 +403,21 @@ msgstr "下页"
 
 #: src/library.js:68
 msgid "Last"
-msgstr ""
+msgstr "尾页"
 
 #: src/library.js:70
-#, fuzzy
 msgid "Search Terms"
-msgstr "搜索"
+msgstr "搜索方式"
 
 #: src/library.js:72
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: src/library.js:73
 msgid "Author"
-msgstr ""
+msgstr "作者"
 
 #: src/library.js:74
-#, fuzzy
 msgid "Contributor"
 msgstr "贡献者"
 
@@ -443,11 +439,11 @@ msgstr "移除(_R)"
 
 #: src/library.js:605
 msgid "Download Failed"
-msgstr ""
+msgstr "下载失败"
 
 #: src/library.js:659
 msgid "Rename…"
-msgstr ""
+msgstr "重命名…"
 
 #: src/library.js:660 src/ui/book-item.ui:21 src/ui/book-row.ui:21
 msgid "Remove"
@@ -455,21 +451,19 @@ msgstr "移除"
 
 #: src/library.js:680 src/library.js:681
 msgid "Rename"
-msgstr ""
+msgstr "重命名"
 
 #: src/library.js:686
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: src/library.js:701
-#, fuzzy
 msgid "All Books"
-msgstr "书籍"
+msgstr "所有书籍"
 
 #: src/library.js:707
-#, fuzzy
 msgid "Add Catalog…"
-msgstr "添加笔记…"
+msgstr "添加类目…"
 
 #: src/library.js:774 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
@@ -478,29 +472,30 @@ msgstr "书库"
 
 #: src/library.js:782
 msgid "Catalogs"
-msgstr ""
+msgstr "类目"
 
 #: src/library.js:825
 msgid "Catalog removed"
-msgstr ""
+msgstr "类目已移除"
 
 #: src/library.js:912 src/library.js:917
 msgid "Add Catalog"
-msgstr ""
+msgstr "添加类目"
 
 #: src/library.js:913
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: src/library.js:918
 msgid ""
 "You can browse and download books from OPDS catalogs. <a href=\"https://opds."
 "io\">Learn More…</a>"
 msgstr ""
+"您可以从 OPDS 类目浏览和下载书籍。<a href=\"https://opds.io\">了解更多…</a>"
 
 #: src/library.js:922
 msgid "URL"
-msgstr ""
+msgstr "网址"
 
 #. Translators: Do NOT translate! The is the application name!
 #: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
@@ -873,14 +868,12 @@ msgid "Main Menu"
 msgstr "主菜单"
 
 #: src/ui/library.ui:110
-#, fuzzy
 msgid "Open"
-msgstr "打开…"
+msgstr "打开"
 
 #: src/ui/library.ui:117
-#, fuzzy
 msgid "Library Menu"
-msgstr "书库"
+msgstr "书库菜单"
 
 #: src/ui/library.ui:134
 msgid "Search library…"
@@ -1020,7 +1013,7 @@ msgstr "衬线"
 
 #: src/ui/view-preferences-window.ui:56
 msgid "Override Publisher Font"
-msgstr ""
+msgstr "覆盖出版商字体"
 
 #: src/ui/view-preferences-window.ui:71
 msgid "Serif Font"
@@ -1084,12 +1077,11 @@ msgstr "颜色"
 
 #: src/ui/view-preferences-window.ui:240
 msgid "Behavior"
-msgstr ""
+msgstr "行为"
 
 #: src/ui/view-preferences-window.ui:246
-#, fuzzy
 msgid "Reduce Animation"
-msgstr "%d 条笔记"
+msgstr "减少动画"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
