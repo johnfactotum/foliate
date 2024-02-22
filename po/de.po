@@ -26,19 +26,19 @@ msgstr "Lesezeichen"
 #: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:809
 #: src/library.js:826
 msgid "Undo"
-msgstr ""
+msgstr "Rückgängig"
 
 #: src/annotations.js:437
 msgid "Underline"
-msgstr ""
+msgstr "Unterstrichen"
 
 #: src/annotations.js:438
 msgid "Squiggly"
-msgstr ""
+msgstr "Wellig"
 
 #: src/annotations.js:439
 msgid "Strikethrough"
-msgstr ""
+msgstr "Durchgestrichen"
 
 #: src/annotations.js:440
 msgid "Yellow"
@@ -47,7 +47,7 @@ msgstr "Gelb"
 #: src/annotations.js:441
 #, fuzzy
 msgid "Orange"
-msgstr "Bearbeiter"
+msgstr "Orange"
 
 #: src/annotations.js:442
 msgid "Red"
@@ -68,7 +68,7 @@ msgstr "Limone"
 #: src/annotations.js:446
 #, fuzzy
 msgid "Custom Color…"
-msgstr "Benutzerdefinierte Farbe wählen"
+msgstr "Benutzerdefinierte Farbe…"
 
 #: src/annotations.js:498
 #, fuzzy
@@ -78,7 +78,7 @@ msgstr "Benutzerdefiniertes Thema"
 #: src/annotations.js:592
 #, fuzzy
 msgid "JSON Files"
-msgstr "Alle Dateien"
+msgstr "JSON-Dateien"
 
 #: src/annotations.js:597 src/app.js:149
 msgid "All Files"
@@ -87,16 +87,16 @@ msgstr "Alle Dateien"
 #: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:402
 #, fuzzy
 msgid "No Annotations"
-msgstr "Anmerkungen"
+msgstr "Keine Anmerkungen"
 
 #: src/annotations.js:607
 msgid "The imported file has no annotations"
-msgstr ""
+msgstr "Die importierte Datei hat keine Anmerkungen"
 
 #: src/annotations.js:625
 #, fuzzy
 msgid "Cannot Import Annotations"
-msgstr "Anmerkungen importieren…"
+msgstr "Kann keine Anmerkungen importieren"
 
 #: src/annotations.js:626 src/book-viewer.js:720 src/library.js:605
 #, fuzzy
@@ -105,33 +105,33 @@ msgstr "Es ist ein Fehler aufgetreten."
 
 #: src/annotations.js:635
 msgid "You don’t have any annotations for this book"
-msgstr ""
+msgstr "Du hast keine Anmerkungen für dieses Buch"
 
 #: src/annotations.js:648
 #, fuzzy, javascript-format
 msgid "Annotations for “%s”"
-msgstr "Anmerkungen"
+msgstr "Anmerkungen für “%s”"
 
 #: src/annotations.js:649
 #, fuzzy, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "Anmerkungen"
-msgstr[1] "Anmerkungen"
+msgstr[0] "%d Anmerkung"
+msgstr[1] "%d Anmerkungen"
 
 #: src/app.js:95 src/book-viewer.js:30
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
 #: src/ui/import-dialog.ui:15
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: src/app.js:136
 #, fuzzy
 msgid "E-Book Files"
-msgstr "EBook Dateien"
+msgstr "E-Book Dateien"
 
 #: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
@@ -142,12 +142,14 @@ msgstr ""
 #. they will be shown in the "About" dialog
 #: src/app.js:405
 msgid "translator-credits"
-msgstr "Christian Heitjan"
+msgstr ""
+"Christian Heitjan\n"
+"Finn Wiggers"
 
 #: src/app.js:414
 #, fuzzy
 msgid "Source Code"
-msgstr "Quelle: "
+msgstr "Quellcode: "
 
 #: src/book-info.js:125 src/library.js:75
 msgid "Publisher"
@@ -157,13 +159,13 @@ msgstr "Herausgeber"
 #: src/book-info.js:127 src/library.js:76
 #, fuzzy
 msgid "Published"
-msgstr "Herausgeber"
+msgstr "Herausgegeben"
 
 #. Translators: this is the heading for the modified date
 #: src/book-info.js:129
 #, fuzzy
 msgid "Updated"
-msgstr "Update"
+msgstr "Letzte Änderung"
 
 #: src/book-info.js:130 src/library.js:77
 msgid "Language"
@@ -172,36 +174,36 @@ msgstr "Sprache"
 #: src/book-info.js:131
 #, fuzzy
 msgid "Translated by"
-msgstr "Übersetzen"
+msgstr "Übersetzt von"
 
 #: src/book-info.js:132
 msgid "Edited by"
-msgstr ""
+msgstr "Bearbeitet von"
 
 #: src/book-info.js:133
 msgid "Narrated by"
-msgstr ""
+msgstr "Erzählt von"
 
 #: src/book-info.js:134
 msgid "Illustrated by"
-msgstr ""
+msgstr "Illustriert von"
 
 #: src/book-info.js:135
 msgid "Produced by"
-msgstr ""
+msgstr "Produziert von"
 
 #: src/book-info.js:136
 msgid "Artwork by"
-msgstr ""
+msgstr "Grafik von"
 
 #: src/book-info.js:137
 msgid "Color by"
-msgstr ""
+msgstr "Farbe von"
 
 #: src/book-info.js:138
 #, fuzzy
 msgid "Contributors"
-msgstr "Inhalt"
+msgstr "Mitwirkende"
 
 #: src/book-info.js:139 src/library.js:78 src/ui/navbar.ui:283
 msgid "Identifier"
@@ -215,78 +217,78 @@ msgstr "Über dieses Buch"
 #: src/book-viewer.js:27
 #, javascript-format
 msgid "Loc. %s of %s"
-msgstr ""
+msgstr "Pos. %s von %s"
 
 #: src/book-viewer.js:28
 #, javascript-format
 msgid "Page %s of %s"
-msgstr ""
+msgstr "Seite %s von %s"
 
 #: src/book-viewer.js:29
 #, fuzzy, javascript-format
 msgid "Page %s"
-msgstr "Nächste Seite"
+msgstr "Seite %s"
 
 #: src/book-viewer.js:32
 #, fuzzy
 msgid "Footnote"
-msgstr "Zur nächsten Seite springen"
+msgstr "Fußnote"
 
 #: src/book-viewer.js:33
 #, fuzzy
 msgid "Go to Footnote"
-msgstr "Zur nächsten Seite springen"
+msgstr "Zur Fußnote gehen"
 
 #: src/book-viewer.js:34
 msgid "Endnote"
-msgstr ""
+msgstr "Schlussnote"
 
 #: src/book-viewer.js:35
 #, fuzzy
 msgid "Go to Endnote"
-msgstr "Zur nächsten Seite springen"
+msgstr "Zur Schlussnote gehen"
 
 #: src/book-viewer.js:36
 msgid "Note"
-msgstr ""
+msgstr "Notiz"
 
 #: src/book-viewer.js:37
 #, fuzzy
 msgid "Go to Note"
-msgstr "Zur nächsten Seite springen"
+msgstr "Zur Notiz gehen"
 
 #: src/book-viewer.js:38
 #, fuzzy
 msgid "Definition"
-msgstr "Keine Ergebnisse gefunden"
+msgstr "Definition"
 
 #: src/book-viewer.js:39
 #, fuzzy
 msgid "Go to Definition"
-msgstr "Gehe zu Ort"
+msgstr "Gehe zur Definition"
 
 #: src/book-viewer.js:40
 msgid "Bibliography"
-msgstr ""
+msgstr "Literaturverzeichnis"
 
 #: src/book-viewer.js:41
 msgid "Go to Bibliography"
-msgstr ""
+msgstr "Zum Literaturverzeichnis gehen"
 
 #: src/book-viewer.js:619
 #, fuzzy
 msgid "Remove bookmark"
-msgstr "Buch entfernen"
+msgstr "Lesezeichen entfernen"
 
 #: src/book-viewer.js:620
 #, fuzzy
 msgid "Add bookmark"
-msgstr "Buch hinzufügen"
+msgstr "Lesezeichen hinzufügen"
 
 #: src/book-viewer.js:718
 #, fuzzy
 msgid "File not found"
-msgstr "Kein Eintrag gefunden"
+msgstr "Datei nicht gefunden"
 
 #: src/book-viewer.js:719
 #, fuzzy
@@ -296,7 +298,7 @@ msgstr "Dateityp wird nicht unterstützt."
 #: src/book-viewer.js:808
 #, fuzzy
 msgid "Annotation deleted"
-msgstr "Anmerkungen"
+msgstr "Anmerkung gelöscht"
 
 #: src/book-viewer.js:876
 #, javascript-format
@@ -352,19 +354,19 @@ msgstr "von %d"
 
 #: src/library.js:47
 msgid "Loading"
-msgstr ""
+msgstr "Lädt"
 
 #: src/library.js:48
 msgid "Failed to Load"
-msgstr ""
+msgstr "Laden fehlgeschlagen"
 
 #: src/library.js:49 src/ui/book-viewer.ui:15
 msgid "Reload"
-msgstr "Erneut laden"
+msgstr "Neu laden"
 
 #: src/library.js:51
 msgid "See All"
-msgstr ""
+msgstr "Alle ansehen"
 
 #: src/library.js:52 src/ui/library.ui:124 src/ui/library.ui:182
 msgid "Search"
@@ -372,19 +374,19 @@ msgstr "Suchen"
 
 #: src/library.js:53
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: src/library.js:55 src/library.js:57
 msgid "Download"
-msgstr ""
+msgstr "Herunterladen"
 
 #: src/library.js:56
 msgid "Buy"
-msgstr ""
+msgstr "Kaufen"
 
 #: src/library.js:58
 msgid "Preview"
-msgstr ""
+msgstr "Vorschau"
 
 #: src/library.js:59
 msgid "Sample"
@@ -392,15 +394,15 @@ msgstr ""
 
 #: src/library.js:60
 msgid "Borrow"
-msgstr ""
+msgstr "Ausleihen"
 
 #: src/library.js:61
 msgid "Subscribe"
-msgstr ""
+msgstr "Abonnieren"
 
 #: src/library.js:63
 msgid "Free"
-msgstr ""
+msgstr "Kostenlos"
 
 #: src/library.js:65
 msgid "First"
@@ -408,80 +410,80 @@ msgstr ""
 
 #: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
 msgid "Previous"
-msgstr ""
+msgstr "Vorheriges"
 
 #: src/library.js:67 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
 msgid "Next"
-msgstr ""
+msgstr "Nächstes"
 
 #: src/library.js:68
 msgid "Last"
-msgstr ""
+msgstr "Letztes"
 
 #: src/library.js:70
 #, fuzzy
 msgid "Search Terms"
-msgstr "Suchen"
+msgstr "Suchbegriffe"
 
 #: src/library.js:72
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: src/library.js:73
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: src/library.js:74
 #, fuzzy
 msgid "Contributor"
-msgstr "Inhalt"
+msgstr "Mitwirkende"
 
 #: src/library.js:433
 #, fuzzy
 msgid "Remove Book?"
-msgstr "Buch entfernen"
+msgstr "Buch entfernen?"
 
 #: src/library.js:434
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
-msgstr ""
+msgstr "Lesefortschritt, Anmerkungen, und Lesezeichen werden dauerhaft gelöscht"
 
 #: src/library.js:436
 msgid "_Cancel"
-msgstr ""
+msgstr "_Abbrechen"
 
 #: src/library.js:437
 msgid "_Remove"
-msgstr ""
+msgstr "_Entfernen"
 
 #: src/library.js:605
 msgid "Download Failed"
-msgstr ""
+msgstr "Herunterladen fehlgeschlagen"
 
 #: src/library.js:659
 msgid "Rename…"
-msgstr ""
+msgstr "Umbenennen…"
 
 #: src/library.js:660 src/ui/book-item.ui:21 src/ui/book-row.ui:21
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: src/library.js:680 src/library.js:681
 msgid "Rename"
-msgstr ""
+msgstr "Umbenennen"
 
 #: src/library.js:686
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: src/library.js:701
 #, fuzzy
 msgid "All Books"
-msgstr "Menü"
+msgstr "Alle Bücher"
 
 #: src/library.js:707
 #, fuzzy
 msgid "Add Catalog…"
-msgstr "Bücher hinzufügen..."
+msgstr "Katalog hinzufügen…"
 
 #: src/library.js:774 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
@@ -490,29 +492,30 @@ msgstr "Bibliothek"
 
 #: src/library.js:782
 msgid "Catalogs"
-msgstr ""
+msgstr "Kataloge"
 
 #: src/library.js:825
 msgid "Catalog removed"
-msgstr ""
+msgstr "Katalog entfernt"
 
 #: src/library.js:912 src/library.js:917
 msgid "Add Catalog"
-msgstr ""
+msgstr "Katalog hinzufügen"
 
 #: src/library.js:913
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: src/library.js:918
 msgid ""
 "You can browse and download books from OPDS catalogs. <a href=\"https://opds."
 "io\">Learn More…</a>"
-msgstr ""
+msgstr "Du kannst Bücher von OPDS-Katalogen durchstöbern und herunterladen. a href=\"https://opds."
+"io\">Mehr anzeigen…</a>"
 
 #: src/library.js:922
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #. Translators: Do NOT translate! The is the application name!
 #: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
@@ -536,7 +539,7 @@ msgstr "Keine Ergebnisse gefunden"
 
 #: src/selection-tools.js:146
 msgid "Search on Wiktionary"
-msgstr ""
+msgstr "Auf Wiktionary suchen"
 
 #: src/selection-tools.js:183
 msgid "Wikipedia"
@@ -552,7 +555,7 @@ msgstr ""
 #: src/selection-tools.js:234
 #, fuzzy
 msgid "Search on Wikipedia"
-msgstr "Wikipedia"
+msgstr "Auf Wikipedia suchen"
 
 #: src/selection-tools.js:243
 msgid "Translate"
@@ -560,35 +563,35 @@ msgstr "Übersetzen"
 
 #: src/selection-tools.js:269
 msgid "Translation by Google Translate"
-msgstr ""
+msgstr "Übersetzung von Google Translate"
 
 #: src/selection-tools.js:280
 msgid "Cannot retrieve translation"
-msgstr ""
+msgstr "Kann Übersetzung nicht abrufen"
 
 #: src/themes.js:9
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: src/themes.js:14
 msgid "Gray"
-msgstr ""
+msgstr "Grau"
 
 #: src/themes.js:19
 msgid "Sepia"
-msgstr ""
+msgstr "Sepia"
 
 #: src/themes.js:24
 msgid "Grass"
-msgstr ""
+msgstr "Gras"
 
 #: src/themes.js:29
 msgid "Cherry"
-msgstr ""
+msgstr "Kirsche"
 
 #: src/themes.js:34
 msgid "Sky"
-msgstr ""
+msgstr "Himmel"
 
 #: src/themes.js:39
 msgid "Solarized"
@@ -609,16 +612,16 @@ msgstr "Text-zu-Sprache"
 
 #: src/tts.js:118
 msgid "Make sure Speech Dispatcher is installed and working on your system"
-msgstr ""
+msgstr "Stelle sicher, dass Speech Dispatcher auf Deinem System installiert und funktionsfähig ist"
 
 #: src/utils.js:168
 msgid "Copied to clipboard"
-msgstr ""
+msgstr "In die Zwischenablage kopiert"
 
 #: src/ui/annotation-popover.ui:13
 #, fuzzy
 msgid "Highlight Style"
-msgstr "Markieren"
+msgstr "Stil der Hervorhebung"
 
 #: src/ui/annotation-popover.ui:20 src/ui/annotation-row.ui:63
 #: src/ui/bookmark-row.ui:33
@@ -633,11 +636,11 @@ msgstr "Menü"
 #: src/ui/annotation-popover.ui:47
 #, fuzzy
 msgid "Add Note…"
-msgstr "Bücher hinzufügen..."
+msgstr "Notiz hinzufügen…"
 
 #: src/ui/book-item.ui:5 src/ui/book-row.ui:5
 msgid "Open in New Window"
-msgstr ""
+msgstr "In neuem Fenster öffnen"
 
 #: src/ui/book-item.ui:15 src/ui/book-row.ui:15 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -645,7 +648,7 @@ msgstr "Anmerkungen exportieren…"
 
 #: src/ui/book-viewer.ui:5
 msgid "New Window"
-msgstr ""
+msgstr "Neues Fenster"
 
 #: src/ui/book-viewer.ui:11
 msgid "Open a Copy"
@@ -662,7 +665,7 @@ msgstr "Über Foliate"
 #: src/ui/book-viewer.ui:45
 #, fuzzy
 msgid "All Sections"
-msgstr "Sammlungen"
+msgstr "Alle Sammlungen"
 
 #: src/ui/book-viewer.ui:50
 #, fuzzy
@@ -671,19 +674,19 @@ msgstr "Aktuelles Kapitel"
 
 #: src/ui/book-viewer.ui:57
 msgid "Match Whole Words Only"
-msgstr ""
+msgstr "Nur ganze Wörter"
 
 #: src/ui/book-viewer.ui:61
 msgid "Match Case"
-msgstr ""
+msgstr "Auf Großschreibung achten"
 
 #: src/ui/book-viewer.ui:65
 msgid "Match Diacritics"
-msgstr ""
+msgstr "Ähnliche Zeichen"
 
 #: src/ui/book-viewer.ui:83
 msgid "Font & Layout Settings"
-msgstr ""
+msgstr "Schriftart & Layout"
 
 #: src/ui/book-viewer.ui:89
 #, fuzzy
@@ -692,23 +695,23 @@ msgstr "Endloses Scrollen"
 
 #: src/ui/book-viewer.ui:93
 msgid "Invert Colors in Dark Mode"
-msgstr ""
+msgstr "Farben im dunklen Modus invertieren"
 
 #: src/ui/book-viewer.ui:97
 msgid "Autohide Cursor"
-msgstr ""
+msgstr "Cursor automatisch verstecken"
 
 #: src/ui/book-viewer.ui:103
 msgid "Print…"
-msgstr ""
+msgstr "Drucken…"
 
 #: src/ui/book-viewer.ui:107
 msgid "Inspector"
-msgstr ""
+msgstr "Untersuchen"
 
 #: src/ui/book-viewer.ui:167
 msgid "Book Cannot Be Opened"
-msgstr ""
+msgstr "Buch kann nicht geöffnet werden"
 
 #: src/ui/book-viewer.ui:177
 msgid "Details"
@@ -717,7 +720,7 @@ msgstr "Details"
 #: src/ui/book-viewer.ui:193
 #, fuzzy
 msgid "Open Another File…"
-msgstr "Datei öffnen"
+msgstr "Eine andere Datei öffnen…"
 
 #: src/ui/book-viewer.ui:245
 #, fuzzy
@@ -731,12 +734,12 @@ msgstr "Menü"
 
 #: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
 msgid "Find"
-msgstr "Finden"
+msgstr "Suchen"
 
 #: src/ui/book-viewer.ui:276
 #, fuzzy
 msgid "Find in book…"
-msgstr "Im Buch finden"
+msgstr "Im Buch suchen…"
 
 #: src/ui/book-viewer.ui:313
 msgid "Contents"
@@ -754,7 +757,7 @@ msgstr "Keine Anmerkungen"
 #: src/ui/book-viewer.ui:433
 #, fuzzy
 msgid "Filter annotations…"
-msgstr "Anmerkungen durchsuchen"
+msgstr "Anmerkungen durchsuchen…"
 
 #: src/ui/book-viewer.ui:447
 msgid "Bookmarks"
@@ -767,7 +770,7 @@ msgstr "Lesezeichen"
 
 #: src/ui/book-viewer.ui:459
 msgid "Add some bookmarks to see them here"
-msgstr ""
+msgstr "Neue Lesezeichen werden hier angezeigt"
 
 #: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
 #, fuzzy
@@ -777,12 +780,12 @@ msgstr "Keine Ergebnisse gefunden"
 #: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
 #, fuzzy
 msgid "Try a different search"
-msgstr "Versuchen Sie eine andere Suche."
+msgstr "Probiere eine andere Suche."
 
 #: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
 #, fuzzy
 msgid "Sidebar"
-msgstr "Seitenleiste anzeigen"
+msgstr "Seitenleiste"
 
 #: src/ui/book-viewer.ui:556
 #, fuzzy
@@ -796,7 +799,7 @@ msgstr "Verkleinern"
 
 #: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
 msgid "Reset Zoom"
-msgstr ""
+msgstr "Zoom zurücksetzen"
 
 #: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
 #, fuzzy
@@ -805,7 +808,7 @@ msgstr "Vergrößern"
 
 #: src/ui/book-viewer.ui:601
 msgid "Follow System Style"
-msgstr ""
+msgstr "An System anpassen"
 
 #: src/ui/book-viewer.ui:611
 #, fuzzy
@@ -815,7 +818,7 @@ msgstr "Hell"
 #: src/ui/book-viewer.ui:621
 #, fuzzy
 msgid "Dark Style"
-msgstr "Dunkler Modus"
+msgstr "Dunkel"
 
 #: src/ui/book-viewer.ui:636 src/ui/library.ui:26
 msgid "Fullscreen"
@@ -824,19 +827,19 @@ msgstr "Vollbild"
 #: src/ui/export-dialog.ui:5
 #, fuzzy
 msgid "Export Annotations"
-msgstr "Anmerkungen exportieren…"
+msgstr "Anmerkungen exportieren"
 
 #: src/ui/export-dialog.ui:16
 msgid "Export"
-msgstr ""
+msgstr "Exportieren"
 
 #: src/ui/export-dialog.ui:28
 msgid "Format"
-msgstr ""
+msgstr "Formatieren"
 
 #: src/ui/export-dialog.ui:29
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
-msgstr ""
+msgstr "Wähle “JSON”, wenn Du Anmerkungen zurück zu Foliate importieren möchtest"
 
 #: src/ui/export-dialog.ui:33
 msgid "JSON"
@@ -861,7 +864,7 @@ msgstr "Kopieren"
 #: src/ui/image-viewer.ui:10
 #, fuzzy
 msgid "Save As…"
-msgstr "Speichern als"
+msgstr "Speichern unter…"
 
 #: src/ui/image-viewer.ui:25
 #, fuzzy
@@ -876,30 +879,30 @@ msgstr "Um 90° im Uhrzeigersinn drehen"
 #: src/ui/import-dialog.ui:7
 #, fuzzy
 msgid "Import Annotations"
-msgstr "Anmerkungen importieren…"
+msgstr "Anmerkungen importieren"
 
 #: src/ui/import-dialog.ui:21
 msgid "Import"
-msgstr ""
+msgstr "Importieren"
 
 #: src/ui/import-dialog.ui:33
 msgid ""
 "The identifier doesn’t match. These annotations may not be for this book."
-msgstr ""
+msgstr "Der Identifikator stimmt nicht überein. Diese Anmerkungen gehören wahrscheinlich nicht zu diesem Buch."
 
 #: src/ui/import-dialog.ui:34
 msgid "Import Anyway"
-msgstr ""
+msgstr "Trotzdem importieren"
 
 #: src/ui/library.ui:6
 #, fuzzy
 msgid "List View"
-msgstr "Anzeige"
+msgstr "Listenansicht"
 
 #: src/ui/library.ui:11
 #, fuzzy
 msgid "Grid View"
-msgstr "Anzeige"
+msgstr "Rasteransicht"
 
 #: src/ui/library.ui:20 src/ui/library-view.ui:27
 msgid "Open…"
@@ -913,7 +916,7 @@ msgstr "Menü"
 #: src/ui/library.ui:110
 #, fuzzy
 msgid "Open"
-msgstr "Öffnen…"
+msgstr "Öffnen"
 
 #: src/ui/library.ui:117
 #, fuzzy
@@ -923,15 +926,15 @@ msgstr "Bibliothek"
 #: src/ui/library.ui:134
 #, fuzzy
 msgid "Search library…"
-msgstr "Suchen…"
+msgstr "Bibliothek durchsuchen…"
 
 #: src/ui/library.ui:168 src/ui/navbar.ui:22
 msgid "Back"
-msgstr ""
+msgstr "Zurück"
 
 #: src/ui/library.ui:175 src/ui/navbar.ui:36
 msgid "Forward"
-msgstr ""
+msgstr "Vorwärts"
 
 #: src/ui/library-view.ui:21
 #, fuzzy
@@ -949,12 +952,12 @@ msgstr "Ort"
 
 #: src/ui/navbar.ui:91
 msgid "Narration"
-msgstr ""
+msgstr "Erzählung"
 
 #: src/ui/navbar.ui:162
 #, fuzzy
 msgid "Time Left in Section"
-msgstr "%d verbleibende Minute im Abschnitt"
+msgstr "Verbleibende Zeit im Kapitel"
 
 #: src/ui/navbar.ui:192
 #, fuzzy
@@ -964,39 +967,39 @@ msgstr "Verbleibende Zeit im Buch"
 #: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:159
 #, fuzzy
 msgid "Page"
-msgstr "Nächste Seite"
+msgstr "Seite"
 
 #: src/ui/navbar.ui:309
 msgid "Paste and Go"
-msgstr ""
+msgstr "Einfügen und Los"
 
 #: src/ui/navbar.ui:322
 msgid "Section"
-msgstr "Abschnitt"
+msgstr "Kapitel"
 
 #: src/ui/navbar.ui:388
 #, fuzzy
 msgid "First Section"
-msgstr "Aktuelles Kapitel"
+msgstr "Erstes Kapitel"
 
 #: src/ui/navbar.ui:397
 #, fuzzy
 msgid "Previous Section"
-msgstr "Zurück zum vorherigen Ort springen"
+msgstr "Vorheriges Kapitel"
 
 #: src/ui/navbar.ui:405
 msgid "Jump To…"
-msgstr ""
+msgstr "Gehe zu…"
 
 #: src/ui/navbar.ui:414
 #, fuzzy
 msgid "Next Section"
-msgstr "Aktuelles Kapitel"
+msgstr "Nächstes Kapitel"
 
 #: src/ui/navbar.ui:423
 #, fuzzy
 msgid "Last Section"
-msgstr "Abschnitt"
+msgstr "Vorheriges Kapitel"
 
 #: src/ui/selection-popover.ui:12
 msgid "Highlight"
@@ -1008,7 +1011,7 @@ msgstr "Ab hier vorlesen"
 
 #: src/ui/selection-popover.ui:36
 msgid "Copy with Citation"
-msgstr ""
+msgstr "Mit Zitat kopieren"
 
 #: src/ui/selection-popover.ui:40
 #, fuzzy
@@ -1018,11 +1021,11 @@ msgstr "Kennung"
 #: src/ui/selection-popover.ui:44
 #, fuzzy
 msgid "Print Selection…"
-msgstr "Aktuelles Kapitel"
+msgstr "Aktuelles Kapitel drucken…"
 
 #: src/ui/tts-box.ui:34
 msgid "Speed"
-msgstr ""
+msgstr "Geschwindigkeit"
 
 #: src/ui/tts-box.ui:67
 msgid "Pitch"
@@ -1030,42 +1033,42 @@ msgstr ""
 
 #: src/ui/tts-box.ui:123
 msgid "Play/Pause"
-msgstr ""
+msgstr "Wiedergabe/Pause"
 
 #: src/ui/tts-box.ui:141
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: src/ui/view-preferences-window.ui:5
 msgid "Font"
-msgstr ""
+msgstr "Schriftart"
 
 #: src/ui/view-preferences-window.ui:9
 #, fuzzy
 msgid "Font Size"
-msgstr "Schriftgröße verkleinern"
+msgstr "Schriftgröße"
 
 #: src/ui/view-preferences-window.ui:12
 #, fuzzy
 msgid "Default Font Size"
-msgstr "Schriftgröße verkleinern"
+msgstr "Standardschriftgröße"
 
 #: src/ui/view-preferences-window.ui:25
 msgid "Minimum Font Size"
-msgstr ""
+msgstr "Minimale Schriftgröße"
 
 #: src/ui/view-preferences-window.ui:40
 msgid "Font Family"
-msgstr ""
+msgstr "Schriftart"
 
 #: src/ui/view-preferences-window.ui:43
 msgid "Default Font"
-msgstr ""
+msgstr "Standardschriftart"
 
 #: src/ui/view-preferences-window.ui:47
 #, fuzzy
 msgid "Serif"
-msgstr "Serie"
+msgstr ""
 
 #: src/ui/view-preferences-window.ui:48
 msgid "Sans-serif"
@@ -1073,19 +1076,19 @@ msgstr ""
 
 #: src/ui/view-preferences-window.ui:56
 msgid "Override Publisher Font"
-msgstr ""
+msgstr "Herausgeberschriftart überschreiben"
 
 #: src/ui/view-preferences-window.ui:71
 msgid "Serif Font"
-msgstr ""
+msgstr "Serif-Schriftart"
 
 #: src/ui/view-preferences-window.ui:84
 msgid "Sans-Serif Font"
-msgstr ""
+msgstr "Sans-Serif-Schriftart"
 
 #: src/ui/view-preferences-window.ui:97
 msgid "Monospace Font"
-msgstr ""
+msgstr "Monospace-Schriftart"
 
 #: src/ui/view-preferences-window.ui:114
 msgid "Layout"
@@ -1115,46 +1118,46 @@ msgstr "Ränder"
 
 #: src/ui/view-preferences-window.ui:176
 msgid "Maximum Number of Columns"
-msgstr ""
+msgstr "Maximale Anzahl an Spalten"
 
 #: src/ui/view-preferences-window.ui:189
 msgid "Maximum Inline Size"
-msgstr ""
+msgstr "Maximale Zeilengröße"
 
 #: src/ui/view-preferences-window.ui:190
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
-msgstr ""
+msgstr "Maximale Spaltenbreite (horizontales Schreiben) oder Höhe (vertikales Schreiben)"
 
 #: src/ui/view-preferences-window.ui:203
 msgid "Maximum Block Size"
-msgstr ""
+msgstr "Maximale Blockgröße"
 
 #: src/ui/view-preferences-window.ui:204
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
-msgstr ""
+msgstr "Maximale Höhe (horizontales Schreiben) oder Breite (vertikales Schreiben)"
 
 #: src/ui/view-preferences-window.ui:221
 msgid "Color"
-msgstr ""
+msgstr "Farbe"
 
 #: src/ui/view-preferences-window.ui:240
 msgid "Behavior"
-msgstr ""
+msgstr "Verhalten"
 
 #: src/ui/view-preferences-window.ui:246
 #, fuzzy
 msgid "Reduce Animation"
-msgstr "Anmerkungen"
+msgstr "Animationen reduzieren"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 #, fuzzy
 msgid "E-Book Viewer"
-msgstr "eBook Reader"
+msgstr "E-Book Reader"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:14
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "EBook;Buch;EPUB;Betrachter;Reader;"
+msgstr "E-Book;Buch;EPUB;Betrachter;Reader;"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
 msgid ""
@@ -1162,49 +1165,52 @@ msgid ""
 "tailored for GNOME. Immerse yourself in a distraction-free interface, with "
 "customization features designed to match your unique preferences."
 msgstr ""
+"Entdecke ein neues Kapitel des Lesens mit Foliate, dem modernen E-Book-Reader, "
+"angepasst für GNOME. Tauche in eine ablenkungsfreie Oberfläche ein, mit "
+"Anpassungsmöglichkeiten, die Deinen individuellen Vorlieben entsprechen."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
-msgstr ""
+msgstr "Funktionen beinhalten:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
 msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
-msgstr ""
+msgstr "Öffne EPUB, Mobipocket, Kindle, FB2, CBZ und PDF-Dateien"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
 msgid "Paginated mode and scrolled mode"
-msgstr ""
+msgstr "Seitenmodus und Scrollmodus"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
 msgid "Customize font and line-spacing"
-msgstr ""
+msgstr "Anpassbare Schriftarten und Zeilenabstände"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
 msgid "Light, sepia, dark, and invert mode"
-msgstr ""
+msgstr "Heller, sepia, dunkler und invertierter Modus"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
 msgid "Reading progress slider with chapter marks"
-msgstr ""
+msgstr "Lesefortschrittsanzeige mit Kapitelmarkierungen"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
 #, fuzzy
 msgid "Bookmarks and annotations"
-msgstr "Anmerkungen"
+msgstr "Lesezeichen und Anmerkungen"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
 #, fuzzy
 msgid "Find in book"
-msgstr "Im Buch finden"
+msgstr "Im Buch suchen"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
 msgid "Quick dictionary lookup"
-msgstr ""
+msgstr "Schnelle Wörterbuchsuche"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:30
 #, fuzzy
 msgid "Book"
-msgstr "Menü"
+msgstr "Buch"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:31
 msgid "EPUB"
@@ -1221,7 +1227,7 @@ msgstr ""
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:34
 #, fuzzy
 msgid "Viewer"
-msgstr "Menü"
+msgstr ""
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
 msgid ""
@@ -1235,11 +1241,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Reference"
-#~ msgstr "Einstellungen"
+#~ msgstr "Verweis"
 
 #, fuzzy
 #~ msgid "Go to Reference"
-#~ msgstr "Einstellungen"
+#~ msgstr "Zum Verweis gehen"
 
 #~ msgid "Keyboard Shortcuts"
 #~ msgstr "Tastaturkürzel"
@@ -1256,7 +1262,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Voice"
-#~ msgstr "Sprachschauspieler"
+#~ msgstr "Stimme"
 
 #, fuzzy
 #~ msgid "Save File"
@@ -1281,15 +1287,15 @@ msgstr ""
 #~ msgstr "Ursprüngliche Zoomstufe"
 
 #~ msgid "Go to previous page"
-#~ msgstr "Zur vorherigen Seite springen"
+#~ msgstr "Zur vorherigen Seite gehen"
 
 #~ msgid "Go back to previous location"
-#~ msgstr "Zurück zum vorherigen Ort springen"
+#~ msgstr "Zurück zum vorherigen Ort gehen"
 
 #, fuzzy
 #~ msgid "Go to next section"
-#~ msgstr "Zur nächsten Seite springen"
+#~ msgstr "Zur nächsten Seite gehen"
 
 #, fuzzy
 #~ msgid "Go to last section"
-#~ msgstr "Gehe zu Ort"
+#~ msgstr "Gehe zum vorherigen Kapitel"
