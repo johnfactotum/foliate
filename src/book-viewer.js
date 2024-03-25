@@ -673,7 +673,7 @@ export const BookViewer = GObject.registerClass({
         utils.addPropertyActions(Adw.StyleManager.get_default(), ['color-scheme'], actions)
         this.insert_action_group('view', this._view.actionGroup)
         this.insert_action_group('viewer', actions)
-        this.add_controller(utils.addShortcuts({
+        const shortcuts = {
             'F9': 'viewer.toggle-sidebar',
             '<ctrl>f|slash': 'viewer.toggle-search',
             '<ctrl>l': 'viewer.show-location',
@@ -702,18 +702,10 @@ export const BookViewer = GObject.registerClass({
             '<alt>Left': 'view.back',
             '<alt>Right': 'view.forward',
             '<ctrl>p': 'view.print',
-        }))
+        }
+        this.add_controller(utils.addShortcuts(shortcuts))
         // TODO: disable these when pinch zoomed
-        this._view.webView.add_controller(utils.addShortcuts({
-            'Page_Up': 'view.prev',
-            'Page_Down': 'view.next',
-            'Up': 'view.scroll-up',
-            'Down': 'view.scroll-down',
-            'Left': 'view.go-left',
-            'Right': 'view.go-right',
-            '<alt>Left': 'view.back',
-            '<alt>Right': 'view.forward',
-        }))
+        this._view.webView.add_controller(utils.addShortcuts(shortcuts))
     }
     #onError({ id, message, stack }) {
         const desc = id === 'not-found' ? _('File not found')
