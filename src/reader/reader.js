@@ -470,7 +470,10 @@ class Reader {
             emit({ type: 'external-link', ...e.detail })
         })
         this.view.addEventListener('link', e =>
-            this.#footnoteHandler.handle(this.book, e))
+            this.#footnoteHandler.handle(this.book, e)?.catch(err => {
+                console.warn(err)
+                this.view.goTo(e.detail.href)
+            }))
         this.view.addEventListener('load', e => this.#onLoad(e))
         this.view.history.addEventListener('index-change', e => {
             const { canGoBack, canGoForward } = e.target
