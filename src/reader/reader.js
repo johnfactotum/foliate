@@ -185,7 +185,7 @@ const getCSS = ({
     [align="right"] { text-align: right; }
     [align="center"] { text-align: center; }
     [align="justify"] { text-align: justify; }
-    hgroup p {
+    :is(hgroup, header) p {
         text-align: unset;
         hyphens: unset;
     }
