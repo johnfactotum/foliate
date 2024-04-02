@@ -1,6 +1,5 @@
 import Gtk from 'gi://Gtk'
 import GLib from 'gi://GLib'
-import Gdk from 'gi://Gdk'
 import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 
@@ -73,7 +72,7 @@ for (const { file, name } of utils.listDir(pkg.configpath('themes'))) try {
     console.error(e)
 }
 
-const themeCssProvider = new Gtk.CssProvider()
+export const themeCssProvider = new Gtk.CssProvider()
 themeCssProvider.load_from_data(`
     .theme-container .card {
         padding: 9px;
@@ -107,10 +106,6 @@ themeCssProvider.load_from_data(`
         }
     `
 }).join(''), -1)
-Gtk.StyleContext.add_provider_for_display(
-    Gdk.Display.get_default(),
-    themeCssProvider,
-    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
 export const invertTheme = ({ light, dark }) => ({ light, dark, inverted: {
     fg: utils.invertColor(dark.fg),

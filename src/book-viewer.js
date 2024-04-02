@@ -19,7 +19,7 @@ import { AnnotationPopover, importAnnotations, exportAnnotations } from './annot
 import { SelectionPopover } from './selection-tools.js'
 import { ImageViewer } from './image-viewer.js'
 import { formatAuthors, makeBookInfoWindow } from './book-info.js'
-import { themes, invertTheme } from './themes.js'
+import { themes, invertTheme, themeCssProvider } from './themes.js'
 import { dataStore } from './data.js'
 
 // for use in the WebView
@@ -489,6 +489,8 @@ export const BookViewer = GObject.registerClass({
             this._zoom_button.label = format.percent(webView.zoom_level))
         this._zoom_button.label = format.percent(this._view.webView.zoom_level)
 
+        Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(),
+            themeCssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         let lastThemeClass
         const recolorUI = view => {
             const theme = themes.find(theme => theme.name === view.theme) ?? themes[0]
