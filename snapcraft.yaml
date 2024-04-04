@@ -44,7 +44,7 @@ parts:
   foliate:
     plugin: meson
     source: https://github.com/johnfactotum/foliate.git
-    source-tag: '3.1.0'
+    source-tag: '3.1.1'
     build-environment:
       - PKG_CONFIG_PATH: /snap/webkitgtk-6-gnome-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/pkgconfig:$PKG_CONFIG_PATH
     meson-parameters:
