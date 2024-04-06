@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-19 04:33+0000\n"
-"PO-Revision-Date: 2024-01-27 10:59+0100\n"
+"PO-Revision-Date: 2024-04-06 15:34+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: \n"
 "Language: oc\n"
@@ -66,7 +66,7 @@ msgstr "Verd citron"
 
 #: src/annotations.js:446
 msgid "Custom Color…"
-msgstr "Colors personalizadas..."
+msgstr "Colors personalizadas…"
 
 #: src/annotations.js:498
 msgid "Custom"
@@ -82,15 +82,15 @@ msgstr "Totes los fichièrs"
 
 #: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:402
 msgid "No Annotations"
-msgstr "Cap d’annotacion"
+msgstr "Cap d’anotacion"
 
 #: src/annotations.js:607
 msgid "The imported file has no annotations"
-msgstr ""
+msgstr "Lo fichièr importat a pas cap d’anotacion"
 
 #: src/annotations.js:625
 msgid "Cannot Import Annotations"
-msgstr ""
+msgstr "Importacion de las anotacions impossibla"
 
 #: src/annotations.js:626 src/book-viewer.js:720 src/library.js:605
 msgid "An error occurred"
@@ -98,19 +98,19 @@ msgstr "Una error s'es producha"
 
 #: src/annotations.js:635
 msgid "You don’t have any annotations for this book"
-msgstr ""
+msgstr "Avètz pas cap d’anotacion per aqueste libre"
 
 #: src/annotations.js:648
 #, javascript-format
 msgid "Annotations for “%s”"
-msgstr "Annotacions per « %s »"
+msgstr "Anotacions per « %s »"
 
 #: src/annotations.js:649
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "%d annotacion"
-msgstr[1] "%d annotacions"
+msgstr[0] "%d anotacion"
+msgstr[1] "%d anotacions"
 
 #: src/app.js:95 src/book-viewer.js:30
 msgid "Close"
@@ -202,7 +202,7 @@ msgstr "A prepaus d’aqueste libre"
 #: src/book-viewer.js:27
 #, javascript-format
 msgid "Loc. %s of %s"
-msgstr ""
+msgstr "Emp. %s de %s"
 
 #: src/book-viewer.js:28
 #, javascript-format
@@ -272,7 +272,7 @@ msgstr "Tipe Mime pas pres en carga"
 
 #: src/book-viewer.js:808
 msgid "Annotation deleted"
-msgstr "Annotacion suprimida"
+msgstr "Anotacion suprimida"
 
 #: src/book-viewer.js:876
 #, javascript-format
@@ -376,7 +376,7 @@ msgstr "Exemple"
 
 #: src/library.js:60
 msgid "Borrow"
-msgstr ""
+msgstr "Manlevar"
 
 #: src/library.js:61
 msgid "Subscribe"
@@ -425,6 +425,8 @@ msgstr "Suprimir lo libre ?"
 #: src/library.js:434
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr ""
+"La progression de la lectura, las anotacion e marcapaginas seràn perduts per "
+"totjorn"
 
 #: src/library.js:436
 msgid "_Cancel"
@@ -488,6 +490,8 @@ msgid ""
 "You can browse and download books from OPDS catalogs. <a href=\"https://opds."
 "io\">Learn More…</a>"
 msgstr ""
+"Podètz percórrer e telecargar de libres a partir del catalòg OPDS. <a href="
+"\"https://opds.io\">Ne saber mai…</a>"
 
 #: src/library.js:922
 msgid "URL"
@@ -507,6 +511,8 @@ msgid ""
 "From <a id=\"link\">Wiktionary</a>, released under the <a href=\"https://"
 "creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
 msgstr ""
+"De <a id=\"link\">Wikiccionari</a>, publicat sota la licéncia <a href="
+"\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA</a>."
 
 #: src/selection-tools.js:144 src/selection-tools.js:232
 msgid "No Definitions Found"
@@ -526,6 +532,9 @@ msgid ""
 "wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
 "ShareAlike_4.0_International_License\">CC BY-SA License</a>."
 msgstr ""
+"De <a id=\"link\">Wikipèdia</a>, publicat sota la licéncia <a href=\"https://"
+"en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"ShareAlike_4.0_International_License\">CC BY-SA</a>."
 
 #: src/selection-tools.js:234
 msgid "Search on Wikipedia"
@@ -581,11 +590,12 @@ msgstr "Nòrd"
 
 #: src/tts.js:117
 msgid "Text-to-Speech Error"
-msgstr ""
+msgstr "Error de sintèsi vocala"
 
 #: src/tts.js:118
 msgid "Make sure Speech Dispatcher is installed and working on your system"
 msgstr ""
+"Asseguratz-vos que Speech Dispatcher es installat e fonciona sul sistèma"
 
 #: src/utils.js:168
 msgid "Copied to clipboard"
@@ -593,7 +603,7 @@ msgstr "Copiat al quichapapièrs"
 
 #: src/ui/annotation-popover.ui:13
 msgid "Highlight Style"
-msgstr ""
+msgstr "Estil de mesa en evidéncia"
 
 #: src/ui/annotation-popover.ui:20 src/ui/annotation-row.ui:63
 #: src/ui/bookmark-row.ui:33
@@ -615,7 +625,7 @@ msgstr "Dobrir dins una fenèstra novèla"
 
 #: src/ui/book-item.ui:15 src/ui/book-row.ui:15 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
-msgstr ""
+msgstr "Exportar las anotacions…"
 
 #: src/ui/book-viewer.ui:5
 msgid "New Window"
@@ -627,7 +637,7 @@ msgstr "Dobrir una còpia"
 
 #: src/ui/book-viewer.ui:21
 msgid "Import Annotations…"
-msgstr ""
+msgstr "Importar las anotacions…"
 
 #: src/ui/book-viewer.ui:37 src/ui/library.ui:42
 msgid "About Foliate"
@@ -643,7 +653,7 @@ msgstr "Seccion actuala"
 
 #: src/ui/book-viewer.ui:57
 msgid "Match Whole Words Only"
-msgstr ""
+msgstr "Trapar los mots entièrs solament"
 
 #: src/ui/book-viewer.ui:61
 msgid "Match Case"
@@ -651,23 +661,23 @@ msgstr "Respectar la cassa"
 
 #: src/ui/book-viewer.ui:65
 msgid "Match Diacritics"
-msgstr ""
+msgstr "Correspondéncia d’accents grafics"
 
 #: src/ui/book-viewer.ui:83
 msgid "Font & Layout Settings"
-msgstr ""
+msgstr "Polissa e paramètres d’agençament"
 
 #: src/ui/book-viewer.ui:89
 msgid "Scrolled Mode"
-msgstr ""
+msgstr "Mòde defilament"
 
 #: src/ui/book-viewer.ui:93
 msgid "Invert Colors in Dark Mode"
-msgstr ""
+msgstr "Intervertir las colors en mòde escur"
 
 #: src/ui/book-viewer.ui:97
 msgid "Autohide Cursor"
-msgstr ""
+msgstr "Rescondre auto lo cursor"
 
 #: src/ui/book-viewer.ui:103
 msgid "Print…"
@@ -679,7 +689,7 @@ msgstr "Inspector"
 
 #: src/ui/book-viewer.ui:167
 msgid "Book Cannot Be Opened"
-msgstr ""
+msgstr "Se pòt pas dobrir lo libre"
 
 #: src/ui/book-viewer.ui:177
 msgid "Details"
@@ -687,7 +697,7 @@ msgstr "Detalhs"
 
 #: src/ui/book-viewer.ui:193
 msgid "Open Another File…"
-msgstr ""
+msgstr "Dobrir un autre fichièr…"
 
 #: src/ui/book-viewer.ui:245
 msgid "Pin Sidebar"
@@ -711,15 +721,15 @@ msgstr "Contengut"
 
 #: src/ui/book-viewer.ui:391
 msgid "Annotations"
-msgstr "Annotacions"
+msgstr "Anotacions"
 
 #: src/ui/book-viewer.ui:403
 msgid "Select some text to add annotations"
-msgstr ""
+msgstr "Seleccionar de tèxte per ajustar d’anotacions"
 
 #: src/ui/book-viewer.ui:433
 msgid "Filter annotations…"
-msgstr "Filtrar las annotacions…"
+msgstr "Filtrar las anotacions…"
 
 #: src/ui/book-viewer.ui:447
 msgid "Bookmarks"
@@ -779,7 +789,7 @@ msgstr "Ecran complèt"
 
 #: src/ui/export-dialog.ui:5
 msgid "Export Annotations"
-msgstr "Exportar las annotacions"
+msgstr "Exportar las anotacions"
 
 #: src/ui/export-dialog.ui:16
 msgid "Export"
@@ -792,6 +802,7 @@ msgstr "Format"
 #: src/ui/export-dialog.ui:29
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
 msgstr ""
+"Causissètz « JSON » s’avètz previst d’importar d’anotacion dins Foliate"
 
 #: src/ui/export-dialog.ui:33
 msgid "JSON"
@@ -807,7 +818,7 @@ msgstr "Markdown"
 
 #: src/ui/export-dialog.ui:36
 msgid "Org Mode"
-msgstr ""
+msgstr "Org Mode"
 
 #: src/ui/image-viewer.ui:6 src/ui/navbar.ui:302 src/ui/selection-popover.ui:7
 msgid "Copy"
@@ -819,15 +830,15 @@ msgstr "Enregistrar jos…"
 
 #: src/ui/image-viewer.ui:25
 msgid "Rotate 90° Counter-Clockwise"
-msgstr ""
+msgstr "Rotacion 90° sens antiorari"
 
 #: src/ui/image-viewer.ui:32
 msgid "Rotate 90° Clockwise"
-msgstr ""
+msgstr "Rotacion 90° sens orari"
 
 #: src/ui/import-dialog.ui:7
 msgid "Import Annotations"
-msgstr ""
+msgstr "Importar las anotacions"
 
 #: src/ui/import-dialog.ui:21
 msgid "Import"
@@ -837,10 +848,12 @@ msgstr "Importar"
 msgid ""
 "The identifier doesn’t match. These annotations may not be for this book."
 msgstr ""
+"L’identificant correspond pas. Aquestas anotacions son benlèu pas per "
+"aqueste libre."
 
 #: src/ui/import-dialog.ui:34
 msgid "Import Anyway"
-msgstr ""
+msgstr "Importar malgrat tot"
 
 #: src/ui/library.ui:6
 msgid "List View"
@@ -864,11 +877,11 @@ msgstr "Dobrir"
 
 #: src/ui/library.ui:117
 msgid "Library Menu"
-msgstr ""
+msgstr "Menú bibliotèca"
 
 #: src/ui/library.ui:134
 msgid "Search library…"
-msgstr ""
+msgstr "Cercar dins la bibliotèca…"
 
 #: src/ui/library.ui:168 src/ui/navbar.ui:22
 msgid "Back"
@@ -884,7 +897,7 @@ msgstr "Cap de libre pel moment"
 
 #: src/ui/library-view.ui:22
 msgid "Open a book to start reading"
-msgstr ""
+msgstr "Dobrir un libre per començar de legir"
 
 #: src/ui/navbar.ui:62 src/ui/navbar.ui:253
 msgid "Location"
@@ -896,11 +909,11 @@ msgstr "Narracion"
 
 #: src/ui/navbar.ui:162
 msgid "Time Left in Section"
-msgstr ""
+msgstr "Temps restant dins la seccion"
 
 #: src/ui/navbar.ui:192
 msgid "Time Left in Book"
-msgstr ""
+msgstr "Temps restant dins lo libre"
 
 #: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:159
 msgid "Page"
@@ -924,7 +937,7 @@ msgstr "Seccion precedenta"
 
 #: src/ui/navbar.ui:405
 msgid "Jump To…"
-msgstr ""
+msgstr "Anar a…"
 
 #: src/ui/navbar.ui:414
 msgid "Next Section"
@@ -948,7 +961,7 @@ msgstr "Copiar amb citacion"
 
 #: src/ui/selection-popover.ui:40
 msgid "Copy Identifier"
-msgstr ""
+msgstr "Copiar l’identificant"
 
 #: src/ui/selection-popover.ui:44
 msgid "Print Selection…"
@@ -960,7 +973,7 @@ msgstr "Velocitat"
 
 #: src/ui/tts-box.ui:67
 msgid "Pitch"
-msgstr ""
+msgstr "Ton"
 
 #: src/ui/tts-box.ui:123
 msgid "Play/Pause"
@@ -980,11 +993,11 @@ msgstr "Talha de polissa"
 
 #: src/ui/view-preferences-window.ui:12
 msgid "Default Font Size"
-msgstr ""
+msgstr "Talha de polissa per defaut"
 
 #: src/ui/view-preferences-window.ui:25
 msgid "Minimum Font Size"
-msgstr ""
+msgstr "Talha minimala de la polissa"
 
 #: src/ui/view-preferences-window.ui:40
 msgid "Font Family"
@@ -996,23 +1009,23 @@ msgstr "Polissa per defaut"
 
 #: src/ui/view-preferences-window.ui:47
 msgid "Serif"
-msgstr ""
+msgstr "Serif"
 
 #: src/ui/view-preferences-window.ui:48
 msgid "Sans-serif"
-msgstr ""
+msgstr "Sans-serif"
 
 #: src/ui/view-preferences-window.ui:56
 msgid "Override Publisher Font"
-msgstr ""
+msgstr "Subrecargar la polissa de l’editor"
 
 #: src/ui/view-preferences-window.ui:71
 msgid "Serif Font"
-msgstr ""
+msgstr "Polissa serif"
 
 #: src/ui/view-preferences-window.ui:84
 msgid "Sans-Serif Font"
-msgstr ""
+msgstr "Polissa sans-serif"
 
 #: src/ui/view-preferences-window.ui:97
 msgid "Monospace Font"
@@ -1032,7 +1045,7 @@ msgstr "Nautor de linha"
 
 #: src/ui/view-preferences-window.ui:135
 msgid "Full Justification"
-msgstr ""
+msgstr "Justificacion"
 
 #: src/ui/view-preferences-window.ui:146
 msgid "Hyphenation"
@@ -1048,19 +1061,21 @@ msgstr "Nombre maximum de colomnas"
 
 #: src/ui/view-preferences-window.ui:189
 msgid "Maximum Inline Size"
-msgstr ""
+msgstr "Talha maximala de linha"
 
 #: src/ui/view-preferences-window.ui:190
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
 msgstr ""
+"Largor maximala de colomna (escritura orizontala) o nautor (escritura "
+"verticala)"
 
 #: src/ui/view-preferences-window.ui:203
 msgid "Maximum Block Size"
-msgstr ""
+msgstr "Talah maximala dels paragrafes"
 
 #: src/ui/view-preferences-window.ui:204
 msgid "Maximum height (horizontal writing) or width (vertical writing)"
-msgstr ""
+msgstr "Largor maximala (escritura orizontala) o nautor (escritura verticala)"
 
 #: src/ui/view-preferences-window.ui:221
 msgid "Color"
@@ -1072,7 +1087,7 @@ msgstr "Compòrtament"
 
 #: src/ui/view-preferences-window.ui:246
 msgid "Reduce Animation"
-msgstr ""
+msgstr "Redusir l’animacion"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
@@ -1091,6 +1106,10 @@ msgid ""
 "tailored for GNOME. Immerse yourself in a distraction-free interface, with "
 "customization features designed to match your unique preferences."
 msgstr ""
+"Descobrissètz un capítol novèl en legissent amb Foliate, lo lector d’e-book "
+"modèrn fargat per GNOME. Immergissètz-vos dins una interfàcia sens cap de "
+"distraccion, amb de foncionalitats personalizablas concebudas per "
+"correspondre a vòstras preferéncias unicas."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
@@ -1098,27 +1117,27 @@ msgstr "Foncionalitats inclusas :"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
 msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
-msgstr ""
+msgstr "Dobrir de fichièrs EPUB, Mobipocket, Kindle, FB2, CBZ, e PDF"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
 msgid "Paginated mode and scrolled mode"
-msgstr ""
+msgstr "Mòde paginat e defilament"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
 msgid "Customize font and line-spacing"
-msgstr ""
+msgstr "Personalizar la polissa e la nautor de linha"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
 msgid "Light, sepia, dark, and invert mode"
-msgstr ""
+msgstr "Mòde clar, sepia, escur e intervertir"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
 msgid "Reading progress slider with chapter marks"
-msgstr ""
+msgstr "Barra de progression de la lectura amb marcadors pels capítols"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
 msgid "Bookmarks and annotations"
-msgstr ""
+msgstr "Marcapaginas e anotacions"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
 msgid "Find in book"
@@ -1154,3 +1173,7 @@ msgid ""
 "and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
 "and improved performance."
 msgstr ""
+"Foliate foguèt reinscrich de zèro amb una bibliotèca d’e-book novèla e las "
+"darrièras bibliotècas de la platafòrma, GTK 4 e Libadwaita, amb un "
+"refrescament de l’interfàcia utilizaire e de melhoraments de las "
+"performanças."
