@@ -460,7 +460,6 @@ export const BookViewer = GObject.registerClass({
     #book
     #cover
     #data
-    #ttsPaused
     constructor(params) {
         super(params)
         utils.connect(this._view, {

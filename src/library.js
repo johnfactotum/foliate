@@ -151,7 +151,7 @@ const BookList = GObject.registerClass({
         this.readCover = utils.memoize(identifier => {
             const path = pkg.cachepath(`${encodeURIComponent(identifier)}.png`)
             try { return GdkPixbuf.Pixbuf.new_from_file(path) }
-            catch (e) { return null }
+            catch { return null }
         })
     }
     loadMore(n) {

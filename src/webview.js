@@ -8,6 +8,7 @@ const registerScheme = (name, callback) =>
         try {
             callback(req)
         } catch (e) {
+            console.error(e)
             req.finish_error(new GLib.Error(
                 Gio.IOErrorEnum, Gio.IOErrorEnum.NOT_FOUND, 'Not found'))
         }

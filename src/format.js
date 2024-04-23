@@ -4,7 +4,7 @@ import { gettext as _ } from 'gettext'
 
 const makeLocale = locale => {
     try { return new Intl.Locale(locale) }
-    catch (e) { return null }
+    catch { return null }
 }
 
 const glibcLocale = str => makeLocale(
@@ -113,7 +113,7 @@ export const mime = mime => mime ? Gio.content_type_get_description(mime) : ''
 export const price = (currency, value) => {
     try {
         return new Intl.NumberFormat(locales, { style: 'currency', currency }).format(value)
-    } catch (e) {
+    } catch {
         return (currency ? currency + ' ' : '') + value
     }
 }

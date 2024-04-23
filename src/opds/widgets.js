@@ -78,8 +78,6 @@ customElements.define('foliate-center', class extends HTMLElement {
 
 customElements.define('foliate-stack', class extends HTMLElement {
     #root = this.attachShadow({ mode: 'closed' })
-    #children = []
-    #visibleChild
     constructor() {
         super()
         const sheet = new CSSStyleSheet()
