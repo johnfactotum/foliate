@@ -22,8 +22,7 @@ const debounce = (f, wait, immediate) => {
     }
 }
 
-const getSelectionRange = doc => {
-    const sel = doc.getSelection()
+const getSelectionRange = sel => {
     if (!sel.rangeCount) return
     const range = sel.getRangeAt(0)
     if (range.collapsed) return
@@ -494,12 +493,14 @@ class Reader {
         doc.addEventListener('pointerdown', () => isSelecting = true)
         doc.addEventListener('pointerup', () => {
             isSelecting = false
-            const range = getSelectionRange(doc)
+            const sel = doc.getSelection()
+            const range = getSelectionRange(sel)
             if (!range) return
             const pos = getPosition(range)
             const value = this.view.getCFI(index, range)
             const lang = getLang(range.commonAncestorContainer)
-            this.#showSelection({ index, range, lang, value, pos })
+            const text = sel.toString()
+            this.#showSelection({ index, range, lang, value, pos, text })
         })
 
         if (!this.view.isFixedLayout)
@@ -510,7 +511,7 @@ class Reader {
                 if (this.view.renderer.getAttribute('flow') !== 'paginated') return
                 const { lastLocation } = this.view
                 if (!lastLocation) return
-                const selRange = getSelectionRange(doc)
+                const selRange = getSelectionRange(doc.getSelection())
                 if (!selRange) return
                 if (selRange.compareBoundaryPoints(Range.END_TO_END, lastLocation.range) >= 0)
                     this.view.next()
@@ -525,9 +526,15 @@ class Reader {
                     this.#showSelection({ index, range, value, pos })
             })
     }
-    #showSelection({ index, range, lang, value, pos }) {
-        const text = range.toString()
-        globalThis.showSelection({ type: 'selection', text, lang, value, pos }).then(action => {
+    #showSelection({ index, range, lang, value, pos, text }) {
+        if (!text) {
+            const sel = range.startContainer.ownerDocument.getSelection()
+            sel.removeAllRanges()
+            sel.addRange(range)
+            text = sel.toString()
+        }
+        const content = range.toString()
+        globalThis.showSelection({ type: 'selection', text, content, lang, value, pos }).then(action => {
             switch (action) {
                 case 'copy': getHTML(range).then(html =>
                     emit({ type: 'selection', action, text, html }))
