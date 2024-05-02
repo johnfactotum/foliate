@@ -2,9 +2,16 @@ Source: foliate
 Section: gnome
 Priority: optional
 Maintainer: John Factotum <50942278+johnfactotum@users.noreply.github.com>
-Build-Depends: debhelper-compat(=13),
+Build-Depends: debhelper-compat(>=13),
 	gettext,
 	meson (>= 0.59),
+	pkg-config,
+	libglib2.0-dev (>= 2.54),
+	libgjs-dev,
+	libgtk-4-dev,
+	libadwaita-1-dev,
+	libwebkitgtk-6.0-dev,
+	desktop-file-utils,
 	appstream
 Standards-Version: 4.5.0
 Rules-Requires-Root: no
