@@ -3,9 +3,11 @@ import GObject from 'gi://GObject'
 import { gettext as _ } from 'gettext'
 
 import * as utils from './utils.js'
-import { SSIPClient } from './speech.js'
+// import { SSIPClient } from './speech.js'
+import { SpielClient } from './spiel.js'
 
-const ssip = new SSIPClient()
+// const ssip = new SSIPClient()
+const ssip = new SpielClient()
 
 GObject.registerClass({
     GTypeName: 'FoliateTTSBox',
@@ -61,7 +63,7 @@ GObject.registerClass({
             : 'media-playback-start-symbolic'
     }
     #init() {
-        return ssip.stop().then(() => this.emit('init'))
+        return ssip.init().then(() => this.emit('init'))
     }
     async #speak(ssml) {
         this.state = 'playing'
