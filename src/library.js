@@ -235,14 +235,14 @@ const BookItem = GObject.registerClass({
 }, class extends Gtk.Box {
     #item
     constructor(params) {
-        super(params);
+        super(params)
         this.insert_action_group('book-item', utils.addSimpleActions({
-            'open-new-window': () => this.emit("open-new-window", this.#item),
-            'remove': () => this.emit("remove-book", this.#item),
-            'export': () => this.emit("export-book", this.#item),
-            'info': () => this.emit("book-info", this.#item),
-            'open-external-app': () => this.emit("open-external-app", this.#item),
-          }))
+            'open-new-window': () => this.emit('open-new-window', this.#item),
+            'remove': () => this.emit('remove-book', this.#item),
+            'export': () => this.emit('export-book', this.#item),
+            'info': () => this.emit('book-info', this.#item),
+            'open-external-app': () => this.emit('open-external-app', this.#item),
+        }))
     }
     update(item, data, cover) {
         this.#item = item
@@ -269,11 +269,11 @@ const BookRow = GObject.registerClass({
     constructor(params) {
         super(params)
         this.insert_action_group('book-item', utils.addSimpleActions({
-            'open-new-window': () => this.emit("open-new-window", this.#item),
-            'remove': () => this.emit("remove-book", this.#item),
-            'export': () => this.emit("export-book", this.#item),
-            'info': () => this.emit("book-info", this.#item),
-            'open-external-app': () => this.emit("open-external-app", this.#item),
+            'open-new-window': () => this.emit('open-new-window', this.#item),
+            'remove': () => this.emit('remove-book', this.#item),
+            'export': () => this.emit('export-book', this.#item),
+            'info': () => this.emit('book-info', this.#item),
+            'open-external-app': () => this.emit('open-external-app', this.#item),
         }))
     }
     update(item, data) {
