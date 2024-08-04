@@ -226,24 +226,22 @@ const BookItem = GObject.registerClass({
     Template: pkg.moduleuri('ui/book-item.ui'),
     InternalChildren: ['image', 'progress', 'title'],
     Signals: {
-      "open-new-window": { param_types: [Gio.File.$gtype] },
-      "remove-book": { param_types: [Gio.File.$gtype] },
-      "export-book": { param_types: [Gio.File.$gtype] },
-      "book-info": { param_types: [Gio.File.$gtype] },
-      "open-external-app": { param_types: [Gio.File.$gtype] },
+        'open-new-window': { param_types: [Gio.File.$gtype] },
+        'remove-book': { param_types: [Gio.File.$gtype] },
+        'export-book': { param_types: [Gio.File.$gtype] },
+        'book-info': { param_types: [Gio.File.$gtype] },
+        'open-external-app': { param_types: [Gio.File.$gtype] },
     },
 }, class extends Gtk.Box {
     #item
     constructor(params) {
       super(params);
-      this.insert_action_group(
-        "book-item",
-        utils.addSimpleActions({
-          "open-new-window": () => this.emit("open-new-window", this.#item),
-          remove: () => this.emit("remove-book", this.#item),
-          export: () => this.emit("export-book", this.#item),
-          info: () => this.emit("book-info", this.#item),
-          "open-external-app": () => this.emit("open-external-app", this.#item),
+      this.insert_action_group('book-item', utils.addSimpleActions({
+          'open-new-window': () => this.emit("open-new-window", this.#item),
+          'remove': () => this.emit("remove-book", this.#item),
+          'export': () => this.emit("export-book", this.#item),
+          'info': () => this.emit("book-info", this.#item),
+          'open-external-app': () => this.emit("open-external-app", this.#item),
         }),
       );
     }
@@ -261,26 +259,24 @@ const BookRow = GObject.registerClass({
     Template: pkg.moduleuri('ui/book-row.ui'),
     InternalChildren: ['title', 'author', 'progress-grid', 'progress-bar', 'progress-label'],
     Signals: {
-      "open-new-window": { param_types: [Gio.File.$gtype] },
-      "remove-book": { param_types: [Gio.File.$gtype] },
-      "export-book": { param_types: [Gio.File.$gtype] },
-      "book-info": { param_types: [Gio.File.$gtype] },
-      "open-external-app": { param_types: [Gio.File.$gtype] },
+        'open-new-window': { param_types: [Gio.File.$gtype] },
+        'remove-book': { param_types: [Gio.File.$gtype] },
+        'export-book': { param_types: [Gio.File.$gtype] },
+        'book-info': { param_types: [Gio.File.$gtype] },
+        'open-external-app': { param_types: [Gio.File.$gtype] },
     },
 }, class extends Gtk.Box {
     #item
     constructor(params) {
-      super(params);
-      this.insert_action_group(
-        "book-item",
-        utils.addSimpleActions({
-          "open-new-window": () => this.emit("open-new-window", this.#item),
-          remove: () => this.emit("remove-book", this.#item),
-          export: () => this.emit("export-book", this.#item),
-          info: () => this.emit("book-info", this.#item),
-          "open-external-app": () => this.emit("open-external-app", this.#item),
-        }),
-      );
+        super(params);
+        this.insert_action_group('book-item', utils.addSimpleActions({
+            'open-new-window': () => this.emit("open-new-window", this.#item),
+            'remove': () => this.emit("remove-book", this.#item),
+            'export': () => this.emit("export-book", this.#item),
+            'info': () => this.emit("book-info", this.#item),
+            'open-external-app': () => this.emit("open-external-app", this.#item),
+          }),
+        );
     }
     update(item, data) {
         this.#item = item
