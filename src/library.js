@@ -462,7 +462,7 @@ GObject.registerClass({
             const app_info = dialog.get_app_info()
             if (app_info) {
               try {
-                app_info.launch([file], null);
+                app_info.launch([file], null)
               } catch (e) {
                 console.error(
                   'Failed to open file with selected application:',
