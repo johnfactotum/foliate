@@ -230,6 +230,7 @@ const BookItem = GObject.registerClass({
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
         'book-info': { param_types: [Gio.File.$gtype] },
+        'open-external-app': { param_types: [Gio.File.$gtype] },
     },
 }, class extends Gtk.Box {
     #item
@@ -240,6 +241,7 @@ const BookItem = GObject.registerClass({
             'remove': () => this.emit('remove-book', this.#item),
             'export': () => this.emit('export-book', this.#item),
             'info': () => this.emit('book-info', this.#item),
+            'open-external-app': () => this.emit('open-external-app', this.#item),
         }))
     }
     update(item, data, cover) {
@@ -260,6 +262,7 @@ const BookRow = GObject.registerClass({
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
         'book-info': { param_types: [Gio.File.$gtype] },
+        'open-external-app': { param_types: [Gio.File.$gtype] },
     },
 }, class extends Gtk.Box {
     #item
@@ -270,6 +273,7 @@ const BookRow = GObject.registerClass({
             'remove': () => this.emit('remove-book', this.#item),
             'export': () => this.emit('export-book', this.#item),
             'info': () => this.emit('book-info', this.#item),
+            'open-external-app': () => this.emit('open-external-app', this.#item),
         }))
     }
     update(item, data) {
@@ -334,6 +338,7 @@ GObject.registerClass({
             const cover = books.readCover(metadata.identifier)
             makeBookInfoWindow(this.get_root(), metadata, cover)
         },
+        'open-external-app': (_, file) => this.openWithExternalApp(getBooks().getBook(file)),
     }
     actionGroup = utils.addMethods(this, {
         props: ['view-mode'],
@@ -440,6 +445,40 @@ GObject.registerClass({
         dialog.connect('response', (_, response) => {
             if (response === 'remove') getBooks().delete(file)
         })
+    }
+    openWithExternalApp(file) {
+        if (!file) return
+        const path = file.get_path()
+        if (!path) return
+
+        const dialog = new Gtk.AppChooserDialog({
+            gfile: file,
+            modal: true,
+            transient_for: this.root,
+        })
+
+        dialog.connect('response', (dialog, response) => {
+            if (response === Gtk.ResponseType.OK) {
+                const app_info = dialog.get_app_info()
+                if (app_info) {
+                    try {
+                        app_info.launch([file], null)
+                    } catch (e) {
+                        console.error(
+                            'Failed to open file with selected application:',
+                            e,
+                        )
+                        this.root.error(
+                            _('Failed to Open'),
+                            _('Could not open the file with the selected application'),
+                        )
+                    }
+                }
+            }
+            dialog.destroy()
+        })
+
+        dialog.show()
     }
 })
 
