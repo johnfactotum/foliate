@@ -48,7 +48,11 @@ Themes are defined as JSON files. Here is an example theme:
 }
 ```
 
-To install themes, you need to put them in `/home/user/.config/com.github.johnfactotum.Foliate/themes/`. If you're using Flatpak, the files should be placed in `~/.var/app/com.github.johnfactotum.Foliate/config/com.github.johnfactotum.Foliate/themes/`.
+To install themes, you need to put them in `/home/user/.config/com.github.johnfactotum.Foliate/themes/`.
+
+When using Flatpak, the files should be placed in `~/.var/app/com.github.johnfactotum.Foliate/config/com.github.johnfactotum.Foliate/themes/`.
+
+When using Snap, the files should be placed in `~/snap/foliate/current/.config/com.github.johnfactotum.Foliate/themes/`.
 
 ### Can I set my own custom CSS styles?
 
@@ -62,7 +66,9 @@ Tip: you can use the [`:lang()`](https://developer.mozilla.org/en-US/docs/Web/CS
 
 Your reading progress, bookmarks, and annotations are saved in `~/.local/share/com.github.johnfactotum.Foliate`.
 
-If you're using the Flatpak version, they should be in `~/.var/app/com.github.johnfactotum.Foliate/data/com.github.johnfactotum.Foliate`.
+When using Flatpak, they are placed in `~/.var/app/com.github.johnfactotum.Foliate/data/com.github.johnfactotum.Foliate`.
+
+When using Snap, they are placed in `~/snap/foliate/current/.local/share/com.github.johnfactotum.Foliate`.
 
 The data for each book is stored in a JSON file named after the book's identifier. If you'd like to sync or backup your progress and notes, simply copy these files and everything should just work™.
 
