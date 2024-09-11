@@ -28,6 +28,8 @@ To use it, click on the <i>Narration</i> button (the one with a headphones icon)
 
 Alternatively you can select some text and choose <i>Speak from Here</i> from the selection menu. Though you still need to use the <i>Narration</i> button if you want to stop the speech output.
 
+The default voice may sound somewhat robotic. You can use [Pied](https://pied.mikeasoft.com/) (a frontend for configuring [Piper](https://github.com/rhasspy/piper)) to change that to a more natural sounding voice. See [this](https://askubuntu.com/a/1526192/124466) for more details.
+
 ### How to use custom themes?
 
 Themes are defined as JSON files. Here is an example theme:
