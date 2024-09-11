@@ -14,15 +14,15 @@
   "homepage": "https://johnfactotum.github.io/foliate/",
   "type": "module",
   "dependencies": {
-    "@zip.js/zip.js": "^2.6.79",
-    "fflate": "^0.7.3"
+    "@zip.js/zip.js": "^2.7.52",
+    "fflate": "^0.8.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.1.0",
-    "globals": "^15.0.0",
-    "rollup": "^3.20.0",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-terser": "^0.4.0"
+    "@eslint/js": "^9.9.1",
+    "globals": "^15.9.0",
+    "rollup": "^4.21.2",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4"
   },
   "scripts": {
     "build": "npx rollup -c"
