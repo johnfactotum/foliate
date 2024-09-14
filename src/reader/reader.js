@@ -29,6 +29,13 @@ const getSelectionRange = sel => {
     return range
 }
 
+const selectionIsBackward = sel => {
+    const range = document.createRange()
+    range.setStart(sel.anchorNode, sel.anchorOffset)
+    range.setEnd(sel.focusNode, sel.focusOffset)
+    return range.collapsed
+}
+
 const getLang = el => {
     const lang = el.lang || el?.getAttributeNS?.('http://www.w3.org/XML/1998/namespace', 'lang')
     if (lang) return lang
@@ -504,18 +511,21 @@ class Reader {
         })
 
         if (!this.view.isFixedLayout)
-            // go to the next page when selecting to the end of a page
-            // this makes it possible to select across pages
+            // makes it possible to select across pages
             doc.addEventListener('selectionchange', debounce(() => {
                 if (!isSelecting) return
                 if (this.view.renderer.getAttribute('flow') !== 'paginated') return
-                const { lastLocation } = this.view
-                if (!lastLocation) return
-                const selRange = getSelectionRange(doc.getSelection())
+                const { lastLocation: { range } } = this.view
+                if (!range) return
+                const sel = doc.getSelection()
+                const selRange = getSelectionRange(sel)
                 if (!selRange) return
-                if (selRange.compareBoundaryPoints(Range.END_TO_END, lastLocation.range) >= 0)
+                const backward = selectionIsBackward(sel)
+                if (backward && selRange.compareBoundaryPoints(Range.START_TO_START, range) <= 0)
+                    this.view.prev()
+                else if (!backward && selRange.compareBoundaryPoints(Range.END_TO_END, range) >= 0)
                     this.view.next()
-            }, 1000))
+            }, 700))
 
         this.#cursorAutohider.cloneFor(doc.documentElement)
     }
