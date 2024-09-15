@@ -285,17 +285,21 @@ const text = "${encodeURIComponent(text)}"
 
 const select = document.createElement('select')
 const [langs, defaultLang] = JSON.parse(decodeURI("${encodeURI(getGoogleTranslateLanguages())}"))
+const selectLang = window.localStorage.getItem('changeLang') ?? defaultLang
 for (const [lang, label] of langs) {
     const option = document.createElement('option')
     option.value = lang
     option.innerText = label
-    if (lang === defaultLang) option.selected = true
+    if (lang === selectLang) option.selected = true
     select.append(option)
 }
 document.querySelector('header').append(select)
-select.onchange = () => googleTranslate(text, select.value)
+select.onchange = () => {
+    window.localStorage.setItem('changeLang', select.value)
+    googleTranslate(text, select.value)
+}
 
-googleTranslate(text)
+googleTranslate(text, selectLang)
 </script>
 `,
     },
@@ -310,7 +314,7 @@ const SelectionToolPopover = GObject.registerClass({
             enable_back_forward_navigation_gestures: false,
             enable_hyperlink_auditing: false,
             enable_html5_database: false,
-            enable_html5_local_storage: false,
+            enable_html5_local_storage: true,
         }),
     }), {
         'decide-policy': (_, decision, type) => {
