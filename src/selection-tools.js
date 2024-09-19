@@ -249,16 +249,43 @@ html, body {
     width: 100%;
 }
 body {
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
-select {
+header {
+    flex: 1;
+    padding: 8px;
+    display: none;
+}
+header button {
     width: 100%;
+    margin-top: 6px;
+}
+header button:first-child {
+    margin-top: 0;
 }
 main {
     flex: 1;
+    display: flex;
     overflow-y: auto;
     margin: 8px 0;
+}
+footer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+}
+footer div {
+    white-space: nowrap;
+}
+footer a,
+footer a:link,
+footer a:visited,
+footer a:hover,
+footer a:active {
+    color: black;
 }
 #output {
     padding: 0 8px;
@@ -266,7 +293,10 @@ main {
 </style>
 <header></header>
 <main><div id="output"></div></main>
-<footer>${_('Translation by Google Translate')}</footer>
+<footer>
+    <div>${_('Translation by Google Translate')}</div>
+    <a id="language" href="javascript:void(0)">?</a>
+</footer>
 <script>
 const googleTranslate = (text, lang = defaultLang) => {
     fetch('https://translate.googleapis.com/translate_a/single?client=gtx'
@@ -282,23 +312,49 @@ const googleTranslate = (text, lang = defaultLang) => {
 }
 
 const text = "${encodeURIComponent(text)}"
-
-const select = document.createElement('select')
+const localStorageKey = 'foliate:storage-change-lang'
+const select = document.createElement('div')
 const [langs, defaultLang] = JSON.parse(decodeURI("${encodeURI(getGoogleTranslateLanguages())}"))
-const selectLang = window.localStorage.getItem('changeLang') ?? defaultLang
+const selectLang = window.localStorage.getItem(localStorageKey) ?? defaultLang
 for (const [lang, label] of langs) {
-    const option = document.createElement('option')
-    option.value = lang
-    option.innerText = label
-    if (lang === selectLang) option.selected = true
-    select.append(option)
-}
-document.querySelector('header').append(select)
-select.onchange = () => {
-    window.localStorage.setItem('changeLang', select.value)
-    googleTranslate(text, select.value)
+    const button = document.createElement('button')
+    button.innerText = label
+    button.onclick = (e) => {
+        // Update translate
+        googleTranslate(text, lang)
+        // Save state
+        window.localStorage.setItem(localStorageKey, lang)
+        // Update language text
+        document.querySelector('#language').innerText = label
+        // Update UI
+        document.querySelector('header').style.display = 'none'
+        document.querySelector('main').style.display = 'flex'
+        document.querySelector('footer').style.display = 'flex'
+        // Enable button
+        var buttons = document.getElementsByTagName('button')
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = false
+        }
+        // Disable button
+        button.disabled = true
+    }
+    if (lang === selectLang) {
+        // Set language text
+        document.querySelector('#language').innerText = label
+        // Disable select button
+        button.disabled = true
+    }
+    select.append(button)
 }
 
+document.querySelector('#language').onclick = () => {
+    // Update UI, show select list languages
+    document.querySelector('header').style.display = 'flex'
+    document.querySelector('main').style.display = 'none'
+    document.querySelector('footer').style.display = 'none'
+}
+
+document.querySelector('header').append(select)
 googleTranslate(text, selectLang)
 </script>
 `,
