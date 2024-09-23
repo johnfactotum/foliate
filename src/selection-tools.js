@@ -280,12 +280,8 @@ footer {
 footer div {
     white-space: nowrap;
 }
-footer a,
-footer a:link,
-footer a:visited,
-footer a:hover,
-footer a:active {
-    color: black;
+footer a:any-link {
+    color: inherit;
 }
 #output {
     padding: 0 8px;
