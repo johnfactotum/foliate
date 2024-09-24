@@ -282,6 +282,10 @@ footer div {
 }
 footer a:any-link {
     color: inherit;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-left: 8px;
 }
 #output {
     padding: 0 8px;
