@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="common.css" rel="stylesheet">
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 6px;
+}
+select {
+    width: 100%;
+}
+main {
+    flex: 1;
+    overflow-y: auto;
+}
+button {
+    display: flex;
+    border-radius: 6px;
+    padding: 6px;
+}
+input, button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    &[hidden] {
+        display: none;
+    }
+}
+dialog {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    &:not([open]) {
+        display: none;
+    }
+    input {
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 12px;
+        padding-top: 6px;
+        border-bottom: 1px solid color-mix(in srgb, currentcolor 15%, transparent);
+        outline: 0;
+        width: 100%;
+    }
+    form {
+        padding: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        overflow-y: auto;
+    }
+    button {
+        text-align: start;
+        &:hover {
+            background: color-mix(in srgb, currentcolor 3%, transparent);
+        }
+        &:active, &[aria-selected="true"] {
+            background: color-mix(in srgb, currentcolor 7%, transparent);
+        }
+    }
+}
+</style>
+<header>
+    <button style="width: 100%; background: color-mix(in srgb, currentcolor 7%, transparent)">
+        <span style="text-align: start; flex: 1"></span>
+        <foliate-symbolic src="/icons/hicolor/scalable/actions/pan-down-symbolic.svg"></foliate-symbolic>
+    </button>
+</header>
+<main><div id="output"></div></main>
+<footer>asdf</footer>
+<dialog>
+    <input type="search">
+    <form method="dialog" role="listbox"></form>
+</dialog>
+<script src="../common/widgets.js" type="module"></script>
+<script>
+const googleTranslate = (text, lang) =>
+    fetch('https://translate.googleapis.com/translate_a/single?client=gtx'
+    + '&ie=UTF-8&oe=UTF-&sl=auto&tl=' + lang
+    + '&dt=t&q=' + text)
+        .then(res => res.ok ? res.json() : Promise.reject(new Error()))
+        .then(json => json[0].map(x => x[0]).join(''))
+
+const manageFocus = items => {
+    const setFocusPrev = el =>
+        setFocusNext(el, items.slice(0).reverse())
+    const setFocusNext = (el, items) => {
+        let justFound, found
+        for (const item of items) {
+            if (justFound && !item.hidden) {
+                item.tabIndex = 0
+                item.focus()
+                found = true
+                justFound = false
+            }
+            else {
+                item.tabIndex = -1
+                if (item === el) justFound = true
+            }
+        }
+        if (!found) {
+            items[0].tabIndex = 0
+            items[0].focus()
+        }
+    }
+    return e => {
+        switch (e.key) {
+            case 'ArrowUp':
+                e.preventDefault()
+                e.stopPropagation()
+                setFocusPrev(e.target)
+                break
+            case 'ArrowDown':
+                e.preventDefault()
+                e.stopPropagation()
+                setFocusNext(e.target, items)
+                break
+        }
+    }
+}
+
+document.querySelector('header button').addEventListener('click', () => {
+    document.querySelector('dialog').showModal()
+    document.querySelector('[aria-selected="true"]').scrollIntoView({ block: 'center' })
+    const input = document.querySelector('input')
+    input.value = ''
+    input.dispatchEvent(new Event('input'))
+    input.focus()
+})
+
+document.querySelector('input').addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelector('dialog').close()
+})
+document.querySelector('input').addEventListener('input', e => {
+    const { value } = e.target
+    const els = [...document.querySelectorAll('dialog form button')]
+    if (value) {
+        const lower = value.toLowerCase()
+        for (const el of els) {
+            el.hidden = !el.textContent.toLowerCase().startsWith(lower)
+            el.tabIndex = -1
+        }
+        const first = document.querySelector('dialog button:not([hidden])')
+        if (first) first.tabIndex = 0
+        document.querySelector('dialog form').scrollTop = 0
+    }
+    else {
+        for (const el of els) {
+            el.hidden = false
+            el.tabIndex = -1
+        }
+        const el = document.querySelector('[aria-selected="true"]')
+        el.tabIndex = 0
+        el.scrollIntoView({ block: 'center' })
+    }
+})
+
+let msgError
+const translate = (text, lang) => googleTranslate(text, lang)
+    .then(result => document.querySelector('#output').innerText = result)
+    .catch(e => {
+        console.error(e)
+        document.querySelector('#output').innerText = msgError
+    })
+
+globalThis.init = ({ msg, text, lang }) => {
+    msgError = msg.error
+    document.querySelector('footer').textContent = msg.footer
+    document.querySelector('input').placeholder = msg.search
+
+    const options = msg.langs.map(([code, label]) => {
+        const option = document.createElement('button')
+        option.role = 'option'
+        option.ariaSelected = code === lang ? 'true' : 'false'
+        option.tabIndex = code === lang ? 0 : -1
+        option.textContent = label
+        option.value = code
+        return option
+    })
+    const form = document.querySelector('form')
+    form.replaceChildren(...options)
+    form.addEventListener('keydown', manageFocus(options))
+    form.addEventListener('submit', e => {
+        const { submitter } = e
+        for (const option of options) option.ariaSelected = option === submitter
+        document.querySelector('header button span').textContent = submitter.textContent
+        webkit.messageHandlers.settings.postMessage(JSON.stringify({
+            key: 'translate-target-language',
+            value: submitter.value,
+        }))
+        translate(text, submitter.value)
+    })
+    document.querySelector('header button span').textContent =
+        form.querySelector(`[value="${CSS.escape(lang)}"]`).textContent
+
+    translate(text, lang)
+}
+</script>

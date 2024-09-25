@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="common.css" rel="stylesheet">
+<base href="https://en.wiktionary.org/wiki/Wiktionary:Main_Page">
+<style>
+ul {
+    margin: .5em 0;
+    font-style: italic;
+    opacity: .75;
+    font-size: smaller;
+    list-style: none;
+}
+h1 {
+    padding-inline-end: 1em;
+    display: inline;
+}
+hgroup p {
+    font-size: smaller;
+    display: inline;
+}
+</style>
+<main></main>
+<footer><p></footer>
+<script>
+let msgError, msgErrorAction
+const main = document.querySelector('main')
+const footer = document.querySelector('footer')
+const wiktionary = (word, language, languageName) => {
+    document.body.dataset.state = 'loading'
+    return fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${word}`)
+        .then(res => res.ok ? res.json() : Promise.reject(new Error()))
+        .then(json => {
+            const results = language ? json[language]
+                : languageName ? Object.values(json)
+                    .find(x => x.some(x => x.language === languageName))
+                : json['en']
+            const hgroup = document.createElement('hgroup')
+            const h1 = document.createElement('h1')
+            h1.innerText = word
+            const p = document.createElement('p')
+            p.innerText = results[0].language
+            hgroup.append(h1, p)
+            main.append(hgroup)
+            for (const { partOfSpeech, definitions } of results) {
+                const h2 = document.createElement('h2')
+                h2.innerText = partOfSpeech
+                const ol = document.createElement('ol')
+                main.append(h2, ol)
+                for (const { definition, examples } of definitions) {
+                    const li = document.createElement('li')
+                    li.innerHTML = definition
+                    ol.append(li)
+                    const ul = document.createElement('ul')
+                    li.append(ul)
+                    if (examples) for (const example of examples) {
+                        const li = document.createElement('li')
+                        li.innerHTML = example
+                        ul.append(li)
+                    }
+                }
+            }
+            document.querySelector('#link').href = '/wiki/' + word
+            document.body.dataset.state = 'loaded'
+        })
+        .catch(e => {
+            console.error(e)
+            const lower = word.toLocaleLowerCase(language)
+            if (lower !== word) return wiktionary(lower, language)
+            else {
+                const div = document.createElement('div')
+                const h1 = document.createElement('h1')
+                h1.innerText = msgError
+                const p = document.createElement('p')
+                p.innerHTML = `<a href="https://en.wiktionary.org/w/index.php?search=${encodeURIComponent(word)}">${msgErrorAction}</a>`
+                div.append(h1, p)
+                main.append(div)
+                document.body.dataset.state = 'error'
+            }
+        })
+}
+
+// see https://en.wiktionary.org/wiki/Wiktionary:Namespace
+const wikiNamespaces = [
+    'Media', 'Special', 'Talk', 'User', 'Wiktionary', 'File', 'MediaWiki',
+    'Template', 'Help', 'Category',
+    'Summary', 'Appendix', 'Concordance', 'Index', 'Rhymes', 'Transwiki',
+    'Thesaurus', 'Citations', 'Sign',
+]
+
+main.addEventListener('click', e => {
+    const { target } = e
+    if (target.tagName === 'A') {
+        const href = target.getAttribute('href')
+        if (href.startsWith('/wiki/')) {
+            const [word, languageName] = href.replace('/wiki/', '').split('#')
+            if (wikiNamespaces.every(namespace => !word.startsWith(namespace + ':')
+            && !word.startsWith(namespace + '_talk:'))) {
+                e.preventDefault()
+                main.replaceChildren()
+                wiktionary(word.replaceAll('_', ' '), null, languageName)
+            }
+        }
+    }
+})
+
+globalThis.init = ({ msg, text, lang }) => {
+    document.querySelector('footer').innerHTML = msg.footer
+    msgError = msg.error
+    msgErrorAction = msg.errorAction
+    wiktionary(text, lang)
+}
+</script>

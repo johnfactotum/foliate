@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="common.css" rel="stylesheet">
+<style>
+hgroup {
+    color: #fff;
+    background-position: center center;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, .4);
+    background-blend-mode: darken;
+    border-radius: 6px;
+    padding: 12px;
+    margin: -8px;
+    margin-bottom: 0;
+    min-height: 100px;
+}
+</style>
+<main></main>
+<footer><p></footer>
+<script>
+const main = document.querySelector('main')
+document.body.dataset.state = 'loading'
+
+globalThis.init = ({ msg, text, lang }) => {
+    document.querySelector('footer p').innerHTML = msg.footer
+    fetch(`https://${lang}.wikipedia.org/api/rest_v1/page/summary/${text}`)
+        .then(res => res.ok ? res.json() : Promise.reject(new Error()))
+        .then(json => {
+            const hgroup = document.createElement('hgroup')
+            const h1 = document.createElement('h1')
+            h1.innerHTML = json.titles.display
+            hgroup.append(h1)
+            if (json.description) {
+                const p = document.createElement('p')
+                p.innerText = json.description
+                hgroup.append(p)
+            }
+            if (json.thumbnail)
+                hgroup.style.backgroundImage = 'url("' + json.thumbnail.source + '")'
+            const div = document.createElement('div')
+            div.innerHTML = json.extract_html
+            main.append(hgroup, div)
+            main.dir = json.dir
+            document.querySelector('#link').href = json.content_urls.desktop.page
+            document.body.dataset.state = 'loaded'
+        })
+        .catch(e => {
+            console.error(e)
+            const div = document.createElement('div')
+            const h1 = document.createElement('h1')
+            h1.innerText = msg.error
+            const p = document.createElement('p')
+            p.innerHTML = `<a href="https://${lang}.wikipedia.org/w/index.php?search=${text}">${msg.errorAction}</a>`
+            div.append(h1, p)
+            main.append(div)
+            document.body.dataset.state = 'error'
+        })
+}
+</script>
