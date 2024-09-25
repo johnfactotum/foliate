@@ -273,12 +273,17 @@ main {
 }
 footer {
     display: flex;
-    justify-content: space-between;
     flex-direction: row;
     width: 100%;
+    justify-content: space-between;
+    align-items: end;
 }
 footer div {
-    white-space: nowrap;
+    display: inline-block;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 200px;
 }
 footer a:any-link {
     color: inherit;
@@ -286,6 +291,7 @@ footer a:any-link {
     text-overflow: ellipsis;
     overflow: hidden;
     margin-left: 8px;
+    text-align: right;
 }
 #output {
     padding: 0 8px;
