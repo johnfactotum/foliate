@@ -11,7 +11,7 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 import { exportAnnotations } from './annotations.js'
-import { formatAuthors, makeBookInfoWindow } from './book-info.js'
+import { formatLanguageMap, formatAuthors, makeBookInfoWindow } from './book-info.js'
 
 import WebKit from 'gi://WebKit'
 import { WebView } from './webview.js'
@@ -246,7 +246,7 @@ const BookItem = GObject.registerClass({
     }
     update(item, data, cover) {
         this.#item = item
-        const title = data.metadata?.title ?? ''
+        const title = formatLanguageMap(data.metadata?.title)
         this._title.text = title
         this._image.load(cover?.then ? null : cover, title)
         this._progress.label = format.percent(fraction(data.progress))

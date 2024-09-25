@@ -5,10 +5,19 @@ import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 import * as format from './format.js'
 
+export const formatLanguageMap = x => {
+    if (!x) return ''
+    if (typeof x === 'string') return x
+    const keys = Object.keys(x)
+    return /*x[format.matchLocales(keys)[0]] ??*/ x[keys[0]]
+}
+
 const formatContributors = contributors => Array.isArray(contributors)
     ? format.list(contributors.map(contributor =>
-        typeof contributor === 'string' ? contributor : contributor.name))
-    : contributors
+        typeof contributor === 'string' ? contributor
+        : formatLanguageMap(contributor?.name)))
+    : typeof contributors === 'string' ? contributors
+    : formatLanguageMap(contributors?.name)
 
 export const formatAuthors = metadata => metadata?.author
     ? formatContributors(metadata.author)
@@ -46,8 +55,7 @@ const makeSubjectBox = subject => {
         xalign: 0,
         wrap: true,
         selectable: true,
-        label: typeof subject === 'string'
-            ? subject : subject.name ?? subject.code,
+        label: formatContributors(subject) || subject?.code,
         valign: Gtk.Align.START,
     }), 'caption'))
     return box
@@ -64,14 +72,14 @@ const makeBookHeader = (metadata, pixbuf) => {
         xalign: 0,
         wrap: true,
         selectable: true,
-        label: metadata.title ?? '',
+        label: formatLanguageMap(metadata.title),
     }), 'title-2'))
 
     if (metadata.subtitle) box.append(utils.addClass(new Gtk.Label({
         xalign: 0,
         wrap: true,
         selectable: true,
-        label: metadata.subtitle,
+        label: formatLanguageMap(metadata.subtitle),
     }), 'title-4'))
 
     box.append(new Gtk.Label({
@@ -122,7 +130,7 @@ const makeBookInfoBox = (metadata, pixbuf) => {
     box.append(flowbox)
 
     for (const [title, value] of [
-        [_('Publisher'), metadata.publisher],
+        [_('Publisher'), formatContributors(metadata.publisher)],
         // Translators: this is the heading for the publication date
         [_('Published'), format.date(metadata.published)],
         // Translators: this is the heading for the modified date

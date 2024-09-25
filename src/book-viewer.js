@@ -18,7 +18,7 @@ import './navbar.js'
 import { AnnotationPopover, importAnnotations, exportAnnotations } from './annotations.js'
 import { SelectionPopover } from './selection-tools.js'
 import { ImageViewer } from './image-viewer.js'
-import { formatAuthors, makeBookInfoWindow } from './book-info.js'
+import { formatLanguageMap, formatAuthors, makeBookInfoWindow } from './book-info.js'
 import { themes, invertTheme, themeCssProvider } from './themes.js'
 import { dataStore } from './data.js'
 
@@ -725,10 +725,10 @@ export const BookViewer = GObject.registerClass({
         this._top_overlay_box.hide()
         this.#book = book
         book.metadata ??= {}
-        this.root.title = book.metadata.title ?? ''
-        this._book_title.label = book.metadata.title ?? ''
+        this._book_title.label = formatLanguageMap(book.metadata.title)
         this._book_author.label = formatAuthors(book.metadata)
-        this._book_author.visible = !!book.metadata?.author?.length
+        this._book_author.visible = !!this._book_author.label
+        this.root.title = this._book_title.label
 
         const { language: { direction } } = reader.view
         utils.setDirection(this._book_info, direction)

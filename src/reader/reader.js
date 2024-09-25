@@ -22,6 +22,13 @@ const debounce = (f, wait, immediate) => {
     }
 }
 
+const formatLanguageMap = x => {
+    if (!x) return ''
+    if (typeof x === 'string') return x
+    const keys = Object.keys(x)
+    return x[keys[0]]
+}
+
 const getSelectionRange = sel => {
     if (!sel.rangeCount) return
     const range = sel.getRangeAt(0)
@@ -429,7 +436,7 @@ class Reader {
                 const { tocItem } = e.detail
                 heads.at(-1).innerText = tocItem?.label ?? ''
                 if (heads.length > 1)
-                    heads[0].innerText = this.book.metadata.title
+                    heads[0].innerText = formatLanguageMap(this.book.metadata.title)
             }
             if (feet) {
                 const { pageItem, location: { current, next, total } } = e.detail
