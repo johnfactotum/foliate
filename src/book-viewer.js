@@ -747,7 +747,7 @@ export const BookViewer = GObject.registerClass({
         this._navbar.loadSectionFractions(reader.sectionFractions)
         this._navbar.loadPageList(book.pageList, reader.pageTotal)
         this._navbar.loadLandmarks(book.landmarks)
-        this._navbar.setTTSType(book.media?.duration?.[''] ? 'media-overlay' : 'tts')
+        this._navbar.setTTSType(book.media?.duration ? 'media-overlay' : 'tts')
 
         const cover = await this._view.getCover()
         this.#cover = cover
