@@ -291,42 +291,7 @@ footnoteDialog.addEventListener('close', () => {
 footnoteDialog.addEventListener('click', e =>
     e.target === footnoteDialog ? footnoteDialog.close() : null)
 
-class CursorAutohider {
-    #timeout
-    #el
-    #check
-    #state
-    constructor(el, check, state = {}) {
-        this.#el = el
-        this.#check = check
-        this.#state = state
-        if (this.#state.hidden) this.hide()
-        this.#el.addEventListener('mousemove', ({ screenX, screenY }) => {
-            // check if it actually moved
-            if (screenX === this.#state.x && screenY === this.#state.y) return
-            this.#state.x = screenX, this.#state.y = screenY
-            this.show()
-            if (this.#timeout) clearTimeout(this.#timeout)
-            if (check()) this.#timeout = setTimeout(this.hide.bind(this), 1000)
-        }, false)
-    }
-    cloneFor(el) {
-        return new CursorAutohider(el, this.#check, this.#state)
-    }
-    hide() {
-        this.#el.style.cursor = 'none'
-        this.#state.hidden = true
-    }
-    show() {
-        this.#el.style.cursor = 'auto'
-        this.#state.hidden = false
-    }
-}
-
 class Reader {
-    autohideCursor
-    #cursorAutohider = new CursorAutohider(
-        document.documentElement, () => this.autohideCursor)
     #footnoteHandler = new FootnoteHandler()
     style = {
         spacing: 1.4,
@@ -406,7 +371,8 @@ class Reader {
             renderer.setStyles?.(getCSS(this.style))
         }
         document.body.classList.toggle('invert', this.style.invert)
-        this.autohideCursor = autohideCursor
+        if (autohideCursor) this.view?.setAttribute('autohide-cursor', '')
+        else this.view?.removeAttribute('autohide-cursor')
     }
     #handleEvents() {
         this.view.addEventListener('relocate', e => {
@@ -492,8 +458,6 @@ class Reader {
             const text = sel.toString()
             this.#showSelection({ index, range, lang, value, pos, text })
         })
-
-        this.#cursorAutohider.cloneFor(doc.documentElement)
     }
     #showAnnotation({ index, range, value, pos }) {
         globalThis.showSelection({ type: 'annotation', value, pos })
