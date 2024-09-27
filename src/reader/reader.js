@@ -8,20 +8,6 @@ const format = {}
 const emit = x => globalThis.webkit.messageHandlers.viewer
     .postMessage(JSON.stringify(x))
 
-const debounce = (f, wait, immediate) => {
-    let timeout
-    return (...args) => {
-        const later = () => {
-            timeout = null
-            if (!immediate) f(...args)
-        }
-        const callNow = immediate && !timeout
-        if (timeout) clearTimeout(timeout)
-        timeout = setTimeout(later, wait)
-        if (callNow) f(...args)
-    }
-}
-
 const formatLanguageMap = x => {
     if (!x) return ''
     if (typeof x === 'string') return x
@@ -34,13 +20,6 @@ const getSelectionRange = sel => {
     const range = sel.getRangeAt(0)
     if (range.collapsed) return
     return range
-}
-
-const selectionIsBackward = sel => {
-    const range = document.createRange()
-    range.setStart(sel.anchorNode, sel.anchorOffset)
-    range.setEnd(sel.focusNode, sel.focusOffset)
-    return range.collapsed
 }
 
 const getLang = el => {
@@ -503,10 +482,7 @@ class Reader {
                     emit({ type: 'show-image', base64, mimetype }))
                 .catch(e => console.error(e)))
 
-        let isSelecting = false
-        doc.addEventListener('pointerdown', () => isSelecting = true)
         doc.addEventListener('pointerup', () => {
-            isSelecting = false
             const sel = doc.getSelection()
             const range = getSelectionRange(sel)
             if (!range) return
@@ -516,23 +492,6 @@ class Reader {
             const text = sel.toString()
             this.#showSelection({ index, range, lang, value, pos, text })
         })
-
-        if (!this.view.isFixedLayout)
-            // makes it possible to select across pages
-            doc.addEventListener('selectionchange', debounce(() => {
-                if (!isSelecting) return
-                if (this.view.renderer.getAttribute('flow') !== 'paginated') return
-                const { lastLocation: { range } } = this.view
-                if (!range) return
-                const sel = doc.getSelection()
-                const selRange = getSelectionRange(sel)
-                if (!selRange) return
-                const backward = selectionIsBackward(sel)
-                if (backward && selRange.compareBoundaryPoints(Range.START_TO_START, range) <= 0)
-                    this.view.prev()
-                else if (!backward && selRange.compareBoundaryPoints(Range.END_TO_END, range) >= 0)
-                    this.view.next()
-            }, 700))
 
         this.#cursorAutohider.cloneFor(doc.documentElement)
     }
