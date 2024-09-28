@@ -19,7 +19,7 @@ const registerPaths = (name, dirs) => registerScheme(name, req => {
         ? req.get_path().replace(/(?<=\/icons)\/hicolor(?=\/scalable\/)/, '')
         : req.get_path()
     if (dirs.every(dir => !path.startsWith(dir))) throw new Error()
-    const mime = path.endsWith('.js') ? 'application/javascript'
+    const mime = path.endsWith('.js') || path.endsWith('.mjs') ? 'application/javascript'
         : path.endsWith('.svg') ? 'image/svg+xml' : 'text/html'
     const file = Gio.File.new_for_uri(pkg.moduleuri(path))
     req.finish(file.read(null), -1, mime)
