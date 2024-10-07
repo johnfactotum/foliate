@@ -1,0 +1,1151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.johnfactotum.Foliate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-19 04:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Ádám Szabó <canis_major@outlook.hu>\n"
+"Language-Team: Hungarian <canis_major@outlook.hu>\n"
+"Language: hu_HU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: src/annotations.js:137 src/annotations.js:172
+msgid "Bookmark deleted"
+msgstr "Könyvjelző törölve"
+
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:809
+#: src/library.js:826
+msgid "Undo"
+msgstr "Visszavonás"
+
+#: src/annotations.js:437
+msgid "Underline"
+msgstr "Aláhúzott"
+
+#: src/annotations.js:438
+msgid "Squiggly"
+msgstr "Hullámos"
+
+#: src/annotations.js:439
+msgid "Strikethrough"
+msgstr "Áthúzott"
+
+#: src/annotations.js:440
+msgid "Yellow"
+msgstr "Citromsárga"
+
+#: src/annotations.js:441
+msgid "Orange"
+msgstr "Narancssárga"
+
+#: src/annotations.js:442
+msgid "Red"
+msgstr "Piros"
+
+#: src/annotations.js:443
+msgid "Magenta"
+msgstr "Bíbor"
+
+#: src/annotations.js:444
+msgid "Aqua"
+msgstr "Világoskék"
+
+#: src/annotations.js:445
+msgid "Lime"
+msgstr "Világoszöld"
+
+#: src/annotations.js:446
+msgid "Custom Color…"
+msgstr "Egyéni szín..."
+
+#: src/annotations.js:498
+msgid "Custom"
+msgstr "Egyéni téma"
+
+#: src/annotations.js:592
+msgid "JSON Files"
+msgstr "JSON fájlok"
+
+#: src/annotations.js:597 src/app.js:149
+msgid "All Files"
+msgstr "Összes fájl"
+
+#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:402
+msgid "No Annotations"
+msgstr "Nincsenek feljegyzések"
+
+#: src/annotations.js:607
+msgid "The imported file has no annotations"
+msgstr "Az importált fájl nem tartalmaz feljegyzéseket"
+
+#: src/annotations.js:625
+msgid "Cannot Import Annotations"
+msgstr "A feljegyzések importálása sikertelen"
+
+#: src/annotations.js:626 src/book-viewer.js:720 src/library.js:605
+msgid "An error occurred"
+msgstr "Hiba történt"
+
+#: src/annotations.js:635
+msgid "You don’t have any annotations for this book"
+msgstr "Ehhez a könyvhöz nem tartoznak feljegyzések"
+
+#: src/annotations.js:648
+#, javascript-format
+msgid "Annotations for “%s”"
+msgstr "Feljegyzések a “%s” "
+
+#: src/annotations.js:649
+#, javascript-format
+msgid "%d Annotation"
+msgid_plural "%d Annotations"
+msgstr[0] "Feljegyzés"
+msgstr[1] "Feljegyzések"
+
+#: src/app.js:95 src/book-viewer.js:30
+msgid "Close"
+msgstr "Bezárás"
+
+#: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
+#: src/ui/import-dialog.ui:15
+msgid "Cancel"
+msgstr "Mégse"
+
+#: src/app.js:136
+msgid "E-Book Files"
+msgstr "E-Book fájlok"
+
+#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
+msgid "Read e-books in style"
+msgstr "Olvasson e-könyveket stílusosan"
+
+#. Translators: put your names here, one name per line
+#. they will be shown in the "About" dialog
+#: src/app.js:405
+msgid "translator-credits"
+msgstr ""
+Ádám Szabó
+#: src/app.js:414
+msgid "Source Code"
+msgstr "Forráskód"
+
+#: src/book-info.js:125 src/library.js:75
+msgid "Publisher"
+msgstr "Kiadó"
+
+#. Translators: this is the heading for the publication date
+#: src/book-info.js:127 src/library.js:76
+msgid "Published"
+msgstr "Kiadás dátuma"
+
+#. Translators: this is the heading for the modified date
+#: src/book-info.js:129
+msgid "Updated"
+msgstr "Frissítés dátuma"
+
+#: src/book-info.js:130 src/library.js:77
+msgid "Language"
+msgstr "Nyelv"
+
+#: src/book-info.js:131
+msgid "Translated by"
+msgstr "Fordította"
+
+#: src/book-info.js:132
+msgid "Edited by"
+msgstr "Szerkesztő"
+
+#: src/book-info.js:133
+msgid "Narrated by"
+msgstr "Narrátor"
+
+#: src/book-info.js:134
+msgid "Illustrated by"
+msgstr "Illusztrálta"
+
+#: src/book-info.js:135
+msgid "Produced by"
+msgstr "Készítette"
+
+#: src/book-info.js:136
+msgid "Artwork by"
+msgstr "Grafikus:"
+
+#: src/book-info.js:137
+msgid "Color by"
+msgstr "Színezte"
+
+#: src/book-info.js:138
+msgid "Contributors"
+msgstr "Közreműködők:"
+
+#: src/book-info.js:139 src/library.js:78 src/ui/navbar.ui:283
+msgid "Identifier"
+msgstr "Azonosító"
+
+#: src/book-info.js:171 src/ui/book-item.ui:11 src/ui/book-row.ui:11
+#: src/ui/book-viewer.ui:368
+msgid "About This Book"
+msgstr "Könyvismertető"
+
+#: src/book-viewer.js:27
+#, javascript-format
+msgid "Loc. %s of %s"
+msgstr "Poz. %s ból/ből %s"
+
+#: src/book-viewer.js:28
+#, javascript-format
+msgid "Page %s of %s"
+msgstr "Oldal %s ból/ből %s"
+
+#: src/book-viewer.js:29
+#, javascript-format
+msgid "Page %s"
+msgstr "Oldal %s"
+
+#: src/book-viewer.js:32
+msgid "Footnote"
+msgstr "Lábjegyzet"
+
+#: src/book-viewer.js:33
+msgid "Go to Footnote"
+msgstr "Ugrás a lábjegyzetre"
+
+#: src/book-viewer.js:34
+msgid "Endnote"
+msgstr "Végjegyzet"
+
+#: src/book-viewer.js:35
+msgid "Go to Endnote"
+msgstr "Ugrás a végjegyzetre"
+
+#: src/book-viewer.js:36
+msgid "Note"
+msgstr "Megjegyzés"
+
+#: src/book-viewer.js:37
+msgid "Go to Note"
+msgstr "Ugrás a megjegyzésre"
+
+#: src/book-viewer.js:38
+msgid "Definition"
+msgstr "Definíció"
+
+#: src/book-viewer.js:39
+msgid "Go to Definition"
+msgstr "Ugrás a definícióra"
+
+#: src/book-viewer.js:40
+msgid "Bibliography"
+msgstr "Forrásjegyzék"
+
+#: src/book-viewer.js:41
+msgid "Go to Bibliography"
+msgstr "Ugrás a forrásjegyzékre"
+
+#: src/book-viewer.js:619
+msgid "Remove bookmark"
+msgstr "Könyvjelző eltávolítása"
+
+#: src/book-viewer.js:620
+msgid "Add bookmark"
+msgstr "Könyvjelző hozzáadása"
+
+#: src/book-viewer.js:718
+msgid "File not found"
+msgstr "A fájl nem található"
+
+#: src/book-viewer.js:719
+msgid "File type not supported"
+msgstr "Ez a fájltípus nem támogatott"
+
+#: src/book-viewer.js:808
+msgid "Annotation deleted"
+msgstr "Feljegyzés törölve"
+
+#: src/book-viewer.js:876
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—%s, “%s”, p. %s"
+msgstr ""
+
+#: src/book-viewer.js:878
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—“%s”, p. %s"
+msgstr ""
+
+#: src/book-viewer.js:879
+#, javascript-format
+msgid "‘%s’ (p. %s)"
+msgstr "‘%s’ (p. %s)"
+
+#: src/book-viewer.js:882
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—%s, “%s”"
+msgstr ""
+
+#: src/book-viewer.js:884
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—“%s”"
+msgstr ""
+
+#: src/book-viewer.js:885
+#, javascript-format
+msgid "‘%s’"
+msgstr "‘%s’"
+
+#: src/book-viewer.js:903
+#, javascript-format
+msgid "Image from “%s”"
+msgstr "Kép a ból/ből “%s”"
+
+#: src/book-viewer.js:903
+msgid "Image"
+msgstr "Kép"
+
+#: src/format.js:122
+#, javascript-format
+msgid "of %d"
+msgstr "nak/nek %d"
+
+#: src/library.js:47
+msgid "Loading"
+msgstr "Betöltés"
+
+#: src/library.js:48
+msgid "Failed to Load"
+msgstr "A betöltés sikertelen"
+
+#: src/library.js:49 src/ui/book-viewer.ui:15
+msgid "Reload"
+msgstr "Újratöltés"
+
+#: src/library.js:51
+msgid "See All"
+msgstr "Összes mgtekintése"
+
+#: src/library.js:52 src/ui/library.ui:124 src/ui/library.ui:182
+msgid "Search"
+msgstr "Keresés"
+
+#: src/library.js:53
+msgid "Filter"
+msgstr "Szűrő"
+
+#: src/library.js:55 src/library.js:57
+msgid "Download"
+msgstr "Letöltés"
+
+#: src/library.js:56
+msgid "Buy"
+msgstr "Vásárlás"
+
+#: src/library.js:58
+msgid "Preview"
+msgstr "Előnézet"
+
+#: src/library.js:59
+msgid "Sample"
+msgstr "Minta"
+
+#: src/library.js:60
+msgid "Borrow"
+msgstr "Kölcsönzés"
+
+#: src/library.js:61
+msgid "Subscribe"
+msgstr "Előfizetés"
+
+#: src/library.js:63
+msgid "Free"
+msgstr "Ingyenes"
+
+#: src/library.js:65
+msgid "First"
+msgstr "Első"
+
+#: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
+msgid "Previous"
+msgstr "Előző"
+
+#: src/library.js:67 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
+msgid "Next"
+msgstr "Következő"
+
+#: src/library.js:68
+msgid "Last"
+msgstr "Utolsó"
+
+#: src/library.js:70
+msgid "Search Terms"
+msgstr "Keresőkifejezés"
+
+#: src/library.js:72
+msgid "Title"
+msgstr "Cím"
+
+#: src/library.js:73
+msgid "Author"
+msgstr "Szerző"
+
+#: src/library.js:74
+msgid "Contributor"
+msgstr "Közreműködő"
+
+#: src/library.js:433
+msgid "Remove Book?"
+msgstr "Eltávolítja a könyvet?"
+
+#: src/library.js:434
+msgid "Reading progress, annotations, and bookmarks will be permanently lost"
+msgstr "Az aktuális olvasási pozíció, a feljegyzések és a könyvjelzők végérvényesen elvesznek"
+
+#: src/library.js:436
+msgid "_Cancel"
+msgstr "_Mégse"
+
+#: src/library.js:437
+msgid "_Remove"
+msgstr "_Eltávolítás"
+
+#: src/library.js:605
+msgid "Download Failed"
+msgstr "A letöltés sikertelen"
+
+#: src/library.js:659
+msgid "Rename…"
+msgstr "Átnevezés..."
+
+#: src/library.js:660 src/ui/book-item.ui:21 src/ui/book-row.ui:21
+msgid "Remove"
+msgstr "Eltávolítás"
+
+#: src/library.js:680 src/library.js:681
+msgid "Rename"
+msgstr "Átnevezés"
+
+#: src/library.js:686
+msgid "Name"
+msgstr "Név"
+
+#: src/library.js:701
+msgid "All Books"
+msgstr "Minden könyv"
+
+#: src/library.js:707
+msgid "Add Catalog…"
+msgstr "Katalóus hozzáadása..."
+
+#: src/library.js:774 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/ui/library.ui:93
+msgid "Library"
+msgstr "Könyvtár"
+
+#: src/library.js:782
+msgid "Catalogs"
+msgstr "Katalógusok"
+
+#: src/library.js:825
+msgid "Catalog removed"
+msgstr "Katalógus törölve"
+
+#: src/library.js:912 src/library.js:917
+msgid "Add Catalog"
+msgstr "Katalógus hozzáadása"
+
+#: src/library.js:913
+msgid "Add"
+msgstr "Hozzáad"
+
+#: src/library.js:918
+msgid ""
+"You can browse and download books from OPDS catalogs. <a href=\"https://opds."
+"io\">Learn More…</a>"
+msgstr "Böngészhet és letölthet könyveket nyilvános (OPDS) katalógusokból. <a href=\"https://opds. "
+"io\">További információ...</a>"
+
+#: src/library.js:922
+msgid "URL"
+msgstr "URL"
+
+#. Translators: Do NOT translate! The is the application name!
+#: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
+msgid "Foliate"
+msgstr "Foliate"
+
+#: src/selection-tools.js:72
+msgid "Dictionary"
+msgstr "Szótár"
+
+#: src/selection-tools.js:96
+msgid ""
+"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"https://"
+"creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
+msgstr ""
+
+#: src/selection-tools.js:144 src/selection-tools.js:232
+msgid "No Definitions Found"
+msgstr "Nem található definíció"
+
+#: src/selection-tools.js:146
+msgid "Search on Wiktionary"
+msgstr "Keresés a Wikiszótárban"
+
+#: src/selection-tools.js:183
+msgid "Wikipedia"
+msgstr "Wikipédia"
+
+#: src/selection-tools.js:202
+msgid ""
+"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://en."
+"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"ShareAlike_4.0_International_License\">CC BY-SA License</a>."
+msgstr ""
+
+#: src/selection-tools.js:234
+msgid "Search on Wikipedia"
+msgstr "Keresés a Wikipédián"
+
+#: src/selection-tools.js:243
+msgid "Translate"
+msgstr "Fordítás"
+
+#: src/selection-tools.js:269
+msgid "Translation by Google Translate"
+msgstr "Fordítás a Google Fordítóval"
+
+#: src/selection-tools.js:280
+msgid "Cannot retrieve translation"
+msgstr "A fordítás sikertelen"
+
+#: src/themes.js:9
+msgid "Default"
+msgstr "Alapértelmezett"
+
+#: src/themes.js:14
+msgid "Gray"
+msgstr "Szürke"
+
+#: src/themes.js:19
+msgid "Sepia"
+msgstr "Szépia"
+
+#: src/themes.js:24
+msgid "Grass"
+msgstr "Fűzöld"
+
+#: src/themes.js:29
+msgid "Cherry"
+msgstr "Cseresznyepiros"
+
+#: src/themes.js:34
+msgid "Sky"
+msgstr "Égkék"
+
+#: src/themes.js:39
+msgid "Solarized"
+msgstr "Szolarizált"
+
+#: src/themes.js:44
+msgid "Gruvbox"
+msgstr "Gruvbox"
+
+#: src/themes.js:49
+msgid "Nord"
+msgstr "Észak"
+
+#: src/tts.js:117
+msgid "Text-to-Speech Error"
+msgstr "Hiba a felolvasáskor"
+
+#: src/tts.js:118
+msgid "Make sure Speech Dispatcher is installed and working on your system"
+msgstr "Győződjön meg róla, hogy a beszédmotor telepítésre került-e és, hogy működik-e az Ön rendszerén"
+
+#: src/utils.js:168
+msgid "Copied to clipboard"
+msgstr "Vágólapra másolva"
+
+#: src/ui/annotation-popover.ui:13
+msgid "Highlight Style"
+msgstr "Kiemelés stílusa"
+
+#: src/ui/annotation-popover.ui:20 src/ui/annotation-row.ui:63
+#: src/ui/bookmark-row.ui:33
+msgid "Delete"
+msgstr "Törlés"
+
+#: src/ui/annotation-popover.ui:28 src/ui/book-item.ui:61 src/ui/book-row.ui:75
+#: src/ui/image-viewer.ui:62
+msgid "Menu"
+msgstr "Menü"
+
+#: src/ui/annotation-popover.ui:47
+msgid "Add Note…"
+msgstr "Megjegyzés hozzáadása..."
+
+#: src/ui/book-item.ui:5 src/ui/book-row.ui:5
+msgid "Open in New Window"
+msgstr "Megnyitás új ablakban"
+
+#: src/ui/book-item.ui:15 src/ui/book-row.ui:15 src/ui/book-viewer.ui:25
+msgid "Export Annotations…"
+msgstr "Feljegyzések exportálása..."
+
+#: src/ui/book-viewer.ui:5
+msgid "New Window"
+msgstr "Új ablak"
+
+#: src/ui/book-viewer.ui:11
+msgid "Open a Copy"
+msgstr "Másodpéldány megnyitása"
+
+#: src/ui/book-viewer.ui:21
+msgid "Import Annotations…"
+msgstr "Feljegyzések importálása..."
+
+#: src/ui/book-viewer.ui:37 src/ui/library.ui:42
+msgid "About Foliate"
+msgstr "Névjegy"
+
+#: src/ui/book-viewer.ui:45
+msgid "All Sections"
+msgstr "Összes szakasz"
+
+#: src/ui/book-viewer.ui:50
+msgid "Current Section"
+msgstr "Aktuális szakasz"
+
+#: src/ui/book-viewer.ui:57
+msgid "Match Whole Words Only"
+msgstr "Csak teljes szavas egyezés"
+
+#: src/ui/book-viewer.ui:61
+msgid "Match Case"
+msgstr "Kis - és nagybetűk egyezzenek"
+
+#: src/ui/book-viewer.ui:65
+msgid "Match Diacritics"
+msgstr "Diakrtikus jelek egyezzenek"
+
+#: src/ui/book-viewer.ui:83
+msgid "Font & Layout Settings"
+msgstr "Betűtípus és elrendezés"
+
+#: src/ui/book-viewer.ui:89
+msgid "Scrolled Mode"
+msgstr "Folyamatos görgetés"
+
+#: src/ui/book-viewer.ui:93
+msgid "Invert Colors in Dark Mode"
+msgstr "Színek invertálása sötét módban"
+
+#: src/ui/book-viewer.ui:97
+msgid "Autohide Cursor"
+msgstr "Kurzor automatikus elrejtése"
+
+#: src/ui/book-viewer.ui:103
+msgid "Print…"
+msgstr "Nyomtatás..."
+
+#: src/ui/book-viewer.ui:107
+msgid "Inspector"
+msgstr "Fejlesztői üzemmód"
+
+#: src/ui/book-viewer.ui:167
+msgid "Book Cannot Be Opened"
+msgstr "A könyv megnyitása sikertelen"
+
+#: src/ui/book-viewer.ui:177
+msgid "Details"
+msgstr "Részletek"
+
+#: src/ui/book-viewer.ui:193
+msgid "Open Another File…"
+msgstr "Másik fájl megnyitása..."
+
+#: src/ui/book-viewer.ui:245
+msgid "Pin Sidebar"
+msgstr "Kitűzés az oldalsávra"
+
+#: src/ui/book-viewer.ui:253
+msgid "Book Menu"
+msgstr "Műveleti menü"
+
+#: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
+msgid "Find"
+msgstr "Keresés"
+
+#: src/ui/book-viewer.ui:276
+msgid "Find in book…"
+msgstr "Keresés a könyvben"
+
+#: src/ui/book-viewer.ui:313
+msgid "Contents"
+msgstr "Tartalomjegyzék"
+
+#: src/ui/book-viewer.ui:391
+msgid "Annotations"
+msgstr "Feljegyzések"
+
+#: src/ui/book-viewer.ui:403
+msgid "Select some text to add annotations"
+msgstr "Feljegyzések hozzáadásához jelöljön ki egy szövegrészt"
+
+#: src/ui/book-viewer.ui:433
+msgid "Filter annotations…"
+msgstr "Feljegyzések szűrése..."
+
+#: src/ui/book-viewer.ui:447
+msgid "Bookmarks"
+msgstr "Könyvjelzők"
+
+#: src/ui/book-viewer.ui:458
+msgid "No Bookmarks"
+msgstr "Nincsenek könyvjelzők"
+
+#: src/ui/book-viewer.ui:459
+msgid "Add some bookmarks to see them here"
+msgstr "Hozzon létre néhány könyvjelzőt, hogy itt megtalálhassa őket"
+
+#: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
+msgid "No Results Found"
+msgstr "Nincs találat"
+
+#: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
+msgid "Try a different search"
+msgstr "Próbálkozzon más keresőkifejezéssel"
+
+#: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
+msgid "Sidebar"
+msgstr "Oldalsáv"
+
+#: src/ui/book-viewer.ui:556
+msgid "View Menu"
+msgstr "Nézet"
+
+#: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
+msgid "Zoom Out"
+msgstr "Kicsinyítés"
+
+#: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
+msgid "Reset Zoom"
+msgstr "Eredeti méret visszaállítása"
+
+#: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
+msgid "Zoom In"
+msgstr "Nagyítás"
+
+#: src/ui/book-viewer.ui:601
+msgid "Follow System Style"
+msgstr "Rendszertéma használata"
+
+#: src/ui/book-viewer.ui:611
+msgid "Light Style"
+msgstr "Világos mód"
+
+#: src/ui/book-viewer.ui:621
+msgid "Dark Style"
+msgstr "Sötét mód"
+
+#: src/ui/book-viewer.ui:636 src/ui/library.ui:26
+msgid "Fullscreen"
+msgstr "Teljes képernyő"
+
+#: src/ui/export-dialog.ui:5
+msgid "Export Annotations"
+msgstr "Feljegyzések exportálása"
+
+#: src/ui/export-dialog.ui:16
+msgid "Export"
+msgstr "Exportálás"
+
+#: src/ui/export-dialog.ui:28
+msgid "Format"
+msgstr "Formátum"
+
+#: src/ui/export-dialog.ui:29
+msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
+msgstr "Válassza a “JSON” opciót, ha a későbbiekben szeretné visszaimportálni a feljegyzéseket a programba"
+
+#: src/ui/export-dialog.ui:33
+msgid "JSON"
+msgstr "JSON"
+
+#: src/ui/export-dialog.ui:34
+msgid "HTML"
+msgstr "HTML"
+
+#: src/ui/export-dialog.ui:35
+msgid "Markdown"
+msgstr "Markdown"
+
+#: src/ui/export-dialog.ui:36
+msgid "Org Mode"
+msgstr "Org Mode"
+
+#: src/ui/image-viewer.ui:6 src/ui/navbar.ui:302 src/ui/selection-popover.ui:7
+msgid "Copy"
+msgstr "Másolás"
+
+#: src/ui/image-viewer.ui:10
+msgid "Save As…"
+msgstr "Mentés másként..."
+
+#: src/ui/image-viewer.ui:25
+msgid "Rotate 90° Counter-Clockwise"
+msgstr "Elforgatás 90°-kal az óramutató járásával ellentétesen"
+
+#: src/ui/image-viewer.ui:32
+msgid "Rotate 90° Clockwise"
+msgstr "Elforgatás 90°-kal az óramutató járásával megegyezően"
+
+#: src/ui/import-dialog.ui:7
+msgid "Import Annotations"
+msgstr "Feljegyzések importálása"
+
+#: src/ui/import-dialog.ui:21
+msgid "Import"
+msgstr "Importálás"
+
+#: src/ui/import-dialog.ui:33
+msgid ""
+"The identifier doesn’t match. These annotations may not be for this book."
+msgstr "Az azonosító nem egyezik. A feljegyzések feltehetően nem ehhez a könyvhöz tartoznak."
+
+#: src/ui/import-dialog.ui:34
+msgid "Import Anyway"
+msgstr "Importálás mindenképpen"
+
+#: src/ui/library.ui:6
+msgid "List View"
+msgstr "Listanézet"
+
+#: src/ui/library.ui:11
+msgid "Grid View"
+msgstr "Rácsnézet"
+
+#: src/ui/library.ui:20 src/ui/library-view.ui:27
+msgid "Open…"
+msgstr "Megnyitás..."
+
+#: src/ui/library.ui:67
+msgid "Main Menu"
+msgstr "Főmenü"
+
+#: src/ui/library.ui:110
+msgid "Open"
+msgstr "Megnyitás"
+
+#: src/ui/library.ui:117
+msgid "Library Menu"
+msgstr "Könyvtár menü"
+
+#: src/ui/library.ui:134
+msgid "Search library…"
+msgstr "Keresés a könyvtárban...."
+
+#: src/ui/library.ui:168 src/ui/navbar.ui:22
+msgid "Back"
+msgstr "Vissza"
+
+#: src/ui/library.ui:175 src/ui/navbar.ui:36
+msgid "Forward"
+msgstr "Előre"
+
+#: src/ui/library-view.ui:21
+msgid "No Books Yet"
+msgstr "Még nem adott hozzá könyvet a könyvtárhoz"
+
+#: src/ui/library-view.ui:22
+msgid "Open a book to start reading"
+msgstr "Nyisson meg egy könyvet az olvasáshoz"
+
+#: src/ui/navbar.ui:62 src/ui/navbar.ui:253
+msgid "Location"
+msgstr "Pozíció"
+
+#: src/ui/navbar.ui:91
+msgid "Narration"
+msgstr "Felolvasás"
+
+#: src/ui/navbar.ui:162
+msgid "Time Left in Section"
+msgstr "A fejezetből hátralévő idő"
+
+#: src/ui/navbar.ui:192
+msgid "Time Left in Book"
+msgstr "A könyből hátralévő idő"
+
+#: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:159
+msgid "Page"
+msgstr "Oldal"
+
+#: src/ui/navbar.ui:309
+msgid "Paste and Go"
+msgstr "Beillesztés és ugrás"
+
+#: src/ui/navbar.ui:322
+msgid "Section"
+msgstr "Szakasz"
+
+#: src/ui/navbar.ui:388
+msgid "First Section"
+msgstr "Első szakasz"
+
+#: src/ui/navbar.ui:397
+msgid "Previous Section"
+msgstr "Előző szakasz"
+
+#: src/ui/navbar.ui:405
+msgid "Jump To…"
+msgstr "Ugrás ide..."
+
+#: src/ui/navbar.ui:414
+msgid "Next Section"
+msgstr "Következő szakasz"
+
+#: src/ui/navbar.ui:423
+msgid "Last Section"
+msgstr "Utolsó szakasz"
+
+#: src/ui/selection-popover.ui:12
+msgid "Highlight"
+msgstr "Kiemelés"
+
+#: src/ui/selection-popover.ui:30
+msgid "Speak from Here"
+msgstr "Felolvasás innentől"
+
+#: src/ui/selection-popover.ui:36
+msgid "Copy with Citation"
+msgstr "Másolás idézőjelekben"
+
+#: src/ui/selection-popover.ui:40
+msgid "Copy Identifier"
+msgstr "Azonosító másolása"
+
+#: src/ui/selection-popover.ui:44
+msgid "Print Selection…"
+msgstr "Kijelölés nyomtatása..."
+
+#: src/ui/tts-box.ui:34
+msgid "Speed"
+msgstr "Sebesség"
+
+#: src/ui/tts-box.ui:67
+msgid "Pitch"
+msgstr "Hangmagasság"
+
+#: src/ui/tts-box.ui:123
+msgid "Play/Pause"
+msgstr "Lejátszás/Szünet"
+
+#: src/ui/tts-box.ui:141
+msgid "Stop"
+msgstr "Leállítás"
+
+#: src/ui/view-preferences-window.ui:5
+msgid "Font"
+msgstr "Betűtípus"
+
+#: src/ui/view-preferences-window.ui:9
+msgid "Font Size"
+msgstr "Betűméret"
+
+#: src/ui/view-preferences-window.ui:12
+msgid "Default Font Size"
+msgstr "Alapértelmezett betűméret"
+
+#: src/ui/view-preferences-window.ui:25
+msgid "Minimum Font Size"
+msgstr "Minimális betűméret"
+
+#: src/ui/view-preferences-window.ui:40
+msgid "Font Family"
+msgstr "Betűtípus család"
+
+#: src/ui/view-preferences-window.ui:43
+msgid "Default Font"
+msgstr "Alapértelmezett betűtípus"
+
+#: src/ui/view-preferences-window.ui:47
+msgid "Serif"
+msgstr "Talpas"
+
+#: src/ui/view-preferences-window.ui:48
+msgid "Sans-serif"
+msgstr "Talpatlan"
+
+#: src/ui/view-preferences-window.ui:56
+msgid "Override Publisher Font"
+msgstr "A beépített betűtípus felülírása"
+
+#: src/ui/view-preferences-window.ui:71
+msgid "Serif Font"
+msgstr "Talpas betűtípuscsalád"
+
+#: src/ui/view-preferences-window.ui:84
+msgid "Sans-Serif Font"
+msgstr "Talpatlan betűtípuscsalád"
+
+#: src/ui/view-preferences-window.ui:97
+msgid "Monospace Font"
+msgstr "Állandó szélességű betűtípuscsalád"
+
+#: src/ui/view-preferences-window.ui:114
+msgid "Layout"
+msgstr "Elrendezés"
+
+#: src/ui/view-preferences-window.ui:118
+msgid "Paragraph"
+msgstr "Bekezdés"
+
+#: src/ui/view-preferences-window.ui:121
+msgid "Line Height"
+msgstr "Sormagasság"
+
+#: src/ui/view-preferences-window.ui:135
+msgid "Full Justification"
+msgstr "Teljes sorkizárás"
+
+#: src/ui/view-preferences-window.ui:146
+msgid "Hyphenation"
+msgstr "Elválasztás"
+
+#: src/ui/view-preferences-window.ui:162
+msgid "Margins"
+msgstr "Margók"
+
+#: src/ui/view-preferences-window.ui:176
+msgid "Maximum Number of Columns"
+msgstr "Oszlopok száma összesen"
+
+#: src/ui/view-preferences-window.ui:189
+msgid "Maximum Inline Size"
+msgstr "Maximális sorméret"
+
+#: src/ui/view-preferences-window.ui:190
+msgid "Maximum column width (horizontal writing) or height (vertical writing)"
+msgstr "Maximum oszlopszélesség (vízszintes írásnál) vagy magasság (függőleges írásnál)"
+
+#: src/ui/view-preferences-window.ui:203
+msgid "Maximum Block Size"
+msgstr "Maxmimális hasábméret"
+
+#: src/ui/view-preferences-window.ui:204
+msgid "Maximum height (horizontal writing) or width (vertical writing)"
+msgstr "Maximális magasság (vízszintes írásnál) vagy szélesség (függőleges írásnál)"
+
+#: src/ui/view-preferences-window.ui:221
+msgid "Color"
+msgstr "Szín"
+
+#: src/ui/view-preferences-window.ui:240
+msgid "Behavior"
+msgstr "Viselkedés"
+
+#: src/ui/view-preferences-window.ui:246
+msgid "Reduce Animation"
+msgstr "Animáció csökkentése"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:5
+msgid "E-Book Viewer"
+msgstr "E-book olvasó"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.github.johnfactotum.Foliate.desktop.in:14
+msgid "Ebook;Book;EPUB;Viewer;Reader;"
+msgstr "E-Book;Könyv;EPUB;Olvasó;Reader;"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
+msgid ""
+"Discover a new chapter in reading with Foliate, the modern e-book reader "
+"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
+"customization features designed to match your unique preferences."
+msgstr ""
+"Nyisson egy új fejezetet az olvasásban a Foliate segítségével, a modern e-book olvasóval,"
+"melyet a GNOME felülethez igazítottunk. Merüljön el az olvasásban egy letisztult és személyre szabható felület segítségével,"
+"amelyet úgy terveztek, hogy igazodjon az Ön egyéni igényeihez."
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
+msgid "Features include:"
+msgstr "Legfontosabb jellemzők:"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
+msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
+msgstr "EPUB, Mobipocket, Kindle, FB2, CBZ és PDF formátumok megnyitása"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
+msgid "Paginated mode and scrolled mode"
+msgstr "Oldalankénti valamint folyamatos megjelenítési mód"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
+msgid "Customize font and line-spacing"
+msgstr "Személyre szabható betű - és sorköz"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
+msgid "Light, sepia, dark, and invert mode"
+msgstr "Világos, szépia, sötét és invertált megjelenítési módok"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
+msgid "Reading progress slider with chapter marks"
+msgstr "Olvasási folyamatsáv, fejezetjelzőkkel"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
+msgid "Bookmarks and annotations"
+msgstr "Könyjelzők és feljegyzések"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
+msgid "Find in book"
+msgstr "Keresés a könyvben"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
+msgid "Quick dictionary lookup"
+msgstr "Gyors keresés a szótárban"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:30
+msgid "Book"
+msgstr "Könyv"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:31
+msgid "EPUB"
+msgstr "EPUB"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:32
+msgid "Ebook"
+msgstr "Ebook"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:33
+msgid "Reader"
+msgstr "Olvasó"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:34
+msgid "Viewer"
+msgstr "Olvasó"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:63
+msgid ""
+"Foliate has been rewritten from scratch with a new e-book rendering library "
+"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
+"and improved performance."
+msgstr ""
+"A Foliate alapjaiban került újraírásra, az e-book feldolgozó motor megújításával,"
+"valamint a legfrissebb platform modulokkal (GTK 4 és Libadwita) továbbá egy felfrissített felhasználói felülettel,"
+"és jobb teljesítménnyel."
