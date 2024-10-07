@@ -135,6 +135,7 @@ GObject.registerClass({
         'start': {},
         'pause': {},
         'resume': {},
+        'stop': {},
         'backward': {},
         'forward': {},
     },
@@ -182,12 +183,16 @@ GObject.registerClass({
         this.state = 'paused'
         this.emit('pause')
     }
+    stop() {
+        this.state = 'stopped'
+        this.emit('stop')
+    }
     backward() {
-        this.state = 'playing'
+        if (this.state === 'stopped') this.state = 'playing'
         this.emit('backward')
     }
     forward() {
-        this.state = 'playing'
+        if (this.state === 'stopped') this.state = 'playing'
         this.emit('forward')
     }
 })

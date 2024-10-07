@@ -397,6 +397,7 @@ GObject.registerClass({
     mediaOverlayStart() { return this.#exec('reader.view.startMediaOverlay') }
     mediaOverlayPause() { return this.#exec('reader.view.mediaOverlay.pause') }
     mediaOverlayResume() { return this.#exec('reader.view.mediaOverlay.resume') }
+    mediaOverlayStop() { return this.#exec('reader.view.mediaOverlay.stop') }
     mediaOverlayPrev() { return this.#exec('reader.view.mediaOverlay.prev') }
     mediaOverlayNext() { return this.#exec('reader.view.mediaOverlay.next') }
     mediaOverlaySetVolume(x) { return this.#exec('reader.view.mediaOverlay.setVolume', x) }
@@ -655,6 +656,7 @@ export const BookViewer = GObject.registerClass({
             'start': () => this._view.mediaOverlayStart(),
             'pause': () => this._view.mediaOverlayPause(),
             'resume': () => this._view.mediaOverlayResume(),
+            'stop': () => this._view.mediaOverlayStop(),
             'backward': () => this._view.mediaOverlayPrev(),
             'forward': () => this._view.mediaOverlayNext(),
             'notify::volume': box => this._view.mediaOverlaySetVolume(box.volume),
