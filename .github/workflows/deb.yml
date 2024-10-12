@@ -27,7 +27,8 @@ jobs:
         with:
           submodules: 'true'
 
-      - run: sudo apt install build-essential debhelper meson gettext pkg-config libglib2.0-dev gjs appstream libgjs-dev libgtk-4-dev libadwaita-1-dev libwebkitgtk-6.0-dev desktop-file-utils
+      - run: sudo apt-get update
+      - run: sudo apt-get install build-essential debhelper meson gettext pkg-config libglib2.0-dev gjs appstream libgjs-dev libgtk-4-dev libadwaita-1-dev libwebkitgtk-6.0-dev desktop-file-utils
       - run: dpkg-buildpackage -us -uc -nc
       - run: mv ../*.deb .
       - uses: actions/upload-artifact@v4
