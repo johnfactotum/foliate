@@ -13,8 +13,8 @@
     <file>search.js</file>
     <file>selection-tools.js</file>
     <file>speech.js</file>
-    <file>toc.js</file>
     <file>themes.js</file>
+    <file>toc.js</file>
     <file>tts.js</file>
     <file>utils.js</file>
     <file>webview.js</file>
@@ -23,13 +23,13 @@
     <file>ui/book-image.ui</file>
     <file>ui/book-item.ui</file>
     <file>ui/book-row.ui</file>
-    <file>ui/bookmark-row.ui</file>
     <file>ui/book-viewer.ui</file>
+    <file>ui/bookmark-row.ui</file>
     <file>ui/export-dialog.ui</file>
     <file>ui/image-viewer.ui</file>
     <file>ui/import-dialog.ui</file>
-    <file>ui/library.ui</file>
     <file>ui/library-view.ui</file>
+    <file>ui/library.ui</file>
     <file>ui/media-overlay-box.ui</file>
     <file>ui/navbar.ui</file>
     <file>ui/selection-popover.ui</file>
@@ -45,39 +45,226 @@
     <file alias="icons/scalable/actions/tag-symbolic.svg">icons/hicolor/scalable/actions/tag-symbolic.svg</file>
     <file alias="icons/scalable/actions/text-squiggly-symbolic.svg">icons/hicolor/scalable/actions/text-squiggly-symbolic.svg</file>
     <file>foliate-js/comic-book.js</file>
+    <file>foliate-js/dict.js</file>
     <file>foliate-js/epub.js</file>
     <file>foliate-js/epubcfi.js</file>
     <file>foliate-js/fb2.js</file>
     <file>foliate-js/fixed-layout.js</file>
     <file>foliate-js/footnotes.js</file>
     <file>foliate-js/mobi.js</file>
-    <file>foliate-js/overlayer.js</file>
     <file>foliate-js/opds.js</file>
+    <file>foliate-js/overlayer.js</file>
     <file>foliate-js/paginator.js</file>
-    <file>foliate-js/progress.js</file>
     <file>foliate-js/pdf.js</file>
+    <file>foliate-js/progress.js</file>
+    <file>foliate-js/quote-image.js</file>
     <file>foliate-js/search.js</file>
     <file>foliate-js/text-walker.js</file>
     <file>foliate-js/tts.js</file>
     <file>foliate-js/uri-template.js</file>
     <file>foliate-js/view.js</file>
-    <file>foliate-js/vendor/zip.js</file>
     <file>foliate-js/vendor/fflate.js</file>
+    <file>foliate-js/vendor/zip.js</file>
     <file>foliate-js/vendor/pdfjs/annotation_layer_builder.css</file>
     <file>foliate-js/vendor/pdfjs/pdf.mjs</file>
     <file>foliate-js/vendor/pdfjs/pdf.mjs.map</file>
     <file>foliate-js/vendor/pdfjs/pdf.worker.mjs</file>
     <file>foliate-js/vendor/pdfjs/pdf.worker.mjs.map</file>
     <file>foliate-js/vendor/pdfjs/text_layer_builder.css</file>
-    <file>opds/main.js</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/78-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/78-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/78-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/78-RKSJ-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/78-RKSJ-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/78-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/78ms-RKSJ-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/78ms-RKSJ-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/83pv-RKSJ-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/90ms-RKSJ-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/90ms-RKSJ-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/90msp-RKSJ-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/90msp-RKSJ-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/90pv-RKSJ-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/90pv-RKSJ-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Add-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Add-RKSJ-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Add-RKSJ-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Add-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-CNS1-0.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-CNS1-1.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-CNS1-2.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-CNS1-3.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-CNS1-4.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-CNS1-5.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-CNS1-6.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-CNS1-UCS2.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-GB1-0.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-GB1-1.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-GB1-2.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-GB1-3.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-GB1-4.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-GB1-5.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-GB1-UCS2.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Japan1-0.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Japan1-1.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Japan1-2.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Japan1-3.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Japan1-4.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Japan1-5.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Japan1-6.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Japan1-UCS2.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Korea1-0.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Korea1-1.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Korea1-2.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Adobe-Korea1-UCS2.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/B5pc-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/B5pc-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/CNS-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/CNS-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/CNS1-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/CNS1-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/CNS2-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/CNS2-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/ETHK-B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/ETHK-B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/ETen-B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/ETen-B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/ETenms-B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/ETenms-B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Ext-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Ext-RKSJ-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Ext-RKSJ-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Ext-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GB-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GB-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GB-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GB-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBK-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBK-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBK2K-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBK2K-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBKp-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBKp-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBT-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBT-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBT-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBT-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBTpc-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBTpc-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBpc-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/GBpc-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKdla-B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKdla-B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKdlb-B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKdlb-B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKgccs-B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKgccs-B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKm314-B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKm314-B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKm471-B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKm471-B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKscs-B5-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/HKscs-B5-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Hankaku.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Hiragana.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSC-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSC-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSC-Johab-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSC-Johab-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSCms-UHC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSCms-UHC-HW-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSCms-UHC-HW-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSCms-UHC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSCpc-EUC-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/KSCpc-EUC-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Katakana.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/LICENSE</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/NWP-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/NWP-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/RKSJ-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/RKSJ-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/Roman.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniCNS-UCS2-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniCNS-UCS2-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniCNS-UTF16-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniCNS-UTF16-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniCNS-UTF32-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniCNS-UTF32-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniCNS-UTF8-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniCNS-UTF8-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniGB-UCS2-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniGB-UCS2-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniGB-UTF16-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniGB-UTF16-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniGB-UTF32-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniGB-UTF32-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniGB-UTF8-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniGB-UTF8-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UCS2-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UCS2-HW-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UCS2-HW-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UCS2-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UTF16-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UTF16-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UTF32-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UTF32-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UTF8-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS-UTF8-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS2004-UTF16-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS2004-UTF16-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS2004-UTF32-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS2004-UTF32-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS2004-UTF8-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJIS2004-UTF8-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJISPro-UCS2-HW-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJISPro-UCS2-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJISPro-UTF8-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJISX0213-UTF32-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJISX0213-UTF32-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJISX02132004-UTF32-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniJISX02132004-UTF32-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniKS-UCS2-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniKS-UCS2-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniKS-UTF16-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniKS-UTF16-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniKS-UTF32-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniKS-UTF32-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniKS-UTF8-H.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/UniKS-UTF8-V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/V.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/cmaps/WP-Symbol.bcmap</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitDingbats.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitFixed.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitFixedBold.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitFixedBoldItalic.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitFixedItalic.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitSerif.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitSerifBold.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitSerifBoldItalic.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitSerifItalic.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/FoxitSymbol.pfb</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/LICENSE_FOXIT</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/LICENSE_LIBERATION</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/LiberationSans-Bold.ttf</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/LiberationSans-BoldItalic.ttf</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/LiberationSans-Italic.ttf</file>
+    <file compressed="true">foliate-js/vendor/pdfjs/standard_fonts/LiberationSans-Regular.ttf</file>
     <file>opds/main.html</file>
+    <file>opds/main.js</file>
     <file>selection-tools/common.css</file>
     <file>selection-tools/translate.html</file>
     <file>selection-tools/wikipedia.html</file>
     <file>selection-tools/wiktionary.html</file>
     <file>common/widgets.js</file>
+    <file>reader/markup.js</file>
     <file>reader/reader.html</file>
     <file>reader/reader.js</file>
-    <file>reader/markup.js</file>
   </gresource>
 </gresources>
