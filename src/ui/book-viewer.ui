@@ -148,13 +148,7 @@
             <object class="GtkStackPage">
               <property name="name">loading</property>
               <property name="child">
-                <object class="GtkSpinner">
-                  <property name="spinning">True</property>
-                  <property name="halign">center</property>
-                  <property name="valign">center</property>
-                  <property name="width-request">32</property>
-                  <property name="height-request">32</property>
-                </object>
+                <object class="AdwSpinner"/>
               </property>
             </object>
           </child>
