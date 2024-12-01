@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2024-23-01 23:55+0200\n"
+"PO-Revision-Date: 2024-12-01 18:08+0200\n"
 "Last-Translator: Giorgos Mousa <gmou3@hotmail.com>\n"
 "Language-Team: Greek <LL@li.org>\n"
 "Language: el\n"
@@ -74,7 +74,7 @@ msgstr "Προσαρμοσμένο"
 #: src/annotations.js:592
 #, fuzzy
 msgid "JSON Files"
-msgstr "Όλα τα αρχεία"
+msgstr "Αρχεία JSON"
 
 #: src/annotations.js:597 src/app.js:149
 msgid "All Files"
@@ -187,12 +187,12 @@ msgstr "Καλλιτεχνικό έργο από"
 #: src/book-info.js:145
 #, fuzzy
 msgid "Color by"
-msgstr "Χρώμα"
+msgstr "Χρώμα από"
 
 #: src/book-info.js:146
 #, fuzzy
 msgid "Contributors"
-msgstr "Περιεχόμενα"
+msgstr "Συμβάλλοντες"
 
 #: src/book-info.js:147 src/library.js:78 src/ui/navbar.ui:283
 msgid "Identifier"
@@ -341,7 +341,7 @@ msgstr "Φόρτωση"
 #: src/library.js:48
 #, fuzzy
 msgid "Failed to Load"
-msgstr "Αντιγράφηκε στο πρόχειρο"
+msgstr "Αδυναμία Φόρτωσης"
 
 #: src/library.js:49 src/ui/book-viewer.ui:15
 msgid "Reload"
@@ -443,11 +443,11 @@ msgstr "_Αφαίρεση"
 #: src/library.js:472
 #, fuzzy
 msgid "Failed to Open"
-msgstr "Αντιγράφηκε στο πρόχειρο"
+msgstr "Το άνοιγμα απέτυχε"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
-msgstr ""
+msgstr "Αδυναμία ανοίγματος αρχείου με την επιλεγμένη εφαρμογή"
 
 #: src/library.js:644
 msgid "Download Failed"
@@ -571,7 +571,7 @@ msgstr "Αδυναμία ανάκτησης μετάφρασης"
 #: src/selection-tools.js:67
 #, fuzzy
 msgid "Search…"
-msgstr "Αναζήτηση"
+msgstr "Αναζήτηση…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -612,7 +612,7 @@ msgstr "Βορινό"
 #: src/tts.js:117
 #, fuzzy
 msgid "Text-to-Speech Error"
-msgstr "Σφάλμα Κειμένου-σε-Ομιλία"
+msgstr "Σφάλμα λειτουργίας Κείμενο-σε-Ομιλία"
 
 #: src/tts.js:118
 msgid "Make sure Speech Dispatcher is installed and working on your system"
@@ -648,7 +648,7 @@ msgstr "Άνοιγμα σε Νέο Παράθυρο"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr ""
+msgstr "Άνοιγμα σε Εξωτερική Εφαρμογή"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -1186,40 +1186,41 @@ msgstr "Ταχεία αναζήτηση σε λεξικό"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr ""
+msgstr "Διορθώθηκε η περικοπή στο τέλος κεφαλαίου όταν το κεφάλαιο εκκινεί με "
+"αλλαγή σελίδας"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
-msgstr ""
+msgstr "Διορθώθηκε η λανθασμένη αλλαγή γραμμών σε πίνακες"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
 msgid "Fixed a performance issue with OPDS catalogs"
-msgstr ""
+msgstr "Διορθώθηκε ένα πρόβλημα επίδοσης με τους καταλόγους OPDS"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr ""
+msgstr "Προστέθηκε υποστήριξη καταλόγων OPDS, τώρα με υποστήριξη OPDS 2.0"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
 #, fuzzy
 msgid "Added option to override publisher font"
-msgstr "Παράκαμψη Γραμματοσειράς Εκδότη"
+msgstr "Προστέθηκε επιλογή παράκαμψης γραμματοσειράς εκδότη"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added option to reduce animation"
-msgstr ""
+msgstr "Προστέθηκε επιλογή μείωσης κινούμενων στοιχείων"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
 msgid "Added support for JPEG XL in CBZ"
-msgstr ""
+msgstr "Προστέθηκε υποστήριξη για JPEG XL εντός CBZ"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
 msgid "Fixed getting file from Tracker in Flatpak"
-msgstr ""
+msgstr "Διορθώθηκε η ανάκτηση αρχείου από Ινχηλάτη στο Flatpak"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr ""
+msgstr "Διορθώθηκε η προσπέλαση ημερομηνιών πρώτου αιώνα και π.Χ."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
 msgid ""
