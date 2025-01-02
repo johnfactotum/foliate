@@ -260,7 +260,13 @@ GObject.registerClass({
                 dyLast = null
             },
         }))
-
+        let pressedX = 0;
+        this.#webView.add_controller(utils.connect(new Gtk.GestureClick(), {
+            'pressed': (gesture, n_press, x, y) => {
+                pressedX = x;
+            },
+            'released': (gesture, n_press, x, y) => { if (pressedX == x) setTimeout(() => {this.onTap(x,y)},100)}
+        }));
         const applyStyle = () => this.#applyStyle().catch(e => console.error(e))
         this.viewSettings.connectAll(applyStyle)
         this.fontSettings.connectAll(applyStyle)
@@ -360,6 +366,15 @@ GObject.registerClass({
     showRibbon(x) {
         return this.#webView.run(`document.querySelector('#ribbon').style.visibility =
             '${x ? 'visible' : 'hidden'}'`).catch(e => console.error(e))
+    }
+    onTap(x,y){
+        const allocation = this.#webView.get_allocation();
+        const percentageX = (x / allocation.width) * 100;
+        if (percentageX > 40) {
+            this.goRight();
+        } else {
+            this.goLeft();
+        }
     }
     goTo(x) { return this.#exec('reader.view.goTo', x) }
     goToFraction(x) { return this.#exec('reader.view.goToFraction', x) }
