@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2024-01-05 20:02+0100\n"
+"PO-Revision-Date: 2025-01-03 13:11-0300\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 45.3\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
@@ -440,13 +440,12 @@ msgid "_Remove"
 msgstr "_Eliminar"
 
 #: src/library.js:472
-#, fuzzy
 msgid "Failed to Open"
-msgstr "Fallo al cargar"
+msgstr "Error al abrir"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
-msgstr ""
+msgstr "No se ha podido abrir el archivo con la aplicación seleccionada"
 
 #: src/library.js:644
 msgid "Download Failed"
@@ -565,9 +564,8 @@ msgid "Cannot retrieve translation"
 msgstr "No se puede recuperar la traducción"
 
 #: src/selection-tools.js:67
-#, fuzzy
 msgid "Search…"
-msgstr "Buscar"
+msgstr "Buscar…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -612,7 +610,7 @@ msgstr "Error de texto a voz"
 #: src/tts.js:118
 msgid "Make sure Speech Dispatcher is installed and working on your system"
 msgstr ""
-"Asegúrese de que Speech Dispatcher está instalado y funciona en su sistema."
+"Asegúrese de que Speech Dispatcher está instalado y funciona en su sistema"
 
 #: src/utils.js:168
 msgid "Copied to clipboard"
@@ -642,7 +640,7 @@ msgstr "Abrir en una ventana nueva"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr ""
+msgstr "Abrir con una aplicación externa"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -1168,14 +1166,16 @@ msgstr "Búsqueda rápida en el diccionario"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
 msgstr ""
+"Se solucionó el corte del final del capítulo cuando éste comienza con un "
+"salto de página"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
-msgstr ""
+msgstr "Se corrigió el ajuste incorrecto del texto en las tablas"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
 msgid "Fixed a performance issue with OPDS catalogs"
-msgstr ""
+msgstr "Se solucionó un problema de rendimiento con los catálogos OPDS"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
