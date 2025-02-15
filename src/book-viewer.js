@@ -261,17 +261,17 @@ GObject.registerClass({
             },
         }))
 
-	// Mouse Forward/Backward
-	const gestureForward = new Gtk.GestureClick()
-	const gestureBack = new Gtk.GestureClick()
-	gestureForward.set_button(9)
-	gestureBack.set_button(8)
-	this.#webView.add_controller(utils.connect(gestureForward,{
-	    "pressed": () => this.#exec('reader.view.history.forward')
-	}))
-	this.#webView.add_controller(utils.connect(gestureBack,{
-	    "pressed": () => this.#exec('reader.view.history.back')
-	}))
+        // Mouse Forward/Backward
+        const gestureForward = new Gtk.GestureClick()
+        const gestureBack = new Gtk.GestureClick()
+        gestureForward.set_button(9)
+        gestureBack.set_button(8)
+        this.#webView.add_controller(utils.connect(gestureForward,{
+	    'pressed': () => this.#exec('reader.view.history.forward'),
+        }))
+        this.#webView.add_controller(utils.connect(gestureBack,{
+	    'pressed': () => this.#exec('reader.view.history.back'),
+        }))
 
         const applyStyle = () => this.#applyStyle().catch(e => console.error(e))
         this.viewSettings.connectAll(applyStyle)
