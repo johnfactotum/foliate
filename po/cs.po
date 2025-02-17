@@ -1,14 +1,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 #
-# Pavel Fric <pavelfric@seznam.cz>, 2019, 2020, 2021, 2024.
+# Pavel Fric <pavelfric@seznam.cz>, 2019, 2020, 2021, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2024-05-25 11:37+0200\n"
-"Last-Translator: Pavel <pavelfric@seznam.cz>\n"
+"PO-Revision-Date: 2025-02-17 20:00+0100\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -434,13 +434,12 @@ msgid "_Remove"
 msgstr "_Odstranit"
 
 #: src/library.js:472
-#, fuzzy
 msgid "Failed to Open"
-msgstr "Nepodařilo se nahrát"
+msgstr "Nepodařilo se otevřít"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
-msgstr ""
+msgstr "Soubor se pomocí vybrané aplikace nepodařilo otevřít"
 
 #: src/library.js:644
 msgid "Download Failed"
@@ -559,9 +558,8 @@ msgid "Cannot retrieve translation"
 msgstr "Nelze získat překlad"
 
 #: src/selection-tools.js:67
-#, fuzzy
 msgid "Search…"
-msgstr "Hledat"
+msgstr "Hledat…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -636,7 +634,7 @@ msgstr "Otevřít v novém okně"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr ""
+msgstr "Otevřít pomocí vnějšího programu"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -1159,39 +1157,41 @@ msgstr "Rychlé vyhledávání ve slovníku"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
 msgstr ""
+"Opraveno oříznutí konce kapitoly, když kapitola začíná zalomením stránky"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
-msgstr ""
+msgstr "Opraveno nesprávné obtékání textu v tabulkách"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
 msgid "Fixed a performance issue with OPDS catalogs"
-msgstr ""
+msgstr "Opraven problém s výkonem katalogů OPDS"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr ""
+msgstr "Přidána podpora pro katalogy OPDS, nyní s podporou OPDS 2.0"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-#, fuzzy
 msgid "Added option to override publisher font"
-msgstr "Nebrat v úvahu písmo vydavatele"
+msgstr "Přidána volba pro přepsání písma vydavatele"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added option to reduce animation"
-msgstr ""
+msgstr "Přidána volba pro zmenšení animace"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
 msgid "Added support for JPEG XL in CBZ"
-msgstr ""
+msgstr "Přidána podpora pro JPEG XL v CBZ"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
 msgid "Fixed getting file from Tracker in Flatpak"
-msgstr ""
+msgstr "Opraveno získávání souboru ze služby Tracker v aplikaci Flatpak"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed parsing of non-year-only first-century and BCE dates"
 msgstr ""
+"Opravo zpracování dat z prvního století a před naším letopočtem, která se"
+" netýkají pouze roku"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
 msgid ""
