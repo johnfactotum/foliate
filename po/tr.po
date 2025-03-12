@@ -2,17 +2,17 @@
 # Copyright (C) 2020-2022 Foliate's COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 #
-# Emin Tufan Çetin <etcetin@gmail.com>, 2020.
 # Sabri Ünal <libreajans@gmail.com>, 2022.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2020, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2023-12-25 09:34+0300\n"
+"PO-Revision-Date: 2025-03-12 08:00+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: <takim@gnome.org.tr>\n"
+"Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -128,7 +128,7 @@ msgstr "E-Kitap Dosyaları"
 #: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
-msgstr "E-kitapları okuyun"
+msgstr "E-kitapları şık biçimde okuyun"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
@@ -439,13 +439,12 @@ msgid "_Remove"
 msgstr "_Kaldır"
 
 #: src/library.js:472
-#, fuzzy
 msgid "Failed to Open"
-msgstr "Yüklenemedi"
+msgstr "Açılamadı"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
-msgstr ""
+msgstr "Seçili uygulamayla dosya açılamadı"
 
 #: src/library.js:644
 msgid "Download Failed"
@@ -565,9 +564,8 @@ msgid "Cannot retrieve translation"
 msgstr "Çeviri alınamadı"
 
 #: src/selection-tools.js:67
-#, fuzzy
 msgid "Search…"
-msgstr "Ara"
+msgstr "Ara…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -642,7 +640,7 @@ msgstr "Yeni Pencerede Aç"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr ""
+msgstr "Dış Uygulamayla Aç"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -1164,40 +1162,39 @@ msgstr "Hızlı sözlük araması"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr ""
+msgstr "Bölüm sayfa sonuyla başladığında bölümün sonu kesimi sorunu giderildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
-msgstr ""
+msgstr "Tablolardaki geçersiz metin kaydırma sorunu giderildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
 msgid "Fixed a performance issue with OPDS catalogs"
-msgstr ""
+msgstr "OPDS kataloglarındaki bir başarım sorunu giderildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr ""
+msgstr "OPDS kataloglarına destek eklendi, şimdi OPDS 2.0 desteği ile"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-#, fuzzy
 msgid "Added option to override publisher font"
-msgstr "Yayıncı Yazı Tipini Geçersiz Kıl"
+msgstr "Yayıncı yazı tipini geçersiz kılacak seçenek eklendi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added option to reduce animation"
-msgstr ""
+msgstr "Canlandırmaları azaltacak seçenek eklendi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
 msgid "Added support for JPEG XL in CBZ"
-msgstr ""
+msgstr "CBZ içine JPEG XL desteği eklendi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
 msgid "Fixed getting file from Tracker in Flatpak"
-msgstr ""
+msgstr "Flatpak’te Tracker’dan dosya alma sorunu giderildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr ""
+msgstr "İlk yüzyıl ve MÖ tarihlerin ayrıştırmasındaki sorun giderildi"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
 msgid ""
@@ -1208,28 +1205,3 @@ msgstr ""
 "Foliate, yeni bir e-kitap oluşturma kütüphanesi ve en son platform "
 "kütüphaneleri olan GTK 4 ve Libadwaita ile yenilenmiş kullanıcı arayüzü ve "
 "geliştirilmiş performans ile sıfırdan yeniden yazılmıştır."
-
-#~ msgid "Book"
-#~ msgstr "Kitap"
-
-#~ msgid "EPUB"
-#~ msgstr "EPUB"
-
-#~ msgid "Ebook"
-#~ msgstr "E-kitap"
-
-#~ msgid "Reader"
-#~ msgstr "Okuyucu"
-
-#~ msgid "Viewer"
-#~ msgstr "Görüntüleyici"
-
-#~ msgid "Foliate is modern e-book reader app designed for GNOME."
-#~ msgstr ""
-#~ "Foliate, GNOME için tasarlanmış modern bir e-kitap okuyucu uygulamasıdır."
-
-#~ msgid "John Factotum"
-#~ msgstr "John Factotum"
-
-#~ msgid "100%"
-#~ msgstr "%100"
