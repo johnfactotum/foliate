@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2024-10-20 17:18+0300\n"
-"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"PO-Revision-Date: 2025-03-15 07:31+0200\n"
+"Last-Translator: Jonatan Nyberg\n"
 "Language-Team: \n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -281,6 +281,8 @@ msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
+"‘%s’\n"
+"—%s, “%s”, p. %s"
 
 #: src/book-viewer.js:879
 #, javascript-format
@@ -288,11 +290,13 @@ msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
+"‘%s’\n"
+"—“%s”, p. %s"
 
 #: src/book-viewer.js:880
 #, javascript-format
 msgid "‘%s’ (p. %s)"
-msgstr ""
+msgstr "‘%s’ (s. %s)"
 
 #: src/book-viewer.js:883
 #, javascript-format
@@ -433,13 +437,12 @@ msgid "_Remove"
 msgstr "_Ta bort"
 
 #: src/library.js:472
-#, fuzzy
 msgid "Failed to Open"
-msgstr "Det gick inte att läsa in"
+msgstr "Det gick inte att öppna"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
-msgstr ""
+msgstr "Det gick inte att öppna filen med det valda programmet"
 
 #: src/library.js:644
 msgid "Download Failed"
@@ -558,9 +561,8 @@ msgid "Cannot retrieve translation"
 msgstr "Det går inte att hämta översättning"
 
 #: src/selection-tools.js:67
-#, fuzzy
 msgid "Search…"
-msgstr "Sök"
+msgstr "Sök…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -635,7 +637,7 @@ msgstr "Öppna i nytt fönster"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr ""
+msgstr "Öppna med extern app"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -1159,39 +1161,39 @@ msgstr "Snabbt uppslag i ordbok"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
 msgstr ""
+"Åtgärdat att avslut på kapitel skärs av när kapitel börjar med sidbrytningar"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
-msgstr ""
+msgstr "Åtgärdat felaktig textbrytning i tabeller"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
 msgid "Fixed a performance issue with OPDS catalogs"
-msgstr ""
+msgstr "Åtgärdat ett prestandaproblem med OPDS-kataloger"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr ""
+msgstr "Tillagt stöd för OPDS-kataloger, nu med stöd för OPDS 2.0"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-#, fuzzy
 msgid "Added option to override publisher font"
-msgstr "Åsidosätt utgivarens teckensnitt"
+msgstr "Tillagt alternativ för att åsidosätta utgivarens teckensnitt"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added option to reduce animation"
-msgstr ""
+msgstr "Tillagt alternativ för att minska animering"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
 msgid "Added support for JPEG XL in CBZ"
-msgstr ""
+msgstr "Tillagt stöd för JPEG XL i CBZ"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
 msgid "Fixed getting file from Tracker in Flatpak"
-msgstr ""
+msgstr "Åtgärdat hämtning av fil från Tracker i Flatpak"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr ""
+msgstr "Åtgärdat analys av datum från första århundradet och f.Kr"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
 msgid ""
