@@ -5,13 +5,14 @@
 # Fábio Nogueira <fnogueira@gnome.org>, 2019.
 # Marcelo dos Santos Mafra <msmafra@gmail.com>, 2020.
 # Fúlvio Alves <fga.fulvio@gmail.com>, 2020, 2021, 2023.
+# Luan Henrique Oyera Chiacherini <oyera.dev@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2023-11-15 01:04-0300\n"
-"Last-Translator: Fúlvio Alves <fga.fulvio@gmail.com>\n"
+"PO-Revision-Date: 2025-03-16 23:48-0300\n"
+"Last-Translator: Luan Henrique Oyera Chiacherini <oyera.dev@gmail.com>\n"
 "Language-Team: Fábio Nogueira <fnogueira@gnome.org>; Marcelo dos Santos "
 "Mafra <msmafra@gmail.com>\n"
 "Language: pt_BR\n"
@@ -139,7 +140,8 @@ msgid "translator-credits"
 msgstr ""
 "Fábio Nogueira\n"
 "Marcelo dos Santos Mafra\n"
-"Fúlvio Alves"
+"Fúlvio Alves\n"
+"Luan Henrique Oyera Chiacherini"
 
 #: src/app.js:414
 msgid "Source Code"
@@ -452,7 +454,7 @@ msgstr "Copiado para a área de transferência"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
-msgstr ""
+msgstr "Não foi possível abrir o arquivo com o aplicativo selecionado"
 
 #: src/library.js:644
 msgid "Download Failed"
@@ -475,14 +477,12 @@ msgid "Name"
 msgstr "Nome"
 
 #: src/library.js:740
-#, fuzzy
 msgid "All Books"
-msgstr "Todos os Livros"
+msgstr "Todos os livros"
 
 #: src/library.js:746
-#, fuzzy
 msgid "Add Catalog…"
-msgstr "Adicionar nota…"
+msgstr "Adicionar catalogo…"
 
 #: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
@@ -511,7 +511,7 @@ msgid ""
 "io\">Learn More…</a>"
 msgstr ""
 "Pode consultar e descarregar livros dos catálogos OPDS. <a href=\"https://"
-"opds.io\">Learn More…</a>"
+"opds.io\">Saiba mais…</a>"
 
 #: src/library.js:961
 msgid "URL"
@@ -651,7 +651,7 @@ msgstr "Abrir em nova janela"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr ""
+msgstr "Abrir com aplicativo externo"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -1116,9 +1116,8 @@ msgid "Behavior"
 msgstr "Comportamento"
 
 #: src/ui/view-preferences-window.ui:246
-#, fuzzy
 msgid "Reduce Animation"
-msgstr "Reduzir Animação"
+msgstr "Reduzir animações"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
