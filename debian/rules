@@ -5,6 +5,9 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 %:
 	dh $@
 
+override_dh_auto_configure:
+	dh_auto_configure -- -Dcheck_runtime_deps=false
+
 override_dh_auto_install:
 	dh_auto_install
 	find ./debian -type f -name "LICENSE" -delete
