@@ -8,9 +8,6 @@ Build-Depends: debhelper-compat(=13),
 	pkg-config,
 	libglib2.0-dev (>= 2.54),
 	libgjs-dev,
-	libgtk-4-dev,
-	libadwaita-1-dev (>= 1.6),
-	libwebkitgtk-6.0-dev,
 	desktop-file-utils,
 	appstream
 Standards-Version: 4.5.0
@@ -24,7 +21,7 @@ Architecture: all
 Depends: ${misc:Depends},
 	gjs (>= 1.72),
 	gir1.2-gtk-4.0 (>= 4.10),
-	gir1.2-adw-1,
+	gir1.2-adw-1 (>= 1.6),
 	gir1.2-webkit-6.0
 Suggests: gir1.2-tracker-3.0
 Description: Read e-books in style
