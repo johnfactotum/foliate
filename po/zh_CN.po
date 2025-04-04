@@ -3,22 +3,22 @@
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 # 王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>, 2020.
 # Tranquilo Chan <cdh4227@foxmail.com>, 2020-2021.
-# lumingzh <lumingzh@qq.com>, 2023-2024.
+# lumingzh <lumingzh@qq.com>, 2023-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2024-02-17 11:48+0800\n"
+"PO-Revision-Date: 2025-04-04 10:17+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
-"Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
+"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Gtranslator 45.3\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
@@ -137,7 +137,7 @@ msgid "translator-credits"
 msgstr ""
 "Tranquilo Chan <cdh4227@foxmail.com>, 2020-2021.\n"
 "王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>, 2020.\n"
-"lumingzh <lumingzh@qq.com>, 2023-2024."
+"lumingzh <lumingzh@qq.com>, 2023-2025."
 
 #: src/app.js:414
 msgid "Source Code"
@@ -438,13 +438,12 @@ msgid "_Remove"
 msgstr "移除(_R)"
 
 #: src/library.js:472
-#, fuzzy
 msgid "Failed to Open"
-msgstr "加载失败"
+msgstr "打开失败"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
-msgstr ""
+msgstr "无法使用选择的应用程序打开该文件"
 
 #: src/library.js:644
 msgid "Download Failed"
@@ -472,7 +471,7 @@ msgstr "所有书籍"
 
 #: src/library.js:746
 msgid "Add Catalog…"
-msgstr "添加类目…"
+msgstr "添加书目…"
 
 #: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
@@ -481,15 +480,15 @@ msgstr "书库"
 
 #: src/library.js:821
 msgid "Catalogs"
-msgstr "类目"
+msgstr "书目"
 
 #: src/library.js:864
 msgid "Catalog removed"
-msgstr "类目已移除"
+msgstr "书目已移除"
 
 #: src/library.js:951 src/library.js:956
 msgid "Add Catalog"
-msgstr "添加类目"
+msgstr "添加书目"
 
 #: src/library.js:952
 msgid "Add"
@@ -500,7 +499,7 @@ msgid ""
 "You can browse and download books from OPDS catalogs. <a href=\"https://opds."
 "io\">Learn More…</a>"
 msgstr ""
-"您可以从 OPDS 类目浏览和下载书籍。<a href=\"https://opds.io\">了解更多…</a>"
+"您可以从 OPDS 书目浏览和下载书籍。<a href=\"https://opds.io\">了解更多…</a>"
 
 #: src/library.js:961
 msgid "URL"
@@ -562,9 +561,8 @@ msgid "Cannot retrieve translation"
 msgstr "无法获取翻译"
 
 #: src/selection-tools.js:67
-#, fuzzy
 msgid "Search…"
-msgstr "搜索"
+msgstr "搜索…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -638,7 +636,7 @@ msgstr "在新窗口中打开"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr ""
+msgstr "使用外部应用打开"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -1157,40 +1155,39 @@ msgstr "快速的词典查询"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr ""
+msgstr "修复了章节以分页符起始时误判为章节末尾而截断内容的问题"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
-msgstr ""
+msgstr "修复了表格中文本未正确折行的问题"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
 msgid "Fixed a performance issue with OPDS catalogs"
-msgstr ""
+msgstr "修复了 OPDS 书目的性能问题"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr ""
+msgstr "添加了对 OPDS 2.0 与 OPDS 书目的支持"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-#, fuzzy
 msgid "Added option to override publisher font"
-msgstr "覆盖出版商字体"
+msgstr "添加了覆盖出版商字体的选项"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added option to reduce animation"
-msgstr ""
+msgstr "添加了减少动画的选项"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
 msgid "Added support for JPEG XL in CBZ"
-msgstr ""
+msgstr "添加了对 CBZ 中 JPEG XL 的支持"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
 msgid "Fixed getting file from Tracker in Flatpak"
-msgstr ""
+msgstr "修复了 Flatpak 中从 Tracker 获取文件的问题"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr ""
+msgstr "修复了对非纯年份公元一世纪和公元前日期的解析问题"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
 msgid ""
