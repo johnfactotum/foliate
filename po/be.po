@@ -1,0 +1,1206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.johnfactotum.Foliate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-19 04:33+0000\n"
+"PO-Revision-Date: 2024-12-06 05:57+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: src/annotations.js:137 src/annotations.js:172
+msgid "Bookmark deleted"
+msgstr "Закладка выдалена"
+
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:805
+#: src/library.js:865
+msgid "Undo"
+msgstr "Адрабіць"
+
+#: src/annotations.js:437
+msgid "Underline"
+msgstr "Падкрэслены"
+
+#: src/annotations.js:438
+msgid "Squiggly"
+msgstr "Курсіўны"
+
+#: src/annotations.js:439
+msgid "Strikethrough"
+msgstr "Закрэслены"
+
+#: src/annotations.js:440
+msgid "Yellow"
+msgstr "Жоўты"
+
+#: src/annotations.js:441
+msgid "Orange"
+msgstr "Аранжавы"
+
+#: src/annotations.js:442
+msgid "Red"
+msgstr "Чырвоны"
+
+#: src/annotations.js:443
+msgid "Magenta"
+msgstr "Пурпурны"
+
+#: src/annotations.js:444
+msgid "Aqua"
+msgstr "Марской хвалі"
+
+#: src/annotations.js:445
+msgid "Lime"
+msgstr "Лаймавы"
+
+#: src/annotations.js:446
+msgid "Custom Color…"
+msgstr "Уласны колер…"
+
+#: src/annotations.js:498
+msgid "Custom"
+msgstr "Уласны"
+
+#: src/annotations.js:592
+msgid "JSON Files"
+msgstr "JSON файл"
+
+#: src/annotations.js:597 src/app.js:149
+msgid "All Files"
+msgstr "Усе файлы"
+
+#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:402
+msgid "No Annotations"
+msgstr "Няма каментароў"
+
+#: src/annotations.js:607
+msgid "The imported file has no annotations"
+msgstr "Імпартаваны файл не мае каментароў"
+
+#: src/annotations.js:625
+msgid "Cannot Import Annotations"
+msgstr "Не атрымліваецца імпартаваць каментары"
+
+#: src/annotations.js:626 src/book-viewer.js:716 src/library.js:644
+msgid "An error occurred"
+msgstr "Здарылася памылка"
+
+#: src/annotations.js:635
+msgid "You don’t have any annotations for this book"
+msgstr "У гэтай кніжцы няма каментароў"
+
+#: src/annotations.js:648
+#, javascript-format
+msgid "Annotations for “%s”"
+msgstr "Каментары ў “%s”"
+
+#: src/annotations.js:649
+#, javascript-format
+msgid "%d Annotation"
+msgid_plural "%d Annotations"
+msgstr[0] "Каментар %d"
+msgstr[1] "каментары %d"
+msgstr[2] "%d каментароў"
+
+#: src/app.js:95 src/book-viewer.js:30
+msgid "Close"
+msgstr "Закрыць"
+
+#: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
+#: src/ui/import-dialog.ui:15
+msgid "Cancel"
+msgstr "Скасаваць"
+
+#: src/app.js:136
+msgid "E-Book Files"
+msgstr "Файлы эл-кніжак"
+
+#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
+msgid "Read e-books in style"
+msgstr "Чытаць эл-кніжку ў стылі"
+
+#. Translators: put your names here, one name per line
+#. they will be shown in the "About" dialog
+#: src/app.js:405
+msgid "translator-credits"
+msgstr "Гера Жыгадла, 2024"
+
+#: src/app.js:414
+msgid "Source Code"
+msgstr "Зыходны код"
+
+#: src/book-info.js:133 src/library.js:75
+msgid "Publisher"
+msgstr "Выдавец"
+
+#. Translators: this is the heading for the publication date
+#: src/book-info.js:135 src/library.js:76
+msgid "Published"
+msgstr "Выдадзена"
+
+#. Translators: this is the heading for the modified date
+#: src/book-info.js:137
+msgid "Updated"
+msgstr "Абноўлена"
+
+#: src/book-info.js:138 src/library.js:77
+msgid "Language"
+msgstr "Мова"
+
+#: src/book-info.js:139
+msgid "Translated by"
+msgstr "Пераклад"
+
+#: src/book-info.js:140
+msgid "Edited by"
+msgstr "Пад рэдакцыяй"
+
+#: src/book-info.js:141
+msgid "Narrated by"
+msgstr "Агучка"
+
+#: src/book-info.js:142
+msgid "Illustrated by"
+msgstr "Ілюстраванне"
+
+#: src/book-info.js:143
+msgid "Produced by"
+msgstr "Прадзюсар"
+
+#: src/book-info.js:144
+msgid "Artwork by"
+msgstr "Вокладка"
+
+#: src/book-info.js:145
+msgid "Color by"
+msgstr "Колеры"
+
+#: src/book-info.js:146
+msgid "Contributors"
+msgstr "Супрацоўнікі"
+
+#: src/book-info.js:147 src/library.js:78 src/ui/navbar.ui:283
+msgid "Identifier"
+msgstr "Ідэнтыфікатар"
+
+#: src/book-info.js:179 src/ui/book-item.ui:15 src/ui/book-row.ui:15
+#: src/ui/book-viewer.ui:368
+msgid "About This Book"
+msgstr "Пра кніжку"
+
+#: src/book-viewer.js:27
+#, javascript-format
+msgid "Loc. %s of %s"
+msgstr "Месца %s з %s"
+
+#: src/book-viewer.js:28
+#, javascript-format
+msgid "Page %s of %s"
+msgstr "Старонка %s з %s"
+
+#: src/book-viewer.js:29
+#, javascript-format
+msgid "Page %s"
+msgstr "Старонка %s"
+
+#: src/book-viewer.js:32
+msgid "Footnote"
+msgstr "Зноска"
+
+#: src/book-viewer.js:33
+msgid "Go to Footnote"
+msgstr "Да зноскі"
+
+#: src/book-viewer.js:34
+msgid "Endnote"
+msgstr "Затэкставая зноска"
+
+#: src/book-viewer.js:35
+msgid "Go to Endnote"
+msgstr "Да затэкставай зноскі"
+
+#: src/book-viewer.js:36
+msgid "Note"
+msgstr "Нататка"
+
+#: src/book-viewer.js:37
+msgid "Go to Note"
+msgstr "Да нататкі"
+
+#: src/book-viewer.js:38
+msgid "Definition"
+msgstr "Азначэнне"
+
+#: src/book-viewer.js:39
+msgid "Go to Definition"
+msgstr "Да азначэння"
+
+#: src/book-viewer.js:40
+msgid "Bibliography"
+msgstr "Бібліяграфія"
+
+#: src/book-viewer.js:41
+msgid "Go to Bibliography"
+msgstr "Да бібіляграфіі"
+
+#: src/book-viewer.js:622
+msgid "Remove bookmark"
+msgstr "Выдаліць закладку"
+
+#: src/book-viewer.js:623
+msgid "Add bookmark"
+msgstr "Дадаць закладку"
+
+#: src/book-viewer.js:714
+msgid "File not found"
+msgstr "Файл не знойдзены"
+
+#: src/book-viewer.js:715
+msgid "File type not supported"
+msgstr "Тып файлу не падтрымліваецца"
+
+#: src/book-viewer.js:804
+msgid "Annotation deleted"
+msgstr "Каментар выдалены"
+
+#: src/book-viewer.js:877
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—%s, “%s”, p. %s"
+msgstr ""
+"‘%s’\n"
+"—%s, «%s», с. %s"
+
+#: src/book-viewer.js:879
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—“%s”, p. %s"
+msgstr ""
+"‘%s’\n"
+"—«%s», с. %s"
+
+#: src/book-viewer.js:880
+#, javascript-format
+msgid "‘%s’ (p. %s)"
+msgstr "‘%s’ (с. %s)"
+
+#: src/book-viewer.js:883
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—%s, “%s”"
+msgstr ""
+"‘%s’\n"
+"—%s, «%s»"
+
+#: src/book-viewer.js:884
+#, javascript-format
+msgid ""
+"‘%s’\n"
+"—“%s”"
+msgstr ""
+"‘%s’\n"
+"—«%s»"
+
+#: src/book-viewer.js:886
+#, javascript-format
+msgid "‘%s’"
+msgstr "‘%s’"
+
+#: src/book-viewer.js:904
+#, javascript-format
+msgid "Image from “%s”"
+msgstr "Выява з “%s”"
+
+#: src/book-viewer.js:904
+msgid "Image"
+msgstr "Выява"
+
+#: src/format.js:127
+#, javascript-format
+msgid "of %d"
+msgstr "з %d"
+
+#: src/library.js:47
+msgid "Loading"
+msgstr "Загрузка"
+
+#: src/library.js:48
+msgid "Failed to Load"
+msgstr "Не ўдалося загрузіць"
+
+#: src/library.js:49 src/ui/book-viewer.ui:15
+msgid "Reload"
+msgstr "Перазагрузіць"
+
+#: src/library.js:51
+msgid "See All"
+msgstr "Праглядзець усе"
+
+#: src/library.js:52 src/ui/library.ui:124 src/ui/library.ui:182
+msgid "Search"
+msgstr "Шукаць"
+
+#: src/library.js:53
+msgid "Filter"
+msgstr "Фільтраваць"
+
+#: src/library.js:55 src/library.js:57
+msgid "Download"
+msgstr "Спампаваць"
+
+#: src/library.js:56
+msgid "Buy"
+msgstr "Купіць"
+
+#: src/library.js:58
+msgid "Preview"
+msgstr "Папярэдні прагляд"
+
+#: src/library.js:59
+msgid "Sample"
+msgstr "Пробны ўрывак"
+
+#: src/library.js:60
+msgid "Borrow"
+msgstr "Пазычыць"
+
+#: src/library.js:61
+msgid "Subscribe"
+msgstr "Падпісацца"
+
+#: src/library.js:63
+msgid "Free"
+msgstr "Бясплатна"
+
+#: src/library.js:65
+msgid "First"
+msgstr "Першая"
+
+#: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
+msgid "Previous"
+msgstr "Папярэдняя"
+
+#: src/library.js:67 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
+msgid "Next"
+msgstr "Наступная"
+
+#: src/library.js:68
+msgid "Last"
+msgstr "Апошняя"
+
+#: src/library.js:70
+msgid "Search Terms"
+msgstr "Пошук"
+
+#: src/library.js:72
+msgid "Title"
+msgstr "Назва"
+
+#: src/library.js:73
+msgid "Author"
+msgstr "Аўтар"
+
+#: src/library.js:74
+msgid "Contributor"
+msgstr "Саўдзельнік"
+
+#: src/library.js:438
+msgid "Remove Book?"
+msgstr "Выдаліць кніжку?"
+
+#: src/library.js:439
+msgid "Reading progress, annotations, and bookmarks will be permanently lost"
+msgstr "Прагрэс чытання, каментары і закладкі будуць страчаны незваротна"
+
+#: src/library.js:441
+msgid "_Cancel"
+msgstr "_Скасаваць"
+
+#: src/library.js:442
+msgid "_Remove"
+msgstr "_Выдаліць"
+
+#: src/library.js:472
+msgid "Failed to Open"
+msgstr "Не ўдалося адкрыць"
+
+#: src/library.js:473
+msgid "Could not open the file with the selected application"
+msgstr "Не атрымалася адкрыць файл выбранай праграмай"
+
+#: src/library.js:644
+msgid "Download Failed"
+msgstr "Не ўдалося спампаваць"
+
+#: src/library.js:698
+msgid "Rename…"
+msgstr "Перайменаваць…"
+
+#: src/library.js:699 src/ui/book-item.ui:25 src/ui/book-row.ui:25
+msgid "Remove"
+msgstr "Выдаліць"
+
+#: src/library.js:719 src/library.js:720
+msgid "Rename"
+msgstr "Перайменаваць"
+
+#: src/library.js:725
+msgid "Name"
+msgstr "Назва"
+
+#: src/library.js:740
+msgid "All Books"
+msgstr "Усе кніжкі"
+
+#: src/library.js:746
+msgid "Add Catalog…"
+msgstr "Дадаць каталог…"
+
+#: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/ui/library.ui:93
+msgid "Library"
+msgstr "Бібліятэка"
+
+#: src/library.js:821
+msgid "Catalogs"
+msgstr "Каталогі"
+
+#: src/library.js:864
+msgid "Catalog removed"
+msgstr "Каталог выдалены"
+
+#: src/library.js:951 src/library.js:956
+msgid "Add Catalog"
+msgstr "Дадаць каталог"
+
+#: src/library.js:952
+msgid "Add"
+msgstr "Дадаць"
+
+#: src/library.js:957
+msgid ""
+"You can browse and download books from OPDS catalogs. <a href=\"https://opds."
+"io\">Learn More…</a>"
+msgstr ""
+"Можна праглядаць і спампоўваць кніжкі з каталога OPDS <a href=\"https://opds."
+"io\">Падрабязней…</a>"
+
+#: src/library.js:961
+msgid "URL"
+msgstr "URL"
+
+#. Translators: Do NOT translate! The is the application name!
+#: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
+msgid "Foliate"
+msgstr "Foliate"
+
+#: src/selection-tools.js:33
+msgid "Dictionary"
+msgstr "Слоўнік"
+
+#: src/selection-tools.js:37
+msgid ""
+"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"https://"
+"creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
+msgstr ""
+"З <a id=\"link\">Вікіслоўніку</a>, апублікавана на ўмовах <a href=\"https://"
+"creativecommons.org/licenses/by-sa/4.0/\">ліцензіі CC BY-SA</a>."
+
+#: src/selection-tools.js:38 src/selection-tools.js:51
+msgid "No Definitions Found"
+msgstr "Няма азначэнняў"
+
+#: src/selection-tools.js:39
+msgid "Search on Wiktionary"
+msgstr "Шукаць у Вікіслоўніку"
+
+#: src/selection-tools.js:46
+msgid "Wikipedia"
+msgstr "Вікіпедыя"
+
+#: src/selection-tools.js:50
+msgid ""
+"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://en."
+"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"ShareAlike_4.0_International_License\">CC BY-SA License</a>."
+msgstr ""
+"З <a id=\"link\">Вікіпедыі</a>, апублікавана на ўмовах <a href=\"https://en."
+"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"ShareAlike_4.0_International_License\">ліцензіі CC BY-SA</a>."
+
+#: src/selection-tools.js:52
+msgid "Search on Wikipedia"
+msgstr "Шукаць у Вікіпедыі"
+
+#: src/selection-tools.js:59
+msgid "Translate"
+msgstr "Перакласці"
+
+#: src/selection-tools.js:65
+msgid "Translation by Google Translate"
+msgstr "Перакладзена праз Google Перакладчык"
+
+#: src/selection-tools.js:66
+msgid "Cannot retrieve translation"
+msgstr "Не атрымліваецца перакласці"
+
+#: src/selection-tools.js:67
+msgid "Search…"
+msgstr "Пошук…"
+
+#: src/themes.js:8
+msgid "Default"
+msgstr "Па змаўчанні"
+
+#: src/themes.js:13
+msgid "Gray"
+msgstr "Шэры"
+
+#: src/themes.js:18
+msgid "Sepia"
+msgstr "Сепія"
+
+#: src/themes.js:23
+msgid "Grass"
+msgstr "Салатавы"
+
+#: src/themes.js:28
+msgid "Cherry"
+msgstr "Вішнёвы"
+
+#: src/themes.js:33
+msgid "Sky"
+msgstr "Блакітны"
+
+#: src/themes.js:38
+msgid "Solarized"
+msgstr "Solarized"
+
+#: src/themes.js:43
+msgid "Gruvbox"
+msgstr "Gruvbox"
+
+#: src/themes.js:48
+msgid "Nord"
+msgstr "Nord"
+
+#: src/tts.js:117
+msgid "Text-to-Speech Error"
+msgstr "Памылка сінтэзу маўлення"
+
+#: src/tts.js:118
+msgid "Make sure Speech Dispatcher is installed and working on your system"
+msgstr "Пераканайцеся, што Speech Dispatcher усталяваны і добра працуе"
+
+#: src/utils.js:168
+msgid "Copied to clipboard"
+msgstr "Скапіявана ў буфер"
+
+#: src/ui/annotation-popover.ui:13
+msgid "Highlight Style"
+msgstr "Стыль вылучэння"
+
+#: src/ui/annotation-popover.ui:20 src/ui/annotation-row.ui:63
+#: src/ui/bookmark-row.ui:33
+msgid "Delete"
+msgstr "Выдаліць"
+
+#: src/ui/annotation-popover.ui:28 src/ui/book-item.ui:65 src/ui/book-row.ui:79
+#: src/ui/image-viewer.ui:62
+msgid "Menu"
+msgstr "Меню"
+
+#: src/ui/annotation-popover.ui:47
+msgid "Add Note…"
+msgstr "Дадаць нататку…"
+
+#: src/ui/book-item.ui:5 src/ui/book-row.ui:5
+msgid "Open in New Window"
+msgstr "Адкрыць у новым акне"
+
+#: src/ui/book-item.ui:9 src/ui/book-row.ui:9
+msgid "Open with External App"
+msgstr "Адкрыць у знешняй праграме"
+
+#: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
+msgid "Export Annotations…"
+msgstr "Экспартаваць каментары…"
+
+#: src/ui/book-viewer.ui:5
+msgid "New Window"
+msgstr "Новае акно"
+
+#: src/ui/book-viewer.ui:11
+msgid "Open a Copy"
+msgstr "Адкрыць копію"
+
+#: src/ui/book-viewer.ui:21
+msgid "Import Annotations…"
+msgstr "Імпартаваць каментары…"
+
+#: src/ui/book-viewer.ui:37 src/ui/library.ui:42
+msgid "About Foliate"
+msgstr "Пра Foliate"
+
+#: src/ui/book-viewer.ui:45
+msgid "All Sections"
+msgstr "Усе раздзелы"
+
+#: src/ui/book-viewer.ui:50
+msgid "Current Section"
+msgstr "Бягучы раздзел"
+
+#: src/ui/book-viewer.ui:57
+msgid "Match Whole Words Only"
+msgstr "Словы цалкам"
+
+#: src/ui/book-viewer.ui:61
+msgid "Match Case"
+msgstr "Адрозніваць маленькія/вялікія літары"
+
+#: src/ui/book-viewer.ui:65
+msgid "Match Diacritics"
+msgstr "З улікам дыякрытык"
+
+#: src/ui/book-viewer.ui:83
+msgid "Font & Layout Settings"
+msgstr "Налады шрыфту і макета"
+
+#: src/ui/book-viewer.ui:89
+msgid "Scrolled Mode"
+msgstr "Рэжым прагорткі"
+
+#: src/ui/book-viewer.ui:93
+msgid "Invert Colors in Dark Mode"
+msgstr "Інвертаваць колеры ў цёмным рэжыме"
+
+#: src/ui/book-viewer.ui:97
+msgid "Autohide Cursor"
+msgstr "Аўтаматычна хаваць курсор"
+
+#: src/ui/book-viewer.ui:103
+msgid "Print…"
+msgstr "Друкаваць…"
+
+#: src/ui/book-viewer.ui:107
+msgid "Inspector"
+msgstr "Інспектар"
+
+#: src/ui/book-viewer.ui:167
+msgid "Book Cannot Be Opened"
+msgstr "Няможна адкрыць кніжку"
+
+#: src/ui/book-viewer.ui:177
+msgid "Details"
+msgstr "Падрабязнасці"
+
+#: src/ui/book-viewer.ui:193
+msgid "Open Another File…"
+msgstr "Адкрыць іншы файл…"
+
+#: src/ui/book-viewer.ui:245
+msgid "Pin Sidebar"
+msgstr "Замацаваць бакавую панэль"
+
+#: src/ui/book-viewer.ui:253
+msgid "Book Menu"
+msgstr "Меню кніжкі"
+
+#: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
+msgid "Find"
+msgstr "Знайсці"
+
+#: src/ui/book-viewer.ui:276
+msgid "Find in book…"
+msgstr "Знайсці ў кніжцы"
+
+#: src/ui/book-viewer.ui:313
+msgid "Contents"
+msgstr "Змест"
+
+#: src/ui/book-viewer.ui:391
+msgid "Annotations"
+msgstr "Каментары"
+
+#: src/ui/book-viewer.ui:403
+msgid "Select some text to add annotations"
+msgstr "Вылучыце тэкст каб дадаць каментар"
+
+#: src/ui/book-viewer.ui:433
+msgid "Filter annotations…"
+msgstr "Фільтраваць каментары…"
+
+#: src/ui/book-viewer.ui:447
+msgid "Bookmarks"
+msgstr "Закладкі"
+
+#: src/ui/book-viewer.ui:458
+msgid "No Bookmarks"
+msgstr "Няма закладак"
+
+#: src/ui/book-viewer.ui:459
+msgid "Add some bookmarks to see them here"
+msgstr "Дадайце закладкі каб убачыць іх тут"
+
+#: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
+msgid "No Results Found"
+msgstr "Нічога не знойдзена"
+
+#: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
+msgid "Try a different search"
+msgstr "Паспабуйце іншы запыт"
+
+#: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
+msgid "Sidebar"
+msgstr "Бакавая панэль"
+
+#: src/ui/book-viewer.ui:556
+msgid "View Menu"
+msgstr "Меню прагляда"
+
+#: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
+msgid "Zoom Out"
+msgstr "Павялічыць"
+
+#: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
+msgid "Reset Zoom"
+msgstr "Адрабіць змены"
+
+#: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
+msgid "Zoom In"
+msgstr "Паменьшыць"
+
+#: src/ui/book-viewer.ui:601
+msgid "Follow System Style"
+msgstr "Як у сістэме"
+
+#: src/ui/book-viewer.ui:611
+msgid "Light Style"
+msgstr "Светлая тэма"
+
+#: src/ui/book-viewer.ui:621
+msgid "Dark Style"
+msgstr "Цёмная тэма"
+
+#: src/ui/book-viewer.ui:636 src/ui/library.ui:26
+msgid "Fullscreen"
+msgstr "Паўнаэкранны рэжым"
+
+#: src/ui/export-dialog.ui:5
+msgid "Export Annotations"
+msgstr "Экспартаваць каментары"
+
+#: src/ui/export-dialog.ui:16
+msgid "Export"
+msgstr "Экспартаваць"
+
+#: src/ui/export-dialog.ui:28
+msgid "Format"
+msgstr "Фармаціраваць"
+
+#: src/ui/export-dialog.ui:29
+msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
+msgstr "Выберыць “JSON” калі збіраецеся потым імпартаваць каментары ў Foliate"
+
+#: src/ui/export-dialog.ui:33
+msgid "JSON"
+msgstr "JSON"
+
+#: src/ui/export-dialog.ui:34
+msgid "HTML"
+msgstr "HTML"
+
+#: src/ui/export-dialog.ui:35
+msgid "Markdown"
+msgstr "Markdown"
+
+#: src/ui/export-dialog.ui:36
+msgid "Org Mode"
+msgstr "Org Mode"
+
+#: src/ui/image-viewer.ui:6 src/ui/navbar.ui:302 src/ui/selection-popover.ui:7
+msgid "Copy"
+msgstr "Капіяваць"
+
+#: src/ui/image-viewer.ui:10
+msgid "Save As…"
+msgstr "Захаваць як…"
+
+#: src/ui/image-viewer.ui:25
+msgid "Rotate 90° Counter-Clockwise"
+msgstr "Павярнуць па сонцу"
+
+#: src/ui/image-viewer.ui:32
+msgid "Rotate 90° Clockwise"
+msgstr "Павярнуць супраць сонца"
+
+#: src/ui/import-dialog.ui:7
+msgid "Import Annotations"
+msgstr "Імпартаваць каментары"
+
+#: src/ui/import-dialog.ui:21
+msgid "Import"
+msgstr "Імпартаваць"
+
+#: src/ui/import-dialog.ui:33
+msgid ""
+"The identifier doesn’t match. These annotations may not be for this book."
+msgstr ""
+"Ідэнтыфікатар не супадае. Магчыма, каментары не для гэтай кніжцы"
+
+#: src/ui/import-dialog.ui:34
+msgid "Import Anyway"
+msgstr "Усё роўна імпартаваць"
+
+#: src/ui/library.ui:6
+msgid "List View"
+msgstr "Спісам"
+
+#: src/ui/library.ui:11
+msgid "Grid View"
+msgstr "Сеткай"
+
+#: src/ui/library.ui:20 src/ui/library-view.ui:27
+msgid "Open…"
+msgstr "Адкрыць…"
+
+#: src/ui/library.ui:67
+msgid "Main Menu"
+msgstr "Галоўнае меню"
+
+#: src/ui/library.ui:110
+msgid "Open"
+msgstr "Адкрыць"
+
+#: src/ui/library.ui:117
+msgid "Library Menu"
+msgstr "Меню біблятэкі"
+
+#: src/ui/library.ui:134
+msgid "Search library…"
+msgstr "Шукаць у бібліятэцы…"
+
+#: src/ui/library.ui:168 src/ui/navbar.ui:22
+msgid "Back"
+msgstr "Назад"
+
+#: src/ui/library.ui:175 src/ui/navbar.ui:36
+msgid "Forward"
+msgstr "Уперад"
+
+#: src/ui/library-view.ui:21
+msgid "No Books Yet"
+msgstr "Пакуль няма кніжак"
+
+#: src/ui/library-view.ui:22
+msgid "Open a book to start reading"
+msgstr "Адкрыйце кніжку каб пачаць чытаць"
+
+#: src/ui/navbar.ui:62 src/ui/navbar.ui:253
+msgid "Location"
+msgstr "Старонка"
+
+#: src/ui/navbar.ui:91
+msgid "Narration"
+msgstr "Чытаць услых"
+
+#: src/ui/navbar.ui:162
+msgid "Time Left in Section"
+msgstr "Засталося чытаць раздзел"
+
+#: src/ui/navbar.ui:192
+msgid "Time Left in Book"
+msgstr "Засталося чытаць кніжку"
+
+#: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:159
+msgid "Page"
+msgstr "Старонка"
+
+#: src/ui/navbar.ui:309
+msgid "Paste and Go"
+msgstr "Уставіць і перайсці"
+
+#: src/ui/navbar.ui:322
+msgid "Section"
+msgstr "Раздзел"
+
+#: src/ui/navbar.ui:388
+msgid "First Section"
+msgstr "Першы раздзел"
+
+#: src/ui/navbar.ui:397
+msgid "Previous Section"
+msgstr "Мінулы раздзел"
+
+#: src/ui/navbar.ui:405
+msgid "Jump To…"
+msgstr "Перайсці да…"
+
+#: src/ui/navbar.ui:414
+msgid "Next Section"
+msgstr "Наступны раздзел"
+
+#: src/ui/navbar.ui:423
+msgid "Last Section"
+msgstr "Апошні раздзел"
+
+#: src/ui/selection-popover.ui:12
+msgid "Highlight"
+msgstr "Вылучыць"
+
+#: src/ui/selection-popover.ui:30
+msgid "Speak from Here"
+msgstr "Чытаць услых адсюль"
+
+#: src/ui/selection-popover.ui:36
+msgid "Copy with Citation"
+msgstr "Скапіяваць са спасылкай на крыніцу"
+
+#: src/ui/selection-popover.ui:40
+msgid "Copy Identifier"
+msgstr "Скапіяваць ідэнтыфікатар"
+
+#: src/ui/selection-popover.ui:44
+msgid "Print Selection…"
+msgstr "Друкаваць вылучанае…"
+
+#: src/ui/tts-box.ui:34
+msgid "Speed"
+msgstr "Хуткасць"
+
+#: src/ui/tts-box.ui:67
+msgid "Pitch"
+msgstr "Гучнасць"
+
+#: src/ui/tts-box.ui:123
+msgid "Play/Pause"
+msgstr "Чытаць/паўза"
+
+#: src/ui/tts-box.ui:141
+msgid "Stop"
+msgstr "Спыніць"
+
+#: src/ui/view-preferences-window.ui:5
+msgid "Font"
+msgstr "Шрыфт"
+
+#: src/ui/view-preferences-window.ui:9
+msgid "Font Size"
+msgstr "Памер шрыфту"
+
+#: src/ui/view-preferences-window.ui:12
+msgid "Default Font Size"
+msgstr "Памер шрыфту па змаўчанні"
+
+#: src/ui/view-preferences-window.ui:25
+msgid "Minimum Font Size"
+msgstr "Найменьшы памер шрыфту"
+
+#: src/ui/view-preferences-window.ui:40
+msgid "Font Family"
+msgstr "Сямейства шрыфтоў"
+
+#: src/ui/view-preferences-window.ui:43
+msgid "Default Font"
+msgstr "Шрыфт па змаўчанні"
+
+#: src/ui/view-preferences-window.ui:47
+msgid "Serif"
+msgstr "З засечкамі"
+
+#: src/ui/view-preferences-window.ui:48
+msgid "Sans-serif"
+msgstr "Без засечак"
+
+#: src/ui/view-preferences-window.ui:56
+msgid "Override Publisher Font"
+msgstr "Выбраць шрыфт замест прадвызначанага"
+
+#: src/ui/view-preferences-window.ui:71
+msgid "Serif Font"
+msgstr "Шрыфт з засечкамі"
+
+#: src/ui/view-preferences-window.ui:84
+msgid "Sans-Serif Font"
+msgstr "Шрыфт без засечак"
+
+#: src/ui/view-preferences-window.ui:97
+msgid "Monospace Font"
+msgstr "Монашырынны"
+
+#: src/ui/view-preferences-window.ui:114
+msgid "Layout"
+msgstr "Макет"
+
+#: src/ui/view-preferences-window.ui:118
+msgid "Paragraph"
+msgstr "Абзац"
+
+#: src/ui/view-preferences-window.ui:121
+msgid "Line Height"
+msgstr "Вышыня радка"
+
+#: src/ui/view-preferences-window.ui:135
+msgid "Full Justification"
+msgstr "Раўнаванне ўшыркі"
+
+#: src/ui/view-preferences-window.ui:146
+msgid "Hyphenation"
+msgstr "Перанос слоў"
+
+#: src/ui/view-preferences-window.ui:162
+msgid "Margins"
+msgstr "Палі"
+
+#: src/ui/view-preferences-window.ui:176
+msgid "Maximum Number of Columns"
+msgstr "Найбольшая колькасці слупкоў"
+
+#: src/ui/view-preferences-window.ui:189
+msgid "Maximum Inline Size"
+msgstr "Найменьшы памер элемента"
+
+#: src/ui/view-preferences-window.ui:190
+msgid "Maximum column width (horizontal writing) or height (vertical writing)"
+msgstr "Найбольшая шырыня слупка (гарызантальнае пісьменства) ці вышыня"
+"(вертыкальнае пісьменства)"
+
+#: src/ui/view-preferences-window.ui:203
+msgid "Maximum Block Size"
+msgstr "Найбольшы памер блока"
+
+#: src/ui/view-preferences-window.ui:204
+msgid "Maximum height (horizontal writing) or width (vertical writing)"
+msgstr "Найбольшая вышыня (гарызантальнае пісьменства) ці шырыня"
+"(вертыкальнае пісьменства)"
+
+#: src/ui/view-preferences-window.ui:221
+msgid "Color"
+msgstr "Колер"
+
+#: src/ui/view-preferences-window.ui:240
+msgid "Behavior"
+msgstr "Паводзіны"
+
+#: src/ui/view-preferences-window.ui:246
+msgid "Reduce Animation"
+msgstr "Адлучыць анімацыю"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:5
+msgid "E-Book Viewer"
+msgstr "Праглядальнік эл-кніжак"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.github.johnfactotum.Foliate.desktop.in:14
+msgid "Ebook;Book;EPUB;Viewer;Reader;"
+msgstr "Ebook;Book;EPUB;Viewer;Reader;"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
+msgid ""
+"Discover a new chapter in reading with Foliate, the modern e-book reader "
+"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
+"customization features designed to match your unique preferences."
+msgstr ""
+"Адкрыйце для сябе новую главу чытання з Foliate — сучаснай праграмай для чытання "
+"эл-кніжак, распрацаванай спецыяльна для GNOME. Пагрузісяце ў інтэрфейс, "
+"які можна наладзіць, каб ён пасаваў менавіта Вам"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
+msgid "Features include:"
+msgstr "Магчымасці:"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
+msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
+msgstr "Падтрымка EPUB, Mobipocket, Kindle, FB2, CBZ і PDF файлаў"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
+msgid "Paginated mode and scrolled mode"
+msgstr "Пастаронкавы рэжым і гартанне"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
+msgid "Customize font and line-spacing"
+msgstr "Можна наладзіць шрыфт і паміжрадковага інтэрвалу"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
+msgid "Light, sepia, dark, and invert mode"
+msgstr "Светлая, сепія, цёмная і інвертыраваная тэмы"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
+msgid "Reading progress slider with chapter marks"
+msgstr "Паўзунок прагрэсу чытання з падзяленнем на главы"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
+msgid "Bookmarks and annotations"
+msgstr "Закладкі і каментары"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
+msgid "Find in book"
+msgstr "Пошук у кніжцы"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
+msgid "Quick dictionary lookup"
+msgstr "Хуткі пошук у слоўніку"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
+msgid "Fixed end of chapter cut off when chapter starts with page break"
+msgstr ""
+"Выпраўлена перарыванне главы, калі наступнае пачынаецца з разрыву старонкі"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
+msgid "Fixed incorrect text wrapping in tables"
+msgstr "Выпраўлены неправільны перанос тэксту ў аркушах"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
+msgid "Fixed a performance issue with OPDS catalogs"
+msgstr "Выпраўлена загана з прадукцыйнасцю OPDS каталогаў"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
+msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
+msgstr "Дададзена падтрымка OPDS каталогаў, цяпер для OPDS 2.0"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
+msgid "Added option to override publisher font"
+msgstr "Дададзена магчымасць"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
+msgid "Added option to reduce animation"
+msgstr "Дададзена магчымасць адлучыць анімацыю"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
+msgid "Added support for JPEG XL in CBZ"
+msgstr "Дададзена падтрымка JPEG XL у CBZ"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
+msgid "Fixed getting file from Tracker in Flatpak"
+msgstr "Выпраўлена загрузка файла з трэкера у Flatpak"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
+msgid "Fixed parsing of non-year-only first-century and BCE dates"
+msgstr "Выпраўлены парсінг «non-year-only first-century» дат і дат да нашай "
+"эры"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
+msgid ""
+"Foliate has been rewritten from scratch with a new e-book rendering library "
+"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
+"and improved performance."
+msgstr ""
+"Foliate перапісаны з нуля з выкарыстаннем новай бібліятэкі для рэндэрынгу эл-кніжак,"
+"а таксама актуальных бібліятэк платформы — GTK 4 і Libadwaita, з абноўленым інтэрфейсам"
+і палепшанай прадукцыйнасцю."
