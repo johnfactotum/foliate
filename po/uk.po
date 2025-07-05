@@ -1,17 +1,19 @@
 # Ukrainian translation for Foliate.
-# Copyright (C) YEAR THE Foliate'S COPYRIGHT HOLDER
+# Copyright (C) 2020-2025 THE Foliate'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Danylo Korostil <ted.korostiled@gmail.com>, 2020.
 # Anton Isachenko <antonyua23@gmail.com>, 2020.
 # volkov <volkovissocool@gmail.com>, 2023.
+# freeducks-debug, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2023-12-27 23:07+0200\n"
-"Last-Translator: volkov <volkovissocool@gmail.com>\n"
+"PO-Revision-Date: 2025-07-05 11:23+0300\n"
+"Last-Translator: freeducks-debug <209897795+freeducks-"
+"debug@users.noreply.github.com>\n"
 "Language-Team: <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.6\n"
 
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
@@ -140,7 +142,8 @@ msgid "translator-credits"
 msgstr ""
 "Danylo Korostil <ted.korostiled@gmail.com>\n"
 "Юрій Яновський <lytvyn349@ukr.net>\n"
-"volkov <volkovissocool@gmail.com>"
+"volkov <volkovissocool@gmail.com>\n"
+"freeducks-debug"
 
 #: src/app.js:414
 msgid "Source Code"
@@ -441,13 +444,12 @@ msgid "_Remove"
 msgstr "_Видалити"
 
 #: src/library.js:472
-#, fuzzy
 msgid "Failed to Open"
-msgstr "Не вдалося завантажити"
+msgstr "Не вдалося відкрити"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
-msgstr ""
+msgstr "Не вдалося відкрити файл обраним додатком"
 
 #: src/library.js:644
 msgid "Download Failed"
@@ -500,8 +502,8 @@ msgstr "Додати"
 
 #: src/library.js:957
 msgid ""
-"You can browse and download books from OPDS catalogs. <a href=\"https://opds."
-"io\">Learn More…</a>"
+"You can browse and download books from OPDS catalogs. <a href=\"https://"
+"opds.io\">Learn More…</a>"
 msgstr ""
 "Ви можете переглядати та завантажувати книжки із OPDS каталогів. <a "
 "href=\"https://opds.io\">Дізнатися більше…</a>"
@@ -543,12 +545,12 @@ msgstr "Вікіпедія"
 # Я би додав українську версію цієї сторінки, але нажаль такої не існує - ніхто не зробив.
 #: src/selection-tools.js:50
 msgid ""
-"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://"
+"en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
 "ShareAlike_4.0_International_License\">CC BY-SA License</a>."
 msgstr ""
-"Із <a id=\"link\">Вікіпедії</a>, розповсюджується під <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"Із <a id=\"link\">Вікіпедії</a>, розповсюджується під <a href=\"https://"
+"en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
 "ShareAlike_4.0_International_License\">CC BY-SA ліцензею</a>."
 
 #: src/selection-tools.js:52
@@ -568,9 +570,8 @@ msgid "Cannot retrieve translation"
 msgstr "Не вдалося отримати переклад"
 
 #: src/selection-tools.js:67
-#, fuzzy
 msgid "Search…"
-msgstr "Пошук"
+msgstr "Пошук…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -646,7 +647,7 @@ msgstr "Відкрити в новому вікні"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr ""
+msgstr "Відкрити у зовнішньому додатку"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -1120,7 +1121,7 @@ msgstr "Переглядач електронних книг"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:14
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "Ebook;Book;EPUB;Viewer;Reader;pdf;книга;переглядач;читач;документ;"
+msgstr "Ebook;Book;EPUB;Viewer;Reader;pdf;книга;переглядач;читач;документ;електронна;читалка;пдф;єпаб;епаб;"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
 msgid ""
@@ -1171,39 +1172,40 @@ msgstr "Швидкий пошук у словнику"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
 msgstr ""
+"Виправлено помилку, коли коли остання частина розділу була відрізана, якщо "
+"розділ починається з розриву сторінки"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
-msgstr ""
+msgstr "Виправлена не коректний перенос тексту у таблицях"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
 msgid "Fixed a performance issue with OPDS catalogs"
-msgstr ""
+msgstr "Виправлені проблеми з швидкодією OPDS каталогів"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr ""
+msgstr "Додана підтримка OPDS каталогів, а також підтримка OPDS 2.0"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-#, fuzzy
 msgid "Added option to override publisher font"
-msgstr "Замінити шрифти видавця"
+msgstr "Додана опція, щоб замінити шрифти видавця"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added option to reduce animation"
-msgstr ""
+msgstr "Додана опція для зменшення кількості анімацій"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
 msgid "Added support for JPEG XL in CBZ"
-msgstr ""
+msgstr "Додана підтримка JPEG XL зображень у CBZ архівах"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
 msgid "Fixed getting file from Tracker in Flatpak"
-msgstr ""
+msgstr "Виправлено отримання файлів із трекеру у Flatpak версії додатку"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr ""
+msgstr "Виправлені отримання дат із файлів"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
 msgid ""
