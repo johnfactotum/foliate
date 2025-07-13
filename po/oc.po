@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2024-04-06 15:34+0200\n"
+"PO-Revision-Date: 2025-07-13 17:15+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: \n"
 "Language: oc\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.6\n"
 
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
@@ -437,13 +437,12 @@ msgid "_Remove"
 msgstr "_Suprimir"
 
 #: src/library.js:472
-#, fuzzy
 msgid "Failed to Open"
-msgstr "Fracàs de cargament"
+msgstr "Impossible de dobrir"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
-msgstr ""
+msgstr "Impossible de dobrir lo fichièr amb l’aplicacion seleccionada"
 
 #: src/library.js:644
 msgid "Download Failed"
@@ -480,11 +479,11 @@ msgstr "Bibliotèca"
 
 #: src/library.js:821
 msgid "Catalogs"
-msgstr "Catalògs"
+msgstr "Catalògues"
 
 #: src/library.js:864
 msgid "Catalog removed"
-msgstr "Catalòg suprimir"
+msgstr "Catalòg suprimit"
 
 #: src/library.js:951 src/library.js:956
 msgid "Add Catalog"
@@ -562,9 +561,8 @@ msgid "Cannot retrieve translation"
 msgstr "Recuperacion impossibla de la traduccion"
 
 #: src/selection-tools.js:67
-#, fuzzy
 msgid "Search…"
-msgstr "Recercar"
+msgstr "Recercar…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -639,7 +637,7 @@ msgstr "Dobrir dins una fenèstra novèla"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr ""
+msgstr "Dobrir amb una aplicacion extèrna"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -1168,39 +1166,44 @@ msgstr "Consulta rapida del diccionari"
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
 msgstr ""
+"Correccion del problèma de la fin de capítol quand lo capítol comença amb "
+"una pagina de saut"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
-msgstr ""
+msgstr "Correccion de l'ensemble de tèxte dins los tablèus"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
 msgid "Fixed a performance issue with OPDS catalogs"
-msgstr ""
+msgstr "Correccion de problèma de performança amb los catalògues OPDS"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
 msgstr ""
+"Apondon de la presa en carga dels catalògues OPDS, ara amb presa en carga "
+"per OPDS 2.0"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-#, fuzzy
 msgid "Added option to override publisher font"
-msgstr "Subrecargar la polissa de l’editor"
+msgstr "Opcion aponduda per subrecargar la polissa de l’editor"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added option to reduce animation"
-msgstr ""
+msgstr "Apondon de l’opcion per reduire l’animacion"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
 msgid "Added support for JPEG XL in CBZ"
-msgstr ""
+msgstr "Apondon de la presa en carga per JPEG XL dins CBZ"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
 msgid "Fixed getting file from Tracker in Flatpak"
-msgstr ""
+msgstr "Correccion de l’obtencion de fichièr de Tracker dins Flatpak"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed parsing of non-year-only first-century and BCE dates"
 msgstr ""
+"Analisi corregida de las datas del primièr sègle e abans lo Crist que son "
+"pas sonque d'annadas"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
 msgid ""
