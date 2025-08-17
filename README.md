@@ -106,6 +106,45 @@ Foliate is available on the [Snap Store](https://snapcraft.io/foliate). To insta
 sudo snap install foliate
 ```
 
+### Building on Windows
+
+It's possible to build this application on Windows using MSYS2.
+
+1.  **Install MSYS2**. Download and install MSYS2 from [msys2.org](https://www.msys2.org/). Follow the installation instructions.
+
+2.  **Install dependencies**. Open the MSYS2 UCRT64 shell and install the necessary dependencies:
+    ```sh
+    pacman -S --needed \
+      mingw-w64-ucrt-x86_64-toolchain \
+      mingw-w64-ucrt-x86_64-gjs \
+      mingw-w64-ucrt-x86_64-gtk4 \
+      mingw-w64-ucrt-x86_64-libadwaita \
+      mingw-w64-ucrt-x86_64-webkitgtk-6.0 \
+      mingw-w64-ucrt-x86_64-meson \
+      mingw-w64-ucrt-x86_64-ninja \
+      mingw-w64-ucrt-x86_64-pkg-config \
+      mingw-w64-ucrt-x86_64-gettext \
+      mingw-w64-ucrt-x86_64-glib2-devel
+    ```
+
+3.  **Clone the repository**.
+    ```sh
+    git clone --recurse-submodules https://github.com/johnfactotum/foliate.git
+    cd foliate
+    ```
+
+4.  **Build and install**.
+    ```sh
+    meson setup build --prefix="$PWD/install"
+    ninja -C build install
+    ```
+
+5.  **Run**.
+    After the build is complete, you can run the application from the `install` directory. You will need to set the `GSETTINGS_SCHEMA_DIR` environment variable.
+    ```sh
+    GSETTINGS_SCHEMA_DIR=$PWD/install/share/glib-2.0/schemas ./install/bin/foliate
+    ```
+
 ## Screenshots
 
 ![Dark mode](data/screenshots/dark.png)

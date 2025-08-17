@@ -1,0 +1,53 @@
+name: Windows
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Set up MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: UCRT64
+        update: true
+        install: >-
+          mingw-w64-ucrt-x86_64-toolchain
+          mingw-w64-ucrt-x86_64-gjs
+          mingw-w64-ucrt-x86_64-gtk4
+          mingw-w64-ucrt-x86_64-libadwaita
+          mingw-w64-ucrt-x86_64-webkitgtk-6.0
+          mingw-w64-ucrt-x86_64-meson
+          mingw-w64-ucrt-x86_64-ninja
+          mingw-w64-ucrt-x86_64-pkg-config
+          mingw-w64-ucrt-x86_64-gettext
+          mingw-w64-ucrt-x86_64-glib2-devel
+
+    - name: Build
+      shell: msys2 {0}
+      run: |
+        meson setup build --prefix="$PWD/install"
+        ninja -C build install
+
+    - name: Package
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path "install/share/icons/hicolor/scalable/apps"
+        Copy-Item "data/com.github.johnfactotum.Foliate.svg" -Destination "install/share/icons/hicolor/scalable/apps"
+        New-Item -ItemType Directory -Path "artifact"
+        Compress-Archive -Path "install/*" -DestinationPath "artifact/foliate.zip"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: foliate-windows
+        path: artifact/foliate.zip
