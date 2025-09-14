@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="common.css" rel="stylesheet">
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 6px;
+}
+select, .language-selector {
+    width: 100%;
+}
+main {
+    flex: 1;
+    overflow-y: auto;
+}
+button {
+    display: flex;
+    border-radius: 6px;
+    padding: 6px;
+}
+input, button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    &[hidden] {
+        display: none;
+    }
+}
+
+/* Dictionary styles */
+.dictionary-content {
+    padding: 6px;
+}
+.word-header {
+    border-bottom: 1px solid color-mix(in srgb, currentcolor 15%, transparent);
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+}
+.word-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+}
+.word-pronunciation {
+    font-style: italic;
+    color: color-mix(in srgb, currentcolor 70%, transparent);
+    font-size: 0.9em;
+}
+.part-of-speech {
+    background: color-mix(in srgb, currentcolor 10%, transparent);
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+    margin: 6px 0;
+}
+.definition {
+    margin: 6px 0;
+    line-height: 1.4;
+}
+.definition-number {
+    font-weight: bold;
+    color: color-mix(in srgb, currentcolor 60%, transparent);
+}
+.example {
+    font-style: italic;
+    color: color-mix(in srgb, currentcolor 80%, transparent);
+    margin: 3px 0 3px 20px;
+    font-size: 0.9em;
+}
+.synonyms, .etymology {
+    margin: 9px 0;
+    padding: 6px;
+    background: color-mix(in srgb, currentcolor 5%, transparent);
+    border-radius: 6px;
+}
+.synonyms h4, .etymology h4 {
+    margin: 0 0 6px 0;
+    font-size: 0.9em;
+    color: color-mix(in srgb, currentcolor 70%, transparent);
+}
+.synonym-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+.synonym {
+    background: color-mix(in srgb, currentcolor 15%, transparent);
+    padding: 2px 6px;
+    border-radius: 9px;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+.synonym:hover {
+    background: color-mix(in srgb, currentcolor 25%, transparent);
+}
+
+/* Translation styles */
+.translation-content {
+    padding: 6px;
+}
+
+/* Toggle button */
+.mode-toggle {
+    display: flex;
+    background: color-mix(in srgb, currentcolor 7%, transparent);
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+.mode-toggle button {
+    flex: 1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8em;
+}
+.mode-toggle button.active {
+    background: color-mix(in srgb, currentcolor 20%, transparent);
+    font-weight: bold;
+}
+
+dialog {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    &:not([open]) {
+        display: none;
+    }
+    input {
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 12px;
+        padding-top: 6px;
+        border-bottom: 1px solid color-mix(in srgb, currentcolor 15%, transparent);
+        outline: 0;
+        width: 100%;
+    }
+    form {
+        padding: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        overflow-y: auto;
+    }
+    button {
+        text-align: start;
+        &:hover {
+            background: color-mix(in srgb, currentcolor 3%, transparent);
+        }
+        &:active, &[aria-selected="true"] {
+            background: color-mix(in srgb, currentcolor 7%, transparent);
+        }
+    }
+}
+</style>
+<header>
+    <div class="mode-toggle">
+        <button id="dict-mode" class="active">Dictionary</button>
+        <button id="translate-mode">Translate</button>
+    </div>
+    <button class="language-selector" style="background: color-mix(in srgb, currentcolor 7%, transparent)" hidden>
+        <span style="text-align: start; flex: 1"></span>
+        <foliate-symbolic src="/icons/hicolor/scalable/actions/pan-down-symbolic.svg"></foliate-symbolic>
+    </button>
+</header>
+<main>
+    <div id="output"></div>
+</main>
+<footer>Dictionary by Wiktionary</footer>
+<dialog>
+    <input type="search">
+    <form method="dialog" role="listbox"></form>
+</dialog>
+<script src="../common/widgets.js" type="module"></script>
+<script>
+// Utility functions
+const isWord = (text) => {
+    const trimmed = text.trim();
+    return /^[a-zA-ZÀ-ÿ]+(-[a-zA-ZÀ-ÿ]+)*$/.test(trimmed) && !trimmed.includes(' ');
+};
+
+// API functions
+const googleTranslate = (text, lang) =>
+    fetch('https://translate.googleapis.com/translate_a/single?client=gtx'
+    + '&ie=UTF-8&oe=UTF-&sl=auto&tl=' + lang
+    + '&dt=t&q=' + encodeURIComponent(text))
+        .then(res => res.ok ? res.json() : Promise.reject(new Error()))
+        .then(json => json[0].map(x => x[0]).join(''));
+
+const wiktionaryLookup = (word, language) =>
+    fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${encodeURIComponent(word)}`)
+        .then(res => res.ok ? res.json() : Promise.reject(new Error()))
+        .then(json => {
+            const results = language ? json[language]
+                : json['en'] || Object.values(json)[0];
+            return results;
+        });
+
+// UI functions
+const renderDictionary = (word, results) => {
+    if (!results || results.length === 0) {
+        return `<div class="dictionary-content">
+            <h1>No Definitions Found</h1>
+            <p><a href="https://en.wiktionary.org/w/index.php?search=${encodeURIComponent(word)}">Search on Wiktionary</a></p>
+        </div>`;
+    }
+
+    const language = results[0].language;
+    let html = `<div class="dictionary-content">
+        <div class="word-header">
+            <h1 class="word-title">${word}</h1>
+            <div class="word-pronunciation">${language}</div>
+        </div>`;
+
+    for (const { partOfSpeech, definitions } of results) {
+        html += `<div class="part-of-speech">${partOfSpeech}</div>`;
+
+        definitions.forEach((def, index) => {
+            html += `<div class="definition">
+                <span class="definition-number">${index + 1}.</span>
+                ${def.definition}
+            </div>`;
+
+            if (def.examples) {
+                def.examples.forEach(example => {
+                    html += `<div class="example">"${example}"</div>`;
+                });
+            }
+        });
+    }
+
+    html += '</div>';
+    return html;
+};
+
+const renderTranslation = (translation) => {
+    return `<div class="translation-content">
+        <div style="font-size: 1.1em; line-height: 1.4;">${translation}</div>
+    </div>`;
+};
+
+// Mode management
+let currentMode = 'dictionary';
+let currentText = '';
+let currentLang = 'en';
+let msgError = '';
+
+const switchMode = (mode) => {
+    currentMode = mode;
+
+    document.getElementById('dict-mode').classList.toggle('active', mode === 'dictionary');
+    document.getElementById('translate-mode').classList.toggle('active', mode === 'translate');
+
+    const langSelector = document.querySelector('.language-selector');
+    const footer = document.querySelector('footer');
+
+    if (mode === 'translate') {
+        langSelector.hidden = false;
+        footer.textContent = 'Translation by Google Translate';
+        performTranslation();
+    } else {
+        langSelector.hidden = true;
+        footer.innerHTML = 'Dictionary by <a href="https://en.wiktionary.org">Wiktionary</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA License</a>';
+        performDictionaryLookup();
+    }
+};
+
+const performDictionaryLookup = () => {
+    document.body.dataset.state = 'loading';
+    document.getElementById('output').innerHTML = '<div>Loading dictionary...</div>';
+
+    wiktionaryLookup(currentText, currentLang === 'en' ? null : currentLang)
+        .then(results => {
+            document.getElementById('output').innerHTML = renderDictionary(currentText, results);
+            document.body.dataset.state = 'loaded';
+        })
+        .catch(e => {
+            console.error(e);
+            const lower = currentText.toLowerCase();
+            if (lower !== currentText) {
+                currentText = lower;
+                performDictionaryLookup();
+            } else {
+                document.getElementById('output').innerHTML = renderDictionary(currentText, null);
+                document.body.dataset.state = 'loaded';
+            }
+        });
+};
+
+const performTranslation = () => {
+    document.body.dataset.state = 'loading';
+    document.getElementById('output').innerHTML = '<div>Translating...</div>';
+
+    googleTranslate(currentText, currentLang)
+        .then(result => {
+            document.getElementById('output').innerHTML = renderTranslation(result);
+            document.body.dataset.state = 'loaded';
+        })
+        .catch(e => {
+            console.error(e);
+            document.getElementById('output').innerHTML = `<div>${msgError}</div>`;
+            document.body.dataset.state = 'error';
+        });
+};
+
+// Event listeners
+document.getElementById('dict-mode').addEventListener('click', () => switchMode('dictionary'));
+document.getElementById('translate-mode').addEventListener('click', () => switchMode('translate'));
+
+// Language selector (for translation mode)
+const manageFocus = items => {
+    const setFocusPrev = el =>
+        setFocusNext(el, items.slice(0).reverse())
+    const setFocusNext = (el, items) => {
+        let justFound, found
+        for (const item of items) {
+            if (justFound && !item.hidden) {
+                item.tabIndex = 0
+                item.focus()
+                found = true
+                justFound = false
+            }
+            else {
+                item.tabIndex = -1
+                if (item === el) justFound = true
+            }
+        }
+        if (!found) {
+            items[0].tabIndex = 0
+            items[0].focus()
+        }
+    }
+    return e => {
+        switch (e.key) {
+            case 'ArrowUp':
+                e.preventDefault()
+                e.stopPropagation()
+                setFocusPrev(e.target)
+                break
+            case 'ArrowDown':
+                e.preventDefault()
+                e.stopPropagation()
+                setFocusNext(e.target, items)
+                break
+        }
+    }
+}
+
+document.querySelector('.language-selector').addEventListener('click', () => {
+    document.querySelector('dialog').showModal()
+    document.querySelector('[aria-selected="true"]').scrollIntoView({ block: 'center' })
+    const input = document.querySelector('input')
+    input.value = ''
+    input.dispatchEvent(new Event('input'))
+    input.focus()
+})
+
+document.querySelector('input').addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelector('dialog').close()
+})
+
+document.querySelector('input').addEventListener('input', e => {
+    const { value } = e.target
+    const els = [...document.querySelectorAll('dialog form button')]
+    if (value) {
+        const lower = value.toLowerCase()
+        for (const el of els) {
+            el.hidden = !el.textContent.toLowerCase().startsWith(lower)
+            el.tabIndex = -1
+        }
+        const first = document.querySelector('dialog button:not([hidden])')
+        if (first) first.tabIndex = 0
+        document.querySelector('dialog form').scrollTop = 0
+    }
+    else {
+        for (const el of els) {
+            el.hidden = false
+            el.tabIndex = -1
+        }
+        const el = document.querySelector('[aria-selected="true"]')
+        el.tabIndex = 0
+        el.scrollIntoView({ block: 'center' })
+    }
+})
+
+// Handle clicks on synonyms and links
+document.addEventListener('click', e => {
+    if (e.target.classList.contains('synonym')) {
+        currentText = e.target.textContent;
+        if (currentMode === 'dictionary') {
+            performDictionaryLookup();
+        }
+    } else if (e.target.tagName === 'A' && e.target.href) {
+        console.log('Link clicked:', e.target.href);
+        e.preventDefault();
+        const url = e.target.href;
+
+        let finalUrl = url;
+
+        // Convert foliate-selection-tool URLs to proper Wiktionary URLs
+        if (url.startsWith('foliate-selection-tool:///wiki/')) {
+            finalUrl = 'https://en.wiktionary.org' + url.replace('foliate-selection-tool://', '');
+        }
+
+        // If it's a Wiktionary link, try to extract the word and look it up
+        if (finalUrl.includes('wiktionary.org')) {
+            const match = finalUrl.match(/\/wiki\/(.+?)(?:[#?]|$)/);
+            if (match) {
+                const word = decodeURIComponent(match[1]).replace(/_/g, ' ');
+                console.log('Looking up word from link:', word);
+                currentText = word;
+                if (currentMode === 'dictionary') {
+                    performDictionaryLookup();
+                }
+                return;
+            }
+        }
+
+        // For all other links, show a message with the URL
+        document.getElementById('output').innerHTML = `
+            <div class="dictionary-content">
+                <h2>External Link</h2>
+                <p>Link: <a href="${finalUrl}" onclick="navigator.clipboard.writeText('${finalUrl}'); alert('URL copied to clipboard!');">${finalUrl}</a></p>
+                <p><em>Click the link above to copy to clipboard, then open in your browser.</em></p>
+            </div>
+        `;
+    }
+});
+
+// Global init function
+globalThis.init = ({ msg, text, lang }) => {
+    msgError = msg.error || 'Cannot retrieve information';
+    currentText = text.trim();
+    currentLang = lang || 'en';
+
+    // Auto-detect mode based on text - but always allow both modes
+    if (isWord(currentText)) {
+        switchMode('dictionary');
+    } else {
+        switchMode('translate');
+    }
+
+    // Setup language selector for translation mode
+    if (msg.langs) {
+        const options = msg.langs.map(([code, label]) => {
+            const option = document.createElement('button')
+            option.role = 'option'
+            option.ariaSelected = code === currentLang ? 'true' : 'false'
+            option.tabIndex = code === currentLang ? 0 : -1
+            option.textContent = label
+            option.value = code
+            return option
+        });
+
+        const form = document.querySelector('form')
+        form.replaceChildren(...options)
+        form.addEventListener('keydown', manageFocus(options))
+        form.addEventListener('submit', e => {
+            const { submitter } = e
+            for (const option of options) option.ariaSelected = option === submitter
+            document.querySelector('.language-selector span').textContent = submitter.textContent
+            webkit.messageHandlers.settings.postMessage(JSON.stringify({
+                key: 'translate-target-language',
+                value: submitter.value,
+            }))
+            currentLang = submitter.value;
+            if (currentMode === 'translate') {
+                performTranslation();
+            }
+        })
+
+        const selectedLang = form.querySelector(`[value="${CSS.escape(currentLang)}"]`);
+        if (selectedLang) {
+            document.querySelector('.language-selector span').textContent = selectedLang.textContent;
+        }
+    }
+
+    // Start with the appropriate lookup
+    if (currentMode === 'dictionary') {
+        performDictionaryLookup();
+    } else {
+        performTranslation();
+    }
+}
+</script>
+</html>
