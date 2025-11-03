@@ -279,7 +279,7 @@ const BookRow = GObject.registerClass({
     update(item, data) {
         this.#item = item
         const { metadata, progress } = data
-        const title = metadata?.title
+        const title = formatLanguageMap(metadata?.title)
         this._title.label = title
 
         const author = formatAuthors(metadata)
