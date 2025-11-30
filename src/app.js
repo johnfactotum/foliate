@@ -83,12 +83,17 @@ const ApplicationWindow = GObject.registerClass({
 
 
         const app = Gio.Application.get_default()
-        const inhibitIdle = (win) => {
+        const toggleInhibitIdle = (win) => {
+            const canInhibit = this.is_active && (this.is_fullscreen() || this.is_maximized())
+            if (!canInhibit) {
+                uninhibitIdle()
+                return
+            }
             if (this.#inhibitCookie) return
             const inhibitCookie = app.inhibit(
                 win,
                 Gtk.ApplicationInhibitFlags.IDLE,
-                'Reading book in fullscreen or a maximized window',
+                'Reading a book in an active fullscreen or maximized window',
             )
             if (inhibitCookie === 0) console.error('Failed to inhibit session idle')
             else this.#inhibitCookie = inhibitCookie
@@ -99,12 +104,13 @@ const ApplicationWindow = GObject.registerClass({
             this.#inhibitCookie = null
         }
         this.connect('notify::fullscreened', (win) => {
-            if (this.is_fullscreen() || this.is_maximized()) inhibitIdle(win)
-            else uninhibitIdle()
+            toggleInhibitIdle(win)
         })
         this.connect('notify::maximized', (win) => {
-            if (this.is_fullscreen() || this.is_maximized()) inhibitIdle(win)
-            else uninhibitIdle()
+            toggleInhibitIdle()
+        })
+        this.connect('notify::is-active', (win) => {
+            toggleInhibitIdle(win)
         })
 
         if (this.file) this.openFile(this.file)
