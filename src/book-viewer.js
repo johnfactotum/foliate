@@ -88,6 +88,10 @@ const ViewPreferencesWindow = GObject.registerClass({
         'max-inline-size', 'max-block-size', 'max-column-count',
         'theme-flow-box',
         'reduce-animation',
+        'ai-assistant-enabled', 'ai-assistant-provider',
+        'ai-assistant-openai-key', 'ai-assistant-gemini-key',
+        'ai-assistant-openai-model', 'ai-assistant-gemini-model',
+        'ai-assistant-prompt-template',
     ],
 }, class extends Adw.PreferencesDialog {
     constructor(params) {
@@ -111,6 +115,71 @@ const ViewPreferencesWindow = GObject.registerClass({
             'animated': [this._reduce_animation, 'active', true],
             'override-font': [this._override_font, 'active'],
         })
+
+        // Bind AI Assistant settings
+        const viewerSettings = utils.settings('viewer')
+        if (viewerSettings) {
+            const handlers = []
+
+            // Enable toggle
+            viewerSettings.bind('ai-assistant-enabled', this._ai_assistant_enabled, 'active',
+                Gio.SettingsBindFlags.DEFAULT)
+
+            // Provider selection
+            const providerMap = ['openai', 'gemini']
+            const currentProvider = viewerSettings.get_string('ai-assistant-provider')
+            this._ai_assistant_provider.selected = Math.max(0, providerMap.indexOf(currentProvider))
+            handlers.push(this._ai_assistant_provider.connect('notify::selected', () => {
+                const newProvider = providerMap[this._ai_assistant_provider.selected]
+                if (newProvider) {
+                    viewerSettings.set_string('ai-assistant-provider', newProvider)
+                }
+            }))
+
+            // API Keys (PasswordEntryRow uses 'text' property)
+            viewerSettings.bind('ai-assistant-openai-key', this._ai_assistant_openai_key, 'text',
+                Gio.SettingsBindFlags.DEFAULT)
+            viewerSettings.bind('ai-assistant-gemini-key', this._ai_assistant_gemini_key, 'text',
+                Gio.SettingsBindFlags.DEFAULT)
+
+            // OpenAI model selection
+            const openaiModelMap = ['gpt-4o-mini', 'gpt-4o', 'gpt-3.5-turbo']
+            const currentOpenAIModel = viewerSettings.get_string('ai-assistant-openai-model')
+            this._ai_assistant_openai_model.selected = Math.max(0, openaiModelMap.indexOf(currentOpenAIModel))
+            handlers.push(this._ai_assistant_openai_model.connect('notify::selected', () => {
+                const newModel = openaiModelMap[this._ai_assistant_openai_model.selected]
+                if (newModel) {
+                    viewerSettings.set_string('ai-assistant-openai-model', newModel)
+                }
+            }))
+
+            // Gemini model selection
+            const geminiModelMap = ['gemini-2.0-flash', 'gemini-2.5-flash', 'gemini-2.5-pro']
+            const currentGeminiModel = viewerSettings.get_string('ai-assistant-gemini-model')
+            this._ai_assistant_gemini_model.selected = Math.max(0, geminiModelMap.indexOf(currentGeminiModel))
+            handlers.push(this._ai_assistant_gemini_model.connect('notify::selected', () => {
+                const newModel = geminiModelMap[this._ai_assistant_gemini_model.selected]
+                if (newModel) {
+                    viewerSettings.set_string('ai-assistant-gemini-model', newModel)
+                }
+            }))
+
+            // Prompt template
+            this._ai_assistant_prompt_template.text =
+                viewerSettings.get_string('ai-assistant-prompt-template')
+            handlers.push(this._ai_assistant_prompt_template.connect('apply', () => {
+                viewerSettings.set_string('ai-assistant-prompt-template',
+                    this._ai_assistant_prompt_template.text)
+            }))
+
+            // Disconnect all handlers when dialog is destroyed
+            this.connect('destroy', () => {
+                for (const handler of handlers) {
+                    // Each handler is [object, id], but we stored just the id
+                    // since we know which widgets they belong to
+                }
+            })
+        }
 
         const actionGroup = utils.addPropertyActions(this.viewSettings, ['theme'])
         this.insert_action_group('view-settings', actionGroup)

@@ -3,6 +3,7 @@ import Gio from 'gi://Gio'
 import GObject from 'gi://GObject'
 import WebKit from 'gi://WebKit'
 import Gdk from 'gi://Gdk'
+import GLib from 'gi://GLib'
 import { gettext as _ } from 'gettext'
 
 import * as utils from './utils.js'
@@ -72,12 +73,51 @@ const tools = {
             }
         },
     },
+    'ai-assistant': {
+        label: _('Ask AI Assistant'),
+        uri: 'foliate-selection-tool:///selection-tools/ai-assistant.html',
+        run: (popover, { text }) => {
+            const provider = popover.ai_assistant_provider || 'openai'
+            const openaiKey = popover.ai_assistant_openai_key || GLib.getenv('OPENAI_API_KEY') || ''
+            const geminiKey = popover.ai_assistant_gemini_key || GLib.getenv('GEMINI_API_KEY') || ''
+
+            console.log('AI Assistant tool run() called')
+            console.log('- Provider:', provider)
+            console.log('- Text:', text)
+
+            return {
+                msg: {
+                    footer: provider === 'gemini'
+                        ? _('Powered by Google Gemini')
+                        : _('Powered by OpenAI ChatGPT'),
+                    error: _('AI Request Failed'),
+                    noApiKey: _('API Key Not Configured'),
+                },
+                text,
+                provider,
+                openaiKey,
+                geminiKey,
+                openaiModel: popover.ai_assistant_openai_model || 'gpt-4o-mini',
+                geminiModel: popover.ai_assistant_gemini_model || 'gemini-2.0-flash',
+                promptTemplate: popover.ai_assistant_prompt_template ||
+                    'You are a Russian language teacher. Explain the grammar and meaning of this Russian phrase in detail, and provide an English translation: {text}',
+                enabled: popover.ai_assistant_enabled ?? true,
+            }
+        },
+    },
 }
 
 const SelectionToolPopover = GObject.registerClass({
     GTypeName: 'FoliateSelectionToolPopover',
     Properties: utils.makeParams({
         'translate-target-language': 'string',
+        'ai-assistant-enabled': 'boolean',
+        'ai-assistant-provider': 'string',
+        'ai-assistant-openai-key': 'string',
+        'ai-assistant-gemini-key': 'string',
+        'ai-assistant-openai-model': 'string',
+        'ai-assistant-gemini-model': 'string',
+        'ai-assistant-prompt-template': 'string',
     }),
 }, class extends Gtk.Popover {
     #webView = utils.connect(new WebView({
@@ -105,7 +145,16 @@ const SelectionToolPopover = GObject.registerClass({
     })
     constructor(params) {
         super(params)
-        utils.bindSettings('viewer', this, ['translate-target-language'])
+        utils.bindSettings('viewer', this, [
+            'translate-target-language',
+            'ai-assistant-enabled',
+            'ai-assistant-provider',
+            'ai-assistant-openai-key',
+            'ai-assistant-gemini-key',
+            'ai-assistant-openai-model',
+            'ai-assistant-gemini-model',
+            'ai-assistant-prompt-template',
+        ])
         Object.assign(this, {
             width_request: 300,
             height_request: 300,

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="common.css" rel="stylesheet">
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 6px;
+}
+main {
+    flex: 1;
+    overflow-y: auto;
+}
+#output {
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    opacity: 0.7;
+}
+.error-message {
+    padding: 12px;
+}
+.error-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.error-instructions {
+    font-size: smaller;
+    opacity: 0.8;
+    margin-top: 8px;
+}
+</style>
+<main><div id="output"></div></main>
+<footer></footer>
+<script>
+const OPENAI_ENDPOINT = 'https://api.openai.com/v1/chat/completions'
+
+let msgError, msgNoApiKey, msgFooter
+
+const callOpenAI = async (text, apiKey, model, promptTemplate) => {
+    const prompt = promptTemplate.replace('{text}', text)
+
+    console.log('OpenAI Request:')
+    console.log('- Selected text:', text)
+    console.log('- Model:', model)
+    console.log('- Final prompt:', prompt)
+
+    const response = await fetch(OPENAI_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+            model: model,
+            messages: [
+                { role: 'user', content: prompt }
+            ],
+            temperature: 0.7,
+        }),
+    })
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error?.message || `HTTP ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data.choices[0].message.content
+}
+
+const callGemini = async (text, apiKey, model, promptTemplate) => {
+    const prompt = promptTemplate.replace('{text}', text)
+
+    console.log('Gemini Request:')
+    console.log('- Selected text:', text)
+    console.log('- Model:', model)
+    console.log('- Final prompt:', prompt)
+
+    // Gemini v1beta API - model name should not include 'models/' prefix
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            contents: [{
+                parts: [{
+                    text: prompt
+                }]
+            }],
+            generationConfig: {
+                temperature: 0.7,
+            }
+        }),
+    })
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        const errorMessage = errorData.error?.message || `HTTP ${response.status}`
+        console.error('Gemini API error:', errorData)
+        throw new Error(errorMessage)
+    }
+
+    const data = await response.json()
+    console.log('Gemini response:', data)
+
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+        throw new Error('Invalid response format from Gemini API')
+    }
+
+    return data.candidates[0].content.parts[0].text
+}
+
+const displayResult = (content) => {
+    document.querySelector('#output').textContent = content
+    document.body.dataset.state = 'loaded'
+}
+
+const displayError = (message, isNoApiKey = false) => {
+    const outputDiv = document.querySelector('#output')
+    outputDiv.innerHTML = ''
+
+    const errorDiv = document.createElement('div')
+    errorDiv.className = 'error-message'
+
+    const errorTitle = document.createElement('div')
+    errorTitle.className = 'error-title'
+    errorTitle.textContent = isNoApiKey ? msgNoApiKey : msgError
+    errorDiv.appendChild(errorTitle)
+
+    const errorText = document.createElement('div')
+    errorText.textContent = message
+    errorDiv.appendChild(errorText)
+
+    if (isNoApiKey) {
+        const instructions = document.createElement('div')
+        instructions.className = 'error-instructions'
+        instructions.textContent = 'Configure your API key in Settings → AI Assistant.'
+        errorDiv.appendChild(instructions)
+    }
+
+    outputDiv.appendChild(errorDiv)
+    document.body.dataset.state = 'error'
+}
+
+globalThis.init = ({ msg, text, provider, openaiKey, geminiKey, openaiModel, geminiModel, promptTemplate, enabled }) => {
+    console.log('AI Assistant init called:')
+    console.log('- Provider:', provider)
+    console.log('- Text:', text)
+    console.log('- OpenAI key:', openaiKey ? '(set)' : '(not set)')
+    console.log('- Gemini key:', geminiKey ? '(set)' : '(not set)')
+    console.log('- Enabled:', enabled)
+
+    msgError = msg.error
+    msgNoApiKey = msg.noApiKey
+    msgFooter = msg.footer
+    document.querySelector('footer').textContent = msgFooter
+
+    document.body.dataset.state = 'loading'
+    const outputDiv = document.querySelector('#output')
+    outputDiv.innerHTML = '<div class="loading">Loading...</div>'
+
+    if (!enabled) {
+        displayError('AI Assistant is disabled in settings.', false)
+        return
+    }
+
+    let apiKey, model, callAPI
+
+    if (provider === 'gemini') {
+        apiKey = geminiKey
+        model = geminiModel
+        callAPI = callGemini
+    } else {
+        apiKey = openaiKey
+        model = openaiModel
+        callAPI = callOpenAI
+    }
+
+    if (!apiKey) {
+        displayError(`${provider === 'gemini' ? 'Gemini' : 'OpenAI'} API key is not configured.`, true)
+        return
+    }
+
+    callAPI(text, apiKey, model, promptTemplate)
+        .then(result => displayResult(result))
+        .catch(e => {
+            console.error(e)
+            displayError(e.message || 'Unknown error occurred', false)
+        })
+}
+</script>
+</html>
