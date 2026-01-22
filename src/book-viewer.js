@@ -742,7 +742,7 @@ export const BookViewer = GObject.registerClass({
         this._book_title.label = formatLanguageMap(book.metadata.title)
         this._book_author.label = formatAuthors(book.metadata)
         this._book_author.visible = !!this._book_author.label
-        this.root.title = this._book_title.label
+        if (this.root) this.root.title = this._book_title.label
 
         const { language: { direction } } = reader.view
         utils.setDirection(this._book_info, direction)
@@ -1004,6 +1004,7 @@ export const BookViewer = GObject.registerClass({
         importAnnotations(this.root, this.#data)
     }
     vfunc_unroot() {
+        if (!this.#data) return
         this._navbar.tts_box.kill()
         this._view.viewSettings.unbindSettings()
         this._view.fontSettings.unbindSettings()

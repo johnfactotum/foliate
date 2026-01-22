@@ -148,7 +148,7 @@
             <object class="GtkStackPage">
               <property name="name">loading</property>
               <property name="child">
-                <object class="AdwSpinner"/>
+                <object class="GtkSpinner"/>
               </property>
             </object>
           </child>
@@ -282,9 +282,9 @@
                 </object>
               </child>
               <child type="bottom">
-                <object class="AdwInlineViewSwitcher" id="contents-stack-switcher">
+                <object class="AdwViewSwitcher" id="contents-stack-switcher">
                   <property name="stack">contents-stack</property>
-                  <property name="display-mode">icons</property>
+                  <property name="policy">wide</property>
                   <property name="margin-top">6</property>
                   <property name="margin-bottom">6</property>
                   <property name="margin-start">6</property>

@@ -74,7 +74,7 @@ const ApplicationWindow = GObject.registerClass({
         this.connect('destroy', () => styleManager.disconnect(handler))
 
         utils.addMethods(this, {
-            actions: ['open', 'close', 'show-library', 'show-menu', 'new-window', 'open-copy'],
+            actions: ['open', 'close', 'show-library', 'show-menu', 'new-window', 'open-copy', 'import-books'],
             props: ['fullscreened'],
         })
 
@@ -173,6 +173,202 @@ const ApplicationWindow = GObject.registerClass({
             }
         })
     }
+    #collectEbooksFromDirectory(directory, files = []) {
+        const ebookExtensions = ['.epub', '.mobi', '.azw', '.azw3', '.fb2', '.fb2.zip', '.cbz']
+        try {
+            const enumerator = directory.enumerate_children(
+                'standard::name,standard::type',
+                Gio.FileQueryInfoFlags.NONE,
+                null,
+            )
+            let info
+            while ((info = enumerator.next_file(null))) {
+                const name = info.get_name()
+                
+                // Skip hidden files and macOS resource forks
+                if (name.startsWith('.')) continue
+                
+                const child = directory.get_child(name)
+                const fileType = info.get_file_type()
+
+                if (fileType === Gio.FileType.DIRECTORY) {
+                    this.#collectEbooksFromDirectory(child, files)
+                } else if (fileType === Gio.FileType.REGULAR) {
+                    const nameLower = name.toLowerCase()
+                    if (ebookExtensions.some(ext => nameLower.endsWith(ext))) {
+                        files.push(child)
+                    }
+                }
+            }
+            enumerator.close(null)
+        } catch (e) {
+            console.warn(`Failed to read directory ${directory.get_path()}: ${e}`)
+        }
+        return files
+    }
+    #importMultipleFiles() {
+        const dialog = new Gtk.FileDialog()
+        const ebooks = new Gtk.FileFilter({
+            name: _('E-Book Files'),
+            mime_types: [
+                'application/epub+zip',
+                'application/x-mobipocket-ebook',
+                'application/vnd.amazon.mobi8-ebook',
+                'application/x-mobi8-ebook',
+                'application/x-fictionbook+xml',
+                'application/x-zip-compressed-fb2',
+                'application/vnd.comicbook+zip',
+            ],
+        })
+        dialog.filters = new Gio.ListStore()
+        dialog.filters.append(new Gtk.FileFilter({
+            name: _('All Files'),
+            patterns: ['*'],
+        }))
+        dialog.filters.append(ebooks)
+        dialog.default_filter = ebooks
+
+        dialog.open_multiple(this, null, (_, res) => {
+            try {
+                const files = dialog.open_multiple_finish(res)
+                let importedCount = 0
+                for (let i = 0; i < files.get_n_items(); i++) {
+                    const file = files.get_item(i)
+                    this.openFile(file)
+                    importedCount++
+                }
+                if (importedCount > 0) {
+                    this.showLibrary()
+                    const toast = new Adw.Toast({
+                        title: importedCount === 1
+                            ? _('Imported 1 book')
+                            : _(`Imported ${importedCount} books`),
+                    })
+                    this.add_toast(toast)
+                }
+            } catch (e) {
+                if (e instanceof Gtk.DialogError) console.debug(e)
+                else console.error(e)
+            }
+        })
+    }
+    #importFromFolder() {
+        const dialog = new Gtk.FileDialog()
+        dialog.select_folder(this, null, async (obj, res) => {
+            try {
+                const folder = dialog.select_folder_finish(res)
+                const files = this.#collectEbooksFromDirectory(folder)
+                let importedCount = 0
+                
+                // Process books one by one
+                for (const file of files) {
+                    try {
+                        await this.#processBookForImport(file)
+                        importedCount++
+                        // Delay to allow cleanup and trigger GC between books
+                        await new Promise(resolve => 
+                            GLib.timeout_add(GLib.PRIORITY_DEFAULT, 500, () => {
+                                // Suggest GC to clean up before next book
+                                imports.system.gc()
+                                resolve()
+                                return GLib.SOURCE_REMOVE
+                            })
+                        )
+                    } catch (e) {
+                        console.error(`Failed to import ${file.get_path()}:`, e)
+                    }
+                }
+                
+                if (importedCount > 0) {
+                    this.showLibrary()
+                    const toast = new Adw.Toast({
+                        title: importedCount === 1
+                            ? _('Imported 1 book from folder')
+                            : _(`Imported ${importedCount} books from folder`),
+                    })
+                    this.add_toast(toast)
+                } else {
+                    const toast = new Adw.Toast({
+                        title: _('No e-books found in the selected folder'),
+                    })
+                    this.add_toast(toast)
+                }
+            } catch (e) {
+                if (e instanceof Gtk.DialogError) console.debug(e)
+                else console.error(e)
+            }
+        })
+    }
+    #processBookForImport(file) {
+        return new Promise((resolve, reject) => {
+            // Use the existing BookViewer but keep strong references
+            if (!this.#bookViewer) {
+                this.#bookViewer = new BookViewer()
+                this.#stack.add_child(this.#bookViewer)
+            }
+            
+            // Keep reference to prevent GC
+            const viewer = this.#bookViewer
+            const view = viewer._view
+            let completed = false
+            const handlers = []
+            
+            const cleanup = (success, error) => {
+                if (completed) return
+                completed = true
+                
+                // Disconnect all handlers
+                handlers.forEach(id => {
+                    try {
+                        view.disconnect(id)
+                    } catch (e) {
+                        // Ignore disconnect errors
+                    }
+                })
+                handlers.length = 0
+                
+                // Schedule resolution after current event loop to avoid GC issues
+                GLib.idle_add(GLib.PRIORITY_LOW, () => {
+                    if (success) resolve()
+                    else if (error) reject(error)
+                    return GLib.SOURCE_REMOVE
+                })
+            }
+            
+            // Use handler array to track connections
+            handlers.push(view.connect('book-ready', () => cleanup(true, null)))
+            handlers.push(view.connect('book-error', () => cleanup(false, new Error('Failed to load book'))))
+            
+            // Timeout
+            GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 30, () => {
+                cleanup(false, new Error('Book loading timed out'))
+                return GLib.SOURCE_REMOVE
+            })
+            
+            // Open the book
+            viewer.open(file)
+        })
+    }
+    importBooks() {
+        const dialog = new Adw.AlertDialog({
+            heading: _('Import Books'),
+            body: _('Choose how you want to import books to your library'),
+        })
+        dialog.add_response('cancel', _('Cancel'))
+        dialog.add_response('files', _('Select Files'))
+        dialog.add_response('folder', _('Select Folder'))
+        dialog.set_response_appearance('files', Adw.ResponseAppearance.SUGGESTED)
+        dialog.choose(this, null, (_, res) => {
+            try {
+                const response = dialog.choose_finish(res)
+                if (response === 'files') this.#importMultipleFiles()
+                else if (response === 'folder') this.#importFromFolder()
+            } catch (e) {
+                if (e instanceof Gtk.DialogError) console.debug(e)
+                else console.error(e)
+            }
+        })
+    }
     showLibrary() {
         this.file = null
         this.title = pkg.localeName
@@ -225,6 +421,7 @@ export const Application = GObject.registerClass({
             'win.show-menu': ['F10'],
             'win.open': ['<ctrl>o'],
             'win.open-copy': ['<ctrl>n'],
+            'win.import-books': ['<ctrl><shift>o'],
         })) this.set_accels_for_action(key, val)
     }
     connectStartup() {
