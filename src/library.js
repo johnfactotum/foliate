@@ -910,6 +910,11 @@ export const Library = GObject.registerClass({
         this.insert_action_group('library', this._books_view.actionGroup)
         this.insert_action_group('catalog', this._opds_view.actionGroup)
     }
+    vfunc_dispose() {
+        // Clear the header function to prevent callbacks during shutdown
+        this._sidebar_list_box.set_header_func(null)
+        super.vfunc_dispose()
+    }
     #addCatalog(url) {
         this._sidebar_list_box.select_row(null)
         const handler = this._opds_view.connect('state-changed', (_, state) => {
