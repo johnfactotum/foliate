@@ -21,6 +21,26 @@
     </item>
   </section>
   <section>
+    <submenu>
+      <attribute name="label" translatable="yes">Status</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Reading</attribute>
+          <attribute name="action">book-item.set-status</attribute>
+          <attribute name="target">reading</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Completed</attribute>
+          <attribute name="action">book-item.set-status</attribute>
+          <attribute name="target">completed</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Pending</attribute>
+          <attribute name="action">book-item.set-status</attribute>
+          <attribute name="target">pending</attribute>
+        </item>
+      </section>
+    </submenu>
     <item>
       <attribute name="label" translatable="yes">Remove</attribute>
       <attribute name="action">book-item.remove</attribute>
@@ -50,6 +70,13 @@
     <child>
       <object class="GtkBox">
         <child>
+          <object class="GtkLabel" id="status">
+            <property name="xalign">0</property>
+            <property name="hexpand">true</property>
+            <style><class name="caption"/><class name="dim-label"/></style>
+          </object>
+        </child>
+        <child>
           <object class="GtkLabel" id="progress">
             <property name="xalign">0</property>
             <property name="hexpand">true</property>
@@ -62,7 +89,7 @@
             <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="icon-name">view-more-horizontal-symbolic</property>
-            <property name="tooltip-text" translatable="yes">Menu</property>"
+            <property name="tooltip-text" translatable="yes">Menu</property>
             <property name="menu-model">menu</property>
             <style><class name="flat"/><class name="circular"/></style>
           </object>
