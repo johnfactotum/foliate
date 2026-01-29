@@ -54,11 +54,32 @@ const EBOOK_MIME_TYPES = [
     'application/x-fictionbook+xml',
     'application/x-zip-compressed-fb2',
     'application/vnd.comicbook+zip',
+    'application/vnd.comicbook-rar',
+    'application/x-cbr',
+    'application/x-cbz',
+    'application/x-cb7',
+    'application/x-cbt',
 ]
 
 const isEbookFile = (file) => {
-    const [, contentType] = Gio.content_type_guess(file.get_path(), null)
-    return EBOOK_MIME_TYPES.includes(contentType)
+    try {
+        const path = file.get_path()
+        if (!path) {
+            console.debug('File has no path, cannot determine type')
+            return false
+        }
+        
+        // Try MIME type detection first
+        const [mimeType, _certain] = Gio.content_type_guess(path, null)
+        if (mimeType && EBOOK_MIME_TYPES.includes(mimeType)) {
+            return true
+        }
+        
+        return false
+    } catch (e) {
+        console.warn(`Failed to check if file is an ebook (${file.get_uri()}): ${e}`)
+        return false
+    }
 }
 
 const ApplicationWindow = GObject.registerClass({
@@ -213,6 +234,70 @@ const ApplicationWindow = GObject.registerClass({
         }
         return files
     }
+    #importFilesInBackground(files) {
+        // Import files by adding them to the library without rendering
+        // Just store the file URIs - metadata will be extracted when books are first opened
+        let toast = new Adw.Toast({
+            title: files.length === 1
+                ? _('Importing 1 book…')
+                : _(`Importing ${files.length} books…`),
+            timeout: 0,
+        })
+        this.add_toast(toast)
+        
+        // Show library view immediately
+        this.showLibrary()
+        
+        // Import each file by just opening it once to trigger metadata extraction
+        // but do it in the hidden bookviewer to avoid visual flashing
+        let currentIndex = 0
+        let hiddenViewer = null
+        
+        const importNext = () => {
+            if (currentIndex >= files.length) {
+                // Clean up
+                if (hiddenViewer) {
+                    this.#stack.remove(hiddenViewer)
+                    hiddenViewer = null
+                }
+                toast.dismiss()
+                
+                const finalToast = new Adw.Toast({
+                    title: files.length === 1
+                        ? _('Imported 1 book')
+                        : _(`Imported ${files.length} books`),
+                })
+                this.add_toast(finalToast)
+                return
+            }
+            
+            const file = files[currentIndex]
+            currentIndex++
+            
+            // Update toast with current progress
+            if (files.length > 1) {
+                toast.title = _(`Importing ${currentIndex} of ${files.length} books…`)
+            }
+            
+            // Create hidden viewer if needed
+            if (!hiddenViewer) {
+                hiddenViewer = new BookViewer()
+                this.#stack.add_child(hiddenViewer)
+                // Keep library visible
+            }
+            
+            // Open file in hidden viewer to extract metadata
+            hiddenViewer.open(file)
+            
+            // Continue with next file after a delay
+            GLib.timeout_add(GLib.PRIORITY_DEFAULT, 2000, () => {
+                importNext()
+                return GLib.SOURCE_REMOVE
+            })
+        }
+        
+        importNext()
+    }
     #importMultipleFiles() {
         const dialog = new Gtk.FileDialog()
         const ebooks = new Gtk.FileFilter({
@@ -229,22 +314,13 @@ const ApplicationWindow = GObject.registerClass({
 
         dialog.open_multiple(this, null, (_, res) => {
             try {
-                const files = dialog.open_multiple_finish(res)
-                let importedCount = 0
-                for (let i = 0; i < files.get_n_items(); i++) {
-                    const file = files.get_item(i)
-                    // Just open the file - this adds it to the library
-                    this.openFile(file)
-                    importedCount++
+                const gfiles = dialog.open_multiple_finish(res)
+                const files = []
+                for (let i = 0; i < gfiles.get_n_items(); i++) {
+                    files.push(gfiles.get_item(i))
                 }
-                if (importedCount > 0) {
-                    this.showLibrary()
-                    const toast = new Adw.Toast({
-                        title: importedCount === 1
-                            ? _('Imported 1 book')
-                            : _(`Imported ${importedCount} books`),
-                    })
-                    this.add_toast(toast)
+                if (files.length > 0) {
+                    this.#importFilesInBackground(files)
                 }
             } catch (e) {
                 if (e instanceof Gtk.DialogError) console.debug(e)
@@ -260,16 +336,7 @@ const ApplicationWindow = GObject.registerClass({
                 const files = this.#collectEbooksFromDirectory(folder)
                 
                 if (files.length > 0) {
-                    // Open each file - this adds them to the library
-                    files.forEach(file => this.openFile(file))
-                    
-                    this.showLibrary()
-                    const toast = new Adw.Toast({
-                        title: files.length === 1
-                            ? _('Imported 1 book from folder')
-                            : _(`Imported ${files.length} books from folder`),
-                    })
-                    this.add_toast(toast)
+                    this.#importFilesInBackground(files)
                 } else {
                     const toast = new Adw.Toast({
                         title: _('No e-books found in the selected folder'),
