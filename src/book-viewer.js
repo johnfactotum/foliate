@@ -169,7 +169,6 @@ GObject.registerClass({
             enable_write_console_messages_to_stdout: true,
             enable_developer_extras: true,
             enable_back_forward_navigation_gestures: false,
-            enable_hyperlink_auditing: false,
             enable_html5_database: false,
             enable_html5_local_storage: false,
             enable_smooth_scrolling: false,
@@ -429,20 +428,6 @@ const autohide = (revealer, shouldStayVisible) => {
     revealer.add_controller(utils.connect(
         new Gtk.GestureClick(), { 'pressed': show }))
     return { show, hide, sync }
-}
-
-const makeIdentifier = file => {
-    try {
-        const stream = file.read(null)
-        // 10000000 might not be the best value but I guess we will stick to it
-        // for compatibility with previous versions
-        const bytes = stream.read_bytes(10000000, null)
-        const md5 = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, bytes)
-        return `foliate:${md5}`
-    } catch(e) {
-        console.warn(e)
-        return null
-    }
 }
 
 export const BookViewer = GObject.registerClass({
@@ -772,7 +757,7 @@ export const BookViewer = GObject.registerClass({
             this._book_cover.hide()
         }
 
-        book.metadata.identifier ||= makeIdentifier(this.#file)
+        book.metadata.identifier ||= utils.makeIdentifier(this.#file)
         const { identifier } = book.metadata
         if (identifier) {
             this.#data = await dataStore.get(identifier, this._view)

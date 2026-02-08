@@ -402,3 +402,17 @@ export const addClass = (widget, ...classes) => {
     for (const c of classes) widget.add_css_class(c)
     return widget
 }
+
+export const makeIdentifier = file => {
+    try {
+        const stream = file.read(null)
+        // 10000000 might not be the best value but I guess we will stick to it
+        // for compatibility with previous versions
+        const bytes = stream.read_bytes(10000000, null)
+        const md5 = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, bytes)
+        return `foliate:${md5}`
+    } catch(e) {
+        console.warn(e)
+        return null
+    }
+}

@@ -79,25 +79,52 @@ const uiText = {
     },
 }
 
+let trackerModule
+let trackerUnavailable = false
+
+const getTrackerModule = () => {
+    if (trackerUnavailable) return null
+    if (!trackerModule) {
+        try {
+            trackerModule = imports.gi.Tracker
+        } catch (e) {
+            console.debug(e)
+            trackerUnavailable = true
+            return null
+        }
+    }
+    return trackerModule
+}
+
 const getURIFromTracker = identifier => {
-    const connection = imports.gi.Tracker.SparqlConnection.bus_new(
-        'org.freedesktop.Tracker3.Miner.Files', null, null)
-    const statement = connection.query_statement(`
-        SELECT ?uri
-        WHERE {
-            GRAPH tracker:Documents {
-                ?u rdf:type nfo:EBook .
-                ?u nie:isStoredAs ?uri .
-                ?u nie:identifier ~identifier .
-            }
-        }`, null)
-    statement.bind_string('identifier', identifier)
-    const cursor = statement.execute(null)
-    cursor.next(null)
-    const uri = cursor.get_string(0)[0]
-    cursor.close()
-    connection.close()
-    return uri
+    const Tracker = getTrackerModule()
+    if (!Tracker?.SparqlConnection) return null
+    let connection
+    try {
+        connection = Tracker.SparqlConnection.bus_new(
+            'org.freedesktop.Tracker3.Miner.Files', null, null)
+        const statement = connection.query_statement(`
+            SELECT ?uri
+            WHERE {
+                GRAPH tracker:Documents {
+                    ?u rdf:type nfo:EBook .
+                    ?u nie:isStoredAs ?uri .
+                    ?u nie:identifier ~identifier .
+                }
+            }`, null)
+        statement.bind_string('identifier', identifier)
+        const cursor = statement.execute(null)
+        cursor.next(null)
+        const uri = cursor.get_string(0)?.[0]
+        cursor.close()
+        return uri
+    } catch (e) {
+        console.debug(e)
+        trackerUnavailable = true
+        return null
+    } finally {
+        connection?.close()
+    }
 }
 
 const showCovers = utils.settings('library')?.get_boolean('show-covers') ?? true
@@ -185,7 +212,10 @@ const BookList = GObject.registerClass({
         // set to null instead of removing it so we don't mess up the iterator
         if (i !== -1) this.#files[i] = null
         // remove it from the list if it has been loaded
-        for (const [i, el] of utils.gliter(this)) if (el.get_path() === path) this.remove(i)
+        for (let j = this.get_n_items() - 1; j >= 0; j--) {
+            const el = this.get_item(j)
+            if (el?.get_path() === path) this.remove(j)
+        }
         this.insert(0, Gio.File.new_for_path(path))
     }
 })
