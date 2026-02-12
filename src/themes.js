@@ -49,6 +49,11 @@ export const themes = [
         light: { fg: '#2e3440', bg: '#eceff4', link: '#5e81ac' },
         dark: { fg: '#d8dee9', bg: '#2e3440', link: '#88c0d0' },
     },
+    {
+        name: 'perfect-black', label: _('Perfect Black'),
+        light: { fg: '#cccccc', bg: '#000000', link: '#77bbee' },
+        dark: { fg: '#cccccc', bg: '#000000', link: '#77bbee' },
+    },
 ]
 
 for (const { file, name } of utils.listDir(pkg.configpath('themes'))) try {
@@ -107,7 +112,9 @@ themeCssProvider.load_from_data(`
     `
 }).join(''), -1)
 
-export const invertTheme = ({ light, dark }) => ({ light, dark, inverted: {
-    fg: utils.invertColor(dark.fg),
-    link: utils.invertColor(dark.link),
-} })
+export const invertTheme = ({ light, dark }) => ({
+    light, dark, inverted: {
+        fg: utils.invertColor(dark.fg),
+        link: utils.invertColor(dark.link),
+    }
+})
