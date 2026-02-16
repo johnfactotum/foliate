@@ -348,6 +348,8 @@
                 <object class="GtkStringList">
                   <items>
                     <item>moonshotai/kimi-k2.5</item>
+                    <item>moonshotai/kimi-k2-thinking</item>
+                    <item>kilo/auto</item>
                   </items>
                 </object>
               </property>
@@ -356,14 +358,9 @@
         </object>
       </child>
       <child>
-        <object class="AdwPreferencesGroup">
-          <property name="title" translatable="yes">Prompt Settings</property>
-          <child>
-            <object class="AdwEntryRow" id="ai-assistant-prompt-template">
-              <property name="title" translatable="yes">Prompt Template</property>
-              <property name="show-apply-button">True</property>
-            </object>
-          </child>
+        <object class="AdwPreferencesGroup" id="ai-prompts-group">
+          <property name="title" translatable="yes">AI Prompts</property>
+          <property name="description" translatable="yes">Configure multiple prompt templates with optional keyboard shortcuts and output files.</property>
         </object>
       </child>
     </object>

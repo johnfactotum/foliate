@@ -163,6 +163,13 @@ const callKilo = async (text, apiKey, model, promptTemplate) => {
 const displayResult = (content) => {
     document.querySelector('#output').textContent = content
     document.body.dataset.state = 'loaded'
+    // Post result back to GJS for file append support
+    try {
+        globalThis.webkit.messageHandlers['ai-result']
+            .postMessage(JSON.stringify({ result: content }))
+    } catch (e) {
+        // Handler may not exist, that's fine
+    }
 }
 
 const displayError = (message, isNoApiKey = false) => {
