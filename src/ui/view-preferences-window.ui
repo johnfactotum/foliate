@@ -277,6 +277,7 @@
                   <items>
                     <item>OpenAI (ChatGPT)</item>
                     <item>Google Gemini</item>
+                    <item>Kilo (Kimi K2.5)</item>
                   </items>
                 </object>
               </property>
@@ -325,6 +326,28 @@
                     <item>gemini-2.0-flash</item>
                     <item>gemini-2.5-flash</item>
                     <item>gemini-2.5-pro</item>
+                  </items>
+                </object>
+              </property>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">Kilo Configuration</property>
+          <child>
+            <object class="AdwPasswordEntryRow" id="ai-assistant-kilo-key">
+              <property name="title" translatable="yes">API Key</property>
+            </object>
+          </child>
+          <child>
+            <object class="AdwComboRow" id="ai-assistant-kilo-model">
+              <property name="title" translatable="yes">Model</property>
+              <property name="model">
+                <object class="GtkStringList">
+                  <items>
+                    <item>moonshotai/kimi-k2.5</item>
                   </items>
                 </object>
               </property>

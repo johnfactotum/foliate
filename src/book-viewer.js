@@ -89,8 +89,8 @@ const ViewPreferencesWindow = GObject.registerClass({
         'theme-flow-box',
         'reduce-animation',
         'ai-assistant-enabled', 'ai-assistant-provider',
-        'ai-assistant-openai-key', 'ai-assistant-gemini-key',
-        'ai-assistant-openai-model', 'ai-assistant-gemini-model',
+        'ai-assistant-openai-key', 'ai-assistant-gemini-key', 'ai-assistant-kilo-key',
+        'ai-assistant-openai-model', 'ai-assistant-gemini-model', 'ai-assistant-kilo-model',
         'ai-assistant-prompt-template',
     ],
 }, class extends Adw.PreferencesDialog {
@@ -126,7 +126,7 @@ const ViewPreferencesWindow = GObject.registerClass({
                 Gio.SettingsBindFlags.DEFAULT)
 
             // Provider selection
-            const providerMap = ['openai', 'gemini']
+            const providerMap = ['openai', 'gemini', 'kilo']
             const currentProvider = viewerSettings.get_string('ai-assistant-provider')
             this._ai_assistant_provider.selected = Math.max(0, providerMap.indexOf(currentProvider))
             handlers.push(this._ai_assistant_provider.connect('notify::selected', () => {
@@ -140,6 +140,8 @@ const ViewPreferencesWindow = GObject.registerClass({
             viewerSettings.bind('ai-assistant-openai-key', this._ai_assistant_openai_key, 'text',
                 Gio.SettingsBindFlags.DEFAULT)
             viewerSettings.bind('ai-assistant-gemini-key', this._ai_assistant_gemini_key, 'text',
+                Gio.SettingsBindFlags.DEFAULT)
+            viewerSettings.bind('ai-assistant-kilo-key', this._ai_assistant_kilo_key, 'text',
                 Gio.SettingsBindFlags.DEFAULT)
 
             // OpenAI model selection
@@ -161,6 +163,17 @@ const ViewPreferencesWindow = GObject.registerClass({
                 const newModel = geminiModelMap[this._ai_assistant_gemini_model.selected]
                 if (newModel) {
                     viewerSettings.set_string('ai-assistant-gemini-model', newModel)
+                }
+            }))
+
+            // Kilo model selection
+            const kiloModelMap = ['moonshotai/kimi-k2.5']
+            const currentKiloModel = viewerSettings.get_string('ai-assistant-kilo-model')
+            this._ai_assistant_kilo_model.selected = Math.max(0, kiloModelMap.indexOf(currentKiloModel))
+            handlers.push(this._ai_assistant_kilo_model.connect('notify::selected', () => {
+                const newModel = kiloModelMap[this._ai_assistant_kilo_model.selected]
+                if (newModel) {
+                    viewerSettings.set_string('ai-assistant-kilo-model', newModel)
                 }
             }))
 

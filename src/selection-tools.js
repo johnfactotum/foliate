@@ -77,9 +77,15 @@ const tools = {
         label: _('Ask AI Assistant'),
         uri: 'foliate-selection-tool:///selection-tools/ai-assistant.html',
         run: (popover, { text }) => {
-            const provider = popover.ai_assistant_provider || 'openai'
-            const openaiKey = popover.ai_assistant_openai_key || GLib.getenv('OPENAI_API_KEY') || ''
-            const geminiKey = popover.ai_assistant_gemini_key || GLib.getenv('GEMINI_API_KEY') || ''
+            // Read from GSettings directly as fallback when property bindings
+            // haven't synced (e.g. empty string defaults from GObject)
+            const s = utils.settings('viewer')
+            const get = key => s?.get_string(key) || ''
+
+            const provider = popover.ai_assistant_provider || get('ai-assistant-provider') || 'openai'
+            const openaiKey = popover.ai_assistant_openai_key || get('ai-assistant-openai-key') || GLib.getenv('OPENAI_API_KEY') || ''
+            const geminiKey = popover.ai_assistant_gemini_key || get('ai-assistant-gemini-key') || GLib.getenv('GEMINI_API_KEY') || ''
+            const kiloKey = popover.ai_assistant_kilo_key || get('ai-assistant-kilo-key') || GLib.getenv('KILO_API_KEY') || ''
 
             console.log('AI Assistant tool run() called')
             console.log('- Provider:', provider)
@@ -89,6 +95,8 @@ const tools = {
                 msg: {
                     footer: provider === 'gemini'
                         ? _('Powered by Google Gemini')
+                        : provider === 'kilo'
+                        ? _('Powered by Kilo (Kimi K2.5)')
                         : _('Powered by OpenAI ChatGPT'),
                     error: _('AI Request Failed'),
                     noApiKey: _('API Key Not Configured'),
@@ -97,11 +105,13 @@ const tools = {
                 provider,
                 openaiKey,
                 geminiKey,
-                openaiModel: popover.ai_assistant_openai_model || 'gpt-4o-mini',
-                geminiModel: popover.ai_assistant_gemini_model || 'gemini-2.0-flash',
-                promptTemplate: popover.ai_assistant_prompt_template ||
-                    'You are a Russian language teacher. Explain the grammar and meaning of this Russian phrase in detail, and provide an English translation: {text}',
-                enabled: popover.ai_assistant_enabled ?? true,
+                kiloKey,
+                openaiModel: popover.ai_assistant_openai_model || get('ai-assistant-openai-model') || 'gpt-4o-mini',
+                geminiModel: popover.ai_assistant_gemini_model || get('ai-assistant-gemini-model') || 'gemini-2.0-flash',
+                kiloModel: popover.ai_assistant_kilo_model || get('ai-assistant-kilo-model') || 'moonshotai/kimi-k2.5',
+                promptTemplate: popover.ai_assistant_prompt_template || get('ai-assistant-prompt-template') ||
+                    'Explain the following text: {text}',
+                enabled: popover.ai_assistant_enabled || (s?.get_boolean('ai-assistant-enabled') ?? true),
             }
         },
     },
@@ -115,8 +125,10 @@ const SelectionToolPopover = GObject.registerClass({
         'ai-assistant-provider': 'string',
         'ai-assistant-openai-key': 'string',
         'ai-assistant-gemini-key': 'string',
+        'ai-assistant-kilo-key': 'string',
         'ai-assistant-openai-model': 'string',
         'ai-assistant-gemini-model': 'string',
+        'ai-assistant-kilo-model': 'string',
         'ai-assistant-prompt-template': 'string',
     }),
 }, class extends Gtk.Popover {
@@ -145,14 +157,22 @@ const SelectionToolPopover = GObject.registerClass({
     })
     constructor(params) {
         super(params)
+        // Allow cross-origin API requests from custom URI scheme
+        this.#webView.set_cors_allowlist([
+            'https://api.openai.com/*',
+            'https://generativelanguage.googleapis.com/*',
+            'https://api.kilo.ai/*',
+        ])
         utils.bindSettings('viewer', this, [
             'translate-target-language',
             'ai-assistant-enabled',
             'ai-assistant-provider',
             'ai-assistant-openai-key',
             'ai-assistant-gemini-key',
+            'ai-assistant-kilo-key',
             'ai-assistant-openai-model',
             'ai-assistant-gemini-model',
+            'ai-assistant-kilo-model',
             'ai-assistant-prompt-template',
         ])
         Object.assign(this, {

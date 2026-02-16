@@ -47,6 +47,7 @@ main {
 <footer></footer>
 <script>
 const OPENAI_ENDPOINT = 'https://api.openai.com/v1/chat/completions'
+const KILO_ENDPOINT = 'https://api.kilo.ai/api/gateway/chat/completions'
 
 let msgError, msgNoApiKey, msgFooter
 
@@ -127,6 +128,38 @@ const callGemini = async (text, apiKey, model, promptTemplate) => {
     return data.candidates[0].content.parts[0].text
 }
 
+const callKilo = async (text, apiKey, model, promptTemplate) => {
+    const prompt = promptTemplate.replace('{text}', text)
+
+    console.log('Kilo Request:')
+    console.log('- Selected text:', text)
+    console.log('- Model:', model)
+    console.log('- Final prompt:', prompt)
+
+    const response = await fetch(KILO_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+            model: model,
+            messages: [
+                { role: 'user', content: prompt }
+            ],
+            temperature: 0.7,
+        }),
+    })
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error?.message || `HTTP ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data.choices[0].message.content
+}
+
 const displayResult = (content) => {
     document.querySelector('#output').textContent = content
     document.body.dataset.state = 'loaded'
@@ -159,12 +192,13 @@ const displayError = (message, isNoApiKey = false) => {
     document.body.dataset.state = 'error'
 }
 
-globalThis.init = ({ msg, text, provider, openaiKey, geminiKey, openaiModel, geminiModel, promptTemplate, enabled }) => {
+globalThis.init = ({ msg, text, provider, openaiKey, geminiKey, kiloKey, openaiModel, geminiModel, kiloModel, promptTemplate, enabled }) => {
     console.log('AI Assistant init called:')
     console.log('- Provider:', provider)
     console.log('- Text:', text)
     console.log('- OpenAI key:', openaiKey ? '(set)' : '(not set)')
     console.log('- Gemini key:', geminiKey ? '(set)' : '(not set)')
+    console.log('- Kilo key:', kiloKey ? '(set)' : '(not set)')
     console.log('- Enabled:', enabled)
 
     msgError = msg.error
@@ -176,25 +210,25 @@ globalThis.init = ({ msg, text, provider, openaiKey, geminiKey, openaiModel, gem
     const outputDiv = document.querySelector('#output')
     outputDiv.innerHTML = '<div class="loading">Loading...</div>'
 
-    if (!enabled) {
-        displayError('AI Assistant is disabled in settings.', false)
-        return
-    }
-
     let apiKey, model, callAPI
 
     if (provider === 'gemini') {
         apiKey = geminiKey
         model = geminiModel
         callAPI = callGemini
+    } else if (provider === 'kilo') {
+        apiKey = kiloKey
+        model = kiloModel
+        callAPI = callKilo
     } else {
         apiKey = openaiKey
         model = openaiModel
         callAPI = callOpenAI
     }
 
+    const providerNames = { openai: 'OpenAI', gemini: 'Gemini', kilo: 'Kilo' }
     if (!apiKey) {
-        displayError(`${provider === 'gemini' ? 'Gemini' : 'OpenAI'} API key is not configured.`, true)
+        displayError(`${providerNames[provider] || provider} API key is not configured.`, true)
         return
     }
 
