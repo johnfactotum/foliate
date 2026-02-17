@@ -282,5 +282,33 @@ export const SelectionPopover = GObject.registerClass({
             group.add_action(action)
             section.append(tool.label, `selection-tools.${name}`)
         }
+
+        // Intercept keyboard shortcuts for AI prompts while popover is open
+        const promptAccels = []
+        for (const prompt of prompts) {
+            if (!prompt.shortcut) continue
+            const [ok, keyval, mods] = Gtk.accelerator_parse(prompt.shortcut)
+            if (!ok) continue
+            const actionName = prompts.length > 1
+                ? `ai-prompt-${prompt.id}` : 'ai-assistant'
+            promptAccels.push({ keyval, mods, actionName })
+        }
+        if (promptAccels.length) {
+            const keyCtrl = new Gtk.EventControllerKey({
+                propagation_phase: Gtk.PropagationPhase.CAPTURE,
+            })
+            keyCtrl.connect('key-pressed', (_, keyval, keycode, state) => {
+                const mods = state & Gtk.accelerator_get_default_mod_mask()
+                for (const accel of promptAccels) {
+                    if (keyval === accel.keyval && mods === accel.mods) {
+                        this.popdown()
+                        group.activate_action(accel.actionName, null)
+                        return true
+                    }
+                }
+                return false
+            })
+            this.add_controller(keyCtrl)
+        }
     }
 })

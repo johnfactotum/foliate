@@ -370,6 +370,16 @@ const ViewPreferencesWindow = GObject.registerClass({
 
             const accel = Gtk.accelerator_name(keyval, modifiers)
             if (accel) {
+                // Check if shortcut is already used by another prompt
+                const conflict = this.#prompts.find(p =>
+                    p.id !== prompt.id && p.shortcut === accel)
+                if (conflict) {
+                    recordBtn.label = _('Already used by "%s"').replace('%s', conflict.name)
+                    recordBtn.remove_css_class('destructive-action')
+                    recording = false
+                    setTimeout(() => recordBtn.label = _('Record'), 2000)
+                    return true
+                }
                 currentShortcut = accel
                 shortcutLabel.accelerator = accel
             }
