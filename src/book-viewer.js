@@ -1039,47 +1039,51 @@ export const BookViewer = GObject.registerClass({
         // TODO: disable these when pinch zoomed
         this._view.webView.add_controller(utils.addShortcuts(shortcuts))
 
-        // Register AI prompt shortcuts
-        this.#registerAIPromptShortcuts()
     }
-    #aiPromptControllers = [] // [{ctrl, widget}]
+    #currentSelectionPopover = null
+    #lastSelection = null
+    #aiPromptActionNames = []
     #registerAIPromptShortcuts() {
-        // Remove previously registered controllers
-        for (const { ctrl, widget } of this.#aiPromptControllers)
-            widget.remove_controller(ctrl)
-        this.#aiPromptControllers = []
+        const app = Gio.Application.get_default()
+        const win = this.root
+        if (!app || !win) return
+
+        // Clear previous actions and accels
+        for (const name of this.#aiPromptActionNames) {
+            app.set_accels_for_action(`win.${name}`, [])
+            win.remove_action(name)
+        }
+        this.#aiPromptActionNames = []
 
         const prompts = loadPrompts()
-        const promptShortcuts = {}
         for (const prompt of prompts) {
             if (!prompt.shortcut) continue
-            promptShortcuts[prompt.shortcut] = () => this.#runAIPrompt(prompt)
-        }
-        if (Object.keys(promptShortcuts).length) {
-            const ctrl1 = utils.addShortcuts(promptShortcuts)
-            const ctrl2 = utils.addShortcuts(promptShortcuts)
-            this.add_controller(ctrl1)
-            this._view.webView.add_controller(ctrl2)
-            this.#aiPromptControllers.push(
-                { ctrl: ctrl1, widget: this },
-                { ctrl: ctrl2, widget: this._view.webView },
-            )
+            const name = `ai-prompt-${prompt.id}`
+            const action = new Gio.SimpleAction({ name })
+            action.connect('activate', () => this.#runAIPrompt(prompt))
+            win.add_action(action)
+            app.set_accels_for_action(`win.${name}`, [prompt.shortcut])
+            this.#aiPromptActionNames.push(name)
         }
     }
     #runAIPrompt(prompt) {
         const selection = this.#lastSelection
-        if (!selection?.text) return
+        if (!selection) return
+        const { text, point, dir } = selection
+        // Close the selection popover if open
+        if (this.#currentSelectionPopover?.visible)
+            this.#currentSelectionPopover.popdown()
         const popover = getSelectionToolPopover()
         const tool = aiTool
-        const init = tool.run(popover, { text: selection.text }, prompt.prompt)
+        const init = tool.run(popover, { text }, prompt.prompt)
         if (prompt.outputFile) {
             popover.setOnResult(({ result }) =>
-                appendToFile(prompt.outputFile, selection.text, result))
+                appendToFile(prompt.outputFile, text, result))
         } else {
             popover.setOnResult(null)
         }
         popover.loadTool(tool, init)
-        this._view.showPopover(popover, selection.point, selection.dir)
+        this._view.showPopover(popover, point, dir)
     }
     #onError({ id, message, stack }) {
         const desc = id === 'not-found' ? _('File not found')
@@ -1102,6 +1106,9 @@ export const BookViewer = GObject.registerClass({
         this._book_author.label = formatAuthors(book.metadata)
         this._book_author.visible = !!this._book_author.label
         this.root.title = this._book_title.label
+
+        // Register AI prompt shortcuts (window must exist)
+        this.#registerAIPromptShortcuts()
 
         const { language: { direction } } = reader.view
         utils.setDirection(this._book_info, direction)
@@ -1175,9 +1182,11 @@ export const BookViewer = GObject.registerClass({
         }), { 'button-clicked': () =>
             this.#data.addAnnotation(annotation) }))
     }
-    #lastSelection = null
     #showSelection({ type, value, text, content, lang, pos: { point, dir } }) {
-        if (type === 'selection') this.#lastSelection = { text, lang, point, dir }
+        if (type === 'selection') {
+            this.#lastSelection = { text, lang, point, dir }
+            this.#registerAIPromptShortcuts()
+        }
         if (type === 'annotation') return new Promise(resolve => {
             this._annotation_view.scrollToCFI(value)
             const annotation = this.#data.annotations.get(value)
@@ -1192,6 +1201,7 @@ export const BookViewer = GObject.registerClass({
         return new Promise(resolve => {
             let resolved
             const popover = new SelectionPopover()
+            this.#currentSelectionPopover = popover
             popover.insert_action_group('selection', utils.addSimpleActions({
                 'copy': () => resolve('copy'),
                 'copy-cfi': () => utils.setClipboardText(value, this.root),
