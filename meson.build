@@ -5,9 +5,10 @@ project('com.github.johnfactotum.Foliate',
 
 gnome = import('gnome')
 i18n = import('i18n')
+gjs = dependency('gjs-1.0')
 
 if get_option('check_runtime_deps')
-    gjs = dependency('gjs-1.0', version: '>= 1.82')
+    dependency('gjs-1.0', version: '>= 1.82')
     dependency('gtk4', version: '>= 4.12')
     dependency('libadwaita-1', version: '>= 1.8')
     dependency('webkitgtk-6.0', version: '>= 2.40.1')
