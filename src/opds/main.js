@@ -33,6 +33,11 @@ const filterKeys = (map, f) => Array.from(map, ([key, val]) =>
 const resolveURL = (url, relativeTo) => {
     if (!url) return ''
     try {
+        if (relativeTo.startsWith('file://') && url.startsWith('/')) {
+            // Catalog uses server-style absolute paths; resolve relative to catalog's directory
+            const dir = relativeTo.slice(0, relativeTo.lastIndexOf('/') + 1)
+            return dir + encodeURI(url.slice(1))
+        }
         if (relativeTo.includes(':')) return new URL(url, relativeTo).toString()
         // the base needs to be a valid URL, so set a base URL and then remove it
         const root = 'https://invalid.invalid/'
@@ -633,9 +638,13 @@ document.querySelector('#search button').textContent = globalThis.uiText.search
 
 try {
     const params = new URLSearchParams(location.search)
-    const res = await fetch(params.get('url'))
-    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
-    const url = res.url
+    const rawURL = params.get('url')
+    const fetchURL = rawURL.startsWith('file://')
+        ? `foliate-opds:///local-file${new URL(rawURL).pathname}`
+        : rawURL
+    const res = await fetch(fetchURL)
+    if (!res.ok && res.status !== 0) throw new Error(`${res.status} ${res.statusText}`)
+    const url = rawURL.startsWith('file://') ? rawURL : res.url
     const text = await res.text()
     if (text.startsWith('<')) {
         const doc = new DOMParser().parseFromString(text, MIME.XML)
