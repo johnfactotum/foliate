@@ -119,6 +119,20 @@
                         </object>
                       </child>
                       <child type="end">
+                        <object class="GtkDropDown" id="filter-dropdown">
+                          <property name="model">
+                            <object class="GtkStringList">
+                              <items>
+                                <item translatable="yes">All</item>
+                                <item translatable="yes">Reading</item>
+                                <item translatable="yes">Completed</item>
+                                <item translatable="yes">Pending</item>
+                              </items>
+                            </object>
+                          </property>
+                        </object>
+                      </child>
+                      <child type="end">
                         <object class="GtkToggleButton">
                           <property name="icon-name">edit-find-symbolic</property>
                           <property name="tooltip-text" translatable="yes">Search</property>

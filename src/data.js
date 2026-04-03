@@ -99,6 +99,12 @@ export class BookData {
             ? path.replace(homeDir, '~')
             : file.get_uri())
     }
+    get status() {
+        return this.storage.get('status', 'pending')
+    }
+    set status(value) {
+        this.storage.set('status', value)
+    }
 }
 
 class BookDataStore {
@@ -108,17 +114,24 @@ class BookDataStore {
     get(key, view) {
         const map = this.#map
         if (map.has(key)) {
-            this.#views.get(key).add(view)
-            this.#keys.set(view, key)
-            return map.get(key).initView(view)
+            const obj = map.get(key)
+            if (view) {
+                this.#views.get(key).add(view)
+                this.#keys.set(view, key)
+                return obj.initView(view)
+            }
+            return obj
         }
         else {
-            const views = new Set([view])
+            const views = new Set(view ? [view] : [])
             const obj = new BookData(key, views)
             map.set(key, obj)
             this.#views.set(key, views)
-            this.#keys.set(view, key)
-            return obj.initView(view, true)
+            if (view) {
+                this.#keys.set(view, key)
+                return obj.initView(view, true)
+            }
+            return obj
         }
     }
     delete(view) {

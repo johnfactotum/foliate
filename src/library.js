@@ -12,6 +12,7 @@ import * as utils from './utils.js'
 import * as format from './format.js'
 import { exportAnnotations } from './annotations.js'
 import { formatLanguageMap, formatAuthors, makeBookInfoWindow } from './book-info.js'
+import { dataStore } from './data.js'
 
 import WebKit from 'gi://WebKit'
 import { WebView } from './webview.js'
@@ -224,25 +225,34 @@ const fraction = p => !isNaN(p?.[1]) && p?.[1] > 0 ? p[0] / p[1] : null
 const BookItem = GObject.registerClass({
     GTypeName: 'FoliateBookItem',
     Template: pkg.moduleuri('ui/book-item.ui'),
-    InternalChildren: ['image', 'progress', 'title'],
+    InternalChildren: ['image', 'progress', 'title', 'status'],
     Signals: {
         'open-new-window': { param_types: [Gio.File.$gtype] },
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
         'book-info': { param_types: [Gio.File.$gtype] },
         'open-external-app': { param_types: [Gio.File.$gtype] },
+        'set-status': { param_types: [Gio.File.$gtype, GObject.TYPE_STRING] },
     },
 }, class extends Gtk.Box {
     #item
     constructor(params) {
         super(params)
-        this.insert_action_group('book-item', utils.addSimpleActions({
+        const actionGroup = utils.addSimpleActions({
             'open-new-window': () => this.emit('open-new-window', this.#item),
             'remove': () => this.emit('remove-book', this.#item),
             'export': () => this.emit('export-book', this.#item),
             'info': () => this.emit('book-info', this.#item),
             'open-external-app': () => this.emit('open-external-app', this.#item),
-        }))
+        })
+        const setStatusAction = new Gio.SimpleAction({
+            name: 'set-status',
+            parameter_type: GLib.VariantType.new('s'),
+        })
+        setStatusAction.connect('activate', (_, param) =>
+            this.emit('set-status', this.#item, param.deep_unpack()))
+        actionGroup.add_action(setStatusAction)
+        this.insert_action_group('book-item', actionGroup)
     }
     update(item, data, cover) {
         this.#item = item
@@ -250,31 +260,43 @@ const BookItem = GObject.registerClass({
         this._title.text = title
         this._image.load(cover?.then ? null : cover, title)
         this._progress.label = format.percent(fraction(data.progress))
+        const status = data.status || 'pending'
+        this._status.label = status.charAt(0).toUpperCase() + status.slice(1)
+        this._progress.visible = status !== 'completed' && status !== 'pending'
     }
 })
 
 const BookRow = GObject.registerClass({
     GTypeName: 'FoliateBookRow',
     Template: pkg.moduleuri('ui/book-row.ui'),
-    InternalChildren: ['title', 'author', 'progress-grid', 'progress-bar', 'progress-label'],
+    InternalChildren: ['title', 'author', 'progress-grid', 'progress-bar', 'progress-label', 'status'],
     Signals: {
         'open-new-window': { param_types: [Gio.File.$gtype] },
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
         'book-info': { param_types: [Gio.File.$gtype] },
         'open-external-app': { param_types: [Gio.File.$gtype] },
+        'set-status': { param_types: [Gio.File.$gtype, GObject.TYPE_STRING] },
     },
 }, class extends Gtk.Box {
     #item
     constructor(params) {
         super(params)
-        this.insert_action_group('book-item', utils.addSimpleActions({
+        const actionGroup = utils.addSimpleActions({
             'open-new-window': () => this.emit('open-new-window', this.#item),
             'remove': () => this.emit('remove-book', this.#item),
             'export': () => this.emit('export-book', this.#item),
             'info': () => this.emit('book-info', this.#item),
             'open-external-app': () => this.emit('open-external-app', this.#item),
-        }))
+        })
+        const setStatusAction = new Gio.SimpleAction({
+            name: 'set-status',
+            parameter_type: GLib.VariantType.new('s'),
+        })
+        setStatusAction.connect('activate', (_, param) =>
+            this.emit('set-status', this.#item, param.deep_unpack()))
+        actionGroup.add_action(setStatusAction)
+        this.insert_action_group('book-item', actionGroup)
     }
     update(item, data) {
         this.#item = item
@@ -302,6 +324,9 @@ const BookRow = GObject.registerClass({
             grid.attach(this._progress_bar, 0, 0, span, 1)
             grid.attach(this._progress_label, span, 0, steps - span, 1)
         }
+        const status = data.status || 'pending'
+        this._status.label = status.charAt(0).toUpperCase() + status.slice(1)
+        this._progress_grid.visible = status !== 'completed' && status !== 'pending'
     }
 })
 
@@ -323,6 +348,8 @@ GObject.registerClass({
 }, class extends Gtk.Stack {
     #done = false
     #filter = new Gtk.CustomFilter()
+    #statusFilter = 'all'
+    #searchQuery = ''
     #filterModel = utils.connect(new Gtk.FilterListModel({ filter: this.#filter }),
         { 'items-changed': () => this.#update() })
     #itemConnections = {
@@ -339,6 +366,20 @@ GObject.registerClass({
             makeBookInfoWindow(this.get_root(), metadata, cover)
         },
         'open-external-app': (_, file) => this.openWithExternalApp(getBooks().getBook(file)),
+        'set-status': (_, file, status) => {
+            const key = decodeURIComponent(file.get_basename().replace('.json', ''))
+            const data = dataStore.get(key)
+            data.status = status
+            if (status === 'completed') {
+                const progress = data.storage.get('progress')
+                if (progress) {
+                    const total = progress[1]
+                    data.storage.set('progress', [total, total])
+                } else {
+                    data.storage.set('progress', [1, 1])
+                }
+            }
+        },
     }
     actionGroup = utils.addMethods(this, {
         props: ['view-mode'],
@@ -417,16 +458,32 @@ GObject.registerClass({
         return { cover, data }
     }
     search(text) {
-        const q = text.trim().toLowerCase()
-        if (!q) {
+        this.#searchQuery = text.trim().toLowerCase()
+        this.#updateFilterFunc()
+    }
+    setFilter(status) {
+        this.#statusFilter = status
+        this.#updateFilterFunc()
+    }
+    #updateFilterFunc() {
+        const q = this.#searchQuery
+        const status = this.#statusFilter
+
+        this.emit('load-all')
+
+        if (!q && status === 'all') {
             this.#filter.set_filter_func(null)
             return
         }
-        this.emit('load-all')
+
         const fields = ['title', 'creator', 'description']
         const { readFile } = this.#filterModel.model
         this.#filter.set_filter_func(file => {
-            const { metadata } = readFile(file)
+            const data = readFile(file)
+            if (!data) return false
+            const { metadata } = data
+            if (status !== 'all' && (data.status || 'reading') !== status) return false
+            if (!q) return true
             if (!metadata) return false
             return fields.some(field => matchString(metadata[field], q))
         })
@@ -791,7 +848,7 @@ export const Library = GObject.registerClass({
         'breakpoint-bin', 'split-view',
         'sidebar-list-box', 'main-stack',
         'library-toolbar-view', 'catalog-toolbar-view',
-        'books-view', 'search-bar', 'search-entry',
+        'books-view', 'search-bar', 'search-entry', 'filter-dropdown',
         'opds-view',
     ],
 }, class extends Gtk.Box {
@@ -906,6 +963,11 @@ export const Library = GObject.registerClass({
         this._search_bar.connect_entry(this._search_entry)
         this._search_entry.connect('search-changed', entry =>
             this._books_view.search(entry.text))
+        
+        this._filter_dropdown.connect('notify::selected-item', () => {
+            const status = this._filter_dropdown.selected_item.string.toLowerCase()
+            this._books_view.setFilter(status)
+        })
 
         this.insert_action_group('library', this._books_view.actionGroup)
         this.insert_action_group('catalog', this._opds_view.actionGroup)

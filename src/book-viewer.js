@@ -852,6 +852,8 @@ export const BookViewer = GObject.registerClass({
             if (cover) this.#data.saveCover(cover)
         }
         else await this._view.next()
+
+        if (this.#data.status === 'pending') this.#data.status = 'reading'
     }
     #onRelocate(payload) {
         const { section, location, tocItem, cfi } = payload
@@ -863,6 +865,9 @@ export const BookViewer = GObject.registerClass({
         if (this.#data) {
             this.#data.storage.set('progress', [location.current, location.total])
             this.#data.storage.set('lastLocation', cfi)
+            if (location.current >= location.total && this.#data.status === 'reading') {
+                this.#data.status = 'completed'
+            }
         }
     }
     #deleteAnnotation(annotation) {
