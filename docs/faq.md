@@ -50,7 +50,7 @@ Themes are defined as JSON files. Here is an example theme:
 }
 ```
 
-To install themes, you need to put them in `/home/user/.config/com.github.johnfactotum.Foliate/themes/`.
+To install themes, you need to put them in `~/.config/com.github.johnfactotum.Foliate/themes/`.
 
 When using Flatpak, the files should be placed in `~/.var/app/com.github.johnfactotum.Foliate/config/com.github.johnfactotum.Foliate/themes/`.
 
@@ -58,7 +58,7 @@ When using Snap, the files should be placed in `~/snap/foliate/current/.config/c
 
 ### Can I set my own custom CSS styles?
 
-You can create a user stylesheet file at `/home/user/.config/com.github.johnfactotum.Foliate/user-stylesheet.css`. If you're using Flatpak, the location should be `~/.var/app/com.github.johnfactotum.Foliate/config/com.github.johnfactotum.Foliate/user-stylesheet.css`. Note that Foliate needs to be restarted for changes to take effect.
+You can create a user stylesheet file at `~/.config/com.github.johnfactotum.Foliate/user-stylesheet.css`. If you're using Flatpak, the location should be `~/.var/app/com.github.johnfactotum.Foliate/config/com.github.johnfactotum.Foliate/user-stylesheet.css`. Note that Foliate needs to be restarted for changes to take effect.
 
 Tip: you can use the [`:lang()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) selector to apply different styles for books in different languages.
 

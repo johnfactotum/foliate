@@ -109,9 +109,14 @@
         </release>
     </releases>
     <content_rating type="oars-1.1" />
-    <custom>
-        <value key="Purism::form_factor">mobile</value>
-    </custom>
+    <supports>
+      <control>keyboard</control>
+      <control>pointing</control>
+      <control>touch</control>
+    </supports>
+    <requires>
+      <display_length compare="ge">360</display_length>
+    </requires>
     <branding>
       <color type="primary" scheme_preference="light">#7bf1d9</color>
       <color type="primary" scheme_preference="dark">#0b6275</color>
