@@ -24,7 +24,8 @@ We use GitHub to track issues and merge changes. Here is the best way to get you
 ### Reporting Bugs & Opening Issues
 
 * **Search First**: Check if the issue or feature request has already been reported. We highly encourage reading our `docs/faq.md` and `docs/troubleshooting.md` before opening an issue, as your problem might already have a documented workaround.
-* **Be Specific**: Provide your OS version, Foliate version (flatpak, repo, etc.), and steps to reproduce the bug.
+* **Be Specific**: Provide your OS version, Foliate version (flatpak, repo, etc.), and steps to reproduce the bug. 
+  > **Tip:** You can easily copy your system and version details directly from the app by opening the main menu and navigating to **About > Troubleshooting > Debugging Information**, then clicking **Copy Text**.
 * **Logs**: If the app crashes, run it from the terminal via `com.github.johnfactotum.Foliate` (if using Flatpak) and attach the output.
 
 ### Submitting Features or Fixes
