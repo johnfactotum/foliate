@@ -507,6 +507,7 @@ export const BookViewer = GObject.registerClass({
     Properties: utils.makeParams({
         'fold-sidebar': 'boolean',
         'highlight-color': 'string',
+        'selection-popup': 'boolean',
     }),
     InternalChildren: [
         'top-overlay-box', 'top-overlay-stack',
@@ -550,7 +551,8 @@ export const BookViewer = GObject.registerClass({
             },
         })
         this.highlight_color = 'yellow'
-        utils.bindSettings('viewer', this, ['fold-sidebar', 'highlight-color'])
+        this.selection_popup = true
+        utils.bindSettings('viewer', this, ['fold-sidebar', 'highlight-color', 'selection-popup'])
         this._view.fontSettings.bindSettings('viewer.font')
         this._view.viewSettings.bindSettings('viewer.view')
         this._view.webView.connect('notify::zoom-level', webView =>
@@ -739,7 +741,7 @@ export const BookViewer = GObject.registerClass({
                 'preferences', 'help-overlay', 'show-info', 'bookmark',
                 'export-annotations', 'import-annotations',
             ],
-            props: ['fold-sidebar'],
+            props: ['fold-sidebar', 'selection-popup'],
         })
         utils.addPropertyActions(Adw.StyleManager.get_default(), ['color-scheme'], actions)
         this.insert_action_group('view', this._view.actionGroup)
@@ -874,6 +876,7 @@ export const BookViewer = GObject.registerClass({
             this.#data.addAnnotation(annotation) }))
     }
     #showSelection({ type, value, text, content, lang, pos: { point, dir } }) {
+        if (type !== 'annotation' && !this.selection_popup) return Promise.resolve()
         if (type === 'annotation') return new Promise(resolve => {
             this._annotation_view.scrollToCFI(value)
             const annotation = this.#data.annotations.get(value)
