@@ -26,7 +26,24 @@ const registerPaths = (name, dirs) => registerScheme(name, req => {
 })
 
 registerPaths('foliate', ['/reader/', '/foliate-js/'])
-registerPaths('foliate-opds', ['/opds/', '/foliate-js/', '/icons/', '/common/'])
+registerScheme('foliate-opds', req => {
+    let path = pkg.MESON
+        ? req.get_path().replace(/(?<=\/icons)\/hicolor(?=\/scalable\/)/, '')
+        : req.get_path()
+
+    if (path.startsWith('/local-file/')) {
+        const file = Gio.File.new_for_path(path.slice('/local-file'.length))
+        req.finish(file.read(null), -1, 'application/octet-stream')
+        return
+    }
+
+    const dirs = ['/opds/', '/foliate-js/', '/icons/', '/common/']
+    if (dirs.every(dir => !path.startsWith(dir))) throw new Error()
+    const mime = path.endsWith('.js') || path.endsWith('.mjs') ? 'application/javascript'
+        : path.endsWith('.svg') ? 'image/svg+xml' : 'text/html'
+    const file = Gio.File.new_for_uri(pkg.moduleuri(path))
+    req.finish(file.read(null), -1, mime)
+})
 registerPaths('foliate-selection-tool', ['/selection-tools/', '/icons/', '/common/'])
 
 /*

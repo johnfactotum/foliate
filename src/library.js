@@ -564,7 +564,7 @@ GObject.registerClass({
                     this.#state = payload.state
                     this.actionGroup.lookup_action('search').enabled =
                         !!this.#state?.search && !!this.#state?.searchEnabled
-                    this.emit('state-changed', this.#state)
+                    this.emit('state-changed', this.#state ?? null)
                     break
             }
         })
@@ -601,6 +601,11 @@ GObject.registerClass({
     }
     download({ href, token }) {
         const webView = this.child
+        if (href.startsWith('file://')) {
+            webView.exec('finishDownload', { token })
+            this.root.openFile(Gio.File.new_for_uri(href))
+            return
+        }
         new Promise((resolve, reject) => {
             let file
             const download = utils.connect(webView.download_uri(href), {
