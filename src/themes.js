@@ -49,6 +49,11 @@ export const themes = [
         light: { fg: '#2e3440', bg: '#eceff4', link: '#5e81ac' },
         dark: { fg: '#d8dee9', bg: '#2e3440', link: '#88c0d0' },
     },
+    {
+        name: 'rosepine', label: _('Rosepine'),
+        light: { fg: '#575279', bg: '#faf4ed', link: '#907aa9' },
+        dark: { fg: '#e0def4', bg: '#232136', link: '#c4a7e7' },
+    },
 ]
 
 for (const { file, name } of utils.listDir(pkg.configpath('themes'))) try {
