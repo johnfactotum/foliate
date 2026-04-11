@@ -8,7 +8,6 @@
       <property name="column-spacing">6</property>
       <property name="row-spacing">9</property>
       <property name="margin-start">6</property>
-      <!--
       <child>
         <object class="GtkLabel">
           <property name="label" translatable="yes">Voice</property>
@@ -22,13 +21,13 @@
       <child>
         <object class="GtkDropDown" id="tts-voice-dropdown">
           <property name="hexpand">True</property>
+          <property name="width-request">200</property>
           <layout>
             <property name="row">0</property>
             <property name="column">1</property>
           </layout>
         </object>
       </child>
-      -->
       <child>
         <object class="GtkLabel">
           <property name="label" translatable="yes">Speed</property>

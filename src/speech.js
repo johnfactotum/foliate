@@ -151,6 +151,9 @@ export class SSIPClient {
     setPitch(rate) {
         return this.send(`SET self PITCH ${rate}`)
     }
+    setVoice(name) {
+        return this.send(`SET self SYNTHESIS_VOICE ${name}`)
+    }
     async listSynthesisVoices() {
         const data = await this.send('LIST SYNTHESIS_VOICES')
         return data.map(row => {

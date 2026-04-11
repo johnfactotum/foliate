@@ -173,6 +173,13 @@ GObject.registerClass({
             actions: ['copy-cfi', 'paste-cfi', 'toggle-landmarks'],
         })
         this.insert_action_group('navbar', actions)
+
+        // Lazy-populate the TTS voice dropdown the first time the Narration
+        // popover is shown. This keeps SSIP and speech-dispatcher from
+        // being initialized at application startup for users who never
+        // use TTS.
+        this._tts_popover.connect('show', () =>
+            this.tts_box.loadVoices?.().catch(e => console.error(e)))
     }
     get shouldStayVisible() {
         return this._location_popover.visible || this._tts_popover.visible
