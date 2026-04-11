@@ -25,11 +25,13 @@ GObject.registerClass({
         'next-section': { return_type: GObject.TYPE_JSOBJECT },
     },
     InternalChildren: [
-        'tts-rate-scale', 'tts-pitch-scale',
+        'tts-rate-scale', 'tts-pitch-scale', 'tts-voice-dropdown',
         'media-buttons', 'play-button',
     ],
 }, class extends Gtk.Box {
     #state = 'stopped'
+    #voices = []
+    #suppressVoiceNotify = false
     defaultWidget = this._play_button
     constructor(params) {
         super(params)
@@ -40,6 +42,35 @@ GObject.registerClass({
 
         this.#connectScale(this._tts_rate_scale, ssip.setRate.bind(ssip))
         this.#connectScale(this._tts_pitch_scale, ssip.setPitch.bind(ssip))
+
+        // Voice selection: the dropdown is populated lazily via loadVoices()
+        // when the Narration popover is first shown, so SSIP is not
+        // initialized at application startup for users who never use TTS.
+        this._tts_voice_dropdown.connect('notify::selected', dropdown => {
+            if (this.#suppressVoiceNotify) return
+            const voice = this.#voices[dropdown.selected]
+            if (!voice) return
+            const shouldResume = this.state === 'playing'
+            this.state = 'paused'
+            ssip.stop()
+                .then(() => ssip.setVoice(voice.name))
+                .then(() => shouldResume ? this.start() : null)
+                .catch(e => this.error(e))
+        })
+    }
+    // Populate the voice dropdown from the synthesis voices registered in
+    // Speech Dispatcher. Idempotent and safe to call multiple times.
+    async loadVoices() {
+        if (this.#voices.length) return
+        const voices = await ssip.listSynthesisVoices()
+        if (!voices?.length) return
+        this.#voices = voices
+        const list = new Gtk.StringList()
+        for (const { name, lang } of voices)
+            list.append(lang ? `${name} (${lang})` : name)
+        this.#suppressVoiceNotify = true
+        this._tts_voice_dropdown.model = list
+        this.#suppressVoiceNotify = false
     }
     #connectScale(scale, f) {
         scale.connect('value-changed', scale => {
