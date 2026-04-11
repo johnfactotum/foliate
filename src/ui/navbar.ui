@@ -84,6 +84,14 @@
     </object>
   </child>
   <child>
+    <object class="GtkButton" id="tts-quick-play">
+      <property name="valign">center</property>
+      <property name="tooltip-text" translatable="yes">Play/Pause Narration</property>
+      <property name="icon-name">media-playback-start-symbolic</property>
+      <style><class name="image-button"/></style>
+    </object>
+  </child>
+  <child>
     <object class="GtkMenuButton">
       <property name="valign">center</property>
       <property name="direction">up</property>
