@@ -54,6 +54,11 @@ GObject.registerClass({
     get state() {
         return this.#state
     }
+    // Public accessor so the navbar's quick play/pause button can mirror
+    // the popover play button's icon-name via GObject property binding.
+    get playButton() {
+        return this._play_button
+    }
     set state(state) {
         this.#state = state
         this._play_button.icon_name = state === 'playing'

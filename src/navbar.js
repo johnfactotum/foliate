@@ -125,6 +125,7 @@ GObject.registerClass({
         'prev-image', 'next-image', 'back-image', 'forward-image',
         'progress-box', 'progress-scale', 'location-button',
         'location-popover', 'tts-popover', 'tts-stack',
+        'tts-quick-play',
         'time-book', 'time-section',
         'page-label', 'page-box', 'page-drop-down', 'page-total',
         'loc-entry', 'loc-total', 'cfi-entry',
@@ -173,6 +174,19 @@ GObject.registerClass({
             actions: ['copy-cfi', 'paste-cfi', 'toggle-landmarks'],
         })
         this.insert_action_group('navbar', actions)
+
+        // Quick play/pause button: lets the user pause or resume TTS
+        // without having to re-open the Narration popover. Clicking
+        // delegates to the same play() method as the button inside the
+        // popover, and the icon-name is kept in sync via a GObject
+        // property binding so both buttons always show the same state.
+        this._tts_quick_play.connect('clicked', () => this.tts_box.play())
+        this.tts_box.playButton.bind_property(
+            'icon-name',
+            this._tts_quick_play,
+            'icon-name',
+            GObject.BindingFlags.SYNC_CREATE,
+        )
     }
     get shouldStayVisible() {
         return this._location_popover.visible || this._tts_popover.visible
