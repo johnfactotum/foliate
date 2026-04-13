@@ -51,6 +51,7 @@ const makeOpenDialog = () => {
     const ebooks = new Gtk.FileFilter({
         name: _('E-Book Files'),
         mime_types: [
+            'application/pdf',
             'application/epub+zip',
             'application/x-mobipocket-ebook',
             'application/vnd.amazon.mobi8-ebook',
