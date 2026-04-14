@@ -51,6 +51,18 @@ else {
     const moduledir = GLib.path_get_dirname(GLib.filename_from_uri(import.meta.url)[0])
     pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
     pkg.moduleuri = path => GLib.filename_to_uri(pkg.modulepath(path), null)
+
+    // Auto-detect GSettings schema directory when running locally
+    if (!GLib.getenv('GSETTINGS_SCHEMA_DIR')) {
+        const schemaDir = GLib.build_filenamev([moduledir, '..', 'data'])
+        const compiled = GLib.build_filenamev([schemaDir, 'glib-2.0', 'schemas', 'gschemas.compiled'])
+        const source = GLib.build_filenamev([schemaDir, 'gschemas.compiled'])
+        if (GLib.file_test(source, GLib.FileTest.EXISTS)) {
+            GLib.setenv('GSETTINGS_SCHEMA_DIR', schemaDir, true)
+        } else if (GLib.file_test(compiled, GLib.FileTest.EXISTS)) {
+            GLib.setenv('GSETTINGS_SCHEMA_DIR', GLib.build_filenamev([schemaDir, 'glib-2.0', 'schemas']), true)
+        }
+    }
 }
 pkg.useResource = MESON
 

@@ -256,5 +256,114 @@
       </child>
     </object>
   </child>
+  <child>
+    <object class="AdwPreferencesPage">
+      <property name="title" translatable="yes">AI Assistant</property>
+      <property name="icon-name">dialog-question-symbolic</property>
+      <child>
+        <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">Large Language Model Assistant</property>
+          <property name="description" translatable="yes">Use AI to explain something about the text, for example about the grammar, if you are learning a language.</property>
+          <child>
+            <object class="AdwSwitchRow" id="ai-assistant-enabled">
+              <property name="title" translatable="yes">Enable AI Assistant</property>
+            </object>
+          </child>
+          <child>
+            <object class="AdwComboRow" id="ai-assistant-provider">
+              <property name="title" translatable="yes">AI Provider</property>
+              <property name="model">
+                <object class="GtkStringList">
+                  <items>
+                    <item>OpenAI (ChatGPT)</item>
+                    <item>Google Gemini</item>
+                    <item>Kilo (Kimi K2.5)</item>
+                  </items>
+                </object>
+              </property>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">OpenAI Configuration</property>
+          <child>
+            <object class="AdwPasswordEntryRow" id="ai-assistant-openai-key">
+              <property name="title" translatable="yes">API Key</property>
+            </object>
+          </child>
+          <child>
+            <object class="AdwComboRow" id="ai-assistant-openai-model">
+              <property name="title" translatable="yes">Model</property>
+              <property name="model">
+                <object class="GtkStringList">
+                  <items>
+                    <item>gpt-4o-mini</item>
+                    <item>gpt-4o</item>
+                    <item>gpt-3.5-turbo</item>
+                  </items>
+                </object>
+              </property>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">Google Gemini Configuration</property>
+          <child>
+            <object class="AdwPasswordEntryRow" id="ai-assistant-gemini-key">
+              <property name="title" translatable="yes">API Key</property>
+            </object>
+          </child>
+          <child>
+            <object class="AdwComboRow" id="ai-assistant-gemini-model">
+              <property name="title" translatable="yes">Model</property>
+              <property name="model">
+                <object class="GtkStringList">
+                  <items>
+                    <item>gemini-2.0-flash</item>
+                    <item>gemini-2.5-flash</item>
+                    <item>gemini-2.5-pro</item>
+                  </items>
+                </object>
+              </property>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="AdwPreferencesGroup">
+          <property name="title" translatable="yes">Kilo Configuration</property>
+          <child>
+            <object class="AdwPasswordEntryRow" id="ai-assistant-kilo-key">
+              <property name="title" translatable="yes">API Key</property>
+            </object>
+          </child>
+          <child>
+            <object class="AdwComboRow" id="ai-assistant-kilo-model">
+              <property name="title" translatable="yes">Model</property>
+              <property name="model">
+                <object class="GtkStringList">
+                  <items>
+                    <item>moonshotai/kimi-k2.5</item>
+                    <item>moonshotai/kimi-k2-thinking</item>
+                    <item>kilo/auto</item>
+                  </items>
+                </object>
+              </property>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child>
+        <object class="AdwPreferencesGroup" id="ai-prompts-group">
+          <property name="title" translatable="yes">AI Prompts</property>
+          <property name="description" translatable="yes">Configure multiple prompt templates with optional keyboard shortcuts and output files.</property>
+        </object>
+      </child>
+    </object>
+  </child>
 </template>
 </interface>

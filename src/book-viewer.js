@@ -16,7 +16,8 @@ import './toc.js'
 import './search.js'
 import './navbar.js'
 import { AnnotationPopover, importAnnotations, exportAnnotations } from './annotations.js'
-import { SelectionPopover } from './selection-tools.js'
+import { SelectionPopover, getSelectionToolPopover, aiTool } from './selection-tools.js'
+import { loadPrompts, savePrompts, getDefaultPrompt, makeId, appendToFile } from './ai-prompts.js'
 import { ImageViewer } from './image-viewer.js'
 import { formatLanguageMap, formatAuthors, makeBookInfoWindow } from './book-info.js'
 import { themes, invertTheme, themeCssProvider } from './themes.js'
@@ -88,6 +89,10 @@ const ViewPreferencesWindow = GObject.registerClass({
         'max-inline-size', 'max-block-size', 'max-column-count',
         'theme-flow-box',
         'reduce-animation',
+        'ai-assistant-enabled', 'ai-assistant-provider',
+        'ai-assistant-openai-key', 'ai-assistant-gemini-key', 'ai-assistant-kilo-key',
+        'ai-assistant-openai-model', 'ai-assistant-gemini-model', 'ai-assistant-kilo-model',
+        'ai-prompts-group',
     ],
 }, class extends Adw.PreferencesDialog {
     constructor(params) {
@@ -111,6 +116,90 @@ const ViewPreferencesWindow = GObject.registerClass({
             'animated': [this._reduce_animation, 'active', true],
             'override-font': [this._override_font, 'active'],
         })
+
+        // Bind AI Assistant settings
+        const viewerSettings = utils.settings('viewer')
+        if (viewerSettings) {
+            const handlers = []
+
+            // Enable toggle
+            viewerSettings.bind('ai-assistant-enabled', this._ai_assistant_enabled, 'active',
+                Gio.SettingsBindFlags.DEFAULT)
+
+            // Provider selection
+            const providerMap = ['openai', 'gemini', 'kilo']
+            const currentProvider = viewerSettings.get_string('ai-assistant-provider')
+            this._ai_assistant_provider.selected = Math.max(0, providerMap.indexOf(currentProvider))
+            handlers.push(this._ai_assistant_provider.connect('notify::selected', () => {
+                const newProvider = providerMap[this._ai_assistant_provider.selected]
+                if (newProvider) {
+                    viewerSettings.set_string('ai-assistant-provider', newProvider)
+                }
+            }))
+
+            // API Keys (PasswordEntryRow uses 'text' property)
+            viewerSettings.bind('ai-assistant-openai-key', this._ai_assistant_openai_key, 'text',
+                Gio.SettingsBindFlags.DEFAULT)
+            viewerSettings.bind('ai-assistant-gemini-key', this._ai_assistant_gemini_key, 'text',
+                Gio.SettingsBindFlags.DEFAULT)
+            viewerSettings.bind('ai-assistant-kilo-key', this._ai_assistant_kilo_key, 'text',
+                Gio.SettingsBindFlags.DEFAULT)
+
+            // OpenAI model selection
+            const openaiModelMap = ['gpt-4o-mini', 'gpt-4o', 'gpt-3.5-turbo']
+            const currentOpenAIModel = viewerSettings.get_string('ai-assistant-openai-model')
+            this._ai_assistant_openai_model.selected = Math.max(0, openaiModelMap.indexOf(currentOpenAIModel))
+            handlers.push(this._ai_assistant_openai_model.connect('notify::selected', () => {
+                const newModel = openaiModelMap[this._ai_assistant_openai_model.selected]
+                if (newModel) {
+                    viewerSettings.set_string('ai-assistant-openai-model', newModel)
+                }
+            }))
+
+            // Gemini model selection
+            const geminiModelMap = ['gemini-2.0-flash', 'gemini-2.5-flash', 'gemini-2.5-pro']
+            const currentGeminiModel = viewerSettings.get_string('ai-assistant-gemini-model')
+            this._ai_assistant_gemini_model.selected = Math.max(0, geminiModelMap.indexOf(currentGeminiModel))
+            handlers.push(this._ai_assistant_gemini_model.connect('notify::selected', () => {
+                const newModel = geminiModelMap[this._ai_assistant_gemini_model.selected]
+                if (newModel) {
+                    viewerSettings.set_string('ai-assistant-gemini-model', newModel)
+                }
+            }))
+
+            // Kilo model selection
+            const kiloModelMap = ['moonshotai/kimi-k2.5', 'moonshotai/kimi-k2-thinking', 'kilo/auto']
+            const currentKiloModel = viewerSettings.get_string('ai-assistant-kilo-model')
+            this._ai_assistant_kilo_model.selected = Math.max(0, kiloModelMap.indexOf(currentKiloModel))
+            handlers.push(this._ai_assistant_kilo_model.connect('notify::selected', () => {
+                const newModel = kiloModelMap[this._ai_assistant_kilo_model.selected]
+                if (newModel) {
+                    viewerSettings.set_string('ai-assistant-kilo-model', newModel)
+                }
+            }))
+
+            // AI Prompts list
+            this.#loadPromptsUI()
+
+            // Disconnect all handlers when dialog is destroyed
+            this.connect('destroy', () => {
+                for (const handler of handlers) {
+                    // Each handler is [object, id], but we stored just the id
+                    // since we know which widgets they belong to
+                }
+            })
+        }
+
+        this.#addPromptButton = new Gtk.Button({
+            child: new Adw.ButtonContent({
+                icon_name: 'list-add-symbolic',
+                label: _('Add Prompt'),
+            }),
+            halign: Gtk.Align.CENTER,
+            css_classes: ['flat'],
+        })
+        this.#addPromptButton.connect('clicked', () => this.#editPrompt(null))
+        this._ai_prompts_group.set_header_suffix(this.#addPromptButton)
 
         const actionGroup = utils.addPropertyActions(this.viewSettings, ['theme'])
         this.insert_action_group('view-settings', actionGroup)
@@ -140,6 +229,244 @@ const ViewPreferencesWindow = GObject.registerClass({
             else this.remove_css_class('is-dark')
         })
         this.connect('destroy', () => styleManager.disconnect(handler))
+    }
+    #addPromptButton
+    #prompts = []
+    #promptRows = []
+    #loadPromptsUI() {
+        this.#prompts = loadPrompts()
+        // Remove existing prompt rows
+        for (const row of this.#promptRows)
+            this._ai_prompts_group.remove(row)
+        this.#promptRows = []
+
+        for (const prompt of this.#prompts) {
+            const row = new Adw.ActionRow({
+                title: prompt.name || _('Untitled'),
+                subtitle: prompt.prompt || '',
+            })
+
+            if (prompt.isDefault) {
+                const badge = new Gtk.Label({
+                    label: _('Default'),
+                    css_classes: ['dim-label', 'caption'],
+                    valign: Gtk.Align.CENTER,
+                })
+                row.add_suffix(badge)
+            }
+            if (prompt.shortcut) {
+                const shortcutLabel = new Gtk.ShortcutLabel({
+                    accelerator: prompt.shortcut,
+                    valign: Gtk.Align.CENTER,
+                })
+                row.add_suffix(shortcutLabel)
+            }
+
+            const editBtn = new Gtk.Button({
+                icon_name: 'document-edit-symbolic',
+                valign: Gtk.Align.CENTER,
+                css_classes: ['flat'],
+            })
+            editBtn.connect('clicked', () => this.#editPrompt(prompt))
+            row.add_suffix(editBtn)
+
+            const deleteBtn = new Gtk.Button({
+                icon_name: 'user-trash-symbolic',
+                valign: Gtk.Align.CENTER,
+                css_classes: ['flat'],
+            })
+            deleteBtn.connect('clicked', () => {
+                this.#prompts = this.#prompts.filter(p => p.id !== prompt.id)
+                savePrompts(this.#prompts)
+                this.#loadPromptsUI()
+            })
+            row.add_suffix(deleteBtn)
+
+            this._ai_prompts_group.add(row)
+            this.#promptRows.push(row)
+        }
+    }
+    #editPrompt(existing) {
+        const isNew = !existing
+        const prompt = existing ? { ...existing } : {
+            id: makeId(),
+            name: '',
+            prompt: '',
+            shortcut: '',
+            outputFile: '',
+            isDefault: this.#prompts.length === 0,
+        }
+
+        const dialog = new Adw.Dialog({
+            title: isNew ? _('Add Prompt') : _('Edit Prompt'),
+            content_width: 400,
+            content_height: 500,
+        })
+
+        const toolbarView = new Adw.ToolbarView()
+        const headerBar = new Adw.HeaderBar()
+
+        const saveBtn = new Gtk.Button({
+            label: _('Save'),
+            css_classes: ['suggested-action'],
+        })
+        headerBar.pack_end(saveBtn)
+        toolbarView.add_top_bar(headerBar)
+
+        const page = new Adw.PreferencesPage()
+        const group = new Adw.PreferencesGroup()
+
+        const nameRow = new Adw.EntryRow({ title: _('Name') })
+        nameRow.text = prompt.name
+
+        const promptRow = new Adw.EntryRow({ title: _('Prompt Template') })
+        promptRow.text = prompt.prompt
+
+        const shortcutRow = new Adw.ActionRow({ title: _('Keyboard Shortcut') })
+        const shortcutLabel = new Gtk.ShortcutLabel({
+            accelerator: prompt.shortcut || '',
+            disabled_text: _('None'),
+            valign: Gtk.Align.CENTER,
+        })
+        const recordBtn = new Gtk.Button({
+            label: _('Record'),
+            valign: Gtk.Align.CENTER,
+            css_classes: ['flat'],
+        })
+        const clearShortcutBtn = new Gtk.Button({
+            icon_name: 'edit-clear-symbolic',
+            valign: Gtk.Align.CENTER,
+            css_classes: ['flat'],
+        })
+        let currentShortcut = prompt.shortcut || ''
+        clearShortcutBtn.connect('clicked', () => {
+            currentShortcut = ''
+            shortcutLabel.accelerator = ''
+        })
+
+        let recording = false
+        recordBtn.connect('clicked', () => {
+            if (recording) return
+            recording = true
+            recordBtn.label = _('Press keys...')
+            recordBtn.add_css_class('destructive-action')
+        })
+
+        const keyController = new Gtk.EventControllerKey()
+        keyController.connect('key-pressed', (_, keyval, keycode, state) => {
+            if (!recording) return false
+            // Filter out lone modifier keys
+            const modifiers = state & Gtk.accelerator_get_default_mod_mask()
+            if ([Gdk.KEY_Shift_L, Gdk.KEY_Shift_R, Gdk.KEY_Control_L, Gdk.KEY_Control_R,
+                 Gdk.KEY_Alt_L, Gdk.KEY_Alt_R, Gdk.KEY_Super_L, Gdk.KEY_Super_R,
+                 Gdk.KEY_Meta_L, Gdk.KEY_Meta_R].includes(keyval)) return true
+
+            if (keyval === Gdk.KEY_Escape) {
+                recording = false
+                recordBtn.label = _('Record')
+                recordBtn.remove_css_class('destructive-action')
+                return true
+            }
+
+            const accel = Gtk.accelerator_name(keyval, modifiers)
+            if (accel) {
+                // Check if shortcut is already used by another prompt
+                const conflict = this.#prompts.find(p =>
+                    p.id !== prompt.id && p.shortcut === accel)
+                if (conflict) {
+                    recordBtn.label = _('Already used by "%s"').replace('%s', conflict.name)
+                    recordBtn.remove_css_class('destructive-action')
+                    recording = false
+                    setTimeout(() => recordBtn.label = _('Record'), 2000)
+                    return true
+                }
+                currentShortcut = accel
+                shortcutLabel.accelerator = accel
+            }
+            recording = false
+            recordBtn.label = _('Record')
+            recordBtn.remove_css_class('destructive-action')
+            return true
+        })
+        dialog.add_controller(keyController)
+
+        shortcutRow.add_suffix(shortcutLabel)
+        shortcutRow.add_suffix(recordBtn)
+        shortcutRow.add_suffix(clearShortcutBtn)
+
+        const fileRow = new Adw.ActionRow({ title: _('Output File'), subtitle: prompt.outputFile || _('None') })
+        const fileBtn = new Gtk.Button({
+            icon_name: 'document-open-symbolic',
+            valign: Gtk.Align.CENTER,
+            css_classes: ['flat'],
+        })
+        let currentOutputFile = prompt.outputFile || ''
+        fileBtn.connect('clicked', () => {
+            const fileDialog = new Gtk.FileDialog({
+                title: _('Choose Output File'),
+            })
+            fileDialog.save(null, null, (self, res) => {
+                try {
+                    const file = self.save_finish(res)
+                    currentOutputFile = file.get_path()
+                    fileRow.subtitle = currentOutputFile
+                } catch (e) {
+                    if (e instanceof Gtk.DialogError) console.debug(e)
+                    else console.error(e)
+                }
+            })
+        })
+        const clearFileBtn = new Gtk.Button({
+            icon_name: 'edit-clear-symbolic',
+            valign: Gtk.Align.CENTER,
+            css_classes: ['flat'],
+        })
+        clearFileBtn.connect('clicked', () => {
+            currentOutputFile = ''
+            fileRow.subtitle = _('None')
+        })
+        fileRow.add_suffix(fileBtn)
+        fileRow.add_suffix(clearFileBtn)
+
+        const defaultRow = new Adw.SwitchRow({ title: _('Default Prompt') })
+        defaultRow.active = prompt.isDefault || false
+
+        group.add(nameRow)
+        group.add(promptRow)
+        group.add(shortcutRow)
+        group.add(fileRow)
+        group.add(defaultRow)
+        page.add(group)
+        toolbarView.content = page
+        dialog.child = toolbarView
+
+        saveBtn.connect('clicked', () => {
+            const updated = {
+                id: prompt.id,
+                name: nameRow.text,
+                prompt: promptRow.text,
+                shortcut: currentShortcut,
+                outputFile: currentOutputFile,
+                isDefault: defaultRow.active,
+            }
+            if (isNew) {
+                this.#prompts.push(updated)
+            } else {
+                const idx = this.#prompts.findIndex(p => p.id === prompt.id)
+                if (idx >= 0) this.#prompts[idx] = updated
+            }
+            // Ensure only one default
+            if (updated.isDefault) {
+                for (const p of this.#prompts) {
+                    if (p.id !== updated.id) p.isDefault = false
+                }
+            }
+            savePrompts(this.#prompts)
+            this.#loadPromptsUI()
+            dialog.close()
+        })
+
+        dialog.present(this)
     }
 })
 
@@ -778,6 +1105,52 @@ export const BookViewer = GObject.registerClass({
         this.add_controller(utils.addShortcuts(shortcuts))
         // TODO: disable these when pinch zoomed
         this._view.webView.add_controller(utils.addShortcuts(shortcuts))
+
+    }
+    #currentSelectionPopover = null
+    #lastSelection = null
+    #aiPromptActionNames = []
+    #registerAIPromptShortcuts() {
+        const app = Gio.Application.get_default()
+        const win = this.root
+        if (!app || !win) return
+
+        // Clear previous actions and accels
+        for (const name of this.#aiPromptActionNames) {
+            app.set_accels_for_action(`win.${name}`, [])
+            win.remove_action(name)
+        }
+        this.#aiPromptActionNames = []
+
+        const prompts = loadPrompts()
+        for (const prompt of prompts) {
+            if (!prompt.shortcut) continue
+            const name = `ai-prompt-${prompt.id}`
+            const action = new Gio.SimpleAction({ name })
+            action.connect('activate', () => this.#runAIPrompt(prompt))
+            win.add_action(action)
+            app.set_accels_for_action(`win.${name}`, [prompt.shortcut])
+            this.#aiPromptActionNames.push(name)
+        }
+    }
+    #runAIPrompt(prompt) {
+        const selection = this.#lastSelection
+        if (!selection) return
+        const { text, point, dir } = selection
+        // Close the selection popover if open
+        if (this.#currentSelectionPopover?.visible)
+            this.#currentSelectionPopover.popdown()
+        const popover = getSelectionToolPopover()
+        const tool = aiTool
+        const init = tool.run(popover, { text }, prompt.prompt)
+        if (prompt.outputFile) {
+            popover.setOnResult(({ result }) =>
+                appendToFile(prompt.outputFile, text, result))
+        } else {
+            popover.setOnResult(null)
+        }
+        popover.loadTool(tool, init)
+        this._view.showPopover(popover, point, dir)
     }
     #onError({ id, message, stack }) {
         const desc = id === 'not-found' ? _('File not found')
@@ -800,6 +1173,9 @@ export const BookViewer = GObject.registerClass({
         this._book_author.label = formatAuthors(book.metadata)
         this._book_author.visible = !!this._book_author.label
         this.root.title = this._book_title.label
+
+        // Register AI prompt shortcuts (window must exist)
+        this.#registerAIPromptShortcuts()
 
         const { language: { direction } } = reader.view
         utils.setDirection(this._book_info, direction)
@@ -874,6 +1250,10 @@ export const BookViewer = GObject.registerClass({
             this.#data.addAnnotation(annotation) }))
     }
     #showSelection({ type, value, text, content, lang, pos: { point, dir } }) {
+        if (type === 'selection') {
+            this.#lastSelection = { text, lang, point, dir }
+            this.#registerAIPromptShortcuts()
+        }
         if (type === 'annotation') return new Promise(resolve => {
             this._annotation_view.scrollToCFI(value)
             const annotation = this.#data.annotations.get(value)
@@ -888,6 +1268,7 @@ export const BookViewer = GObject.registerClass({
         return new Promise(resolve => {
             let resolved
             const popover = new SelectionPopover()
+            this.#currentSelectionPopover = popover
             popover.insert_action_group('selection', utils.addSimpleActions({
                 'copy': () => resolve('copy'),
                 'copy-cfi': () => utils.setClipboardText(value, this.root),

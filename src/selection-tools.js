@@ -3,11 +3,13 @@ import Gio from 'gi://Gio'
 import GObject from 'gi://GObject'
 import WebKit from 'gi://WebKit'
 import Gdk from 'gi://Gdk'
+import GLib from 'gi://GLib'
 import { gettext as _ } from 'gettext'
 
 import * as utils from './utils.js'
 import { WebView } from './webview.js'
 import { locales, matchLocales } from './format.js'
+import { loadPrompts, getDefaultPrompt, appendToFile } from './ai-prompts.js'
 
 const getLanguage = lang => {
     try {
@@ -72,12 +74,68 @@ const tools = {
             }
         },
     },
+    'ai-assistant': {
+        label: _('Ask AI Assistant'),
+        uri: 'foliate-selection-tool:///selection-tools/ai-assistant.html',
+        run: (popover, { text }, promptOverride) => {
+            // Read from GSettings directly as fallback when property bindings
+            // haven't synced (e.g. empty string defaults from GObject)
+            const s = utils.settings('viewer')
+            const get = key => s?.get_string(key) || ''
+
+            const provider = popover.ai_assistant_provider || get('ai-assistant-provider') || 'openai'
+            const openaiKey = popover.ai_assistant_openai_key || get('ai-assistant-openai-key') || GLib.getenv('OPENAI_API_KEY') || ''
+            const geminiKey = popover.ai_assistant_gemini_key || get('ai-assistant-gemini-key') || GLib.getenv('GEMINI_API_KEY') || ''
+            const kiloKey = popover.ai_assistant_kilo_key || get('ai-assistant-kilo-key') || GLib.getenv('KILO_API_KEY') || ''
+
+            // Priority: explicit override > default prompt from prompts file > GSettings > fallback
+            let promptTemplate = promptOverride
+            if (!promptTemplate) {
+                const defaultPrompt = getDefaultPrompt(loadPrompts())
+                promptTemplate = defaultPrompt?.prompt
+                    || popover.ai_assistant_prompt_template
+                    || get('ai-assistant-prompt-template')
+                    || 'Explain the following text: {text}'
+            }
+
+            return {
+                msg: {
+                    footer: provider === 'gemini'
+                        ? _('Powered by Google Gemini')
+                        : provider === 'kilo'
+                        ? _('Powered by Kilo (Kimi K2.5)')
+                        : _('Powered by OpenAI ChatGPT'),
+                    error: _('AI Request Failed'),
+                    noApiKey: _('API Key Not Configured'),
+                },
+                text,
+                provider,
+                openaiKey,
+                geminiKey,
+                kiloKey,
+                openaiModel: popover.ai_assistant_openai_model || get('ai-assistant-openai-model') || 'gpt-4o-mini',
+                geminiModel: popover.ai_assistant_gemini_model || get('ai-assistant-gemini-model') || 'gemini-2.0-flash',
+                kiloModel: popover.ai_assistant_kilo_model || get('ai-assistant-kilo-model') || 'moonshotai/kimi-k2.5',
+                promptTemplate,
+                enabled: popover.ai_assistant_enabled || (s?.get_boolean('ai-assistant-enabled') ?? true),
+            }
+        },
+    },
 }
 
 const SelectionToolPopover = GObject.registerClass({
     GTypeName: 'FoliateSelectionToolPopover',
     Properties: utils.makeParams({
         'translate-target-language': 'string',
+        'ai-assistant-enabled': 'boolean',
+        'ai-assistant-provider': 'string',
+        'ai-assistant-openai-key': 'string',
+        'ai-assistant-gemini-key': 'string',
+        'ai-assistant-kilo-key': 'string',
+        'ai-assistant-openai-model': 'string',
+        'ai-assistant-gemini-model': 'string',
+        'ai-assistant-kilo-model': 'string',
+        'ai-assistant-prompt-template': 'string',
     }),
 }, class extends Gtk.Popover {
     #webView = utils.connect(new WebView({
@@ -105,7 +163,24 @@ const SelectionToolPopover = GObject.registerClass({
     })
     constructor(params) {
         super(params)
-        utils.bindSettings('viewer', this, ['translate-target-language'])
+        // Allow cross-origin API requests from custom URI scheme
+        this.#webView.set_cors_allowlist([
+            'https://api.openai.com/*',
+            'https://generativelanguage.googleapis.com/*',
+            'https://api.kilo.ai/*',
+        ])
+        utils.bindSettings('viewer', this, [
+            'translate-target-language',
+            'ai-assistant-enabled',
+            'ai-assistant-provider',
+            'ai-assistant-openai-key',
+            'ai-assistant-gemini-key',
+            'ai-assistant-kilo-key',
+            'ai-assistant-openai-model',
+            'ai-assistant-gemini-model',
+            'ai-assistant-kilo-model',
+            'ai-assistant-prompt-template',
+        ])
         Object.assign(this, {
             width_request: 300,
             height_request: 300,
@@ -116,6 +191,13 @@ const SelectionToolPopover = GObject.registerClass({
             if (payload.key === 'translate-target-language')
                 this.translate_target_language = payload.value
         })
+        this.#webView.registerHandler('ai-result', payload => {
+            if (this.#onResult) this.#onResult(payload)
+        })
+    }
+    #onResult = null
+    setOnResult(callback) {
+        this.#onResult = callback
     }
     loadTool(tool, init) {
         this.#webView.loadURI(tool.uri)
@@ -125,7 +207,9 @@ const SelectionToolPopover = GObject.registerClass({
     }
 })
 
-const getSelectionToolPopover = utils.memoize(() => new SelectionToolPopover())
+export const getSelectionToolPopover = utils.memoize(() => new SelectionToolPopover())
+
+export const aiTool = tools['ai-assistant']
 
 export const SelectionPopover = GObject.registerClass({
     GTypeName: 'FoliateSelectionPopover',
@@ -144,17 +228,87 @@ export const SelectionPopover = GObject.registerClass({
         const group = new Gio.SimpleActionGroup()
         this.insert_action_group('selection-tools', group)
 
+        const prompts = loadPrompts()
+
         for (const [name, tool] of Object.entries(tools)) {
+            // For the AI assistant, if multiple prompts exist, add individual prompt items
+            if (name === 'ai-assistant' && prompts.length > 1) {
+                const aiSection = new Gio.Menu()
+                for (const prompt of prompts) {
+                    const actionName = `ai-prompt-${prompt.id}`
+                    const action = new Gio.SimpleAction({ name: actionName })
+                    action.connect('activate', () => {
+                        const popover = getSelectionToolPopover()
+                        const toolData = this.emit('run-tool')
+                        const init = tool.run(popover, toolData, prompt.prompt)
+                        if (prompt.outputFile) {
+                            popover.setOnResult(({ result }) =>
+                                appendToFile(prompt.outputFile, toolData.text, result))
+                        } else {
+                            popover.setOnResult(null)
+                        }
+                        popover.loadTool(tool, init)
+                        this.emit('show-popover', popover)
+                    })
+                    group.add_action(action)
+                    const label = prompt.isDefault
+                        ? `${prompt.name} ★`
+                        : prompt.name
+                    aiSection.append(label, `selection-tools.${actionName}`)
+                }
+                section.append_submenu(_('Ask AI Assistant'), aiSection)
+                continue
+            }
+
             const action = new Gio.SimpleAction({ name })
             action.connect('activate', () => {
                 const popover = getSelectionToolPopover()
-                Promise.resolve(tool.run(popover, this.emit('run-tool')))
+                const toolData = this.emit('run-tool')
+                // For ai-assistant with single/default prompt, handle file append
+                if (name === 'ai-assistant') {
+                    const defaultPrompt = getDefaultPrompt(prompts)
+                    if (defaultPrompt?.outputFile) {
+                        popover.setOnResult(({ result }) =>
+                            appendToFile(defaultPrompt.outputFile, toolData.text, result))
+                    } else {
+                        popover.setOnResult(null)
+                    }
+                }
+                Promise.resolve(tool.run(popover, toolData))
                     .then(x => popover.loadTool(tool, x))
                     .catch(e => console.error(e))
                 this.emit('show-popover', popover)
             })
             group.add_action(action)
             section.append(tool.label, `selection-tools.${name}`)
+        }
+
+        // Intercept keyboard shortcuts for AI prompts while popover is open
+        const promptAccels = []
+        for (const prompt of prompts) {
+            if (!prompt.shortcut) continue
+            const [ok, keyval, mods] = Gtk.accelerator_parse(prompt.shortcut)
+            if (!ok) continue
+            const actionName = prompts.length > 1
+                ? `ai-prompt-${prompt.id}` : 'ai-assistant'
+            promptAccels.push({ keyval, mods, actionName })
+        }
+        if (promptAccels.length) {
+            const keyCtrl = new Gtk.EventControllerKey({
+                propagation_phase: Gtk.PropagationPhase.CAPTURE,
+            })
+            keyCtrl.connect('key-pressed', (_, keyval, keycode, state) => {
+                const mods = state & Gtk.accelerator_get_default_mod_mask()
+                for (const accel of promptAccels) {
+                    if (keyval === accel.keyval && mods === accel.mods) {
+                        this.popdown()
+                        group.activate_action(accel.actionName, null)
+                        return true
+                    }
+                }
+                return false
+            })
+            this.add_controller(keyCtrl)
         }
     }
 })
