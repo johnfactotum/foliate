@@ -29,18 +29,22 @@ const getGoogleTranslateLanguages = utils.memoize(() => {
 })
 
 const tools = {
-    'dictionary': {
-        label: _('Dictionary'),
-        uri: 'foliate-selection-tool:///selection-tools/wiktionary.html',
-        run: (__, { text, lang }) => ({
-            msg: {
-                footer: _('From <a id="link">Wiktionary</a>, released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA License</a>.'),
-                error: _('No Definitions Found'),
-                errorAction: _('Search on Wiktionary'),
-            },
-            text,
-            lang: getLanguage(lang),
-        }),
+    'meaning': {
+        label: _('Meaning'),
+        uri: 'foliate-selection-tool:///selection-tools/enhanced-translate.html',
+        run: (popover, { text, lang }) => {
+            const [langs, defaultLang] = getGoogleTranslateLanguages()
+            return {
+                msg: {
+                    footer: _('From <a id="link">Wiktionary</a>, released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA License</a>.'),
+                    error: _('Cannot retrieve translation'),
+                    errorAction: _('Search on Wiktionary'),
+                    langs,
+                },
+                text: text.trim(),
+                lang: popover.translate_target_language || defaultLang,
+            }
+        },
     },
     'wikipedia': {
         label: _('Wikipedia'),
@@ -55,23 +59,36 @@ const tools = {
             lang: getLanguage(lang),
         }),
     },
-    'translate': {
-        label: _('Translate'),
-        uri: 'foliate-selection-tool:///selection-tools/translate.html',
-        run: (popover, { text }) => {
-            const [langs, defaultLang] = getGoogleTranslateLanguages()
-            return {
-                msg: {
-                    footer: _('Translation by Google Translate'),
-                    error: _('Cannot retrieve translation'),
-                    search: _('Search…'),
-                    langs,
-                },
-                text,
-                lang: popover.translate_target_language || defaultLang,
-            }
-        },
-    },
+    // 'dictionary': {
+    //     label: _('Dictionary'),
+    //     uri: 'foliate-selection-tool:///selection-tools/wiktionary.html',
+    //     run: (__, { text, lang }) => ({
+    //         msg: {
+    //             footer: _('From <a id="link">Wiktionary</a>, released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA License</a>.'),
+    //             error: _('No Definitions Found'),
+    //             errorAction: _('Search on Wiktionary'),
+    //         },
+    //         text,
+    //         lang: getLanguage(lang),
+    //     }),
+    // },
+    // 'translate': {
+    //     label: _('Translate'),
+    //     uri: 'foliate-selection-tool:///selection-tools/translate.html',
+    //     run: (popover, { text }) => {
+    //         const [langs, defaultLang] = getGoogleTranslateLanguages()
+    //         return {
+    //             msg: {
+    //                 footer: _('Translation by Google Translate'),
+    //                 error: _('Cannot retrieve translation'),
+    //                 search: _('Search…'),
+    //                 langs,
+    //             },
+    //             text,
+    //             lang: popover.translate_target_language || defaultLang,
+    //         }
+    //     },
+    // },
 }
 
 const SelectionToolPopover = GObject.registerClass({
