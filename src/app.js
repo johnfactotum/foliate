@@ -79,7 +79,7 @@ const ApplicationWindow = GObject.registerClass({
     #library
     #bookViewer
     #stack = new Gtk.Stack()
-    #cookie
+    #inhibitCookie = null
     constructor(params) {
         super(params)
         Object.assign(this, {
@@ -110,16 +110,35 @@ const ApplicationWindow = GObject.registerClass({
             ['default-width', 'default-height', 'maximized', 'fullscreened'])
 
 
-        this.connect('notify::fullscreened', (win) => {
-            let app = Gio.Application.get_default()
-            if (this.is_fullscreen()) {
-                this.#cookie = app.inhibit(win, Gtk.ApplicationInhibitFlags.IDLE,
-                    'Reading book in fullscreen')
-                if (this.#cookie == 0)
-                    console.error('Failed to inhibit session idle')
-            } else if (this.#cookie > 0) {
-                app.uninhibit(this.#cookie)
+        const app = Gio.Application.get_default()
+        const toggleInhibitIdle = (win) => {
+            const canInhibit = this.is_active && (this.is_fullscreen() || this.is_maximized())
+            if (!canInhibit) {
+                uninhibitIdle()
+                return
             }
+            if (this.#inhibitCookie) return
+            const inhibitCookie = app.inhibit(
+                win,
+                Gtk.ApplicationInhibitFlags.IDLE,
+                'Reading a book in an active fullscreen or maximized window',
+            )
+            if (inhibitCookie === 0) console.error('Failed to inhibit session idle')
+            else this.#inhibitCookie = inhibitCookie
+        }
+        const uninhibitIdle = () => {
+            if (!this.#inhibitCookie) return
+            app.uninhibit(this.#inhibitCookie)
+            this.#inhibitCookie = null
+        }
+        this.connect('notify::fullscreened', (win) => {
+            toggleInhibitIdle(win)
+        })
+        this.connect('notify::maximized', (win) => {
+            toggleInhibitIdle()
+        })
+        this.connect('notify::is-active', (win) => {
+            toggleInhibitIdle(win)
         })
 
         if (this.file) this.openFile(this.file)
