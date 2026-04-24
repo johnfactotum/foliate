@@ -184,6 +184,7 @@ const ApplicationWindow = GObject.registerClass({
     }
     openOrImport() {
         const dialog = makeOpenDialog()
+        dialog.select_multiple = true
         dialog.open_multiple(this, null, (_, res) => {
             try {
                 const files = dialog.open_multiple_finish(res)
@@ -268,6 +269,7 @@ export const Application = GObject.registerClass({
             'win.fullscreened': ['F11'],
             'win.show-menu': ['F10'],
             'win.open': ['<ctrl>o'],
+            'win.open-or-import': ['<ctrl><shift>o'],
             'win.open-copy': ['<ctrl>n'],
         })) this.set_accels_for_action(key, val)
     }
