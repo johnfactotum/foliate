@@ -8,10 +8,9 @@
       <property name="column-spacing">6</property>
       <property name="row-spacing">9</property>
       <property name="margin-start">6</property>
-      <!--
       <child>
         <object class="GtkLabel">
-          <property name="label" translatable="yes">Voice</property>
+          <property name="label" translatable="yes">Language</property>
           <property name="xalign">0</property>
           <layout>
             <property name="row">0</property>
@@ -20,7 +19,7 @@
         </object>
       </child>
       <child>
-        <object class="GtkDropDown" id="tts-voice-dropdown">
+        <object class="GtkDropDown" id="tts-lang-dropdown">
           <property name="hexpand">True</property>
           <layout>
             <property name="row">0</property>
@@ -28,69 +27,84 @@
           </layout>
         </object>
       </child>
-      -->
+      <child>
+        <object class="GtkLabel">
+          <property name="label" translatable="yes">Region</property>
+          <property name="xalign">0</property>
+          <layout>
+            <property name="row">1</property>
+            <property name="column">0</property>
+          </layout>
+        </object>
+      </child>
+      <child>
+        <object class="GtkDropDown" id="tts-region-dropdown">
+          <property name="hexpand">True</property>
+          <layout>
+            <property name="row">1</property>
+            <property name="column">1</property>
+          </layout>
+        </object>
+      </child>
       <child>
         <object class="GtkLabel">
           <property name="label" translatable="yes">Speed</property>
           <property name="xalign">0</property>
           <layout>
-            <property name="row">1</property>
+            <property name="row">2</property>
             <property name="column">0</property>
           </layout>
         </object>
       </child>
       <child>
-        <object class="GtkScale" id="tts-rate-scale">
+        <object class="GtkScale" id="tts-speed-scale">
           <property name="draw-value">False</property>
           <property name="width-request">200</property>
           <property name="hexpand">True</property>
           <property name="adjustment">
             <object class="GtkAdjustment">
-              <property name="lower">-100</property>
-              <property name="upper">100</property>
+              <property name="lower">25</property>
+              <property name="upper">300</property>
               <property name="step-increment">5</property>
-              <property name="page-increment">10</property>
-              <property name="value">0</property>
+              <property name="page-increment">25</property>
+              <property name="value">100</property>
             </object>
           </property>
           <marks>
-            <mark value="0"/>
+            <mark value="100"/>
           </marks>
           <layout>
-            <property name="row">1</property>
+            <property name="row">2</property>
             <property name="column">1</property>
           </layout>
         </object>
       </child>
       <child>
         <object class="GtkLabel">
-          <property name="label" translatable="yes">Pitch</property>
+          <property name="label" translatable="yes">Volume</property>
           <property name="xalign">0</property>
           <layout>
-            <property name="row">2</property>
+            <property name="row">3</property>
             <property name="column">0</property>
           </layout>
         </object>
       </child>
       <child>
-        <object class="GtkScale" id="tts-pitch-scale">
+        <object class="GtkScale" id="tts-volume-scale">
           <property name="draw-value">False</property>
           <property name="width-request">200</property>
           <property name="hexpand">True</property>
           <property name="adjustment">
             <object class="GtkAdjustment">
-              <property name="lower">-100</property>
+              <property name="lower">0</property>
               <property name="upper">100</property>
               <property name="step-increment">5</property>
               <property name="page-increment">10</property>
-              <property name="value">0</property>
+              <property name="value">100</property>
             </object>
           </property>
-          <marks>
-            <mark value="0"/>
-          </marks>
           <layout>
-            <property name="row">2</property>
+            <property name="row">3</property>
             <property name="column">1</property>
           </layout>
         </object>

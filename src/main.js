@@ -46,13 +46,23 @@ if (MESON) {
     const moduledir = '/' + pkg.name.replaceAll('.', '/')
     pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
     pkg.moduleuri = path => `resource://${pkg.modulepath(path)}`
+    pkg.useResource = true
+} else {
+    const gres = GLib.getenv('FOLIATE_GRESOURCE')
+    if (gres) {
+        // Uninstalled: meson compile produces build/src/...gresource — point env at that file
+        Gio.Resource.load(gres)._register()
+        const moduledir = '/' + pkg.name.replaceAll('.', '/')
+        pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
+        pkg.moduleuri = path => `resource://${pkg.modulepath(path)}`
+        pkg.useResource = true
+    } else {
+        const moduledir = GLib.path_get_dirname(GLib.filename_from_uri(import.meta.url)[0])
+        pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
+        pkg.moduleuri = path => GLib.filename_to_uri(pkg.modulepath(path), null)
+        pkg.useResource = false
+    }
 }
-else {
-    const moduledir = GLib.path_get_dirname(GLib.filename_from_uri(import.meta.url)[0])
-    pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
-    pkg.moduleuri = path => GLib.filename_to_uri(pkg.modulepath(path), null)
-}
-pkg.useResource = MESON
 
 const { Application } = await import(pkg.moduleuri('app.js'))
 exit(await new Application().runAsync([programInvocationName, ...programArgs]))
