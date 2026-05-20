@@ -22,6 +22,33 @@ const getSelectionRange = sel => {
     return range
 }
 
+const selectWordAtPoint = (doc, x, y) => {
+    const range = doc.caretRangeFromPoint?.(x, y)
+    if (!range) return
+    const sel = doc.getSelection()
+    sel.removeAllRanges()
+    sel.addRange(range)
+    sel.modify('move', 'backward', 'word')
+    sel.modify('extend', 'forward', 'word')
+    return getSelectionRange(sel)?.cloneRange()
+}
+
+const selectWordRange = (anchor, focus) => {
+    const range = anchor.startContainer.ownerDocument.createRange()
+    if (anchor.compareBoundaryPoints(Range.START_TO_START, focus) <= 0) {
+        range.setStart(anchor.startContainer, anchor.startOffset)
+        range.setEnd(focus.endContainer, focus.endOffset)
+    }
+    else {
+        range.setStart(focus.startContainer, focus.startOffset)
+        range.setEnd(anchor.endContainer, anchor.endOffset)
+    }
+    const sel = range.startContainer.ownerDocument.getSelection()
+    sel.removeAllRanges()
+    sel.addRange(range)
+    return range
+}
+
 const getLang = el => {
     const lang = el.lang || el?.getAttributeNS?.('http://www.w3.org/XML/1998/namespace', 'lang')
     if (lang) return lang
@@ -379,7 +406,7 @@ class Reader {
                     emit({ type: 'show-image', base64, mimetype }))
                 .catch(e => console.error(e)))
 
-        doc.addEventListener('pointerup', () => {
+        const showCurrentSelection = () => {
             const sel = doc.getSelection()
             const range = getSelectionRange(sel)
             if (!range) return
@@ -390,7 +417,56 @@ class Reader {
             const lang = getLang(range.commonAncestorContainer)
             const text = sel.toString()
             this.#showSelection({ index, range, lang, value, pos, text })
-        })
+            return true
+        }
+
+        let touchSelection
+        const cancelTouchSelection = () => {
+            if (touchSelection?.timeout) clearTimeout(touchSelection.timeout)
+            touchSelection = null
+        }
+        doc.addEventListener('pointerdown', e => {
+            if (e.isPrimary === false) {
+                cancelTouchSelection()
+                return
+            }
+            if (!['touch', 'pen'].includes(e.pointerType)) return
+            const { clientX, clientY, pointerId } = e
+            const timeout = setTimeout(() => {
+                const range = selectWordAtPoint(doc, clientX, clientY)
+                if (!range) {
+                    cancelTouchSelection()
+                    return
+                }
+                touchSelection = { active: true, anchor: range, clientX, clientY, pointerId }
+            }, 500)
+            touchSelection = { timeout, clientX, clientY, pointerId }
+        }, { passive: true })
+        doc.addEventListener('pointermove', e => {
+            if (e.pointerId !== touchSelection?.pointerId) return
+            const distance = Math.hypot(e.clientX - touchSelection.clientX,
+                e.clientY - touchSelection.clientY)
+            if (!touchSelection.active && distance > 8) {
+                cancelTouchSelection()
+                return
+            }
+            if (!touchSelection.active) return
+            const range = selectWordAtPoint(doc, e.clientX, e.clientY)
+            if (range) selectWordRange(touchSelection.anchor, range)
+            e.preventDefault()
+        }, { passive: false })
+        doc.addEventListener('pointercancel', cancelTouchSelection)
+        doc.addEventListener('pointerup', e => {
+            if (e.pointerId !== touchSelection?.pointerId) return
+            const wasActive = touchSelection.active
+            cancelTouchSelection()
+            if (!wasActive) return
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            showCurrentSelection()
+        }, { capture: true })
+
+        doc.addEventListener('pointerup', showCurrentSelection)
     }
     #showAnnotation({ index, range, value, pos }) {
         globalThis.showSelection({ type: 'annotation', value, pos })
