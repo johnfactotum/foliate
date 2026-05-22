@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2024-07-07 09:21+0200\n"
+"PO-Revision-Date: 2025-12-21 08:21+0200\n"
 "Last-Translator: josé m. <correoxm@disroot.org>\n"
 "Language-Team: Galician <>\n"
 "Language: gl_ES\n"
@@ -109,11 +109,11 @@ msgstr "Notas para \"%s\""
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
 msgstr[0] "%d Nota"
-msgstr[1] ""
+msgstr[1] "%d Notas"
 
 #: src/app.js:95 src/book-viewer.js:30
 msgid "Close"
-msgstr "Pechar"
+msgstr "Fechar"
 
 #: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
 #: src/ui/import-dialog.ui:15
@@ -122,18 +122,18 @@ msgstr "Desbotar"
 
 #: src/app.js:136
 msgid "E-Book Files"
-msgstr "Ficheiros E-Book"
+msgstr "Ficheiros Libro-e"
 
 #: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
 msgid "Read e-books in style"
-msgstr "Ler e-books con estilo"
+msgstr "Ler libros-e con estilo"
 
 #. Translators: put your names here, one name per line
 #. they will be shown in the "About" dialog
 #: src/app.js:405
 msgid "translator-credits"
-msgstr "@ghose at ⁂"
+msgstr "xmgz.eu"
 
 #: src/app.js:414
 msgid "Source Code"
@@ -335,7 +335,7 @@ msgstr "de %d"
 
 #: src/library.js:47
 msgid "Loading"
-msgstr "A cargar"
+msgstr "Cargando"
 
 #: src/library.js:48
 msgid "Failed to Load"
@@ -436,7 +436,7 @@ msgstr "_Retirar"
 #: src/library.js:472
 #, fuzzy
 msgid "Failed to Open"
-msgstr "Fallou a Carga"
+msgstr "Fallo ao Abrir"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
@@ -468,7 +468,7 @@ msgstr "Todos os libros"
 
 #: src/library.js:746
 msgid "Add Catalog…"
-msgstr "Engadir Catálogo..."
+msgstr "Engadir Catálogo…"
 
 #: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
 #: src/ui/library.ui:93
@@ -481,11 +481,11 @@ msgstr "Catálogos"
 
 #: src/library.js:864
 msgid "Catalog removed"
-msgstr "Retirouse o Catálogo"
+msgstr "Retirouse o catálogo"
 
 #: src/library.js:951 src/library.js:956
 msgid "Add Catalog"
-msgstr "Engadir Catálogo"
+msgstr "Engadir catálogo"
 
 #: src/library.js:952
 msgid "Add"
@@ -561,7 +561,7 @@ msgstr "Non se obtivo unha tradución"
 #: src/selection-tools.js:67
 #, fuzzy
 msgid "Search…"
-msgstr "Buscar"
+msgstr "Buscar…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -605,8 +605,7 @@ msgstr "Erro no Texto-a-Fala"
 
 #: src/tts.js:118
 msgid "Make sure Speech Dispatcher is installed and working on your system"
-msgstr ""
-"Pon atención en que Speech Dispatcher está instalada e activa no teu sistema"
+msgstr "Comproba que Speech Dispatcher está instalada e activa no teu sistema"
 
 #: src/utils.js:168
 msgid "Copied to clipboard"
@@ -628,7 +627,7 @@ msgstr "Menú"
 
 #: src/ui/annotation-popover.ui:47
 msgid "Add Note…"
-msgstr "Engadir Nota..."
+msgstr "Engadir Nota…"
 
 #: src/ui/book-item.ui:5 src/ui/book-row.ui:5
 msgid "Open in New Window"
@@ -636,11 +635,11 @@ msgstr "Abrir en Nova xanela"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr "Abrir cunha App Externa"
+msgstr "Abrir con App Externa"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
-msgstr "Exportar Notas..."
+msgstr "Exportar Notas…"
 
 #: src/ui/book-viewer.ui:5
 msgid "New Window"
@@ -648,11 +647,11 @@ msgstr "Nova xanela"
 
 #: src/ui/book-viewer.ui:11
 msgid "Open a Copy"
-msgstr "Abrir unha Copia"
+msgstr "Abrir unha copia"
 
 #: src/ui/book-viewer.ui:21
 msgid "Import Annotations…"
-msgstr "Importar Notas..."
+msgstr "Importar Notas…"
 
 #: src/ui/book-viewer.ui:37 src/ui/library.ui:42
 msgid "About Foliate"
@@ -696,7 +695,7 @@ msgstr "Agochar cursor automaticamente"
 
 #: src/ui/book-viewer.ui:103
 msgid "Print…"
-msgstr "Imprimir..."
+msgstr "Imprimir…"
 
 #: src/ui/book-viewer.ui:107
 msgid "Inspector"
@@ -704,19 +703,19 @@ msgstr "Inspector"
 
 #: src/ui/book-viewer.ui:167
 msgid "Book Cannot Be Opened"
-msgstr "Non se puido abrir o Libro"
+msgstr "Non se puido abrir o libro"
 
 #: src/ui/book-viewer.ui:177
 msgid "Details"
-msgstr "Detalle"
+msgstr "Detalles"
 
 #: src/ui/book-viewer.ui:193
 msgid "Open Another File…"
-msgstr "Abrir outro ficheiro..."
+msgstr "Abrir outro ficheiro…"
 
 #: src/ui/book-viewer.ui:245
 msgid "Pin Sidebar"
-msgstr "Fixar en Barra lateral"
+msgstr "Fixar Panel lateral"
 
 #: src/ui/book-viewer.ui:253
 msgid "Book Menu"
@@ -728,7 +727,7 @@ msgstr "Atopar"
 
 #: src/ui/book-viewer.ui:276
 msgid "Find in book…"
-msgstr "Atopar no libro..."
+msgstr "Atopar no libro…"
 
 #: src/ui/book-viewer.ui:313
 msgid "Contents"
@@ -744,7 +743,7 @@ msgstr "Selecciona texto para engadir notas"
 
 #: src/ui/book-viewer.ui:433
 msgid "Filter annotations…"
-msgstr "Filtrar notas..."
+msgstr "Filtrar notas…"
 
 #: src/ui/book-viewer.ui:447
 msgid "Bookmarks"
@@ -768,7 +767,7 @@ msgstr "Intenta outra busca"
 
 #: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
 msgid "Sidebar"
-msgstr "Barra lateral"
+msgstr "Panel lateral"
 
 #: src/ui/book-viewer.ui:556
 msgid "View Menu"
@@ -816,7 +815,7 @@ msgstr "Formato"
 
 #: src/ui/export-dialog.ui:29
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
-msgstr "Elixe \"JSON\" se pretendes volver a importar as notas en Foliate"
+msgstr "Elixe “JSON” se pretendes volver a importar as notas en Foliate"
 
 #: src/ui/export-dialog.ui:33
 msgid "JSON"
@@ -840,7 +839,7 @@ msgstr "Copiar"
 
 #: src/ui/image-viewer.ui:10
 msgid "Save As…"
-msgstr "Gardar Como..."
+msgstr "Gardar Como…"
 
 #: src/ui/image-viewer.ui:25
 msgid "Rotate 90° Counter-Clockwise"
@@ -870,15 +869,15 @@ msgstr "Importar igualmente"
 
 #: src/ui/library.ui:6
 msgid "List View"
-msgstr "Vista das listas"
+msgstr "Ver como lista"
 
 #: src/ui/library.ui:11
 msgid "Grid View"
-msgstr "Vista en grella"
+msgstr "Ver como grella"
 
 #: src/ui/library.ui:20 src/ui/library-view.ui:27
 msgid "Open…"
-msgstr "Abrir..."
+msgstr "Abrir…"
 
 #: src/ui/library.ui:67
 msgid "Main Menu"
@@ -894,7 +893,7 @@ msgstr "Menú da Biblioteca"
 
 #: src/ui/library.ui:134
 msgid "Search library…"
-msgstr "Buscar na biblioteca..."
+msgstr "Buscar na biblioteca…"
 
 #: src/ui/library.ui:168 src/ui/navbar.ui:22
 msgid "Back"
@@ -950,7 +949,7 @@ msgstr "Sección Anterior"
 
 #: src/ui/navbar.ui:405
 msgid "Jump To…"
-msgstr "Ir a..."
+msgstr "Ir a…"
 
 #: src/ui/navbar.ui:414
 msgid "Next Section"
@@ -978,7 +977,7 @@ msgstr "Copiar Identificador"
 
 #: src/ui/selection-popover.ui:44
 msgid "Print Selection…"
-msgstr "Imprimir Selección..."
+msgstr "Imprimir Selección…"
 
 #: src/ui/tts-box.ui:34
 msgid "Speed"
@@ -1030,7 +1029,7 @@ msgstr "Sans-serif"
 
 #: src/ui/view-preferences-window.ui:56
 msgid "Override Publisher Font"
-msgstr "Obviar letra da Editorial"
+msgstr "Obviar letra da editorial"
 
 #: src/ui/view-preferences-window.ui:71
 msgid "Serif Font"
@@ -1062,7 +1061,7 @@ msgstr "Xustificación completa"
 
 #: src/ui/view-preferences-window.ui:146
 msgid "Hyphenation"
-msgstr "Espazos"
+msgstr "Guións"
 
 #: src/ui/view-preferences-window.ui:162
 msgid "Margins"
@@ -1100,11 +1099,11 @@ msgstr "Comportamento"
 
 #: src/ui/view-preferences-window.ui:246
 msgid "Reduce Animation"
-msgstr "Reducir Animacións"
+msgstr "Reducir animacións"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
-msgstr "Lector de E-Book"
+msgstr "Lector de libros electrónicos"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:14

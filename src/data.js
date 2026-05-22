@@ -6,7 +6,7 @@ import * as utils from './utils.js'
 import { AnnotationModel, BookmarkModel } from './annotations.js'
 import { getURIStore, getBookList } from './library.js'
 
-class BookData {
+export class BookData {
     annotations = utils.connect(new AnnotationModel(), {
         'update-annotation': async (_, annotation) => {
             for (const view of this.views) await view.addAnnotation(annotation)

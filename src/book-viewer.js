@@ -20,7 +20,7 @@ import { SelectionPopover } from './selection-tools.js'
 import { ImageViewer } from './image-viewer.js'
 import { formatLanguageMap, formatAuthors, makeBookInfoWindow } from './book-info.js'
 import { themes, invertTheme, themeCssProvider } from './themes.js'
-import { dataStore } from './data.js'
+import { dataStore, BookData } from './data.js'
 
 // for use in the WebView
 const uiText = {
@@ -445,6 +445,62 @@ const makeIdentifier = file => {
     }
 }
 
+export const importFiles = files => {
+    let currentFile
+    let resolveFile, rejectFile
+    const webView = utils.connect(new WebView({
+        settings: new WebKit.Settings({
+            enable_write_console_messages_to_stdout: true,
+            enable_html5_database: false,
+            enable_html5_local_storage: false,
+        }),
+    }), {
+        'run-file-chooser': (_, req) =>
+            (req.select_files([encodeURI(currentFile.get_path())]), true),
+    })
+    const save = async book => {
+        book.metadata.identifier ||= makeIdentifier(currentFile)
+        const { identifier } = book.metadata
+        if (!identifier) throw new Error('Could not get identifier')
+        const data = new BookData(identifier)
+        data.storage.set('metadata', book.metadata, false)
+        data.saveURI(currentFile)
+        const cover = await webView.exec('reader.getCover').then(utils.base64ToPixbuf)
+        if (cover) data.saveCover(cover)
+        data.storage.saveNow()
+    }
+    const open = async file => {
+        currentFile = file
+        await webView.exec('loadFile')
+        await new Promise((resolve, reject) => {
+            resolveFile = resolve
+            rejectFile = reject
+        })
+    }
+    return new Promise((resolve, reject) => {
+        webView.registerHandler('viewer', payload => {
+            if (payload.type === 'ready') webView.exec('initImport')
+                .then(async () => {
+                    let results = []
+                    for (const file of files) {
+                        const result = open(file)
+                            .then(() => true)
+                            .catch(e => new Error(e, { cause: e }))
+                        results.push([file, await result])
+                    }
+                    resolve(results)
+                })
+                .catch(reject)
+            else if (payload.type === 'book-error') rejectFile(payload.id)
+            else if (payload.type === 'book-ready')
+                save(payload.book).then(resolveFile).catch(rejectFile)
+        })
+        webView.loadURI('foliate:///reader/reader.html').catch(reject)
+    }).finally(() => {
+        webView.run_dispose()
+    })
+}
+
 export const BookViewer = GObject.registerClass({
     GTypeName: 'FoliateBookViewer',
     Template: pkg.moduleuri('ui/book-viewer.ui'),
@@ -680,7 +736,7 @@ export const BookViewer = GObject.registerClass({
             actions: [
                 'toggle-sidebar', 'toggle-search', 'show-location',
                 'toggle-toc', 'toggle-annotations', 'toggle-bookmarks',
-                'preferences', 'show-info', 'bookmark',
+                'preferences', 'help-overlay', 'show-info', 'bookmark',
                 'export-annotations', 'import-annotations',
             ],
             props: ['fold-sidebar'],
@@ -698,13 +754,14 @@ export const BookViewer = GObject.registerClass({
             '<ctrl><alt>d': 'viewer.toggle-bookmarks',
             '<ctrl>d': 'viewer.bookmark',
             '<alt>comma': 'viewer.preferences',
+            '<ctrl>question': 'viewer.help-overlay',
             '<ctrl><shift>g': 'search.prev',
             '<ctrl>g': 'search.next',
             '<ctrl>c': 'selection.copy',
             '<ctrl>f': 'selection.search',
             'F12': 'view.inspector',
             '<ctrl>m': 'view.scrolled',
-            '<ctrl>r': 'view.reload',
+            '<ctrl>r|F5': 'view.reload',
             'plus|equal|KP_Add|KP_Equal|<ctrl>plus|<ctrl>equal|<ctrl>KP_Add|<ctrl>KP_Equal': 'view.zoom-in',
             'minus|KP_Subtract|<ctrl>minus|<ctrl>KP_Subtract': 'view.zoom-out',
             '0|1|KP_0|<ctrl>0|<ctrl>KP_0': 'view.zoom-restore',
@@ -1002,6 +1059,14 @@ export const BookViewer = GObject.registerClass({
     }
     importAnnotations() {
         importAnnotations(this.root, this.#data)
+    }
+    helpOverlay() {
+        const path = pkg.modulepath('ui/help-overlay.ui')
+        const builder = pkg.useResource
+            ? Gtk.Builder.new_from_resource(path)
+            : Gtk.Builder.new_from_file(path)
+        const dialog = builder.get_object('help-overlay')
+        dialog.present(this.root)
     }
     vfunc_unroot() {
         this._navbar.tts_box.kill()

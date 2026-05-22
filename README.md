@@ -11,9 +11,9 @@ Read books in style.
 
 ### Run Time Dependencies
 
-- `gjs` (>= 1.76)
+- `gjs` (>= 1.82)
 - `gtk4` (>= 4.12)
-- `libadwaita` (>= 1.7; `gir1.2-adw-1` in Debian-based distros)
+- `libadwaita` (>= 1.8; `gir1.2-adw-1` in Debian-based distros)
 - `webkitgtk-6.0` (`webkitgtk6.0` in Fedora; `gir1.2-webkit-6.0` in Debian-based distros)
 
 #### Optional Dependencies

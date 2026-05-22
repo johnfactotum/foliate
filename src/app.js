@@ -5,10 +5,11 @@ import GLib from 'gi://GLib'
 import Gio from 'gi://Gio'
 import Gdk from 'gi://Gdk'
 import WebKit from 'gi://WebKit'
-import { gettext as _ } from 'gettext'
+import { gettext as _, ngettext } from 'gettext'
+import { vprintf } from './format.js'
 import * as utils from './utils.js'
 import { Library } from './library.js'
-import { BookViewer } from './book-viewer.js'
+import { BookViewer, importFiles } from './book-viewer.js'
 
 const formatVersion = (a, b, c) => `${a ?? '?'}.${b ?? '?'}.${c ?? '?'}`
 
@@ -45,6 +46,30 @@ User directories:
     }
 }
 
+const makeOpenDialog = () => {
+    const dialog = new Gtk.FileDialog()
+    const ebooks = new Gtk.FileFilter({
+        name: _('E-Book Files'),
+        mime_types: [
+            'application/epub+zip',
+            'application/x-mobipocket-ebook',
+            'application/vnd.amazon.mobi8-ebook',
+            'application/x-mobi8-ebook',
+            'application/x-fictionbook+xml',
+            'application/x-zip-compressed-fb2',
+            'application/vnd.comicbook+zip',
+        ],
+    })
+    dialog.filters = new Gio.ListStore()
+    dialog.filters.append(new Gtk.FileFilter({
+        name: _('All Files'),
+        patterns: ['*'],
+    }))
+    dialog.filters.append(ebooks)
+    dialog.default_filter = ebooks
+    return dialog
+}
+
 const ApplicationWindow = GObject.registerClass({
     GTypeName: 'FoliateApplicationWindow',
     Properties: utils.makeParams({
@@ -74,7 +99,10 @@ const ApplicationWindow = GObject.registerClass({
         this.connect('destroy', () => styleManager.disconnect(handler))
 
         utils.addMethods(this, {
-            actions: ['open', 'close', 'show-library', 'show-menu', 'new-window', 'open-copy'],
+            actions: [
+                'open', 'open-or-import',
+                'close', 'show-library', 'show-menu', 'new-window', 'open-copy',
+            ],
             props: ['fullscreened'],
         })
 
@@ -143,30 +171,46 @@ const ApplicationWindow = GObject.registerClass({
         this.#library.showCatalog(uri)
     }
     open() {
-        const dialog = new Gtk.FileDialog()
-        const ebooks = new Gtk.FileFilter({
-            name: _('E-Book Files'),
-            mime_types: [
-                'application/epub+zip',
-                'application/x-mobipocket-ebook',
-                'application/vnd.amazon.mobi8-ebook',
-                'application/x-mobi8-ebook',
-                'application/x-fictionbook+xml',
-                'application/x-zip-compressed-fb2',
-                'application/vnd.comicbook+zip',
-            ],
-        })
-        dialog.filters = new Gio.ListStore()
-        dialog.filters.append(new Gtk.FileFilter({
-            name: _('All Files'),
-            patterns: ['*'],
-        }))
-        dialog.filters.append(ebooks)
-        dialog.default_filter = ebooks
+        const dialog = makeOpenDialog()
         dialog.open(this, null, (_, res) => {
             try {
                 const file = dialog.open_finish(res)
                 this.openFile(file)
+            } catch (e) {
+                if (e instanceof Gtk.DialogError) console.debug(e)
+                else console.error(e)
+            }
+        })
+    }
+    openOrImport() {
+        const dialog = makeOpenDialog()
+        dialog.open_multiple(this, null, (_, res) => {
+            try {
+                const files = dialog.open_multiple_finish(res)
+                if (files.get_n_items() === 1) this.openFile(files.get_item(0))
+                else importFiles(Array.from(utils.gliter(files), x => x[1]))
+                    .then(results => {
+                        const map = Map.groupBy(results, x => x[1] instanceof Error)
+                        const n = map.get(true)?.length
+                        if (n) {
+                            const title = vprintf(ngettext(
+                                'Failed to import %d book',
+                                'Failed to import %d books', n), [n])
+                            this.add_toast(new Adw.Toast({ title }))
+                        }
+                        else {
+                            const m = map.get(false).length
+                            const title = vprintf(ngettext(
+                                'Imported %d book',
+                                'Imported %d books', m), [m])
+                            this.add_toast(new Adw.Toast({ title }))
+                        }
+                    })
+                    .catch(e => {
+                        const title = _('Could not import books')
+                        this.add_toast(new Adw.Toast({ title }))
+                        console.error(e)
+                    })
             } catch (e) {
                 if (e instanceof Gtk.DialogError) console.debug(e)
                 else console.error(e)

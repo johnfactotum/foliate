@@ -75,7 +75,6 @@ export const JSONStorage = GObject.registerClass({
     #file
     #indent
     #data
-    #debouncedWrite
     constructor(path, name, indent) {
         super()
         this.#indent = indent
@@ -90,7 +89,7 @@ export const JSONStorage = GObject.registerClass({
                 this.emit('externally-modified')
             }
         })
-        this.#debouncedWrite = debounce(this.#write.bind(this), 1000)
+        this.save = debounce(this.saveNow.bind(this), 1000)
     }
     #getModified() {
         try {
@@ -108,12 +107,12 @@ export const JSONStorage = GObject.registerClass({
         this.#modified = this.#getModified()
         return readJSONFile(this.#file)
     }
-    #write(data) {
+    saveNow() {
         console.debug('Writing to ' + this.#file.get_path())
         const parent = this.#file.get_parent().get_path()
         const mkdirp = GLib.mkdir_with_parents(parent, parseInt('0755', 8))
         if (mkdirp === 0) {
-            const contents = JSON.stringify(data, null, this.#indent)
+            const contents = JSON.stringify(this.#data, null, this.#indent)
             const [success/*, tag*/] = this.#file.replace_contents(contents,
                 null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null)
             if (success) {
@@ -127,9 +126,9 @@ export const JSONStorage = GObject.registerClass({
     get(property, defaultValue) {
         return property in this.#data ? this.#data[property] : defaultValue
     }
-    set(property, value) {
+    set(property, value, save = true) {
         this.#data[property] = value
-        this.#debouncedWrite(this.#data)
+        if (save) this.save()
     }
     clear() {
         try {
