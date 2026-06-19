@@ -4,15 +4,15 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Fábio Nogueira <fnogueira@gnome.org>, 2019.
 # Marcelo dos Santos Mafra <msmafra@gmail.com>, 2020.
-# Fúlvio Alves <fga.fulvio@gmail.com>, 2020, 2021, 2023.
+# Fúlvio Alves <fga.fulvio@gmail.com>, 2020, 2021, 2023, 2026.
 # Luan Henrique Oyera Chiacherini <oyera.dev@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2025-03-17 00:04-0300\n"
-"Last-Translator: Luan Henrique Oyera Chiacherini <oyera.dev@gmail.com>\n"
+"PO-Revision-Date: 2026-06-18 23:03-0300\n"
+"Last-Translator: Fúlvio Alves <fga.fulvio@gmail.com>\n"
 "Language-Team: Fábio Nogueira <fnogueira@gnome.org>; Marcelo dos Santos "
 "Mafra <msmafra@gmail.com>\n"
 "Language: pt_BR\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.9\n"
 
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
@@ -346,9 +346,8 @@ msgid "Loading"
 msgstr "Carregando"
 
 #: src/library.js:48
-#, fuzzy
 msgid "Failed to Load"
-msgstr "Copiado para a área de transferência"
+msgstr "Falha ao carregar"
 
 #: src/library.js:49 src/ui/book-viewer.ui:15
 msgid "Reload"
@@ -375,9 +374,8 @@ msgid "Buy"
 msgstr "Comprar"
 
 #: src/library.js:58
-#, fuzzy
 msgid "Preview"
-msgstr "Anterior"
+msgstr "Pré-visualização"
 
 #: src/library.js:59
 msgid "Sample"
@@ -412,9 +410,8 @@ msgid "Last"
 msgstr "Último"
 
 #: src/library.js:70
-#, fuzzy
 msgid "Search Terms"
-msgstr "Pesquisar"
+msgstr "Pesquisar termos"
 
 #: src/library.js:72
 msgid "Title"
@@ -425,9 +422,8 @@ msgid "Author"
 msgstr "Autor"
 
 #: src/library.js:74
-#, fuzzy
 msgid "Contributor"
-msgstr "Contribuidores"
+msgstr "Contribuidor"
 
 #: src/library.js:438
 msgid "Remove Book?"
@@ -448,9 +444,8 @@ msgid "_Remove"
 msgstr "_Remover"
 
 #: src/library.js:472
-#, fuzzy
 msgid "Failed to Open"
-msgstr "Copiado para a área de transferência"
+msgstr "Falha ao abrir"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
@@ -507,8 +502,8 @@ msgstr "Adicionar"
 
 #: src/library.js:957
 msgid ""
-"You can browse and download books from OPDS catalogs. <a href=\"https://opds."
-"io\">Learn More…</a>"
+"You can browse and download books from OPDS catalogs. <a href=\"https://"
+"opds.io\">Learn More…</a>"
 msgstr ""
 "Pode consultar e descarregar livros dos catálogos OPDS. <a href=\"https://"
 "opds.io\">Saiba mais…</a>"
@@ -548,12 +543,12 @@ msgstr "Wikipédia"
 
 #: src/selection-tools.js:50
 msgid ""
-"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://"
+"en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
 "ShareAlike_4.0_International_License\">CC BY-SA License</a>."
 msgstr ""
-"Da <a id=\"link\">Wikipédia</a>, disponibilizada sob a <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"Da <a id=\"link\">Wikipédia</a>, disponibilizada sob a <a href=\"https://"
+"en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
 "ShareAlike_4.0_International_License\">Licença CC BY-SA</a>."
 
 #: src/selection-tools.js:52
@@ -573,9 +568,8 @@ msgid "Cannot retrieve translation"
 msgstr "Não é possível obter a tradução"
 
 #: src/selection-tools.js:67
-#, fuzzy
 msgid "Search…"
-msgstr "Pesquisar"
+msgstr "Pesquisar…"
 
 #: src/themes.js:8
 msgid "Default"
@@ -901,14 +895,12 @@ msgid "Main Menu"
 msgstr "Menu principal"
 
 #: src/ui/library.ui:110
-#, fuzzy
 msgid "Open"
-msgstr "Abrir…"
+msgstr "Abrir"
 
 #: src/ui/library.ui:117
-#, fuzzy
 msgid "Library Menu"
-msgstr "Biblioteca"
+msgstr "Menu de Biblioteca"
 
 #: src/ui/library.ui:134
 msgid "Search library…"
@@ -1048,7 +1040,7 @@ msgstr "Sem serifa"
 
 #: src/ui/view-preferences-window.ui:56
 msgid "Override Publisher Font"
-msgstr "Sobrepor a Fonte do Publicador"
+msgstr "Sobrepor a fonte da editora"
 
 #: src/ui/view-preferences-window.ui:71
 msgid "Serif Font"
@@ -1177,7 +1169,9 @@ msgstr "Pesquisa rápida de dicionário"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr "Corrigido corte no final do capítulo quando o capítulo começa com quebra de página"
+msgstr ""
+"Corrigido corte no final do capítulo quando o capítulo começa com quebra de "
+"página"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
@@ -1192,9 +1186,8 @@ msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
 msgstr "Adicionado suporte a catálogos OPDS, agora com suporte para OPDS 2.0"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-#, fuzzy
 msgid "Added option to override publisher font"
-msgstr "Adicionada opção para substituir a fonte do editor"
+msgstr "Adicionada opção para substituir a fonte da editora"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added option to reduce animation"
@@ -1210,7 +1203,9 @@ msgstr "Corrigido problema ao obter arquivo do Tracker no Flatpak"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr "Corrigido o parsing de datas do primeiro século e antes de Cristo não exclusivamente com anos"
+msgstr ""
+"Corrigido o parsing de datas do primeiro século e antes de Cristo não "
+"exclusivamente com anos"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
 msgid ""
