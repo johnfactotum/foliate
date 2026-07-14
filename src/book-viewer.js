@@ -361,8 +361,13 @@ GObject.registerClass({
     }
     showPopover(popover, point, dir) {
         this.add_overlay(popover)
-        popover.connect('closed', () => utils.wait(0).then(() => {
-            this.remove_overlay(popover)
+        let handlerId = popover.connect('closed', () => utils.wait(0).then(() => {
+            if (handlerId) {
+                popover.disconnect(handlerId)
+                handlerId = null
+            }
+            if (popover.get_parent() === this)
+                this.remove_overlay(popover)
             this.deselect()
         }))
         popover.position = dir === 'up' ? Gtk.PositionType.TOP : Gtk.PositionType.BOTTOM
