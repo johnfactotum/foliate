@@ -8,22 +8,21 @@ msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2025-03-15 07:31+0200\n"
+"PO-Revision-Date: 2026-04-23 21:07+0300\n"
 "Last-Translator: Jonatan Nyberg\n"
-"Language-Team: \n"
 "Language: sv\n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
-msgstr "Bokmärke har tagits bort"
+msgstr "Bokmärket har tagits bort"
 
-#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:805
-#: src/library.js:865
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:805 src/library.js:865
 msgid "Undo"
 msgstr "Ångra"
 
@@ -33,11 +32,11 @@ msgstr "Understrykning"
 
 #: src/annotations.js:438
 msgid "Squiggly"
-msgstr "Snirklig"
+msgstr "Vågig understrykning"
 
 #: src/annotations.js:439
 msgid "Strikethrough"
-msgstr "Genomstruken"
+msgstr "Genomstrykning"
 
 #: src/annotations.js:440
 msgid "Yellow"
@@ -85,11 +84,11 @@ msgstr "Inga anteckningar"
 
 #: src/annotations.js:607
 msgid "The imported file has no annotations"
-msgstr "Den importerade filen har inga kommentarer"
+msgstr "Den importerade filen har inga anteckningar"
 
 #: src/annotations.js:625
 msgid "Cannot Import Annotations"
-msgstr "Kan inte importera kommentarer"
+msgstr "Det går inte att importera anteckningar"
 
 #: src/annotations.js:626 src/book-viewer.js:716 src/library.js:644
 msgid "An error occurred"
@@ -97,35 +96,34 @@ msgstr "Ett fel uppstod"
 
 #: src/annotations.js:635
 msgid "You don’t have any annotations for this book"
-msgstr "Du har inga kommentarer till för den här boken"
+msgstr "Du har inga anteckningar för den här boken"
 
 #: src/annotations.js:648
 #, javascript-format
 msgid "Annotations for “%s”"
-msgstr "Anteckningar för “%s”"
+msgstr "Anteckningar för ”%s”"
 
 #: src/annotations.js:649
 #, javascript-format
 msgid "%d Annotation"
 msgid_plural "%d Annotations"
-msgstr[0] "%d anteckningar"
+msgstr[0] "%d anteckning"
 msgstr[1] "%d anteckningar"
 
 #: src/app.js:95 src/book-viewer.js:30
 msgid "Close"
 msgstr "Stäng"
 
-#: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
-#: src/ui/import-dialog.ui:15
+#: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11 src/ui/import-dialog.ui:15
 msgid "Cancel"
 msgstr "Avbryt"
 
 #: src/app.js:136
 msgid "E-Book Files"
-msgstr "E-bok filer"
+msgstr "E-boksfiler"
 
-#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
+#: data/com.github.johnfactotum.Foliate.desktop.in:6
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7 src/app.js:399
 msgid "Read e-books in style"
 msgstr "Läs e-böcker med stil"
 
@@ -148,12 +146,12 @@ msgstr "Förlag"
 #. Translators: this is the heading for the publication date
 #: src/book-info.js:135 src/library.js:76
 msgid "Published"
-msgstr "Publicerad"
+msgstr "Utgiven"
 
 #. Translators: this is the heading for the modified date
 #: src/book-info.js:137
 msgid "Updated"
-msgstr "Uppdatera"
+msgstr "Uppdaterad"
 
 #: src/book-info.js:138 src/library.js:77
 msgid "Language"
@@ -169,7 +167,7 @@ msgstr "Redigerad av"
 
 #: src/book-info.js:141
 msgid "Narrated by"
-msgstr "Berättad av"
+msgstr "Uppläst av"
 
 #: src/book-info.js:142
 msgid "Illustrated by"
@@ -181,11 +179,11 @@ msgstr "Producerad av"
 
 #: src/book-info.js:144
 msgid "Artwork by"
-msgstr "Konstverk av"
+msgstr "Illustrationer av"
 
 #: src/book-info.js:145
 msgid "Color by"
-msgstr "Färg av"
+msgstr "Färglagd av"
 
 #: src/book-info.js:146
 msgid "Contributors"
@@ -195,15 +193,14 @@ msgstr "Bidragsgivare"
 msgid "Identifier"
 msgstr "Identifierare"
 
-#: src/book-info.js:179 src/ui/book-item.ui:15 src/ui/book-row.ui:15
-#: src/ui/book-viewer.ui:368
+#: src/book-info.js:179 src/ui/book-item.ui:15 src/ui/book-row.ui:15 src/ui/book-viewer.ui:368
 msgid "About This Book"
-msgstr "Om denna bok"
+msgstr "Om den här boken"
 
 #: src/book-viewer.js:27
 #, javascript-format
 msgid "Loc. %s of %s"
-msgstr "Lok. %s av %s"
+msgstr "Position %s av %s"
 
 #: src/book-viewer.js:28
 #, javascript-format
@@ -225,11 +222,11 @@ msgstr "Gå till fotnot"
 
 #: src/book-viewer.js:34
 msgid "Endnote"
-msgstr "Slutanteckning"
+msgstr "Slutnot"
 
 #: src/book-viewer.js:35
 msgid "Go to Endnote"
-msgstr "Gå till ślutanteckning"
+msgstr "Gå till slutnot"
 
 #: src/book-viewer.js:36
 msgid "Note"
@@ -253,7 +250,7 @@ msgstr "Bibliografi"
 
 #: src/book-viewer.js:41
 msgid "Go to Bibliography"
-msgstr "Gå till Bibliografi"
+msgstr "Gå till bibliografi"
 
 #: src/book-viewer.js:622
 msgid "Remove bookmark"
@@ -269,11 +266,11 @@ msgstr "Filen hittades inte"
 
 #: src/book-viewer.js:715
 msgid "File type not supported"
-msgstr "Filtyp stöds inte"
+msgstr "Filtypen stöds inte"
 
 #: src/book-viewer.js:804
 msgid "Annotation deleted"
-msgstr "Anteckning borttagen"
+msgstr "Anteckningen har tagits bort"
 
 #: src/book-viewer.js:877
 #, javascript-format
@@ -281,8 +278,8 @@ msgid ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 msgstr ""
-"‘%s’\n"
-"—%s, “%s”, s. %s"
+"”%s”\n"
+"—%s, ”%s”, s. %s"
 
 #: src/book-viewer.js:879
 #, javascript-format
@@ -290,13 +287,13 @@ msgid ""
 "‘%s’\n"
 "—“%s”, p. %s"
 msgstr ""
-"‘%s’\n"
-"—“%s”, p. %s"
+"”%s”\n"
+"—”%s”, s. %s"
 
 #: src/book-viewer.js:880
 #, javascript-format
 msgid "‘%s’ (p. %s)"
-msgstr "‘%s’ (s. %s)"
+msgstr "”%s” (s. %s)"
 
 #: src/book-viewer.js:883
 #, javascript-format
@@ -304,8 +301,8 @@ msgid ""
 "‘%s’\n"
 "—%s, “%s”"
 msgstr ""
-"‘%s’\n"
-"—%s, “%s”"
+"”%s”\n"
+"—%s, ”%s”"
 
 #: src/book-viewer.js:885
 #, javascript-format
@@ -313,18 +310,18 @@ msgid ""
 "‘%s’\n"
 "—“%s”"
 msgstr ""
-"‘%s’\n"
-"—“%s”"
+"”%s”\n"
+"—”%s”"
 
 #: src/book-viewer.js:886
 #, javascript-format
 msgid "‘%s’"
-msgstr "‘%s’"
+msgstr "”%s”"
 
 #: src/book-viewer.js:904
 #, javascript-format
 msgid "Image from “%s”"
-msgstr "Bild från \"%s\""
+msgstr "Bild från ”%s”"
 
 #: src/book-viewer.js:904
 msgid "Image"
@@ -345,11 +342,11 @@ msgstr "Det gick inte att läsa in"
 
 #: src/library.js:49 src/ui/book-viewer.ui:15
 msgid "Reload"
-msgstr "Uppdatera"
+msgstr "Läs in på nytt"
 
 #: src/library.js:51
 msgid "See All"
-msgstr "Se alla"
+msgstr "Visa alla"
 
 #: src/library.js:52 src/ui/library.ui:124 src/ui/library.ui:182
 msgid "Search"
@@ -369,11 +366,11 @@ msgstr "Köp"
 
 #: src/library.js:58
 msgid "Preview"
-msgstr "Förhandsvisning"
+msgstr "Förhandsgranska"
 
 #: src/library.js:59
 msgid "Sample"
-msgstr "Prov"
+msgstr "Provutdrag"
 
 #: src/library.js:60
 msgid "Borrow"
@@ -405,7 +402,7 @@ msgstr "Sista"
 
 #: src/library.js:70
 msgid "Search Terms"
-msgstr "Söktermer"
+msgstr "Sökord"
 
 #: src/library.js:72
 msgid "Title"
@@ -421,12 +418,11 @@ msgstr "Bidragsgivare"
 
 #: src/library.js:438
 msgid "Remove Book?"
-msgstr "Ta bort bok?"
+msgstr "Ta bort boken?"
 
 #: src/library.js:439
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
-msgstr ""
-"Läsförlopp, anteckningar och bokmärken kommer att gå förlorade permanent"
+msgstr "Läsförlopp, anteckningar och bokmärken går förlorade permanent"
 
 #: src/library.js:441
 msgid "_Cancel"
@@ -472,8 +468,7 @@ msgstr "Alla böcker"
 msgid "Add Catalog…"
 msgstr "Lägg till katalog…"
 
-#: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
-#: src/ui/library.ui:93
+#: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239 src/ui/library.ui:93
 msgid "Library"
 msgstr "Bibliotek"
 
@@ -483,7 +478,7 @@ msgstr "Kataloger"
 
 #: src/library.js:864
 msgid "Catalog removed"
-msgstr "Katalog borttagen"
+msgstr "Katalogen har tagits bort"
 
 #: src/library.js:951 src/library.js:956
 msgid "Add Catalog"
@@ -494,19 +489,15 @@ msgid "Add"
 msgstr "Lägg till"
 
 #: src/library.js:957
-msgid ""
-"You can browse and download books from OPDS catalogs. <a href=\"https://opds."
-"io\">Learn More…</a>"
-msgstr ""
-"Du kan bläddra och hämta böcker från OPDS-kataloger. <a href=\"https://opds."
-"io\">Läs mer…</a>"
+msgid "You can browse and download books from OPDS catalogs. <a href=\"https://opds.io\">Learn More…</a>"
+msgstr "Du kan bläddra och hämta böcker från OPDS-kataloger. <a href=\"https://opds.io\">Läs mer…</a>"
 
 #: src/library.js:961
 msgid "URL"
 msgstr "URL"
 
 #. Translators: Do NOT translate! The is the application name!
-#: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
+#: data/com.github.johnfactotum.Foliate.desktop.in:4 src/main.js:28
 msgid "Foliate"
 msgstr "Foliate"
 
@@ -516,11 +507,11 @@ msgstr "Ordbok"
 
 #: src/selection-tools.js:37
 msgid ""
-"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"https://"
-"creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
+"From <a id=\"link\">Wiktionary</a>, released under the <a "
+"href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
 msgstr ""
-"Från <a id=\"link\">Wiktionary</a>, släppt under <a href=\"https://"
-"creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA-licensen</a> ."
+"Från <a id=\"link\">Wiktionary</a>, släppt under <a href=\"https://creativecommons.org/licenses"
+"/by-sa/4.0/\">CC BY-SA-licensen</a>."
 
 #: src/selection-tools.js:38 src/selection-tools.js:51
 msgid "No Definitions Found"
@@ -528,7 +519,7 @@ msgstr "Inga definitioner hittades"
 
 #: src/selection-tools.js:39
 msgid "Search on Wiktionary"
-msgstr "Sök på Wiktionary"
+msgstr "Sök i Wiktionary"
 
 #: src/selection-tools.js:46
 msgid "Wikipedia"
@@ -536,13 +527,13 @@ msgstr "Wikipedia"
 
 #: src/selection-tools.js:50
 msgid ""
-"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"From <a id=\"link\">Wikipedia</a>, released under the <a "
+"href=\"https://en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
 "ShareAlike_4.0_International_License\">CC BY-SA License</a>."
 msgstr ""
-"Från <a id=\"link\">Wikipedia</a>, släppt under <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
-"ShareAlike_4.0_International_License\">CC BY-SA-licensen< /a>."
+"Från <a id=\"link\">Wikipedia</a>, utgiven under <a "
+"href=\"https://en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
+"ShareAlike_4.0_International_License\">CC BY-SA-licensen</a>."
 
 #: src/selection-tools.js:52
 msgid "Search on Wikipedia"
@@ -554,11 +545,11 @@ msgstr "Översätt"
 
 #: src/selection-tools.js:65
 msgid "Translation by Google Translate"
-msgstr "Översättning av Google Translate"
+msgstr "Översatt med Google Översätt"
 
 #: src/selection-tools.js:66
 msgid "Cannot retrieve translation"
-msgstr "Det går inte att hämta översättning"
+msgstr "Det gick inte att hämta översättningen"
 
 #: src/selection-tools.js:67
 msgid "Search…"
@@ -594,7 +585,7 @@ msgstr "Solariserad"
 
 #: src/themes.js:43
 msgid "Gruvbox"
-msgstr "Gruvlåda"
+msgstr "Gruvbox"
 
 #: src/themes.js:48
 msgid "Nord"
@@ -602,23 +593,21 @@ msgstr "Nord"
 
 #: src/tts.js:117
 msgid "Text-to-Speech Error"
-msgstr "Text-till-tal-fel"
+msgstr "Fel i text-till-tal"
 
 #: src/tts.js:118
 msgid "Make sure Speech Dispatcher is installed and working on your system"
-msgstr ""
-"Se till att Speech Dispatcher är installerad och fungerar på ditt system"
+msgstr "Se till att Speech Dispatcher är installerad och fungerar på ditt system"
 
 #: src/utils.js:168
 msgid "Copied to clipboard"
-msgstr "Kopierade till urklipp"
+msgstr "Kopierat till urklippet"
 
 #: src/ui/annotation-popover.ui:13
 msgid "Highlight Style"
-msgstr "Markera stil"
+msgstr "Markeringsstil"
 
-#: src/ui/annotation-popover.ui:20 src/ui/annotation-row.ui:63
-#: src/ui/bookmark-row.ui:33
+#: src/ui/annotation-popover.ui:20 src/ui/annotation-row.ui:63 src/ui/bookmark-row.ui:33
 msgid "Delete"
 msgstr "Ta bort"
 
@@ -633,11 +622,11 @@ msgstr "Lägg till anteckning…"
 
 #: src/ui/book-item.ui:5 src/ui/book-row.ui:5
 msgid "Open in New Window"
-msgstr "Öppna i nytt fönster"
+msgstr "Öppna i ett nytt fönster"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr "Öppna med extern app"
+msgstr "Öppna med ett externt program"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -661,11 +650,11 @@ msgstr "Om Foliate"
 
 #: src/ui/book-viewer.ui:45
 msgid "All Sections"
-msgstr "Alla sektioner"
+msgstr "Alla avsnitt"
 
 #: src/ui/book-viewer.ui:50
 msgid "Current Section"
-msgstr "Nuvarande sektion"
+msgstr "Aktuellt avsnitt"
 
 #: src/ui/book-viewer.ui:57
 msgid "Match Whole Words Only"
@@ -673,19 +662,19 @@ msgstr "Matcha endast hela ord"
 
 #: src/ui/book-viewer.ui:61
 msgid "Match Case"
-msgstr "Matcha skiftläge"
+msgstr "Gör skillnad på gemener och versaler"
 
 #: src/ui/book-viewer.ui:65
 msgid "Match Diacritics"
-msgstr "Matcha Diakritiska tecken"
+msgstr "Gör skillnad på diakritiska tecken"
 
 #: src/ui/book-viewer.ui:83
 msgid "Font & Layout Settings"
-msgstr "Teckensnitt- & layoutinställningar"
+msgstr "Inställningar för typsnitt och layout"
 
 #: src/ui/book-viewer.ui:89
 msgid "Scrolled Mode"
-msgstr "Rullat läge"
+msgstr "Rullningsläge"
 
 #: src/ui/book-viewer.ui:93
 msgid "Invert Colors in Dark Mode"
@@ -697,7 +686,7 @@ msgstr "Dölj markören automatiskt"
 
 #: src/ui/book-viewer.ui:103
 msgid "Print…"
-msgstr "Skriva ut…"
+msgstr "Skriv ut…"
 
 #: src/ui/book-viewer.ui:107
 msgid "Inspector"
@@ -705,11 +694,11 @@ msgstr "Inspektör"
 
 #: src/ui/book-viewer.ui:167
 msgid "Book Cannot Be Opened"
-msgstr "Boken kan inte öppnas"
+msgstr "Boken går inte att öppna"
 
 #: src/ui/book-viewer.ui:177
 msgid "Details"
-msgstr "Detalj"
+msgstr "Detaljer"
 
 #: src/ui/book-viewer.ui:193
 msgid "Open Another File…"
@@ -717,23 +706,23 @@ msgstr "Öppna en annan fil…"
 
 #: src/ui/book-viewer.ui:245
 msgid "Pin Sidebar"
-msgstr "Fäst sidofält"
+msgstr "Fäst sidofältet"
 
 #: src/ui/book-viewer.ui:253
 msgid "Book Menu"
-msgstr "Bok meny"
+msgstr "Bokmeny"
 
 #: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
 msgid "Find"
-msgstr "Hitta"
+msgstr "Sök"
 
 #: src/ui/book-viewer.ui:276
 msgid "Find in book…"
-msgstr "Hitta i bok…"
+msgstr "Sök i boken…"
 
 #: src/ui/book-viewer.ui:313
 msgid "Contents"
-msgstr "Innehåll"
+msgstr "Innehållsförteckning"
 
 #: src/ui/book-viewer.ui:391
 msgid "Annotations"
@@ -741,11 +730,11 @@ msgstr "Anteckningar"
 
 #: src/ui/book-viewer.ui:403
 msgid "Select some text to add annotations"
-msgstr "Markera en del text för att lägga till kommentarer"
+msgstr "Markera text för att lägga till anteckningar"
 
 #: src/ui/book-viewer.ui:433
 msgid "Filter annotations…"
-msgstr "Filtrera kommentarer…"
+msgstr "Filtrera anteckningar…"
 
 #: src/ui/book-viewer.ui:447
 msgid "Bookmarks"
@@ -757,15 +746,15 @@ msgstr "Inga bokmärken"
 
 #: src/ui/book-viewer.ui:459
 msgid "Add some bookmarks to see them here"
-msgstr "Lägg till några bokmärken för att se dem här"
+msgstr "Lägg till bokmärken så visas de här"
 
 #: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
 msgid "No Results Found"
-msgstr "Inga resultat funna"
+msgstr "Inga resultat hittades"
 
 #: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
 msgid "Try a different search"
-msgstr "Försök med en annan sökning"
+msgstr "Prova en annan sökning"
 
 #: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
 msgid "Sidebar"
@@ -773,7 +762,7 @@ msgstr "Sidofält"
 
 #: src/ui/book-viewer.ui:556
 msgid "View Menu"
-msgstr "Visa meny"
+msgstr "Visningsmeny"
 
 #: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
 msgid "Zoom Out"
@@ -781,7 +770,7 @@ msgstr "Zooma ut"
 
 #: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
 msgid "Reset Zoom"
-msgstr "Återställ zoom"
+msgstr "Återställ zoomnivån"
 
 #: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
 msgid "Zoom In"
@@ -789,7 +778,7 @@ msgstr "Zooma in"
 
 #: src/ui/book-viewer.ui:601
 msgid "Follow System Style"
-msgstr "Följ System stil"
+msgstr "Följ systemets stil"
 
 #: src/ui/book-viewer.ui:611
 msgid "Light Style"
@@ -801,7 +790,7 @@ msgstr "Mörk stil"
 
 #: src/ui/book-viewer.ui:636 src/ui/library.ui:26
 msgid "Fullscreen"
-msgstr "Helskärmsläge"
+msgstr "Helskärm"
 
 #: src/ui/export-dialog.ui:5
 msgid "Export Annotations"
@@ -817,8 +806,7 @@ msgstr "Format"
 
 #: src/ui/export-dialog.ui:29
 msgid "Choose “JSON” if you plan on importing annotations back to Foliate"
-msgstr ""
-"Välj \"JSON\" om du planerar att importera kommentarer tillbaka till Foliate"
+msgstr "Välj ”JSON” om du vill kunna importera anteckningarna till Foliate igen"
 
 #: src/ui/export-dialog.ui:33
 msgid "JSON"
@@ -834,7 +822,7 @@ msgstr "Markdown"
 
 #: src/ui/export-dialog.ui:36
 msgid "Org Mode"
-msgstr "Organisationsläge"
+msgstr "Org Mode"
 
 #: src/ui/image-viewer.ui:6 src/ui/navbar.ui:302 src/ui/selection-popover.ui:7
 msgid "Copy"
@@ -861,11 +849,8 @@ msgid "Import"
 msgstr "Importera"
 
 #: src/ui/import-dialog.ui:33
-msgid ""
-"The identifier doesn’t match. These annotations may not be for this book."
-msgstr ""
-"Identifieraren matchar inte. Dessa kommentarer kanske inte är för den här "
-"boken."
+msgid "The identifier doesn’t match. These annotations may not be for this book."
+msgstr "Identifieraren stämmer inte överens. Anteckningarna kanske inte hör till den här boken."
 
 #: src/ui/import-dialog.ui:34
 msgid "Import Anyway"
@@ -879,7 +864,7 @@ msgstr "Listvy"
 msgid "Grid View"
 msgstr "Rutnätsvy"
 
-#: src/ui/library.ui:20 src/ui/library-view.ui:27
+#: src/ui/library-view.ui:27 src/ui/library.ui:20
 msgid "Open…"
 msgstr "Öppna…"
 
@@ -917,19 +902,19 @@ msgstr "Öppna en bok för att börja läsa"
 
 #: src/ui/navbar.ui:62 src/ui/navbar.ui:253
 msgid "Location"
-msgstr "Plats"
+msgstr "Position"
 
 #: src/ui/navbar.ui:91
 msgid "Narration"
-msgstr "Berättande"
+msgstr "Uppläsning"
 
 #: src/ui/navbar.ui:162
 msgid "Time Left in Section"
-msgstr "Tid kvar i sektion"
+msgstr "Tid kvar i avsnittet"
 
 #: src/ui/navbar.ui:192
 msgid "Time Left in Book"
-msgstr "Tid kvar i bok"
+msgstr "Tid kvar i boken"
 
 #: src/ui/navbar.ui:226 src/ui/view-preferences-window.ui:159
 msgid "Page"
@@ -937,19 +922,19 @@ msgstr "Sida"
 
 #: src/ui/navbar.ui:309
 msgid "Paste and Go"
-msgstr "Klistra in och gå"
+msgstr "Klistra in och gå till"
 
 #: src/ui/navbar.ui:322
 msgid "Section"
-msgstr "Sektion"
+msgstr "Avsnitt"
 
 #: src/ui/navbar.ui:388
 msgid "First Section"
-msgstr "Första sektion"
+msgstr "Första avsnittet"
 
 #: src/ui/navbar.ui:397
 msgid "Previous Section"
-msgstr "Föregående sektion"
+msgstr "Föregående avsnitt"
 
 #: src/ui/navbar.ui:405
 msgid "Jump To…"
@@ -957,11 +942,11 @@ msgstr "Hoppa till…"
 
 #: src/ui/navbar.ui:414
 msgid "Next Section"
-msgstr "Nästa sektion"
+msgstr "Nästa avsnitt"
 
 #: src/ui/navbar.ui:423
 msgid "Last Section"
-msgstr "Sista sektion"
+msgstr "Sista avsnittet"
 
 #: src/ui/selection-popover.ui:12
 msgid "Highlight"
@@ -969,11 +954,11 @@ msgstr "Markera"
 
 #: src/ui/selection-popover.ui:30
 msgid "Speak from Here"
-msgstr "Tala härifrån"
+msgstr "Läs upp härifrån"
 
 #: src/ui/selection-popover.ui:36
 msgid "Copy with Citation"
-msgstr "Kopiera med citat"
+msgstr "Kopiera med källhänvisning"
 
 #: src/ui/selection-popover.ui:40
 msgid "Copy Identifier"
@@ -981,7 +966,7 @@ msgstr "Kopiera identifierare"
 
 #: src/ui/selection-popover.ui:44
 msgid "Print Selection…"
-msgstr "Skriv ut urval…"
+msgstr "Skriv ut markeringen…"
 
 #: src/ui/tts-box.ui:34
 msgid "Speed"
@@ -993,11 +978,11 @@ msgstr "Tonhöjd"
 
 #: src/ui/tts-box.ui:123
 msgid "Play/Pause"
-msgstr "Spela/Pausa"
+msgstr "Spela upp/pausa"
 
 #: src/ui/tts-box.ui:141
 msgid "Stop"
-msgstr "Stopp"
+msgstr "Stoppa"
 
 #: src/ui/view-preferences-window.ui:5
 msgid "Font"
@@ -1005,23 +990,23 @@ msgstr "Typsnitt"
 
 #: src/ui/view-preferences-window.ui:9
 msgid "Font Size"
-msgstr "Typsnitt storlek"
+msgstr "Teckenstorlek"
 
 #: src/ui/view-preferences-window.ui:12
 msgid "Default Font Size"
-msgstr "Standard typsnitt storlek"
+msgstr "Standardteckenstorlek"
 
 #: src/ui/view-preferences-window.ui:25
 msgid "Minimum Font Size"
-msgstr "Minsta typsnitt storlek"
+msgstr "Minsta teckenstorlek"
 
 #: src/ui/view-preferences-window.ui:40
 msgid "Font Family"
-msgstr "Typsnitt familj"
+msgstr "Typsnittsfamilj"
 
 #: src/ui/view-preferences-window.ui:43
 msgid "Default Font"
-msgstr "Standard typsnitt"
+msgstr "Standardtypsnitt"
 
 #: src/ui/view-preferences-window.ui:47
 msgid "Serif"
@@ -1033,19 +1018,19 @@ msgstr "Sans-serif"
 
 #: src/ui/view-preferences-window.ui:56
 msgid "Override Publisher Font"
-msgstr "Åsidosätt utgivarens teckensnitt"
+msgstr "Åsidosätt utgivarens typsnitt"
 
 #: src/ui/view-preferences-window.ui:71
 msgid "Serif Font"
-msgstr "Serif typsnitt"
+msgstr "Seriftypsnitt"
 
 #: src/ui/view-preferences-window.ui:84
 msgid "Sans-Serif Font"
-msgstr "Sans-Serif typsnitt"
+msgstr "Sans serif-typsnitt"
 
 #: src/ui/view-preferences-window.ui:97
 msgid "Monospace Font"
-msgstr "Monospace typsnitt"
+msgstr "Typsnitt med fast bredd"
 
 #: src/ui/view-preferences-window.ui:114
 msgid "Layout"
@@ -1053,15 +1038,15 @@ msgstr "Layout"
 
 #: src/ui/view-preferences-window.ui:118
 msgid "Paragraph"
-msgstr "Paragraf"
+msgstr "Stycke"
 
 #: src/ui/view-preferences-window.ui:121
 msgid "Line Height"
-msgstr "Linjehöjd"
+msgstr "Radhöjd"
 
 #: src/ui/view-preferences-window.ui:135
 msgid "Full Justification"
-msgstr "Fullständig justering"
+msgstr "Marginaljustering"
 
 #: src/ui/view-preferences-window.ui:146
 msgid "Hyphenation"
@@ -1077,7 +1062,7 @@ msgstr "Maximalt antal kolumner"
 
 #: src/ui/view-preferences-window.ui:189
 msgid "Maximum Inline Size"
-msgstr "Maximal inlinestorlek"
+msgstr "Maximal inline-storlek"
 
 #: src/ui/view-preferences-window.ui:190
 msgid "Maximum column width (horizontal writing) or height (vertical writing)"
@@ -1105,26 +1090,26 @@ msgstr "Minska animering"
 
 #: data/com.github.johnfactotum.Foliate.desktop.in:5
 msgid "E-Book Viewer"
-msgstr "E-bokvisare"
+msgstr "E-boksläsare"
 
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The
+#. list MUST also end with a semicolon!
 #: data/com.github.johnfactotum.Foliate.desktop.in:14
 msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "E-bok;Bok;EPUB;Visare;Läsare;"
+msgstr "E-bok;Bok;EPUB;Läsare;E-boksläsare;"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
 msgid ""
-"Discover a new chapter in reading with Foliate, the modern e-book reader "
-"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
-"customization features designed to match your unique preferences."
+"Discover a new chapter in reading with Foliate, the modern e-book reader tailored for GNOME. "
+"Immerse yourself in a distraction-free interface, with customization features designed to match "
+"your unique preferences."
 msgstr ""
-"Upptäck ett nytt kapitel i läsning med Foliate, den moderna e-boksläsaren "
-"skräddarsydd för GNOME. Fördjupa dig i ett distraktionsfritt gränssnitt, med "
-"anpassningsfunktioner utformade för att matcha dina unika preferenser."
+"Upptäck ett nytt sätt att läsa med Foliate, den moderna e-boksläsaren för GNOME. Försjunk i ett "
+"distraktionsfritt gränssnitt och anpassa läsupplevelsen efter dina önskemål."
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
 msgid "Features include:"
-msgstr "Funktioner inkluderar:"
+msgstr "Funktioner:"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
 msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
@@ -1132,15 +1117,15 @@ msgstr "Öppna EPUB-, Mobipocket-, Kindle-, FB2-, CBZ- och PDF-filer"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
 msgid "Paginated mode and scrolled mode"
-msgstr "Paginerat läge och rullat läge"
+msgstr "Sidindelat läge och rullningsläge"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
 msgid "Customize font and line-spacing"
-msgstr "Anpassa teckensnitt och radavstånd"
+msgstr "Anpassa typsnitt och radavstånd"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
 msgid "Light, sepia, dark, and invert mode"
-msgstr "Ljus, sepia, mörkt och inverterat läge"
+msgstr "Ljust, sepiafärgat, mörkt och inverterat läge"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
 msgid "Reading progress slider with chapter marks"
@@ -1152,58 +1137,56 @@ msgstr "Bokmärken och anteckningar"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
 msgid "Find in book"
-msgstr "Hitta i bok"
+msgstr "Hitta i boken"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
 msgid "Quick dictionary lookup"
-msgstr "Snabbt uppslag i ordbok"
+msgstr "Snabb uppslagning i ordbok"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr ""
-"Åtgärdat att avslut på kapitel skärs av när kapitel börjar med sidbrytningar"
+msgstr "Åtgärdade att kapitelslut klipptes bort när kapitlet började med en sidbrytning"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
-msgstr "Åtgärdat felaktig textbrytning i tabeller"
+msgstr "Åtgärdade felaktig textradbrytning i tabeller"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
 msgid "Fixed a performance issue with OPDS catalogs"
-msgstr "Åtgärdat ett prestandaproblem med OPDS-kataloger"
+msgstr "Åtgärdade ett prestandaproblem med OPDS-kataloger"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr "Tillagt stöd för OPDS-kataloger, nu med stöd för OPDS 2.0"
+msgstr "Lade till stöd för OPDS-kataloger, inklusive OPDS 2.0"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
 msgid "Added option to override publisher font"
-msgstr "Tillagt alternativ för att åsidosätta utgivarens teckensnitt"
+msgstr "Lade till ett alternativ för att åsidosätta utgivarens typsnitt"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
 msgid "Added option to reduce animation"
-msgstr "Tillagt alternativ för att minska animering"
+msgstr "Lade till ett alternativ för att minska animeringar"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
 msgid "Added support for JPEG XL in CBZ"
-msgstr "Tillagt stöd för JPEG XL i CBZ"
+msgstr "Lade till stöd för JPEG XL i CBZ-filer"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
 msgid "Fixed getting file from Tracker in Flatpak"
-msgstr "Åtgärdat hämtning av fil från Tracker i Flatpak"
+msgstr "Åtgärdade hämtning av filer från Tracker i Flatpak"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
 msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr "Åtgärdat analys av datum från första århundradet och f.Kr"
+msgstr "Åtgärdade tolkningen av datum före år 100 och f.Kr. som innehåller mer än bara ett årtal"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
 msgid ""
-"Foliate has been rewritten from scratch with a new e-book rendering library "
-"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
-"and improved performance."
+"Foliate has been rewritten from scratch with a new e-book rendering library and the latest "
+"platform libraries, GTK 4 and Libadwaita, with refreshed UI and improved performance."
 msgstr ""
-"Foliate har skrivits om från grunden med ett nytt e-boksrenderingsbibliotek "
-"och de senaste plattformsbiblioteken, GTK 4 och Libadwaita, med uppdaterat "
-"användargränssnitt och förbättrad prestanda."
+"Foliate har skrivits om från grunden med ett nytt bibliotek för visning av e-böcker och de "
+"senaste plattformsbiblioteken GTK 4 och Libadwaita. Resultatet är ett uppdaterat gränssnitt och "
+"bättre prestanda."
 
 #~ msgid "Book"
 #~ msgstr "Bok"
@@ -1223,11 +1206,9 @@ msgstr ""
 #~ msgid "John Factotum"
 #~ msgstr "John Factotum"
 
-#, fuzzy
 #~ msgid "Reference"
 #~ msgstr "Inställningar"
 
-#, fuzzy
 #~ msgid "Go to Reference"
 #~ msgstr "Inställningar"
 
@@ -1258,18 +1239,15 @@ msgstr ""
 #~ msgid "Save File"
 #~ msgstr "Spara fil"
 
-#, fuzzy
 #~ msgid "Choose highlight style"
 #~ msgstr "Ändra markeringsfärg"
 
 #~ msgid "More"
 #~ msgstr "Mer"
 
-#, fuzzy
 #~ msgid "About this book"
 #~ msgstr "Om denna bok"
 
-#, fuzzy
 #~ msgid "Toggle sidebar"
 #~ msgstr "Använd sidofält"
 
@@ -1282,10 +1260,8 @@ msgstr ""
 #~ msgid "Go back to previous location"
 #~ msgstr "Gå tillbaka till föregående plats"
 
-#, fuzzy
 #~ msgid "Go to next section"
 #~ msgstr "Gå till nästa sida"
 
-#, fuzzy
 #~ msgid "Go to last section"
 #~ msgstr "Gå till platsen"
