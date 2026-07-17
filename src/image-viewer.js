@@ -19,6 +19,7 @@ export const ImageViewer = GObject.registerClass({
 }, class extends Gtk.Box {
     #scale = 1
     #rotation = 0
+    #pinchScale = 1
     actionGroup = utils.addSimpleActions({
         'zoom-in': () => this.zoom(0.25),
         'zoom-out': () => this.zoom(-0.25),
@@ -39,6 +40,24 @@ export const ImageViewer = GObject.registerClass({
                 const { hadjustment, vadjustment } = this._scrolled
                 hadjustment.value -= x
                 vadjustment.value -= y
+            },
+        }))
+        this._image.add_controller(utils.connect(new Gtk.GestureZoom(), {
+            'begin': () => this.#pinchScale = this.#scale,
+            'scale-changed': (_, scale) => {
+                this.#scale = this.#pinchScale * scale
+                this.#update()
+            },
+        }))
+        this._scrolled.add_controller(utils.connect(new Gtk.EventControllerScroll({
+            flags: Gtk.EventControllerScrollFlags.VERTICAL,
+        }), {
+            'scroll': (controller, _, dy) => {
+                const state = controller.get_current_event_state()
+                if (state & Gdk.ModifierType.CONTROL_MASK) {
+                    this.zoom(dy < 0 ? 0.1 : -0.1)
+                    return true
+                }
             },
         }))
         this.insert_action_group('img', this.actionGroup)
@@ -73,8 +92,8 @@ export const ImageViewer = GObject.registerClass({
     }
     #updateActions() {
         const scale = this.#scale
-        this.actionGroup.lookup_action('zoom-in').enabled = scale < 3
-        this.actionGroup.lookup_action('zoom-out').enabled = scale > 0.25
+        this.actionGroup.lookup_action('zoom-in').enabled = true
+        this.actionGroup.lookup_action('zoom-out').enabled = true
         this.actionGroup.lookup_action('zoom-restore').enabled = scale !== 1
     }
 })
