@@ -282,7 +282,7 @@ class Reader {
         document.body.append(this.view)
         this.sectionFractions = this.view.getSectionFractions()
     }
-    setAppearance({ style, layout, autohideCursor }) {
+    setAppearance({ style, layout, autohideCursor, fixedLayout }) {
         Object.assign(this.style, style)
         const { theme } = style
         const $style = document.documentElement.style
@@ -292,18 +292,41 @@ class Reader {
         $style.setProperty('--dark-fg', theme.dark.fg)
         const renderer = this.view?.renderer
         if (renderer) {
-            renderer.setAttribute('flow', layout.flow)
-            renderer.setAttribute('gap', layout.gap * 100 + '%')
-            renderer.setAttribute('max-inline-size', layout.maxInlineSize + 'px')
-            renderer.setAttribute('max-block-size', layout.maxBlockSize + 'px')
-            renderer.setAttribute('max-column-count', layout.maxColumnCount)
-            if (layout.animated) renderer.setAttribute('animated', '')
-            else renderer.removeAttribute('animated')
-            renderer.setStyles?.(getCSS(this.style))
+            if (this.view.isFixedLayout && fixedLayout) {
+                if (fixedLayout.spread != null)
+                    this.view.setSpread(fixedLayout.spread)
+                if (fixedLayout.zoom != null) {
+                    renderer.setAttribute('zoom', fixedLayout.zoom > 0
+                        ? String(fixedLayout.zoom) : 'fit-page')
+                }
+            }
+            else {
+                renderer.setAttribute('flow', layout.flow)
+                renderer.setAttribute('gap', layout.gap * 100 + '%')
+                renderer.setAttribute('max-inline-size', layout.maxInlineSize + 'px')
+                renderer.setAttribute('max-block-size', layout.maxBlockSize + 'px')
+                renderer.setAttribute('max-column-count', layout.maxColumnCount)
+                if (layout.animated) renderer.setAttribute('animated', '')
+                else renderer.removeAttribute('animated')
+                renderer.setStyles?.(getCSS(this.style))
+            }
         }
         document.body.classList.toggle('invert', this.style.invert)
         if (autohideCursor) this.view?.setAttribute('autohide-cursor', '')
         else this.view?.removeAttribute('autohide-cursor')
+    }
+    zoomFixed(delta) {
+        return this.view.zoomFixed(delta)
+    }
+    setFixedZoom(zoom) {
+        if (zoom <= 0) return this.view.resetFixedZoom()
+        return this.view.setFixedZoom(zoom)
+    }
+    getFixedZoom() {
+        return this.view.getFixedZoom()
+    }
+    resetFixedZoom() {
+        return this.view.resetFixedZoom()
     }
     #handleEvents() {
         this.view.addEventListener('relocate', e => {
@@ -379,12 +402,11 @@ class Reader {
                     emit({ type: 'show-image', base64, mimetype }))
                 .catch(e => console.error(e)))
 
-        doc.addEventListener('pointerup', () => {
+        doc.addEventListener('contextmenu', e => {
             const sel = doc.getSelection()
             const range = getSelectionRange(sel)
             if (!range) return
-            // prevent click event
-            doc.addEventListener('click', e => e.stopPropagation(), { capture: true, once: true })
+            e.preventDefault()
             const pos = getPosition(range)
             const value = this.view.getCFI(index, range)
             const lang = getLang(range.commonAncestorContainer)
@@ -500,7 +522,8 @@ const open = async (file, Reader) => {
         const reader = new Reader(book)
         globalThis.reader = reader
         await reader.init()
-        emit({ type: 'book-ready', book, reader })
+        emit({ type: 'book-ready', book, reader,
+            isFixedLayout: reader.view.isFixedLayout })
     }
     catch (e) {
         if (e instanceof NotFoundError)

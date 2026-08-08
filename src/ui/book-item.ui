@@ -1,41 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><interface>
-<menu id="menu">
-  <section>
-    <item>
-      <attribute name="label" translatable="yes">Open in New Window</attribute>
-      <attribute name="action">book-item.open-new-window</attribute>
-    </item>
-    <item>
-      <attribute name="label" translatable="yes">Open with External App</attribute>
-      <attribute name="action">book-item.open-external-app</attribute>
-    </item>
-  </section>
-  <section>
-    <item>
-      <attribute name="label" translatable="yes">About This Book</attribute>
-      <attribute name="action">book-item.info</attribute>
-    </item>
-    <item>
-      <attribute name="label" translatable="yes">Export Annotations…</attribute>
-      <attribute name="action">book-item.export</attribute>
-    </item>
-  </section>
-  <section>
-    <item>
-      <attribute name="label" translatable="yes">Remove</attribute>
-      <attribute name="action">book-item.remove</attribute>
-    </item>
-  </section>
-</menu>
 <template class="FoliateBookItem" parent="GtkBox">
     <property name="orientation">vertical</property>
     <property name="halign">center</property>
     <property name="valign">end</property>
-    <property name="width-request">120</property>
-    <property name="margin-start">12</property>
-    <property name="margin-end">12</property>
-    <property name="margin-top">9</property>
-    <property name="margin-bottom">3</property>
+    <property name="width-request">112</property>
+    <property name="margin-start">4</property>
+    <property name="margin-end">4</property>
+    <property name="margin-top">4</property>
+    <property name="margin-bottom">2</property>
+    <property name="spacing">4</property>
     <child>
       <object class="FoliateBookImage" id="image"/>
     </child>
@@ -43,18 +16,18 @@
       <object class="GtkInscription" id="title">
         <property name="text-overflow">ellipsize-end</property>
         <property name="min-lines">2</property>
-        <property name="margin-top">9</property>
-        <style><class name="caption-heading"/></style>
+        <property name="margin-top">2</property>
+        <style><class name="book-title"/></style>
       </object>
     </child>
     <child>
       <object class="GtkBox">
+        <property name="spacing">2</property>
         <child>
           <object class="GtkLabel" id="progress">
             <property name="xalign">0</property>
             <property name="hexpand">true</property>
-            <style><class name="dim-label"/></style>
-            <style><class name="caption"/></style>
+            <style><class name="dim-label"/><class name="caption"/><class name="book-progress-label"/></style>
           </object>
         </child>
         <child>
@@ -62,9 +35,8 @@
             <property name="visible">True</property>
             <property name="valign">center</property>
             <property name="icon-name">view-more-horizontal-symbolic</property>
-            <property name="tooltip-text" translatable="yes">Menu</property>"
-            <property name="menu-model">menu</property>
-            <style><class name="flat"/><class name="circular"/></style>
+            <property name="tooltip-text" translatable="yes">Menu</property>
+            <style><class name="flat"/><class name="circular"/><class name="small-button"/></style>
           </object>
         </child>
       </object>

@@ -1,10 +1,63 @@
+import Gtk from 'gi://Gtk'
 import GLib from 'gi://GLib'
 import Gio from 'gi://Gio'
 import GdkPixbuf from 'gi://GdkPixbuf'
+import { gettext as _ } from 'gettext'
 import * as utils from './utils.js'
 
 import { AnnotationModel, BookmarkModel } from './annotations.js'
 import { getURIStore, getBookList } from './library.js'
+
+export const coverPath = key => pkg.cachepath(`${encodeURIComponent(key)}.png`)
+
+export const readBookCover = key => {
+    try { return GdkPixbuf.Pixbuf.new_from_file(coverPath(key)) }
+    catch { return null }
+}
+
+export const writeBookCover = (key, cover, { force = false } = {}) => {
+    const settings = utils.settings('library')
+    if (!force && !(settings?.get_boolean('show-covers') ?? true)) return
+    const width = settings?.get_int('cover-size') ?? 256
+    const ratio = width / cover.get_width()
+    const scaled = ratio >= 1 ? cover
+        : cover.scale_simple(width, Math.round(cover.get_height() * ratio),
+            GdkPixbuf.InterpType.BILINEAR)
+    scaled.savev(coverPath(key), 'png', [], [])
+}
+
+export const deleteBookCover = key => {
+    try { Gio.File.new_for_path(coverPath(key)).delete(null) } catch {}
+    getBookList()?.readCover.delete(key)
+}
+
+export const pickCoverImage = window => new Promise((resolve, reject) => {
+    const dialog = new Gtk.FileDialog()
+    const images = new Gtk.FileFilter({
+        name: _('Image Files'),
+        mime_types: [
+            'image/jpeg',
+            'image/png',
+            'image/webp',
+            'image/gif',
+            'image/bmp',
+        ],
+    })
+    dialog.filters = new Gio.ListStore()
+    dialog.filters.append(new Gtk.FileFilter({
+        name: _('All Files'),
+        patterns: ['*'],
+    }))
+    dialog.filters.append(images)
+    dialog.default_filter = images
+    dialog.open(window, null, (_, res) => {
+        try { resolve(dialog.open_finish(res)) }
+        catch (e) {
+            if (e instanceof Gtk.DialogError) resolve(null)
+            else reject(e)
+        }
+    })
+})
 
 export class BookData {
     annotations = utils.connect(new AnnotationModel(), {
@@ -80,17 +133,32 @@ export class BookData {
     #saveBookmarks() {
         this.storage.set('bookmarks', this.bookmarks.export())
     }
-    saveCover(cover) {
-        const settings = utils.settings('library')
-        if (!(settings?.get_boolean('show-covers') ?? true)) return
-        const path = pkg.cachepath(`${encodeURIComponent(this.key)}.png`)
-        if (Gio.File.new_for_path(path).query_exists(null)) return
-        const width = settings?.get_int('cover-size') ?? 256
-        const ratio = width / cover.get_width()
-        const scaled = ratio >= 1 ? cover
-            : cover.scale_simple(width, Math.round(cover.get_height() * ratio),
-                GdkPixbuf.InterpType.BILINEAR)
-        scaled.savev(path, 'png', [], [])
+    readCover() {
+        return readBookCover(this.key)
+    }
+    hasCustomCover() {
+        return this.storage.get('customCover', false)
+    }
+    saveCover(cover, { force = false, custom = false } = {}) {
+        if (!force && Gio.File.new_for_path(coverPath(this.key)).query_exists(null))
+            return
+        writeBookCover(this.key, cover, { force })
+        if (custom) this.storage.set('customCover', true)
+    }
+    async setCoverFromFile(file) {
+        const pixbuf = GdkPixbuf.Pixbuf.new_from_file(file.get_path())
+        this.saveCover(pixbuf, { force: true, custom: true })
+        return pixbuf
+    }
+    async resetCover(getDefaultCover) {
+        deleteBookCover(this.key)
+        this.storage.set('customCover', false)
+        if (getDefaultCover) {
+            const cover = await getDefaultCover()
+            if (cover) this.saveCover(cover)
+            return cover
+        }
+        return null
     }
     saveURI(file) {
         const path = file.get_path()

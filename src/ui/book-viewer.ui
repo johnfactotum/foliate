@@ -78,6 +78,11 @@
   </section>
   <section>
     <item>
+      <attribute name="custom">spread</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
       <attribute name="label" translatable="yes">Font &amp; Layout Settings</attribute>
       <attribute name="action">viewer.preferences</attribute>
     </item>
@@ -547,31 +552,68 @@
                               <property name="menu-model">view-menu</property>
                                 <child type="zoom">
                                   <object class="GtkBox">
-                                    <property name="spacing">12</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">6</property>
                                     <property name="margin-start">12</property>
                                     <property name="margin-end">12</property>
+                                    <property name="margin-top">6</property>
+                                    <property name="margin-bottom">6</property>
                                     <child>
-                                      <object class="GtkButton">
-                                        <property name="icon-name">zoom-out-symbolic</property>
-                                        <property name="action-name">view.zoom-out</property>
-                                        <property name="tooltip-text" translatable="yes">Zoom Out</property>
-                                        <style><class name="circular"/><class name="flat"/></style>
+                                      <object class="GtkScale" id="zoom-scale">
+                                        <property name="orientation">horizontal</property>
+                                        <property name="draw-value">False</property>
+                                        <property name="width-request">200</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkButton" id="zoom-button">
-                                        <property name="hexpand">True</property>
-                                        <property name="tooltip-text" translatable="yes">Reset Zoom</property>
-                                        <property name="action-name">view.zoom-restore</property>
+                                      <object class="GtkBox">
+                                        <property name="spacing">12</property>
+                                        <child>
+                                          <object class="GtkButton">
+                                            <property name="icon-name">zoom-out-symbolic</property>
+                                            <property name="action-name">view.zoom-out</property>
+                                            <property name="tooltip-text" translatable="yes">Zoom Out</property>
+                                            <style><class name="circular"/><class name="flat"/></style>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton" id="zoom-button">
+                                            <property name="hexpand">True</property>
+                                            <property name="tooltip-text" translatable="yes">Reset Zoom</property>
+                                            <property name="action-name">view.zoom-restore</property>
+                                            <style><class name="flat"/></style>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton">
+                                            <property name="icon-name">zoom-in-symbolic</property>
+                                            <property name="action-name">view.zoom-in</property>
+                                            <property name="tooltip-text" translatable="yes">Zoom In</property>
+                                            <style><class name="circular"/><class name="flat"/></style>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child type="spread">
+                                  <object class="GtkBox" id="spread-box">
+                                    <property name="spacing">12</property>
+                                    <property name="margin-start">12</property>
+                                    <property name="margin-end">12</property>
+                                    <property name="margin-bottom">6</property>
+                                    <property name="visible">False</property>
+                                    <child>
+                                      <object class="GtkToggleButton" id="pdf-single-page">
+                                        <property name="label" translatable="yes">Single Page</property>
+                                        <property name="active">True</property>
                                         <style><class name="flat"/></style>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkButton">
-                                        <property name="icon-name">zoom-in-symbolic</property>
-                                        <property name="action-name">view.zoom-in</property>
-                                        <property name="tooltip-text" translatable="yes">Zoom In</property>
-                                        <style><class name="circular"/><class name="flat"/></style>
+                                      <object class="GtkToggleButton" id="pdf-two-page">
+                                        <property name="label" translatable="yes">Two Pages</property>
+                                        <style><class name="flat"/></style>
                                       </object>
                                     </child>
                                   </object>

@@ -38,30 +38,35 @@ pkg.configpath = path => GLib.build_filenamev([pkg.configdir, path])
 pkg.cachedir = GLib.build_filenamev([GLib.get_user_cache_dir(), pkg.name])
 pkg.cachepath = path => GLib.build_filenamev([pkg.cachedir, path])
 
-if (MESON) {
-    // when using Meson, load from compiled GResource binary
-    Gio.Resource
-        .load(GLib.build_filenamev(['@datadir@', pkg.name, `${pkg.name}.gresource`]))
-        ._register()
+const loadGResource = () => {
     const moduledir = '/' + pkg.name.replaceAll('.', '/')
     pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
     pkg.moduleuri = path => `resource://${pkg.modulepath(path)}`
     pkg.useResource = true
-} else {
-    const gres = GLib.getenv('FOLIATE_GRESOURCE')
-    if (gres) {
-        // Uninstalled: meson compile produces build/src/...gresource — point env at that file
-        Gio.Resource.load(gres)._register()
-        const moduledir = '/' + pkg.name.replaceAll('.', '/')
-        pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
-        pkg.moduleuri = path => `resource://${pkg.modulepath(path)}`
-        pkg.useResource = true
-    } else {
-        const moduledir = GLib.path_get_dirname(GLib.filename_from_uri(import.meta.url)[0])
-        pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
-        pkg.moduleuri = path => GLib.filename_to_uri(pkg.modulepath(path), null)
-        pkg.useResource = false
-    }
+
+    const bundled = GLib.build_filenamev([
+        GLib.path_get_dirname(GLib.filename_from_uri(import.meta.url)[0]),
+        `${pkg.name}.gresource`,
+    ])
+    const installed = GLib.build_filenamev([
+        MESON ? '@datadir@' : '/usr/share',
+        pkg.name,
+        `${pkg.name}.gresource`,
+    ])
+    const env = GLib.getenv('FOLIATE_GRESOURCE')
+    const path = env && GLib.file_test(env, GLib.FileTest.EXISTS) ? env
+        : GLib.file_test(bundled, GLib.FileTest.EXISTS) ? bundled
+        : installed
+    Gio.Resource.load(path)._register()
+}
+
+if (MESON) loadGResource()
+else if (GLib.getenv('FOLIATE_GRESOURCE')) loadGResource()
+else {
+    const moduledir = GLib.path_get_dirname(GLib.filename_from_uri(import.meta.url)[0])
+    pkg.modulepath = path => GLib.build_filenamev([moduledir, path])
+    pkg.moduleuri = path => GLib.filename_to_uri(pkg.modulepath(path), null)
+    pkg.useResource = false
 }
 
 const { Application } = await import(pkg.moduleuri('app.js'))
