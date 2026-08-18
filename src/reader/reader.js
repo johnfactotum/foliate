@@ -105,8 +105,9 @@ const getCSS = ({
     h1, h2, h3, h4, h5, h6, hgroup, th {
         text-wrap: balance;
     }
-    pre {
+    pre, pre * {
         white-space: pre-wrap !important;
+        overflow-x: visible !important;
         tab-size: 2;
     }
 `, `
