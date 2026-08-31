@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<template class="FoliateStatisticsPage" parent="AdwPreferencesPage">
+  <property name="title" translatable="yes">Statistics</property>
+  <property name="icon-name">speedometer-symbolic</property>
+  
+  <child>
+    <object class="AdwPreferencesGroup">
+      <property name="title" translatable="yes">Reading Activity</property>
+      <property name="description" translatable="yes">Pages read over time</property>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Pages Read Today</property>
+          <property name="subtitle" translatable="yes">Activity for today</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">appointment-soon-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="pages-read-today">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Pages Read This Week</property>
+          <property name="subtitle" translatable="yes">Past 7 days</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">x-office-calendar-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="pages-read-this-week">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Pages Read This Month</property>
+          <property name="subtitle" translatable="yes">Past 30 days</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">x-office-calendar-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="pages-read-this-month">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Pages Read This Year</property>
+          <property name="subtitle" translatable="yes">Current year</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">x-office-calendar-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="pages-read-this-year">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Total Pages Read</property>
+          <property name="subtitle" translatable="yes">All-time total</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">document-properties-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="total-pages-read">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+    </object>
+  </child>
+  
+  <child>
+    <object class="AdwPreferencesGroup">
+      <property name="title" translatable="yes">Books and Progress</property>
+      <property name="description" translatable="yes">Your library progress</property>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Books Finished</property>
+          <property name="subtitle" translatable="yes">Completed books</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">emblem-ok-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="finished-books">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">In Progress</property>
+          <property name="subtitle" translatable="yes">Books currently being read</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">media-playback-start-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="in-progress-books">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Chapters Completed</property>
+          <property name="subtitle" translatable="yes">Completed chapters across all books</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">checkbox-checked-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="completed-chapters">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Not Started</property>
+          <property name="subtitle" translatable="yes">Unread books</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">document-new-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="unread-books">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Total Books</property>
+          <property name="subtitle" translatable="yes">All books in your library</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">library-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="total-books">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Average Progress</property>
+          <property name="subtitle" translatable="yes">Average completion across all books</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">speedometer-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="average-progress">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+    </object>
+  </child>
+  
+  <child>
+    <object class="AdwPreferencesGroup">
+      <property name="title" translatable="yes">Library Growth</property>
+      <property name="description" translatable="yes">Books added to your library</property>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Added This Week</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">list-add-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="books-added-this-week">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Added This Month</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">list-add-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="books-added-this-month">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+      
+      <child>
+        <object class="AdwActionRow">
+          <property name="title" translatable="yes">Added This Year</property>
+          <child type="prefix">
+            <object class="GtkImage">
+              <property name="icon-name">list-add-symbolic</property>
+            </object>
+          </child>
+          <child type="suffix">
+            <object class="GtkLabel" id="books-added-this-year">
+              <property name="selectable">True</property>
+              <style><class name="dim-label"/><class name="numeric"/></style>
+            </object>
+          </child>
+        </object>
+      </child>
+    </object>
+  </child>
+</template>
+</interface>

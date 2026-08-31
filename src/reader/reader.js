@@ -215,6 +215,136 @@ footnoteDialog.addEventListener('close', () => {
 footnoteDialog.addEventListener('click', e =>
     e.target === footnoteDialog ? footnoteDialog.close() : null)
 
+const computeTOCPages = async (book, view, pageTotal) => {
+    let toc = book.toc
+    if (!toc || !toc.length) {
+        if (book.sections && book.sections.length > 0) {
+            toc = book.sections.map((s, i) => ({
+                id: i,
+                label: `Section ${i + 1}`,
+                href: s.id || String(i),
+            }))
+            book.toc = toc
+        } else {
+            return []
+        }
+    }
+
+    const sectionFractions = view.getSectionFractions() ?? []
+    const sectionCount = book.sections?.length || 1
+
+    let total = null
+    if (pageTotal && !isNaN(parseInt(pageTotal))) {
+        total = parseInt(pageTotal)
+    } else if (book.pageList && book.pageList.length > 0) {
+        total = book.pageList.length
+    } else if (view.isFixedLayout) {
+        total = sectionCount
+    } else {
+        const sizeTotal = book.sections?.reduce?.((sum, s) => sum + (s.linear !== 'no' && s.size > 0 ? s.size : 0), 0) || 0
+        total = sizeTotal > 0 ? Math.ceil(sizeTotal / 1500) : sectionCount
+    }
+    if (!total || total <= 0) total = 1
+
+    // Flatten all items
+    const allItems = []
+    let autoId = 0
+    const traverse = list => {
+        for (const item of list) {
+            item.id ??= autoId++
+            allItems.push(item)
+            if (item.subitems && item.subitems.length > 0) {
+                traverse(item.subitems)
+            }
+        }
+    }
+    traverse(toc)
+
+    // Separate leaf items and non-leaf items
+    const leafItems = allItems.filter(it => !it.subitems || it.subitems.length === 0)
+
+    // Resolve section index for all leaf items with href
+    const sectionMap = new Map()
+    for (const item of leafItems) {
+        if (item.href) {
+            try {
+                const resolved = await Promise.resolve(book.resolveHref(item.href))
+                const secIndex = typeof resolved?.index === 'number' ? resolved.index : 0
+                item._secIndex = secIndex
+                if (!sectionMap.has(secIndex)) sectionMap.set(secIndex, [])
+                sectionMap.get(secIndex).push(item)
+            } catch (e) {
+                item._secIndex = null
+            }
+        } else {
+            item._secIndex = null
+        }
+    }
+
+    // Calculate startFraction for each leaf item
+    for (const item of leafItems) {
+        if (typeof item._secIndex === 'number') {
+            const secIndex = item._secIndex
+            const secStart = sectionFractions[secIndex] ?? (secIndex / sectionCount)
+            const secEnd = sectionFractions[secIndex + 1] ?? ((secIndex + 1) / sectionCount)
+            const secSpan = Math.max(0, secEnd - secStart)
+            const itemsInSec = sectionMap.get(secIndex) || [item]
+            const posInSec = itemsInSec.indexOf(item)
+            const countInSec = itemsInSec.length
+            item._startFrac = secStart + (countInSec > 1 ? (posInSec / countInSec) * secSpan : 0)
+        } else {
+            item._startFrac = null
+        }
+    }
+
+    // Propagate fraction to parent items from their first child
+    const resolveParentFracs = items => {
+        for (const item of items) {
+            if (item.subitems && item.subitems.length > 0) {
+                resolveParentFracs(item.subitems)
+                if (item._startFrac == null && item.subitems[0]._startFrac != null) {
+                    item._startFrac = item.subitems[0]._startFrac
+                }
+            }
+            if (item._startFrac == null) item._startFrac = 0
+        }
+    }
+    resolveParentFracs(toc)
+
+    // Assign pages to leaf items, then sum up parent items
+    const assignPages = items => {
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i]
+            if (item.subitems && item.subitems.length > 0) {
+                assignPages(item.subitems)
+                item.pages = item.subitems.reduce((sum, sub) => sum + (sub.pages || 0), 0)
+                if (item.pages < 1) item.pages = 1
+            } else {
+                const currentFrac = item._startFrac ?? 0
+                let nextFrac = 1.0
+                const currIdx = leafItems.indexOf(item)
+                for (let k = currIdx + 1; k < leafItems.length; k++) {
+                    if (leafItems[k]._startFrac != null && leafItems[k]._startFrac > currentFrac) {
+                        nextFrac = leafItems[k]._startFrac
+                        break
+                    }
+                }
+                const span = Math.max(0, nextFrac - currentFrac)
+                item.pages = Math.max(1, Math.round(span * total))
+            }
+        }
+    }
+    assignPages(toc)
+
+    // Clean up temporary properties
+    for (const item of allItems) {
+        delete item._secIndex
+        delete item._startFrac
+    }
+
+    return toc
+}
+
 class Reader {
     #footnoteHandler = new FootnoteHandler()
     style = {
@@ -281,6 +411,7 @@ class Reader {
         await this.view.open(this.book)
         document.body.append(this.view)
         this.sectionFractions = this.view.getSectionFractions()
+        await computeTOCPages(this.book, this.view, this.pageTotal)
     }
     setAppearance({ style, layout, autohideCursor, fixedLayout }) {
         Object.assign(this.style, style)

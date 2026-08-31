@@ -428,6 +428,20 @@ export const Application = GObject.registerClass({
             progress, trough {
                 min-width: 1px;
             }
+
+            .finished-badge {
+                background-color: alpha(@accent_color, 0.18);
+                color: @accent_color;
+                font-size: 0.72em;
+                font-weight: bold;
+                padding: 1px 6px;
+                border-radius: 9999px;
+            }
+            .finished-label {
+                color: @accent_color;
+                font-weight: 600;
+                font-size: 0.85em;
+            }
         `, -1)
         Gtk.StyleContext.add_provider_for_display(
             Gdk.Display.get_default(),

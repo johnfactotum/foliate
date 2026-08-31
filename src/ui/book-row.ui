@@ -26,6 +26,14 @@
           </object>
         </child>
         <child>
+          <object class="GtkLabel" id="finished-label">
+            <property name="label" translatable="yes">Finished</property>
+            <property name="visible">False</property>
+            <property name="xalign">0</property>
+            <style><class name="finished-label"/><class name="caption"/></style>
+          </object>
+        </child>
+        <child>
           <object class="GtkGrid" id="progress-grid">
             <property name="column-homogeneous">True</property>
             <property name="column-spacing">6</property>

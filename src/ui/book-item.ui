@@ -31,6 +31,13 @@
           </object>
         </child>
         <child>
+          <object class="GtkLabel" id="finished-badge">
+            <property name="label" translatable="yes">Finished</property>
+            <property name="visible">False</property>
+            <style><class name="finished-badge"/></style>
+          </object>
+        </child>
+        <child>
           <object class="GtkMenuButton" id="menu-button">
             <property name="visible">True</property>
             <property name="valign">center</property>

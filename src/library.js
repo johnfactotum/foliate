@@ -15,6 +15,7 @@ import { formatLanguageMap, formatAuthors, makeBookInfoWindow } from './book-inf
 import {
     pickCoverImage, writeBookCover, deleteBookCover,
 } from './data.js'
+import { StatisticsPage } from './stats.js'
 
 import WebKit from 'gi://WebKit'
 import { WebView } from './webview.js'
@@ -105,7 +106,7 @@ const getURIFromTracker = identifier => {
 
 const showCovers = utils.settings('library')?.get_boolean('show-covers') ?? true
 
-const listBooks = function* (path) {
+export const listBooks = function* (path) {
     const ls = utils.listDir(path, 'standard::name,time::modified')
     for (const { file, name, info } of ls) try {
         if (!/\.json$/.test(name)) continue
@@ -148,9 +149,20 @@ const BookList = GObject.registerClass({
         .sort((a, b) => b.modified - a.modified)
         .map(x => x.file)
     #iter = this.#files.values()
+    #readFileCache = new Map()
     constructor(params) {
         super(params)
-        this.readFile = utils.memoize(utils.readJSONFile)
+        this.readFile = file => {
+            const path = file.get_path()
+            if (this.#readFileCache.has(path)) return this.#readFileCache.get(path)
+            const data = utils.readJSONFile(file)
+            this.#readFileCache.set(path, data)
+            return data
+        }
+        this.readFile.delete = fileOrPath => {
+            const path = typeof fileOrPath === 'string' ? fileOrPath : fileOrPath.get_path()
+            this.#readFileCache.delete(path)
+        }
         this.readCover = utils.memoize(identifier => {
             const path = pkg.cachepath(`${encodeURIComponent(identifier)}.png`)
             try { return GdkPixbuf.Pixbuf.new_from_file(path) }
@@ -189,7 +201,9 @@ const BookList = GObject.registerClass({
         if (i !== -1) this.#files[i] = null
         // remove it from the list if it has been loaded
         for (const [i, el] of utils.gliter(this)) if (el.get_path() === path) this.remove(i)
-        this.insert(0, Gio.File.new_for_path(path))
+        const file = Gio.File.new_for_path(path)
+        this.readFile.delete(file)
+        this.insert(0, file)
     }
 })
 
@@ -232,9 +246,9 @@ GObject.registerClass({
     }
 })
 
-const fraction = p => !isNaN(p?.[1]) && p?.[1] > 0 ? p[0] / p[1] : null
+export const fraction = p => !isNaN(p?.[1]) && p?.[1] > 0 ? p[0] / p[1] : null
 
-const makeBookItemMenu = () => {
+const makeBookItemMenu = (isFinished = false) => {
     const menu = new Gio.Menu()
     const open = new Gio.Menu()
     open.append(_('Open in New Window'), 'book-item.open-new-window')
@@ -242,6 +256,7 @@ const makeBookItemMenu = () => {
     menu.append_section(null, open)
     const info = new Gio.Menu()
     info.append(_('About This Book'), 'book-item.info')
+    info.append(isFinished ? _('Mark as Unfinished') : _('Mark as Finished'), 'book-item.toggle-finished')
     info.append(_('Rename…'), 'book-item.rename')
     info.append(_('Set Category…'), 'book-item.set-category')
     info.append(_('Change Cover…'), 'book-item.change-cover')
@@ -260,6 +275,7 @@ const setupBookItemActions = (menuButton, emit) => {
         'remove': () => emit('remove-book'),
         'export': () => emit('export-book'),
         'info': () => emit('book-info'),
+        'toggle-finished': () => emit('toggle-finished'),
         'rename': () => emit('rename-book'),
         'set-category': () => emit('set-category'),
         'change-cover': () => emit('change-cover'),
@@ -272,12 +288,13 @@ const setupBookItemActions = (menuButton, emit) => {
 const BookItem = GObject.registerClass({
     GTypeName: 'FoliateBookItem',
     Template: pkg.moduleuri('ui/book-item.ui'),
-    InternalChildren: ['image', 'progress', 'title', 'menu-button'],
+    InternalChildren: ['image', 'progress', 'title', 'menu-button', 'finished-badge'],
     Signals: {
         'open-new-window': { param_types: [Gio.File.$gtype] },
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
         'book-info': { param_types: [Gio.File.$gtype] },
+        'toggle-finished': { param_types: [Gio.File.$gtype] },
         'rename-book': { param_types: [Gio.File.$gtype] },
         'set-category': { param_types: [Gio.File.$gtype] },
         'change-cover': { param_types: [Gio.File.$gtype] },
@@ -299,18 +316,25 @@ const BookItem = GObject.registerClass({
         this._image.setProgress(frac)
         this._progress.label = format.percent(frac)
         this._progress.visible = frac != null
+        
+        const isFinished = (data?.finished !== undefined && data?.finished !== null)
+            ? Boolean(data.finished)
+            : (frac !== null && frac >= 0.95)
+        this._finished_badge.visible = isFinished
+        this._menu_button.menu_model = makeBookItemMenu(isFinished)
     }
 })
 
 const BookRow = GObject.registerClass({
     GTypeName: 'FoliateBookRow',
     Template: pkg.moduleuri('ui/book-row.ui'),
-    InternalChildren: ['title', 'author', 'progress-grid', 'progress-bar', 'progress-label', 'menu-button'],
+    InternalChildren: ['title', 'author', 'finished-label', 'progress-grid', 'progress-bar', 'progress-label', 'menu-button'],
     Signals: {
         'open-new-window': { param_types: [Gio.File.$gtype] },
         'remove-book': { param_types: [Gio.File.$gtype] },
         'export-book': { param_types: [Gio.File.$gtype] },
         'book-info': { param_types: [Gio.File.$gtype] },
+        'toggle-finished': { param_types: [Gio.File.$gtype] },
         'rename-book': { param_types: [Gio.File.$gtype] },
         'set-category': { param_types: [Gio.File.$gtype] },
         'change-cover': { param_types: [Gio.File.$gtype] },
@@ -336,6 +360,12 @@ const BookRow = GObject.registerClass({
         const frac = fraction(progress)
         this._progress_bar.fraction = frac
         this._progress_label.label = format.percent(frac)
+
+        const isFinished = (data?.finished !== undefined && data?.finished !== null)
+            ? Boolean(data.finished)
+            : (frac !== null && frac >= 0.95)
+        this._finished_label.visible = isFinished
+        this._menu_button.menu_model = makeBookItemMenu(isFinished)
 
         const bookSize = Math.min((progress?.[1] + 1) / 1500, 0.8)
         const steps = 10
@@ -387,6 +417,7 @@ GObject.registerClass({
             const cover = books.readCover(metadata.identifier)
             makeBookInfoWindow(this.get_root(), metadata, cover)
         },
+        'toggle-finished': (_, file) => this.#toggleFinished(file),
         'rename-book': (_, file) => this.#renameBook(file),
         'set-category': (_, file) => this.#setCategory(file),
         'change-cover': (_, file) => this.#changeCover(file),
@@ -543,6 +574,28 @@ GObject.registerClass({
         storage.set('customCover', false)
         getBookList()?.update(file.get_path())
         this.get_root().add_toast(new Adw.Toast({ title: _('Cover reset') }))
+    }
+    #toggleFinished(file) {
+        const books = getBooks()
+        const data = books.readFile(file)
+        if (!data) return
+        const frac = fraction(data.progress)
+        const isFinished = (data.finished !== undefined && data.finished !== null)
+            ? Boolean(data.finished)
+            : (frac !== null && frac >= 0.95)
+        const newFinished = !isFinished
+        const basename = file.get_basename()
+        const key = decodeURIComponent(basename.replace(/\.json$/, ''))
+        const storage = new utils.JSONStorage(pkg.datadir, key)
+        storage.set('finished', newFinished)
+        if (newFinished) storage.set('finishedDate', new Date().toISOString())
+        else storage.set('finishedDate', null)
+        storage.saveNow()
+        books.readFile.delete(file)
+        books.update(file.get_path())
+        this.get_root().add_toast(new Adw.Toast({
+            title: newFinished ? _('Marked as finished') : _('Marked as unfinished'),
+        }))
     }
     #renameBook(file) {
         const books = getBooks()
@@ -975,6 +1028,11 @@ sidebarListModel.append(new SidebarItem({
     value: 'library',
 }))
 sidebarListModel.append(new SidebarItem({
+    icon: 'speedometer-symbolic',
+    label: _('Statistics'),
+    value: 'statistics',
+}))
+sidebarListModel.append(new SidebarItem({
     type: 'action',
     icon: 'list-add-symbolic',
     label: _('Add Category…'),
@@ -1063,6 +1121,7 @@ export const Library = GObject.registerClass({
         'breakpoint-bin', 'split-view',
         'sidebar-list-box', 'main-stack',
         'library-toolbar-view', 'catalog-toolbar-view',
+        'stats-toolbar-view', 'stats-page',
         'books-view', 'search-bar', 'search-entry',
         'opds-view',
     ],
@@ -1185,6 +1244,10 @@ export const Library = GObject.registerClass({
                 this._books_view.filterByCategory(null)
                 return this._main_stack.visible_child = this._library_toolbar_view
             }
+            if (value === 'statistics') {
+                this._stats_page.updateStats()
+                return this._main_stack.visible_child = this._stats_toolbar_view
+            }
             if (type === 'category') {
                 this._main_stack.visible_child = this._library_toolbar_view
                 this._books_view.filterByCategory(value)
@@ -1210,8 +1273,24 @@ export const Library = GObject.registerClass({
         this._search_entry.connect('search-changed', entry =>
             this._books_view.search(entry.text))
 
+        utils.addSimpleActions({
+            'show-statistics': () => this.showStatistics(),
+        }, this._books_view.actionGroup)
+
         this.insert_action_group('library', this._books_view.actionGroup)
         this.insert_action_group('catalog', this._opds_view.actionGroup)
+    }
+    showStatistics() {
+        this._stats_page.updateStats()
+        this._main_stack.visible_child = this._stats_toolbar_view
+        for (let i = 0;; i++) {
+            const row = this._sidebar_list_box.get_row_at_index(i)
+            if (!row) break
+            if (row.child.item.value === 'statistics') {
+                this._sidebar_list_box.select_row(row)
+                break
+            }
+        }
     }
     #addCategory() {
         const dialog = new Adw.AlertDialog({

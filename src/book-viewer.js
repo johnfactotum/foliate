@@ -795,6 +795,12 @@ export const BookViewer = GObject.registerClass({
             if (this._flap.collapsed) this._flap.show_sidebar = false
             this._view.grab_focus()
         })
+        this._toc_view.connect('edit-chapter', (_, originalLabel, currentLabel) => {
+            this.#showEditChapterDialog(originalLabel, currentLabel)
+        })
+        this._toc_view.connect('toggle-chapter-completed', (_, id, isCompleted) => {
+            this.#onChapterToggled(id, isCompleted)
+        })
         this._navbar.connect('go-to-cfi', (_, x) => this._view.goTo(x))
         this._navbar.connect('go-to-section', (_, x) => this._view.goTo(x))
         this._navbar.connect('go-to-fraction', (_, x) => this._view.goToFraction(x))
@@ -972,6 +978,14 @@ export const BookViewer = GObject.registerClass({
             updateBookmarks()
             this.#data.storage.set('metadata', book.metadata)
             this.#data.saveURI(this.#file)
+            this.#loadCustomChapterNames()
+            const completedChapters = this.#data.storage.get('completedChapters', {})
+            this._toc_view.setCompletedChapters(completedChapters)
+
+            const leafItems = this._toc_view.getLeafItems()
+            const totalPages = leafItems.reduce((sum, item) => sum + ((item.pages && item.pages > 0) ? item.pages : 1), 0)
+            const completedPages = leafItems.filter(item => item.completed).reduce((sum, item) => sum + ((item.pages && item.pages > 0) ? item.pages : 1), 0)
+            this.#data.storage.set('progress', [completedPages, totalPages])
         }
 
         const storedCover = this.#data?.readCover()
@@ -995,7 +1009,6 @@ export const BookViewer = GObject.registerClass({
         this._bookmark_view.update(payload)
         this._annotation_view.update(payload)
         if (this.#data) {
-            this.#data.storage.set('progress', [location.current, location.total])
             this.#data.storage.set('lastLocation', cfi)
         }
     }
@@ -1127,6 +1140,141 @@ export const BookViewer = GObject.registerClass({
         })
         win.add_controller(utils.addShortcuts({ '<ctrl>w': () => win.close() }))
         win.present()
+    }
+    #showEditChapterDialog(originalLabel, currentLabel) {
+        const dialog = new Adw.Window({
+            title: _('Edit Chapter Name'),
+            modal: true,
+            transient_for: this.root,
+            width_request: 400,
+        })
+        
+        const content = new Adw.ToolbarView()
+        dialog.set_content(content)
+        
+        const headerBar = new Adw.HeaderBar()
+        content.add_top_bar(headerBar)
+        
+        const box = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 12,
+            margin_start: 12,
+            margin_end: 12,
+            margin_top: 12,
+            margin_bottom: 12,
+        })
+        content.set_content(box)
+        
+        const label = new Gtk.Label({
+            label: _('Enter a custom name for this chapter:'),
+            halign: Gtk.Align.START,
+        })
+        box.append(label)
+        
+        const entry = new Gtk.Entry({
+            text: currentLabel,
+            hexpand: true,
+        })
+        box.append(entry)
+        
+        const cancelBtn = new Gtk.Button({
+            label: _('_Cancel'),
+            use_underline: true,
+        })
+        cancelBtn.connect('clicked', () => dialog.close())
+        headerBar.pack_start(cancelBtn)
+        
+        const resetBtn = new Gtk.Button({
+            label: _('_Reset to Original'),
+            use_underline: true,
+        })
+        resetBtn.connect('clicked', () => {
+            this._toc_view.setCustomLabel(originalLabel, null)
+            this.#saveCustomChapterNames()
+            dialog.close()
+        })
+        headerBar.pack_start(resetBtn)
+        
+        const applyBtn = new Gtk.Button({
+            label: _('_Apply'),
+            use_underline: true,
+        })
+        applyBtn.connect('clicked', () => {
+            const newLabel = entry.text.trim()
+            this._toc_view.setCustomLabel(originalLabel, newLabel)
+            this.#saveCustomChapterNames()
+            dialog.close()
+        })
+        applyBtn.add_css_class('suggested-action')
+        headerBar.pack_end(applyBtn)
+        
+        entry.connect('activate', () => applyBtn.emit('clicked'))
+        
+        dialog.present()
+        entry.grab_focus()
+    }
+    #saveCustomChapterNames() {
+        if (this.#data) {
+            const customLabels = this._toc_view.getCustomLabels()
+            this.#data.storage.set('customChapterNames', customLabels)
+        }
+    }
+    #loadCustomChapterNames() {
+        if (this.#data) {
+            const customLabels = this.#data.storage.get('customChapterNames', {})
+            this._toc_view.setCustomLabels(customLabels)
+        }
+    }
+    #onChapterToggled(id, isCompleted) {
+        if (!this.#data) return
+        const now = new Date()
+        const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+
+        const completedChapters = this.#data.storage.get('completedChapters', {})
+        const readingLog = this.#data.storage.get('readingLog', {})
+        const leafItems = this._toc_view.getLeafItems()
+
+        for (const item of leafItems) {
+            const key = this._toc_view.getChapterKey(item)
+            const wasCompleted = Boolean(completedChapters[key]?.completed)
+            const isNowCompleted = Boolean(item.completed)
+            const pages = (item.pages && item.pages > 0) ? item.pages : 1
+
+            if (isNowCompleted && !wasCompleted) {
+                completedChapters[key] = {
+                    id: item.id,
+                    label: item.label,
+                    href: item.href,
+                    pages,
+                    completed: true,
+                    date: todayStr,
+                    timestamp: Date.now(),
+                }
+                readingLog[todayStr] = (readingLog[todayStr] || 0) + pages
+            } else if (!isNowCompleted && wasCompleted) {
+                const prevDate = completedChapters[key]?.date || todayStr
+                const prevPages = completedChapters[key]?.pages || pages
+                readingLog[prevDate] = Math.max(0, (readingLog[prevDate] || 0) - prevPages)
+                if (readingLog[prevDate] === 0) delete readingLog[prevDate]
+                delete completedChapters[key]
+            }
+        }
+
+        this.#data.storage.set('completedChapters', completedChapters)
+        this.#data.storage.set('readingLog', readingLog)
+        this.#data.storage.set('lastRead', Date.now())
+
+        const totalPages = leafItems.reduce((sum, item) => sum + ((item.pages && item.pages > 0) ? item.pages : 1), 0)
+        const completedPages = leafItems.filter(item => item.completed).reduce((sum, item) => sum + ((item.pages && item.pages > 0) ? item.pages : 1), 0)
+
+        this.#data.storage.set('progress', [completedPages, totalPages])
+        if (completedPages >= totalPages && totalPages > 0) {
+            this.#data.setFinished(true)
+        } else if (this.#data.isFinished() && completedPages < totalPages) {
+            this.#data.setFinished(false)
+        }
+
+        this.#data.storage.saveNow()
     }
     open(file) {
         this._top_overlay_box.show()

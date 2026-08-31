@@ -167,6 +167,26 @@ export class BookData {
             ? path.replace(homeDir, '~')
             : file.get_uri())
     }
+    isFinished() {
+        const finished = this.storage.get('finished', null)
+        if (finished !== null) return finished
+        const completedChapters = this.storage.get('completedChapters', null)
+        if (!completedChapters || Object.keys(completedChapters).length === 0) return false
+        const progress = this.storage.get('progress', [0, 0])
+        const fraction = progress[1] > 0 ? progress[0] / progress[1] : 0
+        return fraction >= 0.95
+    }
+    setFinished(finished) {
+        this.storage.set('finished', finished)
+        if (finished) this.storage.set('finishedDate', new Date().toISOString())
+        else this.storage.set('finishedDate', null)
+    }
+    getCompletedChapters() {
+        return this.storage.get('completedChapters', {})
+    }
+    setCompletedChapters(completedChapters) {
+        this.storage.set('completedChapters', completedChapters)
+    }
 }
 
 class BookDataStore {
