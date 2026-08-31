@@ -20,7 +20,18 @@ Read books in style.
 
 To enable auto-hyphenation, you will need to install hyphenation rules, e.g., `hyphen-en` for English, `hyphen-fr` for French, etc. (which strictly speaking are optional dependencies for WebkitGTK, not Foliate itself).
 
-For text-to-speech support, install `speech-dispatcher` and output modules such as `espeak-ng`.
+For text-to-speech, this fork uses **Google Translate** audio over the network (not Speech Dispatcher). Optional tools: **`mpv`** (recommended: word highlighting tracks real playback speed via IPC), **`curl`** (reliable HTTP), **`ffmpeg`/`ffprobe`** (duration for the ffplay fallback). Respect Google's terms of service when redistributing.
+
+### Run without installing (with compiled UI resources)
+
+After `meson compile -C build`, UI files live in the gresource bundle. Point `FOLIATE_GRESOURCE` at the built file (path may vary slightly by Meson version):
+
+```
+FOLIATE_GRESOURCE=build/src/com.github.johnfactotum.Foliate.gresource \
+GSETTINGS_SCHEMA_DIR=data gjs -m src/main.js
+```
+
+If the `.gresource` path differs, locate it under `build/` (e.g. `find build -name '*.gresource'`).
 
 If installed, `tracker` (>= 3; `gir1.2-tracker-3.0` in Debian-based distros) and `tracker-miners` can be used to track the locations of files.
 

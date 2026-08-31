@@ -60,6 +60,8 @@ const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'theme': 'string',
     'autohide-cursor': 'boolean',
     'override-font': 'boolean',
+    'pdf-two-page': 'boolean',
+    'pdf-zoom': 'double',
 })
 
 const FontSettings = utils.makeDataClass('FoliateFontSettings', {
@@ -72,6 +74,10 @@ const FontSettings = utils.makeDataClass('FoliateFontSettings', {
 })
 
 const getFamily = str => Pango.FontDescription.from_string(str).get_family()
+
+const ZOOM_MIN = 0.25
+const ZOOM_MAX = 4
+const ZOOM_STEP = 0.1
 
 const ViewPreferencesWindow = GObject.registerClass({
     GTypeName: 'FoliateViewPreferencesWindow',
@@ -161,6 +167,7 @@ GObject.registerClass({
             param_types: [GObject.TYPE_JSOBJECT],
             return_type: GObject.TYPE_JSOBJECT,
         },
+        'fixed-zoom-changed': { param_types: [GObject.TYPE_DOUBLE] },
     },
 }, class extends Gtk.Overlay {
     #path
@@ -186,6 +193,8 @@ GObject.registerClass({
     #bookReady = false
     #pinchFactor = 1
     #dialogOpened = false
+    #isFixedLayout = false
+    #updatingZoom = false
     fontSettings = new FontSettings({
         'serif': 'Serif 12',
         'sans-serif': 'Sans 12',
@@ -222,12 +231,18 @@ GObject.registerClass({
             }
             else this.emit(payload.type, payload)
         })
-        this.connect('book-ready', () => this.#bookReady = true)
+        this.connect('book-ready', (_, payload) => {
+            this.#bookReady = true
+            this.#isFixedLayout = payload.isFixedLayout ?? false
+        })
         this.connect('dialog-open', () => this.#dialogOpened = true)
         this.connect('dialog-close', () => this.#dialogOpened = false)
 
         // handle scroll events
         let isDiscrete = true, dxLast, dyLast
+        const scrollController = new Gtk.EventControllerScroll({
+            flags: Gtk.EventControllerScrollFlags.BOTH_AXES,
+        })
         const scrollPageAsync = utils.debounce((dx, dy) => {
             if (Math.abs(dx) > Math.abs(dy)) {
                 if (dx > 0) return this.goRight()
@@ -237,11 +252,16 @@ GObject.registerClass({
                 else if (dy < 0) return this.prev()
             }
         }, 100, true)
-        this.#webView.add_controller(utils.connect(new Gtk.EventControllerScroll({
-            flags: Gtk.EventControllerScrollFlags.BOTH_AXES,
-        }), {
+        this.#webView.add_controller(utils.connect(scrollController, {
             'scroll-begin': () => isDiscrete = false,
             'scroll': (_, dx, dy) => {
+                const state = scrollController.get_current_event()
+                    ?.get_modifier_state() ?? 0
+                if (state & Gdk.ModifierType.CONTROL_MASK) {
+                    if (dy < 0) this.zoomIn()
+                    else if (dy > 0) this.zoomOut()
+                    return true
+                }
                 if (this.#pinchFactor > 1
                 || this.viewSettings.scrolled
                 || this.#dialogOpened) return false
@@ -274,14 +294,15 @@ GObject.registerClass({
         }))
 
         const applyStyle = () => this.#applyStyle().catch(e => console.error(e))
-        this.viewSettings.connectAll(applyStyle)
+        for (const k of this.viewSettings.keys) {
+            if (k === 'pdf-zoom') continue
+            this.viewSettings.connect(`notify::${k}`, applyStyle)
+        }
         this.fontSettings.connectAll(applyStyle)
         this.connect('book-ready', applyStyle)
 
         this.#webView.connect('notify::zoom-level', webView => {
-            const z = webView.zoom_level
-            this.actionGroup.lookup_action('zoom-out').enabled = z > 0.2
-            this.actionGroup.lookup_action('zoom-in').enabled = z < 4
+            this.#updateZoomActions(webView.zoom_level)
         })
 
         this.actionGroup = utils.addMethods(this, {
@@ -335,7 +356,50 @@ GObject.registerClass({
                 userStylesheet,
             },
             autohideCursor: view.autohide_cursor,
+            fixedLayout: this.#isFixedLayout ? {
+                spread: view.pdf_two_page ? 'auto' : 'none',
+                zoom: view.pdf_zoom,
+            } : null,
         })
+        if (this.#isFixedLayout) this.#updateFixedZoomLabel()
+    }
+    #updateFixedZoomLabel(zoom) {
+        if (zoom != null) {
+            this.emit('fixed-zoom-changed', zoom)
+            this.#updateZoomActions(zoom)
+            return
+        }
+        const scale = this.viewSettings.pdf_zoom
+        if (scale > 0) {
+            this.emit('fixed-zoom-changed', scale)
+            this.#updateZoomActions(scale)
+            return
+        }
+        this.#exec('reader.getFixedZoom').then(current => {
+            const value = current ?? 1
+            this.emit('fixed-zoom-changed', value)
+            this.#updateZoomActions(value)
+        })
+    }
+    #updateZoomActions(zoom) {
+        if (!this.actionGroup) return
+        const z = zoom ?? (this.#isFixedLayout ? 1 : this.#webView.zoom_level)
+        this.actionGroup.lookup_action('zoom-out').enabled = z > ZOOM_MIN + 0.001
+        this.actionGroup.lookup_action('zoom-in').enabled = z < ZOOM_MAX - 0.001
+    }
+    #applyFixedZoom(zoom, { persist = true } = {}) {
+        if (this.#updatingZoom) return Promise.resolve()
+        this.#updatingZoom = true
+        const value = zoom <= 0 ? 0 : Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, zoom))
+        return this.#exec('reader.setFixedZoom', [value]).then(actual => {
+            if (actual == null) return
+            this.#updateFixedZoomLabel(actual)
+            if (persist) {
+                this.viewSettings.freeze_notify()
+                this.viewSettings.pdf_zoom = value <= 0 ? 0 : actual
+                this.viewSettings.thaw_notify()
+            }
+        }).finally(() => { this.#updatingZoom = false })
     }
     #contextMenu() {
         return true
@@ -349,9 +413,31 @@ GObject.registerClass({
     reload() {
         this.open()
     }
-    zoomIn() { this.#webView.zoom_level += 0.1 }
-    zoomOut() { this.#webView.zoom_level -= 0.1 }
-    zoomRestore() { this.#webView.zoom_level = 1 }
+    zoomIn() {
+        if (this.#isFixedLayout) {
+            this.#exec('reader.getFixedZoom').then(zoom => {
+                if (zoom == null) return
+                this.#applyFixedZoom(zoom * (1 + ZOOM_STEP))
+            })
+        } else this.#webView.zoom_level = Math.min(ZOOM_MAX, this.#webView.zoom_level + ZOOM_STEP)
+    }
+    zoomOut() {
+        if (this.#isFixedLayout) {
+            this.#exec('reader.getFixedZoom').then(zoom => {
+                if (zoom == null) return
+                this.#applyFixedZoom(zoom * (1 - ZOOM_STEP))
+            })
+        } else this.#webView.zoom_level = Math.max(ZOOM_MIN, this.#webView.zoom_level - ZOOM_STEP)
+    }
+    zoomRestore() {
+        if (this.#isFixedLayout) {
+            this.#applyFixedZoom(0)
+        } else this.#webView.zoom_level = 1
+    }
+    setZoom(value) {
+        if (this.#isFixedLayout) this.#applyFixedZoom(value)
+        else this.#webView.zoom_level = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, value))
+    }
     inspector() {
         this.#webView.get_inspector().show()
     }
@@ -514,7 +600,8 @@ export const BookViewer = GObject.registerClass({
         'view', 'flap', 'breakpoint-bin', 'sidebar', 'resize-handle',
         'headerbar-revealer', 'navbar-revealer',
         'book-menu-button', 'bookmark-button',
-        'view-popover', 'zoom-button',
+        'view-popover', 'zoom-button', 'zoom-scale', 'spread-box',
+        'pdf-single-page', 'pdf-two-page',
         'navbar',
         'library-button', 'pin-button', 'sidebar-stack',
         'contents-stack', 'contents-stack-switcher',
@@ -553,9 +640,38 @@ export const BookViewer = GObject.registerClass({
         utils.bindSettings('viewer', this, ['fold-sidebar', 'highlight-color'])
         this._view.fontSettings.bindSettings('viewer.font')
         this._view.viewSettings.bindSettings('viewer.view')
-        this._view.webView.connect('notify::zoom-level', webView =>
-            this._zoom_button.label = format.percent(webView.zoom_level))
+        this._zoom_scale.adjustment = new Gtk.Adjustment({
+            value: 1,
+            lower: ZOOM_MIN,
+            upper: ZOOM_MAX,
+            step_increment: 0.01,
+            page_increment: ZOOM_STEP,
+        })
+        let updatingZoomScale = false
+        const updateZoomScale = value => {
+            updatingZoomScale = true
+            this._zoom_scale.adjustment.value = value
+            updatingZoomScale = false
+        }
+        const applyZoomFromScale = utils.debounce(value =>
+            this._view.setZoom(value), 75)
+        this._zoom_scale.adjustment.connect('value-changed', adj => {
+            if (updatingZoomScale) return
+            applyZoomFromScale(adj.value)
+        })
+
+        utils.connect(this._view, {
+            'fixed-zoom-changed': (_, zoom) => {
+                this._zoom_button.label = format.percent(zoom)
+                updateZoomScale(zoom)
+            },
+        })
+        this._view.webView.connect('notify::zoom-level', webView => {
+            this._zoom_button.label = format.percent(webView.zoom_level)
+            updateZoomScale(webView.zoom_level)
+        })
         this._zoom_button.label = format.percent(this._view.webView.zoom_level)
+        updateZoomScale(this._view.webView.zoom_level)
 
         Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(),
             themeCssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
@@ -597,6 +713,15 @@ export const BookViewer = GObject.registerClass({
             this._flap.collapsed = breakpointApplied || this.fold_sidebar
         this.connect('notify::fold-sidebar', setFoldSidebar)
         setFoldSidebar()
+
+        this._pdf_two_page.group = this._pdf_single_page
+        this._pdf_single_page.connect('toggled', btn => {
+            if (btn.active) this._view.viewSettings.pdf_two_page = false
+        })
+        this._pdf_two_page.connect('toggled', btn => {
+            if (btn.active) this._view.viewSettings.pdf_two_page = true
+        })
+
         this._resize_handle.cursor = Gdk.Cursor.new_from_name('col-resize', null)
         this._resize_handle.add_controller(utils.connect(new Gtk.GestureDrag(), {
             'drag-update': (_, x) => {
@@ -669,6 +794,12 @@ export const BookViewer = GObject.registerClass({
             this._view.goTo(href)
             if (this._flap.collapsed) this._flap.show_sidebar = false
             this._view.grab_focus()
+        })
+        this._toc_view.connect('edit-chapter', (_, originalLabel, currentLabel) => {
+            this.#showEditChapterDialog(originalLabel, currentLabel)
+        })
+        this._toc_view.connect('toggle-chapter-completed', (_, id, isCompleted) => {
+            this.#onChapterToggled(id, isCompleted)
         })
         this._navbar.connect('go-to-cfi', (_, x) => this._view.goTo(x))
         this._navbar.connect('go-to-section', (_, x) => this._view.goTo(x))
@@ -820,13 +951,11 @@ export const BookViewer = GObject.registerClass({
         this._navbar.loadLandmarks(book.landmarks)
         this._navbar.setTTSType(book.media?.duration ? 'media-overlay' : 'tts')
 
-        const cover = await this._view.getCover()
-        this.#cover = cover
-        if (cover) {
-            this._book_cover.set_from_pixbuf(cover)
-            this._book_cover.show()
-        } else {
-            this._book_cover.hide()
+        const isFixedLayout = reader.view?.isFixedLayout ?? false
+        this._spread_box.visible = isFixedLayout
+        if (isFixedLayout) {
+            this._pdf_single_page.active = !this._view.viewSettings.pdf_two_page
+            this._pdf_two_page.active = this._view.viewSettings.pdf_two_page
         }
 
         book.metadata.identifier ||= makeIdentifier(this.#file)
@@ -849,9 +978,28 @@ export const BookViewer = GObject.registerClass({
             updateBookmarks()
             this.#data.storage.set('metadata', book.metadata)
             this.#data.saveURI(this.#file)
-            if (cover) this.#data.saveCover(cover)
+            this.#loadCustomChapterNames()
+            const completedChapters = this.#data.storage.get('completedChapters', {})
+            this._toc_view.setCompletedChapters(completedChapters)
+
+            const leafItems = this._toc_view.getLeafItems()
+            const totalPages = leafItems.reduce((sum, item) => sum + ((item.pages && item.pages > 0) ? item.pages : 1), 0)
+            const completedPages = leafItems.filter(item => item.completed).reduce((sum, item) => sum + ((item.pages && item.pages > 0) ? item.pages : 1), 0)
+            this.#data.storage.set('progress', [completedPages, totalPages])
         }
-        else await this._view.next()
+
+        const storedCover = this.#data?.readCover()
+        const cover = storedCover ?? await this._view.getCover()
+        this.#cover = cover
+        if (cover) {
+            this._book_cover.set_from_pixbuf(cover)
+            this._book_cover.show()
+        } else {
+            this._book_cover.hide()
+        }
+        if (!storedCover && cover && this.#data) this.#data.saveCover(cover)
+
+        if (!identifier) await this._view.next()
     }
     #onRelocate(payload) {
         const { section, location, tocItem, cfi } = payload
@@ -861,7 +1009,6 @@ export const BookViewer = GObject.registerClass({
         this._bookmark_view.update(payload)
         this._annotation_view.update(payload)
         if (this.#data) {
-            this.#data.storage.set('progress', [location.current, location.total])
             this.#data.storage.set('lastLocation', cfi)
         }
     }
@@ -993,6 +1140,141 @@ export const BookViewer = GObject.registerClass({
         })
         win.add_controller(utils.addShortcuts({ '<ctrl>w': () => win.close() }))
         win.present()
+    }
+    #showEditChapterDialog(originalLabel, currentLabel) {
+        const dialog = new Adw.Window({
+            title: _('Edit Chapter Name'),
+            modal: true,
+            transient_for: this.root,
+            width_request: 400,
+        })
+        
+        const content = new Adw.ToolbarView()
+        dialog.set_content(content)
+        
+        const headerBar = new Adw.HeaderBar()
+        content.add_top_bar(headerBar)
+        
+        const box = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 12,
+            margin_start: 12,
+            margin_end: 12,
+            margin_top: 12,
+            margin_bottom: 12,
+        })
+        content.set_content(box)
+        
+        const label = new Gtk.Label({
+            label: _('Enter a custom name for this chapter:'),
+            halign: Gtk.Align.START,
+        })
+        box.append(label)
+        
+        const entry = new Gtk.Entry({
+            text: currentLabel,
+            hexpand: true,
+        })
+        box.append(entry)
+        
+        const cancelBtn = new Gtk.Button({
+            label: _('_Cancel'),
+            use_underline: true,
+        })
+        cancelBtn.connect('clicked', () => dialog.close())
+        headerBar.pack_start(cancelBtn)
+        
+        const resetBtn = new Gtk.Button({
+            label: _('_Reset to Original'),
+            use_underline: true,
+        })
+        resetBtn.connect('clicked', () => {
+            this._toc_view.setCustomLabel(originalLabel, null)
+            this.#saveCustomChapterNames()
+            dialog.close()
+        })
+        headerBar.pack_start(resetBtn)
+        
+        const applyBtn = new Gtk.Button({
+            label: _('_Apply'),
+            use_underline: true,
+        })
+        applyBtn.connect('clicked', () => {
+            const newLabel = entry.text.trim()
+            this._toc_view.setCustomLabel(originalLabel, newLabel)
+            this.#saveCustomChapterNames()
+            dialog.close()
+        })
+        applyBtn.add_css_class('suggested-action')
+        headerBar.pack_end(applyBtn)
+        
+        entry.connect('activate', () => applyBtn.emit('clicked'))
+        
+        dialog.present()
+        entry.grab_focus()
+    }
+    #saveCustomChapterNames() {
+        if (this.#data) {
+            const customLabels = this._toc_view.getCustomLabels()
+            this.#data.storage.set('customChapterNames', customLabels)
+        }
+    }
+    #loadCustomChapterNames() {
+        if (this.#data) {
+            const customLabels = this.#data.storage.get('customChapterNames', {})
+            this._toc_view.setCustomLabels(customLabels)
+        }
+    }
+    #onChapterToggled(id, isCompleted) {
+        if (!this.#data) return
+        const now = new Date()
+        const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+
+        const completedChapters = this.#data.storage.get('completedChapters', {})
+        const readingLog = this.#data.storage.get('readingLog', {})
+        const leafItems = this._toc_view.getLeafItems()
+
+        for (const item of leafItems) {
+            const key = this._toc_view.getChapterKey(item)
+            const wasCompleted = Boolean(completedChapters[key]?.completed)
+            const isNowCompleted = Boolean(item.completed)
+            const pages = (item.pages && item.pages > 0) ? item.pages : 1
+
+            if (isNowCompleted && !wasCompleted) {
+                completedChapters[key] = {
+                    id: item.id,
+                    label: item.label,
+                    href: item.href,
+                    pages,
+                    completed: true,
+                    date: todayStr,
+                    timestamp: Date.now(),
+                }
+                readingLog[todayStr] = (readingLog[todayStr] || 0) + pages
+            } else if (!isNowCompleted && wasCompleted) {
+                const prevDate = completedChapters[key]?.date || todayStr
+                const prevPages = completedChapters[key]?.pages || pages
+                readingLog[prevDate] = Math.max(0, (readingLog[prevDate] || 0) - prevPages)
+                if (readingLog[prevDate] === 0) delete readingLog[prevDate]
+                delete completedChapters[key]
+            }
+        }
+
+        this.#data.storage.set('completedChapters', completedChapters)
+        this.#data.storage.set('readingLog', readingLog)
+        this.#data.storage.set('lastRead', Date.now())
+
+        const totalPages = leafItems.reduce((sum, item) => sum + ((item.pages && item.pages > 0) ? item.pages : 1), 0)
+        const completedPages = leafItems.filter(item => item.completed).reduce((sum, item) => sum + ((item.pages && item.pages > 0) ? item.pages : 1), 0)
+
+        this.#data.storage.set('progress', [completedPages, totalPages])
+        if (completedPages >= totalPages && totalPages > 0) {
+            this.#data.setFinished(true)
+        } else if (this.#data.isFinished() && completedPages < totalPages) {
+            this.#data.setFinished(false)
+        }
+
+        this.#data.storage.saveNow()
     }
     open(file) {
         this._top_overlay_box.show()

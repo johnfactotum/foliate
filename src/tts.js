@@ -3,9 +3,60 @@ import GObject from 'gi://GObject'
 import { gettext as _ } from 'gettext'
 
 import * as utils from './utils.js'
-import { SSIPClient } from './speech.js'
+import { GoogleTranslateTTS } from './speech.js'
 
-const ssip = new SSIPClient()
+const ttsEngine = new GoogleTranslateTTS()
+
+function ttsLanguageChoices() {
+    return [
+        [_('Automatic (from book)'), ''],
+        [_('English'), 'en'],
+        [_('Spanish'), 'es'],
+        [_('French'), 'fr'],
+        [_('German'), 'de'],
+        [_('Italian'), 'it'],
+        [_('Portuguese'), 'pt'],
+        [_('Dutch'), 'nl'],
+        [_('Russian'), 'ru'],
+        [_('Japanese'), 'ja'],
+        [_('Korean'), 'ko'],
+        [_('Chinese (Simplified)'), 'zh-CN'],
+        [_('Chinese (Traditional)'), 'zh-TW'],
+        [_('Arabic'), 'ar'],
+        [_('Hindi'), 'hi'],
+        [_('Polish'), 'pl'],
+        [_('Turkish'), 'tr'],
+        [_('Swedish'), 'sv'],
+        [_('Norwegian Bokmål'), 'no'],
+        [_('Danish'), 'da'],
+        [_('Finnish'), 'fi'],
+        [_('Greek'), 'el'],
+        [_('Hebrew'), 'he'],
+        [_('Czech'), 'cs'],
+        [_('Romanian'), 'ro'],
+        [_('Hungarian'), 'hu'],
+        [_('Indonesian'), 'id'],
+        [_('Thai'), 'th'],
+        [_('Vietnamese'), 'vi'],
+        [_('Ukrainian'), 'uk'],
+    ]
+}
+
+function ttsRegionChoices() {
+    return [
+        ['translate.google.com', 'com'],
+        ['translate.google.co.uk', 'co.uk'],
+        ['translate.google.com.au', 'com.au'],
+        ['translate.google.ca', 'ca'],
+        ['translate.google.co.jp', 'co.jp'],
+        ['translate.google.com.hk', 'com.hk'],
+        ['translate.google.cn', 'cn'],
+        ['translate.google.de', 'de'],
+        ['translate.google.fr', 'fr'],
+        ['translate.google.it', 'it'],
+        ['translate.google.es', 'es'],
+    ]
+}
 
 GObject.registerClass({
     GTypeName: 'FoliateTTSBox',
@@ -25,11 +76,14 @@ GObject.registerClass({
         'next-section': { return_type: GObject.TYPE_JSOBJECT },
     },
     InternalChildren: [
-        'tts-rate-scale', 'tts-pitch-scale',
+        'tts-lang-dropdown', 'tts-region-dropdown',
+        'tts-speed-scale', 'tts-volume-scale',
         'media-buttons', 'play-button',
     ],
 }, class extends Gtk.Box {
     #state = 'stopped'
+    #langCodes = []
+    #regionTlds = []
     defaultWidget = this._play_button
     constructor(params) {
         super(params)
@@ -38,18 +92,30 @@ GObject.registerClass({
         }))
         utils.setDirection(this._media_buttons, Gtk.TextDirection.LTR)
 
-        this.#connectScale(this._tts_rate_scale, ssip.setRate.bind(ssip))
-        this.#connectScale(this._tts_pitch_scale, ssip.setPitch.bind(ssip))
-    }
-    #connectScale(scale, f) {
-        scale.connect('value-changed', scale => {
-            const shouldResume = this.state === 'playing'
-            this.state = 'paused'
-            ssip.stop()
-                .then(() => f(Math.trunc(scale.get_value())))
-                .then(() => shouldResume ? this.start() : null)
-                .catch(e => this.error(e))
+        const langChoices = ttsLanguageChoices()
+        this.#langCodes = langChoices.map(([, code]) => code)
+        const langModel = Gtk.StringList.new(langChoices.map(([label]) => label))
+        this._tts_lang_dropdown.set_model(langModel)
+        this._tts_lang_dropdown.connect('notify::selected', () => {
+            const i = this._tts_lang_dropdown.get_selected()
+            ttsEngine.setLanguage(this.#langCodes[i] ?? '')
         })
+
+        const regionChoices = ttsRegionChoices()
+        this.#regionTlds = regionChoices.map(([, tld]) => tld)
+        const regionModel = Gtk.StringList.new(regionChoices.map(([label]) => label))
+        this._tts_region_dropdown.set_model(regionModel)
+        this._tts_region_dropdown.connect('notify::selected', () => {
+            const i = this._tts_region_dropdown.get_selected()
+            ttsEngine.setRegion(this.#regionTlds[i] ?? 'com')
+        })
+
+        ttsEngine.setSpeed(this._tts_speed_scale.get_value() / 100)
+        ttsEngine.setVolume(this._tts_volume_scale.get_value())
+        this._tts_speed_scale.connect('value-changed', scale =>
+            ttsEngine.setSpeedLive(scale.get_value() / 100))
+        this._tts_volume_scale.connect('value-changed', scale =>
+            ttsEngine.setVolumeLive(scale.get_value()))
     }
     get state() {
         return this.#state
@@ -61,15 +127,18 @@ GObject.registerClass({
             : 'media-playback-start-symbolic'
     }
     #init() {
-        return ssip.stop().then(() => this.emit('init'))
+        return ttsEngine.stop().then(() => this.emit('init'))
     }
     async #speak(ssml) {
         this.state = 'playing'
         ssml = await ssml
         if (!ssml && await this.emit('next-section')) return this.forward()
-        const iter = await ssip.speak(ssml)
+        const iter = await ttsEngine.speak(ssml)
         let state
-        for await (const { mark, message } of iter) {
+        for (;;) {
+            const step = await iter.next()
+            if (step.done) break
+            const { mark, message } = step.value
             if (mark) await this.emit('highlight', mark)
             else state = message
         }
@@ -91,11 +160,11 @@ GObject.registerClass({
     }
     pause() {
         this.state = 'paused'
-        ssip.stop().catch(e => this.error(e))
+        ttsEngine.stop().catch(e => this.error(e))
     }
     stop() {
         this.state = 'stopped'
-        ssip.stop().catch(e => this.error(e))
+        ttsEngine.stop().catch(e => this.error(e))
     }
     backward() {
         this.#init()
@@ -114,12 +183,13 @@ GObject.registerClass({
     error(e) {
         this.state = 'stopped'
         console.error(e)
+        const detail = e instanceof Error ? e.message : String(e)
         this.root.error(_('Text-to-Speech Error'),
-            _('Make sure Speech Dispatcher is installed and working on your system'))
+            _('Playback uses Google Translate audio. Install mpv for best highlighting sync. You need a network connection.') + '\n\n' + detail)
     }
     kill() {
         this.emit = () => {}
-        if (this.state === 'playing') ssip.stop().catch(e => console.error(e))
+        if (this.state === 'playing') ttsEngine.stop().catch(err => console.error(err))
     }
 })
 

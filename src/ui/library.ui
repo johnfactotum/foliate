@@ -20,6 +20,10 @@
       <attribute name="label" translatable="yes">Open…</attribute>
       <attribute name="action">win.open</attribute>
     </item>
+    <item>
+      <attribute name="label" translatable="yes">Statistics</attribute>
+      <attribute name="action">library.show-statistics</attribute>
+    </item>
   </section>
   <section>
     <item>
@@ -138,6 +142,34 @@
                   </child>
                   <child>
                     <object class="FoliateLibraryView" id="books-view">
+                    </object>
+                  </child>
+                </object>
+              </child>
+              <child>
+                <object class="AdwToolbarView" id="stats-toolbar-view">
+                  <child type="top">
+                    <object class="AdwHeaderBar">
+                      <property name="title-widget">
+                        <object class="GtkLabel">
+                          <property name="label" translatable="yes">Statistics</property>
+                          <property name="single-line-mode">True</property>
+                          <property name="ellipsize">end</property>
+                          <style><class name="title"/></style>
+                        </object>
+                      </property>
+                      <child type="start">
+                        <object class="GtkToggleButton">
+                          <property name="icon-name">sidebar-show-symbolic</property>
+                          <property name="tooltip-text" translatable="yes">Sidebar</property>
+                          <property name="active" bind-source="split-view" bind-property="show-sidebar" bind-flags="sync-create|bidirectional"/>
+                          <property name="visible" bind-source="split-view" bind-property="show-sidebar" bind-flags="sync-create|invert-boolean"/>
+                        </object>
+                      </child>
+                    </object>
+                  </child>
+                  <child>
+                    <object class="FoliateStatisticsPage" id="stats-page">
                     </object>
                   </child>
                 </object>

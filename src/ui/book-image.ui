@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><interface>
 <template class="FoliateBookImage" parent="GtkOverlay">
   <child>
-    <object class="GtkFrame">
+    <object class="GtkFrame" id="frame">
       <property name="valign">end</property>
       <child>
         <object class="GtkPicture" id="image">
@@ -29,6 +29,15 @@
           <style><class name="heading"/><class name="dim-label"/></style>
         </object>
       </child>
+    </object>
+  </child>
+  <child type="overlay">
+    <object class="GtkProgressBar" id="progress-bar">
+      <property name="valign">end</property>
+      <property name="hexpand">True</property>
+      <property name="visible">False</property>
+      <property name="can-target">False</property>
+      <style><class name="book-progress-bar"/></style>
     </object>
   </child>
 </template>

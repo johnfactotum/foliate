@@ -58,6 +58,7 @@ const makeOpenDialog = () => {
             'application/x-fictionbook+xml',
             'application/x-zip-compressed-fb2',
             'application/vnd.comicbook+zip',
+            'application/pdf',
         ],
     })
     dialog.filters = new Gio.ListStore()
@@ -287,7 +288,7 @@ export const Application = GObject.registerClass({
         const cssProvider = new Gtk.CssProvider()
         cssProvider.load_from_data(`
             gridview {
-                padding: 12px;
+                padding: 6px;
             }
 
             /* remove flowboxchild padding so things align better
@@ -365,14 +366,44 @@ export const Application = GObject.registerClass({
             }
 
             .book-image-frame {
-                box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, .14);
+                border-radius: 3px;
+            }
+            .book-image-frame > picture,
+            .book-image-frame picture {
+                border-radius: 3px;
             }
             .book-image-frame-small {
-                box-shadow: 0 3px 6px rgba(0, 0, 0, .15);
-                border-radius: 6px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, .14);
+                border-radius: 3px;
             }
             .book-image-full {
                 box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
+                border-radius: 3px;
+            }
+            .book-title {
+                font-weight: 600;
+                font-size: 0.92em;
+                letter-spacing: 0.01em;
+            }
+            .book-progress-label {
+                font-variant-numeric: tabular-nums;
+                font-size: 0.85em;
+            }
+            .book-progress-bar {
+                min-height: 3px;
+                margin: 0;
+            }
+            .book-progress-bar trough {
+                min-height: 3px;
+                background-color: rgba(0, 0, 0, 0.35);
+                border: none;
+                border-radius: 0 0 3px 3px;
+            }
+            .book-progress-bar progress {
+                min-height: 3px;
+                background-color: @accent_bg_color;
+                border-radius: 0;
             }
             .overlaid windowcontrols > button > image {
                 background: rgba(0, 0, 0, .5);
@@ -396,6 +427,20 @@ export const Application = GObject.registerClass({
                so we can have variable width progress bars a la Kindle */
             progress, trough {
                 min-width: 1px;
+            }
+
+            .finished-badge {
+                background-color: alpha(@accent_color, 0.18);
+                color: @accent_color;
+                font-size: 0.72em;
+                font-weight: bold;
+                padding: 1px 6px;
+                border-radius: 9999px;
+            }
+            .finished-label {
+                color: @accent_color;
+                font-weight: 600;
+                font-size: 0.85em;
             }
         `, -1)
         Gtk.StyleContext.add_provider_for_display(
