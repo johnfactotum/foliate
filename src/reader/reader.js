@@ -48,23 +48,6 @@ const getHTML = async range => {
     return new XMLSerializer().serializeToString(fragment)
 }
 
-const open = async file => {
-    try {
-        const book = await makeBook(file)
-        const reader = new Reader(book)
-        globalThis.reader = reader
-        await reader.init()
-        emit({ type: 'book-ready', book, reader })
-    }
-    catch (e) {
-        if (e instanceof NotFoundError)
-            emit({ type: 'book-error', id: 'not-found' })
-        else if (e instanceof UnsupportedTypeError)
-            emit({ type: 'book-error', id: 'unsupported-type' })
-        else throw e
-    }
-}
-
 const getCSS = ({
     lineHeight, justify, hyphenate, invert, theme, overrideFont, userStylesheet,
     mediaActiveClass,
@@ -511,6 +494,25 @@ const printf = (str, args) => {
     return str
 }
 
+const open = async (file, Reader) => {
+    try {
+        const book = await makeBook(file)
+        const reader = new Reader(book)
+        globalThis.reader = reader
+        await reader.init()
+        emit({ type: 'book-ready', book, reader })
+    }
+    catch (e) {
+        if (e instanceof NotFoundError)
+            emit({ type: 'book-error', id: 'not-found' })
+        else if (e instanceof UnsupportedTypeError)
+            emit({ type: 'book-error', id: 'unsupported-type' })
+        else throw e
+    }
+}
+
+globalThis.loadFile = () => document.getElementById('file-input').click()
+
 globalThis.init = ({ uiText }) => {
     globalThis.uiText = uiText
 
@@ -521,10 +523,35 @@ globalThis.init = ({ uiText }) => {
 
     footnoteDialog.querySelector('[value="close"]').innerText = uiText.close
 
-    document.getElementById('file-input').click()
+    document.getElementById('file-input').onchange = e => open(e.target.files[0], Reader)
+        .catch(({ message, stack }) => emit({ type: 'book-error', message, stack }))
+    globalThis.loadFile()
 }
 
-document.getElementById('file-input').onchange = e => open(e.target.files[0])
-    .catch(({ message, stack }) => emit({ type: 'book-error', message, stack }))
+globalThis.initImport = () => {
+    const view = document.createElement('foliate-view')
+    class Reader {
+        constructor(book) {
+            this.book = book
+            if (book.metadata?.description)
+                book.metadata.description = toPangoMarkup(book.metadata.description)
+        }
+        async init() {
+            await view.open(this.book)
+        }
+        async getCover() {
+            try {
+                const blob = await this.book.getCover?.()
+                return blob ? blobToBase64(blob) : null
+            } catch (e) {
+                console.warn(e)
+                console.warn('Failed to load cover')
+                return null
+            }
+        }
+    }
+    document.getElementById('file-input').onchange = e => open(e.target.files[0], Reader)
+        .catch(({ message, stack }) => emit({ type: 'book-error', message, stack }))
+}
 
 emit({ type: 'ready' })
