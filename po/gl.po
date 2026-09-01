@@ -2,20 +2,21 @@
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 #
 # josé m. <correoxm@disroot.org>, 2024.
+# SPDX-FileCopyrightText: 2026 José M. <ghose@tuta.io>
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-28 11:04+0800\n"
-"PO-Revision-Date: 2025-12-21 08:21+0200\n"
-"Last-Translator: josé m. <correoxm@disroot.org>\n"
-"Language-Team: Galician <>\n"
+"PO-Revision-Date: 2026-09-01 08:01+0200\n"
+"Last-Translator: José M. <ghose@tuta.io>\n"
+"Language-Team: gl\n"
 "Language: gl_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
@@ -39,7 +40,6 @@ msgid "Strikethrough"
 msgstr "Riscar"
 
 #: src/annotations.js:440
-#, fuzzy
 msgid "Yellow"
 msgstr "Amarelo"
 
@@ -118,11 +118,11 @@ msgstr "Fechar"
 #: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
 #: src/ui/import-dialog.ui:15
 msgid "Cancel"
-msgstr "Desbotar"
+msgstr "Cancelar"
 
 #: src/app.js:136
 msgid "E-Book Files"
-msgstr "Ficheiros Libro-e"
+msgstr "Ficheiros de libro-e"
 
 #: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
@@ -137,7 +137,7 @@ msgstr "xmgz.eu"
 
 #: src/app.js:414
 msgid "Source Code"
-msgstr "Código Fonte"
+msgstr "Código fonte"
 
 #: src/book-info.js:133 src/library.js:75
 msgid "Publisher"
@@ -271,7 +271,7 @@ msgstr "Sen soporte para o tipo de ficheiro"
 
 #: src/book-viewer.js:804
 msgid "Annotation deleted"
-msgstr "Eliminouse a Nota"
+msgstr "Eliminouse a nota"
 
 #: src/book-viewer.js:877
 #, javascript-format
@@ -434,9 +434,8 @@ msgid "_Remove"
 msgstr "_Retirar"
 
 #: src/library.js:472
-#, fuzzy
 msgid "Failed to Open"
-msgstr "Fallo ao Abrir"
+msgstr "Fallo ao abrir"
 
 #: src/library.js:473
 msgid "Could not open the file with the selected application"
@@ -559,7 +558,6 @@ msgid "Cannot retrieve translation"
 msgstr "Non se obtivo unha tradución"
 
 #: src/selection-tools.js:67
-#, fuzzy
 msgid "Search…"
 msgstr "Buscar…"
 
@@ -613,7 +611,7 @@ msgstr "Copiado ao portapapeis"
 
 #: src/ui/annotation-popover.ui:13
 msgid "Highlight Style"
-msgstr "Estilo ao Resaltar"
+msgstr "Estilo ao resaltar"
 
 #: src/ui/annotation-popover.ui:20 src/ui/annotation-row.ui:63
 #: src/ui/bookmark-row.ui:33
@@ -635,7 +633,7 @@ msgstr "Abrir en Nova xanela"
 
 #: src/ui/book-item.ui:9 src/ui/book-row.ui:9
 msgid "Open with External App"
-msgstr "Abrir con App Externa"
+msgstr "Abrir con app externa"
 
 #: src/ui/book-item.ui:19 src/ui/book-row.ui:19 src/ui/book-viewer.ui:25
 msgid "Export Annotations…"
@@ -679,7 +677,7 @@ msgstr "Distingue Diacríticas"
 
 #: src/ui/book-viewer.ui:83
 msgid "Font & Layout Settings"
-msgstr "Axustes de Letra e Disposición"
+msgstr "Axustes para letra e disposición"
 
 #: src/ui/book-viewer.ui:89
 msgid "Scrolled Mode"
@@ -755,7 +753,7 @@ msgstr "Sen Marcadores"
 
 #: src/ui/book-viewer.ui:459
 msgid "Add some bookmarks to see them here"
-msgstr "Engade algúns Marcadores e veralos aquí"
+msgstr "Aquí vas ver os marcadores cando engadas algún"
 
 #: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
 msgid "No Results Found"
@@ -969,11 +967,11 @@ msgstr "En fala desde aquí"
 
 #: src/ui/selection-popover.ui:36
 msgid "Copy with Citation"
-msgstr "Copiar con Cita"
+msgstr "Copiar con cita"
 
 #: src/ui/selection-popover.ui:40
 msgid "Copy Identifier"
-msgstr "Copiar Identificador"
+msgstr "Copiar identificador"
 
 #: src/ui/selection-popover.ui:44
 msgid "Print Selection…"
@@ -1159,7 +1157,8 @@ msgstr "Ollada rápida ao dicionario"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
 msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr "Arranxo do final do corte ao final do capítulo cando comeza cun salto de liña"
+msgstr ""
+"Arranxo do final do corte ao final do capítulo cando comeza cun salto de liña"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
 msgid "Fixed incorrect text wrapping in tables"
@@ -1171,10 +1170,10 @@ msgstr "Arranxo dos problemas de rendemento con catálogos OPDS"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
 msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr "Engadida compatibilidade con catálogos OPDS, agora compatible con OPDS 2.0"
+msgstr ""
+"Engadida compatibilidade con catálogos OPDS, agora compatible con OPDS 2.0"
 
 #: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-#, fuzzy
 msgid "Added option to override publisher font"
 msgstr "Engadida a opción para obviar o tipo de letra da editorial"
 
