@@ -277,6 +277,7 @@ GObject.registerClass({
         this.viewSettings.connectAll(applyStyle)
         this.fontSettings.connectAll(applyStyle)
         this.connect('book-ready', applyStyle)
+        Adw.StyleManager.get_default().connect('notify::dark', applyStyle)
 
         this.#webView.connect('notify::zoom-level', webView => {
             const z = webView.zoom_level
@@ -332,6 +333,8 @@ GObject.registerClass({
                 invert: view.invert,
                 theme: view.invert ? invertTheme(theme) : theme,
                 overrideFont: view.override_font,
+                // Pass the app's scheme. WebKit's prefers-color-scheme is reversed.
+                dark: Adw.StyleManager.get_default().dark,
                 userStylesheet,
             },
             autohideCursor: view.autohide_cursor,
