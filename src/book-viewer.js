@@ -553,6 +553,8 @@ export const BookViewer = GObject.registerClass({
         utils.bindSettings('viewer', this, ['fold-sidebar', 'highlight-color'])
         this._view.fontSettings.bindSettings('viewer.font')
         this._view.viewSettings.bindSettings('viewer.view')
+        utils.settings('viewer.view')?.bind('zoom-level',
+            this._view.webView, 'zoom-level', Gio.SettingsBindFlags.DEFAULT)
         this._view.webView.connect('notify::zoom-level', webView =>
             this._zoom_button.label = format.percent(webView.zoom_level))
         this._zoom_button.label = format.percent(this._view.webView.zoom_level)
