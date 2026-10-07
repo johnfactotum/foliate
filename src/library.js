@@ -909,6 +909,8 @@ export const Library = GObject.registerClass({
 
         this.insert_action_group('library', this._books_view.actionGroup)
         this.insert_action_group('catalog', this._opds_view.actionGroup)
+        this.insert_action_group('style',
+            utils.addPropertyActions(Adw.StyleManager.get_default(), ['color-scheme']))
     }
     #addCatalog(url) {
         this._sidebar_list_box.select_row(null)

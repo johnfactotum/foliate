@@ -3,6 +3,11 @@
 <menu id="library-menu">
   <section>
     <item>
+      <attribute name="custom">theme</attribute>
+    </item>
+  </section>
+  <section>
+    <item>
       <attribute name="label" translatable="yes">List View</attribute>
       <attribute name="action">library.view-mode</attribute>
       <attribute name="target">list</attribute>
@@ -115,7 +120,48 @@
                         <object class="GtkMenuButton">
                           <property name="icon-name">view-more-symbolic</property>
                           <property name="tooltip-text" translatable="yes">Library Menu</property>
-                          <property name="menu-model">library-menu</property>
+                          <property name="popover">
+                            <object class="GtkPopoverMenu" id="library-popover">
+                              <property name="menu-model">library-menu</property>
+                              <child type="theme">
+                                <object class="GtkBox">
+                                  <property name="spacing">12</property>
+                                  <property name="margin-top">9</property>
+                                  <property name="margin-bottom">9</property>
+                                  <child>
+                                    <object class="GtkCheckButton">
+                                      <style><class name="theme-selector"/><class name="follow"/></style>
+                                      <property name="hexpand">true</property>
+                                      <property name="halign">center</property>
+                                      <property name="tooltip-text" translatable="yes">Follow System Style</property>
+                                      <property name="action-name">style.color-scheme</property>
+                                      <property name="action-target">'default'</property>
+                                    </object>
+                                  </child>
+                                  <child>
+                                    <object class="GtkCheckButton">
+                                      <style><class name="theme-selector"/><class name="light"/></style>
+                                      <property name="hexpand">true</property>
+                                      <property name="halign">center</property>
+                                      <property name="tooltip-text" translatable="yes">Light Style</property>
+                                      <property name="action-name">style.color-scheme</property>
+                                      <property name="action-target">'force-light'</property>
+                                    </object>
+                                  </child>
+                                  <child>
+                                    <object class="GtkCheckButton">
+                                      <style><class name="theme-selector"/><class name="dark"/></style>
+                                      <property name="hexpand">true</property>
+                                      <property name="halign">center</property>
+                                      <property name="tooltip-text" translatable="yes">Dark Style</property>
+                                      <property name="action-name">style.color-scheme</property>
+                                      <property name="action-target">'force-dark'</property>
+                                    </object>
+                                  </child>
+                                </object>
+                              </child>
+                            </object>
+                          </property>
                         </object>
                       </child>
                       <child type="end">
