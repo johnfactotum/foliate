@@ -26,7 +26,7 @@ body {
         --bg: var(--dark-bg);
         --fg: var(--dark-fg);
     }
-    .invert foliate-view::part(filter) {
+    body.invert foliate-view::part(filter) {
         color-scheme: light; /* required to make the iframe bg transparent */
         filter: invert(1) hue-rotate(180deg);
     }
