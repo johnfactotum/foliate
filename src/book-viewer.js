@@ -186,6 +186,8 @@ GObject.registerClass({
     #bookReady = false
     #pinchFactor = 1
     #dialogOpened = false
+    #sectionIndex = null
+    #zoomFix = 0
     fontSettings = new FontSettings({
         'serif': 'Serif 12',
         'sans-serif': 'Sans 12',
@@ -219,6 +221,11 @@ GObject.registerClass({
             else if (payload.type === 'history-index-change') {
                 this.actionGroup.lookup_action('back').enabled = payload.canGoBack
                 this.actionGroup.lookup_action('forward').enabled = payload.canGoForward
+            }
+            else if (payload.type === 'relocate') {
+                this.#fixWebKitSectionZoom(payload.section?.current)
+                    .catch(e => console.error(e))
+                this.emit(payload.type, payload)
             }
             else this.emit(payload.type, payload)
         })
@@ -342,6 +349,7 @@ GObject.registerClass({
     }
     open(file) {
         this.#bookReady = false
+        this.#sectionIndex = null
         if (file) this.#path = file.get_path()
         this.#webView.loadURI('foliate:///reader/reader.html')
             .catch(e => console.error(e))
@@ -352,6 +360,24 @@ GObject.registerClass({
     zoomIn() { this.#webView.zoom_level += 0.1 }
     zoomOut() { this.#webView.zoom_level -= 0.1 }
     zoomRestore() { this.#webView.zoom_level = 1 }
+    // WebKitGTK sizes a newly opened chapter as if the zoom were 100%. The
+    // text shrinks into the top-left and leaves empty space along the bottom
+    // and right. Any zoom change forces a second layout, which is correct.
+    // https://bugs.webkit.org/show_bug.cgi?id=313899
+    async #fixWebKitSectionZoom(sectionIndex) {
+        if (sectionIndex == null || sectionIndex === this.#sectionIndex) return
+        this.#sectionIndex = sectionIndex
+        const z = this.#webView.zoom_level
+        if (Math.abs(z - 1) < 0.0005) return
+        const token = ++this.#zoomFix
+        const delta = z <= 4 - 0.001 ? 0.001 : -0.001
+        this.#webView.zoom_level = z + delta
+        // 80ms is long enough for WebKit to lay the chapter out again.
+        await utils.wait(80)
+        if (token !== this.#zoomFix) return
+        if (Math.abs(this.#webView.zoom_level - (z + delta)) < 0.0001)
+            this.#webView.zoom_level = z
+    }
     inspector() {
         this.#webView.get_inspector().show()
     }
