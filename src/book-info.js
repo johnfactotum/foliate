@@ -131,9 +131,9 @@ const makeBookInfoBox = (metadata, pixbuf) => {
 
     for (const [title, value] of [
         [_('Publisher'), formatContributors(metadata.publisher)],
-        // Translators: this is the heading for the publication date
+        // Translators: This is the heading for the publication date.
         [_('Published'), format.date(metadata.published)],
-        // Translators: this is the heading for the modified date
+        // Translators: This is the heading for the modified date.
         [_('Updated'), format.date(metadata.modified)],
         [_('Language'), format.language(metadata.language)],
         [_('Translated by'), formatContributors(metadata.translator)],

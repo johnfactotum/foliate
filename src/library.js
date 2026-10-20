@@ -176,7 +176,7 @@ const BookList = GObject.registerClass({
         const cover = Gio.File.new_for_path(pkg.cachepath(name.replace('.json', '.png')))
         const id = decodeURIComponent(name.replace('.json', ''))
         this.#uriStore.delete(id)
-        for (const f of [file, cover]) try { f.delete(null) } catch {}
+        for (const f of [file, cover]) try { f.delete(null) } catch { }
         for (const [i, el] of utils.gliter(this)) if (el === file) this.remove(i)
     }
     update(path) {
@@ -387,8 +387,10 @@ GObject.registerClass({
                         .catch(e => console.warn(e))
                 },
             }),
-        }), { 'activate': (_, pos) =>
-            this.emit('activate', this.#filterModel.get_item(pos)) })
+        }), {
+            'activate': (_, pos) =>
+                this.emit('activate', this.#filterModel.get_item(pos)),
+        })
         this._scrolled.child.remove_css_class('view')
     }
     showList() {
@@ -405,8 +407,10 @@ GObject.registerClass({
                         child.update(item, data)
                     },
                 }),
-            }), 'book-list'), { 'activate': (_, pos) =>
-                this.emit('activate', this.#filterModel.get_item(pos)) }),
+            }), 'book-list'), {
+                'activate': (_, pos) =>
+                    this.emit('activate', this.#filterModel.get_item(pos)),
+            }),
         })
     }
     #getData(file, getCover) {
@@ -436,8 +440,8 @@ GObject.registerClass({
             heading: _('Remove Book?'),
             body: _('Reading progress, annotations, and bookmarks will be permanently lost'),
         })
-        dialog.add_response('cancel', _('_Cancel'))
-        dialog.add_response('remove', _('_Remove'))
+        dialog.add_response('cancel', _('Cancel'))
+        dialog.add_response('remove', _('Remove'))
         dialog.set_response_appearance('remove', Adw.ResponseAppearance.DESTRUCTIVE)
         dialog.present(this.get_root())
         dialog.connect('response', (_, response) => {
@@ -545,7 +549,7 @@ GObject.registerClass({
                     case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION: {
                         const { uri } = decision.navigation_action.get_request()
                         if (!uri.startsWith('foliate-opds:') && !uri.startsWith('blob:')
-                        && uri !== 'about:blank') {
+                            && uri !== 'about:blank') {
                             decision.ignore()
                             new Gtk.UriLauncher({ uri }).launch(this.root, null, null)
                             return true
@@ -814,7 +818,7 @@ export const Library = GObject.registerClass({
                     margin_bottom: 6,
                 }), 'caption-heading', 'dim-label'))
             if (before && before.child.item.type !== 'catalog'
-            && row.child.item.type === 'catalog')
+                && row.child.item.type === 'catalog')
                 row.set_header(utils.addClass(new Gtk.Label({
                     label: _('Catalogs'),
                     xalign: 0,
@@ -861,10 +865,12 @@ export const Library = GObject.registerClass({
                     this.root.add_toast(utils.connect(new Adw.Toast({
                         title: _('Catalog removed'),
                         button_label: _('Undo'),
-                    }), { 'button-clicked': () => addCatalog({
-                        title: item.label,
-                        uri: item.value,
-                    }) }))
+                    }), {
+                        'button-clicked': () => addCatalog({
+                            title: item.label,
+                            uri: item.value,
+                        }),
+                    }))
                 },
             })
             if (item.type === 'catalog') {
@@ -880,8 +886,7 @@ export const Library = GObject.registerClass({
                     },
                 }))
             }
-            return new Gtk.ListBoxRow({ child,
-                selectable: item.value !== 'add-catalog' })
+            return new Gtk.ListBoxRow({ child, selectable: item.value !== 'add-catalog' })
         })
         this._sidebar_list_box.connect('row-activated', (__, row) => {
             const { type, value } = row.child.item
@@ -921,7 +926,7 @@ export const Library = GObject.registerClass({
                 }
                 addCatalog(catalog)
 
-                for (let i = 0;; i++) {
+                for (let i = 0; ; i++) {
                     const row = this._sidebar_list_box.get_row_at_index(i)
                     if (!row) break
                     const { type, value } = row.child.item
@@ -952,7 +957,7 @@ export const Library = GObject.registerClass({
         window.content.content = utils.addClass(new Adw.StatusPage({
             icon_name: 'application-rss+xml-symbolic',
             title: _('Add Catalog'),
-            description: _('You can browse and download books from OPDS catalogs. <a href="https://opds.io">Learn More…</a>'),
+            description: format.vprintf(_('You can browse and download books from OPDS catalogs. <a href="%s">Learn More…</a>'), ['https://opds.io']),
         }), 'compact')
         const group = new Adw.PreferencesGroup()
         const entry = utils.connect(new Adw.EntryRow({

@@ -7,7 +7,7 @@ import { gettext as _ } from 'gettext'
 
 import * as utils from './utils.js'
 import { WebView } from './webview.js'
-import { locales, matchLocales } from './format.js'
+import { locales, matchLocales, vprintf } from './format.js'
 
 const getLanguage = lang => {
     try {
@@ -34,7 +34,7 @@ const tools = {
         uri: 'foliate-selection-tool:///selection-tools/wiktionary.html',
         run: (__, { text, lang }) => ({
             msg: {
-                footer: _('From <a id="link">Wiktionary</a>, released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA License</a>.'),
+                footer: vprintf(_('From <a id="link">Wiktionary</a>, released under the <a href="%s">CC BY-SA License</a>.'), ['https://creativecommons.org/licenses/by-sa/4.0/']),
                 error: _('No Definitions Found'),
                 errorAction: _('Search on Wiktionary'),
             },
@@ -47,7 +47,7 @@ const tools = {
         uri: 'foliate-selection-tool:///selection-tools/wikipedia.html',
         run: (__, { text, lang }) => ({
             msg: {
-                footer: _('From <a id="link">Wikipedia</a>, released under the <a href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-ShareAlike_4.0_International_License">CC BY-SA License</a>.'),
+                footer: vprintf(_('From <a id="link">Wikipedia</a>, released under the <a href="%s">CC BY-SA License</a>.'), ['https://wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-ShareAlike_4.0_International_License']),
                 error: _('No Definitions Found'),
                 errorAction: _('Search on Wikipedia'),
             },

@@ -1,5 +1,5 @@
-# Serbian translations for com.github.johnfactotum.Foliate package.
-# Copyright (C) 2024 THE com.github.johnfactotum.Foliate'S COPYRIGHT HOLDER
+# Serbian translations for the com.github.johnfactotum.Foliate package.
+# Copyright (C) 2024 Foliate Contributors
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 # Tomica Korac <tomica.korac@mail.ru>, 2024.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 11:04+0800\n"
+"POT-Creation-Date: 2026-10-11 00:33+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Tomica Korac <tommica.korac@mail.ru>\n"
 "Language-Team: Open Serbian Foundation\n"
@@ -19,12 +19,156 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.0.1\n"
 
+#. Translators: Do NOT translate! This is the application name!
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:28
+msgid "Foliate"
+msgstr "Foliate"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:4
+msgid "E-Book Viewer"
+msgstr "Приказивач е-књига"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:5
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7 src/app.js:450
+msgid "Read e-books in style"
+msgstr "Читај е-књиге у стилу"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.github.johnfactotum.Foliate.desktop.in:13
+msgid "books;ebooks;comics;catalogs;reader;ereader;reading;viewer;library;epub;mobi;kindle;fb2;cbz;pdf;opds;"
+msgstr "Е-књига;Књига;ЕПУБ;Приказивач;Читач;"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
+msgid ""
+"Discover a new chapter in reading with Foliate, the modern e-book reader "
+"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
+"customization features designed to match your unique preferences."
+msgstr ""
+"Откријте ново поглавље у читању уз Фолијејт, савремени читач е-књига "
+"прилагођен за ГНОМ. Утоните у прочеље без икаквих ометања, уз могућности "
+"прилагођавања свим Вашим потребама."
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
+msgid "Features include:"
+msgstr "Неке могућности:"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
+msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
+msgstr "Отвара ЕПУБ, Мобипокет, Киндл, ФБ2, ЦБЗ, и ПДФ фајлове"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
+msgid "Paginated mode and scrolled mode"
+msgstr "Читање по страницама или у свитку"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
+msgid "Customize font and line-spacing"
+msgstr "Прилагодљив фонт и размаци"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
+msgid "Light, sepia, dark, and invert mode"
+msgstr "Светли, тамни, „сепија“ и обратни мод"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
+msgid "Reading progress slider with chapter marks"
+msgstr "Показивач напретка читања са ознакама поглавља"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
+msgid "Bookmarks and annotations"
+msgstr "Одабир и белешке"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
+msgid "Find in book"
+msgstr "Тражење у књизи"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
+msgid "Quick dictionary lookup"
+msgstr "Претрага речника"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
+msgid "Updated for GNOME 48"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
+msgid "Added support for mouse forward/backward buttons"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:58
+msgid "Improved text wrapping in headings"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:59
+msgid "Improved default link style"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
+msgid "Fixed tables not displayed in FB2 books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
+#, fuzzy
+msgid "Updated translations"
+msgstr "Није могуће прибавити превод"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:75
+msgid ""
+"Various improvements and fixes, including a revamped translation tool, "
+"better focus handling, and better PDF rendering, now faster and no longer "
+"blurry."
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:82
+msgid "Fixed end of chapter cut off when chapter starts with page break"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:83
+msgid "Fixed incorrect text wrapping in tables"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:84
+msgid "Fixed a performance issue with OPDS catalogs"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:92
+msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:93
+#, fuzzy
+msgid "Added option to override publisher font"
+msgstr "Занемари фонт издавача"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:94
+msgid "Added option to reduce animation"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:95
+msgid "Added support for JPEG XL in CBZ"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:96
+msgid "Fixed getting file from Tracker in Flatpak"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:97
+msgid "Fixed parsing of non-year-only first-century and BCE dates"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:107
+msgid ""
+"Foliate has been rewritten from scratch with a new e-book rendering library "
+"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
+"and improved performance."
+msgstr ""
+"Фолијејт је прерађен од главе до пете и сада има нову библиотеку рендеровања "
+"и најновије библиотеке платформе, ГТК4 и Либадваита, са дорађеним прочељем и "
+"побољшаним радом."
+
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
 msgstr "Одбирак је обрисан"
 
-#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:805
-#: src/library.js:865
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:872
+#: src/library.js:867
 msgid "Undo"
 msgstr "Опозови"
 
@@ -76,11 +220,11 @@ msgstr "Подешено"
 msgid "JSON Files"
 msgstr "Фајлови „JSON“"
 
-#: src/annotations.js:597 src/app.js:149
+#: src/annotations.js:597 src/app.js:65
 msgid "All Files"
 msgstr "Сви фајлови"
 
-#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:402
+#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:390
 msgid "No Annotations"
 msgstr "Нема белешки"
 
@@ -92,7 +236,7 @@ msgstr "Увезени фајл нема белешки"
 msgid "Cannot Import Annotations"
 msgstr "Није могуће увести белешке"
 
-#: src/annotations.js:626 src/book-viewer.js:716 src/library.js:644
+#: src/annotations.js:626 src/book-viewer.js:785 src/library.js:646
 msgid "An error occurred"
 msgstr "Дошло је до грешке"
 
@@ -113,31 +257,47 @@ msgstr[0] "%d белешка"
 msgstr[1] "%d белешке"
 msgstr[2] "%d белешки"
 
-#: src/app.js:95 src/book-viewer.js:30
-msgid "Close"
-msgstr "Затвори"
-
-#: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
-#: src/ui/import-dialog.ui:15
-msgid "Cancel"
-msgstr "Откажи"
-
-#: src/app.js:136
+#: src/app.js:52
 msgid "E-Book Files"
 msgstr "Фајлови е-књига"
 
-#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
-msgid "Read e-books in style"
-msgstr "Читај е-књиге у стилу"
+#: src/app.js:135 src/book-viewer.js:30
+msgid "Close"
+msgstr "Затвори"
 
-#. Translators: put your names here, one name per line
-#. they will be shown in the "About" dialog
-#: src/app.js:405
+#: src/app.js:152 src/library.js:50 src/library.js:443
+#: src/ui/export-dialog.ui:11 src/ui/import-dialog.ui:15
+msgid "Cancel"
+msgstr "Откажи"
+
+#: src/app.js:197
+#, fuzzy, javascript-format
+msgid "Failed to import %d book"
+msgid_plural "Failed to import %d books"
+msgstr[0] "Учитавање није успело"
+msgstr[1] "Учитавање није успело"
+msgstr[2] "Учитавање није успело"
+
+#: src/app.js:204
+#, javascript-format
+msgid "Imported %d book"
+msgid_plural "Imported %d books"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/app.js:210
+msgid "Could not import books"
+msgstr ""
+
+#. Translators: To be credited in the "About" dialog, put your
+#. name(s) here, optionally followed by an <email> or a URL.
+#. One translator per line.
+#: src/app.js:457
 msgid "translator-credits"
-msgstr "Томица Кораћ, 2024"
+msgstr "Томица Кораћ <tomica.korac@mail.ru>"
 
-#: src/app.js:414
+#: src/app.js:464
 msgid "Source Code"
 msgstr "Изворни код"
 
@@ -145,12 +305,12 @@ msgstr "Изворни код"
 msgid "Publisher"
 msgstr "Издавач"
 
-#. Translators: this is the heading for the publication date
+#. Translators: This is the heading for the publication date.
 #: src/book-info.js:135 src/library.js:76
 msgid "Published"
 msgstr "Издато"
 
-#. Translators: this is the heading for the modified date
+#. Translators: This is the heading for the modified date.
 #: src/book-info.js:137
 msgid "Updated"
 msgstr "Обновљено"
@@ -196,7 +356,7 @@ msgid "Identifier"
 msgstr "Идентификатор"
 
 #: src/book-info.js:179 src/ui/book-item.ui:15 src/ui/book-row.ui:15
-#: src/ui/book-viewer.ui:368
+#: src/ui/book-viewer.ui:356
 msgid "About This Book"
 msgstr "О овој књизи"
 
@@ -255,27 +415,27 @@ msgstr "Библиографија"
 msgid "Go to Bibliography"
 msgstr "Иди на библиографију"
 
-#: src/book-viewer.js:622
+#: src/book-viewer.js:690
 msgid "Remove bookmark"
 msgstr "Уклони одбирак"
 
-#: src/book-viewer.js:623
+#: src/book-viewer.js:691
 msgid "Add bookmark"
 msgstr "Додај одбирак"
 
-#: src/book-viewer.js:714
+#: src/book-viewer.js:783
 msgid "File not found"
 msgstr "Фајл није нађен"
 
-#: src/book-viewer.js:715
+#: src/book-viewer.js:784
 msgid "File type not supported"
 msgstr "Овај тип фајла није подржан"
 
-#: src/book-viewer.js:804
+#: src/book-viewer.js:871
 msgid "Annotation deleted"
 msgstr "Белешка је обрисана"
 
-#: src/book-viewer.js:877
+#: src/book-viewer.js:944
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -284,7 +444,7 @@ msgstr ""
 "‘%s’\n"
 "—%s, «%s», с. %s"
 
-#: src/book-viewer.js:879
+#: src/book-viewer.js:946
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -293,12 +453,12 @@ msgstr ""
 "‘%s’\n"
 "—„%s“, с. %s"
 
-#: src/book-viewer.js:880
+#: src/book-viewer.js:947
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr "‘%s’ (с. %s)"
 
-#: src/book-viewer.js:883
+#: src/book-viewer.js:950
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -307,7 +467,7 @@ msgstr ""
 "‘%s’\n"
 "—%s, „%s“"
 
-#: src/book-viewer.js:885
+#: src/book-viewer.js:952
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -316,17 +476,17 @@ msgstr ""
 "‘%s’\n"
 "—„%s“"
 
-#: src/book-viewer.js:886
+#: src/book-viewer.js:953
 #, javascript-format
 msgid "‘%s’"
 msgstr "‘%s’"
 
-#: src/book-viewer.js:904
+#: src/book-viewer.js:971
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Слика од “%s”"
 
-#: src/book-viewer.js:904
+#: src/book-viewer.js:971
 msgid "Image"
 msgstr "Слика"
 
@@ -343,7 +503,7 @@ msgstr "Учитавање"
 msgid "Failed to Load"
 msgstr "Учитавање није успело"
 
-#: src/library.js:49 src/ui/book-viewer.ui:15
+#: src/library.js:49 src/ui/book-viewer.ui:15 src/ui/help-overlay.ui:98
 msgid "Reload"
 msgstr "Освежи"
 
@@ -391,11 +551,13 @@ msgstr "Бесплатно"
 msgid "First"
 msgstr "Прво"
 
-#: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
+#: src/library.js:66 src/ui/help-overlay.ui:151 src/ui/navbar.ui:8
+#: src/ui/tts-box.ui:115
 msgid "Previous"
 msgstr "Претходно"
 
-#: src/library.js:67 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
+#: src/library.js:67 src/ui/help-overlay.ui:157 src/ui/navbar.ui:124
+#: src/ui/tts-box.ui:132
 msgid "Next"
 msgstr "Следеће"
 
@@ -419,108 +581,98 @@ msgstr "Творац"
 msgid "Contributor"
 msgstr "Сарадник"
 
-#: src/library.js:438
+#: src/library.js:440
 msgid "Remove Book?"
 msgstr "Уклонити књигу?"
 
-#: src/library.js:439
+#: src/library.js:441
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr "Напредак читања, белешке и одабир ће бити трајно изгубљени"
 
-#: src/library.js:441
-msgid "_Cancel"
-msgstr "_Откажи"
+#: src/library.js:444 src/library.js:701 src/ui/book-item.ui:25
+#: src/ui/book-row.ui:25
+msgid "Remove"
+msgstr "Уклони"
 
-#: src/library.js:442
-msgid "_Remove"
-msgstr "_Уклони"
-
-#: src/library.js:472
+#: src/library.js:474
 #, fuzzy
 msgid "Failed to Open"
 msgstr "Учитавање није успело"
 
-#: src/library.js:473
+#: src/library.js:475
 msgid "Could not open the file with the selected application"
 msgstr ""
 
-#: src/library.js:644
+#: src/library.js:646
 msgid "Download Failed"
 msgstr "Преузимање није успело"
 
-#: src/library.js:698
+#: src/library.js:700
 msgid "Rename…"
 msgstr "Преименуј…"
 
-#: src/library.js:699 src/ui/book-item.ui:25 src/ui/book-row.ui:25
-msgid "Remove"
-msgstr "Уклони"
-
-#: src/library.js:719 src/library.js:720
+#: src/library.js:721 src/library.js:722
 msgid "Rename"
 msgstr "Уклони"
 
-#: src/library.js:725
+#: src/library.js:727
 msgid "Name"
 msgstr "Назив"
 
-#: src/library.js:740
+#: src/library.js:742
 msgid "All Books"
 msgstr "Све књиге"
 
-#: src/library.js:746
+#: src/library.js:748
 msgid "Add Catalog…"
 msgstr "Додај катало…"
 
-#: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/library.js:815 src/ui/book-viewer.ui:128 src/ui/book-viewer.ui:231
 #: src/ui/library.ui:93
 msgid "Library"
 msgstr "Књижара"
 
-#: src/library.js:821
+#: src/library.js:823
 msgid "Catalogs"
 msgstr "Каталози"
 
-#: src/library.js:864
+#: src/library.js:866
 msgid "Catalog removed"
 msgstr "Каталог је уклоњен"
 
-#: src/library.js:951 src/library.js:956
+#: src/library.js:954 src/library.js:959
 msgid "Add Catalog"
 msgstr "Додај каталог"
 
-#: src/library.js:952
+#: src/library.js:955
 msgid "Add"
 msgstr "Додај"
 
-#: src/library.js:957
+#: src/library.js:960
+#, javascript-format
 msgid ""
-"You can browse and download books from OPDS catalogs. <a href=\"https://opds."
-"io\">Learn More…</a>"
+"You can browse and download books from OPDS catalogs. <a href=\"%s\">Learn "
+"More…</a>"
 msgstr ""
-"Можете да прегледате и преузимате књиге из „ОПДС“ каталога.<a href=\"https://"
-"opds.io\">Сазнајте више…</a>"
+"Можете да прегледате и преузимате књиге из „ОПДС“ каталога.<a "
+"href=\"%s\">Сазнајте више…</a>"
 
-#: src/library.js:961
+#: src/library.js:964
 msgid "URL"
 msgstr "УРЛ"
-
-#. Translators: Do NOT translate! The is the application name!
-#: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
-msgid "Foliate"
-msgstr "Foliate"
 
 #: src/selection-tools.js:33
 msgid "Dictionary"
 msgstr "Речник"
 
 #: src/selection-tools.js:37
+#, javascript-format
 msgid ""
-"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"https://"
-"creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
+"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"%s\">CC BY-"
+"SA License</a>."
 msgstr ""
-"Са <a id=\"link\">Викиречника</a>, објабљено под <a href=\"https://"
-"creativecommons.org/licenses/by-sa/4.0/\">лиценцом „CC BY-SA“</a>."
+"Са <a id=\"link\">Викиречника</a>, објабљено под <a href=\"%s\">лиценцом „CC "
+"BY-SA“</a>."
 
 #: src/selection-tools.js:38 src/selection-tools.js:51
 msgid "No Definitions Found"
@@ -535,14 +687,13 @@ msgid "Wikipedia"
 msgstr "Википедија"
 
 #: src/selection-tools.js:50
+#, javascript-format
 msgid ""
-"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
-"ShareAlike_4.0_International_License\">CC BY-SA License</a>."
+"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"%s\">CC BY-"
+"SA License</a>."
 msgstr ""
-"Са <a id=\"link\">Википедије</a>, објављено под <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
-"ShareAlike_4.0_International_License\">лиценцом „CC BY-SA“</a>."
+"Са <a id=\"link\">Википедије</a>, објављено под <a href=\"%s\">лиценцом „CC "
+"BY-SA“</a>."
 
 #: src/selection-tools.js:52
 msgid "Search on Wikipedia"
@@ -609,10 +760,6 @@ msgstr "Грешка при говору из текста"
 msgid "Make sure Speech Dispatcher is installed and working on your system"
 msgstr "Проверите да ли је диспечер говора инсталиран и исправан у систему"
 
-#: src/utils.js:168
-msgid "Copied to clipboard"
-msgstr "Копирано у оставу"
-
 #: src/ui/annotation-popover.ui:13
 msgid "Highlight Style"
 msgstr "Стил означавања"
@@ -647,7 +794,7 @@ msgstr "Извези белешке…"
 msgid "New Window"
 msgstr "Нови прозор"
 
-#: src/ui/book-viewer.ui:11
+#: src/ui/book-viewer.ui:11 src/ui/help-overlay.ui:191
 msgid "Open a Copy"
 msgstr "Отвори копију"
 
@@ -655,151 +802,159 @@ msgstr "Отвори копију"
 msgid "Import Annotations…"
 msgstr "Увези белешке…"
 
-#: src/ui/book-viewer.ui:37 src/ui/library.ui:42
+#: src/ui/book-viewer.ui:31 src/ui/help-overlay.ui:238
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: src/ui/book-viewer.ui:35 src/ui/library.ui:42
 msgid "About Foliate"
 msgstr "О Фолијејту"
 
-#: src/ui/book-viewer.ui:45
+#: src/ui/book-viewer.ui:43
 msgid "All Sections"
 msgstr "Сви одељци"
 
-#: src/ui/book-viewer.ui:50
+#: src/ui/book-viewer.ui:48
 msgid "Current Section"
 msgstr "Тренутни одељак"
 
-#: src/ui/book-viewer.ui:57
+#: src/ui/book-viewer.ui:55
 msgid "Match Whole Words Only"
 msgstr "Спој само целе речи"
 
-#: src/ui/book-viewer.ui:61
+#: src/ui/book-viewer.ui:59
 msgid "Match Case"
 msgstr "Спој величину"
 
-#: src/ui/book-viewer.ui:65
+#: src/ui/book-viewer.ui:63
 msgid "Match Diacritics"
 msgstr "Спој дијакритике"
 
-#: src/ui/book-viewer.ui:83
+#: src/ui/book-viewer.ui:81 src/ui/help-overlay.ui:232
 msgid "Font & Layout Settings"
 msgstr "Поставке фонта и распореда"
 
-#: src/ui/book-viewer.ui:89
+#: src/ui/book-viewer.ui:87
 msgid "Scrolled Mode"
 msgstr "Мод свитка"
 
-#: src/ui/book-viewer.ui:93
+#: src/ui/book-viewer.ui:91
 msgid "Invert Colors in Dark Mode"
 msgstr "Обрни боје у тамном моду"
 
-#: src/ui/book-viewer.ui:97
+#: src/ui/book-viewer.ui:95
 msgid "Autohide Cursor"
 msgstr "Сакриј показивач"
 
-#: src/ui/book-viewer.ui:103
+#: src/ui/book-viewer.ui:101
 msgid "Print…"
 msgstr "Штампај…"
 
-#: src/ui/book-viewer.ui:107
+#: src/ui/book-viewer.ui:105 src/ui/help-overlay.ui:250
 msgid "Inspector"
 msgstr "Иследник"
 
-#: src/ui/book-viewer.ui:167
+#: src/ui/book-viewer.ui:159
 msgid "Book Cannot Be Opened"
 msgstr "Књига не може да се отвори"
 
-#: src/ui/book-viewer.ui:177
+#: src/ui/book-viewer.ui:169
 msgid "Details"
 msgstr "Подробности"
 
-#: src/ui/book-viewer.ui:193
+#: src/ui/book-viewer.ui:185
 msgid "Open Another File…"
 msgstr "Отвори други…"
 
-#: src/ui/book-viewer.ui:245
+#: src/ui/book-viewer.ui:237
 msgid "Pin Sidebar"
 msgstr "Прикачи бочну траку"
 
-#: src/ui/book-viewer.ui:253
+#: src/ui/book-viewer.ui:245
 msgid "Book Menu"
 msgstr "Мени књиге"
 
-#: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
+#: src/ui/book-viewer.ui:252 src/ui/selection-popover.ui:17
 msgid "Find"
 msgstr "Нађи"
 
-#: src/ui/book-viewer.ui:276
+#: src/ui/book-viewer.ui:268
 msgid "Find in book…"
 msgstr "Нађи у књизи…"
 
-#: src/ui/book-viewer.ui:313
+#: src/ui/book-viewer.ui:306
 msgid "Contents"
 msgstr "Садржај"
 
-#: src/ui/book-viewer.ui:391
+#: src/ui/book-viewer.ui:379
 msgid "Annotations"
 msgstr "Белешке"
 
-#: src/ui/book-viewer.ui:403
+#: src/ui/book-viewer.ui:391
 msgid "Select some text to add annotations"
 msgstr "Изаберите неки текст да додате белешку"
 
-#: src/ui/book-viewer.ui:433
+#: src/ui/book-viewer.ui:421
 msgid "Filter annotations…"
 msgstr "Филтрирај белешке…"
 
-#: src/ui/book-viewer.ui:447
+#: src/ui/book-viewer.ui:435
 msgid "Bookmarks"
 msgstr "Одабир"
 
-#: src/ui/book-viewer.ui:458
+#: src/ui/book-viewer.ui:446
 msgid "No Bookmarks"
 msgstr "Нема одбирака"
 
-#: src/ui/book-viewer.ui:459
+#: src/ui/book-viewer.ui:447
 msgid "Add some bookmarks to see them here"
 msgstr "Додајте одбирке да бисте их видели овде"
 
-#: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
+#: src/ui/book-viewer.ui:486 src/ui/library-view.ui:42
 msgid "No Results Found"
 msgstr "Нема резултата"
 
-#: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
+#: src/ui/book-viewer.ui:487 src/ui/library-view.ui:43
 msgid "Try a different search"
 msgstr "Пробај другу претрагу"
 
-#: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
+#: src/ui/book-viewer.ui:530 src/ui/help-overlay.ui:59 src/ui/library.ui:102
+#: src/ui/library.ui:160
 msgid "Sidebar"
 msgstr "Бочна трака"
 
-#: src/ui/book-viewer.ui:556
+#: src/ui/book-viewer.ui:544
 msgid "View Menu"
 msgstr "Мени приказа"
 
-#: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
+#: src/ui/book-viewer.ui:557 src/ui/help-overlay.ui:110
+#: src/ui/image-viewer.ui:41
 msgid "Zoom Out"
 msgstr "Умањи"
 
-#: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
+#: src/ui/book-viewer.ui:564 src/ui/help-overlay.ui:116
+#: src/ui/image-viewer.ui:48
 msgid "Reset Zoom"
 msgstr "Ресетуј увећање"
 
-#: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
+#: src/ui/book-viewer.ui:573 src/ui/help-overlay.ui:104
+#: src/ui/image-viewer.ui:55
 msgid "Zoom In"
 msgstr "Увећај"
 
-#: src/ui/book-viewer.ui:601
+#: src/ui/book-viewer.ui:589
 msgid "Follow System Style"
 msgstr "Прати системски стил"
 
-#: src/ui/book-viewer.ui:611
+#: src/ui/book-viewer.ui:599
 msgid "Light Style"
 msgstr "Светли стил"
 
-#: src/ui/book-viewer.ui:621
+#: src/ui/book-viewer.ui:609
 msgid "Dark Style"
 msgstr "Тамни стил"
 
-#: src/ui/book-viewer.ui:636 src/ui/library.ui:26
+#: src/ui/book-viewer.ui:624 src/ui/library.ui:26
 msgid "Fullscreen"
 msgstr "Цео екран"
 
@@ -834,6 +989,159 @@ msgstr "Маркдаун"
 #: src/ui/export-dialog.ui:36
 msgid "Org Mode"
 msgstr "Орг мод"
+
+#: src/ui/help-overlay.ui:6
+#, fuzzy
+msgid "Navigation"
+msgstr "Приповедање"
+
+#: src/ui/help-overlay.ui:10
+#, fuzzy
+msgid "Previous Page"
+msgstr "Претходно"
+
+#: src/ui/help-overlay.ui:16
+#, fuzzy
+msgid "Next Page"
+msgstr "Следеће"
+
+#: src/ui/help-overlay.ui:22
+msgid "Go Left"
+msgstr ""
+
+#: src/ui/help-overlay.ui:28
+#, fuzzy
+msgid "Scroll Down"
+msgstr "Мод свитка"
+
+#: src/ui/help-overlay.ui:34
+#, fuzzy
+msgid "Scroll Up"
+msgstr "Мод свитка"
+
+#: src/ui/help-overlay.ui:40
+msgid "Go Right"
+msgstr ""
+
+#: src/ui/help-overlay.ui:46
+#, fuzzy
+msgid "Jump to Previous Location"
+msgstr "Претходни одељак"
+
+#: src/ui/help-overlay.ui:52
+#, fuzzy
+msgid "Jump to Next Location"
+msgstr "Следећи одељак"
+
+#: src/ui/help-overlay.ui:63
+#, fuzzy
+msgid "Toggle Sidebar"
+msgstr "Бочна трака"
+
+#: src/ui/help-overlay.ui:69
+msgid "Toggle Table of Contents"
+msgstr ""
+
+#: src/ui/help-overlay.ui:75
+#, fuzzy
+msgid "Toggle Annotations"
+msgstr "Нема белешки"
+
+#: src/ui/help-overlay.ui:81
+#, fuzzy
+msgid "Toggle Bookmarks"
+msgstr "Нема одбирака"
+
+#: src/ui/help-overlay.ui:87
+#, fuzzy
+msgid "Toggle Search"
+msgstr "Тражи"
+
+#: src/ui/help-overlay.ui:94
+#, fuzzy
+msgid "View"
+msgstr "Приказивач"
+
+#: src/ui/help-overlay.ui:122
+#, fuzzy
+msgid "Toggle Fullscreen"
+msgstr "Цео екран"
+
+#: src/ui/help-overlay.ui:128
+#, fuzzy
+msgid "Toggle Scrolled Mode"
+msgstr "Мод свитка"
+
+#: src/ui/help-overlay.ui:134
+#, fuzzy
+msgid "Show Current Location"
+msgstr "Тренутни одељак"
+
+#: src/ui/help-overlay.ui:140
+#, fuzzy
+msgid "Bookmark Current Location"
+msgstr "Одабир и белешке"
+
+#: src/ui/help-overlay.ui:147
+#, fuzzy
+msgid "In Search"
+msgstr "Тражи"
+
+#: src/ui/help-overlay.ui:164
+#, fuzzy
+msgid "With Selection"
+msgstr "Штампај избор…"
+
+#: src/ui/help-overlay.ui:168
+#, fuzzy
+msgid "Selection Copy"
+msgstr "Одељак"
+
+#: src/ui/help-overlay.ui:174
+#, fuzzy
+msgid "Selection Search"
+msgstr "Одељак"
+
+#: src/ui/help-overlay.ui:181
+#, fuzzy
+msgid "Window"
+msgstr "Нови прозор"
+
+#: src/ui/help-overlay.ui:185
+#, fuzzy
+msgid "Open File"
+msgstr "Фајлови „JSON“"
+
+#: src/ui/help-overlay.ui:197
+#, fuzzy
+msgid "Close Window"
+msgstr "Нови прозор"
+
+#: src/ui/help-overlay.ui:203
+msgid "Quit"
+msgstr ""
+
+#: src/ui/help-overlay.ui:210
+msgid "General"
+msgstr ""
+
+#: src/ui/help-overlay.ui:214
+msgid "Show Book Information"
+msgstr ""
+
+#: src/ui/help-overlay.ui:220
+msgid "Show App Information"
+msgstr ""
+
+#: src/ui/help-overlay.ui:226
+#, fuzzy
+msgid "Open Menu"
+msgstr "Главни мени"
+
+#: src/ui/help-overlay.ui:244
+#, fuzzy
+msgid "Print..."
+msgstr "Штампај…"
 
 #: src/ui/image-viewer.ui:6 src/ui/navbar.ui:302 src/ui/selection-popover.ui:7
 msgid "Copy"
@@ -1101,107 +1409,9 @@ msgstr "Понашање"
 msgid "Reduce Animation"
 msgstr "Смањи анимацију"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:5
-msgid "E-Book Viewer"
-msgstr "Приказивач е-књига"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.github.johnfactotum.Foliate.desktop.in:14
-msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "Е-књига;Књига;ЕПУБ;Приказивач;Читач;"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
-msgid ""
-"Discover a new chapter in reading with Foliate, the modern e-book reader "
-"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
-"customization features designed to match your unique preferences."
-msgstr ""
-"Откријте ново поглавље у читању уз Фолијејт, савремени читач е-књига "
-"прилагођен за ГНОМ. Утоните у прочеље без икаквих ометања, уз могућности "
-"прилагођавања свим Вашим потребама."
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
-msgid "Features include:"
-msgstr "Неке могућности:"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
-msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
-msgstr "Отвара ЕПУБ, Мобипокет, Киндл, ФБ2, ЦБЗ, и ПДФ фајлове"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
-msgid "Paginated mode and scrolled mode"
-msgstr "Читање по страницама или у свитку"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
-msgid "Customize font and line-spacing"
-msgstr "Прилагодљив фонт и размаци"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
-msgid "Light, sepia, dark, and invert mode"
-msgstr "Светли, тамни, „сепија“ и обратни мод"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
-msgid "Reading progress slider with chapter marks"
-msgstr "Показивач напретка читања са ознакама поглавља"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
-msgid "Bookmarks and annotations"
-msgstr "Одабир и белешке"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
-msgid "Find in book"
-msgstr "Тражење у књизи"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
-msgid "Quick dictionary lookup"
-msgstr "Претрага речника"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
-msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
-msgid "Fixed incorrect text wrapping in tables"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
-msgid "Fixed a performance issue with OPDS catalogs"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
-msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-#, fuzzy
-msgid "Added option to override publisher font"
-msgstr "Занемари фонт издавача"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
-msgid "Added option to reduce animation"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
-msgid "Added support for JPEG XL in CBZ"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
-msgid "Fixed getting file from Tracker in Flatpak"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
-msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr ""
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
-msgid ""
-"Foliate has been rewritten from scratch with a new e-book rendering library "
-"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
-"and improved performance."
-msgstr ""
-"Фолијејт је прерађен од главе до пете и сада има нову библиотеку рендеровања "
-"и најновије библиотеке платформе, ГТК4 и Либадваита, са дорађеним прочељем и "
-"побољшаним радом."
+#: src/utils.js:167
+msgid "Copied to clipboard"
+msgstr "Копирано у оставу"
 
 #~ msgid "Book"
 #~ msgstr "Књига"
@@ -1214,6 +1424,3 @@ msgstr ""
 
 #~ msgid "Reader"
 #~ msgstr "Читач"
-
-#~ msgid "Viewer"
-#~ msgstr "Приказивач"

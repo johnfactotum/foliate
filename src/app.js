@@ -451,8 +451,9 @@ export const Application = GObject.registerClass({
             developer_name: 'John Factotum',
             developers: ['John Factotum'],
             artists: ['John Factotum', 'Tobias Bernard <tbernard@gnome.org>'],
-            // Translators: put your names here, one name per line
-            // they will be shown in the "About" dialog
+            // Translators: To be credited in the "About" dialog, put your
+            // name(s) here, optionally followed by an <email> or a URL.
+            // One translator per line.
             translator_credits: _('translator-credits'),
             license_type: Gtk.License.GPL_3_0,
             website: 'https://johnfactotum.github.io/foliate/',

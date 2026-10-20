@@ -1,5 +1,5 @@
-# Simplified Chinese translations for com.github.johnfactotum.Foliate package.
-# Copyright (C) 2019 THE PACKAGE'S COPYRIGHT HOLDER
+# Simplified Chinese translations for the com.github.johnfactotum.Foliate package.
+# Copyright (C) 2020-2025 Foliate Contributors
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 # 王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>, 2020.
 # Tranquilo Chan <cdh4227@foxmail.com>, 2020-2021.
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 11:04+0800\n"
+"POT-Creation-Date: 2026-10-11 00:33+0100\n"
 "PO-Revision-Date: 2025-04-04 10:17+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
@@ -20,12 +20,154 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Gtranslator 48.0\n"
 
+#. Translators: Do NOT translate! This is the application name!
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:28
+msgid "Foliate"
+msgstr "Foliate"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:4
+msgid "E-Book Viewer"
+msgstr "电子书查看器"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:5
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7 src/app.js:450
+msgid "Read e-books in style"
+msgstr "别具风格地阅读电子书"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.github.johnfactotum.Foliate.desktop.in:13
+msgid "books;ebooks;comics;catalogs;reader;ereader;reading;viewer;library;epub;mobi;kindle;fb2;cbz;pdf;opds;"
+msgstr "books;ebooks;comics;catalogs;reader;ereader;reading;viewer;library;epub;mobi;kindle;fb2;cbz;pdf;opds;电子书;图书;书籍;查看器;阅读器;"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
+msgid ""
+"Discover a new chapter in reading with Foliate, the modern e-book reader "
+"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
+"customization features designed to match your unique preferences."
+msgstr ""
+"使用 Foliate 这一为 GNOME 量身定做的现代电子书阅读器在阅读中发现新的篇章。通"
+"过设计为匹配您独特首选项的自定义特性，将您自己沉浸在无干扰的界面中。"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
+msgid "Features include:"
+msgstr "特性包括："
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
+msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
+msgstr "打开 EPUB、Mobipocket、Kindle、FB2、CBZ 和 PDF 文件"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
+msgid "Paginated mode and scrolled mode"
+msgstr "分页模式和滚动模式"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
+msgid "Customize font and line-spacing"
+msgstr "自定义字体和行间距"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
+msgid "Light, sepia, dark, and invert mode"
+msgstr "亮色、褐色、暗色和反转模式"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
+msgid "Reading progress slider with chapter marks"
+msgstr "带有章节标记的阅读进度滑动条"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
+msgid "Bookmarks and annotations"
+msgstr "书签和笔记"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
+msgid "Find in book"
+msgstr "书籍中查找"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
+msgid "Quick dictionary lookup"
+msgstr "快速的词典查询"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
+msgid "Updated for GNOME 48"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
+msgid "Added support for mouse forward/backward buttons"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:58
+#, fuzzy
+msgid "Improved text wrapping in headings"
+msgstr "修复了表格中文本未正确折行的问题"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:59
+msgid "Improved default link style"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
+msgid "Fixed tables not displayed in FB2 books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
+#, fuzzy
+msgid "Updated translations"
+msgstr "无法获取翻译"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:75
+msgid ""
+"Various improvements and fixes, including a revamped translation tool, "
+"better focus handling, and better PDF rendering, now faster and no longer "
+"blurry."
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:82
+msgid "Fixed end of chapter cut off when chapter starts with page break"
+msgstr "修复了章节以分页符起始时误判为章节末尾而截断内容的问题"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:83
+msgid "Fixed incorrect text wrapping in tables"
+msgstr "修复了表格中文本未正确折行的问题"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:84
+msgid "Fixed a performance issue with OPDS catalogs"
+msgstr "修复了 OPDS 书目的性能问题"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:92
+msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
+msgstr "添加了对 OPDS 2.0 与 OPDS 书目的支持"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:93
+msgid "Added option to override publisher font"
+msgstr "添加了覆盖出版商字体的选项"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:94
+msgid "Added option to reduce animation"
+msgstr "添加了减少动画的选项"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:95
+msgid "Added support for JPEG XL in CBZ"
+msgstr "添加了对 CBZ 中 JPEG XL 的支持"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:96
+msgid "Fixed getting file from Tracker in Flatpak"
+msgstr "修复了 Flatpak 中从 Tracker 获取文件的问题"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:97
+msgid "Fixed parsing of non-year-only first-century and BCE dates"
+msgstr "修复了对非纯年份公元一世纪和公元前日期的解析问题"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:107
+msgid ""
+"Foliate has been rewritten from scratch with a new e-book rendering library "
+"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
+"and improved performance."
+msgstr ""
+"Foliate 已从零重写，拥有新的电子书渲染库和最新的平台库、GTK 4 和 Libadwaita，"
+"带有重新设计的用户界面和性能提升。"
+
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
 msgstr "书签已删除"
 
-#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:805
-#: src/library.js:865
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:872
+#: src/library.js:867
 msgid "Undo"
 msgstr "撤消"
 
@@ -77,11 +219,11 @@ msgstr "自定义"
 msgid "JSON Files"
 msgstr "JSON 文件"
 
-#: src/annotations.js:597 src/app.js:149
+#: src/annotations.js:597 src/app.js:65
 msgid "All Files"
 msgstr "所有文件"
 
-#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:402
+#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:390
 msgid "No Annotations"
 msgstr "无笔记"
 
@@ -93,7 +235,7 @@ msgstr "导入的文件没有笔记"
 msgid "Cannot Import Annotations"
 msgstr "无法导入笔记"
 
-#: src/annotations.js:626 src/book-viewer.js:716 src/library.js:644
+#: src/annotations.js:626 src/book-viewer.js:785 src/library.js:646
 msgid "An error occurred"
 msgstr "发生了一个错误"
 
@@ -112,34 +254,46 @@ msgid "%d Annotation"
 msgid_plural "%d Annotations"
 msgstr[0] "%d 条笔记"
 
-#: src/app.js:95 src/book-viewer.js:30
-msgid "Close"
-msgstr "关闭"
-
-#: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
-#: src/ui/import-dialog.ui:15
-msgid "Cancel"
-msgstr "取消"
-
-#: src/app.js:136
+#: src/app.js:52
 msgid "E-Book Files"
 msgstr "电子书文件"
 
-#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
-msgid "Read e-books in style"
-msgstr "别具风格地阅读电子书"
+#: src/app.js:135 src/book-viewer.js:30
+msgid "Close"
+msgstr "关闭"
 
-#. Translators: put your names here, one name per line
-#. they will be shown in the "About" dialog
-#: src/app.js:405
+#: src/app.js:152 src/library.js:50 src/library.js:443
+#: src/ui/export-dialog.ui:11 src/ui/import-dialog.ui:15
+msgid "Cancel"
+msgstr "取消"
+
+#: src/app.js:197
+#, fuzzy, javascript-format
+msgid "Failed to import %d book"
+msgid_plural "Failed to import %d books"
+msgstr[0] "加载失败"
+
+#: src/app.js:204
+#, javascript-format
+msgid "Imported %d book"
+msgid_plural "Imported %d books"
+msgstr[0] ""
+
+#: src/app.js:210
+msgid "Could not import books"
+msgstr ""
+
+#. Translators: To be credited in the "About" dialog, put your
+#. name(s) here, optionally followed by an <email> or a URL.
+#. One translator per line.
+#: src/app.js:457
 msgid "translator-credits"
 msgstr ""
-"Tranquilo Chan <cdh4227@foxmail.com>, 2020-2021.\n"
-"王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>, 2020.\n"
-"lumingzh <lumingzh@qq.com>, 2023-2025."
+"王滋涵 Zephyr Wang <wi24rd@fedoraproject.org>\n"
+"Tranquilo Chan <cdh4227@foxmail.com>\n"
+"lumingzh <lumingzh@qq.com>"
 
-#: src/app.js:414
+#: src/app.js:464
 msgid "Source Code"
 msgstr "源代码"
 
@@ -147,12 +301,12 @@ msgstr "源代码"
 msgid "Publisher"
 msgstr "出版社"
 
-#. Translators: this is the heading for the publication date
+#. Translators: This is the heading for the publication date.
 #: src/book-info.js:135 src/library.js:76
 msgid "Published"
 msgstr "出版日期"
 
-#. Translators: this is the heading for the modified date
+#. Translators: This is the heading for the modified date.
 #: src/book-info.js:137
 msgid "Updated"
 msgstr "更新日期"
@@ -198,7 +352,7 @@ msgid "Identifier"
 msgstr "标识符"
 
 #: src/book-info.js:179 src/ui/book-item.ui:15 src/ui/book-row.ui:15
-#: src/ui/book-viewer.ui:368
+#: src/ui/book-viewer.ui:356
 msgid "About This Book"
 msgstr "关于此书"
 
@@ -257,27 +411,27 @@ msgstr "参考文献"
 msgid "Go to Bibliography"
 msgstr "前往参考文献"
 
-#: src/book-viewer.js:622
+#: src/book-viewer.js:690
 msgid "Remove bookmark"
 msgstr "移除书签"
 
-#: src/book-viewer.js:623
+#: src/book-viewer.js:691
 msgid "Add bookmark"
 msgstr "添加书签"
 
-#: src/book-viewer.js:714
+#: src/book-viewer.js:783
 msgid "File not found"
 msgstr "文件未找到"
 
-#: src/book-viewer.js:715
+#: src/book-viewer.js:784
 msgid "File type not supported"
 msgstr "不支持的文件类型"
 
-#: src/book-viewer.js:804
+#: src/book-viewer.js:871
 msgid "Annotation deleted"
 msgstr "笔记已删除"
 
-#: src/book-viewer.js:877
+#: src/book-viewer.js:944
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -286,7 +440,7 @@ msgstr ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 
-#: src/book-viewer.js:879
+#: src/book-viewer.js:946
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -295,12 +449,12 @@ msgstr ""
 "‘%s’\n"
 "—“%s”, p. %s"
 
-#: src/book-viewer.js:880
+#: src/book-viewer.js:947
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr "‘%s’ (p. %s)"
 
-#: src/book-viewer.js:883
+#: src/book-viewer.js:950
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -309,7 +463,7 @@ msgstr ""
 "‘%s’\n"
 "—%s, “%s”"
 
-#: src/book-viewer.js:885
+#: src/book-viewer.js:952
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -318,17 +472,17 @@ msgstr ""
 "‘%s’\n"
 "—“%s”"
 
-#: src/book-viewer.js:886
+#: src/book-viewer.js:953
 #, javascript-format
 msgid "‘%s’"
 msgstr "‘%s’"
 
-#: src/book-viewer.js:904
+#: src/book-viewer.js:971
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "图片来自 “%s”"
 
-#: src/book-viewer.js:904
+#: src/book-viewer.js:971
 msgid "Image"
 msgstr "图片"
 
@@ -345,7 +499,7 @@ msgstr "加载中"
 msgid "Failed to Load"
 msgstr "加载失败"
 
-#: src/library.js:49 src/ui/book-viewer.ui:15
+#: src/library.js:49 src/ui/book-viewer.ui:15 src/ui/help-overlay.ui:98
 msgid "Reload"
 msgstr "重新载入"
 
@@ -393,11 +547,13 @@ msgstr "免费"
 msgid "First"
 msgstr "首页"
 
-#: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
+#: src/library.js:66 src/ui/help-overlay.ui:151 src/ui/navbar.ui:8
+#: src/ui/tts-box.ui:115
 msgid "Previous"
 msgstr "上页"
 
-#: src/library.js:67 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
+#: src/library.js:67 src/ui/help-overlay.ui:157 src/ui/navbar.ui:124
+#: src/ui/tts-box.ui:132
 msgid "Next"
 msgstr "下页"
 
@@ -421,106 +577,95 @@ msgstr "作者"
 msgid "Contributor"
 msgstr "贡献者"
 
-#: src/library.js:438
+#: src/library.js:440
 msgid "Remove Book?"
 msgstr "删除书籍吗？"
 
-#: src/library.js:439
+#: src/library.js:441
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr "阅读进度、笔记和书签将永远丢失"
 
-#: src/library.js:441
-msgid "_Cancel"
-msgstr "取消(_C)"
-
-#: src/library.js:442
-msgid "_Remove"
-msgstr "移除(_R)"
-
-#: src/library.js:472
-msgid "Failed to Open"
-msgstr "打开失败"
-
-#: src/library.js:473
-msgid "Could not open the file with the selected application"
-msgstr "无法使用选择的应用程序打开该文件"
-
-#: src/library.js:644
-msgid "Download Failed"
-msgstr "下载失败"
-
-#: src/library.js:698
-msgid "Rename…"
-msgstr "重命名…"
-
-#: src/library.js:699 src/ui/book-item.ui:25 src/ui/book-row.ui:25
+#: src/library.js:444 src/library.js:701 src/ui/book-item.ui:25
+#: src/ui/book-row.ui:25
 msgid "Remove"
 msgstr "移除"
 
-#: src/library.js:719 src/library.js:720
+#: src/library.js:474
+msgid "Failed to Open"
+msgstr "打开失败"
+
+#: src/library.js:475
+msgid "Could not open the file with the selected application"
+msgstr "无法使用选择的应用程序打开该文件"
+
+#: src/library.js:646
+msgid "Download Failed"
+msgstr "下载失败"
+
+#: src/library.js:700
+msgid "Rename…"
+msgstr "重命名…"
+
+#: src/library.js:721 src/library.js:722
 msgid "Rename"
 msgstr "重命名"
 
-#: src/library.js:725
+#: src/library.js:727
 msgid "Name"
 msgstr "名称"
 
-#: src/library.js:740
+#: src/library.js:742
 msgid "All Books"
 msgstr "所有书籍"
 
-#: src/library.js:746
+#: src/library.js:748
 msgid "Add Catalog…"
 msgstr "添加书目…"
 
-#: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/library.js:815 src/ui/book-viewer.ui:128 src/ui/book-viewer.ui:231
 #: src/ui/library.ui:93
 msgid "Library"
 msgstr "书库"
 
-#: src/library.js:821
+#: src/library.js:823
 msgid "Catalogs"
 msgstr "书目"
 
-#: src/library.js:864
+#: src/library.js:866
 msgid "Catalog removed"
 msgstr "书目已移除"
 
-#: src/library.js:951 src/library.js:956
+#: src/library.js:954 src/library.js:959
 msgid "Add Catalog"
 msgstr "添加书目"
 
-#: src/library.js:952
+#: src/library.js:955
 msgid "Add"
 msgstr "添加"
 
-#: src/library.js:957
+#: src/library.js:960
+#, javascript-format
 msgid ""
-"You can browse and download books from OPDS catalogs. <a href=\"https://opds."
-"io\">Learn More…</a>"
-msgstr ""
-"您可以从 OPDS 书目浏览和下载书籍。<a href=\"https://opds.io\">了解更多…</a>"
+"You can browse and download books from OPDS catalogs. <a href=\"%s\">Learn "
+"More…</a>"
+msgstr "您可以从 OPDS 书目浏览和下载书籍。<a href=\"%s\">了解更多…</a>"
 
-#: src/library.js:961
+#: src/library.js:964
 msgid "URL"
 msgstr "网址"
-
-#. Translators: Do NOT translate! The is the application name!
-#: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
-msgid "Foliate"
-msgstr "Foliate"
 
 #: src/selection-tools.js:33
 msgid "Dictionary"
 msgstr "词典"
 
 #: src/selection-tools.js:37
+#, javascript-format
 msgid ""
-"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"https://"
-"creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
+"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"%s\">CC BY-"
+"SA License</a>."
 msgstr ""
-"来自 <a id=\"link\">Wiktionary</a>，以 <a href=\"https://creativecommons.org/"
-"licenses/by-sa/4.0/\">CC BY-SA 许可证</a>发布。"
+"来自 <a id=\"link\">Wiktionary</a>，以 <a href=\"%s\">CC BY-SA 许可证</a>发"
+"布。"
 
 #: src/selection-tools.js:38 src/selection-tools.js:51
 msgid "No Definitions Found"
@@ -535,14 +680,13 @@ msgid "Wikipedia"
 msgstr "维基百科"
 
 #: src/selection-tools.js:50
+#, javascript-format
 msgid ""
-"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
-"ShareAlike_4.0_International_License\">CC BY-SA License</a>."
+"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"%s\">CC BY-"
+"SA License</a>."
 msgstr ""
-"来自 <a id=\"link\">Wikipedia</a>，以 <a href=\"https://en.wikipedia.org/"
-"wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
-"ShareAlike_4.0_International_License\">CC BY-SA 许可证</a>发布。"
+"来自 <a id=\"link\">Wikipedia</a>，以 <a href=\"%s\">CC BY-SA 许可证</a>发"
+"布。"
 
 #: src/selection-tools.js:52
 msgid "Search on Wikipedia"
@@ -608,10 +752,6 @@ msgstr "文字转语音出错"
 msgid "Make sure Speech Dispatcher is installed and working on your system"
 msgstr "请确保语音调度器已在您的系统上安装并工作正常"
 
-#: src/utils.js:168
-msgid "Copied to clipboard"
-msgstr "已复制到剪贴板"
-
 #: src/ui/annotation-popover.ui:13
 msgid "Highlight Style"
 msgstr "高亮样式"
@@ -646,7 +786,7 @@ msgstr "导出笔记…"
 msgid "New Window"
 msgstr "新建窗口"
 
-#: src/ui/book-viewer.ui:11
+#: src/ui/book-viewer.ui:11 src/ui/help-overlay.ui:191
 msgid "Open a Copy"
 msgstr "打开副本"
 
@@ -654,151 +794,159 @@ msgstr "打开副本"
 msgid "Import Annotations…"
 msgstr "导入笔记…"
 
-#: src/ui/book-viewer.ui:37 src/ui/library.ui:42
+#: src/ui/book-viewer.ui:31 src/ui/help-overlay.ui:238
+msgid "Keyboard Shortcuts"
+msgstr "快捷键"
+
+#: src/ui/book-viewer.ui:35 src/ui/library.ui:42
 msgid "About Foliate"
 msgstr "关于 Foliate"
 
-#: src/ui/book-viewer.ui:45
+#: src/ui/book-viewer.ui:43
 msgid "All Sections"
 msgstr "全部章节"
 
-#: src/ui/book-viewer.ui:50
+#: src/ui/book-viewer.ui:48
 msgid "Current Section"
 msgstr "当前章节"
 
-#: src/ui/book-viewer.ui:57
+#: src/ui/book-viewer.ui:55
 msgid "Match Whole Words Only"
 msgstr "仅匹配整个词语"
 
-#: src/ui/book-viewer.ui:61
+#: src/ui/book-viewer.ui:59
 msgid "Match Case"
 msgstr "匹配大小写"
 
-#: src/ui/book-viewer.ui:65
+#: src/ui/book-viewer.ui:63
 msgid "Match Diacritics"
 msgstr "匹配音符"
 
-#: src/ui/book-viewer.ui:83
+#: src/ui/book-viewer.ui:81 src/ui/help-overlay.ui:232
 msgid "Font & Layout Settings"
 msgstr "字体和布局设置"
 
-#: src/ui/book-viewer.ui:89
+#: src/ui/book-viewer.ui:87
 msgid "Scrolled Mode"
 msgstr "滚动模式"
 
-#: src/ui/book-viewer.ui:93
+#: src/ui/book-viewer.ui:91
 msgid "Invert Colors in Dark Mode"
 msgstr "暗色模式时反转颜色"
 
-#: src/ui/book-viewer.ui:97
+#: src/ui/book-viewer.ui:95
 msgid "Autohide Cursor"
 msgstr "自动隐藏指针"
 
-#: src/ui/book-viewer.ui:103
+#: src/ui/book-viewer.ui:101
 msgid "Print…"
 msgstr "打印…"
 
-#: src/ui/book-viewer.ui:107
+#: src/ui/book-viewer.ui:105 src/ui/help-overlay.ui:250
 msgid "Inspector"
 msgstr "检查器"
 
-#: src/ui/book-viewer.ui:167
+#: src/ui/book-viewer.ui:159
 msgid "Book Cannot Be Opened"
 msgstr "书籍无法打开"
 
-#: src/ui/book-viewer.ui:177
+#: src/ui/book-viewer.ui:169
 msgid "Details"
 msgstr "详情"
 
-#: src/ui/book-viewer.ui:193
+#: src/ui/book-viewer.ui:185
 msgid "Open Another File…"
 msgstr "打开另一个文件…"
 
-#: src/ui/book-viewer.ui:245
+#: src/ui/book-viewer.ui:237
 msgid "Pin Sidebar"
 msgstr "固定侧边栏"
 
-#: src/ui/book-viewer.ui:253
+#: src/ui/book-viewer.ui:245
 msgid "Book Menu"
 msgstr "书籍菜单"
 
-#: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
+#: src/ui/book-viewer.ui:252 src/ui/selection-popover.ui:17
 msgid "Find"
 msgstr "查找"
 
-#: src/ui/book-viewer.ui:276
+#: src/ui/book-viewer.ui:268
 msgid "Find in book…"
 msgstr "在书籍中查找…"
 
-#: src/ui/book-viewer.ui:313
+#: src/ui/book-viewer.ui:306
 msgid "Contents"
 msgstr "目录"
 
-#: src/ui/book-viewer.ui:391
+#: src/ui/book-viewer.ui:379
 msgid "Annotations"
 msgstr "笔记"
 
-#: src/ui/book-viewer.ui:403
+#: src/ui/book-viewer.ui:391
 msgid "Select some text to add annotations"
 msgstr "选择一些文字来添加笔记"
 
-#: src/ui/book-viewer.ui:433
+#: src/ui/book-viewer.ui:421
 msgid "Filter annotations…"
 msgstr "筛选笔记…"
 
-#: src/ui/book-viewer.ui:447
+#: src/ui/book-viewer.ui:435
 msgid "Bookmarks"
 msgstr "书签"
 
-#: src/ui/book-viewer.ui:458
+#: src/ui/book-viewer.ui:446
 msgid "No Bookmarks"
 msgstr "无书签"
 
-#: src/ui/book-viewer.ui:459
+#: src/ui/book-viewer.ui:447
 msgid "Add some bookmarks to see them here"
 msgstr "添加一些书签来在这里查看它们"
 
-#: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
+#: src/ui/book-viewer.ui:486 src/ui/library-view.ui:42
 msgid "No Results Found"
 msgstr "未找到结果"
 
-#: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
+#: src/ui/book-viewer.ui:487 src/ui/library-view.ui:43
 msgid "Try a different search"
 msgstr "尝试不同的搜索"
 
-#: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
+#: src/ui/book-viewer.ui:530 src/ui/help-overlay.ui:59 src/ui/library.ui:102
+#: src/ui/library.ui:160
 msgid "Sidebar"
 msgstr "侧边栏"
 
-#: src/ui/book-viewer.ui:556
+#: src/ui/book-viewer.ui:544
 msgid "View Menu"
 msgstr "视图菜单"
 
-#: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
+#: src/ui/book-viewer.ui:557 src/ui/help-overlay.ui:110
+#: src/ui/image-viewer.ui:41
 msgid "Zoom Out"
 msgstr "缩小"
 
-#: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
+#: src/ui/book-viewer.ui:564 src/ui/help-overlay.ui:116
+#: src/ui/image-viewer.ui:48
 msgid "Reset Zoom"
 msgstr "重置缩放"
 
-#: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
+#: src/ui/book-viewer.ui:573 src/ui/help-overlay.ui:104
+#: src/ui/image-viewer.ui:55
 msgid "Zoom In"
 msgstr "放大"
 
-#: src/ui/book-viewer.ui:601
+#: src/ui/book-viewer.ui:589
 msgid "Follow System Style"
 msgstr "跟随系统样式"
 
-#: src/ui/book-viewer.ui:611
+#: src/ui/book-viewer.ui:599
 msgid "Light Style"
 msgstr "亮色样式"
 
-#: src/ui/book-viewer.ui:621
+#: src/ui/book-viewer.ui:609
 msgid "Dark Style"
 msgstr "暗色样式"
 
-#: src/ui/book-viewer.ui:636 src/ui/library.ui:26
+#: src/ui/book-viewer.ui:624 src/ui/library.ui:26
 msgid "Fullscreen"
 msgstr "全屏"
 
@@ -833,6 +981,159 @@ msgstr "Markdown"
 #: src/ui/export-dialog.ui:36
 msgid "Org Mode"
 msgstr "Org 模式"
+
+#: src/ui/help-overlay.ui:6
+#, fuzzy
+msgid "Navigation"
+msgstr "朗读"
+
+#: src/ui/help-overlay.ui:10
+#, fuzzy
+msgid "Previous Page"
+msgstr "上页"
+
+#: src/ui/help-overlay.ui:16
+#, fuzzy
+msgid "Next Page"
+msgstr "下页"
+
+#: src/ui/help-overlay.ui:22
+msgid "Go Left"
+msgstr ""
+
+#: src/ui/help-overlay.ui:28
+#, fuzzy
+msgid "Scroll Down"
+msgstr "滚动模式"
+
+#: src/ui/help-overlay.ui:34
+#, fuzzy
+msgid "Scroll Up"
+msgstr "滚动模式"
+
+#: src/ui/help-overlay.ui:40
+msgid "Go Right"
+msgstr ""
+
+#: src/ui/help-overlay.ui:46
+#, fuzzy
+msgid "Jump to Previous Location"
+msgstr "上一位置"
+
+#: src/ui/help-overlay.ui:52
+#, fuzzy
+msgid "Jump to Next Location"
+msgstr "下一页"
+
+#: src/ui/help-overlay.ui:63
+#, fuzzy
+msgid "Toggle Sidebar"
+msgstr "使用侧边栏"
+
+#: src/ui/help-overlay.ui:69
+msgid "Toggle Table of Contents"
+msgstr ""
+
+#: src/ui/help-overlay.ui:75
+#, fuzzy
+msgid "Toggle Annotations"
+msgstr "无笔记"
+
+#: src/ui/help-overlay.ui:81
+#, fuzzy
+msgid "Toggle Bookmarks"
+msgstr "无书签"
+
+#: src/ui/help-overlay.ui:87
+#, fuzzy
+msgid "Toggle Search"
+msgstr "使用侧边栏"
+
+#: src/ui/help-overlay.ui:94
+#, fuzzy
+msgid "View"
+msgstr "查看器"
+
+#: src/ui/help-overlay.ui:122
+#, fuzzy
+msgid "Toggle Fullscreen"
+msgstr "全屏"
+
+#: src/ui/help-overlay.ui:128
+#, fuzzy
+msgid "Toggle Scrolled Mode"
+msgstr "滚动模式"
+
+#: src/ui/help-overlay.ui:134
+#, fuzzy
+msgid "Show Current Location"
+msgstr "当前章节"
+
+#: src/ui/help-overlay.ui:140
+#, fuzzy
+msgid "Bookmark Current Location"
+msgstr "书签和笔记"
+
+#: src/ui/help-overlay.ui:147
+#, fuzzy
+msgid "In Search"
+msgstr "搜索"
+
+#: src/ui/help-overlay.ui:164
+#, fuzzy
+msgid "With Selection"
+msgstr "打印选区…"
+
+#: src/ui/help-overlay.ui:168
+#, fuzzy
+msgid "Selection Copy"
+msgstr "章节"
+
+#: src/ui/help-overlay.ui:174
+#, fuzzy
+msgid "Selection Search"
+msgstr "章节"
+
+#: src/ui/help-overlay.ui:181
+#, fuzzy
+msgid "Window"
+msgstr "新建窗口"
+
+#: src/ui/help-overlay.ui:185
+#, fuzzy
+msgid "Open File"
+msgstr "保存文件"
+
+#: src/ui/help-overlay.ui:197
+#, fuzzy
+msgid "Close Window"
+msgstr "新建窗口"
+
+#: src/ui/help-overlay.ui:203
+msgid "Quit"
+msgstr ""
+
+#: src/ui/help-overlay.ui:210
+msgid "General"
+msgstr ""
+
+#: src/ui/help-overlay.ui:214
+msgid "Show Book Information"
+msgstr ""
+
+#: src/ui/help-overlay.ui:220
+msgid "Show App Information"
+msgstr ""
+
+#: src/ui/help-overlay.ui:226
+#, fuzzy
+msgid "Open Menu"
+msgstr "主菜单"
+
+#: src/ui/help-overlay.ui:244
+#, fuzzy
+msgid "Print..."
+msgstr "打印…"
 
 #: src/ui/image-viewer.ui:6 src/ui/navbar.ui:302 src/ui/selection-popover.ui:7
 msgid "Copy"
@@ -1099,104 +1400,9 @@ msgstr "行为"
 msgid "Reduce Animation"
 msgstr "减少动画"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:5
-msgid "E-Book Viewer"
-msgstr "电子书查看器"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.github.johnfactotum.Foliate.desktop.in:14
-msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "Ebook;Book;EPUB;Viewer;Reader;电子书;图书;书籍;查看器;阅读器;"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
-msgid ""
-"Discover a new chapter in reading with Foliate, the modern e-book reader "
-"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
-"customization features designed to match your unique preferences."
-msgstr ""
-"使用 Foliate 这一为 GNOME 量身定做的现代电子书阅读器在阅读中发现新的篇章。通"
-"过设计为匹配您独特首选项的自定义特性，将您自己沉浸在无干扰的界面中。"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
-msgid "Features include:"
-msgstr "特性包括："
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
-msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
-msgstr "打开 EPUB、Mobipocket、Kindle、FB2、CBZ 和 PDF 文件"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
-msgid "Paginated mode and scrolled mode"
-msgstr "分页模式和滚动模式"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
-msgid "Customize font and line-spacing"
-msgstr "自定义字体和行间距"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
-msgid "Light, sepia, dark, and invert mode"
-msgstr "亮色、褐色、暗色和反转模式"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
-msgid "Reading progress slider with chapter marks"
-msgstr "带有章节标记的阅读进度滑动条"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
-msgid "Bookmarks and annotations"
-msgstr "书签和笔记"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
-msgid "Find in book"
-msgstr "书籍中查找"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
-msgid "Quick dictionary lookup"
-msgstr "快速的词典查询"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
-msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr "修复了章节以分页符起始时误判为章节末尾而截断内容的问题"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
-msgid "Fixed incorrect text wrapping in tables"
-msgstr "修复了表格中文本未正确折行的问题"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
-msgid "Fixed a performance issue with OPDS catalogs"
-msgstr "修复了 OPDS 书目的性能问题"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
-msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr "添加了对 OPDS 2.0 与 OPDS 书目的支持"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-msgid "Added option to override publisher font"
-msgstr "添加了覆盖出版商字体的选项"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
-msgid "Added option to reduce animation"
-msgstr "添加了减少动画的选项"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
-msgid "Added support for JPEG XL in CBZ"
-msgstr "添加了对 CBZ 中 JPEG XL 的支持"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
-msgid "Fixed getting file from Tracker in Flatpak"
-msgstr "修复了 Flatpak 中从 Tracker 获取文件的问题"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
-msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr "修复了对非纯年份公元一世纪和公元前日期的解析问题"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
-msgid ""
-"Foliate has been rewritten from scratch with a new e-book rendering library "
-"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
-"and improved performance."
-msgstr ""
-"Foliate 已从零重写，拥有新的电子书渲染库和最新的平台库、GTK 4 和 Libadwaita，"
-"带有重新设计的用户界面和性能提升。"
+#: src/utils.js:167
+msgid "Copied to clipboard"
+msgstr "已复制到剪贴板"
 
 #~ msgid "Book"
 #~ msgstr "书籍"
@@ -1210,9 +1416,6 @@ msgstr ""
 #~ msgid "Reader"
 #~ msgstr "阅读器"
 
-#~ msgid "Viewer"
-#~ msgstr "查看器"
-
 #~ msgid "John Factotum"
 #~ msgstr "John Factotum"
 
@@ -1223,9 +1426,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Go to Reference"
 #~ msgstr "偏好设置"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "快捷键"
 
 #~ msgid "Preferences"
 #~ msgstr "偏好设置"
@@ -1241,9 +1441,6 @@ msgstr ""
 #~ msgid "Voice"
 #~ msgstr "配音"
 
-#~ msgid "Save File"
-#~ msgstr "保存文件"
-
 #, fuzzy
 #~ msgid "Choose highlight style"
 #~ msgstr "更改高亮颜色"
@@ -1255,22 +1452,11 @@ msgstr ""
 #~ msgid "About this book"
 #~ msgstr "关于此书"
 
-#, fuzzy
-#~ msgid "Toggle sidebar"
-#~ msgstr "使用侧边栏"
-
 #~ msgid "Restore zoom"
 #~ msgstr "恢复默认缩放"
 
 #~ msgid "Go to previous page"
 #~ msgstr "上一页"
-
-#~ msgid "Go back to previous location"
-#~ msgstr "上一位置"
-
-#, fuzzy
-#~ msgid "Go to next section"
-#~ msgstr "下一页"
 
 #, fuzzy
 #~ msgid "Go to last section"

@@ -1,13 +1,13 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Dutch translations for the com.github.johnfactotum.Foliate package.
+# Copyright (C) 2019-2024 Foliate Contributors
 # This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Heimen Stoffels <vistausss@fastmail.com>, 2019-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 11:04+0800\n"
+"POT-Creation-Date: 2026-10-11 00:33+0100\n"
 "PO-Revision-Date: 2024-11-30 14:02+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -18,13 +18,159 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.2\n"
 
+#. Translators: Do NOT translate! This is the application name!
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:28
+msgid "Foliate"
+msgstr "Foliate"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:4
+msgid "E-Book Viewer"
+msgstr "E-boeklezer"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:5
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7 src/app.js:450
+msgid "Read e-books in style"
+msgstr ""
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.github.johnfactotum.Foliate.desktop.in:13
+msgid "books;ebooks;comics;catalogs;reader;ereader;reading;viewer;library;epub;mobi;kindle;fb2;cbz;pdf;opds;"
+msgstr "E-boek;Boek;Lezer;Bekijken;epub;mobi;kindle;fb2;cbz;pdf;opds;"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
+msgid ""
+"Discover a new chapter in reading with Foliate, the modern e-book reader "
+"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
+"customization features designed to match your unique preferences."
+msgstr ""
+"Ontdek een nieuwe manier van lezen met Foliate, dé moderne e-boeklezer voor "
+"GNOME. Er zijn geen afleidingen, maar wel een hoop instelmogelijkheden. Zo "
+"kunt u helemaal opgaan in het verhaal."
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
+msgid "Features include:"
+msgstr "Kenmerken:"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
+msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
+msgstr ""
+"Ondersteuning voor epub-, mobipocket-, Kindle, fb2-, cbz- en pdf-bestanden"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
+msgid "Paginated mode and scrolled mode"
+msgstr "Pagina- en oneindige modi"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
+msgid "Customize font and line-spacing"
+msgstr "Zet het lettertype en de regelhoogte naar eigen hand"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
+msgid "Light, sepia, dark, and invert mode"
+msgstr "Lichte, sepia, donkere en omgekeerdekleurenmodi"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
+msgid "Reading progress slider with chapter marks"
+msgstr "Leesvoortgangsbalk met hoofdstukmarkeringen"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
+msgid "Bookmarks and annotations"
+msgstr "Bladwijzers en aantekeningen"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
+msgid "Find in book"
+msgstr "Doorzoek boeken"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
+msgid "Quick dictionary lookup"
+msgstr "Zoek woorden op in het woordenboek"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
+msgid "Updated for GNOME 48"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
+msgid "Added support for mouse forward/backward buttons"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:58
+#, fuzzy
+msgid "Improved text wrapping in headings"
+msgstr "Opgelost: onjuiste tekstafbreking in tabellen"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:59
+msgid "Improved default link style"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
+msgid "Fixed tables not displayed in FB2 books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
+#, fuzzy
+msgid "Updated translations"
+msgstr "De vertaling kan niet worden opgehaald"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:75
+msgid ""
+"Various improvements and fixes, including a revamped translation tool, "
+"better focus handling, and better PDF rendering, now faster and no longer "
+"blurry."
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:82
+msgid "Fixed end of chapter cut off when chapter starts with page break"
+msgstr ""
+"Opgelost: einde van hoofdstuk werd afgebroken bij gebruik van pagina-eindes"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:83
+msgid "Fixed incorrect text wrapping in tables"
+msgstr "Opgelost: onjuiste tekstafbreking in tabellen"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:84
+msgid "Fixed a performance issue with OPDS catalogs"
+msgstr "Opgelost: prestatieproblemen met OPDS-catalogi"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:92
+msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
+msgstr "Nieuw: ondersteuning voor OPDS-catalogi vanaf OPDS 2.0"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:93
+msgid "Added option to override publisher font"
+msgstr "Nieuw: optie om een eigen lettertype af te dwingen"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:94
+msgid "Added option to reduce animation"
+msgstr "Nieuw: optie om bewegingen te verminderen"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:95
+msgid "Added support for JPEG XL in CBZ"
+msgstr "Nieuw: ondersteuning voor JPEG XL in CBZ-bestanden"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:96
+msgid "Fixed getting file from Tracker in Flatpak"
+msgstr "Opgelost: bestanden uit Flatpak ophalen met behulp van Tracker"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:97
+msgid "Fixed parsing of non-year-only first-century and BCE dates"
+msgstr "Opgelost: verwerken van diverse datums"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:107
+msgid ""
+"Foliate has been rewritten from scratch with a new e-book rendering library "
+"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
+"and improved performance."
+msgstr ""
+"Nieuw: Foliate is volledig opnieuw ontworpen en maakt voortaan gebruik van "
+"een nieuwe e-boekbibliotheek, GTK 4 en Libadwaita. Ook is de vormgeving "
+"opgepoetst en zijn de prestaties verbeterd."
+
 #: src/annotations.js:137 src/annotations.js:172
 #, fuzzy
 msgid "Bookmark deleted"
 msgstr "Bladwijzers"
 
-#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:805
-#: src/library.js:865
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:872
+#: src/library.js:867
 msgid "Undo"
 msgstr ""
 
@@ -80,11 +226,11 @@ msgstr "Eigen thema"
 msgid "JSON Files"
 msgstr "Alle bestanden"
 
-#: src/annotations.js:597 src/app.js:149
+#: src/annotations.js:597 src/app.js:65
 msgid "All Files"
 msgstr "Alle bestanden"
 
-#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:402
+#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:390
 #, fuzzy
 msgid "No Annotations"
 msgstr "Aantekeningen"
@@ -98,7 +244,7 @@ msgstr ""
 msgid "Cannot Import Annotations"
 msgstr "Aantekeningen importeren…"
 
-#: src/annotations.js:626 src/book-viewer.js:716 src/library.js:644
+#: src/annotations.js:626 src/book-viewer.js:785 src/library.js:646
 #, fuzzy
 msgid "An error occurred"
 msgstr "Er is een fout opgetreden."
@@ -119,32 +265,46 @@ msgid_plural "%d Annotations"
 msgstr[0] "Aantekeningen"
 msgstr[1] "Aantekeningen"
 
-#: src/app.js:95 src/book-viewer.js:30
-msgid "Close"
-msgstr ""
-
-#: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
-#: src/ui/import-dialog.ui:15
-msgid "Cancel"
-msgstr ""
-
-#: src/app.js:136
+#: src/app.js:52
 #, fuzzy
 msgid "E-Book Files"
 msgstr "E-boekbestanden"
 
-#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
-msgid "Read e-books in style"
+#: src/app.js:135 src/book-viewer.js:30
+msgid "Close"
 msgstr ""
 
-#. Translators: put your names here, one name per line
-#. they will be shown in the "About" dialog
-#: src/app.js:405
+#: src/app.js:152 src/library.js:50 src/library.js:443
+#: src/ui/export-dialog.ui:11 src/ui/import-dialog.ui:15
+msgid "Cancel"
+msgstr ""
+
+#: src/app.js:197
+#, fuzzy, javascript-format
+msgid "Failed to import %d book"
+msgid_plural "Failed to import %d books"
+msgstr[0] "Het laden is mislukt"
+msgstr[1] "Het laden is mislukt"
+
+#: src/app.js:204
+#, javascript-format
+msgid "Imported %d book"
+msgid_plural "Imported %d books"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/app.js:210
+msgid "Could not import books"
+msgstr ""
+
+#. Translators: To be credited in the "About" dialog, put your
+#. name(s) here, optionally followed by an <email> or a URL.
+#. One translator per line.
+#: src/app.js:457
 msgid "translator-credits"
 msgstr "Heimen Stoffels <vistausss@fastmail.com>"
 
-#: src/app.js:414
+#: src/app.js:464
 msgid "Source Code"
 msgstr "Broncode"
 
@@ -152,12 +312,12 @@ msgstr "Broncode"
 msgid "Publisher"
 msgstr "Uitgever"
 
-#. Translators: this is the heading for the publication date
+#. Translators: This is the heading for the publication date.
 #: src/book-info.js:135 src/library.js:76
 msgid "Published"
 msgstr "Gepubliceerd op"
 
-#. Translators: this is the heading for the modified date
+#. Translators: This is the heading for the modified date.
 #: src/book-info.js:137
 msgid "Updated"
 msgstr "Bijgewerkt op"
@@ -203,7 +363,7 @@ msgid "Identifier"
 msgstr "Identificatie"
 
 #: src/book-info.js:179 src/ui/book-item.ui:15 src/ui/book-row.ui:15
-#: src/ui/book-viewer.ui:368
+#: src/ui/book-viewer.ui:356
 msgid "About This Book"
 msgstr "Over dit boek"
 
@@ -262,27 +422,27 @@ msgstr "Bibliografie"
 msgid "Go to Bibliography"
 msgstr "Ga naar bibliografie"
 
-#: src/book-viewer.js:622
+#: src/book-viewer.js:690
 msgid "Remove bookmark"
 msgstr "Bladwijzer verwijderen"
 
-#: src/book-viewer.js:623
+#: src/book-viewer.js:691
 msgid "Add bookmark"
 msgstr "Bladwijzer toevoegen"
 
-#: src/book-viewer.js:714
+#: src/book-viewer.js:783
 msgid "File not found"
 msgstr "Bestand niet aangetroffen"
 
-#: src/book-viewer.js:715
+#: src/book-viewer.js:784
 msgid "File type not supported"
 msgstr "Bestandstype niet ondersteund"
 
-#: src/book-viewer.js:804
+#: src/book-viewer.js:871
 msgid "Annotation deleted"
 msgstr "Aantekening verwijderd"
 
-#: src/book-viewer.js:877
+#: src/book-viewer.js:944
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -291,7 +451,7 @@ msgstr ""
 "‘%s’\n"
 "—%s, “%s”, p. %s"
 
-#: src/book-viewer.js:879
+#: src/book-viewer.js:946
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -300,12 +460,12 @@ msgstr ""
 "‘%s’\n"
 "—“%s”, p. %s"
 
-#: src/book-viewer.js:880
+#: src/book-viewer.js:947
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr "‘%s’ (p. %s)"
 
-#: src/book-viewer.js:883
+#: src/book-viewer.js:950
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -314,7 +474,7 @@ msgstr ""
 "‘%s’\n"
 "—%s, “%s”"
 
-#: src/book-viewer.js:885
+#: src/book-viewer.js:952
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -323,17 +483,17 @@ msgstr ""
 "‘%s’\n"
 "—“%s”"
 
-#: src/book-viewer.js:886
+#: src/book-viewer.js:953
 #, javascript-format
 msgid "‘%s’"
 msgstr "‘%s’"
 
-#: src/book-viewer.js:904
+#: src/book-viewer.js:971
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Afbeelding van ‘%s’"
 
-#: src/book-viewer.js:904
+#: src/book-viewer.js:971
 msgid "Image"
 msgstr "Afbeelding"
 
@@ -350,7 +510,7 @@ msgstr "Bezig met laden…"
 msgid "Failed to Load"
 msgstr "Het laden is mislukt"
 
-#: src/library.js:49 src/ui/book-viewer.ui:15
+#: src/library.js:49 src/ui/book-viewer.ui:15 src/ui/help-overlay.ui:98
 msgid "Reload"
 msgstr "Herladen"
 
@@ -398,11 +558,13 @@ msgstr "Gratis"
 msgid "First"
 msgstr "Eerste"
 
-#: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
+#: src/library.js:66 src/ui/help-overlay.ui:151 src/ui/navbar.ui:8
+#: src/ui/tts-box.ui:115
 msgid "Previous"
 msgstr "Vorige"
 
-#: src/library.js:67 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
+#: src/library.js:67 src/ui/help-overlay.ui:157 src/ui/navbar.ui:124
+#: src/ui/tts-box.ui:132
 msgid "Next"
 msgstr "Volgende"
 
@@ -426,109 +588,98 @@ msgstr "Auteur"
 msgid "Contributor"
 msgstr "Bijdrager"
 
-#: src/library.js:438
+#: src/library.js:440
 msgid "Remove Book?"
 msgstr "Boek verwijderen?"
 
-#: src/library.js:439
+#: src/library.js:441
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr ""
 "De leesvoortgang, aantekeningen en bladwijzers worden eveneens verwijderd"
 
-#: src/library.js:441
-msgid "_Cancel"
-msgstr "_Annuleren"
-
-#: src/library.js:442
-msgid "_Remove"
-msgstr "Ve_rwijderen"
-
-#: src/library.js:472
-msgid "Failed to Open"
-msgstr "Het openen is mislukt"
-
-#: src/library.js:473
-msgid "Could not open the file with the selected application"
-msgstr "Het bestand kan niet worden geopend met de gekozen toepassing"
-
-#: src/library.js:644
-msgid "Download Failed"
-msgstr "Het downloaden is mislukt"
-
-#: src/library.js:698
-msgid "Rename…"
-msgstr "Naam wijzigen…"
-
-#: src/library.js:699 src/ui/book-item.ui:25 src/ui/book-row.ui:25
+#: src/library.js:444 src/library.js:701 src/ui/book-item.ui:25
+#: src/ui/book-row.ui:25
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: src/library.js:719 src/library.js:720
+#: src/library.js:474
+msgid "Failed to Open"
+msgstr "Het openen is mislukt"
+
+#: src/library.js:475
+msgid "Could not open the file with the selected application"
+msgstr "Het bestand kan niet worden geopend met de gekozen toepassing"
+
+#: src/library.js:646
+msgid "Download Failed"
+msgstr "Het downloaden is mislukt"
+
+#: src/library.js:700
+msgid "Rename…"
+msgstr "Naam wijzigen…"
+
+#: src/library.js:721 src/library.js:722
 msgid "Rename"
 msgstr "Naam wijzigen"
 
-#: src/library.js:725
+#: src/library.js:727
 msgid "Name"
 msgstr "Naam"
 
-#: src/library.js:740
+#: src/library.js:742
 msgid "All Books"
 msgstr "Alle boeken"
 
-#: src/library.js:746
+#: src/library.js:748
 msgid "Add Catalog…"
 msgstr "Catalogus toevoegen…"
 
-#: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/library.js:815 src/ui/book-viewer.ui:128 src/ui/book-viewer.ui:231
 #: src/ui/library.ui:93
 msgid "Library"
 msgstr "Bibliotheek"
 
-#: src/library.js:821
+#: src/library.js:823
 msgid "Catalogs"
 msgstr "Catalogi"
 
-#: src/library.js:864
+#: src/library.js:866
 msgid "Catalog removed"
 msgstr "De catalogus is verwijderd"
 
-#: src/library.js:951 src/library.js:956
+#: src/library.js:954 src/library.js:959
 msgid "Add Catalog"
 msgstr "Catalogus toevoegen"
 
-#: src/library.js:952
+#: src/library.js:955
 msgid "Add"
 msgstr "Toevoegen"
 
-#: src/library.js:957
+#: src/library.js:960
+#, javascript-format
 msgid ""
-"You can browse and download books from OPDS catalogs. <a href=\"https://opds."
-"io\">Learn More…</a>"
+"You can browse and download books from OPDS catalogs. <a href=\"%s\">Learn "
+"More…</a>"
 msgstr ""
-"U kunt boeken inkijken en downloaden uit OPDS-catalogi. <a href=\"https://"
-"opds.io\">Meer informatie…</a>"
+"U kunt boeken inkijken en downloaden uit OPDS-catalogi. <a href=\"%s\">Meer "
+"informatie…</a>"
 
-#: src/library.js:961
+#: src/library.js:964
 msgid "URL"
 msgstr "Url"
-
-#. Translators: Do NOT translate! The is the application name!
-#: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
-msgid "Foliate"
-msgstr "Foliate"
 
 #: src/selection-tools.js:33
 msgid "Dictionary"
 msgstr "Woordenboek"
 
 #: src/selection-tools.js:37
+#, javascript-format
 msgid ""
-"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"https://"
-"creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
+"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"%s\">CC BY-"
+"SA License</a>."
 msgstr ""
 "Afkomstig van <a id=\"link\">Wiktionary</a>, uitgebracht onder de <a "
-"href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA-licentie</"
-"a>."
+"href=\"%s\">CC BY-SA-licentie</a>."
 
 #: src/selection-tools.js:38 src/selection-tools.js:51
 msgid "No Definitions Found"
@@ -543,15 +694,13 @@ msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: src/selection-tools.js:50
+#, javascript-format
 msgid ""
-"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://en."
-"wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
-"ShareAlike_4.0_International_License\">CC BY-SA License</a>."
+"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"%s\">CC BY-"
+"SA License</a>."
 msgstr ""
 "Afkomstig van <a id=\"link\">Wikipedia</a>, uitgebracht onder de <a "
-"href=\"https://en.wikipedia.org/wiki/Wikipedia:"
-"Text_of_the_Creative_Commons_Attribution-"
-"ShareAlike_4.0_International_License\">CC BY-SA-licentie</a>."
+"href=\"%s\">CC BY-SA-licentie</a>."
 
 #: src/selection-tools.js:52
 msgid "Search on Wikipedia"
@@ -617,10 +766,6 @@ msgstr "Voorleesfout"
 msgid "Make sure Speech Dispatcher is installed and working on your system"
 msgstr "Zorg dat Speech Dispatcher geïnstalleerd en ingesteld is"
 
-#: src/utils.js:168
-msgid "Copied to clipboard"
-msgstr "Gekopieerd naar het klembord"
-
 #: src/ui/annotation-popover.ui:13
 msgid "Highlight Style"
 msgstr "Markeerstijl"
@@ -655,7 +800,7 @@ msgstr "Aantekeningen exporteren…"
 msgid "New Window"
 msgstr "Nieuw venster"
 
-#: src/ui/book-viewer.ui:11
+#: src/ui/book-viewer.ui:11 src/ui/help-overlay.ui:191
 msgid "Open a Copy"
 msgstr "Kopie openen"
 
@@ -663,151 +808,159 @@ msgstr "Kopie openen"
 msgid "Import Annotations…"
 msgstr "Aantekeningen importeren…"
 
-#: src/ui/book-viewer.ui:37 src/ui/library.ui:42
+#: src/ui/book-viewer.ui:31 src/ui/help-overlay.ui:238
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
+
+#: src/ui/book-viewer.ui:35 src/ui/library.ui:42
 msgid "About Foliate"
 msgstr "Over Foliate"
 
-#: src/ui/book-viewer.ui:45
+#: src/ui/book-viewer.ui:43
 msgid "All Sections"
 msgstr "Alle secties"
 
-#: src/ui/book-viewer.ui:50
+#: src/ui/book-viewer.ui:48
 msgid "Current Section"
 msgstr "Huidige sectie"
 
-#: src/ui/book-viewer.ui:57
+#: src/ui/book-viewer.ui:55
 msgid "Match Whole Words Only"
 msgstr "Alleen gehele woorden"
 
-#: src/ui/book-viewer.ui:61
+#: src/ui/book-viewer.ui:59
 msgid "Match Case"
 msgstr "Hoofdlettergevoelig"
 
-#: src/ui/book-viewer.ui:65
+#: src/ui/book-viewer.ui:63
 msgid "Match Diacritics"
 msgstr "Diakritische tekens"
 
-#: src/ui/book-viewer.ui:83
+#: src/ui/book-viewer.ui:81 src/ui/help-overlay.ui:232
 msgid "Font & Layout Settings"
 msgstr "Lettertype- en indelingsvoorkeuren"
 
-#: src/ui/book-viewer.ui:89
+#: src/ui/book-viewer.ui:87
 msgid "Scrolled Mode"
 msgstr "Oneindige modus"
 
-#: src/ui/book-viewer.ui:93
+#: src/ui/book-viewer.ui:91
 msgid "Invert Colors in Dark Mode"
 msgstr "Kleuren in donkere modus omdraaien"
 
-#: src/ui/book-viewer.ui:97
+#: src/ui/book-viewer.ui:95
 msgid "Autohide Cursor"
 msgstr "Cursor automatisch verbergen"
 
-#: src/ui/book-viewer.ui:103
+#: src/ui/book-viewer.ui:101
 msgid "Print…"
 msgstr "Afdrukken…"
 
-#: src/ui/book-viewer.ui:107
+#: src/ui/book-viewer.ui:105 src/ui/help-overlay.ui:250
 msgid "Inspector"
 msgstr "Inspectie"
 
-#: src/ui/book-viewer.ui:167
+#: src/ui/book-viewer.ui:159
 msgid "Book Cannot Be Opened"
 msgstr "Het boek kan niet worden geopend"
 
-#: src/ui/book-viewer.ui:177
+#: src/ui/book-viewer.ui:169
 msgid "Details"
 msgstr "Details"
 
-#: src/ui/book-viewer.ui:193
+#: src/ui/book-viewer.ui:185
 msgid "Open Another File…"
 msgstr "Ander bestand openen…"
 
-#: src/ui/book-viewer.ui:245
+#: src/ui/book-viewer.ui:237
 msgid "Pin Sidebar"
 msgstr "Zijbalk vastmaken"
 
-#: src/ui/book-viewer.ui:253
+#: src/ui/book-viewer.ui:245
 msgid "Book Menu"
 msgstr "Boekmenu"
 
-#: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
+#: src/ui/book-viewer.ui:252 src/ui/selection-popover.ui:17
 msgid "Find"
 msgstr "Zoeken"
 
-#: src/ui/book-viewer.ui:276
+#: src/ui/book-viewer.ui:268
 msgid "Find in book…"
 msgstr "Boek doorzoeken…"
 
-#: src/ui/book-viewer.ui:313
+#: src/ui/book-viewer.ui:306
 msgid "Contents"
 msgstr "Inhoud"
 
-#: src/ui/book-viewer.ui:391
+#: src/ui/book-viewer.ui:379
 msgid "Annotations"
 msgstr "Aantekeningen"
 
-#: src/ui/book-viewer.ui:403
+#: src/ui/book-viewer.ui:391
 msgid "Select some text to add annotations"
 msgstr "Selecteer tekst om aantekeningen van te maken"
 
-#: src/ui/book-viewer.ui:433
+#: src/ui/book-viewer.ui:421
 msgid "Filter annotations…"
 msgstr "Aantekeningen doorzoeken…"
 
-#: src/ui/book-viewer.ui:447
+#: src/ui/book-viewer.ui:435
 msgid "Bookmarks"
 msgstr "Bladwijzers"
 
-#: src/ui/book-viewer.ui:458
+#: src/ui/book-viewer.ui:446
 msgid "No Bookmarks"
 msgstr "Er zijn geen bladwijzers"
 
-#: src/ui/book-viewer.ui:459
+#: src/ui/book-viewer.ui:447
 msgid "Add some bookmarks to see them here"
 msgstr "Voeg bladwijzers toe om ze hier te tonen"
 
-#: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
+#: src/ui/book-viewer.ui:486 src/ui/library-view.ui:42
 msgid "No Results Found"
 msgstr "Er zĳn geen zoekresultaten"
 
-#: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
+#: src/ui/book-viewer.ui:487 src/ui/library-view.ui:43
 msgid "Try a different search"
 msgstr "Probeer een andere zoekopdracht"
 
-#: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
+#: src/ui/book-viewer.ui:530 src/ui/help-overlay.ui:59 src/ui/library.ui:102
+#: src/ui/library.ui:160
 msgid "Sidebar"
 msgstr "Zĳbalk"
 
-#: src/ui/book-viewer.ui:556
+#: src/ui/book-viewer.ui:544
 msgid "View Menu"
 msgstr "Weergavemenu"
 
-#: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
+#: src/ui/book-viewer.ui:557 src/ui/help-overlay.ui:110
+#: src/ui/image-viewer.ui:41
 msgid "Zoom Out"
 msgstr "Uitzoomen"
 
-#: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
+#: src/ui/book-viewer.ui:564 src/ui/help-overlay.ui:116
+#: src/ui/image-viewer.ui:48
 msgid "Reset Zoom"
 msgstr "Oorspronkelijk zoomniveau"
 
-#: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
+#: src/ui/book-viewer.ui:573 src/ui/help-overlay.ui:104
+#: src/ui/image-viewer.ui:55
 msgid "Zoom In"
 msgstr "Inzoomen"
 
-#: src/ui/book-viewer.ui:601
+#: src/ui/book-viewer.ui:589
 msgid "Follow System Style"
 msgstr "Systeemthema"
 
-#: src/ui/book-viewer.ui:611
+#: src/ui/book-viewer.ui:599
 msgid "Light Style"
 msgstr "Licht thema"
 
-#: src/ui/book-viewer.ui:621
+#: src/ui/book-viewer.ui:609
 msgid "Dark Style"
 msgstr "Donker thema"
 
-#: src/ui/book-viewer.ui:636 src/ui/library.ui:26
+#: src/ui/book-viewer.ui:624 src/ui/library.ui:26
 msgid "Fullscreen"
 msgstr "Schermvullend"
 
@@ -844,6 +997,159 @@ msgstr "Markdown"
 #: src/ui/export-dialog.ui:36
 msgid "Org Mode"
 msgstr "Org.modus"
+
+#: src/ui/help-overlay.ui:6
+#, fuzzy
+msgid "Navigation"
+msgstr "Ingesproken door"
+
+#: src/ui/help-overlay.ui:10
+#, fuzzy
+msgid "Previous Page"
+msgstr "Vorige"
+
+#: src/ui/help-overlay.ui:16
+#, fuzzy
+msgid "Next Page"
+msgstr "Volgende"
+
+#: src/ui/help-overlay.ui:22
+msgid "Go Left"
+msgstr ""
+
+#: src/ui/help-overlay.ui:28
+#, fuzzy
+msgid "Scroll Down"
+msgstr "Oneindige modus"
+
+#: src/ui/help-overlay.ui:34
+#, fuzzy
+msgid "Scroll Up"
+msgstr "Oneindige modus"
+
+#: src/ui/help-overlay.ui:40
+msgid "Go Right"
+msgstr ""
+
+#: src/ui/help-overlay.ui:46
+#, fuzzy
+msgid "Jump to Previous Location"
+msgstr "Ga terug naar de vorige locatie"
+
+#: src/ui/help-overlay.ui:52
+#, fuzzy
+msgid "Jump to Next Location"
+msgstr "Ga naar de volgende pagina"
+
+#: src/ui/help-overlay.ui:63
+#, fuzzy
+msgid "Toggle Sidebar"
+msgstr "Zijbalk tonen"
+
+#: src/ui/help-overlay.ui:69
+msgid "Toggle Table of Contents"
+msgstr ""
+
+#: src/ui/help-overlay.ui:75
+#, fuzzy
+msgid "Toggle Annotations"
+msgstr "Aantekeningen"
+
+#: src/ui/help-overlay.ui:81
+#, fuzzy
+msgid "Toggle Bookmarks"
+msgstr "Er zijn geen bladwijzers"
+
+#: src/ui/help-overlay.ui:87
+#, fuzzy
+msgid "Toggle Search"
+msgstr "Zijbalk tonen"
+
+#: src/ui/help-overlay.ui:94
+#, fuzzy
+msgid "View"
+msgstr "Menu"
+
+#: src/ui/help-overlay.ui:122
+#, fuzzy
+msgid "Toggle Fullscreen"
+msgstr "Schermvullend"
+
+#: src/ui/help-overlay.ui:128
+#, fuzzy
+msgid "Toggle Scrolled Mode"
+msgstr "Oneindige modus"
+
+#: src/ui/help-overlay.ui:134
+#, fuzzy
+msgid "Show Current Location"
+msgstr "Huidige sectie"
+
+#: src/ui/help-overlay.ui:140
+#, fuzzy
+msgid "Bookmark Current Location"
+msgstr "Bladwijzers en aantekeningen"
+
+#: src/ui/help-overlay.ui:147
+#, fuzzy
+msgid "In Search"
+msgstr "Zoeken"
+
+#: src/ui/help-overlay.ui:164
+#, fuzzy
+msgid "With Selection"
+msgstr "Selectie afdrukken…"
+
+#: src/ui/help-overlay.ui:168
+#, fuzzy
+msgid "Selection Copy"
+msgstr "Sectie"
+
+#: src/ui/help-overlay.ui:174
+#, fuzzy
+msgid "Selection Search"
+msgstr "Sectie"
+
+#: src/ui/help-overlay.ui:181
+#, fuzzy
+msgid "Window"
+msgstr "Nieuw venster"
+
+#: src/ui/help-overlay.ui:185
+#, fuzzy
+msgid "Open File"
+msgstr "Bestand opslaan"
+
+#: src/ui/help-overlay.ui:197
+#, fuzzy
+msgid "Close Window"
+msgstr "Nieuw venster"
+
+#: src/ui/help-overlay.ui:203
+msgid "Quit"
+msgstr ""
+
+#: src/ui/help-overlay.ui:210
+msgid "General"
+msgstr ""
+
+#: src/ui/help-overlay.ui:214
+msgid "Show Book Information"
+msgstr ""
+
+#: src/ui/help-overlay.ui:220
+msgid "Show App Information"
+msgstr ""
+
+#: src/ui/help-overlay.ui:226
+#, fuzzy
+msgid "Open Menu"
+msgstr "Hoofdmenu"
+
+#: src/ui/help-overlay.ui:244
+#, fuzzy
+msgid "Print..."
+msgstr "Afdrukken…"
 
 #: src/ui/image-viewer.ui:6 src/ui/navbar.ui:302 src/ui/selection-popover.ui:7
 msgid "Copy"
@@ -1113,115 +1419,12 @@ msgstr "Gedrag"
 msgid "Reduce Animation"
 msgstr "Bewegingen verminderen"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:5
-msgid "E-Book Viewer"
-msgstr "E-boeklezer"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.github.johnfactotum.Foliate.desktop.in:14
-msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "E-boek;Boek;EPUB;Lezer;Bekijken;"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
-msgid ""
-"Discover a new chapter in reading with Foliate, the modern e-book reader "
-"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
-"customization features designed to match your unique preferences."
-msgstr ""
-"Ontdek een nieuwe manier van lezen met Foliate, dé moderne e-boeklezer voor "
-"GNOME. Er zijn geen afleidingen, maar wel een hoop instelmogelijkheden. Zo "
-"kunt u helemaal opgaan in het verhaal."
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
-msgid "Features include:"
-msgstr "Kenmerken:"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
-msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
-msgstr ""
-"Ondersteuning voor epub-, mobipocket-, Kindle, fb2-, cbz- en pdf-bestanden"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
-msgid "Paginated mode and scrolled mode"
-msgstr "Pagina- en oneindige modi"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
-msgid "Customize font and line-spacing"
-msgstr "Zet het lettertype en de regelhoogte naar eigen hand"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
-msgid "Light, sepia, dark, and invert mode"
-msgstr "Lichte, sepia, donkere en omgekeerdekleurenmodi"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
-msgid "Reading progress slider with chapter marks"
-msgstr "Leesvoortgangsbalk met hoofdstukmarkeringen"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
-msgid "Bookmarks and annotations"
-msgstr "Bladwijzers en aantekeningen"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
-msgid "Find in book"
-msgstr "Doorzoek boeken"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
-msgid "Quick dictionary lookup"
-msgstr "Zoek woorden op in het woordenboek"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
-msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr ""
-"Opgelost: einde van hoofdstuk werd afgebroken bij gebruik van pagina-eindes"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
-msgid "Fixed incorrect text wrapping in tables"
-msgstr "Opgelost: onjuiste tekstafbreking in tabellen"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
-msgid "Fixed a performance issue with OPDS catalogs"
-msgstr "Opgelost: prestatieproblemen met OPDS-catalogi"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
-msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr "Nieuw: ondersteuning voor OPDS-catalogi vanaf OPDS 2.0"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-msgid "Added option to override publisher font"
-msgstr "Nieuw: optie om een eigen lettertype af te dwingen"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
-msgid "Added option to reduce animation"
-msgstr "Nieuw: optie om bewegingen te verminderen"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
-msgid "Added support for JPEG XL in CBZ"
-msgstr "Nieuw: ondersteuning voor JPEG XL in CBZ-bestanden"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
-msgid "Fixed getting file from Tracker in Flatpak"
-msgstr "Opgelost: bestanden uit Flatpak ophalen met behulp van Tracker"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
-msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr "Opgelost: verwerken van diverse datums"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
-msgid ""
-"Foliate has been rewritten from scratch with a new e-book rendering library "
-"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
-"and improved performance."
-msgstr ""
-"Nieuw: Foliate is volledig opnieuw ontworpen en maakt voortaan gebruik van "
-"een nieuwe e-boekbibliotheek, GTK4 en Libadwaita. Ook is de vormgeving "
-"opgepoetst en zijn de prestaties verbeterd."
+#: src/utils.js:167
+msgid "Copied to clipboard"
+msgstr "Gekopieerd naar het klembord"
 
 #, fuzzy
 #~ msgid "Book"
-#~ msgstr "Menu"
-
-#, fuzzy
-#~ msgid "Viewer"
 #~ msgstr "Menu"
 
 #~ msgid "John Factotum"
@@ -1234,9 +1437,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Go to Reference"
 #~ msgstr "Voorkeuren"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Sneltoetsen"
 
 #~ msgid "Preferences"
 #~ msgstr "Voorkeuren"
@@ -1252,9 +1452,6 @@ msgstr ""
 #~ msgid "Voice"
 #~ msgstr "Stemacteur"
 
-#~ msgid "Save File"
-#~ msgstr "Bestand opslaan"
-
 #, fuzzy
 #~ msgid "Choose highlight style"
 #~ msgstr "Markeerkleur wijzigen"
@@ -1266,22 +1463,11 @@ msgstr ""
 #~ msgid "About this book"
 #~ msgstr "Over dit boek"
 
-#, fuzzy
-#~ msgid "Toggle sidebar"
-#~ msgstr "Zijbalk tonen"
-
 #~ msgid "Restore zoom"
 #~ msgstr "Oorspronkelijk zoomniveau"
 
 #~ msgid "Go to previous page"
 #~ msgstr "Ga naar de vorige pagina"
-
-#~ msgid "Go back to previous location"
-#~ msgstr "Ga terug naar de vorige locatie"
-
-#, fuzzy
-#~ msgid "Go to next section"
-#~ msgstr "Ga naar de volgende pagina"
 
 #, fuzzy
 #~ msgid "Go to last section"

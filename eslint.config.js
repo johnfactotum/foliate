@@ -7,6 +7,7 @@ export default [js.configs.recommended, { ignores: ['src/foliate-js'] }, {
             ...globals.browser,
             imports: 'readonly',
             pkg: 'readonly',
+            Intl: 'readonly',
         },
     },
     linterOptions: {

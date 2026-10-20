@@ -1,6 +1,6 @@
-# Ukrainian translation for Foliate.
-# Copyright (C) 2020-2025 THE Foliate'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Ukrainian translations for the com.github.johnfactotum.Foliate package.
+# Copyright (C) 2020-2025 Foliate Contributors
+# This file is distributed under the same license as the com.github.johnfactotum.Foliate package.
 # Danylo Korostil <ted.korostiled@gmail.com>, 2020.
 # Anton Isachenko <antonyua23@gmail.com>, 2020.
 # volkov <volkovissocool@gmail.com>, 2023.
@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.johnfactotum.Foliate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 11:04+0800\n"
+"POT-Creation-Date: 2026-10-11 00:33+0100\n"
 "PO-Revision-Date: 2025-07-05 11:23+0300\n"
 "Last-Translator: freeducks-debug <209897795+freeducks-"
 "debug@users.noreply.github.com>\n"
@@ -23,12 +23,158 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.6\n"
 
+#. Translators: Do NOT translate! This is the application name!
+#: data/com.github.johnfactotum.Foliate.desktop.in:3 src/main.js:28
+msgid "Foliate"
+msgstr "Foliate"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:4
+msgid "E-Book Viewer"
+msgstr "Переглядач електронних книг"
+
+#: data/com.github.johnfactotum.Foliate.desktop.in:5
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7 src/app.js:450
+msgid "Read e-books in style"
+msgstr "Читайте електронні книги у стилі"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.github.johnfactotum.Foliate.desktop.in:13
+msgid "books;ebooks;comics;catalogs;reader;ereader;reading;viewer;library;epub;mobi;kindle;fb2;cbz;pdf;opds;"
+msgstr "books;ebooks;comics;catalogs;reader;ereader;reading;viewer;library;epub;mobi;kindle;fb2;cbz;pdf;opds;книга;переглядач;читач;документ;електронна;читалка;пдф;єпаб;епаб;"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
+msgid ""
+"Discover a new chapter in reading with Foliate, the modern e-book reader "
+"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
+"customization features designed to match your unique preferences."
+msgstr ""
+"Досліджуйте новий розділ читаючи з Foliate - сучасною читалкою електронних "
+"книг адаптованою для GNOME. Заглибтеся у читання з не відволікаючим "
+"інтерфейсом з налаштуваннями функцій під ваші особисті уподобання."
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
+msgid "Features include:"
+msgstr "Можливості:"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
+msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
+msgstr "Вміє відкривати EPUB, Mobipocket, Kindle, FB2, CBZ, та PDF файли"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
+msgid "Paginated mode and scrolled mode"
+msgstr "Посторінковий і режим гортання"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
+msgid "Customize font and line-spacing"
+msgstr "Налаштування шрифтів та міжстрочний інтервал"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
+msgid "Light, sepia, dark, and invert mode"
+msgstr "Світлий, сепія, темний та інвертовані стилі"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
+msgid "Reading progress slider with chapter marks"
+msgstr "Прогрес читання з підтримкою закладок"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
+msgid "Bookmarks and annotations"
+msgstr "Примітки та нотатки"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
+msgid "Find in book"
+msgstr "Пошук в книзі"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
+msgid "Quick dictionary lookup"
+msgstr "Швидкий пошук у словнику"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
+msgid "Updated for GNOME 48"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
+msgid "Added support for mouse forward/backward buttons"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:58
+#, fuzzy
+msgid "Improved text wrapping in headings"
+msgstr "Виправлена не коректний перенос тексту у таблицях"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:59
+msgid "Improved default link style"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
+msgid "Fixed tables not displayed in FB2 books"
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
+#, fuzzy
+msgid "Updated translations"
+msgstr "Не вдалося отримати переклад"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:75
+msgid ""
+"Various improvements and fixes, including a revamped translation tool, "
+"better focus handling, and better PDF rendering, now faster and no longer "
+"blurry."
+msgstr ""
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:82
+msgid "Fixed end of chapter cut off when chapter starts with page break"
+msgstr ""
+"Виправлено помилку, коли коли остання частина розділу була відрізана, якщо "
+"розділ починається з розриву сторінки"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:83
+msgid "Fixed incorrect text wrapping in tables"
+msgstr "Виправлена не коректний перенос тексту у таблицях"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:84
+msgid "Fixed a performance issue with OPDS catalogs"
+msgstr "Виправлені проблеми з швидкодією OPDS каталогів"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:92
+msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
+msgstr "Додана підтримка OPDS каталогів, а також підтримка OPDS 2.0"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:93
+msgid "Added option to override publisher font"
+msgstr "Додана опція, щоб замінити шрифти видавця"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:94
+msgid "Added option to reduce animation"
+msgstr "Додана опція для зменшення кількості анімацій"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:95
+msgid "Added support for JPEG XL in CBZ"
+msgstr "Додана підтримка JPEG XL зображень у CBZ архівах"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:96
+msgid "Fixed getting file from Tracker in Flatpak"
+msgstr "Виправлено отримання файлів із трекеру у Flatpak версії додатку"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:97
+msgid "Fixed parsing of non-year-only first-century and BCE dates"
+msgstr "Виправлені отримання дат із файлів"
+
+#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:107
+msgid ""
+"Foliate has been rewritten from scratch with a new e-book rendering library "
+"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
+"and improved performance."
+msgstr ""
+"Foliate був переписаний з нуля з використанням нової бібліотеки рендеру "
+"електронних книг і найновіших бібліотек платформи, такі як GTK 4 та "
+"Libadwaita з оновленим інтерфейсом та покращеннями продуктивності."
+
 #: src/annotations.js:137 src/annotations.js:172
 msgid "Bookmark deleted"
 msgstr "Закладка видалена"
 
-#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:805
-#: src/library.js:865
+#: src/annotations.js:138 src/annotations.js:173 src/book-viewer.js:872
+#: src/library.js:867
 msgid "Undo"
 msgstr "Скасувати"
 
@@ -80,11 +226,11 @@ msgstr "Власний"
 msgid "JSON Files"
 msgstr "JSON файли"
 
-#: src/annotations.js:597 src/app.js:149
+#: src/annotations.js:597 src/app.js:65
 msgid "All Files"
 msgstr "Усі файли"
 
-#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:402
+#: src/annotations.js:606 src/annotations.js:634 src/ui/book-viewer.ui:390
 msgid "No Annotations"
 msgstr "Немає нотаток"
 
@@ -96,7 +242,7 @@ msgstr "Імпортований файл не містить нотаток"
 msgid "Cannot Import Annotations"
 msgstr "Не вдалося імпортувати нотатки"
 
-#: src/annotations.js:626 src/book-viewer.js:716 src/library.js:644
+#: src/annotations.js:626 src/book-viewer.js:785 src/library.js:646
 msgid "An error occurred"
 msgstr "Сталася помилка"
 
@@ -117,35 +263,52 @@ msgstr[0] "%d нотатка"
 msgstr[1] "%d нотатки"
 msgstr[2] "%d нотаток"
 
-#: src/app.js:95 src/book-viewer.js:30
-msgid "Close"
-msgstr "Закрити"
-
-#: src/app.js:112 src/library.js:50 src/ui/export-dialog.ui:11
-#: src/ui/import-dialog.ui:15
-msgid "Cancel"
-msgstr "Скасувати"
-
-#: src/app.js:136
+#: src/app.js:52
 msgid "E-Book Files"
 msgstr "Файли електронних книг"
 
-#: src/app.js:399 data/com.github.johnfactotum.Foliate.desktop.in:6
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:7
-msgid "Read e-books in style"
-msgstr "Читайте електронні книги у стилі"
+#: src/app.js:135 src/book-viewer.js:30
+msgid "Close"
+msgstr "Закрити"
 
-#. Translators: put your names here, one name per line
-#. they will be shown in the "About" dialog
-#: src/app.js:405
+#: src/app.js:152 src/library.js:50 src/library.js:443
+#: src/ui/export-dialog.ui:11 src/ui/import-dialog.ui:15
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: src/app.js:197
+#, fuzzy, javascript-format
+msgid "Failed to import %d book"
+msgid_plural "Failed to import %d books"
+msgstr[0] "Не вдалося завантажити"
+msgstr[1] "Не вдалося завантажити"
+msgstr[2] "Не вдалося завантажити"
+
+#: src/app.js:204
+#, javascript-format
+msgid "Imported %d book"
+msgid_plural "Imported %d books"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/app.js:210
+msgid "Could not import books"
+msgstr ""
+
+#. Translators: To be credited in the "About" dialog, put your
+#. name(s) here, optionally followed by an <email> or a URL.
+#. One translator per line.
+#: src/app.js:457
 msgid "translator-credits"
 msgstr ""
 "Danylo Korostil <ted.korostiled@gmail.com>\n"
+"Anton Isachenko <antonyua23@gmail.com>\n"
 "Юрій Яновський <lytvyn349@ukr.net>\n"
 "volkov <volkovissocool@gmail.com>\n"
 "freeducks-debug"
 
-#: src/app.js:414
+#: src/app.js:464
 msgid "Source Code"
 msgstr "Джерельний код"
 
@@ -153,12 +316,12 @@ msgstr "Джерельний код"
 msgid "Publisher"
 msgstr "Видавець"
 
-#. Translators: this is the heading for the publication date
+#. Translators: This is the heading for the publication date.
 #: src/book-info.js:135 src/library.js:76
 msgid "Published"
 msgstr "Опубліковано"
 
-#. Translators: this is the heading for the modified date
+#. Translators: This is the heading for the modified date.
 #: src/book-info.js:137
 msgid "Updated"
 msgstr "Оновлено"
@@ -204,7 +367,7 @@ msgid "Identifier"
 msgstr "Ідентифікатор"
 
 #: src/book-info.js:179 src/ui/book-item.ui:15 src/ui/book-row.ui:15
-#: src/ui/book-viewer.ui:368
+#: src/ui/book-viewer.ui:356
 msgid "About This Book"
 msgstr "Про цю книгу"
 
@@ -263,27 +426,27 @@ msgstr "Бібліографія"
 msgid "Go to Bibliography"
 msgstr "Перейти у Бібліографію"
 
-#: src/book-viewer.js:622
+#: src/book-viewer.js:690
 msgid "Remove bookmark"
 msgstr "Видалити закладку"
 
-#: src/book-viewer.js:623
+#: src/book-viewer.js:691
 msgid "Add bookmark"
 msgstr "Додати закладку"
 
-#: src/book-viewer.js:714
+#: src/book-viewer.js:783
 msgid "File not found"
 msgstr "Файл не знайдено"
 
-#: src/book-viewer.js:715
+#: src/book-viewer.js:784
 msgid "File type not supported"
 msgstr "Тип файлу не підтримується"
 
-#: src/book-viewer.js:804
+#: src/book-viewer.js:871
 msgid "Annotation deleted"
 msgstr "Нотатка видалена"
 
-#: src/book-viewer.js:877
+#: src/book-viewer.js:944
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -292,7 +455,7 @@ msgstr ""
 "\"%s\"\n"
 "— %s, \"%s\", стр. %s"
 
-#: src/book-viewer.js:879
+#: src/book-viewer.js:946
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -301,12 +464,12 @@ msgstr ""
 "\"%s\"\n"
 "—\"%s\", сторінка %s"
 
-#: src/book-viewer.js:880
+#: src/book-viewer.js:947
 #, javascript-format
 msgid "‘%s’ (p. %s)"
 msgstr "\"%s\" (сторінка %s)"
 
-#: src/book-viewer.js:883
+#: src/book-viewer.js:950
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -315,7 +478,7 @@ msgstr ""
 "\"%s\"\n"
 "—%s, \"%s\""
 
-#: src/book-viewer.js:885
+#: src/book-viewer.js:952
 #, javascript-format
 msgid ""
 "‘%s’\n"
@@ -324,17 +487,17 @@ msgstr ""
 "\"%s\"\n"
 "—\"%s\""
 
-#: src/book-viewer.js:886
+#: src/book-viewer.js:953
 #, javascript-format
 msgid "‘%s’"
 msgstr "\"%s\""
 
-#: src/book-viewer.js:904
+#: src/book-viewer.js:971
 #, javascript-format
 msgid "Image from “%s”"
 msgstr "Зображення з \"%s\""
 
-#: src/book-viewer.js:904
+#: src/book-viewer.js:971
 msgid "Image"
 msgstr "Зображення"
 
@@ -351,7 +514,7 @@ msgstr "Завантаження"
 msgid "Failed to Load"
 msgstr "Не вдалося завантажити"
 
-#: src/library.js:49 src/ui/book-viewer.ui:15
+#: src/library.js:49 src/ui/book-viewer.ui:15 src/ui/help-overlay.ui:98
 msgid "Reload"
 msgstr "Перезавантажити"
 
@@ -399,11 +562,13 @@ msgstr "Безкоштовно"
 msgid "First"
 msgstr "Перше"
 
-#: src/library.js:66 src/ui/navbar.ui:8 src/ui/tts-box.ui:115
+#: src/library.js:66 src/ui/help-overlay.ui:151 src/ui/navbar.ui:8
+#: src/ui/tts-box.ui:115
 msgid "Previous"
 msgstr "Попереднє"
 
-#: src/library.js:67 src/ui/navbar.ui:124 src/ui/tts-box.ui:132
+#: src/library.js:67 src/ui/help-overlay.ui:157 src/ui/navbar.ui:124
+#: src/ui/tts-box.ui:132
 msgid "Next"
 msgstr "Наступне"
 
@@ -427,95 +592,84 @@ msgstr "Автор"
 msgid "Contributor"
 msgstr "Вкладач"
 
-#: src/library.js:438
+#: src/library.js:440
 msgid "Remove Book?"
 msgstr "Вилучити книгу?"
 
-#: src/library.js:439
+#: src/library.js:441
 msgid "Reading progress, annotations, and bookmarks will be permanently lost"
 msgstr "Прогрес читання, нотатки та закладки будуть назавжди втрачені"
 
-#: src/library.js:441
-msgid "_Cancel"
-msgstr "_Скасувати"
-
-#: src/library.js:442
-msgid "_Remove"
-msgstr "_Видалити"
-
-#: src/library.js:472
-msgid "Failed to Open"
-msgstr "Не вдалося відкрити"
-
-#: src/library.js:473
-msgid "Could not open the file with the selected application"
-msgstr "Не вдалося відкрити файл обраним додатком"
-
-#: src/library.js:644
-msgid "Download Failed"
-msgstr "Не вдалось завантажити"
-
-#: src/library.js:698
-msgid "Rename…"
-msgstr "Перейменувати…"
-
-#: src/library.js:699 src/ui/book-item.ui:25 src/ui/book-row.ui:25
+#: src/library.js:444 src/library.js:701 src/ui/book-item.ui:25
+#: src/ui/book-row.ui:25
 msgid "Remove"
 msgstr "Видалити"
 
-#: src/library.js:719 src/library.js:720
+#: src/library.js:474
+msgid "Failed to Open"
+msgstr "Не вдалося відкрити"
+
+#: src/library.js:475
+msgid "Could not open the file with the selected application"
+msgstr "Не вдалося відкрити файл обраним додатком"
+
+#: src/library.js:646
+msgid "Download Failed"
+msgstr "Не вдалось завантажити"
+
+#: src/library.js:700
+msgid "Rename…"
+msgstr "Перейменувати…"
+
+#: src/library.js:721 src/library.js:722
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: src/library.js:725
+#: src/library.js:727
 msgid "Name"
 msgstr "Назва"
 
-#: src/library.js:740
+#: src/library.js:742
 msgid "All Books"
 msgstr "Усі книги"
 
-#: src/library.js:746
+#: src/library.js:748
 msgid "Add Catalog…"
 msgstr "Додати каталог…"
 
-#: src/library.js:813 src/ui/book-viewer.ui:130 src/ui/book-viewer.ui:239
+#: src/library.js:815 src/ui/book-viewer.ui:128 src/ui/book-viewer.ui:231
 #: src/ui/library.ui:93
 msgid "Library"
 msgstr "Бібліотека"
 
-#: src/library.js:821
+#: src/library.js:823
 msgid "Catalogs"
 msgstr "Каталоги"
 
-#: src/library.js:864
+#: src/library.js:866
 msgid "Catalog removed"
 msgstr "Каталог видалено"
 
-#: src/library.js:951 src/library.js:956
+#: src/library.js:954 src/library.js:959
 msgid "Add Catalog"
 msgstr "Додати каталог"
 
-#: src/library.js:952
+#: src/library.js:955
 msgid "Add"
 msgstr "Додати"
 
-#: src/library.js:957
+#: src/library.js:960
+#, javascript-format
 msgid ""
-"You can browse and download books from OPDS catalogs. <a href=\"https://"
-"opds.io\">Learn More…</a>"
+"You can browse and download books from OPDS catalogs. <a href=\"%s\">Learn "
+"More…</a>"
 msgstr ""
 "Ви можете переглядати та завантажувати книжки із OPDS каталогів. <a "
-"href=\"https://opds.io\">Дізнатися більше…</a>"
+"href=\"%s\">Дізнатися більше…</a>"
 
-#: src/library.js:961
+#: src/library.js:964
 msgid "URL"
 msgstr "URL-адреса"
-
-#. Translators: Do NOT translate! The is the application name!
-#: src/main.js:28 data/com.github.johnfactotum.Foliate.desktop.in:4
-msgid "Foliate"
-msgstr "Foliate"
 
 #: src/selection-tools.js:33
 msgid "Dictionary"
@@ -523,12 +677,13 @@ msgstr "Словник"
 
 # Одразу переадресовувати на українську версію статті.
 #: src/selection-tools.js:37
+#, javascript-format
 msgid ""
-"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"https://"
-"creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA License</a>."
+"From <a id=\"link\">Wiktionary</a>, released under the <a href=\"%s\">CC BY-"
+"SA License</a>."
 msgstr ""
-"Із <a id=\"link\">Вікісловника</a>, розповсюджується під <a href=\"https://"
-"creativecommons.org/licenses/by-sa/4.0/deed.uk\">CC BY-SA ліцензею</a>."
+"Із <a id=\"link\">Вікісловника</a>, розповсюджується під <a href=\"%s\">CC "
+"BY-SA ліцензею</a>."
 
 #: src/selection-tools.js:38 src/selection-tools.js:51
 msgid "No Definitions Found"
@@ -544,14 +699,13 @@ msgstr "Вікіпедія"
 
 # Я би додав українську версію цієї сторінки, але нажаль такої не існує - ніхто не зробив.
 #: src/selection-tools.js:50
+#, javascript-format
 msgid ""
-"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"https://"
-"en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
-"ShareAlike_4.0_International_License\">CC BY-SA License</a>."
+"From <a id=\"link\">Wikipedia</a>, released under the <a href=\"%s\">CC BY-"
+"SA License</a>."
 msgstr ""
-"Із <a id=\"link\">Вікіпедії</a>, розповсюджується під <a href=\"https://"
-"en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-"
-"ShareAlike_4.0_International_License\">CC BY-SA ліцензею</a>."
+"Із <a id=\"link\">Вікіпедії</a>, розповсюджується під <a href=\"%s\">CC BY-"
+"SA ліцензею</a>."
 
 #: src/selection-tools.js:52
 msgid "Search on Wikipedia"
@@ -619,10 +773,6 @@ msgstr ""
 "Впевніться що Speech Dispatcher модуль встановлений і коректно працює на "
 "вашій системі"
 
-#: src/utils.js:168
-msgid "Copied to clipboard"
-msgstr "Скопійовано в буфер обміну"
-
 #: src/ui/annotation-popover.ui:13
 msgid "Highlight Style"
 msgstr "Стиль виділення"
@@ -657,7 +807,7 @@ msgstr "Експортувати нотатки…"
 msgid "New Window"
 msgstr "Нове вікно"
 
-#: src/ui/book-viewer.ui:11
+#: src/ui/book-viewer.ui:11 src/ui/help-overlay.ui:191
 msgid "Open a Copy"
 msgstr "Відкрити копію"
 
@@ -665,151 +815,159 @@ msgstr "Відкрити копію"
 msgid "Import Annotations…"
 msgstr "Імпортувати нотатки…"
 
-#: src/ui/book-viewer.ui:37 src/ui/library.ui:42
+#: src/ui/book-viewer.ui:31 src/ui/help-overlay.ui:238
+msgid "Keyboard Shortcuts"
+msgstr "Клавіатурні скорочення"
+
+#: src/ui/book-viewer.ui:35 src/ui/library.ui:42
 msgid "About Foliate"
 msgstr "Про Foliate"
 
-#: src/ui/book-viewer.ui:45
+#: src/ui/book-viewer.ui:43
 msgid "All Sections"
 msgstr "Усі розділи"
 
-#: src/ui/book-viewer.ui:50
+#: src/ui/book-viewer.ui:48
 msgid "Current Section"
 msgstr "Поточний розділ"
 
-#: src/ui/book-viewer.ui:57
+#: src/ui/book-viewer.ui:55
 msgid "Match Whole Words Only"
 msgstr "Шукати тільки цілі слова"
 
-#: src/ui/book-viewer.ui:61
+#: src/ui/book-viewer.ui:59
 msgid "Match Case"
 msgstr "Враховувати регістр"
 
-#: src/ui/book-viewer.ui:65
+#: src/ui/book-viewer.ui:63
 msgid "Match Diacritics"
 msgstr "Враховувати діакритичні знаки"
 
-#: src/ui/book-viewer.ui:83
+#: src/ui/book-viewer.ui:81 src/ui/help-overlay.ui:232
 msgid "Font & Layout Settings"
 msgstr "Налаштування шрифту та макету"
 
-#: src/ui/book-viewer.ui:89
+#: src/ui/book-viewer.ui:87
 msgid "Scrolled Mode"
 msgstr "Режим гортання"
 
-#: src/ui/book-viewer.ui:93
+#: src/ui/book-viewer.ui:91
 msgid "Invert Colors in Dark Mode"
 msgstr "Інвертувати кольори у темному стилі"
 
-#: src/ui/book-viewer.ui:97
+#: src/ui/book-viewer.ui:95
 msgid "Autohide Cursor"
 msgstr "Автоматично ховати курсор"
 
-#: src/ui/book-viewer.ui:103
+#: src/ui/book-viewer.ui:101
 msgid "Print…"
 msgstr "Друк…"
 
-#: src/ui/book-viewer.ui:107
+#: src/ui/book-viewer.ui:105 src/ui/help-overlay.ui:250
 msgid "Inspector"
 msgstr "Інспектор"
 
-#: src/ui/book-viewer.ui:167
+#: src/ui/book-viewer.ui:159
 msgid "Book Cannot Be Opened"
 msgstr "Неможливо відкрити книгу"
 
-#: src/ui/book-viewer.ui:177
+#: src/ui/book-viewer.ui:169
 msgid "Details"
 msgstr "Подробиці"
 
-#: src/ui/book-viewer.ui:193
+#: src/ui/book-viewer.ui:185
 msgid "Open Another File…"
 msgstr "Відкрити інший файл…"
 
-#: src/ui/book-viewer.ui:245
+#: src/ui/book-viewer.ui:237
 msgid "Pin Sidebar"
 msgstr "Закріпити бічну панель"
 
-#: src/ui/book-viewer.ui:253
+#: src/ui/book-viewer.ui:245
 msgid "Book Menu"
 msgstr "Меню книги"
 
-#: src/ui/book-viewer.ui:260 src/ui/selection-popover.ui:17
+#: src/ui/book-viewer.ui:252 src/ui/selection-popover.ui:17
 msgid "Find"
 msgstr "Знайти"
 
-#: src/ui/book-viewer.ui:276
+#: src/ui/book-viewer.ui:268
 msgid "Find in book…"
 msgstr "Пошук в книзі…"
 
-#: src/ui/book-viewer.ui:313
+#: src/ui/book-viewer.ui:306
 msgid "Contents"
 msgstr "Вміст"
 
-#: src/ui/book-viewer.ui:391
+#: src/ui/book-viewer.ui:379
 msgid "Annotations"
 msgstr "Нотатки"
 
-#: src/ui/book-viewer.ui:403
+#: src/ui/book-viewer.ui:391
 msgid "Select some text to add annotations"
 msgstr "Оберіть текст щоб додати його до нотаток"
 
-#: src/ui/book-viewer.ui:433
+#: src/ui/book-viewer.ui:421
 msgid "Filter annotations…"
 msgstr "Фільтрувати нотатки…"
 
-#: src/ui/book-viewer.ui:447
+#: src/ui/book-viewer.ui:435
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: src/ui/book-viewer.ui:458
+#: src/ui/book-viewer.ui:446
 msgid "No Bookmarks"
 msgstr "Немає закладок"
 
-#: src/ui/book-viewer.ui:459
+#: src/ui/book-viewer.ui:447
 msgid "Add some bookmarks to see them here"
 msgstr "Додайте закладки щоб побачити їх тут"
 
-#: src/ui/book-viewer.ui:498 src/ui/library-view.ui:42
+#: src/ui/book-viewer.ui:486 src/ui/library-view.ui:42
 msgid "No Results Found"
 msgstr "Нічого не знайдено"
 
-#: src/ui/book-viewer.ui:499 src/ui/library-view.ui:43
+#: src/ui/book-viewer.ui:487 src/ui/library-view.ui:43
 msgid "Try a different search"
 msgstr "Спробуйте інший пошуковий запит"
 
-#: src/ui/book-viewer.ui:542 src/ui/library.ui:102 src/ui/library.ui:160
+#: src/ui/book-viewer.ui:530 src/ui/help-overlay.ui:59 src/ui/library.ui:102
+#: src/ui/library.ui:160
 msgid "Sidebar"
 msgstr "Бічна панель"
 
-#: src/ui/book-viewer.ui:556
+#: src/ui/book-viewer.ui:544
 msgid "View Menu"
 msgstr "Меню перегляду"
 
-#: src/ui/book-viewer.ui:569 src/ui/image-viewer.ui:41
+#: src/ui/book-viewer.ui:557 src/ui/help-overlay.ui:110
+#: src/ui/image-viewer.ui:41
 msgid "Zoom Out"
 msgstr "Зменшити"
 
-#: src/ui/book-viewer.ui:576 src/ui/image-viewer.ui:48
+#: src/ui/book-viewer.ui:564 src/ui/help-overlay.ui:116
+#: src/ui/image-viewer.ui:48
 msgid "Reset Zoom"
 msgstr "Скинути масштаб"
 
-#: src/ui/book-viewer.ui:585 src/ui/image-viewer.ui:55
+#: src/ui/book-viewer.ui:573 src/ui/help-overlay.ui:104
+#: src/ui/image-viewer.ui:55
 msgid "Zoom In"
 msgstr "Збільшити"
 
-#: src/ui/book-viewer.ui:601
+#: src/ui/book-viewer.ui:589
 msgid "Follow System Style"
 msgstr "Використовувати стиль системи"
 
-#: src/ui/book-viewer.ui:611
+#: src/ui/book-viewer.ui:599
 msgid "Light Style"
 msgstr "Світлий стиль"
 
-#: src/ui/book-viewer.ui:621
+#: src/ui/book-viewer.ui:609
 msgid "Dark Style"
 msgstr "Темний стиль"
 
-#: src/ui/book-viewer.ui:636 src/ui/library.ui:26
+#: src/ui/book-viewer.ui:624 src/ui/library.ui:26
 msgid "Fullscreen"
 msgstr "Повноекранний режим"
 
@@ -844,6 +1002,159 @@ msgstr "Markdown"
 #: src/ui/export-dialog.ui:36
 msgid "Org Mode"
 msgstr "Org Mode"
+
+#: src/ui/help-overlay.ui:6
+#, fuzzy
+msgid "Navigation"
+msgstr "Озвучення"
+
+#: src/ui/help-overlay.ui:10
+#, fuzzy
+msgid "Previous Page"
+msgstr "Попереднє"
+
+#: src/ui/help-overlay.ui:16
+#, fuzzy
+msgid "Next Page"
+msgstr "Наступне"
+
+#: src/ui/help-overlay.ui:22
+msgid "Go Left"
+msgstr ""
+
+#: src/ui/help-overlay.ui:28
+#, fuzzy
+msgid "Scroll Down"
+msgstr "Режим гортання"
+
+#: src/ui/help-overlay.ui:34
+#, fuzzy
+msgid "Scroll Up"
+msgstr "Режим гортання"
+
+#: src/ui/help-overlay.ui:40
+msgid "Go Right"
+msgstr ""
+
+#: src/ui/help-overlay.ui:46
+#, fuzzy
+msgid "Jump to Previous Location"
+msgstr "Перейти до попереднього розташування"
+
+#: src/ui/help-overlay.ui:52
+#, fuzzy
+msgid "Jump to Next Location"
+msgstr "Наступна сторінка"
+
+#: src/ui/help-overlay.ui:63
+#, fuzzy
+msgid "Toggle Sidebar"
+msgstr "Бічна панель"
+
+#: src/ui/help-overlay.ui:69
+msgid "Toggle Table of Contents"
+msgstr ""
+
+#: src/ui/help-overlay.ui:75
+#, fuzzy
+msgid "Toggle Annotations"
+msgstr "Немає нотаток"
+
+#: src/ui/help-overlay.ui:81
+#, fuzzy
+msgid "Toggle Bookmarks"
+msgstr "Немає закладок"
+
+#: src/ui/help-overlay.ui:87
+#, fuzzy
+msgid "Toggle Search"
+msgstr "Бічна панель"
+
+#: src/ui/help-overlay.ui:94
+#, fuzzy
+msgid "View"
+msgstr "Переглядач"
+
+#: src/ui/help-overlay.ui:122
+#, fuzzy
+msgid "Toggle Fullscreen"
+msgstr "Повноекранний режим"
+
+#: src/ui/help-overlay.ui:128
+#, fuzzy
+msgid "Toggle Scrolled Mode"
+msgstr "Режим гортання"
+
+#: src/ui/help-overlay.ui:134
+#, fuzzy
+msgid "Show Current Location"
+msgstr "Поточний розділ"
+
+#: src/ui/help-overlay.ui:140
+#, fuzzy
+msgid "Bookmark Current Location"
+msgstr "Примітки та нотатки"
+
+#: src/ui/help-overlay.ui:147
+#, fuzzy
+msgid "In Search"
+msgstr "Пошук"
+
+#: src/ui/help-overlay.ui:164
+#, fuzzy
+msgid "With Selection"
+msgstr "Друкувати обране…"
+
+#: src/ui/help-overlay.ui:168
+#, fuzzy
+msgid "Selection Copy"
+msgstr "Розділ"
+
+#: src/ui/help-overlay.ui:174
+#, fuzzy
+msgid "Selection Search"
+msgstr "Розділ"
+
+#: src/ui/help-overlay.ui:181
+#, fuzzy
+msgid "Window"
+msgstr "Нове вікно"
+
+#: src/ui/help-overlay.ui:185
+#, fuzzy
+msgid "Open File"
+msgstr "Зберегти файл"
+
+#: src/ui/help-overlay.ui:197
+#, fuzzy
+msgid "Close Window"
+msgstr "Нове вікно"
+
+#: src/ui/help-overlay.ui:203
+msgid "Quit"
+msgstr ""
+
+#: src/ui/help-overlay.ui:210
+msgid "General"
+msgstr ""
+
+#: src/ui/help-overlay.ui:214
+msgid "Show Book Information"
+msgstr ""
+
+#: src/ui/help-overlay.ui:220
+msgid "Show App Information"
+msgstr ""
+
+#: src/ui/help-overlay.ui:226
+#, fuzzy
+msgid "Open Menu"
+msgstr "Головне меню"
+
+#: src/ui/help-overlay.ui:244
+#, fuzzy
+msgid "Print..."
+msgstr "Друк…"
 
 #: src/ui/image-viewer.ui:6 src/ui/navbar.ui:302 src/ui/selection-popover.ui:7
 msgid "Copy"
@@ -1114,108 +1425,9 @@ msgstr "Поведінка"
 msgid "Reduce Animation"
 msgstr "Зменшити обсяг анімацій"
 
-#: data/com.github.johnfactotum.Foliate.desktop.in:5
-msgid "E-Book Viewer"
-msgstr "Переглядач електронних книг"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.github.johnfactotum.Foliate.desktop.in:14
-msgid "Ebook;Book;EPUB;Viewer;Reader;"
-msgstr "Ebook;Book;EPUB;Viewer;Reader;pdf;книга;переглядач;читач;документ;електронна;читалка;пдф;єпаб;епаб;"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:10
-msgid ""
-"Discover a new chapter in reading with Foliate, the modern e-book reader "
-"tailored for GNOME. Immerse yourself in a distraction-free interface, with "
-"customization features designed to match your unique preferences."
-msgstr ""
-"Досліджуйте новий розділ читаючи з Foliate - сучасною читалкою електронних "
-"книг адаптованою для GNOME. Заглибтеся у читання з не відволікаючим "
-"інтерфейсом з налаштуваннями функцій під ваші особисті уподобання."
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:11
-msgid "Features include:"
-msgstr "Можливості:"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:13
-msgid "Open EPUB, Mobipocket, Kindle, FB2, CBZ, and PDF files"
-msgstr "Вміє відкривати EPUB, Mobipocket, Kindle, FB2, CBZ, та PDF файли"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:14
-msgid "Paginated mode and scrolled mode"
-msgstr "Посторінковий і режим гортання"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:15
-msgid "Customize font and line-spacing"
-msgstr "Налаштування шрифтів та міжстрочний інтервал"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:16
-msgid "Light, sepia, dark, and invert mode"
-msgstr "Світлий, сепія, темний та інвертовані стилі"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:17
-msgid "Reading progress slider with chapter marks"
-msgstr "Прогрес читання з підтримкою закладок"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:18
-msgid "Bookmarks and annotations"
-msgstr "Примітки та нотатки"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:19
-msgid "Find in book"
-msgstr "Пошук в книзі"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:20
-msgid "Quick dictionary lookup"
-msgstr "Швидкий пошук у словнику"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:55
-msgid "Fixed end of chapter cut off when chapter starts with page break"
-msgstr ""
-"Виправлено помилку, коли коли остання частина розділу була відрізана, якщо "
-"розділ починається з розриву сторінки"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:56
-msgid "Fixed incorrect text wrapping in tables"
-msgstr "Виправлена не коректний перенос тексту у таблицях"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:57
-msgid "Fixed a performance issue with OPDS catalogs"
-msgstr "Виправлені проблеми з швидкодією OPDS каталогів"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:64
-msgid "Added support for OPDS catalogs, now with support for OPDS 2.0"
-msgstr "Додана підтримка OPDS каталогів, а також підтримка OPDS 2.0"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:65
-msgid "Added option to override publisher font"
-msgstr "Додана опція, щоб замінити шрифти видавця"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:66
-msgid "Added option to reduce animation"
-msgstr "Додана опція для зменшення кількості анімацій"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:67
-msgid "Added support for JPEG XL in CBZ"
-msgstr "Додана підтримка JPEG XL зображень у CBZ архівах"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:68
-msgid "Fixed getting file from Tracker in Flatpak"
-msgstr "Виправлено отримання файлів із трекеру у Flatpak версії додатку"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:69
-msgid "Fixed parsing of non-year-only first-century and BCE dates"
-msgstr "Виправлені отримання дат із файлів"
-
-#: data/com.github.johnfactotum.Foliate.metainfo.xml.in:76
-msgid ""
-"Foliate has been rewritten from scratch with a new e-book rendering library "
-"and the latest platform libraries, GTK 4 and Libadwaita, with refreshed UI "
-"and improved performance."
-msgstr ""
-"Foliate був переписаний з нуля з використанням нової бібліотеки рендеру "
-"електронних книг і найновіших бібліотек платформи, такі як GTK 4 та "
-"Libadwaita з оновленим інтерфейсом та покращеннями продуктивності."
+#: src/utils.js:167
+msgid "Copied to clipboard"
+msgstr "Скопійовано в буфер обміну"
 
 #~ msgid "Book"
 #~ msgstr "Книга"
@@ -1229,9 +1441,6 @@ msgstr ""
 #~ msgid "Reader"
 #~ msgstr "Читач"
 
-#~ msgid "Viewer"
-#~ msgstr "Переглядач"
-
 #, fuzzy
 #~ msgid "Reference"
 #~ msgstr "Налаштування"
@@ -1240,18 +1449,12 @@ msgstr ""
 #~ msgid "Go to Reference"
 #~ msgstr "Налаштування"
 
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Клавіатурні скорочення"
-
 #~ msgid "Preferences"
 #~ msgstr "Налаштування"
 
 #, fuzzy
 #~ msgid "Fold Sidebar"
 #~ msgstr "Показувати бічну панель"
-
-#~ msgid "Save File"
-#~ msgstr "Зберегти файл"
 
 #, fuzzy
 #~ msgid "Choose highlight style"
@@ -1264,22 +1467,11 @@ msgstr ""
 #~ msgid "About this book"
 #~ msgstr "Про цю книгу"
 
-#, fuzzy
-#~ msgid "Toggle sidebar"
-#~ msgstr "Бічна панель"
-
 #~ msgid "Restore zoom"
 #~ msgstr "Відновити масштаб"
 
 #~ msgid "Go to previous page"
 #~ msgstr "Попередня сторінки"
-
-#~ msgid "Go back to previous location"
-#~ msgstr "Перейти до попереднього розташування"
-
-#, fuzzy
-#~ msgid "Go to next section"
-#~ msgstr "Наступна сторінка"
 
 #, fuzzy
 #~ msgid "Go to last section"
