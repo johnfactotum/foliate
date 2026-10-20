@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="AdwShortcutsDialog" id="app-help-overlay">
+    <child>
+      <object class="AdwShortcutsSection" id="shortcuts-window">
+        <property name="title" translatable="yes">Window</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;o</property>
+            <property name="title" translatable="yes">Open File</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;n</property>
+            <property name="title" translatable="yes">Open a Copy</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">F11</property>
+            <property name="title" translatable="yes">Toggle Fullscreen</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;w</property>
+            <property name="title" translatable="yes">Close Window</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;q</property>
+            <property name="title" translatable="yes">Quit</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection" id="shortcuts-general">
+        <property name="title" translatable="yes">General</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">F1</property>
+            <property name="title" translatable="yes">Show App Information</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">F10</property>
+            <property name="title" translatable="yes">Open Menu</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;ctrl&gt;question</property>
+            <property name="title" translatable="yes">Keyboard Shortcuts</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
+

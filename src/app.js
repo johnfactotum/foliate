@@ -100,8 +100,8 @@ const ApplicationWindow = GObject.registerClass({
 
         utils.addMethods(this, {
             actions: [
-                'open', 'open-or-import',
-                'close', 'show-library', 'show-menu', 'new-window', 'open-copy',
+                'open', 'open-or-import', 'close', 'show-library', 'show-menu',
+                'show-help-overlay', 'new-window', 'open-copy',
             ],
             props: ['fullscreened'],
         })
@@ -234,6 +234,13 @@ const ApplicationWindow = GObject.registerClass({
     showMenu() {
         if (this.#bookViewer) this.#bookViewer.showPrimaryMenu()
     }
+    showHelpOverlay() {
+        const child = this.#stack.visible_child
+        if (typeof child?.showHelpOverlay === 'function')
+            return child.showHelpOverlay()
+
+        utils.showHelpOverlay('app-help-overlay', this)
+    }
     addWindow(file) {
         const { application } = this
         const win = new ApplicationWindow({ application, file })
@@ -267,6 +274,7 @@ export const Application = GObject.registerClass({
             'win.close': ['<ctrl>w'],
             'win.fullscreened': ['F11'],
             'win.show-menu': ['F10'],
+            'win.show-help-overlay': ['<ctrl>question'],
             'win.open': ['<ctrl>o'],
             'win.open-copy': ['<ctrl>n'],
         })) this.set_accels_for_action(key, val)

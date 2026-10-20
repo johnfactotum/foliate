@@ -736,7 +736,7 @@ export const BookViewer = GObject.registerClass({
             actions: [
                 'toggle-sidebar', 'toggle-search', 'show-location',
                 'toggle-toc', 'toggle-annotations', 'toggle-bookmarks',
-                'preferences', 'help-overlay', 'show-info', 'bookmark',
+                'preferences', 'show-help-overlay', 'show-info', 'bookmark',
                 'export-annotations', 'import-annotations',
             ],
             props: ['fold-sidebar'],
@@ -754,7 +754,7 @@ export const BookViewer = GObject.registerClass({
             '<ctrl><alt>d': 'viewer.toggle-bookmarks',
             '<ctrl>d': 'viewer.bookmark',
             '<alt>comma': 'viewer.preferences',
-            '<ctrl>question': 'viewer.help-overlay',
+            '<ctrl>question': 'viewer.show-help-overlay',
             '<ctrl><shift>g': 'search.prev',
             '<ctrl>g': 'search.next',
             '<ctrl>c': 'selection.copy',
@@ -1060,13 +1060,8 @@ export const BookViewer = GObject.registerClass({
     importAnnotations() {
         importAnnotations(this.root, this.#data)
     }
-    helpOverlay() {
-        const path = pkg.modulepath('ui/help-overlay.ui')
-        const builder = pkg.useResource
-            ? Gtk.Builder.new_from_resource(path)
-            : Gtk.Builder.new_from_file(path)
-        const dialog = builder.get_object('help-overlay')
-        dialog.present(this.root)
+    showHelpOverlay() {
+        utils.showHelpOverlay('book-help-overlay', this.root)
     }
     vfunc_unroot() {
         this._navbar.tts_box.kill()

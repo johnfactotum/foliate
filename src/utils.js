@@ -401,3 +401,12 @@ export const addClass = (widget, ...classes) => {
     for (const c of classes) widget.add_css_class(c)
     return widget
 }
+
+export const showHelpOverlay = (name, parent) => {
+    const path = pkg.modulepath(`ui/${name}.ui`)
+    const builder = pkg.useResource
+        ? Gtk.Builder.new_from_resource(path)
+        : Gtk.Builder.new_from_file(path)
+    const dialog = builder.get_object(name)
+    dialog.present(parent)
+}
