@@ -243,8 +243,8 @@ GObject.registerClass({
             'scroll-begin': () => isDiscrete = false,
             'scroll': (_, dx, dy) => {
                 if (this.#pinchFactor > 1
-                || this.viewSettings.scrolled
-                || this.#dialogOpened) return false
+                    || this.viewSettings.scrolled
+                    || this.#dialogOpened) return false
                 if (isDiscrete) scrollPageAsync(dx, dy)
                 else {
                     dxLast = dx
@@ -266,11 +266,11 @@ GObject.registerClass({
         const gestureBack = new Gtk.GestureClick()
         gestureForward.set_button(9)
         gestureBack.set_button(8)
-        this.#webView.add_controller(utils.connect(gestureForward,{
-	    'pressed': () => this.#exec('reader.view.history.forward'),
+        this.#webView.add_controller(utils.connect(gestureForward, {
+            'pressed': () => this.#exec('reader.view.history.forward'),
         }))
-        this.#webView.add_controller(utils.connect(gestureBack,{
-	    'pressed': () => this.#exec('reader.view.history.back'),
+        this.#webView.add_controller(utils.connect(gestureBack, {
+            'pressed': () => this.#exec('reader.view.history.back'),
         }))
 
         const applyStyle = () => this.#applyStyle().catch(e => console.error(e))
@@ -439,7 +439,7 @@ const makeIdentifier = file => {
         const bytes = stream.read_bytes(10000000, null)
         const md5 = GLib.compute_checksum_for_bytes(GLib.ChecksumType.MD5, bytes)
         return `foliate:${md5}`
-    } catch(e) {
+    } catch (e) {
         console.warn(e)
         return null
     }
@@ -662,7 +662,8 @@ export const BookViewer = GObject.registerClass({
                 pos === Gtk.EntryIconPosition.SECONDARY ? entry.text = '' : null,
         })
         this._search_entry.add_controller(utils.addShortcuts({
-            'Escape': () => this._search_bar.search_mode_enabled = false }))
+            'Escape': () => this._search_bar.search_mode_enabled = false,
+        }))
 
         // navigation
         this._toc_view.connect('go-to-href', (_, href) => {
@@ -765,7 +766,7 @@ export const BookViewer = GObject.registerClass({
             'plus|equal|KP_Add|KP_Equal|<ctrl>plus|<ctrl>equal|<ctrl>KP_Add|<ctrl>KP_Equal': 'view.zoom-in',
             'minus|KP_Subtract|<ctrl>minus|<ctrl>KP_Subtract': 'view.zoom-out',
             '0|1|KP_0|<ctrl>0|<ctrl>KP_0': 'view.zoom-restore',
-            'p|Page_Up|KP_Page_Up|<shift>space': 'view.prev',
+            'p|Page_Up|KP_Page_Up|<shift>space|BackSpace': 'view.prev',
             'n|Page_Down|KP_Page_Down|space': 'view.next',
             'k|Up|KP_Up': 'view.scroll-up',
             'j|Down|KP_Down': 'view.scroll-down',
@@ -774,6 +775,7 @@ export const BookViewer = GObject.registerClass({
             '<alt>Left|<alt>KP_Left': 'view.back',
             '<alt>Right|<alt>KP_Right': 'view.forward',
             '<ctrl>p': 'view.print',
+            '<alt>Home': 'win.show-library',
         }
         this.add_controller(utils.addShortcuts(shortcuts))
         // TODO: disable these when pinch zoomed
@@ -870,8 +872,7 @@ export const BookViewer = GObject.registerClass({
         this.root.add_toast(utils.connect(new Adw.Toast({
             title: _('Annotation deleted'),
             button_label: _('Undo'),
-        }), { 'button-clicked': () =>
-            this.#data.addAnnotation(annotation) }))
+        }), { 'button-clicked': () => this.#data.addAnnotation(annotation) }))
     }
     #showSelection({ type, value, text, content, lang, pos: { point, dir } }) {
         if (type === 'annotation') return new Promise(resolve => {
@@ -1016,8 +1017,8 @@ export const BookViewer = GObject.registerClass({
     }
     #toggleSidebarContent(name) {
         if (this._flap.show_sidebar
-        && this._search_bar.search_mode_enabled === false
-        && this._contents_stack.visible_child_name === name)
+            && this._search_bar.search_mode_enabled === false
+            && this._contents_stack.visible_child_name === name)
             this._flap.show_sidebar = false
         else {
             this._search_bar.search_mode_enabled = false

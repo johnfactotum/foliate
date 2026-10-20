@@ -6,7 +6,7 @@
         <property name="title" translatable="yes">Navigation</property>
         <child>
           <object class="AdwShortcutsItem">
-            <property name="accelerator">p Page_Up &lt;shift&gt;space</property>
+            <property name="accelerator">p Page_Up &lt;shift&gt;space BackSpace</property>
             <property name="title" translatable="yes">Previous Page</property>
           </object>
         </child>
@@ -189,6 +189,12 @@
           <object class="AdwShortcutsItem">
             <property name="accelerator">&lt;ctrl&gt;n</property>
             <property name="title" translatable="yes">Open a Copy</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;alt&gt;Home</property>
+            <property name="title" translatable="yes">Go to Library</property>
           </object>
         </child>
         <child>
