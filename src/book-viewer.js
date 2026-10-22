@@ -69,6 +69,7 @@ const FontSettings = utils.makeDataClass('FoliateFontSettings', {
     'default': 'uint',
     'default-size': 'double',
     'minimum-size': 'double',
+    'weight': 'uint',
 })
 
 const getFamily = str => Pango.FontDescription.from_string(str).get_family()
@@ -81,7 +82,7 @@ const ViewPreferencesWindow = GObject.registerClass({
         'view-settings': 'object',
     }),
     InternalChildren: [
-        'default-font', 'override-font',
+        'default-font', 'override-font', 'font-weight',
         'serif-font', 'sans-serif-font', 'monospace-font',
         'default-font-size', 'minimum-font-size',
         'line-height', 'justify', 'hyphenate', 'gap',
@@ -99,6 +100,7 @@ const ViewPreferencesWindow = GObject.registerClass({
             'default': [this._default_font, 'selected'],
             'default-size': [this._default_font_size, 'value'],
             'minimum-size': [this._minimum_font_size, 'value'],
+            'weight': [this._font_weight, 'selected'],
         })
         this.viewSettings.bindProperties({
             'line-height': [this._line_height, 'value'],
@@ -332,6 +334,8 @@ GObject.registerClass({
                 invert: view.invert,
                 theme: view.invert ? invertTheme(theme) : theme,
                 overrideFont: view.override_font,
+                // 0 means don't override; otherwise 1-9 maps to 100-900
+                fontWeight: font.weight ? font.weight * 100 : null,
                 userStylesheet,
             },
             autohideCursor: view.autohide_cursor,
