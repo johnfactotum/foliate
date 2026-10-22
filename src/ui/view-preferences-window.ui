@@ -52,6 +52,27 @@
             </object>
           </child>
           <child>
+            <object class="AdwComboRow" id="font-weight">
+              <property name="title" translatable="yes">Font Weight</property>
+              <property name="model">
+                <object class="GtkStringList">
+                  <items>
+                    <item translatable="yes">Default</item>
+                    <item translatable="yes">Thin</item>
+                    <item translatable="yes">Extra Light</item>
+                    <item translatable="yes">Light</item>
+                    <item translatable="yes">Regular</item>
+                    <item translatable="yes">Medium</item>
+                    <item translatable="yes">Semi Bold</item>
+                    <item translatable="yes">Bold</item>
+                    <item translatable="yes">Extra Bold</item>
+                    <item translatable="yes">Black</item>
+                  </items>
+                </object>
+              </property>
+            </object>
+          </child>
+          <child>
             <object class="AdwActionRow">
               <property name="title" translatable="yes">Override Publisher Font</property>
               <property name="activatable-widget">override-font</property>

@@ -49,8 +49,8 @@ const getHTML = async range => {
 }
 
 const getCSS = ({
-    lineHeight, justify, hyphenate, invert, theme, overrideFont, userStylesheet,
-    mediaActiveClass,
+    lineHeight, justify, hyphenate, invert, theme, overrideFont, fontWeight,
+    userStylesheet, mediaActiveClass,
 }) => [`
     @namespace epub "http://www.idpf.org/2007/ops";
     @media print {
@@ -160,6 +160,8 @@ const getCSS = ({
         hyphens: ${hyphenate ? 'auto' : 'none'};
     }
     ${overrideFont ? '* { font-family: revert !important }' : ''}
+    ${fontWeight ? `html, body { font-weight: ${fontWeight} !important }` : ''}
+    ${fontWeight && overrideFont ? 'body * { font-weight: revert !important }' : ''}
 ` + userStylesheet]
 
 const frameRect = (frame, rect, sx = 1, sy = 1) => {
