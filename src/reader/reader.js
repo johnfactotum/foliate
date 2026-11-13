@@ -5,8 +5,12 @@ import { toPangoMarkup } from './markup.js'
 
 const format = {}
 
-const emit = x => globalThis.webkit.messageHandlers.viewer
-    .postMessage(JSON.stringify(x))
+export const readerEvents = new EventTarget()
+
+const emit = x => {
+    readerEvents.dispatchEvent(new CustomEvent(x.type, { detail: x }))
+    globalThis.webkit.messageHandlers.viewer.postMessage(JSON.stringify(x))
+}
 
 const formatLanguageMap = x => {
     if (!x) return ''
@@ -513,7 +517,10 @@ const open = async (file, Reader) => {
 
 globalThis.loadFile = () => document.getElementById('file-input').click()
 
-globalThis.init = ({ uiText }) => {
+// Native frontends can supply a File or a URL without using the file input.
+export const openBook = file => open(file, Reader)
+
+globalThis.init = ({ uiText, openFile = true }) => {
     globalThis.uiText = uiText
 
     format.loc = (a, b) => printf(uiText.loc, [a, b])
@@ -525,7 +532,7 @@ globalThis.init = ({ uiText }) => {
 
     document.getElementById('file-input').onchange = e => open(e.target.files[0], Reader)
         .catch(({ message, stack }) => emit({ type: 'book-error', message, stack }))
-    globalThis.loadFile()
+    if (openFile) globalThis.loadFile()
 }
 
 globalThis.initImport = () => {

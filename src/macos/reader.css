@@ -1,0 +1,133 @@
+#mac-shell {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    font: 13px system-ui, sans-serif;
+    background: Canvas;
+    color: CanvasText;
+}
+#mac-shell button, #mac-shell input {
+    font: inherit;
+}
+#mac-shell button {
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: Canvas;
+    color: CanvasText;
+    cursor: pointer;
+}
+#mac-shell button:hover {
+    background: var(--hover);
+}
+#mac-shell button:disabled {
+    opacity: .4;
+    cursor: default;
+}
+#mac-toolbar, #mac-navigation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    user-select: none;
+}
+#mac-toolbar {
+    border-bottom: 1px solid var(--border);
+}
+#mac-title {
+    flex: 1;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+}
+#mac-body {
+    display: flex;
+    min-height: 0;
+}
+#mac-sidebar {
+    flex: 0 0 260px;
+    overflow: auto;
+    border-right: 1px solid var(--border);
+}
+#mac-sidebar[hidden] {
+    display: none;
+}
+#mac-search-form {
+    display: flex;
+    gap: 6px;
+    padding: 12px;
+}
+#mac-search {
+    width: 100%;
+    min-width: 0;
+}
+#mac-search-status {
+    padding: 0 12px;
+}
+#mac-results {
+    padding: 0 12px;
+    list-style: none;
+}
+#mac-results button {
+    margin-bottom: 6px;
+    width: 100%;
+    text-align: start;
+}
+#mac-toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#mac-toc a, #mac-toc span {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: inherit;
+}
+#mac-toc a:hover, #mac-toc [aria-current] {
+    background: var(--active);
+}
+#mac-toc svg {
+    margin-inline-start: -18px;
+    margin-inline-end: 5px;
+    fill: currentColor;
+}
+#mac-toc [aria-expanded="false"] + ol {
+    display: none;
+}
+#mac-book {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+}
+#mac-book > foliate-view {
+    height: 100%;
+}
+#mac-empty {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    height: 100%;
+}
+#mac-empty h1 {
+    margin-bottom: 0;
+    font-size: 36px;
+}
+#mac-empty p {
+    margin-bottom: 24px;
+}
+#mac-navigation {
+    border-top: 1px solid var(--border);
+}
+#mac-progress {
+    flex: 1;
+    min-width: 50px;
+}
+#mac-status {
+    min-width: 160px;
+    max-width: 40%;
+    text-align: right;
+}

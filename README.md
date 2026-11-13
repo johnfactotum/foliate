@@ -9,7 +9,7 @@ Read books in style.
 
 ## Installation
 
-### Run Time Dependencies
+### Run Time Dependencies (Linux)
 
 - `gjs` (>= 1.82)
 - `gtk4` (>= 4.12)
@@ -58,6 +58,8 @@ GSETTINGS_SCHEMA_DIR=data gjs -m src/main.js
 
 ### Building and Installing from Source
 
+On macOS, see the native build instructions below.
+
 The following dependencies are required for building:
 
 - `meson` (>= 0.59)
@@ -91,6 +93,43 @@ You can then run it with
 ```
 GSETTINGS_SCHEMA_DIR=run/share/glib-2.0/schemas ./run/bin/foliate
 ```
+
+### macOS (Experimental)
+
+On macOS, Meson automatically selects an AppKit frontend using Apple's system
+`WKWebView`. It shares Foliate's book loaders and reader engine with the Linux
+application and does not require GJS, GTK, Libadwaita, or WebKitGTK.
+
+Requires macOS 13 or later with an up-to-date system WebKit, Xcode Command Line
+Tools (including `swiftc`), Python 3, Meson, and Ninja. Build and run with:
+
+```
+meson setup build
+meson compile -C build
+open build/src/macos/Foliate.app
+```
+
+Use Open or Command-O to choose a book. Files can also be opened with Finder's
+Open With menu or passed directly to the bundled executable:
+
+```
+build/src/macos/Foliate.app/Contents/MacOS/foliate /path/to/book.epub
+```
+
+The native frontend supports contents, book search, page and chapter navigation,
+font sizing, paginated and scrolling layouts, footnotes, system dark mode, and
+saved reading positions. The GTK library manager, OPDS catalogs, annotation
+editing, selection tools, and speech controls have not been ported to this
+frontend yet. Reading positions are stored separately from the Linux application.
+
+Choose View → Appearance → System, Light, or Dark to control the window and book
+appearance. System follows the macOS appearance, and the choice is saved between
+launches.
+
+`meson test -C build` checks the bundle and opens a temporary WKWebView test window
+to verify EPUB rendering, search, navigation, and restoring reading positions.
+`meson install -C build` copies the app to `Applications` under the chosen prefix.
+The built `.app` can also be copied to your Applications folder directly.
 
 ### Flatpak
 
