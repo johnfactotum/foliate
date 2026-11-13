@@ -13,6 +13,8 @@ resources = contents / 'Resources'
 macos.mkdir(parents=True, exist_ok=True)
 resources.mkdir(parents=True, exist_ok=True)
 shutil.copy2(binary, macos / 'foliate')
+# The macOS icon is rendered from data/com.github.johnfactotum.Foliate.svg.
+shutil.copy2(source / 'src' / 'macos' / 'Foliate.icns', resources / 'Foliate.icns')
 for directory in ('reader', 'foliate-js'):
     shutil.copytree(source / 'src' / directory, resources / directory,
                     dirs_exist_ok=True, ignore=shutil.ignore_patterns('.git'))
@@ -26,6 +28,7 @@ with (contents / 'Info.plist').open('wb') as output:
         'CFBundleIdentifier': 'com.github.johnfactotum.Foliate',
         'CFBundleName': 'Foliate',
         'CFBundleDisplayName': 'Foliate',
+        'CFBundleIconFile': 'Foliate.icns',
         'CFBundlePackageType': 'APPL',
         'CFBundleShortVersionString': version,
         'CFBundleVersion': version,

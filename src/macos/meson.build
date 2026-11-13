@@ -18,7 +18,7 @@ app_bundle = custom_target('Foliate.app',
     output: 'Foliate.app.stamp',
     command: [python, bundle_builder, meson.project_source_root(),
         '@INPUT@', '@OUTPUT@', meson.project_version()],
-    depend_files: [bundle_builder, files('reader.js', 'reader.css')],
+    depend_files: [bundle_builder, files('reader.js', 'reader.css', 'Foliate.icns')],
     build_always_stale: true,
     build_by_default: true,
 )
