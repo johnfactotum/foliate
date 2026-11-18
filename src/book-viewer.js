@@ -854,14 +854,15 @@ export const BookViewer = GObject.registerClass({
         else await this._view.next()
     }
     #onRelocate(payload) {
-        const { section, location, tocItem, cfi } = payload
+        const { section, location, tocItem, cfi, fraction } = payload
         this._toc_view.setCurrent(tocItem?.id)
         this._search_view.index = section.current
         this._navbar.update(payload)
         this._bookmark_view.update(payload)
         this._annotation_view.update(payload)
         if (this.#data) {
-            this.#data.storage.set('progress', [location.current, location.total])
+            const progress = Math.min(1, Math.max(0, fraction))
+            this.#data.storage.set('progress', [location.current, location.total, progress])
             this.#data.storage.set('lastLocation', cfi)
         }
     }

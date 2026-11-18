@@ -219,7 +219,8 @@ GObject.registerClass({
     }
 })
 
-const fraction = p => !isNaN(p?.[1]) && p?.[1] > 0 ? p[0] / p[1] : null
+const fraction = progress => progress?.[2] ?? (progress?.[1] > 0
+    ? progress[0] / progress[1] : null)
 
 const BookItem = GObject.registerClass({
     GTypeName: 'FoliateBookItem',
