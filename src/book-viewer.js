@@ -60,6 +60,7 @@ const ViewSettings = utils.makeDataClass('FoliateViewSettings', {
     'theme': 'string',
     'autohide-cursor': 'boolean',
     'override-font': 'boolean',
+    'show-reading-marker': 'boolean',
 })
 
 const FontSettings = utils.makeDataClass('FoliateFontSettings', {
@@ -88,6 +89,7 @@ const ViewPreferencesWindow = GObject.registerClass({
         'max-inline-size', 'max-block-size', 'max-column-count',
         'theme-flow-box',
         'reduce-animation',
+        'show-reading-marker',
     ],
 }, class extends Adw.PreferencesDialog {
     constructor(params) {
@@ -110,6 +112,7 @@ const ViewPreferencesWindow = GObject.registerClass({
             'max-column-count': [this._max_column_count, 'value'],
             'animated': [this._reduce_animation, 'active', true],
             'override-font': [this._override_font, 'active'],
+            'show-reading-marker': [this._show_reading_marker, 'active'],
         })
 
         const actionGroup = utils.addPropertyActions(this.viewSettings, ['theme'])
@@ -157,6 +160,8 @@ GObject.registerClass({
         'add-annotation': { param_types: [GObject.TYPE_JSOBJECT] },
         'delete-annotation': { param_types: [GObject.TYPE_JSOBJECT] },
         'show-image': { param_types: [GObject.TYPE_JSOBJECT] },
+        'reading-marker-set': { param_types: [GObject.TYPE_JSOBJECT] },
+        'reading-marker-clear': { param_types: [GObject.TYPE_JSOBJECT] },
         'show-selection': {
             param_types: [GObject.TYPE_JSOBJECT],
             return_type: GObject.TYPE_JSOBJECT,
@@ -204,6 +209,7 @@ GObject.registerClass({
         'max-column-count': 2,
         'scrolled': false,
         'animated': true,
+        'show-reading-marker': false,
     })
     constructor(params) {
         super(params)
@@ -335,6 +341,7 @@ GObject.registerClass({
                 userStylesheet,
             },
             autohideCursor: view.autohide_cursor,
+            showReadingMarker: view.show_reading_marker,
         })
     }
     #contextMenu() {
@@ -400,6 +407,7 @@ GObject.registerClass({
     addAnnotation(x) { return this.#exec('reader.view.addAnnotation', x) }
     deleteAnnotation(x) { return this.#exec('reader.view.deleteAnnotation', x) }
     print() { return this.#exec('reader.print') }
+    showReadingMarker(x) { return this.#exec('reader.restoreMarker', x) }
     initTTS(x) { return this.#exec('reader.view.initTTS', x) }
     ttsStart() { return this.#exec('reader.view.tts.start') }
     ttsPrev(x) { return this.#exec('reader.view.tts.prev', x) }
@@ -539,6 +547,8 @@ export const BookViewer = GObject.registerClass({
             'selection': (_, x) => this.#onSelection(x),
             'create-overlay': (_, x) => this.#createOverlay(x),
             'show-image': (_, x) => this.#showImage(x),
+            'reading-marker-set': (_, { marker }) => this.#data?.saveReadingMarker(marker),
+            'reading-marker-clear': () => this.#data?.clearReadingMarker(),
             'show-selection': (_, x) => this.#showSelection(x),
             'dialog-open': () => {
                 this._headerbar_revealer.visible = false
@@ -850,6 +860,10 @@ export const BookViewer = GObject.registerClass({
             this.#data.storage.set('metadata', book.metadata)
             this.#data.saveURI(this.#file)
             if (cover) this.#data.saveCover(cover)
+            // the marker is drawn again where it was left,
+            // unless the book happens to open somewhere else in the text
+            const marker = this.#data.readingMarker
+            if (marker) this._view.showReadingMarker(marker)
         }
         else await this._view.next()
     }

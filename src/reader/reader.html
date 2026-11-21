@@ -62,6 +62,16 @@ foliate-view {
     border-bottom-color: transparent;
     bottom: -40px;
 }
+#reading-marker {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    background: red;
+    /* a triangle pointing at the text to its right; the size is set from the script */
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    /* it is clickable: clicking it removes it */
+    cursor: pointer;
+}
 
 #footnote-dialog {
     font: menu;
@@ -126,6 +136,7 @@ foliate-view {
 </style>
 <input type="file" id="file-input" hidden>
 <div id="ribbon"></div>
+<div id="reading-marker"></div>
 <dialog id="footnote-dialog">
     <div>
         <header></header>

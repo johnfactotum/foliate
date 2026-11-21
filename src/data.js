@@ -80,6 +80,32 @@ export class BookData {
     #saveBookmarks() {
         this.storage.set('bookmarks', this.bookmarks.export())
     }
+    // the marker drawn in the margin beside the column being read
+    // it is kept in storage so that it is still there when the book is opened again
+    get readingMarker() {
+        const { column, ratio, section } = this.storage.get('readingMarker', null) ?? {}
+        if (!Number.isFinite(column) || column < 0
+            || !Number.isFinite(ratio) || ratio < 0 || ratio > 1) return null
+        return { column, ratio, section: Number.isFinite(section) ? section : null }
+    }
+    saveReadingMarker(marker) {
+        this.storage.set('readingMarker', marker, false)
+        // written right away rather than debounced, since it is what
+        // the reader relies on to find the place again after a restart
+        this.#writeNow()
+    }
+    clearReadingMarker() {
+        this.storage.set('readingMarker', null, false)
+        this.#writeNow()
+    }
+    #writeNow() {
+        try {
+            this.storage.saveNow()
+        } catch (e) {
+            console.error(e)
+            this.storage.save()
+        }
+    }
     saveCover(cover) {
         const settings = utils.settings('library')
         if (!(settings?.get_boolean('show-covers') ?? true)) return
