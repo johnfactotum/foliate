@@ -151,7 +151,7 @@
                 </object>
               </child>
             </object>
-          </child>"
+          </child>
         </object>
       </child>
       <child>
@@ -247,6 +247,18 @@
               <property name="activatable-widget">reduce-animation</property>
               <child>
                 <object class="GtkSwitch" id="reduce-animation">
+                  <property name="valign">center</property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child>
+            <object class="AdwActionRow">
+              <property name="title" translatable="yes">Show Reading Marker</property>
+              <property name="subtitle" translatable="yes">Show the marker in the margin marking the column being read</property>
+              <property name="activatable-widget">show-reading-marker</property>
+              <child>
+                <object class="GtkSwitch" id="show-reading-marker">
                   <property name="valign">center</property>
                 </object>
               </child>

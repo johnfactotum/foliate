@@ -202,6 +202,15 @@ const getPosition = target => {
     return start.point.y > window.innerHeight - end.point.y ? start : end
 }
 
+// the marker drawn in the margin beside the column being read,
+// pointing at the text, to help finding the position again after switching away
+// unlike a bookmark it is not meant to be listed or jumped to, but since it is
+// remembered in the book's storage, it is still there when the book is opened again
+const markerSize = { width: 12, height: 18, gap: 3 }
+const readingMarker = document.getElementById('reading-marker')
+// how far the pointer may move for a press-release to still count as a click
+const maxDrag = 10
+
 const footnoteDialog = document.getElementById('footnote-dialog')
 footnoteDialog.addEventListener('close', () => {
     emit({ type: 'dialog-close' })
@@ -217,6 +226,18 @@ footnoteDialog.addEventListener('click', e =>
 
 class Reader {
     #footnoteHandler = new FootnoteHandler()
+    #pressPoint = null
+    // whether the marker is drawn at all, from the "Show Reading Marker" preference
+    // when off, an existing marker is only hidden, not forgotten,
+    // so turning the setting back on brings it right back
+    #showReadingMarker = false
+    // the marker currently shown, as `{ column, ratio, section }`, or `null`
+    #marker = null
+    // where the reader was at the last relocation
+    // a marker is only made obsolete when the position actually moved,
+    // which is how turning pages is told apart from a mere re-render
+    #lastCFI = null
+    #lastSection = null
     style = {
         spacing: 1.4,
         justify: true,
@@ -282,7 +303,7 @@ class Reader {
         document.body.append(this.view)
         this.sectionFractions = this.view.getSectionFractions()
     }
-    setAppearance({ style, layout, autohideCursor }) {
+    setAppearance({ style, layout, autohideCursor, showReadingMarker }) {
         Object.assign(this.style, style)
         const { theme } = style
         const $style = document.documentElement.style
@@ -304,9 +325,125 @@ class Reader {
         document.body.classList.toggle('invert', this.style.invert)
         if (autohideCursor) this.view?.setAttribute('autohide-cursor', '')
         else this.view?.removeAttribute('autohide-cursor')
+        this.#showReadingMarker = showReadingMarker ?? false
+        this.#showMarker()
+    }
+    // the columns on screen, in the CSS pixels of this document
+    // `left` is the left edge of the first one, `pitch` the distance between two,
+    // `gap` the space between two columns, and `count` how many are shown side by side
+    // `null` when it cannot be determined, e.g. before anything is loaded
+    get #columns() {
+        const { renderer } = this.view ?? {}
+        if (!renderer) return null
+        const { width } = renderer.getBoundingClientRect()
+        // `size` is the width of a page, which holds all of its columns
+        // (or the height, when the book is written vertically)
+        const { size } = renderer
+        const doc = renderer.getContents?.()[0]?.doc
+        const style = doc?.defaultView?.getComputedStyle(doc.documentElement)
+        // in paginated mode the paginator centres the content,
+        // so the outer margins are simply the leftover space
+        if (!renderer.scrolled && isFinite(size) && size > 0 && size <= width
+            && (style?.writingMode ?? 'horizontal-tb').startsWith('horizontal')) {
+            // the columns fill the page exactly, so this recovers how many there are
+            const columnWidth = parseFloat(style?.columnWidth)
+            const gap = parseFloat(style?.columnGap)
+            const count = isFinite(columnWidth) && isFinite(gap)
+                ? Math.round(size / (columnWidth + gap))
+                : 1
+            if (count > 0)
+                return { left: (width - size) / 2, pitch: size / count, count, gap: gap || 0 }
+        }
+        // in scrolled mode, and for vertical and fixed-layout books, the content fills
+        // the frame and is centred within it, so ask the document itself instead
+        const frame = doc?.defaultView?.frameElement
+        const body = doc?.body
+        if (!frame || !body) return null
+        return {
+            left: frame.getBoundingClientRect().left + body.getBoundingClientRect().left,
+            pitch: width,
+            count: 1,
+            gap: 0,
+        }
+    }
+    // place the marker at a given position: `column` is the index of the column
+    // it points at, `ratio` is where it sits vertically, as a fraction of the height
+    // the space between two columns being split evenly between them
+    // returns `false` when it cannot be placed, e.g. before anything is loaded
+    #placeMarker({ column, ratio }) {
+        const columns = this.#columns
+        if (!columns) return false
+        const { left, pitch, count } = columns
+        const index = Math.max(0, Math.min(count - 1, column))
+        const tip = left + index * pitch - markerSize.gap
+        if (tip < 1) return false
+        const start = Math.max(0, tip - markerSize.width)
+        const top = Math.max(0, Math.min(innerHeight - markerSize.height,
+            ratio * innerHeight - markerSize.height / 2))
+        Object.assign(readingMarker.style, {
+            left: start + 'px',
+            top: top + 'px',
+            width: tip - start + 'px',
+            height: markerSize.height + 'px',
+        })
+        return true
+    }
+    // draw the marker that is being remembered, if there is one and there is room for it
+    // the position is relative, so this also brings it along when the layout changes
+    #showMarker() {
+        readingMarker.style.display =
+            this.#showReadingMarker && this.#marker && this.#placeMarker(this.#marker)
+                ? 'block' : 'none'
+    }
+    // mark the column nearest to the point that was clicked
+    // any previous marker is simply replaced by this one
+    #setMarker(x, y) {
+        // when hidden, clicking marks nothing
+        if (!this.#showReadingMarker) return
+        const columns = this.#columns
+        if (!columns) return
+        const { left, pitch, gap } = columns
+        const marker = {
+            column: Math.max(0, Math.floor((x - left + gap / 2) / pitch)),
+            ratio: Math.max(0, Math.min(1, y / innerHeight)),
+            section: this.#lastSection,
+        }
+        if (!this.#placeMarker(marker)) return
+        this.#marker = marker
+        readingMarker.style.display = 'block'
+        // it is meant to outlive this session, so have it saved at once
+        emit({ type: 'reading-marker-set', marker })
+    }
+    #clearMarker() {
+        if (!this.#marker) return
+        this.#marker = null
+        readingMarker.style.display = 'none'
+        emit({ type: 'reading-marker-clear' })
+    }
+    // show a marker saved in an earlier session,
+    // unless it was left on another page, in which case it is no good any more
+    restoreMarker(saved) {
+        const { column, ratio, section } = saved ?? {}
+        const isUsable = isFinite(column) && column >= 0
+            && isFinite(ratio) && ratio >= 0 && ratio <= 1
+            && (section == null || this.#lastSection == null
+                || section === this.#lastSection)
+        if (!isUsable) return emit({ type: 'reading-marker-clear' })
+        this.#marker = { column, ratio, section: section ?? this.#lastSection }
+        this.#showMarker()
     }
     #handleEvents() {
         this.view.addEventListener('relocate', e => {
+            const { cfi, section } = e.detail
+            // the reader also relocates without going anywhere, e.g. when re-rendering
+            // after a resize, so only a change of position — turning pages —
+            // is what makes the marker point at the wrong place
+            if (this.#marker && this.#lastCFI !== null && cfi !== this.#lastCFI)
+                this.#clearMarker()
+            else
+                this.#showMarker()
+            this.#lastCFI = cfi
+            this.#lastSection = section?.current ?? null
             const { heads, feet } = this.view.renderer
             if (heads) {
                 const { tocItem } = e.detail
@@ -368,9 +505,58 @@ class Reader {
             const { canGoBack, canGoForward } = e.target
             emit({ type: 'history-index-change', canGoBack, canGoForward })
         })
+
+        // clicks on the content are handled by the frame itself,
+        // so anything reaching this document landed on one of the margins
+        this.view.addEventListener('pointerdown', e =>
+            (this.#pressPoint = { x: e.clientX, y: e.clientY }))
+        document.addEventListener('click', e => {
+            if (e.button !== 0 || e.target !== this.view) return
+            const { clientX: x, clientY: y } = e
+            // don't count the end of a drag, e.g. when selecting text ends in the margin
+            const press = this.#pressPoint
+            if (!press || Math.hypot(press.x - x, press.y - y) > maxDrag) return
+            this.#setMarker(x, y)
+        })
+
+        // and clicking the marker itself takes it away
+        readingMarker.addEventListener('pointerdown', e =>
+            (this.#pressPoint = { x: e.clientX, y: e.clientY }))
+        readingMarker.addEventListener('click', e => {
+            if (e.button !== 0) return
+            // it sits over the margin, so don't let this become a new mark
+            e.stopPropagation()
+            const press = this.#pressPoint
+            if (press && Math.hypot(press.x - e.clientX, press.y - e.clientY) > maxDrag) return
+            this.#clearMarker()
+        })
     }
     #onLoad(e) {
         const { doc, index } = e.detail
+        // the frame was replaced, so the marker has to be drawn again,
+        // unless it was left on another page, which can only mean the pages were turned
+        if (this.#marker?.section != null && this.#marker.section !== index)
+            this.#clearMarker()
+        else
+            this.#showMarker()
+        // clicking the text marks the column it was clicked in as well,
+        // but since the click happens in the frame, the coordinates have to be
+        // converted to those of this document first
+        const toPage = e => {
+            const frame = doc.defaultView.frameElement
+            if (!frame) return null
+            const { left, top } = frame.getBoundingClientRect()
+            return { x: left + e.clientX, y: top + e.clientY }
+        }
+        // NOTE: they have to be in the capture phase, since the selection handler below
+        // registers a listener that stops the click from propagating any further
+        doc.addEventListener('pointerdown', e => (this.#pressPoint = toPage(e)), true)
+        doc.addEventListener('click', e => {
+            const point = toPage(e)
+            const press = this.#pressPoint
+            if (point && press && Math.hypot(press.x - point.x, press.y - point.y) <= maxDrag)
+                this.#setMarker(point.x, point.y)
+        }, true)
         for (const img of doc.querySelectorAll('img'))
             img.addEventListener('dblclick', () => fetch(img.src)
                 .then(res => res.blob())
