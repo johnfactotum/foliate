@@ -274,6 +274,9 @@ GObject.registerClass({
         }))
 
         const applyStyle = () => this.#applyStyle().catch(e => console.error(e))
+        const styleManager = Adw.StyleManager.get_default()
+        const darkHandler = styleManager.connect('notify::dark', applyStyle)
+        this.connect('destroy', () => styleManager.disconnect(darkHandler))
         this.viewSettings.connectAll(applyStyle)
         this.fontSettings.connectAll(applyStyle)
         this.connect('book-ready', applyStyle)
@@ -315,8 +318,11 @@ GObject.registerClass({
         })
         if (!this.#bookReady) return
         const view = this.viewSettings
+        const darkMode = Adw.StyleManager.get_default().dark
         const theme = themes.find(theme => theme.name === view.theme) ?? themes[0]
+        const styledTheme = darkMode && view.invert ? invertTheme(theme) : theme
         await this.#exec('reader.setAppearance', {
+            darkMode,
             layout: {
                 gap: view.gap,
                 maxInlineSize: view.max_inline_size,
@@ -330,7 +336,7 @@ GObject.registerClass({
                 justify: view.justify,
                 hyphenate: view.hyphenate,
                 invert: view.invert,
-                theme: view.invert ? invertTheme(theme) : theme,
+                theme: styledTheme,
                 overrideFont: view.override_font,
                 userStylesheet,
             },

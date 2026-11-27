@@ -49,7 +49,7 @@ const getHTML = async range => {
 }
 
 const getCSS = ({
-    lineHeight, justify, hyphenate, invert, theme, overrideFont, userStylesheet,
+    lineHeight, justify, hyphenate, effectiveInvert, theme, overrideFont, userStylesheet,
     mediaActiveClass,
 }) => [`
     @namespace epub "http://www.idpf.org/2007/ops";
@@ -62,26 +62,18 @@ const getCSS = ({
     }
     @media screen {
         html {
-            color-scheme: ${invert ? 'only light' : 'light dark'};
-            color: ${theme.light.fg};
+            color-scheme: only light;
+            color: ${effectiveInvert ? theme.inverted.fg : theme.light.fg};
+            ${effectiveInvert ? '-webkit-font-smoothing: antialiased;' : ''}
         }
         a:any-link {
-            color: ${theme.light.link};
+            color: ${effectiveInvert ? theme.inverted.link : theme.light.link};
             text-decoration-color: light-dark(
                 color-mix(in srgb, currentColor 20%, transparent),
                 color-mix(in srgb, currentColor 40%, transparent));
             text-underline-offset: .1em;
             &:hover {
                 text-decoration-color: unset;
-            }
-        }
-        @media (prefers-color-scheme: dark) {
-            html {
-                color: ${invert ? theme.inverted.fg : theme.dark.fg};
-                ${invert ? '-webkit-font-smoothing: antialiased;' : ''}
-            }
-            a:any-link {
-                color: ${invert ? theme.inverted.link : theme.dark.link};
             }
         }
         aside[epub|type~="footnote"] {
@@ -110,8 +102,7 @@ const getCSS = ({
         tab-size: 2;
     }
 `, `
-    @media screen and (prefers-color-scheme: light) {
-        ${theme.light.bg !== '#ffffff' ? `
+    ${effectiveInvert || theme.light.bg === '#ffffff' ? '' : `
         html, body {
             color: ${theme.light.fg} !important;
             background: none !important;
@@ -128,32 +119,13 @@ const getCSS = ({
             background-color: transparent !important;
             mix-blend-mode: multiply;
         }
+        ${mediaActiveClass ? `
         .${CSS.escape(mediaActiveClass)}, .${CSS.escape(mediaActiveClass)} * {
             color: ${theme.light.fg} !important;
             background: color-mix(in hsl, ${theme.light.fg}, #fff 50%) !important;
             background: color-mix(in hsl, ${theme.light.fg}, ${theme.light.bg} 85%) !important;
         }` : ''}
-    }
-    @media screen and (prefers-color-scheme: dark) {
-        ${invert ? '' : `
-        html, body {
-            color: ${theme.dark.fg} !important;
-            background: none !important;
-        }
-        body * {
-            color: inherit !important;
-            border-color: currentColor !important;
-            background-color: ${theme.dark.bg} !important;
-        }
-        a:any-link {
-            color: ${theme.dark.link} !important;
-        }
-        .${CSS.escape(mediaActiveClass)}, .${CSS.escape(mediaActiveClass)} * {
-            color: ${theme.dark.fg} !important;
-            background: color-mix(in hsl, ${theme.dark.fg}, #000 50%) !important;
-            background: color-mix(in hsl, ${theme.dark.fg}, ${theme.dark.bg} 75%) !important;
-        }`}
-    }
+    `}
     p, li, blockquote, dd {
         line-height: ${lineHeight};
         text-align: ${justify ? 'justify' : 'start'};
@@ -222,6 +194,7 @@ class Reader {
         justify: true,
         hyphenate: true,
         invert: false,
+        effectiveInvert: false,
     }
     constructor(book) {
         this.book = book
@@ -282,8 +255,9 @@ class Reader {
         document.body.append(this.view)
         this.sectionFractions = this.view.getSectionFractions()
     }
-    setAppearance({ style, layout, autohideCursor }) {
+    setAppearance({ style, layout, autohideCursor, darkMode = false }) {
         Object.assign(this.style, style)
+        this.style.effectiveInvert = darkMode && this.style.invert
         const { theme } = style
         const $style = document.documentElement.style
         $style.setProperty('--light-bg', theme.light.bg)
@@ -301,7 +275,8 @@ class Reader {
             else renderer.removeAttribute('animated')
             renderer.setStyles?.(getCSS(this.style))
         }
-        document.body.classList.toggle('invert', this.style.invert)
+        document.documentElement.classList.toggle('dark', darkMode)
+        document.body.classList.toggle('invert', this.style.effectiveInvert)
         if (autohideCursor) this.view?.setAttribute('autohide-cursor', '')
         else this.view?.removeAttribute('autohide-cursor')
     }
