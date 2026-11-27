@@ -15,33 +15,38 @@ html {
 body {
     margin: 0 auto;
     height: 100%;
-    background: var(--bg);
-    color: var(--fg);
+    background: var(--light-bg);
+    color: var(--light-fg);
+    overflow: hidden;
 }
-@media (prefers-color-scheme: dark) {
-    html {
-        --hover: rgba(255, 255, 255, .03);
-        --active: rgba(255, 255, 255, .05);
-        --border: rgba(255, 255, 255, .15);
-        --bg: var(--dark-bg);
-        --fg: var(--dark-fg);
-    }
-    .invert foliate-view::part(filter) {
-        color-scheme: light; /* required to make the iframe bg transparent */
-        filter: invert(1) hue-rotate(180deg);
-    }
+html.dark {
+    --hover: rgba(255, 255, 255, .03);
+    --active: rgba(255, 255, 255, .05);
+    --border: rgba(255, 255, 255, .15);
+    --bg: var(--dark-bg);
+    --fg: var(--dark-fg);
+}
+html.dark body.invert {
+    background: var(--dark-bg);
+    color: var(--dark-fg);
+}
+foliate-view::part(filter) {
+    color-scheme: light; /* required to make the iframe bg transparent */
+}
+html.dark body.invert foliate-view::part(filter) {
+    filter: invert(1) hue-rotate(180deg);
 }
 foliate-view::part(head), foliate-view::part(foot) {
     font: menu;
     font-size: 9pt;
 }
 foliate-view {
+    display: block;
+    height: 100%;
     --overlayer-highlight-blend-mode: multiply;
 }
-@media (prefers-color-scheme: dark) {
-    foliate-view {
-        --overlayer-highlight-blend-mode: screen;
-    }
+html.dark body.invert foliate-view {
+    --overlayer-highlight-blend-mode: screen;
 }
 #ribbon {
     visibility: hidden;
